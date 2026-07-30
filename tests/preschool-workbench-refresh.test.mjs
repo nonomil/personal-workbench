@@ -71,6 +71,7 @@ test('keeps the refreshed reward tiers and three-lane defense contract in the pr
   assert.match(app, /preschool-pea-fired/);
   assert.match(app, /renderPixelStats/);
   assert.match(app, /pixel-stat-card/);
+  assert.match(app, /renderPixelMap\(growth, plans, true\)/);
   const statsPosition = app.indexOf('${renderPixelStats(growth, defense)}');
   const worldPosition = app.indexOf('<div class="pixel-world-grid">', statsPosition);
   const questsPosition = app.indexOf('<section class="pixel-quest-board">', worldPosition);
@@ -79,5 +80,11 @@ test('keeps the refreshed reward tiers and three-lane defense contract in the pr
   assert.match(styles, /pixel-pea-projectile/);
   assert.match(styles, /--pixel-route:\s*#5420b8/);
   assert.match(styles, /pixel-page-enter/);
+  assert.match(styles, /pixel-map-panel\.is-compact/);
   assert.match(styles, /pixel-quest-grid\s*\{[^}]*grid-template-columns:\s*repeat\(2/);
+  assert.match(styles, /pixel-world-grid\s*\{\s*grid-template-areas:\s*"map side" "quest side"/);
+  assert.match(styles, /pixel-map-panel\s*\{\s*grid-area:\s*map/);
+  assert.match(styles, /pixel-quest-board\s*\{\s*grid-area:\s*quest/);
+  assert.match(styles, /pixel-side-stack\s*\{\s*grid-area:\s*side/);
+  assert.match(styles, /@media \(max-width: 860px\)[\s\S]*?grid-template-areas:\s*"map" "quest" "side"/);
 });

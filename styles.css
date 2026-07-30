@@ -1643,6 +1643,19 @@ body.variant-preschool .pixel-side-link { color: #6b3cb2; }
 body.variant-preschool .pixel-side-link:hover { border-color: #cbb4f0; background: #f4edff; }
 body.variant-preschool .pixel-page-enter { animation: pixel-page-enter 220ms ease-out both; }
 
+/* The home screen uses a compact defense card so today's six quests stay in the first viewport. */
+body.variant-preschool .pixel-map-panel.is-compact { min-height: 366px; }
+body.variant-preschool .pixel-map-panel.is-compact .pixel-map-copy { top: 12px; left: 14px; max-width: 40%; padding: 8px 10px; }
+body.variant-preschool .pixel-map-panel.is-compact .pixel-map-copy h2 { font-size: 20px; }
+body.variant-preschool .pixel-map-panel.is-compact .pixel-map-copy p { margin-top: 3px; font-size: 10px; }
+body.variant-preschool .pixel-map-panel.is-compact .pixel-map-hud { top: 12px; right: 14px; max-width: 52%; }
+body.variant-preschool .pixel-map-panel.is-compact .pixel-battlefield { top: 84px; height: 202px; }
+body.variant-preschool .pixel-map-panel.is-compact .pixel-defense-actions { top: 300px; }
+body.variant-preschool .pixel-map-panel.is-compact .pixel-map-route,
+body.variant-preschool .pixel-map-panel.is-compact .pixel-map-companion,
+body.variant-preschool .pixel-map-panel.is-compact .pixel-map-invader,
+body.variant-preschool .pixel-map-panel.is-compact .pixel-map-safe { display: none; }
+
 @keyframes pixel-page-enter { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
 @media (max-width: 560px) {
@@ -1689,6 +1702,16 @@ body.variant-preschool .pixel-page-enter { animation: pixel-page-enter 220ms eas
     body.variant-preschool .pixel-quest-status { right: 5px; bottom: 5px; width: 22px; height: 22px; border-width: 2px; }
     body.variant-preschool .pixel-quest-ribbon { min-width: 48px; padding: 3px 5px; font-size: 8px; }
     body.variant-preschool .pixel-map-panel { min-height: 670px; }
+    body.variant-preschool .pixel-map-panel.is-compact { min-height: 296px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-map-copy { top: 10px; left: 10px; right: 10px; max-width: none; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-map-copy h2 { font-size: 16px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-map-copy p { font-size: 9px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-map-hud { top: 61px; right: 10px; left: 10px; max-width: none; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-battlefield { top: 96px; right: 10px; left: 10px; height: 132px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-defense-actions { top: 238px; right: 10px; left: 10px; min-height: 43px; padding: 5px 7px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-defense-hint { display: none; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-pea-button { min-height: 33px; padding-inline: 8px; font-size: 10px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-pea-button svg { width: 14px; height: 14px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1748,4 +1771,26 @@ body.variant-preschool .pixel-page-enter { animation: pixel-page-enter 220ms eas
     body.variant-preschool .pixel-quest-copy em { font-size: 8px; }
     body.variant-preschool .pixel-map-copy h2 { font-size: 14px; }
     body.variant-preschool .pixel-map-copy p { font-size: 8px; }
+    body.variant-preschool .pixel-map-panel.is-compact { min-height: 276px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-map-copy { top: 8px; left: 8px; right: 8px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-map-copy h2 { font-size: 14px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-map-copy p { font-size: 8px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-map-hud { top: 56px; right: 8px; left: 8px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-battlefield { top: 90px; right: 8px; left: 8px; height: 120px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-defense-actions { top: 219px; right: 8px; left: 8px; }
+}
+
+/* Keep the home composition aligned with the reference: defense first, quests below, collection rail beside them. */
+body.variant-preschool .pixel-world-grid {
+    grid-template-areas: "map side" "quest side";
+}
+
+body.variant-preschool .pixel-map-panel { grid-area: map; }
+body.variant-preschool .pixel-quest-board { grid-area: quest; }
+body.variant-preschool .pixel-side-stack { grid-area: side; }
+
+@media (max-width: 860px) {
+    body.variant-preschool .pixel-world-grid {
+        grid-template-areas: "map" "quest" "side";
+    }
 }
