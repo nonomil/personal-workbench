@@ -58,6 +58,7 @@ test('migrates an old three-quest preschool snapshot once without changing compl
 test('keeps the refreshed reward tiers and three-lane defense contract in the preschool UI', () => {
   const config = fs.readFileSync(path.join(root, 'config.js'), 'utf8');
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const preschoolIndex = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
   const styles = fs.readFileSync(path.join(root, 'styles.css'), 'utf8');
   const tiers = Array.from(config.matchAll(/tier: '([^']+)'/g), match => match[1]);
   assert.equal(new Set(tiers).size, 4);
@@ -67,6 +68,10 @@ test('keeps the refreshed reward tiers and three-lane defense contract in the pr
   assert.match(app, /preschool-reward-tier-grid/);
   assert.match(app, /pixel-battle-lanes/);
   assert.match(app, /pixel-battle-lane-row/);
+  assert.match(app, /pixel-map-landmarks/);
+  assert.match(app, /task-book-icon/);
+  assert.match(app, /player-energy-bars/);
+  assert.match(app, /growth\.collection/);
   assert.equal((app.match(/pixel-battle-path-cell/g) || []).length >= 1, true);
   assert.match(app, /preschool-pea-fired/);
   assert.match(app, /renderPixelStats/);
@@ -81,10 +86,16 @@ test('keeps the refreshed reward tiers and three-lane defense contract in the pr
   assert.match(styles, /--pixel-route:\s*#5420b8/);
   assert.match(styles, /pixel-page-enter/);
   assert.match(styles, /pixel-map-panel\.is-compact/);
+  assert.match(styles, /pixel-map-landmarks/);
+  assert.match(app, /grass-platform\.png/);
   assert.match(styles, /pixel-quest-grid\s*\{[^}]*grid-template-columns:\s*repeat\(2/);
   assert.match(styles, /pixel-world-grid\s*\{\s*grid-template-areas:\s*"map side" "quest side"/);
   assert.match(styles, /pixel-map-panel\s*\{\s*grid-area:\s*map/);
   assert.match(styles, /pixel-quest-board\s*\{\s*grid-area:\s*quest/);
   assert.match(styles, /pixel-side-stack\s*\{\s*grid-area:\s*side/);
   assert.match(styles, /@media \(max-width: 860px\)[\s\S]*?grid-template-areas:\s*"map" "quest" "side"/);
+  for (const asset of ['nav-sun.png', 'nav-sprout.png', 'nav-flowers.png', 'nav-storybook.png', 'nav-chest.png', 'nav-family.png', 'settings-gear.png']) {
+    assert.match(preschoolIndex, new RegExp(asset.replace('.', '\\.') ));
+    assert.equal(fs.existsSync(path.join(root, 'assets', 'generated', 'preschool-pixel', 'reference', 'gpt-output-20260730', 'published-gpt-v2', asset)), true, asset);
+  }
 });

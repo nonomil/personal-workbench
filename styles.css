@@ -1794,3 +1794,174 @@ body.variant-preschool .pixel-side-stack { grid-area: side; }
         grid-template-areas: "map" "quest" "side";
     }
 }
+
+/* Preschool 2.0 asset pass: use the generated pixel kit as the scene language, not as isolated thumbnails. */
+body.variant-preschool .brand-mark .preschool-nav-art {
+    display: block;
+    width: 23px;
+    height: 23px;
+    object-fit: contain;
+}
+
+body.variant-preschool .nav-item .preschool-nav-art {
+    display: block;
+    width: 25px;
+    height: 25px;
+    flex: 0 0 25px;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+body.variant-preschool .nav-item.is-active .preschool-nav-art {
+    filter: drop-shadow(2px 2px 0 rgba(53, 16, 120, .42));
+}
+
+body.variant-preschool .pixel-hud-streak-art {
+    display: inline-flex;
+    width: 55px;
+    height: 18px;
+    align-items: center;
+}
+
+body.variant-preschool .pixel-hud-streak-art .preschool-generated-art {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+body.variant-preschool .pixel-settings-button .preschool-generated-art {
+    display: block;
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+body.variant-preschool .pixel-defense-energy .pixel-energy-art {
+    display: inline-flex;
+    width: 35px;
+    height: 17px;
+    align-items: center;
+}
+
+body.variant-preschool .pixel-defense-energy .pixel-energy-art .preschool-generated-art {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+body.variant-preschool .pixel-defense-energy b {
+    color: #8b481f;
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+body.variant-preschool .pixel-map-panel {
+    background-color: #8cd6d7;
+    background-image: linear-gradient(180deg, #a8e4e3 0 34%, #78c6b3 34% 64%, #8dce58 64% 100%);
+    background-position: 0 0;
+    background-size: 100% 100%;
+}
+
+body.variant-preschool .pixel-map-panel::before {
+    z-index: 0;
+    background: linear-gradient(90deg, rgba(34, 110, 95, .13), transparent 34%, transparent 72%, rgba(49, 104, 72, .16));
+    mix-blend-mode: normal;
+}
+
+body.variant-preschool .pixel-map-landmarks {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+body.variant-preschool .pixel-map-landmark {
+    position: absolute;
+    display: block;
+    line-height: 0;
+}
+
+body.variant-preschool .pixel-map-landmark .preschool-generated-art {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+body.variant-preschool .landmark-castle { bottom: 40px; left: 2%; width: 128px; height: 108px; }
+body.variant-preschool .landmark-tree { right: 3%; bottom: 30px; width: 108px; height: 112px; }
+body.variant-preschool .landmark-bridge { right: 15%; bottom: 53px; width: 172px; height: 76px; }
+body.variant-preschool .landmark-fence { bottom: 44px; left: 24%; width: 126px; height: 63px; }
+body.variant-preschool .landmark-platform { bottom: 24px; left: 39%; width: 135px; height: 73px; opacity: .8; }
+body.variant-preschool .landmark-grass { width: 105px; height: 68px; }
+body.variant-preschool .grass-a { bottom: 33px; left: 11%; }
+body.variant-preschool .grass-b { right: 30%; bottom: 30px; transform: scale(.72); }
+
+body.variant-preschool .pixel-battle-ground {
+    background-image: repeating-linear-gradient(90deg, #8bcb4e 0 22px, #70b53f 22px 44px);
+    background-position: 0 0;
+    background-repeat: repeat;
+    background-size: auto;
+}
+
+@media (max-width: 560px) {
+    body.variant-preschool .brand-mark .preschool-nav-art { width: 20px; height: 20px; }
+    body.variant-preschool .nav-item .preschool-nav-art { width: 23px; height: 23px; flex-basis: 23px; }
+    body.variant-preschool .pixel-hud-streak-art { width: 42px; height: 15px; }
+    body.variant-preschool .pixel-defense-energy .pixel-energy-art { width: 28px; height: 14px; }
+    body.variant-preschool .landmark-castle { left: -24px; width: 92px; height: 78px; }
+    body.variant-preschool .landmark-tree { right: -17px; width: 78px; height: 81px; }
+    body.variant-preschool .landmark-bridge { right: 7%; bottom: 44px; width: 118px; height: 52px; }
+    body.variant-preschool .landmark-fence { left: 18%; bottom: 37px; width: 88px; height: 44px; }
+    body.variant-preschool .landmark-platform { bottom: 21px; left: 36%; width: 94px; height: 51px; }
+    body.variant-preschool .landmark-grass { width: 76px; height: 49px; }
+    body.variant-preschool .grass-a { bottom: 28px; left: 4%; }
+    body.variant-preschool .grass-b { right: 20%; bottom: 27px; }
+}
+
+/* Keep the narrow preschool rail readable: one large quest tile and a clear defense header. */
+@media (max-width: 560px) {
+    body.variant-preschool .pixel-quest-grid { grid-template-columns: 1fr; }
+    body.variant-preschool .pixel-quest-card {
+        display: grid;
+        grid-template-columns: 52px minmax(0, 1fr) 24px;
+        min-height: 112px;
+        align-items: center;
+        gap: 8px;
+        padding: 22px 9px 9px;
+    }
+    body.variant-preschool .pixel-quest-art { width: 52px; height: 52px; flex-basis: 52px; }
+    body.variant-preschool .pixel-quest-copy strong { font-size: 14px; }
+    body.variant-preschool .pixel-quest-copy em { font-size: 10px; }
+    body.variant-preschool .pixel-map-panel.is-compact { min-height: 304px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-map-copy { right: 8px; max-width: none; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-panel-kicker { display: none; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-map-copy p { display: none; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-map-hud { top: 70px; right: 8px; left: 8px; max-width: none; justify-content: flex-start; gap: 4px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-battlefield { top: 108px; height: 132px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-defense-actions { top: 246px; }
+}
+
+@media (max-width: 360px) {
+    body.variant-preschool .pixel-quest-card {
+        grid-template-columns: 42px minmax(0, 1fr) 20px;
+        gap: 5px;
+        min-height: 116px;
+        padding: 20px 8px 8px;
+    }
+    body.variant-preschool .pixel-quest-art { width: 42px; height: 42px; flex-basis: 42px; }
+    body.variant-preschool .pixel-quest-copy small,
+    body.variant-preschool .pixel-quest-copy em { display: none; }
+    body.variant-preschool .pixel-quest-copy strong { overflow: visible; font-size: 13px; text-overflow: clip; }
+    body.variant-preschool .pixel-quest-status { width: 20px; height: 20px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-map-hud { top: 58px; gap: 2px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-map-sun,
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-defense-energy,
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-wave-badge { min-height: 26px; gap: 2px; padding: 1px 2px; font-size: 7px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-map-sun .preschool-generated-art { width: 16px; height: 16px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-defense-energy .pixel-energy-art { width: 24px; height: 12px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-battlefield { top: 96px; }
+}
