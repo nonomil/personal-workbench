@@ -32,6 +32,7 @@
 
     const preschoolPages = {
         overview: { title: '今天', eyebrow: 'TODAY', heading: '今天点亮六项', description: '选一张图，完成一小步。' },
+        battle: { title: '花园战场', eyebrow: 'PLAY / DEFENSE', heading: '植物伙伴，准备发射', description: '完成小任务收集豌豆能量，守护自己的阳光花园。' },
         growth: { title: '成长', eyebrow: 'GROW', heading: '我的小花园', description: '阳光、植物和星芒一起长大。' },
         plans: { title: '打卡', eyebrow: 'CHECK-IN', heading: '今天做什么', description: '做完一项，就点亮一颗星。' },
         courses: { title: '课程', eyebrow: 'LEARN', heading: '一起学一会儿', description: '语文、数学、英语，选一张开始。' },

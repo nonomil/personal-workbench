@@ -92,6 +92,7 @@ test('keeps adult, child and preschool entry points isolated', () => {
   assert.match(adultHtml, /data-page="settings"/);
   assert.match(childHtml, /data-workbench-variant="child"/);
   assert.match(preschoolHtml, /data-workbench-variant="preschool"/);
+  assert.match(preschoolHtml, /data-page="battle"/);
   assert.match(preschoolHtml, /data-page="courses"/);
   assert.match(preschoolHtml, /data-page="rewards"/);
   assert.match(preschoolHtml, /preschool-garden\.js/);

@@ -495,6 +495,36 @@
         </div>`;
     }
 
+    function renderPreschoolBattle() {
+        const growth = getChildGrowth();
+        const derived = getDerived();
+        const plans = derived.todayPlans;
+        const defense = getPreschoolDefense(growth);
+        const garden = growth.garden || {};
+        const invader = defense.invader || {};
+        const plants = Array.isArray(garden.plants) ? garden.plants : [];
+        const plantCards = plants.map(function (plant) {
+            const unlocked = Array.isArray(garden.unlockedPlantIds) && garden.unlockedPlantIds.includes(plant.id);
+            const active = plant.id === garden.activePlantId;
+            return `<button class="pixel-battle-plant ${active ? 'is-active' : ''} ${unlocked ? '' : 'is-locked'}" type="button" data-action="select-plant" data-id="${escapeHtml(plant.id)}" ${unlocked ? '' : 'disabled'}><span>${preschoolAsset(preschoolPlantAsset(plant), unlocked ? plant.title : '未出现')}</span><strong>${escapeHtml(unlocked ? plant.title : '未出现')}</strong><small>${escapeHtml(unlocked ? plant.description : `${plant.unlockAt} 阳光出现`)}</small></button>`;
+        }).join('');
+        const statusRows = [
+            ['当前波次', invader.active ? `第 ${invader.wave || 1} 波` : '等待召唤', 'flag'],
+            ['豌豆能量', `${defense.energy} 颗`, 'zap'],
+            ['发射次数', `${defense.shots} 次`, 'target'],
+            ['击退小怪', `${invader.defeated || 0} 次`, 'shield-check']
+        ];
+        return `${renderPreschoolIntro(PAGE_META.battle, '', '', `<span class="points-chip">${preschoolAsset('player-energy-bars', '豌豆能量')}${defense.energy}</span>`)}
+            <div class="pixel-battle-page">
+                <div class="pixel-battle-layout"><div>${renderPixelMap(growth, plans, false)}</div><aside class="pixel-battle-side">
+                    <section class="pixel-rulebook"><div class="pixel-side-heading"><div><span class="pixel-panel-kicker">HOW TO PLAY</span><h2>三步守护花园</h2></div><span class="pixel-side-count">${defense.canFire ? '可发射' : '准备中'}</span></div><div class="pixel-rule-list"><div><b>1</b><span><strong>完成一项任务</strong><small>收集阳光，也会得到豌豆能量。</small></span></div><div><b>2</b><span><strong>召唤云朵小怪</strong><small>想练习时，点击“来一波练习”。</small></span></div><div><b>3</b><span><strong>发射豌豆</strong><small>每颗豌豆消耗 1 点能量，命中一次。</small></span></div></div></section>
+                    <section class="pixel-battle-status"><div class="pixel-side-heading"><div><span class="pixel-panel-kicker">DEFENSE LOG</span><h2>守护记录</h2></div><span class="pixel-side-count">${invader.active ? `${invader.health}/${invader.maxHealth} HP` : '安全'}</span></div><div class="pixel-battle-status-grid">${statusRows.map(function (row) { return `<div><span>${icon(row[2])}</span><small>${row[0]}</small><strong>${row[1]}</strong></div>`; }).join('')}</div></section>
+                </aside></div>
+                <section class="pixel-battle-plant-panel"><div class="pixel-side-heading"><div><span class="pixel-panel-kicker">PLANT LOADOUT</span><h2>选择植物伙伴</h2></div><span class="pixel-side-count">${Array.isArray(garden.unlockedPlantIds) ? garden.unlockedPlantIds.length : 0}/${plants.length}</span></div><div class="pixel-battle-plant-grid">${plantCards}</div></section>
+                <section class="pixel-battle-quest-panel"><div class="pixel-side-heading"><div><span class="pixel-panel-kicker">TODAY QUESTS</span><h2>先完成任务，再来发射</h2></div><button class="pixel-side-link" type="button" data-action="navigate" data-page="plans">去打卡${icon('arrow-up-right')}</button></div>${renderPreschoolPlanRows(plans)}</section>
+            </div>`;
+    }
+
     function renderPreschoolGrowth() {
         const growth = getChildGrowth();
         const garden = growth.garden || { invaderActive: growth.zombieActive, invader: { active: growth.zombieActive }, plants: [], collection: { unlockedIds: [], total: 0 } };
@@ -562,6 +592,7 @@
 
     function renderPreschoolPage(derived) {
         if (ui.page === 'overview') return renderPreschoolOverview(derived);
+        if (ui.page === 'battle') return renderPreschoolBattle();
         if (ui.page === 'growth') return renderPreschoolGrowth();
         if (ui.page === 'plans') return renderPreschoolPlans(derived);
         if (ui.page === 'courses') return renderPreschoolCourses();

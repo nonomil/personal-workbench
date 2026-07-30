@@ -77,6 +77,11 @@ test('keeps the refreshed reward tiers and three-lane defense contract in the pr
   assert.match(app, /renderPixelStats/);
   assert.match(app, /pixel-stat-card/);
   assert.match(app, /renderPixelMap\(growth, plans, true\)/);
+  assert.match(app, /function renderPreschoolBattle\(\)/);
+  assert.match(app, /pixel-battle-layout/);
+  assert.match(app, /pixel-rulebook/);
+  assert.match(app, /pixel-battle-plant-grid/);
+  assert.match(app, /if \(ui\.page === 'battle'\) return renderPreschoolBattle\(\)/);
   const statsPosition = app.indexOf('${renderPixelStats(growth, defense)}');
   const worldPosition = app.indexOf('<div class="pixel-world-grid">', statsPosition);
   const questsPosition = app.indexOf('<section class="pixel-quest-board">', worldPosition);
@@ -94,7 +99,8 @@ test('keeps the refreshed reward tiers and three-lane defense contract in the pr
   assert.match(styles, /pixel-quest-board\s*\{\s*grid-area:\s*quest/);
   assert.match(styles, /pixel-side-stack\s*\{\s*grid-area:\s*side/);
   assert.match(styles, /@media \(max-width: 860px\)[\s\S]*?grid-template-areas:\s*"map" "quest" "side"/);
-  for (const asset of ['nav-sun.png', 'nav-sprout.png', 'nav-flowers.png', 'nav-storybook.png', 'nav-chest.png', 'nav-family.png', 'settings-gear.png']) {
+  assert.match(preschoolIndex, /castle-gate\.png/);
+  for (const asset of ['nav-sun.png', 'castle-gate.png', 'nav-sprout.png', 'nav-flowers.png', 'nav-storybook.png', 'nav-chest.png', 'nav-family.png', 'settings-gear.png']) {
     assert.match(preschoolIndex, new RegExp(asset.replace('.', '\\.') ));
     assert.equal(fs.existsSync(path.join(root, 'assets', 'generated', 'preschool-pixel', 'reference', 'gpt-output-20260730', 'published-gpt-v2', asset)), true, asset);
   }
