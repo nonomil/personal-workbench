@@ -39,7 +39,11 @@
       "activePlantId": "plant-sun-sprout",
       "unlockedPlantIds": ["plant-sun-sprout"],
       "growthPoints": 0,
-      "invader": { "active": false, "kind": "cloudy-bug", "defeated": 0, "lastSpawnDate": "" }
+      "defenseEnergy": 0,
+      "defenseShots": 0,
+      "lastDefenseDate": "",
+      "feedbackPreferences": { "musicEnabled": false, "motionEnabled": true },
+      "invader": { "active": false, "kind": "cloudy-bug", "defeated": 0, "health": 3, "maxHealth": 3, "wave": 0, "lastSpawnDate": "" }
     },
     "collection": { "unlockedIds": [], "claimedIds": [], "seenEventIds": [], "total": 6 }
   },
@@ -78,6 +82,8 @@
 - `collection.seenEventIds` 用于收藏事件去重；课程完成、打卡行动、浇水、领取奖励和连续行动可以解锁贴纸，重复点击不会重复获得。
 - 漏掉一天时，花园视图显示原创“小怪入侵”；下一次真实行动会驱散小怪并记录 `garden.invader.defeated`，不扣除阳光，也不使用惩罚性积分。
 - 幼儿版的庆祝浮层只展示短反馈；动画遵守 `prefers-reduced-motion`，浏览器不支持动画或语音时，核心状态仍以文字和快照为准。
+- 幼儿版每个唯一学习/打卡事件最多增加 1 点 `garden.defenseEnergy`；花园防守每发射一颗豌豆消耗 1 点能量，命中会减少 `invader.health`，生命值归零后记录一次 `defenseShots` 和击退次数。
+- 幼儿版设置页的花园音乐使用浏览器原生 Web Audio，默认关闭且必须在用户手势后启动；`feedbackPreferences.musicEnabled` 和 `motionEnabled` 随幼儿快照保存，音频不可用不影响学习结算。
 
 ## 家庭互动
 
