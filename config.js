@@ -91,7 +91,7 @@
             name: '幼儿学习工作台',
             shortName: '小小工作台',
             englishName: 'PRESCHOOL LEARNING WORKBENCH',
-            path: '../幼儿学习工作台/',
+            path: '../preschool-workbench/',
             switchIcon: 'sprout',
             switchTone: 'lime',
             switchSummary: '大图打卡、花园、收集与奖励',

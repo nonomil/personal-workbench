@@ -24,7 +24,7 @@ python -m http.server 7000
 
 - `http://127.0.0.1:7000/成人成长工作台/`
 - `http://127.0.0.1:7000/儿童学习工作台/`
-- `http://127.0.0.1:7000/幼儿学习工作台/`
+- `http://127.0.0.1:7000/preschool-workbench/`
 
 ## GitHub Pages
 
@@ -33,7 +33,7 @@ python -m http.server 7000
 - `https://nonomil.github.io/personal-workbench/`
 - `https://nonomil.github.io/personal-workbench/成人成长工作台/`
 - `https://nonomil.github.io/personal-workbench/儿童学习工作台/`
-- `https://nonomil.github.io/personal-workbench/幼儿学习工作台/`
+- `https://nonomil.github.io/personal-workbench/preschool-workbench/`
 
 不需要构建命令或输出目录。修改后推送到 `main`，等待 Pages 部署完成即可。GitHub 仓库设置为 `Settings` → `Pages` → `Deploy from a branch` → `main` → `/ (root)`。
 
@@ -43,7 +43,7 @@ Android 版本使用 Capacitor 包装由 `scripts/prepare-mobile.mjs` 生成的 
 
 GitHub Actions workflow 位于 `.github/workflows/android-apk.yml`：
 
-- 在 Actions 页面手动运行 `Build Android APK`，构建结果会上传为 artifact；
+- 推送到 `main` 自动运行 `Build Android APK`，构建结果会上传为 artifact；也可以在 Actions 页面手动运行；
 - 推送 `v*` 标签时自动构建，并把 Debug APK 附加到 GitHub Release；
 - 首版产物是可安装的 Debug APK，不包含生产签名；生产签名必须使用 GitHub Secrets 注入 keystore，不能提交到仓库。
 

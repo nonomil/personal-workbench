@@ -6,12 +6,12 @@
     const ROOT_PATHS = {
         adult: './成人成长工作台/',
         child: './儿童学习工作台/',
-        preschool: './幼儿学习工作台/'
+        preschool: './preschool-workbench/'
     };
     const SIBLING_PATHS = {
         adult: '../成人成长工作台/',
         child: '../儿童学习工作台/',
-        preschool: '../幼儿学习工作台/'
+        preschool: '../preschool-workbench/'
     };
 
     function isValidVariant(value) {

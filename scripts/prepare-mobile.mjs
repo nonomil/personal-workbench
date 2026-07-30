@@ -19,7 +19,7 @@ const files = [
   'preschool-garden.js',
   'styles.css'
 ];
-const directories = ['成人成长工作台', '儿童学习工作台', '幼儿学习工作台', 'assets'];
+const directories = ['成人成长工作台', '儿童学习工作台', 'preschool-workbench', 'assets'];
 
 await fs.rm(outputRoot, { recursive: true, force: true });
 await fs.mkdir(outputRoot, { recursive: true });

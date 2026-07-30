@@ -4,7 +4,7 @@
 
 **目标：** 为三套工作台增加首次选择与记忆、版本内切换，并用 Capacitor + GitHub Actions 生成和发布 APK。
 
-**架构：** 新增独立的 `launcher.js` 管理启动器偏好，不混入成人/儿童/幼儿业务快照。根入口根据偏好自动进入，版本页由 `config.js` 生成右上角切换菜单，设置页复用相同的纯链接。Android 使用 Capacitor 包装根目录静态资源，GitHub Actions 在 `workflow_dispatch` 或 `v*` 标签时生成 Debug APK。
+**架构：** 新增独立的 `launcher.js` 管理启动器偏好，不混入成人/儿童/幼儿业务快照。根入口根据偏好自动进入，版本页由 `config.js` 生成右上角切换菜单，设置页复用相同的纯链接。Android 使用 Capacitor 包装根目录静态资源，GitHub Actions 在 `main` 推送、`workflow_dispatch` 或 `v*` 标签时生成 Debug APK。
 
 **技术栈：** Vanilla JS、浏览器 localStorage、Node `node:test`、Capacitor、Android Gradle、GitHub Actions。
 
@@ -66,7 +66,7 @@
 - 修改：`styles.css`
 - 修改：`成人成长工作台/index.html`
 - 修改：`儿童学习工作台/index.html`
-- 修改：`幼儿学习工作台/index.html`
+- 修改：`preschool-workbench/index.html`
 - 修改：`tests/workbench-contract.test.mjs`
 
 **步骤 1：添加失败契约**
@@ -128,7 +128,7 @@
 
 **步骤 2：推送并触发 APK 构建**
 
-推送 workflow 到 `main`，使用 `gh workflow run android-apk.yml` 触发手动构建，等待完成并确认 artifact；再创建后续版本标签验证 Release 附件。
+推送 workflow 到 `main`，等待自动构建并确认 artifact；也可以使用 `gh workflow run android-apk.yml` 触发手动构建，再创建后续版本标签验证 Release 附件。
 
 **步骤 3：提交**
 

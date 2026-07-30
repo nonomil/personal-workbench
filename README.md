@@ -10,7 +10,7 @@
 
 - [成人成长工作台](https://nonomil.github.io/personal-workbench/成人成长工作台/)
 - [儿童学习工作台](https://nonomil.github.io/personal-workbench/儿童学习工作台/)
-- [幼儿学习工作台](https://nonomil.github.io/personal-workbench/幼儿学习工作台/)
+- [幼儿学习工作台](https://nonomil.github.io/personal-workbench/preschool-workbench/)
 
 GitHub Pages 使用 `main` 分支根目录作为静态站点来源，不需要构建命令。推送 HTML、CSS、JavaScript 或素材后，等待 GitHub Pages 完成部署即可。仓库设置路径：`Settings` → `Pages` → `Deploy from a branch` → `main` → `/ (root)`。
 
@@ -18,7 +18,7 @@ GitHub Pages 使用 `main` 分支根目录作为静态站点来源，不需要�
 
 网页和 APK 共用同一套 Vanilla JS 资源，Android 端通过 Capacitor 包装，不维护第二套页面代码。
 
-- [Actions 构建页面](https://github.com/nonomil/personal-workbench/actions/workflows/android-apk.yml)：点击 `Run workflow` 手动编译 APK。
+- [Actions 构建页面](https://github.com/nonomil/personal-workbench/actions/workflows/android-apk.yml)：推送 `main` 会自动编译并上传 APK artifact，也可以点击 `Run workflow` 手动编译。
 - 推送 `v*` 标签会自动构建，并把 Debug APK 附加到对应 GitHub Release。
 - 构建产物是可安装的 Debug APK；正式商店包需要后续通过 GitHub Secrets 配置 Android 签名密钥。
 
@@ -44,7 +44,7 @@ python -m http.server 7000
 
 - `http://127.0.0.1:7000/成人成长工作台/`
 - `http://127.0.0.1:7000/儿童学习工作台/`
-- `http://127.0.0.1:7000/幼儿学习工作台/`
+- `http://127.0.0.1:7000/preschool-workbench/`
 
 根目录 `index.html` 保留为兼容入口。
 
