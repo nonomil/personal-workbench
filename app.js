@@ -344,7 +344,7 @@
         const done = Boolean(item.done);
         const label = done ? '已点亮' : '完成 +10 阳光';
         const asset = pixelQuestAsset(item);
-        return `<button class="pixel-quest-card quest-tone-${index % 3}" type="button" data-action="toggle-plan" data-id="${escapeHtml(item.id)}" aria-label="${done ? '取消完成' : '完成'}${escapeHtml(item.title)}">
+        return `<button class="pixel-quest-card quest-tone-${index % 3} ${done ? 'is-done' : ''}" type="button" data-action="toggle-plan" data-id="${escapeHtml(item.id)}" aria-label="${done ? '取消完成' : '完成'}${escapeHtml(item.title)}">
             <span class="pixel-quest-ribbon">${escapeHtml(item.category || '学习')}</span>
             <span class="pixel-quest-art">${preschoolAsset(asset, item.title)}</span>
             <span class="pixel-quest-copy"><small>${done ? '已点亮' : '今天的冒险'}</small><strong>${escapeHtml(item.title)}</strong><em>${label}任务 <span>${done ? icon('check') : icon('arrow-right')}</span></em></span>

@@ -1108,7 +1108,7 @@ body.variant-preschool .pixel-hud-sun .preschool-generated-art { display: block;
 .pixel-quest-status.is-done { border-color: #4b7732; color: #fff8d1; background: var(--pixel-lime); }
 .pixel-quest-status svg { width: 16px; height: 16px; }
 .pixel-world-grid { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 14px; margin-top: 18px; }
-.pixel-map-panel { position: relative; min-height: 470px; overflow: hidden; border: 5px solid var(--pixel-wood-dark); background-color: #6ec7b8; background-image: url('./docs/design-references/generated/workbench-pixel-reference_001.png'); background-position: 50% 100%; background-size: auto 173%; box-shadow: 6px 6px 0 var(--pixel-wood); isolation: isolate; }
+.pixel-map-panel { position: relative; min-height: 470px; overflow: hidden; border: 5px solid var(--pixel-wood-dark); background-color: #6ec7b8; background-image: url('./assets/generated/preschool-pixel/reference/workbench-pixel-reference_001.png'); background-position: 50% 100%; background-size: auto 173%; box-shadow: 6px 6px 0 var(--pixel-wood); isolation: isolate; }
 .pixel-map-panel::before { position: absolute; z-index: -1; inset: 0; background: rgba(47, 145, 114, .22); content: ''; mix-blend-mode: multiply; }
 .pixel-map-panel::after { position: absolute; z-index: -1; right: -5%; bottom: -38px; left: -5%; height: 135px; border-top: 5px solid #5b8f36; background: #75b73e; content: ''; transform: rotate(-2deg); }
 .pixel-map-copy { position: absolute; z-index: 2; top: 17px; left: 19px; max-width: 270px; padding: 10px 12px; border: 4px solid var(--pixel-wood); color: var(--pixel-ink); background: rgba(255, 241, 185, .94); box-shadow: 4px 4px 0 rgba(59, 36, 29, .4); }
@@ -1331,7 +1331,7 @@ body.variant-preschool .pixel-hud-defense strong { font-family: ui-monospace, SF
 body.variant-preschool .pixel-map-panel {
     min-height: 630px;
     background-color: #72cbb9;
-    background-image: linear-gradient(rgba(38, 124, 107, .14), rgba(38, 124, 107, .14)), url('./docs/design-references/generated/workbench-pixel-reference_001.png');
+    background-image: linear-gradient(rgba(38, 124, 107, .14), rgba(38, 124, 107, .14)), url('./assets/generated/preschool-pixel/reference/workbench-pixel-reference_001.png');
     background-position: 50% 100%;
     background-size: cover;
 }
