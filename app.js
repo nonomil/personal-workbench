@@ -58,6 +58,7 @@
     };
     let state = repository.load();
     let preschoolCelebrationTimer = 0;
+    let preschoolPeaTimer = 0;
     let preschoolMusic = null;
 
     function getPageFromHash() {
@@ -97,7 +98,9 @@
             'shield-check': 'growth-tree',
             rainbow: 'growth-tree',
             crown: 'star-companion',
-            'gamepad-2': 'treasure-chest'
+            'gamepad-2': 'treasure-chest',
+            stamp: 'sun-smile-badge',
+            map: 'quest-flag-pedestal'
         };
         return assets[iconName] || '';
     }
@@ -363,16 +366,24 @@
             const active = !item.done && plans.slice(0, index).every(entry => entry.done);
             return `<button class="pixel-map-node ${item.done ? 'is-done' : active ? 'is-active' : ''}" type="button" data-action="toggle-plan" data-id="${escapeHtml(item.id)}" aria-label="${item.done ? '取消完成' : '完成'}${escapeHtml(item.title)}"><span class="pixel-node-flag">${item.done ? icon('check') : index + 1}</span><span class="pixel-node-icon">${preschoolAsset(pixelQuestAsset(item), item.title)}</span><strong>${escapeHtml(item.title)}</strong></button>`;
         }).join('');
-        const plantSlots = Array.from({ length: 5 }, function (_, index) {
-            const planted = index < 3;
-            return `<span class="pixel-battle-slot ${planted ? 'is-planted' : ''}">${planted ? preschoolAsset(preschoolAssetForIcon(activePlant.icon) || 'seedling-node', activePlant.title) : ''}</span>`;
-        }).join('');
         const health = Math.max(0, Number(invader.health) || 0);
         const maxHealth = Math.max(1, Number(invader.maxHealth) || 3);
+        const plantAsset = preschoolAssetForIcon(activePlant.icon) || 'seedling-node';
+        const laneRows = Array.from({ length: 3 }, function (_, laneIndex) {
+            const isTarget = Boolean(invader.active && laneIndex === 1);
+            const pathCells = Array.from({ length: 4 }, function (_, cellIndex) {
+                return `<span class="pixel-battle-path-cell" aria-hidden="true"><i></i><b>${cellIndex + 1}</b></span>`;
+            }).join('');
+            return `<div class="pixel-battle-lane-row ${isTarget ? 'is-target' : ''}" data-lane="${laneIndex + 1}" aria-label="第 ${laneIndex + 1} 路花园防守">
+                <span class="pixel-battle-plant-column">${preschoolAsset(plantAsset, activePlant.title)}</span>
+                <span class="pixel-battle-path">${pathCells}</span>
+                <span class="pixel-battle-invader-column">${isTarget ? `<span class="pixel-battle-invader">${preschoolAsset('cloud-invader', '小怪')}</span><span class="pixel-hit-flash" aria-hidden="true"></span>` : ''}</span>
+            </div>`;
+        }).join('');
         return `<section class="pixel-map-panel ${invader.active ? 'has-invader' : ''}">
             <div class="pixel-map-copy"><span class="pixel-panel-kicker">SUN GARDEN / DEFENSE</span><h2>${invader.active ? '小怪来捣乱了' : '花园防守场'}</h2><p>${invader.active ? `第 ${invader.wave || 1} 波 · 再发射 ${health} 次就能赶走。` : '完成任务收集阳光，种下植物守护花园。'}</p></div>
             <div class="pixel-map-hud"><span class="pixel-map-sun">${preschoolAsset('sun-token', '阳光')}<b>${growth.sunlight}</b></span><span class="pixel-defense-energy">${icon('circle-dot')} 豌豆 ${defense.energy}</span><span class="pixel-wave-badge">${invader.active ? `生命 ${health}/${maxHealth}` : '花园安全'}</span></div>
-            <div class="pixel-battlefield" aria-label="阳光花园防守场景"><div class="pixel-battle-sky"><span class="pixel-battle-cloud cloud-a"></span><span class="pixel-battle-cloud cloud-b"></span><span class="pixel-battle-sun">${preschoolAsset('sun-token', '阳光')}</span></div><div class="pixel-battle-grid"><span class="pixel-battle-row-label">花园</span><div class="pixel-battle-lane">${plantSlots}${invader.active ? `<span class="pixel-battle-invader">${preschoolAsset('cloud-invader', '小怪')}</span>` : `<span class="pixel-battle-safe">${icon('shield-check')} 安全</span>`}</div></div><div class="pixel-battle-ground"></div></div>
+            <div class="pixel-battlefield" aria-label="三路六列阳光花园防守场景"><div class="pixel-battle-sky"><span class="pixel-battle-cloud cloud-a"></span><span class="pixel-battle-cloud cloud-b"></span><span class="pixel-battle-sun">${preschoolAsset('sun-token', '阳光')}</span></div><div class="pixel-battle-grid"><span class="pixel-battle-row-label">三路</span><div class="pixel-battle-lanes">${laneRows}</div></div><div class="pixel-battle-ground"></div></div>
             <div class="pixel-defense-actions">${invader.active ? `<button class="pixel-pea-button" type="button" data-action="fire-pea" ${defense.canFire ? '' : 'disabled'}>${icon('zap')} 发射豌豆 <b>${defense.energy}</b></button>` : `<button class="pixel-pea-button is-practice" type="button" data-action="spawn-invader">${icon('swords')} 来一波练习</button>`}<span class="pixel-defense-hint">${invader.active ? (defense.canFire ? '点一下，植物会发射豌豆！' : '先完成一个小任务，收集豌豆能量。') : '想练习防守？召唤一朵云朵小怪。'}</span></div>
             <div class="pixel-map-route"><span class="pixel-route-line"></span>${nodes || `<span class="pixel-map-empty">先加一项小任务</span>`}</div>
             <div class="pixel-map-companion"><span>${preschoolAsset('star-companion', '星芒')}</span><div><strong>星芒在陪你</strong><small>连续 ${growth.streak} 天</small></div></div>
@@ -387,7 +398,7 @@
             <div class="pixel-side-heading"><div><span class="pixel-panel-kicker">DAILY CHEST</span><h2>${ready ? '宝箱可以开啦' : '今日宝箱'}</h2></div><span class="pixel-side-count">${completed}/${total}</span></div>
             <div class="pixel-chest-art">${preschoolAsset('treasure-chest', '宝箱')}<span>${ready ? 'READY' : 'LOCKED'}</span></div>
             <div class="pixel-chest-progress"><span style="width:${total ? Math.round((completed / total) * 100) : 0}%"></span></div>
-            <p>${ready ? '三项小任务都完成了，去选一份奖励。' : `再完成 ${Math.max(0, total - completed)} 项就能打开。`}</p>
+            <p>${ready ? '今天的任务都完成了，去选一份奖励。' : `再完成 ${Math.max(0, total - completed)} 项就能打开。`}</p>
             <button class="pixel-side-button" type="button" data-action="navigate" data-page="${ready ? 'rewards' : 'plans'}">${icon(ready ? 'gift' : 'map')} ${ready ? '去开宝箱' : '继续冒险'}</button>
         </section>`;
     }
@@ -458,7 +469,14 @@
     function renderPreschoolRewards() {
         const growth = getChildGrowth();
         const rewards = getChildRewards();
-        return `${renderPreschoolIntro(PAGE_META.rewards, '', '', `<span class="points-chip">${icon('sun')}${growth.sunlight}</span>`)}<div class="preschool-reward-grid">${rewards.map(function (reward) { const claimed = growth.claimedRewardIds.includes(reward.id); const remaining = Math.max(0, Number(reward.cost) - growth.sunlight); const disabled = claimed || remaining > 0; const assetName = preschoolAssetForIcon(reward.icon || 'gift') || 'treasure-chest'; return `<article class="preschool-reward-card tone-${escapeHtml(reward.tone || 'orange')} ${claimed ? 'is-claimed' : ''}">${preschoolVisual(reward.icon || 'gift', assetName, reward.title)}<h2>${escapeHtml(reward.title)}</h2><strong>${escapeHtml(reward.cost)} 阳光</strong><button class="btn-primary" type="button" data-action="claim-reward" data-id="${escapeHtml(reward.id)}" ${disabled ? 'disabled' : ''}>${icon(claimed ? 'check' : 'gift')}${claimed ? '已领' : remaining ? `还差 ${remaining}` : '领取'}</button></article>`; }).join('')}</div>${renderPreschoolCollection(growth)}`;
+        const tiers = ['小奖励', '开心奖励', '亲子奖励', '特别奖励'].map(function (tier) {
+            return { name: tier, items: rewards.filter(function (reward) { return (reward.tier || '开心奖励') === tier; }) };
+        }).filter(function (group) { return group.items.length; });
+        const tierDescriptions = { '小奖励': '马上就能兑现的小惊喜', '开心奖励': '完成几项任务，换一个快乐时刻', '亲子奖励': '和家长一起完成的约定', '特别奖励': '坚持一阵子后的大宝藏' };
+        const tierMarkup = tiers.map(function (group, index) {
+            return `<section class="preschool-reward-tier tier-${index}"><div class="preschool-reward-tier-head"><div><span class="eyebrow">TIER ${String(index + 1).padStart(2, '0')}</span><h2>${escapeHtml(group.name)}</h2><p>${escapeHtml(tierDescriptions[group.name] || '')}</p></div><span class="preschool-reward-tier-count">${group.items.length} 份</span></div><div class="preschool-reward-tier-grid">${group.items.map(function (reward) { const claimed = growth.claimedRewardIds.includes(reward.id); const remaining = Math.max(0, Number(reward.cost) - growth.sunlight); const disabled = claimed || remaining > 0; const assetName = preschoolAssetForIcon(reward.icon || 'gift') || 'treasure-chest'; return `<article class="preschool-reward-card tone-${escapeHtml(reward.tone || 'orange')} ${claimed ? 'is-claimed' : ''}">${preschoolVisual(reward.icon || 'gift', assetName, reward.title)}<h2>${escapeHtml(reward.title)}</h2><strong>${escapeHtml(reward.cost)} 阳光</strong><button class="btn-primary" type="button" data-action="claim-reward" data-id="${escapeHtml(reward.id)}" ${disabled ? 'disabled' : ''}>${icon(claimed ? 'check' : 'gift')}${claimed ? '已领' : remaining ? `还差 ${remaining}` : '领取'}</button></article>`; }).join('')}</div></section>`;
+        }).join('');
+        return `${renderPreschoolIntro(PAGE_META.rewards, '', '', `<span class="points-chip">${icon('sun')}${growth.sunlight}</span>`)}<div class="preschool-reward-tier-list">${tierMarkup}</div>${renderPreschoolCollection(growth)}`;
     }
 
     function renderPreschoolFamily() {
@@ -1136,6 +1154,28 @@
         if (ok) showPreschoolCelebration({ message: '小怪来啦！', detail: '完成任务收集豌豆能量。' });
     }
 
+    function animatePreschoolPea() {
+        const battlefield = document.querySelector('.pixel-battlefield');
+        const lane = battlefield && (battlefield.querySelector('.pixel-battle-lane-row.is-target') || battlefield.querySelector('.pixel-battle-lane-row'));
+        if (!battlefield || !lane) return;
+        if (preschoolPeaTimer) window.clearTimeout(preschoolPeaTimer);
+        battlefield.classList.remove('preschool-pea-fired');
+        void battlefield.offsetWidth;
+        battlefield.classList.add('preschool-pea-fired');
+        const projectile = document.createElement('span');
+        projectile.className = 'pixel-pea-projectile';
+        projectile.setAttribute('aria-hidden', 'true');
+        const flash = lane.querySelector('.pixel-hit-flash');
+        lane.appendChild(projectile);
+        if (flash) flash.setAttribute('data-hit', 'true');
+        preschoolPeaTimer = window.setTimeout(function () {
+            projectile.remove();
+            if (flash) flash.removeAttribute('data-hit');
+            battlefield.classList.remove('preschool-pea-fired');
+            preschoolPeaTimer = 0;
+        }, getPreschoolFeedbackPreference('motionEnabled', true) ? 680 : 40);
+    }
+
     function firePreschoolPea() {
         if (!isPreschool || !preschoolGarden || typeof preschoolGarden.firePea !== 'function') return;
         let result;
@@ -1145,6 +1185,7 @@
             next.growth = result.growth;
         }, null);
         if (!ok || !result) return;
+        animatePreschoolPea();
         speakPraise(result.defeated ? '太棒啦，小怪被赶走了！' : '命中啦，再来一颗豌豆！');
         showPreschoolCelebration({ message: result.defeated ? '小怪被赶走啦！' : '豌豆命中！', detail: result.defeated ? '花园安全了，继续收集阳光。' : '植物伙伴正在守护花园。', invaderDefeated: result.defeated });
     }
@@ -1507,7 +1548,7 @@
         if (action === 'add-plan') openDialog('plan');
         if (action === 'edit-plan') openDialog('plan', target.dataset.id);
         if (action === 'delete-plan') deleteEntry('plan', target.dataset.id);
-        if (action === 'toggle-plan') { const completed = !target.classList.contains('is-done'); const ok = commit(function (next) { const item = next.dailyPlans.find(entry => entry.id === target.dataset.id); if (item) { item.done = !item.done; item.completedAt = item.done ? new Date().toISOString() : null; if (item.done) { awardSunlight(next, `plan:${item.id}`, 10); archiveItem(next, 'plan', item); } } }, target.classList.contains('is-done') ? '计划已恢复' : isChild ? '计划完成了，获得 10 阳光' : '计划完成了'); if (ok && completed) speakPraise('今天的打卡完成啦！'); }
+        if (action === 'toggle-plan') { const before = state.dailyPlans.find(entry => entry.id === target.dataset.id); const completed = before ? !before.done : true; const ok = commit(function (next) { const item = next.dailyPlans.find(entry => entry.id === target.dataset.id); if (item) { item.done = !item.done; item.completedAt = item.done ? new Date().toISOString() : null; if (item.done) { awardSunlight(next, `plan:${item.id}`, 10); archiveItem(next, 'plan', item); } } }, completed ? (isChild ? '计划完成了，获得 10 阳光' : '计划完成了') : '计划已恢复'); if (ok && completed) speakPraise('今天的打卡完成啦！'); }
         if (action === 'add-task') openDialog('task');
         if (action === 'edit-task') openDialog('task', target.dataset.id);
         if (action === 'delete-task') deleteEntry('task', target.dataset.id);

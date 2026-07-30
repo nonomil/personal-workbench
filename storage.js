@@ -5,6 +5,15 @@
     const variant = config.variant || 'adult';
     const STORAGE_KEY = config.current && config.current.storageKey ? config.current.storageKey : 'petbank_huchuliang_workbench_state_v1';
     const SCHEMA_VERSION = 5;
+    const PRESCHOOL_DAY_PLAN_VERSION = 2;
+    const PRESCHOOL_DAILY_ITEMS = [
+        { id: 'story', title: '听故事', category: '语文', priority: 'high', minutes: 10, initialDone: true, initialProgress: 40 },
+        { id: 'count', title: '数一数', category: '数学', priority: 'high', minutes: 10, initialDone: false, initialProgress: 0 },
+        { id: 'hello', title: '说 Hello', category: '英语', priority: 'medium', minutes: 8, initialDone: false, initialProgress: 0 },
+        { id: 'draw', title: '画一画', category: '创意', priority: 'medium', minutes: 15, initialDone: false, initialProgress: 0 },
+        { id: 'move', title: '动一动', category: '运动', priority: 'low', minutes: 15, initialDone: false, initialProgress: 0 },
+        { id: 'tidy', title: '整理玩具', category: '生活', priority: 'low', minutes: 8, initialDone: false, initialProgress: 0 }
+    ];
 
     function localDate(date) {
         const value = date instanceof Date ? date : new Date(date || Date.now());
@@ -25,6 +34,39 @@
             return `${prefix}-${global.crypto.randomUUID()}`;
         }
         return `${prefix}-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    }
+
+    function createPreschoolTasks(now, date) {
+        return PRESCHOOL_DAILY_ITEMS.map(function (item) {
+            return {
+                id: `preschool-task-${item.id}`,
+                title: item.title,
+                category: item.category,
+                status: item.initialDone ? 'done' : 'todo',
+                priority: item.priority,
+                progress: item.initialDone ? 100 : item.initialProgress,
+                dueDate: date,
+                estimateMinutes: item.minutes,
+                createdAt: now,
+                completedAt: item.initialDone ? now : null
+            };
+        });
+    }
+
+    function createPreschoolPlans(now, date, initialState) {
+        return PRESCHOOL_DAILY_ITEMS.map(function (item, index) {
+            const done = initialState && Object.prototype.hasOwnProperty.call(initialState, item.id) ? Boolean(initialState[item.id]) : Boolean(item.initialDone);
+            return {
+                id: `preschool-plan-${item.id}`,
+                date: date,
+                title: item.title,
+                category: item.category,
+                done: done,
+                order: index + 1,
+                createdAt: now,
+                completedAt: done ? now : null
+            };
+        });
     }
 
     function createGrowthSeed() {
@@ -90,6 +132,8 @@
             profileId: 'local-default',
             revision: 1,
             updatedAt: now,
+            preschoolDayPlanVersion: variant === 'preschool' ? PRESCHOOL_DAY_PLAN_VERSION : 0,
+            preschoolPlanSeedDates: variant === 'preschool' ? [dateOffset(0)] : [],
             tasks: [
                 { id: 'task-english', title: '完成英语词卡复习', category: '学习', status: 'doing', priority: 'high', progress: 68, dueDate: dateOffset(0), estimateMinutes: 35, createdAt: now, completedAt: null },
                 { id: 'task-reading', title: '读完《纳瓦尔宝典》一章', category: '阅读', status: 'todo', priority: 'medium', progress: 35, dueDate: dateOffset(1), estimateMinutes: 40, createdAt: now, completedAt: null },
@@ -133,16 +177,8 @@
         };
         if (variant === 'preschool') {
             return Object.assign(state, {
-                tasks: [
-                    { id: 'preschool-task-story', title: '听故事', category: '语文', status: 'doing', priority: 'high', progress: 40, dueDate: dateOffset(0), estimateMinutes: 10, createdAt: now, completedAt: null },
-                    { id: 'preschool-task-count', title: '数一数', category: '数学', status: 'todo', priority: 'high', progress: 0, dueDate: dateOffset(0), estimateMinutes: 10, createdAt: now, completedAt: null },
-                    { id: 'preschool-task-hello', title: '说 Hello', category: '英语', status: 'done', priority: 'medium', progress: 100, dueDate: dateOffset(0), estimateMinutes: 8, createdAt: now, completedAt: now }
-                ],
-                dailyPlans: [
-                    { id: 'preschool-plan-story', date: dateOffset(0), title: '听故事', category: '语文', done: true, order: 1, createdAt: now, completedAt: now },
-                    { id: 'preschool-plan-count', date: dateOffset(0), title: '数一数', category: '数学', done: false, order: 2, createdAt: now, completedAt: null },
-                    { id: 'preschool-plan-hello', date: dateOffset(0), title: '说 Hello', category: '英语', done: false, order: 3, createdAt: now, completedAt: null }
-                ],
+                tasks: createPreschoolTasks(now, dateOffset(0)),
+                dailyPlans: createPreschoolPlans(now, dateOffset(0)),
                 readingLogs: [{ id: 'preschool-reading-1', date: dateOffset(0), title: '今天的绘本', minutes: 10, pages: 4, note: '我找到了一只小动物。', createdAt: now }],
                 focusSessions: [
                     { id: 'preschool-focus-1', date: dateOffset(0), minutes: 10, source: '语文', createdAt: now },
@@ -292,6 +328,40 @@
         };
     }
 
+    function ensurePreschoolDailyPlans(state) {
+        if (variant !== 'preschool') return state;
+        const today = localDate();
+        const seededDates = Array.isArray(state.preschoolPlanSeedDates) ? state.preschoolPlanSeedDates : [];
+        const todayPlans = state.dailyPlans.filter(item => item.date === today);
+        const migrationNeeded = Number(state.preschoolDayPlanVersion) < PRESCHOOL_DAY_PLAN_VERSION;
+        if (!todayPlans.length && !seededDates.includes(today)) {
+            const now = new Date().toISOString();
+            state.tasks = state.tasks.concat(createPreschoolTasks(now, today).map(function (item) {
+                return Object.assign({}, item, { status: 'todo', progress: 0, completedAt: null });
+            }));
+            state.dailyPlans = state.dailyPlans.concat(createPreschoolPlans(now, today, PRESCHOOL_DAILY_ITEMS.reduce(function (result, item) { result[item.id] = false; return result; }, {})));
+            seededDates.push(today);
+        } else if (migrationNeeded) {
+            const existingPlanIds = new Set(state.dailyPlans.map(item => item.id));
+            const existingTaskIds = new Set(state.tasks.map(item => item.id));
+            const now = new Date().toISOString();
+            PRESCHOOL_DAILY_ITEMS.forEach(function (item, index) {
+                const planId = `preschool-plan-${item.id}`;
+                const taskId = `preschool-task-${item.id}`;
+                if (!existingPlanIds.has(planId) && !state.dailyPlans.some(entry => entry.date === today && entry.title === item.title)) {
+                    state.dailyPlans.push({ id: planId, date: today, title: item.title, category: item.category, done: false, order: index + 1, createdAt: now, completedAt: null });
+                }
+                if (!existingTaskIds.has(taskId) && !state.tasks.some(entry => entry.title === item.title)) {
+                    state.tasks.push(Object.assign({}, createPreschoolTasks(now, today).find(entry => entry.id === taskId), { status: 'todo', progress: 0, completedAt: null }));
+                }
+            });
+            if (!seededDates.includes(today)) seededDates.push(today);
+        }
+        state.preschoolPlanSeedDates = Array.from(new Set(seededDates)).filter(item => /^\d{4}-\d{2}-\d{2}$/.test(String(item))).sort().slice(-30);
+        state.preschoolDayPlanVersion = PRESCHOOL_DAY_PLAN_VERSION;
+        return state;
+    }
+
     function normalizeState(input) {
         const source = input && typeof input === 'object' ? input : {};
         const seed = createSeedState();
@@ -300,6 +370,8 @@
             profileId: typeof source.profileId === 'string' && source.profileId ? source.profileId : 'local-default',
             revision: Number.isInteger(source.revision) && source.revision >= 0 ? source.revision : 0,
             updatedAt: typeof source.updatedAt === 'string' ? source.updatedAt : new Date().toISOString(),
+            preschoolDayPlanVersion: Number(source.preschoolDayPlanVersion) || 0,
+            preschoolPlanSeedDates: asArray(source.preschoolPlanSeedDates).filter(item => /^\d{4}-\d{2}-\d{2}$/.test(String(item))),
             tasks: asArray(source.tasks),
             dailyPlans: asArray(source.dailyPlans),
             readingLogs: asArray(source.readingLogs),
@@ -348,7 +420,7 @@
                 status: item.status === 'mastered' ? 'mastered' : 'todo'
             });
         });
-        return state;
+        return ensurePreschoolDailyPlans(state);
     }
 
     function clone(value) {
@@ -367,7 +439,7 @@
                 }
                 const parsed = JSON.parse(raw);
                 const normalized = normalizeState(parsed);
-                if (normalized.schemaVersion !== parsed.schemaVersion || normalized.revision !== parsed.revision) this.save(normalized);
+                if (normalized.schemaVersion !== parsed.schemaVersion || normalized.revision !== parsed.revision || normalized.preschoolDayPlanVersion !== parsed.preschoolDayPlanVersion || JSON.stringify(normalized.preschoolPlanSeedDates) !== JSON.stringify(parsed.preschoolPlanSeedDates)) this.save(normalized);
                 return normalized;
             } catch (error) {
                 console.warn('[PersonalWorkbenchStorage] 读取本地快照失败，已使用初始数据', error);

@@ -31,7 +31,7 @@
     };
 
     const preschoolPages = {
-        overview: { title: '今天', eyebrow: 'TODAY', heading: '今天玩三项', description: '选一张图，开始一小步。' },
+        overview: { title: '今天', eyebrow: 'TODAY', heading: '今天点亮六项', description: '选一张图，完成一小步。' },
         growth: { title: '成长', eyebrow: 'GROW', heading: '我的小花园', description: '阳光、植物和星芒一起长大。' },
         plans: { title: '打卡', eyebrow: 'CHECK-IN', heading: '今天做什么', description: '做完一项，就点亮一颗星。' },
         courses: { title: '课程', eyebrow: 'LEARN', heading: '一起学一会儿', description: '语文、数学、英语，选一张开始。' },
@@ -103,9 +103,11 @@
             heroAlt: '阳光花园里的植物伙伴和星星',
             pageMeta: preschoolPages,
             childRewards: [
-                { id: 'preschool-reward-story', title: '选故事', description: '今晚选一本喜欢的故事。', cost: 20, icon: 'book-open', tone: 'blue' },
-                { id: 'preschool-reward-play', title: '选游戏', description: '和家人玩一个小游戏。', cost: 40, icon: 'gamepad-2', tone: 'orange' },
-                { id: 'preschool-reward-family', title: '亲子时光', description: '和家人一起做喜欢的事。', cost: 60, icon: 'heart-handshake', tone: 'lime' }
+                { id: 'preschool-reward-sticker', title: '选一张贴纸', description: '挑一张喜欢的贴纸，贴到成长本上。', tier: '小奖励', cost: 20, icon: 'stamp', tone: 'blue' },
+                { id: 'preschool-reward-story', title: '选故事', description: '今晚选一本喜欢的故事。', tier: '开心奖励', cost: 40, icon: 'book-open', tone: 'orange' },
+                { id: 'preschool-reward-play', title: '选游戏', description: '和家人玩一个小游戏。', tier: '开心奖励', cost: 60, icon: 'gamepad-2', tone: 'lime' },
+                { id: 'preschool-reward-family', title: '亲子时光', description: '和家人一起做喜欢的事。', tier: '亲子奖励', cost: 80, icon: 'heart-handshake', tone: 'pink' },
+                { id: 'preschool-reward-adventure', title: '周末小探险', description: '和家长一起去公园走一圈。', tier: '特别奖励', cost: 120, icon: 'map', tone: 'gold' }
             ],
             childCourses: [
                 { id: 'preschool-chinese', title: '语文', description: '听一听，说一说', icon: 'book-open', tone: 'orange', lessons: [{ id: 'preschool-chinese-1', title: '听故事', minutes: 10 }, { id: 'preschool-chinese-2', title: '找一找', minutes: 10 }, { id: 'preschool-chinese-3', title: '说一说', minutes: 10 }] },
