@@ -287,6 +287,13 @@
         return growth && growth.garden ? growth : Object.assign({}, growth, preschoolGarden.getView(state.growth, storage.localDate()));
     }
 
+    function getPreschoolDefense(growth) {
+        if (!isPreschool || !preschoolGarden || typeof preschoolGarden.getDefenseView !== 'function') {
+            return { energy: 0, shots: 0, invader: { active: false, health: 0, maxHealth: 0, wave: 0 }, canFire: false };
+        }
+        return preschoolGarden.getDefenseView(state.growth || growth, storage.localDate());
+    }
+
     function renderPreschoolGardenBoard(growth, compact) {
         const garden = growth.garden || {};
         const activePlant = garden.activePlant || (preschoolGarden && preschoolGarden.PLANT_CATALOG ? preschoolGarden.PLANT_CATALOG[0] : { id: 'plant-sun-sprout', title: '太阳芽', icon: 'sun' });
@@ -335,7 +342,7 @@
 
     function pixelQuestCard(item, index) {
         const done = Boolean(item.done);
-        const label = done ? '再玩一次' : '开始';
+        const label = done ? '已点亮' : '完成 +10 阳光';
         const asset = pixelQuestAsset(item);
         return `<button class="pixel-quest-card quest-tone-${index % 3}" type="button" data-action="toggle-plan" data-id="${escapeHtml(item.id)}" aria-label="${done ? '取消完成' : '完成'}${escapeHtml(item.title)}">
             <span class="pixel-quest-ribbon">${escapeHtml(item.category || '学习')}</span>
@@ -348,16 +355,26 @@
     function renderPixelMap(growth, plans) {
         const garden = growth.garden || {};
         const invader = garden.invader || { active: false };
+        const defense = getPreschoolDefense(growth);
+        const activePlant = garden.activePlant || { title: '太阳芽', icon: 'sun', tone: 'gold' };
         const nodes = plans.slice(0, 3).map(function (item, index) {
             const active = !item.done && plans.slice(0, index).every(entry => entry.done);
             return `<button class="pixel-map-node ${item.done ? 'is-done' : active ? 'is-active' : ''}" type="button" data-action="toggle-plan" data-id="${escapeHtml(item.id)}" aria-label="${item.done ? '取消完成' : '完成'}${escapeHtml(item.title)}"><span class="pixel-node-flag">${item.done ? icon('check') : index + 1}</span><span class="pixel-node-icon">${preschoolAsset(pixelQuestAsset(item), item.title)}</span><strong>${escapeHtml(item.title)}</strong></button>`;
         }).join('');
+        const plantSlots = Array.from({ length: 5 }, function (_, index) {
+            const planted = index < 3;
+            return `<span class="pixel-battle-slot ${planted ? 'is-planted' : ''}">${planted ? preschoolAsset(preschoolAssetForIcon(activePlant.icon) || 'seedling-node', activePlant.title) : ''}</span>`;
+        }).join('');
+        const health = Math.max(0, Number(invader.health) || 0);
+        const maxHealth = Math.max(1, Number(invader.maxHealth) || 3);
         return `<section class="pixel-map-panel ${invader.active ? 'has-invader' : ''}">
-            <div class="pixel-map-copy"><span class="pixel-panel-kicker">SUN GARDEN</span><h2>${invader.active ? '小怪来捣乱了' : '阳光花园地图'}</h2><p>${invader.active ? '完成一项任务，把小怪送回云朵外。' : '沿着小路走，点亮今天的三座小岛。'}</p></div>
-            <span class="pixel-map-sun">${preschoolAsset('sun-token', '阳光')}<b>${growth.sunlight}</b></span>
+            <div class="pixel-map-copy"><span class="pixel-panel-kicker">SUN GARDEN / DEFENSE</span><h2>${invader.active ? '小怪来捣乱了' : '花园防守场'}</h2><p>${invader.active ? `第 ${invader.wave || 1} 波 · 再发射 ${health} 次就能赶走。` : '完成任务收集阳光，种下植物守护花园。'}</p></div>
+            <div class="pixel-map-hud"><span class="pixel-map-sun">${preschoolAsset('sun-token', '阳光')}<b>${growth.sunlight}</b></span><span class="pixel-defense-energy">${icon('circle-dot')} 豌豆 ${defense.energy}</span><span class="pixel-wave-badge">${invader.active ? `生命 ${health}/${maxHealth}` : '花园安全'}</span></div>
+            <div class="pixel-battlefield" aria-label="阳光花园防守场景"><div class="pixel-battle-sky"><span class="pixel-battle-cloud cloud-a"></span><span class="pixel-battle-cloud cloud-b"></span><span class="pixel-battle-sun">${preschoolAsset('sun-token', '阳光')}</span></div><div class="pixel-battle-grid"><span class="pixel-battle-row-label">花园</span><div class="pixel-battle-lane">${plantSlots}${invader.active ? `<span class="pixel-battle-invader">${preschoolAsset('cloud-invader', '小怪')}</span>` : `<span class="pixel-battle-safe">${icon('shield-check')} 安全</span>`}</div></div><div class="pixel-battle-ground"></div></div>
+            <div class="pixel-defense-actions">${invader.active ? `<button class="pixel-pea-button" type="button" data-action="fire-pea" ${defense.canFire ? '' : 'disabled'}>${icon('zap')} 发射豌豆 <b>${defense.energy}</b></button>` : `<button class="pixel-pea-button is-practice" type="button" data-action="spawn-invader">${icon('swords')} 来一波练习</button>`}<span class="pixel-defense-hint">${invader.active ? (defense.canFire ? '点一下，植物会发射豌豆！' : '先完成一个小任务，收集豌豆能量。') : '想练习防守？召唤一朵云朵小怪。'}</span></div>
             <div class="pixel-map-route"><span class="pixel-route-line"></span>${nodes || `<span class="pixel-map-empty">先加一项小任务</span>`}</div>
             <div class="pixel-map-companion"><span>${preschoolAsset('star-companion', '星芒')}</span><div><strong>星芒在陪你</strong><small>连续 ${growth.streak} 天</small></div></div>
-            ${invader.active ? `<button class="pixel-map-invader" type="button" data-action="navigate" data-page="plans"><span>${preschoolAsset('cloud-invader', '小怪')}</span><strong>小怪入侵</strong><small>去完成任务</small></button>` : `<span class="pixel-map-safe">${icon('shield-check')} 花园安全</span>`}
+            ${invader.active ? `<span class="pixel-map-invader"><span>${preschoolAsset('cloud-invader', '小怪')}</span><strong>小怪入侵</strong><small>${defense.energy ? '准备发射' : '完成任务得能量'}</small></span>` : `<span class="pixel-map-safe">${icon('shield-check')} 花园安全</span>`}
             <div class="pixel-map-ground"></div>
         </section>`;
     }
@@ -386,11 +403,12 @@
     function renderPreschoolOverview(derived) {
         const growth = getChildGrowth();
         const done = derived.todayPlans.filter(item => item.done).length;
-        const plans = derived.todayPlans.slice(0, 3);
+        const plans = derived.todayPlans;
         const total = plans.length;
+        const defense = getPreschoolDefense(growth);
         return `<div class="pixel-home">
-            <section class="pixel-page-header"><div><span class="pixel-panel-kicker">TODAY / ADVENTURE</span><h1>今天的冒险开始啦</h1><p>${done}/${total || 0} 个任务已点亮，跟着星芒走一小步。</p></div><div class="pixel-header-actions"><span class="pixel-hud-sun">${preschoolAsset('sun-token', '阳光')}<strong>${growth.sunlight}</strong></span><span class="pixel-hud-streak">${icon('flame')} ${growth.streak} 天</span><button class="pixel-settings-button" type="button" data-action="navigate" data-page="account" aria-label="打开设置" title="打开设置">${icon('settings-2')}</button></div></section>
-            <section class="pixel-quest-board"><div class="pixel-board-heading"><div><span class="pixel-panel-kicker">TODAY QUESTS</span><h2>三座小岛等你点亮</h2></div><span class="pixel-board-count">${done} / ${total || 0} 完成</span></div><div class="pixel-quest-grid">${plans.map(pixelQuestCard).join('')}</div></section>
+            <section class="pixel-page-header"><div><span class="pixel-panel-kicker">TODAY / ADVENTURE</span><h1>今天的冒险开始啦</h1><p>${done}/${total || 0} 个任务已点亮，完成一小步，花园就多一束光。</p></div><div class="pixel-header-actions"><span class="pixel-hud-sun">${preschoolAsset('sun-token', '阳光')}<strong>${growth.sunlight}</strong></span><span class="pixel-hud-defense">${icon('zap')} <strong>${defense.energy}</strong> 豌豆</span><span class="pixel-hud-streak">${icon('flame')} ${growth.streak} 天</span><button class="pixel-settings-button" type="button" data-action="navigate" data-page="account" aria-label="打开设置" title="打开设置">${icon('settings-2')}</button></div></section>
+            <section class="pixel-quest-board"><div class="pixel-board-heading"><div><span class="pixel-panel-kicker">TODAY QUESTS</span><h2>完成任务，收集阳光</h2></div><span class="pixel-board-count">${done} / ${total || 0} 完成</span></div><div class="pixel-quest-grid">${plans.map(pixelQuestCard).join('')}</div></section>
             <div class="pixel-world-grid">${renderPixelMap(growth, plans)}<aside class="pixel-side-stack">${renderPixelChest(growth, done, total)}${renderPixelCollection(growth)}</aside></div>
             <section class="pixel-bottom-bar"><div><span class="pixel-panel-kicker">LITTLE ROUTE</span><strong>语文 · 数学 · 英语</strong><small>每完成一项，阳光会照亮花园。</small></div><button class="pixel-side-button" type="button" data-action="navigate" data-page="courses">${icon('book-open')} 去上小课</button><button class="pixel-side-link" type="button" data-action="navigate" data-page="family">告诉家长${icon('heart')}</button></section>
         </div>`;
@@ -942,7 +960,7 @@
         if (preschoolCelebrationTimer) window.clearTimeout(preschoolCelebrationTimer);
         const rewards = collectionTitles(payload.rewardIds || []);
         const message = payload.invaderDefeated ? '小怪被赶走啦！' : payload.message || '做得真棒！';
-        const detail = [payload.amount ? `阳光 +${payload.amount}` : '', rewards.length ? `获得：${rewards.join('、')}` : ''].filter(Boolean).join(' · ');
+        const detail = [payload.detail || '', payload.amount ? `阳光 +${payload.amount}` : '', rewards.length ? `获得：${rewards.join('、')}` : ''].filter(Boolean).join(' · ');
         const node = document.createElement('div');
         node.className = 'preschool-celebration';
         node.setAttribute('role', 'status');
@@ -1034,6 +1052,29 @@
             speakPraise('小花园又长大了一点！');
             showPreschoolCelebration({ message: '植物喝饱水啦！', rewardIds: gardenEvent ? gardenEvent.rewardIds : [] });
         }
+    }
+
+    function spawnPreschoolInvader() {
+        if (!isPreschool || !preschoolGarden || typeof preschoolGarden.spawnInvader !== 'function') return;
+        const ok = commit(function (next) {
+            const result = preschoolGarden.spawnInvader(next.growth, storage.localDate());
+            if (!result.changed) throw new Error('花园里已经有一波小怪了');
+            next.growth = result.growth;
+        }, '小怪来啦，准备守护花园！');
+        if (ok) showPreschoolCelebration({ message: '小怪来啦！', detail: '完成任务收集豌豆能量。' });
+    }
+
+    function firePreschoolPea() {
+        if (!isPreschool || !preschoolGarden || typeof preschoolGarden.firePea !== 'function') return;
+        let result;
+        const ok = commit(function (next) {
+            result = preschoolGarden.firePea(next.growth, storage.localDate());
+            if (!result.ok) throw new Error(result.reason);
+            next.growth = result.growth;
+        }, null);
+        if (!ok || !result) return;
+        speakPraise(result.defeated ? '太棒啦，小怪被赶走了！' : '命中啦，再来一颗豌豆！');
+        showPreschoolCelebration({ message: result.defeated ? '小怪被赶走啦！' : '豌豆命中！', detail: result.defeated ? '花园安全了，继续收集阳光。' : '植物伙伴正在守护花园。', invaderDefeated: result.defeated });
     }
 
     function renderTaskCard(item) {
@@ -1429,6 +1470,8 @@
         if (action === 'select-style') selectGrowthStyle(target.dataset.id);
         if (action === 'select-plant') selectPreschoolPlant(target.dataset.id);
         if (action === 'water-plant') waterGrowthPlant();
+        if (action === 'spawn-invader') spawnPreschoolInvader();
+        if (action === 'fire-pea') firePreschoolPea();
         if (action === 'complete-lesson') completeCourseLesson(target.dataset.id);
         if (action === 'open-focus') openDialog('focus');
         if (action === 'export') exportSnapshot();

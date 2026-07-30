@@ -122,6 +122,7 @@ test('keeps adult, child and preschool entry points isolated', () => {
   assert.match(config, /topbar-workbench-switcher/);
   assert.match(config, /dataset\.workbenchVariant/);
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const styles = fs.readFileSync(path.join(root, 'styles.css'), 'utf8');
   assert.match(app, /workbench-switcher-panel/);
   assert.match(app, /renderWorkbenchSwitcher/);
   assert.match(app, /renderSettings[\s\S]*renderWorkbenchSwitcher/);
@@ -141,6 +142,11 @@ test('keeps adult, child and preschool entry points isolated', () => {
   assert.match(config, /archive: \{ title: '归档与统计'/);
   assert.match(config, /settings: \{ title: '偏好设置'/);
   assert.match(config, /const page = item\.dataset\.page;/);
+  assert.match(app, /data-action="fire-pea"/);
+  assert.match(app, /getPreschoolDefense/);
+  assert.match(app, /spawnInvader/);
+  assert.match(styles, /prefers-reduced-motion/);
+  assert.match(styles, /pixel-defense/);
 });
 
 console.log(`workbench contract: ${storage.STORAGE_KEY}`);
