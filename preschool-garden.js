@@ -38,7 +38,10 @@
             activePlantId: 'plant-sun-sprout',
             unlockedPlantIds: ['plant-sun-sprout'],
             growthPoints: 0,
-            invader: { active: false, kind: 'cloudy-bug', defeated: 0, lastSpawnDate: '' }
+            defenseEnergy: 0,
+            defenseShots: 0,
+            lastDefenseDate: '',
+            invader: { active: false, kind: 'cloudy-bug', defeated: 0, health: 3, maxHealth: 3, wave: 0, lastSpawnDate: '' }
         };
     }
 
@@ -54,6 +57,14 @@
             unlockedPlantIds: asArray(gardenSource.unlockedPlantIds).filter(item => typeof item === 'string'),
             invader: Object.assign(createDefaultGarden().invader, gardenSource.invader || {})
         });
+        garden.defenseEnergy = Math.max(0, Math.min(9, Number(garden.defenseEnergy) || 0));
+        garden.defenseShots = Math.max(0, Number(garden.defenseShots) || 0);
+        garden.lastDefenseDate = String(garden.lastDefenseDate || '');
+        garden.invader.health = Math.max(0, Math.min(9, Number(garden.invader.health) || 3));
+        garden.invader.maxHealth = Math.max(1, Math.min(9, Number(garden.invader.maxHealth) || 3));
+        garden.invader.wave = Math.max(0, Number(garden.invader.wave) || 0);
+        if (!garden.invader.active && garden.invader.health === 0) garden.invader.health = garden.invader.maxHealth;
+        if (garden.invader.health > garden.invader.maxHealth) garden.invader.health = garden.invader.maxHealth;
         const collection = Object.assign(createDefaultCollection(), collectionSource, {
             unlockedIds: asArray(collectionSource.unlockedIds).filter(item => typeof item === 'string'),
             claimedIds: asArray(collectionSource.claimedIds).filter(item => typeof item === 'string'),
@@ -113,9 +124,18 @@
             growth.collection.unlockedIds.push('sticker-rainbow');
             rewardIds.push('sticker-rainbow');
         }
+        let defenseEnergyGranted = false;
+        if (ACTION_EVENTS.includes(type) && eventId) {
+            const before = growth.garden.defenseEnergy;
+            growth.garden.defenseEnergy = Math.min(9, before + 1);
+            growth.garden.lastDefenseDate = localDate(date);
+            defenseEnergyGranted = growth.garden.defenseEnergy > before;
+        }
         let invaderDefeated = false;
-        if (ACTION_EVENTS.includes(type) && growth.garden.invader.active) {
+        // Keep the original one-tap behavior for legacy callers that did not send an event id.
+        if (ACTION_EVENTS.includes(type) && !eventId && growth.garden.invader.active) {
             growth.garden.invader.active = false;
+            growth.garden.invader.health = 0;
             growth.garden.invader.defeated += 1;
             growth.garden.invader.lastSpawnDate = '';
             invaderDefeated = true;
@@ -124,7 +144,51 @@
                 rewardIds.push('sticker-brave');
             }
         }
-        return { growth: unlockByProgress(growth), changed: true, rewardIds: Array.from(new Set(rewardIds)), invaderDefeated: invaderDefeated, date: localDate(date) };
+        return { growth: unlockByProgress(growth), changed: true, rewardIds: Array.from(new Set(rewardIds)), invaderDefeated: invaderDefeated, defenseEnergyGranted: defenseEnergyGranted, date: localDate(date) };
+    }
+
+    function spawnInvader(input, date) {
+        const growth = normalize(input);
+        if (growth.garden.invader.active) return { growth: growth, changed: false, spawned: false };
+        const wave = Math.max(1, (Number(growth.garden.invader.wave) || 0) + 1);
+        const maxHealth = Math.min(9, 3 + Math.floor((wave - 1) / 3));
+        growth.garden.invader = Object.assign({}, growth.garden.invader, {
+            active: true,
+            health: maxHealth,
+            maxHealth: maxHealth,
+            wave: wave,
+            lastSpawnDate: localDate(date)
+        });
+        return { growth: growth, changed: true, spawned: true };
+    }
+
+    function firePea(input, date) {
+        const growth = normalize(input);
+        if (growth.garden.defenseEnergy < 1) return { ok: false, growth: growth, hit: false, defeated: false, reason: '没有可发射的豌豆能量' };
+        if (!growth.garden.invader.active) return { ok: false, growth: growth, hit: false, defeated: false, reason: '花园里没有入侵者' };
+        growth.garden.defenseEnergy -= 1;
+        growth.garden.defenseShots += 1;
+        growth.garden.lastDefenseDate = localDate(date);
+        growth.garden.invader.health = Math.max(0, growth.garden.invader.health - 1);
+        const defeated = growth.garden.invader.health <= 0;
+        if (defeated) {
+            growth.garden.invader.active = false;
+            growth.garden.invader.defeated += 1;
+            growth.garden.invader.lastSpawnDate = '';
+            if (!growth.collection.unlockedIds.includes('sticker-brave')) growth.collection.unlockedIds.push('sticker-brave');
+        }
+        return { ok: true, growth: unlockByProgress(growth), hit: true, defeated: defeated, reason: '' };
+    }
+
+    function getDefenseView(input, date) {
+        const growth = normalize(input);
+        const invader = getInvaderView(growth, date);
+        return {
+            energy: growth.garden.defenseEnergy,
+            shots: growth.garden.defenseShots,
+            invader: invader,
+            canFire: Boolean(invader.active && growth.garden.defenseEnergy > 0)
+        };
     }
 
     function selectPlant(input, plantId) {
@@ -167,6 +231,9 @@
         normalize: normalize,
         applySunlight: applySunlight,
         recordEvent: recordEvent,
+        spawnInvader: spawnInvader,
+        firePea: firePea,
+        getDefenseView: getDefenseView,
         selectPlant: selectPlant,
         getView: getView
     };
