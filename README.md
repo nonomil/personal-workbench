@@ -4,6 +4,16 @@
 
 当前独立项目版本：`v0.1.0`
 
+## GitHub Pages 网站
+
+在线网站：<https://nonomil.github.io/personal-workbench/>
+
+- [成人成长工作台](https://nonomil.github.io/personal-workbench/成人成长工作台/)
+- [儿童学习工作台](https://nonomil.github.io/personal-workbench/儿童学习工作台/)
+- [幼儿学习工作台](https://nonomil.github.io/personal-workbench/幼儿学习工作台/)
+
+GitHub Pages 使用 `main` 分支根目录作为静态站点来源，不需要构建命令。推送 HTML、CSS、JavaScript 或素材后，等待 GitHub Pages 完成部署即可。仓库设置路径：`Settings` → `Pages` → `Deploy from a branch` → `main` → `/ (root)`。
+
 ## 运行
 
 从仓库根目录启动静态服务：

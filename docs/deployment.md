@@ -26,6 +26,17 @@ python -m http.server 7000
 - `http://127.0.0.1:7000/儿童学习工作台/`
 - `http://127.0.0.1:7000/幼儿学习工作台/`
 
+## GitHub Pages
+
+仓库已配置为使用 `main` 分支根目录发布静态网站，在线地址为：
+
+- `https://nonomil.github.io/personal-workbench/`
+- `https://nonomil.github.io/personal-workbench/成人成长工作台/`
+- `https://nonomil.github.io/personal-workbench/儿童学习工作台/`
+- `https://nonomil.github.io/personal-workbench/幼儿学习工作台/`
+
+不需要构建命令或输出目录。修改后推送到 `main`，等待 Pages 部署完成即可。GitHub 仓库设置为 `Settings` → `Pages` → `Deploy from a branch` → `main` → `/ (root)`。
+
 ## 自托管 API
 
 在独立部署的自托管 API 服务中配置数据目录、JWT secret、注册策略和允许的前端 origin。生产 CORS 配置必须填写实际 Vercel 前端 origin，例如 `https://your-workbench.vercel.app`，不能写 `*`。
