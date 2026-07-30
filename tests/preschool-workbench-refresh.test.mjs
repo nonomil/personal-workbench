@@ -158,11 +158,25 @@ test('keeps preschool plant companions and defense HUD on the generated pixel as
   assert.match(app, /const plantAsset = preschoolPlantAsset\(activePlant\)/);
   assert.match(app, /pixel-hud-defense-art/);
   assert.match(app, /asset: 'player-energy-bars'/);
-  assert.match(config, /selected\.id === 'preschool' \? 'v0\.2\.0 · 幼儿版'/);
+  assert.match(config, /selected\.id === 'preschool' \? 'v0\.2\.1 · 幼儿版'/);
   assert.doesNotMatch(config, /v0\.3 · 幼儿版/);
   assert.match(styles, /pixel-hud-defense-art/);
   assert.match(styles, /image-rendering: pixelated/);
   for (const asset of ['seedling-node.png', 'flower-checkpoint.png', 'flower-pot.png', 'growth-tree.png', 'player-energy-bars.png']) {
     assert.equal(fs.existsSync(path.join(root, 'assets', 'generated', 'preschool-pixel', 'reference', 'gpt-output-20260730', 'published-gpt-v2', asset)), true, asset);
   }
+});
+
+test('keeps preschool v2.3 reward feedback visible in the first-screen contract', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const styles = fs.readFileSync(path.join(root, 'styles.css'), 'utf8');
+  assert.match(app, /pixel-daily-note-meter/);
+  assert.match(app, /preschool-celebration-resources/);
+  assert.match(app, /defenseEnergyGranted/);
+  assert.match(app, /pixel-hud-sun/);
+  assert.match(app, /is-bumped/);
+  assert.match(styles, /pixel-daily-note-meter/);
+  assert.match(styles, /preschool-celebration-resources/);
+  assert.match(styles, /preschool-hud-bump/);
+  assert.match(styles, /prefers-reduced-motion: reduce/);
 });

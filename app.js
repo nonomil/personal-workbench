@@ -82,6 +82,7 @@
     let state = repository.load();
     let preschoolCelebrationTimer = 0;
     let preschoolPeaTimer = 0;
+    let preschoolHudPulseTimer = 0;
     let preschoolMusic = null;
 
     function getPageFromHash() {
@@ -481,6 +482,13 @@
         }).join('')}</section>`;
     }
 
+    function renderPixelDailyNote(done, total) {
+        const safeTotal = Math.max(0, Number(total) || 0);
+        const safeDone = Math.max(0, Math.min(safeTotal, Number(done) || 0));
+        const percent = safeTotal ? Math.round((safeDone / safeTotal) * 100) : 0;
+        return `<section class="pixel-daily-note" aria-label="今日提示"><span class="pixel-daily-note-art">${preschoolAsset('sun-smile-badge', '今日提示')}</span><span><strong>${safeDone ? '做得很棒，继续点亮花园' : '今天先完成一项小任务吧'}</strong><small>完成任务会得到阳光和豌豆能量，花园也会更热闹。</small></span><span class="pixel-daily-note-meter" role="progressbar" aria-label="今日任务进度" aria-valuemin="0" aria-valuemax="${safeTotal}" aria-valuenow="${safeDone}"><i style="width:${percent}%"></i></span><span class="pixel-daily-note-count">${safeDone}/${safeTotal}</span></section>`;
+    }
+
     function renderPreschoolOverview(derived) {
         const growth = getChildGrowth();
         const done = derived.todayPlans.filter(item => item.done).length;
@@ -489,7 +497,7 @@
         const defense = getPreschoolDefense(growth);
         return `<div class="pixel-home">
             <section class="pixel-page-header"><div><span class="pixel-panel-kicker">TODAY / ADVENTURE</span><h1>今天的冒险开始啦</h1><p>${done}/${total || 0} 个任务已点亮，完成一小步，花园就多一束光。</p></div><div class="pixel-header-actions"><span class="pixel-hud-sun">${preschoolAsset('sun-token', '阳光')}<strong>${growth.sunlight}</strong></span><span class="pixel-hud-defense"><span class="pixel-hud-defense-art">${preschoolAsset('player-energy-bars', '豌豆能量')}</span><strong>${defense.energy}</strong><span>豌豆</span></span><span class="pixel-hud-streak"><span class="pixel-hud-streak-art">${preschoolAsset('streak-stars', '连续打卡')}</span>${growth.streak} 天</span><button class="pixel-settings-button" type="button" data-action="navigate" data-page="account" aria-label="打开设置" title="打开设置">${preschoolAsset('settings-gear', '打开设置')}</button></div></section>
-            <section class="pixel-daily-note" aria-label="今日提示"><span class="pixel-daily-note-art">${preschoolAsset('sun-smile-badge', '今日提示')}</span><span><strong>${done ? '做得很棒，继续点亮花园' : '今天先完成一项小任务吧'}</strong><small>完成任务会得到阳光和豌豆能量，花园也会更热闹。</small></span><span class="pixel-daily-note-count">${done}/${total || 0}</span></section>
+            ${renderPixelDailyNote(done, total)}
             ${renderPixelStats(growth, defense)}
             <div class="pixel-world-grid">${renderPixelMap(growth, plans, true)}<section class="pixel-quest-board"><div class="pixel-board-heading"><div><span class="pixel-panel-kicker">TODAY QUESTS</span><h2>今日任务</h2></div><span class="pixel-board-count">${done} / ${total || 0} 完成</span></div><div class="pixel-quest-grid">${plans.map(pixelQuestCard).join('')}</div></section><aside class="pixel-side-stack">${renderPixelChest(growth, done, total)}${renderPreschoolCollection(growth)}</aside></div>
             <section class="pixel-bottom-bar"><div><span class="pixel-panel-kicker">LITTLE ROUTE</span><strong>语文 · 数学 · 英语</strong><small>每完成一项，阳光会照亮花园。</small></div><button class="pixel-side-button" type="button" data-action="navigate" data-page="courses">${icon('book-open')} 去上小课</button><button class="pixel-side-link" type="button" data-action="navigate" data-page="family">告诉家长${icon('heart')}</button></section>
@@ -1098,6 +1106,7 @@
     }
 
     function stopPreschoolMusic() {
+        if (document.body) document.body.classList.remove('preschool-music-active');
         if (!preschoolMusic) return;
         window.clearInterval(preschoolMusic.timer);
         const context = preschoolMusic.context;
@@ -1133,6 +1142,7 @@
                 noteIndex += 1;
             };
             preschoolMusic = { context: context, master: master, timer: window.setInterval(playNote, 620) };
+            if (document.body) document.body.classList.add('preschool-music-active');
             playNote();
             if (context.state === 'suspended') context.resume().catch(function (error) { console.warn('[PersonalWorkbench] 花园音乐启动失败', error); });
         } catch (error) {
@@ -1149,6 +1159,7 @@
         }, enabled ? '反馈已打开' : '反馈已关闭');
         if (!ok) return;
         if (key === 'musicEnabled') {
+            if (document.body) document.body.classList.toggle('preschool-music-active', Boolean(enabled));
             if (enabled) startPreschoolMusic();
             else stopPreschoolMusic();
         }
@@ -1170,6 +1181,26 @@
         }).filter(Boolean);
     }
 
+    function pulsePreschoolHud(payload) {
+        if (!isPreschool) return;
+        const targets = [];
+        const sun = document.querySelector('.pixel-hud-sun');
+        const defense = document.querySelector('.pixel-hud-defense');
+        if (sun && payload && payload.amount) targets.push(sun);
+        if (defense && payload && payload.defenseEnergyGranted) targets.push(defense);
+        if (!targets.length) return;
+        if (preschoolHudPulseTimer) window.clearTimeout(preschoolHudPulseTimer);
+        targets.forEach(function (target) {
+            target.classList.remove('is-bumped');
+            void target.offsetWidth;
+            target.classList.add('is-bumped');
+        });
+        preschoolHudPulseTimer = window.setTimeout(function () {
+            targets.forEach(function (target) { target.classList.remove('is-bumped'); });
+            preschoolHudPulseTimer = 0;
+        }, getPreschoolFeedbackPreference('motionEnabled', true) ? 720 : 40);
+    }
+
     function showPreschoolCelebration(payload) {
         if (!isPreschool || !payload) return;
         const old = document.querySelector('.preschool-celebration');
@@ -1177,14 +1208,19 @@
         if (preschoolCelebrationTimer) window.clearTimeout(preschoolCelebrationTimer);
         const rewards = collectionTitles(payload.rewardIds || []);
         const message = payload.invaderDefeated ? '小怪被赶走啦！' : payload.message || '做得真棒！';
-        const detail = [payload.detail || '', payload.amount ? `阳光 +${payload.amount}` : '', rewards.length ? `获得：${rewards.join('、')}` : ''].filter(Boolean).join(' · ');
+        const detail = [payload.detail || '', payload.amount ? `阳光 +${payload.amount}` : '', payload.defenseEnergyGranted ? '豌豆能量 +1' : '', rewards.length ? `获得：${rewards.join('、')}` : ''].filter(Boolean).join(' · ');
+        const resourceMarkup = [
+            payload.amount ? `<span>${preschoolAsset('sun-token', '阳光')}<b>+${escapeHtml(payload.amount)}</b></span>` : '',
+            payload.defenseEnergyGranted ? `<span>${preschoolAsset('player-energy-bars', '豌豆能量')}<b>+1</b></span>` : ''
+        ].filter(Boolean).join('');
         const node = document.createElement('div');
         node.className = 'preschool-celebration';
         node.setAttribute('role', 'status');
         node.setAttribute('aria-live', 'polite');
-        node.innerHTML = `<span class="preschool-celebration-icon">${icon(payload.invaderDefeated ? 'shield-check' : rewards.length ? 'album' : 'sparkles')}</span><strong>${escapeHtml(message)}</strong>${detail ? `<small>${escapeHtml(detail)}</small>` : ''}`;
+        node.innerHTML = `<span class="preschool-celebration-icon">${icon(payload.invaderDefeated ? 'shield-check' : rewards.length ? 'album' : 'sparkles')}</span><strong>${escapeHtml(message)}</strong>${detail ? `<small>${escapeHtml(detail)}</small>` : ''}${resourceMarkup ? `<span class="preschool-celebration-resources">${resourceMarkup}</span>` : ''}`;
         document.body.appendChild(node);
         global.lucide.createIcons({ root: node });
+        pulsePreschoolHud(payload);
         preschoolCelebrationTimer = window.setTimeout(function () {
             node.remove();
             preschoolCelebrationTimer = 0;
@@ -1436,7 +1472,7 @@
                 if (result.zombieDefeated || gardenView.invaderActive) next.growth.garden.invader.active = true;
                 const gardenEvent = preschoolGarden.recordEvent(next.growth, preschoolEventType(awardId), today, awardId);
                 next.growth = gardenEvent.growth;
-                ui.pendingCelebration = { message: gardenEvent.invaderDefeated ? '小怪被赶走啦！' : '做得真棒！', amount: Math.max(0, Number(amount) || 0) + result.dailyBonus, rewardIds: gardenEvent.rewardIds, invaderDefeated: gardenEvent.invaderDefeated };
+                ui.pendingCelebration = { message: gardenEvent.invaderDefeated ? '小怪被赶走啦！' : '做得真棒！', amount: Math.max(0, Number(amount) || 0) + result.dailyBonus, rewardIds: gardenEvent.rewardIds, invaderDefeated: gardenEvent.invaderDefeated, defenseEnergyGranted: gardenEvent.defenseEnergyGranted };
             }
             return result.awarded;
         }
