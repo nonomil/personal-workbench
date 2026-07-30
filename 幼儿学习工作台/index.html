@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#75cbd5">
+    <title>幼儿学习工作台</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body data-workbench-variant="preschool" data-storage-key="petbank_huchuliang_preschool_workbench_state_v1" data-hero-src="../assets/generated/preschool/preschool-garden-hero.webp">
+    <div class="app-shell" id="app-shell">
+        <aside class="sidebar" id="sidebar" aria-label="幼儿学习工作台导航">
+            <div class="sidebar-topline"><a class="brand" href="#overview" aria-label="返回幼儿学习工作台首页"><span class="brand-mark"><i data-lucide="sun"></i></span><span><strong>幼儿学习工作台</strong><small>PRESCHOOL LEARNING</small></span></a><button class="icon-button sidebar-close" type="button" data-action="close-sidebar" aria-label="关闭导航" title="关闭导航"><i data-lucide="x"></i></button></div>
+            <div class="sidebar-section-label">小小路线</div>
+            <nav class="primary-nav" aria-label="主要页面">
+                <button class="nav-item is-active" type="button" data-action="navigate" data-page="overview"><i data-lucide="house"></i><span>今天</span><kbd>01</kbd></button>
+                <button class="nav-item" type="button" data-action="navigate" data-page="growth"><i data-lucide="sprout"></i><span>成长</span><kbd>02</kbd></button>
+                <button class="nav-item" type="button" data-action="navigate" data-page="plans"><i data-lucide="circle-check"></i><span>打卡</span><kbd>03</kbd></button>
+                <button class="nav-item" type="button" data-action="navigate" data-page="courses"><i data-lucide="book-open"></i><span>课程</span><kbd>04</kbd></button>
+                <button class="nav-item" type="button" data-action="navigate" data-page="mistakes"><i data-lucide="pencil"></i><span>改错</span><kbd>05</kbd></button>
+                <button class="nav-item" type="button" data-action="navigate" data-page="rewards"><i data-lucide="gift"></i><span>奖励</span><kbd>06</kbd></button>
+                <button class="nav-item" type="button" data-action="navigate" data-page="family"><i data-lucide="heart-handshake"></i><span>家长</span><kbd>07</kbd></button>
+                <button class="nav-item" type="button" data-action="navigate" data-page="account"><i data-lucide="settings-2"></i><span>设置</span><kbd>08</kbd></button>
+            </nav>
+            <div class="sidebar-spacer"></div>
+            <div class="sidebar-footer"><div class="mode-status"><span class="status-dot"></span><span><strong>本地模式</strong><small>本地快照 · 家长可备份</small></span></div><div class="sidebar-tools"><button class="tool-button" type="button" data-action="export"><i data-lucide="download"></i><span>导出备份</span></button><button class="tool-button" type="button" data-action="import-trigger"><i data-lucide="upload"></i><span>导入快照</span></button><input id="import-file" type="file" accept="application/json,.json" hidden></div><p class="sidebar-footnote">v0.3 · 幼儿版</p></div>
+        </aside>
+        <div class="sidebar-scrim" id="sidebar-scrim" data-action="close-sidebar"></div>
+        <main class="main-content"><header class="topbar"><button class="icon-button menu-toggle" type="button" data-action="open-sidebar" aria-label="打开导航" title="打开导航"><i data-lucide="menu"></i></button><div class="topbar-context"><span>PRESCHOOL LEARNING</span><b>/</b><strong id="topbar-page-name">今天</strong></div><div class="topbar-actions"><button class="topbar-focus-button" type="button" data-action="open-focus"><i data-lucide="play"></i><span>开始学习</span></button><span class="topbar-divider"></span><span class="avatar" aria-label="当前用户">芽</span></div></header><section class="page-content" id="page-content" aria-live="polite"></section></main>
+    </div>
+    <dialog class="entry-dialog" id="entry-dialog" aria-labelledby="dialog-title"><div class="dialog-head"><div><span class="eyebrow" id="dialog-eyebrow">NEW ENTRY</span><h2 id="dialog-title">添加记录</h2></div><button class="icon-button" type="button" data-action="close-dialog" aria-label="关闭弹窗" title="关闭弹窗"><i data-lucide="x"></i></button></div><form id="entry-form" class="entry-form"></form></dialog>
+    <div class="toast-stack" id="toast-stack" aria-live="polite" aria-atomic="true"></div>
+    <script src="../config.js"></script><script src="../icons.js"></script><script src="../child-growth.js"></script><script src="../preschool-garden.js"></script><script src="../child-courses.js"></script><script src="../storage.js"></script><script src="../family-interaction.js"></script><script src="../api-adapter.js"></script><script src="../app.js"></script>
+</body>
+</html>

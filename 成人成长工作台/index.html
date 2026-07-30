@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0e0f14">
+    <title>成人成长工作台</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body data-workbench-variant="adult" data-storage-key="petbank_huchuliang_adult_workbench_state_v1" data-hero-src="../assets/generated/workbench-hero-adult.webp">
+    <div class="app-shell" id="app-shell">
+        <aside class="sidebar" id="sidebar" aria-label="成人成长工作台导航">
+            <div class="sidebar-topline">
+                <a class="brand" href="#overview" aria-label="返回成人成长工作台首页">
+                    <span class="brand-mark"><i data-lucide="layout-dashboard"></i></span>
+                    <span><strong>成人成长工作台</strong><small>ADULT GROWTH WORKBENCH</small></span>
+                </a>
+                <button class="icon-button sidebar-close" type="button" data-action="close-sidebar" aria-label="关闭导航" title="关闭导航"><i data-lucide="x"></i></button>
+            </div>
+            <div class="sidebar-section-label">工作台</div>
+            <nav class="primary-nav" aria-label="主要页面">
+                <button class="nav-item is-active" type="button" data-action="navigate" data-page="overview"><i data-lucide="layout-dashboard"></i><span>概览</span><kbd>01</kbd></button>
+                <button class="nav-item" type="button" data-action="navigate" data-page="plans"><i data-lucide="clipboard-check"></i><span>今日计划</span><kbd>02</kbd></button>
+                <button class="nav-item" type="button" data-action="navigate" data-page="tasks"><i data-lucide="list-todo"></i><span>成长任务</span><kbd>03</kbd></button>
+                <button class="nav-item" type="button" data-action="navigate" data-page="reading"><i data-lucide="book-open"></i><span>阅读记录</span><kbd>04</kbd></button>
+                <button class="nav-item" type="button" data-action="navigate" data-page="goals"><i data-lucide="target"></i><span>长期目标</span><kbd>05</kbd></button>
+                <button class="nav-item" type="button" data-action="navigate" data-page="life"><i data-lucide="layers-3"></i><span>生活分区</span><kbd>06</kbd></button>
+                <button class="nav-item" type="button" data-action="navigate" data-page="archive"><i data-lucide="archive"></i><span>归档与统计</span><kbd>07</kbd></button>
+                <button class="nav-item" type="button" data-action="navigate" data-page="family"><i data-lucide="heart-handshake"></i><span>家庭互动</span><kbd>08</kbd></button>
+                <button class="nav-item" type="button" data-action="navigate" data-page="reviews"><i data-lucide="rotate-ccw"></i><span>每周复盘</span><kbd>09</kbd></button>
+                <button class="nav-item" type="button" data-action="navigate" data-page="account"><i data-lucide="cloud-cog"></i><span>账号与同步</span><kbd>10</kbd></button>
+                <button class="nav-item" type="button" data-action="navigate" data-page="settings"><i data-lucide="sliders-horizontal"></i><span>偏好设置</span><kbd>11</kbd></button>
+            </nav>
+            <div class="sidebar-spacer"></div>
+            <div class="sidebar-footer">
+                <div class="mode-status"><span class="status-dot"></span><span><strong>本地模式</strong><small>本地快照 · 独立保存</small></span></div>
+                <div class="sidebar-tools"><button class="tool-button" type="button" data-action="export"><i data-lucide="download"></i><span>导出备份</span></button><button class="tool-button" type="button" data-action="import-trigger"><i data-lucide="upload"></i><span>导入快照</span></button><input id="import-file" type="file" accept="application/json,.json" hidden></div>
+                <p class="sidebar-footnote">v0.2 · 成人版</p>
+            </div>
+        </aside>
+        <div class="sidebar-scrim" id="sidebar-scrim" data-action="close-sidebar"></div>
+        <main class="main-content">
+            <header class="topbar"><button class="icon-button menu-toggle" type="button" data-action="open-sidebar" aria-label="打开导航" title="打开导航"><i data-lucide="menu"></i></button><div class="topbar-context"><span>ADULT GROWTH WORKBENCH</span><b>/</b><strong id="topbar-page-name">概览</strong></div><div class="topbar-actions"><button class="topbar-focus-button" type="button" data-action="open-focus"><i data-lucide="clock-3"></i><span>记录专注</span></button><span class="topbar-divider"></span><span class="avatar" aria-label="当前用户">我</span></div></header>
+            <section class="page-content" id="page-content" aria-live="polite"></section>
+        </main>
+    </div>
+    <dialog class="entry-dialog" id="entry-dialog" aria-labelledby="dialog-title"><div class="dialog-head"><div><span class="eyebrow" id="dialog-eyebrow">NEW ENTRY</span><h2 id="dialog-title">添加记录</h2></div><button class="icon-button" type="button" data-action="close-dialog" aria-label="关闭弹窗" title="关闭弹窗"><i data-lucide="x"></i></button></div><form id="entry-form" class="entry-form"></form></dialog>
+    <div class="toast-stack" id="toast-stack" aria-live="polite" aria-atomic="true"></div>
+    <script src="../config.js"></script><script src="../icons.js"></script><script src="../child-growth.js"></script><script src="../child-courses.js"></script><script src="../storage.js"></script><script src="../family-interaction.js"></script><script src="../api-adapter.js"></script><script src="../app.js"></script>
+</body>
+</html>

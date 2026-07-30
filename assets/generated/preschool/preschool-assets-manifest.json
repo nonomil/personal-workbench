@@ -1,0 +1,24 @@
+{
+  "source": {
+    "hero": "prj/gpt-image-workflow/output/20260729-preschool-garden-reference-agnes/preschool-garden-reference.png",
+    "iconSheet": "prj/gpt-image-workflow/output/20260729-preschool-icon-sheet-agnes/preschool-icon-sheet.png",
+    "provider": "Agnes API",
+    "model": "agnes-image-2.1-flash",
+    "generatedAt": "2026-07-29"
+  },
+  "assets": [
+    { "name": "preschool-garden-hero", "file": "preschool-garden-hero.webp", "sourceType": "landscape-reference", "dimensions": [1248, 832] },
+    { "name": "preschool-sun", "file": "preschool-sun.webp", "sourceCell": 1, "textFree": true },
+    { "name": "preschool-sprout", "file": "preschool-sprout.webp", "sourceCell": 2, "textFree": true },
+    { "name": "preschool-watering-can", "file": "preschool-watering-can.webp", "sourceCell": 3, "textFree": true },
+    { "name": "preschool-storybook", "file": "preschool-storybook.webp", "sourceCell": 4, "textFree": true },
+    { "name": "preschool-gift", "file": "preschool-gift.webp", "sourceCell": 7, "textFree": true },
+    { "name": "preschool-bug", "file": "preschool-bug.webp", "sourceCell": 8, "textFree": true },
+    { "name": "preschool-star", "file": "preschool-star.webp", "sourceCell": 9, "textFree": true }
+  ],
+  "rejectedCells": [
+    { "sourceCell": 5, "reason": "生成了数字方块，未接入页面" },
+    { "sourceCell": 6, "reason": "生成了 ABC 字母气泡，未接入页面" }
+  ],
+  "usage": "图像只承载视觉识别，中文标题、状态和交互均由 HTML/CSS 渲染。"
+}

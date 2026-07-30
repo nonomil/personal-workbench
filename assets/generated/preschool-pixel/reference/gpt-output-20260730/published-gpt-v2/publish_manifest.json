@@ -1,0 +1,1663 @@
+{
+  "tool": "publish_transparent_assets",
+  "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input",
+  "out_dir": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2",
+  "items": [
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\castle-gate.png",
+      "base_name": "castle-gate",
+      "size": {
+        "width": 216,
+        "height": 182
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\castle-gate.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\castle-gate.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\cat-helper.png",
+      "base_name": "cat-helper",
+      "size": {
+        "width": 91,
+        "height": 96
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\cat-helper.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\cat-helper.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\child-avatar.png",
+      "base_name": "child-avatar",
+      "size": {
+        "width": 101,
+        "height": 100
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\child-avatar.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\child-avatar.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\cloud-invader.png",
+      "base_name": "cloud-invader",
+      "size": {
+        "width": 123,
+        "height": 121
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\cloud-invader.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\cloud-invader.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\fence.png",
+      "base_name": "fence",
+      "size": {
+        "width": 112,
+        "height": 56
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\fence.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\fence.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\flower-checkpoint.png",
+      "base_name": "flower-checkpoint",
+      "size": {
+        "width": 147,
+        "height": 176
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\flower-checkpoint.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\flower-checkpoint.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\flower-pot.png",
+      "base_name": "flower-pot",
+      "size": {
+        "width": 151,
+        "height": 170
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\flower-pot.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\flower-pot.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\grass-patch.png",
+      "base_name": "grass-patch",
+      "size": {
+        "width": 137,
+        "height": 88
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\grass-patch.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\grass-patch.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\grass-platform.png",
+      "base_name": "grass-platform",
+      "size": {
+        "width": 118,
+        "height": 64
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\grass-platform.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\grass-platform.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\green-ribbon.png",
+      "base_name": "green-ribbon",
+      "size": {
+        "width": 139,
+        "height": 52
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\green-ribbon.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\green-ribbon.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\growth-tree.png",
+      "base_name": "growth-tree",
+      "size": {
+        "width": 136,
+        "height": 123
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\growth-tree.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\growth-tree.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\map-sun.png",
+      "base_name": "map-sun",
+      "size": {
+        "width": 86,
+        "height": 84
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\map-sun.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\map-sun.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\nav-chest.png",
+      "base_name": "nav-chest",
+      "size": {
+        "width": 138,
+        "height": 156
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\nav-chest.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\nav-chest.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\nav-family.png",
+      "base_name": "nav-family",
+      "size": {
+        "width": 138,
+        "height": 149
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\nav-family.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\nav-family.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\nav-flowers.png",
+      "base_name": "nav-flowers",
+      "size": {
+        "width": 138,
+        "height": 149
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\nav-flowers.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\nav-flowers.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\nav-sprout.png",
+      "base_name": "nav-sprout",
+      "size": {
+        "width": 138,
+        "height": 152
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\nav-sprout.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\nav-sprout.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\nav-storybook.png",
+      "base_name": "nav-storybook",
+      "size": {
+        "width": 138,
+        "height": 150
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\nav-storybook.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\nav-storybook.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\nav-sun.png",
+      "base_name": "nav-sun",
+      "size": {
+        "width": 138,
+        "height": 144
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\nav-sun.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\nav-sun.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\orange-ribbon.png",
+      "base_name": "orange-ribbon",
+      "size": {
+        "width": 149,
+        "height": 53
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\orange-ribbon.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\orange-ribbon.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\parchment-strip.png",
+      "base_name": "parchment-strip",
+      "size": {
+        "width": 222,
+        "height": 70
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\parchment-strip.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\parchment-strip.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\player-energy-bars.png",
+      "base_name": "player-energy-bars",
+      "size": {
+        "width": 122,
+        "height": 79
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\player-energy-bars.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\player-energy-bars.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\purple-ribbon.png",
+      "base_name": "purple-ribbon",
+      "size": {
+        "width": 156,
+        "height": 52
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\purple-ribbon.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\purple-ribbon.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\quest-flag-pedestal.png",
+      "base_name": "quest-flag-pedestal",
+      "size": {
+        "width": 147,
+        "height": 176
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\quest-flag-pedestal.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\quest-flag-pedestal.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\river-bridge.png",
+      "base_name": "river-bridge",
+      "size": {
+        "width": 374,
+        "height": 166
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\river-bridge.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\river-bridge.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\seedling-node.png",
+      "base_name": "seedling-node",
+      "size": {
+        "width": 121,
+        "height": 156
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\seedling-node.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\seedling-node.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\settings-gear.png",
+      "base_name": "settings-gear",
+      "size": {
+        "width": 87,
+        "height": 87
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\settings-gear.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\settings-gear.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\small-crystal.png",
+      "base_name": "small-crystal",
+      "size": {
+        "width": 49,
+        "height": 65
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\small-crystal.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\small-crystal.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\small-tree.png",
+      "base_name": "small-tree",
+      "size": {
+        "width": 87,
+        "height": 98
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\small-tree.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\small-tree.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\star-companion.png",
+      "base_name": "star-companion",
+      "size": {
+        "width": 70,
+        "height": 75
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\star-companion.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\star-companion.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\storybook-node.png",
+      "base_name": "storybook-node",
+      "size": {
+        "width": 121,
+        "height": 158
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\storybook-node.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\storybook-node.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\storybook-token.png",
+      "base_name": "storybook-token",
+      "size": {
+        "width": 121,
+        "height": 158
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\storybook-token.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\storybook-token.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\streak-stars.png",
+      "base_name": "streak-stars",
+      "size": {
+        "width": 211,
+        "height": 89
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\streak-stars.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\streak-stars.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\sun-crystal-small-1.png",
+      "base_name": "sun-crystal-small-1",
+      "size": {
+        "width": 51,
+        "height": 70
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\sun-crystal-small-1.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\sun-crystal-small-1.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\sun-crystal-small-2.png",
+      "base_name": "sun-crystal-small-2",
+      "size": {
+        "width": 55,
+        "height": 75
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\sun-crystal-small-2.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\sun-crystal-small-2.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\sun-crystal-small-3.png",
+      "base_name": "sun-crystal-small-3",
+      "size": {
+        "width": 53,
+        "height": 72
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\sun-crystal-small-3.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\sun-crystal-small-3.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\sun-progress-bar.png",
+      "base_name": "sun-progress-bar",
+      "size": {
+        "width": 216,
+        "height": 57
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\sun-progress-bar.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\sun-progress-bar.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\sun-smile-badge.png",
+      "base_name": "sun-smile-badge",
+      "size": {
+        "width": 94,
+        "height": 96
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\sun-smile-badge.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\sun-smile-badge.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\sun-token.png",
+      "base_name": "sun-token",
+      "size": {
+        "width": 86,
+        "height": 84
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\sun-token.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\sun-token.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\sunlight-crystal-cluster.png",
+      "base_name": "sunlight-crystal-cluster",
+      "size": {
+        "width": 66,
+        "height": 94
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\sunlight-crystal-cluster.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\sunlight-crystal-cluster.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\sunlight-crystal.png",
+      "base_name": "sunlight-crystal",
+      "size": {
+        "width": 66,
+        "height": 94
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\sunlight-crystal.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\sunlight-crystal.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\task-book-icon.png",
+      "base_name": "task-book-icon",
+      "size": {
+        "width": 125,
+        "height": 125
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\task-book-icon.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\task-book-icon.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\task-sun-icon.png",
+      "base_name": "task-sun-icon",
+      "size": {
+        "width": 125,
+        "height": 125
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\task-sun-icon.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\task-sun-icon.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\task-water-icon.png",
+      "base_name": "task-water-icon",
+      "size": {
+        "width": 125,
+        "height": 125
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\task-water-icon.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\task-water-icon.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\treasure-chest.png",
+      "base_name": "treasure-chest",
+      "size": {
+        "width": 264,
+        "height": 275
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\treasure-chest.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\treasure-chest.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\water-drop-token.png",
+      "base_name": "water-drop-token",
+      "size": {
+        "width": 119,
+        "height": 153
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\water-drop-token.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\water-drop-token.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\curated-input\\water-node.png",
+      "base_name": "water-node",
+      "size": {
+        "width": 119,
+        "height": 153
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\water-node.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\reference\\gpt-output-20260730\\published-gpt-v2\\water-node.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 0
+      }
+    }
+  ]
+}

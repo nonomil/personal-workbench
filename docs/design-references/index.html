@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>幼儿工作台视觉方向对比</title>
+    <style>
+        :root { color-scheme: light; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; color: #20302b; background: #f5f0e5; }
+        * { box-sizing: border-box; }
+        body { margin: 0; }
+        main { width: min(1500px, calc(100% - 40px)); margin: 0 auto; padding: 46px 0 64px; }
+        .eyebrow { color: #6d776f; font-size: 11px; font-weight: 800; letter-spacing: .14em; }
+        h1 { margin: 10px 0 8px; font-size: clamp(28px, 4vw, 54px); line-height: 1.08; }
+        .intro { max-width: 760px; margin: 0; color: #65716a; line-height: 1.7; }
+        .reference-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; margin-top: 34px; }
+        article { overflow: hidden; border: 2px solid #ded7c9; border-radius: 18px; background: #fffdf8; box-shadow: 0 12px 28px rgba(75, 64, 45, .1); }
+        article.pixel { border-color: #526b5c; background: #15251f; color: #fff5d2; }
+        .image-wrap { padding: 10px; background: #f7efd9; }
+        .pixel .image-wrap { background: #0d1715; }
+        img { display: block; width: 100%; height: auto; border-radius: 10px; }
+        .copy { padding: 20px 22px 24px; }
+        h2 { margin: 5px 0 8px; font-size: 23px; }
+        p { margin: 0; line-height: 1.7; color: #65716a; }
+        .pixel p { color: #c9d1bd; }
+        .tag { display: inline-flex; padding: 5px 9px; border-radius: 999px; color: #536c4c; background: #e7f4de; font-size: 11px; font-weight: 800; }
+        .pixel .tag { color: #20382b; background: #d6b85e; }
+        @media (max-width: 800px) { main { width: min(100% - 24px, 560px); padding-top: 28px; } .reference-grid { grid-template-columns: 1fr; gap: 16px; } }
+    </style>
+</head>
+<body>
+    <main>
+        <span class="eyebrow">PRESCHOOL WORKBENCH / VISUAL REFERENCES</span>
+        <h1>先选世界，再重做页面</h1>
+        <p class="intro">这两张图只用于确定幼儿版的视觉方向，不会直接替换线上页面。两套方案都保留“今日任务 → 阳光 → 成长 → 奖励”的核心闭环。</p>
+        <section class="reference-grid" aria-label="两种视觉方向">
+            <article>
+                <div class="image-wrap"><img src="./generated/workbench-garden-reference_001.png" alt="阳光花园版幼儿学习工作台参考设计图"></div>
+                <div class="copy"><span class="tag">方向 A · 温柔花园</span><h2>阳光花园 / Clay Garden</h2><p>纸雕和软 3D 视觉，信息最清楚，适合低龄幼儿。优点是亲和、容易看懂；缺点是游戏感需要靠动画和任务反馈继续加强。</p></div>
+            </article>
+            <article class="pixel">
+                <div class="image-wrap"><img src="./generated/workbench-pixel-reference_001.png" alt="原创像素方块世界幼儿学习工作台参考设计图"></div>
+                <div class="copy"><span class="tag">方向 B · 像素冒险</span><h2>方块花园 / Pixel Quest</h2><p>原创像素方块世界，任务牌、地图节点、宝箱和收集栏都更像游戏。优先推荐这个方向，再把字号、触控目标和色彩对比做幼儿化。</p></div>
+            </article>
+        </section>
+    </main>
+</body>
+</html>

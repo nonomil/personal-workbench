@@ -1,0 +1,61 @@
+{
+  "canvas": {
+    "width": 1296,
+    "height": 1136
+  },
+  "source": "../clean/01-2_clean.png",
+  "regions": [
+    {"name": "sun-smile-badge", "x": 0, "y": 25, "w": 78, "h": 80},
+    {"name": "sunlight-crystal", "x": 296, "y": 20, "w": 62, "h": 86},
+    {"name": "sun-progress-bar", "x": 350, "y": 28, "w": 215, "h": 82},
+    {"name": "streak-stars", "x": 570, "y": 24, "w": 205, "h": 88},
+    {"name": "child-avatar", "x": 848, "y": 25, "w": 100, "h": 96},
+    {"name": "player-energy-bars", "x": 965, "y": 28, "w": 122, "h": 85},
+    {"name": "settings-gear", "x": 1110, "y": 25, "w": 82, "h": 88},
+
+    {"name": "nav-sun", "x": 4, "y": 168, "w": 132, "h": 132},
+    {"name": "nav-sprout", "x": 4, "y": 294, "w": 132, "h": 132},
+    {"name": "nav-storybook", "x": 4, "y": 420, "w": 132, "h": 132},
+    {"name": "nav-flowers", "x": 4, "y": 545, "w": 132, "h": 132},
+    {"name": "nav-chest", "x": 4, "y": 671, "w": 132, "h": 136},
+    {"name": "nav-family", "x": 4, "y": 798, "w": 132, "h": 138},
+
+    {"name": "task-water-icon", "x": 214, "y": 228, "w": 105, "h": 105},
+    {"name": "task-book-icon", "x": 452, "y": 228, "w": 105, "h": 105},
+    {"name": "task-sun-icon", "x": 710, "y": 228, "w": 105, "h": 105},
+    {"name": "treasure-chest", "x": 1040, "y": 242, "w": 212, "h": 170},
+
+    {"name": "map-sun", "x": 180, "y": 468, "w": 72, "h": 80},
+    {"name": "cloud-invader", "x": 610, "y": 415, "w": 112, "h": 126},
+    {"name": "growth-tree", "x": 718, "y": 414, "w": 150, "h": 130},
+    {"name": "small-tree", "x": 865, "y": 445, "w": 88, "h": 98},
+    {"name": "seedling-node", "x": 178, "y": 535, "w": 134, "h": 165},
+    {"name": "water-node", "x": 318, "y": 545, "w": 134, "h": 158},
+    {"name": "storybook-node", "x": 452, "y": 514, "w": 142, "h": 178},
+    {"name": "flower-checkpoint", "x": 592, "y": 530, "w": 138, "h": 168},
+    {"name": "castle-gate", "x": 720, "y": 532, "w": 222, "h": 182},
+    {"name": "cat-helper", "x": 180, "y": 705, "w": 88, "h": 92},
+    {"name": "star-companion", "x": 270, "y": 710, "w": 82, "h": 90},
+    {"name": "sun-crystal-small-1", "x": 354, "y": 700, "w": 70, "h": 92},
+    {"name": "sun-crystal-small-2", "x": 486, "y": 682, "w": 78, "h": 98},
+    {"name": "sun-crystal-small-3", "x": 622, "y": 700, "w": 78, "h": 96},
+    {"name": "flower-pot", "x": 768, "y": 720, "w": 152, "h": 154},
+    {"name": "grass-patch", "x": 168, "y": 825, "w": 160, "h": 108},
+    {"name": "fence", "x": 316, "y": 830, "w": 122, "h": 88},
+    {"name": "river-bridge", "x": 438, "y": 780, "w": 372, "h": 166},
+    {"name": "grass-platform", "x": 790, "y": 850, "w": 118, "h": 90},
+
+    {"name": "collection-sun-crystal", "x": 1010, "y": 570, "w": 78, "h": 102},
+    {"name": "collection-rainbow-crystal", "x": 1202, "y": 568, "w": 80, "h": 106},
+    {"name": "collection-flower", "x": 1002, "y": 672, "w": 88, "h": 108},
+    {"name": "collection-butterfly", "x": 1068, "y": 672, "w": 90, "h": 106},
+    {"name": "collection-mushroom", "x": 1136, "y": 670, "w": 90, "h": 110},
+    {"name": "collection-potted-shrub", "x": 1195, "y": 670, "w": 100, "h": 115},
+
+    {"name": "parchment-strip", "x": 0, "y": 970, "w": 220, "h": 66},
+    {"name": "green-ribbon", "x": 588, "y": 970, "w": 148, "h": 66},
+    {"name": "purple-ribbon", "x": 738, "y": 970, "w": 166, "h": 66},
+    {"name": "orange-ribbon", "x": 908, "y": 970, "w": 158, "h": 66},
+    {"name": "small-crystal", "x": 1058, "y": 970, "w": 70, "h": 66}
+  ]
+}

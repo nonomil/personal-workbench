@@ -1,0 +1,20 @@
+{
+  "status": "failed",
+  "prefix": "pixel-ui-assets-b",
+  "model": "gpt-image-2",
+  "apiUrl": "https://beeapi.ai/v1/images/generations",
+  "sizeRequested": "1024x1024",
+  "promptFile": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\raw\\pixel-ui-assets-b\\pixel-ui-assets-b.prompt.txt",
+  "attempts": [
+    {
+      "attempt": 1,
+      "startedAt": "2026-07-29T23:52:56",
+      "response": "G:\\StudyCode\\宠物积分系统\\prj\\个人工作台\\assets\\generated\\preschool-pixel\\raw\\pixel-ui-assets-b\\pixel-ui-assets-b.response.attempt1.json",
+      "status": "error",
+      "httpStatus": 404,
+      "body": "{\"code\":404,\"message\":\"no enabled channel for model \\\"gpt-image-2\\\"\",\"request_id\":\"1e295d3f-a4c6-4f80-a557-28ab9b740cbc\"}"
+    }
+  ],
+  "createdAt": "2026-07-29T23:52:58",
+  "nextAction": "re-run with --resume after the provider enables the model/channel"
+}

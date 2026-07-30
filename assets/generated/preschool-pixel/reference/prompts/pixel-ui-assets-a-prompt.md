@@ -1,0 +1,17 @@
+# Preschool Pixel UI Asset Sheet A
+
+Use case: children's learning workbench game UI asset explosion sheet
+
+Reference image: `prj/个人工作台/docs/design-references/generated/workbench-pixel-reference_001.png` is a composition and palette reference only. Create original assets; do not copy any character, texture, logo, panel, or exact UI element from it.
+
+Primary request: Create a clean 3 by 2 transparent-style sprite sheet containing six isolated original 16-bit pixel-art components for a preschool learning adventure dashboard: a bright sunlight crystal token, a blue water-drop token, a small red storybook quest icon, a friendly smiling sun quest badge, a closed wooden treasure chest with gold trim, and a small cluster of four floating sunlight crystals.
+
+Style/medium: original 16-bit pixel art, crisp nearest-neighbor edges, chunky dark pixel outlines, limited warm parchment / forest / sky palette, readable silhouettes at 64px, gentle and safe for ages 4-7. Keep every object fully visible with generous spacing and a small contained pixel shadow under each object.
+
+Composition/framing: square 1024x1024 canvas, six equal cells in a 3 by 2 arrangement, one centered object per cell, no overlap between cells, no visible grid lines, no border around the canvas, transparent-looking removable background.
+
+Background: perfectly flat solid `#ff00ff` magenta chroma-key background only. No gradient, texture, reflections, floor plane, cast shadow outside each object, or lighting variation in the background. Do not use `#ff00ff` inside any asset.
+
+Text: no readable text, no letters, no numbers, no Chinese characters, no pinyin, no logos, no watermark, no fake UI copy.
+
+Avoid: Minecraft blocks, Plants vs. Zombies characters, branded game UI, photorealism, 3D clay, neon cyberpunk, frightening enemies, gore, weapons, duplicate objects, cropped edges, merged objects, or accidental fragments.

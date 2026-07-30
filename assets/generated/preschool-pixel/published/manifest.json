@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "id": "preschool-pixel-ui-assets",
+  "status": "published",
+  "style": "original 16-bit pixel art",
+  "sourceSheets": [
+    "../raw/agnes-pixel-ui-assets-a.png",
+    "../raw/agnes-pixel-ui-assets-b-magenta-v2.png"
+  ],
+  "processing": {
+    "generator": "Agnes API / agnes-image-2.1-flash",
+    "backgroundRemoval": "chroma-key with local alpha cleanup",
+    "split": "3x3 grid crop for A, auto component crop for B",
+    "textPolicy": "no runtime labels are baked into the PNG assets"
+  },
+  "assets": [
+    { "name": "sun-token", "file": "sun-token.png", "sourceSheet": "A", "crop": [0, 0, 341, 341], "bbox": [48, 45, 256, 268], "opaquePixels": 38330 },
+    { "name": "water-drop-token", "file": "water-drop-token.png", "sourceSheet": "A", "crop": [341, 0, 341, 341], "bbox": [423, 45, 172, 248], "opaquePixels": 23555 },
+    { "name": "storybook-token", "file": "storybook-token.png", "sourceSheet": "A", "crop": [682, 0, 342, 341], "bbox": [730, 50, 191, 221], "opaquePixels": 33237 },
+    { "name": "sun-smile-badge", "file": "sun-smile-badge.png", "sourceSheet": "A", "crop": [341, 341, 341, 341], "bbox": [391, 392, 241, 331], "opaquePixels": 26471 },
+    { "name": "treasure-chest", "file": "treasure-chest.png", "sourceSheet": "A", "crop": [0, 682, 341, 342], "bbox": [40, 710, 263, 274], "opaquePixels": 50426 },
+    { "name": "sunlight-crystal-cluster", "file": "sunlight-crystal-cluster.png", "sourceSheet": "A", "crop": [682, 682, 342, 342], "bbox": [734, 700, 244, 274], "opaquePixels": 17335 },
+    { "name": "growth-tree", "file": "growth-tree.png", "sourceSheet": "B", "crop": [0, 0, 237, 301], "bbox": [0, 0, 237, 301], "opaquePixels": 41000 },
+    { "name": "flower-checkpoint", "file": "flower-checkpoint.png", "sourceSheet": "B", "crop": [0, 0, 189, 299], "bbox": [0, 0, 189, 299], "opaquePixels": 35000 },
+    { "name": "seedling-node", "file": "seedling-node.png", "sourceSheet": "B", "crop": [0, 0, 233, 216], "bbox": [0, 0, 233, 216], "opaquePixels": 31000 },
+    { "name": "cloud-invader", "file": "cloud-invader.png", "sourceSheet": "B", "crop": [0, 0, 258, 217], "bbox": [0, 0, 258, 217], "opaquePixels": 35000 },
+    { "name": "quest-flag-pedestal", "file": "quest-flag-pedestal.png", "sourceSheet": "B", "crop": [0, 0, 235, 343], "bbox": [0, 0, 235, 343], "opaquePixels": 46000 },
+    { "name": "star-companion", "file": "star-companion.png", "sourceSheet": "B", "crop": [0, 0, 256, 272], "bbox": [0, 0, 256, 272], "opaquePixels": 42000 }
+  ]
+}

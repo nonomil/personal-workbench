@@ -1,0 +1,13 @@
+{
+  "run": "chatgpt-decompose-20260729",
+  "sourceReference": "C:/Users/No'mi'l/AppData/Local/Temp/codex-clipboard-778e11b8-8764-4fb8-9f37-4aa48095e077.png",
+  "route": "browser",
+  "requestedSheets": [
+    "01-hud-and-navigation",
+    "02-garden-and-characters",
+    "03-collection-and-rewards"
+  ],
+  "status": "blocked-before-upload",
+  "outputs": [],
+  "blocker": "Chrome CDP permission was not granted; imported browser reached Cloudflare verification before ChatGPT composer."
+}
