@@ -100,6 +100,13 @@ test('keeps the refreshed reward tiers and three-lane defense contract in the pr
   assert.match(styles, /pixel-map-landmarks/);
   assert.match(styles, /pixel-battle-reward-grid/);
   assert.match(styles, /pixel-daily-challenge/);
+  assert.match(app, /pixel-daily-note/);
+  assert.match(styles, /--pixel-canvas:\s*#f4f1ff/);
+  assert.match(styles, /--pixel-route:\s*#5420b8/);
+  assert.match(styles, /pixel-daily-note/);
+  assert.match(styles, /@media \(max-width: 860px\)[\s\S]*--sidebar-width: 152px/);
+  assert.match(styles, /@media \(max-width: 860px\)[\s\S]*pixel-stat-strip \{ min-width: 0; overflow: hidden/);
+  assert.match(styles, /@media \(min-width: 421px\) and \(max-width: 560px\)[\s\S]*pixel-quest-grid \{ grid-template-columns: repeat\(2/);
   assert.match(styles, /@media \(max-width: 560px\)[\s\S]*pixel-header-actions \{\s*display: grid/);
   assert.match(styles, /@media \(max-width: 560px\)[\s\S]*pixel-header-actions \{ grid-template-columns: repeat\(3, minmax\(0, 1fr\)\); \}/);
   assert.match(styles, /@media \(max-width: 560px\)[\s\S]*pixel-settings-button \{ display: none; \}/);

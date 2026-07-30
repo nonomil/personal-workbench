@@ -60,7 +60,7 @@ python -m http.server 7000
 - 幼儿版花园使用同一份本地成长快照，按累计阳光解锁植物伙伴，按学习/打卡/照料/奖励事件收集贴纸；防守能量、入侵者生命值、波次和击退次数可导入导出，未完成行动不会扣分。
 - localStorage 本地快照（schema v5）、独立家庭互动 feed、JSON 导入导出、成人完成项自动归档、初始示例数据。
 - 三个项目使用不同 localStorage key，互不污染。
-- 移动端侧栏抽屉、表单校验、Toast 反馈、CSS 趋势图。
+- 成人/儿童版移动端侧栏抽屉、幼儿版参考帧固定路线栏、表单校验、Toast 反馈、CSS 趋势图。
 - 账号和多设备同步可接入外部自托管 API：注册、登录、家庭、孩子档案、快照恢复、上传和 revision 冲突提示均由 `api-adapter.js` 负责；凭证不进入工作台快照。
 - Vercel 部署边界见 `vercel.json` 和 `docs/deployment.md`：Vercel 只部署静态前端，SQLite 与自托管 API 仍需单独部署；不重新引入 Supabase 运行时。
 
