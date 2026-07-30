@@ -127,7 +127,9 @@ test('keeps adult, child and preschool entry points isolated', () => {
   assert.equal(packageJson.scripts['android:init'], 'npm run android:prepare && cap add android');
   assert.equal(packageJson.scripts['android:sync'], 'npm run android:prepare && cap sync android');
   assert.match(workflow, /workflow_dispatch:/);
+  assert.match(workflow, /branches:\s*\n\s*- main/);
   assert.match(workflow, /tags:\s*\n\s*- 'v\*'/);
+  assert.match(workflow, /working-directory:\s*android/);
   assert.match(workflow, /assembleDebug/);
   assert.match(workflow, /softprops\/action-gh-release/);
   assert.match(config, /workbench-hero-child/);
