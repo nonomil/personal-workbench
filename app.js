@@ -128,6 +128,17 @@
         return assets[iconName] || '';
     }
 
+    function preschoolPlantAsset(plant) {
+        const source = plant && typeof plant === 'object' ? plant : {};
+        const byId = {
+            'plant-sun-sprout': 'seedling-node',
+            'plant-moon-mint': 'flower-checkpoint',
+            'plant-star-flower': 'flower-pot',
+            'plant-rainbow-tree': 'growth-tree'
+        };
+        return byId[source.id] || ({ blue: 'flower-checkpoint', pink: 'flower-pot', lime: 'growth-tree', gold: 'seedling-node' }[source.tone] || 'seedling-node');
+    }
+
     function preschoolVisual(iconName, assetName, alt) {
         return `<span class="preschool-card-visual ${assetName ? 'has-image' : ''}">${assetName ? preschoolAsset(assetName, alt) : icon(iconName)}</span>`;
     }
@@ -339,7 +350,7 @@
             <div class="preschool-garden-scene">
                 <div class="garden-sun-orbit"><span class="garden-sun-token">${preschoolAsset('sun-token', '阳光')}</span><span>+${growth.sunlight}</span></div>
                 <div class="garden-cloud cloud-one"></div><div class="garden-cloud cloud-two"></div>
-                <div class="garden-plant-spot"><span class="garden-plant-halo"></span><span class="garden-plant-icon tone-${escapeHtml(activePlant.tone || 'lime')}">${preschoolAsset(preschoolAssetForIcon(activePlant.icon) || 'preschool-sprout', activePlant.title)}</span><strong>${escapeHtml(activePlant.title)}</strong><small>${plantCount} 位植物伙伴</small></div>
+                <div class="garden-plant-spot"><span class="garden-plant-halo"></span><span class="garden-plant-icon tone-${escapeHtml(activePlant.tone || 'lime')}">${preschoolAsset(preschoolPlantAsset(activePlant), activePlant.title)}</span><strong>${escapeHtml(activePlant.title)}</strong><small>${plantCount} 位植物伙伴</small></div>
                 ${invader.active ? `<button class="garden-invader" type="button" data-action="${action}" data-page="plans"><span>${preschoolAsset('cloud-invader', '小怪')}</span><strong>小怪入侵</strong><small>完成一项赶走</small></button>` : `<span class="garden-calm-badge">${icon('shield-check')} 花园安全</span>`}
                 <span class="garden-ground-line"></span>
             </div>
@@ -407,7 +418,7 @@
         }).join('');
         const health = Math.max(0, Number(invader.health) || 0);
         const maxHealth = Math.max(1, Number(invader.maxHealth) || 3);
-        const plantAsset = preschoolAssetForIcon(activePlant.icon) || 'seedling-node';
+        const plantAsset = preschoolPlantAsset(activePlant);
         const laneRows = Array.from({ length: 3 }, function (_, laneIndex) {
             const isTarget = Boolean(invader.active && laneIndex === 1);
             const pathCells = Array.from({ length: 4 }, function (_, cellIndex) {
@@ -460,7 +471,7 @@
         const stats = [
             { label: '阳光', value: growth.sunlight, note: '可兑换', asset: 'sun-token', tone: 'sun' },
             { label: '植物', value: garden.unlockedPlantIds ? garden.unlockedPlantIds.length : 1, note: activePlant.title, asset: 'seedling-node', tone: 'plant' },
-            { label: '豌豆', value: defense.energy, note: '防守能量', asset: 'water-drop-token', tone: 'pea' },
+            { label: '豌豆', value: defense.energy, note: '防守能量', asset: 'player-energy-bars', tone: 'pea' },
             { label: '等级', value: `Lv.${growth.level}`, note: `${growth.petXp} XP`, asset: 'star-companion', tone: 'level' },
             { label: '连续', value: `${growth.streak} 天`, note: '每天点亮', asset: 'sun-smile-badge', tone: 'streak' },
             { label: '收藏', value: `${collection.unlockedIds.length}/${collection.total}`, note: '已发现', asset: 'treasure-chest', tone: 'collection' }
@@ -477,7 +488,7 @@
         const total = plans.length;
         const defense = getPreschoolDefense(growth);
         return `<div class="pixel-home">
-            <section class="pixel-page-header"><div><span class="pixel-panel-kicker">TODAY / ADVENTURE</span><h1>今天的冒险开始啦</h1><p>${done}/${total || 0} 个任务已点亮，完成一小步，花园就多一束光。</p></div><div class="pixel-header-actions"><span class="pixel-hud-sun">${preschoolAsset('sun-token', '阳光')}<strong>${growth.sunlight}</strong></span><span class="pixel-hud-defense">${icon('zap')} <strong>${defense.energy}</strong> 豌豆</span><span class="pixel-hud-streak"><span class="pixel-hud-streak-art">${preschoolAsset('streak-stars', '连续打卡')}</span>${growth.streak} 天</span><button class="pixel-settings-button" type="button" data-action="navigate" data-page="account" aria-label="打开设置" title="打开设置">${preschoolAsset('settings-gear', '打开设置')}</button></div></section>
+            <section class="pixel-page-header"><div><span class="pixel-panel-kicker">TODAY / ADVENTURE</span><h1>今天的冒险开始啦</h1><p>${done}/${total || 0} 个任务已点亮，完成一小步，花园就多一束光。</p></div><div class="pixel-header-actions"><span class="pixel-hud-sun">${preschoolAsset('sun-token', '阳光')}<strong>${growth.sunlight}</strong></span><span class="pixel-hud-defense"><span class="pixel-hud-defense-art">${preschoolAsset('player-energy-bars', '豌豆能量')}</span><strong>${defense.energy}</strong><span>豌豆</span></span><span class="pixel-hud-streak"><span class="pixel-hud-streak-art">${preschoolAsset('streak-stars', '连续打卡')}</span>${growth.streak} 天</span><button class="pixel-settings-button" type="button" data-action="navigate" data-page="account" aria-label="打开设置" title="打开设置">${preschoolAsset('settings-gear', '打开设置')}</button></div></section>
             ${renderPixelStats(growth, defense)}
             <div class="pixel-world-grid">${renderPixelMap(growth, plans, true)}<section class="pixel-quest-board"><div class="pixel-board-heading"><div><span class="pixel-panel-kicker">TODAY QUESTS</span><h2>今日任务</h2></div><span class="pixel-board-count">${done} / ${total || 0} 完成</span></div><div class="pixel-quest-grid">${plans.map(pixelQuestCard).join('')}</div></section><aside class="pixel-side-stack">${renderPixelChest(growth, done, total)}${renderPreschoolCollection(growth)}</aside></div>
             <section class="pixel-bottom-bar"><div><span class="pixel-panel-kicker">LITTLE ROUTE</span><strong>语文 · 数学 · 英语</strong><small>每完成一项，阳光会照亮花园。</small></div><button class="pixel-side-button" type="button" data-action="navigate" data-page="courses">${icon('book-open')} 去上小课</button><button class="pixel-side-link" type="button" data-action="navigate" data-page="family">告诉家长${icon('heart')}</button></section>
@@ -500,7 +511,7 @@
             <div class="preschool-stat-grid"><article class="preschool-stat-card tone-lime">${preschoolVisual('sprout', 'seedling-node', growth.plant.title)}<strong>${escapeHtml(growth.plant.title)}</strong><small>植物阶段 ${growth.plant.stage}</small></article><article class="preschool-stat-card tone-blue">${preschoolVisual('sparkles', 'star-companion', growth.unicorn.name)}<strong>${escapeHtml(growth.unicorn.name)}</strong><small>${growth.petXp} XP</small></article><article class="preschool-stat-card tone-gold">${preschoolVisual('sun', 'sun-token', '连续打卡')}<strong>${growth.streak} 天</strong><small>连续打卡</small></article><article class="preschool-stat-card ${garden.invaderActive ? 'tone-pink is-alert' : 'tone-orange'}">${preschoolVisual(garden.invaderActive ? 'bug' : 'shield-check', garden.invaderActive ? 'cloud-invader' : 'growth-tree', garden.invaderActive ? '小怪' : '花园安全')}<strong>${garden.invaderActive ? '有小怪' : '很安全'}</strong><small>${garden.invaderActive ? '完成一项就赶走' : '继续保持'}</small></article></div>
             <section class="preschool-growth-actions"><button class="btn-primary" type="button" data-action="water-plant" ${waterAvailable ? '' : 'disabled'}>${icon('droplets')}${growth.lastWateredDate === storage.localDate() ? '已浇水' : '浇水'}</button><label class="voice-toggle"><input type="checkbox" data-action="toggle-voice" ${growth.voiceEnabled ? 'checked' : ''}><span class="voice-toggle-track"></span><span>语音鼓励</span></label><button class="btn-secondary" type="button" data-action="navigate" data-page="plans">去打卡${icon('arrow-up-right')}</button></section>
             <section class="preschool-section"><div class="preschool-section-head"><div><span class="eyebrow">STREAK</span><h2>连续奖励</h2></div></div><div class="preschool-streak-grid">${rewardCards}</div></section>
-            <section class="preschool-section"><div class="preschool-section-head"><div><span class="eyebrow">PLANTS</span><h2>植物伙伴</h2></div><span class="tag lime">点一下换伙伴</span></div><div class="preschool-plant-grid">${garden.plants.map(function (plant) { const unlocked = garden.unlockedPlantIds.includes(plant.id); const active = plant.id === garden.activePlantId; const assetName = preschoolAssetForIcon(plant.icon); return `<button class="preschool-plant-card ${active ? 'is-active' : ''} ${unlocked ? '' : 'is-locked'} tone-${escapeHtml(plant.tone || 'lime')}" type="button" data-action="select-plant" data-id="${escapeHtml(plant.id)}" ${unlocked ? '' : 'disabled'}><span class="${assetName ? 'has-image' : ''}">${assetName ? preschoolAsset(assetName, unlocked ? plant.title : '未出现') : icon(plant.icon)}</span><strong>${escapeHtml(unlocked ? plant.title : '未出现')}</strong><small>${escapeHtml(unlocked ? plant.description : `${plant.unlockAt} 阳光出现`)}</small></button>`; }).join('')}</div></section>
+            <section class="preschool-section"><div class="preschool-section-head"><div><span class="eyebrow">PLANTS</span><h2>植物伙伴</h2></div><span class="tag lime">点一下换伙伴</span></div><div class="preschool-plant-grid">${garden.plants.map(function (plant) { const unlocked = garden.unlockedPlantIds.includes(plant.id); const active = plant.id === garden.activePlantId; const assetName = preschoolPlantAsset(plant); return `<button class="preschool-plant-card ${active ? 'is-active' : ''} ${unlocked ? '' : 'is-locked'} tone-${escapeHtml(plant.tone || 'lime')}" type="button" data-action="select-plant" data-id="${escapeHtml(plant.id)}" ${unlocked ? '' : 'disabled'}><span class="${assetName ? 'has-image' : ''}">${assetName ? preschoolAsset(assetName, unlocked ? plant.title : '未出现') : icon(plant.icon)}</span><strong>${escapeHtml(unlocked ? plant.title : '未出现')}</strong><small>${escapeHtml(unlocked ? plant.description : `${plant.unlockAt} 阳光出现`)}</small></button>`; }).join('')}</div></section>
             ${renderPreschoolCollection(garden)}
             <section class="preschool-section"><div class="preschool-section-head"><div><span class="eyebrow">STYLE</span><h2>星芒造型</h2></div></div><div class="preschool-style-grid">${growth.styles.map(function (style) { const unlocked = growth.unlockedStyleIds.includes(style.id); const active = style.id === growth.activeStyleId; const assetName = preschoolAssetForIcon(style.icon); return `<button class="preschool-style-card ${active ? 'is-active' : ''} ${unlocked ? '' : 'is-locked'}" type="button" data-action="select-style" data-id="${escapeHtml(style.id)}" ${unlocked ? '' : 'disabled'}><span class="${assetName ? 'has-image' : ''}">${assetName ? preschoolAsset(assetName, style.title) : icon(style.icon)}</span><strong>${escapeHtml(style.title)}</strong></button>`; }).join('')}</div></section>`;
     }

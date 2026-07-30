@@ -1492,7 +1492,7 @@ body.variant-preschool .pixel-battle-plant-column,
 body.variant-preschool .pixel-battle-invader-column { position: relative; display: grid; min-width: 0; place-items: center; }
 body.variant-preschool .pixel-battle-plant-column { align-items: end; padding: 3px 3px 0; border-right: 3px solid rgba(63, 131, 56, .38); }
 body.variant-preschool .pixel-battle-plant-column::after { position: absolute; right: 12%; bottom: 3px; left: 12%; height: 6px; background: rgba(67, 100, 39, .48); content: ''; }
-body.variant-preschool .pixel-battle-plant-column .preschool-generated-art { position: relative; z-index: 1; display: block; width: 45px; height: 49px; object-fit: contain; }
+body.variant-preschool .pixel-battle-plant-column .preschool-generated-art { position: relative; z-index: 1; display: block; width: 45px; height: 49px; object-fit: contain; image-rendering: pixelated; }
 body.variant-preschool .pixel-battle-path { display: grid; min-width: 0; grid-template-columns: repeat(4, minmax(0, 1fr)); }
 body.variant-preschool .pixel-battle-path-cell { position: relative; display: grid; min-width: 0; min-height: 0; place-items: center; border-right: 2px dashed rgba(63, 131, 56, .27); }
 body.variant-preschool .pixel-battle-path-cell:last-child { border-right: 0; }
@@ -1623,7 +1623,7 @@ body.variant-preschool .pixel-stat-strip { display: grid; grid-template-columns:
 body.variant-preschool .pixel-stat-card { display: flex; min-width: 0; align-items: center; gap: 7px; padding: 8px; border-right: 1px solid #ece6f7; }
 body.variant-preschool .pixel-stat-card:last-child { border-right: 0; }
 body.variant-preschool .pixel-stat-art { display: grid; width: 35px; height: 35px; flex: 0 0 35px; place-items: center; border-radius: 6px; background: #f3edff; }
-body.variant-preschool .pixel-stat-art img { display: block; width: 30px; height: 30px; object-fit: contain; }
+body.variant-preschool .pixel-stat-art img { display: block; width: 30px; height: 30px; object-fit: contain; image-rendering: pixelated; }
 body.variant-preschool .pixel-stat-copy { display: grid; min-width: 0; gap: 1px; }
 body.variant-preschool .pixel-stat-copy small,
 body.variant-preschool .pixel-stat-copy em { overflow: hidden; color: #8a7b9f; font-size: 9px; font-style: normal; font-weight: 750; text-overflow: ellipsis; white-space: nowrap; }
@@ -1854,6 +1854,21 @@ body.variant-preschool .pixel-defense-energy .pixel-energy-art .preschool-genera
 body.variant-preschool .pixel-defense-energy b {
     color: #8b481f;
     font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+body.variant-preschool .pixel-hud-defense-art {
+    display: inline-flex;
+    width: 38px;
+    height: 20px;
+    align-items: center;
+}
+
+body.variant-preschool .pixel-hud-defense-art .preschool-generated-art {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: pixelated;
 }
 
 body.variant-preschool .pixel-map-panel {

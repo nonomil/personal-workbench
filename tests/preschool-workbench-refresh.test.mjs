@@ -116,3 +116,25 @@ test('keeps preschool check-in cards visual and reward-led', () => {
   assert.match(styles, /preschool-reward-progress/);
   assert.match(styles, /@media \(max-width: 560px\)[\s\S]*preschool-checkin-grid/);
 });
+
+test('keeps preschool plant companions and defense HUD on the generated pixel asset path', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const styles = fs.readFileSync(path.join(root, 'styles.css'), 'utf8');
+  const config = fs.readFileSync(path.join(root, 'config.js'), 'utf8');
+  assert.match(app, /function preschoolPlantAsset\(plant\)/);
+  assert.match(app, /'plant-sun-sprout': 'seedling-node'/);
+  assert.match(app, /'plant-moon-mint': 'flower-checkpoint'/);
+  assert.match(app, /'plant-star-flower': 'flower-pot'/);
+  assert.match(app, /'plant-rainbow-tree': 'growth-tree'/);
+  assert.match(app, /preschoolAsset\(preschoolPlantAsset\(activePlant\), activePlant\.title\)/);
+  assert.match(app, /const plantAsset = preschoolPlantAsset\(activePlant\)/);
+  assert.match(app, /pixel-hud-defense-art/);
+  assert.match(app, /asset: 'player-energy-bars'/);
+  assert.match(config, /selected\.id === 'preschool' \? 'v0\.2\.0 · 幼儿版'/);
+  assert.doesNotMatch(config, /v0\.3 · 幼儿版/);
+  assert.match(styles, /pixel-hud-defense-art/);
+  assert.match(styles, /image-rendering: pixelated/);
+  for (const asset of ['seedling-node.png', 'flower-checkpoint.png', 'flower-pot.png', 'growth-tree.png', 'player-energy-bars.png']) {
+    assert.equal(fs.existsSync(path.join(root, 'assets', 'generated', 'preschool-pixel', 'reference', 'gpt-output-20260730', 'published-gpt-v2', asset)), true, asset);
+  }
+});
