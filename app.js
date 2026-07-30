@@ -72,6 +72,7 @@
         'river-bridge': 'river-bridge.png',
         'settings-gear': 'settings-gear.png',
         'small-tree': 'small-tree.png',
+        'small-crystal': 'small-crystal.png',
         'streak-stars': 'streak-stars.png',
         'sun-progress-bar': 'sun-progress-bar.png',
         'task-book-icon': 'task-book-icon.png',
@@ -358,8 +359,17 @@
 
     function renderPreschoolPlanRows(items) {
         if (!items.length) return renderEmpty('sparkles', '先加一项');
-        return `<div class="preschool-plan-list">${items.map(function (item) {
-            return `<div class="preschool-plan-row ${item.done ? 'is-done' : ''}"><button class="preschool-plan-check" type="button" data-action="toggle-plan" data-id="${escapeHtml(item.id)}" aria-label="${item.done ? '取消完成' : '完成'}${escapeHtml(item.title)}">${item.done ? icon('check') : ''}</button><div><strong>${escapeHtml(item.title)}</strong><small>${escapeHtml(item.category || '学习')}</small></div></div>`;
+        return `<div class="preschool-checkin-grid">${items.map(function (item, index) {
+            const done = Boolean(item.done);
+            const asset = pixelQuestAsset(item);
+            const tone = ['green', 'purple', 'orange'][index % 3];
+            return `<button class="preschool-checkin-card tone-${tone} ${done ? 'is-done' : ''}" type="button" data-action="toggle-plan" data-id="${escapeHtml(item.id)}" aria-label="${done ? '取消完成' : '完成'}${escapeHtml(item.title)}">
+                <span class="preschool-checkin-card-top"><span class="preschool-checkin-category">${escapeHtml(item.category || '学习')}</span><span class="preschool-checkin-reward">${preschoolAsset('sun-token', '阳光')}<b>${done ? '已领' : '+10'}</b></span></span>
+                <span class="preschool-checkin-card-art">${preschoolAsset(asset, item.title)}</span>
+                <span class="preschool-checkin-card-copy"><strong>${escapeHtml(item.title)}</strong><small>${done ? '完成啦，花园有阳光' : '点一下，完成这项'}</small></span>
+                <span class="preschool-checkin-card-check ${done ? 'is-done' : ''}">${done ? icon('check') : icon('circle')}</span>
+                <span class="preschool-checkin-card-action">${done ? '已点亮' : '开始'}${icon(done ? 'sparkles' : 'arrow-right')}</span>
+            </button>`;
         }).join('')}</div>`;
     }
 
@@ -516,6 +526,13 @@
     function renderPreschoolRewards() {
         const growth = getChildGrowth();
         const rewards = getChildRewards();
+        const unclaimed = rewards.filter(function (reward) { return !growth.claimedRewardIds.includes(reward.id); }).sort(function (a, b) { return Number(a.cost) - Number(b.cost); });
+        const nextReward = unclaimed[0] || null;
+        const sunlight = Math.max(0, Number(growth.sunlight) || 0);
+        const nextCost = nextReward ? Math.max(1, Number(nextReward.cost) || 1) : 1;
+        const nextRemaining = nextReward ? Math.max(0, nextCost - sunlight) : 0;
+        const nextProgress = nextReward ? Math.min(100, Math.round((sunlight / nextCost) * 100)) : 100;
+        const nextAsset = nextReward ? (preschoolAssetForIcon(nextReward.icon || 'gift') || 'small-crystal') : 'treasure-chest';
         const tiers = ['小奖励', '开心奖励', '亲子奖励', '特别奖励'].map(function (tier) {
             return { name: tier, items: rewards.filter(function (reward) { return (reward.tier || '开心奖励') === tier; }) };
         }).filter(function (group) { return group.items.length; });
@@ -523,7 +540,8 @@
         const tierMarkup = tiers.map(function (group, index) {
             return `<section class="preschool-reward-tier tier-${index}"><div class="preschool-reward-tier-head"><div><span class="eyebrow">TIER ${String(index + 1).padStart(2, '0')}</span><h2>${escapeHtml(group.name)}</h2><p>${escapeHtml(tierDescriptions[group.name] || '')}</p></div><span class="preschool-reward-tier-count">${group.items.length} 份</span></div><div class="preschool-reward-tier-grid">${group.items.map(function (reward) { const claimed = growth.claimedRewardIds.includes(reward.id); const remaining = Math.max(0, Number(reward.cost) - growth.sunlight); const disabled = claimed || remaining > 0; const assetName = preschoolAssetForIcon(reward.icon || 'gift') || 'treasure-chest'; return `<article class="preschool-reward-card tone-${escapeHtml(reward.tone || 'orange')} ${claimed ? 'is-claimed' : ''}">${preschoolVisual(reward.icon || 'gift', assetName, reward.title)}<h2>${escapeHtml(reward.title)}</h2><strong>${escapeHtml(reward.cost)} 阳光</strong><button class="btn-primary" type="button" data-action="claim-reward" data-id="${escapeHtml(reward.id)}" ${disabled ? 'disabled' : ''}>${icon(claimed ? 'check' : 'gift')}${claimed ? '已领' : remaining ? `还差 ${remaining}` : '领取'}</button></article>`; }).join('')}</div></section>`;
         }).join('');
-        return `${renderPreschoolIntro(PAGE_META.rewards, '', '', `<span class="points-chip">${icon('sun')}${growth.sunlight}</span>`)}<div class="preschool-reward-tier-list">${tierMarkup}</div>${renderPreschoolCollection(growth)}`;
+        const progressMarkup = `<section class="preschool-reward-progress"><div class="preschool-reward-progress-copy"><span class="eyebrow">SUNLIGHT RUN</span><h2>${nextReward ? `下一站：${escapeHtml(nextReward.title)}` : '所有礼物都点亮啦'}</h2><p>${nextReward ? (nextRemaining ? `再收集 ${nextRemaining} 阳光，就能打开这份小期待。` : '现在就可以领取这份小期待。') : '继续完成小任务，阳光会留在你的花园里。'}</p><div class="preschool-reward-progress-meta"><strong>${sunlight} / ${nextReward ? nextCost : sunlight} 阳光</strong><span>${nextReward ? `${nextProgress}%` : '完成'}</span></div><div class="preschool-reward-meter" role="progressbar" aria-valuemin="0" aria-valuemax="${nextReward ? nextCost : sunlight || 1}" aria-valuenow="${Math.min(sunlight, nextCost)}" aria-label="阳光奖励进度"><span style="width:${nextProgress}%"></span></div></div><div class="preschool-reward-next"><span class="preschool-reward-next-art">${preschoolAsset(nextAsset, nextReward ? nextReward.title : '奖励')}</span><span class="preschool-reward-next-copy"><small>${nextReward ? '下一份奖励' : '奖励收藏'}</small><strong>${escapeHtml(nextReward ? nextReward.title : '花园宝藏')}</strong><em>${nextReward ? `${nextCost} 阳光` : '继续收集'}</em></span><span class="preschool-reward-crystal">${preschoolAsset('small-crystal', '阳光晶体')}</span></div><img class="preschool-reward-progress-art" src="${escapeHtml(preschoolAssetSrc('sun-progress-bar'))}" alt="" aria-hidden="true"></section>`;
+        return `${renderPreschoolIntro(PAGE_META.rewards, '', '', `<span class="points-chip">${icon('sun')}${growth.sunlight}</span>`)}${progressMarkup}<div class="preschool-reward-tier-list">${tierMarkup}</div>${renderPreschoolCollection(growth)}`;
     }
 
     function renderPreschoolFamily() {

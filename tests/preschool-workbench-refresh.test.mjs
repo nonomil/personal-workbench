@@ -99,3 +99,20 @@ test('keeps the refreshed reward tiers and three-lane defense contract in the pr
     assert.equal(fs.existsSync(path.join(root, 'assets', 'generated', 'preschool-pixel', 'reference', 'gpt-output-20260730', 'published-gpt-v2', asset)), true, asset);
   }
 });
+
+test('keeps preschool check-in cards visual and reward-led', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const styles = fs.readFileSync(path.join(root, 'styles.css'), 'utf8');
+  assert.match(app, /preschool-checkin-grid/);
+  assert.match(app, /preschool-checkin-card/);
+  assert.match(app, /preschool-checkin-reward/);
+  assert.match(app, /preschool-reward-progress/);
+  assert.match(app, /preschool-reward-next/);
+  assert.match(app, /sun-progress-bar/);
+  assert.match(styles, /preschool-checkin-grid/);
+  assert.match(styles, /preschool-checkin-card/);
+  assert.match(styles, /preschool-checkin-card-check \{[^}]*top:\s*9px/);
+  assert.match(styles, /preschool-checkin-card-top \{[^}]*padding-right:\s*31px/);
+  assert.match(styles, /preschool-reward-progress/);
+  assert.match(styles, /@media \(max-width: 560px\)[\s\S]*preschool-checkin-grid/);
+});
