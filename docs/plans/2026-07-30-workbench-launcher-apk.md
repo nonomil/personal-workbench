@@ -94,7 +94,7 @@
 
 **步骤 1：配置依赖和脚本**
 
-添加 Capacitor CLI/Core/Android 依赖、`android:init`、`android:sync` 和 `android:build` 脚本；将 `webDir` 设为仓库根目录，保证三套入口和素材都被包装。
+添加 Capacitor CLI/Core/Android 依赖、`scripts/prepare-mobile.mjs`、`android:init`、`android:sync` 和 `android:build` 脚本；将 `webDir` 设为 `dist/`，只把三套入口和运行素材包装进 APK。
 
 **步骤 2：安装依赖并验证配置**
 

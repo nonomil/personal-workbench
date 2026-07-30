@@ -1,0 +1,9 @@
+{
+  "appId": "com.nonomil.personalworkbench",
+  "appName": "个人工作台",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https"
+  }
+}

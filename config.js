@@ -121,6 +121,9 @@
     const selected = variants[variantId] || variants.adult;
     const configuredStorageKey = body && body.dataset && body.dataset.storageKey ? body.dataset.storageKey : '';
     const configuredHeroSrc = body && body.dataset && body.dataset.heroSrc ? body.dataset.heroSrc : '';
+    const launcher = global.PersonalWorkbenchLauncher;
+
+    if (launcher && typeof launcher.remember === 'function') launcher.remember(selected.id);
 
     global.PersonalWorkbenchConfig = {
         variant: selected.id,
@@ -162,13 +165,27 @@
     if (focusLabel && selected.id === 'preschool') focusLabel.textContent = '开始学习';
 
     const topbarActions = document.querySelector('.topbar-actions');
-    if (topbarActions && !topbarActions.querySelector('.topbar-mode-link')) {
-        const modeLink = document.createElement('a');
-        modeLink.className = 'topbar-mode-link';
-        modeLink.href = '../';
-        modeLink.title = '选择工作台';
-        modeLink.setAttribute('aria-label', '返回工作台选择');
-        modeLink.innerHTML = '<i data-lucide="layout-dashboard"></i><span>选择工作台</span>';
-        topbarActions.insertBefore(modeLink, topbarActions.firstChild);
+    if (topbarActions && !topbarActions.querySelector('.topbar-workbench-switcher')) {
+        const switcher = document.createElement('details');
+        switcher.className = 'topbar-workbench-switcher';
+        const summary = document.createElement('summary');
+        summary.className = 'topbar-mode-link';
+        summary.title = '切换工作台';
+        summary.setAttribute('aria-label', '切换工作台');
+        summary.innerHTML = '<i data-lucide="layout-dashboard"></i><span>切换工作台</span>';
+        const menu = document.createElement('div');
+        menu.className = 'topbar-workbench-menu';
+        Object.keys(variants).forEach(function (id) {
+            const item = variants[id];
+            const link = document.createElement('a');
+            link.className = `topbar-workbench-option ${id === selected.id ? 'is-current' : ''}`;
+            link.href = launcher && typeof launcher.getSiblingPath === 'function' ? launcher.getSiblingPath(selected.id, id) : (item.path || '../');
+            link.dataset.workbenchVariant = id;
+            if (id === selected.id) link.setAttribute('aria-current', 'page');
+            link.innerHTML = `<i data-lucide="${item.switchIcon || 'layout-dashboard'}"></i><span><strong>${item.name}</strong><small>${item.switchSummary || item.statusNote || ''}</small></span>${id === selected.id ? '<b>当前</b>' : ''}`;
+            menu.appendChild(link);
+        });
+        switcher.append(summary, menu);
+        topbarActions.insertBefore(switcher, topbarActions.firstChild);
     }
 })(typeof window !== 'undefined' ? window : globalThis);

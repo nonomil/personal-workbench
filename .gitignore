@@ -13,3 +13,12 @@ _site*/
 .env
 .env.*
 !.env.example
+
+# Capacitor and Android build output
+node_modules/
+dist/
+android/
+ios/
+.capacitor/
+*.apk
+*.aab

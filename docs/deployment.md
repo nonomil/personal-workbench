@@ -37,6 +37,26 @@ python -m http.server 7000
 
 不需要构建命令或输出目录。修改后推送到 `main`，等待 Pages 部署完成即可。GitHub 仓库设置为 `Settings` → `Pages` → `Deploy from a branch` → `main` → `/ (root)`。
 
+## Android APK
+
+Android 版本使用 Capacitor 包装由 `scripts/prepare-mobile.mjs` 生成的 `dist/` 静态资源，网页和 APK 共用同一套 HTML、CSS、JavaScript 和素材。`dist/` 只包含运行需要的网页、三个入口和素材，不把 `docs/`、测试或依赖目录打进 APK。仓库不提交生成的 `dist/` 和 `android/` 目录，CI 每次重新生成。
+
+GitHub Actions workflow 位于 `.github/workflows/android-apk.yml`：
+
+- 在 Actions 页面手动运行 `Build Android APK`，构建结果会上传为 artifact；
+- 推送 `v*` 标签时自动构建，并把 Debug APK 附加到 GitHub Release；
+- 首版产物是可安装的 Debug APK，不包含生产签名；生产签名必须使用 GitHub Secrets 注入 keystore，不能提交到仓库。
+
+本地构建环境要求 Node.js 22、Java 21 和 Android SDK：
+
+```powershell
+npm install
+npm run android:init
+npm run android:build
+```
+
+`android:init` 会先生成被 `.gitignore` 忽略的 `dist/`，再生成被忽略的 `android/` 目录。网页端仍然可以在没有 Android 环境时正常运行，APK 构建失败也不会影响 GitHub Pages 网站。
+
 ## 自托管 API
 
 在独立部署的自托管 API 服务中配置数据目录、JWT secret、注册策略和允许的前端 origin。生产 CORS 配置必须填写实际 Vercel 前端 origin，例如 `https://your-workbench.vercel.app`，不能写 `*`。

@@ -2,7 +2,7 @@
 
 一个独立的中文个人学习/成长工作台目录，内含三个可独立打开的 Vanilla JS 项目：成人成长工作台、儿童学习工作台和幼儿学习工作台。设计参考胡楚靓风格工作台案例、用户提供的小红书公开学习工作台案例和公众号教程整理而来。
 
-当前独立项目版本：`v0.1.0`
+当前稳定版本：`v0.1.0`；当前开发内容将发布为下一版。
 
 ## GitHub Pages 网站
 
@@ -13,6 +13,24 @@
 - [幼儿学习工作台](https://nonomil.github.io/personal-workbench/幼儿学习工作台/)
 
 GitHub Pages 使用 `main` 分支根目录作为静态站点来源，不需要构建命令。推送 HTML、CSS、JavaScript 或素材后，等待 GitHub Pages 完成部署即可。仓库设置路径：`Settings` → `Pages` → `Deploy from a branch` → `main` → `/ (root)`。
+
+## Android APK
+
+网页和 APK 共用同一套 Vanilla JS 资源，Android 端通过 Capacitor 包装，不维护第二套页面代码。
+
+- [Actions 构建页面](https://github.com/nonomil/personal-workbench/actions/workflows/android-apk.yml)：点击 `Run workflow` 手动编译 APK。
+- 推送 `v*` 标签会自动构建，并把 Debug APK 附加到对应 GitHub Release。
+- 构建产物是可安装的 Debug APK；正式商店包需要后续通过 GitHub Secrets 配置 Android 签名密钥。
+
+本地构建需要 Node.js 22、Java 21 和 Android SDK：
+
+```powershell
+npm install
+npm run android:init
+npm run android:build
+```
+
+构建流程和部署边界见 `docs/deployment.md` 与 `.github/workflows/android-apk.yml`。
 
 ## 运行
 

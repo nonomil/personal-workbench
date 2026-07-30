@@ -36,7 +36,7 @@
 在仓库根目录加入最小 Capacitor 工程配置：
 
 - `package.json` 管理 `@capacitor/core`、`@capacitor/cli` 和 `@capacitor/android`。
-- `capacitor.config.json` 指向仓库根目录静态资源，App ID 使用 `com.nonomil.personalworkbench`。
+- `scripts/prepare-mobile.mjs` 生成只含运行资源的 `dist/`，`capacitor.config.json` 指向它，App ID 使用 `com.nonomil.personalworkbench`。
 - Android 原生目录由 `npm run android:init` 或 GitHub Actions 的 `npx cap add android` 生成，不把生成目录强行复制进静态前端代码。
 - `.github/workflows/android-apk.yml` 支持 GitHub Actions 网页手动运行，也支持推送 `v*` 标签自动构建并把可安装的 Debug APK 附加到 GitHub Release。
 - Release 签名密钥不写入仓库。首版发布 Debug APK；后续如需商店生产包，再通过 GitHub Secrets 注入 keystore。

@@ -1,0 +1,62 @@
+name: Build Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install JavaScript dependencies
+        run: npm ci
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Generate Android project
+        run: npm run android:init
+
+      - name: Sync web assets into Capacitor
+        run: npx cap sync android
+
+      - name: Build debug APK
+        run: |
+          chmod +x android/gradlew
+          ./android/gradlew --no-daemon assembleDebug
+
+      - name: Name APK
+        run: cp android/app/build/outputs/apk/debug/app-debug.apk "personal-workbench-${GITHUB_REF_NAME}.apk"
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: personal-workbench-apk-${{ github.ref_name }}
+          path: personal-workbench-${{ github.ref_name }}.apk
+          if-no-files-found: error
+
+      - name: Attach APK to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: personal-workbench-${{ github.ref_name }}.apk

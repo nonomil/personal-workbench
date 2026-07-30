@@ -21,7 +21,9 @@
         .workbench-copy h2 { margin: 8px 0 7px; font-size: 24px; letter-spacing: 0; }
         .workbench-copy p { margin: 0; color: #6c6d68; line-height: 1.7; }
         .open-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 20px; color: #4e6b37; font-weight: 800; }
-        footer { margin-top: 28px; color: #8b8b83; font-size: 12px; }
+        .launcher-note { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-top: 28px; color: #8b8b83; font-size: 12px; }
+        .launcher-note a { color: #4e6b37; font-weight: 800; text-decoration: none; }
+        .launcher-note a:hover { text-decoration: underline; }
         @media (max-width: 720px) {
             main { width: min(100% - 28px, 560px); padding-top: 44px; }
             .workbench-grid { grid-template-columns: 1fr; margin-top: 34px; }
@@ -36,20 +38,34 @@
         <h1>选择今天要使用的工作台</h1>
         <p class="intro">三套入口分别保存自己的数据：成人版关注持续成长，少儿版和幼儿版把学习、奖励和陪伴变成每天可以完成的小行动。</p>
         <section class="workbench-grid" aria-label="工作台入口">
-            <a class="workbench-link" href="./成人成长工作台/">
+            <a class="workbench-link" data-workbench-variant="adult" href="./成人成长工作台/">
                 <img class="workbench-image" src="./assets/generated/workbench-hero-adult.webp" alt="成人成长工作台的深色学习桌面">
                 <span class="workbench-copy"><span><span class="eyebrow">ADULT / GROWTH</span><h2>成人成长工作台</h2><p>今日计划、成长任务、阅读记录、长期目标与每周复盘。</p></span><span class="open-link">进入成人版 <span aria-hidden="true">&#8594;</span></span></span>
             </a>
-            <a class="workbench-link" href="./儿童学习工作台/">
+            <a class="workbench-link" data-workbench-variant="child" href="./儿童学习工作台/">
                 <img class="workbench-image" src="./assets/generated/workbench-hero-child.webp" alt="儿童学习工作台的明亮学习桌面">
                 <span class="workbench-copy"><span><span class="eyebrow">CHILD / LEARNING</span><h2>儿童学习工作台</h2><p>语数英课程、错题本、阳光奖励、植物成长、独角兽和家长互动。</p></span><span class="open-link">进入儿童版 <span aria-hidden="true">&#8594;</span></span></span>
             </a>
-            <a class="workbench-link" href="./幼儿学习工作台/">
+            <a class="workbench-link" data-workbench-variant="preschool" href="./幼儿学习工作台/">
                 <img class="workbench-image" src="./assets/generated/preschool/preschool-garden-hero.webp" alt="幼儿学习工作台的阳光花园和植物伙伴">
                 <span class="workbench-copy"><span><span class="eyebrow">PRESCHOOL / PLAY</span><h2>幼儿学习工作台</h2><p>少文字、大图卡，适合低年级孩子每天选一项、做一项。</p></span><span class="open-link">进入幼儿版 <span aria-hidden="true">&#8594;</span></span></span>
             </a>
         </section>
-        <footer>本地优先保存；账号与多设备同步需在对应入口配置自托管 API。</footer>
+        <footer class="launcher-note"><span data-remembered-note>本地优先保存；账号与多设备同步需在对应入口配置自托管 API。</span><a href="?choose=1">重新选择工作台</a></footer>
     </main>
+    <script src="./launcher.js"></script>
+    <script>
+        (function () {
+            const launcher = window.PersonalWorkbenchLauncher;
+            if (!launcher) return;
+            if (launcher.shouldAutoRedirect(window.location.search)) {
+                const target = launcher.getPath(launcher.getSelected());
+                if (target) window.location.replace(target);
+            }
+            const selected = launcher.getSelected();
+            const note = document.querySelector('[data-remembered-note]');
+            if (note && selected) note.textContent = '已记住上次工作台；也可以从右上角或设置页切换。';
+        })();
+    </script>
 </body>
 </html>
