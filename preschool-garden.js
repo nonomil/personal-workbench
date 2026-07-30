@@ -41,6 +41,7 @@
             defenseEnergy: 0,
             defenseShots: 0,
             lastDefenseDate: '',
+            feedbackPreferences: { musicEnabled: false, motionEnabled: true },
             invader: { active: false, kind: 'cloudy-bug', defeated: 0, health: 3, maxHealth: 3, wave: 0, lastSpawnDate: '' }
         };
     }
@@ -60,6 +61,9 @@
         garden.defenseEnergy = Math.max(0, Math.min(9, Number(garden.defenseEnergy) || 0));
         garden.defenseShots = Math.max(0, Number(garden.defenseShots) || 0);
         garden.lastDefenseDate = String(garden.lastDefenseDate || '');
+        garden.feedbackPreferences = Object.assign(createDefaultGarden().feedbackPreferences, gardenSource.feedbackPreferences || {});
+        garden.feedbackPreferences.musicEnabled = Boolean(garden.feedbackPreferences.musicEnabled);
+        garden.feedbackPreferences.motionEnabled = garden.feedbackPreferences.motionEnabled !== false;
         garden.invader.health = Math.max(0, Math.min(9, Number(garden.invader.health) || 3));
         garden.invader.maxHealth = Math.max(1, Math.min(9, Number(garden.invader.maxHealth) || 3));
         garden.invader.wave = Math.max(0, Number(garden.invader.wave) || 0);
@@ -191,6 +195,14 @@
         };
     }
 
+    function setFeedbackPreference(input, key, enabled) {
+        const growth = normalize(input);
+        const allowed = { musicEnabled: true, motionEnabled: true };
+        if (!Object.prototype.hasOwnProperty.call(allowed, key)) return { ok: false, growth: growth, reason: '偏好设置不存在' };
+        growth.garden.feedbackPreferences[key] = Boolean(enabled);
+        return { ok: true, growth: growth };
+    }
+
     function selectPlant(input, plantId) {
         const growth = normalize(input);
         if (!growth.garden.unlockedPlantIds.includes(plantId)) return { ok: false, growth: growth, reason: '这个植物伙伴还没有出现' };
@@ -234,6 +246,7 @@
         spawnInvader: spawnInvader,
         firePea: firePea,
         getDefenseView: getDefenseView,
+        setFeedbackPreference: setFeedbackPreference,
         selectPlant: selectPlant,
         getView: getView
     };

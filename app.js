@@ -58,6 +58,7 @@
     };
     let state = repository.load();
     let preschoolCelebrationTimer = 0;
+    let preschoolMusic = null;
 
     function getPageFromHash() {
         const candidate = (location.hash || '#overview').slice(1);
@@ -209,6 +210,7 @@
     function render() {
         const meta = PAGE_META[ui.page];
         const derived = getDerived();
+        if (isPreschool) document.body.classList.toggle('preschool-no-motion', !getPreschoolFeedbackPreference('motionEnabled', true));
         updateModeStatus();
         document.querySelectorAll('.nav-item').forEach(function (item) {
             item.classList.toggle('is-active', item.dataset.page === ui.page);
@@ -779,7 +781,14 @@
         } else {
             body = `<section class="account-profile-card"><div><span class="eyebrow">SIGNED IN</span><h2>${escapeHtml(account.displayName || account.username || '已登录用户')}</h2><p>@${escapeHtml(account.username || '')} · ${escapeHtml(status.detail)}</p></div><button class="btn-quiet" type="button" data-action="account-logout">退出登录${icon('log-out')}</button></section><div class="account-grid"><section class="work-card"><div class="work-card-header"><div><h2>家庭和工作台档案</h2><p>一个孩子档案对应一份可同步的工作台快照。</p></div>${icon('users')}</div><div class="account-section"><label class="account-label" for="account-household">家庭</label><select id="account-household" data-account-household>${householdOptions || '<option value="">还没有家庭</option>'}</select><form class="account-inline-form" data-household-form><input name="name" required maxlength="80" placeholder="新家庭名称"><button class="btn-secondary" type="submit">创建家庭${icon('plus')}</button></form></div>${accountView.households.length ? `<div class="account-section"><label class="account-label" for="account-child-name">当前家庭新增档案</label><form class="account-inline-form" data-child-form><input name="name" id="account-child-name" required maxlength="40" placeholder="例如：小星"><button class="btn-secondary" type="submit">新增档案${icon('user-round-plus')}</button></form></div>` : ''}<div class="account-child-list">${children.length ? children.map(function (child) { const selected = activeChild && activeChild.id === child.id; return `<button class="account-child-option ${selected ? 'is-active' : ''}" type="button" data-action="account-select-child" data-id="${escapeHtml(child.id)}"><span class="list-card-mark ${selected ? 'lime' : 'blue'}">${icon(selected ? 'check' : 'user-round')}</span><span><strong>${escapeHtml(child.name)}</strong><small>${escapeHtml(child.localProfileId || '未绑定本地档案')}</small></span>${selected ? `<span class="tag lime">当前</span>` : icon('chevron-right')}</button>`; }).join('') : renderEmpty('user-round', accountView.households.length ? '还没有工作台档案，请先新增一个。' : '请先创建一个家庭。')}</div></section><section class="work-card sync-card"><div class="work-card-header"><div><h2>多设备同步</h2><p>当前工作台：${activeChild ? escapeHtml(activeChild.name) : '尚未选择'}</p></div>${icon('cloud')} </div><div class="sync-status-line"><span class="status-dot ${activeChild ? 'is-online' : ''}"></span><span>${activeChild ? '可以手动同步' : '先选择工作台档案'}</span></div><div class="sync-actions"><button class="btn-secondary" type="button" data-action="account-pull" ${activeChild ? '' : 'disabled'}>${icon('cloud-download')}从云端恢复</button><button class="btn-primary" type="button" data-action="account-push" ${activeChild ? '' : 'disabled'}>${icon('cloud-upload')}上传当前快照</button></div>${accountView.lastSyncAt ? `<small class="sync-note">最近一次同步：${escapeHtml(accountView.lastSyncAt)}${accountView.lastRemoteRevision ? ` · 远端 revision ${accountView.lastRemoteRevision}` : ''}</small>` : '<small class="sync-note">同步不会自动覆盖本地数据，冲突时会保留两边并提示你处理。</small>'}</section></div>`;
         }
-        return `${renderIntro(PAGE_META.account, '', '', `<span class="tag ${status.id === 'ready' ? 'lime' : status.id === 'signed-out' ? 'orange' : ''}">${escapeHtml(status.label)}</span>`)}${renderWorkbenchSwitcher()}${body}`;
+        return `${renderIntro(PAGE_META.account, '', '', `<span class="tag ${status.id === 'ready' ? 'lime' : status.id === 'signed-out' ? 'orange' : ''}">${escapeHtml(status.label)}</span>`)}${renderWorkbenchSwitcher()}${isPreschool ? renderPreschoolFeedbackSettings() : ''}${body}`;
+    }
+
+    function renderPreschoolFeedbackSettings() {
+        const growth = getChildGrowth();
+        const musicEnabled = getPreschoolFeedbackPreference('musicEnabled', false);
+        const motionEnabled = getPreschoolFeedbackPreference('motionEnabled', true);
+        return `<section class="pixel-feedback-settings"><div class="pixel-feedback-copy"><span class="pixel-panel-kicker">GARDEN / FEEDBACK</span><h2>声音和反馈</h2><p>音乐默认关闭，点击后才会播放；关闭动效时，任务和防守仍然正常。</p></div><div class="pixel-feedback-options"><label class="pixel-feedback-option"><input type="checkbox" data-action="toggle-music" ${musicEnabled ? 'checked' : ''}><span>${icon('music-2')}</span><strong>花园音乐</strong><small>${musicEnabled ? '正在准备' : '轻轻的冒险旋律'}</small></label><label class="pixel-feedback-option"><input type="checkbox" data-action="toggle-motion" ${motionEnabled ? 'checked' : ''}><span>${icon('sparkles')}</span><strong>动效</strong><small>${motionEnabled ? '植物会呼吸' : '只保留状态变化'}</small></label><label class="pixel-feedback-option"><input type="checkbox" data-action="toggle-voice" ${growth.voiceEnabled ? 'checked' : ''}><span>${icon('volume-2')}</span><strong>语音夸奖</strong><small>${growth.voiceEnabled ? '完成任务会夸夸' : '需要时再打开'}</small></label></div></section>`;
     }
 
     async function refreshAccountData() {
@@ -934,6 +943,69 @@
             global.speechSynthesis.speak(utterance);
         } catch (error) {
             console.warn('[PersonalWorkbench] 语音夸奖失败', error);
+        }
+    }
+
+    function getPreschoolFeedbackPreference(key, fallback) {
+        const garden = state.growth && state.growth.garden;
+        const preferences = garden && garden.feedbackPreferences;
+        return preferences && Object.prototype.hasOwnProperty.call(preferences, key) ? Boolean(preferences[key]) : fallback;
+    }
+
+    function stopPreschoolMusic() {
+        if (!preschoolMusic) return;
+        window.clearInterval(preschoolMusic.timer);
+        const context = preschoolMusic.context;
+        preschoolMusic = null;
+        if (context && typeof context.close === 'function') context.close().catch(function (error) { console.warn('[PersonalWorkbench] 花园音乐停止失败', error); });
+    }
+
+    function startPreschoolMusic() {
+        if (!isPreschool || !getPreschoolFeedbackPreference('musicEnabled', false) || preschoolMusic) return;
+        const AudioContext = global.AudioContext || global.webkitAudioContext;
+        if (!AudioContext) return;
+        try {
+            const context = new AudioContext();
+            const master = context.createGain();
+            master.gain.value = 0.035;
+            master.connect(context.destination);
+            const notes = [261.63, 329.63, 392.00, 329.63, 293.66, 349.23, 440.00, 349.23];
+            let noteIndex = 0;
+            const playNote = function () {
+                if (!preschoolMusic) return;
+                const oscillator = context.createOscillator();
+                const gain = context.createGain();
+                const now = context.currentTime;
+                oscillator.type = 'triangle';
+                oscillator.frequency.value = notes[noteIndex % notes.length];
+                gain.gain.setValueAtTime(0.001, now);
+                gain.gain.exponentialRampToValueAtTime(0.22, now + 0.035);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.42);
+                oscillator.connect(gain);
+                gain.connect(master);
+                oscillator.start(now);
+                oscillator.stop(now + 0.45);
+                noteIndex += 1;
+            };
+            preschoolMusic = { context: context, master: master, timer: window.setInterval(playNote, 620) };
+            playNote();
+            if (context.state === 'suspended') context.resume().catch(function (error) { console.warn('[PersonalWorkbench] 花园音乐启动失败', error); });
+        } catch (error) {
+            console.warn('[PersonalWorkbench] 花园音乐不可用', error);
+        }
+    }
+
+    function setPreschoolFeedbackPreference(key, enabled) {
+        if (!isPreschool || !preschoolGarden || typeof preschoolGarden.setFeedbackPreference !== 'function') return;
+        const ok = commit(function (next) {
+            const result = preschoolGarden.setFeedbackPreference(next.growth, key, enabled);
+            if (!result.ok) throw new Error(result.reason);
+            next.growth = result.growth;
+        }, enabled ? '反馈已打开' : '反馈已关闭');
+        if (!ok) return;
+        if (key === 'musicEnabled') {
+            if (enabled) startPreschoolMusic();
+            else stopPreschoolMusic();
         }
     }
 
@@ -1427,6 +1499,7 @@
         const target = event.target.closest('[data-action]');
         if (!target) return;
         const action = target.dataset.action;
+        if (isPreschool && action !== 'toggle-music' && getPreschoolFeedbackPreference('musicEnabled', false)) startPreschoolMusic();
         if (action === 'navigate') setPage(target.dataset.page);
         if (action === 'open-sidebar') openSidebar();
         if (action === 'close-sidebar') closeSidebar();
@@ -1506,6 +1579,8 @@
                 next.growth = global.PersonalWorkbenchChildGrowth.setVoiceEnabled(next.growth, target.checked);
             }, target.checked ? '已打开语音夸奖' : '已关闭语音夸奖');
         }
+        if (target.dataset.action === 'toggle-music') setPreschoolFeedbackPreference('musicEnabled', target.checked);
+        if (target.dataset.action === 'toggle-motion') setPreschoolFeedbackPreference('motionEnabled', target.checked);
         if (target.matches('[data-account-household]')) { accountView.selectedHouseholdId = target.value; render(); }
     });
 

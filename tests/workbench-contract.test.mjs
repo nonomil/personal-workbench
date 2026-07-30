@@ -145,6 +145,9 @@ test('keeps adult, child and preschool entry points isolated', () => {
   assert.match(app, /data-action="fire-pea"/);
   assert.match(app, /getPreschoolDefense/);
   assert.match(app, /spawnInvader/);
+  assert.match(app, /startPreschoolMusic/);
+  assert.match(app, /toggle-music/);
+  assert.match(app, /toggle-motion/);
   assert.match(styles, /prefers-reduced-motion/);
   assert.match(styles, /pixel-defense/);
 });

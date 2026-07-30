@@ -1390,6 +1390,20 @@ body.variant-preschool .pixel-quest-card.is-done .pixel-quest-art { animation: p
 @keyframes pixel-sun-pulse { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-3px) scale(1.06); } }
 @keyframes pixel-invader-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
 @keyframes pixel-quest-pop { 0% { transform: scale(.86); } 70% { transform: scale(1.08); } 100% { transform: scale(1); } }
+body.variant-preschool .pixel-feedback-settings { display: grid; grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr); gap: 16px; margin-bottom: 16px; padding: 16px; border: 4px solid var(--pixel-wood); background: var(--pixel-paper); box-shadow: 5px 5px 0 var(--pixel-wood-dark); }
+body.variant-preschool .pixel-feedback-copy h2 { margin: 4px 0 0; color: var(--pixel-ink); font-size: 19px; font-weight: 950; }
+body.variant-preschool .pixel-feedback-copy p { max-width: 360px; margin: 7px 0 0; color: var(--pixel-ink-soft); font-size: 11px; font-weight: 750; }
+body.variant-preschool .pixel-feedback-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+body.variant-preschool .pixel-feedback-option { position: relative; display: grid; min-width: 0; min-height: 92px; align-content: center; gap: 2px; padding: 10px 10px 10px 42px; border: 3px solid #c49c5c; color: var(--pixel-ink); background: var(--pixel-paper-light); box-shadow: 3px 3px 0 rgba(112, 65, 40, .22); cursor: pointer; }
+body.variant-preschool .pixel-feedback-option:has(input:checked) { border-color: #4f7d34; background: #edf0b8; }
+body.variant-preschool .pixel-feedback-option input { position: absolute; top: 50%; left: 12px; width: 22px; height: 22px; margin: 0; accent-color: #4b923f; transform: translateY(-50%); }
+body.variant-preschool .pixel-feedback-option > span { position: absolute; top: 11px; right: 9px; color: var(--pixel-orange); }
+body.variant-preschool .pixel-feedback-option > span svg { width: 17px; height: 17px; }
+body.variant-preschool .pixel-feedback-option strong { font-size: 12px; font-weight: 950; }
+body.variant-preschool .pixel-feedback-option small { color: var(--pixel-ink-soft); font-size: 10px; font-weight: 750; }
+body.variant-preschool.preschool-no-motion *,
+body.variant-preschool.preschool-no-motion *::before,
+body.variant-preschool.preschool-no-motion *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
 
 @media (max-width: 860px) {
     body.variant-preschool .pixel-world-grid { grid-template-columns: 1fr; }
@@ -1428,6 +1442,9 @@ body.variant-preschool .pixel-quest-card.is-done .pixel-quest-art { animation: p
     body.variant-preschool .pixel-map-companion { bottom: 12px; left: 12px; }
     body.variant-preschool .pixel-map-safe, body.variant-preschool .pixel-map-invader { right: 12px; bottom: 12px; }
     body.variant-preschool .pixel-side-stack { grid-template-columns: 1fr; }
+    body.variant-preschool .pixel-feedback-settings { grid-template-columns: 1fr; gap: 11px; padding: 12px; }
+    body.variant-preschool .pixel-feedback-options { grid-template-columns: 1fr; }
+    body.variant-preschool .pixel-feedback-option { min-height: 66px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

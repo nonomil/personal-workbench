@@ -14,6 +14,8 @@ test('creates a preschool garden with a starter plant and empty collection', () 
   assert.equal(growth.garden.defenseShots, 0);
   assert.equal(growth.garden.invader.health, 3);
   assert.equal(growth.garden.invader.maxHealth, 3);
+  assert.equal(growth.garden.feedbackPreferences.musicEnabled, false);
+  assert.equal(growth.garden.feedbackPreferences.motionEnabled, true);
 });
 
 test('unlocks original plant companions from lifetime sunlight', () => {
@@ -72,6 +74,17 @@ test('spawns a wave without resetting an existing active invader', () => {
   const existing = gardenEngine.spawnInvader(calm.growth, '2026-07-29');
   assert.equal(existing.changed, false);
   assert.equal(existing.growth.garden.invader.wave, 1);
+});
+
+test('stores preschool feedback preferences without changing learning data', () => {
+  const initial = gardenEngine.normalize({ sunlight: 40 });
+  const result = gardenEngine.setFeedbackPreference(initial, 'musicEnabled', true);
+  assert.equal(result.ok, true);
+  assert.equal(result.growth.garden.feedbackPreferences.musicEnabled, true);
+  assert.equal(result.growth.sunlight, 40);
+  const invalid = gardenEngine.setFeedbackPreference(result.growth, 'unknown', true);
+  assert.equal(invalid.ok, false);
+  assert.equal(invalid.growth.garden.feedbackPreferences.musicEnabled, true);
 });
 
 test('normalizes old growth snapshots without losing new garden state', () => {
