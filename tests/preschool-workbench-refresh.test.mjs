@@ -69,6 +69,15 @@ test('keeps the refreshed reward tiers and three-lane defense contract in the pr
   assert.match(app, /pixel-battle-lane-row/);
   assert.equal((app.match(/pixel-battle-path-cell/g) || []).length >= 1, true);
   assert.match(app, /preschool-pea-fired/);
+  assert.match(app, /renderPixelStats/);
+  assert.match(app, /pixel-stat-card/);
+  const statsPosition = app.indexOf('${renderPixelStats(growth, defense)}');
+  const worldPosition = app.indexOf('<div class="pixel-world-grid">', statsPosition);
+  const questsPosition = app.indexOf('<section class="pixel-quest-board">', worldPosition);
+  assert.equal(statsPosition >= 0 && worldPosition > statsPosition && questsPosition > worldPosition, true);
   assert.match(styles, /pixel-battle-lane-row/);
   assert.match(styles, /pixel-pea-projectile/);
+  assert.match(styles, /--pixel-route:\s*#5420b8/);
+  assert.match(styles, /pixel-page-enter/);
+  assert.match(styles, /pixel-quest-grid\s*\{[^}]*grid-template-columns:\s*repeat\(2/);
 });

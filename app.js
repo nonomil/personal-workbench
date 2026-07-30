@@ -237,6 +237,11 @@
             if (ui.page === 'settings') pageContent.innerHTML = renderSettings();
             if (ui.page === 'reviews') pageContent.innerHTML = renderReviews(derived);
         }
+        if (isPreschool) {
+            pageContent.classList.remove('pixel-page-enter');
+            void pageContent.offsetWidth;
+            pageContent.classList.add('pixel-page-enter');
+        }
         applyLanguagePreference();
         global.lucide.createIcons({ root: pageContent });
     }
@@ -413,6 +418,23 @@
         }).join('')}</div><button class="pixel-side-link" type="button" data-action="navigate" data-page="growth">查看全部收藏${icon('arrow-up-right')}</button></section>`;
     }
 
+    function renderPixelStats(growth, defense) {
+        const garden = growth.garden || {};
+        const activePlant = garden.activePlant || { title: '太阳芽' };
+        const collection = garden.collection || { unlockedIds: [], total: 0 };
+        const stats = [
+            { label: '阳光', value: growth.sunlight, note: '可兑换', asset: 'sun-token', tone: 'sun' },
+            { label: '植物', value: garden.unlockedPlantIds ? garden.unlockedPlantIds.length : 1, note: activePlant.title, asset: 'seedling-node', tone: 'plant' },
+            { label: '豌豆', value: defense.energy, note: '防守能量', asset: 'water-drop-token', tone: 'pea' },
+            { label: '等级', value: `Lv.${growth.level}`, note: `${growth.petXp} XP`, asset: 'star-companion', tone: 'level' },
+            { label: '连续', value: `${growth.streak} 天`, note: '每天点亮', asset: 'sun-smile-badge', tone: 'streak' },
+            { label: '收藏', value: `${collection.unlockedIds.length}/${collection.total}`, note: '已发现', asset: 'treasure-chest', tone: 'collection' }
+        ];
+        return `<section class="pixel-stat-strip" aria-label="成长状态">${stats.map(function (stat) {
+            return `<article class="pixel-stat-card tone-${stat.tone}"><span class="pixel-stat-art">${preschoolAsset(stat.asset, stat.label)}</span><span class="pixel-stat-copy"><small>${escapeHtml(stat.label)}</small><strong>${escapeHtml(stat.value)}</strong><em>${escapeHtml(stat.note)}</em></span></article>`;
+        }).join('')}</section>`;
+    }
+
     function renderPreschoolOverview(derived) {
         const growth = getChildGrowth();
         const done = derived.todayPlans.filter(item => item.done).length;
@@ -421,8 +443,9 @@
         const defense = getPreschoolDefense(growth);
         return `<div class="pixel-home">
             <section class="pixel-page-header"><div><span class="pixel-panel-kicker">TODAY / ADVENTURE</span><h1>今天的冒险开始啦</h1><p>${done}/${total || 0} 个任务已点亮，完成一小步，花园就多一束光。</p></div><div class="pixel-header-actions"><span class="pixel-hud-sun">${preschoolAsset('sun-token', '阳光')}<strong>${growth.sunlight}</strong></span><span class="pixel-hud-defense">${icon('zap')} <strong>${defense.energy}</strong> 豌豆</span><span class="pixel-hud-streak">${icon('flame')} ${growth.streak} 天</span><button class="pixel-settings-button" type="button" data-action="navigate" data-page="account" aria-label="打开设置" title="打开设置">${icon('settings-2')}</button></div></section>
-            <section class="pixel-quest-board"><div class="pixel-board-heading"><div><span class="pixel-panel-kicker">TODAY QUESTS</span><h2>完成任务，收集阳光</h2></div><span class="pixel-board-count">${done} / ${total || 0} 完成</span></div><div class="pixel-quest-grid">${plans.map(pixelQuestCard).join('')}</div></section>
+            ${renderPixelStats(growth, defense)}
             <div class="pixel-world-grid">${renderPixelMap(growth, plans)}<aside class="pixel-side-stack">${renderPixelChest(growth, done, total)}${renderPixelCollection(growth)}</aside></div>
+            <section class="pixel-quest-board"><div class="pixel-board-heading"><div><span class="pixel-panel-kicker">TODAY QUESTS</span><h2>完成任务，收集阳光</h2></div><span class="pixel-board-count">${done} / ${total || 0} 完成</span></div><div class="pixel-quest-grid">${plans.map(pixelQuestCard).join('')}</div></section>
             <section class="pixel-bottom-bar"><div><span class="pixel-panel-kicker">LITTLE ROUTE</span><strong>语文 · 数学 · 英语</strong><small>每完成一项，阳光会照亮花园。</small></div><button class="pixel-side-button" type="button" data-action="navigate" data-page="courses">${icon('book-open')} 去上小课</button><button class="pixel-side-link" type="button" data-action="navigate" data-page="family">告诉家长${icon('heart')}</button></section>
         </div>`;
     }
