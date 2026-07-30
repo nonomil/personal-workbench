@@ -31,14 +31,14 @@
     };
 
     const preschoolPages = {
-        overview: { title: '今天', eyebrow: 'TODAY', heading: '今天点亮六项', description: '选一张图，完成一小步。' },
-        battle: { title: '花园战场', eyebrow: 'PLAY / DEFENSE', heading: '植物伙伴，准备发射', description: '完成小任务收集豌豆能量，守护自己的阳光花园。' },
-        growth: { title: '成长', eyebrow: 'GROW', heading: '我的小花园', description: '阳光、植物和星芒一起长大。' },
-        plans: { title: '打卡', eyebrow: 'CHECK-IN', heading: '今天做什么', description: '做完一项，就点亮一颗星。' },
-        courses: { title: '课程', eyebrow: 'LEARN', heading: '一起学一会儿', description: '语文、数学、英语，选一张开始。' },
-        mistakes: { title: '改错', eyebrow: 'TRY AGAIN', heading: '再试一次', description: '不会的题，和家长一起看看。' },
-        rewards: { title: '奖励', eyebrow: 'REWARDS', heading: '阳光换礼物', description: '攒阳光，选一个小期待。' },
-        family: { title: '家长', eyebrow: 'FAMILY', heading: '告诉家长', description: '把今天的小成就分享出去。' },
+        overview: { title: '首页', eyebrow: 'HOME / GARDEN', heading: '今天点亮六项', description: '选一张图，完成一小步。' },
+        battle: { title: '植物大战', eyebrow: 'PLAY / DEFENSE', heading: '植物伙伴，准备发射', description: '完成小任务收集豌豆能量，守护自己的阳光花园。' },
+        growth: { title: '成长花园', eyebrow: 'GARDEN / GROW', heading: '我的小花园', description: '阳光、植物和星芒一起长大。' },
+        plans: { title: '学习任务', eyebrow: 'TODAY / QUESTS', heading: '今天做什么', description: '做完一项，就点亮一颗星。' },
+        courses: { title: '课程资源', eyebrow: 'LEARN / LIBRARY', heading: '一起学一会儿', description: '语文、数学、英语，选一张开始。' },
+        mistakes: { title: '改错本', eyebrow: 'TRY AGAIN', heading: '再试一次', description: '不会的题，和家长一起看看。' },
+        rewards: { title: '阳光商城', eyebrow: 'SUN / SHOP', heading: '阳光换礼物', description: '攒阳光，选一个小期待。' },
+        family: { title: '家长互动', eyebrow: 'FAMILY', heading: '告诉家长', description: '把今天的小成就分享出去。' },
         account: { title: '设置', eyebrow: 'SETTINGS', heading: '家长设置', description: '账号和多设备同步。' }
     };
 
@@ -89,9 +89,9 @@
         },
         preschool: {
             id: 'preschool',
-            name: '幼儿学习工作台',
-            shortName: '小小工作台',
-            englishName: 'PRESCHOOL LEARNING WORKBENCH',
+            name: '植物大战暑假作业台',
+            shortName: '植物大战',
+            englishName: 'SUN GARDEN ADVENTURE',
             path: '../preschool-workbench/',
             switchIcon: 'sprout',
             switchTone: 'lime',

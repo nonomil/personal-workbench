@@ -1718,24 +1718,36 @@ body.variant-preschool .pixel-map-panel.is-compact .pixel-map-safe { display: no
     body.variant-preschool .pixel-page-enter { animation: none; }
 }
 
-/* The reference keeps the preschool route rail visible on phone-sized canvases. */
+/* On phone-sized canvases the purple route becomes an accessible drawer so the work area keeps its full width. */
 @media (max-width: 560px) {
     body.variant-preschool .sidebar {
-        transform: translateX(0);
+        width: 220px;
+        transform: translateX(-100%);
     }
-    body.variant-preschool .sidebar-close,
-    body.variant-preschool .menu-toggle,
-    body.variant-preschool .sidebar-scrim,
     body.variant-preschool .topbar-workbench-switcher,
     body.variant-preschool .topbar-focus-button,
     body.variant-preschool .topbar-divider { display: none; }
-    body.variant-preschool .main-content { width: calc(100% - 152px); margin-left: 152px; }
+    body.variant-preschool .main-content { width: 100%; margin-left: 0; }
     body.variant-preschool .topbar { gap: 5px; padding-inline: 9px; }
     body.variant-preschool .topbar-context { flex: 1; font-size: 9px; }
     body.variant-preschool .topbar-context strong { font-size: 11px; }
     body.variant-preschool .topbar-actions { gap: 0; }
+    body.variant-preschool .pixel-header-actions { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    body.variant-preschool .pixel-settings-button { display: none; }
+    body.variant-preschool .page-content,
+    body.variant-preschool .pixel-home,
+    body.variant-preschool .pixel-world-grid,
+    body.variant-preschool .pixel-quest-board { width: 100%; max-width: 100%; min-width: 0; }
     body.variant-preschool .pixel-page-header { display: block; }
-    body.variant-preschool .pixel-header-actions { display: none; }
+    body.variant-preschool .pixel-header-actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; margin-top: 10px; }
+    body.variant-preschool .pixel-header-actions > * { min-width: 0; }
+    body.variant-preschool .pixel-hud-sun,
+    body.variant-preschool .pixel-hud-defense,
+    body.variant-preschool .pixel-hud-streak { justify-content: center; overflow: hidden; padding-inline: 4px; }
+    body.variant-preschool .pixel-hud-sun strong,
+    body.variant-preschool .pixel-hud-defense strong { font-size: 11px; }
+    body.variant-preschool .pixel-hud-sun .preschool-generated-art,
+    body.variant-preschool .pixel-hud-defense-art { width: 22px; height: 22px; }
     body.variant-preschool .pixel-map-copy { right: 12px; max-width: none; }
     body.variant-preschool .pixel-map-copy h2 { font-size: 16px; }
     body.variant-preschool .pixel-map-copy p { font-size: 9px; }
@@ -1749,12 +1761,15 @@ body.variant-preschool .pixel-map-panel.is-compact .pixel-map-safe { display: no
 }
 
 @media (max-width: 360px) {
-    body.variant-preschool .sidebar { width: 124px; padding: 8px 5px; }
-    body.variant-preschool .main-content { width: calc(100% - 124px); margin-left: 124px; }
+    body.variant-preschool .sidebar { width: 220px; padding: 12px 9px; }
+    body.variant-preschool .main-content { width: 100%; margin-left: 0; }
     body.variant-preschool .brand { gap: 6px; }
     body.variant-preschool .brand-mark { width: 26px; height: 26px; flex-basis: 26px; }
     body.variant-preschool .brand strong { overflow-wrap: anywhere; font-size: 10px; white-space: normal; }
     body.variant-preschool .brand small { display: none; }
+    body.variant-preschool .pixel-header-actions { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    body.variant-preschool .pixel-settings-button { display: none; }
+    body.variant-preschool .pixel-hud-defense > span:last-child { display: none; }
     body.variant-preschool .sidebar-section-label { margin: 14px 5px 7px; font-size: 8px; }
     body.variant-preschool .nav-item { min-height: 35px; gap: 5px; padding: 5px 6px; }
     body.variant-preschool .nav-item svg { width: 15px; height: 15px; }
@@ -2147,14 +2162,38 @@ body.variant-preschool .pixel-battle-plant strong { max-width: 100%; overflow: h
 body.variant-preschool .pixel-battle-plant small { max-width: 100%; overflow: hidden; color: var(--pixel-ink-soft); font-size: 8px; text-overflow: ellipsis; white-space: nowrap; }
 body.variant-preschool .pixel-battle-quest-panel .pixel-checkin-grid { margin-top: 12px; }
 
+body.variant-preschool .pixel-battle-support-grid { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(260px, .92fr); gap: 16px; }
+body.variant-preschool .pixel-battle-reward-panel,
+body.variant-preschool .pixel-daily-challenge { min-width: 0; padding: 15px; border: 4px solid var(--pixel-wood); background: var(--pixel-paper); box-shadow: 5px 5px 0 var(--pixel-wood-dark); }
+body.variant-preschool .pixel-battle-reward-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 12px; }
+body.variant-preschool .pixel-battle-reward-item { display: grid; min-width: 0; grid-template-columns: 40px minmax(0, 1fr); align-items: center; gap: 7px; min-height: 66px; padding: 7px; border: 2px solid #d8c08c; background: #fff9dc; }
+body.variant-preschool .pixel-battle-reward-item.tone-sun { border-color: #e4bd55; background: #fff7d2; }
+body.variant-preschool .pixel-battle-reward-item.tone-pea { border-color: #9fc9e8; background: #eff8ff; }
+body.variant-preschool .pixel-battle-reward-item.tone-chest { border-color: #c3a7e8; background: #f7f1ff; }
+body.variant-preschool .pixel-battle-reward-art { display: grid; width: 40px; height: 40px; place-items: center; }
+body.variant-preschool .pixel-battle-reward-art .preschool-generated-art { display: block; width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated; }
+body.variant-preschool .pixel-battle-reward-item > span:last-child { display: grid; min-width: 0; gap: 2px; }
+body.variant-preschool .pixel-battle-reward-item strong { overflow: hidden; color: var(--pixel-ink); font-size: 11px; font-weight: 950; text-overflow: ellipsis; white-space: nowrap; }
+body.variant-preschool .pixel-battle-reward-item small { color: var(--pixel-ink-soft); font-size: 9px; font-weight: 750; line-height: 1.35; }
+body.variant-preschool .pixel-battle-reward-note { margin: 11px 0 0; color: var(--pixel-ink-soft); font-size: 10px; font-weight: 800; }
+body.variant-preschool .pixel-daily-challenge.is-ready { border-color: #7950c6; box-shadow: 0 0 0 2px #dac8f7, 5px 5px 0 #553a28; }
+body.variant-preschool .pixel-daily-challenge-copy { display: grid; gap: 3px; margin-top: 12px; }
+body.variant-preschool .pixel-daily-challenge-copy strong { color: var(--pixel-ink); font-size: 15px; font-weight: 950; }
+body.variant-preschool .pixel-daily-challenge-copy small { color: var(--pixel-ink-soft); font-size: 10px; font-weight: 750; }
+body.variant-preschool .pixel-daily-progress { height: 13px; margin-top: 12px; border: 3px solid var(--pixel-wood); background: #e3cf9a; }
+body.variant-preschool .pixel-daily-progress span { display: block; height: 100%; background: linear-gradient(90deg, #52a548, #9bd34e); }
+body.variant-preschool .pixel-daily-meta { display: flex; justify-content: space-between; gap: 8px; margin: 7px 0 12px; color: var(--pixel-ink-soft); font-size: 9px; font-weight: 850; }
+
 @media (max-width: 860px) {
     body.variant-preschool .pixel-battle-layout { grid-template-columns: 1fr; }
     body.variant-preschool .pixel-battle-side { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    body.variant-preschool .pixel-battle-support-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 560px) {
     body.variant-preschool .pixel-battle-layout > div > .pixel-map-panel { min-height: 650px; }
     body.variant-preschool .pixel-battle-side { grid-template-columns: 1fr; }
+    body.variant-preschool .pixel-battle-support-grid { grid-template-columns: 1fr; }
     body.variant-preschool .pixel-battle-plant-panel,
     body.variant-preschool .pixel-battle-quest-panel,
     body.variant-preschool .pixel-rulebook,

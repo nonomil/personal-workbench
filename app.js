@@ -495,6 +495,24 @@
         </div>`;
     }
 
+    function renderPreschoolBattleRewards(growth, defense) {
+        const rewardSteps = [
+            { asset: 'sun-token', title: '+10 阳光', caption: '完成一项今日任务', tone: 'sun' },
+            { asset: 'player-energy-bars', title: '发射 1 颗', caption: '命中一次小怪生命', tone: 'pea' },
+            { asset: 'treasure-chest', title: '通关奖励', caption: '击退一波，去阳光商城', tone: 'chest' }
+        ];
+        return `<section class="pixel-battle-reward-panel"><div class="pixel-side-heading"><div><span class="pixel-panel-kicker">REWARD LADDER</span><h2>分层奖励</h2></div><span class="pixel-side-count">${growth.sunlight} 阳光</span></div><div class="pixel-battle-reward-grid">${rewardSteps.map(function (step) { return `<article class="pixel-battle-reward-item tone-${step.tone}"><span class="pixel-battle-reward-art">${preschoolAsset(step.asset, step.title)}</span><span><strong>${step.title}</strong><small>${step.caption}</small></span></article>`; }).join('')}</div><p class="pixel-battle-reward-note">当前能量 ${defense.energy} 颗，每次发射都会留下守护记录。</p></section>`;
+    }
+
+    function renderPreschoolDailyChallenge(plans, defense) {
+        const total = plans.length;
+        const completed = plans.filter(item => item.done).length;
+        const remaining = Math.max(0, total - completed);
+        const percent = total ? Math.round((completed / total) * 100) : 0;
+        const ready = total > 0 && remaining === 0;
+        return `<section class="pixel-daily-challenge ${ready ? 'is-ready' : ''}"><div class="pixel-side-heading"><div><span class="pixel-panel-kicker">DAILY CHALLENGE</span><h2>${ready ? '今日挑战完成啦' : '每日挑战'}</h2></div><span class="pixel-side-count">${completed}/${total}</span></div><div class="pixel-daily-challenge-copy"><strong>${ready ? '阳光花园已点亮' : `再完成 ${remaining} 项`}</strong><small>${ready ? '去阳光商城挑一份小礼物。' : '完成任务会同时收集阳光和豌豆能量。'}</small></div><div class="pixel-daily-progress"><span style="width:${percent}%"></span></div><div class="pixel-daily-meta"><span>${percent}% 完成</span><span>${defense.shots} 次发射</span></div><button class="pixel-side-button" type="button" data-action="navigate" data-page="${ready ? 'rewards' : 'plans'}">${icon(ready ? 'gift' : 'flag')} ${ready ? '去阳光商城' : '去完成任务'}</button></section>`;
+    }
+
     function renderPreschoolBattle() {
         const growth = getChildGrowth();
         const derived = getDerived();
@@ -520,6 +538,7 @@
                     <section class="pixel-rulebook"><div class="pixel-side-heading"><div><span class="pixel-panel-kicker">HOW TO PLAY</span><h2>三步守护花园</h2></div><span class="pixel-side-count">${defense.canFire ? '可发射' : '准备中'}</span></div><div class="pixel-rule-list"><div><b>1</b><span><strong>完成一项任务</strong><small>收集阳光，也会得到豌豆能量。</small></span></div><div><b>2</b><span><strong>召唤云朵小怪</strong><small>想练习时，点击“来一波练习”。</small></span></div><div><b>3</b><span><strong>发射豌豆</strong><small>每颗豌豆消耗 1 点能量，命中一次。</small></span></div></div></section>
                     <section class="pixel-battle-status"><div class="pixel-side-heading"><div><span class="pixel-panel-kicker">DEFENSE LOG</span><h2>守护记录</h2></div><span class="pixel-side-count">${invader.active ? `${invader.health}/${invader.maxHealth} HP` : '安全'}</span></div><div class="pixel-battle-status-grid">${statusRows.map(function (row) { return `<div><span>${icon(row[2])}</span><small>${row[0]}</small><strong>${row[1]}</strong></div>`; }).join('')}</div></section>
                 </aside></div>
+                <div class="pixel-battle-support-grid">${renderPreschoolBattleRewards(growth, defense)}${renderPreschoolDailyChallenge(plans, defense)}</div>
                 <section class="pixel-battle-plant-panel"><div class="pixel-side-heading"><div><span class="pixel-panel-kicker">PLANT LOADOUT</span><h2>选择植物伙伴</h2></div><span class="pixel-side-count">${Array.isArray(garden.unlockedPlantIds) ? garden.unlockedPlantIds.length : 0}/${plants.length}</span></div><div class="pixel-battle-plant-grid">${plantCards}</div></section>
                 <section class="pixel-battle-quest-panel"><div class="pixel-side-heading"><div><span class="pixel-panel-kicker">TODAY QUESTS</span><h2>先完成任务，再来发射</h2></div><button class="pixel-side-link" type="button" data-action="navigate" data-page="plans">去打卡${icon('arrow-up-right')}</button></div>${renderPreschoolPlanRows(plans)}</section>
             </div>`;

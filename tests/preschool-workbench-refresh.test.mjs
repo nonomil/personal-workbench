@@ -62,6 +62,8 @@ test('keeps the refreshed reward tiers and three-lane defense contract in the pr
   const styles = fs.readFileSync(path.join(root, 'styles.css'), 'utf8');
   const tiers = Array.from(config.matchAll(/tier: '([^']+)'/g), match => match[1]);
   assert.equal(new Set(tiers).size, 4);
+  assert.match(config, /name: '植物大战暑假作业台'/);
+  assert.match(config, /englishName: 'SUN GARDEN ADVENTURE'/);
   assert.match(config, /tier: '小奖励'/);
   assert.match(config, /tier: '特别奖励'/);
   assert.match(app, /preschool-reward-tier/);
@@ -81,6 +83,10 @@ test('keeps the refreshed reward tiers and three-lane defense contract in the pr
   assert.match(app, /pixel-battle-layout/);
   assert.match(app, /pixel-rulebook/);
   assert.match(app, /pixel-battle-plant-grid/);
+  assert.match(app, /function renderPreschoolBattleRewards\(growth, defense\)/);
+  assert.match(app, /pixel-battle-reward-panel/);
+  assert.match(app, /function renderPreschoolDailyChallenge\(plans, defense\)/);
+  assert.match(app, /pixel-daily-challenge/);
   assert.match(app, /if \(ui\.page === 'battle'\) return renderPreschoolBattle\(\)/);
   const statsPosition = app.indexOf('${renderPixelStats(growth, defense)}');
   const worldPosition = app.indexOf('<div class="pixel-world-grid">', statsPosition);
@@ -92,6 +98,12 @@ test('keeps the refreshed reward tiers and three-lane defense contract in the pr
   assert.match(styles, /pixel-page-enter/);
   assert.match(styles, /pixel-map-panel\.is-compact/);
   assert.match(styles, /pixel-map-landmarks/);
+  assert.match(styles, /pixel-battle-reward-grid/);
+  assert.match(styles, /pixel-daily-challenge/);
+  assert.match(styles, /@media \(max-width: 560px\)[\s\S]*pixel-header-actions \{\s*display: grid/);
+  assert.match(styles, /@media \(max-width: 560px\)[\s\S]*pixel-header-actions \{ grid-template-columns: repeat\(3, minmax\(0, 1fr\)\); \}/);
+  assert.match(styles, /@media \(max-width: 560px\)[\s\S]*pixel-settings-button \{ display: none; \}/);
+  assert.match(styles, /@media \(max-width: 560px\)[\s\S]*main-content \{ width: 100%; margin-left: 0; \}/);
   assert.match(app, /grass-platform\.png/);
   assert.match(styles, /pixel-quest-grid\s*\{[^}]*grid-template-columns:\s*repeat\(2/);
   assert.match(styles, /pixel-world-grid\s*\{\s*grid-template-areas:\s*"map side" "quest side"/);
@@ -104,6 +116,9 @@ test('keeps the refreshed reward tiers and three-lane defense contract in the pr
     assert.match(preschoolIndex, new RegExp(asset.replace('.', '\\.') ));
     assert.equal(fs.existsSync(path.join(root, 'assets', 'generated', 'preschool-pixel', 'reference', 'gpt-output-20260730', 'published-gpt-v2', asset)), true, asset);
   }
+  assert.match(preschoolIndex, /植物大战暑假作业台/);
+  assert.match(preschoolIndex, /data-page="battle"[^>]*>[\s\S]*<span>植物大战<\/span>/);
+  assert.match(preschoolIndex, /data-page="rewards"[^>]*>[\s\S]*<span>阳光商城<\/span>/);
 });
 
 test('keeps preschool check-in cards visual and reward-led', () => {
