@@ -105,7 +105,7 @@ test('keeps adult, child and preschool entry points isolated', () => {
   assert.match(rootHtml, /data-workbench-variant="adult"/);
   assert.match(rootHtml, /data-workbench-variant="child"/);
   assert.match(rootHtml, /data-workbench-variant="preschool"/);
-  assert.match(rootHtml, /href="\.\/preschool-workbench\/"/);
+  assert.match(rootHtml, /href="\.\/preschool-workbench\/index\.html"/);
   assert.match(launcher, /personal_workbench_selected_variant_v1/);
   assert.match(launcher, /shouldAutoRedirect/);
   assert.match(adultHtml, /\.\.\/launcher\.js/);
@@ -116,9 +116,9 @@ test('keeps adult, child and preschool entry points isolated', () => {
   assert.match(config, /petbank_huchuliang_adult_workbench_state_v1/);
   assert.match(config, /petbank_huchuliang_child_workbench_state_v1/);
   assert.match(config, /petbank_huchuliang_preschool_workbench_state_v1/);
-  assert.match(config, /path: '\.\.\/成人成长工作台\/'/);
-  assert.match(config, /path: '\.\.\/儿童学习工作台\/'/);
-  assert.match(config, /path: '\.\.\/preschool-workbench\/'/);
+  assert.match(config, /path: '\.\.\/成人成长工作台\/index\.html'/);
+  assert.match(config, /path: '\.\.\/儿童学习工作台\/index\.html'/);
+  assert.match(config, /path: '\.\.\/preschool-workbench\/index\.html'/);
   assert.match(config, /topbar-mode-link/);
   assert.match(config, /topbar-workbench-switcher/);
   assert.match(config, /dataset\.workbenchVariant/);

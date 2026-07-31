@@ -158,7 +158,7 @@ test('keeps preschool plant companions and defense HUD on the generated pixel as
   assert.match(app, /const plantAsset = preschoolPlantAsset\(activePlant\)/);
   assert.match(app, /pixel-hud-defense-art/);
   assert.match(app, /asset: 'player-energy-bars'/);
-  assert.match(config, /selected\.id === 'preschool' \? 'v0\.2\.2 · 幼儿版'/);
+  assert.match(config, /selected\.id === 'preschool' \? 'v0\.2\.3 · 幼儿版'/);
   assert.doesNotMatch(config, /v0\.3 · 幼儿版/);
   assert.match(styles, /pixel-hud-defense-art/);
   assert.match(styles, /image-rendering: pixelated/);

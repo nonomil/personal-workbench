@@ -48,7 +48,7 @@
             name: '成人成长工作台',
             shortName: '成长工作台',
             englishName: 'ADULT GROWTH WORKBENCH',
-            path: '../成人成长工作台/',
+            path: '../成人成长工作台/index.html',
             switchIcon: 'layout-dashboard',
             switchTone: 'orange',
             switchSummary: '计划、阅读、目标与复盘',
@@ -65,7 +65,7 @@
             name: '儿童学习工作台',
             shortName: '学习工作台',
             englishName: 'CHILD LEARNING WORKBENCH',
-            path: '../儿童学习工作台/',
+            path: '../儿童学习工作台/index.html',
             switchIcon: 'book-open',
             switchTone: 'blue',
             switchSummary: '语数英、错题、奖励与互动',
@@ -92,7 +92,7 @@
             name: '植物大战暑假作业台',
             shortName: '植物大战',
             englishName: 'SUN GARDEN ADVENTURE',
-            path: '../preschool-workbench/',
+            path: '../preschool-workbench/index.html',
             switchIcon: 'sprout',
             switchTone: 'lime',
             switchSummary: '大图打卡、花园、收集与奖励',
@@ -151,7 +151,7 @@
         '.topbar-context strong': selected.pageMeta.overview.title,
         '.mode-status strong': '本地模式',
         '.mode-status small': selected.statusNote,
-        '.sidebar-footnote': selected.id === 'preschool' ? 'v0.2.2 · 幼儿版' : selected.id === 'child' ? 'v0.2 · 儿童版' : 'v0.2 · 成人版',
+        '.sidebar-footnote': selected.id === 'preschool' ? 'v0.2.3 · 幼儿版' : selected.id === 'child' ? 'v0.2 · 儿童版' : 'v0.2 · 成人版',
         '.avatar': selected.avatar
     };
     Object.keys(labelMap).forEach(function (selector) {

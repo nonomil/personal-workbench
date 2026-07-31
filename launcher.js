@@ -4,14 +4,14 @@
     const KEY = 'personal_workbench_selected_variant_v1';
     const VALID_VARIANTS = ['adult', 'child', 'preschool'];
     const ROOT_PATHS = {
-        adult: './成人成长工作台/',
-        child: './儿童学习工作台/',
-        preschool: './preschool-workbench/'
+        adult: './成人成长工作台/index.html',
+        child: './儿童学习工作台/index.html',
+        preschool: './preschool-workbench/index.html'
     };
     const SIBLING_PATHS = {
-        adult: '../成人成长工作台/',
-        child: '../儿童学习工作台/',
-        preschool: '../preschool-workbench/'
+        adult: '../成人成长工作台/index.html',
+        child: '../儿童学习工作台/index.html',
+        preschool: '../preschool-workbench/index.html'
     };
 
     function isValidVariant(value) {

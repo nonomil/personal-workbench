@@ -27,10 +27,10 @@ test('remembers a valid variant and ignores invalid stored values', () => {
 });
 
 test('resolves static paths for the root launcher and current workbench pages', () => {
-  assert.equal(launcher.getPath('adult'), './成人成长工作台/');
-  assert.equal(launcher.getPath('preschool'), './preschool-workbench/');
-  assert.equal(launcher.getSiblingPath('child', 'adult'), '../成人成长工作台/');
-  assert.equal(launcher.getSiblingPath('adult', 'preschool'), '../preschool-workbench/');
+  assert.equal(launcher.getPath('adult'), './成人成长工作台/index.html');
+  assert.equal(launcher.getPath('preschool'), './preschool-workbench/index.html');
+  assert.equal(launcher.getSiblingPath('child', 'adult'), '../成人成长工作台/index.html');
+  assert.equal(launcher.getSiblingPath('adult', 'preschool'), '../preschool-workbench/index.html');
 });
 
 test('only auto-redirects when a remembered choice exists and choose mode is absent', () => {
