@@ -158,7 +158,7 @@ test('keeps preschool plant companions and defense HUD on the generated pixel as
   assert.match(app, /const plantAsset = preschoolPlantAsset\(activePlant\)/);
   assert.match(app, /pixel-hud-defense-art/);
   assert.match(app, /asset: 'player-energy-bars'/);
-  assert.match(config, /selected\.id === 'preschool' \? 'v0\.2\.1 · 幼儿版'/);
+  assert.match(config, /selected\.id === 'preschool' \? 'v0\.2\.2 · 幼儿版'/);
   assert.doesNotMatch(config, /v0\.3 · 幼儿版/);
   assert.match(styles, /pixel-hud-defense-art/);
   assert.match(styles, /image-rendering: pixelated/);
@@ -179,4 +179,26 @@ test('keeps preschool v2.3 reward feedback visible in the first-screen contract'
   assert.match(styles, /preschool-celebration-resources/);
   assert.match(styles, /preschool-hud-bump/);
   assert.match(styles, /prefers-reduced-motion: reduce/);
+});
+
+test('keeps preschool mobile status cards readable at reference widths', () => {
+  const styles = fs.readFileSync(path.join(root, 'styles.css'), 'utf8');
+  assert.match(styles, /Preschool 2\.4 mobile fidelity/);
+  assert.match(styles, /@media \(max-width: 560px\)[\s\S]*?pixel-stat-strip \{[^}]*grid-template-columns:\s*repeat\(3, minmax\(0, 1fr\)/);
+  assert.match(styles, /@media \(max-width: 560px\)[\s\S]*?pixel-stat-card \{[^}]*min-height:\s*56px/);
+  assert.match(styles, /@media \(max-width: 560px\)[\s\S]*?pixel-stat-copy \{[^}]*min-width:\s*0/);
+  assert.match(styles, /@media \(max-width: 560px\)[\s\S]*?pixel-stat-copy \{[^}]*flex:\s*1 1 0/);
+  assert.match(styles, /@media \(max-width: 560px\)[\s\S]*?pixel-stat-copy strong \{[^}]*font-size:\s*11px/);
+  assert.match(styles, /@media \(max-width: 560px\)[\s\S]*?pixel-stat-card[^}]*min-width:\s*0/);
+  assert.match(styles, /pixel-pea-button \{[^}]*min-height:\s*44px/);
+  assert.match(styles, /@media \(max-width: 560px\)[\s\S]*?\.brand strong \{[^}]*white-space:\s*normal/);
+  assert.match(styles, /@media \(max-width: 360px\)[\s\S]*?html,\s*body \{[^}]*min-width:\s*0/);
+  assert.match(styles, /@media \(max-width: 360px\)[\s\S]*?overflow-x:\s*clip/);
+  assert.match(styles, /Preschool 2\.4 320px status cards[\s\S]*?pixel-stat-strip \{[^}]*grid-template-columns:\s*repeat\(2/);
+});
+
+test('resets the page scroll position when switching workbench routes', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  assert.match(app, /function setPage\([\s\S]*?window\.scrollTo\(0, 0\)/);
+  assert.match(app, /hashchange[\s\S]*?window\.scrollTo\(0, 0\)/);
 });

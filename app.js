@@ -243,6 +243,7 @@
         else if (location.hash !== `#${ui.page}`) location.hash = ui.page;
         render();
         closeSidebar();
+        window.scrollTo(0, 0);
     }
 
     function render() {
@@ -1809,7 +1810,7 @@
         }
     });
     importFile.addEventListener('change', function () { importSnapshot(importFile.files && importFile.files[0]); });
-    window.addEventListener('hashchange', function () { ui.page = getPageFromHash(); render(); closeSidebar(); });
+    window.addEventListener('hashchange', function () { ui.page = getPageFromHash(); render(); closeSidebar(); window.scrollTo(0, 0); });
     entryDialog.addEventListener('click', function (event) { if (event.target === entryDialog) closeDialog(); });
 
     if (!location.hash) history.replaceState(null, '', '#overview');
