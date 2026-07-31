@@ -210,6 +210,27 @@ body.variant-preschool .wb-glass-card {
     -webkit-backdrop-filter: blur(19px) saturate(145%);
 }
 
+body.variant-preschool .pixel-defense-state {
+    display: inline-flex;
+    min-height: 26px;
+    align-items: center;
+    padding: 0 9px;
+    border: 1px solid rgba(45, 116, 78, .2);
+    border-radius: 999px;
+    color: #2f8a50;
+    background: #eefbea;
+    font-size: 10px;
+    font-weight: 900;
+    white-space: nowrap;
+}
+body.variant-preschool .pixel-defense-state.is-ready { border-color: rgba(230, 137, 72, .24); color: #a3572e; background: #fff4dd; }
+body.variant-preschool .pixel-map-panel[data-defense-state="active"] .pixel-defense-actions { border-color: rgba(107, 203, 119, .42); }
+body.variant-preschool .pixel-map-panel[data-defense-state="ready"] .pixel-defense-actions { border-color: rgba(255, 140, 66, .28); }
+
+/* The global generated-art rule is intentionally full-bleed for scene art. Keep compact HUD chips compact. */
+body.variant-preschool .points-chip { display: inline-flex; min-height: 30px; align-items: center; gap: 6px; }
+body.variant-preschool .points-chip .preschool-generated-art { display: block; flex: 0 0 24px; width: 24px; height: 24px; object-fit: contain; border-radius: 0; }
+
 body.variant-preschool .workbench-stat-card::before,
 body.variant-preschool .pixel-quest-board::before,
 body.variant-preschool .pixel-side-panel::before,

@@ -171,4 +171,17 @@ test('publishes versioned CSS manifests and nested preschool assets', () => {
   assert.match(fs.readFileSync(path.join(root, 'styles.css'), 'utf8'), /Compatibility aggregate/);
 });
 
+test('keeps the adult dashboard and workbench switcher inside a phone viewport', () => {
+  const root = fileURLToPath(new URL('..', import.meta.url));
+  const adultStyles = fs.readFileSync(path.join(root, 'css', 'adult.css'), 'utf8');
+  assert.match(adultStyles, /body\.variant-adult \.dashboard-grid \{[^}]*grid-template-columns:\s*minmax\(0, 1fr\)/);
+  assert.match(adultStyles, /body\.variant-adult \.dashboard-column \{[^}]*min-width:\s*0/);
+  assert.match(adultStyles, /@media \(max-width: 1080px\)[\s\S]*body\.variant-adult \.metric-grid \{[^}]*grid-template-columns:\s*repeat\(2/);
+  assert.match(adultStyles, /@media \(max-width: 1080px\)[\s\S]*body\.variant-adult \.focus-card \{[^}]*grid-template-columns:\s*1fr/);
+  assert.match(adultStyles, /@media \(max-width: 700px\)[\s\S]*body\.variant-adult \.adult-command-grid[\s\S]*grid-template-columns:\s*1fr/);
+  assert.match(adultStyles, /@media \(max-width: 860px\)[\s\S]*body\.variant-adult \.dashboard-grid \{[^}]*grid-template-columns:\s*1fr/);
+  assert.match(adultStyles, /@media \(max-width: 560px\)[\s\S]*body\.variant-adult \.topbar-workbench-menu \{[^}]*position:\s*fixed/);
+  assert.match(adultStyles, /body\.variant-adult \.topbar-workbench-menu \{[^}]*max-width:\s*calc\(100vw - 28px\)/);
+});
+
 console.log(`workbench contract: ${storage.STORAGE_KEY}`);

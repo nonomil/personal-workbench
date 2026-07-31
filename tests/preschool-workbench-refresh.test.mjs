@@ -271,6 +271,15 @@ test('keeps the preschool defense preview visible and readable before an invasio
   assert.match(styles, /pixel-battle-invader\.is-preview/);
 });
 
+test('makes the preschool defense primary action state explicit', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const styles = readCssGraph(path.join(root, 'styles.css'));
+  assert.match(app, /data-defense-state="\$\{invader\.active \? 'active' : 'ready'\}"/);
+  assert.match(app, /class="pixel-defense-state \$\{invader\.active \? 'is-active' : 'is-ready'\}"/);
+  assert.match(styles, /pixel-defense-state/);
+  assert.match(styles, /points-chip \.preschool-generated-art \{ display: block; flex: 0 0 24px; width: 24px; height: 24px;/);
+});
+
 test('keeps preschool v2.3 reward feedback visible in the first-screen contract', () => {
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
   const styles = readCssGraph(path.join(root, 'styles.css'));
