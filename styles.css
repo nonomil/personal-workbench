@@ -1331,7 +1331,7 @@ body.variant-preschool .pixel-hud-defense strong { font-family: ui-monospace, SF
 body.variant-preschool .pixel-map-panel {
     min-height: 630px;
     background-color: #72cbb9;
-    background-image: linear-gradient(rgba(38, 124, 107, .14), rgba(38, 124, 107, .14)), url('./assets/generated/preschool-pixel/reference/workbench-pixel-reference_001.png');
+    background-image: linear-gradient(rgba(38, 124, 107, .08), rgba(38, 124, 107, .08)), url('./assets/generated/preschool-pixel/refresh-20260731/published/garden-map-gpt.webp');
     background-position: 50% 100%;
     background-size: cover;
 }

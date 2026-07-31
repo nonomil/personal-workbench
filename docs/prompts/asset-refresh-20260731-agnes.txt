@@ -1,0 +1,14 @@
+Use case: stylized-concept
+Asset type: transparent UI sprite sheet for a preschool learning workbench
+Primary request: Create a 3 by 3 sprite sheet of nine separate original 16-bit pixel-art game assets for a cheerful preschool learning garden. Each cell contains exactly one centered object with generous padding. Cell order: 1 smiling golden sun token, 2 blue water drop token, 3 friendly seedling in a small clay pot, 4 cute cloudy garden invader, 5 openable wooden treasure chest with gold trim, 6 small five-point star companion, 7 colorful flower checkpoint, 8 orange carrot reward, 9 tiny wooden flag pedestal.
+Scene/backdrop: perfectly flat solid #ff00ff chroma-key background, no grid lines, no separators, no floor, no scenery
+Subject: one complete object per cell, visually consistent across all nine cells
+Style/medium: crisp 16-bit pixel art, chunky readable silhouettes, limited palette, dark 1 to 2 pixel outline, subtle internal highlights, warm child-friendly game UI
+Composition/framing: square 1024x1024 sheet, exact 3x3 layout, one object per cell, no overlap between cells, objects centered and fully visible
+Lighting/mood: bright, playful, welcoming, consistent soft top-left pixel highlights
+Color palette: leaf green, sunflower yellow, sky blue, warm wood brown, coral orange, cream highlights, deep plum outlines; never use magenta in the objects
+Materials/textures: pixel clusters, clean hard edges, no antialiasing outside the key background
+Text (verbatim): none
+Constraints: no text, no numbers, no logos, no watermark, no characters with faces except the sun, invader, and star companion; keep every object isolated and easy to crop
+Avoid: gradients, photorealism, 3D render, shadows, reflections, glow halos, thin lines, semi-transparent objects, duplicated objects, cropped objects, checkerboard background
+Transparent processing: generate on the flat #ff00ff key color; all pixels outside the objects must be removable to alpha

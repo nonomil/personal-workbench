@@ -40,3 +40,12 @@
 `assets/generated/preschool-pixel/reference/gpt-output-20260730/published-gpt-v2/`
 
 发布前通过 `publish_transparent_assets.py` 检查，46 个素材均为 RGBA，最外圈 alpha 为 0。右侧收集栏素材因包含木板面板底色未接入；宝箱沿用已有透明版本作为回退。幼儿版 `app.js` 已切换到这套 GPT 拆解资源。
+
+## 视觉资产刷新（2026-07-31）
+
+本轮同时验证两条生图通道：Agnes 生成透明元素爆炸图，Bee API 的 `gpt-image-2` 生成宽幅无文字花园场景。透明元素先用纯洋红色键生成，再通过本地 chroma-key helper 去背、边缘收缩和语义裁切；由于 soft-matte 的洋红色通道会误判黄色高光，本轮最终采用硬键 + edge contract，保留像素轮廓和饱和色。
+
+- Agnes：9 个新透明 PNG，发布到 `assets/generated/preschool-pixel/refresh-20260731/published/`。
+- GPT/Bee：`garden-map-gpt.webp`，1536×1024，约 224 KB，作为幼儿版地图背景，不承载运行时文字。
+- 运行时：新资源只在幼儿版优先使用，旧 `published-gpt-v2` 仍作为未刷新资源的回退；动态标题、按钮、数值和无障碍文本继续由 HTML/CSS/JS 渲染。
+- 未使用矢量化替代复杂像素插图：按调研报告建议，VTracer/Recraft 等工具留给简单图标、标志和后续需要 SVG 的资产，避免破坏复杂像素边缘。

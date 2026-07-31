@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "id": "preschool-pixel-refresh-20260731",
+  "status": "published",
+  "style": "original 16-bit pixel art",
+  "sources": [
+    {
+      "provider": "Agnes",
+      "model": "agnes-image-2.1-flash",
+      "asset": "transparent sprite sheet",
+      "processing": "hard chroma-key removal, edge contract, semantic crop"
+    },
+    {
+      "provider": "Bee API",
+      "model": "gpt-image-2",
+      "asset": "garden-map-gpt.webp",
+      "processing": "PNG validation and WebP conversion"
+    }
+  ],
+  "transparentPolicy": {
+    "format": "PNG",
+    "cornersMustBeTransparent": true,
+    "runtimeText": "HTML/CSS/JS only"
+  },
+  "assets": [
+    "sun-token.png",
+    "water-drop-token.png",
+    "seedling-node.png",
+    "cloud-invader.png",
+    "treasure-chest.png",
+    "star-companion.png",
+    "flower-checkpoint.png",
+    "carrot-reward.png",
+    "quest-flag-pedestal.png",
+    "garden-map-gpt.webp"
+  ]
+}

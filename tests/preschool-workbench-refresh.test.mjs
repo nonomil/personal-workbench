@@ -167,6 +167,25 @@ test('keeps preschool plant companions and defense HUD on the generated pixel as
   }
 });
 
+test('keeps the 2026-07-31 visual refresh versioned and alpha-safe', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const styles = fs.readFileSync(path.join(root, 'styles.css'), 'utf8');
+  const manifestPath = path.join(root, 'assets', 'generated', 'preschool-pixel', 'refresh-20260731', 'published', 'manifest.json');
+  const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+  assert.match(app, /PIXEL_REFRESH_ASSET_BASE/);
+  assert.match(app, /refresh-20260731\/published/);
+  assert.match(styles, /refresh-20260731\/published\/garden-map-gpt\.webp/);
+  assert.equal(manifest.sources.length, 2);
+  assert.equal(manifest.transparentPolicy.cornersMustBeTransparent, true);
+  for (const asset of manifest.assets.filter(name => name.endsWith('.png'))) {
+    const filePath = path.join(root, 'assets', 'generated', 'preschool-pixel', 'refresh-20260731', 'published', asset);
+    assert.equal(fs.existsSync(filePath), true, asset);
+    const header = fs.readFileSync(filePath).subarray(0, 8).toString('hex');
+    assert.equal(header, '89504e470d0a1a0a', asset);
+  }
+  assert.equal(fs.existsSync(path.join(root, 'assets', 'generated', 'preschool-pixel', 'refresh-20260731', 'published', 'garden-map-gpt.webp')), true);
+});
+
 test('keeps preschool v2.3 reward feedback visible in the first-screen contract', () => {
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
   const styles = fs.readFileSync(path.join(root, 'styles.css'), 'utf8');

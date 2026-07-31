@@ -1,0 +1,13 @@
+Use case: stylized-concept
+Asset type: wide background illustration for the preschool learning workbench home and defense pages
+Primary request: Create an original wide pixel-art sun garden adventure scene that can sit behind live HTML UI. Show a calm three-lane garden field in the foreground, a small blocky castle gate on the far left, a winding river bridge in the middle distance, a large friendly tree and flower beds, a few soft clouds, and a clear open sky with generous low-detail negative space for overlay panels. The scene should feel like a learning garden and a gentle tower-defense game, not a battle screenshot.
+Scene/backdrop: wide 3:2 landscape, full scene without borders or UI panels
+Subject: a peaceful garden map with readable lanes and landmarks, no human characters
+Style/medium: polished original 16-bit pixel art, crisp block edges, hand-placed pixel clusters, coherent game-art tileset feeling
+Composition/framing: wide landscape, foreground lanes occupy the lower third, main landmarks stay near the edges, center remains visually quiet for HTML overlays
+Lighting/mood: sunny morning, warm and optimistic, clear separation between sky, grass, water, and landmarks
+Color palette: turquoise sky, spring greens, sunflower yellow, warm wood brown, plum accents, cream highlights, restrained saturation
+Materials/textures: crisp pixel clusters and subtle tiled terrain; no photographic texture
+Text (verbatim): none
+Constraints: no text, no numbers, no logo, no watermark, no UI, no cards, no buttons, no visible interface chrome, no copyrighted characters
+Avoid: photorealism, painterly brushwork, excessive tiny detail, dark horror mood, huge central character, muddy low contrast, gradients, blur

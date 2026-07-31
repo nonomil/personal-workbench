@@ -42,6 +42,18 @@
     const isAdult = workbenchConfig.variant === 'adult';
     const preschoolGarden = global.PersonalWorkbenchPreschoolGarden;
     const PIXEL_ASSET_BASE = '../assets/generated/preschool-pixel/reference/gpt-output-20260730/published-gpt-v2/';
+    const PIXEL_REFRESH_ASSET_BASE = '../assets/generated/preschool-pixel/refresh-20260731/published/';
+    const PIXEL_REFRESH_ASSETS = {
+        'sun-token': 'sun-token.png',
+        'water-drop-token': 'water-drop-token.png',
+        'seedling-node': 'seedling-node.png',
+        'cloud-invader': 'cloud-invader.png',
+        'treasure-chest': 'treasure-chest.png',
+        'star-companion': 'star-companion.png',
+        'flower-checkpoint': 'flower-checkpoint.png',
+        'carrot-reward': 'carrot-reward.png',
+        'quest-flag-pedestal': 'quest-flag-pedestal.png'
+    };
     const PIXEL_ASSET_FILES = {
         'sun-token': 'sun-token.png',
         'water-drop-token': 'water-drop-token.png',
@@ -95,6 +107,7 @@
     }
 
     function preschoolAssetSrc(name) {
+        if (isPreschool && PIXEL_REFRESH_ASSETS[name]) return `${PIXEL_REFRESH_ASSET_BASE}${PIXEL_REFRESH_ASSETS[name]}`;
         if (isPreschool && PIXEL_ASSET_FILES[name]) return `${PIXEL_ASSET_BASE}${PIXEL_ASSET_FILES[name]}`;
         const base = workbenchConfig.current && workbenchConfig.current.assetBase ? workbenchConfig.current.assetBase : '../assets/generated/preschool/';
         return `${base}${name}.webp`;
