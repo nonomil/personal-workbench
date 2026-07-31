@@ -123,9 +123,9 @@
                     highlights: ['今日 10 字', '自然 / 植物 / 动物', '学会 15 字解锁下一阶'],
                     samples: ['坡 pō', '始 shǐ', '游 yóu'],
                     lessons: [
-                        { id: 'preschool-chinese-1', title: '今日识字 10 字', minutes: 10, meta: '坡、始、游、她、店…', tip: '完成后点亮“完成今日识字”', activity: { mode: 'choice', prompt: '“坡”怎么读？', hint: '想想 p 开头的音。', options: ['pō', 'bō', 'mā'], answer: 0, success: '会认“坡”啦！' } },
-                        { id: 'preschool-literacy-2', title: '分类认字', minutes: 8, meta: '自然 / 植物 / 动物', tip: '先认一类，再扩展到下一类', activity: { mode: 'choice', prompt: '下面哪个是植物？', hint: '植物会在土地里生长。', options: ['花', '猫', '山'], answer: 0, success: '找到植物啦！' } },
-                        { id: 'preschool-literacy-3', title: '字库复习', minutes: 10, meta: '684 字启蒙字库', tip: '学会上一阶 15 字再解锁下一阶', activity: { mode: 'choice', prompt: '“游”字在哪个词里？', hint: '想想在水里玩。', options: ['游泳', '月亮', '安静'], answer: 0, success: '词语配对成功！' } }
+                        { id: 'preschool-chinese-1', title: '今日识字 10 字', minutes: 10, meta: '坡、始、游、她、店…', tip: '完成后点亮“完成今日识字”', activity: { mode: 'choice', prompt: '“坡”怎么读？', hint: '想想 p 开头的音。', options: ['pō', 'bō', 'mā'], answer: 0, optionIcons: ['languages', 'book-open', 'sparkles'], success: '会认“坡”啦！' } },
+                        { id: 'preschool-literacy-2', title: '分类认字', minutes: 8, meta: '自然 / 植物 / 动物', tip: '先认一类，再扩展到下一类', activity: { mode: 'choice', prompt: '下面哪个是植物？', hint: '植物会在土地里生长。', options: ['花', '猫', '山'], answer: 0, optionIcons: ['flower-2', 'heart', 'tree-pine'], success: '找到植物啦！' } },
+                        { id: 'preschool-literacy-3', title: '字库复习', minutes: 10, meta: '684 字启蒙字库', tip: '学会上一阶 15 字再解锁下一阶', activity: { mode: 'choice', prompt: '“游”字在哪个词里？', hint: '想想在水里玩。', options: ['游泳', '月亮', '安静'], answer: 0, optionIcons: ['droplets', 'moon', 'sparkles'], success: '词语配对成功！' } }
                     ]
                 },
                 {
@@ -139,9 +139,9 @@
                     highlights: ['声母', '单韵母 / 复韵母', '整体认读'],
                     samples: ['b p m f', 'd t n l', 'zh ch sh r'],
                     lessons: [
-                        { id: 'preschool-pinyin-1', title: '声母跟读', minutes: 10, meta: 'b p m f d t n l', tip: '先听，再跟着读一遍', activity: { mode: 'choice', prompt: '“广播”的声母是哪一个？', hint: '广播 b，山坡 p。', options: ['b', 'p', 'm'], answer: 0, success: '声母找对啦！' } },
-                        { id: 'preschool-pinyin-2', title: '顺口溜记忆', minutes: 8, meta: '广播 b，山坡 p', tip: '用顺口溜记住发音位置', activity: { mode: 'choice', prompt: '“山坡 p”要选哪个声母？', hint: '嘴唇轻轻闭上再打开。', options: ['p', 't', 'l'], answer: 0, success: '顺口溜记住啦！' } },
-                        { id: 'preschool-pinyin-3', title: '发音小游戏', minutes: 10, meta: '轻短发音练习', tip: '点一下，和家长一起纠正口型', activity: { mode: 'choice', prompt: '跟读练习前，先做什么？', hint: '先听清楚，再开口。', options: ['听一遍', '马上乱点', '关灯'], answer: 0, success: '准备好跟读啦！' } }
+                        { id: 'preschool-pinyin-1', title: '声母跟读', minutes: 10, meta: 'b p m f d t n l', tip: '先听，再跟着读一遍', activity: { mode: 'choice', prompt: '“广播”的声母是哪一个？', hint: '广播 b，山坡 p。', options: ['b', 'p', 'm'], answer: 0, optionIcons: ['languages', 'book-open', 'sparkles'], success: '声母找对啦！' } },
+                        { id: 'preschool-pinyin-2', title: '顺口溜记忆', minutes: 8, meta: '广播 b，山坡 p', tip: '用顺口溜记住发音位置', activity: { mode: 'choice', prompt: '“山坡 p”要选哪个声母？', hint: '嘴唇轻轻闭上再打开。', options: ['p', 't', 'l'], answer: 0, optionIcons: ['languages', 'target', 'sparkle'], success: '顺口溜记住啦！' } },
+                        { id: 'preschool-pinyin-3', title: '发音小游戏', minutes: 10, meta: '轻短发音练习', tip: '点一下，和家长一起纠正口型', activity: { mode: 'choice', prompt: '跟读练习前，先做什么？', hint: '先听清楚，再开口。', options: ['听一遍', '马上乱点', '关灯'], answer: 0, optionIcons: ['book-open', 'play', 'moon'], success: '准备好跟读啦！' } }
                     ]
                 },
                 {
@@ -155,9 +155,9 @@
                     highlights: ['《静夜思》', '朗读 / 跟读', '学会上关 3 首解锁下一关'],
                     samples: ['床前明月光', '举头望明月', '低头思故乡'],
                     lessons: [
-                        { id: 'preschool-poetry-1', title: '朗读一首古诗', minutes: 10, meta: '从《静夜思》开始', tip: '完成后点亮“朗读一首古诗”', activity: { mode: 'choice', prompt: '“举头望明月”里望什么？', hint: '夜空里亮亮的东西。', options: ['明月', '大树', '小船'], answer: 0, success: '诗句读懂啦！' } },
-                        { id: 'preschool-poetry-2', title: '跟读一句', minutes: 8, meta: '听一句，学一句', tip: '先学会节奏，再学解释', activity: { mode: 'choice', prompt: '诗人先看到了什么？', hint: '就在床前。', options: ['床前月光', '小河', '花朵'], answer: 0, success: '画面想起来啦！' } },
-                        { id: 'preschool-poetry-3', title: '记住诗意', minutes: 10, meta: '一句诗 + 一个画面', tip: '会背一句也算过关', activity: { mode: 'choice', prompt: '《静夜思》的最后一句是？', hint: '想念自己的家乡。', options: ['低头思故乡', '春风吹又生', '一岁一枯荣'], answer: 0, success: '诗意记住啦！' } }
+                        { id: 'preschool-poetry-1', title: '朗读一首古诗', minutes: 10, meta: '从《静夜思》开始', tip: '完成后点亮“朗读一首古诗”', activity: { mode: 'choice', prompt: '“举头望明月”里望什么？', hint: '夜空里亮亮的东西。', options: ['明月', '大树', '小船'], answer: 0, optionIcons: ['moon', 'tree-pine', 'sparkles'], success: '诗句读懂啦！' } },
+                        { id: 'preschool-poetry-2', title: '跟读一句', minutes: 8, meta: '听一句，学一句', tip: '先学会节奏，再学解释', activity: { mode: 'choice', prompt: '诗人先看到了什么？', hint: '就在床前。', options: ['床前月光', '小河', '花朵'], answer: 0, optionIcons: ['moon', 'droplets', 'flower-2'], success: '画面想起来啦！' } },
+                        { id: 'preschool-poetry-3', title: '记住诗意', minutes: 10, meta: '一句诗 + 一个画面', tip: '会背一句也算过关', activity: { mode: 'choice', prompt: '《静夜思》的最后一句是？', hint: '想念自己的家乡。', options: ['低头思故乡', '春风吹又生', '一岁一枯荣'], answer: 0, optionIcons: ['book-marked', 'sprout', 'trees'], success: '诗意记住啦！' } }
                     ]
                 },
                 {
@@ -171,9 +171,9 @@
                     highlights: ['10 以内加减', '20 以内进退位', '换一题'],
                     samples: ['10 - 9 = ?', '8 + 7 = ?', '12 - 5 = ?'],
                     lessons: [
-                        { id: 'preschool-math-1', title: '数学闯关一关', minutes: 10, meta: '完成 1 题就算过关', tip: '完成后点亮“数学闯关一关”', activity: { mode: 'choice', prompt: '10 - 9 = ?', hint: '从 10 个里拿走 9 个。', options: ['1', '2', '0'], answer: 0, success: '第一关答对啦！' } },
-                        { id: 'preschool-math-2', title: '10 以内加减', minutes: 8, meta: '先快算，再核对', tip: '用手指或小物件辅助', activity: { mode: 'choice', prompt: '8 + 7 = ?', hint: '先凑成 10，再加剩下的。', options: ['15', '14', '16'], answer: 0, success: '口算很棒！' } },
-                        { id: 'preschool-math-3', title: '20 以内挑战', minutes: 10, meta: '进位 / 退位', tip: '不会就换一题继续', activity: { mode: 'choice', prompt: '12 - 5 = ?', hint: '12 个拿走 5 个。', options: ['7', '8', '6'], answer: 0, success: '挑战过关啦！' } }
+                        { id: 'preschool-math-1', title: '数学闯关一关', minutes: 10, meta: '完成 1 题就算过关', tip: '完成后点亮“数学闯关一关”', activity: { mode: 'choice', prompt: '10 - 9 = ?', hint: '从 10 个里拿走 9 个。', options: ['1', '2', '0'], answer: 0, optionIcons: ['calculator', 'plus', 'circle-check'], success: '第一关答对啦！' } },
+                        { id: 'preschool-math-2', title: '10 以内加减', minutes: 8, meta: '先快算，再核对', tip: '用手指或小物件辅助', activity: { mode: 'choice', prompt: '8 + 7 = ?', hint: '先凑成 10，再加剩下的。', options: ['15', '14', '16'], answer: 0, optionIcons: ['calculator', 'plus', 'circle-check'], success: '口算很棒！' } },
+                        { id: 'preschool-math-3', title: '20 以内挑战', minutes: 10, meta: '进位 / 退位', tip: '不会就换一题继续', activity: { mode: 'choice', prompt: '12 - 5 = ?', hint: '12 个拿走 5 个。', options: ['7', '8', '6'], answer: 0, optionIcons: ['calculator', 'plus', 'circle-check'], success: '挑战过关啦！' } }
                     ]
                 },
                 {
@@ -187,9 +187,9 @@
                     highlights: ['找不同', '迷宫 / 数数', '规律 / 逻辑'],
                     samples: ['🍊🍎🍊', '走迷宫', '找规律'],
                     lessons: [
-                        { id: 'preschool-focus-1', title: '专注力训练一题', minutes: 10, meta: '找不同 / 迷宫 / 规律', tip: '完成后点亮“专注力训练一题”', activity: { mode: 'choice', prompt: '哪一行不一样？', hint: '看看中间那个图形。', options: ['○ △ ○', '○ ○ ○', '○ △ ○'], answer: 1, success: '观察得真仔细！' } },
-                        { id: 'preschool-focus-2', title: '找不同', minutes: 8, meta: '圈出不一样的那个', tip: '先慢慢看，再动手', activity: { mode: 'choice', prompt: '找不同前，先做什么？', hint: '慢慢看，才不会漏掉。', options: ['慢慢看', '马上乱点', '闭上眼'], answer: 0, success: '专注小眼睛上线啦！' } },
-                        { id: 'preschool-focus-3', title: '规律小游戏', minutes: 10, meta: '下一步会是什么', tip: '说出来，再选答案', activity: { mode: 'choice', prompt: '○ △ ○ △ 之后是什么？', hint: '圆形和三角形轮流出现。', options: ['○', '△', '□'], answer: 0, success: '规律找到了！' } }
+                        { id: 'preschool-focus-1', title: '专注力训练一题', minutes: 10, meta: '找不同 / 迷宫 / 规律', tip: '完成后点亮“专注力训练一题”', activity: { mode: 'choice', prompt: '哪一行不一样？', hint: '看看中间那个图形。', options: ['○ △ ○', '○ ○ ○', '○ △ ○'], answer: 1, optionIcons: ['target', 'circle-check', 'sparkles'], success: '观察得真仔细！' } },
+                        { id: 'preschool-focus-2', title: '找不同', minutes: 8, meta: '圈出不一样的那个', tip: '先慢慢看，再动手', activity: { mode: 'choice', prompt: '找不同前，先做什么？', hint: '慢慢看，才不会漏掉。', options: ['慢慢看', '马上乱点', '闭上眼'], answer: 0, optionIcons: ['target', 'play', 'circle-check'], success: '专注小眼睛上线啦！' } },
+                        { id: 'preschool-focus-3', title: '规律小游戏', minutes: 10, meta: '下一步会是什么', tip: '说出来，再选答案', activity: { mode: 'choice', prompt: '○ △ ○ △ 之后是什么？', hint: '圆形和三角形轮流出现。', options: ['○', '△', '□'], answer: 0, optionIcons: ['circle-check', 'sparkle', 'target'], success: '规律找到了！' } }
                     ]
                 },
                 {
@@ -203,9 +203,9 @@
                     highlights: ['动物 / 食物 / 数字', '图片 + 例句', '15 词解锁下一阶'],
                     samples: ['wolf 狼', 'pig 猪', 'bread 面包'],
                     lessons: [
-                        { id: 'preschool-english-1', title: '学习今日英语', minutes: 8, meta: '今天的 5 个单词', tip: '完成后点亮“学习今日英语”', activity: { mode: 'choice', prompt: 'wolf 是什么？', hint: '它是一种会嚎叫的动物。', options: ['狼', '猫', '鱼'], answer: 0, success: '单词认对啦！' } },
-                        { id: 'preschool-english-2', title: '跟读一句短句', minutes: 8, meta: 'I see a cat.', tip: '先听，再大声说出来', activity: { mode: 'choice', prompt: 'I see a cat. 里有谁？', hint: 'cat 是小猫。', options: ['cat', 'sun', 'book'], answer: 0, success: '短句听懂啦！' } },
-                        { id: 'preschool-english-3', title: '按阶段复习', minutes: 10, meta: '启蒙 / 进阶 / 挑战', tip: '学会 15 词再开下一阶', activity: { mode: 'choice', prompt: 'bread 是什么？', hint: '早餐里软软香香的食物。', options: ['面包', '水', '树'], answer: 0, success: '词义记住啦！' } }
+                        { id: 'preschool-english-1', title: '学习今日英语', minutes: 8, meta: '今天的 5 个单词', tip: '完成后点亮“学习今日英语”', activity: { mode: 'choice', prompt: 'wolf 是什么？', hint: '它是一种会嚎叫的动物。', options: ['狼', '猫', '鱼'], answer: 0, optionIcons: ['trees', 'heart', 'droplets'], success: '单词认对啦！' } },
+                        { id: 'preschool-english-2', title: '跟读一句短句', minutes: 8, meta: 'I see a cat.', tip: '先听，再大声说出来', activity: { mode: 'choice', prompt: 'I see a cat. 里有谁？', hint: 'cat 是小猫。', options: ['cat', 'sun', 'book'], answer: 0, optionIcons: ['heart', 'sun', 'book-open'], success: '短句听懂啦！' } },
+                        { id: 'preschool-english-3', title: '按阶段复习', minutes: 10, meta: '启蒙 / 进阶 / 挑战', tip: '学会 15 词再开下一阶', activity: { mode: 'choice', prompt: 'bread 是什么？', hint: '早餐里软软香香的食物。', options: ['面包', '水', '树'], answer: 0, optionIcons: ['book-open', 'droplets', 'tree-pine'], success: '词义记住啦！' } }
                     ]
                 },
                 {
@@ -219,9 +219,9 @@
                     highlights: ['开合跳', '深蹲 / 高抬腿', '跳绳 / 放松'],
                     samples: ['开合跳', '深蹲', '跳绳'],
                     lessons: [
-                        { id: 'preschool-exercise-1', title: '做一项运动', minutes: 15, meta: '居家运动 15 分钟', tip: '完成后点亮“做一项运动”', activity: { mode: 'choice', prompt: '开始运动前先做什么？', hint: '先把身体慢慢活动开。', options: ['热身', '吃糖', '躺下'], answer: 0, success: '运动准备完成啦！' } },
-                        { id: 'preschool-exercise-2', title: '热身拉伸', minutes: 8, meta: '先动开，再开始', tip: '运动前后都做一遍', activity: { mode: 'choice', prompt: '深蹲时脚要怎样？', hint: '双脚稳稳踩在地上。', options: ['稳稳站好', '跳到桌上', '闭眼走路'], answer: 0, success: '动作记得很安全！' } },
-                        { id: 'preschool-exercise-3', title: '体能小游戏', minutes: 10, meta: '跳一跳 / 慢跑 / 静蹲', tip: '选最喜欢的一项继续', activity: { mode: 'choice', prompt: '运动后要做什么？', hint: '让身体慢慢安静下来。', options: ['放松喝水', '马上睡觉', '一直不动'], answer: 0, success: '运动收尾完成啦！' } }
+                        { id: 'preschool-exercise-1', title: '做一项运动', minutes: 15, meta: '居家运动 15 分钟', tip: '完成后点亮“做一项运动”', activity: { mode: 'choice', prompt: '开始运动前先做什么？', hint: '先把身体慢慢活动开。', options: ['热身', '吃糖', '躺下'], answer: 0, optionIcons: ['sparkles', 'flame', 'moon'], success: '运动准备完成啦！' } },
+                        { id: 'preschool-exercise-2', title: '热身拉伸', minutes: 8, meta: '先动开，再开始', tip: '运动前后都做一遍', activity: { mode: 'choice', prompt: '深蹲时脚要怎样？', hint: '双脚稳稳踩在地上。', options: ['稳稳站好', '跳到桌上', '闭眼走路'], answer: 0, optionIcons: ['tree-pine', 'sparkles', 'moon'], success: '动作记得很安全！' } },
+                        { id: 'preschool-exercise-3', title: '体能小游戏', minutes: 10, meta: '跳一跳 / 慢跑 / 静蹲', tip: '选最喜欢的一项继续', activity: { mode: 'choice', prompt: '运动后要做什么？', hint: '让身体慢慢安静下来。', options: ['放松喝水', '马上睡觉', '一直不动'], answer: 0, optionIcons: ['droplets', 'moon', 'shield-check'], success: '运动收尾完成啦！' } }
                     ]
                 }
             ],
@@ -261,7 +261,7 @@
         '.topbar-context strong': selected.pageMeta.overview.title,
         '.mode-status strong': '本地模式',
         '.mode-status small': selected.statusNote,
-        '.sidebar-footnote': selected.id === 'preschool' ? 'v0.3.0 · 幼儿版' : selected.id === 'child' ? 'v0.2 · 儿童版' : 'v0.2 · 成人版',
+        '.sidebar-footnote': selected.id === 'preschool' ? 'v0.3.1 · 幼儿版' : selected.id === 'child' ? 'v0.2 · 儿童版' : 'v0.2 · 成人版',
         '.avatar': selected.avatar
     };
     Object.keys(labelMap).forEach(function (selector) {

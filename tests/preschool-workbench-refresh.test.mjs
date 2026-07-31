@@ -223,7 +223,7 @@ test('uses transparent PVZ plants and zombie variants across the preschool defen
   assert.match(app, /const plantAsset = preschoolPlantAsset\(activePlant\)/);
   assert.match(app, /pixel-hud-defense-art/);
   assert.match(app, /asset: 'player-energy-bars'/);
-  assert.match(config, /selected\.id === 'preschool' \? 'v0\.3\.0 · 幼儿版'/);
+  assert.match(config, /selected\.id === 'preschool' \? 'v0\.3\.1 · 幼儿版'/);
   assert.doesNotMatch(config, /v0\.2\.4 · 幼儿版/);
   assert.match(styles, /pixel-hud-defense-art/);
    assert.match(styles, /preschool-pvz-art/);
@@ -379,14 +379,40 @@ test('defines answerable activities for every preschool lesson', () => {
   const preschoolCourses = config.split("id: 'preschool-literacy'")[1].split("actions: { 'add-plan'")[0];
   const activities = preschoolCourses.match(/activity:\s*\{/g) || [];
   assert.equal(activities.length, 21);
+  assert.equal((preschoolCourses.match(/optionIcons:\s*\[/g) || []).length, 21);
   assert.match(preschoolCourses, /prompt: '/);
   assert.match(preschoolCourses, /options: \[/);
   assert.match(preschoolCourses, /answer: \d/);
   assert.match(preschoolCourses, /success: '/);
 });
 
+test('keeps preschool option art aligned with its answer choices', () => {
+  const config = fs.readFileSync(path.join(root, 'config.js'), 'utf8');
+  const iconsSource = fs.readFileSync(path.join(root, 'icons.js'), 'utf8');
+  const preschoolCourses = config.split("id: 'preschool-literacy'")[1].split("actions: { 'add-plan'")[0];
+  const iconNames = new Set(Array.from(iconsSource.matchAll(/(?:'([^']+)'|([a-z][a-z0-9-]*)):\s*'/g), function (match) {
+    return match[1] || match[2];
+  }));
+  const activities = Array.from(preschoolCourses.matchAll(/activity:\s*\{([\s\S]*?)\}/g), function (match) {
+    const options = match[1].match(/options:\s*\[([^\]]*)\]/);
+    const optionIcons = match[1].match(/optionIcons:\s*\[([^\]]*)\]/);
+    return {
+      options: options ? (options[1].match(/'[^']*'/g) || []) : [],
+      optionIcons: optionIcons ? (optionIcons[1].match(/'[^']*'/g) || []) : []
+    };
+  });
+  assert.equal(activities.length, 21);
+  for (const activity of activities) {
+    assert.equal(activity.optionIcons.length, activity.options.length);
+    for (const item of activity.optionIcons) {
+      assert.ok(iconNames.has(item.slice(1, -1)), `unknown preschool option icon: ${item}`);
+    }
+  }
+});
+
 test('exposes the preschool lesson activity dialog contract', () => {
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const styles = fs.readFileSync(path.join(root, 'css', 'preschool', '16-workbuddy-finish.css'), 'utf8');
   const preschoolIndex = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
   assert.match(preschoolIndex, /id="lesson-dialog"/);
   assert.match(preschoolIndex, /id="lesson-dialog-content"/);
@@ -395,6 +421,10 @@ test('exposes the preschool lesson activity dialog contract', () => {
   assert.match(app, /data-action="open-lesson"/);
   assert.match(app, /lesson-answer/);
   assert.match(app, /lesson-finish/);
+  assert.match(app, /lesson-dialog-option-art/);
+  assert.match(app, /lesson-dialog-progress/);
+  assert.match(styles, /lesson-dialog-option-art/);
+  assert.match(styles, /lesson-dialog-progress-track/);
 });
 
 test('keeps a continue-learning action on the preschool overview', () => {

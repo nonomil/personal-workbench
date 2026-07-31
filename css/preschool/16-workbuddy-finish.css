@@ -351,6 +351,13 @@ body.variant-preschool .lesson-dialog-head { display: flex; align-items: flex-st
 body.variant-preschool .lesson-dialog-head h2 { margin: 5px 0 0; color: var(--wb-ink); font-size: 23px; font-weight: 950; }
 body.variant-preschool .lesson-dialog-body { padding: 24px 23px 22px; }
 body.variant-preschool .lesson-dialog-course { display: inline-flex; min-height: 25px; align-items: center; padding: 0 10px; border-radius: 999px; color: #a3572e; background: #fff0cf; font-size: 11px; font-weight: 900; }
+body.variant-preschool .lesson-dialog-progress { display: grid; gap: 8px; margin-top: 14px; }
+body.variant-preschool .lesson-dialog-progress > div { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--wb-muted); font-size: 12px; font-weight: 800; }
+body.variant-preschool .lesson-dialog-progress span,
+body.variant-preschool .lesson-dialog-progress strong { min-width: 0; }
+body.variant-preschool .lesson-dialog-progress strong { color: #287f7a; font-weight: 950; }
+body.variant-preschool .lesson-dialog-progress-track { display: block; height: 7px; overflow: hidden; border-radius: 999px; background: #dff3ed; }
+body.variant-preschool .lesson-dialog-progress-track i { display: block; width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #4ecdc4, #6bcb77); transition: width .35s var(--wb-spring); }
 body.variant-preschool .lesson-dialog-prompt { margin: 16px 0 18px; color: var(--wb-ink); font-size: 28px; line-height: 1.35; font-weight: 950; }
 body.variant-preschool .lesson-dialog-options { display: grid; gap: 10px; }
 body.variant-preschool .lesson-dialog-option { display: flex; min-height: 54px; align-items: center; gap: 12px; width: 100%; padding: 9px 13px; border: 1px solid rgba(78, 205, 196, .24); border-radius: 17px; color: var(--wb-ink); text-align: left; background: rgba(255, 255, 255, .82); box-shadow: 0 4px 12px rgba(45, 45, 58, .05); transition: transform .22s var(--wb-spring), border-color .22s ease, background .22s ease, box-shadow .22s ease; }
@@ -359,6 +366,8 @@ body.variant-preschool .lesson-dialog-option:active:not(:disabled) { transform: 
 body.variant-preschool .lesson-dialog-option:focus-visible { outline: 3px solid rgba(255, 140, 66, .3); outline-offset: 2px; }
 body.variant-preschool .lesson-dialog-option:disabled { cursor: default; opacity: 1; }
 body.variant-preschool .lesson-dialog-option-index { display: inline-grid; width: 33px; height: 33px; flex: 0 0 33px; place-items: center; border-radius: 11px; color: #287f7a; background: #e2f8f4; font-size: 13px; font-weight: 950; }
+body.variant-preschool .lesson-dialog-option-art { display: grid; width: 42px; height: 42px; flex: 0 0 42px; place-items: center; border-radius: 13px; color: #a3572e; background: #fff1d8; }
+body.variant-preschool .lesson-dialog-option-art svg { width: 23px; height: 23px; stroke-width: 2.2; }
 body.variant-preschool .lesson-dialog-option strong { flex: 1; font-size: 18px; line-height: 1.35; }
 body.variant-preschool .lesson-dialog-option > svg { width: 20px; height: 20px; flex: 0 0 20px; color: var(--wb-mint); }
 body.variant-preschool .lesson-dialog-option.is-correct { border-color: rgba(107, 203, 119, .72); background: #ecfaed; }
@@ -500,4 +509,5 @@ body.variant-preschool .preschool-mobile-nav { display: none; }
     body.variant-preschool .preschool-calendar-day:hover { transform: none; }
     body.variant-preschool .lesson-dialog-option:hover:not(:disabled),
     body.variant-preschool .preschool-continue-learning:hover { transform: none; }
+    body.variant-preschool .lesson-dialog-progress-track i { transition: none; }
 }

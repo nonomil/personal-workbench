@@ -763,6 +763,9 @@
             prompt: String(source.prompt || `准备完成“${lesson && lesson.title ? lesson.title : '这项练习'}”吗？`),
             hint: String(source.hint || (lesson && lesson.tip) || '先看清楚，再选一个答案。'),
             options: options.map(function (item) { return String(item); }),
+            optionIcons: Array.isArray(source.optionIcons)
+                ? source.optionIcons.map(function (item) { return String(item); })
+                : [],
             answer: answer,
             success: String(source.success || '准备好啦！')
         };
@@ -776,20 +779,35 @@
             return;
         }
         const activity = getLessonActivity(match.lesson);
+        const lessons = Array.isArray(match.course.lessons) ? match.course.lessons : [];
+        const lessonIndex = Math.max(0, lessons.findIndex(function (item) {
+            return item.id === match.lesson.id;
+        }));
+        const completedIds = new Set(
+            state.courseProgress && Array.isArray(state.courseProgress.completedLessonIds)
+                ? state.courseProgress.completedLessonIds
+                : []
+        );
+        const completedInCourse = lessons.filter(function (item) {
+            return completedIds.has(item.id);
+        }).length;
+        const courseTotal = lessons.length || 1;
+        const coursePercent = Math.round((completedInCourse / courseTotal) * 100);
         const selectedIndex = ui.lessonSession.selectedIndex;
         const correct = ui.lessonSession.correct;
         const optionMarkup = activity.options.map(function (option, index) {
             const isSelected = selectedIndex === index;
             const isCorrect = correct && index === activity.answer;
             const isWrong = isSelected && !correct;
-            return `<button class="lesson-dialog-option ${isCorrect ? 'is-correct' : ''} ${isWrong ? 'is-wrong' : ''}" type="button" data-action="lesson-answer" data-index="${index}" aria-pressed="${isSelected}" ${correct ? 'disabled' : ''}><span class="lesson-dialog-option-index">${String.fromCharCode(65 + index)}</span><strong>${escapeHtml(option)}</strong>${isCorrect ? icon('check') : isWrong ? icon('rotate-ccw') : icon('arrow-right')}</button>`;
+            const optionIcon = activity.optionIcons[index] || match.course.icon || 'sparkles';
+            return `<button class="lesson-dialog-option ${isCorrect ? 'is-correct' : ''} ${isWrong ? 'is-wrong' : ''}" type="button" data-action="lesson-answer" data-index="${index}" aria-pressed="${isSelected}" ${correct ? 'disabled' : ''}><span class="lesson-dialog-option-index">${String.fromCharCode(65 + index)}</span><span class="lesson-dialog-option-art" aria-hidden="true">${icon(optionIcon)}</span><strong>${escapeHtml(option)}</strong>${isCorrect ? icon('check') : isWrong ? icon('rotate-ccw') : icon('arrow-right')}</button>`;
         }).join('');
         const feedback = correct
             ? `<p class="lesson-dialog-feedback is-success" role="status">${escapeHtml(activity.success)} 阳光和豌豆能量已经准备好啦。</p>`
             : selectedIndex === null
                 ? `<p class="lesson-dialog-feedback">${escapeHtml(activity.hint)}</p>`
                 : '<p class="lesson-dialog-feedback is-error" role="alert">还差一点，再看看提示，换一个答案试试。</p>';
-        lessonDialogContent.innerHTML = `<div class="lesson-dialog-body"><span class="lesson-dialog-course">${escapeHtml(match.course.title)}</span><h3 class="lesson-dialog-prompt">${escapeHtml(activity.prompt)}</h3><div class="lesson-dialog-options" role="group" aria-label="练习选项">${optionMarkup}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${correct ? '' : 'disabled'}>${icon(correct ? 'sparkles' : 'lock-keyhole')}${correct ? '收集阳光，完成练习' : '答对后领取奖励'}</button></div></div>`;
+        lessonDialogContent.innerHTML = `<div class="lesson-dialog-body"><span class="lesson-dialog-course">${escapeHtml(match.course.title)}</span><div class="lesson-dialog-progress"><div><span>第 ${lessonIndex + 1} 张练习</span><strong>已完成 ${completedInCourse}/${lessons.length || 0}</strong></div><span class="lesson-dialog-progress-track" role="progressbar" aria-label="当前课程进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${coursePercent}"><i style="width:${coursePercent}%"></i></span></div><h3 class="lesson-dialog-prompt">${escapeHtml(activity.prompt)}</h3><div class="lesson-dialog-options" role="group" aria-label="练习选项">${optionMarkup}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${correct ? '' : 'disabled'}>${icon(correct ? 'sparkles' : 'lock-keyhole')}${correct ? '收集阳光，完成练习' : '答对后领取奖励'}</button></div></div>`;
         if (global.lucide && typeof global.lucide.createIcons === 'function') global.lucide.createIcons({ root: lessonDialogContent });
     }
 
