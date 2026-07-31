@@ -436,13 +436,14 @@
         const plantAsset = preschoolPlantAsset(activePlant);
         const laneRows = Array.from({ length: 3 }, function (_, laneIndex) {
             const isTarget = Boolean(invader.active && laneIndex === 1);
+            const showInvader = Boolean(isTarget || (compact && laneIndex === 1));
             const pathCells = Array.from({ length: 4 }, function (_, cellIndex) {
                 return `<span class="pixel-battle-path-cell" aria-hidden="true"><i></i><b>${cellIndex + 1}</b></span>`;
             }).join('');
-            return `<div class="pixel-battle-lane-row ${isTarget ? 'is-target' : ''}" data-lane="${laneIndex + 1}" aria-label="第 ${laneIndex + 1} 路花园防守">
+            return `<div class="pixel-battle-lane-row ${isTarget ? 'is-target' : showInvader ? 'is-preview' : ''}" data-lane="${laneIndex + 1}" aria-label="第 ${laneIndex + 1} 路花园防守">
                 <span class="pixel-battle-plant-column">${preschoolAsset(plantAsset, activePlant.title)}</span>
                 <span class="pixel-battle-path">${pathCells}</span>
-                <span class="pixel-battle-invader-column">${isTarget ? `<span class="pixel-battle-invader">${preschoolAsset('cloud-invader', '小怪')}</span><span class="pixel-hit-flash" aria-hidden="true"></span>` : ''}</span>
+                <span class="pixel-battle-invader-column">${showInvader ? `<span class="pixel-battle-invader ${isTarget ? '' : 'is-preview'}" aria-label="${isTarget ? '云朵小怪入侵' : '云朵小怪预告'}">${preschoolAsset('cloud-invader', '云朵小怪')}${isTarget ? '<span class="pixel-invader-preview-label">入侵</span>' : '<span class="pixel-invader-preview-label">预告</span>'}</span>${isTarget ? '<span class="pixel-hit-flash" aria-hidden="true"></span>' : ''}` : ''}</span>
             </div>`;
         }).join('');
         return `<section class="pixel-map-panel ${compact ? 'is-compact' : ''} ${invader.active ? 'has-invader' : ''}">

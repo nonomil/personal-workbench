@@ -2592,3 +2592,78 @@ body.variant-preschool .pixel-map-panel.is-compact .pixel-pea-button { min-heigh
         overflow-x: clip;
     }
 }
+
+/* Preschool 2.5 readability: keep the child-facing words large after the legacy mobile overrides. */
+body.variant-preschool .pixel-page-header p { font-size: 16px; line-height: 1.45; }
+body.variant-preschool .pixel-panel-kicker { font-size: 12px; letter-spacing: .08em; }
+body.variant-preschool .pixel-board-heading h2,
+body.variant-preschool .pixel-side-heading h2 { font-size: 24px; }
+body.variant-preschool .pixel-quest-copy small { font-size: 13px; }
+body.variant-preschool .pixel-quest-copy strong { font-size: 20px; }
+body.variant-preschool .pixel-quest-copy em { font-size: 13px; line-height: 1.35; }
+body.variant-preschool .pixel-battle-status-grid small { font-size: 11px; }
+body.variant-preschool .pixel-battle-status-grid strong { font-size: 14px; }
+body.variant-preschool .pixel-battle-plant strong { font-size: 13px; }
+body.variant-preschool .pixel-battle-plant small { font-size: 11px; }
+body.variant-preschool .pixel-battle-lane-row.is-preview { background: rgba(255, 244, 173, .28); }
+body.variant-preschool .pixel-battle-invader.is-preview {
+    width: 64px;
+    height: 72px;
+    border-color: #7041a4;
+    background: rgba(240, 232, 255, .95);
+    box-shadow: 4px 4px 0 rgba(70, 46, 33, .38);
+}
+body.variant-preschool .pixel-battle-invader.is-preview .preschool-generated-art { width: 58px; height: 58px; }
+body.variant-preschool .pixel-invader-preview-label {
+    position: absolute;
+    right: 2px;
+    bottom: 1px;
+    left: 2px;
+    padding: 2px 1px;
+    color: #fff;
+    background: #7041a4;
+    font-size: 11px;
+    font-weight: 950;
+    line-height: 1;
+    text-align: center;
+}
+
+@media (max-width: 560px) {
+    body.variant-preschool .pixel-page-header h1 { font-size: 24px; }
+    body.variant-preschool .pixel-page-header p { font-size: 13px; }
+    body.variant-preschool .pixel-board-heading h2,
+    body.variant-preschool .pixel-side-heading h2 { font-size: 20px; }
+    body.variant-preschool .pixel-quest-card { min-height: 138px; }
+    body.variant-preschool .pixel-quest-copy small { font-size: 12px; }
+    body.variant-preschool .pixel-quest-copy strong { font-size: 17px; }
+    body.variant-preschool .pixel-quest-copy em { font-size: 12px; }
+    body.variant-preschool .pixel-stat-copy small { font-size: 10px; }
+    body.variant-preschool .pixel-stat-copy strong { font-size: 13px; }
+    body.variant-preschool .pixel-stat-copy em { font-size: 10px; }
+    body.variant-preschool .pixel-map-panel.is-compact { min-height: 318px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-map-copy { top: 10px; left: 10px; max-width: 49%; padding: 7px 8px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-map-copy h2 { font-size: 18px; line-height: 1.2; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-battlefield { top: 78px; height: 156px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-battle-grid { inset: 46px 0 18px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-battle-lane-row { grid-template-columns: 42px minmax(0, 1fr) 62px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-battle-plant-column .preschool-generated-art { width: 38px; height: 44px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-battle-invader.is-preview { width: 54px; height: 62px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-battle-invader.is-preview .preschool-generated-art { width: 50px; height: 50px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-invader-preview-label { font-size: 10px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-defense-actions { top: 246px; min-height: 54px; padding: 6px 8px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-pea-button { min-height: 40px; font-size: 12px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-defense-hint { display: inline; font-size: 12px; line-height: 1.3; }
+}
+
+@media (max-width: 360px) {
+    body.variant-preschool .pixel-page-header h1 { font-size: 22px; }
+    body.variant-preschool .pixel-page-header p { font-size: 12px; }
+    body.variant-preschool .pixel-stat-copy small { font-size: 9px; }
+    body.variant-preschool .pixel-stat-copy strong { font-size: 12px; }
+    body.variant-preschool .pixel-map-panel.is-compact { min-height: 300px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-battlefield { height: 146px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-battle-lane-row { grid-template-columns: 40px minmax(0, 1fr) 58px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-battle-invader.is-preview { width: 50px; height: 58px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-battle-invader.is-preview .preschool-generated-art { width: 46px; height: 46px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-defense-actions { top: 230px; }
+}

@@ -186,6 +186,16 @@ test('keeps the 2026-07-31 visual refresh versioned and alpha-safe', () => {
   assert.equal(fs.existsSync(path.join(root, 'assets', 'generated', 'preschool-pixel', 'refresh-20260731', 'published', 'garden-map-gpt.webp')), true);
 });
 
+test('keeps the preschool defense preview visible and readable before an invasion starts', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const styles = fs.readFileSync(path.join(root, 'styles.css'), 'utf8');
+  assert.match(app, /const showInvader = Boolean\(isTarget \|\| \(compact && laneIndex === 1\)\)/);
+  assert.match(app, /pixel-battle-invader \$\{isTarget \? '' : 'is-preview'\}/);
+  assert.match(styles, /Preschool 2\.5 readability/);
+  assert.match(styles, /pixel-quest-copy strong \{ font-size: 20px; \}/);
+  assert.match(styles, /pixel-battle-invader\.is-preview/);
+});
+
 test('keeps preschool v2.3 reward feedback visible in the first-screen contract', () => {
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
   const styles = fs.readFileSync(path.join(root, 'styles.css'), 'utf8');
