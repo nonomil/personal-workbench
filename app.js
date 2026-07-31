@@ -901,6 +901,60 @@
         }).join('')}</div>`;
     }
 
+    function getPreschoolCourseCompletion(course) {
+        const lessons = course && Array.isArray(course.lessons) ? course.lessons : [];
+        const completedIds = new Set(state.courseProgress && Array.isArray(state.courseProgress.completedLessonIds)
+            ? state.courseProgress.completedLessonIds
+            : []);
+        const completed = lessons.filter(function (lesson) { return completedIds.has(lesson.id); }).length;
+        const total = lessons.length;
+        return {
+            lessons: lessons,
+            completed: completed,
+            total: total,
+            percent: total ? Math.round((completed / total) * 100) : 0,
+            firstIncompleteIndex: lessons.findIndex(function (lesson) { return !completedIds.has(lesson.id); })
+        };
+    }
+
+    function getPreschoolLessonRouteState(completion, lesson, index) {
+        if (completion.lessons.indexOf(lesson) < 0) return 'next';
+        const completedIds = new Set(state.courseProgress && Array.isArray(state.courseProgress.completedLessonIds)
+            ? state.courseProgress.completedLessonIds
+            : []);
+        if (completedIds.has(lesson.id)) return 'done';
+        return index === completion.firstIncompleteIndex ? 'current' : 'next';
+    }
+
+    function getPreschoolLessonRouteArt(course, lesson, index) {
+        const activityIcons = lesson && lesson.activity && Array.isArray(lesson.activity.optionIcons) ? lesson.activity.optionIcons : [];
+        const iconName = lesson && lesson.icon
+            ? lesson.icon
+            : activityIcons[Number(lesson && lesson.activity && lesson.activity.answer) || 0] || (course && course.icon) || 'book-open';
+        const assetName = preschoolAssetForIcon(iconName);
+        return assetName ? preschoolAsset(assetName, lesson.title) : icon(iconName);
+    }
+
+    function renderPreschoolCourseProgress(course) {
+        const completion = getPreschoolCourseCompletion(course);
+        const status = completion.percent >= 100 ? 'complete' : completion.completed ? 'active' : 'ready';
+        const statusLabel = status === 'complete' ? '全部点亮' : status === 'active' ? '正在进行' : '准备出发';
+        return `<div class="preschool-course-progress" aria-label="${escapeHtml(course.title)}课程进度"><div class="preschool-course-progress-head"><span>成长路线</span><strong>${completion.completed}/${completion.total} 张已点亮</strong><em class="preschool-course-status is-${status}" data-route-state="${status}">${statusLabel}</em></div><span class="preschool-course-progress-track" role="progressbar" aria-label="${escapeHtml(course.title)}完成度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${completion.percent}"><i style="width:${completion.percent}%"></i></span></div>`;
+    }
+
+    function renderPreschoolCourseRoute(course) {
+        const lessonAction = isPreschool ? 'open-lesson' : 'complete-lesson';
+        const completion = getPreschoolCourseCompletion(course);
+        const stateLabels = { done: '已点亮', current: '现在来做', next: '下一张' };
+        return `<div class="preschool-course-route" aria-label="${escapeHtml(course.title)}学习路线">${completion.lessons.map(function (lesson, index) {
+            const routeState = getPreschoolLessonRouteState(completion, lesson, index);
+            const isDone = routeState === 'done';
+            const detail = isDone ? '完成啦 · 已记录到成长花园' : `${lesson.minutes || 0} 分钟 · ${escapeHtml(lesson.meta || '看图选一选')}`;
+            const actionIcon = isDone ? 'check' : routeState === 'current' ? 'play' : 'arrow-right';
+            return `<button class="preschool-route-step is-${routeState}" type="button" data-action="${lessonAction}" data-id="${escapeHtml(lesson.id)}" data-route-state="${routeState}" ${isDone ? 'disabled' : ''}><span class="preschool-route-step-number">${index + 1}</span><span class="preschool-route-step-art" aria-hidden="true">${getPreschoolLessonRouteArt(course, lesson, index)}</span><span class="preschool-route-step-copy"><strong>${escapeHtml(lesson.title)}</strong><small>${stateLabels[routeState]} · ${detail}</small></span><span class="preschool-route-step-action">${icon(actionIcon)}</span></button>`;
+        }).join('')}</div>`;
+    }
+
     function getPreschoolCourses() {
         const catalog = Array.isArray(workbenchConfig.childCourses) ? workbenchConfig.childCourses : [];
         return global.PersonalWorkbenchChildCourses && typeof global.PersonalWorkbenchChildCourses.getCourseView === 'function'
@@ -918,8 +972,7 @@
     }
 
     function renderPreschoolCourseCard(course, focused) {
-        const lessonAction = isPreschool ? 'open-lesson' : 'complete-lesson';
-        return `<article class="preschool-course-card tone-${escapeHtml(course.tone || 'blue')} ${focused ? 'is-focused' : ''}"><div class="preschool-course-head">${preschoolVisual(course.icon || 'book-open', preschoolAssetForIcon(course.icon || 'book-open'), course.title)}<div><span class="preschool-course-label">${focused ? '当前学习专区' : '学习专区'}</span><h2>${escapeHtml(course.title)}</h2><small>${escapeHtml(course.description || '')}</small></div><strong>${course.completed || 0}/${course.total || 0}</strong></div><div class="preschool-course-reference"><span>${icon('sparkles')}</span><p class="preschool-course-note">${escapeHtml(course.note || '选一张卡，开始今天的小练习。')}</p></div>${renderPreschoolCourseBadges(course)}${renderPreschoolCourseSamples(course)}<div class="preschool-course-lesson-heading"><div><span class="eyebrow">TODAY / PRACTICE</span><h3>今天可以做这些</h3></div><span>${course.total || (course.lessons || []).length} 张练习卡</span></div><div class="preschool-course-lessons">${(course.lessons || []).map(function (lesson) { const completed = (state.courseProgress.completedLessonIds || []).includes(lesson.id); return `<button class="preschool-lesson ${completed ? 'is-done' : ''}" type="button" data-action="${lessonAction}" data-id="${escapeHtml(lesson.id)}" ${completed ? 'disabled' : ''}><span>${icon(completed ? 'check' : 'play')}</span><span class="preschool-lesson-copy"><strong>${escapeHtml(lesson.title)}</strong><small>${completed ? '完成啦 · 已记录到成长花园' : `${lesson.minutes} 分钟 · ${escapeHtml(lesson.meta || '开始练习')}`}</small></span><em>${escapeHtml(completed ? '已点亮' : (lesson.tip || '开始'))}</em></button>`; }).join('')}</div></article>`;
+        return `<article class="preschool-course-card tone-${escapeHtml(course.tone || 'blue')} ${focused ? 'is-focused' : ''}"><div class="preschool-course-head">${preschoolVisual(course.icon || 'book-open', preschoolAssetForIcon(course.icon || 'book-open'), course.title)}<div><span class="preschool-course-label">${focused ? '当前学习专区' : '学习专区'}</span><h2>${escapeHtml(course.title)}</h2><small>${escapeHtml(course.description || '')}</small></div><strong>${course.completed || 0}/${course.total || 0}</strong></div>${renderPreschoolCourseProgress(course)}<div class="preschool-course-reference"><span>${icon('sparkles')}</span><p class="preschool-course-note">${escapeHtml(course.note || '选一张卡，开始今天的小练习。')}</p></div>${renderPreschoolCourseBadges(course)}${renderPreschoolCourseSamples(course)}<div class="preschool-course-lesson-heading"><div><span class="eyebrow">LEARNING ROUTE</span><h3>一步一步点亮小路线</h3></div><span>${course.total || (course.lessons || []).length} 张练习卡</span></div>${renderPreschoolCourseRoute(course)}</article>`;
     }
 
     function renderPreschoolCourses() {

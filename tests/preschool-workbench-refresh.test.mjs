@@ -117,6 +117,21 @@ test('keeps preschool course content spacious and supports a focused learning la
   assert.match(styles, /preschool-course-reference/);
 });
 
+test('renders preschool courses as visual learning routes with clear step states', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const styles = readCssGraph(path.join(root, 'styles.css'));
+  assert.match(app, /preschool-course-progress/);
+  assert.match(app, /preschool-route-step/);
+  assert.match(app, /preschool-route-step-art/);
+  assert.match(app, /data-route-state/);
+  assert.match(app, /preschool-course-status/);
+  assert.match(styles, /preschool-course-progress-track/);
+  assert.match(styles, /preschool-route-step-art/);
+  assert.match(styles, /preschool-route-step\.is-current/);
+  assert.match(styles, /preschool-route-step\.is-done/);
+  assert.match(styles, /preschool-route-step\.is-next/);
+});
+
 test('keeps the refreshed reward tiers and five-lane defense contract in the preschool UI', () => {
   const config = fs.readFileSync(path.join(root, 'config.js'), 'utf8');
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
@@ -223,7 +238,7 @@ test('uses transparent PVZ plants and zombie variants across the preschool defen
   assert.match(app, /const plantAsset = preschoolPlantAsset\(activePlant\)/);
   assert.match(app, /pixel-hud-defense-art/);
   assert.match(app, /asset: 'player-energy-bars'/);
-  assert.match(config, /selected\.id === 'preschool' \? 'v0\.3\.1 · 幼儿版'/);
+  assert.match(config, /selected\.id === 'preschool' \? 'v0\.3\.2 · 幼儿版'/);
   assert.doesNotMatch(config, /v0\.2\.4 · 幼儿版/);
   assert.match(styles, /pixel-hud-defense-art/);
    assert.match(styles, /preschool-pvz-art/);
