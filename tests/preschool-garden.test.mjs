@@ -6,8 +6,8 @@ const gardenEngine = globalThis.PersonalWorkbenchPreschoolGarden;
 
 test('creates a preschool garden with a starter plant and empty collection', () => {
   const growth = gardenEngine.normalize({});
-  assert.equal(growth.garden.activePlantId, 'plant-sun-sprout');
-  assert.deepEqual(growth.garden.unlockedPlantIds, ['plant-sun-sprout']);
+  assert.equal(growth.garden.activePlantId, 'plant-sunflower');
+  assert.deepEqual(growth.garden.unlockedPlantIds, ['plant-sunflower']);
   assert.deepEqual(growth.collection.unlockedIds, []);
   assert.equal(growth.collection.total, gardenEngine.COLLECTION_CATALOG.length);
   assert.equal(growth.garden.defenseEnergy, 0);
@@ -18,9 +18,11 @@ test('creates a preschool garden with a starter plant and empty collection', () 
   assert.equal(growth.garden.feedbackPreferences.motionEnabled, true);
 });
 
-test('unlocks original plant companions from lifetime sunlight', () => {
+test('unlocks PVZ plant companions from lifetime sunlight', () => {
   const next = gardenEngine.applySunlight(gardenEngine.normalize({}), 120);
-  assert.ok(next.garden.unlockedPlantIds.includes('plant-moon-mint'));
+  assert.ok(next.garden.unlockedPlantIds.includes('plant-peashooter'));
+  assert.ok(next.garden.unlockedPlantIds.includes('plant-wallnut'));
+  assert.ok(next.garden.unlockedPlantIds.includes('plant-snowpea'));
   assert.ok(next.collection.unlockedIds.includes('sticker-sun'));
   assert.equal(new Set(next.garden.unlockedPlantIds).size, next.garden.unlockedPlantIds.length);
 });

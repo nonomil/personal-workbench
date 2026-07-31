@@ -1,0 +1,46 @@
+/* Adult Life OS extensions: compact editorial blocks that keep the existing dark workbench language. */
+body.variant-adult .adult-command-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-bottom: 14px; }
+body.variant-adult .milestone-list, body.variant-adult .habit-list, body.variant-adult .archive-list, body.variant-adult .life-entry-list { display: grid; gap: 0; }
+body.variant-adult .milestone-row, body.variant-adult .habit-row, body.variant-adult .archive-row, body.variant-adult .life-entry-row { display: flex; min-width: 0; align-items: center; gap: 11px; padding: 11px 0; border-bottom: 1px solid var(--line-soft); }
+body.variant-adult .milestone-row:last-child, body.variant-adult .habit-row:last-child, body.variant-adult .archive-row:last-child, body.variant-adult .life-entry-row:last-child { border-bottom: 0; }
+body.variant-adult .milestone-row.is-overdue .milestone-copy strong, body.variant-adult .milestone-row.is-overdue .milestone-copy small { color: var(--danger); }
+body.variant-adult .milestone-copy, body.variant-adult .habit-copy, body.variant-adult .archive-row > div, body.variant-adult .life-entry-row > div { min-width: 0; flex: 1; }
+body.variant-adult .milestone-copy strong, body.variant-adult .milestone-copy small, body.variant-adult .habit-copy strong, body.variant-adult .habit-copy small, body.variant-adult .archive-row strong, body.variant-adult .archive-row small, body.variant-adult .life-entry-row strong, body.variant-adult .life-entry-row small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+body.variant-adult .milestone-copy strong, body.variant-adult .habit-copy strong, body.variant-adult .archive-row strong, body.variant-adult .life-entry-row strong { color: var(--text); font-size: 12px; font-weight: 650; }
+body.variant-adult .milestone-copy small, body.variant-adult .habit-copy small, body.variant-adult .archive-row small, body.variant-adult .life-entry-row small { margin-top: 3px; color: var(--muted-2); font-size: 10px; }
+body.variant-adult .milestone-copy small .tag { margin-right: 4px; }
+body.variant-adult .habit-check { display: grid; width: 23px; height: 23px; flex: 0 0 23px; place-items: center; padding: 0; border: 1px solid var(--muted-2); border-radius: 6px; color: var(--bg); background: transparent; }
+body.variant-adult .habit-check:hover { border-color: var(--lime); }
+body.variant-adult .habit-row.is-checked .habit-check { border-color: var(--lime); background: var(--lime); }
+body.variant-adult .habit-row.is-checked .habit-copy strong { color: var(--muted-2); text-decoration: line-through; }
+body.variant-adult .life-area-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px; }
+body.variant-adult .life-area-card { min-width: 0; padding: 17px; border: 1px solid var(--line-soft); border-radius: var(--radius); background: var(--surface); transition: border-color 180ms ease, transform 180ms ease, background 180ms ease; }
+body.variant-adult .life-area-card:hover { border-color: var(--line); background: var(--surface-2); transform: translateY(-2px); }
+body.variant-adult .life-area-head { display: flex; min-width: 0; align-items: center; gap: 10px; }
+body.variant-adult .life-area-head > div { min-width: 0; flex: 1; }
+body.variant-adult .life-area-head h2 { margin: 0; font-size: 14px; font-weight: 680; }
+body.variant-adult .life-area-head p { margin: 3px 0 0; color: var(--muted-2); font-size: 10px; }
+body.variant-adult .life-area-card.tone-orange { border-top: 2px solid rgba(255, 118, 75, 0.6); }
+body.variant-adult .life-area-card.tone-lime { border-top: 2px solid rgba(201, 233, 87, 0.55); }
+body.variant-adult .life-area-card.tone-gold { border-top: 2px solid rgba(230, 189, 100, 0.6); }
+body.variant-adult .life-area-card.tone-blue { border-top: 2px solid rgba(132, 189, 215, 0.6); }
+body.variant-adult .life-entry-row .row-actions { opacity: 0; }
+body.variant-adult .life-entry-row:hover .row-actions, body.variant-adult .life-entry-row:focus-within .row-actions { opacity: 1; }
+body.variant-adult .life-entry-row.is-done strong { color: var(--muted-2); text-decoration: line-through; }
+body.variant-adult .life-support-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+body.variant-adult .year-progress-card { margin-bottom: 14px; }
+body.variant-adult .year-progress-value { color: var(--lime); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 24px; }
+body.variant-adult .year-progress-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; margin-top: 11px; color: var(--muted-2); font-size: 10px; }
+body.variant-adult .archive-row .tag { flex: 0 0 auto; }
+body.variant-adult .settings-grid { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 14px; }
+body.variant-adult .settings-card { min-width: 0; }
+body.variant-adult .language-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+body.variant-adult .language-option { position: relative; display: grid; min-height: 78px; gap: 4px; padding: 13px; border: 1px solid var(--line-soft); border-radius: 8px; color: var(--muted); background: var(--surface-2); text-align: left; }
+body.variant-adult .language-option:hover, body.variant-adult .language-option.is-active { border-color: var(--lime); color: var(--text); }
+body.variant-adult .language-option.is-active { background: rgba(201, 233, 87, 0.08); }
+body.variant-adult .language-option strong { font-size: 12px; }
+body.variant-adult .language-option small { color: var(--muted-2); font-size: 10px; }
+body.variant-adult .language-option svg { position: absolute; top: 12px; right: 12px; width: 15px; height: 15px; color: var(--lime); }
+body.variant-adult .settings-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 13px; }
+body.variant-adult[data-language="en-US"] .sidebar-section-label { letter-spacing: 0.1em; }
+

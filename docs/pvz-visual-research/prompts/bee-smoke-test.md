@@ -1,0 +1,1 @@
+An original 2D hand-painted cartoon sun token for a children's lawn tower-defense learning game. Thick dark ink outline, warm yellow center, small friendly face, clean transparent-looking silhouette on a simple blue background, not pixel art, not 3D, not photoreal, no logo, no text, no letters, no numbers, no watermark.

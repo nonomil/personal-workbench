@@ -1,0 +1,895 @@
+/* WorkBuddy-inspired preschool shell: task-first, image-led, and intentionally separate from the battle route. */
+body.variant-preschool {
+    --wb-cream: #fff8ed;
+    --wb-paper: #fffdf8;
+    --wb-mint: #e6f6e7;
+    --wb-mint-deep: #2f7553;
+    --wb-sky: #e8f7fa;
+    --wb-sky-deep: #4d9fb0;
+    --wb-sun: #ffc83d;
+    --wb-orange: #ef896b;
+    --wb-ink: #294638;
+    --wb-muted: #738c80;
+    --wb-line: #d8e9dc;
+    --wb-shadow: 0 10px 24px rgba(51, 107, 78, .10), 0 3px 0 rgba(51, 107, 78, .07);
+    color: var(--wb-ink);
+    background: #eff8f2;
+}
+
+body.variant-preschool .app-shell { background: #eff8f2; }
+body.variant-preschool .sidebar {
+    width: 224px;
+    padding: 18px 12px 14px;
+    border-right: 1px solid #f0dfc6;
+    background: var(--wb-cream);
+    box-shadow: 6px 0 20px rgba(91, 112, 91, .05);
+}
+body.variant-preschool .sidebar-topline { padding: 0 6px; }
+body.variant-preschool .brand { gap: 10px; }
+body.variant-preschool .brand-mark {
+    width: 42px;
+    height: 42px;
+    flex-basis: 42px;
+    border: 0;
+    border-radius: 14px;
+    background: #ffedb4;
+}
+body.variant-preschool .brand-mark .preschool-nav-art {
+    width: 34px;
+    height: 34px;
+}
+body.variant-preschool .brand strong {
+    color: var(--wb-orange);
+    font-size: 16px;
+    font-weight: 900;
+}
+body.variant-preschool .brand small {
+    color: #b59a7d;
+    font-size: 8px;
+    letter-spacing: .12em;
+}
+body.variant-preschool .sidebar-section-label {
+    margin: 26px 10px 9px;
+    color: #b59a7d;
+    font-size: 10px;
+    letter-spacing: .12em;
+}
+body.variant-preschool .primary-nav { gap: 5px; }
+body.variant-preschool .nav-item {
+    min-height: 48px;
+    gap: 10px;
+    padding: 0 10px;
+    border: 1px solid transparent;
+    border-radius: 15px;
+    color: #668071;
+    font-size: 14px;
+    font-weight: 800;
+}
+body.variant-preschool .nav-item .preschool-nav-art {
+    width: 31px;
+    height: 31px;
+    flex: 0 0 31px;
+    object-fit: contain;
+}
+body.variant-preschool .nav-item kbd {
+    color: #a8b9ae;
+    font-size: 9px;
+}
+body.variant-preschool .nav-item:hover {
+    border-color: #f3dfc3;
+    color: var(--wb-ink);
+    background: #fff1d9;
+    transform: translateX(2px);
+}
+body.variant-preschool .nav-item.is-active {
+    border-color: #f6c679;
+    color: #684b25;
+    background: #ffd98f;
+    box-shadow: 0 5px 0 rgba(203, 145, 56, .17);
+}
+body.variant-preschool .nav-item.is-active::before { display: none; }
+body.variant-preschool .nav-item.is-active kbd { color: #9c6c31; }
+body.variant-preschool .sidebar-footer {
+    padding-top: 12px;
+    border-top: 2px dashed #efd9b5;
+}
+body.variant-preschool .mode-status {
+    padding-bottom: 12px;
+}
+body.variant-preschool .mode-status strong { color: var(--wb-ink); }
+body.variant-preschool .mode-status small { color: #9aae9f; }
+body.variant-preschool .status-dot { background: #7ed957; box-shadow: 0 0 0 4px rgba(126, 217, 87, .15); }
+body.variant-preschool .tool-button {
+    border-color: #f1dfc2;
+    border-radius: 11px;
+    color: #779080;
+    background: #fffdf8;
+}
+body.variant-preschool .tool-button:hover { border-color: #d8c096; color: var(--wb-ink); background: #fff2d9; }
+body.variant-preschool .sidebar-footnote { color: #b9a88f; }
+
+body.variant-preschool .main-content {
+    width: calc(100% - 224px);
+    margin-left: 224px;
+    background: #eff8f2;
+}
+body.variant-preschool .topbar {
+    min-height: 64px;
+    padding: 0 clamp(20px, 3.5vw, 44px);
+    border-bottom: 1px solid #dfeee3;
+    background: rgba(255, 255, 255, .94);
+    box-shadow: 0 3px 14px rgba(61, 109, 81, .05);
+}
+body.variant-preschool .topbar-context {
+    color: #91aa9c;
+    font-family: inherit;
+    font-size: 12px;
+    letter-spacing: 0;
+}
+body.variant-preschool .topbar-context strong { color: var(--wb-orange); font-size: 18px; font-weight: 900; }
+body.variant-preschool .topbar-context b { color: #c9d9cc; }
+body.variant-preschool .topbar-focus-button {
+    min-height: 38px;
+    padding: 0 14px;
+    border: 0;
+    border-radius: 12px;
+    color: #fff;
+    background: var(--wb-mint-deep);
+    box-shadow: 0 4px 0 #205c40;
+    font-size: 13px;
+    font-weight: 800;
+}
+body.variant-preschool .topbar-focus-button svg { color: #fff; }
+body.variant-preschool .topbar-focus-button:hover { color: #fff; background: #3a8963; }
+body.variant-preschool .topbar-divider { background: #e0ece3; }
+body.variant-preschool .avatar { border: 0; color: #236749; background: #d4f0f5; font-size: 14px; }
+body.variant-preschool .page-content {
+    width: min(100%, 1420px);
+    padding: 30px clamp(20px, 3.5vw, 46px) 62px;
+}
+
+body.variant-preschool .workbench-overview { max-width: 1260px; margin: 0 auto; }
+body.variant-preschool .workbench-overview-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    margin: 0 0 18px;
+    padding: 0;
+}
+body.variant-preschool .workbench-overview-header > div,
+body.variant-preschool .workbench-overview-actions,
+body.variant-preschool .workbench-overview-actions > span { min-width: 0; max-width: 100%; }
+body.variant-preschool .workbench-overview-header h1 {
+    margin: 0;
+    color: var(--wb-mint-deep);
+    font-size: clamp(28px, 3.2vw, 43px);
+    font-weight: 950;
+    line-height: 1.12;
+}
+body.variant-preschool .workbench-overview-header p {
+    margin: 8px 0 0;
+    color: var(--wb-muted);
+    font-size: 14px;
+}
+body.variant-preschool .workbench-kicker,
+body.variant-preschool .pixel-panel-kicker.workbench-kicker {
+    display: block;
+    margin-bottom: 7px;
+    color: var(--wb-orange);
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: .13em;
+}
+body.variant-preschool .workbench-overview-actions { align-items: center; gap: 8px; }
+body.variant-preschool .workbench-overview-actions > span {
+    min-height: 42px;
+    padding: 4px 11px;
+    border: 1px solid var(--wb-line);
+    border-radius: 14px;
+    color: var(--wb-ink);
+    background: var(--wb-paper);
+    box-shadow: 0 3px 0 rgba(75, 127, 93, .06);
+    font-size: 12px;
+    font-weight: 800;
+    overflow: hidden;
+}
+body.variant-preschool .workbench-overview-actions .pixel-hud-sun { background: #fff4c8; border-color: #f2d983; }
+body.variant-preschool .workbench-overview-actions .pixel-hud-defense { background: #e7f6ea; }
+body.variant-preschool .workbench-overview-actions .pixel-hud-streak { background: #e8f7fa; }
+body.variant-preschool .workbench-overview-actions .pixel-hud-sun img,
+body.variant-preschool .workbench-overview-actions .pixel-hud-defense img,
+body.variant-preschool .workbench-overview-actions .pixel-hud-streak img { width: 27px; height: 27px; }
+body.variant-preschool .workbench-overview-actions .pixel-settings-button {
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--wb-line);
+    border-radius: 13px;
+    color: var(--wb-muted);
+    background: var(--wb-paper);
+}
+body.variant-preschool .workbench-overview-actions .pixel-settings-button:hover { color: var(--wb-mint-deep); border-color: #a8d4b7; background: var(--wb-mint); }
+
+body.variant-preschool .workbench-overview .pixel-daily-note {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) minmax(130px, 240px) auto;
+    gap: 14px;
+    align-items: center;
+    margin: 0 0 14px;
+    padding: 11px 15px;
+    border: 1px solid #d7eee0;
+    border-radius: 15px;
+    color: var(--wb-ink);
+    background: #f7fff8;
+    box-shadow: 0 5px 14px rgba(65, 117, 86, .05);
+}
+body.variant-preschool .pixel-daily-note-art img { width: 35px; height: 35px; object-fit: contain; }
+body.variant-preschool .pixel-daily-note strong { display: block; font-size: 14px; }
+body.variant-preschool .pixel-daily-note small { display: block; margin-top: 2px; color: var(--wb-muted); font-size: 11px; }
+body.variant-preschool .pixel-daily-note-meter { height: 8px; border-radius: 99px; background: #dfeee2; }
+body.variant-preschool .pixel-daily-note-meter i { display: block; height: 100%; border-radius: inherit; background: var(--wb-sun); }
+body.variant-preschool .pixel-daily-note-count { color: var(--wb-orange); font-size: 12px; font-weight: 900; }
+
+body.variant-preschool .preschool-course-head {
+    align-items: flex-start;
+}
+body.variant-preschool .preschool-course-head > strong {
+    padding: 4px 8px;
+    border-radius: 999px;
+    color: #7d5b1d;
+    background: #fff2c4;
+    line-height: 1;
+}
+body.variant-preschool .preschool-course-note {
+    margin: 12px 0 0;
+    color: var(--wb-muted);
+    font-size: 12px;
+    line-height: 1.6;
+}
+body.variant-preschool .preschool-course-badges,
+body.variant-preschool .preschool-course-samples {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+body.variant-preschool .preschool-course-badge,
+body.variant-preschool .preschool-course-sample {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 0 10px;
+    border: 1px solid #dcebdc;
+    border-radius: 999px;
+    color: var(--wb-mint-deep);
+    background: #f5fff4;
+    font-size: 11px;
+    font-weight: 800;
+}
+body.variant-preschool .preschool-course-badge.is-primary {
+    border-color: #f3d37c;
+    color: #855f1d;
+    background: #fff5cf;
+}
+body.variant-preschool .preschool-course-sample {
+    color: var(--wb-sky-deep);
+    background: #eefbfd;
+    border-color: #d6eef2;
+}
+body.variant-preschool .preschool-lesson {
+    align-items: flex-start;
+}
+body.variant-preschool .preschool-lesson-copy {
+    min-width: 0;
+    flex: 1;
+    display: block;
+}
+body.variant-preschool .preschool-lesson-copy strong {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+body.variant-preschool .preschool-lesson-copy small {
+    display: block;
+    margin-top: 3px;
+    color: var(--wb-muted);
+    line-height: 1.45;
+    white-space: normal;
+}
+body.variant-preschool .preschool-lesson em {
+    flex: 0 0 auto;
+    margin-left: auto;
+    color: var(--wb-orange);
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 1.4;
+    text-align: right;
+}
+
+body.variant-preschool .workbench-stat-strip {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 10px;
+    margin: 0 0 18px;
+}
+body.variant-preschool .workbench-stat-card {
+    display: flex;
+    min-width: 0;
+    min-height: 76px;
+    align-items: center;
+    gap: 9px;
+    padding: 10px 11px;
+    border: 1px solid var(--wb-line);
+    border-radius: 15px;
+    background: var(--wb-paper);
+    box-shadow: var(--wb-shadow);
+}
+body.variant-preschool .workbench-stat-card:hover { transform: translateY(-2px); }
+body.variant-preschool .workbench-stat-card .pixel-stat-art {
+    display: grid;
+    width: 39px;
+    height: 39px;
+    flex: 0 0 39px;
+    place-items: center;
+    border-radius: 12px;
+    background: var(--wb-mint);
+}
+body.variant-preschool .workbench-stat-card .pixel-stat-art img { width: 31px; height: 31px; object-fit: contain; }
+body.variant-preschool .workbench-stat-card.tone-sun .pixel-stat-art { background: #fff2bc; }
+body.variant-preschool .workbench-stat-card.tone-pea .pixel-stat-art { background: #e4f6ef; }
+body.variant-preschool .workbench-stat-card.tone-level .pixel-stat-art { background: #e9f5fa; }
+body.variant-preschool .workbench-stat-card.tone-streak .pixel-stat-art { background: #fff0e9; }
+body.variant-preschool .workbench-stat-card.tone-collection .pixel-stat-art { background: #f3edff; }
+body.variant-preschool .workbench-stat-card .pixel-stat-copy { min-width: 0; }
+body.variant-preschool .workbench-stat-card .pixel-stat-copy small,
+body.variant-preschool .workbench-stat-card .pixel-stat-copy em { display: block; overflow: hidden; color: var(--wb-muted); font-size: 10px; font-style: normal; text-overflow: ellipsis; white-space: nowrap; }
+body.variant-preschool .workbench-stat-card .pixel-stat-copy strong { display: block; margin: 2px 0; color: var(--wb-ink); font-size: 17px; font-weight: 950; line-height: 1; }
+
+body.variant-preschool .workbench-overview .pixel-world-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(310px, .75fr);
+    grid-template-areas: "today side";
+    gap: 18px;
+    align-items: start;
+}
+body.variant-preschool .workbench-overview .pixel-world-grid > .pixel-quest-board { grid-area: today; }
+body.variant-preschool .workbench-side-stack { grid-area: side; display: grid; gap: 14px; min-width: 0; }
+body.variant-preschool .workbench-today,
+body.variant-preschool .workbench-side-stack > .pixel-side-panel,
+body.variant-preschool .workbench-garden-preview {
+    min-width: 0;
+    border: 1px solid var(--wb-line);
+    border-radius: 19px;
+    background: var(--wb-paper);
+    box-shadow: var(--wb-shadow);
+}
+body.variant-preschool .workbench-today { padding: 18px; }
+body.variant-preschool .workbench-card-head,
+body.variant-preschool .pixel-board-heading,
+body.variant-preschool .pixel-side-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+body.variant-preschool .workbench-card-head h2,
+body.variant-preschool .pixel-board-heading h2,
+body.variant-preschool .pixel-side-heading h2 {
+    margin: 0;
+    color: var(--wb-ink);
+    font-size: 20px;
+    font-weight: 950;
+}
+body.variant-preschool .workbench-card-head p,
+body.variant-preschool .pixel-board-heading p { margin: 4px 0 0; color: var(--wb-muted); font-size: 12px; }
+body.variant-preschool .pixel-board-count,
+body.variant-preschool .pixel-side-count {
+    display: inline-flex;
+    min-height: 30px;
+    align-items: center;
+    padding: 0 10px;
+    border-radius: 99px;
+    color: #9e6b22;
+    background: #fff2bd;
+    font-size: 11px;
+    font-weight: 900;
+    white-space: nowrap;
+}
+body.variant-preschool .workbench-task-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 11px;
+    margin-top: 17px;
+}
+body.variant-preschool .workbench-task-card {
+    position: relative;
+    display: grid;
+    min-height: 150px;
+    grid-template-columns: 72px minmax(0, 1fr);
+    grid-template-rows: auto 1fr auto;
+    column-gap: 12px;
+    align-items: center;
+    padding: 13px 13px 12px;
+    border: 1px solid #dcece0;
+    border-radius: 16px;
+    color: var(--wb-ink);
+    background: #fbfffb;
+    text-align: left;
+    box-shadow: 0 4px 0 rgba(60, 120, 82, .05);
+    transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease, background 180ms ease;
+}
+body.variant-preschool .workbench-task-card:hover { border-color: #a8d4b7; background: #f5fff6; transform: translateY(-2px); }
+body.variant-preschool .workbench-task-card.is-done { border-color: #9dd9a5; background: #f0fff1; box-shadow: 0 4px 0 rgba(112, 184, 112, .13); }
+body.variant-preschool .workbench-task-card .pixel-quest-ribbon {
+    grid-column: 1 / -1;
+    justify-self: start;
+    padding: 4px 8px;
+    border-radius: 99px;
+    color: #6c8c7a;
+    background: #edf6ef;
+    font-size: 10px;
+    font-weight: 900;
+}
+body.variant-preschool .workbench-task-card .workbench-task-art {
+    display: grid;
+    width: 68px;
+    height: 68px;
+    place-items: center;
+    grid-row: 2 / span 2;
+    border-radius: 19px;
+    background: #e8f7ec;
+}
+body.variant-preschool .workbench-task-card:nth-child(2n) .workbench-task-art { background: #e7f6fa; }
+body.variant-preschool .workbench-task-card:nth-child(3n) .workbench-task-art { background: #fff1da; }
+body.variant-preschool .workbench-task-card .workbench-task-art img { width: 57px; height: 57px; object-fit: contain; }
+body.variant-preschool .workbench-task-copy { grid-column: 2; min-width: 0; align-self: center; }
+body.variant-preschool .workbench-task-copy small { display: block; color: #9bad9f; font-size: 10px; }
+body.variant-preschool .workbench-task-copy strong { display: block; margin-top: 3px; color: var(--wb-ink); font-size: 16px; font-weight: 950; line-height: 1.25; }
+body.variant-preschool .workbench-task-copy em { display: inline-flex; align-items: center; gap: 4px; margin-top: 6px; color: var(--wb-orange); font-size: 11px; font-style: normal; font-weight: 900; }
+body.variant-preschool .workbench-task-copy em svg { width: 13px; height: 13px; }
+body.variant-preschool .workbench-task-card .pixel-quest-status { position: absolute; top: 12px; right: 12px; display: grid; width: 25px; height: 25px; place-items: center; border: 2px solid #cfe1d3; border-radius: 50%; color: #fff; background: transparent; }
+body.variant-preschool .workbench-task-card .pixel-quest-status.is-done { border-color: #75c88b; background: #75c88b; }
+body.variant-preschool .workbench-task-card .pixel-quest-status svg { width: 14px; height: 14px; }
+body.variant-preschool .workbench-secondary-button,
+body.variant-preschool .workbench-action-button,
+body.variant-preschool .workbench-text-button {
+    display: inline-flex;
+    min-height: 40px;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0 13px;
+    border: 0;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 900;
+    transition: transform 180ms ease, background 180ms ease;
+}
+body.variant-preschool .workbench-secondary-button { margin-top: 15px; color: var(--wb-mint-deep); background: #eaf6ec; }
+body.variant-preschool .workbench-secondary-button:hover { background: #d9f0de; transform: translateY(-1px); }
+body.variant-preschool .workbench-action-button { color: #fff; background: var(--wb-mint-deep); box-shadow: 0 3px 0 #205c40; }
+body.variant-preschool .workbench-action-button:hover { color: #fff; background: #3d8c68; transform: translateY(-1px); }
+body.variant-preschool .workbench-action-button svg,
+body.variant-preschool .workbench-secondary-button svg,
+body.variant-preschool .workbench-text-button svg { width: 15px; height: 15px; }
+body.variant-preschool .workbench-text-button { color: var(--wb-orange); background: transparent; }
+body.variant-preschool .workbench-text-button:hover { background: #fff1e8; }
+
+body.variant-preschool .workbench-garden-preview { overflow: hidden; padding: 16px; }
+body.variant-preschool .workbench-garden-status { display: inline-flex; min-height: 28px; align-items: center; gap: 4px; padding: 0 8px; border-radius: 99px; font-size: 10px; font-weight: 900; white-space: nowrap; }
+body.variant-preschool .workbench-garden-status svg { width: 13px; height: 13px; }
+body.variant-preschool .workbench-garden-status.is-safe { color: #27764f; background: #e6f6e8; }
+body.variant-preschool .workbench-garden-status.is-alert { color: #b7543c; background: #ffebe4; }
+body.variant-preschool .workbench-garden-scene {
+    position: relative;
+    min-height: 218px;
+    margin: 15px -2px 0;
+    overflow: hidden;
+    border: 1px solid #bfe0c5;
+    border-radius: 16px;
+    background: #dff4e4;
+}
+body.variant-preschool .workbench-garden-scene::before { position: absolute; inset: 0; background-image: radial-gradient(circle at 18% 20%, rgba(255,255,255,.8) 0 2px, transparent 3px), radial-gradient(circle at 80% 32%, rgba(255,255,255,.55) 0 2px, transparent 3px); background-size: 80px 80px, 120px 120px; content: ''; opacity: .65; }
+body.variant-preschool .workbench-garden-cloud { position: absolute; width: 58px; height: 18px; border-radius: 99px; background: rgba(255,255,255,.68); }
+body.variant-preschool .workbench-garden-cloud::before,
+body.variant-preschool .workbench-garden-cloud::after { position: absolute; bottom: 0; border-radius: 50%; background: inherit; content: ''; }
+body.variant-preschool .workbench-garden-cloud::before { left: 10px; width: 25px; height: 25px; }
+body.variant-preschool .workbench-garden-cloud::after { left: 28px; width: 18px; height: 18px; }
+body.variant-preschool .workbench-garden-cloud.cloud-a { top: 28px; left: 18px; }
+body.variant-preschool .workbench-garden-cloud.cloud-b { top: 52px; right: 26px; transform: scale(.72); }
+body.variant-preschool .workbench-garden-sun { position: absolute; top: 12px; right: 13px; display: grid; grid-template-columns: 29px auto; align-items: center; gap: 4px; padding: 4px 8px 4px 5px; border-radius: 99px; color: #956a1f; background: #fff2b8; font-size: 13px; font-weight: 950; }
+body.variant-preschool .workbench-garden-sun img { width: 29px; height: 29px; object-fit: contain; }
+body.variant-preschool .workbench-plant-hero { position: absolute; z-index: 2; bottom: 21px; left: 50%; display: grid; width: 140px; justify-items: center; transform: translateX(-50%); }
+body.variant-preschool .workbench-plant-hero img { position: relative; z-index: 2; width: 98px; height: 98px; object-fit: contain; filter: drop-shadow(0 6px 3px rgba(58, 111, 66, .2)); }
+body.variant-preschool .workbench-plant-halo { position: absolute; bottom: 35px; width: 114px; height: 35px; border-radius: 50%; background: rgba(255,255,255,.43); }
+body.variant-preschool .workbench-plant-hero strong { position: relative; z-index: 2; margin-top: -5px; color: var(--wb-mint-deep); font-size: 13px; }
+body.variant-preschool .workbench-plant-hero small { position: relative; z-index: 2; color: #72937f; font-size: 10px; }
+body.variant-preschool .workbench-safe-badge,
+body.variant-preschool .workbench-invader-preview { position: absolute; z-index: 3; bottom: 20px; display: grid; justify-items: center; padding: 8px 9px; border-radius: 13px; text-align: center; }
+body.variant-preschool .workbench-safe-badge { left: 13px; color: #27764f; background: rgba(255,255,255,.7); font-size: 11px; font-weight: 900; }
+body.variant-preschool .workbench-safe-badge svg { width: 18px; height: 18px; margin-bottom: 2px; }
+body.variant-preschool .workbench-invader-preview { right: 12px; color: #a95442; background: rgba(255,239,231,.88); }
+body.variant-preschool .workbench-invader-preview img { width: 61px; height: 61px; object-fit: contain; }
+body.variant-preschool .workbench-invader-preview b { font-size: 10px; }
+body.variant-preschool .workbench-invader-preview small { font-size: 9px; }
+body.variant-preschool .workbench-garden-ground { position: absolute; right: -5%; bottom: 0; left: -5%; height: 28px; border-top: 3px solid #83bd71; background: repeating-linear-gradient(90deg, #a8d978 0 24px, #9dce6d 24px 48px); }
+body.variant-preschool .workbench-garden-footer { display: grid; grid-template-columns: auto minmax(70px, 1fr) auto; align-items: center; gap: 9px; margin-top: 12px; }
+body.variant-preschool .workbench-progress-copy { display: grid; gap: 1px; }
+body.variant-preschool .workbench-progress-copy span { color: var(--wb-muted); font-size: 10px; }
+body.variant-preschool .workbench-progress-copy strong { color: var(--wb-ink); font-size: 12px; }
+body.variant-preschool .workbench-progress-track { height: 8px; overflow: hidden; border-radius: 99px; background: #e5f0e4; }
+body.variant-preschool .workbench-progress-track span { display: block; height: 100%; border-radius: inherit; background: var(--wb-sun); }
+body.variant-preschool .workbench-garden-footer .workbench-action-button { min-height: 34px; padding: 0 9px; font-size: 10px; }
+body.variant-preschool .workbench-garden-footer .workbench-action-button svg { width: 13px; height: 13px; }
+
+body.variant-preschool .workbench-side-stack > .pixel-side-panel { padding: 16px; }
+body.variant-preschool .workbench-side-stack .pixel-chest-art { min-height: 78px; border: 0; border-radius: 14px; background: #fff4d0; }
+body.variant-preschool .workbench-side-stack .pixel-chest-art img { width: 68px; height: 68px; object-fit: contain; }
+body.variant-preschool .workbench-side-stack .pixel-chest-progress { height: 7px; margin: 12px 0 9px; border-radius: 99px; background: #edf0dd; }
+body.variant-preschool .workbench-side-stack .pixel-chest-progress span { background: var(--wb-sun); }
+body.variant-preschool .workbench-side-stack .pixel-chest-panel p { margin: 0 0 11px; color: var(--wb-muted); font-size: 11px; }
+body.variant-preschool .workbench-side-stack .pixel-side-button { min-height: 38px; border: 0; border-radius: 11px; color: #fff; background: var(--wb-orange); box-shadow: 0 3px 0 #cc6b52; font-size: 11px; font-weight: 900; }
+body.variant-preschool .workbench-side-stack .pixel-side-button:hover { background: #f19d81; }
+body.variant-preschool .workbench-side-stack .pixel-collection-grid { gap: 7px; }
+body.variant-preschool .workbench-side-stack .pixel-collection-slot { min-height: 68px; padding: 6px 3px; border: 1px solid #e2e9e2; border-radius: 11px; background: #f9fcf8; }
+body.variant-preschool .workbench-side-stack .pixel-collection-slot.is-unlocked { border-color: #bce0bd; background: #f0fff1; }
+body.variant-preschool .workbench-side-stack .pixel-collection-slot img { width: 34px; height: 34px; object-fit: contain; }
+body.variant-preschool .workbench-side-stack .pixel-collection-slot small { color: var(--wb-muted); font-size: 9px; }
+body.variant-preschool .workbench-side-stack .pixel-side-link { color: var(--wb-orange); font-size: 11px; }
+
+body.variant-preschool .workbench-reward-strip {
+    display: grid;
+    grid-template-columns: 1fr 2.3fr auto;
+    gap: 16px;
+    align-items: center;
+    margin-top: 18px;
+    padding: 17px 18px;
+    border: 1px solid #f0dfc4;
+    border-radius: 18px;
+    background: #fffaf0;
+    box-shadow: 0 7px 17px rgba(125, 107, 73, .07);
+}
+body.variant-preschool .workbench-reward-intro h2 { margin: 0; color: var(--wb-ink); font-size: 17px; font-weight: 950; }
+body.variant-preschool .workbench-reward-intro p { margin: 4px 0 0; color: var(--wb-muted); font-size: 10px; }
+body.variant-preschool .workbench-reward-items { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; }
+body.variant-preschool .workbench-reward-item { display: grid; grid-template-columns: 35px minmax(0, 1fr); grid-template-rows: auto auto; column-gap: 7px; align-items: center; min-width: 0; padding: 7px; border: 1px solid #f0e6d1; border-radius: 12px; background: #fffef9; }
+body.variant-preschool .workbench-reward-item > span { display: grid; grid-row: 1 / span 2; width: 35px; height: 35px; place-items: center; border-radius: 10px; background: #fff1ba; }
+body.variant-preschool .workbench-reward-item > span img { width: 29px; height: 29px; object-fit: contain; }
+body.variant-preschool .workbench-reward-item strong { overflow: hidden; color: var(--wb-ink); font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+body.variant-preschool .workbench-reward-item small { overflow: hidden; color: var(--wb-muted); font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
+body.variant-preschool .workbench-reward-item.tone-chest > span { background: #ffe7d8; }
+body.variant-preschool .workbench-reward-item.tone-streak > span { background: #e6f6fa; }
+body.variant-preschool .workbench-reward-strip .workbench-action-button { min-height: 40px; white-space: nowrap; }
+body.variant-preschool .workbench-course-strip { display: flex; align-items: center; gap: 10px; margin-top: 14px; padding: 10px 2px; color: var(--wb-muted); }
+body.variant-preschool .workbench-course-strip > div { display: grid; flex: 1; gap: 2px; }
+body.variant-preschool .workbench-course-strip strong { color: var(--wb-ink); font-size: 13px; }
+body.variant-preschool .workbench-course-strip small { font-size: 10px; }
+
+@media (max-width: 1120px) {
+    body.variant-preschool .workbench-stat-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    body.variant-preschool .workbench-overview .pixel-world-grid { grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr); }
+    body.variant-preschool .workbench-reward-strip { grid-template-columns: 1fr 1.7fr; }
+    body.variant-preschool .workbench-reward-strip > .workbench-action-button { grid-column: 1 / -1; justify-self: start; }
+}
+
+@media (max-width: 900px) {
+    body.variant-preschool .sidebar { width: 196px; }
+    body.variant-preschool .main-content { width: calc(100% - 196px); margin-left: 196px; }
+    body.variant-preschool .workbench-overview-header { align-items: flex-start; flex-direction: column; }
+    body.variant-preschool .workbench-overview-actions { width: 100%; justify-content: flex-start; }
+    body.variant-preschool .workbench-overview .pixel-world-grid { grid-template-columns: 1fr; grid-template-areas: "today" "side"; }
+    body.variant-preschool .workbench-side-stack { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+    body.variant-preschool .workbench-garden-preview { grid-column: 1 / -1; }
+}
+
+@media (max-width: 760px) {
+    body.variant-preschool .main-content { width: 100%; margin-left: 0; }
+    body.variant-preschool .sidebar { width: 236px; transform: translateX(-100%); transition: transform 180ms ease; }
+    body.variant-preschool .sidebar.is-open { transform: translateX(0); }
+    body.variant-preschool .sidebar-scrim.is-visible { display: block; position: fixed; z-index: 25; inset: 0; background: rgba(38, 72, 54, .22); }
+    body.variant-preschool .menu-toggle { display: inline-grid; color: var(--wb-mint-deep); }
+    body.variant-preschool .topbar { padding: 0 16px; }
+    body.variant-preschool .topbar-context span { display: none; }
+    body.variant-preschool .topbar-context b { display: none; }
+    body.variant-preschool .page-content { padding: 23px 15px 46px; }
+    body.variant-preschool .workbench-overview { width: 100%; min-width: 0; max-width: 100%; overflow-x: clip; }
+    body.variant-preschool .workbench-overview-header,
+    body.variant-preschool .workbench-overview .pixel-daily-note,
+    body.variant-preschool .workbench-overview .pixel-stat-strip,
+    body.variant-preschool .workbench-overview .pixel-world-grid,
+    body.variant-preschool .workbench-reward-strip,
+    body.variant-preschool .workbench-course-strip { min-width: 0; max-width: 100%; }
+    body.variant-preschool .workbench-overview-actions { display: grid !important; width: calc(100vw - 30px) !important; max-width: calc(100vw - 30px) !important; grid-template-columns: repeat(3, minmax(0, 1fr)) 42px !important; gap: 6px; }
+    body.variant-preschool .workbench-overview-actions > span { min-width: 0; justify-content: center; }
+    body.variant-preschool .workbench-overview-actions .pixel-settings-button { display: grid !important; width: 42px; flex: 0 0 42px; }
+    body.variant-preschool .workbench-overview .pixel-daily-note { grid-template-columns: auto minmax(0, 1fr) auto; }
+    body.variant-preschool .pixel-daily-note-meter { grid-column: 2 / -1; }
+    body.variant-preschool .workbench-task-grid { grid-template-columns: 1fr; }
+    body.variant-preschool .workbench-task-card { min-height: 132px; }
+    body.variant-preschool .workbench-side-stack { grid-template-columns: 1fr; }
+    body.variant-preschool .workbench-garden-preview { grid-column: auto; }
+    body.variant-preschool .workbench-reward-strip { grid-template-columns: 1fr; }
+    body.variant-preschool .workbench-reward-items { grid-template-columns: 1fr; }
+    body.variant-preschool .workbench-reward-strip > .workbench-action-button { grid-column: auto; justify-self: stretch; }
+    body.variant-preschool .workbench-course-strip { flex-wrap: wrap; }
+    body.variant-preschool .workbench-course-strip > div { flex-basis: 100%; }
+}
+
+@media (max-width: 440px) {
+    body.variant-preschool .workbench-stat-strip { width: calc(100vw - 30px); grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+    body.variant-preschool .workbench-overview-actions { grid-template-columns: repeat(3, minmax(0, 1fr)) 42px !important; }
+    body.variant-preschool .workbench-overview-actions > span { min-width: 0; padding: 3px 4px; font-size: 10px; }
+    body.variant-preschool .workbench-overview-actions .pixel-hud-defense > span:last-child { display: none; }
+    body.variant-preschool .workbench-overview-actions .pixel-hud-sun img,
+    body.variant-preschool .workbench-overview-actions .pixel-hud-defense img,
+    body.variant-preschool .workbench-overview-actions .pixel-hud-streak img { width: 23px; height: 23px; }
+    body.variant-preschool .workbench-task-card { grid-template-columns: 62px minmax(0, 1fr); }
+    body.variant-preschool .workbench-task-card .workbench-task-art { width: 58px; height: 58px; }
+    body.variant-preschool .workbench-task-card .workbench-task-art img { width: 49px; height: 49px; }
+    body.variant-preschool .workbench-task-copy strong { font-size: 15px; }
+    body.variant-preschool .workbench-garden-footer { grid-template-columns: 1fr auto; }
+    body.variant-preschool .workbench-progress-track { grid-column: 1 / -1; grid-row: 2; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.variant-preschool .workbench-task-card,
+    body.variant-preschool .workbench-action-button,
+    body.variant-preschool .workbench-secondary-button { transition: none; }
+    body.variant-preschool .workbench-task-card:hover,
+    body.variant-preschool .workbench-action-button:hover,
+    body.variant-preschool .workbench-secondary-button:hover { transform: none; }
+    body.variant-preschool .workbench-plant-hero img,
+    body.variant-preschool .workbench-invader-preview img,
+    body.variant-preschool .workbench-garden-sun img { animation: none; }
+}
+
+/* Preschool 2.6: reference-style navigation lanes and breathable learning library. */
+body.variant-preschool .sidebar {
+    width: 252px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #e5c68e transparent;
+}
+body.variant-preschool .main-content {
+    width: calc(100% - 252px);
+    margin-left: 252px;
+}
+body.variant-preschool .sidebar-section-label {
+    margin: 18px 10px 7px;
+    color: #b59a7d;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: .12em;
+}
+body.variant-preschool .primary-nav.preschool-nav-group {
+    display: grid;
+    gap: 4px;
+}
+body.variant-preschool .preschool-nav-group + .sidebar-section-label { margin-top: 22px; }
+body.variant-preschool .nav-item {
+    min-height: 43px;
+    gap: 11px;
+    padding: 5px 10px;
+    border-radius: 13px;
+    font-size: 13px;
+}
+body.variant-preschool .nav-item .preschool-nav-art {
+    width: 29px;
+    height: 29px;
+    flex-basis: 29px;
+}
+body.variant-preschool .nav-item kbd { margin-left: auto; }
+body.variant-preschool .sidebar-spacer { min-height: 22px; }
+
+body.variant-preschool .preschool-course-layout {
+    display: grid;
+    grid-template-columns: 216px minmax(0, 1fr);
+    gap: 22px;
+    align-items: start;
+}
+body.variant-preschool .preschool-course-directory {
+    position: sticky;
+    top: 18px;
+    display: grid;
+    gap: 5px;
+    min-width: 0;
+    padding: 14px;
+    border: 1px solid #d7ebd0;
+    border-radius: 18px;
+    background: #fffdf8;
+    box-shadow: 0 8px 20px rgba(34, 111, 57, .06);
+}
+body.variant-preschool .preschool-course-directory-head {
+    display: grid;
+    gap: 4px;
+    padding: 2px 5px 10px;
+}
+body.variant-preschool .preschool-course-directory-head strong { color: #185b3b; font-size: 18px; }
+body.variant-preschool .preschool-course-directory-head small { color: #78927f; font-size: 11px; line-height: 1.5; }
+body.variant-preschool .preschool-course-directory-item {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    column-gap: 9px;
+    align-items: center;
+    min-width: 0;
+    padding: 8px 9px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    color: #668071;
+    background: transparent;
+    text-align: left;
+    transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+body.variant-preschool .preschool-course-directory-item:hover { border-color: #e6d7b8; background: #fff5e7; transform: translateX(2px); }
+body.variant-preschool .preschool-course-directory-item.is-active { border-color: #f6c679; color: #684b25; background: #fff0ca; box-shadow: 0 3px 0 rgba(203, 145, 56, .12); }
+body.variant-preschool .preschool-course-directory-item > span {
+    display: grid;
+    grid-row: 1 / span 2;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border-radius: 10px;
+    background: #eaf6eb;
+}
+body.variant-preschool .preschool-course-directory-item > span img { width: 28px; height: 28px; object-fit: contain; }
+body.variant-preschool .preschool-course-directory-item strong { overflow: hidden; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+body.variant-preschool .preschool-course-directory-item small { overflow: hidden; color: #9aae9f; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+body.variant-preschool .preschool-course-directory-item.is-active small { color: #a37836; }
+body.variant-preschool .preschool-course-content { min-width: 0; }
+body.variant-preschool .preschool-course-library-note {
+    display: grid;
+    grid-template-columns: 62px minmax(0, 1fr) auto;
+    gap: 14px;
+    align-items: center;
+    margin-bottom: 16px;
+    padding: 15px 17px;
+    border: 1px solid #d7ebd0;
+    border-radius: 17px;
+    background: #f7fff8;
+}
+body.variant-preschool .preschool-course-library-art {
+    display: grid;
+    width: 62px;
+    height: 62px;
+    place-items: center;
+    border-radius: 16px;
+    background: #e5f5e7;
+}
+body.variant-preschool .preschool-course-library-art img { width: 53px; height: 53px; object-fit: contain; }
+body.variant-preschool .preschool-course-library-note h2 { margin: 3px 0 0; color: #185b3b; font-size: 18px; }
+body.variant-preschool .preschool-course-library-note p { margin: 5px 0 0; color: #6c8875; font-size: 12px; line-height: 1.6; }
+body.variant-preschool .preschool-course-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+body.variant-preschool .preschool-course-card {
+    min-width: 0;
+    padding: 22px;
+    border-radius: 19px;
+    box-shadow: 0 8px 20px rgba(34, 111, 57, .06);
+}
+body.variant-preschool .preschool-course-card.is-focused { grid-column: 1 / -1; }
+body.variant-preschool .preschool-course-head { gap: 13px; }
+body.variant-preschool .preschool-course-head .preschool-card-visual { width: 64px; height: 64px; flex-basis: 64px; }
+body.variant-preschool .preschool-course-head .preschool-card-visual img { width: 55px; height: 55px; object-fit: contain; }
+body.variant-preschool .preschool-course-label { display: block; color: #a18b70; font-size: 10px; font-weight: 900; letter-spacing: .08em; }
+body.variant-preschool .preschool-course-head h2 { margin-top: 3px; font-size: 22px; }
+body.variant-preschool .preschool-course-head small { margin-top: 6px; overflow: visible; color: #708a78; font-size: 12px; line-height: 1.55; white-space: normal; }
+body.variant-preschool .preschool-course-head > strong { flex: 0 0 auto; font-size: 13px; }
+body.variant-preschool .preschool-course-reference {
+    display: flex;
+    gap: 9px;
+    align-items: flex-start;
+    margin-top: 17px;
+    padding: 11px 12px;
+    border-left: 3px solid #f0bd63;
+    border-radius: 0 11px 11px 0;
+    background: #fff8e8;
+}
+body.variant-preschool .preschool-course-reference > span { display: grid; width: 20px; height: 20px; flex: 0 0 20px; place-items: center; color: #d99039; }
+body.variant-preschool .preschool-course-reference > span svg { width: 15px; height: 15px; }
+body.variant-preschool .preschool-course-reference .preschool-course-note { margin: 0; color: #7e745f; font-size: 11px; line-height: 1.6; }
+body.variant-preschool .preschool-course-badges,
+body.variant-preschool .preschool-course-samples { gap: 7px; margin-top: 14px; }
+body.variant-preschool .preschool-course-badge,
+body.variant-preschool .preschool-course-sample { min-height: 30px; padding-inline: 10px; font-size: 11px; }
+body.variant-preschool .preschool-course-sample { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+body.variant-preschool .preschool-course-lesson-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #e4efe1;
+}
+body.variant-preschool .preschool-course-lesson-heading h3 { margin: 3px 0 0; color: #185b3b; font-size: 16px; }
+body.variant-preschool .preschool-course-lesson-heading > span { color: #9aae9f; font-size: 11px; }
+body.variant-preschool .preschool-course-lessons { gap: 9px; margin-top: 12px; }
+body.variant-preschool .preschool-lesson { min-height: 69px; gap: 11px; padding: 11px; border-radius: 13px; }
+body.variant-preschool .preschool-lesson > span:first-child { width: 34px; height: 34px; flex-basis: 34px; }
+body.variant-preschool .preschool-lesson-copy strong { overflow: visible; font-size: 14px; white-space: normal; }
+body.variant-preschool .preschool-lesson-copy small { font-size: 11px; }
+body.variant-preschool .preschool-lesson em { max-width: 42%; font-size: 10px; }
+
+body.variant-preschool .preschool-calendar-layout { display: grid; grid-template-columns: minmax(0, 1fr) 250px; gap: 18px; align-items: start; }
+body.variant-preschool .preschool-calendar-card,
+body.variant-preschool .preschool-calendar-summary { min-width: 0; padding: 20px; border: 1px solid #d7ebd0; border-radius: 19px; background: #fffdf8; box-shadow: 0 8px 20px rgba(34, 111, 57, .06); }
+body.variant-preschool .preschool-calendar-section {}
+body.variant-preschool .preschool-calendar-today { padding: 7px 10px; border-radius: 99px; color: #8d6722; background: #fff0be; font-size: 11px; font-weight: 900; white-space: nowrap; }
+body.variant-preschool .preschool-calendar-weekdays,
+body.variant-preschool .preschool-calendar-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; }
+body.variant-preschool .preschool-calendar-weekdays { margin-top: 20px; color: #9aae9f; font-size: 11px; font-weight: 900; text-align: center; }
+body.variant-preschool .preschool-calendar-grid { margin-top: 8px; }
+body.variant-preschool .preschool-calendar-day,
+body.variant-preschool .preschool-calendar-blank { min-height: 72px; border-radius: 13px; }
+body.variant-preschool .preschool-calendar-day { display: grid; align-content: center; justify-items: center; gap: 5px; border: 1px solid #e3eee0; color: #5f7b68; background: #f8fcf6; }
+body.variant-preschool .preschool-calendar-day b { font-size: 15px; }
+body.variant-preschool .preschool-calendar-day small { display: grid; width: 21px; height: 21px; place-items: center; border-radius: 50%; font-size: 12px; font-weight: 950; }
+body.variant-preschool .preschool-calendar-day.is-done { border-color: #abd9a3; color: #27764f; background: #eaf8e7; }
+body.variant-preschool .preschool-calendar-day.is-done small { color: #fff; background: #70bd71; }
+body.variant-preschool .preschool-calendar-day.is-active { border-color: #cfe4c8; background: #f2faee; }
+body.variant-preschool .preschool-calendar-day.is-missed { color: #b98983; background: #fff6f2; }
+body.variant-preschool .preschool-calendar-day.is-missed small { color: #d9897d; background: #ffe7df; }
+body.variant-preschool .preschool-calendar-day.is-future { color: #a7b6ab; background: #fbfcfa; }
+body.variant-preschool .preschool-calendar-day.is-future small { color: #afbcb2; background: #eef2ed; }
+body.variant-preschool .preschool-calendar-day.is-today { outline: 3px solid #f5c86c; outline-offset: 2px; }
+body.variant-preschool .preschool-calendar-summary { display: grid; gap: 10px; }
+body.variant-preschool .preschool-calendar-summary article { display: grid; grid-template-columns: 34px minmax(0, 1fr); grid-template-rows: auto auto; column-gap: 10px; align-items: center; padding: 10px; border-radius: 13px; background: #f6fbf4; }
+body.variant-preschool .preschool-calendar-summary article > span { display: grid; grid-row: 1 / span 2; width: 34px; height: 34px; place-items: center; border-radius: 10px; color: #2f8a50; background: #e3f3e2; }
+body.variant-preschool .preschool-calendar-summary article > span svg { width: 17px; height: 17px; }
+body.variant-preschool .preschool-calendar-summary article strong { color: #185b3b; font-size: 20px; }
+body.variant-preschool .preschool-calendar-summary article small { color: #78927f; font-size: 10px; }
+body.variant-preschool .preschool-calendar-legend { display: grid; gap: 8px; margin-top: 7px; padding-top: 14px; border-top: 1px dashed #d9e7d5; color: #78927f; font-size: 11px; }
+body.variant-preschool .preschool-calendar-legend strong { color: #185b3b; font-size: 12px; }
+body.variant-preschool .preschool-calendar-legend span { display: flex; align-items: center; gap: 7px; }
+body.variant-preschool .preschool-calendar-legend i { width: 10px; height: 10px; border-radius: 50%; background: #eef2ed; }
+body.variant-preschool .preschool-calendar-legend i.done { background: #70bd71; }
+body.variant-preschool .preschool-calendar-legend i.missed { background: #f2b3a7; }
+
+@media (max-width: 1180px) {
+    body.variant-preschool .preschool-course-layout { grid-template-columns: 190px minmax(0, 1fr); gap: 15px; }
+    body.variant-preschool .preschool-course-grid { grid-template-columns: 1fr; }
+    body.variant-preschool .preschool-calendar-layout { grid-template-columns: minmax(0, 1fr) 220px; }
+}
+@media (max-width: 900px) {
+    body.variant-preschool .sidebar { width: 220px; }
+    body.variant-preschool .main-content { width: calc(100% - 220px); margin-left: 220px; }
+    body.variant-preschool .preschool-course-layout,
+    body.variant-preschool .preschool-calendar-layout { grid-template-columns: 1fr; }
+    body.variant-preschool .preschool-course-directory { position: static; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    body.variant-preschool .preschool-course-directory-head { grid-column: 1 / -1; }
+    body.variant-preschool .preschool-calendar-summary { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    body.variant-preschool .preschool-calendar-legend { grid-column: 1 / -1; }
+}
+@media (max-width: 760px) {
+    body.variant-preschool .sidebar { width: 248px; }
+    body.variant-preschool .main-content { width: 100%; margin-left: 0; }
+    body.variant-preschool .preschool-course-library-note { grid-template-columns: 52px minmax(0, 1fr); }
+    body.variant-preschool .preschool-course-library-art { width: 52px; height: 52px; }
+    body.variant-preschool .preschool-course-library-art img { width: 44px; height: 44px; }
+    body.variant-preschool .preschool-course-library-note .btn-secondary { grid-column: 2; justify-self: start; }
+    body.variant-preschool .preschool-calendar-summary { grid-template-columns: 1fr; }
+    body.variant-preschool .preschool-calendar-legend { grid-column: auto; }
+}
+@media (max-width: 520px) {
+    body.variant-preschool .preschool-course-directory { grid-template-columns: 1fr; }
+    body.variant-preschool .preschool-course-directory-head { grid-column: auto; }
+    body.variant-preschool .preschool-course-card { padding: 17px; }
+    body.variant-preschool .preschool-course-head h2 { font-size: 19px; }
+    body.variant-preschool .preschool-course-head .preschool-card-visual { width: 54px; height: 54px; flex-basis: 54px; }
+    body.variant-preschool .preschool-course-head .preschool-card-visual img { width: 47px; height: 47px; }
+    body.variant-preschool .preschool-lesson { align-items: flex-start; }
+    body.variant-preschool .preschool-lesson em { max-width: 34%; }
+    body.variant-preschool .preschool-calendar-card { padding: 14px; }
+    body.variant-preschool .preschool-calendar-weekdays,
+    body.variant-preschool .preschool-calendar-grid { gap: 4px; }
+    body.variant-preschool .preschool-calendar-day,
+    body.variant-preschool .preschool-calendar-blank { min-height: 51px; border-radius: 9px; }
+    body.variant-preschool .preschool-calendar-day b { font-size: 13px; }
+}

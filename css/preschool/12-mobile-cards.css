@@ -1,0 +1,48 @@
+/* Preschool 2.4 320px status cards: give the child two readable choices per row. */
+@media (max-width: 360px) {
+    body.variant-preschool .pixel-stat-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 360px) {
+    html,
+    body {
+        min-width: 0;
+        overflow-x: clip;
+    }
+}
+
+/* Preschool 2.5 readability: keep the child-facing words large after the legacy mobile overrides. */
+body.variant-preschool .pixel-page-header p { font-size: 16px; line-height: 1.45; }
+body.variant-preschool .pixel-panel-kicker { font-size: 12px; letter-spacing: .08em; }
+body.variant-preschool .pixel-board-heading h2,
+body.variant-preschool .pixel-side-heading h2 { font-size: 24px; }
+body.variant-preschool .pixel-quest-copy small { font-size: 13px; }
+body.variant-preschool .pixel-quest-copy strong { font-size: 20px; }
+body.variant-preschool .pixel-quest-copy em { font-size: 13px; line-height: 1.35; }
+body.variant-preschool .pixel-battle-status-grid small { font-size: 11px; }
+body.variant-preschool .pixel-battle-status-grid strong { font-size: 14px; }
+body.variant-preschool .pixel-battle-plant strong { font-size: 13px; }
+body.variant-preschool .pixel-battle-plant small { font-size: 11px; }
+body.variant-preschool .pixel-battle-lane-row.is-preview { background: rgba(255, 244, 173, .28); }
+body.variant-preschool .pixel-battle-invader.is-preview {
+    width: 64px;
+    height: 72px;
+    border-color: #7041a4;
+    background: rgba(240, 232, 255, .95);
+    box-shadow: 4px 4px 0 rgba(70, 46, 33, .38);
+}
+body.variant-preschool .pixel-battle-invader.is-preview .preschool-generated-art { width: 58px; height: 58px; }
+body.variant-preschool .pixel-invader-preview-label {
+    position: absolute;
+    right: 2px;
+    bottom: 1px;
+    left: 2px;
+    padding: 2px 1px;
+    color: #fff;
+    background: #7041a4;
+    font-size: 11px;
+    font-weight: 950;
+    line-height: 1;
+    text-align: center;
+}
+

@@ -36,13 +36,23 @@
     const CATEGORY_COLORS = { 学习: 'orange', 阅读: 'blue', 实践: 'lime', 运动: 'gold', 自控: 'orange', 其它: 'blue' };
     const PRIORITY_LABELS = { high: '高优先', medium: '常规', low: '低优先' };
     const STATUS_LABELS = { todo: '待开始', doing: '进行中', done: '已完成' };
-    const ui = { page: getPageFromHash(), taskFilter: 'all', dialogType: '', dialogId: '', dialogArea: '' };
+    const ui = { page: getPageFromHash(), courseId: getCourseIdFromHash(), taskFilter: 'all', dialogType: '', dialogId: '', dialogArea: '' };
     const isPreschool = workbenchConfig.variant === 'preschool';
     const isChild = workbenchConfig.variant === 'child' || isPreschool;
     const isAdult = workbenchConfig.variant === 'adult';
     const preschoolGarden = global.PersonalWorkbenchPreschoolGarden;
     const PIXEL_ASSET_BASE = '../assets/generated/preschool-pixel/reference/gpt-output-20260730/published-gpt-v2/';
     const PIXEL_REFRESH_ASSET_BASE = '../assets/generated/preschool-pixel/refresh-20260731/published/';
+    const PRESCHOOL_PVZ_ASSET_BASE = '../assets/generated/preschool-pvz-2d/published/';
+    const PRESCHOOL_PVZ_ASSETS = {
+        'sun-token': 'pvz-sun-token.png',
+        'plant-sunflower': 'pvz-sunflower.png',
+        'plant-peashooter': 'pvz-peashooter.png',
+        'plant-wallnut': 'pvz-wallnut.png',
+        'zombie-basic': 'pvz-zombie-basic.png',
+        'zombie-conehead': 'pvz-zombie-conehead.png',
+        'zombie-buckethead': 'pvz-zombie-buckethead.png'
+    };
     const PIXEL_REFRESH_ASSETS = {
         'sun-token': 'sun-token.png',
         'water-drop-token': 'water-drop-token.png',
@@ -52,7 +62,17 @@
         'star-companion': 'star-companion.png',
         'flower-checkpoint': 'flower-checkpoint.png',
         'carrot-reward': 'carrot-reward.png',
-        'quest-flag-pedestal': 'quest-flag-pedestal.png'
+        'quest-flag-pedestal': 'quest-flag-pedestal.png',
+        'plant-sunflower': '../../pvz/plant-sunflower.png',
+        'plant-peashooter': '../../pvz/plant-peashooter.png',
+        'plant-wallnut': '../../pvz/plant-wallnut.png',
+        'plant-snowpea': '../../pvz/plant-snowpea.png',
+        'plant-cherrybomb': '../../pvz/plant-cherrybomb.webp',
+        'zombie-basic': '../../pvz/zombie-basic.webp',
+        'zombie-conehead': '../../pvz/zombie-conehead.webp',
+        'zombie-buckethead': '../../pvz/zombie-buckethead.webp',
+        'zombie-flag': '../../pvz/zombie-flag.webp',
+        'zombie-football': '../../pvz/zombie-football.webp'
     };
     const PIXEL_ASSET_FILES = {
         'sun-token': 'sun-token.png',
@@ -91,15 +111,60 @@
         'task-sun-icon': 'task-sun-icon.png',
         'task-water-icon': 'task-water-icon.png'
     };
+    const PRESCHOOL_SOFT_ASSETS = {
+        'sun-token': 'preschool-sun.webp',
+        'map-sun': 'preschool-sun.webp',
+        'sun-smile-badge': 'preschool-sun.webp',
+        'streak-stars': 'preschool-star.webp',
+        'sun-progress-bar': 'preschool-sun.webp',
+        'small-crystal': 'preschool-gift.webp',
+        'sunlight-crystal-cluster': 'preschool-gift.webp',
+        'water-drop-token': 'preschool-watering-can.webp',
+        'seedling-node': 'preschool-sprout.webp',
+        'growth-tree': 'preschool-sprout.webp',
+        'grass-patch': 'preschool-sprout.webp',
+        'grass-platform': 'preschool-sprout.webp',
+        'treasure-chest': 'preschool-gift.webp',
+        'nav-chest': 'preschool-gift.webp',
+        'star-companion': 'preschool-star.webp',
+        'small-tree': 'preschool-sprout.webp',
+        'storybook-token': 'preschool-storybook.webp',
+        'task-book-icon': 'preschool-storybook.webp',
+        'task-sun-icon': 'preschool-sun.webp',
+        'task-water-icon': 'preschool-watering-can.webp',
+        'flower-pot': 'preschool-sprout.webp',
+        'flower-checkpoint': 'preschool-sprout.webp',
+        'cat-helper': 'preschool-star.webp',
+        'nav-family': 'preschool-star.webp',
+        'nav-flowers': 'preschool-sprout.webp',
+        'nav-sprout': 'preschool-sprout.webp',
+        'nav-storybook': 'preschool-storybook.webp',
+        'nav-sun': 'preschool-sun.webp',
+        'quest-flag-pedestal': 'preschool-sprout.webp',
+        'cloud-invader': 'preschool-bug.webp',
+        'player-energy-bars': 'preschool-sprout.webp'
+    };
     let state = repository.load();
     let preschoolCelebrationTimer = 0;
     let preschoolPeaTimer = 0;
     let preschoolHudPulseTimer = 0;
     let preschoolMusic = null;
 
+    function getRouteFromHash() {
+        const raw = (location.hash || '#overview').slice(1);
+        const [route, query = ''] = raw.split('?');
+        const params = new URLSearchParams(query);
+        return { page: route || 'overview', courseId: params.get('course') || '' };
+    }
+
     function getPageFromHash() {
-        const candidate = (location.hash || '#overview').slice(1);
+        const candidate = getRouteFromHash().page;
         return PAGE_META[candidate] ? candidate : 'overview';
+    }
+
+    function getCourseIdFromHash() {
+        const route = getRouteFromHash();
+        return route.page === 'courses' ? route.courseId : '';
     }
 
     function icon(name, className) {
@@ -107,6 +172,8 @@
     }
 
     function preschoolAssetSrc(name) {
+        if (isPreschool && PRESCHOOL_PVZ_ASSETS[name]) return `${PRESCHOOL_PVZ_ASSET_BASE}${PRESCHOOL_PVZ_ASSETS[name]}`;
+        if (isPreschool && PRESCHOOL_SOFT_ASSETS[name]) return `../assets/generated/preschool/${PRESCHOOL_SOFT_ASSETS[name]}`;
         if (isPreschool && PIXEL_REFRESH_ASSETS[name]) return `${PIXEL_REFRESH_ASSET_BASE}${PIXEL_REFRESH_ASSETS[name]}`;
         if (isPreschool && PIXEL_ASSET_FILES[name]) return `${PIXEL_ASSET_BASE}${PIXEL_ASSET_FILES[name]}`;
         const base = workbenchConfig.current && workbenchConfig.current.assetBase ? workbenchConfig.current.assetBase : '../assets/generated/preschool/';
@@ -114,7 +181,8 @@
     }
 
     function preschoolAsset(name, alt) {
-        return `<img class="preschool-generated-art" src="${escapeHtml(preschoolAssetSrc(name))}" alt="${escapeHtml(alt || '')}" loading="lazy" onerror="this.hidden=true">`;
+        const pvzClass = /^plant-|^zombie-/.test(String(name || '')) ? ' preschool-pvz-art' : '';
+        return `<img class="preschool-generated-art${pvzClass}" src="${escapeHtml(preschoolAssetSrc(name))}" alt="${escapeHtml(alt || '')}" loading="lazy" onerror="this.hidden=true">`;
     }
 
     function preschoolAssetForIcon(iconName) {
@@ -124,15 +192,18 @@
             droplets: 'water-drop-token',
             'book-open': 'storybook-token',
             gift: 'treasure-chest',
-            bug: 'cloud-invader',
+            bug: 'zombie-basic',
             sparkles: 'star-companion',
             heart: 'star-companion',
             'heart-handshake': 'star-companion',
             calculator: 'sun-token',
             languages: 'storybook-token',
-            'flower-2': 'flower-checkpoint',
             moon: 'star-companion',
-            'shield-check': 'growth-tree',
+            'shield-check': 'plant-wallnut',
+            target: 'plant-peashooter',
+            snowflake: 'plant-snowpea',
+            flame: 'plant-cherrybomb',
+            'flower-2': 'plant-sunflower',
             rainbow: 'growth-tree',
             crown: 'star-companion',
             'gamepad-2': 'treasure-chest',
@@ -145,12 +216,22 @@
     function preschoolPlantAsset(plant) {
         const source = plant && typeof plant === 'object' ? plant : {};
         const byId = {
-            'plant-sun-sprout': 'seedling-node',
-            'plant-moon-mint': 'flower-checkpoint',
-            'plant-star-flower': 'flower-pot',
-            'plant-rainbow-tree': 'growth-tree'
+            'plant-sunflower': 'plant-sunflower',
+            'plant-peashooter': 'plant-peashooter',
+            'plant-wallnut': 'plant-wallnut',
+            'plant-snowpea': 'plant-snowpea',
+            'plant-cherrybomb': 'plant-cherrybomb',
+            'plant-sun-sprout': 'plant-sunflower',
+            'plant-moon-mint': 'plant-snowpea',
+            'plant-star-flower': 'plant-cherrybomb',
+            'plant-rainbow-tree': 'plant-wallnut'
         };
-        return byId[source.id] || ({ blue: 'flower-checkpoint', pink: 'flower-pot', lime: 'growth-tree', gold: 'seedling-node' }[source.tone] || 'seedling-node');
+        return byId[source.id] || 'plant-sunflower';
+    }
+
+    function preschoolInvaderProfile(invader) {
+        const catalog = preschoolGarden && Array.isArray(preschoolGarden.ZOMBIE_CATALOG) ? preschoolGarden.ZOMBIE_CATALOG : [];
+        return catalog.find(item => item.id === (invader && invader.kind)) || catalog[0] || { id: 'zombie-basic', title: '普通僵尸', asset: 'zombie-basic' };
     }
 
     function preschoolVisual(iconName, assetName, alt) {
@@ -250,10 +331,12 @@
         return { today, todayPlans, week, focusByDate, readingByDate, todayFocus, weekFocus, weekReading, weekPages, monthReading, completedPlans, completedTasks, streak, adult, yearFocus, yearReading, yearCompleted, yearDaysActive, dueSoon, overdueMilestones, todayHabits };
     }
 
-    function setPage(page, replace) {
+    function setPage(page, replace, courseId) {
         ui.page = PAGE_META[page] ? page : 'overview';
-        if (replace) history.replaceState(null, '', `#${ui.page}`);
-        else if (location.hash !== `#${ui.page}`) location.hash = ui.page;
+        ui.courseId = ui.page === 'courses' ? String(courseId || '') : '';
+        const hash = ui.page === 'courses' && ui.courseId ? `#courses?course=${encodeURIComponent(ui.courseId)}` : `#${ui.page}`;
+        if (replace) history.replaceState(null, '', hash);
+        else if (location.hash !== hash) location.hash = hash;
         render();
         closeSidebar();
         window.scrollTo(0, 0);
@@ -265,9 +348,13 @@
         if (isPreschool) document.body.classList.toggle('preschool-no-motion', !getPreschoolFeedbackPreference('motionEnabled', true));
         updateModeStatus();
         document.querySelectorAll('.nav-item').forEach(function (item) {
-            item.classList.toggle('is-active', item.dataset.page === ui.page);
+            item.classList.toggle('is-active', item.dataset.page === ui.page && (!item.dataset.courseId || item.dataset.courseId === ui.courseId));
         });
-        pageName.textContent = meta.title;
+        document.querySelectorAll('[data-mobile-nav]').forEach(function (item) {
+            item.classList.toggle('is-active', item.dataset.mobileNav !== 'more' && item.dataset.page === ui.page);
+        });
+        const activeCourse = isPreschool && ui.page === 'courses' ? getPreschoolCourseById(ui.courseId) : null;
+        pageName.textContent = activeCourse ? activeCourse.title : meta.title;
         if (isPreschool) pageContent.innerHTML = renderPreschoolPage(derived);
         else {
             if (ui.page === 'overview') pageContent.innerHTML = renderOverview(derived);
@@ -355,18 +442,19 @@
 
     function renderPreschoolGardenBoard(growth, compact) {
         const garden = growth.garden || {};
-        const activePlant = garden.activePlant || (preschoolGarden && preschoolGarden.PLANT_CATALOG ? preschoolGarden.PLANT_CATALOG[0] : { id: 'plant-sun-sprout', title: '太阳芽', icon: 'sun' });
+        const activePlant = garden.activePlant || (preschoolGarden && preschoolGarden.PLANT_CATALOG ? preschoolGarden.PLANT_CATALOG[0] : { id: 'plant-sunflower', title: '向日葵', icon: 'sun' });
         const invader = garden.invader || { active: false };
+        const invaderProfile = preschoolInvaderProfile(invader);
         const plantCount = garden.plants ? garden.plants.length : 1;
         const unlockedCount = garden.collection ? garden.collection.unlockedIds.length : 0;
         const action = invader.active ? 'navigate' : 'navigate';
         return `<section class="preschool-garden-board ${invader.active ? 'has-invader' : 'is-calm'} ${compact ? 'is-compact' : ''}">
-            <div class="preschool-garden-board-head"><div><span class="eyebrow">SUN GARDEN</span><h2>${invader.active ? '小怪来捣乱了' : '我的阳光花园'}</h2><p>${invader.active ? '做完一项小任务，就能把它送回云朵外。' : '每一束阳光，都会让植物伙伴长大。'}</p></div><span class="garden-count-badge">${icon('album')} ${unlockedCount}/${garden.collection ? garden.collection.total : 0}</span></div>
+            <div class="preschool-garden-board-head"><div><span class="eyebrow">SUN GARDEN</span><h2>${invader.active ? `${escapeHtml(invaderProfile.title)}来捣乱了` : '我的阳光花园'}</h2><p>${invader.active ? '做完一项小任务，就能把僵尸赶出花园。' : '每一束阳光，都会让植物伙伴长大。'}</p></div><span class="garden-count-badge">${icon('album')} ${unlockedCount}/${garden.collection ? garden.collection.total : 0}</span></div>
             <div class="preschool-garden-scene">
                 <div class="garden-sun-orbit"><span class="garden-sun-token">${preschoolAsset('sun-token', '阳光')}</span><span>+${growth.sunlight}</span></div>
                 <div class="garden-cloud cloud-one"></div><div class="garden-cloud cloud-two"></div>
                 <div class="garden-plant-spot"><span class="garden-plant-halo"></span><span class="garden-plant-icon tone-${escapeHtml(activePlant.tone || 'lime')}">${preschoolAsset(preschoolPlantAsset(activePlant), activePlant.title)}</span><strong>${escapeHtml(activePlant.title)}</strong><small>${plantCount} 位植物伙伴</small></div>
-                ${invader.active ? `<button class="garden-invader" type="button" data-action="${action}" data-page="plans"><span>${preschoolAsset('cloud-invader', '小怪')}</span><strong>小怪入侵</strong><small>完成一项赶走</small></button>` : `<span class="garden-calm-badge">${icon('shield-check')} 花园安全</span>`}
+                ${invader.active ? `<button class="garden-invader" type="button" data-action="${action}" data-page="plans"><span>${preschoolAsset(invaderProfile.asset, invaderProfile.title)}</span><strong>${escapeHtml(invaderProfile.title)}入侵</strong><small>完成一项赶走</small></button>` : `<span class="garden-calm-badge">${icon('shield-check')} 花园安全</span>`}
                 <span class="garden-ground-line"></span>
             </div>
             <div class="preschool-garden-board-foot"><div class="garden-progress-copy"><span>植物伙伴</span><strong>${plantCount} / ${plantCount + 3}</strong></div><div class="garden-progress-track"><span style="width:${Math.round((plantCount / (plantCount + 3)) * 100)}%"></span></div><button class="btn-secondary" type="button" data-action="navigate" data-page="growth">看花园${icon('arrow-up-right')}</button></div>
@@ -401,12 +489,12 @@
 
     function pixelQuestAsset(item) {
         const category = String(item && item.category || '学习');
-        if (category === '语文' || category === '阅读') return 'task-book-icon';
+        if (category === '语文' || category === '阅读' || category === '识字' || category === '古诗') return 'task-book-icon';
         if (category === '数学') return 'task-sun-icon';
         if (category === '英语') return 'task-water-icon';
         if (category === '创意') return 'flower-pot';
         if (category === '运动') return 'seedling-node';
-        if (category === '生活') return 'cat-helper';
+        if (category === '生活' || category === '专注') return 'cat-helper';
         return 'star-companion';
     }
 
@@ -414,10 +502,10 @@
         const done = Boolean(item.done);
         const label = done ? '已点亮' : '完成 +10 阳光';
         const asset = pixelQuestAsset(item);
-        return `<button class="pixel-quest-card quest-tone-${index % 3} ${done ? 'is-done' : ''}" type="button" data-action="toggle-plan" data-id="${escapeHtml(item.id)}" aria-label="${done ? '取消完成' : '完成'}${escapeHtml(item.title)}">
+        return `<button class="pixel-quest-card workbench-task-card quest-tone-${index % 3} ${done ? 'is-done' : ''}" type="button" data-action="toggle-plan" data-id="${escapeHtml(item.id)}" aria-label="${done ? '取消完成' : '完成'}${escapeHtml(item.title)}">
             <span class="pixel-quest-ribbon">${escapeHtml(item.category || '学习')}</span>
-            <span class="pixel-quest-art">${preschoolAsset(asset, item.title)}</span>
-            <span class="pixel-quest-copy"><small>${done ? '已点亮' : '今天的冒险'}</small><strong>${escapeHtml(item.title)}</strong><em>${label}任务 <span>${done ? icon('check') : icon('arrow-right')}</span></em></span>
+            <span class="pixel-quest-art workbench-task-art">${preschoolAsset(asset, item.title)}</span>
+            <span class="pixel-quest-copy workbench-task-copy"><small>${done ? '已点亮' : '今天的冒险'}</small><strong>${escapeHtml(item.title)}</strong><em>${label}任务 <span>${done ? icon('check') : icon('arrow-right')}</span></em></span>
             <span class="pixel-quest-status ${done ? 'is-done' : ''}">${done ? icon('check') : ''}</span>
         </button>`;
     }
@@ -426,7 +514,8 @@
         const garden = growth.garden || {};
         const invader = garden.invader || { active: false };
         const defense = getPreschoolDefense(growth);
-        const activePlant = garden.activePlant || { title: '太阳芽', icon: 'sun', tone: 'gold' };
+        const activePlant = garden.activePlant || { id: 'plant-sunflower', title: '向日葵', icon: 'sun', tone: 'gold' };
+        const invaderProfile = preschoolInvaderProfile(invader);
         const nodes = plans.slice(0, 3).map(function (item, index) {
             const active = !item.done && plans.slice(0, index).every(entry => entry.done);
             return `<button class="pixel-map-node ${item.done ? 'is-done' : active ? 'is-active' : ''}" type="button" data-action="toggle-plan" data-id="${escapeHtml(item.id)}" aria-label="${item.done ? '取消完成' : '完成'}${escapeHtml(item.title)}"><span class="pixel-node-flag">${item.done ? icon('check') : index + 1}</span><span class="pixel-node-icon">${preschoolAsset(pixelQuestAsset(item), item.title)}</span><strong>${escapeHtml(item.title)}</strong></button>`;
@@ -434,27 +523,39 @@
         const health = Math.max(0, Number(invader.health) || 0);
         const maxHealth = Math.max(1, Number(invader.maxHealth) || 3);
         const plantAsset = preschoolPlantAsset(activePlant);
-        const laneRows = Array.from({ length: 3 }, function (_, laneIndex) {
-            const isTarget = Boolean(invader.active && laneIndex === 1);
-            const showInvader = Boolean(isTarget || (compact && laneIndex === 1));
+        const laneRows = Array.from({ length: 5 }, function (_, laneIndex) {
+            const isTarget = Boolean(invader.active && laneIndex === 2);
+            const showInvader = Boolean(isTarget || laneIndex === 2);
+            const lanePlantAssets = ['plant-sunflower', 'plant-peashooter', 'plant-wallnut', 'plant-sunflower', 'plant-peashooter'];
+            const lanePlantAsset = lanePlantAssets[laneIndex];
             const pathCells = Array.from({ length: 4 }, function (_, cellIndex) {
                 return `<span class="pixel-battle-path-cell" aria-hidden="true"><i></i><b>${cellIndex + 1}</b></span>`;
             }).join('');
             return `<div class="pixel-battle-lane-row ${isTarget ? 'is-target' : showInvader ? 'is-preview' : ''}" data-lane="${laneIndex + 1}" aria-label="第 ${laneIndex + 1} 路花园防守">
-                <span class="pixel-battle-plant-column">${preschoolAsset(plantAsset, activePlant.title)}</span>
+                <span class="pixel-battle-plant-column">${preschoolAsset(lanePlantAsset, lanePlantAsset.replace('plant-', ''))}</span>
                 <span class="pixel-battle-path">${pathCells}</span>
-                <span class="pixel-battle-invader-column">${showInvader ? `<span class="pixel-battle-invader ${isTarget ? '' : 'is-preview'}" aria-label="${isTarget ? '云朵小怪入侵' : '云朵小怪预告'}">${preschoolAsset('cloud-invader', '云朵小怪')}${isTarget ? '<span class="pixel-invader-preview-label">入侵</span>' : '<span class="pixel-invader-preview-label">预告</span>'}</span>${isTarget ? '<span class="pixel-hit-flash" aria-hidden="true"></span>' : ''}` : ''}</span>
+                <span class="pixel-battle-invader-column">${showInvader ? `<button class="pixel-battle-invader ${isTarget ? '' : 'is-preview'}" type="button" data-action="${isTarget ? 'fire-pea' : 'spawn-invader'}" ${isTarget && !defense.canFire ? 'disabled' : ''} aria-label="${isTarget ? `${escapeHtml(invaderProfile.title)}入侵，发射豌豆` : '召唤僵尸练习'}">${preschoolAsset(invaderProfile.asset, invaderProfile.title)}<span class="pixel-invader-preview-label">${isTarget ? '入侵' : '点我召唤'}</span></button>${isTarget ? '<span class="pixel-hit-flash" aria-hidden="true"></span>' : ''}` : ''}</span>
             </div>`;
+        }).join('');
+        const seedPackets = [
+            ['plant-sunflower', '向日葵', 50],
+            ['plant-peashooter', '豌豆射手', 100],
+            ['plant-wallnut', '坚果墙', 50],
+            ['plant-snowpea', '寒冰射手', 175],
+            ['plant-cherrybomb', '樱桃炸弹', 150]
+        ].map(function (seed, index) {
+            return `<button class="pvz-seed-packet ${index === 0 ? 'is-selected' : ''}" type="button" data-action="select-plant" data-id="${escapeHtml(seed[0])}"><span class="pvz-seed-art">${preschoolAsset(seed[0], seed[1])}</span><span class="pvz-seed-name">${escapeHtml(seed[1])}</span><b>${seed[2]}</b></button>`;
         }).join('');
         return `<section class="pixel-map-panel ${compact ? 'is-compact' : ''} ${invader.active ? 'has-invader' : ''}">
             <div class="pixel-map-landmarks" aria-hidden="true"><span class="pixel-map-landmark landmark-castle">${preschoolAsset('castle-gate', '')}</span><span class="pixel-map-landmark landmark-tree">${preschoolAsset('small-tree', '')}</span><span class="pixel-map-landmark landmark-bridge">${preschoolAsset('river-bridge', '')}</span><span class="pixel-map-landmark landmark-fence">${preschoolAsset('fence', '')}</span><span class="pixel-map-landmark landmark-platform">${preschoolAsset('grass-platform', '')}</span><span class="pixel-map-landmark landmark-grass grass-a">${preschoolAsset('grass-patch', '')}</span><span class="pixel-map-landmark landmark-grass grass-b">${preschoolAsset('grass-patch', '')}</span></div>
-            <div class="pixel-map-copy"><span class="pixel-panel-kicker">SUN GARDEN / DEFENSE</span><h2>${invader.active ? '小怪来捣乱了' : '花园防守场'}</h2><p>${invader.active ? `第 ${invader.wave || 1} 波 · 再发射 ${health} 次就能赶走。` : '完成任务收集阳光，种下植物守护花园。'}</p></div>
+             <div class="pixel-map-copy"><span class="pixel-panel-kicker">SUN GARDEN / DEFENSE</span><h2>${invader.active ? `${escapeHtml(invaderProfile.title)}来捣乱了` : '植物防守场'}</h2><p>${invader.active ? `第 ${invader.wave || 1} 波 · ${escapeHtml(invaderProfile.title)}还要 ${health} 次豌豆。` : '完成任务收集阳光，种下植物守护花园。'}</p></div>
             <div class="pixel-map-hud"><span class="pixel-map-sun">${preschoolAsset('map-sun', '阳光')}<b>${growth.sunlight}</b></span><span class="pixel-defense-energy"><span class="pixel-energy-art">${preschoolAsset('player-energy-bars', '豌豆能量')}</span><span>豌豆</span><b>${defense.energy}</b></span><span class="pixel-wave-badge">${invader.active ? `生命 ${health}/${maxHealth}` : '花园安全'}</span></div>
-            <div class="pixel-battlefield" aria-label="三路六列阳光花园防守场景"><div class="pixel-battle-sky"><span class="pixel-battle-cloud cloud-a"></span><span class="pixel-battle-cloud cloud-b"></span><span class="pixel-battle-sun">${preschoolAsset('map-sun', '阳光')}</span></div><div class="pixel-battle-grid"><span class="pixel-battle-row-label">三路</span><div class="pixel-battle-lanes">${laneRows}</div></div><div class="pixel-battle-ground"></div></div>
-            <div class="pixel-defense-actions">${invader.active ? `<button class="pixel-pea-button" type="button" data-action="fire-pea" ${defense.canFire ? '' : 'disabled'}>${icon('zap')} 发射豌豆 <b>${defense.energy}</b></button>` : `<button class="pixel-pea-button is-practice" type="button" data-action="spawn-invader">${icon('swords')} 来一波练习</button>`}<span class="pixel-defense-hint">${invader.active ? (defense.canFire ? '点一下，植物会发射豌豆！' : '先完成一个小任务，收集豌豆能量。') : '想练习防守？召唤一朵云朵小怪。'}</span></div>
+            <div class="pvz-seed-tray" aria-label="植物种子卡槽"><span class="pvz-seed-sun"><img src="${escapeHtml(preschoolAssetSrc('sun-token'))}" alt="阳光"><b>${growth.sunlight}</b></span>${seedPackets}</div>
+            <div class="pixel-battlefield" aria-label="五路六列阳光花园防守场景"><div class="pixel-battle-sky"><span class="pixel-battle-cloud cloud-a"></span><span class="pixel-battle-cloud cloud-b"></span><span class="pixel-battle-sun">${preschoolAsset('map-sun', '阳光')}</span></div><div class="pixel-battle-grid"><span class="pixel-battle-row-label">五路</span><div class="pixel-battle-lanes">${laneRows}</div></div><div class="pixel-battle-ground"></div></div>
+             <div class="pixel-defense-actions">${invader.active ? `<button class="pixel-pea-button" type="button" data-action="fire-pea" ${defense.canFire ? '' : 'disabled'}>${icon('zap')} 发射豌豆 <b>${defense.energy}</b></button>` : `<button class="pixel-pea-button is-practice" type="button" data-action="spawn-invader">${icon('swords')} 来一波僵尸</button>`}<span class="pixel-defense-hint">${invader.active ? (defense.canFire ? '点一下，植物会发射豌豆！' : '先完成一个小任务，收集豌豆能量。') : '想练习防守？召唤一只僵尸。'}</span></div>
             <div class="pixel-map-route"><span class="pixel-route-line"></span>${nodes || `<span class="pixel-map-empty">先加一项小任务</span>`}</div>
             <div class="pixel-map-companion"><span>${preschoolAsset('star-companion', '星芒')}</span><div><strong>星芒在陪你</strong><small>连续 ${growth.streak} 天</small></div></div>
-            ${invader.active ? `<span class="pixel-map-invader"><span>${preschoolAsset('cloud-invader', '小怪')}</span><strong>小怪入侵</strong><small>${defense.energy ? '准备发射' : '完成任务得能量'}</small></span>` : `<span class="pixel-map-safe">${icon('shield-check')} 花园安全</span>`}
+             ${invader.active ? `<span class="pixel-map-invader"><span>${preschoolAsset(invaderProfile.asset, invaderProfile.title)}</span><strong>${escapeHtml(invaderProfile.title)}入侵</strong><small>${defense.energy ? '准备发射' : '完成任务得能量'}</small></span>` : `<span class="pixel-map-safe">${icon('shield-check')} 花园安全</span>`}
             <div class="pixel-map-ground"></div>
         </section>`;
     }
@@ -482,18 +583,18 @@
 
     function renderPixelStats(growth, defense) {
         const garden = growth.garden || {};
-        const activePlant = garden.activePlant || { title: '太阳芽' };
+        const activePlant = garden.activePlant || { id: 'plant-sunflower', title: '向日葵' };
         const collection = growth.collection || { unlockedIds: [], total: 0 };
         const stats = [
             { label: '阳光', value: growth.sunlight, note: '可兑换', asset: 'sun-token', tone: 'sun' },
-            { label: '植物', value: garden.unlockedPlantIds ? garden.unlockedPlantIds.length : 1, note: activePlant.title, asset: 'seedling-node', tone: 'plant' },
+            { label: '植物', value: garden.unlockedPlantIds ? garden.unlockedPlantIds.length : 1, note: activePlant.title, asset: preschoolPlantAsset(activePlant), tone: 'plant' },
             { label: '豌豆', value: defense.energy, note: '防守能量', asset: 'player-energy-bars', tone: 'pea' },
             { label: '等级', value: `Lv.${growth.level}`, note: `${growth.petXp} XP`, asset: 'star-companion', tone: 'level' },
             { label: '连续', value: `${growth.streak} 天`, note: '每天点亮', asset: 'sun-smile-badge', tone: 'streak' },
             { label: '收藏', value: `${collection.unlockedIds.length}/${collection.total}`, note: '已发现', asset: 'treasure-chest', tone: 'collection' }
         ];
-        return `<section class="pixel-stat-strip" aria-label="成长状态">${stats.map(function (stat) {
-            return `<article class="pixel-stat-card tone-${stat.tone}"><span class="pixel-stat-art">${preschoolAsset(stat.asset, stat.label)}</span><span class="pixel-stat-copy"><small>${escapeHtml(stat.label)}</small><strong>${escapeHtml(stat.value)}</strong><em>${escapeHtml(stat.note)}</em></span></article>`;
+        return `<section class="pixel-stat-strip workbench-stat-strip" aria-label="成长状态">${stats.map(function (stat) {
+            return `<article class="pixel-stat-card workbench-stat-card tone-${stat.tone}"><span class="pixel-stat-art">${preschoolAsset(stat.asset, stat.label)}</span><span class="pixel-stat-copy"><small>${escapeHtml(stat.label)}</small><strong>${escapeHtml(stat.value)}</strong><em>${escapeHtml(stat.note)}</em></span></article>`;
         }).join('')}</section>`;
     }
 
@@ -504,25 +605,50 @@
         return `<section class="pixel-daily-note" aria-label="今日提示"><span class="pixel-daily-note-art">${preschoolAsset('sun-smile-badge', '今日提示')}</span><span><strong>${safeDone ? '做得很棒，继续点亮花园' : '今天先完成一项小任务吧'}</strong><small>完成任务会得到阳光和豌豆能量，花园也会更热闹。</small></span><span class="pixel-daily-note-meter" role="progressbar" aria-label="今日任务进度" aria-valuemin="0" aria-valuemax="${safeTotal}" aria-valuenow="${safeDone}"><i style="width:${percent}%"></i></span><span class="pixel-daily-note-count">${safeDone}/${safeTotal}</span></section>`;
     }
 
+    function renderWorkbenchGardenPreview(growth, defense) {
+        const garden = growth.garden || {};
+        const activePlant = garden.activePlant || { id: 'plant-sunflower', title: '向日葵', tone: 'gold' };
+        const invader = defense.invader || { active: false, health: 0, maxHealth: 0 };
+        const invaderProfile = preschoolInvaderProfile(invader);
+        const plantCount = Array.isArray(garden.unlockedPlantIds) ? garden.unlockedPlantIds.length : 1;
+        const growthPercent = Math.min(100, Math.round((plantCount / Math.max(1, (garden.plants || []).length)) * 100));
+        return `<section class="workbench-garden-preview pixel-side-panel ${invader.active ? 'has-invader' : 'is-calm'}" aria-label="我的阳光花园">
+            <div class="workbench-card-head"><div><span class="workbench-kicker">MY GARDEN</span><h2>${invader.active ? `${escapeHtml(invaderProfile.title)}来捣乱了` : '我的阳光花园'}</h2><p>${invader.active ? '去植物大战，发射豌豆保护花园。' : '每完成一项任务，植物伙伴就会长大。'}</p></div><span class="workbench-garden-status ${invader.active ? 'is-alert' : 'is-safe'}">${icon(invader.active ? 'alert-triangle' : 'shield-check')} ${invader.active ? '需要守护' : '花园安全'}</span></div>
+            <div class="workbench-garden-scene"><span class="workbench-garden-cloud cloud-a"></span><span class="workbench-garden-cloud cloud-b"></span><span class="workbench-garden-sun">${preschoolAsset('sun-token', '阳光')}<b>${growth.sunlight}</b></span><div class="workbench-plant-hero"><span class="workbench-plant-halo"></span>${preschoolAsset(preschoolPlantAsset(activePlant), activePlant.title)}<strong>${escapeHtml(activePlant.title)}</strong><small>${plantCount} 个伙伴已出现</small></div>${invader.active ? `<span class="workbench-invader-preview">${preschoolAsset(invaderProfile.asset, invaderProfile.title)}<b>${escapeHtml(invaderProfile.title)}</b><small>${invader.health}/${invader.maxHealth} 生命</small></span>` : `<span class="workbench-safe-badge">${icon('sparkles')} 今天也很安全</span>`}<span class="workbench-garden-ground"></span></div>
+            <div class="workbench-garden-footer"><div class="workbench-progress-copy"><span>植物成长</span><strong>${plantCount} / ${(garden.plants || []).length || plantCount}</strong></div><div class="workbench-progress-track"><span style="width:${growthPercent}%"></span></div><button class="workbench-action-button" type="button" data-action="navigate" data-page="battle">${icon('swords')} ${invader.active ? '去守护' : '去植物大战'}</button></div>
+        </section>`;
+    }
+
+    function renderWorkbenchRewardStrip(growth) {
+        const collection = growth.collection || { unlockedIds: [], total: 0 };
+        const rewardItems = [
+            { asset: 'sun-token', title: '收集阳光', note: '完成任务就会得到', tone: 'sun' },
+            { asset: 'treasure-chest', title: '打开宝箱', note: '完成今天的任务', tone: 'chest' },
+            { asset: 'streak-stars', title: '连续点亮', note: `${growth.streak} 天成长记录`, tone: 'streak' }
+        ];
+        return `<section class="workbench-reward-strip pixel-bottom-bar" aria-label="奖励与连续打卡"><div class="workbench-reward-intro"><span class="workbench-kicker">REWARD PATH</span><h2>下一份小奖励</h2><p>阳光会变成植物、宝箱和新的伙伴。</p></div><div class="workbench-reward-items">${rewardItems.map(function (item) { return `<article class="workbench-reward-item tone-${item.tone}"><span>${preschoolAsset(item.asset, item.title)}</span><strong>${item.title}</strong><small>${item.note}</small></article>`; }).join('')}</div><button class="workbench-action-button" type="button" data-action="navigate" data-page="rewards">${icon('gift')} 看奖励 <b>${collection.unlockedIds.length}/${collection.total}</b></button></section>`;
+    }
+
     function renderPreschoolOverview(derived) {
         const growth = getChildGrowth();
         const done = derived.todayPlans.filter(item => item.done).length;
         const plans = derived.todayPlans;
         const total = plans.length;
         const defense = getPreschoolDefense(growth);
-        return `<div class="pixel-home">
-            <section class="pixel-page-header"><div><span class="pixel-panel-kicker">TODAY / ADVENTURE</span><h1>今天的冒险开始啦</h1><p>${done}/${total || 0} 个任务已点亮，完成一小步，花园就多一束光。</p></div><div class="pixel-header-actions"><span class="pixel-hud-sun">${preschoolAsset('sun-token', '阳光')}<strong>${growth.sunlight}</strong></span><span class="pixel-hud-defense"><span class="pixel-hud-defense-art">${preschoolAsset('player-energy-bars', '豌豆能量')}</span><strong>${defense.energy}</strong><span>豌豆</span></span><span class="pixel-hud-streak"><span class="pixel-hud-streak-art">${preschoolAsset('streak-stars', '连续打卡')}</span>${growth.streak} 天</span><button class="pixel-settings-button" type="button" data-action="navigate" data-page="account" aria-label="打开设置" title="打开设置">${preschoolAsset('settings-gear', '打开设置')}</button></div></section>
+        return `<div class="pixel-home workbench-overview">
+            <section class="pixel-page-header workbench-overview-header"><div><span class="pixel-panel-kicker workbench-kicker">TODAY / ADVENTURE</span><h1>今天的冒险开始啦</h1><p>${done}/${total || 0} 个任务已点亮，先完成一件小事，花园就会多一束光。</p></div><div class="pixel-header-actions workbench-overview-actions"><span class="pixel-hud-sun">${preschoolAsset('sun-token', '阳光')}<strong>${growth.sunlight}</strong></span><span class="pixel-hud-defense"><span class="pixel-hud-defense-art">${preschoolAsset('player-energy-bars', '豌豆能量')}</span><strong>${defense.energy}</strong><span>豌豆</span></span><span class="pixel-hud-streak"><span class="pixel-hud-streak-art">${preschoolAsset('streak-stars', '连续打卡')}</span>${growth.streak} 天</span><button class="pixel-settings-button" type="button" data-action="navigate" data-page="account" aria-label="打开设置" title="打开设置">${icon('settings')}</button></div></section>
             ${renderPixelDailyNote(done, total)}
             ${renderPixelStats(growth, defense)}
-            <div class="pixel-world-grid">${renderPixelMap(growth, plans, true)}<section class="pixel-quest-board"><div class="pixel-board-heading"><div><span class="pixel-panel-kicker">TODAY QUESTS</span><h2>今日任务</h2></div><span class="pixel-board-count">${done} / ${total || 0} 完成</span></div><div class="pixel-quest-grid">${plans.map(pixelQuestCard).join('')}</div></section><aside class="pixel-side-stack">${renderPixelChest(growth, done, total)}${renderPreschoolCollection(growth)}</aside></div>
-            <section class="pixel-bottom-bar"><div><span class="pixel-panel-kicker">LITTLE ROUTE</span><strong>语文 · 数学 · 英语</strong><small>每完成一项，阳光会照亮花园。</small></div><button class="pixel-side-button" type="button" data-action="navigate" data-page="courses">${icon('book-open')} 去上小课</button><button class="pixel-side-link" type="button" data-action="navigate" data-page="family">告诉家长${icon('heart')}</button></section>
+            <div class="pixel-world-grid"><section class="pixel-quest-board"><div id="workbench-today" class="pixel-board-heading workbench-card-head"><div><span class="pixel-panel-kicker workbench-kicker">TODAY QUESTS</span><h2>今天要做</h2><p>点一下任务，收集阳光和豌豆能量。</p></div><span class="pixel-board-count">${done} / ${total || 0}</span></div><div class="pixel-quest-grid workbench-task-grid">${plans.map(pixelQuestCard).join('')}</div><button class="workbench-secondary-button" type="button" data-action="navigate" data-page="plans">${icon('list-checks')} 查看全部任务</button></section><aside class="pixel-side-stack workbench-side-stack">${renderWorkbenchGardenPreview(growth, defense)}${renderPixelChest(growth, done, total)}${renderPreschoolCollection(growth)}</aside></div>
+            ${renderWorkbenchRewardStrip(growth)}
+            <section class="workbench-course-strip"><div><span class="workbench-kicker">LITTLE ROUTE</span><strong>识字 · 拼音 · 古诗 · 数学 · 英语 · 运动</strong><small>每一项都会变成成长记录。</small></div><button class="workbench-action-button" type="button" data-action="navigate" data-page="courses">${icon('book-open')} 去看资源卡</button><button class="workbench-text-button" type="button" data-action="navigate" data-page="family">${icon('heart')} 告诉家长</button></section>
         </div>`;
     }
 
     function renderPreschoolBattleRewards(growth, defense) {
         const rewardSteps = [
             { asset: 'sun-token', title: '+10 阳光', caption: '完成一项今日任务', tone: 'sun' },
-            { asset: 'player-energy-bars', title: '发射 1 颗', caption: '命中一次小怪生命', tone: 'pea' },
+            { asset: 'player-energy-bars', title: '发射 1 颗', caption: '命中一次僵尸生命', tone: 'pea' },
             { asset: 'treasure-chest', title: '通关奖励', caption: '击退一波，去阳光商城', tone: 'chest' }
         ];
         return `<section class="pixel-battle-reward-panel"><div class="pixel-side-heading"><div><span class="pixel-panel-kicker">REWARD LADDER</span><h2>分层奖励</h2></div><span class="pixel-side-count">${growth.sunlight} 阳光</span></div><div class="pixel-battle-reward-grid">${rewardSteps.map(function (step) { return `<article class="pixel-battle-reward-item tone-${step.tone}"><span class="pixel-battle-reward-art">${preschoolAsset(step.asset, step.title)}</span><span><strong>${step.title}</strong><small>${step.caption}</small></span></article>`; }).join('')}</div><p class="pixel-battle-reward-note">当前能量 ${defense.energy} 颗，每次发射都会留下守护记录。</p></section>`;
@@ -554,13 +680,13 @@
             ['当前波次', invader.active ? `第 ${invader.wave || 1} 波` : '等待召唤', 'flag'],
             ['豌豆能量', `${defense.energy} 颗`, 'zap'],
             ['发射次数', `${defense.shots} 次`, 'target'],
-            ['击退小怪', `${invader.defeated || 0} 次`, 'shield-check']
+            ['击退僵尸', `${invader.defeated || 0} 次`, 'shield-check']
         ];
         return `${renderPreschoolIntro(PAGE_META.battle, '', '', `<span class="points-chip">${preschoolAsset('player-energy-bars', '豌豆能量')}${defense.energy}</span>`)}
             <div class="pixel-battle-page">
                 <div class="pixel-battle-layout"><div>${renderPixelMap(growth, plans, true)}</div><aside class="pixel-battle-side">
-                    <section class="pixel-rulebook"><div class="pixel-side-heading"><div><span class="pixel-panel-kicker">HOW TO PLAY</span><h2>三步守护花园</h2></div><span class="pixel-side-count">${defense.canFire ? '可发射' : '准备中'}</span></div><div class="pixel-rule-list"><div><b>1</b><span><strong>完成一项任务</strong><small>收集阳光，也会得到豌豆能量。</small></span></div><div><b>2</b><span><strong>召唤云朵小怪</strong><small>想练习时，点击“来一波练习”。</small></span></div><div><b>3</b><span><strong>发射豌豆</strong><small>每颗豌豆消耗 1 点能量，命中一次。</small></span></div></div></section>
-                    <section class="pixel-battle-status"><div class="pixel-side-heading"><div><span class="pixel-panel-kicker">DEFENSE LOG</span><h2>守护记录</h2></div><span class="pixel-side-count">${invader.active ? `${invader.health}/${invader.maxHealth} HP` : '安全'}</span></div><div class="pixel-battle-status-grid">${statusRows.map(function (row) { return `<div><span>${icon(row[2])}</span><small>${row[0]}</small><strong>${row[1]}</strong></div>`; }).join('')}</div></section>
+                     <section class="pixel-rulebook"><div class="pixel-side-heading"><div><span class="pixel-panel-kicker">HOW TO PLAY</span><h2>三步守护花园</h2></div><span class="pixel-side-count">${defense.canFire ? '可发射' : '准备中'}</span></div><div class="pixel-rule-list"><div><b>1</b><span><strong>完成一项任务</strong><small>收集阳光，也会得到豌豆能量。</small></span></div><div><b>2</b><span><strong>召唤僵尸练习</strong><small>点击“来一波僵尸”，看看下一位敌人是谁。</small></span></div><div><b>3</b><span><strong>发射豌豆</strong><small>每颗豌豆消耗 1 点能量，命中一次。</small></span></div></div></section>
+                     <section class="pixel-battle-status"><div class="pixel-side-heading"><div><span class="pixel-panel-kicker">DEFENSE LOG</span><h2>守护记录</h2></div><span class="pixel-side-count">${invader.active ? `${invader.health}/${invader.maxHealth} HP` : '安全'}</span></div><div class="pixel-battle-status-grid">${statusRows.map(function (row) { return `<div><span>${icon(row[2])}</span><small>${row[0]}</small><strong>${row[1]}</strong></div>`; }).join('')}</div></section>
                 </aside></div>
                 <div class="pixel-battle-support-grid">${renderPreschoolBattleRewards(growth, defense)}${renderPreschoolDailyChallenge(plans, defense)}</div>
                 <section class="pixel-battle-plant-panel"><div class="pixel-side-heading"><div><span class="pixel-panel-kicker">PLANT LOADOUT</span><h2>选择植物伙伴</h2></div><span class="pixel-side-count">${Array.isArray(garden.unlockedPlantIds) ? garden.unlockedPlantIds.length : 0}/${plants.length}</span></div><div class="pixel-battle-plant-grid">${plantCards}</div></section>
@@ -581,7 +707,7 @@
         return `${renderPreschoolIntro(PAGE_META.growth, '', '', `<span class="points-chip">${icon('sun')}${growth.sunlight}</span>`)}
             <section class="preschool-growth-hero"><div><span class="preschool-big-number">${growth.sunlight}</span><span class="preschool-big-label">阳光</span><div class="growth-meter"><span style="width:${growth.levelProgress}%"></span></div><p>星芒 · ${escapeHtml(activeStyle.title)}</p></div><div class="preschool-growth-art"><img src="${escapeHtml(preschoolAssetSrc('preschool-garden-hero'))}" alt="阳光花园里的植物伙伴和星星" onerror="this.hidden=true"><span>${preschoolVisual(activeStyle.icon, preschoolAssetForIcon(activeStyle.icon), activeStyle.title)}<b>Lv.${growth.level}</b></span></div></section>
             ${renderPreschoolGardenBoard(growth, false)}
-            <div class="preschool-stat-grid"><article class="preschool-stat-card tone-lime">${preschoolVisual('sprout', 'seedling-node', growth.plant.title)}<strong>${escapeHtml(growth.plant.title)}</strong><small>植物阶段 ${growth.plant.stage}</small></article><article class="preschool-stat-card tone-blue">${preschoolVisual('sparkles', 'star-companion', growth.unicorn.name)}<strong>${escapeHtml(growth.unicorn.name)}</strong><small>${growth.petXp} XP</small></article><article class="preschool-stat-card tone-gold">${preschoolVisual('sun', 'sun-token', '连续打卡')}<strong>${growth.streak} 天</strong><small>连续打卡</small></article><article class="preschool-stat-card ${garden.invaderActive ? 'tone-pink is-alert' : 'tone-orange'}">${preschoolVisual(garden.invaderActive ? 'bug' : 'shield-check', garden.invaderActive ? 'cloud-invader' : 'growth-tree', garden.invaderActive ? '小怪' : '花园安全')}<strong>${garden.invaderActive ? '有小怪' : '很安全'}</strong><small>${garden.invaderActive ? '完成一项就赶走' : '继续保持'}</small></article></div>
+            <div class="preschool-stat-grid"><article class="preschool-stat-card tone-lime">${preschoolVisual('sprout', 'seedling-node', growth.plant.title)}<strong>${escapeHtml(growth.plant.title)}</strong><small>植物阶段 ${growth.plant.stage}</small></article><article class="preschool-stat-card tone-blue">${preschoolVisual('sparkles', 'star-companion', growth.unicorn.name)}<strong>${escapeHtml(growth.unicorn.name)}</strong><small>${growth.petXp} XP</small></article><article class="preschool-stat-card tone-gold">${preschoolVisual('sun', 'sun-token', '连续打卡')}<strong>${growth.streak} 天</strong><small>连续打卡</small></article><article class="preschool-stat-card ${garden.invaderActive ? 'tone-pink is-alert' : 'tone-orange'}">${preschoolVisual(garden.invaderActive ? 'bug' : 'shield-check', garden.invaderActive ? 'zombie-basic' : 'growth-tree', garden.invaderActive ? '普通僵尸' : '花园安全')}<strong>${garden.invaderActive ? '有僵尸' : '很安全'}</strong><small>${garden.invaderActive ? '完成一项就赶走' : '继续保持'}</small></article></div>
             <section class="preschool-growth-actions"><button class="btn-primary" type="button" data-action="water-plant" ${waterAvailable ? '' : 'disabled'}>${icon('droplets')}${growth.lastWateredDate === storage.localDate() ? '已浇水' : '浇水'}</button><label class="voice-toggle"><input type="checkbox" data-action="toggle-voice" ${growth.voiceEnabled ? 'checked' : ''}><span class="voice-toggle-track"></span><span>语音鼓励</span></label><button class="btn-secondary" type="button" data-action="navigate" data-page="plans">去打卡${icon('arrow-up-right')}</button></section>
             <section class="preschool-section"><div class="preschool-section-head"><div><span class="eyebrow">STREAK</span><h2>连续奖励</h2></div></div><div class="preschool-streak-grid">${rewardCards}</div></section>
             <section class="preschool-section"><div class="preschool-section-head"><div><span class="eyebrow">PLANTS</span><h2>植物伙伴</h2></div><span class="tag lime">点一下换伙伴</span></div><div class="preschool-plant-grid">${garden.plants.map(function (plant) { const unlocked = garden.unlockedPlantIds.includes(plant.id); const active = plant.id === garden.activePlantId; const assetName = preschoolPlantAsset(plant); return `<button class="preschool-plant-card ${active ? 'is-active' : ''} ${unlocked ? '' : 'is-locked'} tone-${escapeHtml(plant.tone || 'lime')}" type="button" data-action="select-plant" data-id="${escapeHtml(plant.id)}" ${unlocked ? '' : 'disabled'}><span class="${assetName ? 'has-image' : ''}">${assetName ? preschoolAsset(assetName, unlocked ? plant.title : '未出现') : icon(plant.icon)}</span><strong>${escapeHtml(unlocked ? plant.title : '未出现')}</strong><small>${escapeHtml(unlocked ? plant.description : `${plant.unlockAt} 阳光出现`)}</small></button>`; }).join('')}</div></section>
@@ -594,12 +720,72 @@
         return `${renderPreschoolIntro(PAGE_META.plans, 'add-plan', '加一项', `<span class="points-chip">${icon('circle-check')}${done}/${derived.todayPlans.length}</span>`)}<section class="preschool-plan-card"><div class="preschool-section-head"><div><span class="eyebrow">TODAY</span><h2>做完就点亮</h2></div></div>${renderPreschoolPlanRows(derived.todayPlans)}</section>`;
     }
 
-    function renderPreschoolCourses() {
+    function renderPreschoolCalendar(derived) {
+        const today = derived.today;
+        const monthKey = today.slice(0, 7);
+        const monthStart = new Date(`${monthKey}-01T12:00:00`);
+        const daysInMonth = new Date(monthStart.getFullYear(), monthStart.getMonth() + 1, 0).getDate();
+        const firstDay = monthStart.getDay();
+        const completedDates = new Set(state.dailyPlans.filter(function (item) { return item.done; }).map(function (item) { return item.date; }));
+        const activeDates = new Set(state.dailyPlans.concat(state.focusSessions || [], state.readingLogs || []).map(function (item) { return item.date; }));
+        const completedThisMonth = Array.from(completedDates).filter(function (date) { return String(date).startsWith(monthKey); }).length;
+        const attendance = daysInMonth ? Math.round((completedThisMonth / daysInMonth) * 100) : 0;
+        const cells = Array.from({ length: firstDay }, function () { return '<span class="preschool-calendar-blank" aria-hidden="true"></span>'; });
+        for (let day = 1; day <= daysInMonth; day += 1) {
+            const date = `${monthKey}-${String(day).padStart(2, '0')}`;
+            const isToday = date === today;
+            const isFuture = date > today;
+            const isDone = completedDates.has(date);
+            const isActive = activeDates.has(date);
+            const status = isDone ? 'done' : isFuture ? 'future' : isActive ? 'active' : 'missed';
+            cells.push(`<span class="preschool-calendar-day is-${status} ${isToday ? 'is-today' : ''}" title="${date}"><b>${day}</b><small>${isDone ? '✓' : isFuture ? '○' : isActive ? '·' : '×'}</small></span>`);
+        }
+        return `${renderPreschoolIntro(PAGE_META.calendar, '', '', `<span class="tag lime">${attendance}% 出勤率</span>`)}<div class="preschool-calendar-layout"><section class="preschool-calendar-card"><div class="preschool-section-head"><div><span class="eyebrow">MONTHLY CHECK-IN</span><h2>${monthStart.getFullYear()}年 ${monthStart.getMonth() + 1}月</h2><p>完成任务会留下绿色小点，漏掉的一天也只是下一次出发的提示。</p></div><span class="preschool-calendar-today">今天 ${today.slice(8)} 日</span></div><div class="preschool-calendar-weekdays">${['日', '一', '二', '三', '四', '五', '六'].map(function (label) { return `<span>${label}</span>`; }).join('')}</div><div class="preschool-calendar-grid">${cells.join('')}</div></section><aside class="preschool-calendar-summary"><article><span>${icon('calendar-check-2')}</span><strong>${completedThisMonth}</strong><small>本月点亮天数</small></article><article><span>${icon('flame')}</span><strong>${getChildGrowth().streak}</strong><small>当前连续天数</small></article><article><span>${icon('target')}</span><strong>${derived.todayPlans.filter(function (item) { return item.done; }).length}/${derived.todayPlans.length}</strong><small>今天完成进度</small></article><div class="preschool-calendar-legend"><strong>怎么看小日历</strong><span><i class="done"></i>已打卡</span><span><i class="missed"></i>还没打卡</span><span><i class="future"></i>还没到</span></div></aside></div>`;
+    }
+
+    function renderPreschoolCourseBadges(course) {
+        const items = [];
+        if (course && course.badge) items.push(course.badge);
+        if (course && Array.isArray(course.highlights)) items.push.apply(items, course.highlights);
+        if (!items.length) return '';
+        return `<div class="preschool-course-badges">${items.map(function (item, index) {
+            return `<span class="preschool-course-badge ${index === 0 ? 'is-primary' : ''}">${escapeHtml(item)}</span>`;
+        }).join('')}</div>`;
+    }
+
+    function renderPreschoolCourseSamples(course) {
+        const items = course && Array.isArray(course.samples) ? course.samples : [];
+        if (!items.length) return '';
+        return `<div class="preschool-course-samples">${items.map(function (item) {
+            return `<span class="preschool-course-sample">${escapeHtml(item)}</span>`;
+        }).join('')}</div>`;
+    }
+
+    function getPreschoolCourses() {
         const catalog = Array.isArray(workbenchConfig.childCourses) ? workbenchConfig.childCourses : [];
-        const courses = global.PersonalWorkbenchChildCourses && typeof global.PersonalWorkbenchChildCourses.getCourseView === 'function'
+        return global.PersonalWorkbenchChildCourses && typeof global.PersonalWorkbenchChildCourses.getCourseView === 'function'
             ? global.PersonalWorkbenchChildCourses.getCourseView(catalog, state.courseProgress)
             : catalog;
-            return `${renderPreschoolIntro(PAGE_META.courses, '', '', '<span class="tag lime">每天一张</span>')}<div class="preschool-course-grid">${courses.map(function (course) { return `<article class="preschool-course-card tone-${escapeHtml(course.tone || 'blue')}"><div class="preschool-course-head">${preschoolVisual(course.icon || 'book-open', preschoolAssetForIcon(course.icon || 'book-open'), course.title)}<div><h2>${escapeHtml(course.title)}</h2><small>${escapeHtml(course.description || '')}</small></div><strong>${course.completed || 0}/${course.total || 0}</strong></div><div class="preschool-course-lessons">${(course.lessons || []).map(function (lesson) { const completed = (state.courseProgress.completedLessonIds || []).includes(lesson.id); return `<button class="preschool-lesson ${completed ? 'is-done' : ''}" type="button" data-action="complete-lesson" data-id="${escapeHtml(lesson.id)}" ${completed ? 'disabled' : ''}><span>${icon(completed ? 'check' : 'play')}</span><strong>${escapeHtml(lesson.title)}</strong><small>${completed ? '完成' : `${lesson.minutes} 分钟`}</small></button>`; }).join('')}</div></article>`; }).join('')}</div>`;
+    }
+
+    function getPreschoolCourseById(id) {
+        if (!id) return null;
+        return getPreschoolCourses().find(function (course) { return course.id === id; }) || null;
+    }
+
+    function renderPreschoolCourseDirectory(courses, activeCourse) {
+        return `<aside class="preschool-course-directory"><div class="preschool-course-directory-head"><span class="eyebrow">LEARNING LANES</span><strong>学习专区</strong><small>选一个入口，打开完整资源。</small></div><button class="preschool-course-directory-item ${activeCourse ? '' : 'is-active'}" type="button" data-action="navigate" data-page="courses"><span>${icon('layout-grid')}</span><strong>全部资源</strong><small>${courses.length} 个专区</small></button>${courses.map(function (course) { return `<button class="preschool-course-directory-item ${activeCourse && activeCourse.id === course.id ? 'is-active' : ''}" type="button" data-action="navigate" data-page="courses" data-course-id="${escapeHtml(course.id)}"><span>${preschoolAssetForIcon(course.icon || 'book-open') ? preschoolAsset(preschoolAssetForIcon(course.icon || 'book-open'), course.title) : icon(course.icon || 'book-open')}</span><strong>${escapeHtml(course.title)}</strong><small>${course.completed || 0}/${course.total || 0} 个小练习</small></button>`; }).join('')}</aside>`;
+    }
+
+    function renderPreschoolCourseCard(course, focused) {
+        return `<article class="preschool-course-card tone-${escapeHtml(course.tone || 'blue')} ${focused ? 'is-focused' : ''}"><div class="preschool-course-head">${preschoolVisual(course.icon || 'book-open', preschoolAssetForIcon(course.icon || 'book-open'), course.title)}<div><span class="preschool-course-label">${focused ? '当前学习专区' : '学习专区'}</span><h2>${escapeHtml(course.title)}</h2><small>${escapeHtml(course.description || '')}</small></div><strong>${course.completed || 0}/${course.total || 0}</strong></div><div class="preschool-course-reference"><span>${icon('sparkles')}</span><p class="preschool-course-note">${escapeHtml(course.note || '选一张卡，开始今天的小练习。')}</p></div>${renderPreschoolCourseBadges(course)}${renderPreschoolCourseSamples(course)}<div class="preschool-course-lesson-heading"><div><span class="eyebrow">TODAY / PRACTICE</span><h3>今天可以做这些</h3></div><span>${course.total || (course.lessons || []).length} 张练习卡</span></div><div class="preschool-course-lessons">${(course.lessons || []).map(function (lesson) { const completed = (state.courseProgress.completedLessonIds || []).includes(lesson.id); return `<button class="preschool-lesson ${completed ? 'is-done' : ''}" type="button" data-action="complete-lesson" data-id="${escapeHtml(lesson.id)}" ${completed ? 'disabled' : ''}><span>${icon(completed ? 'check' : 'play')}</span><span class="preschool-lesson-copy"><strong>${escapeHtml(lesson.title)}</strong><small>${completed ? '完成啦 · 已记录到成长花园' : `${lesson.minutes} 分钟 · ${escapeHtml(lesson.meta || '开始练习')}`}</small></span><em>${escapeHtml(completed ? '已点亮' : (lesson.tip || '开始'))}</em></button>`; }).join('')}</div></article>`;
+    }
+
+    function renderPreschoolCourses() {
+        const courses = getPreschoolCourses();
+        const activeCourse = getPreschoolCourseById(ui.courseId);
+        const visibleCourses = activeCourse ? [activeCourse] : courses;
+        return `${renderPreschoolIntro(PAGE_META.courses, '', '', `<span class="tag lime">${activeCourse ? activeCourse.title : `${courses.length} 个分区`}</span>`)}<div class="preschool-course-layout ${activeCourse ? 'is-focused' : ''}">${renderPreschoolCourseDirectory(courses, activeCourse)}<div class="preschool-course-content"><section class="preschool-course-library-note"><span class="preschool-course-library-art">${preschoolAsset('storybook-token', '学习资源')}</span><div><span class="eyebrow">REFERENCE LIBRARY</span><h2>${activeCourse ? `正在学习：${escapeHtml(activeCourse.title)}` : '把每天的学习分成清楚的小入口'}</h2><p>${activeCourse ? '这里保留参考网页里的题型、样例和练习节奏，做完一张就点亮一张。' : '识字、拼音、古诗、数学、专注力、英语和运动各有自己的入口，孩子不用在一张大卡里找内容。'}</p></div>${activeCourse ? `<button class="btn-secondary" type="button" data-action="navigate" data-page="courses">查看全部${icon('layout-grid')}</button>` : ''}</section><div class="preschool-course-grid">${visibleCourses.map(function (course) { return renderPreschoolCourseCard(course, Boolean(activeCourse)); }).join('')}</div></div></div>`;
     }
 
     function renderPreschoolMistakes() {
@@ -635,6 +821,7 @@
 
     function renderPreschoolPage(derived) {
         if (ui.page === 'overview') return renderPreschoolOverview(derived);
+        if (ui.page === 'calendar') return renderPreschoolCalendar(derived);
         if (ui.page === 'battle') return renderPreschoolBattle();
         if (ui.page === 'growth') return renderPreschoolGrowth();
         if (ui.page === 'plans') return renderPreschoolPlans(derived);
@@ -1222,7 +1409,7 @@
         if (old) old.remove();
         if (preschoolCelebrationTimer) window.clearTimeout(preschoolCelebrationTimer);
         const rewards = collectionTitles(payload.rewardIds || []);
-        const message = payload.invaderDefeated ? '小怪被赶走啦！' : payload.message || '做得真棒！';
+        const message = payload.invaderDefeated ? '僵尸被赶走啦！' : payload.message || '做得真棒！';
         const detail = [payload.detail || '', payload.amount ? `阳光 +${payload.amount}` : '', payload.defenseEnergyGranted ? '豌豆能量 +1' : '', rewards.length ? `获得：${rewards.join('、')}` : ''].filter(Boolean).join(' · ');
         const resourceMarkup = [
             payload.amount ? `<span>${preschoolAsset('sun-token', '阳光')}<b>+${escapeHtml(payload.amount)}</b></span>` : '',
@@ -1326,10 +1513,10 @@
         if (!isPreschool || !preschoolGarden || typeof preschoolGarden.spawnInvader !== 'function') return;
         const ok = commit(function (next) {
             const result = preschoolGarden.spawnInvader(next.growth, storage.localDate());
-            if (!result.changed) throw new Error('花园里已经有一波小怪了');
+            if (!result.changed) throw new Error('花园里已经有一波僵尸了');
             next.growth = result.growth;
-        }, '小怪来啦，准备守护花园！');
-        if (ok) showPreschoolCelebration({ message: '小怪来啦！', detail: '完成任务收集豌豆能量。' });
+        }, '僵尸来啦，准备守护花园！');
+        if (ok) showPreschoolCelebration({ message: '僵尸来啦！', detail: '完成任务收集豌豆能量。' });
     }
 
     function animatePreschoolPea() {
@@ -1364,8 +1551,8 @@
         }, null);
         if (!ok || !result) return;
         animatePreschoolPea();
-        speakPraise(result.defeated ? '太棒啦，小怪被赶走了！' : '命中啦，再来一颗豌豆！');
-        showPreschoolCelebration({ message: result.defeated ? '小怪被赶走啦！' : '豌豆命中！', detail: result.defeated ? '花园安全了，继续收集阳光。' : '植物伙伴正在守护花园。', invaderDefeated: result.defeated });
+        speakPraise(result.defeated ? '太棒啦，僵尸被赶走了！' : '命中啦，再来一颗豌豆！');
+        showPreschoolCelebration({ message: result.defeated ? '僵尸被赶走啦！' : '豌豆命中！', detail: result.defeated ? '花园安全了，继续收集阳光。' : '植物伙伴正在守护花园。', invaderDefeated: result.defeated });
     }
 
     function renderTaskCard(item) {
@@ -1487,7 +1674,7 @@
                 if (result.zombieDefeated || gardenView.invaderActive) next.growth.garden.invader.active = true;
                 const gardenEvent = preschoolGarden.recordEvent(next.growth, preschoolEventType(awardId), today, awardId);
                 next.growth = gardenEvent.growth;
-                ui.pendingCelebration = { message: gardenEvent.invaderDefeated ? '小怪被赶走啦！' : '做得真棒！', amount: Math.max(0, Number(amount) || 0) + result.dailyBonus, rewardIds: gardenEvent.rewardIds, invaderDefeated: gardenEvent.invaderDefeated, defenseEnergyGranted: gardenEvent.defenseEnergyGranted };
+                ui.pendingCelebration = { message: gardenEvent.invaderDefeated ? '僵尸被赶走啦！' : '做得真棒！', amount: Math.max(0, Number(amount) || 0) + result.dailyBonus, rewardIds: gardenEvent.rewardIds, invaderDefeated: gardenEvent.invaderDefeated, defenseEnergyGranted: gardenEvent.defenseEnergyGranted };
             }
             return result.awarded;
         }
@@ -1719,7 +1906,7 @@
         if (!target) return;
         const action = target.dataset.action;
         if (isPreschool && action !== 'toggle-music' && getPreschoolFeedbackPreference('musicEnabled', false)) startPreschoolMusic();
-        if (action === 'navigate') setPage(target.dataset.page);
+        if (action === 'navigate') setPage(target.dataset.page, false, target.dataset.courseId);
         if (action === 'open-sidebar') openSidebar();
         if (action === 'close-sidebar') closeSidebar();
         if (action === 'close-dialog') closeDialog();
@@ -1824,7 +2011,7 @@
         }
     });
     importFile.addEventListener('change', function () { importSnapshot(importFile.files && importFile.files[0]); });
-    window.addEventListener('hashchange', function () { ui.page = getPageFromHash(); render(); closeSidebar(); window.scrollTo(0, 0); });
+    window.addEventListener('hashchange', function () { const route = getRouteFromHash(); ui.page = getPageFromHash(); ui.courseId = route.page === 'courses' ? route.courseId : ''; render(); closeSidebar(); window.scrollTo(0, 0); });
     entryDialog.addEventListener('click', function (event) { if (event.target === entryDialog) closeDialog(); });
 
     if (!location.hash) history.replaceState(null, '', '#overview');

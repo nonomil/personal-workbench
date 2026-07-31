@@ -1,0 +1,3 @@
+/* Adult workbench manifest: shared shell plus adult-only extensions. */
+@import url("./base.css");
+@import url("./adult.css");

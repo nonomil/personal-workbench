@@ -1,0 +1,7 @@
+{
+  "model": "agnes-image-2.1-flash",
+  "sizeRequested": "1024x1024",
+  "promptFile": "docs\\pvz-visual-research\\prompts\\pvz-2d-asset-sheet.md",
+  "output": "docs\\pvz-visual-research\\raw\\agnes\\pvz-2d-asset-sheet.png",
+  "bytes": 1477714
+}

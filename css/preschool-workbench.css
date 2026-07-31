@@ -1,0 +1,19 @@
+/* Preschool workbench manifest: shared shell plus the ordered preschool layers. */
+@import url("./base.css");
+@import url("./preschool/01-foundation.css");
+@import url("./preschool/02-pixel-legacy.css");
+@import url("./preschool/03-defense.css");
+@import url("./preschool/04-route-history.css");
+@import url("./preschool/05-pvz-shell.css");
+@import url("./preschool/06-garden-ui.css");
+@import url("./preschool/07-garden-correction.css");
+@import url("./preschool/08-assets-reference.css");
+@import url("./preschool/09-final-layout.css");
+@import url("./preschool/10-reward-feedback.css");
+@import url("./preschool/11-mobile-status.css");
+@import url("./preschool/12-mobile-cards.css");
+@import url("./preschool/13-readable-mobile.css");
+@import url("./preschool/14-final-cascade.css");
+@import url("../preschool-pvz-final.css");
+@import url("./preschool/15-workbuddy-overview.css");
+@import url("./preschool/16-workbuddy-finish.css");

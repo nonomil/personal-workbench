@@ -3,6 +3,7 @@ import test from 'node:test';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { readCssGraph } from './helpers/css-graph.mjs';
 
 const values = new Map();
 globalThis.localStorage = {
@@ -123,7 +124,7 @@ test('keeps adult, child and preschool entry points isolated', () => {
   assert.match(config, /topbar-workbench-switcher/);
   assert.match(config, /dataset\.workbenchVariant/);
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
-  const styles = fs.readFileSync(path.join(root, 'styles.css'), 'utf8');
+  const styles = readCssGraph(path.join(root, 'styles.css'));
   assert.match(app, /workbench-switcher-panel/);
   assert.match(app, /renderWorkbenchSwitcher/);
   assert.match(app, /renderSettings[\s\S]*renderWorkbenchSwitcher/);
@@ -151,6 +152,23 @@ test('keeps adult, child and preschool entry points isolated', () => {
   assert.match(app, /toggle-motion/);
   assert.match(styles, /prefers-reduced-motion/);
   assert.match(styles, /pixel-defense/);
+});
+
+test('publishes versioned CSS manifests and nested preschool assets', () => {
+  const root = fileURLToPath(new URL('..', import.meta.url));
+  const manifests = {
+    adult: path.join(root, 'css', 'adult-workbench.css'),
+    child: path.join(root, 'css', 'child-workbench.css'),
+    preschool: path.join(root, 'css', 'preschool-workbench.css')
+  };
+  for (const manifestPath of Object.values(manifests)) {
+    assert.equal(fs.existsSync(manifestPath), true, manifestPath);
+    assert.match(fs.readFileSync(manifestPath, 'utf8'), /@import/);
+  }
+  const preschoolStyles = readCssGraph(manifests.preschool);
+  assert.match(preschoolStyles, /\.\.\/\.\.\/assets\/generated\/preschool-pixel/);
+  assert.equal(fs.existsSync(path.join(root, 'preschool-pvz-final.css')), true);
+  assert.match(fs.readFileSync(path.join(root, 'styles.css'), 'utf8'), /Compatibility aggregate/);
 });
 
 console.log(`workbench contract: ${storage.STORAGE_KEY}`);

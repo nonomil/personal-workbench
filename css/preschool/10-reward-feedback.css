@@ -1,0 +1,66 @@
+/* Preschool 2.3: make the reward moment readable before it fades away. */
+body.variant-preschool .pixel-daily-note-meter {
+    position: relative;
+    display: block;
+    width: clamp(52px, 12vw, 132px);
+    height: 7px;
+    flex: 0 0 auto;
+    overflow: hidden;
+    border: 1px solid #c5b1ec;
+    background: #fff;
+    box-shadow: inset 1px 1px 0 rgba(84, 32, 184, .08);
+}
+body.variant-preschool .pixel-daily-note-meter i {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, #7c4bd4, #b28cff);
+    transition: width 240ms ease-out;
+}
+body.variant-preschool .pixel-hud-sun.is-bumped,
+body.variant-preschool .pixel-hud-defense.is-bumped {
+    animation: preschool-hud-bump 720ms steps(4, end) both;
+}
+body.variant-preschool .preschool-celebration-resources {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 25px;
+    padding: 3px 7px;
+    border: 1px solid #dfc98b;
+    color: #6d4b17;
+    background: #fff8d8;
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: 11px;
+    font-weight: 900;
+}
+body.variant-preschool .preschool-celebration-resources > span { display: inline-flex; align-items: center; gap: 3px; }
+body.variant-preschool .preschool-celebration-resources .preschool-generated-art { width: 20px; height: 20px; object-fit: contain; image-rendering: pixelated; }
+body.variant-preschool.preschool-music-active .pixel-hud-streak { animation: preschool-music-breathe 1.8s ease-in-out infinite; }
+
+@keyframes preschool-hud-bump {
+    0%, 100% { transform: translateY(0) scale(1); }
+    25% { transform: translateY(-3px) scale(1.06); }
+    55% { transform: translateY(1px) scale(.98); }
+}
+@keyframes preschool-music-breathe {
+    0%, 100% { box-shadow: 2px 2px 0 #d2c3f1; }
+    50% { box-shadow: 2px 2px 0 #d2c3f1, 0 0 0 3px rgba(122, 75, 208, .13); }
+}
+
+@media (max-width: 860px) {
+    body.variant-preschool .pixel-daily-note-meter { width: 52px; }
+}
+
+@media (max-width: 360px) {
+    body.variant-preschool .pixel-daily-note-meter { display: none; }
+    body.variant-preschool .preschool-celebration-resources { font-size: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.variant-preschool .pixel-hud-sun.is-bumped,
+    body.variant-preschool .pixel-hud-defense.is-bumped,
+    body.variant-preschool.preschool-music-active .pixel-hud-streak { animation: none; }
+    body.variant-preschool .pixel-daily-note-meter i { transition: none; }
+}
+

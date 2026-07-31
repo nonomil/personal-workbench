@@ -1,0 +1,421 @@
+/* Preschool WorkBuddy finish layer: warm glass, soft controls, and mobile-first navigation. */
+body.variant-preschool {
+    --wb-brand: #ff8c42;
+    --wb-brand-light: #ffb366;
+    --wb-mint: #4ecdc4;
+    --wb-mint-light: #7eddd7;
+    --wb-gold: #ffd93d;
+    --wb-green: #6bcb77;
+    --wb-cream: #fff8f0;
+    --wb-warm: #fff0e0;
+    --wb-ink: #2d2d3a;
+    --wb-muted: #6b6b7b;
+    --wb-light: #9b9bab;
+    --wb-line: rgba(255, 140, 66, .22);
+    --wb-glass: rgba(255, 255, 255, .78);
+    --wb-glass-border: rgba(255, 255, 255, .88);
+    --wb-shadow: 0 10px 30px rgba(45, 45, 58, .10), 0 2px 7px rgba(45, 45, 58, .06);
+    --wb-shadow-hover: 0 15px 38px rgba(45, 45, 58, .14), 0 0 24px rgba(255, 140, 66, .12);
+    --wb-spring: cubic-bezier(.175, .885, .32, 1.275);
+    color: var(--wb-ink);
+    font-family: "Nunito", "Quicksand", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #fff8f0 0%, #fff0e0 46%, #e8f4f8 100%);
+    background-size: 220% 220%;
+    animation: wb-gradient-flow 22s ease-in-out infinite;
+}
+
+@keyframes wb-gradient-flow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+body.variant-preschool .app-shell,
+body.variant-preschool .main-content,
+body.variant-preschool .page-content { background: transparent; }
+
+body.variant-preschool .sidebar {
+    width: 236px;
+    padding: 19px 13px 15px;
+    border-right: 1px solid rgba(255, 140, 66, .16);
+    background: rgba(255, 248, 240, .86);
+    box-shadow: 8px 0 28px rgba(45, 45, 58, .06);
+    backdrop-filter: blur(20px) saturate(145%);
+    -webkit-backdrop-filter: blur(20px) saturate(145%);
+}
+
+body.variant-preschool .main-content {
+    width: calc(100% - 236px);
+    margin-left: 236px;
+}
+
+body.variant-preschool .brand-mark {
+    width: 44px;
+    height: 44px;
+    flex-basis: 44px;
+    border: 1px solid rgba(255, 217, 61, .55);
+    border-radius: 15px;
+    background: linear-gradient(145deg, #fff3bd, #ffd93d);
+    box-shadow: 0 4px 12px rgba(255, 140, 66, .18), inset 0 1px 0 rgba(255, 255, 255, .75);
+}
+
+body.variant-preschool .brand strong { color: var(--wb-ink); font-size: 15px; font-weight: 900; }
+body.variant-preschool .brand small { color: var(--wb-light); font-size: 8px; letter-spacing: .14em; }
+body.variant-preschool .sidebar-section-label { margin: 27px 10px 9px; color: var(--wb-light); font-size: 10px; letter-spacing: .12em; }
+body.variant-preschool .primary-nav { gap: 5px; }
+
+body.variant-preschool .nav-item {
+    min-height: 46px;
+    gap: 10px;
+    padding: 0 10px;
+    border: 1px solid transparent;
+    border-radius: 16px;
+    color: var(--wb-muted);
+    font-size: 13px;
+    font-weight: 800;
+    transition: color .22s ease, background .22s ease, border-color .22s ease, transform .22s var(--wb-spring), box-shadow .22s ease;
+}
+
+body.variant-preschool .nav-item .preschool-nav-art { width: 29px; height: 29px; flex-basis: 29px; }
+body.variant-preschool .nav-item:hover { border-color: rgba(255, 140, 66, .24); color: var(--wb-ink); background: rgba(255, 255, 255, .72); transform: translateX(2px); }
+body.variant-preschool .nav-item.is-active { border-color: rgba(255, 140, 66, .42); color: #8a4b25; background: linear-gradient(135deg, #fff1d0, #ffd99b); box-shadow: 0 5px 13px rgba(255, 140, 66, .14), inset 0 1px 0 rgba(255, 255, 255, .65); }
+body.variant-preschool .nav-item.is-active::before { top: 9px; bottom: 9px; left: -1px; width: 3px; border-radius: 0 3px 3px 0; background: var(--wb-brand); }
+body.variant-preschool .nav-item kbd { color: #b6a69c; }
+body.variant-preschool .nav-item.is-active kbd { color: #bc7446; }
+
+body.variant-preschool .sidebar-footer { border-top: 1px dashed rgba(255, 140, 66, .27); }
+body.variant-preschool .mode-status strong { color: var(--wb-ink); }
+body.variant-preschool .mode-status small,
+body.variant-preschool .sidebar-footnote { color: var(--wb-light); }
+body.variant-preschool .status-dot { background: var(--wb-green); box-shadow: 0 0 0 4px rgba(107, 203, 119, .18); }
+body.variant-preschool .tool-button { border-color: rgba(255, 140, 66, .18); color: var(--wb-muted); background: rgba(255, 255, 255, .62); }
+body.variant-preschool .tool-button:hover { border-color: var(--wb-brand); color: var(--wb-ink); background: #fff; }
+
+body.variant-preschool .topbar {
+    min-height: 68px;
+    padding-inline: clamp(17px, 3.6vw, 48px);
+    border-bottom: 1px solid rgba(255, 255, 255, .82);
+    background: rgba(255, 255, 255, .66);
+    box-shadow: 0 4px 17px rgba(45, 45, 58, .05);
+    backdrop-filter: blur(20px) saturate(145%);
+    -webkit-backdrop-filter: blur(20px) saturate(145%);
+}
+
+body.variant-preschool .topbar-context { color: var(--wb-light); font-family: inherit; font-size: 12px; letter-spacing: 0; }
+body.variant-preschool .topbar-context strong { color: var(--wb-brand); font-size: 17px; font-weight: 900; }
+body.variant-preschool .topbar-context b { color: rgba(255, 140, 66, .42); }
+body.variant-preschool .topbar-focus-button,
+body.variant-preschool .workbench-action-button,
+body.variant-preschool .pixel-side-button,
+body.variant-preschool .wb-soft-button {
+    position: relative;
+    overflow: hidden;
+    border: 0;
+    border-radius: 18px;
+    color: #fff;
+    background: linear-gradient(135deg, var(--wb-brand-light), var(--wb-brand) 58%, #e86a2e);
+    box-shadow: 0 5px 15px rgba(255, 140, 66, .28), inset 0 1px 0 rgba(255, 255, 255, .36), inset 0 -2px 0 rgba(130, 54, 20, .16);
+    transition: transform .25s var(--wb-spring), box-shadow .25s ease, filter .25s ease;
+}
+
+body.variant-preschool .topbar-focus-button::after,
+body.variant-preschool .workbench-action-button::after,
+body.variant-preschool .pixel-side-button::after,
+body.variant-preschool .wb-soft-button::after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -55%;
+    width: 38%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .42), transparent);
+    content: "";
+    transform: skewX(-18deg);
+    animation: wb-shine 4.5s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes wb-shine {
+    0%, 55% { left: -55%; }
+    75%, 100% { left: 130%; }
+}
+
+body.variant-preschool .topbar-focus-button:hover,
+body.variant-preschool .workbench-action-button:hover,
+body.variant-preschool .pixel-side-button:hover,
+body.variant-preschool .wb-soft-button:hover { transform: translateY(-2px) scale(1.025); box-shadow: var(--wb-shadow-hover); filter: saturate(1.08); }
+body.variant-preschool .topbar-focus-button:active,
+body.variant-preschool .workbench-action-button:active,
+body.variant-preschool .pixel-side-button:active,
+body.variant-preschool .wb-soft-button:active { transform: translateY(1px) scale(.97); }
+body.variant-preschool .topbar-focus-button svg { color: #fff; }
+body.variant-preschool .topbar-divider { background: rgba(255, 140, 66, .18); }
+body.variant-preschool .avatar { color: #fff; background: var(--wb-mint); box-shadow: 0 4px 12px rgba(78, 205, 196, .24); }
+
+body.variant-preschool .page-content { padding: clamp(25px, 4vw, 50px) clamp(17px, 3.6vw, 48px) 70px; }
+body.variant-preschool .pixel-page-header h1,
+body.variant-preschool .workbench-overview-header h1 { color: var(--wb-ink); font-weight: 950; letter-spacing: -.02em; }
+body.variant-preschool .pixel-page-header p,
+body.variant-preschool .workbench-overview-header p { color: var(--wb-muted); font-size: 15px; line-height: 1.7; }
+body.variant-preschool .pixel-panel-kicker,
+body.variant-preschool .workbench-kicker,
+body.variant-preschool .eyebrow { color: var(--wb-brand); }
+
+body.variant-preschool .pixel-hud-sun,
+body.variant-preschool .pixel-hud-defense,
+body.variant-preschool .pixel-hud-streak,
+body.variant-preschool .pixel-settings-button {
+    border: 1px solid rgba(255, 140, 66, .2);
+    border-radius: 16px;
+    color: var(--wb-ink);
+    background: rgba(255, 255, 255, .72);
+    box-shadow: 0 4px 12px rgba(45, 45, 58, .07), inset 0 1px 0 rgba(255, 255, 255, .8);
+}
+body.variant-preschool .pixel-hud-sun { background: linear-gradient(135deg, #fff6c9, #ffeaa1); }
+body.variant-preschool .pixel-hud-defense { background: linear-gradient(135deg, #e9fbf4, #c9f1e3); }
+body.variant-preschool .pixel-hud-streak { background: linear-gradient(135deg, #eaf9fb, #d2f1f4); }
+body.variant-preschool .pixel-settings-button:hover { color: var(--wb-brand); border-color: var(--wb-brand); background: #fff; }
+
+body.variant-preschool .pixel-daily-note,
+body.variant-preschool .workbench-course-strip {
+    border: 1px solid rgba(78, 205, 196, .24);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, .65);
+    box-shadow: var(--wb-shadow);
+    backdrop-filter: blur(15px) saturate(140%);
+    -webkit-backdrop-filter: blur(15px) saturate(140%);
+}
+body.variant-preschool .pixel-daily-note { padding: 13px 16px; }
+body.variant-preschool .pixel-daily-note strong { color: var(--wb-ink); font-size: 15px; }
+body.variant-preschool .pixel-daily-note small { color: var(--wb-muted); font-size: 12px; }
+body.variant-preschool .pixel-daily-note-meter { background: rgba(78, 205, 196, .18); }
+body.variant-preschool .pixel-daily-note-meter i { background: linear-gradient(90deg, var(--wb-mint), var(--wb-green)); }
+body.variant-preschool .pixel-daily-note-count { color: var(--wb-brand); }
+
+body.variant-preschool .workbench-stat-card,
+body.variant-preschool .pixel-quest-board,
+body.variant-preschool .pixel-side-panel,
+body.variant-preschool .pixel-bottom-bar,
+body.variant-preschool .preschool-course-directory,
+body.variant-preschool .preschool-course-library-note,
+body.variant-preschool .preschool-course-card,
+body.variant-preschool .preschool-calendar-card,
+body.variant-preschool .preschool-calendar-summary,
+body.variant-preschool .wb-glass-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--wb-glass-border);
+    border-radius: 24px;
+    background: var(--wb-glass);
+    box-shadow: var(--wb-shadow), inset 0 1px 0 rgba(255, 255, 255, .82);
+    backdrop-filter: blur(19px) saturate(145%);
+    -webkit-backdrop-filter: blur(19px) saturate(145%);
+}
+
+body.variant-preschool .workbench-stat-card::before,
+body.variant-preschool .pixel-quest-board::before,
+body.variant-preschool .pixel-side-panel::before,
+body.variant-preschool .pixel-bottom-bar::before,
+body.variant-preschool .preschool-course-card::before,
+body.variant-preschool .preschool-calendar-card::before,
+body.variant-preschool .preschool-calendar-summary::before,
+body.variant-preschool .wb-glass-card::before {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 38%;
+    border-radius: 24px 24px 0 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, .34), rgba(255, 255, 255, 0));
+    content: "";
+    pointer-events: none;
+}
+
+body.variant-preschool .workbench-stat-card > *,
+body.variant-preschool .pixel-quest-board > *,
+body.variant-preschool .pixel-side-panel > *,
+body.variant-preschool .pixel-bottom-bar > *,
+body.variant-preschool .preschool-course-card > *,
+body.variant-preschool .preschool-calendar-card > *,
+body.variant-preschool .preschool-calendar-summary > *,
+body.variant-preschool .wb-glass-card > * { position: relative; z-index: 1; }
+
+body.variant-preschool .workbench-stat-card,
+body.variant-preschool .pixel-quest-card,
+body.variant-preschool .preschool-course-card,
+body.variant-preschool .preschool-calendar-day,
+body.variant-preschool .preschool-course-directory-item {
+    transition: transform .25s var(--wb-spring), box-shadow .25s ease, border-color .25s ease, background .25s ease;
+}
+body.variant-preschool .workbench-stat-card:hover,
+body.variant-preschool .pixel-quest-card:hover,
+body.variant-preschool .preschool-course-card:hover,
+body.variant-preschool .preschool-calendar-day:hover,
+body.variant-preschool .preschool-course-directory-item:hover { transform: translateY(-3px); box-shadow: var(--wb-shadow-hover); }
+body.variant-preschool .workbench-stat-card .pixel-stat-copy strong { color: var(--wb-ink); }
+body.variant-preschool .workbench-stat-card .pixel-stat-copy small,
+body.variant-preschool .workbench-stat-card .pixel-stat-copy em { color: var(--wb-muted); }
+
+body.variant-preschool .pixel-quest-board,
+body.variant-preschool .pixel-side-panel,
+body.variant-preschool .preschool-course-card,
+body.variant-preschool .preschool-calendar-card,
+body.variant-preschool .preschool-calendar-summary { padding: 20px; }
+body.variant-preschool .pixel-board-heading h2,
+body.variant-preschool .pixel-side-heading h2,
+body.variant-preschool .workbench-card-head h2,
+body.variant-preschool .preschool-course-head h2,
+body.variant-preschool .preschool-section-head h2 { color: var(--wb-ink); font-weight: 900; }
+body.variant-preschool .pixel-board-heading p,
+body.variant-preschool .workbench-card-head p,
+body.variant-preschool .preschool-course-library-note p,
+body.variant-preschool .preschool-course-note { color: var(--wb-muted); }
+body.variant-preschool .pixel-board-count,
+body.variant-preschool .pixel-side-count,
+body.variant-preschool .preschool-course-head > strong { border-color: rgba(255, 140, 66, .25); color: #a3572e; background: #fff1d0; }
+
+body.variant-preschool .pixel-quest-card {
+    border: 1px solid rgba(255, 255, 255, .9);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, .7);
+    box-shadow: 0 5px 14px rgba(45, 45, 58, .07), inset 0 1px 0 rgba(255, 255, 255, .78);
+}
+body.variant-preschool .pixel-quest-card.quest-tone-0 { border-color: rgba(107, 203, 119, .46); background: rgba(235, 255, 240, .78); }
+body.variant-preschool .pixel-quest-card.quest-tone-1 { border-color: rgba(78, 205, 196, .4); background: rgba(237, 253, 252, .8); }
+body.variant-preschool .pixel-quest-card.quest-tone-2 { border-color: rgba(255, 140, 66, .4); background: rgba(255, 247, 231, .82); }
+body.variant-preschool .pixel-quest-card.is-done { border-color: rgba(107, 203, 119, .7); background: rgba(226, 250, 230, .9); }
+body.variant-preschool .pixel-quest-copy strong { color: var(--wb-ink); }
+body.variant-preschool .pixel-quest-copy em { color: var(--wb-brand); }
+body.variant-preschool .pixel-quest-status { border-color: rgba(107, 203, 119, .55); color: var(--wb-green); background: rgba(255, 255, 255, .75); }
+body.variant-preschool .pixel-quest-status.is-done { border-color: var(--wb-green); background: var(--wb-green); }
+
+body.variant-preschool .workbench-secondary-button,
+body.variant-preschool .workbench-text-button,
+body.variant-preschool .btn-secondary {
+    border: 1px solid rgba(78, 205, 196, .34);
+    border-radius: 16px;
+    color: #287f7a;
+    background: rgba(255, 255, 255, .68);
+    transition: transform .22s var(--wb-spring), border-color .22s ease, background .22s ease, box-shadow .22s ease;
+}
+body.variant-preschool .workbench-secondary-button:hover,
+body.variant-preschool .workbench-text-button:hover,
+body.variant-preschool .btn-secondary:hover { border-color: var(--wb-mint); background: #fff; box-shadow: 0 6px 16px rgba(78, 205, 196, .15); transform: translateY(-2px); }
+body.variant-preschool .btn-primary { border-color: var(--wb-brand); color: #fff; background: linear-gradient(135deg, var(--wb-brand-light), var(--wb-brand)); box-shadow: 0 5px 15px rgba(255, 140, 66, .23); }
+
+body.variant-preschool .preschool-course-directory { padding: 19px; }
+body.variant-preschool .preschool-course-directory-item { border-radius: 16px; color: var(--wb-muted); background: rgba(255, 255, 255, .4); }
+body.variant-preschool .preschool-course-directory-item.is-active { border-color: rgba(255, 140, 66, .38); color: #8a4b25; background: linear-gradient(135deg, #fff1d0, #ffe0ae); box-shadow: 0 5px 13px rgba(255, 140, 66, .12); }
+body.variant-preschool .preschool-course-directory-item > span { color: var(--wb-mint); background: rgba(78, 205, 196, .13); }
+body.variant-preschool .preschool-course-library-note { padding: 19px; }
+body.variant-preschool .preschool-course-card { box-shadow: var(--wb-shadow); }
+body.variant-preschool .preschool-lesson { border-color: rgba(78, 205, 196, .2); border-radius: 14px; background: rgba(255, 255, 255, .62); }
+body.variant-preschool .preschool-lesson:hover { border-color: var(--wb-mint); background: #fff; }
+body.variant-preschool .preschool-lesson > span:first-child { color: #fff; background: var(--wb-mint); }
+body.variant-preschool .preschool-lesson.is-done > span:first-child { background: var(--wb-green); }
+
+body.variant-preschool .preschool-calendar-day { border-color: rgba(78, 205, 196, .18); background: rgba(255, 255, 255, .62); }
+body.variant-preschool .preschool-calendar-day.is-done { border-color: rgba(107, 203, 119, .48); background: rgba(229, 250, 232, .82); }
+body.variant-preschool .preschool-calendar-day.is-done small { background: var(--wb-green); }
+body.variant-preschool .preschool-calendar-day.is-today { outline-color: var(--wb-gold); }
+body.variant-preschool .preschool-calendar-summary article { background: rgba(233, 251, 244, .74); }
+body.variant-preschool .preschool-calendar-summary article > span { color: #278f87; background: rgba(78, 205, 196, .16); }
+
+body.variant-preschool .preschool-mobile-nav { display: none; }
+
+@media (max-width: 760px) {
+    body.variant-preschool .main-content { width: 100%; margin-left: 0; }
+    body.variant-preschool .page-content { padding: 23px 15px 126px; }
+    body.variant-preschool .workbench-overview { overflow-x: clip; }
+    body.variant-preschool .preschool-mobile-nav {
+        position: fixed;
+        z-index: 50;
+        right: 13px;
+        bottom: 14px;
+        left: 13px;
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 5px;
+        min-height: 68px;
+        padding: 7px;
+        border: 1px solid rgba(255, 255, 255, .9);
+        border-radius: 32px;
+        background: rgba(255, 255, 255, .82);
+        box-shadow: 0 12px 32px rgba(45, 45, 58, .16), inset 0 1px 0 rgba(255, 255, 255, .9);
+        backdrop-filter: blur(22px) saturate(165%);
+        -webkit-backdrop-filter: blur(22px) saturate(165%);
+    }
+    body.variant-preschool .preschool-mobile-nav-item {
+        display: grid;
+        min-width: 0;
+        min-height: 52px;
+        place-items: center;
+        align-content: center;
+        gap: 2px;
+        padding: 3px 2px;
+        border: 0;
+        border-radius: 23px;
+        color: var(--wb-muted);
+        background: transparent;
+        font-size: 10px;
+        font-weight: 850;
+        transition: color .22s ease, background .22s ease, transform .25s var(--wb-spring);
+    }
+    body.variant-preschool .preschool-mobile-nav-item svg { width: 20px; height: 20px; }
+    body.variant-preschool .preschool-mobile-nav-item:hover { color: var(--wb-brand); background: rgba(255, 240, 224, .72); }
+    body.variant-preschool .preschool-mobile-nav-item:active { transform: scale(.94); }
+    body.variant-preschool .preschool-mobile-nav-item.is-active { color: #fff; background: linear-gradient(135deg, var(--wb-brand-light), var(--wb-brand)); box-shadow: 0 5px 12px rgba(255, 140, 66, .28); transform: translateY(-4px); }
+    body.variant-preschool .preschool-mobile-nav-item.is-active::after { width: 4px; height: 4px; border-radius: 50%; background: #fff; content: ""; }
+    body.variant-preschool .sidebar-close { display: inline-grid; }
+    body.variant-preschool .menu-toggle { display: inline-grid; color: var(--wb-mint); }
+    body.variant-preschool .topbar { min-height: 61px; padding-inline: 15px; }
+    body.variant-preschool .topbar-context span,
+    body.variant-preschool .topbar-context b,
+    body.variant-preschool .topbar-focus-button,
+    body.variant-preschool .topbar-divider { display: none; }
+    body.variant-preschool .topbar-context strong { font-size: 16px; }
+    body.variant-preschool .pixel-page-header h1,
+    body.variant-preschool .workbench-overview-header h1 { font-size: 28px; }
+    body.variant-preschool .pixel-page-header p,
+    body.variant-preschool .workbench-overview-header p { font-size: 14px; }
+    body.variant-preschool .pixel-quest-board,
+    body.variant-preschool .pixel-side-panel,
+    body.variant-preschool .preschool-course-card,
+    body.variant-preschool .preschool-calendar-card,
+    body.variant-preschool .preschool-calendar-summary { padding: 16px; border-radius: 20px; }
+}
+
+@media (max-width: 440px) {
+    body.variant-preschool .workbench-stat-strip { width: 100%; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+    body.variant-preschool .workbench-stat-card { min-height: 72px; padding: 9px; }
+    body.variant-preschool .workbench-stat-card .pixel-stat-art { width: 34px; height: 34px; flex-basis: 34px; }
+    body.variant-preschool .workbench-stat-card .pixel-stat-art img { width: 27px; height: 27px; }
+    body.variant-preschool .workbench-stat-card .pixel-stat-copy strong { font-size: 15px; }
+    body.variant-preschool .workbench-stat-card .pixel-stat-copy small,
+    body.variant-preschool .workbench-stat-card .pixel-stat-copy em { font-size: 9px; }
+    body.variant-preschool .workbench-overview-actions { display: grid !important; width: 100% !important; grid-template-columns: repeat(3, minmax(0, 1fr)) 40px !important; gap: 5px; }
+    body.variant-preschool .workbench-overview-actions > span { min-width: 0; justify-content: center; padding-inline: 4px; font-size: 10px; }
+    body.variant-preschool .workbench-overview-actions .pixel-hud-defense > span:last-child { display: none; }
+    body.variant-preschool .preschool-calendar-weekdays,
+    body.variant-preschool .preschool-calendar-grid { gap: 4px; }
+    body.variant-preschool .preschool-calendar-day,
+    body.variant-preschool .preschool-calendar-blank { min-height: 51px; border-radius: 10px; }
+    body.variant-preschool .preschool-calendar-day b { font-size: 13px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.variant-preschool { animation: none; }
+    body.variant-preschool .topbar-focus-button::after,
+    body.variant-preschool .workbench-action-button::after,
+    body.variant-preschool .pixel-side-button::after,
+    body.variant-preschool .wb-soft-button::after { animation: none; }
+    body.variant-preschool .workbench-stat-card,
+    body.variant-preschool .pixel-quest-card,
+    body.variant-preschool .preschool-course-card,
+    body.variant-preschool .preschool-calendar-day,
+    body.variant-preschool .preschool-course-directory-item,
+    body.variant-preschool .preschool-mobile-nav-item { transition: none; }
+    body.variant-preschool .workbench-stat-card:hover,
+    body.variant-preschool .pixel-quest-card:hover,
+    body.variant-preschool .preschool-course-card:hover,
+    body.variant-preschool .preschool-calendar-day:hover { transform: none; }
+}

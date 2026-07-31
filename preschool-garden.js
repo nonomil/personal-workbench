@@ -2,19 +2,37 @@
     'use strict';
 
     const PLANT_CATALOG = Object.freeze([
-        { id: 'plant-sun-sprout', title: '太阳芽', description: '每天收一束阳光。', icon: 'sun', unlockAt: 0, tone: 'gold' },
-        { id: 'plant-moon-mint', title: '月光薄荷', description: '收集 80 阳光后出现。', icon: 'moon', unlockAt: 80, tone: 'blue' },
-        { id: 'plant-star-flower', title: '星星花', description: '收集 200 阳光后出现。', icon: 'sparkles', unlockAt: 200, tone: 'pink' },
-        { id: 'plant-rainbow-tree', title: '彩虹树', description: '收集 400 阳光后出现。', icon: 'trees', unlockAt: 400, tone: 'lime' }
+        { id: 'plant-sunflower', title: '向日葵', description: '收集阳光，让花园一直亮晶晶。', icon: 'sun', unlockAt: 0, tone: 'gold' },
+        { id: 'plant-peashooter', title: '豌豆射手', description: '发射小豌豆，守护学习花园。', icon: 'target', unlockAt: 20, tone: 'lime' },
+        { id: 'plant-wallnut', title: '坚果墙', description: '挡住僵尸，给小伙伴争取时间。', icon: 'shield-check', unlockAt: 60, tone: 'orange' },
+        { id: 'plant-snowpea', title: '寒冰射手', description: '冰冰豌豆，让僵尸慢一点。', icon: 'snowflake', unlockAt: 120, tone: 'blue' },
+        { id: 'plant-cherrybomb', title: '樱桃炸弹', description: '完成大目标，解锁超级植物。', icon: 'flame', unlockAt: 220, tone: 'pink' }
     ]);
 
+    const ZOMBIE_CATALOG = Object.freeze([
+        { id: 'zombie-basic', title: '普通僵尸', description: '慢慢走来的基础僵尸。', asset: 'zombie-basic', baseHealth: 3, tone: 'green' },
+        { id: 'zombie-conehead', title: '路障僵尸', description: '戴着路障，生命更厚。', asset: 'zombie-conehead', baseHealth: 4, tone: 'orange' },
+        { id: 'zombie-buckethead', title: '铁桶僵尸', description: '顶着铁桶，特别耐打。', asset: 'zombie-buckethead', baseHealth: 5, tone: 'slate' },
+        { id: 'zombie-flag', title: '旗帜僵尸', description: '举着旗子，提醒新一波来啦。', asset: 'zombie-flag', baseHealth: 4, tone: 'red' },
+        { id: 'zombie-football', title: '橄榄球僵尸', description: '速度很快，要专心完成任务。', asset: 'zombie-football', baseHealth: 6, tone: 'red' }
+    ]);
+
+    const LEGACY_PLANT_IDS = Object.freeze({
+        'plant-sun-sprout': 'plant-sunflower',
+        'plant-moon-mint': 'plant-snowpea',
+        'plant-star-flower': 'plant-cherrybomb',
+        'plant-rainbow-tree': 'plant-wallnut'
+    });
+
+    const LEGACY_ZOMBIE_IDS = Object.freeze({ 'cloudy-bug': 'zombie-basic' });
+
     const COLLECTION_CATALOG = Object.freeze([
-        { id: 'sticker-sun', title: '小太阳', description: '第一次收集 40 阳光。', icon: 'sun', unlockAt: 40, tone: 'gold' },
-        { id: 'sticker-book', title: '故事书', description: '完成一节小课程。', icon: 'book-open', event: 'lesson-complete', tone: 'blue' },
-        { id: 'sticker-brave', title: '勇敢盾牌', description: '完成行动，赶走小怪。', icon: 'shield-check', event: 'checkin-complete', tone: 'orange' },
-        { id: 'sticker-dew', title: '露珠瓶', description: '给植物浇一次水。', icon: 'droplets', event: 'plant-watered', tone: 'blue' },
-        { id: 'sticker-gift', title: '礼物盒', description: '领取一个约定奖励。', icon: 'gift', event: 'reward-claimed', tone: 'pink' },
-        { id: 'sticker-rainbow', title: '彩虹脚印', description: '连续三天有行动。', icon: 'rainbow', event: 'streak-3', tone: 'lime' }
+        { id: 'sticker-sun', title: '向日葵伙伴', description: '第一次收集 40 阳光。', icon: 'sun', unlockAt: 40, tone: 'gold' },
+        { id: 'sticker-book', title: '豌豆射手', description: '完成一节小课程。', icon: 'target', event: 'lesson-complete', tone: 'blue' },
+        { id: 'sticker-brave', title: '坚果墙', description: '完成行动，赶走僵尸。', icon: 'shield-check', event: 'checkin-complete', tone: 'orange' },
+        { id: 'sticker-dew', title: '寒冰射手', description: '给植物浇一次水。', icon: 'snowflake', event: 'plant-watered', tone: 'blue' },
+        { id: 'sticker-gift', title: '樱桃炸弹', description: '领取一个约定奖励。', icon: 'flame', event: 'reward-claimed', tone: 'pink' },
+        { id: 'sticker-rainbow', title: '僵尸图鉴', description: '连续三天有行动。', icon: 'bug', event: 'streak-3', tone: 'lime' }
     ]);
 
     const ACTION_EVENTS = Object.freeze(['checkin-complete', 'lesson-complete', 'task-complete', 'reading-complete', 'reward-claimed']);
@@ -35,14 +53,14 @@
 
     function createDefaultGarden() {
         return {
-            activePlantId: 'plant-sun-sprout',
-            unlockedPlantIds: ['plant-sun-sprout'],
+            activePlantId: 'plant-sunflower',
+            unlockedPlantIds: ['plant-sunflower'],
             growthPoints: 0,
             defenseEnergy: 0,
             defenseShots: 0,
             lastDefenseDate: '',
             feedbackPreferences: { musicEnabled: false, motionEnabled: true },
-            invader: { active: false, kind: 'cloudy-bug', defeated: 0, health: 3, maxHealth: 3, wave: 0, lastSpawnDate: '' }
+            invader: { active: false, kind: 'zombie-basic', defeated: 0, health: 3, maxHealth: 3, wave: 0, lastSpawnDate: '' }
         };
     }
 
@@ -55,9 +73,11 @@
         const gardenSource = source.garden && typeof source.garden === 'object' ? source.garden : {};
         const collectionSource = source.collection && typeof source.collection === 'object' ? source.collection : {};
         const garden = Object.assign(createDefaultGarden(), gardenSource, {
-            unlockedPlantIds: asArray(gardenSource.unlockedPlantIds).filter(item => typeof item === 'string'),
+            unlockedPlantIds: asArray(gardenSource.unlockedPlantIds).filter(item => typeof item === 'string').map(item => LEGACY_PLANT_IDS[item] || item),
             invader: Object.assign(createDefaultGarden().invader, gardenSource.invader || {})
         });
+        garden.activePlantId = LEGACY_PLANT_IDS[garden.activePlantId] || garden.activePlantId;
+        garden.invader.kind = LEGACY_ZOMBIE_IDS[garden.invader.kind] || garden.invader.kind;
         garden.defenseEnergy = Math.max(0, Math.min(9, Number(garden.defenseEnergy) || 0));
         garden.defenseShots = Math.max(0, Number(garden.defenseShots) || 0);
         garden.lastDefenseDate = String(garden.lastDefenseDate || '');
@@ -82,7 +102,10 @@
         garden.growthPoints = Math.max(0, Number(garden.growthPoints) || 0, Number(source.totalSunlightEarned) || 0);
         garden.invader.active = Boolean(garden.invader.active);
         garden.invader.defeated = Math.max(0, Number(garden.invader.defeated) || 0);
-        garden.unlockedPlantIds = Array.from(new Set(garden.unlockedPlantIds.concat(['plant-sun-sprout'])));
+        garden.unlockedPlantIds = Array.from(new Set(garden.unlockedPlantIds.concat(['plant-sunflower'])))
+            .filter(item => PLANT_CATALOG.some(plant => plant.id === item));
+        if (!PLANT_CATALOG.some(plant => plant.id === garden.activePlantId)) garden.activePlantId = 'plant-sunflower';
+        if (!ZOMBIE_CATALOG.some(zombie => zombie.id === garden.invader.kind)) garden.invader.kind = 'zombie-basic';
         collection.total = COLLECTION_CATALOG.length;
         const growth = Object.assign({}, source, { garden: garden, collection: collection });
         unlockByProgress(growth);
@@ -155,9 +178,11 @@
         const growth = normalize(input);
         if (growth.garden.invader.active) return { growth: growth, changed: false, spawned: false };
         const wave = Math.max(1, (Number(growth.garden.invader.wave) || 0) + 1);
-        const maxHealth = Math.min(9, 3 + Math.floor((wave - 1) / 3));
+        const zombie = ZOMBIE_CATALOG[(wave - 1) % ZOMBIE_CATALOG.length];
+        const maxHealth = Math.min(9, zombie.baseHealth + Math.floor((wave - 1) / 5));
         growth.garden.invader = Object.assign({}, growth.garden.invader, {
             active: true,
+            kind: zombie.id,
             health: maxHealth,
             maxHealth: maxHealth,
             wave: wave,
@@ -236,6 +261,7 @@
 
     global.PersonalWorkbenchPreschoolGarden = {
         PLANT_CATALOG: PLANT_CATALOG,
+        ZOMBIE_CATALOG: ZOMBIE_CATALOG,
         COLLECTION_CATALOG: COLLECTION_CATALOG,
         ACTION_EVENTS: ACTION_EVENTS,
         createDefaultGarden: createDefaultGarden,

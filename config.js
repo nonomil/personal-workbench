@@ -32,12 +32,13 @@
 
     const preschoolPages = {
         overview: { title: '首页', eyebrow: 'HOME / GARDEN', heading: '今天点亮六项', description: '选一张图，完成一小步。' },
+        calendar: { title: '日历打卡', eyebrow: 'CHECK-IN / CALENDAR', heading: '每天走过的路，都有小绿点', description: '完成任务会留下打卡记录，回头看看自己的坚持。' },
         battle: { title: '植物大战', eyebrow: 'PLAY / DEFENSE', heading: '植物伙伴，准备发射', description: '完成小任务收集豌豆能量，守护自己的阳光花园。' },
-        growth: { title: '成长花园', eyebrow: 'GARDEN / GROW', heading: '我的小花园', description: '阳光、植物和星芒一起长大。' },
+        growth: { title: '花园基地', eyebrow: 'GARDEN / GROW', heading: '我的小花园', description: '阳光、植物和星芒一起长大。' },
         plans: { title: '学习任务', eyebrow: 'TODAY / QUESTS', heading: '今天做什么', description: '做完一项，就点亮一颗星。' },
-        courses: { title: '课程资源', eyebrow: 'LEARN / LIBRARY', heading: '一起学一会儿', description: '语文、数学、英语，选一张开始。' },
+        courses: { title: '课程资源', eyebrow: 'LEARN / LIBRARY', heading: '识字、拼音、古诗、数学都在这里', description: '把参考站里的学习分区整理成自己的资源卡和小题目。' },
         mistakes: { title: '改错本', eyebrow: 'TRY AGAIN', heading: '再试一次', description: '不会的题，和家长一起看看。' },
-        rewards: { title: '阳光商城', eyebrow: 'SUN / SHOP', heading: '阳光换礼物', description: '攒阳光，选一个小期待。' },
+        rewards: { title: '奖励商城', eyebrow: 'SUN / SHOP', heading: '阳光换礼物', description: '攒阳光，选一个小期待。' },
         family: { title: '家长互动', eyebrow: 'FAMILY', heading: '告诉家长', description: '把今天的小成就分享出去。' },
         account: { title: '设置', eyebrow: 'SETTINGS', heading: '家长设置', description: '账号和多设备同步。' }
     };
@@ -111,9 +112,118 @@
                 { id: 'preschool-reward-adventure', title: '周末小探险', description: '和家长一起去公园走一圈。', tier: '特别奖励', cost: 120, icon: 'map', tone: 'gold' }
             ],
             childCourses: [
-                { id: 'preschool-chinese', title: '语文', description: '听一听，说一说', icon: 'book-open', tone: 'orange', lessons: [{ id: 'preschool-chinese-1', title: '听故事', minutes: 10 }, { id: 'preschool-chinese-2', title: '找一找', minutes: 10 }, { id: 'preschool-chinese-3', title: '说一说', minutes: 10 }] },
-                { id: 'preschool-math', title: '数学', description: '数一数，认一认', icon: 'calculator', tone: 'blue', lessons: [{ id: 'preschool-math-1', title: '数水果', minutes: 10 }, { id: 'preschool-math-2', title: '找图形', minutes: 10 }, { id: 'preschool-math-3', title: '比大小', minutes: 10 }] },
-                { id: 'preschool-english', title: '英语', description: '听一听，跟着说', icon: 'languages', tone: 'lime', lessons: [{ id: 'preschool-english-1', title: 'Hello', minutes: 8 }, { id: 'preschool-english-2', title: '颜色', minutes: 8 }, { id: 'preschool-english-3', title: '动物', minutes: 8 }] }
+                {
+                    id: 'preschool-literacy',
+                    title: '识字专区',
+                    description: '今天学 10 个汉字，按自然、植物、动物慢慢认。',
+                    icon: 'book-open',
+                    tone: 'orange',
+                    badge: '684 字启蒙字库',
+                    note: '参考页里是自动分配 10 字 + 分类字库，这里整理成自己的识字路线。',
+                    highlights: ['今日 10 字', '自然 / 植物 / 动物', '学会 15 字解锁下一阶'],
+                    samples: ['坡 pō', '始 shǐ', '游 yóu'],
+                    lessons: [
+                        { id: 'preschool-chinese-1', title: '今日识字 10 字', minutes: 10, meta: '坡、始、游、她、店…', tip: '完成后点亮“完成今日识字”' },
+                        { id: 'preschool-literacy-2', title: '分类认字', minutes: 8, meta: '自然 / 植物 / 动物', tip: '先认一类，再扩展到下一类' },
+                        { id: 'preschool-literacy-3', title: '字库复习', minutes: 10, meta: '684 字启蒙字库', tip: '学会上一阶 15 字再解锁下一阶' }
+                    ]
+                },
+                {
+                    id: 'preschool-pinyin',
+                    title: '拼音专区',
+                    description: '从声母开始，跟读、顺口溜和发音练习一起做。',
+                    icon: 'languages',
+                    tone: 'blue',
+                    badge: '23 个声母',
+                    note: '把参考页的“全套拼音学习”压缩成更适合幼儿版的三张大卡。',
+                    highlights: ['声母', '单韵母 / 复韵母', '整体认读'],
+                    samples: ['b p m f', 'd t n l', 'zh ch sh r'],
+                    lessons: [
+                        { id: 'preschool-pinyin-1', title: '声母跟读', minutes: 10, meta: 'b p m f d t n l', tip: '先听，再跟着读一遍' },
+                        { id: 'preschool-pinyin-2', title: '顺口溜记忆', minutes: 8, meta: '广播 b，山坡 p', tip: '用顺口溜记住发音位置' },
+                        { id: 'preschool-pinyin-3', title: '发音小游戏', minutes: 10, meta: '轻短发音练习', tip: '点一下，和家长一起纠正口型' }
+                    ]
+                },
+                {
+                    id: 'preschool-poetry',
+                    title: '古诗专区',
+                    description: '一关 10 首，从《静夜思》开始，朗读、跟读、会背一句。',
+                    icon: 'book-open',
+                    tone: 'pink',
+                    badge: '每关 10 首',
+                    note: '参考页里是古诗关卡，这里保留“朗读 + 跟读 + 过关”的节奏。',
+                    highlights: ['《静夜思》', '朗读 / 跟读', '学会上关 3 首解锁下一关'],
+                    samples: ['床前明月光', '举头望明月', '低头思故乡'],
+                    lessons: [
+                        { id: 'preschool-poetry-1', title: '朗读一首古诗', minutes: 10, meta: '从《静夜思》开始', tip: '完成后点亮“朗读一首古诗”' },
+                        { id: 'preschool-poetry-2', title: '跟读一句', minutes: 8, meta: '听一句，学一句', tip: '先学会节奏，再学解释' },
+                        { id: 'preschool-poetry-3', title: '记住诗意', minutes: 10, meta: '一句诗 + 一个画面', tip: '会背一句也算过关' }
+                    ]
+                },
+                {
+                    id: 'preschool-math',
+                    title: '数学专区',
+                    description: '10 以内加减和 20 以内进退位，像闯关一样做口算。',
+                    icon: 'calculator',
+                    tone: 'blue',
+                    badge: '10 / 20 以内闯关',
+                    note: '保留参考页“换一题、闯一关”的节奏，改成更轻的任务卡。',
+                    highlights: ['10 以内加减', '20 以内进退位', '换一题'],
+                    samples: ['10 - 9 = ?', '8 + 7 = ?', '12 - 5 = ?'],
+                    lessons: [
+                        { id: 'preschool-math-1', title: '数学闯关一关', minutes: 10, meta: '完成 1 题就算过关', tip: '完成后点亮“数学闯关一关”' },
+                        { id: 'preschool-math-2', title: '10 以内加减', minutes: 8, meta: '先快算，再核对', tip: '用手指或小物件辅助' },
+                        { id: 'preschool-math-3', title: '20 以内挑战', minutes: 10, meta: '进位 / 退位', tip: '不会就换一题继续' }
+                    ]
+                },
+                {
+                    id: 'preschool-focus',
+                    title: '专注力训练',
+                    description: '找不同、迷宫、数数、规律、逻辑，练一题也算完成。',
+                    icon: 'sparkles',
+                    tone: 'gold',
+                    badge: '5 类训练',
+                    note: '参考页是题型切换式训练，这里保留题型感，不把页面做得太复杂。',
+                    highlights: ['找不同', '迷宫 / 数数', '规律 / 逻辑'],
+                    samples: ['🍊🍎🍊', '走迷宫', '找规律'],
+                    lessons: [
+                        { id: 'preschool-focus-1', title: '专注力训练一题', minutes: 10, meta: '找不同 / 迷宫 / 规律', tip: '完成后点亮“专注力训练一题”' },
+                        { id: 'preschool-focus-2', title: '找不同', minutes: 8, meta: '圈出不一样的那个', tip: '先慢慢看，再动手' },
+                        { id: 'preschool-focus-3', title: '规律小游戏', minutes: 10, meta: '下一步会是什么', tip: '说出来，再选答案' }
+                    ]
+                },
+                {
+                    id: 'preschool-english',
+                    title: '每日英语',
+                    description: '每天 5 个单词，带图片、例句和跟读，先会说出来。',
+                    icon: 'languages',
+                    tone: 'lime',
+                    badge: '每日 5 个单词',
+                    note: '保留参考页“自动分配 5 词 + 例句”的节奏，让英语页更像单词卡盒。',
+                    highlights: ['动物 / 食物 / 数字', '图片 + 例句', '15 词解锁下一阶'],
+                    samples: ['wolf 狼', 'pig 猪', 'bread 面包'],
+                    lessons: [
+                        { id: 'preschool-english-1', title: '学习今日英语', minutes: 8, meta: '今天的 5 个单词', tip: '完成后点亮“学习今日英语”' },
+                        { id: 'preschool-english-2', title: '跟读一句短句', minutes: 8, meta: 'I see a cat.', tip: '先听，再大声说出来' },
+                        { id: 'preschool-english-3', title: '按阶段复习', minutes: 10, meta: '启蒙 / 进阶 / 挑战', tip: '学会 15 词再开下一阶' }
+                    ]
+                },
+                {
+                    id: 'preschool-exercise',
+                    title: '每日运动',
+                    description: '参考页有 10 个居家动作，这里保留动作清单和开始按钮节奏。',
+                    icon: 'heart',
+                    tone: 'green',
+                    badge: '10 个动作',
+                    note: '把开合跳、深蹲、跳绳、放松这些动作整理成可点亮的运动卡。',
+                    highlights: ['开合跳', '深蹲 / 高抬腿', '跳绳 / 放松'],
+                    samples: ['开合跳', '深蹲', '跳绳'],
+                    lessons: [
+                        { id: 'preschool-exercise-1', title: '做一项运动', minutes: 15, meta: '居家运动 15 分钟', tip: '完成后点亮“做一项运动”' },
+                        { id: 'preschool-exercise-2', title: '热身拉伸', minutes: 8, meta: '先动开，再开始', tip: '运动前后都做一遍' },
+                        { id: 'preschool-exercise-3', title: '体能小游戏', minutes: 10, meta: '跳一跳 / 慢跑 / 静蹲', tip: '选最喜欢的一项继续' }
+                    ]
+                }
             ],
             actions: { 'add-plan': '加一项', 'add-task': '加任务', 'add-mistake': '记下来', 'add-family': '告诉家长' }
         }
@@ -161,7 +271,11 @@
     document.querySelectorAll('.nav-item').forEach(function (item) {
         const page = item.dataset.page;
         const span = item.querySelector('span');
-        if (span && selected.pageMeta[page]) span.textContent = selected.pageMeta[page].title;
+        const course = item.dataset.courseId && selected.childCourses
+            ? selected.childCourses.find(function (entry) { return entry.id === item.dataset.courseId; })
+            : null;
+        if (span && course) span.textContent = course.title;
+        else if (span && selected.pageMeta[page]) span.textContent = selected.pageMeta[page].title;
     });
     const focusLabel = document.querySelector('.topbar-focus-button span');
     if (focusLabel && selected.id === 'child') focusLabel.textContent = '记录学习';

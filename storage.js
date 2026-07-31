@@ -7,12 +7,12 @@
     const SCHEMA_VERSION = 5;
     const PRESCHOOL_DAY_PLAN_VERSION = 2;
     const PRESCHOOL_DAILY_ITEMS = [
-        { id: 'story', title: '听故事', category: '语文', priority: 'high', minutes: 10, initialDone: true, initialProgress: 40 },
-        { id: 'count', title: '数一数', category: '数学', priority: 'high', minutes: 10, initialDone: false, initialProgress: 0 },
-        { id: 'hello', title: '说 Hello', category: '英语', priority: 'medium', minutes: 8, initialDone: false, initialProgress: 0 },
-        { id: 'draw', title: '画一画', category: '创意', priority: 'medium', minutes: 15, initialDone: false, initialProgress: 0 },
-        { id: 'move', title: '动一动', category: '运动', priority: 'low', minutes: 15, initialDone: false, initialProgress: 0 },
-        { id: 'tidy', title: '整理玩具', category: '生活', priority: 'low', minutes: 8, initialDone: false, initialProgress: 0 }
+        { id: 'story', title: '完成今日识字', category: '识字', priority: 'high', minutes: 10, initialDone: true, initialProgress: 40 },
+        { id: 'count', title: '朗读一首古诗', category: '古诗', priority: 'high', minutes: 10, initialDone: false, initialProgress: 0 },
+        { id: 'hello', title: '数学闯关一关', category: '数学', priority: 'high', minutes: 10, initialDone: false, initialProgress: 0 },
+        { id: 'draw', title: '学习今日英语', category: '英语', priority: 'medium', minutes: 8, initialDone: false, initialProgress: 0 },
+        { id: 'move', title: '做一项运动', category: '运动', priority: 'low', minutes: 15, initialDone: false, initialProgress: 0 },
+        { id: 'tidy', title: '专注力训练一题', category: '专注', priority: 'medium', minutes: 10, initialDone: false, initialProgress: 0 }
     ];
 
     function localDate(date) {
@@ -91,6 +91,38 @@
             return global.PersonalWorkbenchPreschoolGarden.normalize(growth);
         }
         return growth;
+    }
+
+    function preschoolTaskTemplateById(id) {
+        const key = String(id || '');
+        if (key.startsWith('preschool-task-')) return PRESCHOOL_DAILY_ITEMS.find(item => `preschool-task-${item.id}` === key) || null;
+        if (key.startsWith('preschool-plan-')) return PRESCHOOL_DAILY_ITEMS.find(item => `preschool-plan-${item.id}` === key) || null;
+        return null;
+    }
+
+    function synchronizePreschoolTemplates(state) {
+        if (variant !== 'preschool') return state;
+        state.tasks = state.tasks.map(function (item) {
+            const template = preschoolTaskTemplateById(item.id);
+            if (!template) return item;
+            return Object.assign({}, item, {
+                title: template.title,
+                category: template.category,
+                priority: template.priority,
+                estimateMinutes: template.minutes
+            });
+        });
+        state.dailyPlans = state.dailyPlans.map(function (item, index) {
+            const template = preschoolTaskTemplateById(item.id);
+            if (!template) return item;
+            const order = PRESCHOOL_DAILY_ITEMS.findIndex(entry => entry.id === template.id);
+            return Object.assign({}, item, {
+                title: template.title,
+                category: template.category,
+                order: order >= 0 ? order + 1 : index + 1
+            });
+        });
+        return state;
     }
 
     function createAdultSeed(now) {
@@ -332,6 +364,7 @@
         if (variant !== 'preschool') return state;
         const today = localDate();
         const seededDates = Array.isArray(state.preschoolPlanSeedDates) ? state.preschoolPlanSeedDates : [];
+        synchronizePreschoolTemplates(state);
         const todayPlans = state.dailyPlans.filter(item => item.date === today);
         const migrationNeeded = Number(state.preschoolDayPlanVersion) < PRESCHOOL_DAY_PLAN_VERSION;
         if (!todayPlans.length && !seededDates.includes(today)) {
@@ -420,6 +453,7 @@
                 status: item.status === 'mastered' ? 'mastered' : 'todo'
             });
         });
+        synchronizePreschoolTemplates(state);
         return ensurePreschoolDailyPlans(state);
     }
 

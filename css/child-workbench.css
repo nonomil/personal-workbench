@@ -1,0 +1,3 @@
+/* Child workbench manifest: shared shell plus child-only extensions. */
+@import url("./base.css");
+@import url("./child.css");

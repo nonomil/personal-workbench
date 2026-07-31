@@ -4,31 +4,51 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#75cbd5">
-    <link rel="icon" type="image/png" href="../assets/generated/preschool-pixel/reference/gpt-output-20260730/published-gpt-v2/task-sun-icon.png">
+    <link rel="icon" type="image/png" href="../assets/generated/preschool-pvz-2d/published/pvz-sun-token.png">
     <title>幼儿学习工作台</title>
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../css/preschool-workbench.css?v=20260731-css-modules">
 </head>
 <body data-workbench-variant="preschool" data-storage-key="petbank_huchuliang_preschool_workbench_state_v1" data-hero-src="../assets/generated/preschool/preschool-garden-hero.webp">
     <div class="app-shell" id="app-shell">
         <aside class="sidebar" id="sidebar" aria-label="幼儿学习工作台导航">
-            <div class="sidebar-topline"><a class="brand" href="#overview" aria-label="返回植物大战暑假作业台首页"><span class="brand-mark"><img class="preschool-nav-art" src="../assets/generated/preschool-pixel/reference/gpt-output-20260730/published-gpt-v2/nav-sun.png" alt=""></span><span><strong>植物大战暑假作业台</strong><small>SUMMER LEARNING</small></span></a><button class="icon-button sidebar-close" type="button" data-action="close-sidebar" aria-label="关闭导航" title="关闭导航"><i data-lucide="x"></i></button></div>
-            <div class="sidebar-section-label">小小路线</div>
-            <nav class="primary-nav" aria-label="主要页面">
-                <button class="nav-item is-active" type="button" data-action="navigate" data-page="overview"><img class="preschool-nav-art" src="../assets/generated/preschool-pixel/reference/gpt-output-20260730/published-gpt-v2/nav-sun.png" alt=""><span>首页</span><kbd>01</kbd></button>
-                <button class="nav-item" type="button" data-action="navigate" data-page="battle"><img class="preschool-nav-art" src="../assets/generated/preschool-pixel/reference/gpt-output-20260730/published-gpt-v2/castle-gate.png" alt=""><span>植物大战</span><kbd>02</kbd></button>
-                <button class="nav-item" type="button" data-action="navigate" data-page="growth"><img class="preschool-nav-art" src="../assets/generated/preschool-pixel/reference/gpt-output-20260730/published-gpt-v2/nav-sprout.png" alt=""><span>成长花园</span><kbd>03</kbd></button>
-                <button class="nav-item" type="button" data-action="navigate" data-page="plans"><img class="preschool-nav-art" src="../assets/generated/preschool-pixel/reference/gpt-output-20260730/published-gpt-v2/nav-flowers.png" alt=""><span>学习任务</span><kbd>04</kbd></button>
-                <button class="nav-item" type="button" data-action="navigate" data-page="courses"><img class="preschool-nav-art" src="../assets/generated/preschool-pixel/reference/gpt-output-20260730/published-gpt-v2/nav-storybook.png" alt=""><span>课程资源</span><kbd>05</kbd></button>
-                <button class="nav-item" type="button" data-action="navigate" data-page="mistakes"><img class="preschool-nav-art" src="../assets/generated/preschool-pixel/reference/gpt-output-20260730/published-gpt-v2/task-book-icon.png" alt=""><span>改错本</span><kbd>06</kbd></button>
-                <button class="nav-item" type="button" data-action="navigate" data-page="rewards"><img class="preschool-nav-art" src="../assets/generated/preschool-pixel/reference/gpt-output-20260730/published-gpt-v2/nav-chest.png" alt=""><span>阳光商城</span><kbd>07</kbd></button>
-                <button class="nav-item" type="button" data-action="navigate" data-page="family"><img class="preschool-nav-art" src="../assets/generated/preschool-pixel/reference/gpt-output-20260730/published-gpt-v2/nav-family.png" alt=""><span>家长互动</span><kbd>08</kbd></button>
-                <button class="nav-item" type="button" data-action="navigate" data-page="account"><img class="preschool-nav-art" src="../assets/generated/preschool-pixel/reference/gpt-output-20260730/published-gpt-v2/settings-gear.png" alt=""><span>设置</span><kbd>09</kbd></button>
+            <div class="sidebar-topline"><a class="brand" href="#overview" aria-label="返回植物大战暑假作业台首页"><span class="brand-mark"><img class="preschool-nav-art" src="../assets/generated/preschool-pvz-2d/published/pvz-sun-token.png" alt=""></span><span><strong>植物大战暑假作业台</strong><small>SUMMER LEARNING</small></span></a><button class="icon-button sidebar-close" type="button" data-action="close-sidebar" aria-label="关闭导航" title="关闭导航"><i data-lucide="x"></i></button></div>
+            <div class="sidebar-section-label">今天的路线</div>
+            <nav class="primary-nav preschool-nav-group" aria-label="今天的路线">
+                <button class="nav-item is-active" type="button" data-action="navigate" data-page="overview"><img class="preschool-nav-art" src="../assets/generated/preschool-pvz-2d/published/pvz-sun-token.png" alt=""><span>首页</span><kbd>01</kbd></button>
+                <button class="nav-item" type="button" data-action="navigate" data-page="calendar"><img class="preschool-nav-art" src="../assets/generated/preschool-pvz-2d/published/pvz-wallnut-blue.png" alt=""><span>日历打卡</span><kbd>02</kbd></button>
+                <button class="nav-item" type="button" data-action="navigate" data-page="growth"><img class="preschool-nav-art" src="../assets/generated/preschool-pvz-2d/published/pvz-sunflower.png" alt=""><span>花园基地</span><kbd>03</kbd></button>
+                <button class="nav-item" type="button" data-action="navigate" data-page="plans"><img class="preschool-nav-art" src="../assets/generated/preschool-pvz-2d/published/pvz-wallnut.png" alt=""><span>学习任务</span><kbd>04</kbd></button>
+            </nav>
+            <div class="sidebar-section-label">学习专区</div>
+            <nav class="primary-nav preschool-nav-group" aria-label="学习专区">
+                <button class="nav-item" type="button" data-action="navigate" data-page="courses" data-course-id="preschool-literacy"><img class="preschool-nav-art" src="../assets/generated/preschool-pvz-2d/published/pvz-iceflower.png" alt=""><span>识字专区</span><kbd>05</kbd></button>
+                <button class="nav-item" type="button" data-action="navigate" data-page="courses" data-course-id="preschool-pinyin"><img class="preschool-nav-art" src="../assets/generated/preschool-pvz-2d/published/pvz-iceflower.png" alt=""><span>拼音专区</span><kbd>06</kbd></button>
+                <button class="nav-item" type="button" data-action="navigate" data-page="courses" data-course-id="preschool-poetry"><img class="preschool-nav-art" src="../assets/generated/preschool-pvz-2d/published/pvz-iceflower.png" alt=""><span>古诗专区</span><kbd>07</kbd></button>
+                <button class="nav-item" type="button" data-action="navigate" data-page="courses" data-course-id="preschool-math"><img class="preschool-nav-art" src="../assets/generated/preschool-pvz-2d/published/pvz-sun-token.png" alt=""><span>数学专区</span><kbd>08</kbd></button>
+                <button class="nav-item" type="button" data-action="navigate" data-page="courses" data-course-id="preschool-focus"><img class="preschool-nav-art" src="../assets/generated/preschool-pvz-2d/published/pvz-wallnut-blue.png" alt=""><span>专注力训练</span><kbd>09</kbd></button>
+                <button class="nav-item" type="button" data-action="navigate" data-page="courses" data-course-id="preschool-english"><img class="preschool-nav-art" src="../assets/generated/preschool-pvz-2d/published/pvz-iceflower.png" alt=""><span>每日英语</span><kbd>10</kbd></button>
+                <button class="nav-item" type="button" data-action="navigate" data-page="courses" data-course-id="preschool-exercise"><img class="preschool-nav-art" src="../assets/generated/preschool-pvz-2d/published/pvz-sunflower.png" alt=""><span>每日运动</span><kbd>11</kbd></button>
+            </nav>
+            <div class="sidebar-section-label">守护与奖励</div>
+            <nav class="primary-nav preschool-nav-group" aria-label="守护与奖励">
+                <button class="nav-item" type="button" data-action="navigate" data-page="battle"><img class="preschool-nav-art" src="../assets/generated/preschool-pvz-2d/published/pvz-peashooter.png" alt=""><span>植物大战</span><kbd>12</kbd></button>
+                <button class="nav-item" type="button" data-action="navigate" data-page="mistakes"><img class="preschool-nav-art" src="../assets/generated/preschool-pvz-2d/published/pvz-wallnut-blue.png" alt=""><span>错题本</span><kbd>13</kbd></button>
+                <button class="nav-item" type="button" data-action="navigate" data-page="rewards"><img class="preschool-nav-art" src="../assets/generated/preschool-pvz-2d/published/pvz-sun-token.png" alt=""><span>奖励商城</span><kbd>14</kbd></button>
+                <button class="nav-item" type="button" data-action="navigate" data-page="family"><img class="preschool-nav-art" src="../assets/generated/preschool-pvz-2d/published/pvz-sunflower.png" alt=""><span>家长互动</span><kbd>15</kbd></button>
+                <button class="nav-item" type="button" data-action="navigate" data-page="account"><img class="preschool-nav-art" src="../assets/generated/preschool-pvz-2d/published/pvz-sun-token.png" alt=""><span>设置</span><kbd>16</kbd></button>
             </nav>
             <div class="sidebar-spacer"></div>
             <div class="sidebar-footer"><div class="mode-status"><span class="status-dot"></span><span><strong>本地模式</strong><small>本地快照 · 家长可备份</small></span></div><div class="sidebar-tools"><button class="tool-button" type="button" data-action="export"><i data-lucide="download"></i><span>导出备份</span></button><button class="tool-button" type="button" data-action="import-trigger"><i data-lucide="upload"></i><span>导入快照</span></button><input id="import-file" type="file" accept="application/json,.json" hidden></div><p class="sidebar-footnote">v0.2.3 · 幼儿版</p></div>
         </aside>
         <div class="sidebar-scrim" id="sidebar-scrim" data-action="close-sidebar"></div>
         <main class="main-content"><header class="topbar"><button class="icon-button menu-toggle" type="button" data-action="open-sidebar" aria-label="打开导航" title="打开导航"><i data-lucide="menu"></i></button><div class="topbar-context"><span>植物大战暑假作业台</span><b>/</b><strong id="topbar-page-name">首页</strong></div><div class="topbar-actions"><button class="topbar-focus-button" type="button" data-action="open-focus"><i data-lucide="play"></i><span>开始学习</span></button><span class="topbar-divider"></span><span class="avatar" aria-label="当前用户">芽</span></div></header><section class="page-content" id="page-content" aria-live="polite"></section></main>
+        <nav class="preschool-mobile-nav" aria-label="幼儿版快捷导航">
+            <button class="preschool-mobile-nav-item is-active" type="button" data-action="navigate" data-page="overview" data-mobile-nav="overview" aria-label="首页" title="首页"><i data-lucide="house"></i><span>首页</span></button>
+            <button class="preschool-mobile-nav-item" type="button" data-action="navigate" data-page="courses" data-mobile-nav="courses" aria-label="学习" title="学习"><i data-lucide="book-open"></i><span>学习</span></button>
+            <button class="preschool-mobile-nav-item" type="button" data-action="navigate" data-page="battle" data-mobile-nav="battle" aria-label="植物大战" title="植物大战"><i data-lucide="swords"></i><span>守护</span></button>
+            <button class="preschool-mobile-nav-item" type="button" data-action="navigate" data-page="rewards" data-mobile-nav="rewards" aria-label="奖励" title="奖励"><i data-lucide="gift"></i><span>奖励</span></button>
+            <button class="preschool-mobile-nav-item" type="button" data-action="open-sidebar" data-mobile-nav="more" aria-label="更多" title="更多"><i data-lucide="grid-2x2"></i><span>更多</span></button>
+        </nav>
     </div>
     <dialog class="entry-dialog" id="entry-dialog" aria-labelledby="dialog-title"><div class="dialog-head"><div><span class="eyebrow" id="dialog-eyebrow">NEW ENTRY</span><h2 id="dialog-title">添加记录</h2></div><button class="icon-button" type="button" data-action="close-dialog" aria-label="关闭弹窗" title="关闭弹窗"><i data-lucide="x"></i></button></div><form id="entry-form" class="entry-form"></form></dialog>
     <div class="toast-stack" id="toast-stack" aria-live="polite" aria-atomic="true"></div>

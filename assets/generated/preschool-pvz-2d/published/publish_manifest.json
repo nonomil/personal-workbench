@@ -1,0 +1,367 @@
+{
+  "tool": "publish_transparent_assets",
+  "input": "G:\\StudyCode\\个人工作台\\docs\\pvz-visual-research\\processed\\semantic-alpha",
+  "out_dir": "G:\\StudyCode\\个人工作台\\assets\\generated\\preschool-pvz-2d\\published",
+  "items": [
+    {
+      "input": "G:\\StudyCode\\个人工作台\\docs\\pvz-visual-research\\processed\\semantic-alpha\\pvz-iceflower.png",
+      "base_name": "pvz-iceflower",
+      "size": {
+        "width": 142,
+        "height": 182
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\个人工作台\\assets\\generated\\preschool-pvz-2d\\published\\pvz-iceflower.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\个人工作台\\assets\\generated\\preschool-pvz-2d\\published\\pvz-iceflower.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 8
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\个人工作台\\docs\\pvz-visual-research\\processed\\semantic-alpha\\pvz-peashooter.png",
+      "base_name": "pvz-peashooter",
+      "size": {
+        "width": 223,
+        "height": 317
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\个人工作台\\assets\\generated\\preschool-pvz-2d\\published\\pvz-peashooter.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\个人工作台\\assets\\generated\\preschool-pvz-2d\\published\\pvz-peashooter.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 8
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\个人工作台\\docs\\pvz-visual-research\\processed\\semantic-alpha\\pvz-sun-token.png",
+      "base_name": "pvz-sun-token",
+      "size": {
+        "width": 218,
+        "height": 221
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\个人工作台\\assets\\generated\\preschool-pvz-2d\\published\\pvz-sun-token.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\个人工作台\\assets\\generated\\preschool-pvz-2d\\published\\pvz-sun-token.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 8
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\个人工作台\\docs\\pvz-visual-research\\processed\\semantic-alpha\\pvz-sunflower.png",
+      "base_name": "pvz-sunflower",
+      "size": {
+        "width": 240,
+        "height": 318
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\个人工作台\\assets\\generated\\preschool-pvz-2d\\published\\pvz-sunflower.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\个人工作台\\assets\\generated\\preschool-pvz-2d\\published\\pvz-sunflower.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 8
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\个人工作台\\docs\\pvz-visual-research\\processed\\semantic-alpha\\pvz-triple-peashooter.png",
+      "base_name": "pvz-triple-peashooter",
+      "size": {
+        "width": 215,
+        "height": 207
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\个人工作台\\assets\\generated\\preschool-pvz-2d\\published\\pvz-triple-peashooter.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\个人工作台\\assets\\generated\\preschool-pvz-2d\\published\\pvz-triple-peashooter.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 8
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\个人工作台\\docs\\pvz-visual-research\\processed\\semantic-alpha\\pvz-wallnut-blue.png",
+      "base_name": "pvz-wallnut-blue",
+      "size": {
+        "width": 218,
+        "height": 280
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\个人工作台\\assets\\generated\\preschool-pvz-2d\\published\\pvz-wallnut-blue.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\个人工作台\\assets\\generated\\preschool-pvz-2d\\published\\pvz-wallnut-blue.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 8
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\个人工作台\\docs\\pvz-visual-research\\processed\\semantic-alpha\\pvz-wallnut.png",
+      "base_name": "pvz-wallnut",
+      "size": {
+        "width": 210,
+        "height": 259
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\个人工作台\\assets\\generated\\preschool-pvz-2d\\published\\pvz-wallnut.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\个人工作台\\assets\\generated\\preschool-pvz-2d\\published\\pvz-wallnut.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 8
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\个人工作台\\docs\\pvz-visual-research\\processed\\semantic-alpha\\pvz-zombie-basic.png",
+      "base_name": "pvz-zombie-basic",
+      "size": {
+        "width": 194,
+        "height": 361
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\个人工作台\\assets\\generated\\preschool-pvz-2d\\published\\pvz-zombie-basic.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\个人工作台\\assets\\generated\\preschool-pvz-2d\\published\\pvz-zombie-basic.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 8
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\个人工作台\\docs\\pvz-visual-research\\processed\\semantic-alpha\\pvz-zombie-buckethead.png",
+      "base_name": "pvz-zombie-buckethead",
+      "size": {
+        "width": 196,
+        "height": 401
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\个人工作台\\assets\\generated\\preschool-pvz-2d\\published\\pvz-zombie-buckethead.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\个人工作台\\assets\\generated\\preschool-pvz-2d\\published\\pvz-zombie-buckethead.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 8
+      }
+    },
+    {
+      "input": "G:\\StudyCode\\个人工作台\\docs\\pvz-visual-research\\processed\\semantic-alpha\\pvz-zombie-conehead.png",
+      "base_name": "pvz-zombie-conehead",
+      "size": {
+        "width": 191,
+        "height": 429
+      },
+      "source_edge_alpha": {
+        "nonzero": 0,
+        "max": 0
+      },
+      "png": {
+        "path": "G:\\StudyCode\\个人工作台\\assets\\generated\\preschool-pvz-2d\\published\\pvz-zombie-conehead.png",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "webp": {
+        "path": "G:\\StudyCode\\个人工作台\\assets\\generated\\preschool-pvz-2d\\published\\pvz-zombie-conehead.webp",
+        "edge_alpha": {
+          "nonzero": 0,
+          "max": 0
+        }
+      },
+      "settings": {
+        "mode": "none",
+        "feather": 0,
+        "erode": 0,
+        "fill_holes": false,
+        "trim": false,
+        "webp_quality": 92,
+        "lossy": false,
+        "max_edge_alpha": 8
+      }
+    }
+  ]
+}

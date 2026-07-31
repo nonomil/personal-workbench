@@ -1,0 +1,303 @@
+/* Preschool PVZ garden correction: this edition is a cheerful garden board, not a Minecraft/pixel skin. */
+body.variant-preschool {
+    --pvz-green-900: #185b3b;
+    --pvz-green-700: #2f8a50;
+    --pvz-green-500: #64bd58;
+    --pvz-green-100: #eaf8e4;
+    --pvz-yellow: #ffc928;
+    --pvz-orange: #f28a35;
+    --pvz-red: #e66558;
+    --pvz-blue: #56b8d4;
+    --pvz-cream: #fffdf5;
+    --pvz-line: #d7ebd0;
+    --pixel-route: var(--pvz-green-900);
+    --pixel-route-deep: #0d432d;
+    --pixel-route-active: var(--pvz-green-700);
+    --pixel-lavender: #f1faec;
+    --pixel-lavender-soft: #e7f5e1;
+    --pixel-purple-action: var(--pvz-orange);
+    background: radial-gradient(circle at 75% 0%, #fff9d8 0, #f6fbe9 30%, #eaf7e5 100%);
+    color: var(--pvz-green-900);
+    font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
+}
+
+body.variant-preschool .main-content,
+body.variant-preschool .page-content { background: transparent; }
+body.variant-preschool .sidebar {
+    width: 224px;
+    border-right: 1px solid rgba(16, 79, 49, .12);
+    background: linear-gradient(180deg, #22734a 0%, #185d3d 68%, #134c35 100%);
+    box-shadow: 8px 0 24px rgba(20, 91, 57, .13);
+}
+body.variant-preschool .brand strong { color: #fffbe8; }
+body.variant-preschool .brand small,
+body.variant-preschool .sidebar-section-label,
+body.variant-preschool .sidebar-footnote,
+body.variant-preschool .mode-status small { color: #c6e8bd; }
+body.variant-preschool .brand-mark { border: 0; border-radius: 16px; background: #f9c938; box-shadow: 0 5px 0 rgba(116, 75, 12, .28); }
+body.variant-preschool .primary-nav { grid-template-columns: 1fr; gap: 7px; }
+body.variant-preschool .nav-item {
+    min-height: 49px;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 8px 12px;
+    border: 1px solid transparent;
+    border-radius: 15px;
+    color: #e0f5d7;
+    background: rgba(255,255,255,.07);
+    box-shadow: none;
+    text-align: left;
+}
+body.variant-preschool .nav-item:hover { border-color: rgba(255,255,255,.26); color: #fff; background: rgba(255,255,255,.13); transform: translateX(2px); }
+body.variant-preschool .nav-item.is-active { border-color: rgba(255,255,255,.55); color: #154a31; background: #fff8dc; box-shadow: 0 5px 0 rgba(11, 64, 41, .22); }
+body.variant-preschool .nav-item.is-active svg,
+body.variant-preschool .nav-item.is-active span { color: #185b3b; }
+body.variant-preschool .nav-item svg { width: 20px; height: 20px; }
+body.variant-preschool .nav-item span { font-size: 13px; font-weight: 850; }
+body.variant-preschool .sidebar-footer { border-top-color: rgba(255,255,255,.18); }
+body.variant-preschool .mode-status strong { color: #fffbe8; }
+body.variant-preschool .tool-button { border-color: rgba(255,255,255,.2); border-radius: 12px; color: #e5f7dc; background: rgba(9, 61, 39, .42); box-shadow: none; }
+body.variant-preschool .topbar { border-bottom-color: var(--pvz-line); background: rgba(255,255,255,.84); box-shadow: 0 4px 18px rgba(31, 103, 56, .06); backdrop-filter: blur(12px); }
+body.variant-preschool .topbar-context { color: #72906d; }
+body.variant-preschool .topbar-context strong { color: var(--pvz-green-900); }
+body.variant-preschool .topbar-mode-link,
+body.variant-preschool .topbar-focus-button { border-color: var(--pvz-line); border-radius: 12px; color: var(--pvz-green-700); background: #fff; box-shadow: 0 3px 9px rgba(35, 116, 60, .08); }
+body.variant-preschool .topbar-mode-link:hover,
+body.variant-preschool .topbar-focus-button:hover { border-color: #9bd08b; color: var(--pvz-green-900); background: var(--pvz-green-100); }
+body.variant-preschool .avatar { border: 0; color: #fff; background: var(--pvz-orange); box-shadow: 0 4px 0 #bd5b2c; }
+body.variant-preschool .page-content { padding-top: clamp(20px, 3vw, 36px); }
+
+body.variant-preschool .preschool-page-intro h1,
+body.variant-preschool .pixel-page-header h1 { color: var(--pvz-green-900); }
+body.variant-preschool .preschool-page-intro p,
+body.variant-preschool .pixel-page-header p { color: #66866b; }
+body.variant-preschool .eyebrow,
+body.variant-preschool .pixel-panel-kicker { color: var(--pvz-green-700); letter-spacing: .11em; }
+body.variant-preschool .btn-primary,
+body.variant-preschool .pixel-side-button,
+body.variant-preschool .pixel-pea-button { border: 0; border-radius: 13px; color: #fff; background: linear-gradient(135deg, #f49a3d, #e96b39); box-shadow: 0 4px 0 #ba592e, 0 8px 15px rgba(222, 103, 48, .18); }
+body.variant-preschool .btn-secondary { border: 1px solid #b9ddb1; border-radius: 13px; color: var(--pvz-green-700); background: #f7fff3; box-shadow: 0 3px 8px rgba(47, 138, 80, .07); }
+body.variant-preschool .btn-quiet { border-radius: 11px; color: var(--pvz-green-700); }
+
+body.variant-preschool .pixel-home,
+body.variant-preschool .pixel-battle-page { max-width: 1240px; }
+body.variant-preschool .pixel-page-header { align-items: center; }
+body.variant-preschool .pixel-page-header h1 { font-size: clamp(28px, 3.4vw, 44px); font-weight: 900; letter-spacing: -.03em; }
+body.variant-preschool .pixel-page-header p { font-size: 15px; font-weight: 650; }
+body.variant-preschool .pixel-header-actions { gap: 9px; }
+body.variant-preschool .pixel-hud-sun,
+body.variant-preschool .pixel-hud-defense,
+body.variant-preschool .pixel-hud-streak,
+body.variant-preschool .pixel-settings-button,
+body.variant-preschool .pixel-map-sun,
+body.variant-preschool .pixel-defense-energy,
+body.variant-preschool .pixel-wave-badge { border: 1px solid var(--pvz-line); border-radius: 14px; color: var(--pvz-green-900); background: rgba(255,255,255,.9); box-shadow: 0 4px 12px rgba(38, 113, 56, .08); font-family: inherit; }
+body.variant-preschool .pixel-hud-defense,
+body.variant-preschool .pixel-defense-energy { border-color: #ffd59a; background: #fff8e8; }
+body.variant-preschool .pixel-hud-streak { border-color: #efd3e9; background: #fff7fd; }
+body.variant-preschool .pixel-settings-button { width: 42px; height: 42px; }
+body.variant-preschool .pixel-hud-sun strong,
+body.variant-preschool .pixel-hud-defense strong { font-family: inherit; }
+
+body.variant-preschool .pixel-stat-strip,
+body.variant-preschool .pixel-quest-board,
+body.variant-preschool .pixel-side-panel,
+body.variant-preschool .pixel-bottom-bar,
+body.variant-preschool .pixel-rulebook,
+body.variant-preschool .pixel-battle-status,
+body.variant-preschool .pixel-battle-plant-panel,
+body.variant-preschool .pixel-battle-quest-panel,
+body.variant-preschool .pixel-battle-reward-panel,
+body.variant-preschool .pixel-daily-challenge,
+body.variant-preschool .preschool-section,
+body.variant-preschool .preschool-plan-card,
+body.variant-preschool .preschool-mistake-card,
+body.variant-preschool .preschool-family-card,
+body.variant-preschool .preschool-growth-hero,
+body.variant-preschool .preschool-course-card,
+body.variant-preschool .preschool-reward-card {
+    border: 1px solid var(--pvz-line);
+    border-radius: 22px;
+    background: rgba(255,255,255,.94);
+    box-shadow: 0 10px 26px rgba(34, 111, 57, .08);
+}
+body.variant-preschool .pixel-quest-board,
+body.variant-preschool .pixel-side-panel,
+body.variant-preschool .pixel-bottom-bar,
+body.variant-preschool .pixel-rulebook,
+body.variant-preschool .pixel-battle-status,
+body.variant-preschool .pixel-battle-plant-panel,
+body.variant-preschool .pixel-battle-quest-panel,
+body.variant-preschool .pixel-battle-reward-panel,
+body.variant-preschool .pixel-daily-challenge { padding: 17px; }
+body.variant-preschool .pixel-board-heading h2,
+body.variant-preschool .pixel-side-heading h2 { color: var(--pvz-green-900); font-size: 20px; }
+body.variant-preschool .pixel-board-count,
+body.variant-preschool .pixel-side-count { border: 1px solid #cfe7c4; border-radius: 999px; color: var(--pvz-green-700); background: var(--pvz-green-100); }
+
+body.variant-preschool .pixel-quest-card {
+    border: 1px solid #d9ecd3;
+    border-top: 4px solid var(--pvz-green-500);
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 5px 14px rgba(43, 118, 61, .07);
+}
+body.variant-preschool .pixel-quest-card.quest-tone-1 { border-top-color: #8d7ade; background: #fff; }
+body.variant-preschool .pixel-quest-card.quest-tone-2 { border-top-color: var(--pvz-orange); background: #fff; }
+body.variant-preschool .pixel-quest-card:hover,
+body.variant-preschool .pixel-quest-card:focus-visible { border-color: #a7d795; box-shadow: 0 10px 19px rgba(43, 118, 61, .12); transform: translateY(-3px); }
+body.variant-preschool .pixel-quest-card.is-done { border-color: #b7dfa8; background: #f4fff1; }
+body.variant-preschool .pixel-quest-ribbon { border-radius: 999px; background: var(--pvz-green-700); }
+body.variant-preschool .quest-tone-1 .pixel-quest-ribbon { background: #8d7ade; }
+body.variant-preschool .quest-tone-2 .pixel-quest-ribbon { background: var(--pvz-orange); }
+body.variant-preschool .pixel-quest-copy strong { color: var(--pvz-green-900); font-size: 20px; }
+body.variant-preschool .pixel-quest-copy em { color: var(--pvz-green-700); }
+body.variant-preschool .pixel-quest-art,
+body.variant-preschool .pixel-stat-art,
+body.variant-preschool .pixel-battle-reward-art { border-radius: 16px; background: #f1faec; }
+body.variant-preschool .pixel-stat-strip { gap: 5px; padding: 9px; }
+body.variant-preschool .pixel-stat-card { border-right: 1px solid #e2f0de; }
+body.variant-preschool .pixel-stat-art { width: 45px; height: 45px; flex-basis: 45px; }
+body.variant-preschool .pixel-stat-art img,
+body.variant-preschool .pixel-quest-art img { image-rendering: auto; }
+body.variant-preschool .pixel-stat-copy strong { color: var(--pvz-green-900); font-family: inherit; }
+
+body.variant-preschool .pixel-map-panel {
+    min-height: 530px;
+    overflow: hidden;
+    border: 1px solid #b9dbac;
+    border-radius: 28px;
+    background: linear-gradient(180deg, #a9e2ed 0 25%, #daf2ca 25% 39%, #9bd86c 39% 100%);
+    box-shadow: 0 12px 28px rgba(41, 121, 59, .14);
+}
+body.variant-preschool .pixel-map-panel::before { background: linear-gradient(135deg, rgba(255,255,255,.24), transparent 45%); }
+body.variant-preschool .pixel-map-panel::after { height: 80px; bottom: -22px; background: linear-gradient(180deg, transparent, rgba(44, 121, 54, .14)); }
+body.variant-preschool .pixel-map-landmarks { display: none; }
+body.variant-preschool .pixel-map-copy { top: 22px; left: 22px; max-width: 47%; padding: 14px 16px; border: 1px solid rgba(255,255,255,.72); border-radius: 17px; background: rgba(255,255,255,.82); box-shadow: 0 8px 18px rgba(37, 111, 57, .08); }
+body.variant-preschool .pixel-map-copy h2 { color: var(--pvz-green-900); font-size: 25px; }
+body.variant-preschool .pixel-map-copy p { color: #4d7957; font-size: 12px; }
+body.variant-preschool .pixel-map-hud { top: 22px; right: 22px; max-width: 48%; }
+body.variant-preschool .pixel-battlefield { top: 145px; right: 22px; left: 22px; height: 250px; border: 4px solid #438d48; border-radius: 24px; background: #91d465; box-shadow: inset 0 0 0 3px rgba(255,255,255,.3), 0 8px 17px rgba(49, 113, 47, .18); }
+body.variant-preschool .pixel-battle-sky { height: 66px; background: linear-gradient(180deg, #83d4e5, #b8e9eb); }
+body.variant-preschool .pixel-battle-cloud { width: 72px; height: 24px; border-radius: 999px; background: rgba(255,255,255,.78); box-shadow: 17px -8px 0 rgba(255,255,255,.78), 38px 1px 0 rgba(255,255,255,.78); }
+body.variant-preschool .pixel-battle-grid { inset: 66px 0 25px; background: transparent; }
+body.variant-preschool .pixel-battle-lanes { background: repeating-linear-gradient(0deg, rgba(61, 132, 52, .14) 0 1px, transparent 1px 33.333%); }
+body.variant-preschool .pixel-battle-row-label { border-right: 1px solid rgba(52, 120, 52, .27); border-radius: 0; color: #fff; background: rgba(51, 125, 58, .42); font-size: 11px; writing-mode: horizontal-tb; }
+body.variant-preschool .pixel-battle-lane-row { border-bottom: 1px solid rgba(55, 125, 51, .28); }
+body.variant-preschool .pixel-battle-plant-column { border-right: 1px solid rgba(55, 125, 51, .26); }
+body.variant-preschool .pixel-battle-plant-column::after { height: 7px; border-radius: 50%; background: rgba(53, 108, 36, .25); }
+body.variant-preschool .pixel-battle-path-cell { border-right: 1px dashed rgba(55, 125, 51, .2); }
+body.variant-preschool .pixel-battle-path-cell i { width: 17px; height: 9px; border: 0; border-radius: 50%; background: rgba(231, 255, 168, .55); transform: none; }
+body.variant-preschool .pixel-battle-path-cell b { display: none; }
+body.variant-preschool .pixel-battle-invader-column { border-left: 1px solid rgba(55, 125, 51, .26); }
+body.variant-preschool .pixel-battle-plant-column .preschool-generated-art { width: 62px; height: 70px; image-rendering: auto; }
+body.variant-preschool .pixel-battle-invader { width: 82px; height: 92px; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+body.variant-preschool .pixel-battle-invader .preschool-generated-art { width: 78px; height: 88px; object-fit: contain; }
+body.variant-preschool .pixel-battle-invader.is-preview { opacity: .86; }
+body.variant-preschool .pixel-invader-preview-label { position: absolute; right: -5px; bottom: 1px; padding: 3px 7px; border: 0; border-radius: 999px; color: #fff; background: var(--pvz-red); font-size: 10px; font-weight: 900; }
+body.variant-preschool .pixel-battle-ground { height: 25px; border-top: 1px solid rgba(55, 125, 51, .35); background: repeating-linear-gradient(90deg, #8dce5c 0 25px, #7fc44f 25px 50px); }
+body.variant-preschool .pixel-defense-actions { top: 412px; right: 22px; left: 22px; min-height: 58px; border: 1px solid #efcf9b; border-radius: 16px; background: rgba(255,253,245,.94); box-shadow: 0 6px 16px rgba(125, 91, 43, .11); }
+body.variant-preschool .pixel-pea-button { min-height: 44px; border-radius: 12px; }
+body.variant-preschool .pixel-defense-hint { color: #66866b; font-size: 12px; }
+body.variant-preschool .pixel-map-panel.is-compact { min-height: 484px; }
+body.variant-preschool .pixel-map-panel.is-compact .pixel-map-copy { top: 17px; left: 17px; max-width: 48%; }
+body.variant-preschool .pixel-map-panel.is-compact .pixel-battlefield { top: 124px; height: 236px; }
+body.variant-preschool .pixel-map-panel.is-compact .pixel-defense-actions { top: 374px; }
+body.variant-preschool .pixel-map-panel.is-compact .pixel-battle-plant-column .preschool-generated-art { width: 57px; height: 65px; }
+body.variant-preschool .pixel-map-panel.is-compact .pixel-battle-invader { width: 76px; height: 84px; }
+body.variant-preschool .pixel-map-panel.is-compact .pixel-battle-invader .preschool-generated-art { width: 72px; height: 80px; }
+
+body.variant-preschool .pixel-side-button:hover,
+body.variant-preschool .pixel-pea-button:hover:not(:disabled) { filter: brightness(1.04); transform: translateY(-1px); }
+body.variant-preschool .pixel-side-link { color: var(--pvz-green-700); }
+body.variant-preschool .pixel-collection-slot { border: 1px solid #cfe7c4; border-radius: 17px; background: #f7fff3; }
+body.variant-preschool .pixel-collection-slot.is-unlocked { border-color: #a8d891; background: #effbe9; }
+body.variant-preschool .pixel-collection-slot small { color: var(--pvz-green-700); font-size: 10px; }
+body.variant-preschool .pixel-map-invader { border: 1px solid #f1c1a7; border-radius: 16px; color: #994b39; background: #fff5ec; box-shadow: 0 6px 15px rgba(174, 88, 59, .12); }
+body.variant-preschool .pixel-map-invader .preschool-generated-art { object-fit: contain; }
+body.variant-preschool .pixel-map-safe { border: 1px solid #b9ddb1; border-radius: 999px; color: var(--pvz-green-700); background: #f2ffed; box-shadow: 0 5px 12px rgba(43, 118, 61, .1); }
+
+body.variant-preschool .pixel-battle-plant { min-height: 145px; border: 1px solid #d3e9cd; border-radius: 20px; color: var(--pvz-green-900); background: #fff; box-shadow: 0 5px 14px rgba(43, 118, 61, .07); }
+body.variant-preschool .pixel-battle-plant:hover:not(:disabled),
+body.variant-preschool .pixel-battle-plant:focus-visible { border-color: #96ce84; background: #f6fff2; outline: none; transform: translateY(-3px); }
+body.variant-preschool .pixel-battle-plant.is-active { border: 2px solid var(--pvz-green-500); background: #f0fbea; box-shadow: 0 7px 15px rgba(72, 155, 67, .15); }
+body.variant-preschool .pixel-battle-plant > span { width: 92px; height: 92px; }
+body.variant-preschool .pixel-battle-plant .preschool-generated-art { width: 88px; height: 88px; image-rendering: auto; }
+body.variant-preschool .pixel-battle-plant strong { color: var(--pvz-green-900); font-size: 14px; }
+body.variant-preschool .pixel-battle-plant small { color: #66866b; font-size: 10px; }
+body.variant-preschool .pixel-rule-list > div,
+body.variant-preschool .pixel-battle-status-grid > div,
+body.variant-preschool .pixel-battle-reward-item { border: 1px solid #e0eedb; border-radius: 14px; background: #fbfffa; }
+body.variant-preschool .pixel-rule-list b { border: 0; border-radius: 50%; color: #fff; background: var(--pvz-green-700); font-family: inherit; }
+body.variant-preschool .pixel-rule-list strong,
+body.variant-preschool .pixel-battle-status-grid strong,
+body.variant-preschool .pixel-battle-reward-item strong { color: var(--pvz-green-900); font-family: inherit; }
+body.variant-preschool .pixel-battle-status-grid span { color: var(--pvz-orange); }
+body.variant-preschool .pixel-daily-progress { height: 13px; border: 0; border-radius: 999px; background: #e3f0dc; overflow: hidden; }
+body.variant-preschool .pixel-daily-progress span { border-radius: inherit; background: linear-gradient(90deg, #67bd55, #f8c33b); }
+
+body.variant-preschool .preschool-generated-art,
+body.variant-preschool .preschool-pvz-art { object-fit: contain; image-rendering: auto !important; }
+body.variant-preschool .preschool-pvz-art { filter: drop-shadow(0 5px 4px rgba(42, 91, 42, .16)); }
+body.variant-preschool .preschool-plant-card,
+body.variant-preschool .preschool-style-card { border: 1px solid #d3e9cd; border-radius: 20px; background: #fff; box-shadow: 0 6px 16px rgba(43, 118, 61, .07); }
+body.variant-preschool .preschool-plant-card > span,
+body.variant-preschool .preschool-style-card > span { width: 74px; height: 74px; border-radius: 22px; background: #f0fbea; }
+body.variant-preschool .garden-invader { border: 1px solid #f2c2a7; border-radius: 18px; color: #994b39; background: #fff5ed; box-shadow: 0 8px 16px rgba(174, 88, 59, .12); }
+body.variant-preschool .garden-invader span { width: 66px; height: 66px; border-radius: 18px; background: #fff; }
+body.variant-preschool .garden-plant-icon { border-radius: 24px; background: #f0fbea; }
+
+@media (max-width: 860px) {
+    body.variant-preschool .pixel-world-grid { grid-template-columns: 1fr; }
+    body.variant-preschool .pixel-map-panel { min-height: 520px; }
+    body.variant-preschool .pixel-map-panel.is-compact { min-height: 484px; }
+    body.variant-preschool .pixel-battle-side { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 560px) {
+    body.variant-preschool .pixel-page-header h1 { font-size: 28px; }
+    body.variant-preschool .pixel-page-header p { font-size: 13px; }
+    body.variant-preschool .pixel-quest-copy strong { font-size: 17px; }
+    body.variant-preschool .pixel-map-panel.is-compact { min-height: 426px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-map-copy { top: 13px; left: 13px; right: 13px; max-width: none; padding: 10px 12px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-map-copy h2 { font-size: 20px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-map-hud { top: 77px; right: 13px; left: 13px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-battlefield { top: 126px; right: 13px; left: 13px; height: 194px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-battle-sky { height: 48px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-battle-grid { inset: 48px 0 20px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-battle-plant-column .preschool-generated-art { width: 43px; height: 49px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-battle-invader { width: 57px; height: 66px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-battle-invader .preschool-generated-art { width: 54px; height: 63px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-defense-actions { top: 335px; right: 13px; left: 13px; min-height: 58px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-defense-hint { display: inline; font-size: 11px; }
+    body.variant-preschool .pixel-battle-side { grid-template-columns: 1fr; }
+    body.variant-preschool .pixel-battle-plant-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    body.variant-preschool .pixel-battle-plant { min-height: 132px; }
+    body.variant-preschool .pixel-battle-plant > span { width: 70px; height: 70px; }
+    body.variant-preschool .pixel-battle-plant .preschool-generated-art { width: 68px; height: 68px; }
+    body.variant-preschool .pixel-battle-plant strong { font-size: 13px; }
+    body.variant-preschool .pixel-battle-plant small { font-size: 9px; }
+    body.variant-preschool .pixel-stat-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    body.variant-preschool .pixel-stat-card { min-height: 64px; }
+    body.variant-preschool .pixel-stat-art { width: 34px; height: 34px; flex-basis: 34px; }
+    body.variant-preschool .pixel-stat-copy strong { font-size: 12px; }
+    body.variant-preschool .pixel-stat-copy small,
+    body.variant-preschool .pixel-stat-copy em { font-size: 9px; }
+}
+
+@media (max-width: 360px) {
+    body.variant-preschool .pixel-map-panel.is-compact { min-height: 410px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-battlefield { height: 181px; }
+    body.variant-preschool .pixel-map-panel.is-compact .pixel-defense-actions { top: 322px; }
+}
+
+/* Keep the home composition aligned with the reference: defense first, quests below, collection rail beside them. */
+body.variant-preschool .pixel-world-grid {
+    grid-template-areas: "map side" "quest side";
+}
+
+body.variant-preschool .pixel-map-panel { grid-area: map; }
+body.variant-preschool .pixel-quest-board { grid-area: quest; }
+body.variant-preschool .pixel-side-stack { grid-area: side; }
+

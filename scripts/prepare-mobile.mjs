@@ -17,9 +17,10 @@ const files = [
   'api-adapter.js',
   'app.js',
   'preschool-garden.js',
-  'styles.css'
+  'styles.css',
+  'preschool-pvz-final.css'
 ];
-const directories = ['成人成长工作台', '儿童学习工作台', 'preschool-workbench', 'assets'];
+const directories = ['成人成长工作台', '儿童学习工作台', 'preschool-workbench', 'assets', 'css'];
 
 await fs.rm(outputRoot, { recursive: true, force: true });
 await fs.mkdir(outputRoot, { recursive: true });

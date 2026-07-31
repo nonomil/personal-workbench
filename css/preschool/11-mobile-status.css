@@ -1,0 +1,44 @@
+/* Preschool 2.4 mobile fidelity: keep the six reference metrics legible on a narrow canvas. */
+@media (max-width: 560px) {
+    body.variant-preschool .brand strong {
+        max-width: 108px;
+        overflow-wrap: anywhere;
+        white-space: normal;
+        line-height: 1.05;
+    }
+    body.variant-preschool .pixel-stat-strip {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 5px;
+        overflow: visible;
+        padding: 0;
+    }
+    body.variant-preschool .pixel-stat-card {
+        min-width: 0;
+        min-height: 56px;
+        align-items: center;
+        gap: 5px;
+        padding: 5px 4px;
+        overflow: hidden;
+        border: 1px solid #ded4f4;
+        box-shadow: 2px 2px 0 #e2d9f5;
+    }
+    body.variant-preschool .pixel-stat-card:nth-child(3) { border-right: 1px solid #ded4f4; }
+    body.variant-preschool .pixel-stat-art { width: 26px; height: 26px; flex-basis: 26px; }
+    body.variant-preschool .pixel-stat-art img { width: 22px; height: 22px; }
+    body.variant-preschool .pixel-stat-copy { min-width: 0; width: 0; flex: 1 1 0; gap: 1px; }
+    body.variant-preschool .pixel-stat-copy small { overflow: hidden; font-size: 8px; text-overflow: ellipsis; white-space: nowrap; }
+    body.variant-preschool .pixel-stat-copy strong { overflow: hidden; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+    body.variant-preschool .pixel-stat-copy em { overflow: hidden; font-size: 7px; text-overflow: ellipsis; white-space: nowrap; }
+}
+
+@media (max-width: 360px) {
+    body.variant-preschool .pixel-stat-card { min-height: 54px; gap: 3px; padding: 4px 3px; }
+    body.variant-preschool .pixel-stat-art { width: 22px; height: 22px; flex-basis: 22px; }
+    body.variant-preschool .pixel-stat-art img { width: 19px; height: 19px; }
+    body.variant-preschool .pixel-stat-copy small { font-size: 7px; }
+    body.variant-preschool .pixel-stat-copy strong { font-size: 10px; }
+}
+
+body.variant-preschool .pixel-pea-button { min-height: 44px; }
+body.variant-preschool .pixel-map-panel.is-compact .pixel-pea-button { min-height: 44px; }
+

@@ -1,0 +1,7 @@
+{
+  "model": "agnes-image-2.1-flash",
+  "sizeRequested": "1536x1024",
+  "promptFile": "docs\\pvz-visual-research\\prompts\\pvz-battle-reference.md",
+  "output": "docs\\pvz-visual-research\\raw\\agnes\\pvz-battle-reference.png",
+  "bytes": 1703920
+}
