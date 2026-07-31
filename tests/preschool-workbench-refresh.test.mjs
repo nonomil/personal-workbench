@@ -223,7 +223,7 @@ test('uses transparent PVZ plants and zombie variants across the preschool defen
   assert.match(app, /const plantAsset = preschoolPlantAsset\(activePlant\)/);
   assert.match(app, /pixel-hud-defense-art/);
   assert.match(app, /asset: 'player-energy-bars'/);
-  assert.match(config, /selected\.id === 'preschool' \? 'v0\.2\.3 · 幼儿版'/);
+  assert.match(config, /selected\.id === 'preschool' \? 'v0\.2\.4 · 幼儿版'/);
   assert.doesNotMatch(config, /v0\.3 · 幼儿版/);
   assert.match(styles, /pixel-hud-defense-art/);
    assert.match(styles, /preschool-pvz-art/);
@@ -368,5 +368,8 @@ test('keeps the approved WorkBuddy finish layer and mobile shortcut contract', (
     assert.match(preschoolIndex, new RegExp(`aria-label="${label}"`));
   }
   assert.match(preschoolIndex, /class="preschool-mobile-nav"/);
+  assert.match(preschoolIndex, /<span>花园战<\/span>/);
+  assert.match(styles, /safe-area-inset-bottom/);
+  assert.match(styles, /preschool-mobile-nav-item \{ min-width: 44px; touch-action: manipulation; \}/);
   assert.match(app, /querySelectorAll\('\[data-mobile-nav\]'\)[\s\S]*classList\.toggle\('is-active'/);
 });

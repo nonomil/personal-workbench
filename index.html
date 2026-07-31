@@ -75,8 +75,11 @@
         }
         @media (max-width: 640px) {
             .launcher-main { width: min(100% - 30px, 540px); padding-top: 22px; }
-            .launcher-topbar-meta { gap: 8px; font-size: 9px; }
-            .launcher-topbar-rule { width: 18px; }
+            .launcher-topbar { gap: 12px; }
+            .launcher-topbar-meta { min-width: 0; flex: 0 0 auto; gap: 6px; font-size: 9px; }
+            .launcher-topbar-meta .launcher-topbar-rule,
+            .launcher-topbar-meta span:last-child { display: none; }
+            .launcher-topbar-meta span:first-child { white-space: nowrap; }
             .launcher-brand { font-size: 10px; }
             .launcher-heading-row { margin-top: 46px; }
             .launcher-heading h1 { font-size: 44px; }

@@ -345,13 +345,13 @@ body.variant-preschool .preschool-mobile-nav { display: none; }
 
 @media (max-width: 760px) {
     body.variant-preschool .main-content { width: 100%; margin-left: 0; }
-    body.variant-preschool .page-content { padding: 23px 15px 126px; }
+    body.variant-preschool .page-content { padding: 23px 15px calc(126px + env(safe-area-inset-bottom)); }
     body.variant-preschool .workbench-overview { overflow-x: clip; }
     body.variant-preschool .preschool-mobile-nav {
         position: fixed;
         z-index: 50;
         right: 13px;
-        bottom: 14px;
+        bottom: calc(14px + env(safe-area-inset-bottom));
         left: 13px;
         display: grid;
         grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -386,6 +386,7 @@ body.variant-preschool .preschool-mobile-nav { display: none; }
     body.variant-preschool .preschool-mobile-nav-item:active { transform: scale(.94); }
     body.variant-preschool .preschool-mobile-nav-item.is-active { color: #fff; background: linear-gradient(135deg, var(--wb-brand-light), var(--wb-brand)); box-shadow: 0 5px 12px rgba(255, 140, 66, .28); transform: translateY(-4px); }
     body.variant-preschool .preschool-mobile-nav-item.is-active::after { width: 4px; height: 4px; border-radius: 50%; background: #fff; content: ""; }
+    body.variant-preschool .preschool-mobile-nav-item { min-width: 44px; touch-action: manipulation; }
     body.variant-preschool .sidebar-close { display: inline-grid; }
     body.variant-preschool .menu-toggle { display: inline-grid; color: var(--wb-mint); }
     body.variant-preschool .topbar { min-height: 61px; padding-inline: 15px; }

@@ -107,6 +107,8 @@ test('keeps adult, child and preschool entry points isolated', () => {
   assert.match(rootHtml, /data-workbench-variant="child"/);
   assert.match(rootHtml, /data-workbench-variant="preschool"/);
   assert.match(rootHtml, /href="\.\/preschool-workbench\/index\.html"/);
+  assert.match(rootHtml, /@media \(max-width: 640px\)[\s\S]*launcher-topbar-meta span:last-child \{ display: none; \}/);
+  assert.match(rootHtml, /@media \(max-width: 640px\)[\s\S]*launcher-topbar-meta span:first-child \{ white-space: nowrap; \}/);
   assert.match(launcher, /personal_workbench_selected_variant_v1/);
   assert.match(launcher, /shouldAutoRedirect/);
   assert.match(adultHtml, /\.\.\/launcher\.js/);
