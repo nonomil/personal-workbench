@@ -223,8 +223,8 @@ test('uses transparent PVZ plants and zombie variants across the preschool defen
   assert.match(app, /const plantAsset = preschoolPlantAsset\(activePlant\)/);
   assert.match(app, /pixel-hud-defense-art/);
   assert.match(app, /asset: 'player-energy-bars'/);
-  assert.match(config, /selected\.id === 'preschool' \? 'v0\.2\.4 · 幼儿版'/);
-  assert.doesNotMatch(config, /v0\.3 · 幼儿版/);
+  assert.match(config, /selected\.id === 'preschool' \? 'v0\.3\.0 · 幼儿版'/);
+  assert.doesNotMatch(config, /v0\.2\.4 · 幼儿版/);
   assert.match(styles, /pixel-hud-defense-art/);
    assert.match(styles, /preschool-pvz-art/);
    assert.match(styles, /PVZ garden correction/);
@@ -372,4 +372,34 @@ test('keeps the approved WorkBuddy finish layer and mobile shortcut contract', (
   assert.match(styles, /safe-area-inset-bottom/);
   assert.match(styles, /preschool-mobile-nav-item \{ min-width: 44px; touch-action: manipulation; \}/);
   assert.match(app, /querySelectorAll\('\[data-mobile-nav\]'\)[\s\S]*classList\.toggle\('is-active'/);
+});
+
+test('defines answerable activities for every preschool lesson', () => {
+  const config = fs.readFileSync(path.join(root, 'config.js'), 'utf8');
+  const preschoolCourses = config.split("id: 'preschool-literacy'")[1].split("actions: { 'add-plan'")[0];
+  const activities = preschoolCourses.match(/activity:\s*\{/g) || [];
+  assert.equal(activities.length, 21);
+  assert.match(preschoolCourses, /prompt: '/);
+  assert.match(preschoolCourses, /options: \[/);
+  assert.match(preschoolCourses, /answer: \d/);
+  assert.match(preschoolCourses, /success: '/);
+});
+
+test('exposes the preschool lesson activity dialog contract', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const preschoolIndex = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
+  assert.match(preschoolIndex, /id="lesson-dialog"/);
+  assert.match(preschoolIndex, /id="lesson-dialog-content"/);
+  assert.match(preschoolIndex, /data-action="close-lesson"/);
+  assert.match(app, /lessonSession/);
+  assert.match(app, /data-action="open-lesson"/);
+  assert.match(app, /lesson-answer/);
+  assert.match(app, /lesson-finish/);
+});
+
+test('keeps a continue-learning action on the preschool overview', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  assert.match(app, /continue-learning/);
+  assert.match(app, /getNextPreschoolLesson/);
+  assert.match(app, /data-action="open-lesson" data-id=/);
 });

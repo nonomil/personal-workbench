@@ -334,6 +334,55 @@ body.variant-preschool .preschool-lesson:hover { border-color: var(--wb-mint); b
 body.variant-preschool .preschool-lesson > span:first-child { color: #fff; background: var(--wb-mint); }
 body.variant-preschool .preschool-lesson.is-done > span:first-child { background: var(--wb-green); }
 
+/* Preschool learning loop: practice first, reward after a correct answer. */
+body.variant-preschool .lesson-dialog {
+    width: min(570px, calc(100vw - 28px));
+    max-height: calc(100vh - 28px);
+    padding: 0;
+    overflow: auto;
+    border: 1px solid rgba(255, 255, 255, .94);
+    border-radius: 28px;
+    color: var(--wb-ink);
+    background: #fffaf4;
+    box-shadow: 0 25px 90px rgba(45, 45, 58, .2), inset 0 1px 0 rgba(255, 255, 255, .95);
+}
+body.variant-preschool .lesson-dialog::backdrop { background: rgba(45, 45, 58, .32); backdrop-filter: blur(5px); }
+body.variant-preschool .lesson-dialog-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 22px 23px 16px; border-bottom: 1px solid rgba(255, 140, 66, .16); background: linear-gradient(135deg, #fff3dd, #effbf8); }
+body.variant-preschool .lesson-dialog-head h2 { margin: 5px 0 0; color: var(--wb-ink); font-size: 23px; font-weight: 950; }
+body.variant-preschool .lesson-dialog-body { padding: 24px 23px 22px; }
+body.variant-preschool .lesson-dialog-course { display: inline-flex; min-height: 25px; align-items: center; padding: 0 10px; border-radius: 999px; color: #a3572e; background: #fff0cf; font-size: 11px; font-weight: 900; }
+body.variant-preschool .lesson-dialog-prompt { margin: 16px 0 18px; color: var(--wb-ink); font-size: 28px; line-height: 1.35; font-weight: 950; }
+body.variant-preschool .lesson-dialog-options { display: grid; gap: 10px; }
+body.variant-preschool .lesson-dialog-option { display: flex; min-height: 54px; align-items: center; gap: 12px; width: 100%; padding: 9px 13px; border: 1px solid rgba(78, 205, 196, .24); border-radius: 17px; color: var(--wb-ink); text-align: left; background: rgba(255, 255, 255, .82); box-shadow: 0 4px 12px rgba(45, 45, 58, .05); transition: transform .22s var(--wb-spring), border-color .22s ease, background .22s ease, box-shadow .22s ease; }
+body.variant-preschool .lesson-dialog-option:hover:not(:disabled) { border-color: var(--wb-mint); background: #fff; box-shadow: 0 8px 18px rgba(78, 205, 196, .15); transform: translateY(-2px); }
+body.variant-preschool .lesson-dialog-option:active:not(:disabled) { transform: scale(.98); }
+body.variant-preschool .lesson-dialog-option:focus-visible { outline: 3px solid rgba(255, 140, 66, .3); outline-offset: 2px; }
+body.variant-preschool .lesson-dialog-option:disabled { cursor: default; opacity: 1; }
+body.variant-preschool .lesson-dialog-option-index { display: inline-grid; width: 33px; height: 33px; flex: 0 0 33px; place-items: center; border-radius: 11px; color: #287f7a; background: #e2f8f4; font-size: 13px; font-weight: 950; }
+body.variant-preschool .lesson-dialog-option strong { flex: 1; font-size: 18px; line-height: 1.35; }
+body.variant-preschool .lesson-dialog-option > svg { width: 20px; height: 20px; flex: 0 0 20px; color: var(--wb-mint); }
+body.variant-preschool .lesson-dialog-option.is-correct { border-color: rgba(107, 203, 119, .72); background: #ecfaed; }
+body.variant-preschool .lesson-dialog-option.is-correct .lesson-dialog-option-index { color: #fff; background: var(--wb-green); }
+body.variant-preschool .lesson-dialog-option.is-correct > svg { color: var(--wb-green); }
+body.variant-preschool .lesson-dialog-option.is-wrong { border-color: rgba(228, 111, 79, .55); background: #fff0ed; }
+body.variant-preschool .lesson-dialog-option.is-wrong .lesson-dialog-option-index { color: #fff; background: #e47a59; }
+body.variant-preschool .lesson-dialog-option.is-wrong > svg { color: #e47a59; }
+body.variant-preschool .lesson-dialog-feedback { min-height: 24px; margin: 17px 0 0; color: var(--wb-muted); font-size: 14px; line-height: 1.65; }
+body.variant-preschool .lesson-dialog-feedback.is-error { color: #b35b42; }
+body.variant-preschool .lesson-dialog-feedback.is-success { color: #2f8a50; font-weight: 850; }
+body.variant-preschool .lesson-dialog-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; margin-top: 21px; padding-top: 17px; border-top: 1px dashed rgba(255, 140, 66, .22); }
+body.variant-preschool .lesson-dialog-actions button { min-height: 46px; }
+body.variant-preschool .lesson-dialog-actions .btn-primary:disabled { cursor: not-allowed; color: #a7a1a0; border-color: #e7e0da; background: #eee9e5; box-shadow: none; }
+
+body.variant-preschool .preschool-continue-learning { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 16px; margin: 17px 0 19px; padding: 17px 19px; border: 1px solid rgba(255, 140, 66, .27); border-radius: 22px; background: linear-gradient(110deg, rgba(255, 247, 228, .9), rgba(237, 253, 252, .86)); box-shadow: var(--wb-shadow); }
+body.variant-preschool .preschool-continue-learning.is-complete { border-color: rgba(107, 203, 119, .32); background: linear-gradient(110deg, rgba(236, 250, 237, .9), rgba(237, 253, 252, .86)); }
+body.variant-preschool .preschool-continue-art { display: grid; width: 62px; height: 62px; place-items: center; overflow: hidden; border-radius: 19px; background: rgba(255, 255, 255, .76); }
+body.variant-preschool .preschool-continue-art .preschool-generated-art { width: 53px; height: 53px; object-fit: contain; }
+body.variant-preschool .preschool-continue-learning h2 { margin: 4px 0 3px; color: var(--wb-ink); font-size: 19px; font-weight: 950; }
+body.variant-preschool .preschool-continue-learning p { margin: 0; color: var(--wb-muted); font-size: 12px; line-height: 1.6; }
+body.variant-preschool .preschool-continue-learning .btn-primary,
+body.variant-preschool .preschool-continue-learning .btn-secondary { min-height: 43px; white-space: nowrap; }
+
 body.variant-preschool .preschool-calendar-day { border-color: rgba(78, 205, 196, .18); background: rgba(255, 255, 255, .62); }
 body.variant-preschool .preschool-calendar-day.is-done { border-color: rgba(107, 203, 119, .48); background: rgba(229, 250, 232, .82); }
 body.variant-preschool .preschool-calendar-day.is-done small { background: var(--wb-green); }
@@ -399,6 +448,9 @@ body.variant-preschool .preschool-mobile-nav { display: none; }
     body.variant-preschool .workbench-overview-header h1 { font-size: 28px; }
     body.variant-preschool .pixel-page-header p,
     body.variant-preschool .workbench-overview-header p { font-size: 14px; }
+    body.variant-preschool .preschool-continue-learning { grid-template-columns: auto minmax(0, 1fr); align-items: start; }
+    body.variant-preschool .preschool-continue-learning > button { grid-column: 1 / -1; width: 100%; }
+    body.variant-preschool .lesson-dialog-prompt { font-size: 24px; }
     body.variant-preschool .pixel-quest-board,
     body.variant-preschool .pixel-side-panel,
     body.variant-preschool .preschool-course-card,
@@ -407,6 +459,12 @@ body.variant-preschool .preschool-mobile-nav { display: none; }
 }
 
 @media (max-width: 440px) {
+    body.variant-preschool .lesson-dialog-body { padding: 20px 16px 17px; }
+    body.variant-preschool .lesson-dialog-head { padding-inline: 16px; }
+    body.variant-preschool .lesson-dialog-option { min-height: 52px; }
+    body.variant-preschool .lesson-dialog-option strong { font-size: 17px; }
+    body.variant-preschool .lesson-dialog-actions { display: grid; grid-template-columns: 1fr; }
+    body.variant-preschool .lesson-dialog-actions button { width: 100%; }
     body.variant-preschool .workbench-stat-strip { width: 100%; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
     body.variant-preschool .workbench-stat-card { min-height: 72px; padding: 9px; }
     body.variant-preschool .workbench-stat-card .pixel-stat-art { width: 34px; height: 34px; flex-basis: 34px; }
@@ -440,4 +498,6 @@ body.variant-preschool .preschool-mobile-nav { display: none; }
     body.variant-preschool .pixel-quest-card:hover,
     body.variant-preschool .preschool-course-card:hover,
     body.variant-preschool .preschool-calendar-day:hover { transform: none; }
+    body.variant-preschool .lesson-dialog-option:hover:not(:disabled),
+    body.variant-preschool .preschool-continue-learning:hover { transform: none; }
 }

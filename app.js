@@ -7,6 +7,8 @@
     const pageContent = document.getElementById('page-content');
     const entryDialog = document.getElementById('entry-dialog');
     const entryForm = document.getElementById('entry-form');
+    const lessonDialog = document.getElementById('lesson-dialog');
+    const lessonDialogContent = document.getElementById('lesson-dialog-content');
     const dialogTitle = document.getElementById('dialog-title');
     const dialogEyebrow = document.getElementById('dialog-eyebrow');
     const toastStack = document.getElementById('toast-stack');
@@ -36,7 +38,7 @@
     const CATEGORY_COLORS = { 学习: 'orange', 阅读: 'blue', 实践: 'lime', 运动: 'gold', 自控: 'orange', 其它: 'blue' };
     const PRIORITY_LABELS = { high: '高优先', medium: '常规', low: '低优先' };
     const STATUS_LABELS = { todo: '待开始', doing: '进行中', done: '已完成' };
-    const ui = { page: getPageFromHash(), courseId: getCourseIdFromHash(), taskFilter: 'all', dialogType: '', dialogId: '', dialogArea: '' };
+    const ui = { page: getPageFromHash(), courseId: getCourseIdFromHash(), taskFilter: 'all', dialogType: '', dialogId: '', dialogArea: '', lessonSession: null };
     const isPreschool = workbenchConfig.variant === 'preschool';
     const isChild = workbenchConfig.variant === 'child' || isPreschool;
     const isAdult = workbenchConfig.variant === 'adult';
@@ -638,6 +640,7 @@
         return `<div class="pixel-home workbench-overview">
             <section class="pixel-page-header workbench-overview-header"><div><span class="pixel-panel-kicker workbench-kicker">TODAY / ADVENTURE</span><h1>今天的冒险开始啦</h1><p>${done}/${total || 0} 个任务已点亮，先完成一件小事，花园就会多一束光。</p></div><div class="pixel-header-actions workbench-overview-actions"><span class="pixel-hud-sun">${preschoolAsset('sun-token', '阳光')}<strong>${growth.sunlight}</strong></span><span class="pixel-hud-defense"><span class="pixel-hud-defense-art">${preschoolAsset('player-energy-bars', '豌豆能量')}</span><strong>${defense.energy}</strong><span>豌豆</span></span><span class="pixel-hud-streak"><span class="pixel-hud-streak-art">${preschoolAsset('streak-stars', '连续打卡')}</span>${growth.streak} 天</span><button class="pixel-settings-button" type="button" data-action="navigate" data-page="account" aria-label="打开设置" title="打开设置">${icon('settings')}</button></div></section>
             ${renderPixelDailyNote(done, total)}
+            ${renderPreschoolContinueLearning()}
             ${renderPixelStats(growth, defense)}
             <div class="pixel-world-grid"><section class="pixel-quest-board"><div id="workbench-today" class="pixel-board-heading workbench-card-head"><div><span class="pixel-panel-kicker workbench-kicker">TODAY QUESTS</span><h2>今天要做</h2><p>点一下任务，收集阳光和豌豆能量。</p></div><span class="pixel-board-count">${done} / ${total || 0}</span></div><div class="pixel-quest-grid workbench-task-grid">${plans.map(pixelQuestCard).join('')}</div><button class="workbench-secondary-button" type="button" data-action="navigate" data-page="plans">${icon('list-checks')} 查看全部任务</button></section><aside class="pixel-side-stack workbench-side-stack">${renderWorkbenchGardenPreview(growth, defense)}${renderPixelChest(growth, done, total)}${renderPreschoolCollection(growth)}</aside></div>
             ${renderWorkbenchRewardStrip(growth)}
@@ -743,6 +746,125 @@
         return `${renderPreschoolIntro(PAGE_META.calendar, '', '', `<span class="tag lime">${attendance}% 出勤率</span>`)}<div class="preschool-calendar-layout"><section class="preschool-calendar-card"><div class="preschool-section-head"><div><span class="eyebrow">MONTHLY CHECK-IN</span><h2>${monthStart.getFullYear()}年 ${monthStart.getMonth() + 1}月</h2><p>完成任务会留下绿色小点，漏掉的一天也只是下一次出发的提示。</p></div><span class="preschool-calendar-today">今天 ${today.slice(8)} 日</span></div><div class="preschool-calendar-weekdays">${['日', '一', '二', '三', '四', '五', '六'].map(function (label) { return `<span>${label}</span>`; }).join('')}</div><div class="preschool-calendar-grid">${cells.join('')}</div></section><aside class="preschool-calendar-summary"><article><span>${icon('calendar-check-2')}</span><strong>${completedThisMonth}</strong><small>本月点亮天数</small></article><article><span>${icon('flame')}</span><strong>${getChildGrowth().streak}</strong><small>当前连续天数</small></article><article><span>${icon('target')}</span><strong>${derived.todayPlans.filter(function (item) { return item.done; }).length}/${derived.todayPlans.length}</strong><small>今天完成进度</small></article><div class="preschool-calendar-legend"><strong>怎么看小日历</strong><span><i class="done"></i>已打卡</span><span><i class="missed"></i>还没打卡</span><span><i class="future"></i>还没到</span></div></aside></div>`;
     }
 
+    function findPreschoolLesson(id) {
+        const courses = Array.isArray(workbenchConfig.childCourses) ? workbenchConfig.childCourses : [];
+        for (const course of courses) {
+            const lesson = Array.isArray(course.lessons) ? course.lessons.find(function (item) { return item.id === id; }) : null;
+            if (lesson) return { course: course, lesson: lesson };
+        }
+        return null;
+    }
+
+    function getLessonActivity(lesson) {
+        const source = lesson && lesson.activity && typeof lesson.activity === 'object' ? lesson.activity : {};
+        const options = Array.isArray(source.options) && source.options.length ? source.options : ['我准备好了'];
+        const answer = Math.max(0, Math.min(options.length - 1, Number.isInteger(Number(source.answer)) ? Number(source.answer) : 0));
+        return {
+            prompt: String(source.prompt || `准备完成“${lesson && lesson.title ? lesson.title : '这项练习'}”吗？`),
+            hint: String(source.hint || (lesson && lesson.tip) || '先看清楚，再选一个答案。'),
+            options: options.map(function (item) { return String(item); }),
+            answer: answer,
+            success: String(source.success || '准备好啦！')
+        };
+    }
+
+    function renderLessonDialog() {
+        if (!lessonDialogContent || !ui.lessonSession) return;
+        const match = findPreschoolLesson(ui.lessonSession.id);
+        if (!match) {
+            lessonDialogContent.innerHTML = '<p class="lesson-dialog-feedback is-error">这节练习暂时不可用，请先回到课程列表。</p>';
+            return;
+        }
+        const activity = getLessonActivity(match.lesson);
+        const selectedIndex = ui.lessonSession.selectedIndex;
+        const correct = ui.lessonSession.correct;
+        const optionMarkup = activity.options.map(function (option, index) {
+            const isSelected = selectedIndex === index;
+            const isCorrect = correct && index === activity.answer;
+            const isWrong = isSelected && !correct;
+            return `<button class="lesson-dialog-option ${isCorrect ? 'is-correct' : ''} ${isWrong ? 'is-wrong' : ''}" type="button" data-action="lesson-answer" data-index="${index}" aria-pressed="${isSelected}" ${correct ? 'disabled' : ''}><span class="lesson-dialog-option-index">${String.fromCharCode(65 + index)}</span><strong>${escapeHtml(option)}</strong>${isCorrect ? icon('check') : isWrong ? icon('rotate-ccw') : icon('arrow-right')}</button>`;
+        }).join('');
+        const feedback = correct
+            ? `<p class="lesson-dialog-feedback is-success" role="status">${escapeHtml(activity.success)} 阳光和豌豆能量已经准备好啦。</p>`
+            : selectedIndex === null
+                ? `<p class="lesson-dialog-feedback">${escapeHtml(activity.hint)}</p>`
+                : '<p class="lesson-dialog-feedback is-error" role="alert">还差一点，再看看提示，换一个答案试试。</p>';
+        lessonDialogContent.innerHTML = `<div class="lesson-dialog-body"><span class="lesson-dialog-course">${escapeHtml(match.course.title)}</span><h3 class="lesson-dialog-prompt">${escapeHtml(activity.prompt)}</h3><div class="lesson-dialog-options" role="group" aria-label="练习选项">${optionMarkup}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${correct ? '' : 'disabled'}>${icon(correct ? 'sparkles' : 'lock-keyhole')}${correct ? '收集阳光，完成练习' : '答对后领取奖励'}</button></div></div>`;
+        if (global.lucide && typeof global.lucide.createIcons === 'function') global.lucide.createIcons({ root: lessonDialogContent });
+    }
+
+    function openLessonDialog(id) {
+        if (!isPreschool || !lessonDialog || !lessonDialogContent) return false;
+        const match = findPreschoolLesson(id);
+        if (!match) {
+            showToast('这节练习暂时不可用。', true);
+            return false;
+        }
+        const completedIds = state.courseProgress && Array.isArray(state.courseProgress.completedLessonIds)
+            ? state.courseProgress.completedLessonIds
+            : [];
+        if (completedIds.includes(match.lesson.id)) {
+            showToast('这节练习已经点亮啦。');
+            return false;
+        }
+        ui.lessonSession = { id: match.lesson.id, courseId: match.course.id, selectedIndex: null, correct: false };
+        renderLessonDialog();
+        if (typeof lessonDialog.showModal === 'function' && !lessonDialog.open) lessonDialog.showModal();
+        else lessonDialog.setAttribute('open', '');
+        return true;
+    }
+
+    function answerLesson(index) {
+        if (!isPreschool || !ui.lessonSession) return false;
+        const match = findPreschoolLesson(ui.lessonSession.id);
+        if (!match) return false;
+        const activity = getLessonActivity(match.lesson);
+        const selectedIndex = Number(index);
+        if (!Number.isInteger(selectedIndex) || selectedIndex < 0 || selectedIndex >= activity.options.length) return false;
+        ui.lessonSession.selectedIndex = selectedIndex;
+        ui.lessonSession.correct = selectedIndex === activity.answer;
+        renderLessonDialog();
+        if (ui.lessonSession.correct) speakPraise(activity.success);
+        return ui.lessonSession.correct;
+    }
+
+    function finishLesson() {
+        if (!isPreschool || !ui.lessonSession) return false;
+        if (!ui.lessonSession.correct) {
+            showToast('先答对题目，再领取阳光哦。', true);
+            return false;
+        }
+        const id = ui.lessonSession.id;
+        const ok = completeCourseLesson(id);
+        if (ok) closeLessonDialog();
+        return ok;
+    }
+
+    function closeLessonDialog() {
+        if (!lessonDialog) return;
+        if (typeof lessonDialog.close === 'function' && lessonDialog.open) lessonDialog.close();
+        else lessonDialog.removeAttribute('open');
+        ui.lessonSession = null;
+        if (lessonDialogContent) lessonDialogContent.innerHTML = '';
+    }
+
+    function getNextPreschoolLesson() {
+        if (!isPreschool) return null;
+        const completed = new Set(Array.isArray(state.courseProgress && state.courseProgress.completedLessonIds) ? state.courseProgress.completedLessonIds : []);
+        const courses = Array.isArray(workbenchConfig.childCourses) ? workbenchConfig.childCourses : [];
+        for (const course of courses) {
+            const lesson = Array.isArray(course.lessons) ? course.lessons.find(function (item) { return !completed.has(item.id); }) : null;
+            if (lesson) return { course: course, lesson: lesson };
+        }
+        return null;
+    }
+
+    function renderPreschoolContinueLearning() {
+        const next = getNextPreschoolLesson();
+        if (!next) return `<section class="preschool-continue-learning is-complete" aria-label="课程进度"><span class="preschool-continue-art">${preschoolAsset('star-companion', '课程完成')}</span><div><span class="eyebrow">LEARNING PATH</span><h2>今天的课程都点亮啦</h2><p>去花园看看新伙伴，或者和家长分享今天的成长。</p></div><button class="btn-secondary" type="button" data-action="navigate" data-page="growth">去看花园${icon('arrow-up-right')}</button></section>`;
+        return `<section class="preschool-continue-learning" aria-label="继续学习"><span class="preschool-continue-art">${preschoolVisual(next.course.icon || 'book-open', preschoolAssetForIcon(next.course.icon || 'book-open'), next.course.title)}</span><div><span class="eyebrow">CONTINUE LEARNING</span><h2>${escapeHtml(next.lesson.title)}</h2><p>${escapeHtml(next.course.title)} · ${escapeHtml(next.lesson.minutes)} 分钟 · 做完就点亮一张练习卡。</p></div><button class="btn-primary" type="button" data-action="open-lesson" data-id="${escapeHtml(next.lesson.id)}">${icon('play')} 开始练习</button></section>`;
+    }
+
     function renderPreschoolCourseBadges(course) {
         const items = [];
         if (course && course.badge) items.push(course.badge);
@@ -778,7 +900,8 @@
     }
 
     function renderPreschoolCourseCard(course, focused) {
-        return `<article class="preschool-course-card tone-${escapeHtml(course.tone || 'blue')} ${focused ? 'is-focused' : ''}"><div class="preschool-course-head">${preschoolVisual(course.icon || 'book-open', preschoolAssetForIcon(course.icon || 'book-open'), course.title)}<div><span class="preschool-course-label">${focused ? '当前学习专区' : '学习专区'}</span><h2>${escapeHtml(course.title)}</h2><small>${escapeHtml(course.description || '')}</small></div><strong>${course.completed || 0}/${course.total || 0}</strong></div><div class="preschool-course-reference"><span>${icon('sparkles')}</span><p class="preschool-course-note">${escapeHtml(course.note || '选一张卡，开始今天的小练习。')}</p></div>${renderPreschoolCourseBadges(course)}${renderPreschoolCourseSamples(course)}<div class="preschool-course-lesson-heading"><div><span class="eyebrow">TODAY / PRACTICE</span><h3>今天可以做这些</h3></div><span>${course.total || (course.lessons || []).length} 张练习卡</span></div><div class="preschool-course-lessons">${(course.lessons || []).map(function (lesson) { const completed = (state.courseProgress.completedLessonIds || []).includes(lesson.id); return `<button class="preschool-lesson ${completed ? 'is-done' : ''}" type="button" data-action="complete-lesson" data-id="${escapeHtml(lesson.id)}" ${completed ? 'disabled' : ''}><span>${icon(completed ? 'check' : 'play')}</span><span class="preschool-lesson-copy"><strong>${escapeHtml(lesson.title)}</strong><small>${completed ? '完成啦 · 已记录到成长花园' : `${lesson.minutes} 分钟 · ${escapeHtml(lesson.meta || '开始练习')}`}</small></span><em>${escapeHtml(completed ? '已点亮' : (lesson.tip || '开始'))}</em></button>`; }).join('')}</div></article>`;
+        const lessonAction = isPreschool ? 'open-lesson' : 'complete-lesson';
+        return `<article class="preschool-course-card tone-${escapeHtml(course.tone || 'blue')} ${focused ? 'is-focused' : ''}"><div class="preschool-course-head">${preschoolVisual(course.icon || 'book-open', preschoolAssetForIcon(course.icon || 'book-open'), course.title)}<div><span class="preschool-course-label">${focused ? '当前学习专区' : '学习专区'}</span><h2>${escapeHtml(course.title)}</h2><small>${escapeHtml(course.description || '')}</small></div><strong>${course.completed || 0}/${course.total || 0}</strong></div><div class="preschool-course-reference"><span>${icon('sparkles')}</span><p class="preschool-course-note">${escapeHtml(course.note || '选一张卡，开始今天的小练习。')}</p></div>${renderPreschoolCourseBadges(course)}${renderPreschoolCourseSamples(course)}<div class="preschool-course-lesson-heading"><div><span class="eyebrow">TODAY / PRACTICE</span><h3>今天可以做这些</h3></div><span>${course.total || (course.lessons || []).length} 张练习卡</span></div><div class="preschool-course-lessons">${(course.lessons || []).map(function (lesson) { const completed = (state.courseProgress.completedLessonIds || []).includes(lesson.id); return `<button class="preschool-lesson ${completed ? 'is-done' : ''}" type="button" data-action="${lessonAction}" data-id="${escapeHtml(lesson.id)}" ${completed ? 'disabled' : ''}><span>${icon(completed ? 'check' : 'play')}</span><span class="preschool-lesson-copy"><strong>${escapeHtml(lesson.title)}</strong><small>${completed ? '完成啦 · 已记录到成长花园' : `${lesson.minutes} 分钟 · ${escapeHtml(lesson.meta || '开始练习')}`}</small></span><em>${escapeHtml(completed ? '已点亮' : (lesson.tip || '开始'))}</em></button>`; }).join('')}</div></article>`;
     }
 
     function renderPreschoolCourses() {
@@ -1441,7 +1564,10 @@
     function completeCourseLesson(id) {
         const catalog = Array.isArray(workbenchConfig.childCourses) ? workbenchConfig.childCourses : [];
         const valid = catalog.some(course => Array.isArray(course.lessons) && course.lessons.some(lesson => lesson.id === id));
-        if (!valid || !global.PersonalWorkbenchChildCourses) return showToast('这节课暂时不可用。', true);
+        if (!valid || !global.PersonalWorkbenchChildCourses) {
+            showToast('这节课暂时不可用。', true);
+            return false;
+        }
         const ok = commit(function (next) {
             const result = global.PersonalWorkbenchChildCourses.completeLesson(next.courseProgress, id);
             if (!result.changed) throw new Error('这节课已经完成了');
@@ -1451,6 +1577,7 @@
         if (ok) {
             speakPraise('太棒了，你完成了一节课！');
         }
+        return ok;
     }
 
     function claimStreakReward(id) {
@@ -1952,6 +2079,10 @@
         if (action === 'spawn-invader') spawnPreschoolInvader();
         if (action === 'fire-pea') firePreschoolPea();
         if (action === 'complete-lesson') completeCourseLesson(target.dataset.id);
+        if (action === 'open-lesson') openLessonDialog(target.dataset.id);
+        if (action === 'lesson-answer') answerLesson(target.dataset.index);
+        if (action === 'lesson-finish') finishLesson();
+        if (action === 'close-lesson') closeLessonDialog();
         if (action === 'open-focus') openDialog('focus');
         if (action === 'export') exportSnapshot();
         if (action === 'import-trigger') importFile.click();
@@ -2013,6 +2144,10 @@
     importFile.addEventListener('change', function () { importSnapshot(importFile.files && importFile.files[0]); });
     window.addEventListener('hashchange', function () { const route = getRouteFromHash(); ui.page = getPageFromHash(); ui.courseId = route.page === 'courses' ? route.courseId : ''; render(); closeSidebar(); window.scrollTo(0, 0); });
     entryDialog.addEventListener('click', function (event) { if (event.target === entryDialog) closeDialog(); });
+    if (lessonDialog) {
+        lessonDialog.addEventListener('click', function (event) { if (event.target === lessonDialog) closeLessonDialog(); });
+        lessonDialog.addEventListener('close', function () { ui.lessonSession = null; if (lessonDialogContent) lessonDialogContent.innerHTML = ''; });
+    }
 
     if (!location.hash) history.replaceState(null, '', '#overview');
     global.lucide.createIcons();
