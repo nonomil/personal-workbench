@@ -62,11 +62,11 @@
         .panel-label strong { display: block; font-size: 15px; }
         .panel-label small { display: block; margin-top: 3px; color: var(--muted); font-size: 11px; line-height: 1.45; }
         .panel-badge { display: inline-flex; min-height: 26px; align-items: center; padding: 0 9px; border-radius: 999px; color: var(--muted); background: rgba(255, 255, 255, .7); font-size: 10px; font-weight: 900; white-space: nowrap; }
-        .liquid-panel .panel-badge { color: #A3572E; background: #FFF0CD; }
+        .liquid-panel .panel-badge { color: #315D2B; background: #DDF4B8; }
 
         .preview-window { min-width: 0; min-height: 720px; overflow: hidden; border: 1px solid rgba(45, 45, 58, .1); border-radius: 18px; background: #F4F1FF; }
         .current-window { --panel-bg: #F4F1FF; --panel-card: #FFFFFF; --panel-accent: #7357C8; --panel-accent-soft: #E9E4FF; --panel-text: #332A4B; --panel-muted: #7A718C; --panel-line: rgba(80, 61, 145, .14); background: var(--panel-bg); }
-        .liquid-window { --panel-bg: #FFF8F0; --panel-card: rgba(255, 255, 255, .84); --panel-accent: #FF8C42; --panel-accent-soft: #FFF0D7; --panel-text: #2D2D3A; --panel-muted: #6B6B7B; --panel-line: rgba(255, 140, 66, .17); background: linear-gradient(135deg, #FFF8F0, #FFF0E0 58%, #E8F4F8); }
+        .liquid-window { --panel-bg: #68C84C; --panel-card: rgba(255, 251, 221, .92); --panel-accent: #FF8C42; --panel-accent-soft: #FFF0D7; --panel-text: #244C2A; --panel-muted: #537052; --panel-line: rgba(255, 255, 255, .32); background: #68C84C url('../assets/generated/preschool-pvz-2d/background/published/pvz-garden-lawn-bg.webp') center top / cover no-repeat; }
         .preview-topbar { display: flex; min-height: 60px; align-items: center; justify-content: space-between; gap: 10px; padding: 0 18px; border-bottom: 1px solid var(--panel-line); background: rgba(255, 255, 255, .72); }
         .preview-brand { display: inline-flex; min-width: 0; align-items: center; gap: 8px; color: var(--panel-text); font-size: 12px; font-weight: 950; }
         .preview-brand-mark { display: grid; width: 30px; height: 30px; place-items: center; overflow: hidden; border-radius: 10px; background: var(--panel-accent-soft); }
@@ -147,10 +147,31 @@
         .current-window .garden-scene { border-radius: 9px; background: linear-gradient(180deg, #D9D0FF, #B7A9EE 60%, #8A79CF 61%, #6E5EB4); }
         .current-window .learning-strip { border-color: rgba(115, 87, 200, .2); background: #FFF; }
         .current-window .learning-chip { color: #5B43A0; background: #ECE7FF; }
-        .liquid-window .preview-topbar { background: rgba(255, 255, 255, .76); backdrop-filter: blur(18px) saturate(150%); -webkit-backdrop-filter: blur(18px) saturate(150%); }
-        .liquid-window .preview-sidebar { background: rgba(255, 255, 255, .36); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
-        .liquid-window .stat-card, .liquid-window .task-card, .liquid-window .garden-card, .liquid-window .reward-card, .liquid-window .learning-strip { background: rgba(255, 255, 255, .7); box-shadow: 0 8px 25px rgba(45, 45, 58, .08), inset 0 1px 0 rgba(255, 255, 255, .9); }
-        .liquid-window .task-card:hover { box-shadow: 0 14px 28px rgba(45, 45, 58, .12), 0 0 20px rgba(255, 140, 66, .12); }
+        .liquid-window .preview-topbar { color: #FFFDF0; background: rgba(21, 72, 38, .82); border-bottom-color: rgba(255, 255, 255, .23); backdrop-filter: blur(12px) saturate(130%); -webkit-backdrop-filter: blur(12px) saturate(130%); }
+        .liquid-window .preview-brand { color: #FFFDF0; }
+        .liquid-window .preview-brand-mark { background: rgba(255, 222, 94, .9); }
+        .liquid-window .mini-action { color: #F5FBDC; border-color: rgba(255, 255, 255, .25); background: rgba(8, 48, 25, .42); }
+        .liquid-window .mini-avatar { color: #3B5C22; background: #FFD93D; }
+        .liquid-window .preview-sidebar { background: rgba(19, 73, 38, .76); border-right-color: rgba(255, 255, 255, .24); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+        .liquid-window .preview-sidebar-title, .liquid-window .preview-side-note { color: #DDF4B8; }
+        .liquid-window .preview-nav-item { color: #F1F8D9; }
+        .liquid-window .preview-nav-item.is-active { color: #214D27; border-color: rgba(255, 255, 255, .26); background: #DDF4B8; }
+        .liquid-window .preview-content { background: linear-gradient(180deg, rgba(16, 73, 34, .2), rgba(18, 83, 39, .08)); }
+        .liquid-window .preview-hero { margin: -4px -4px 15px; padding: 14px; border: 1px solid rgba(255, 255, 255, .32); border-radius: 16px; background: rgba(20, 75, 37, .7); box-shadow: 0 8px 24px rgba(19, 57, 25, .2); }
+        .liquid-window .preview-hero h2 { color: #FFFDF0; }
+        .liquid-window .preview-hero p { color: #E4F6C8; }
+        .liquid-window .preview-hero .eyebrow { color: #FFD93D; }
+        .liquid-window .preview-hero-art { background: #FFD93D; box-shadow: 0 5px 0 rgba(150, 100, 15, .18); }
+        .liquid-window .stat-card, .liquid-window .task-card, .liquid-window .garden-card, .liquid-window .reward-card, .liquid-window .learning-strip { background: rgba(255, 252, 225, .92); border-color: rgba(57, 105, 38, .28); box-shadow: 0 8px 18px rgba(24, 74, 34, .2), inset 0 1px 0 rgba(255, 255, 255, .94); }
+        .liquid-window .stat-card.sun { background: #FFF0A8; }
+        .liquid-window .stat-card.mint { background: #CFF2D0; }
+        .liquid-window .stat-card.green { background: #DDF4B8; }
+        .liquid-window .section-line h3 { color: #FFFDF0; text-shadow: 0 2px 2px rgba(20, 66, 28, .4); }
+        .liquid-window .section-line small { color: #F1F8D9; }
+        .liquid-window .task-card:hover { border-color: #FFD93D; box-shadow: 0 12px 22px rgba(24, 74, 34, .26), 0 0 0 3px rgba(255, 217, 61, .23); }
+        .liquid-window .garden-card, .liquid-window .reward-card { background: rgba(255, 252, 225, .94); }
+        .liquid-window .garden-scene { background: rgba(40, 118, 48, .82); border: 2px solid rgba(255, 255, 255, .38); }
+        .liquid-window .learning-strip { background: rgba(228, 247, 196, .92); border-color: rgba(57, 105, 38, .35); }
 
         .toast { position: fixed; right: 22px; bottom: 22px; z-index: 10; display: flex; min-height: 42px; align-items: center; gap: 8px; padding: 0 13px; border: 1px solid rgba(107, 203, 119, .34); border-radius: 13px; color: #27764F; background: rgba(240, 251, 241, .96); box-shadow: var(--shadow-md); font-size: 12px; font-weight: 900; animation: toast-in .3s var(--spring) both; }
         .toast svg { width: 16px; height: 16px; }
@@ -215,7 +236,7 @@
             </div>
         </header>
         <section class="palette-bar" aria-label="提示词核心色板">
-            <div class="palette-intro"><strong>提示词核心色板</strong><small>橙色负责行动，薄荷负责学习，金色负责奖励，草绿负责完成。</small></div>
+                <div class="palette-intro"><strong>植物大战僵尸式游戏色板</strong><small>天空与草坪负责场景，阳光负责奖励，橙色负责行动，深绿负责战斗 HUD。</small></div>
             <div class="swatches">
                 <span class="swatch"><i style="background:#FF8C42"></i>橙色</span>
                 <span class="swatch"><i style="background:#4ECDC4"></i>薄荷</span>
@@ -240,7 +261,7 @@
             const state = { done: [true, false, false], sunlight: 40, claimed: false };
             const previewModes = [
                 { id: 'current', className: 'current-panel', title: '当前版', subtitle: '紫色任务地图 · 现有结构', badge: 'CURRENT' },
-                { id: 'liquid', className: 'liquid-panel', title: '新方案', subtitle: '橙薄荷液态玻璃 · 精致 UI', badge: 'PROPOSED' }
+                    { id: 'liquid', className: 'liquid-panel', title: '新方案', subtitle: '阳光草坪 · 四条战线 · 右侧入侵路线', badge: 'GAME SCENE' }
             ];
 
             function icon(name) {
@@ -276,7 +297,7 @@
                         <div class="preview-body">
                             <aside class="preview-sidebar"><span class="preview-sidebar-title">${isLiquid ? 'TODAY / ROUTE' : '小小路线'}</span><nav class="preview-nav" aria-label="${mode.title}导航"><span class="preview-nav-item is-active">${icon('house')}首页</span><span class="preview-nav-item">${icon('check')}今日打卡</span><span class="preview-nav-item">${icon('leaf')}花园基地</span><span class="preview-nav-item">${icon('book')}学习专区</span><span class="preview-nav-item">${icon('gift')}奖励商城</span></nav><small class="preview-side-note">完成一件小事，花园就会多一束光。</small></aside>
                             <main class="preview-content">
-                                <section class="preview-hero"><div><span class="eyebrow">TODAY / ADVENTURE</span><h2>今天的冒险开始啦</h2><p>先完成一件小事，收集阳光，再来点亮自己的小花园。</p></div><span class="preview-hero-art">${asset(isLiquid ? 'pvz-sunflower.png' : 'pvz-sun-token.png', '植物伙伴')}</span></section>
+                                    <section class="preview-hero"><div><span class="eyebrow">TODAY / GARDEN DEFENSE</span><h2>${isLiquid ? '花园保卫战开始啦' : '今天的冒险开始啦'}</h2><p>先完成一件小事，收集阳光，再来点亮自己的小花园。</p></div><span class="preview-hero-art">${asset(isLiquid ? 'pvz-sunflower.png' : 'pvz-sun-token.png', '植物伙伴')}</span></section>
                                 <section class="stat-grid" aria-label="今日状态"><article class="stat-card sun"><small>阳光余额</small><strong data-metric="sunlight">40 <em>☀</em></strong></article><article class="stat-card mint"><small>豌豆能量</small><strong data-metric="energy">2 <em>发射</em></strong></article><article class="stat-card green"><small>连续成长</small><strong>3 <em>天</em></strong></article></section>
                                 <div class="section-line"><h3>今天要做</h3><small data-metric="progress">1 / 3 已点亮</small></div>
                                 <section class="task-grid" aria-label="今日任务">${tasks.map(taskCard).join('')}</section>

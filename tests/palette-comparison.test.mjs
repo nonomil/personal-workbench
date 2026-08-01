@@ -27,5 +27,6 @@ test('defines an isolated side-by-side wisdom garden palette comparison page', (
   assert.match(html, /@media\s*\(prefers-reduced-motion:\s*reduce\)/);
   assert.match(html, /const ASSET_BASE = ['"]\.\.\/assets\/generated\/preschool-pvz-2d\/published\//);
   assert.match(html, /pvz-(sun-token|sunflower|peashooter)/);
+  assert.match(html, /background\/published\/pvz-garden-lawn-bg\.webp/);
   assert.doesNotMatch(html, /localStorage/);
 });
