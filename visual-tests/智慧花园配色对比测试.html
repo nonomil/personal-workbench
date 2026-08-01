@@ -173,6 +173,114 @@
         .liquid-window .garden-scene { background: rgba(40, 118, 48, .82); border: 2px solid rgba(255, 255, 255, .38); }
         .liquid-window .learning-strip { background: rgba(228, 247, 196, .92); border-color: rgba(57, 105, 38, .35); }
 
+        /* The game-scene preview uses a compact tower-defense HUD rather than app cards. */
+        .game-scene-shell { min-height: 720px; overflow: hidden; color: #FFF8D7; background: linear-gradient(180deg, rgba(20, 74, 37, .12), rgba(35, 104, 40, .16)); }
+        .game-hud { display: grid; grid-template-columns: minmax(145px, 1fr) auto auto auto; min-height: 67px; align-items: center; gap: 9px; padding: 8px 12px; border-bottom: 3px solid #6A351D; background: linear-gradient(180deg, #2F7E3D, #18532D); box-shadow: 0 4px 0 rgba(16, 48, 25, .35); }
+        .game-title { display: inline-flex; min-width: 0; align-items: center; gap: 7px; }
+        .game-title-mark { display: grid; width: 45px; height: 45px; flex: 0 0 45px; place-items: center; border: 3px solid #F2C84B; border-radius: 50%; background: #F8E58B; box-shadow: inset 0 -4px 0 rgba(175, 123, 23, .2), 0 3px 0 rgba(16, 48, 25, .32); }
+        .game-title-mark img { width: 39px; height: 39px; object-fit: contain; }
+        .game-title strong, .game-title small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .game-title strong { color: #FFF8D7; font-size: 14px; font-weight: 950; text-shadow: 0 2px 0 #174A28; }
+        .game-title small { margin-top: 2px; color: #CFEA98; font-size: 9px; font-weight: 850; }
+        .sun-counter { display: inline-flex; min-height: 43px; align-items: center; gap: 5px; padding: 0 10px 0 6px; border: 3px solid #A45A1E; border-radius: 12px; color: #5D3413; background: linear-gradient(180deg, #FFF3A8, #F6C846); box-shadow: inset 0 2px 0 rgba(255, 255, 255, .68), 0 3px 0 rgba(16, 48, 25, .35); cursor: pointer; font-weight: 950; transition: transform .15s var(--spring), filter .15s ease; }
+        .sun-counter:hover { filter: brightness(1.06); transform: translateY(-2px); }
+        .sun-counter:active { transform: scale(.96); }
+        .sun-counter img { width: 32px; height: 32px; object-fit: contain; animation: sun-bob 2.2s ease-in-out infinite; }
+        .sun-counter strong { min-width: 31px; font-size: 18px; line-height: 1; text-align: center; }
+        .sun-counter small { color: #8D5917; font-size: 8px; }
+        .streak-counter { display: inline-flex; min-height: 43px; align-items: center; gap: 5px; padding: 0 9px; border: 2px solid rgba(255, 255, 255, .38); border-radius: 10px; color: #FFF8D7; background: rgba(8, 48, 25, .44); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12); }
+        .streak-counter b { color: #FFD94E; font-size: 17px; line-height: 1; }
+        .streak-counter span { display: block; color: #DDF4B8; font-size: 8px; font-weight: 900; white-space: nowrap; }
+        .hud-tool { display: grid; width: 43px; height: 43px; place-items: center; border: 3px solid #6B3E22; border-radius: 10px; color: #FFF1C6; background: linear-gradient(180deg, #A86B3D, #704021); box-shadow: inset 0 2px 0 rgba(255, 255, 255, .22), 0 3px 0 rgba(16, 48, 25, .35); cursor: pointer; transition: transform .15s var(--spring), background .15s ease; }
+        .hud-tool:hover { transform: translateY(-2px) rotate(-3deg); }
+        .hud-tool.is-active { color: #5B371D; background: #FFD95D; }
+        .hud-tool svg { width: 22px; height: 22px; }
+        .seed-tray { display: flex; min-height: 78px; align-items: center; gap: 7px; padding: 8px 12px; border-bottom: 3px solid rgba(81, 44, 26, .76); background: linear-gradient(180deg, rgba(88, 47, 27, .98), rgba(55, 31, 22, .98)); box-shadow: inset 0 2px 0 rgba(255, 206, 123, .17); }
+        .seed-tray-label { width: 46px; flex: 0 0 46px; color: #FFD66B; font-size: 9px; font-weight: 950; line-height: 1.25; text-align: center; text-transform: uppercase; }
+        .seed-card { position: relative; display: grid; width: 60px; height: 62px; flex: 0 0 60px; place-items: center; padding: 2px 2px 15px; border: 3px solid #8F6334; border-radius: 8px; color: #FFF4C8; background: linear-gradient(180deg, #AED668, #568D42); box-shadow: inset 0 2px 0 rgba(255, 255, 255, .3), 0 3px 0 rgba(19, 27, 13, .38); cursor: pointer; transition: transform .16s var(--spring), border-color .16s ease, filter .16s ease; }
+        .seed-card:hover { filter: brightness(1.1); transform: translateY(-3px); }
+        .seed-card.is-selected { border-color: #FFE067; background: linear-gradient(180deg, #D8F18A, #78B54A); box-shadow: 0 0 0 3px rgba(255, 225, 92, .28), inset 0 2px 0 rgba(255, 255, 255, .42), 0 3px 0 rgba(19, 27, 13, .38); }
+        .seed-card img { width: 43px; height: 43px; object-fit: contain; }
+        .seed-card strong { position: absolute; right: 4px; bottom: 2px; left: 4px; overflow: hidden; color: #FFF8D7; font-size: 8px; text-overflow: ellipsis; white-space: nowrap; }
+        .seed-card b { position: absolute; top: 2px; right: 4px; min-width: 16px; padding: 1px 3px; border-radius: 5px; color: #5D3413; background: #FFD95D; font-size: 8px; }
+        .seed-hint { margin-left: auto; color: #E4F2BD; font-size: 9px; font-weight: 800; text-align: right; }
+        .game-board { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 61px; gap: 8px; padding: 11px 12px 9px; }
+        .game-lawn { display: grid; gap: 6px; min-width: 0; }
+        .lawn-lane { position: relative; display: block; min-height: 75px; overflow: hidden; border: 3px solid rgba(61, 123, 45, .78); border-radius: 8px 16px 16px 8px; background: linear-gradient(180deg, rgba(119, 192, 74, .95), rgba(70, 143, 54, .95)); box-shadow: inset 0 2px 0 rgba(223, 247, 151, .34), inset 0 -4px 0 rgba(31, 96, 40, .28), 0 3px 0 rgba(32, 73, 32, .36); }
+        .lawn-lane::after { position: absolute; right: 0; bottom: 0; left: 0; height: 5px; background: rgba(35, 93, 42, .25); content: ""; }
+        .lane-cells { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); pointer-events: none; }
+        .lane-cells i { border-right: 1px dashed rgba(216, 244, 142, .28); }
+        .lane-number { position: absolute; top: 5px; left: 5px; z-index: 2; display: grid; width: 20px; height: 20px; place-items: center; border: 2px solid rgba(255, 248, 183, .75); border-radius: 50%; color: #FFF8D7; background: rgba(29, 92, 41, .52); font-size: 9px; font-weight: 950; }
+        .lawn-spot { position: absolute; bottom: 2px; left: 28%; z-index: 3; display: grid; width: 70px; height: 70px; place-items: end center; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: pointer; }
+        .lawn-spot:hover { background: rgba(255, 235, 105, .16); }
+        .lawn-spot img { width: 65px; height: 65px; object-fit: contain; filter: drop-shadow(0 5px 2px rgba(27, 71, 27, .38)); animation: plant-sway 2.8s ease-in-out infinite; }
+        .lawn-spot:empty::after { display: grid; width: 23px; height: 23px; place-items: center; border: 2px dashed rgba(255, 248, 183, .72); border-radius: 50%; color: rgba(255, 248, 183, .92); content: "+"; font-size: 15px; font-weight: 900; }
+        .zombie-token { position: absolute; right: 3%; bottom: 1px; z-index: 3; display: grid; width: 67px; height: 70px; place-items: end center; pointer-events: none; }
+        .zombie-token img { width: 65px; height: 65px; object-fit: contain; filter: drop-shadow(0 5px 2px rgba(39, 47, 24, .5)); animation: zombie-shuffle 1.35s ease-in-out infinite; }
+        .lane-label { position: absolute; right: 7px; top: 5px; z-index: 2; padding: 2px 5px; border: 1px solid rgba(255, 246, 177, .55); border-radius: 5px; color: #FFF7C5; background: rgba(24, 73, 32, .48); font-size: 8px; font-weight: 900; }
+        .wood-sign-nav { display: grid; align-content: center; gap: 9px; padding-top: 4px; }
+        .wood-sign { position: relative; min-height: 48px; padding: 4px 3px; border: 3px solid #6B371D; border-radius: 7px; color: #FFF3C4; background: linear-gradient(180deg, #B97642, #75401F); box-shadow: inset 0 2px 0 rgba(255, 216, 147, .35), 0 4px 0 rgba(38, 51, 25, .3); cursor: pointer; font-size: 9px; font-weight: 950; line-height: 1.2; text-shadow: 0 1px 0 #4C2414; transform: rotate(-2deg); transition: transform .16s var(--spring), filter .16s ease, background .16s ease; }
+        .wood-sign:nth-child(2) { transform: rotate(2deg); }
+        .wood-sign:nth-child(3) { transform: rotate(-1deg); }
+        .wood-sign:hover, .wood-sign.is-active { filter: brightness(1.12); background: linear-gradient(180deg, #D49A56, #945427); transform: rotate(0) translateY(-3px); }
+        .wood-sign svg { display: block; width: 17px; height: 17px; margin: 0 auto 2px; }
+        .task-dock { margin: 0 12px 12px; padding: 9px 10px 10px; border: 3px solid #6C3A20; border-radius: 12px; background: linear-gradient(180deg, rgba(47, 106, 42, .96), rgba(28, 72, 35, .98)); box-shadow: inset 0 2px 0 rgba(207, 240, 139, .16), 0 4px 0 rgba(27, 55, 27, .4); }
+        .task-dock-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 7px; }
+        .task-dock-head strong { color: #FFF4C4; font-size: 12px; text-shadow: 0 2px 0 #214F27; }
+        .task-dock-head small { color: #D7EEA8; font-size: 9px; font-weight: 850; }
+        .game-task-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+        .game-task { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; min-width: 0; align-items: center; gap: 5px; min-height: 43px; padding: 4px 6px 4px 4px; border: 2px solid #8D6236; border-radius: 7px; color: #613B20; background: #FFF3B6; box-shadow: inset 0 1px 0 #FFFCE3, 0 2px 0 rgba(25, 51, 25, .28); cursor: pointer; text-align: left; transition: transform .16s var(--spring), background .16s ease, border-color .16s ease; }
+        .game-task:hover { transform: translateY(-2px); border-color: #FFE16A; }
+        .game-task.is-done { border-color: #8EC94E; background: #DDF4B8; }
+        .task-stamp { display: grid; width: 27px; height: 27px; place-items: center; border-radius: 6px; color: #FFF7C7; background: #E8873F; font-size: 13px; }
+        .game-task.is-done .task-stamp { color: #41782F; background: #B9E67C; }
+        .game-task strong { overflow: hidden; font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
+        .game-task small { display: block; overflow: hidden; margin-top: 2px; color: #8D6C42; font-size: 8px; text-overflow: ellipsis; white-space: nowrap; }
+        .task-sun-reward { display: inline-flex; min-width: 25px; align-items: center; justify-content: center; gap: 1px; color: #98631A; font-size: 9px; font-weight: 950; white-space: nowrap; }
+        .task-sun-reward::first-letter { color: #E7A823; }
+        .dock-reward { display: flex; min-height: 26px; align-items: center; justify-content: space-between; gap: 8px; margin-top: 8px; padding: 5px 7px; border-top: 1px solid rgba(224, 243, 163, .26); color: #E7F4BA; font-size: 9px; }
+        .dock-reward strong { color: #FFD85C; }
+        .dock-reward button { display: inline-flex; min-height: 27px; align-items: center; gap: 3px; padding: 0 8px; border: 2px solid #9B5D2A; border-radius: 7px; color: #653715; background: #FFD95D; box-shadow: 0 2px 0 rgba(29, 57, 26, .3); cursor: pointer; font-size: 9px; font-weight: 950; }
+        .dock-reward button:hover { filter: brightness(1.08); transform: translateY(-1px); }
+        .dock-reward button.is-claimed { color: #406C2B; background: #CDEB9C; }
+        .game-feedback { position: absolute; top: 79px; left: 16px; z-index: 8; color: #FFF5A4; font-size: 13px; font-weight: 950; pointer-events: none; text-shadow: 0 2px 0 rgba(54, 83, 27, .7); animation: float-feedback 1s ease-out both; }
+        .sun-counter.is-bumped { animation: hud-bump .42s var(--spring); }
+        @keyframes plant-sway { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-4px) rotate(2deg); } }
+        @keyframes zombie-shuffle { 0%, 100% { transform: translateX(0) rotate(-2deg); } 50% { transform: translateX(4px) rotate(3deg); } }
+        @keyframes sun-bob { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-3px) rotate(4deg); } }
+        @keyframes hud-bump { 0%, 100% { transform: scale(1); } 45% { transform: scale(1.1) rotate(-2deg); } }
+        @keyframes float-feedback { from { opacity: 0; transform: translateY(9px); } 20% { opacity: 1; } to { opacity: 0; transform: translateY(-27px); } }
+        @media (max-width: 560px) {
+            .game-scene-shell { min-height: 690px; }
+            .game-hud { grid-template-columns: minmax(120px, 1fr) auto auto; gap: 5px; padding: 7px 8px; }
+            .game-title-mark { width: 38px; height: 38px; flex-basis: 38px; }
+            .game-title-mark img { width: 34px; height: 34px; }
+            .game-title strong { font-size: 12px; }
+            .sun-counter { min-height: 39px; padding-right: 6px; }
+            .sun-counter img { width: 28px; height: 28px; }
+            .sun-counter strong { font-size: 16px; }
+            .streak-counter { min-height: 39px; padding: 0 6px; }
+            .streak-counter span { display: none; }
+            .hud-tool { width: 39px; height: 39px; }
+            .seed-tray { min-height: 70px; padding: 6px 8px; }
+            .seed-tray-label { width: 35px; flex-basis: 35px; font-size: 8px; }
+            .seed-card { width: 52px; height: 55px; flex-basis: 52px; }
+            .seed-card img { width: 37px; height: 37px; }
+            .seed-hint { display: none; }
+            .game-board { grid-template-columns: minmax(0, 1fr) 48px; gap: 5px; padding: 8px 8px 7px; }
+            .lawn-lane { min-height: 66px; }
+            .lawn-spot { left: 24%; width: 58px; height: 59px; }
+            .lawn-spot img, .zombie-token img { width: 55px; height: 55px; }
+            .zombie-token { width: 57px; height: 59px; }
+            .wood-sign { min-height: 43px; font-size: 8px; }
+            .wood-sign svg { width: 15px; height: 15px; }
+            .task-dock { margin-right: 8px; margin-bottom: 8px; margin-left: 8px; padding: 7px; }
+            .game-task-grid { grid-template-columns: 1fr; gap: 4px; }
+            .game-task { min-height: 34px; grid-template-columns: 24px minmax(0, 1fr) auto; }
+            .task-stamp { width: 23px; height: 23px; font-size: 11px; }
+            .dock-reward { margin-top: 5px; }
+        }
+
         .toast { position: fixed; right: 22px; bottom: 22px; z-index: 10; display: flex; min-height: 42px; align-items: center; gap: 8px; padding: 0 13px; border: 1px solid rgba(107, 203, 119, .34); border-radius: 13px; color: #27764F; background: rgba(240, 251, 241, .96); box-shadow: var(--shadow-md); font-size: 12px; font-weight: 900; animation: toast-in .3s var(--spring) both; }
         .toast svg { width: 16px; height: 16px; }
         @keyframes toast-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -258,7 +366,7 @@
                 { title: '数学闯关', note: '完成一组小题', icon: 'sparkle' },
                 { title: '植物运动', note: '活动 15 分钟', icon: 'leaf' }
             ];
-            const state = { done: [true, false, false], sunlight: 40, claimed: false };
+            const state = { done: [true, false, false], sunlight: 40, claimed: false, selectedSeed: 'sunflower' };
             const previewModes = [
                 { id: 'current', className: 'current-panel', title: '当前版', subtitle: '紫色任务地图 · 现有结构', badge: 'CURRENT' },
                     { id: 'liquid', className: 'liquid-panel', title: '新方案', subtitle: '阳光草坪 · 四条战线 · 右侧入侵路线', badge: 'GAME SCENE' }
@@ -275,7 +383,8 @@
                     sun: '<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>',
                     heart: '<path d="M20.8 8.8c0 5.5-8.8 11-8.8 11s-8.8-5.5-8.8-11A4.8 4.8 0 0 1 12 6a4.8 4.8 0 0 1 8.8 2.8Z"></path>',
                     arrow: '<path d="M5 12h13M13 6l6 6-6 6"></path>',
-                    house: '<path d="m3 11 9-8 9 8"></path><path d="M5 10v10h14V10M9 20v-6h6v6"></path>'
+                    house: '<path d="m3 11 9-8 9 8"></path><path d="M5 10v10h14V10M9 20v-6h6v6"></path>',
+                    shovel: '<path d="m14 3 7 7"></path><path d="m12.5 4.5 7 7-5 5-7-7z"></path><path d="M10 14 4 20M3 21l2-1"></path>'
                 };
                 return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name] || paths.sparkle}</svg>`;
             }
@@ -288,11 +397,55 @@
                 return `<button class="task-card" type="button" data-action="toggle-task" data-task-index="${index}" aria-pressed="false"><span class="task-card-head"><span class="task-icon">${icon(task.icon)}</span><span class="task-check">${icon('check')}</span></span><strong>${task.title}</strong><small>${task.note}</small><span class="task-progress" aria-hidden="true"><i></i></span></button>`;
             }
 
+            function seedCard(seed) {
+                return `<button class="seed-card${seed.id === state.selectedSeed ? ' is-selected' : ''}" type="button" data-action="select-seed" data-seed="${seed.id}" aria-pressed="${seed.id === state.selectedSeed}"><b>${seed.cost}</b>${asset(seed.asset, seed.name)}<strong>${seed.name}</strong></button>`;
+            }
+
+            function lawnLane(index, plant, zombie) {
+                const cells = Array.from({ length: 8 }, () => '<i aria-hidden="true"></i>').join('');
+                return `<div class="lawn-lane" data-lane="${index}"><span class="lane-number">${index}</span><span class="lane-label">${index === 1 ? '准备' : index === 4 ? '警戒' : '守护'}</span><span class="lane-cells" aria-hidden="true">${cells}</span><button class="lawn-spot" type="button" data-action="plant-square" data-lane="${index}" aria-label="第${index}行种植位置">${plant ? asset(plant.asset, plant.name) : ''}</button>${zombie ? `<span class="zombie-token">${asset(zombie.asset, zombie.name)}</span>` : ''}</div>`;
+            }
+
+            function gamePreview() {
+                const seeds = [
+                    { id: 'sunflower', name: '向日葵', asset: 'pvz-sunflower.png', cost: 20 },
+                    { id: 'peashooter', name: '豌豆射手', asset: 'pvz-peashooter.png', cost: 30 },
+                    { id: 'wallnut', name: '坚果墙', asset: 'pvz-wallnut.png', cost: 40 }
+                ];
+                return `<div class="game-scene-shell">
+                    <header class="game-hud">
+                        <div class="game-title"><span class="game-title-mark">${asset('pvz-sunflower.png', '向日葵')}</span><span><strong>花园保卫战</strong><small>完成任务，守护小花园</small></span></div>
+                        <button class="sun-counter" type="button" data-action="collect-sun" aria-label="收集阳光"><img src="${ASSET_BASE}pvz-sun-token.png" alt="阳光"><strong data-metric="sunlight">40</strong><small>阳光</small></button>
+                        <div class="streak-counter" aria-label="连续打卡"><b>3</b><span>连续<br>打卡</span></div>
+                        <button class="hud-tool" type="button" data-action="toggle-shovel" aria-label="选择铲子">${icon('shovel')}</button>
+                    </header>
+                    <div class="seed-tray" aria-label="植物种子包"><span class="seed-tray-label">植物<br>种子包</span>${seeds.map(seedCard).join('')}<span class="seed-hint">先选植物<br>再点草坪种下</span></div>
+                    <div class="game-board">
+                        <section class="game-lawn" aria-label="四条草坪战线">
+                            ${lawnLane(1, { asset: 'pvz-sunflower.png', name: '向日葵' }, { asset: 'pvz-zombie-basic.png', name: '普通僵尸' })}
+                            ${lawnLane(2, { asset: 'pvz-peashooter.png', name: '豌豆射手' }, null)}
+                            ${lawnLane(3, null, { asset: 'pvz-zombie-conehead.png', name: '路障僵尸' })}
+                            ${lawnLane(4, { asset: 'pvz-wallnut.png', name: '坚果墙' }, { asset: 'pvz-zombie-buckethead.png', name: '铁桶僵尸' })}
+                        </section>
+                        <nav class="wood-sign-nav" aria-label="花园木牌导航">
+                            <button class="wood-sign is-active" type="button" data-action="game-nav" data-route="garden">${icon('house')}花园</button>
+                            <button class="wood-sign" type="button" data-action="game-nav" data-route="learn">${icon('book')}学习</button>
+                            <button class="wood-sign" type="button" data-action="game-nav" data-route="reward">${icon('gift')}奖励</button>
+                        </nav>
+                    </div>
+                    <section class="task-dock" aria-label="今日任务奖励">
+                        <div class="task-dock-head"><strong>今日守护任务</strong><small data-metric="progress">1 / 3 已点亮</small></div>
+                        <div class="game-task-grid">${tasks.map((task, index) => `<button class="game-task${state.done[index] ? ' is-done' : ''}" type="button" data-action="toggle-task" data-task-index="${index}" aria-pressed="${state.done[index]}"><span class="task-stamp">${state.done[index] ? icon('check') : icon(task.icon)}</span><span><strong>${task.title}</strong><small>${task.note}</small></span><span class="task-sun-reward">+10 ☀</span></button>`).join('')}</div>
+                        <div class="dock-reward"><span>完成全部任务，解锁今日宝箱 <strong>+20 ☀</strong></span><button type="button" data-action="claim-demo-reward"${state.claimed ? ' class="is-claimed"' : ''}>${state.claimed ? '已领取' : '领取奖励'}</button></div>
+                    </section>
+                </div>`;
+            }
+
             function preview(mode) {
                 const isLiquid = mode.id === 'liquid';
                 return `<section class="preview-panel ${mode.className}" data-preview="${mode.id}">
                     <div class="panel-label"><div><strong>${mode.title}</strong><small>${mode.subtitle}</small></div><span class="panel-badge">${mode.badge}</span></div>
-                    <div class="preview-window ${isLiquid ? 'liquid-window' : 'current-window'}">
+                    <div class="preview-window ${isLiquid ? 'liquid-window' : 'current-window'}">${isLiquid ? gamePreview() : `
                         <header class="preview-topbar"><span class="preview-brand"><span class="preview-brand-mark">${asset('pvz-sun-token.png', '阳光')}</span>智慧花园工作台</span><span class="preview-top-actions"><span class="mini-action">${icon('grid')}${isLiquid ? '切换工作台' : '花园地图'}</span><span class="mini-action">${icon('heart')}家长互动</span><span class="mini-avatar">芽</span></span></header>
                         <div class="preview-body">
                             <aside class="preview-sidebar"><span class="preview-sidebar-title">${isLiquid ? 'TODAY / ROUTE' : '小小路线'}</span><nav class="preview-nav" aria-label="${mode.title}导航"><span class="preview-nav-item is-active">${icon('house')}首页</span><span class="preview-nav-item">${icon('check')}今日打卡</span><span class="preview-nav-item">${icon('leaf')}花园基地</span><span class="preview-nav-item">${icon('book')}学习专区</span><span class="preview-nav-item">${icon('gift')}奖励商城</span></nav><small class="preview-side-note">完成一件小事，花园就会多一束光。</small></aside>
@@ -305,7 +458,7 @@
                                 <section class="learning-strip"><div class="learning-copy"><strong>学习专区</strong><small>识字 · 拼音 · 古诗 · 数学 · 英语 · 运动</small></div><div class="learning-chips"><span class="learning-chip">识字 1/3</span><span class="learning-chip">数学 准备</span><span class="learning-chip">运动 今日</span></div></section>
                             </main>
                         </div>
-                    </div>
+                    `}</div>
                 </section>`;
             }
 
@@ -321,6 +474,17 @@
                     const index = Number(button.dataset.taskIndex);
                     button.classList.toggle('is-done', Boolean(state.done[index]));
                     button.setAttribute('aria-pressed', String(Boolean(state.done[index])));
+                    const stamp = button.querySelector('.task-stamp');
+                    if (stamp) stamp.innerHTML = state.done[index] ? icon('check') : icon(tasks[index].icon);
+                });
+                comparison.querySelectorAll('[data-action="select-seed"]').forEach(button => {
+                    const selected = button.dataset.seed === state.selectedSeed;
+                    button.classList.toggle('is-selected', selected);
+                    button.setAttribute('aria-pressed', String(selected));
+                });
+                comparison.querySelectorAll('[data-action="claim-demo-reward"]').forEach(button => {
+                    button.classList.toggle('is-claimed', state.claimed);
+                    button.textContent = state.claimed ? '已领取' : '领取奖励';
                 });
             }
 
@@ -352,6 +516,36 @@
                     else state.sunlight = Math.max(0, state.sunlight - 10);
                     syncState();
                     showToast(state.done[index] ? '+10 阳光，任务点亮啦' : '任务已恢复待完成');
+                }
+                if (target.dataset.action === 'select-seed') {
+                    state.selectedSeed = target.dataset.seed;
+                    syncState();
+                    showToast(`已选择${target.querySelector('strong')?.textContent || '植物'}，点一下草坪种下`);
+                }
+                if (target.dataset.action === 'collect-sun') {
+                    state.sunlight += 5;
+                    comparison.querySelectorAll('.sun-counter').forEach(counter => {
+                        counter.classList.remove('is-bumped');
+                        window.requestAnimationFrame(() => counter.classList.add('is-bumped'));
+                    });
+                    syncState();
+                    showToast('+5 阳光，收集成功');
+                }
+                if (target.dataset.action === 'plant-square') {
+                    if (state.sunlight < 20) { showToast('阳光还不够，先完成任务吧'); return; }
+                    state.sunlight -= 20;
+                    target.innerHTML = asset(`${state.selectedSeed === 'peashooter' ? 'pvz-peashooter' : state.selectedSeed === 'wallnut' ? 'pvz-wallnut' : 'pvz-sunflower'}.png`, state.selectedSeed);
+                    syncState();
+                    showToast('植物种下啦，花园更安全了');
+                }
+                if (target.dataset.action === 'toggle-shovel') {
+                    target.classList.toggle('is-active');
+                    showToast(target.classList.contains('is-active') ? '铲子已准备好' : '铲子收起来啦');
+                }
+                if (target.dataset.action === 'game-nav') {
+                    const nav = target.closest('.wood-sign-nav');
+                    nav?.querySelectorAll('.wood-sign').forEach(button => button.classList.toggle('is-active', button === target));
+                    showToast(`${target.textContent.trim()}木牌已点亮`);
                 }
                 if (target.dataset.action === 'claim-demo-reward') {
                     if (state.claimed) { showToast('这份演示奖励已经领取'); return; }
