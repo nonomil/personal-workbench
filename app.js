@@ -347,7 +347,10 @@
     function render() {
         const meta = PAGE_META[ui.page];
         const derived = getDerived();
-        if (isPreschool) document.body.classList.toggle('preschool-no-motion', !getPreschoolFeedbackPreference('motionEnabled', true));
+        if (isPreschool) {
+            document.body.classList.toggle('preschool-no-motion', !getPreschoolFeedbackPreference('motionEnabled', true));
+            document.body.classList.toggle('preschool-courses-page', ui.page === 'courses');
+        }
         updateModeStatus();
         document.querySelectorAll('.nav-item').forEach(function (item) {
             item.classList.toggle('is-active', item.dataset.page === ui.page && (!item.dataset.courseId || item.dataset.courseId === ui.courseId));
