@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#FFF8F0">
+    <title>智慧花园 · 配色对比实验室</title>
+    <style>
+        :root {
+            --brand: #FF8C42;
+            --brand-light: #FFB366;
+            --mint: #4ECDC4;
+            --mint-light: #7EDDD7;
+            --gold: #FFD93D;
+            --green: #6BCB77;
+            --cream: #FFF8F0;
+            --warm: #FFF0E0;
+            --ink: #2D2D3A;
+            --muted: #6B6B7B;
+            --light: #9B9BAB;
+            --line: rgba(45, 45, 58, .12);
+            --shadow-sm: 0 2px 8px rgba(45, 45, 58, .08);
+            --shadow-md: 0 12px 30px rgba(45, 45, 58, .1), 0 2px 8px rgba(45, 45, 58, .06);
+            --shadow-lg: 0 22px 58px rgba(45, 45, 58, .16), 0 6px 20px rgba(45, 45, 58, .08);
+            --spring: cubic-bezier(.175, .885, .32, 1.275);
+            color: var(--ink);
+            font-family: "Nunito", "Quicksand", "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: var(--cream);
+        }
+
+        * { box-sizing: border-box; }
+        html { min-width: 320px; background: var(--cream); }
+        body { margin: 0; min-width: 320px; background: linear-gradient(135deg, #FFF8F0, #FFF0E0 52%, #E8F4F8); color: var(--ink); }
+        button { font: inherit; }
+        button:focus-visible { outline: 3px solid rgba(255, 140, 66, .42); outline-offset: 3px; }
+        img { display: block; max-width: 100%; }
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+        .lab-shell { width: min(1512px, 100%); margin: 0 auto; padding: 32px clamp(18px, 3vw, 52px) 58px; }
+        .lab-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; padding-bottom: 24px; border-bottom: 1px solid rgba(45, 45, 58, .12); }
+        .lab-heading { min-width: 0; }
+        .eyebrow { display: block; color: var(--brand); font-size: 11px; font-weight: 900; letter-spacing: .14em; line-height: 1.4; }
+        .lab-heading h1 { max-width: 760px; margin: 8px 0 6px; font-size: clamp(28px, 4vw, 48px); font-weight: 950; line-height: 1.08; }
+        .lab-heading p { max-width: 690px; margin: 0; color: var(--muted); font-size: 14px; line-height: 1.7; }
+        .lab-controls { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+        .view-control { display: inline-flex; min-height: 42px; align-items: center; gap: 8px; padding: 0 13px; border: 1px solid rgba(45, 45, 58, .14); border-radius: 13px; color: var(--muted); background: rgba(255, 255, 255, .68); cursor: pointer; transition: transform .2s var(--spring), color .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease; }
+        .view-control:hover { transform: translateY(-2px); color: var(--ink); border-color: rgba(255, 140, 66, .42); box-shadow: var(--shadow-sm); }
+        .view-control.is-active { color: #8A4B25; border-color: rgba(255, 140, 66, .45); background: #FFF1D0; box-shadow: 0 4px 14px rgba(255, 140, 66, .13); }
+        .view-control svg { width: 17px; height: 17px; }
+
+        .palette-bar { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 18px; padding: 18px 0 24px; }
+        .palette-intro strong { display: block; font-size: 14px; }
+        .palette-intro small { display: block; margin-top: 4px; color: var(--muted); font-size: 12px; }
+        .swatches { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 7px; }
+        .swatch { display: inline-flex; min-height: 30px; align-items: center; gap: 7px; padding: 0 8px 0 5px; border: 1px solid rgba(45, 45, 58, .1); border-radius: 999px; color: var(--muted); background: rgba(255, 255, 255, .54); font-size: 10px; font-weight: 800; }
+        .swatch i { width: 20px; height: 20px; border-radius: 50%; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .56), 0 2px 5px rgba(45, 45, 58, .12); }
+
+        .comparison { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; align-items: start; }
+        .preview-panel { min-width: 0; padding: 11px; border: 1px solid rgba(45, 45, 58, .12); border-radius: 24px; background: rgba(255, 255, 255, .42); box-shadow: var(--shadow-md); }
+        .preview-panel.liquid-panel { border-color: rgba(255, 140, 66, .23); background: rgba(255, 255, 255, .62); box-shadow: var(--shadow-lg); }
+        .panel-label { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px 14px; }
+        .panel-label strong { display: block; font-size: 15px; }
+        .panel-label small { display: block; margin-top: 3px; color: var(--muted); font-size: 11px; line-height: 1.45; }
+        .panel-badge { display: inline-flex; min-height: 26px; align-items: center; padding: 0 9px; border-radius: 999px; color: var(--muted); background: rgba(255, 255, 255, .7); font-size: 10px; font-weight: 900; white-space: nowrap; }
+        .liquid-panel .panel-badge { color: #A3572E; background: #FFF0CD; }
+
+        .preview-window { min-width: 0; min-height: 720px; overflow: hidden; border: 1px solid rgba(45, 45, 58, .1); border-radius: 18px; background: #F4F1FF; }
+        .current-window { --panel-bg: #F4F1FF; --panel-card: #FFFFFF; --panel-accent: #7357C8; --panel-accent-soft: #E9E4FF; --panel-text: #332A4B; --panel-muted: #7A718C; --panel-line: rgba(80, 61, 145, .14); background: var(--panel-bg); }
+        .liquid-window { --panel-bg: #FFF8F0; --panel-card: rgba(255, 255, 255, .84); --panel-accent: #FF8C42; --panel-accent-soft: #FFF0D7; --panel-text: #2D2D3A; --panel-muted: #6B6B7B; --panel-line: rgba(255, 140, 66, .17); background: linear-gradient(135deg, #FFF8F0, #FFF0E0 58%, #E8F4F8); }
+        .preview-topbar { display: flex; min-height: 60px; align-items: center; justify-content: space-between; gap: 10px; padding: 0 18px; border-bottom: 1px solid var(--panel-line); background: rgba(255, 255, 255, .72); }
+        .preview-brand { display: inline-flex; min-width: 0; align-items: center; gap: 8px; color: var(--panel-text); font-size: 12px; font-weight: 950; }
+        .preview-brand-mark { display: grid; width: 30px; height: 30px; place-items: center; overflow: hidden; border-radius: 10px; background: var(--panel-accent-soft); }
+        .preview-brand-mark img { width: 26px; height: 26px; object-fit: contain; }
+        .preview-top-actions { display: flex; align-items: center; gap: 7px; }
+        .mini-action { display: inline-flex; min-height: 32px; align-items: center; gap: 5px; padding: 0 9px; border: 1px solid var(--panel-line); border-radius: 10px; color: var(--panel-muted); background: rgba(255, 255, 255, .58); font-size: 10px; font-weight: 900; }
+        .mini-action svg { width: 14px; height: 14px; }
+        .mini-avatar { display: grid; width: 30px; height: 30px; place-items: center; border-radius: 10px; color: #FFF; background: var(--mint); font-size: 13px; font-weight: 950; }
+
+        .preview-body { display: grid; grid-template-columns: 126px minmax(0, 1fr); min-height: 659px; }
+        .preview-sidebar { display: grid; grid-template-rows: auto auto 1fr; gap: 14px; padding: 18px 10px; border-right: 1px solid var(--panel-line); background: rgba(255, 255, 255, .45); }
+        .preview-sidebar-title { padding: 0 8px; color: var(--panel-muted); font-size: 9px; font-weight: 900; letter-spacing: .11em; }
+        .preview-nav { display: grid; align-content: start; gap: 4px; }
+        .preview-nav-item { display: flex; min-height: 37px; align-items: center; gap: 7px; padding: 0 8px; border: 1px solid transparent; border-radius: 11px; color: var(--panel-muted); background: transparent; font-size: 10px; font-weight: 900; text-align: left; }
+        .preview-nav-item.is-active { color: var(--panel-accent); border-color: var(--panel-line); background: var(--panel-accent-soft); }
+        .preview-nav-item svg { width: 15px; height: 15px; flex: 0 0 auto; }
+        .preview-side-note { align-self: end; padding: 10px 8px; border-top: 1px dashed var(--panel-line); color: var(--panel-muted); font-size: 9px; line-height: 1.55; }
+        .preview-content { min-width: 0; padding: 20px; }
+        .preview-hero { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 15px; }
+        .preview-hero h2 { margin: 3px 0 4px; color: var(--panel-text); font-size: 24px; font-weight: 950; line-height: 1.15; }
+        .preview-hero p { max-width: 460px; margin: 0; color: var(--panel-muted); font-size: 11px; line-height: 1.6; }
+        .preview-hero-art { display: grid; width: 58px; height: 58px; flex: 0 0 58px; place-items: center; border-radius: 18px; background: var(--panel-accent-soft); }
+        .preview-hero-art img { width: 50px; height: 50px; object-fit: contain; }
+        .stat-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-bottom: 14px; }
+        .stat-card { min-width: 0; padding: 10px; border: 1px solid var(--panel-line); border-radius: 13px; background: var(--panel-card); box-shadow: var(--shadow-sm); }
+        .stat-card small { display: block; overflow: hidden; color: var(--panel-muted); font-size: 9px; font-weight: 800; text-overflow: ellipsis; white-space: nowrap; }
+        .stat-card strong { display: block; margin-top: 3px; color: var(--panel-text); font-size: 19px; line-height: 1; }
+        .stat-card strong em { color: var(--panel-muted); font-size: 9px; font-style: normal; font-weight: 800; }
+        .stat-card.sun { background: linear-gradient(135deg, #FFF9D9, #FFF0BB); }
+        .stat-card.mint { background: linear-gradient(135deg, #EFFBF8, #DDF6F0); }
+        .stat-card.green { background: linear-gradient(135deg, #F0FBF1, #DFF5E2); }
+
+        .section-line { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 17px 0 9px; }
+        .section-line h3 { margin: 0; color: var(--panel-text); font-size: 14px; font-weight: 950; }
+        .section-line small { color: var(--panel-muted); font-size: 10px; }
+        .task-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+        .task-card { min-width: 0; padding: 10px; border: 1px solid var(--panel-line); border-radius: 14px; color: var(--panel-text); background: var(--panel-card); box-shadow: var(--shadow-sm); cursor: pointer; text-align: left; transition: transform .2s var(--spring), border-color .2s ease, box-shadow .2s ease, background .2s ease; }
+        .task-card:hover { transform: translateY(-2px); border-color: var(--panel-accent); box-shadow: var(--shadow-md); }
+        .task-card:active { transform: scale(.98); }
+        .task-card.is-done { border-color: rgba(107, 203, 119, .55); background: #F0FBF1; }
+        .task-card-head { display: flex; align-items: center; justify-content: space-between; gap: 5px; }
+        .task-icon { display: grid; width: 28px; height: 28px; place-items: center; border-radius: 9px; color: var(--panel-accent); background: var(--panel-accent-soft); }
+        .task-icon svg { width: 16px; height: 16px; }
+        .task-check { display: grid; width: 19px; height: 19px; place-items: center; border: 1px solid var(--panel-line); border-radius: 50%; color: transparent; }
+        .task-card.is-done .task-check { border-color: var(--green); color: #FFF; background: var(--green); }
+        .task-card strong { display: block; margin-top: 7px; overflow: hidden; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+        .task-card small { display: block; margin-top: 4px; overflow: hidden; color: var(--panel-muted); font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
+        .task-progress { height: 4px; margin-top: 8px; overflow: hidden; border-radius: 999px; background: rgba(45, 45, 58, .1); }
+        .task-progress i { display: block; width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--panel-accent), var(--green)); transition: width .3s ease; }
+        .task-card.is-done .task-progress i { width: 100%; }
+
+        .garden-reward-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: 8px; }
+        .garden-card, .reward-card { min-width: 0; padding: 12px; border: 1px solid var(--panel-line); border-radius: 15px; background: var(--panel-card); box-shadow: var(--shadow-sm); }
+        .garden-card-head, .reward-card-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+        .garden-card h3, .reward-card h3 { margin: 0; color: var(--panel-text); font-size: 12px; font-weight: 950; }
+        .garden-card small, .reward-card small { color: var(--panel-muted); font-size: 9px; }
+        .garden-scene { position: relative; display: flex; height: 90px; align-items: flex-end; justify-content: space-around; margin-top: 9px; overflow: hidden; border-radius: 12px; background: linear-gradient(180deg, #DFF5F0, #BCE7C8 60%, #99CF8A 61%, #78B576); }
+        .garden-scene::before { position: absolute; right: 0; bottom: 22px; left: 0; height: 1px; background: rgba(45, 45, 58, .12); content: ""; }
+        .garden-scene img { position: relative; z-index: 1; width: 57px; height: 57px; object-fit: contain; filter: drop-shadow(0 4px 3px rgba(45, 45, 58, .17)); }
+        .garden-scene img:nth-child(2) { width: 67px; height: 67px; animation: plant-breathe 2.4s ease-in-out infinite; }
+        .garden-scene img:nth-child(3) { width: 59px; height: 59px; animation: zombie-wobble 1.4s ease-in-out infinite; }
+        .reward-card { display: grid; grid-template-rows: auto 1fr auto; }
+        .reward-art { display: grid; min-height: 72px; place-items: center; }
+        .reward-art img { width: 64px; height: 64px; object-fit: contain; animation: sun-pulse 2s ease-in-out infinite; }
+        .reward-button { display: inline-flex; min-height: 34px; align-items: center; justify-content: center; gap: 5px; border: 0; border-radius: 11px; color: #FFF; background: linear-gradient(135deg, var(--brand-light), var(--brand)); box-shadow: 0 5px 13px rgba(255, 140, 66, .24); cursor: pointer; font-size: 10px; font-weight: 950; transition: transform .2s var(--spring), box-shadow .2s ease; }
+        .reward-button:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(255, 140, 66, .3); }
+        .reward-button:active { transform: scale(.97); }
+        .reward-button svg { width: 14px; height: 14px; }
+        .learning-strip { display: flex; min-height: 46px; align-items: center; justify-content: space-between; gap: 10px; margin-top: 8px; padding: 10px 12px; border: 1px solid rgba(78, 205, 196, .28); border-radius: 13px; background: rgba(255, 255, 255, .62); }
+        .learning-copy { min-width: 0; }
+        .learning-copy strong { display: block; color: var(--panel-text); font-size: 10px; }
+        .learning-copy small { display: block; margin-top: 3px; overflow: hidden; color: var(--panel-muted); font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
+        .learning-chips { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 4px; }
+        .learning-chip { display: inline-flex; min-height: 24px; align-items: center; padding: 0 7px; border-radius: 8px; color: #287F7A; background: #DFF7F2; font-size: 9px; font-weight: 900; white-space: nowrap; }
+
+        .current-window .preview-hero-art { border-radius: 10px; }
+        .current-window .task-card { border-radius: 9px; box-shadow: 0 3px 0 rgba(80, 61, 145, .08); }
+        .current-window .garden-scene { border-radius: 9px; background: linear-gradient(180deg, #D9D0FF, #B7A9EE 60%, #8A79CF 61%, #6E5EB4); }
+        .current-window .learning-strip { border-color: rgba(115, 87, 200, .2); background: #FFF; }
+        .current-window .learning-chip { color: #5B43A0; background: #ECE7FF; }
+        .liquid-window .preview-topbar { background: rgba(255, 255, 255, .76); backdrop-filter: blur(18px) saturate(150%); -webkit-backdrop-filter: blur(18px) saturate(150%); }
+        .liquid-window .preview-sidebar { background: rgba(255, 255, 255, .36); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+        .liquid-window .stat-card, .liquid-window .task-card, .liquid-window .garden-card, .liquid-window .reward-card, .liquid-window .learning-strip { background: rgba(255, 255, 255, .7); box-shadow: 0 8px 25px rgba(45, 45, 58, .08), inset 0 1px 0 rgba(255, 255, 255, .9); }
+        .liquid-window .task-card:hover { box-shadow: 0 14px 28px rgba(45, 45, 58, .12), 0 0 20px rgba(255, 140, 66, .12); }
+
+        .toast { position: fixed; right: 22px; bottom: 22px; z-index: 10; display: flex; min-height: 42px; align-items: center; gap: 8px; padding: 0 13px; border: 1px solid rgba(107, 203, 119, .34); border-radius: 13px; color: #27764F; background: rgba(240, 251, 241, .96); box-shadow: var(--shadow-md); font-size: 12px; font-weight: 900; animation: toast-in .3s var(--spring) both; }
+        .toast svg { width: 16px; height: 16px; }
+        @keyframes toast-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes plant-breathe { 0%, 100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-4px) rotate(1deg); } }
+        @keyframes zombie-wobble { 0%, 100% { transform: translateX(0) rotate(-2deg); } 50% { transform: translateX(3px) rotate(2deg); } }
+        @keyframes sun-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+        body[data-viewport="mobile"] .comparison { grid-template-columns: minmax(0, 430px); justify-content: center; }
+        body[data-viewport="mobile"] .preview-panel:not(.liquid-panel) { display: none; }
+        body[data-viewport="mobile"] .preview-window { min-height: 720px; }
+        body[data-viewport="mobile"] .preview-body { grid-template-columns: 1fr; }
+        body[data-viewport="mobile"] .preview-sidebar { display: none; }
+        body[data-viewport="mobile"] .preview-content { padding: 17px; }
+        body[data-viewport="mobile"] .preview-hero h2 { font-size: 22px; }
+        body[data-viewport="mobile"] .task-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+        @media (max-width: 900px) {
+            .comparison { grid-template-columns: 1fr; }
+            .preview-window { min-height: 0; }
+            .preview-body { min-height: 0; }
+        }
+        @media (max-width: 560px) {
+            .lab-shell { padding: 22px 12px 42px; }
+            .lab-header { display: grid; align-items: start; gap: 16px; }
+            .lab-controls { justify-content: flex-start; }
+            .palette-bar { grid-template-columns: 1fr; gap: 10px; }
+            .swatches { justify-content: flex-start; }
+            .preview-panel { padding: 7px; border-radius: 19px; }
+            .panel-label { padding: 8px 8px 11px; }
+            .preview-topbar { min-height: 54px; padding: 0 11px; }
+            .preview-top-actions .mini-action { display: none; }
+            .preview-content { padding: 14px; }
+            .preview-hero h2 { font-size: 20px; }
+            .preview-hero-art { width: 50px; height: 50px; flex-basis: 50px; }
+            .preview-hero-art img { width: 43px; height: 43px; }
+            .garden-reward-grid { grid-template-columns: 1fr; }
+            .learning-strip { align-items: flex-start; flex-direction: column; }
+            .learning-chips { justify-content: flex-start; }
+            .toast { right: 12px; bottom: 12px; left: 12px; justify-content: center; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+        }
+    </style>
+</head>
+<body data-viewport="desktop">
+    <div class="lab-shell" data-palette-comparison>
+        <header class="lab-header">
+            <div class="lab-heading">
+                <span class="eyebrow">VISUAL STUDY / PALETTE COMPARISON</span>
+                <h1>智慧花园配色实验室</h1>
+                <p>同一套幼儿学习工作台内容，左侧看当前结构，右侧看提示词里的橙色、薄荷绿与液态玻璃精致 UI。</p>
+            </div>
+            <div class="lab-controls" aria-label="预览视口">
+                <button class="view-control is-active" type="button" data-action="viewport" data-viewport="desktop" aria-pressed="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg>桌面对比
+                </button>
+                <button class="view-control" type="button" data-action="viewport" data-viewport="mobile" aria-pressed="false">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2"></rect><path d="M10 5h4M11 18.5h2"></path></svg>手机预览
+                </button>
+            </div>
+        </header>
+        <section class="palette-bar" aria-label="提示词核心色板">
+            <div class="palette-intro"><strong>提示词核心色板</strong><small>橙色负责行动，薄荷负责学习，金色负责奖励，草绿负责完成。</small></div>
+            <div class="swatches">
+                <span class="swatch"><i style="background:#FF8C42"></i>橙色</span>
+                <span class="swatch"><i style="background:#4ECDC4"></i>薄荷</span>
+                <span class="swatch"><i style="background:#FFD93D"></i>金色</span>
+                <span class="swatch"><i style="background:#6BCB77"></i>草绿</span>
+                <span class="swatch"><i style="background:#FFF8F0"></i>奶油</span>
+            </div>
+        </section>
+        <main class="comparison" id="comparison-grid"></main>
+    </div>
+    <div id="toast-stack" aria-live="polite" aria-atomic="true"></div>
+    <script>
+        (function () {
+            'use strict';
+
+            const ASSET_BASE = '../assets/generated/preschool-pvz-2d/published/';
+            const tasks = [
+                { title: '今日识字', note: '认识 10 个汉字', icon: 'book' },
+                { title: '数学闯关', note: '完成一组小题', icon: 'sparkle' },
+                { title: '植物运动', note: '活动 15 分钟', icon: 'leaf' }
+            ];
+            const state = { done: [true, false, false], sunlight: 40, claimed: false };
+            const previewModes = [
+                { id: 'current', className: 'current-panel', title: '当前版', subtitle: '紫色任务地图 · 现有结构', badge: 'CURRENT' },
+                { id: 'liquid', className: 'liquid-panel', title: '新方案', subtitle: '橙薄荷液态玻璃 · 精致 UI', badge: 'PROPOSED' }
+            ];
+
+            function icon(name) {
+                const paths = {
+                    book: '<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"></path><path d="M4 5.5v15M8 7h8M8 11h8"></path>',
+                    sparkle: '<path d="m12 3 1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7z"></path><path d="m19 16 .7 2.3L22 19l-2.3.7L19 22l-.7-2.3L16 19l2.3-.7z"></path>',
+                    leaf: '<path d="M20.5 3.5C12 3.8 6 7.3 6 13c0 3.5 2.7 5.5 6 5.5 5.7 0 8.2-6 8.5-15z"></path><path d="M4 21c3.2-5.3 7.3-8.6 13-11"></path>',
+                    check: '<path d="m5 12 4 4L19 6"></path>',
+                    gift: '<rect x="3" y="8" width="18" height="13" rx="2"></rect><path d="M12 8v13M3 12h18M12 8H8.5a2.5 2.5 0 1 1 2.5-2.5V8ZM12 8h3.5A2.5 2.5 0 1 0 13 5.5V8Z"></path>',
+                    grid: '<rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><rect x="14" y="14" width="6" height="6" rx="1"></rect>',
+                    sun: '<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>',
+                    heart: '<path d="M20.8 8.8c0 5.5-8.8 11-8.8 11s-8.8-5.5-8.8-11A4.8 4.8 0 0 1 12 6a4.8 4.8 0 0 1 8.8 2.8Z"></path>',
+                    arrow: '<path d="M5 12h13M13 6l6 6-6 6"></path>',
+                    house: '<path d="m3 11 9-8 9 8"></path><path d="M5 10v10h14V10M9 20v-6h6v6"></path>'
+                };
+                return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name] || paths.sparkle}</svg>`;
+            }
+
+            function asset(name, alt) {
+                return `<img src="${ASSET_BASE}${name}" alt="${alt}" loading="lazy">`;
+            }
+
+            function taskCard(task, index) {
+                return `<button class="task-card" type="button" data-action="toggle-task" data-task-index="${index}" aria-pressed="false"><span class="task-card-head"><span class="task-icon">${icon(task.icon)}</span><span class="task-check">${icon('check')}</span></span><strong>${task.title}</strong><small>${task.note}</small><span class="task-progress" aria-hidden="true"><i></i></span></button>`;
+            }
+
+            function preview(mode) {
+                const isLiquid = mode.id === 'liquid';
+                return `<section class="preview-panel ${mode.className}" data-preview="${mode.id}">
+                    <div class="panel-label"><div><strong>${mode.title}</strong><small>${mode.subtitle}</small></div><span class="panel-badge">${mode.badge}</span></div>
+                    <div class="preview-window ${isLiquid ? 'liquid-window' : 'current-window'}">
+                        <header class="preview-topbar"><span class="preview-brand"><span class="preview-brand-mark">${asset('pvz-sun-token.png', '阳光')}</span>智慧花园工作台</span><span class="preview-top-actions"><span class="mini-action">${icon('grid')}${isLiquid ? '切换工作台' : '花园地图'}</span><span class="mini-action">${icon('heart')}家长互动</span><span class="mini-avatar">芽</span></span></header>
+                        <div class="preview-body">
+                            <aside class="preview-sidebar"><span class="preview-sidebar-title">${isLiquid ? 'TODAY / ROUTE' : '小小路线'}</span><nav class="preview-nav" aria-label="${mode.title}导航"><span class="preview-nav-item is-active">${icon('house')}首页</span><span class="preview-nav-item">${icon('check')}今日打卡</span><span class="preview-nav-item">${icon('leaf')}花园基地</span><span class="preview-nav-item">${icon('book')}学习专区</span><span class="preview-nav-item">${icon('gift')}奖励商城</span></nav><small class="preview-side-note">完成一件小事，花园就会多一束光。</small></aside>
+                            <main class="preview-content">
+                                <section class="preview-hero"><div><span class="eyebrow">TODAY / ADVENTURE</span><h2>今天的冒险开始啦</h2><p>先完成一件小事，收集阳光，再来点亮自己的小花园。</p></div><span class="preview-hero-art">${asset(isLiquid ? 'pvz-sunflower.png' : 'pvz-sun-token.png', '植物伙伴')}</span></section>
+                                <section class="stat-grid" aria-label="今日状态"><article class="stat-card sun"><small>阳光余额</small><strong data-metric="sunlight">40 <em>☀</em></strong></article><article class="stat-card mint"><small>豌豆能量</small><strong data-metric="energy">2 <em>发射</em></strong></article><article class="stat-card green"><small>连续成长</small><strong>3 <em>天</em></strong></article></section>
+                                <div class="section-line"><h3>今天要做</h3><small data-metric="progress">1 / 3 已点亮</small></div>
+                                <section class="task-grid" aria-label="今日任务">${tasks.map(taskCard).join('')}</section>
+                                <section class="garden-reward-grid"><article class="garden-card"><div class="garden-card-head"><div><h3>花园战况</h3><small>植物伙伴正在等你</small></div>${icon('leaf')}</div><div class="garden-scene">${asset('pvz-sunflower.png', '向日葵')}${asset('pvz-peashooter.png', '豌豆射手')}${asset('pvz-zombie-basic.png', '友好僵尸')}</div></article><article class="reward-card"><div class="reward-card-head"><div><h3>下一份奖励</h3><small>集齐阳光打开宝箱</small></div>${icon('gift')}</div><span class="reward-art">${asset('pvz-sun-token.png', '阳光奖励')}</span><button class="reward-button" type="button" data-action="claim-demo-reward">${icon('gift')}领取演示奖励</button></article></section>
+                                <section class="learning-strip"><div class="learning-copy"><strong>学习专区</strong><small>识字 · 拼音 · 古诗 · 数学 · 英语 · 运动</small></div><div class="learning-chips"><span class="learning-chip">识字 1/3</span><span class="learning-chip">数学 准备</span><span class="learning-chip">运动 今日</span></div></section>
+                            </main>
+                        </div>
+                    </div>
+                </section>`;
+            }
+
+            const comparison = document.getElementById('comparison-grid');
+            const toastStack = document.getElementById('toast-stack');
+            comparison.innerHTML = previewModes.map(preview).join('');
+
+            function syncState() {
+                const completed = state.done.filter(Boolean).length;
+                comparison.querySelectorAll('[data-metric="sunlight"]').forEach(node => { node.innerHTML = `${state.sunlight} <em>☀</em>`; });
+                comparison.querySelectorAll('[data-metric="progress"]').forEach(node => { node.textContent = `${completed} / ${tasks.length} 已点亮`; });
+                comparison.querySelectorAll('[data-action="toggle-task"]').forEach(button => {
+                    const index = Number(button.dataset.taskIndex);
+                    button.classList.toggle('is-done', Boolean(state.done[index]));
+                    button.setAttribute('aria-pressed', String(Boolean(state.done[index])));
+                });
+            }
+
+            function showToast(message) {
+                const toast = document.createElement('div');
+                toast.className = 'toast';
+                toast.innerHTML = `${icon('check')}<span>${message}</span>`;
+                toastStack.replaceChildren(toast);
+                window.setTimeout(() => { if (toast.isConnected) toast.remove(); }, 2200);
+            }
+
+            document.addEventListener('click', event => {
+                const target = event.target.closest('[data-action]');
+                if (!target) return;
+                if (target.dataset.action === 'viewport') {
+                    const viewport = target.dataset.viewport === 'mobile' ? 'mobile' : 'desktop';
+                    document.body.dataset.viewport = viewport;
+                    document.querySelectorAll('[data-action="viewport"]').forEach(button => {
+                        const active = button.dataset.viewport === viewport;
+                        button.classList.toggle('is-active', active);
+                        button.setAttribute('aria-pressed', String(active));
+                    });
+                    showToast(viewport === 'mobile' ? '已切换到手机预览' : '已切换到桌面对比');
+                }
+                if (target.dataset.action === 'toggle-task') {
+                    const index = Number(target.dataset.taskIndex);
+                    state.done[index] = !state.done[index];
+                    if (state.done[index]) state.sunlight += 10;
+                    else state.sunlight = Math.max(0, state.sunlight - 10);
+                    syncState();
+                    showToast(state.done[index] ? '+10 阳光，任务点亮啦' : '任务已恢复待完成');
+                }
+                if (target.dataset.action === 'claim-demo-reward') {
+                    if (state.claimed) { showToast('这份演示奖励已经领取'); return; }
+                    state.claimed = true;
+                    state.sunlight += 20;
+                    syncState();
+                    showToast('+20 阳光，奖励已收进花园');
+                }
+            });
+
+            syncState();
+        }());
+    </script>
+</body>
+</html>
