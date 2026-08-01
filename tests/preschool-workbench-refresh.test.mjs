@@ -238,7 +238,7 @@ test('uses transparent PVZ plants and zombie variants across the preschool defen
   assert.match(app, /const plantAsset = preschoolPlantAsset\(activePlant\)/);
   assert.match(app, /pixel-hud-defense-art/);
   assert.match(app, /asset: 'player-energy-bars'/);
-  assert.match(config, /selected\.id === 'preschool' \? 'v0\.3\.4 · 幼儿版'/);
+  assert.match(config, /selected\.id === 'preschool' \? 'v0\.3\.5 · 幼儿版'/);
   assert.doesNotMatch(config, /v0\.2\.4 · 幼儿版/);
   assert.match(styles, /pixel-hud-defense-art/);
    assert.match(styles, /preschool-pvz-art/);
@@ -475,11 +475,12 @@ test('shows progress and current state in the preschool course directory', () =>
   assert.match(styles, /preschool-course-directory-state/);
 });
 
-test('avoids nested preschool course navigation on the course page', () => {
+test('keeps sidebar course lanes as the persistent navigation on focused course pages', () => {
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
   const styles = readCssGraph(path.join(root, 'styles.css'));
   const preschoolIndex = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
-  assert.match(app, /classList\.toggle\('preschool-courses-page'/);
+  assert.match(app, /activeCourse \? '' : renderPreschoolCourseDirectory\(courses, activeCourse\)/);
   assert.match(preschoolIndex, /data-sidebar-section="course-lanes"/);
-  assert.match(styles, /preschool-courses-page[\s\S]*preschool-course-sidebar-section/);
+  assert.match(styles, /preschool-course-layout\.is-focused[\s\S]*grid-template-columns:\s*minmax\(0, 1fr\)/);
+  assert.doesNotMatch(styles, /preschool-courses-page[\s\S]*preschool-course-sidebar-section/);
 });

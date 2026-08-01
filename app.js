@@ -349,7 +349,6 @@
         const derived = getDerived();
         if (isPreschool) {
             document.body.classList.toggle('preschool-no-motion', !getPreschoolFeedbackPreference('motionEnabled', true));
-            document.body.classList.toggle('preschool-courses-page', ui.page === 'courses');
         }
         updateModeStatus();
         document.querySelectorAll('.nav-item').forEach(function (item) {
@@ -1052,7 +1051,7 @@
         const courses = getPreschoolCourses();
         const activeCourse = getPreschoolCourseById(ui.courseId);
         const visibleCourses = activeCourse ? [activeCourse] : courses;
-        return `${renderPreschoolIntro(PAGE_META.courses, '', '', `<span class="tag lime">${activeCourse ? activeCourse.title : `${courses.length} 个分区`}</span>`)}<div class="preschool-course-layout ${activeCourse ? 'is-focused' : ''}">${renderPreschoolCourseDirectory(courses, activeCourse)}<div class="preschool-course-content"><section class="preschool-course-library-note"><span class="preschool-course-library-art">${preschoolAsset('storybook-token', '学习资源')}</span><div><span class="eyebrow">REFERENCE LIBRARY</span><h2>${activeCourse ? `正在学习：${escapeHtml(activeCourse.title)}` : '把每天的学习分成清楚的小入口'}</h2><p>${activeCourse ? '这里保留参考网页里的题型、样例和练习节奏，做完一张就点亮一张。' : '识字、拼音、古诗、数学、专注力、英语和运动各有自己的入口，孩子不用在一张大卡里找内容。'}</p></div>${activeCourse ? `<button class="btn-secondary" type="button" data-action="navigate" data-page="courses">查看全部${icon('layout-grid')}</button>` : ''}</section><div class="preschool-course-grid">${visibleCourses.map(function (course) { return renderPreschoolCourseCard(course, Boolean(activeCourse)); }).join('')}</div></div></div>`;
+        return `${renderPreschoolIntro(PAGE_META.courses, '', '', `<span class="tag lime">${activeCourse ? activeCourse.title : `${courses.length} 个分区`}</span>`)}<div class="preschool-course-layout ${activeCourse ? 'is-focused' : ''}">${activeCourse ? '' : renderPreschoolCourseDirectory(courses, activeCourse)}<div class="preschool-course-content"><section class="preschool-course-library-note"><span class="preschool-course-library-art">${preschoolAsset('storybook-token', '学习资源')}</span><div><span class="eyebrow">REFERENCE LIBRARY</span><h2>${activeCourse ? `正在学习：${escapeHtml(activeCourse.title)}` : '把每天的学习分成清楚的小入口'}</h2><p>${activeCourse ? '这里保留参考网页里的题型、样例和练习节奏，做完一张就点亮一张。' : '识字、拼音、古诗、数学、专注力、英语和运动各有自己的入口，孩子不用在一张大卡里找内容。'}</p></div>${activeCourse ? `<button class="btn-secondary" type="button" data-action="navigate" data-page="courses">查看全部${icon('layout-grid')}</button>` : ''}</section><div class="preschool-course-grid">${visibleCourses.map(function (course) { return renderPreschoolCourseCard(course, Boolean(activeCourse)); }).join('')}</div></div></div>`;
     }
 
     function renderPreschoolMistakes() {

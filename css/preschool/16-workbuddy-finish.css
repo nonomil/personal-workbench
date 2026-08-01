@@ -594,8 +594,8 @@ body.variant-preschool .preschool-course-directory-state.is-active { color: #287
 body.variant-preschool .preschool-course-directory-state.is-complete { color: #27764f; background: #e5f8e6; }
 body.variant-preschool .preschool-course-directory-state.is-overview { color: #287f7a; background: rgba(78, 205, 196, .14); }
 
-/* Keep the full learning directory as the single course navigation on the course page. */
-body.variant-preschool.preschool-courses-page .preschool-course-sidebar-section { display: none; }
+/* The persistent sidebar owns course navigation after a lane is selected. */
+body.variant-preschool .preschool-course-layout.is-focused { grid-template-columns: minmax(0, 1fr); }
 
 @media (max-width: 900px) {
     body.variant-preschool .preschool-action-step { grid-template-columns: 25px 48px minmax(0, 1fr); }
