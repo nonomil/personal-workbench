@@ -238,7 +238,7 @@ test('uses transparent PVZ plants and zombie variants across the preschool defen
   assert.match(app, /const plantAsset = preschoolPlantAsset\(activePlant\)/);
   assert.match(app, /pixel-hud-defense-art/);
   assert.match(app, /asset: 'player-energy-bars'/);
-  assert.match(config, /selected\.id === 'preschool' \? 'v0\.3\.2 · 幼儿版'/);
+  assert.match(config, /selected\.id === 'preschool' \? 'v0\.3\.3 · 幼儿版'/);
   assert.doesNotMatch(config, /v0\.2\.4 · 幼儿版/);
   assert.match(styles, /pixel-hud-defense-art/);
    assert.match(styles, /preschool-pvz-art/);
@@ -447,4 +447,30 @@ test('keeps a continue-learning action on the preschool overview', () => {
   assert.match(app, /continue-learning/);
   assert.match(app, /getNextPreschoolLesson/);
   assert.match(app, /data-action="open-lesson" data-id=/);
+});
+
+test('adds a three-step preschool action path to the overview', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const styles = readCssGraph(path.join(root, 'styles.css'));
+  assert.match(app, /function renderPreschoolActionPath\(/);
+  assert.match(app, /preschool-action-path/);
+  assert.match(app, /preschool-action-step/);
+  assert.match(app, /kind: 'checkin'/);
+  assert.match(app, /kind: 'learning'/);
+  assert.match(app, /kind: 'reward'/);
+  assert.match(app, /renderPreschoolActionPath\(derived, growth, defense\)/);
+  assert.match(styles, /preschool-action-path/);
+  assert.match(styles, /preschool-action-step/);
+  assert.match(styles, /@media \(max-width: 760px\)[\s\S]*preschool-action-path/);
+});
+
+test('shows progress and current state in the preschool course directory', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const styles = readCssGraph(path.join(root, 'styles.css'));
+  assert.match(app, /preschool-course-directory-progress/);
+  assert.match(app, /preschool-course-directory-state/);
+  assert.match(app, /role="progressbar"/);
+  assert.match(app, /data-route-state="\$\{status\}"/);
+  assert.match(styles, /preschool-course-directory-progress/);
+  assert.match(styles, /preschool-course-directory-state/);
 });

@@ -607,6 +607,68 @@
         return `<section class="pixel-daily-note" aria-label="今日提示"><span class="pixel-daily-note-art">${preschoolAsset('sun-smile-badge', '今日提示')}</span><span><strong>${safeDone ? '做得很棒，继续点亮花园' : '今天先完成一项小任务吧'}</strong><small>完成任务会得到阳光和豌豆能量，花园也会更热闹。</small></span><span class="pixel-daily-note-meter" role="progressbar" aria-label="今日任务进度" aria-valuemin="0" aria-valuemax="${safeTotal}" aria-valuenow="${safeDone}"><i style="width:${percent}%"></i></span><span class="pixel-daily-note-count">${safeDone}/${safeTotal}</span></section>`;
     }
 
+    function getPreschoolActionPathState(derived, growth, defense) {
+        const plans = derived && Array.isArray(derived.todayPlans) ? derived.todayPlans : [];
+        const completed = plans.filter(function (item) { return item.done; }).length;
+        const total = plans.length;
+        const next = getNextPreschoolLesson();
+        const invader = defense && defense.invader ? defense.invader : { active: false };
+        const allPlansDone = total > 0 && completed >= total;
+        return { completed, total, next, invader, allPlansDone, growth };
+    }
+
+    function renderPreschoolActionPath(derived, growth, defense) {
+        const path = getPreschoolActionPathState(derived, growth, defense);
+        const next = path.next;
+        const invaderProfile = preschoolInvaderProfile(path.invader);
+        const learningArt = next
+            ? preschoolVisual(next.course.icon || 'book-open', preschoolAssetForIcon(next.course.icon || 'book-open'), next.course.title)
+            : preschoolAsset('star-companion', '课程完成');
+        const rewardArt = path.invader.active
+            ? preschoolAsset(invaderProfile.asset, invaderProfile.title)
+            : preschoolAsset('treasure-chest', '奖励');
+        const steps = [
+            {
+                kind: 'checkin',
+                state: path.allPlansDone ? 'done' : 'current',
+                art: preschoolAsset('task-book-icon', '今日任务'),
+                title: path.allPlansDone ? '今日任务都完成啦' : '先点亮一项任务',
+                detail: path.allPlansDone ? `${path.completed}/${path.total} 项已完成` : `${path.completed}/${path.total} 项 · 完成得阳光`,
+                action: 'navigate',
+                page: 'plans',
+                label: path.allPlansDone ? '查看任务' : '去打卡'
+            },
+            {
+                kind: 'learning',
+                state: next ? (path.allPlansDone ? 'current' : 'next') : 'done',
+                art: learningArt,
+                title: next ? next.lesson.title : '课程都点亮啦',
+                detail: next ? `${next.course.title} · ${next.lesson.minutes} 分钟` : '去花园看看新伙伴',
+                action: next ? 'open-lesson' : 'navigate',
+                page: next ? '' : 'growth',
+                id: next ? next.lesson.id : '',
+                label: next ? '开始学习' : '去看花园'
+            },
+            {
+                kind: 'reward',
+                state: path.allPlansDone && !next ? 'current' : 'next',
+                art: rewardArt,
+                title: path.invader.active ? '保护我的花园' : '领取下一份奖励',
+                detail: path.invader.active ? '植物大战正在等你' : `${growth.sunlight} 阳光 · ${growth.collection.unlockedIds.length}/${growth.collection.total} 已收集`,
+                action: 'navigate',
+                page: path.invader.active ? 'battle' : 'rewards',
+                label: path.invader.active ? '去守护' : '去看看'
+            }
+        ];
+        return `<section class="preschool-action-path" aria-label="今日行动路线"><div class="preschool-action-path-head"><div><span class="eyebrow">TODAY'S ROUTE</span><h2>今天，按这三步走</h2><p>先点亮一件小事，再让学习和奖励接上。</p></div><span class="preschool-action-path-count">${path.completed}/${path.total} 已点亮</span></div><div class="preschool-action-steps">${steps.map(function (step, index) {
+            const actionAttrs = step.action === 'open-lesson'
+                ? `data-action="open-lesson" data-id="${escapeHtml(step.id)}"`
+                : `data-action="navigate" data-page="${escapeHtml(step.page)}"`;
+            const statusLabel = step.state === 'done' ? '已完成' : step.state === 'current' ? '现在做' : '下一步';
+            return `<button class="preschool-action-step is-${step.state}" type="button" ${actionAttrs} data-route-kind="${step.kind}" data-route-state="${step.state}" aria-label="${escapeHtml(step.title)}，${statusLabel}"><span class="preschool-action-step-number">${index + 1}</span><span class="preschool-action-step-art">${step.art}</span><span class="preschool-action-step-copy"><small>${statusLabel}</small><strong>${escapeHtml(step.title)}</strong><em>${escapeHtml(step.detail)}</em></span><span class="preschool-action-step-button">${escapeHtml(step.label)}${icon(step.state === 'done' ? 'check' : 'arrow-right')}</span></button>`;
+        }).join('')}</div></section>`;
+    }
+
     function renderWorkbenchGardenPreview(growth, defense) {
         const garden = growth.garden || {};
         const activePlant = garden.activePlant || { id: 'plant-sunflower', title: '向日葵', tone: 'gold' };
@@ -640,6 +702,7 @@
         return `<div class="pixel-home workbench-overview">
             <section class="pixel-page-header workbench-overview-header"><div><span class="pixel-panel-kicker workbench-kicker">TODAY / ADVENTURE</span><h1>今天的冒险开始啦</h1><p>${done}/${total || 0} 个任务已点亮，先完成一件小事，花园就会多一束光。</p></div><div class="pixel-header-actions workbench-overview-actions"><span class="pixel-hud-sun">${preschoolAsset('sun-token', '阳光')}<strong>${growth.sunlight}</strong></span><span class="pixel-hud-defense"><span class="pixel-hud-defense-art">${preschoolAsset('player-energy-bars', '豌豆能量')}</span><strong>${defense.energy}</strong><span>豌豆</span></span><span class="pixel-hud-streak"><span class="pixel-hud-streak-art">${preschoolAsset('streak-stars', '连续打卡')}</span>${growth.streak} 天</span><button class="pixel-settings-button" type="button" data-action="navigate" data-page="account" aria-label="打开设置" title="打开设置">${icon('settings')}</button></div></section>
             ${renderPixelDailyNote(done, total)}
+            ${renderPreschoolActionPath(derived, growth, defense)}
             ${renderPreschoolContinueLearning()}
             ${renderPixelStats(growth, defense)}
             <div class="pixel-world-grid"><section class="pixel-quest-board"><div id="workbench-today" class="pixel-board-heading workbench-card-head"><div><span class="pixel-panel-kicker workbench-kicker">TODAY QUESTS</span><h2>今天要做</h2><p>点一下任务，收集阳光和豌豆能量。</p></div><span class="pixel-board-count">${done} / ${total || 0}</span></div><div class="pixel-quest-grid workbench-task-grid">${plans.map(pixelQuestCard).join('')}</div><button class="workbench-secondary-button" type="button" data-action="navigate" data-page="plans">${icon('list-checks')} 查看全部任务</button></section><aside class="pixel-side-stack workbench-side-stack">${renderWorkbenchGardenPreview(growth, defense)}${renderPixelChest(growth, done, total)}${renderPreschoolCollection(growth)}</aside></div>
@@ -968,7 +1031,14 @@
     }
 
     function renderPreschoolCourseDirectory(courses, activeCourse) {
-        return `<aside class="preschool-course-directory"><div class="preschool-course-directory-head"><span class="eyebrow">LEARNING LANES</span><strong>学习专区</strong><small>选一个入口，打开完整资源。</small></div><button class="preschool-course-directory-item ${activeCourse ? '' : 'is-active'}" type="button" data-action="navigate" data-page="courses"><span>${icon('layout-grid')}</span><strong>全部资源</strong><small>${courses.length} 个专区</small></button>${courses.map(function (course) { return `<button class="preschool-course-directory-item ${activeCourse && activeCourse.id === course.id ? 'is-active' : ''}" type="button" data-action="navigate" data-page="courses" data-course-id="${escapeHtml(course.id)}"><span>${preschoolAssetForIcon(course.icon || 'book-open') ? preschoolAsset(preschoolAssetForIcon(course.icon || 'book-open'), course.title) : icon(course.icon || 'book-open')}</span><strong>${escapeHtml(course.title)}</strong><small>${course.completed || 0}/${course.total || 0} 个小练习</small></button>`; }).join('')}</aside>`;
+        return `<aside class="preschool-course-directory"><div class="preschool-course-directory-head"><span class="eyebrow">LEARNING LANES</span><strong>学习专区</strong><small>选一个入口，打开完整资源。</small></div><button class="preschool-course-directory-item ${activeCourse ? '' : 'is-active'}" type="button" data-action="navigate" data-page="courses"><span>${icon('layout-grid')}</span><span class="preschool-course-directory-copy"><strong>全部资源</strong><small>${courses.length} 个专区</small></span><span class="preschool-course-directory-state is-overview">总览</span></button>${courses.map(function (course) {
+            const completion = getPreschoolCourseCompletion(course);
+            const status = completion.percent >= 100 ? 'complete' : completion.completed ? 'active' : 'ready';
+            const statusLabel = status === 'complete' ? '已点亮' : status === 'active' ? '继续' : '准备';
+            const iconName = course.icon || 'book-open';
+            const art = preschoolAssetForIcon(iconName) ? preschoolAsset(preschoolAssetForIcon(iconName), course.title) : icon(iconName);
+            return `<button class="preschool-course-directory-item ${activeCourse && activeCourse.id === course.id ? 'is-active' : ''}" type="button" data-action="navigate" data-page="courses" data-course-id="${escapeHtml(course.id)}"><span>${art}</span><span class="preschool-course-directory-copy"><strong>${escapeHtml(course.title)}</strong><small>${completion.completed}/${completion.total} 个小练习</small><span class="preschool-course-directory-progress" role="progressbar" aria-label="${escapeHtml(course.title)}完成度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${completion.percent}"><i style="width:${completion.percent}%"></i></span></span><span class="preschool-course-directory-state is-${status}" data-route-state="${status}">${statusLabel}</span></button>`;
+        }).join('')}</aside>`;
     }
 
     function renderPreschoolCourseCard(course, focused) {
