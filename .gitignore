@@ -8,6 +8,7 @@ Thumbs.db
 tmp/
 _site*/
 *.log
+.worktrees/
 
 # Local secrets and machine-specific configuration
 .env
