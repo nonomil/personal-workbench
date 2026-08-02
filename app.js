@@ -38,7 +38,7 @@
     const CATEGORY_COLORS = { 学习: 'orange', 阅读: 'blue', 实践: 'lime', 运动: 'gold', 自控: 'orange', 其它: 'blue' };
     const PRIORITY_LABELS = { high: '高优先', medium: '常规', low: '低优先' };
     const STATUS_LABELS = { todo: '待开始', doing: '进行中', done: '已完成' };
-    const ui = { page: getPageFromHash(), courseId: getCourseIdFromHash(), taskFilter: 'all', dialogType: '', dialogId: '', dialogArea: '', lessonSession: null };
+    const ui = { page: getPageFromHash(), courseId: getCourseIdFromHash(), courseNavExpanded: getPageFromHash() === 'courses', taskFilter: 'all', dialogType: '', dialogId: '', dialogArea: '', lessonSession: null };
     const isPreschool = workbenchConfig.variant === 'preschool';
     const isChild = workbenchConfig.variant === 'child' || isPreschool;
     const isAdult = workbenchConfig.variant === 'adult';
@@ -336,6 +336,7 @@
     function setPage(page, replace, courseId) {
         ui.page = PAGE_META[page] ? page : 'overview';
         ui.courseId = ui.page === 'courses' ? String(courseId || '') : '';
+        if (ui.page === 'courses') ui.courseNavExpanded = true;
         const hash = ui.page === 'courses' && ui.courseId ? `#courses?course=${encodeURIComponent(ui.courseId)}` : `#${ui.page}`;
         if (replace) history.replaceState(null, '', hash);
         else if (location.hash !== hash) location.hash = hash;
@@ -357,6 +358,7 @@
         document.querySelectorAll('[data-mobile-nav]').forEach(function (item) {
             item.classList.toggle('is-active', item.dataset.mobileNav !== 'more' && item.dataset.page === ui.page);
         });
+        setCourseNavExpanded(ui.courseNavExpanded);
         const activeCourse = isPreschool && ui.page === 'courses' ? getPreschoolCourseById(ui.courseId) : null;
         pageName.textContent = activeCourse ? activeCourse.title : meta.title;
         if (isPreschool) pageContent.innerHTML = renderPreschoolPage(derived);
@@ -384,6 +386,16 @@
         }
         applyLanguagePreference();
         global.lucide.createIcons({ root: pageContent });
+    }
+
+    function setCourseNavExpanded(expanded) {
+        const toggle = document.querySelector('[data-action="toggle-course-nav"]');
+        const nav = document.getElementById('preschool-course-nav');
+        if (!toggle || !nav) return;
+        const isExpanded = Boolean(expanded);
+        toggle.classList.toggle('is-collapsed', !isExpanded);
+        toggle.setAttribute('aria-expanded', String(isExpanded));
+        nav.classList.toggle('is-collapsed', !isExpanded);
     }
 
     function updateModeStatus() {
@@ -461,7 +473,7 @@
                 ${invader.active ? `<button class="garden-invader" type="button" data-action="${action}" data-page="plans"><span>${preschoolAsset(invaderProfile.asset, invaderProfile.title)}</span><strong>${escapeHtml(invaderProfile.title)}入侵</strong><small>完成一项赶走</small></button>` : `<span class="garden-calm-badge">${icon('shield-check')} 花园安全</span>`}
                 <span class="garden-ground-line"></span>
             </div>
-            <div class="preschool-garden-board-foot"><div class="garden-progress-copy"><span>植物伙伴</span><strong>${plantCount} / ${plantCount + 3}</strong></div><div class="garden-progress-track"><span style="width:${Math.round((plantCount / (plantCount + 3)) * 100)}%"></span></div><button class="btn-secondary" type="button" data-action="navigate" data-page="growth">看花园${icon('arrow-up-right')}</button></div>
+            <div class="preschool-garden-board-foot"><div class="garden-progress-copy"><span>植物伙伴</span><strong>${plantCount} / ${plantCount + 3}</strong></div><div class="garden-progress-track"><span style="width:${Math.round((plantCount / (plantCount + 3)) * 100)}%"></span></div><button class="btn-secondary" type="button" data-action="navigate" data-page="battle">去植物大战${icon('swords')}</button></div>
         </section>`;
     }
 
@@ -704,10 +716,11 @@
         return `<div class="pixel-home workbench-overview">
             <section class="pixel-page-header workbench-overview-header"><div><span class="pixel-panel-kicker workbench-kicker">TODAY / ADVENTURE</span><h1>今天的冒险开始啦</h1><p>${done}/${total || 0} 个任务已点亮，先完成一件小事，花园就会多一束光。</p></div><div class="pixel-header-actions workbench-overview-actions"><span class="pixel-hud-sun">${preschoolAsset('sun-token', '阳光')}<strong>${growth.sunlight}</strong></span><span class="pixel-hud-defense"><span class="pixel-hud-defense-art">${preschoolAsset('player-energy-bars', '豌豆能量')}</span><strong>${defense.energy}</strong><span>豌豆</span></span><span class="pixel-hud-streak"><span class="pixel-hud-streak-art">${preschoolAsset('streak-stars', '连续打卡')}</span>${growth.streak} 天</span><button class="pixel-settings-button" type="button" data-action="navigate" data-page="account" aria-label="打开设置" title="打开设置">${icon('settings')}</button></div></section>
             ${renderPixelDailyNote(done, total)}
+            <section class="workbench-battle-spotlight" aria-label="植物大战主入口"><div class="workbench-battle-spotlight-head"><div><span class="pixel-panel-kicker workbench-kicker">GARDEN DEFENSE / PLAY FIRST</span><h2>先来植物大战</h2><p>完成任务收集能量，点僵尸或发射豌豆，守住自己的阳光花园。</p></div><button class="workbench-action-button" type="button" data-action="navigate" data-page="battle">${icon('swords')} 进入战场</button></div>${renderPixelMap(growth, plans, true)}</section>
             ${renderPreschoolActionPath(derived, growth, defense)}
             ${renderPreschoolContinueLearning()}
             ${renderPixelStats(growth, defense)}
-            <div class="pixel-world-grid"><section class="pixel-quest-board"><div id="workbench-today" class="pixel-board-heading workbench-card-head"><div><span class="pixel-panel-kicker workbench-kicker">TODAY QUESTS</span><h2>今天要做</h2><p>点一下任务，收集阳光和豌豆能量。</p></div><span class="pixel-board-count">${done} / ${total || 0}</span></div><div class="pixel-quest-grid workbench-task-grid">${plans.map(pixelQuestCard).join('')}</div><button class="workbench-secondary-button" type="button" data-action="navigate" data-page="plans">${icon('list-checks')} 查看全部任务</button></section><aside class="pixel-side-stack workbench-side-stack">${renderWorkbenchGardenPreview(growth, defense)}${renderPixelChest(growth, done, total)}${renderPreschoolCollection(growth)}</aside></div>
+            <div class="pixel-world-grid"><section class="pixel-quest-board"><div id="workbench-today" class="pixel-board-heading workbench-card-head"><div><span class="pixel-panel-kicker workbench-kicker">TODAY QUESTS</span><h2>今天要做</h2><p>点一下任务，收集阳光和豌豆能量。</p></div><span class="pixel-board-count">${done} / ${total || 0}</span></div><div class="pixel-quest-grid workbench-task-grid">${plans.map(pixelQuestCard).join('')}</div><button class="workbench-secondary-button" type="button" data-action="navigate" data-page="plans">${icon('list-checks')} 查看全部任务</button></section><aside class="pixel-side-stack workbench-side-stack">${renderPixelChest(growth, done, total)}${renderPreschoolCollection(growth)}</aside></div>
             ${renderWorkbenchRewardStrip(growth)}
             <section class="workbench-course-strip"><div><span class="workbench-kicker">LITTLE ROUTE</span><strong>识字 · 拼音 · 古诗 · 数学 · 英语 · 运动</strong><small>每一项都会变成成长记录。</small></div><button class="workbench-action-button" type="button" data-action="navigate" data-page="courses">${icon('book-open')} 去看资源卡</button><button class="workbench-text-button" type="button" data-action="navigate" data-page="family">${icon('heart')} 告诉家长</button></section>
         </div>`;
@@ -762,6 +775,18 @@
             </div>`;
     }
 
+    function renderPreschoolGardenSummary(growth, garden, activeStyle, waterAvailable) {
+        const activePlant = garden.activePlant || garden.plants?.[0] || { id: 'plant-sunflower', title: '向日葵' };
+        const invader = garden.invader || { active: false };
+        const invaderProfile = preschoolInvaderProfile(invader);
+        const nextLevel = Math.max(0, 100 - growth.levelProgress);
+        return `<section class="preschool-growth-hero preschool-garden-dashboard">
+            <div class="preschool-garden-dashboard-main"><div class="preschool-garden-dashboard-label"><span class="eyebrow">SUN GARDEN / TODAY</span><span class="garden-dashboard-badge">${invader.active ? '需要守护' : '花园安全'}</span></div><div class="preschool-garden-sun-row"><span class="preschool-garden-sun-art">${preschoolAsset('sun-token', '阳光')}</span><strong>${growth.sunlight}</strong><small>阳光</small></div><p>星芒 · ${escapeHtml(activeStyle.title)} · 完成任务收集阳光，浇水让植物伙伴继续长大。</p><div class="growth-meter"><span style="width:${growth.levelProgress}%"></span></div><div class="preschool-garden-level-row"><span>成长等级 ${growth.level}</span><strong>还差 ${nextLevel} 阳光</strong></div></div>
+            <div class="preschool-garden-dashboard-side"><div class="preschool-garden-dashboard-card"><span class="preschool-garden-dashboard-art">${preschoolAsset(preschoolPlantAsset(activePlant), activePlant.title)}</span><span><small>当前植物</small><strong>${escapeHtml(activePlant.title)}</strong></span></div><div class="preschool-garden-dashboard-card ${invader.active ? 'is-alert' : ''}"><span class="preschool-garden-dashboard-art">${invader.active ? preschoolAsset(invaderProfile.asset, invaderProfile.title) : icon('shield-check')}</span><span><small>花园状态</small><strong>${invader.active ? `${escapeHtml(invaderProfile.title)}入侵` : '今天很安全'}</strong></span></div></div>
+            <div class="preschool-garden-dashboard-actions"><button class="btn-primary" type="button" data-action="navigate" data-page="battle">${icon('swords')} 进入植物大战</button><button class="btn-secondary" type="button" data-action="water-plant" ${waterAvailable ? '' : 'disabled'}>${icon('droplets')}${growth.lastWateredDate === storage.localDate() ? '今天已浇水' : '浇水'}</button><button class="btn-secondary" type="button" data-action="navigate" data-page="plans">${icon('list-checks')} 去打卡</button><label class="voice-toggle"><input type="checkbox" data-action="toggle-voice" ${growth.voiceEnabled ? 'checked' : ''}><span class="voice-toggle-track"></span><span>语音鼓励</span></label></div>
+        </section>`;
+    }
+
     function renderPreschoolGrowth() {
         const growth = getChildGrowth();
         const garden = growth.garden || { invaderActive: growth.zombieActive, invader: { active: growth.zombieActive }, plants: [], collection: { unlockedIds: [], total: 0 } };
@@ -773,10 +798,8 @@
             return `<div class="preschool-streak-card ${claimed ? 'is-claimed' : ''}"><span>${escapeHtml(reward.days)}天</span><strong>${escapeHtml(reward.title)}</strong>${claimed ? `<small>已领</small>` : unlocked ? `<button class="row-action" type="button" data-action="claim-streak-reward" data-id="${escapeHtml(reward.id)}" aria-label="领取${escapeHtml(reward.title)}" title="领取奖励">${icon('gift')}</button>` : `<small>继续</small>`}</div>`;
         }).join('');
         return `${renderPreschoolIntro(PAGE_META.growth, '', '', `<span class="points-chip">${icon('sun')}${growth.sunlight}</span>`)}
-            <section class="preschool-growth-hero"><div><span class="preschool-big-number">${growth.sunlight}</span><span class="preschool-big-label">阳光</span><div class="growth-meter"><span style="width:${growth.levelProgress}%"></span></div><p>星芒 · ${escapeHtml(activeStyle.title)}</p></div><div class="preschool-growth-art"><img src="${escapeHtml(preschoolAssetSrc('preschool-garden-hero'))}" alt="阳光花园里的植物伙伴和星星" onerror="this.hidden=true"><span>${preschoolVisual(activeStyle.icon, preschoolAssetForIcon(activeStyle.icon), activeStyle.title)}<b>Lv.${growth.level}</b></span></div></section>
+            ${renderPreschoolGardenSummary(growth, garden, activeStyle, waterAvailable)}
             ${renderPreschoolGardenBoard(growth, false)}
-            <div class="preschool-stat-grid"><article class="preschool-stat-card tone-lime">${preschoolVisual('sprout', 'seedling-node', growth.plant.title)}<strong>${escapeHtml(growth.plant.title)}</strong><small>植物阶段 ${growth.plant.stage}</small></article><article class="preschool-stat-card tone-blue">${preschoolVisual('sparkles', 'star-companion', growth.unicorn.name)}<strong>${escapeHtml(growth.unicorn.name)}</strong><small>${growth.petXp} XP</small></article><article class="preschool-stat-card tone-gold">${preschoolVisual('sun', 'sun-token', '连续打卡')}<strong>${growth.streak} 天</strong><small>连续打卡</small></article><article class="preschool-stat-card ${garden.invaderActive ? 'tone-pink is-alert' : 'tone-orange'}">${preschoolVisual(garden.invaderActive ? 'bug' : 'shield-check', garden.invaderActive ? 'zombie-basic' : 'growth-tree', garden.invaderActive ? '普通僵尸' : '花园安全')}<strong>${garden.invaderActive ? '有僵尸' : '很安全'}</strong><small>${garden.invaderActive ? '完成一项就赶走' : '继续保持'}</small></article></div>
-            <section class="preschool-growth-actions"><button class="btn-primary" type="button" data-action="water-plant" ${waterAvailable ? '' : 'disabled'}>${icon('droplets')}${growth.lastWateredDate === storage.localDate() ? '已浇水' : '浇水'}</button><label class="voice-toggle"><input type="checkbox" data-action="toggle-voice" ${growth.voiceEnabled ? 'checked' : ''}><span class="voice-toggle-track"></span><span>语音鼓励</span></label><button class="btn-secondary" type="button" data-action="navigate" data-page="plans">去打卡${icon('arrow-up-right')}</button></section>
             <section class="preschool-section"><div class="preschool-section-head"><div><span class="eyebrow">STREAK</span><h2>连续奖励</h2></div></div><div class="preschool-streak-grid">${rewardCards}</div></section>
             <section class="preschool-section"><div class="preschool-section-head"><div><span class="eyebrow">PLANTS</span><h2>植物伙伴</h2></div><span class="tag lime">点一下换伙伴</span></div><div class="preschool-plant-grid">${garden.plants.map(function (plant) { const unlocked = garden.unlockedPlantIds.includes(plant.id); const active = plant.id === garden.activePlantId; const assetName = preschoolPlantAsset(plant); return `<button class="preschool-plant-card ${active ? 'is-active' : ''} ${unlocked ? '' : 'is-locked'} tone-${escapeHtml(plant.tone || 'lime')}" type="button" data-action="select-plant" data-id="${escapeHtml(plant.id)}" ${unlocked ? '' : 'disabled'}><span class="${assetName ? 'has-image' : ''}">${assetName ? preschoolAsset(assetName, unlocked ? plant.title : '未出现') : icon(plant.icon)}</span><strong>${escapeHtml(unlocked ? plant.title : '未出现')}</strong><small>${escapeHtml(unlocked ? plant.description : `${plant.unlockAt} 阳光出现`)}</small></button>`; }).join('')}</div></section>
             ${renderPreschoolCollection(garden)}
@@ -836,6 +859,10 @@
         };
     }
 
+    function getPreschoolLessonLevelLabel(lesson) {
+        return lesson && (lesson.level || lesson.levelLabel) ? String(lesson.level || lesson.levelLabel) : '';
+    }
+
     function renderLessonDialog() {
         if (!lessonDialogContent || !ui.lessonSession) return;
         const match = findPreschoolLesson(ui.lessonSession.id);
@@ -860,6 +887,7 @@
         const coursePercent = Math.round((completedInCourse / courseTotal) * 100);
         const selectedIndex = ui.lessonSession.selectedIndex;
         const correct = ui.lessonSession.correct;
+        const level = getPreschoolLessonLevelLabel(match.lesson);
         const optionMarkup = activity.options.map(function (option, index) {
             const isSelected = selectedIndex === index;
             const isCorrect = correct && index === activity.answer;
@@ -872,7 +900,7 @@
             : selectedIndex === null
                 ? `<p class="lesson-dialog-feedback">${escapeHtml(activity.hint)}</p>`
                 : '<p class="lesson-dialog-feedback is-error" role="alert">还差一点，再看看提示，换一个答案试试。</p>';
-        lessonDialogContent.innerHTML = `<div class="lesson-dialog-body"><span class="lesson-dialog-course">${escapeHtml(match.course.title)}</span><div class="lesson-dialog-progress"><div><span>第 ${lessonIndex + 1} 张练习</span><strong>已完成 ${completedInCourse}/${lessons.length || 0}</strong></div><span class="lesson-dialog-progress-track" role="progressbar" aria-label="当前课程进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${coursePercent}"><i style="width:${coursePercent}%"></i></span></div><h3 class="lesson-dialog-prompt">${escapeHtml(activity.prompt)}</h3><div class="lesson-dialog-options" role="group" aria-label="练习选项">${optionMarkup}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${correct ? '' : 'disabled'}>${icon(correct ? 'sparkles' : 'lock-keyhole')}${correct ? '收集阳光，完成练习' : '答对后领取奖励'}</button></div></div>`;
+        lessonDialogContent.innerHTML = `<div class="lesson-dialog-body"><div class="lesson-dialog-labels"><span class="lesson-dialog-course">${escapeHtml(match.course.title)}</span>${level ? `<span class="lesson-dialog-level">${escapeHtml(level)}</span>` : ''}</div><div class="lesson-dialog-progress"><div><span>第 ${lessonIndex + 1} 张练习</span><strong>已完成 ${completedInCourse}/${lessons.length || 0}</strong></div><span class="lesson-dialog-progress-track" role="progressbar" aria-label="当前课程进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${coursePercent}"><i style="width:${coursePercent}%"></i></span></div><h3 class="lesson-dialog-prompt">${escapeHtml(activity.prompt)}</h3><div class="lesson-dialog-options" role="group" aria-label="练习选项">${optionMarkup}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${correct ? '' : 'disabled'}>${icon(correct ? 'sparkles' : 'lock-keyhole')}${correct ? '收集阳光，完成练习' : '答对后领取奖励'}</button></div></div>`;
         if (global.lucide && typeof global.lucide.createIcons === 'function') global.lucide.createIcons({ root: lessonDialogContent });
     }
 
@@ -966,6 +994,17 @@
         }).join('')}</div>`;
     }
 
+    function renderPreschoolCourseResources(course) {
+        const resources = course && Array.isArray(course.resources) ? course.resources : [];
+        if (!resources.length) return '';
+        return `<section class="preschool-course-resources" aria-label="${escapeHtml(course.title || '课程')}学习素材"><div class="preschool-course-resources-head"><div><span class="eyebrow">READY TO USE</span><h3>今天可以直接用的素材</h3><p>先选一张读一读，再去完成下面的小练习。</p></div><span>${resources.length} 张素材</span></div><div class="preschool-course-resource-list">${resources.map(function (resource) {
+            const iconName = resource.icon || 'book-open';
+            const assetName = preschoolAssetForIcon(iconName);
+            const speech = resource.speak || `${resource.title || ''}。${resource.content || ''}`;
+            return `<article class="preschool-course-resource"><span class="preschool-course-resource-art ${assetName ? 'has-image' : ''}">${assetName ? preschoolAsset(assetName, resource.title) : icon(iconName)}</span><div class="preschool-course-resource-copy"><span>${escapeHtml(resource.kind || '学习素材')}</span><strong>${escapeHtml(resource.title || '学习素材')}</strong><p>${escapeHtml(resource.content || '')}</p></div><button class="row-action preschool-course-resource-speak" type="button" data-action="speak-resource" data-text="${escapeHtml(speech)}" aria-label="朗读${escapeHtml(resource.title || '学习素材')}" title="朗读素材">${icon('volume-2')}</button></article>`;
+        }).join('')}</div></section>`;
+    }
+
     function getPreschoolCourseCompletion(course) {
         const lessons = course && Array.isArray(course.lessons) ? course.lessons : [];
         const completedIds = new Set(state.courseProgress && Array.isArray(state.courseProgress.completedLessonIds)
@@ -1014,9 +1053,10 @@
         return `<div class="preschool-course-route" aria-label="${escapeHtml(course.title)}学习路线">${completion.lessons.map(function (lesson, index) {
             const routeState = getPreschoolLessonRouteState(completion, lesson, index);
             const isDone = routeState === 'done';
+            const level = getPreschoolLessonLevelLabel(lesson);
             const detail = isDone ? '完成啦 · 已记录到成长花园' : `${lesson.minutes || 0} 分钟 · ${escapeHtml(lesson.meta || '看图选一选')}`;
             const actionIcon = isDone ? 'check' : routeState === 'current' ? 'play' : 'arrow-right';
-            return `<button class="preschool-route-step is-${routeState}" type="button" data-action="${lessonAction}" data-id="${escapeHtml(lesson.id)}" data-route-state="${routeState}" ${isDone ? 'disabled' : ''}><span class="preschool-route-step-number">${index + 1}</span><span class="preschool-route-step-art" aria-hidden="true">${getPreschoolLessonRouteArt(course, lesson, index)}</span><span class="preschool-route-step-copy"><strong>${escapeHtml(lesson.title)}</strong><small>${stateLabels[routeState]} · ${detail}</small></span><span class="preschool-route-step-action">${icon(actionIcon)}</span></button>`;
+            return `<button class="preschool-route-step is-${routeState}" type="button" data-action="${lessonAction}" data-id="${escapeHtml(lesson.id)}" data-route-state="${routeState}" ${isDone ? 'disabled' : ''}><span class="preschool-route-step-number">${index + 1}</span><span class="preschool-route-step-art" aria-hidden="true">${getPreschoolLessonRouteArt(course, lesson, index)}</span><span class="preschool-route-step-copy"><strong>${escapeHtml(lesson.title)}</strong>${level ? `<span class="preschool-route-step-level">${escapeHtml(level)}</span>` : ''}<small>${stateLabels[routeState]} · ${detail}</small></span><span class="preschool-route-step-action">${icon(actionIcon)}</span></button>`;
         }).join('')}</div>`;
     }
 
@@ -1044,7 +1084,7 @@
     }
 
     function renderPreschoolCourseCard(course, focused) {
-        return `<article class="preschool-course-card tone-${escapeHtml(course.tone || 'blue')} ${focused ? 'is-focused' : ''}"><div class="preschool-course-head">${preschoolVisual(course.icon || 'book-open', preschoolAssetForIcon(course.icon || 'book-open'), course.title)}<div><span class="preschool-course-label">${focused ? '当前学习专区' : '学习专区'}</span><h2>${escapeHtml(course.title)}</h2><small>${escapeHtml(course.description || '')}</small></div><strong>${course.completed || 0}/${course.total || 0}</strong></div>${renderPreschoolCourseProgress(course)}<div class="preschool-course-reference"><span>${icon('sparkles')}</span><p class="preschool-course-note">${escapeHtml(course.note || '选一张卡，开始今天的小练习。')}</p></div>${renderPreschoolCourseBadges(course)}${renderPreschoolCourseSamples(course)}<div class="preschool-course-lesson-heading"><div><span class="eyebrow">LEARNING ROUTE</span><h3>一步一步点亮小路线</h3></div><span>${course.total || (course.lessons || []).length} 张练习卡</span></div>${renderPreschoolCourseRoute(course)}</article>`;
+        return `<article class="preschool-course-card tone-${escapeHtml(course.tone || 'blue')} ${focused ? 'is-focused' : ''}"><div class="preschool-course-head">${preschoolVisual(course.icon || 'book-open', preschoolAssetForIcon(course.icon || 'book-open'), course.title)}<div><span class="preschool-course-label">${focused ? '当前学习专区' : '学习专区'}</span><h2>${escapeHtml(course.title)}</h2><small>${escapeHtml(course.description || '')}</small></div><strong>${course.completed || 0}/${course.total || 0}</strong></div>${renderPreschoolCourseProgress(course)}<div class="preschool-course-reference"><span>${icon('sparkles')}</span><p class="preschool-course-note">${escapeHtml(course.note || '选一张卡，开始今天的小练习。')}</p></div>${renderPreschoolCourseBadges(course)}${renderPreschoolCourseSamples(course)}${renderPreschoolCourseResources(course)}<div class="preschool-course-lesson-heading"><div><span class="eyebrow">LEARNING ROUTE</span><h3>一步一步点亮小路线</h3></div><span>${course.total || (course.lessons || []).length} 张练习卡</span></div>${renderPreschoolCourseRoute(course)}</article>`;
     }
 
     function renderPreschoolCourses() {
@@ -1550,6 +1590,24 @@
         accountView.lastRemoteRevision = Number(result.payload && result.payload.snapshot && result.payload.snapshot.revision) || state.revision;
         render();
         showToast('当前工作台已上传到云端。');
+    }
+
+    function speakResource(message) {
+        if (!isChild || !global.speechSynthesis || !global.SpeechSynthesisUtterance) {
+            showToast('当前浏览器暂不支持朗读素材。', true);
+            return;
+        }
+        try {
+            global.speechSynthesis.cancel();
+            const utterance = new global.SpeechSynthesisUtterance(String(message || ''));
+            utterance.lang = 'zh-CN';
+            utterance.rate = 0.88;
+            global.speechSynthesis.speak(utterance);
+            showToast('正在朗读这张素材');
+        } catch (error) {
+            console.warn('[PersonalWorkbench] 素材朗读失败', error);
+            showToast('这张素材暂时读不了，请直接看一看。', true);
+        }
     }
 
     function speakPraise(message) {
@@ -2177,6 +2235,10 @@
         const action = target.dataset.action;
         if (isPreschool && action !== 'toggle-music' && getPreschoolFeedbackPreference('musicEnabled', false)) startPreschoolMusic();
         if (action === 'navigate') setPage(target.dataset.page, false, target.dataset.courseId);
+        if (action === 'toggle-course-nav') {
+            ui.courseNavExpanded = !ui.courseNavExpanded;
+            setCourseNavExpanded(ui.courseNavExpanded);
+        }
         if (action === 'open-sidebar') openSidebar();
         if (action === 'close-sidebar') closeSidebar();
         if (action === 'close-dialog') closeDialog();
@@ -2223,6 +2285,7 @@
         if (action === 'fire-pea') firePreschoolPea();
         if (action === 'complete-lesson') completeCourseLesson(target.dataset.id);
         if (action === 'open-lesson') openLessonDialog(target.dataset.id);
+        if (action === 'speak-resource') speakResource(target.dataset.text);
         if (action === 'lesson-answer') answerLesson(target.dataset.index);
         if (action === 'lesson-finish') finishLesson();
         if (action === 'close-lesson') closeLessonDialog();
@@ -2285,7 +2348,7 @@
         }
     });
     importFile.addEventListener('change', function () { importSnapshot(importFile.files && importFile.files[0]); });
-    window.addEventListener('hashchange', function () { const route = getRouteFromHash(); ui.page = getPageFromHash(); ui.courseId = route.page === 'courses' ? route.courseId : ''; render(); closeSidebar(); window.scrollTo(0, 0); });
+    window.addEventListener('hashchange', function () { const route = getRouteFromHash(); ui.page = getPageFromHash(); ui.courseId = route.page === 'courses' ? route.courseId : ''; if (ui.page === 'courses') ui.courseNavExpanded = true; render(); closeSidebar(); window.scrollTo(0, 0); });
     entryDialog.addEventListener('click', function (event) { if (event.target === entryDialog) closeDialog(); });
     if (lessonDialog) {
         lessonDialog.addEventListener('click', function (event) { if (event.target === lessonDialog) closeLessonDialog(); });

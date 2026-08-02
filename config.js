@@ -113,6 +113,31 @@
             ],
             childCourses: [
                 {
+                    id: 'preschool-summer',
+                    title: '暑假学习',
+                    description: '每天一张小学习单，晨读、识字、古诗、数学和复盘都能轻松完成。',
+                    icon: 'sun',
+                    tone: 'orange',
+                    badge: '暑假素材卡 · 6 张',
+                    note: '参考“暑假每日学习打印版”：一小段晨读、几个汉字、一首古诗，再留一句话给明天。',
+                    highlights: ['60 天晨读参考', '45 天识字参考', '每周复盘卡'],
+                    samples: ['你好，暑假', '山 · 水 · 花 · 鸟', '鹅，鹅，鹅'],
+                    resources: [
+                        { id: 'summer-reading-01', kind: '晨读 · 5 分钟', title: '你好，暑假', content: '早上好，太阳笑。小朋友，起得早。', icon: 'sun', speak: '早上好，太阳笑。小朋友，起得早。' },
+                        { id: 'summer-literacy-01', kind: '识字 · 第 1 天', title: '自然小字卡', content: '山、水、火、木、日、月、石、田、人、口', icon: 'book-open', speak: '山，水，火，木，日，月，石，田，人，口。' },
+                        { id: 'summer-poem-01', kind: '古诗 · 今日一首', title: '咏鹅', content: '鹅，鹅，鹅，曲项向天歌。白毛浮绿水，红掌拨清波。', icon: 'moon', speak: '鹅，鹅，鹅，曲项向天歌。白毛浮绿水，红掌拨清波。' },
+                        { id: 'summer-classic-01', kind: '经典短句 · 读一遍', title: '先听清，再行动', content: '父母呼，应勿缓。父母命，行勿懒。', icon: 'heart', speak: '父母呼，应勿缓。父母命，行勿懒。' },
+                        { id: 'summer-math-01', kind: '数学 · 练一练', title: '阳光口算', content: '3 + 4 = ?　　9 - 5 = ?　　2 × 3 = ?', icon: 'calculator', speak: '阳光口算。三加四等于多少？九减五等于多少？二乘三等于多少？' },
+                        { id: 'summer-review-01', kind: '每周复盘 · 周末', title: '把喜欢的留下来', content: '我最喜欢读的句子是？我最熟的三个字是？下周想再看什么？', icon: 'calendar-check-2', speak: '把喜欢的留下来。我最喜欢读的句子是什么？我最熟的三个字是什么？' }
+                    ],
+                    lessons: [
+                        { id: 'preschool-summer-1', title: '打开每日学习单', minutes: 8, meta: '晨读 + 识字 + 古诗', tip: '先读一句，再认几个字，慢慢开始就好。', activity: { mode: 'choice', prompt: '暑假学习单先做哪一项？', hint: '先用一句晨读把小脑袋叫醒。', options: ['晨读一句', '马上看电视', '先把所有内容背完'], answer: 0, optionIcons: ['sun', 'tv', 'book-open'], success: '学习节奏找到了！' } },
+                        { id: 'preschool-summer-2', title: '晨读和识字', minutes: 10, meta: '5 分钟晨读 · 10 个字', tip: '读顺一句，再认一组生活里的字。', activity: { mode: 'choice', prompt: '“山、水、火、木”里哪个是植物？', hint: '它会从土地里长出来。', options: ['木', '水', '火'], answer: 0, optionIcons: ['tree-pine', 'droplets', 'flame'], success: '字卡认得真仔细！' } },
+                        { id: 'preschool-summer-3', title: '古诗小画面', minutes: 10, meta: '读《咏鹅》 · 想画面', tip: '边读边想白鹅和绿水的画面。', activity: { mode: 'choice', prompt: '《咏鹅》里白毛浮在哪里？', hint: '想想诗里绿色的地方。', options: ['绿水', '高山', '白云'], answer: 0, optionIcons: ['droplets', 'mountain', 'cloud'], success: '诗里的画面出现啦！' } },
+                        { id: 'preschool-summer-4', title: '周末复盘卡', minutes: 8, meta: '说一说 · 留一句', tip: '会说出一件喜欢的事，就是很好的复盘。', activity: { mode: 'choice', prompt: '每周复盘可以做什么？', hint: '想想这周读过、认过和喜欢过的内容。', options: ['说说喜欢的内容', '把学习全忘掉', '只看完成数量'], answer: 0, optionIcons: ['heart', 'moon', 'target'], success: '会回看，也会长大！' } }
+                    ]
+                },
+                {
                     id: 'preschool-literacy',
                     title: '识字专区',
                     description: '今天学 10 个汉字，按自然、植物、动物慢慢认。',
@@ -163,17 +188,21 @@
                 {
                     id: 'preschool-math',
                     title: '数学专区',
-                    description: '10 以内加减和 20 以内进退位，像闯关一样做口算。',
+                    description: '10 以内加减和乘法分级练习，像闯关一样一步步升级。',
                     icon: 'calculator',
                     tone: 'blue',
-                    badge: '10 / 20 以内闯关',
-                    note: '保留参考页“换一题、闯一关”的节奏，改成更轻的任务卡。',
-                    highlights: ['10 以内加减', '20 以内进退位', '换一题'],
-                    samples: ['10 - 9 = ?', '8 + 7 = ?', '12 - 5 = ?'],
+                    badge: '加减 + 乘法 7 级',
+                    note: '先熟悉 10 以内加减，再从分组数数进入 2、5、10 的乘法，最后挑战混合乘法。',
+                    highlights: ['10 以内加法', '10 以内减法', '乘法分级闯关'],
+                    samples: ['3 + 4 = ?', '9 - 5 = ?', '2 × 3 = ?'],
                     lessons: [
-                        { id: 'preschool-math-1', title: '数学闯关一关', minutes: 10, meta: '完成 1 题就算过关', tip: '完成后点亮“数学闯关一关”', activity: { mode: 'choice', prompt: '10 - 9 = ?', hint: '从 10 个里拿走 9 个。', options: ['1', '2', '0'], answer: 0, optionIcons: ['calculator', 'plus', 'circle-check'], success: '第一关答对啦！' } },
-                        { id: 'preschool-math-2', title: '10 以内加减', minutes: 8, meta: '先快算，再核对', tip: '用手指或小物件辅助', activity: { mode: 'choice', prompt: '8 + 7 = ?', hint: '先凑成 10，再加剩下的。', options: ['15', '14', '16'], answer: 0, optionIcons: ['calculator', 'plus', 'circle-check'], success: '口算很棒！' } },
-                        { id: 'preschool-math-3', title: '20 以内挑战', minutes: 10, meta: '进位 / 退位', tip: '不会就换一题继续', activity: { mode: 'choice', prompt: '12 - 5 = ?', hint: '12 个拿走 5 个。', options: ['7', '8', '6'], answer: 0, optionIcons: ['calculator', 'plus', 'circle-check'], success: '挑战过关啦！' } }
+                        { id: 'preschool-math-1', level: '入门', title: '10 以内加法', minutes: 8, meta: '入门 · 合起来是多少', tip: '可以用手指或小积木数一数。', activity: { mode: 'choice', prompt: '3 + 4 = ?', hint: '先数 3 个，再添上 4 个。', options: ['7', '6', '8'], answer: 0, optionIcons: ['plus', 'calculator', 'circle-check'], success: '加法入门成功！' } },
+                        { id: 'preschool-math-2', level: '入门', title: '10 以内减法', minutes: 8, meta: '入门 · 还剩多少', tip: '想象从 9 个水果里拿走 5 个。', activity: { mode: 'choice', prompt: '9 - 5 = ?', hint: '9 个拿走 5 个，还剩 4 个。', options: ['4', '5', '3'], answer: 0, optionIcons: ['target', 'calculator', 'circle-check'], success: '减法入门成功！' } },
+                        { id: 'preschool-math-3', level: '基础', title: '10 以内加减', minutes: 10, meta: '基础 · 加一步再减一步', tip: '先算前面，再算后面。', activity: { mode: 'choice', prompt: '6 + 3 - 2 = ?', hint: '先算 6 + 3，再从 9 里拿走 2。', options: ['7', '6', '8'], answer: 0, optionIcons: ['calculator', 'plus', 'circle-check'], success: '加减混合也会啦！' } },
+                        { id: 'preschool-math-4', level: '乘法启蒙', title: '乘法启蒙', minutes: 10, meta: '启蒙 · 相同的几组', tip: '3 组，每组 2 个，就是 2 + 2 + 2。', activity: { mode: 'choice', prompt: '2 × 3 = ?', hint: '3 组，每组 2 个，一共是多少？', options: ['6', '5', '8'], answer: 0, optionIcons: ['album', 'calculator', 'circle-check'], success: '认识乘法啦！' } },
+                        { id: 'preschool-math-5', level: '基础', title: '乘法基础', minutes: 10, meta: '基础 · 2、5、10 的倍数', tip: '先记住 2 个、5 个、10 个一组。', activity: { mode: 'choice', prompt: '5 × 2 = ?', hint: '2 组 5 个，合起来就是 10。', options: ['10', '7', '8'], answer: 0, optionIcons: ['calculator', 'album', 'circle-check'], success: '基础乘法答对啦！' } },
+                        { id: 'preschool-math-6', level: '进阶', title: '乘法进阶', minutes: 12, meta: '进阶 · 3 和 4 的倍数', tip: '可以画 4 组，每组 3 个的小点。', activity: { mode: 'choice', prompt: '3 × 4 = ?', hint: '4 组，每组 3 个，一共 12 个。', options: ['12', '10', '14'], answer: 0, optionIcons: ['calculator', 'target', 'circle-check'], success: '进阶乘法过关啦！' } },
+                        { id: 'preschool-math-7', level: '挑战', title: '乘法挑战', minutes: 12, meta: '挑战 · 综合运用', tip: '想想 4 组 5 个，一共有多少。', activity: { mode: 'choice', prompt: '4 × 5 = ?', hint: '5 + 5 + 5 + 5 等于多少？', options: ['20', '15', '16'], answer: 0, optionIcons: ['calculator', 'crown', 'circle-check'], success: '乘法挑战完成！' } }
                     ]
                 },
                 {

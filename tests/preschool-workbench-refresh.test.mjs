@@ -77,6 +77,45 @@ test('merges reference learning zones into preschool resource cards', () => {
   assert.match(app, /preschool-course-note/);
 });
 
+test('adds printable summer learning materials as an interactive preschool lane', () => {
+  const config = fs.readFileSync(path.join(root, 'config.js'), 'utf8');
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const preschoolIndex = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
+  const styles = readCssGraph(path.join(root, 'styles.css'));
+  assert.match(config, /id: 'preschool-summer'/);
+  assert.match(config, /title: '暑假学习'/);
+  assert.match(config, /60 天晨读/);
+  assert.match(config, /45 天识字/);
+  assert.match(config, /每周复盘/);
+  assert.match(config, /resources: \[/);
+  assert.match(config, /早上好，太阳笑/);
+  assert.match(app, /function renderPreschoolCourseResources\(course\)/);
+  assert.match(app, /data-action="speak-resource"/);
+  assert.match(app, /action === 'speak-resource'/);
+  assert.match(styles, /preschool-course-resources/);
+  assert.match(preschoolIndex, /data-course-id="preschool-summer"/);
+});
+
+test('provides a staged preschool math route from ten-within arithmetic to multiplication', () => {
+  const config = fs.readFileSync(path.join(root, 'config.js'), 'utf8');
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const styles = readCssGraph(path.join(root, 'styles.css'));
+  const math = config.split("id: 'preschool-math'")[1].split("id: 'preschool-focus'")[0];
+  assert.match(math, /description: '10 以内加减和乘法分级练习/);
+  assert.match(math, /10 以内加法/);
+  assert.match(math, /10 以内减法/);
+  assert.match(math, /10 以内加减/);
+  assert.match(math, /乘法启蒙/);
+  assert.match(math, /乘法基础/);
+  assert.match(math, /乘法进阶/);
+  assert.match(math, /乘法挑战/);
+  assert.equal((math.match(/id: 'preschool-math-/g) || []).length, 7);
+  assert.match(app, /function getPreschoolLessonLevelLabel\(lesson\)/);
+  assert.match(app, /lesson-dialog-level/);
+  assert.match(app, /preschool-route-step-level/);
+  assert.match(styles, /preschool-route-step-level/);
+});
+
 test('exposes the reference workbench learning lanes as separate preschool navigation entries', () => {
   const config = fs.readFileSync(path.join(root, 'config.js'), 'utf8');
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
@@ -286,6 +325,27 @@ test('keeps the preschool defense preview visible and readable before an invasio
   assert.match(styles, /pixel-battle-invader\.is-preview/);
 });
 
+test('uses the GPT-IMAGE-2 lawn battlefield background in the preschool defense scene', () => {
+  const root = fileURLToPath(new URL('..', import.meta.url));
+  const styles = readCssGraph(path.join(root, 'css', 'preschool-workbench.css'));
+  const background = path.join(root, 'assets', 'generated', 'preschool-pvz-2d', 'background', 'published', 'pvz-garden-lawn-bg.webp');
+  assert.equal(fs.existsSync(background), true);
+  assert.match(styles, /pixel-battlefield[\s\S]*background-image:[\s\S]*preschool-pvz-2d\/background\/published\/pvz-garden-lawn-bg\.webp/);
+});
+
+test('keeps the preschool garden base compact and free of the decorative growth hero', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const index = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
+  const styles = readCssGraph(path.join(root, 'styles.css'));
+  assert.match(app, /function renderPreschoolGardenSummary\(growth, garden, activeStyle, waterAvailable\)/);
+  assert.match(app, /const nextLevel = Math\.max\(0, 100 - growth\.levelProgress\)/);
+  assert.doesNotMatch(app, /preschool-growth-art img/);
+  assert.doesNotMatch(index, /data-hero-src=.*preschool-garden-hero/);
+  assert.match(styles, /preschool-growth-art \{ display: none !important; \}/);
+  assert.match(styles, /preschool-garden-dashboard/);
+  assert.match(styles, /preschool-garden-board/);
+});
+
 test('makes the preschool defense primary action state explicit', () => {
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
   const styles = readCssGraph(path.join(root, 'styles.css'));
@@ -393,8 +453,8 @@ test('defines answerable activities for every preschool lesson', () => {
   const config = fs.readFileSync(path.join(root, 'config.js'), 'utf8');
   const preschoolCourses = config.split("id: 'preschool-literacy'")[1].split("actions: { 'add-plan'")[0];
   const activities = preschoolCourses.match(/activity:\s*\{/g) || [];
-  assert.equal(activities.length, 21);
-  assert.equal((preschoolCourses.match(/optionIcons:\s*\[/g) || []).length, 21);
+  assert.equal(activities.length, 25);
+  assert.equal((preschoolCourses.match(/optionIcons:\s*\[/g) || []).length, 25);
   assert.match(preschoolCourses, /prompt: '/);
   assert.match(preschoolCourses, /options: \[/);
   assert.match(preschoolCourses, /answer: \d/);
@@ -416,7 +476,7 @@ test('keeps preschool option art aligned with its answer choices', () => {
       optionIcons: optionIcons ? (optionIcons[1].match(/'[^']*'/g) || []) : []
     };
   });
-  assert.equal(activities.length, 21);
+  assert.equal(activities.length, 25);
   for (const activity of activities) {
     assert.equal(activity.optionIcons.length, activity.options.length);
     for (const item of activity.optionIcons) {
@@ -481,6 +541,9 @@ test('keeps sidebar course lanes as the persistent navigation on focused course 
   const preschoolIndex = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
   assert.match(app, /activeCourse \? '' : renderPreschoolCourseDirectory\(courses, activeCourse\)/);
   assert.match(preschoolIndex, /data-sidebar-section="course-lanes"/);
+  assert.match(preschoolIndex, /data-action="toggle-course-nav"/);
+  assert.match(app, /setCourseNavExpanded\(ui\.courseNavExpanded\)/);
+  assert.match(styles, /preschool-course-nav\s*\{[^}]*flex:\s*0 0 auto/);
   assert.match(styles, /preschool-course-layout\.is-focused[\s\S]*grid-template-columns:\s*minmax\(0, 1fr\)/);
   assert.doesNotMatch(styles, /preschool-courses-page[\s\S]*preschool-course-sidebar-section/);
 });
