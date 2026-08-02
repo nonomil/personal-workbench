@@ -38,10 +38,19 @@
     const CATEGORY_COLORS = { 学习: 'orange', 阅读: 'blue', 实践: 'lime', 运动: 'gold', 自控: 'orange', 其它: 'blue' };
     const PRIORITY_LABELS = { high: '高优先', medium: '常规', low: '低优先' };
     const STATUS_LABELS = { todo: '待开始', doing: '进行中', done: '已完成' };
-    const ui = { page: getPageFromHash(), courseId: getCourseIdFromHash(), courseNavExpanded: getPageFromHash() === 'courses', taskFilter: 'all', dialogType: '', dialogId: '', dialogArea: '', lessonSession: null };
+    const ui = { page: getPageFromHash(), courseId: getCourseIdFromHash(), courseNavExpanded: getPageFromHash() === 'courses', taskFilter: 'all', dialogType: '', dialogId: '', dialogArea: '', lessonSession: null, summerLibraryCategory: 'daily', summerLibraryItem: 0 };
     const isPreschool = workbenchConfig.variant === 'preschool';
     const isChild = workbenchConfig.variant === 'child' || isPreschool;
     const isAdult = workbenchConfig.variant === 'adult';
+    const summerLibrary = global.PetBankSummerDailyLearning || {};
+    const SUMMER_LIBRARY_CATEGORIES = [
+        { id: 'daily', label: '每日学习单', icon: 'sun', source: 'morningReading' },
+        { id: 'morningReading', label: '60 天晨读', icon: 'volume-2', source: 'morningReading' },
+        { id: 'literacy', label: '45 天识字', icon: 'book-open', source: 'literacy' },
+        { id: 'poems', label: '古诗词', icon: 'feather', source: 'poems' },
+        { id: 'classics', label: '经典短句', icon: 'heart', source: 'classics' },
+        { id: 'weeklyReview', label: '每周复盘', icon: 'calendar-check-2', source: 'weeklyReview' }
+    ];
     const preschoolGarden = global.PersonalWorkbenchPreschoolGarden;
     const PIXEL_ASSET_BASE = '../assets/generated/preschool-pixel/reference/gpt-output-20260730/published-gpt-v2/';
     const PIXEL_REFRESH_ASSET_BASE = '../assets/generated/preschool-pixel/refresh-20260731/published/';
@@ -1005,6 +1014,82 @@
         }).join('')}</div></section>`;
     }
 
+    function getSummerLibraryCategory(categoryId) {
+        return SUMMER_LIBRARY_CATEGORIES.find(function (item) { return item.id === categoryId; }) || SUMMER_LIBRARY_CATEGORIES[0];
+    }
+
+    function getSummerLibraryEntries(categoryId) {
+        const category = getSummerLibraryCategory(categoryId);
+        const source = Array.isArray(summerLibrary[category.source]) ? summerLibrary[category.source] : [];
+        if (category.id !== 'daily') return source;
+        return source.map(function (reading, index) {
+            const literacy = Array.isArray(summerLibrary.literacy) ? summerLibrary.literacy[index % summerLibrary.literacy.length] : null;
+            const poem = Array.isArray(summerLibrary.poems) ? summerLibrary.poems[index] : null;
+            const classic = Array.isArray(summerLibrary.classics) ? summerLibrary.classics[Math.floor(index / 7) % summerLibrary.classics.length] : null;
+            const review = Array.isArray(summerLibrary.weeklyReview) ? summerLibrary.weeklyReview[Math.floor(index / 7) % summerLibrary.weeklyReview.length] : null;
+            return {
+                id: `summer-daily-${reading.day || index + 1}`,
+                title: `第 ${reading.day || index + 1} 天 · ${reading.title || '暑假学习'}`,
+                day: reading.day || index + 1,
+                reading: reading,
+                literacy: literacy,
+                poem: poem,
+                classic: classic,
+                review: review
+            };
+        });
+    }
+
+    function getSummerLibraryEntrySpeech(entry, categoryId) {
+        if (!entry) return '';
+        if (categoryId === 'daily') {
+            const parts = [entry.reading && entry.reading.content, entry.literacy && Array.isArray(entry.literacy.items) ? entry.literacy.items.map(function (item) { return item.char; }).join('，') : '', entry.poem && entry.poem.content, entry.classic && entry.classic.content, entry.review && entry.review.prompt];
+            return parts.filter(Boolean).join('。');
+        }
+        if (categoryId === 'literacy' && Array.isArray(entry.items)) return entry.items.map(function (item) { return `${item.char}，${item.example || ''}`; }).join('。');
+        if (categoryId === 'weeklyReview') return [entry.prompt, ...(Array.isArray(entry.checklist) ? entry.checklist : [])].filter(Boolean).join('。');
+        return [entry.title, entry.content, entry.explanation].filter(Boolean).join('。');
+    }
+
+    function renderSummerLibrarySection(title, content, pinyin, extra) {
+        if (!content && !extra) return '';
+        return `<section class="preschool-summer-library-section"><div><span>${escapeHtml(title)}</span>${pinyin ? `<small>${escapeHtml(pinyin)}</small>` : ''}</div>${content ? `<p>${escapeHtml(content)}</p>` : ''}${extra || ''}</section>`;
+    }
+
+    function renderPreschoolSummerLibrary(course) {
+        if (!course || course.id !== 'preschool-summer' || !summerLibrary.sourcePack) return '';
+        const category = getSummerLibraryCategory(ui.summerLibraryCategory);
+        const entries = getSummerLibraryEntries(category.id);
+        if (!entries.length) return '';
+        const currentIndex = Math.max(0, Math.min(entries.length - 1, Number(ui.summerLibraryItem) || 0));
+        const entry = entries[currentIndex];
+        const speech = getSummerLibraryEntrySpeech(entry, category.id);
+        const categoryMarkup = SUMMER_LIBRARY_CATEGORIES.map(function (item) {
+            const count = item.id === 'daily' ? summerLibrary.morningReading.length : Array.isArray(summerLibrary[item.source]) ? summerLibrary[item.source].length : 0;
+            return `<button class="preschool-summer-library-category ${item.id === category.id ? 'is-active' : ''}" type="button" data-action="summer-library-category" data-category="${item.id}" aria-pressed="${item.id === category.id}">${icon(item.icon)}<span>${escapeHtml(item.label)}</span><small>${count} 份</small></button>`;
+        }).join('');
+        const itemMarkup = entries.map(function (item, index) {
+            return `<option value="${index}" ${index === currentIndex ? 'selected' : ''}>${escapeHtml(item.title || `第 ${index + 1} 份`)}</option>`;
+        }).join('');
+        let contentMarkup = '';
+        if (category.id === 'daily') {
+            contentMarkup = [
+                renderSummerLibrarySection('晨读', entry.reading && entry.reading.content, entry.reading && entry.reading.pinyinContent),
+                renderSummerLibrarySection('识字', entry.literacy && Array.isArray(entry.literacy.items) ? entry.literacy.items.map(function (item) { return `${item.char}（${item.pinyin}）`; }).join(' · ') : '', entry.literacy && entry.literacy.focus),
+                renderSummerLibrarySection('古诗', entry.poem && entry.poem.content, entry.poem && entry.poem.pinyinContent),
+                renderSummerLibrarySection('经典短句', entry.classic && entry.classic.content, entry.classic && entry.classic.pinyinContent),
+                renderSummerLibrarySection('本周回看', entry.review && entry.review.prompt, '', entry.review && Array.isArray(entry.review.checklist) ? `<ul>${entry.review.checklist.map(function (item) { return `<li>${escapeHtml(item)}</li>`; }).join('')}</ul>` : '')
+            ].join('');
+        } else if (category.id === 'literacy') {
+            contentMarkup = renderSummerLibrarySection('今日字卡', Array.isArray(entry.items) ? entry.items.map(function (item) { return `${item.char}　${item.pinyin}　${item.example || ''}`; }).join('　·　') : '', entry.focus);
+        } else if (category.id === 'weeklyReview') {
+            contentMarkup = renderSummerLibrarySection('复盘问题', entry.prompt, '', Array.isArray(entry.checklist) ? `<ul>${entry.checklist.map(function (item) { return `<li>${escapeHtml(item)}</li>`; }).join('')}</ul>` : '');
+        } else {
+            contentMarkup = renderSummerLibrarySection(category.label, entry.content, entry.pinyinContent, entry.explanation ? `<p class="preschool-summer-library-explanation">${escapeHtml(entry.explanation)}</p>` : '');
+        }
+        return `<section class="preschool-summer-library" aria-label="完整暑假学习资料库"><div class="preschool-summer-library-head"><div><span class="eyebrow">FULL SUMMER LIBRARY</span><h3>完整暑假资料库</h3><p>把打印版的长期内容收进工作台，今天看一份，明天接着走。</p></div><strong>181 份资料</strong></div><div class="preschool-summer-library-categories" role="tablist" aria-label="暑假资料分类">${categoryMarkup}</div><div class="preschool-summer-library-browser"><div class="preschool-summer-library-controls"><label for="summer-library-item">${escapeHtml(category.label)} · 共 ${entries.length} 份</label><select id="summer-library-item" data-action="summer-library-item" aria-label="选择${escapeHtml(category.label)}">${itemMarkup}</select><div class="preschool-summer-library-stepper"><button class="row-action" type="button" data-action="summer-library-step" data-direction="-1" ${currentIndex === 0 ? 'disabled' : ''} aria-label="上一份" title="上一份">${icon('chevron-left')}</button><span>第 ${currentIndex + 1} / ${entries.length} 份</span><button class="row-action" type="button" data-action="summer-library-step" data-direction="1" ${currentIndex === entries.length - 1 ? 'disabled' : ''} aria-label="下一份" title="下一份">${icon('chevron-right')}</button></div></div><article class="preschool-summer-library-entry"><div class="preschool-summer-library-entry-head"><div><span>${escapeHtml(category.label)}</span><h4>${escapeHtml(entry.title || `第 ${currentIndex + 1} 份学习资料`)}</h4></div><button class="row-action preschool-course-resource-speak" type="button" data-action="speak-resource" data-text="${escapeHtml(speech)}" aria-label="朗读${escapeHtml(entry.title || category.label)}" title="朗读这份资料">${icon('volume-2')}</button></div>${contentMarkup}</article></div></section>`;
+    }
+
     function getPreschoolCourseCompletion(course) {
         const lessons = course && Array.isArray(course.lessons) ? course.lessons : [];
         const completedIds = new Set(state.courseProgress && Array.isArray(state.courseProgress.completedLessonIds)
@@ -1084,7 +1169,7 @@
     }
 
     function renderPreschoolCourseCard(course, focused) {
-        return `<article class="preschool-course-card tone-${escapeHtml(course.tone || 'blue')} ${focused ? 'is-focused' : ''}"><div class="preschool-course-head">${preschoolVisual(course.icon || 'book-open', preschoolAssetForIcon(course.icon || 'book-open'), course.title)}<div><span class="preschool-course-label">${focused ? '当前学习专区' : '学习专区'}</span><h2>${escapeHtml(course.title)}</h2><small>${escapeHtml(course.description || '')}</small></div><strong>${course.completed || 0}/${course.total || 0}</strong></div>${renderPreschoolCourseProgress(course)}<div class="preschool-course-reference"><span>${icon('sparkles')}</span><p class="preschool-course-note">${escapeHtml(course.note || '选一张卡，开始今天的小练习。')}</p></div>${renderPreschoolCourseBadges(course)}${renderPreschoolCourseSamples(course)}${renderPreschoolCourseResources(course)}<div class="preschool-course-lesson-heading"><div><span class="eyebrow">LEARNING ROUTE</span><h3>一步一步点亮小路线</h3></div><span>${course.total || (course.lessons || []).length} 张练习卡</span></div>${renderPreschoolCourseRoute(course)}</article>`;
+        return `<article class="preschool-course-card tone-${escapeHtml(course.tone || 'blue')} ${focused ? 'is-focused' : ''}"><div class="preschool-course-head">${preschoolVisual(course.icon || 'book-open', preschoolAssetForIcon(course.icon || 'book-open'), course.title)}<div><span class="preschool-course-label">${focused ? '当前学习专区' : '学习专区'}</span><h2>${escapeHtml(course.title)}</h2><small>${escapeHtml(course.description || '')}</small></div><strong>${course.completed || 0}/${course.total || 0}</strong></div>${renderPreschoolCourseProgress(course)}<div class="preschool-course-reference"><span>${icon('sparkles')}</span><p class="preschool-course-note">${escapeHtml(course.note || '选一张卡，开始今天的小练习。')}</p></div>${renderPreschoolCourseBadges(course)}${renderPreschoolCourseSamples(course)}${renderPreschoolCourseResources(course)}${renderPreschoolSummerLibrary(course)}<div class="preschool-course-lesson-heading"><div><span class="eyebrow">LEARNING ROUTE</span><h3>一步一步点亮小路线</h3></div><span>${course.total || (course.lessons || []).length} 张练习卡</span></div>${renderPreschoolCourseRoute(course)}</article>`;
     }
 
     function renderPreschoolCourses() {
@@ -2286,6 +2371,8 @@
         if (action === 'complete-lesson') completeCourseLesson(target.dataset.id);
         if (action === 'open-lesson') openLessonDialog(target.dataset.id);
         if (action === 'speak-resource') speakResource(target.dataset.text);
+        if (action === 'summer-library-category') { ui.summerLibraryCategory = getSummerLibraryCategory(target.dataset.category).id; ui.summerLibraryItem = 0; render(); }
+        if (action === 'summer-library-step') { const entries = getSummerLibraryEntries(ui.summerLibraryCategory); ui.summerLibraryItem = Math.max(0, Math.min(Math.max(0, entries.length - 1), (Number(ui.summerLibraryItem) || 0) + Number(target.dataset.direction || 0))); render(); }
         if (action === 'lesson-answer') answerLesson(target.dataset.index);
         if (action === 'lesson-finish') finishLesson();
         if (action === 'close-lesson') closeLessonDialog();
@@ -2324,6 +2411,7 @@
         }
         if (target.dataset.action === 'toggle-music') setPreschoolFeedbackPreference('musicEnabled', target.checked);
         if (target.dataset.action === 'toggle-motion') setPreschoolFeedbackPreference('motionEnabled', target.checked);
+        if (target.dataset.action === 'summer-library-item') { ui.summerLibraryItem = Math.max(0, Number(target.value) || 0); render(); }
         if (target.matches('[data-account-household]')) { accountView.selectedHouseholdId = target.value; render(); }
     });
 

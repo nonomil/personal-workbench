@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
+import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import { readCssGraph } from './helpers/css-graph.mjs';
 
@@ -94,6 +95,33 @@ test('adds printable summer learning materials as an interactive preschool lane'
   assert.match(app, /action === 'speak-resource'/);
   assert.match(styles, /preschool-course-resources/);
   assert.match(preschoolIndex, /data-course-id="preschool-summer"/);
+});
+
+test('ships the complete summer learning library from the printable source pack', () => {
+  const dataPath = path.join(root, 'preschool-summer-learning-data.js');
+  const source = fs.readFileSync(dataPath, 'utf8');
+  const context = { window: {} };
+  vm.runInNewContext(source, context);
+  const library = context.window.PetBankSummerDailyLearning;
+  assert.ok(library, 'summer data global should be available');
+  assert.equal(library.sourcePack, 'summer-chinese-bridge-2026');
+  assert.equal(library.morningReading.length, 60);
+  assert.equal(library.literacy.length, 45);
+  assert.equal(library.poems.length, 60);
+  assert.equal(library.classics.length, 8);
+  assert.equal(library.weeklyReview.length, 8);
+});
+
+test('loads the summer library before the preschool app and exposes a paged material browser', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const preschoolIndex = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
+  assert.match(preschoolIndex, /\.\.\/preschool-summer-learning-data\.js\?v=/);
+  assert.ok(preschoolIndex.indexOf('preschool-summer-learning-data.js') < preschoolIndex.indexOf('../config.js'));
+  assert.match(app, /function renderPreschoolSummerLibrary\(course\)/);
+  assert.match(app, /preschool-summer-library/);
+  assert.match(app, /data-action="summer-library-category"/);
+  assert.match(app, /data-action="summer-library-item"/);
+  assert.match(app, /summerLibraryCategory/);
 });
 
 test('provides a staged preschool math route from ten-within arithmetic to multiplication', () => {

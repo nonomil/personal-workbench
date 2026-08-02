@@ -138,6 +138,94 @@ body.variant-preschool .wb-soft-button::after {
     75%, 100% { left: 130%; }
 }
 
+/* Full summer library: a compact catalogue keeps the long printable pack browsable. */
+body.variant-preschool .preschool-summer-library {
+    margin-top: 22px;
+    padding: 18px;
+    border: 1px solid rgba(255, 196, 84, .38);
+    border-radius: 20px;
+    background: linear-gradient(145deg, rgba(255, 251, 231, .92), rgba(244, 253, 242, .82));
+    box-shadow: 0 8px 20px rgba(122, 91, 29, .07), inset 0 1px 0 rgba(255, 255, 255, .78);
+}
+body.variant-preschool .preschool-summer-library-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+}
+body.variant-preschool .preschool-summer-library-head h3 { margin: 3px 0 0; color: #4e422c; font-size: 19px; }
+body.variant-preschool .preschool-summer-library-head p { margin: 5px 0 0; color: #8d8067; font-size: 11px; line-height: 1.55; }
+body.variant-preschool .preschool-summer-library-head > strong { flex: 0 0 auto; padding: 7px 10px; border-radius: 99px; color: #8a5b20; background: #fff0b8; font-size: 11px; white-space: nowrap; }
+body.variant-preschool .preschool-summer-library-categories {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 7px;
+    margin-top: 16px;
+}
+body.variant-preschool .preschool-summer-library-category {
+    display: grid;
+    min-width: 0;
+    min-height: 68px;
+    align-content: center;
+    justify-items: center;
+    gap: 4px;
+    padding: 8px 5px;
+    border: 1px solid rgba(222, 205, 157, .6);
+    border-radius: 12px;
+    color: #8e866f;
+    background: rgba(255, 255, 255, .62);
+    text-align: center;
+    transition: transform .2s var(--wb-spring), border-color .2s ease, background .2s ease, color .2s ease;
+}
+body.variant-preschool .preschool-summer-library-category:hover { transform: translateY(-2px); border-color: #f0bd63; color: #775323; background: #fffdf3; }
+body.variant-preschool .preschool-summer-library-category.is-active { border-color: #efb858; color: #764d1b; background: #fff0bd; box-shadow: 0 3px 0 rgba(225, 167, 65, .13); }
+body.variant-preschool .preschool-summer-library-category svg { width: 19px; height: 19px; color: #d99138; }
+body.variant-preschool .preschool-summer-library-category span { overflow: hidden; max-width: 100%; font-size: 11px; font-weight: 900; text-overflow: ellipsis; white-space: nowrap; }
+body.variant-preschool .preschool-summer-library-category small { color: #b0a58e; font-size: 9px; }
+body.variant-preschool .preschool-summer-library-browser { margin-top: 13px; padding-top: 13px; border-top: 1px dashed rgba(212, 187, 117, .6); }
+body.variant-preschool .preschool-summer-library-controls {
+    display: grid;
+    grid-template-columns: auto minmax(190px, 1fr) auto;
+    gap: 10px;
+    align-items: center;
+}
+body.variant-preschool .preschool-summer-library-controls label { color: #75694f; font-size: 11px; font-weight: 900; white-space: nowrap; }
+body.variant-preschool .preschool-summer-library-controls select { min-width: 0; height: 38px; padding: 0 12px; border: 1px solid #e7d7ae; border-radius: 11px; color: #5e5136; background: rgba(255, 255, 255, .82); font: inherit; font-size: 12px; }
+body.variant-preschool .preschool-summer-library-stepper { display: flex; align-items: center; gap: 6px; color: #a19377; font-size: 10px; white-space: nowrap; }
+body.variant-preschool .preschool-summer-library-stepper .row-action { width: 31px; height: 31px; border-color: #eadcb9; color: #8d6a34; background: #fffaf0; }
+body.variant-preschool .preschool-summer-library-stepper .row-action:disabled { opacity: .35; cursor: default; }
+body.variant-preschool .preschool-summer-library-entry { margin-top: 13px; padding: 16px; border: 1px solid rgba(215, 235, 208, .9); border-radius: 16px; background: rgba(255, 255, 255, .72); }
+body.variant-preschool .preschool-summer-library-entry-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+body.variant-preschool .preschool-summer-library-entry-head > div > span { color: #7eab70; font-size: 10px; font-weight: 900; }
+body.variant-preschool .preschool-summer-library-entry-head h4 { margin: 4px 0 0; color: #345c42; font-size: 18px; }
+body.variant-preschool .preschool-summer-library-entry-head .row-action { flex: 0 0 auto; color: #d17b2e; border-color: #f4d292; background: #fff7df; }
+body.variant-preschool .preschool-summer-library-section { display: grid; grid-template-columns: 82px minmax(0, 1fr); gap: 12px; padding: 12px 0; border-bottom: 1px solid #edf2e8; }
+body.variant-preschool .preschool-summer-library-section:last-child { padding-bottom: 0; border-bottom: 0; }
+body.variant-preschool .preschool-summer-library-section > div { display: grid; align-content: start; gap: 4px; }
+body.variant-preschool .preschool-summer-library-section > div > span { color: #b77929; font-size: 11px; font-weight: 950; }
+body.variant-preschool .preschool-summer-library-section > div > small { color: #a8a58c; font-size: 10px; line-height: 1.5; }
+body.variant-preschool .preschool-summer-library-section p { margin: 0; color: #4e5f4c; font-size: 14px; line-height: 1.75; white-space: pre-line; }
+body.variant-preschool .preschool-summer-library-section ul { display: grid; gap: 5px; margin: 0; padding-left: 18px; color: #637360; font-size: 12px; line-height: 1.55; }
+body.variant-preschool .preschool-summer-library-explanation { margin-top: 8px !important; color: #8b806a !important; font-size: 11px !important; }
+
+@media (max-width: 720px) {
+    body.variant-preschool .preschool-summer-library-categories { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    body.variant-preschool .preschool-summer-library-controls { grid-template-columns: 1fr auto; }
+    body.variant-preschool .preschool-summer-library-controls label { grid-column: 1 / -1; }
+    body.variant-preschool .preschool-summer-library-controls select { width: 100%; }
+}
+@media (max-width: 480px) {
+    body.variant-preschool .preschool-summer-library { padding: 13px; border-radius: 17px; }
+    body.variant-preschool .preschool-summer-library-head h3 { font-size: 17px; }
+    body.variant-preschool .preschool-summer-library-head p { max-width: 230px; }
+    body.variant-preschool .preschool-summer-library-category { min-height: 62px; }
+    body.variant-preschool .preschool-summer-library-entry { padding: 12px; }
+    body.variant-preschool .preschool-summer-library-section { grid-template-columns: 1fr; gap: 5px; }
+    body.variant-preschool .preschool-summer-library-section > div { display: flex; align-items: baseline; gap: 7px; }
+    body.variant-preschool .preschool-summer-library-section p { font-size: 13px; }
+    body.variant-preschool .preschool-summer-library-stepper { gap: 3px; }
+}
+
 body.variant-preschool .topbar-focus-button:hover,
 body.variant-preschool .workbench-action-button:hover,
 body.variant-preschool .pixel-side-button:hover,
