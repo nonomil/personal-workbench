@@ -343,7 +343,7 @@
         if (replace) history.replaceState(null, '', hash);
         else if (location.hash !== hash) location.hash = hash;
         render();
-        closeSidebar();
+        if (shouldAutoCloseSidebar()) closeSidebar();
         window.scrollTo(0, 0);
     }
 
@@ -2210,6 +2210,12 @@
         showToast('当前成人工作台已恢复初始数据。');
     }
 
+    function shouldAutoCloseSidebar() {
+        if (!isPreschool || typeof global.matchMedia !== 'function') return true;
+        return global.matchMedia('(max-width: 760px)').matches
+            && global.matchMedia('(max-aspect-ratio: 1 / 1)').matches;
+    }
+
     function openSidebar() { sidebar.classList.add('is-open'); sidebarScrim.classList.add('is-visible'); }
     function closeSidebar() { sidebar.classList.remove('is-open'); sidebarScrim.classList.remove('is-visible'); }
 
@@ -2330,7 +2336,7 @@
         }
     });
     importFile.addEventListener('change', function () { importSnapshot(importFile.files && importFile.files[0]); });
-    window.addEventListener('hashchange', function () { const route = getRouteFromHash(); ui.page = getPageFromHash(); ui.courseId = route.page === 'courses' ? route.courseId : ''; render(); closeSidebar(); window.scrollTo(0, 0); });
+    window.addEventListener('hashchange', function () { const route = getRouteFromHash(); ui.page = getPageFromHash(); ui.courseId = route.page === 'courses' ? route.courseId : ''; render(); if (shouldAutoCloseSidebar()) closeSidebar(); window.scrollTo(0, 0); });
     entryDialog.addEventListener('click', function (event) { if (event.target === entryDialog) closeDialog(); });
     if (lessonDialog) {
         lessonDialog.addEventListener('click', function (event) { if (event.target === lessonDialog) closeLessonDialog(); });

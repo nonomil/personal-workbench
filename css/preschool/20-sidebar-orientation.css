@@ -1,0 +1,36 @@
+/* Keep the workbench navigation persistent in landscape, while portrait phones use the menu toggle. */
+@media (min-aspect-ratio: 1 / 1) and (max-width: 760px) {
+    body.variant-preschool .sidebar {
+        width: 248px;
+        transform: translateX(0) !important;
+        transition: none;
+    }
+    body.variant-preschool .main-content {
+        width: calc(100% - 248px);
+        margin-left: 248px;
+    }
+    body.variant-preschool .sidebar-scrim,
+    body.variant-preschool .menu-toggle,
+    body.variant-preschool .sidebar-close,
+    body.variant-preschool .preschool-mobile-nav { display: none !important; }
+    body.variant-preschool .page-content { padding-bottom: 46px; }
+}
+
+@media (max-aspect-ratio: 1 / 1) and (max-width: 760px) {
+    body.variant-preschool .sidebar {
+        width: 248px;
+        transform: translateX(-100%);
+        transition: transform 180ms ease;
+    }
+    body.variant-preschool .sidebar.is-open { transform: translateX(0); }
+    body.variant-preschool .main-content { width: 100%; margin-left: 0; }
+    body.variant-preschool .sidebar-scrim.is-visible {
+        display: block !important;
+        position: fixed;
+        z-index: 25;
+        inset: 0;
+        background: rgba(38, 72, 54, .22);
+    }
+    body.variant-preschool .menu-toggle,
+    body.variant-preschool .sidebar-close { display: inline-grid; }
+}

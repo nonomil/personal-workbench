@@ -340,7 +340,7 @@ test('keeps the preschool workbench on the garden-green shell', () => {
   assert.match(greenTheme, /background:\s*linear-gradient\(180deg,\s*#22734a,\s*#145238\)/);
   assert.match(greenTheme, /background:\s*#eff9eb/);
   assert.match(preschoolIndex, /theme-color" content="#2d8748"/);
-  assert.match(preschoolIndex, /20260803-green-shell/);
+  assert.match(preschoolIndex, /20260803-sidebar-orientation-ratio-important/);
 });
 
 test('keeps preschool mobile status cards readable at reference widths', () => {
@@ -498,4 +498,19 @@ test('keeps sidebar course lanes as the persistent navigation on focused course 
   assert.match(preschoolIndex, /data-sidebar-section="course-lanes"/);
   assert.match(styles, /preschool-course-layout\.is-focused[\s\S]*grid-template-columns:\s*minmax\(0, 1fr\)/);
   assert.doesNotMatch(styles, /preschool-courses-page[\s\S]*preschool-course-sidebar-section/);
+});
+
+test('keeps the preschool sidebar visible in landscape and manually collapsible in portrait', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const styles = readCssGraph(path.join(root, 'styles.css'));
+  const preschoolStyles = fs.readFileSync(path.join(root, 'css', 'preschool-workbench.css'), 'utf8');
+  assert.match(app, /function shouldAutoCloseSidebar\(\)/);
+  assert.match(app, /matchMedia\('\(max-aspect-ratio: 1 \/ 1\)'\)/);
+  assert.match(app, /if \(shouldAutoCloseSidebar\(\)\) closeSidebar\(\)/);
+  assert.match(preschoolStyles, /20-sidebar-orientation\.css/);
+  assert.match(styles, /@media \(min-aspect-ratio: 1 \/ 1\) and \(max-width: 760px\)[\s\S]*\.sidebar \{[^}]*transform:\s*translateX\(0\)/);
+  assert.match(styles, /@media \(max-aspect-ratio: 1 \/ 1\) and \(max-width: 760px\)[\s\S]*\.sidebar \{[^}]*transform:\s*translateX\(-100%\)/);
+  assert.match(styles, /@media \(min-aspect-ratio: 1 \/ 1\) and \(max-width: 760px\)[\s\S]*\.sidebar-scrim,[\s\S]*\.menu-toggle,[\s\S]*display:\s*none/);
+  assert.match(styles, /@media \(max-aspect-ratio: 1 \/ 1\) and \(max-width: 760px\)[\s\S]*\.menu-toggle,[\s\S]*\.sidebar-close \{[^}]*display:\s*inline-grid/);
+  assert.match(styles, /sidebar-scrim\.is-visible[\s\S]*display:\s*block !important/);
 });
