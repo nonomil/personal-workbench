@@ -179,7 +179,7 @@ test('keeps the refreshed reward tiers and five-lane defense contract in the pre
   assert.match(styles, /pixel-map-landmarks/);
   assert.match(styles, /pixel-battle-reward-grid/);
   assert.match(styles, /pixel-daily-challenge/);
-  assert.match(app, /pixel-daily-note/);
+  assert.match(app, /preschool-home-battlefield/);
   assert.match(styles, /--pixel-canvas:\s*#f4f1ff/);
   assert.match(styles, /--pixel-route:\s*#5420b8/);
   assert.match(styles, /pixel-daily-note/);
@@ -295,31 +295,39 @@ test('makes the preschool defense primary action state explicit', () => {
   assert.match(styles, /points-chip \.preschool-generated-art \{ display: block; flex: 0 0 24px; width: 24px; height: 24px;/);
 });
 
-test('keeps preschool v2.3 reward feedback visible in the first-screen contract', () => {
+test('keeps preschool reward feedback visible in the flat first-screen contract', () => {
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
   const styles = readCssGraph(path.join(root, 'styles.css'));
-  assert.match(app, /pixel-daily-note-meter/);
+  const preschoolStyles = readCssGraph(path.join(root, 'css', 'preschool-workbench.css'));
+  assert.match(app, /preschool-home-lane-status/);
+  assert.match(app, /preschool-home-battlefield-foot/);
   assert.match(app, /preschool-celebration-resources/);
   assert.match(app, /defenseEnergyGranted/);
   assert.match(app, /pixel-hud-sun/);
   assert.match(app, /is-bumped/);
-  assert.match(styles, /pixel-daily-note-meter/);
+  assert.match(preschoolStyles, /preschool-home-lane-status/);
+  assert.match(preschoolStyles, /preschool-home-battlefield-foot/);
   assert.match(styles, /preschool-celebration-resources/);
   assert.match(styles, /preschool-hud-bump/);
   assert.match(styles, /prefers-reduced-motion: reduce/);
 });
 
-test('uses a workbench-first preschool overview while keeping the battle route separate', () => {
+test('uses a flat preschool battlefield overview while keeping the battle route separate', () => {
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
   const styles = readCssGraph(path.join(root, 'styles.css'));
   const preschoolStyles = fs.readFileSync(path.join(root, 'css', 'preschool-workbench.css'), 'utf8');
   assert.match(app, /workbench-overview/);
   assert.match(app, /preschool-home-overview/);
-  assert.match(app, /workbench-home-quest-panel/);
+  assert.match(app, /preschool-home-battlefield/);
+  assert.match(app, /preschool-home-lane/);
+  assert.match(app, /data-action="toggle-plan"/);
+  assert.doesNotMatch(app, /renderPreschoolActionPath\(derived, growth, defense\)/);
+  assert.doesNotMatch(app, /workbench-home-quest-panel/);
   assert.match(app, /data-page="battle"/);
   assert.match(app, /data-page="rewards"/);
   assert.match(app, /function renderPreschoolDefenseGame\(\)/);
   assert.match(preschoolStyles, /15-workbuddy-overview\.css/);
+  assert.match(preschoolStyles, /19-home-battlefield\.css/);
   assert.match(styles, /workbench-overview/);
   assert.match(styles, /@media \(max-width: 760px\)[\s\S]*workbench-overview/);
 });
@@ -453,26 +461,22 @@ test('exposes the preschool lesson activity dialog contract', () => {
   assert.match(styles, /lesson-dialog-progress-track/);
 });
 
-test('keeps a continue-learning action on the preschool overview', () => {
+test('keeps quick tests in the learning area instead of nesting them on the home page', () => {
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
-  assert.match(app, /continue-learning/);
   assert.match(app, /getNextPreschoolLesson/);
   assert.match(app, /data-action="open-lesson" data-id=/);
+  const homePosition = app.indexOf('function renderPreschoolHomeOverview(derived)');
+  const homeEnd = app.indexOf('function renderPreschoolPage(derived)', homePosition);
+  const homeTemplate = app.slice(homePosition, homeEnd);
+  assert.doesNotMatch(homeTemplate, /open-lesson/);
 });
 
-test('adds a three-step preschool action path to the overview', () => {
+test('removes the duplicated preschool action path from the home page', () => {
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
   const styles = readCssGraph(path.join(root, 'styles.css'));
-  assert.match(app, /function renderPreschoolActionPath\(/);
-  assert.match(app, /preschool-action-path/);
-  assert.match(app, /preschool-action-step/);
-  assert.match(app, /kind: 'checkin'/);
-  assert.match(app, /kind: 'learning'/);
-  assert.match(app, /kind: 'reward'/);
-  assert.match(app, /renderPreschoolActionPath\(derived, growth, defense\)/);
-  assert.match(styles, /preschool-action-path/);
-  assert.match(styles, /preschool-action-step/);
-  assert.match(styles, /@media \(max-width: 760px\)[\s\S]*preschool-action-path/);
+  assert.doesNotMatch(app, /function renderPreschoolActionPath\(/);
+  assert.doesNotMatch(app, /preschool-action-path/);
+  assert.doesNotMatch(styles, /preschool-action-path/);
 });
 
 test('shows progress and current state in the preschool course directory', () => {

@@ -631,115 +631,6 @@
         }).join('')}</section>`;
     }
 
-    function renderPixelDailyNote(done, total) {
-        const safeTotal = Math.max(0, Number(total) || 0);
-        const safeDone = Math.max(0, Math.min(safeTotal, Number(done) || 0));
-        const percent = safeTotal ? Math.round((safeDone / safeTotal) * 100) : 0;
-        return `<section class="pixel-daily-note" aria-label="今日提示"><span class="pixel-daily-note-art">${preschoolAsset('sun-smile-badge', '今日提示')}</span><span><strong>${safeDone ? '做得很棒，继续点亮花园' : '今天先完成一项小任务吧'}</strong><small>完成任务会得到阳光和豌豆能量，花园也会更热闹。</small></span><span class="pixel-daily-note-meter" role="progressbar" aria-label="今日任务进度" aria-valuemin="0" aria-valuemax="${safeTotal}" aria-valuenow="${safeDone}"><i style="width:${percent}%"></i></span><span class="pixel-daily-note-count">${safeDone}/${safeTotal}</span></section>`;
-    }
-
-    function getPreschoolActionPathState(derived, growth, defense) {
-        const plans = derived && Array.isArray(derived.todayCorePlans)
-            ? derived.todayCorePlans
-            : (derived && Array.isArray(derived.todayPlans) ? derived.todayPlans.slice(0, 3) : []);
-        const completed = plans.filter(function (item) { return item.done; }).length;
-        const total = plans.length;
-        const next = getPreschoolQuickTest();
-        const invader = defense && defense.invader ? defense.invader : { active: false };
-        const allPlansDone = total > 0 && completed >= total;
-        return { completed, total, next, invader, allPlansDone, growth };
-    }
-
-    function renderPreschoolActionPath(derived, growth, defense) {
-        const path = getPreschoolActionPathState(derived, growth, defense);
-        const next = path.next;
-        const invaderProfile = preschoolInvaderProfile(path.invader);
-        const learningArt = next
-            ? preschoolVisual(next.course.icon || 'book-open', preschoolAssetForIcon(next.course.icon || 'book-open'), next.course.title)
-            : preschoolAsset('star-companion', '课程完成');
-        const rewardArt = path.invader.active
-            ? preschoolAsset(invaderProfile.asset, invaderProfile.title)
-            : preschoolAsset('treasure-chest', '奖励');
-        const steps = [
-            {
-                kind: 'checkin',
-                state: path.allPlansDone ? 'done' : 'current',
-                art: preschoolAsset('task-book-icon', '今日任务'),
-                title: path.allPlansDone ? '今日任务都完成啦' : '先点亮一项任务',
-                detail: path.allPlansDone ? `${path.completed}/${path.total} 项已完成` : `${path.completed}/${path.total} 项 · 完成得阳光`,
-                action: 'navigate',
-                page: 'plans',
-                label: path.allPlansDone ? '查看任务' : '去打卡'
-            },
-            {
-                kind: 'learning',
-                state: next ? (path.allPlansDone ? 'current' : 'next') : 'done',
-                art: learningArt,
-                title: next ? next.lesson.title : '课程都点亮啦',
-                detail: next ? `${next.course.title} · ${next.lesson.minutes} 分钟` : '去花园看看新伙伴',
-                action: next ? 'open-lesson' : 'navigate',
-                page: next ? '' : 'growth',
-                id: next ? next.lesson.id : '',
-                label: next ? '开始学习' : '去看花园'
-            },
-            {
-                kind: 'reward',
-                state: path.allPlansDone && !next ? 'current' : 'next',
-                art: rewardArt,
-                title: path.invader.active ? '保护我的花园' : '领取下一份奖励',
-                detail: path.invader.active ? '花园保卫战正在等你' : `${growth.sunlight} 阳光 · ${growth.collection.unlockedIds.length}/${growth.collection.total} 已收集`,
-                action: 'navigate',
-                page: path.invader.active ? 'battle' : 'rewards',
-                label: path.invader.active ? '去守护' : '去看看'
-            }
-        ];
-        return `<section class="preschool-action-path" aria-label="今日行动路线"><div class="preschool-action-path-head"><div><span class="eyebrow">TODAY'S ROUTE</span><h2>今天，按这三步走</h2><p>先点亮一件小事，再让学习和奖励接上。</p></div><span class="preschool-action-path-count">${path.completed}/${path.total} 已点亮</span></div><div class="preschool-action-steps">${steps.map(function (step, index) {
-            const actionAttrs = step.action === 'open-lesson'
-                ? `data-action="open-lesson" data-id="${escapeHtml(step.id)}"`
-                : `data-action="navigate" data-page="${escapeHtml(step.page)}"`;
-            const statusLabel = step.state === 'done' ? '已完成' : step.state === 'current' ? '现在做' : '下一步';
-            return `<button class="preschool-action-step is-${step.state}" type="button" ${actionAttrs} data-route-kind="${step.kind}" data-route-state="${step.state}" aria-label="${escapeHtml(step.title)}，${statusLabel}"><span class="preschool-action-step-number">${index + 1}</span><span class="preschool-action-step-art">${step.art}</span><span class="preschool-action-step-copy"><small>${statusLabel}</small><strong>${escapeHtml(step.title)}</strong><em>${escapeHtml(step.detail)}</em></span><span class="preschool-action-step-button">${escapeHtml(step.label)}${icon(step.state === 'done' ? 'check' : 'arrow-right')}</span></button>`;
-        }).join('')}</div></section>`;
-    }
-
-    function renderWorkbenchGardenPreview(growth, defense) {
-        const garden = growth.garden || {};
-        const activePlant = garden.activePlant || { id: 'plant-sunflower', title: '向日葵', tone: 'gold' };
-        const invader = defense.invader || { active: false, health: 0, maxHealth: 0 };
-        const invaderProfile = preschoolInvaderProfile(invader);
-        const plantCount = Array.isArray(garden.unlockedPlantIds) ? garden.unlockedPlantIds.length : 1;
-        const growthPercent = Math.min(100, Math.round((plantCount / Math.max(1, (garden.plants || []).length)) * 100));
-        return `<section class="workbench-garden-preview pixel-side-panel ${invader.active ? 'has-invader' : 'is-calm'}" aria-label="我的阳光花园">
-            <div class="workbench-card-head"><div><span class="workbench-kicker">MY GARDEN</span><h2>${invader.active ? `${escapeHtml(invaderProfile.title)}来捣乱了` : '我的阳光花园'}</h2><p>${invader.active ? '去花园保卫战，发射豌豆保护花园。' : '每完成一项任务，植物伙伴就会长大。'}</p></div><span class="workbench-garden-status ${invader.active ? 'is-alert' : 'is-safe'}">${icon(invader.active ? 'alert-triangle' : 'shield-check')} ${invader.active ? '需要守护' : '花园安全'}</span></div>
-            <div class="workbench-garden-scene"><span class="workbench-garden-cloud cloud-a"></span><span class="workbench-garden-cloud cloud-b"></span><span class="workbench-garden-sun">${preschoolAsset('sun-token', '阳光')}<b>${growth.sunlight}</b></span><div class="workbench-plant-hero"><span class="workbench-plant-halo"></span>${preschoolAsset(preschoolPlantAsset(activePlant), activePlant.title)}<strong>${escapeHtml(activePlant.title)}</strong><small>${plantCount} 个伙伴已出现</small></div>${invader.active ? `<span class="workbench-invader-preview">${preschoolAsset(invaderProfile.asset, invaderProfile.title)}<b>${escapeHtml(invaderProfile.title)}</b><small>${invader.health}/${invader.maxHealth} 生命</small></span>` : `<span class="workbench-safe-badge">${icon('sparkles')} 今天也很安全</span>`}<span class="workbench-garden-ground"></span></div>
-            <div class="workbench-garden-footer"><div class="workbench-progress-copy"><span>植物成长</span><strong>${plantCount} / ${(garden.plants || []).length || plantCount}</strong></div><div class="workbench-progress-track"><span style="width:${growthPercent}%"></span></div><button class="workbench-action-button" type="button" data-action="navigate" data-page="battle">${icon('swords')} ${invader.active ? '去守护' : '去花园保卫战'}</button></div>
-        </section>`;
-    }
-
-    function renderWorkbenchRewardStrip(growth) {
-        const collection = growth.collection || { unlockedIds: [], total: 0 };
-        const rewardItems = [
-            { asset: 'sun-token', title: '收集阳光', note: '完成任务就会得到', tone: 'sun' },
-            { asset: 'treasure-chest', title: '打开宝箱', note: '完成今天的任务', tone: 'chest' },
-            { asset: 'streak-stars', title: '连续点亮', note: `${growth.streak} 天成长记录`, tone: 'streak' }
-        ];
-        return `<section class="workbench-reward-strip pixel-bottom-bar" aria-label="奖励与连续打卡"><div class="workbench-reward-intro"><span class="workbench-kicker">REWARD PATH</span><h2>下一份小奖励</h2><p>阳光会变成植物、宝箱和新的伙伴。</p></div><div class="workbench-reward-items">${rewardItems.map(function (item) { return `<article class="workbench-reward-item tone-${item.tone}"><span>${preschoolAsset(item.asset, item.title)}</span><strong>${item.title}</strong><small>${item.note}</small></article>`; }).join('')}</div><button class="workbench-action-button" type="button" data-action="navigate" data-page="rewards">${icon('gift')} 看奖励 <b>${collection.unlockedIds.length}/${collection.total}</b></button></section>`;
-    }
-
-    function renderPreschoolOverview(derived) {
-        const growth = getChildGrowth();
-        const plans = derived.todayCorePlans || derived.todayPlans.slice(0, 3);
-        const done = plans.filter(item => item.done).length;
-        const total = plans.length;
-        const defense = getPreschoolDefense(growth);
-        return `<div class="pixel-home workbench-overview">
-            <section class="pixel-page-header workbench-overview-header"><div><span class="pixel-panel-kicker workbench-kicker">TODAY / ADVENTURE</span><h1>今天的冒险开始啦</h1><p>${done}/${total || 0} 个任务已点亮，先完成一件小事，花园就会多一束光。</p></div><div class="pixel-header-actions workbench-overview-actions"><span class="pixel-hud-sun">${preschoolAsset('sun-token', '阳光')}<strong>${growth.sunlight}</strong></span><span class="pixel-hud-defense"><span class="pixel-hud-defense-art">${preschoolAsset('player-energy-bars', '豌豆能量')}</span><strong>${defense.energy}</strong><span>豌豆</span></span><span class="pixel-hud-streak"><span class="pixel-hud-streak-art">${preschoolAsset('streak-stars', '连续打卡')}</span>${growth.streak} 天</span><button class="pixel-settings-button" type="button" data-action="navigate" data-page="account" aria-label="打开设置" title="打开设置">${icon('settings')}</button></div></section>
-            ${renderPixelDailyNote(done, total)}
-            ${renderPreschoolActionPath(derived, growth, defense)}
-            <section class="workbench-home-quest-panel"><div class="pixel-board-heading workbench-card-head"><div><span class="pixel-panel-kicker workbench-kicker">TODAY QUESTS</span><h2>今天要做</h2><p>完成任务，获得阳光和豌豆能量。</p></div><span class="pixel-board-count">${done} / ${total || 0}</span></div><div class="pixel-quest-grid workbench-task-grid">${plans.map(pixelQuestCard).join('')}</div><div class="workbench-home-quest-actions"><button class="workbench-secondary-button" type="button" data-action="navigate" data-page="plans">${icon('list-checks')} 查看全部任务</button><button class="workbench-action-button" type="button" data-action="navigate" data-page="battle">${icon('swords')} 去花园游戏</button><button class="workbench-text-button" type="button" data-action="navigate" data-page="rewards">${icon('gift')} 去领奖励</button></div></section>
-        </div>`;
-    }
-
     function renderPreschoolBattleRewards(growth, defense) {
         const rewardSteps = [
             { asset: 'sun-token', title: '+10 阳光', caption: '完成一项今日任务', tone: 'sun' },
@@ -1170,6 +1061,30 @@
         return `${renderPreschoolIntro(PAGE_META.family, '', '', `<span class="tag lime">${messages.length} 条</span>`)}<section class="preschool-family-card"><div class="preschool-card-visual">${icon('message-circle-heart')}</div><h2>我想告诉家长</h2><form data-family-form><input type="hidden" name="author" value="小朋友"><input type="hidden" name="kind" value="child-share"><textarea name="body" maxlength="200" required placeholder="我今天会了……"></textarea><button class="btn-primary" type="submit">发出去${icon('send')}</button></form></section><section class="preschool-section"><div class="preschool-section-head"><div><span class="eyebrow">FAMILY</span><h2>家长说</h2></div></div><div class="preschool-family-feed">${messages.length ? messages.slice(0, 5).map(function (item) { return `<article><span class="preschool-card-visual">${icon(item.author === '家长' ? 'heart' : 'sparkles')}</span><div><strong>${escapeHtml(item.body)}</strong><small>${escapeHtml(item.author)}</small></div></article>`; }).join('') : renderEmpty('heart', '还没有留言')}</div></section>`;
     }
 
+    function renderPreschoolHomeBattlefield(plans, defense) {
+        const lanePlants = ['plant-sunflower', 'plant-peashooter', 'plant-wallnut'];
+        const laneZombies = ['zombie-basic', 'zombie-conehead', 'zombie-buckethead'];
+        const completed = plans.filter(function (item) { return item.done; }).length;
+        const invader = defense && defense.invader ? defense.invader : { active: false };
+        const invaderProfile = preschoolInvaderProfile(invader);
+        const lanes = plans.map(function (item, index) {
+            const done = Boolean(item.done);
+            const plantAsset = lanePlants[index % lanePlants.length];
+            const zombieAsset = laneZombies[index % laneZombies.length];
+            return `<button class="preschool-home-lane ${done ? 'is-done' : ''}" type="button" data-action="toggle-plan" data-id="${escapeHtml(item.id)}" aria-label="${done ? '取消完成' : '完成'}${escapeHtml(item.title)}">
+                <span class="preschool-home-lane-number">${index + 1}</span>
+                <span class="preschool-home-lane-characters"><span class="preschool-home-lane-plant">${preschoolAsset(plantAsset, '植物')}</span><span class="preschool-home-lane-zombie">${preschoolAsset(zombieAsset, '僵尸')}</span></span>
+                <span class="preschool-home-lane-copy"><small>${escapeHtml(item.category || '今日任务')}</small><strong>${escapeHtml(item.title)}</strong><em>${done ? '阳光已收集，战线已守住' : '完成任务，收集 +10 阳光'}</em></span>
+                <span class="preschool-home-lane-status">${done ? `${icon('check')} 已完成` : `${preschoolAsset('sun-token', '阳光')} +10`}</span>
+            </button>`;
+        }).join('');
+        return `<section class="preschool-home-battlefield" data-defense-state="${invader.active ? 'active' : 'ready'}" aria-label="今日草坪战场">
+            <div class="preschool-home-battlefield-head"><div><span class="pixel-panel-kicker">SUN GARDEN / TODAY</span><h2>今日草坪战场</h2><p>点亮三条任务战线，收集阳光守护花园。</p></div><strong>${completed}/${plans.length || 0} 战线点亮</strong></div>
+            <div class="preschool-home-lanes">${lanes}</div>
+            <div class="preschool-home-battlefield-foot"><span>${icon(invader.active ? 'alert-triangle' : 'shield-check')} ${invader.active ? `${escapeHtml(invaderProfile.title)}正在靠近` : '花园安全，等你来点亮'}</span><small>首页只负责打卡，完整战斗在花园游戏里进行。</small></div>
+        </section>`;
+    }
+
     function renderPreschoolHomeOverview(derived) {
         const growth = getChildGrowth();
         const plans = derived.todayCorePlans || derived.todayPlans.slice(0, 3);
@@ -1177,8 +1092,8 @@
         const defense = getPreschoolDefense(growth);
         return `<div class="pixel-home workbench-overview preschool-home-overview">
             <section class="pixel-page-header workbench-overview-header"><div><span class="pixel-panel-kicker workbench-kicker">TODAY / WORKBENCH</span><h1>今天，完成一小步</h1><p>${done}/${plans.length || 0} 项任务已完成，阳光和豌豆能量会在完成后到账。</p></div><div class="pixel-header-actions workbench-overview-actions"><span class="pixel-hud-sun">${preschoolAsset('sun-token', '阳光')}<strong>${growth.sunlight}</strong></span><span class="pixel-hud-defense"><span class="pixel-hud-defense-art">${preschoolAsset('player-energy-bars', '豌豆能量')}</span><strong>${defense.energy}</strong><span>能量</span></span><button class="pixel-settings-button" type="button" data-action="navigate" data-page="account" aria-label="打开设置" title="打开设置">${icon('settings')}</button></div></section>
-            ${renderPreschoolActionPath(derived, growth, defense)}
-            <section class="workbench-home-quest-panel"><div class="pixel-board-heading workbench-card-head"><div><span class="pixel-panel-kicker workbench-kicker">TODAY QUESTS</span><h2>今日任务</h2><p>完成任务，获得阳光和豌豆能量。</p></div><span class="pixel-board-count">${done} / ${plans.length || 0}</span></div><div class="pixel-quest-grid workbench-task-grid">${plans.map(pixelQuestCard).join('')}</div><div class="workbench-home-quest-actions"><button class="workbench-secondary-button" type="button" data-action="navigate" data-page="plans">${icon('list-checks')} 查看全部任务</button><button class="workbench-action-button" type="button" data-action="navigate" data-page="battle">${icon('swords')} 去花园游戏</button><button class="workbench-text-button" type="button" data-action="navigate" data-page="rewards">${icon('gift')} 去领奖励</button></div></section>
+            ${renderPreschoolHomeBattlefield(plans, defense)}
+            <div class="preschool-home-exits" aria-label="花园出口"><button class="workbench-action-button" type="button" data-action="navigate" data-page="battle">${icon('swords')} 去花园游戏</button><button class="workbench-secondary-button" type="button" data-action="navigate" data-page="rewards">${icon('gift')} 去领奖励</button></div>
         </div>`;
     }
 
@@ -1193,7 +1108,7 @@
         if (ui.page === 'rewards') return renderPreschoolRewards();
         if (ui.page === 'family') return renderPreschoolFamily();
         if (ui.page === 'account') return renderAccount();
-        return renderPreschoolOverview(derived);
+        return renderPreschoolHomeOverview(derived);
     }
 
     function renderMetric(label, value, meta, iconName, tone) {

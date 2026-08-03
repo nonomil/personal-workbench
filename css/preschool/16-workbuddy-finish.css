@@ -512,77 +512,6 @@ body.variant-preschool .preschool-mobile-nav { display: none; }
     body.variant-preschool .lesson-dialog-progress-track i { transition: none; }
 }
 
-/* Preschool 2.8: make the next action visible before the full dashboard. */
-body.variant-preschool .preschool-action-path {
-    position: relative;
-    margin: 17px 0 19px;
-    padding: 20px;
-    overflow: hidden;
-    border: 1px solid rgba(255, 140, 66, .25);
-    border-radius: 24px;
-    background: linear-gradient(120deg, rgba(255, 249, 235, .94), rgba(237, 253, 252, .92));
-    box-shadow: var(--wb-shadow), inset 0 1px 0 rgba(255, 255, 255, .86);
-}
-body.variant-preschool .preschool-action-path::before {
-    position: absolute;
-    top: -42px;
-    right: 7%;
-    width: 145px;
-    height: 145px;
-    border: 20px solid rgba(255, 214, 111, .18);
-    border-radius: 50%;
-    content: "";
-    pointer-events: none;
-}
-body.variant-preschool .preschool-action-path-head,
-body.variant-preschool .preschool-action-steps { position: relative; z-index: 1; }
-body.variant-preschool .preschool-action-path-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
-body.variant-preschool .preschool-action-path-head h2 { margin: 3px 0 0; color: var(--wb-ink); font-size: 20px; font-weight: 950; }
-body.variant-preschool .preschool-action-path-head p { margin: 4px 0 0; color: var(--wb-muted); font-size: 12px; line-height: 1.55; }
-body.variant-preschool .preschool-action-path-count { display: inline-flex; min-height: 30px; align-items: center; padding: 0 10px; border-radius: 999px; color: #a3572e; background: #fff0cd; font-size: 11px; font-weight: 950; white-space: nowrap; }
-body.variant-preschool .preschool-action-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 11px; margin-top: 16px; }
-body.variant-preschool .preschool-action-step {
-    position: relative;
-    display: grid;
-    min-width: 0;
-    min-height: 103px;
-    grid-template-columns: 25px 51px minmax(0, 1fr) auto;
-    grid-template-rows: 1fr;
-    align-items: center;
-    gap: 9px;
-    padding: 11px;
-    overflow: visible;
-    border: 1px solid rgba(255, 255, 255, .92);
-    border-radius: 18px;
-    color: var(--wb-ink);
-    text-align: left;
-    background: rgba(255, 255, 255, .68);
-    box-shadow: 0 5px 14px rgba(45, 45, 58, .06), inset 0 1px 0 rgba(255, 255, 255, .88);
-    transition: transform .22s var(--wb-spring), border-color .22s ease, box-shadow .22s ease, background .22s ease;
-}
-body.variant-preschool .preschool-action-step:not(:last-child)::after { position: absolute; z-index: 2; top: 50%; right: -13px; width: 17px; height: 2px; background: #f5c77e; content: ""; }
-body.variant-preschool .preschool-action-step:hover { border-color: rgba(255, 140, 66, .5); background: #fff; box-shadow: var(--wb-shadow-hover); transform: translateY(-2px); }
-body.variant-preschool .preschool-action-step:active { transform: scale(.985); }
-body.variant-preschool .preschool-action-step:focus-visible { outline: 3px solid rgba(255, 140, 66, .25); outline-offset: 2px; }
-body.variant-preschool .preschool-action-step.is-current { border-color: rgba(255, 140, 66, .48); background: rgba(255, 249, 235, .92); }
-body.variant-preschool .preschool-action-step.is-done { border-color: rgba(107, 203, 119, .48); background: rgba(239, 252, 239, .9); }
-body.variant-preschool .preschool-action-step-number { display: grid; width: 25px; height: 25px; place-items: center; border-radius: 9px; color: #fff; background: #d7b27a; font-size: 12px; font-weight: 950; }
-body.variant-preschool .preschool-action-step.is-current .preschool-action-step-number { background: var(--wb-brand); }
-body.variant-preschool .preschool-action-step.is-done .preschool-action-step-number { background: var(--wb-green); }
-body.variant-preschool .preschool-action-step-art { display: grid; width: 51px; height: 51px; place-items: center; overflow: hidden; border-radius: 16px; background: #fff0cd; }
-body.variant-preschool .preschool-action-step:nth-child(2) .preschool-action-step-art { background: #e0f7f2; }
-body.variant-preschool .preschool-action-step:nth-child(3) .preschool-action-step-art { background: #e9f3fb; }
-body.variant-preschool .preschool-action-step-art img { width: 44px; height: 44px; object-fit: contain; }
-body.variant-preschool .preschool-action-step-art .preschool-card-visual { display: grid; width: 100%; height: 100%; place-items: center; }
-body.variant-preschool .preschool-action-step-copy { display: grid; min-width: 0; gap: 2px; align-content: center; }
-body.variant-preschool .preschool-action-step-copy small { color: var(--wb-brand); font-size: 10px; font-weight: 950; }
-body.variant-preschool .preschool-action-step-copy strong { overflow-wrap: anywhere; color: var(--wb-ink); font-size: 14px; font-weight: 950; line-height: 1.3; }
-body.variant-preschool .preschool-action-step-copy em { overflow-wrap: anywhere; color: var(--wb-muted); font-size: 10px; font-style: normal; line-height: 1.35; }
-body.variant-preschool .preschool-action-step-button { display: inline-flex; min-height: 28px; align-items: center; gap: 3px; padding: 0 7px; border-radius: 9px; color: #287f7a; background: rgba(78, 205, 196, .13); font-size: 10px; font-weight: 950; white-space: nowrap; }
-body.variant-preschool .preschool-action-step.is-current .preschool-action-step-button { color: #fff; background: var(--wb-brand); }
-body.variant-preschool .preschool-action-step.is-done .preschool-action-step-button { color: #27764f; background: rgba(107, 203, 119, .18); }
-body.variant-preschool .preschool-action-step-button svg { width: 12px; height: 12px; }
-
 body.variant-preschool .preschool-course-directory-item { grid-template-columns: 36px minmax(0, 1fr) auto; align-items: center; }
 body.variant-preschool .preschool-course-directory-item > .preschool-course-directory-copy { display: grid; width: auto; height: auto; min-width: 0; grid-template-columns: minmax(0, 1fr); align-content: center; gap: 3px; padding: 0; border-radius: 0; color: inherit; background: transparent; }
 body.variant-preschool .preschool-course-directory-copy strong { overflow: hidden; color: inherit; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
@@ -597,31 +526,6 @@ body.variant-preschool .preschool-course-directory-state.is-overview { color: #2
 /* The persistent sidebar owns course navigation after a lane is selected. */
 body.variant-preschool .preschool-course-layout.is-focused { grid-template-columns: minmax(0, 1fr); }
 
-@media (max-width: 900px) {
-    body.variant-preschool .preschool-action-step { grid-template-columns: 25px 48px minmax(0, 1fr); }
-    body.variant-preschool .preschool-action-step-art { width: 48px; height: 48px; }
-    body.variant-preschool .preschool-action-step-button { grid-column: 3; justify-self: start; }
-}
-
-@media (max-width: 760px) {
-    body.variant-preschool .preschool-action-path { margin-top: 15px; padding: 16px; border-radius: 20px; }
-    body.variant-preschool .preschool-action-path-head h2 { font-size: 18px; }
-    body.variant-preschool .preschool-action-steps { grid-template-columns: 1fr; gap: 8px; }
-    body.variant-preschool .preschool-action-step { min-height: 86px; grid-template-columns: 27px 54px minmax(0, 1fr) auto; }
-    body.variant-preschool .preschool-action-step:not(:last-child)::after { top: auto; right: auto; bottom: -10px; left: 38px; width: 2px; height: 12px; }
-    body.variant-preschool .preschool-action-step-button { grid-column: auto; }
-}
-
-@media (max-width: 440px) {
-    body.variant-preschool .preschool-action-path-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; }
-    body.variant-preschool .preschool-action-path-head p { font-size: 11px; }
-    body.variant-preschool .preschool-action-step { grid-template-columns: 25px 48px minmax(0, 1fr); gap: 8px; padding: 10px; }
-    body.variant-preschool .preschool-action-step-art { width: 48px; height: 48px; }
-    body.variant-preschool .preschool-action-step-button { grid-column: 3; justify-self: start; }
-}
-
 @media (prefers-reduced-motion: reduce) {
-    body.variant-preschool .preschool-action-step,
-    body.variant-preschool .preschool-action-step:hover,
     body.variant-preschool .preschool-course-directory-progress i { transition: none; transform: none; }
 }
