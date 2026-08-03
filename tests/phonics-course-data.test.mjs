@@ -66,3 +66,35 @@ test('phonics words and sentences declare their taught-code boundary', () => {
         assert.ok(sentence.decodabilityPercent >= 0 && sentence.decodabilityPercent <= 100);
     }
 });
+
+test('keeps the 120-lesson reference bank separate from runtime phonics data', () => {
+    const referencePath = path.join(dataDir, 'reference-bank.json');
+    assert.equal(fs.existsSync(referencePath), true);
+    const reference = JSON.parse(fs.readFileSync(referencePath, 'utf8'));
+    assert.equal(reference.id, 'open-source-phonics-reference-bank');
+    assert.equal(reference.status, 'reference-only');
+    assert.equal(reference.lessons.length, 120);
+    assert.equal(new Set(reference.lessons.map(item => item.id)).size, 120);
+    for (const lesson of reference.lessons) {
+        assert.ok(lesson.lesson >= 1 && lesson.lesson <= 120);
+        assert.ok(lesson.pageStart >= 1 && lesson.pageEnd >= lesson.pageStart);
+        assert.ok(lesson.focus && lesson.focus.kind && lesson.focus.text);
+        assert.ok(Array.isArray(lesson.patterns));
+        assert.ok(Array.isArray(lesson.readWords));
+        assert.ok(Array.isArray(lesson.readPhrases));
+        assert.ok(Array.isArray(lesson.dictationWords));
+        assert.ok(Array.isArray(lesson.dictationPhrases));
+        assert.ok(Array.isArray(lesson.highFrequencyWords));
+        assert.ok(Array.isArray(lesson.questionTemplates) && lesson.questionTemplates.length > 0);
+        assert.equal(lesson.source.license, 'CC BY-NC-SA 4.0');
+        assert.equal(lesson.source.kind, 'open-reference-derived');
+    }
+    const config = fs.readFileSync(path.join(root, 'config.js'), 'utf8');
+    for (const id of ['open-source-phonics-lesson-001', 'open-source-phonics-lesson-002', 'open-source-phonics-lesson-003']) {
+        assert.match(config, new RegExp(`referenceMaterialId: '${id}'`));
+    }
+    const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+    assert.match(app, /PHONICS_REFERENCE_URL/);
+    assert.match(app, /attachPhonicsReferenceMaterial/);
+    assert.match(app, /status !== 'reference-only'/);
+});

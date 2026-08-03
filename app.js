@@ -38,10 +38,19 @@
     const CATEGORY_COLORS = { 学习: 'orange', 阅读: 'blue', 实践: 'lime', 运动: 'gold', 自控: 'orange', 其它: 'blue' };
     const PRIORITY_LABELS = { high: '高优先', medium: '常规', low: '低优先' };
     const STATUS_LABELS = { todo: '待开始', doing: '进行中', done: '已完成' };
-    const ui = { page: getPageFromHash(), courseId: getCourseIdFromHash(), taskFilter: 'all', dialogType: '', dialogId: '', dialogArea: '', lessonSession: null };
+    const ui = { page: getPageFromHash(), courseId: getCourseIdFromHash(), courseNavExpanded: getPageFromHash() === 'courses', taskFilter: 'all', dialogType: '', dialogId: '', dialogArea: '', lessonSession: null, summerLibraryCategory: 'daily', summerLibraryItem: 0 };
     const isPreschool = workbenchConfig.variant === 'preschool';
     const isChild = workbenchConfig.variant === 'child' || isPreschool;
     const isAdult = workbenchConfig.variant === 'adult';
+    const summerLibrary = global.PetBankSummerDailyLearning || {};
+    const SUMMER_LIBRARY_CATEGORIES = [
+        { id: 'daily', label: '每日学习单', icon: 'sun', source: 'morningReading' },
+        { id: 'morningReading', label: '60 天晨读', icon: 'volume-2', source: 'morningReading' },
+        { id: 'literacy', label: '45 天识字', icon: 'book-open', source: 'literacy' },
+        { id: 'poems', label: '古诗词', icon: 'feather', source: 'poems' },
+        { id: 'classics', label: '经典短句', icon: 'heart', source: 'classics' },
+        { id: 'weeklyReview', label: '每周复盘', icon: 'calendar-check-2', source: 'weeklyReview' }
+    ];
     const preschoolGarden = global.PersonalWorkbenchPreschoolGarden;
     const PIXEL_ASSET_BASE = '../assets/generated/preschool-pixel/reference/gpt-output-20260730/published-gpt-v2/';
     const PIXEL_REFRESH_ASSET_BASE = '../assets/generated/preschool-pixel/refresh-20260731/published/';
@@ -152,6 +161,42 @@
     let preschoolHudPulseTimer = 0;
     let preschoolDefenseTimer = 0;
     let preschoolMusic = null;
+    const PHONICS_REFERENCE_URL = '../data/preschool/english/phonics/reference-bank.json';
+    let phonicsReferenceBank = null;
+    let phonicsReferenceStatus = 'idle';
+
+    function attachPhonicsReferenceMaterial() {
+        if (!phonicsReferenceBank || !Array.isArray(phonicsReferenceBank.lessons)) return;
+        const materials = new Map(phonicsReferenceBank.lessons.map(function (item) { return [item.id, item]; }));
+        const courses = Array.isArray(workbenchConfig.childCourses) ? workbenchConfig.childCourses : [];
+        const course = courses.find(function (item) { return item.id === 'preschool-english'; });
+        if (!course || !Array.isArray(course.lessons)) return;
+        course.lessons.forEach(function (lesson) {
+            if (!lesson.referenceMaterialId) return;
+            const material = materials.get(lesson.referenceMaterialId);
+            if (material) lesson.referenceMaterial = material;
+        });
+    }
+
+    function loadPhonicsReferenceBank() {
+        if (!isPreschool || phonicsReferenceStatus !== 'idle' || typeof global.fetch !== 'function') return;
+        phonicsReferenceStatus = 'loading';
+        global.fetch(PHONICS_REFERENCE_URL).then(function (response) {
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            return response.json();
+        }).then(function (payload) {
+            if (!payload || payload.id !== 'open-source-phonics-reference-bank' || payload.status !== 'reference-only' || !Array.isArray(payload.lessons)) {
+                throw new Error('reference bank schema invalid');
+            }
+            phonicsReferenceBank = payload;
+            phonicsReferenceStatus = 'ready';
+            attachPhonicsReferenceMaterial();
+            render();
+        }).catch(function (error) {
+            phonicsReferenceStatus = 'failed';
+            console.warn('[PersonalWorkbench] 自然拼读参考素材加载失败，继续使用内置测验', error);
+        });
+    }
 
     function getRouteFromHash() {
         const raw = (location.hash || '#overview').slice(1);
@@ -339,6 +384,7 @@
     function setPage(page, replace, courseId) {
         ui.page = PAGE_META[page] ? page : 'overview';
         ui.courseId = ui.page === 'courses' ? String(courseId || '') : '';
+        if (ui.page === 'courses') ui.courseNavExpanded = true;
         const hash = ui.page === 'courses' && ui.courseId ? `#courses?course=${encodeURIComponent(ui.courseId)}` : `#${ui.page}`;
         if (replace) history.replaceState(null, '', hash);
         else if (location.hash !== hash) location.hash = hash;
@@ -360,6 +406,7 @@
         document.querySelectorAll('[data-mobile-nav]').forEach(function (item) {
             item.classList.toggle('is-active', item.dataset.mobileNav !== 'more' && item.dataset.page === ui.page);
         });
+        setCourseNavExpanded(ui.courseNavExpanded);
         const activeCourse = isPreschool && ui.page === 'courses' ? getPreschoolCourseById(ui.courseId) : null;
         pageName.textContent = activeCourse ? activeCourse.title : meta.title;
         if (isPreschool) pageContent.innerHTML = renderPreschoolPage(derived);
@@ -389,6 +436,16 @@
         }
         applyLanguagePreference();
         global.lucide.createIcons({ root: pageContent });
+    }
+
+    function setCourseNavExpanded(expanded) {
+        const toggle = document.querySelector('[data-action="toggle-course-nav"]');
+        const nav = document.getElementById('preschool-course-nav');
+        if (!toggle || !nav) return;
+        const isExpanded = Boolean(expanded);
+        toggle.classList.toggle('is-collapsed', !isExpanded);
+        toggle.setAttribute('aria-expanded', String(isExpanded));
+        nav.classList.toggle('is-collapsed', !isExpanded);
     }
 
     function updateModeStatus() {
@@ -1162,7 +1219,76 @@
         }).join('')}</div>`;
     }
 
+    function getChildCourseViews() {
+        const catalog = Array.isArray(workbenchConfig.childCourses) ? workbenchConfig.childCourses : [];
+        const progress = state.courseProgress || { completedLessonIds: [] };
+        if (global.PersonalWorkbenchChildCourses && typeof global.PersonalWorkbenchChildCourses.getCourseView === 'function') {
+            return global.PersonalWorkbenchChildCourses.getCourseView(catalog, progress);
+        }
+        return catalog.map(function (course) {
+            const lessons = Array.isArray(course.lessons) ? course.lessons : [];
+            return Object.assign({}, course, { completed: 0, total: lessons.length, percent: 0 });
+        });
+    }
+
+    function renderChildPlanRows(items, emptyText) {
+        if (!items.length) return `<div class="child-plan-empty">${icon('sparkles')}<span>${escapeHtml(emptyText)}</span></div>`;
+        return `<div class="child-plan-list">${items.map(function (item, index) {
+            const done = Boolean(item.done);
+            const tone = CATEGORY_COLORS[item.category] || 'blue';
+            return `<div class="child-plan-item ${done ? 'is-done' : ''}"><button class="child-plan-check ${done ? 'is-done' : ''}" type="button" data-action="toggle-plan" data-id="${escapeHtml(item.id)}" aria-label="${done ? '取消完成' : '完成'}${escapeHtml(item.title)}">${done ? icon('check') : `<span>${index + 1}</span>`}</button><span class="child-plan-icon ${tone}">${icon(item.category === '阅读' ? 'book-open' : item.category === '运动' ? 'footprints' : item.category === '自控' ? 'heart' : 'book-check')}</span><span class="child-plan-copy"><strong>${escapeHtml(item.title)}</strong><small>${escapeHtml(item.category || '学习')} · ${done ? '已完成，阳光已到账' : '完成后获得 10 阳光'}</small></span><span class="child-plan-state">${done ? icon('badge-check') : icon('arrow-right')}</span></div>`;
+        }).join('')}</div>`;
+    }
+
+    function renderChildCourseMap(courseViews) {
+        const areas = [
+            { id: 'chinese', title: '语文知识森林', hint: '阅读 · 表达 · 文字', icon: 'book-open', tone: 'orange', target: 'courses' },
+            { id: 'math', title: '数学数字岛', hint: '口算 · 图形 · 应用', icon: 'calculator', tone: 'blue', target: 'courses' },
+            { id: 'english', title: '英语探索湾', hint: '词卡 · 句子 · 听说', icon: 'languages', tone: 'lime', target: 'courses' },
+            { id: 'science', title: '科学发现站', hint: '观察 · 提问 · 动手', icon: 'telescope', tone: 'gold', target: 'tasks' }
+        ];
+        return `<div class="child-map-grid">${areas.map(function (area) {
+            const course = courseViews.find(item => item.id === area.id);
+            const percent = course ? Number(course.percent || 0) : 0;
+            const status = percent >= 100 ? '已点亮' : percent > 0 ? '进行中' : course ? '待开始' : '探索支线';
+            const progress = course ? `${course.completed || 0}/${course.total || 0} 小课节` : '先完成一项任务解锁';
+            const courseId = course ? ` data-course-id="${escapeHtml(course.id)}"` : '';
+            return `<button class="child-map-zone tone-${area.tone} ${percent >= 100 ? 'is-lit' : ''}" type="button" data-action="navigate" data-page="${area.target}"${courseId}><span class="child-map-zone-art">${icon(area.icon)}</span><span class="child-map-zone-copy"><strong>${area.title}</strong><small>${area.hint}</small><span class="child-map-zone-progress"><i style="width:${percent}%"></i></span><em>${status} · ${progress}</em></span><span class="child-map-zone-arrow">${icon('arrow-up-right')}</span></button>`;
+        }).join('')}</div>`;
+    }
+
+    function renderChildEvidenceCard(derived, courseViews) {
+        const progress = state.courseProgress || { completedLessonIds: [] };
+        const completedIds = new Set(Array.isArray(progress.completedLessonIds) ? progress.completedLessonIds : []);
+        let nextCourse = null;
+        let nextLesson = null;
+        courseViews.some(function (course) {
+            const lesson = (Array.isArray(course.lessons) ? course.lessons : []).find(item => !completedIds.has(item.id));
+            if (!lesson) return false;
+            nextCourse = course;
+            nextLesson = lesson;
+            return true;
+        });
+        const latestReading = state.readingLogs.slice().sort((a, b) => String(b.date).localeCompare(String(a.date)))[0];
+        return `<section class="child-evidence-card"><div class="child-card-heading"><div><span class="eyebrow">LEARNING EVIDENCE</span><h2>今天留下了什么</h2></div><button class="btn-quiet" type="button" data-action="navigate" data-page="reading">看记录${icon('chevron-right')}</button></div><div class="child-evidence-list"><div class="child-evidence-row"><span class="child-evidence-mark orange">${icon('check-check')}</span><span><strong>${derived.completedPlans} 项打卡完成</strong><small>${derived.todayPlans.length ? `今日进度 ${Math.round((derived.completedPlans / derived.todayPlans.length) * 100)}%` : '先安排一项小行动'}</small></span></div><div class="child-evidence-row"><span class="child-evidence-mark blue">${icon('book-open')}</span><span><strong>${latestReading ? escapeHtml(latestReading.title) : '还没有今日阅读记录'}</strong><small>${latestReading ? `${latestReading.minutes || 0} 分钟 · ${latestReading.pages || 0} 页` : '读完后记下一句话或一个问题'}</small></span></div><div class="child-evidence-row"><span class="child-evidence-mark lime">${icon(nextLesson ? 'play-circle' : 'badge-check')}</span><span><strong>${nextLesson ? `下一节：${escapeHtml(nextLesson.title)}` : '语数英小课都完成啦'}</strong><small>${nextLesson ? `${escapeHtml(nextCourse.title)} · ${nextLesson.minutes || 0} 分钟` : '可以去奖励中心选一个期待'}</small></span>${nextLesson ? `<button class="row-action" type="button" data-action="navigate" data-page="courses" data-course-id="${escapeHtml(nextCourse.id)}" aria-label="打开${escapeHtml(nextCourse.title)}" title="打开课程">${icon('arrow-up-right')}</button>` : ''}</div></div></section>`;
+    }
+
+    function renderChildAdventureHome(derived) {
+        const todayPlans = derived.todayPlans;
+        const corePlans = derived.todayCorePlans.length ? derived.todayCorePlans : todayPlans.slice(0, 3);
+        const optionalPlans = derived.todayCorePlans.length ? derived.todayOptionalPlans : todayPlans.slice(3);
+        const coreDone = corePlans.filter(item => item.done).length;
+        const optionalDone = optionalPlans.filter(item => item.done).length;
+        const nextPlan = corePlans.find(item => !item.done) || optionalPlans.find(item => !item.done);
+        const growth = getChildGrowth();
+        const courseViews = getChildCourseViews();
+        const levelProgress = clamp(growth.levelProgress || 0, 0, 100);
+        const nextReward = getChildRewards().find(item => !growth.claimedRewardIds.includes(item.id));
+        return `<div class="child-adventure-home"><section class="child-adventure-layout"><div class="child-adventure-main"><section class="child-welcome-banner"><div><span class="eyebrow">TODAY / ADVENTURE BASE</span><h1>今天，先完成三件小事</h1><p>${nextPlan ? `下一步是“${escapeHtml(nextPlan.title)}”。做完真实的学习，再去看看你的成长地图。` : '今天的核心任务已经完成，可以把时间交给阅读、休息或奖励。'}</p></div><button class="btn-primary" type="button" data-action="add-plan">安排下一项${icon('plus')}</button></section><article class="child-identity-card"><div class="child-identity-avatar"><span>${escapeHtml(workbenchConfig.current && workbenchConfig.current.avatar ? workbenchConfig.current.avatar : '星')}</span><i>${icon('sparkles')}</i></div><div class="child-identity-copy"><span class="eyebrow">YOUR ADVENTURE PROFILE</span><h2>小小探索家 · LV.${growth.level}</h2><p>连续行动 ${growth.streak || 0} 天 · ${growth.unicorn ? escapeHtml(growth.unicorn.name) : '星芒'} 陪你一起成长</p><div class="child-level-progress"><span style="width:${levelProgress}%"></span></div><small>再积累 ${Math.max(0, 100 - levelProgress)} 点成长经验，点亮下一级</small></div><div class="child-identity-stats"><strong>${growth.sunlight || 0}</strong><span>阳光</span><strong>${growth.petXp || 0}</strong><span>成长经验</span></div></article><section class="child-plan-board"><div class="child-card-heading"><div><span class="eyebrow">TODAY'S QUESTS</span><h2>今日冒险任务</h2><p>必做先完成，选做按自己的节奏来。</p></div><div class="child-plan-summary"><strong>${coreDone}/${corePlans.length || 0}</strong><span>核心完成</span></div></div><div class="child-plan-section"><div class="child-plan-section-title"><span class="child-section-dot orange"></span><strong>必做任务</strong><span>${corePlans.length ? `${coreDone}/${corePlans.length}` : '待安排'}</span></div>${renderChildPlanRows(corePlans, '还没有核心任务，先安排今天的第一步。')}</div><details class="child-optional-fold"><summary><span class="child-section-dot blue"></span><strong>选做挑战</strong><span>${optionalDone}/${optionalPlans.length || 0}</span><i>${icon('chevron-down')}</i></summary><div class="child-plan-section-content">${renderChildPlanRows(optionalPlans, '完成核心任务后，可以安排一项轻松挑战。')}</div></details></section></div><aside class="child-adventure-aside"><section class="child-growth-map"><div class="child-card-heading"><div><span class="eyebrow">GROWTH MAP</span><h2>成长地图</h2><p>每一次真实行动，都会点亮一个区域。</p></div><button class="btn-quiet" type="button" data-action="navigate" data-page="growth">打开地图${icon('arrow-up-right')}</button></div>${renderChildCourseMap(courseViews)}</section>${renderChildEvidenceCard(derived, courseViews)}<section class="child-reward-peek"><div class="child-reward-peek-art">${icon('gift')}</div><div><span class="eyebrow">NEXT REWARD</span><strong>${nextReward ? escapeHtml(nextReward.title) : '全部奖励已点亮'}</strong><small>${nextReward ? `还需要 ${Math.max(0, Number(nextReward.cost) - Number(growth.sunlight || 0))} 阳光` : '继续保留自己的节奏'}</small></div><button class="row-action" type="button" data-action="navigate" data-page="rewards" aria-label="打开奖励中心" title="打开奖励中心">${icon('arrow-up-right')}</button></section></aside></section></div>`;
+    }
+
     function renderOverview(derived) {
+        if (isChild && !isPreschool) return renderChildAdventureHome(derived);
         const todayPercent = derived.todayPlans.length ? Math.round((derived.completedPlans / derived.todayPlans.length) * 100) : 0;
         const nextTask = state.tasks.find(item => item.status !== 'done' && Number(item.progress) < 100) || state.tasks[0];
         const goalProgress = state.goals.reduce((sum, item) => sum + Number(item.progress || 0), 0) / Math.max(1, state.goals.length);
@@ -2346,4 +2472,5 @@
     if (!location.hash) history.replaceState(null, '', '#overview');
     global.lucide.createIcons();
     render();
+    loadPhonicsReferenceBank();
 })(window);

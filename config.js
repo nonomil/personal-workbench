@@ -203,9 +203,9 @@
                     highlights: ['a / m / t', 'f / b', 'mat / bat / fat'],
                     samples: ['a m t', 'f b', 'mat bat fat'],
                     lessons: [
-                        { id: 'preschool-english-phonics-1', title: '认识 a、m、t', minutes: 6, meta: '先听音，再认字母', tip: '先复习 a、m、t 的声音，再开始测验。', activity: { mode: 'choice', prompt: '哪个字母发 /m/ 的音？', hint: 'm 像两座小山，声音是 /m/。', options: ['m', 'a', 't'], answer: 0, optionIcons: ['languages', 'sparkles', 'target'], success: 'a、m、t 认识啦！' }, source: { kind: 'open-reference', project: 'Open Source Phonics', lesson: 1, license: 'CC BY-NC-SA 4.0', url: 'https://www.opensourcephonics.org/120-lessons/' } },
-                        { id: 'preschool-english-phonics-2', title: '认识 f、b', minutes: 6, meta: '听首音，找字母', tip: '把 f、b 的声音和字母连起来。', activity: { mode: 'choice', prompt: 'fan 的开头音是哪一个？', hint: 'fan 先发 /f/，嘴唇和牙齿轻轻碰一下。', options: ['f', 'b', 'm'], answer: 0, optionIcons: ['languages', 'target', 'sparkles'], success: 'f、b 找对啦！' }, source: { kind: 'open-reference', project: 'Open Source Phonics', lesson: 2, license: 'CC BY-NC-SA 4.0', url: 'https://www.opensourcephonics.org/120-lessons/' } },
-                        { id: 'preschool-english-phonics-3', title: '拼读 mat、bat、fat', minutes: 8, meta: '把声音连成词', tip: '从左到右慢慢合成，再选择你读出的词。', activity: { mode: 'choice', prompt: 'm-a-t 合起来是哪一个词？', hint: '/m/ /a/ /t/，连起来读 mat。', options: ['mat', 'bat', 'fat'], answer: 0, optionIcons: ['book-open', 'target', 'sparkles'], success: '会把声音拼成词啦！' }, source: { kind: 'open-reference', project: 'Open Source Phonics', lesson: 3, license: 'CC BY-NC-SA 4.0', url: 'https://www.opensourcephonics.org/120-lessons/' } }
+                        { id: 'preschool-english-phonics-1', title: '认识 a、m、t', minutes: 6, meta: '先听音，再认字母', tip: '先复习 a、m、t 的声音，再开始测验。', activity: { mode: 'choice', prompt: '哪个字母发 /m/ 的音？', hint: 'm 像两座小山，声音是 /m/。', options: ['m', 'a', 't'], answer: 0, optionIcons: ['languages', 'sparkles', 'target'], success: 'a、m、t 认识啦！' }, referenceMaterialId: 'open-source-phonics-lesson-001', source: { kind: 'reference-only', project: 'Open Source Phonics', lesson: 1, license: 'CC BY-NC-SA 4.0', url: 'https://www.opensourcephonics.org/120-lessons/' } },
+                        { id: 'preschool-english-phonics-2', title: '认识 f、b', minutes: 6, meta: '听首音，找字母', tip: '把 f、b 的声音和字母连起来。', activity: { mode: 'choice', prompt: 'fan 的开头音是哪一个？', hint: 'fan 先发 /f/，嘴唇和牙齿轻轻碰一下。', options: ['f', 'b', 'm'], answer: 0, optionIcons: ['languages', 'target', 'sparkles'], success: 'f、b 找对啦！' }, referenceMaterialId: 'open-source-phonics-lesson-002', source: { kind: 'reference-only', project: 'Open Source Phonics', lesson: 2, license: 'CC BY-NC-SA 4.0', url: 'https://www.opensourcephonics.org/120-lessons/' } },
+                        { id: 'preschool-english-phonics-3', title: '拼读 mat、bat、fat', minutes: 8, meta: '把声音连成词', tip: '从左到右慢慢合成，再选择你读出的词。', activity: { mode: 'choice', prompt: 'm-a-t 合起来是哪一个词？', hint: '/m/ /a/ /t/，连起来读 mat。', options: ['mat', 'bat', 'fat'], answer: 0, optionIcons: ['book-open', 'target', 'sparkles'], success: '会把声音拼成词啦！' }, referenceMaterialId: 'open-source-phonics-lesson-003', source: { kind: 'reference-only', project: 'Open Source Phonics', lesson: 3, license: 'CC BY-NC-SA 4.0', url: 'https://www.opensourcephonics.org/120-lessons/' } }
                     ]
                 },
                 {
@@ -261,7 +261,7 @@
         '.topbar-context strong': selected.pageMeta.overview.title,
         '.mode-status strong': '本地模式',
         '.mode-status small': selected.statusNote,
-        '.sidebar-footnote': selected.id === 'preschool' ? 'v0.4.0 · 幼儿版' : selected.id === 'child' ? 'v0.2 · 儿童版' : 'v0.2 · 成人版',
+        '.sidebar-footnote': selected.id === 'preschool' ? 'v0.4.1 · 幼儿版' : selected.id === 'child' ? 'v0.4.1 · 儿童版' : 'v0.4.1 · 成人版',
         '.avatar': selected.avatar
     };
     Object.keys(labelMap).forEach(function (selector) {

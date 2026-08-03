@@ -51,10 +51,11 @@ test('adds required flags to legacy plans without changing completion state', ()
   assert.equal(optional.done, false);
 });
 
-test('keeps the 60-day phonics pack as data-only content', () => {
+test('keeps the 60-day phonics pack as runtime content and reference bank separate', () => {
   const root = fileURLToPath(new URL('..', import.meta.url));
   const lessons = JSON.parse(fs.readFileSync(path.join(root, 'data', 'preschool', 'english', 'phonics', 'lessons.json'), 'utf8'));
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
   assert.equal(lessons.length, 60);
-  assert.doesNotMatch(app, /data\/preschool\/english\/phonics/);
+  assert.doesNotMatch(app, /data\/preschool\/english\/phonics\/lessons\.json/);
+  assert.match(app, /data\/preschool\/english\/phonics\/reference-bank\.json/);
 });
