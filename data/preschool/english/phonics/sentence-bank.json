@@ -1,0 +1,808 @@
+[
+  {
+    "id": "phonics-text-sam-sat",
+    "text": "Sam sat.",
+    "allowedPatterns": [
+      "s",
+      "a",
+      "m",
+      "t"
+    ],
+    "trickyWords": [],
+    "decodabilityPercent": 100,
+    "stageId": "cvc-blending",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original"
+    }
+  },
+  {
+    "id": "phonics-text-pat-sat",
+    "text": "Pat sat.",
+    "allowedPatterns": [
+      "p",
+      "a",
+      "t",
+      "s"
+    ],
+    "trickyWords": [],
+    "decodabilityPercent": 100,
+    "stageId": "cvc-blending",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original"
+    }
+  },
+  {
+    "id": "phonics-text-mat",
+    "text": "Sam sat at a mat.",
+    "allowedPatterns": [
+      "s",
+      "a",
+      "m",
+      "t"
+    ],
+    "trickyWords": [
+      "a"
+    ],
+    "decodabilityPercent": 83,
+    "stageId": "cvc-blending",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original"
+    }
+  },
+  {
+    "id": "phonics-text-map",
+    "text": "Pat has a map.",
+    "allowedPatterns": [
+      "p",
+      "a",
+      "t",
+      "h",
+      "s",
+      "m"
+    ],
+    "trickyWords": [
+      "a",
+      "has"
+    ],
+    "decodabilityPercent": 67,
+    "stageId": "cvc-blending",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original"
+    }
+  },
+  {
+    "id": "phonics-text-cat-sat",
+    "text": "A cat sat.",
+    "allowedPatterns": [
+      "c",
+      "a",
+      "t",
+      "s"
+    ],
+    "trickyWords": [
+      "A"
+    ],
+    "decodabilityPercent": 80,
+    "stageId": "cvc-blending",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original"
+    }
+  },
+  {
+    "id": "phonics-text-sit",
+    "text": "Tim can sit.",
+    "allowedPatterns": [
+      "t",
+      "i",
+      "m",
+      "c",
+      "a",
+      "n",
+      "s"
+    ],
+    "trickyWords": [],
+    "decodabilityPercent": 100,
+    "stageId": "cvc-blending",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original"
+    }
+  },
+  {
+    "id": "phonics-text-pin",
+    "text": "A pin is in.",
+    "allowedPatterns": [
+      "p",
+      "i",
+      "n",
+      "s"
+    ],
+    "trickyWords": [
+      "A",
+      "is"
+    ],
+    "decodabilityPercent": 75,
+    "stageId": "cvc-blending",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original"
+    }
+  },
+  {
+    "id": "phonics-text-hat",
+    "text": "A hat is on.",
+    "allowedPatterns": [
+      "h",
+      "a",
+      "t",
+      "i",
+      "s",
+      "n"
+    ],
+    "trickyWords": [
+      "A",
+      "is",
+      "on"
+    ],
+    "decodabilityPercent": 67,
+    "stageId": "cvc-blending",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original"
+    }
+  },
+  {
+    "id": "phonics-text-dip",
+    "text": "Dip a pin.",
+    "allowedPatterns": [
+      "d",
+      "i",
+      "p",
+      "a",
+      "n"
+    ],
+    "trickyWords": [
+      "a"
+    ],
+    "decodabilityPercent": 100,
+    "stageId": "cvc-blending",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original"
+    }
+  },
+  {
+    "id": "phonics-text-bat",
+    "text": "A bat sat.",
+    "allowedPatterns": [
+      "b",
+      "a",
+      "t",
+      "s"
+    ],
+    "trickyWords": [
+      "A"
+    ],
+    "decodabilityPercent": 83,
+    "stageId": "cvc-blending",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original"
+    }
+  },
+  {
+    "id": "phonics-text-man",
+    "text": "A man sat.",
+    "allowedPatterns": [
+      "m",
+      "a",
+      "n",
+      "s",
+      "t"
+    ],
+    "trickyWords": [
+      "A"
+    ],
+    "decodabilityPercent": 83,
+    "stageId": "cvc-blending",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original"
+    }
+  },
+  {
+    "id": "phonics-text-ham",
+    "text": "Sam had ham.",
+    "allowedPatterns": [
+      "s",
+      "a",
+      "m",
+      "h",
+      "d"
+    ],
+    "trickyWords": [
+      "had"
+    ],
+    "decodabilityPercent": 67,
+    "stageId": "cvc-blending",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original"
+    }
+  },
+  {
+    "id": "phonics-text-tom-hot",
+    "text": "Tom got hot.",
+    "allowedPatterns": [
+      "t",
+      "o",
+      "m",
+      "g",
+      "h"
+    ],
+    "trickyWords": [],
+    "decodabilityPercent": 100,
+    "stageId": "short-vowels-and-families",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "phonics-text-hop-top",
+    "text": "Hop on top.",
+    "allowedPatterns": [
+      "h",
+      "o",
+      "p",
+      "t"
+    ],
+    "trickyWords": [
+      "on"
+    ],
+    "decodabilityPercent": 80,
+    "stageId": "short-vowels-and-families",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "phonics-text-dog-log",
+    "text": "A dog is on a log.",
+    "allowedPatterns": [
+      "d",
+      "o",
+      "g",
+      "i",
+      "s",
+      "n",
+      "l"
+    ],
+    "trickyWords": [
+      "A",
+      "is",
+      "on",
+      "a"
+    ],
+    "decodabilityPercent": 60,
+    "stageId": "short-vowels-and-families",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "phonics-text-mixed-vowels",
+    "text": "A cat can sit.",
+    "allowedPatterns": [
+      "c",
+      "a",
+      "t",
+      "n",
+      "s",
+      "i"
+    ],
+    "trickyWords": [
+      "A",
+      "can"
+    ],
+    "decodabilityPercent": 75,
+    "stageId": "short-vowels-and-families",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "phonics-text-ben-pet",
+    "text": "Ben got a pet.",
+    "allowedPatterns": [
+      "b",
+      "e",
+      "n",
+      "g",
+      "o",
+      "t",
+      "p"
+    ],
+    "trickyWords": [
+      "a"
+    ],
+    "decodabilityPercent": 86,
+    "stageId": "short-vowels-and-families",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "phonics-text-sun-up",
+    "text": "Sun is up.",
+    "allowedPatterns": [
+      "s",
+      "u",
+      "n",
+      "i",
+      "p"
+    ],
+    "trickyWords": [
+      "is"
+    ],
+    "decodabilityPercent": 80,
+    "stageId": "short-vowels-and-families",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "phonics-text-five-vowels",
+    "text": "A cat, a pig, a dog, a pet, and a sun.",
+    "allowedPatterns": [
+      "c",
+      "a",
+      "t",
+      "p",
+      "i",
+      "g",
+      "d",
+      "o",
+      "g",
+      "e",
+      "s",
+      "u",
+      "n"
+    ],
+    "trickyWords": [
+      "A",
+      "a",
+      "and"
+    ],
+    "decodabilityPercent": 55,
+    "stageId": "short-vowels-and-families",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "phonics-text-ship-shop",
+    "text": "Ship is in a shop.",
+    "allowedPatterns": [
+      "sh",
+      "i",
+      "p",
+      "s",
+      "n",
+      "a",
+      "o"
+    ],
+    "trickyWords": [
+      "is",
+      "in",
+      "a"
+    ],
+    "decodabilityPercent": 78,
+    "stageId": "common-digraphs",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "phonics-text-fish-dash",
+    "text": "Fish can dash.",
+    "allowedPatterns": [
+      "f",
+      "i",
+      "sh",
+      "c",
+      "a",
+      "n",
+      "d"
+    ],
+    "trickyWords": [
+      "can"
+    ],
+    "decodabilityPercent": 86,
+    "stageId": "common-digraphs",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "phonics-text-chad-chop",
+    "text": "Chad can chop.",
+    "allowedPatterns": [
+      "ch",
+      "a",
+      "d",
+      "c",
+      "o",
+      "p"
+    ],
+    "trickyWords": [
+      "can"
+    ],
+    "decodabilityPercent": 92,
+    "stageId": "common-digraphs",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "phonics-text-rich-much",
+    "text": "Rich has much.",
+    "allowedPatterns": [
+      "r",
+      "i",
+      "ch",
+      "h",
+      "a",
+      "s",
+      "m",
+      "u"
+    ],
+    "trickyWords": [
+      "has"
+    ],
+    "decodabilityPercent": 80,
+    "stageId": "common-digraphs",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "phonics-text-that-fish",
+    "text": "That fish is thin.",
+    "allowedPatterns": [
+      "th",
+      "a",
+      "t",
+      "f",
+      "i",
+      "sh",
+      "s",
+      "n"
+    ],
+    "trickyWords": [
+      "is"
+    ],
+    "decodabilityPercent": 82,
+    "stageId": "common-digraphs",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "phonics-text-jack-kick",
+    "text": "Jack can kick.",
+    "allowedPatterns": [
+      "j",
+      "a",
+      "ck",
+      "c",
+      "n",
+      "i"
+    ],
+    "trickyWords": [
+      "can"
+    ],
+    "decodabilityPercent": 88,
+    "stageId": "common-digraphs",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "phonics-text-king-sing",
+    "text": "King can sing.",
+    "allowedPatterns": [
+      "k",
+      "i",
+      "ng",
+      "c",
+      "n",
+      "s"
+    ],
+    "trickyWords": [
+      "can"
+    ],
+    "decodabilityPercent": 88,
+    "stageId": "common-digraphs",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "phonics-text-stop-spin",
+    "text": "Stop and spin.",
+    "allowedPatterns": [
+      "st",
+      "o",
+      "p",
+      "sp",
+      "i",
+      "n"
+    ],
+    "trickyWords": [
+      "and"
+    ],
+    "decodabilityPercent": 88,
+    "stageId": "consonant-blends",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "phonics-text-stan-skip",
+    "text": "Stan can skip.",
+    "allowedPatterns": [
+      "st",
+      "a",
+      "n",
+      "c",
+      "sk",
+      "i",
+      "p"
+    ],
+    "trickyWords": [
+      "can"
+    ],
+    "decodabilityPercent": 90,
+    "stageId": "consonant-blends",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "phonics-text-slam-slip",
+    "text": "Slam and slip.",
+    "allowedPatterns": [
+      "sl",
+      "a",
+      "m",
+      "nd",
+      "i",
+      "p"
+    ],
+    "trickyWords": [
+      "and"
+    ],
+    "decodabilityPercent": 86,
+    "stageId": "consonant-blends",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "phonics-text-skip-skin",
+    "text": "Skip to the skin.",
+    "allowedPatterns": [
+      "sk",
+      "i",
+      "p",
+      "t",
+      "o",
+      "th",
+      "e",
+      "n"
+    ],
+    "trickyWords": [
+      "to",
+      "the"
+    ],
+    "decodabilityPercent": 70,
+    "stageId": "consonant-blends",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "phonics-text-hand-sand",
+    "text": "Hand and sand.",
+    "allowedPatterns": [
+      "h",
+      "a",
+      "nd",
+      "s",
+      "d"
+    ],
+    "trickyWords": [
+      "and"
+    ],
+    "decodabilityPercent": 88,
+    "stageId": "consonant-blends",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "phonics-text-tent-mint",
+    "text": "A tent has mint.",
+    "allowedPatterns": [
+      "t",
+      "e",
+      "nt",
+      "h",
+      "a",
+      "s",
+      "m",
+      "i"
+    ],
+    "trickyWords": [
+      "A",
+      "has"
+    ],
+    "decodabilityPercent": 75,
+    "stageId": "consonant-blends",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "phonics-text-jump-camp",
+    "text": "Jump and camp.",
+    "allowedPatterns": [
+      "j",
+      "u",
+      "mp",
+      "a",
+      "nd",
+      "c"
+    ],
+    "trickyWords": [
+      "and"
+    ],
+    "decodabilityPercent": 88,
+    "stageId": "consonant-blends",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "phonics-text-left-hand",
+    "text": "Left hand.",
+    "allowedPatterns": [
+      "l",
+      "e",
+      "ft",
+      "h",
+      "a",
+      "nd"
+    ],
+    "trickyWords": [],
+    "decodabilityPercent": 100,
+    "stageId": "consonant-blends",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "phonics-text-sam-cap-story",
+    "text": "Sam has a red cap. Sam can sit. Sam can tap. Sam can hop.",
+    "allowedPatterns": [
+      "s",
+      "a",
+      "m",
+      "h",
+      "r",
+      "e",
+      "d",
+      "c",
+      "p",
+      "n",
+      "i",
+      "t",
+      "o"
+    ],
+    "trickyWords": [
+      "has",
+      "a",
+      "can"
+    ],
+    "decodabilityPercent": 72,
+    "stageId": "decodable-sentences",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "phonics-text-garden-story",
+    "text": "A cat can fish. A dog can run. The sun is hot.",
+    "allowedPatterns": [
+      "c",
+      "a",
+      "t",
+      "n",
+      "f",
+      "i",
+      "sh",
+      "d",
+      "o",
+      "g",
+      "r",
+      "u",
+      "th",
+      "s",
+      "h"
+    ],
+    "trickyWords": [
+      "A",
+      "can",
+      "The",
+      "is"
+    ],
+    "decodabilityPercent": 68,
+    "stageId": "decodable-sentences",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  }
+]

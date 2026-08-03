@@ -1,0 +1,2422 @@
+[
+  {
+    "id": "preschool-motion-focus-day-01",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 1,
+    "stageId": "body-awakening",
+    "title": "第1天 · 走线小路",
+    "objective": "能沿着安全路线走 30 秒。",
+    "activityType": "movement-walk-line",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "沿着花园线走到终点。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "先看看地面",
+      "teach": "示范脚跟脚尖和停下。",
+      "practice": "走两轮，允许慢走。",
+      "apply": "在家走一小段安全路线。"
+    },
+    "evidence": [
+      "started-motion",
+      "completed-motion"
+    ],
+    "reviewTags": [
+      "walk"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-02",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 2,
+    "stageId": "body-awakening",
+    "title": "第2天 · 伸展小树",
+    "objective": "能完成两种伸展动作。",
+    "activityType": "movement-stretch",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "像小树一样伸伸手。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "慢慢呼吸一次",
+      "teach": "示范不疼的伸展范围。",
+      "practice": "伸手、侧弯各一次。",
+      "apply": "坐久后伸展。"
+    },
+    "evidence": [
+      "followed-motion",
+      "completed-motion"
+    ],
+    "reviewTags": [
+      "stretch"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-03",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 3,
+    "stageId": "body-awakening",
+    "title": "第3天 · 拍手节奏",
+    "objective": "能跟随 3 拍节奏拍手。",
+    "activityType": "rhythm-clap",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "跟着节奏拍三下。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "先看看地面",
+      "teach": "成人示范慢节奏。",
+      "practice": "三拍和两拍交替。",
+      "apply": "给古诗拍一遍。"
+    },
+    "evidence": [
+      "kept-rhythm",
+      "followed-pattern"
+    ],
+    "reviewTags": [
+      "rhythm"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-04",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 4,
+    "stageId": "body-awakening",
+    "title": "第4天 · 停走游戏",
+    "objective": "能听到停下信号并停住。",
+    "activityType": "stop-go",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "听到停就像小树一样不动。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "慢慢呼吸一次",
+      "teach": "示范走和停。",
+      "practice": "完成三轮。",
+      "apply": "过道中和家长玩一次。"
+    },
+    "evidence": [
+      "followed-stop-signal",
+      "self-controlled"
+    ],
+    "reviewTags": [
+      "stop-go"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-05",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 5,
+    "stageId": "body-awakening",
+    "title": "第5天 · 唤醒复习",
+    "objective": "能选择两种安全动作完成短回合。",
+    "activityType": "mixed-motion-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选两个动作完成。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "先看看地面",
+      "teach": "回顾走、伸展、拍手、停走。",
+      "practice": "完成两个回合。",
+      "apply": "说出身体感受。"
+    },
+    "evidence": [
+      "made-motion-choice",
+      "completed-two-rounds"
+    ],
+    "reviewTags": [
+      "walk",
+      "stretch",
+      "stop-go"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-06",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 6,
+    "stageId": "body-awakening",
+    "title": "第6天 · 走线小路",
+    "objective": "能沿着安全路线走 30 秒。",
+    "activityType": "movement-walk-line",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "沿着花园线走到终点。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "慢慢呼吸一次",
+      "teach": "示范脚跟脚尖和停下。",
+      "practice": "走两轮，允许慢走。",
+      "apply": "在家走一小段安全路线。"
+    },
+    "evidence": [
+      "started-motion",
+      "completed-motion"
+    ],
+    "reviewTags": [
+      "walk"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-07",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 7,
+    "stageId": "body-awakening",
+    "title": "第7天 · 伸展小树",
+    "objective": "能完成两种伸展动作。",
+    "activityType": "movement-stretch",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "像小树一样伸伸手。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "先看看地面",
+      "teach": "示范不疼的伸展范围。",
+      "practice": "伸手、侧弯各一次。",
+      "apply": "坐久后伸展。"
+    },
+    "evidence": [
+      "followed-motion",
+      "completed-motion"
+    ],
+    "reviewTags": [
+      "stretch"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-08",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 8,
+    "stageId": "body-awakening",
+    "title": "第8天 · 拍手节奏",
+    "objective": "能跟随 3 拍节奏拍手。",
+    "activityType": "rhythm-clap",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "跟着节奏拍三下。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "慢慢呼吸一次",
+      "teach": "成人示范慢节奏。",
+      "practice": "三拍和两拍交替。",
+      "apply": "给古诗拍一遍。"
+    },
+    "evidence": [
+      "kept-rhythm",
+      "followed-pattern"
+    ],
+    "reviewTags": [
+      "rhythm"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-09",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 9,
+    "stageId": "body-awakening",
+    "title": "第9天 · 停走游戏",
+    "objective": "能听到停下信号并停住。",
+    "activityType": "stop-go",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "听到停就像小树一样不动。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "先看看地面",
+      "teach": "示范走和停。",
+      "practice": "完成三轮。",
+      "apply": "过道中和家长玩一次。"
+    },
+    "evidence": [
+      "followed-stop-signal",
+      "self-controlled"
+    ],
+    "reviewTags": [
+      "stop-go"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-10",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 10,
+    "stageId": "body-awakening",
+    "title": "第10天 · 唤醒复习",
+    "objective": "能选择两种安全动作完成短回合。",
+    "activityType": "mixed-motion-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选两个动作完成。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "慢慢呼吸一次",
+      "teach": "回顾走、伸展、拍手、停走。",
+      "practice": "完成两个回合。",
+      "apply": "说出身体感受。"
+    },
+    "evidence": [
+      "made-motion-choice",
+      "completed-two-rounds"
+    ],
+    "reviewTags": [
+      "walk",
+      "stretch",
+      "stop-go"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-11",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 11,
+    "stageId": "coordination",
+    "title": "第11天 · 跳过小水坑",
+    "objective": "能双脚跳过低矮标记。",
+    "activityType": "jump-over",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "双脚跳过一条线。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看清目标",
+      "teach": "示范屈膝和落地。",
+      "practice": "跳两次，成人在旁。",
+      "apply": "在地面贴纸上玩。"
+    },
+    "evidence": [
+      "started-motion",
+      "landed-safely"
+    ],
+    "reviewTags": [
+      "jump"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-12",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 12,
+    "stageId": "coordination",
+    "title": "第12天 · 投给植物",
+    "objective": "能把软球投向大目标。",
+    "activityType": "soft-throw",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "把软球投进大篮子。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "先慢后快",
+      "teach": "示范近距离投掷。",
+      "practice": "投三次，目标不比较远近。",
+      "apply": "收拾时把软物放入篮子。"
+    },
+    "evidence": [
+      "threw-to-target",
+      "completed-round"
+    ],
+    "reviewTags": [
+      "throw"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-13",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 13,
+    "stageId": "coordination",
+    "title": "第13天 · 接住阳光",
+    "objective": "能尝试接住或拍到缓慢滚来的软球。",
+    "activityType": "catch-or-tap",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "准备接住滚来的阳光球。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看清目标",
+      "teach": "成人慢慢滚球。",
+      "practice": "完成三次尝试。",
+      "apply": "和家长轮流。"
+    },
+    "evidence": [
+      "attempted-catch",
+      "took-turn"
+    ],
+    "reviewTags": [
+      "catch"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-14",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 14,
+    "stageId": "coordination",
+    "title": "第14天 · 左右找方向",
+    "objective": "能根据左右指令移动一步。",
+    "activityType": "direction-move",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "听到左/右移动一步。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "先慢后快",
+      "teach": "用身体标记左右。",
+      "practice": "四轮指令。",
+      "apply": "收拾时把物品放到指定侧。"
+    },
+    "evidence": [
+      "followed-direction",
+      "completed-action"
+    ],
+    "reviewTags": [
+      "left-right"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-15",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 15,
+    "stageId": "coordination",
+    "title": "第15天 · 协调复习",
+    "objective": "能完成跳、投、接、方向中的两项。",
+    "activityType": "mixed-coordination-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择两个协调动作。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看清目标",
+      "teach": "说明可慢速完成。",
+      "practice": "完成两轮。",
+      "apply": "说出最舒服的动作。"
+    },
+    "evidence": [
+      "made-choice",
+      "completed-two-rounds"
+    ],
+    "reviewTags": [
+      "jump",
+      "throw",
+      "catch",
+      "left-right"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-16",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 16,
+    "stageId": "coordination",
+    "title": "第16天 · 跳过小水坑",
+    "objective": "能双脚跳过低矮标记。",
+    "activityType": "jump-over",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "双脚跳过一条线。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "先慢后快",
+      "teach": "示范屈膝和落地。",
+      "practice": "跳两次，成人在旁。",
+      "apply": "在地面贴纸上玩。"
+    },
+    "evidence": [
+      "started-motion",
+      "landed-safely"
+    ],
+    "reviewTags": [
+      "jump"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-17",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 17,
+    "stageId": "coordination",
+    "title": "第17天 · 投给植物",
+    "objective": "能把软球投向大目标。",
+    "activityType": "soft-throw",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "把软球投进大篮子。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看清目标",
+      "teach": "示范近距离投掷。",
+      "practice": "投三次，目标不比较远近。",
+      "apply": "收拾时把软物放入篮子。"
+    },
+    "evidence": [
+      "threw-to-target",
+      "completed-round"
+    ],
+    "reviewTags": [
+      "throw"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-18",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 18,
+    "stageId": "coordination",
+    "title": "第18天 · 接住阳光",
+    "objective": "能尝试接住或拍到缓慢滚来的软球。",
+    "activityType": "catch-or-tap",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "准备接住滚来的阳光球。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "先慢后快",
+      "teach": "成人慢慢滚球。",
+      "practice": "完成三次尝试。",
+      "apply": "和家长轮流。"
+    },
+    "evidence": [
+      "attempted-catch",
+      "took-turn"
+    ],
+    "reviewTags": [
+      "catch"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-19",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 19,
+    "stageId": "coordination",
+    "title": "第19天 · 左右找方向",
+    "objective": "能根据左右指令移动一步。",
+    "activityType": "direction-move",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "听到左/右移动一步。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看清目标",
+      "teach": "用身体标记左右。",
+      "practice": "四轮指令。",
+      "apply": "收拾时把物品放到指定侧。"
+    },
+    "evidence": [
+      "followed-direction",
+      "completed-action"
+    ],
+    "reviewTags": [
+      "left-right"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-20",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 20,
+    "stageId": "coordination",
+    "title": "第20天 · 协调复习",
+    "objective": "能完成跳、投、接、方向中的两项。",
+    "activityType": "mixed-coordination-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择两个协调动作。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "先慢后快",
+      "teach": "说明可慢速完成。",
+      "practice": "完成两轮。",
+      "apply": "说出最舒服的动作。"
+    },
+    "evidence": [
+      "made-choice",
+      "completed-two-rounds"
+    ],
+    "reviewTags": [
+      "jump",
+      "throw",
+      "catch",
+      "left-right"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-21",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 21,
+    "stageId": "balance-and-control",
+    "title": "第21天 · 独角兽平衡",
+    "objective": "能单脚或脚尖尝试保持 3 秒。",
+    "activityType": "balance-stand",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "像独角兽一样站稳。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "双脚站稳",
+      "teach": "靠近墙边示范。",
+      "practice": "左右脚各尝试一次。",
+      "apply": "穿鞋时站稳再穿。"
+    },
+    "evidence": [
+      "attempted-balance",
+      "safe-control"
+    ],
+    "reviewTags": [
+      "balance"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-22",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 22,
+    "stageId": "balance-and-control",
+    "title": "第22天 · 慢慢走",
+    "objective": "能沿线慢走并保持身体控制。",
+    "activityType": "slow-walk",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "像小蜗牛一样慢慢走。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看前方目标",
+      "teach": "示范慢速和停下。",
+      "practice": "完成两次慢走。",
+      "apply": "端轻物品走一步。"
+    },
+    "evidence": [
+      "controlled-walk",
+      "safe-control"
+    ],
+    "reviewTags": [
+      "slow-walk"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-23",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 23,
+    "stageId": "balance-and-control",
+    "title": "第23天 · 冻结小树",
+    "objective": "能听到信号后保持姿势 3 秒。",
+    "activityType": "freeze-pose",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "听到铃声后冻结。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "双脚站稳",
+      "teach": "示范稳定姿势。",
+      "practice": "三轮冻结。",
+      "apply": "拍照前保持姿势。"
+    },
+    "evidence": [
+      "stopped-body",
+      "held-pose"
+    ],
+    "reviewTags": [
+      "freeze"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-24",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 24,
+    "stageId": "balance-and-control",
+    "title": "第24天 · 障碍路线",
+    "objective": "能按照两个步骤绕过安全标志。",
+    "activityType": "obstacle-route",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "先绕花，再走到石头。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看前方目标",
+      "teach": "成人示范两步路线。",
+      "practice": "完成一条短路线。",
+      "apply": "收拾玩具时按路线走。"
+    },
+    "evidence": [
+      "remembered-route",
+      "completed-route"
+    ],
+    "reviewTags": [
+      "route-memory"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-25",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 25,
+    "stageId": "balance-and-control",
+    "title": "第25天 · 控制复习",
+    "objective": "能完成一个平衡动作和一个路线动作。",
+    "activityType": "mixed-control-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择平衡或路线挑战。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "双脚站稳",
+      "teach": "回顾安全边界。",
+      "practice": "完成两项。",
+      "apply": "告诉家长哪里需要帮助。"
+    },
+    "evidence": [
+      "made-choice",
+      "asked-for-help"
+    ],
+    "reviewTags": [
+      "balance",
+      "route-memory"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-26",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 26,
+    "stageId": "balance-and-control",
+    "title": "第26天 · 独角兽平衡",
+    "objective": "能单脚或脚尖尝试保持 3 秒。",
+    "activityType": "balance-stand",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "像独角兽一样站稳。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看前方目标",
+      "teach": "靠近墙边示范。",
+      "practice": "左右脚各尝试一次。",
+      "apply": "穿鞋时站稳再穿。"
+    },
+    "evidence": [
+      "attempted-balance",
+      "safe-control"
+    ],
+    "reviewTags": [
+      "balance"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-27",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 27,
+    "stageId": "balance-and-control",
+    "title": "第27天 · 慢慢走",
+    "objective": "能沿线慢走并保持身体控制。",
+    "activityType": "slow-walk",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "像小蜗牛一样慢慢走。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "双脚站稳",
+      "teach": "示范慢速和停下。",
+      "practice": "完成两次慢走。",
+      "apply": "端轻物品走一步。"
+    },
+    "evidence": [
+      "controlled-walk",
+      "safe-control"
+    ],
+    "reviewTags": [
+      "slow-walk"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-28",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 28,
+    "stageId": "balance-and-control",
+    "title": "第28天 · 冻结小树",
+    "objective": "能听到信号后保持姿势 3 秒。",
+    "activityType": "freeze-pose",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "听到铃声后冻结。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看前方目标",
+      "teach": "示范稳定姿势。",
+      "practice": "三轮冻结。",
+      "apply": "拍照前保持姿势。"
+    },
+    "evidence": [
+      "stopped-body",
+      "held-pose"
+    ],
+    "reviewTags": [
+      "freeze"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-29",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 29,
+    "stageId": "balance-and-control",
+    "title": "第29天 · 障碍路线",
+    "objective": "能按照两个步骤绕过安全标志。",
+    "activityType": "obstacle-route",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "先绕花，再走到石头。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "双脚站稳",
+      "teach": "成人示范两步路线。",
+      "practice": "完成一条短路线。",
+      "apply": "收拾玩具时按路线走。"
+    },
+    "evidence": [
+      "remembered-route",
+      "completed-route"
+    ],
+    "reviewTags": [
+      "route-memory"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-30",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 30,
+    "stageId": "balance-and-control",
+    "title": "第30天 · 控制复习",
+    "objective": "能完成一个平衡动作和一个路线动作。",
+    "activityType": "mixed-control-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择平衡或路线挑战。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看前方目标",
+      "teach": "回顾安全边界。",
+      "practice": "完成两项。",
+      "apply": "告诉家长哪里需要帮助。"
+    },
+    "evidence": [
+      "made-choice",
+      "asked-for-help"
+    ],
+    "reviewTags": [
+      "balance",
+      "route-memory"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-31",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 31,
+    "stageId": "attention-games",
+    "title": "第31天 · 找相同",
+    "objective": "能在 4 张图中找出相同图案。",
+    "activityType": "find-same",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "找到和这张一样的花。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "眼睛看目标",
+      "teach": "示范先看形状再看颜色。",
+      "practice": "完成三组配对。",
+      "apply": "在家找两个相同物品。"
+    },
+    "evidence": [
+      "found-same",
+      "explained-feature"
+    ],
+    "reviewTags": [
+      "visual-match"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-32",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 32,
+    "stageId": "attention-games",
+    "title": "第32天 · 听两步指令",
+    "objective": "能完成两个连续动作指令。",
+    "activityType": "two-step-command",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "先拍手，再摸头。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听完再行动",
+      "teach": "成人慢速示范。",
+      "practice": "变换动作顺序。",
+      "apply": "和家长玩两步指令。"
+    },
+    "evidence": [
+      "remembered-two-steps",
+      "followed-command"
+    ],
+    "reviewTags": [
+      "auditory-memory"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-33",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 33,
+    "stageId": "attention-games",
+    "title": "第33天 · 路线记忆",
+    "objective": "能记住三格短路线。",
+    "activityType": "route-memory",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "小植物先上、再右、再下。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "眼睛看目标",
+      "teach": "手指走一遍并隐藏路线。",
+      "practice": "回忆并点击三格。",
+      "apply": "说出房间里一条路线。"
+    },
+    "evidence": [
+      "remembered-route",
+      "completed-route"
+    ],
+    "reviewTags": [
+      "route-memory"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-34",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 34,
+    "stageId": "attention-games",
+    "title": "第34天 · 停走听觉",
+    "objective": "能在声音变化时停止动作。",
+    "activityType": "auditory-stop",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "听到短声音停下，长声音走。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听完再行动",
+      "teach": "示范两种声音。",
+      "practice": "完成四轮。",
+      "apply": "和家长用拍手玩。"
+    },
+    "evidence": [
+      "discriminated-sound",
+      "self-controlled"
+    ],
+    "reviewTags": [
+      "auditory-discrimination"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-35",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 35,
+    "stageId": "attention-games",
+    "title": "第35天 · 专注复习",
+    "objective": "能选择一个短专注游戏完成两轮。",
+    "activityType": "mixed-focus-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选找相同、听指令或路线。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "眼睛看目标",
+      "teach": "回顾三种策略。",
+      "practice": "完成两轮并说策略。",
+      "apply": "告诉家长“我先看/听/记”。"
+    },
+    "evidence": [
+      "completed-focus-rounds",
+      "named-strategy"
+    ],
+    "reviewTags": [
+      "visual-match",
+      "auditory-memory",
+      "route-memory"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-36",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 36,
+    "stageId": "attention-games",
+    "title": "第36天 · 找相同",
+    "objective": "能在 4 张图中找出相同图案。",
+    "activityType": "find-same",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "找到和这张一样的花。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听完再行动",
+      "teach": "示范先看形状再看颜色。",
+      "practice": "完成三组配对。",
+      "apply": "在家找两个相同物品。"
+    },
+    "evidence": [
+      "found-same",
+      "explained-feature"
+    ],
+    "reviewTags": [
+      "visual-match"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-37",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 37,
+    "stageId": "attention-games",
+    "title": "第37天 · 听两步指令",
+    "objective": "能完成两个连续动作指令。",
+    "activityType": "two-step-command",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "先拍手，再摸头。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "眼睛看目标",
+      "teach": "成人慢速示范。",
+      "practice": "变换动作顺序。",
+      "apply": "和家长玩两步指令。"
+    },
+    "evidence": [
+      "remembered-two-steps",
+      "followed-command"
+    ],
+    "reviewTags": [
+      "auditory-memory"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-38",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 38,
+    "stageId": "attention-games",
+    "title": "第38天 · 路线记忆",
+    "objective": "能记住三格短路线。",
+    "activityType": "route-memory",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "小植物先上、再右、再下。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听完再行动",
+      "teach": "手指走一遍并隐藏路线。",
+      "practice": "回忆并点击三格。",
+      "apply": "说出房间里一条路线。"
+    },
+    "evidence": [
+      "remembered-route",
+      "completed-route"
+    ],
+    "reviewTags": [
+      "route-memory"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-39",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 39,
+    "stageId": "attention-games",
+    "title": "第39天 · 停走听觉",
+    "objective": "能在声音变化时停止动作。",
+    "activityType": "auditory-stop",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "听到短声音停下，长声音走。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "眼睛看目标",
+      "teach": "示范两种声音。",
+      "practice": "完成四轮。",
+      "apply": "和家长用拍手玩。"
+    },
+    "evidence": [
+      "discriminated-sound",
+      "self-controlled"
+    ],
+    "reviewTags": [
+      "auditory-discrimination"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-40",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 40,
+    "stageId": "attention-games",
+    "title": "第40天 · 专注复习",
+    "objective": "能选择一个短专注游戏完成两轮。",
+    "activityType": "mixed-focus-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选找相同、听指令或路线。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听完再行动",
+      "teach": "回顾三种策略。",
+      "practice": "完成两轮并说策略。",
+      "apply": "告诉家长“我先看/听/记”。"
+    },
+    "evidence": [
+      "completed-focus-rounds",
+      "named-strategy"
+    ],
+    "reviewTags": [
+      "visual-match",
+      "auditory-memory",
+      "route-memory"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-41",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 41,
+    "stageId": "family-challenge",
+    "title": "第41天 · 轮流投球",
+    "objective": "能和家长轮流完成三次投球。",
+    "activityType": "turn-taking-throw",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "轮到谁就投一次。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "先约定规则",
+      "teach": "示范等待和轮流。",
+      "practice": "完成三轮。",
+      "apply": "说“轮到你”。"
+    },
+    "evidence": [
+      "took-turn",
+      "used-social-language"
+    ],
+    "reviewTags": [
+      "turn-taking"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-42",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 42,
+    "stageId": "family-challenge",
+    "title": "第42天 · 合作路线",
+    "objective": "能听家长提示共同完成一条路线。",
+    "activityType": "cooperative-route",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "一起把植物带到花园。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "给伙伴加油",
+      "teach": "一人说方向，一人移动。",
+      "practice": "交换角色。",
+      "apply": "共同收拾一小块区域。"
+    },
+    "evidence": [
+      "cooperated",
+      "completed-route"
+    ],
+    "reviewTags": [
+      "cooperation"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-43",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 43,
+    "stageId": "family-challenge",
+    "title": "第43天 · 亲子节奏",
+    "objective": "能和家长轮流完成一个节奏。",
+    "activityType": "parent-rhythm",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "家长拍两下，孩子接两下。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "先约定规则",
+      "teach": "示范轮流节奏。",
+      "practice": "完成四轮。",
+      "apply": "给诗歌打节奏。"
+    },
+    "evidence": [
+      "kept-rhythm",
+      "took-turn"
+    ],
+    "reviewTags": [
+      "rhythm",
+      "turn-taking"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-44",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 44,
+    "stageId": "family-challenge",
+    "title": "第44天 · 我来讲规则",
+    "objective": "能向家长说出一个游戏规则。",
+    "activityType": "explain-rule",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "告诉家长什么时候停。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "给伙伴加油",
+      "teach": "示范一句规则。",
+      "practice": "孩子讲、家长复述。",
+      "apply": "换一个游戏继续。"
+    },
+    "evidence": [
+      "explained-rule",
+      "checked-understanding"
+    ],
+    "reviewTags": [
+      "expression"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-45",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 45,
+    "stageId": "family-challenge",
+    "title": "第45天 · 合作复习",
+    "objective": "能和家长完成一个动作和一个专注挑战。",
+    "activityType": "mixed-family-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择一个动起来和一个静下来任务。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "先约定规则",
+      "teach": "说明可以合作完成。",
+      "practice": "完成两项。",
+      "apply": "一起选择明天的活动。"
+    },
+    "evidence": [
+      "completed-family-activity",
+      "made-next-choice"
+    ],
+    "reviewTags": [
+      "cooperation",
+      "transfer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-46",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 46,
+    "stageId": "family-challenge",
+    "title": "第46天 · 轮流投球",
+    "objective": "能和家长轮流完成三次投球。",
+    "activityType": "turn-taking-throw",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "轮到谁就投一次。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "给伙伴加油",
+      "teach": "示范等待和轮流。",
+      "practice": "完成三轮。",
+      "apply": "说“轮到你”。"
+    },
+    "evidence": [
+      "took-turn",
+      "used-social-language"
+    ],
+    "reviewTags": [
+      "turn-taking"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-47",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 47,
+    "stageId": "family-challenge",
+    "title": "第47天 · 合作路线",
+    "objective": "能听家长提示共同完成一条路线。",
+    "activityType": "cooperative-route",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "一起把植物带到花园。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "先约定规则",
+      "teach": "一人说方向，一人移动。",
+      "practice": "交换角色。",
+      "apply": "共同收拾一小块区域。"
+    },
+    "evidence": [
+      "cooperated",
+      "completed-route"
+    ],
+    "reviewTags": [
+      "cooperation"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-48",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 48,
+    "stageId": "family-challenge",
+    "title": "第48天 · 亲子节奏",
+    "objective": "能和家长轮流完成一个节奏。",
+    "activityType": "parent-rhythm",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "家长拍两下，孩子接两下。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "给伙伴加油",
+      "teach": "示范轮流节奏。",
+      "practice": "完成四轮。",
+      "apply": "给诗歌打节奏。"
+    },
+    "evidence": [
+      "kept-rhythm",
+      "took-turn"
+    ],
+    "reviewTags": [
+      "rhythm",
+      "turn-taking"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-49",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 49,
+    "stageId": "family-challenge",
+    "title": "第49天 · 我来讲规则",
+    "objective": "能向家长说出一个游戏规则。",
+    "activityType": "explain-rule",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "告诉家长什么时候停。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "先约定规则",
+      "teach": "示范一句规则。",
+      "practice": "孩子讲、家长复述。",
+      "apply": "换一个游戏继续。"
+    },
+    "evidence": [
+      "explained-rule",
+      "checked-understanding"
+    ],
+    "reviewTags": [
+      "expression"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-50",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 50,
+    "stageId": "family-challenge",
+    "title": "第50天 · 合作复习",
+    "objective": "能和家长完成一个动作和一个专注挑战。",
+    "activityType": "mixed-family-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择一个动起来和一个静下来任务。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "给伙伴加油",
+      "teach": "说明可以合作完成。",
+      "practice": "完成两项。",
+      "apply": "一起选择明天的活动。"
+    },
+    "evidence": [
+      "completed-family-activity",
+      "made-next-choice"
+    ],
+    "reviewTags": [
+      "cooperation",
+      "transfer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-51",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 51,
+    "stageId": "movement-showcase",
+    "title": "第51天 · 我的动作",
+    "objective": "能选择并完成一个喜欢的动作。",
+    "activityType": "movement-choice",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择跳、走、平衡或投掷。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "回看喜欢的动作",
+      "teach": "回顾安全动作。",
+      "practice": "完成两轮。",
+      "apply": "说出身体感受。"
+    },
+    "evidence": [
+      "made-choice",
+      "completed-motion"
+    ],
+    "reviewTags": [
+      "movement-choice"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-52",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 52,
+    "stageId": "movement-showcase",
+    "title": "第52天 · 我的专注法",
+    "objective": "能选择看、听、记中的一种策略。",
+    "activityType": "focus-choice",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "今天用哪种方法？",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "做一次深呼吸",
+      "teach": "回顾三种专注策略。",
+      "practice": "完成一个短回合。",
+      "apply": "说出策略。"
+    },
+    "evidence": [
+      "made-choice",
+      "named-strategy"
+    ],
+    "reviewTags": [
+      "focus-choice"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-53",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 53,
+    "stageId": "movement-showcase",
+    "title": "第53天 · 三步挑战",
+    "objective": "能完成三步动作或路线任务。",
+    "activityType": "three-step-challenge",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "完成三步小路线。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "回看喜欢的动作",
+      "teach": "把任务拆成三步。",
+      "practice": "慢慢完成。",
+      "apply": "给家长复述三步。"
+    },
+    "evidence": [
+      "completed-three-steps",
+      "retold-steps"
+    ],
+    "reviewTags": [
+      "route-memory"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-54",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 54,
+    "stageId": "movement-showcase",
+    "title": "第54天 · 亲子运动卡",
+    "objective": "能制作一张自己喜欢的动作卡。",
+    "activityType": "motion-card",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "画出一个动作并写/说规则。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "做一次深呼吸",
+      "teach": "示范动作卡三部分。",
+      "practice": "完成一张卡。",
+      "apply": "和家长执行一次。"
+    },
+    "evidence": [
+      "created-card",
+      "used-card"
+    ],
+    "reviewTags": [
+      "portfolio"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-55",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 55,
+    "stageId": "movement-showcase",
+    "title": "第55天 · 身体能量毕业",
+    "objective": "能展示运动、专注、合作中的两项成长。",
+    "activityType": "motion-showcase",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择两项完成毕业展示。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "回看喜欢的动作",
+      "teach": "回顾 60 日记录。",
+      "practice": "完成两项。",
+      "apply": "领取运动徽章。"
+    },
+    "evidence": [
+      "showcase-two-evidence",
+      "received-badge"
+    ],
+    "reviewTags": [
+      "mastery-transfer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-56",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 56,
+    "stageId": "movement-showcase",
+    "title": "第56天 · 我的动作",
+    "objective": "能选择并完成一个喜欢的动作。",
+    "activityType": "movement-choice",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择跳、走、平衡或投掷。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "做一次深呼吸",
+      "teach": "回顾安全动作。",
+      "practice": "完成两轮。",
+      "apply": "说出身体感受。"
+    },
+    "evidence": [
+      "made-choice",
+      "completed-motion"
+    ],
+    "reviewTags": [
+      "movement-choice"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-57",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 57,
+    "stageId": "movement-showcase",
+    "title": "第57天 · 我的专注法",
+    "objective": "能选择看、听、记中的一种策略。",
+    "activityType": "focus-choice",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "今天用哪种方法？",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "回看喜欢的动作",
+      "teach": "回顾三种专注策略。",
+      "practice": "完成一个短回合。",
+      "apply": "说出策略。"
+    },
+    "evidence": [
+      "made-choice",
+      "named-strategy"
+    ],
+    "reviewTags": [
+      "focus-choice"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-58",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 58,
+    "stageId": "movement-showcase",
+    "title": "第58天 · 三步挑战",
+    "objective": "能完成三步动作或路线任务。",
+    "activityType": "three-step-challenge",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "完成三步小路线。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "做一次深呼吸",
+      "teach": "把任务拆成三步。",
+      "practice": "慢慢完成。",
+      "apply": "给家长复述三步。"
+    },
+    "evidence": [
+      "completed-three-steps",
+      "retold-steps"
+    ],
+    "reviewTags": [
+      "route-memory"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-59",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 59,
+    "stageId": "movement-showcase",
+    "title": "第59天 · 亲子运动卡",
+    "objective": "能制作一张自己喜欢的动作卡。",
+    "activityType": "motion-card",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "画出一个动作并写/说规则。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "回看喜欢的动作",
+      "teach": "示范动作卡三部分。",
+      "practice": "完成一张卡。",
+      "apply": "和家长执行一次。"
+    },
+    "evidence": [
+      "created-card",
+      "used-card"
+    ],
+    "reviewTags": [
+      "portfolio"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-motion-focus-day-60",
+    "routeId": "preschool-motion-focus",
+    "subject": "motion-focus",
+    "day": 60,
+    "stageId": "movement-showcase",
+    "title": "第60天 · 身体能量毕业",
+    "objective": "能展示运动、专注、合作中的两项成长。",
+    "activityType": "motion-showcase",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择两项完成毕业展示。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "做一次深呼吸",
+      "teach": "回顾 60 日记录。",
+      "practice": "完成两项。",
+      "apply": "领取运动徽章。"
+    },
+    "evidence": [
+      "showcase-two-evidence",
+      "received-badge"
+    ],
+    "reviewTags": [
+      "mastery-transfer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  }
+]

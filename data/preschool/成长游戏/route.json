@@ -1,0 +1,121 @@
+{
+  "id": "preschool-garden-game",
+  "subject": "garden-game",
+  "title": "智慧花园成长线",
+  "description": "学习获得阳光，阳光照亮植物和小花园。",
+  "ageBand": "preschool",
+  "dayCount": 60,
+  "lessonDurationMin": {
+    "min": 3,
+    "max": 8
+  },
+  "navigation": {
+    "parentRoute": "preschool-garden",
+    "topLevel": false
+  },
+  "stages": [
+    {
+      "id": "seed-and-sun",
+      "days": [
+        1,
+        10
+      ],
+      "title": "种子发芽",
+      "focus": [
+        "完成一项",
+        "收集阳光",
+        "认识花园"
+      ]
+    },
+    {
+      "id": "plant-growth",
+      "days": [
+        11,
+        20
+      ],
+      "title": "植物成长",
+      "focus": [
+        "阶段",
+        "升级",
+        "贴纸"
+      ]
+    },
+    {
+      "id": "garden-defense",
+      "days": [
+        21,
+        30
+      ],
+      "title": "花园防守",
+      "focus": [
+        "能量",
+        "路线",
+        "发射"
+      ]
+    },
+    {
+      "id": "collection-and-reward",
+      "days": [
+        31,
+        40
+      ],
+      "title": "收藏与奖励",
+      "focus": [
+        "兑换",
+        "确认",
+        "收藏"
+      ]
+    },
+    {
+      "id": "daily-loop-and-planning",
+      "days": [
+        41,
+        50
+      ],
+      "title": "每日规划",
+      "focus": [
+        "三项核心",
+        "连续",
+        "复盘"
+      ]
+    },
+    {
+      "id": "showcase-and-care",
+      "days": [
+        51,
+        60
+      ],
+      "title": "成长展示",
+      "focus": [
+        "植物",
+        "学习",
+        "奖励"
+      ]
+    }
+  ],
+  "dailyContract": {
+    "coreSlots": 1,
+    "optionalSlots": 3,
+    "steps": [
+      "warmup",
+      "teach",
+      "practice",
+      "apply",
+      "celebrate"
+    ],
+    "reviewRatioMin": 0.5,
+    "noSpeechRecognitionGate": true
+  },
+  "rewardContract": {
+    "source": "existing-preschool-activity",
+    "coreKind": "core",
+    "optionalKind": "optional",
+    "duplicatePolicy": "canonical-event-id",
+    "noSecondLedger": true
+  },
+  "source": {
+    "kind": "project-original",
+    "license": "project-original",
+    "attribution": "个人工作台幼儿课程组"
+  }
+}

@@ -1,0 +1,2636 @@
+[
+  {
+    "id": "preschool-math-day-01",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 1,
+    "stageId": "counting-correspondence",
+    "title": "第1天 · 数出 1 个",
+    "objective": "能从 1 个物品中找到数量 1。",
+    "activityType": "count-and-select",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "请给花朵 1 颗阳光。",
+      "options": [
+        "1",
+        "2"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "数手指",
+      "teach": "逐个点数并停在 1。",
+      "practice": "给三朵花分别放 1 颗阳光。",
+      "apply": "在家找 1 个圆形物品。"
+    },
+    "evidence": [
+      "one-to-one-count",
+      "selected-count"
+    ],
+    "reviewTags": [
+      "count-1"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-02",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 2,
+    "stageId": "counting-correspondence",
+    "title": "第2天 · 数出 2 个",
+    "objective": "能一一对应 2 个物品。",
+    "activityType": "count-and-select",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪一盘有 2 个果子？",
+      "options": [
+        "1",
+        "2",
+        "3"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "给植物放水滴",
+      "teach": "慢慢点数两次。",
+      "practice": "摆 2 个果子再收回。",
+      "apply": "找 2 只袜子。"
+    },
+    "evidence": [
+      "one-to-one-count",
+      "built-set"
+    ],
+    "reviewTags": [
+      "count-1",
+      "count-2"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-03",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 3,
+    "stageId": "counting-correspondence",
+    "title": "第3天 · 数出 3 个",
+    "objective": "能稳定点数 3 个物品。",
+    "activityType": "count-and-select",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "给豌豆射手 3 颗能量。",
+      "options": [
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "数手指",
+      "teach": "手指和物品一一对应。",
+      "practice": "完成三次 3 个摆放。",
+      "apply": "找 3 个积木。"
+    },
+    "evidence": [
+      "one-to-one-count",
+      "built-set"
+    ],
+    "reviewTags": [
+      "count-3"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-04",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 4,
+    "stageId": "counting-correspondence",
+    "title": "第4天 · 一样多",
+    "objective": "能判断两组 1-3 个物品是否一样多。",
+    "activityType": "compare-quantity",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪两组一样多？",
+      "options": [
+        "1 和 1",
+        "1 和 2"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "给植物放水滴",
+      "teach": "把两组物品排成对应行。",
+      "practice": "逐个配对判断。",
+      "apply": "和家长各拿同样多的积木。"
+    },
+    "evidence": [
+      "paired-sets",
+      "explained-same"
+    ],
+    "reviewTags": [
+      "same-quantity"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-05",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 5,
+    "stageId": "counting-correspondence",
+    "title": "第5天 · 第一关复习",
+    "objective": "能混合完成 1-3 点数和对应。",
+    "activityType": "mixed-counting-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择有 3 个的花盆。",
+      "options": [
+        "1 个",
+        "2 个",
+        "3 个"
+      ],
+      "answer": 2,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "数手指",
+      "teach": "用三种数量快速回顾。",
+      "practice": "完成五次点数。",
+      "apply": "给植物浇 3 滴水。"
+    },
+    "evidence": [
+      "mixed-counting",
+      "garden-action"
+    ],
+    "reviewTags": [
+      "count-1",
+      "count-2",
+      "count-3"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-06",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 6,
+    "stageId": "counting-correspondence",
+    "title": "第6天 · 数出 1 个",
+    "objective": "能从 1 个物品中找到数量 1。",
+    "activityType": "count-and-select",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "请给花朵 1 颗阳光。",
+      "options": [
+        "1",
+        "2"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "给植物放水滴",
+      "teach": "逐个点数并停在 1。",
+      "practice": "给三朵花分别放 1 颗阳光。",
+      "apply": "在家找 1 个圆形物品。"
+    },
+    "evidence": [
+      "one-to-one-count",
+      "selected-count"
+    ],
+    "reviewTags": [
+      "count-1"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-07",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 7,
+    "stageId": "counting-correspondence",
+    "title": "第7天 · 数出 2 个",
+    "objective": "能一一对应 2 个物品。",
+    "activityType": "count-and-select",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪一盘有 2 个果子？",
+      "options": [
+        "1",
+        "2",
+        "3"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "数手指",
+      "teach": "慢慢点数两次。",
+      "practice": "摆 2 个果子再收回。",
+      "apply": "找 2 只袜子。"
+    },
+    "evidence": [
+      "one-to-one-count",
+      "built-set"
+    ],
+    "reviewTags": [
+      "count-1",
+      "count-2"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-08",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 8,
+    "stageId": "counting-correspondence",
+    "title": "第8天 · 数出 3 个",
+    "objective": "能稳定点数 3 个物品。",
+    "activityType": "count-and-select",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "给豌豆射手 3 颗能量。",
+      "options": [
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "给植物放水滴",
+      "teach": "手指和物品一一对应。",
+      "practice": "完成三次 3 个摆放。",
+      "apply": "找 3 个积木。"
+    },
+    "evidence": [
+      "one-to-one-count",
+      "built-set"
+    ],
+    "reviewTags": [
+      "count-3"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-09",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 9,
+    "stageId": "counting-correspondence",
+    "title": "第9天 · 一样多",
+    "objective": "能判断两组 1-3 个物品是否一样多。",
+    "activityType": "compare-quantity",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪两组一样多？",
+      "options": [
+        "1 和 1",
+        "1 和 2"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "数手指",
+      "teach": "把两组物品排成对应行。",
+      "practice": "逐个配对判断。",
+      "apply": "和家长各拿同样多的积木。"
+    },
+    "evidence": [
+      "paired-sets",
+      "explained-same"
+    ],
+    "reviewTags": [
+      "same-quantity"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-10",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 10,
+    "stageId": "counting-correspondence",
+    "title": "第10天 · 第一关复习",
+    "objective": "能混合完成 1-3 点数和对应。",
+    "activityType": "mixed-counting-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择有 3 个的花盆。",
+      "options": [
+        "1 个",
+        "2 个",
+        "3 个"
+      ],
+      "answer": 2,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "给植物放水滴",
+      "teach": "用三种数量快速回顾。",
+      "practice": "完成五次点数。",
+      "apply": "给植物浇 3 滴水。"
+    },
+    "evidence": [
+      "mixed-counting",
+      "garden-action"
+    ],
+    "reviewTags": [
+      "count-1",
+      "count-2",
+      "count-3"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-11",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 11,
+    "stageId": "compare-and-classify",
+    "title": "第11天 · 找到更多",
+    "objective": "能比较两组 1-5 个物品的多少。",
+    "activityType": "compare-quantity",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪一盘水果更多？",
+      "options": [
+        "2 个",
+        "4 个"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "比较两盘水果",
+      "teach": "先点数再比较。",
+      "practice": "交换左右位置再比较。",
+      "apply": "分水果时说“更多”。"
+    },
+    "evidence": [
+      "counted-objects",
+      "selected-more"
+    ],
+    "reviewTags": [
+      "more-less"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-12",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 12,
+    "stageId": "compare-and-classify",
+    "title": "第12天 · 找到更少",
+    "objective": "能比较两组物品并选择更少的一组。",
+    "activityType": "compare-quantity",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪一组更少？",
+      "options": [
+        "5 个",
+        "3 个"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "按颜色找伙伴",
+      "teach": "用短线排列数量。",
+      "practice": "完成两次更多/更少判断。",
+      "apply": "找家里更少的一组东西。"
+    },
+    "evidence": [
+      "selected-less",
+      "explained-relation"
+    ],
+    "reviewTags": [
+      "more-less"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-13",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 13,
+    "stageId": "compare-and-classify",
+    "title": "第13天 · 大和小",
+    "objective": "能按大小把物品分到两边。",
+    "activityType": "classify-size",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "把大南瓜放到“大”篮子。",
+      "options": [
+        "大",
+        "小"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "比较两盘水果",
+      "teach": "比较同类物品大小。",
+      "practice": "分类 4 个物品。",
+      "apply": "整理一个大/小玩具。"
+    },
+    "evidence": [
+      "classified-size",
+      "completed-life-action"
+    ],
+    "reviewTags": [
+      "size"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-14",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 14,
+    "stageId": "compare-and-classify",
+    "title": "第14天 · 颜色分类",
+    "objective": "能按颜色把物品分组。",
+    "activityType": "classify-color",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "红色的花放哪边？",
+      "options": [
+        "红色",
+        "蓝色"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "按颜色找伙伴",
+      "teach": "展示颜色和分类篮。",
+      "practice": "分类 6 个彩色物品。",
+      "apply": "整理一盒彩笔。"
+    },
+    "evidence": [
+      "classified-color",
+      "organized-items"
+    ],
+    "reviewTags": [
+      "color-classify"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-15",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 15,
+    "stageId": "compare-and-classify",
+    "title": "第15天 · 比较分类复习",
+    "objective": "能混合判断数量、大小和颜色。",
+    "activityType": "mixed-classification-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "找出“少而小”的一组。",
+      "options": [
+        "少而小",
+        "多而大"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "比较两盘水果",
+      "teach": "示范先看数量再看大小。",
+      "practice": "完成三次混合分类。",
+      "apply": "说出一个分类理由。"
+    },
+    "evidence": [
+      "mixed-classification",
+      "explained-choice"
+    ],
+    "reviewTags": [
+      "more-less",
+      "size",
+      "color-classify"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-16",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 16,
+    "stageId": "compare-and-classify",
+    "title": "第16天 · 找到更多",
+    "objective": "能比较两组 1-5 个物品的多少。",
+    "activityType": "compare-quantity",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪一盘水果更多？",
+      "options": [
+        "2 个",
+        "4 个"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "按颜色找伙伴",
+      "teach": "先点数再比较。",
+      "practice": "交换左右位置再比较。",
+      "apply": "分水果时说“更多”。"
+    },
+    "evidence": [
+      "counted-objects",
+      "selected-more"
+    ],
+    "reviewTags": [
+      "more-less"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-17",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 17,
+    "stageId": "compare-and-classify",
+    "title": "第17天 · 找到更少",
+    "objective": "能比较两组物品并选择更少的一组。",
+    "activityType": "compare-quantity",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪一组更少？",
+      "options": [
+        "5 个",
+        "3 个"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "比较两盘水果",
+      "teach": "用短线排列数量。",
+      "practice": "完成两次更多/更少判断。",
+      "apply": "找家里更少的一组东西。"
+    },
+    "evidence": [
+      "selected-less",
+      "explained-relation"
+    ],
+    "reviewTags": [
+      "more-less"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-18",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 18,
+    "stageId": "compare-and-classify",
+    "title": "第18天 · 大和小",
+    "objective": "能按大小把物品分到两边。",
+    "activityType": "classify-size",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "把大南瓜放到“大”篮子。",
+      "options": [
+        "大",
+        "小"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "按颜色找伙伴",
+      "teach": "比较同类物品大小。",
+      "practice": "分类 4 个物品。",
+      "apply": "整理一个大/小玩具。"
+    },
+    "evidence": [
+      "classified-size",
+      "completed-life-action"
+    ],
+    "reviewTags": [
+      "size"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-19",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 19,
+    "stageId": "compare-and-classify",
+    "title": "第19天 · 颜色分类",
+    "objective": "能按颜色把物品分组。",
+    "activityType": "classify-color",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "红色的花放哪边？",
+      "options": [
+        "红色",
+        "蓝色"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "比较两盘水果",
+      "teach": "展示颜色和分类篮。",
+      "practice": "分类 6 个彩色物品。",
+      "apply": "整理一盒彩笔。"
+    },
+    "evidence": [
+      "classified-color",
+      "organized-items"
+    ],
+    "reviewTags": [
+      "color-classify"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-20",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 20,
+    "stageId": "compare-and-classify",
+    "title": "第20天 · 比较分类复习",
+    "objective": "能混合判断数量、大小和颜色。",
+    "activityType": "mixed-classification-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "找出“少而小”的一组。",
+      "options": [
+        "少而小",
+        "多而大"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "按颜色找伙伴",
+      "teach": "示范先看数量再看大小。",
+      "practice": "完成三次混合分类。",
+      "apply": "说出一个分类理由。"
+    },
+    "evidence": [
+      "mixed-classification",
+      "explained-choice"
+    ],
+    "reviewTags": [
+      "more-less",
+      "size",
+      "color-classify"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-21",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 21,
+    "stageId": "compose-within-five",
+    "title": "第21天 · 合起来是 2",
+    "objective": "能把 1 和 1 合成 2。",
+    "activityType": "compose-quantity",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "1 颗阳光加 1 颗是多少？",
+      "options": [
+        "1",
+        "2",
+        "3"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "把两组积木靠近",
+      "teach": "把两颗阳光合到一个盘里。",
+      "practice": "操作两轮合并。",
+      "apply": "把两种颜色积木合在一起。"
+    },
+    "evidence": [
+      "composed-set",
+      "selected-total"
+    ],
+    "reviewTags": [
+      "compose-2"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-22",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 22,
+    "stageId": "compose-within-five",
+    "title": "第22天 · 合起来是 3",
+    "objective": "能用实物表示 2 加 1。",
+    "activityType": "compose-quantity",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "2 个果子再来 1 个是多少？",
+      "options": [
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "数一数花瓣",
+      "teach": "先数 2，再加 1。",
+      "practice": "摆放并说出总数。",
+      "apply": "给花园增加 1 朵花。"
+    },
+    "evidence": [
+      "composed-set",
+      "said-total"
+    ],
+    "reviewTags": [
+      "compose-3"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-23",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 23,
+    "stageId": "compose-within-five",
+    "title": "第23天 · 合起来是 4",
+    "objective": "能用实物表示 3 加 1。",
+    "activityType": "compose-quantity",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "3 颗种子加 1 颗是多少？",
+      "options": [
+        "3",
+        "4",
+        "5"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "把两组积木靠近",
+      "teach": "使用五格框表示数量。",
+      "practice": "完成 3+1 和 2+2。",
+      "apply": "收集 4 片叶子。"
+    },
+    "evidence": [
+      "filled-five-frame",
+      "selected-total"
+    ],
+    "reviewTags": [
+      "compose-4"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-24",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 24,
+    "stageId": "compose-within-five",
+    "title": "第24天 · 分开看",
+    "objective": "能把 4 个物品分成两组。",
+    "activityType": "decompose-quantity",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "4 个果子可以分成哪两组？",
+      "options": [
+        "2 和 2",
+        "1 和 4"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "数一数花瓣",
+      "teach": "把 4 个物品分到两个篮子。",
+      "practice": "尝试两种分法。",
+      "apply": "和家长平分 4 个小物品。"
+    },
+    "evidence": [
+      "decomposed-set",
+      "shared-items"
+    ],
+    "reviewTags": [
+      "decompose-4"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-25",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 25,
+    "stageId": "compose-within-five",
+    "title": "第25天 · 5 以内合并复习",
+    "objective": "能在实物情景中完成 5 以内合并。",
+    "activityType": "mixed-compose-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "花园里 2 朵花又开 2 朵，一共几朵？",
+      "options": [
+        "3",
+        "4",
+        "5"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "把两组积木靠近",
+      "teach": "用花园图复习合并。",
+      "practice": "完成三道合并题。",
+      "apply": "画出自己的 5 朵花。"
+    },
+    "evidence": [
+      "composed-set",
+      "drew-quantity"
+    ],
+    "reviewTags": [
+      "compose-within-five"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-26",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 26,
+    "stageId": "compose-within-five",
+    "title": "第26天 · 合起来是 2",
+    "objective": "能把 1 和 1 合成 2。",
+    "activityType": "compose-quantity",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "1 颗阳光加 1 颗是多少？",
+      "options": [
+        "1",
+        "2",
+        "3"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "数一数花瓣",
+      "teach": "把两颗阳光合到一个盘里。",
+      "practice": "操作两轮合并。",
+      "apply": "把两种颜色积木合在一起。"
+    },
+    "evidence": [
+      "composed-set",
+      "selected-total"
+    ],
+    "reviewTags": [
+      "compose-2"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-27",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 27,
+    "stageId": "compose-within-five",
+    "title": "第27天 · 合起来是 3",
+    "objective": "能用实物表示 2 加 1。",
+    "activityType": "compose-quantity",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "2 个果子再来 1 个是多少？",
+      "options": [
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "把两组积木靠近",
+      "teach": "先数 2，再加 1。",
+      "practice": "摆放并说出总数。",
+      "apply": "给花园增加 1 朵花。"
+    },
+    "evidence": [
+      "composed-set",
+      "said-total"
+    ],
+    "reviewTags": [
+      "compose-3"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-28",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 28,
+    "stageId": "compose-within-five",
+    "title": "第28天 · 合起来是 4",
+    "objective": "能用实物表示 3 加 1。",
+    "activityType": "compose-quantity",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "3 颗种子加 1 颗是多少？",
+      "options": [
+        "3",
+        "4",
+        "5"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "数一数花瓣",
+      "teach": "使用五格框表示数量。",
+      "practice": "完成 3+1 和 2+2。",
+      "apply": "收集 4 片叶子。"
+    },
+    "evidence": [
+      "filled-five-frame",
+      "selected-total"
+    ],
+    "reviewTags": [
+      "compose-4"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-29",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 29,
+    "stageId": "compose-within-five",
+    "title": "第29天 · 分开看",
+    "objective": "能把 4 个物品分成两组。",
+    "activityType": "decompose-quantity",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "4 个果子可以分成哪两组？",
+      "options": [
+        "2 和 2",
+        "1 和 4"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "把两组积木靠近",
+      "teach": "把 4 个物品分到两个篮子。",
+      "practice": "尝试两种分法。",
+      "apply": "和家长平分 4 个小物品。"
+    },
+    "evidence": [
+      "decomposed-set",
+      "shared-items"
+    ],
+    "reviewTags": [
+      "decompose-4"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-30",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 30,
+    "stageId": "compose-within-five",
+    "title": "第30天 · 5 以内合并复习",
+    "objective": "能在实物情景中完成 5 以内合并。",
+    "activityType": "mixed-compose-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "花园里 2 朵花又开 2 朵，一共几朵？",
+      "options": [
+        "3",
+        "4",
+        "5"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "数一数花瓣",
+      "teach": "用花园图复习合并。",
+      "practice": "完成三道合并题。",
+      "apply": "画出自己的 5 朵花。"
+    },
+    "evidence": [
+      "composed-set",
+      "drew-quantity"
+    ],
+    "reviewTags": [
+      "compose-within-five"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-31",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 31,
+    "stageId": "take-away-within-five",
+    "title": "第31天 · 拿走 1 个",
+    "objective": "能理解 3 个拿走 1 个还剩 2 个。",
+    "activityType": "take-away",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "3 颗果子拿走 1 颗，还剩？",
+      "options": [
+        "1",
+        "2",
+        "3"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "从盘子里拿走一个",
+      "teach": "真实拿走并重新点数。",
+      "practice": "完成两次取走。",
+      "apply": "整理玩具时拿走一个。"
+    },
+    "evidence": [
+      "removed-object",
+      "recounted-set"
+    ],
+    "reviewTags": [
+      "take-away-1"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-32",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 32,
+    "stageId": "take-away-within-five",
+    "title": "第32天 · 还剩 3 个",
+    "objective": "能理解 4 个拿走 1 个还剩 3 个。",
+    "activityType": "take-away",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "4 个阳光拿走 1 个还剩？",
+      "options": [
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "棋子退一格",
+      "teach": "用花盆格子展示剩余。",
+      "practice": "操作 4-1。",
+      "apply": "说出自己的剩余物品。"
+    },
+    "evidence": [
+      "removed-object",
+      "said-remainder"
+    ],
+    "reviewTags": [
+      "take-away-1"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-33",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 33,
+    "stageId": "take-away-within-five",
+    "title": "第33天 · 走格子",
+    "objective": "能在 5 格路线中前进或后退 1 格。",
+    "activityType": "number-path",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "小植物在 2，前进 1 格到？",
+      "options": [
+        "1",
+        "2",
+        "3"
+      ],
+      "answer": 2,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "从盘子里拿走一个",
+      "teach": "手指沿路线移动。",
+      "practice": "前进和后退各一次。",
+      "apply": "在地板上走 3 步。"
+    },
+    "evidence": [
+      "moved-on-path",
+      "followed-direction"
+    ],
+    "reviewTags": [
+      "number-path"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-34",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 34,
+    "stageId": "take-away-within-five",
+    "title": "第34天 · 取走和剩余",
+    "objective": "能在图中表示取走后的数量。",
+    "activityType": "take-away-picture",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "5 只小虫走了 2 只，还剩？",
+      "options": [
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "棋子退一格",
+      "teach": "划掉离开的虫再数。",
+      "practice": "完成 5-2 和 4-2。",
+      "apply": "收起两个玩具再数。"
+    },
+    "evidence": [
+      "crossed-out-count",
+      "selected-remainder"
+    ],
+    "reviewTags": [
+      "take-away-2"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-35",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 35,
+    "stageId": "take-away-within-five",
+    "title": "第35天 · 5 以内减法复习",
+    "objective": "能用实物或路线完成 5 以内取走。",
+    "activityType": "mixed-take-away-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "花园里 5 朵花，摘走 1 朵，还剩？",
+      "options": [
+        "3",
+        "4",
+        "5"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "从盘子里拿走一个",
+      "teach": "把花朵从场景中移走。",
+      "practice": "完成三道取走题。",
+      "apply": "告诉家长还剩多少。"
+    },
+    "evidence": [
+      "removed-object",
+      "explained-remainder"
+    ],
+    "reviewTags": [
+      "take-away-within-five"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-36",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 36,
+    "stageId": "take-away-within-five",
+    "title": "第36天 · 拿走 1 个",
+    "objective": "能理解 3 个拿走 1 个还剩 2 个。",
+    "activityType": "take-away",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "3 颗果子拿走 1 颗，还剩？",
+      "options": [
+        "1",
+        "2",
+        "3"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "棋子退一格",
+      "teach": "真实拿走并重新点数。",
+      "practice": "完成两次取走。",
+      "apply": "整理玩具时拿走一个。"
+    },
+    "evidence": [
+      "removed-object",
+      "recounted-set"
+    ],
+    "reviewTags": [
+      "take-away-1"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-37",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 37,
+    "stageId": "take-away-within-five",
+    "title": "第37天 · 还剩 3 个",
+    "objective": "能理解 4 个拿走 1 个还剩 3 个。",
+    "activityType": "take-away",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "4 个阳光拿走 1 个还剩？",
+      "options": [
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "从盘子里拿走一个",
+      "teach": "用花盆格子展示剩余。",
+      "practice": "操作 4-1。",
+      "apply": "说出自己的剩余物品。"
+    },
+    "evidence": [
+      "removed-object",
+      "said-remainder"
+    ],
+    "reviewTags": [
+      "take-away-1"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-38",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 38,
+    "stageId": "take-away-within-five",
+    "title": "第38天 · 走格子",
+    "objective": "能在 5 格路线中前进或后退 1 格。",
+    "activityType": "number-path",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "小植物在 2，前进 1 格到？",
+      "options": [
+        "1",
+        "2",
+        "3"
+      ],
+      "answer": 2,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "棋子退一格",
+      "teach": "手指沿路线移动。",
+      "practice": "前进和后退各一次。",
+      "apply": "在地板上走 3 步。"
+    },
+    "evidence": [
+      "moved-on-path",
+      "followed-direction"
+    ],
+    "reviewTags": [
+      "number-path"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-39",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 39,
+    "stageId": "take-away-within-five",
+    "title": "第39天 · 取走和剩余",
+    "objective": "能在图中表示取走后的数量。",
+    "activityType": "take-away-picture",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "5 只小虫走了 2 只，还剩？",
+      "options": [
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "从盘子里拿走一个",
+      "teach": "划掉离开的虫再数。",
+      "practice": "完成 5-2 和 4-2。",
+      "apply": "收起两个玩具再数。"
+    },
+    "evidence": [
+      "crossed-out-count",
+      "selected-remainder"
+    ],
+    "reviewTags": [
+      "take-away-2"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-40",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 40,
+    "stageId": "take-away-within-five",
+    "title": "第40天 · 5 以内减法复习",
+    "objective": "能用实物或路线完成 5 以内取走。",
+    "activityType": "mixed-take-away-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "花园里 5 朵花，摘走 1 朵，还剩？",
+      "options": [
+        "3",
+        "4",
+        "5"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "棋子退一格",
+      "teach": "把花朵从场景中移走。",
+      "practice": "完成三道取走题。",
+      "apply": "告诉家长还剩多少。"
+    },
+    "evidence": [
+      "removed-object",
+      "explained-remainder"
+    ],
+    "reviewTags": [
+      "take-away-within-five"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-41",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 41,
+    "stageId": "within-ten-add-subtract",
+    "title": "第41天 · 凑成 5",
+    "objective": "能找出 3 还需要几个才是 5。",
+    "activityType": "make-five",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "3 颗阳光还需要几颗到 5？",
+      "options": [
+        "1",
+        "2",
+        "3"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "用五格框复习",
+      "teach": "用五格框补空位。",
+      "practice": "完成 2/3/4 凑 5。",
+      "apply": "收集 5 个小物品。"
+    },
+    "evidence": [
+      "filled-frame",
+      "selected-complement"
+    ],
+    "reviewTags": [
+      "make-five"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-42",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 42,
+    "stageId": "within-ten-add-subtract",
+    "title": "第42天 · 6 以内加法",
+    "objective": "能用实物完成 4+2。",
+    "activityType": "addition-with-manipulatives",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "4 个果子再来 2 个是多少？",
+      "options": [
+        "5",
+        "6",
+        "7"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "走 10 格路线",
+      "teach": "两组物品合并后点数。",
+      "practice": "操作 3+2、4+2。",
+      "apply": "给家长讲合并过程。"
+    },
+    "evidence": [
+      "composed-set",
+      "explained-process"
+    ],
+    "reviewTags": [
+      "addition-within-ten"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-43",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 43,
+    "stageId": "within-ten-add-subtract",
+    "title": "第43天 · 8 以内减法",
+    "objective": "能用图示完成 8-3。",
+    "activityType": "subtraction-with-manipulatives",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "8 颗种子拿走 3 颗还剩？",
+      "options": [
+        "4",
+        "5",
+        "6"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "用五格框复习",
+      "teach": "逐个拿走并数剩下。",
+      "practice": "完成两道取走题。",
+      "apply": "整理 8 个玩具。"
+    },
+    "evidence": [
+      "removed-object",
+      "selected-remainder"
+    ],
+    "reviewTags": [
+      "subtraction-within-ten"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-44",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 44,
+    "stageId": "within-ten-add-subtract",
+    "title": "第44天 · 加减选方法",
+    "objective": "能判断题目是合并还是取走。",
+    "activityType": "operation-choice",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "又来了 2 只小鸟，要用加法还是减法？",
+      "options": [
+        "加法",
+        "减法"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "走 10 格路线",
+      "teach": "用“来了/走了”词语区分。",
+      "practice": "四道情景选择。",
+      "apply": "说一个“又来了”的生活例子。"
+    },
+    "evidence": [
+      "selected-operation",
+      "created-example"
+    ],
+    "reviewTags": [
+      "operation-language"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-45",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 45,
+    "stageId": "within-ten-add-subtract",
+    "title": "第45天 · 10 以内闯关复习",
+    "objective": "能在图示支持下完成 10 以内加减。",
+    "activityType": "mixed-add-subtract-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "花园里 6 个太阳，来了 2 个，一共？",
+      "options": [
+        "7",
+        "8",
+        "9"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "用五格框复习",
+      "teach": "混合复习加减线索。",
+      "practice": "完成五道低风险题。",
+      "apply": "选择一道给家长讲。"
+    },
+    "evidence": [
+      "mixed-operations",
+      "explained-solution"
+    ],
+    "reviewTags": [
+      "addition-within-ten",
+      "subtraction-within-ten"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-46",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 46,
+    "stageId": "within-ten-add-subtract",
+    "title": "第46天 · 凑成 5",
+    "objective": "能找出 3 还需要几个才是 5。",
+    "activityType": "make-five",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "3 颗阳光还需要几颗到 5？",
+      "options": [
+        "1",
+        "2",
+        "3"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "走 10 格路线",
+      "teach": "用五格框补空位。",
+      "practice": "完成 2/3/4 凑 5。",
+      "apply": "收集 5 个小物品。"
+    },
+    "evidence": [
+      "filled-frame",
+      "selected-complement"
+    ],
+    "reviewTags": [
+      "make-five"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-47",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 47,
+    "stageId": "within-ten-add-subtract",
+    "title": "第47天 · 6 以内加法",
+    "objective": "能用实物完成 4+2。",
+    "activityType": "addition-with-manipulatives",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "4 个果子再来 2 个是多少？",
+      "options": [
+        "5",
+        "6",
+        "7"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "用五格框复习",
+      "teach": "两组物品合并后点数。",
+      "practice": "操作 3+2、4+2。",
+      "apply": "给家长讲合并过程。"
+    },
+    "evidence": [
+      "composed-set",
+      "explained-process"
+    ],
+    "reviewTags": [
+      "addition-within-ten"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-48",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 48,
+    "stageId": "within-ten-add-subtract",
+    "title": "第48天 · 8 以内减法",
+    "objective": "能用图示完成 8-3。",
+    "activityType": "subtraction-with-manipulatives",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "8 颗种子拿走 3 颗还剩？",
+      "options": [
+        "4",
+        "5",
+        "6"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "走 10 格路线",
+      "teach": "逐个拿走并数剩下。",
+      "practice": "完成两道取走题。",
+      "apply": "整理 8 个玩具。"
+    },
+    "evidence": [
+      "removed-object",
+      "selected-remainder"
+    ],
+    "reviewTags": [
+      "subtraction-within-ten"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-49",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 49,
+    "stageId": "within-ten-add-subtract",
+    "title": "第49天 · 加减选方法",
+    "objective": "能判断题目是合并还是取走。",
+    "activityType": "operation-choice",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "又来了 2 只小鸟，要用加法还是减法？",
+      "options": [
+        "加法",
+        "减法"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "用五格框复习",
+      "teach": "用“来了/走了”词语区分。",
+      "practice": "四道情景选择。",
+      "apply": "说一个“又来了”的生活例子。"
+    },
+    "evidence": [
+      "selected-operation",
+      "created-example"
+    ],
+    "reviewTags": [
+      "operation-language"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-50",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 50,
+    "stageId": "within-ten-add-subtract",
+    "title": "第50天 · 10 以内闯关复习",
+    "objective": "能在图示支持下完成 10 以内加减。",
+    "activityType": "mixed-add-subtract-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "花园里 6 个太阳，来了 2 个，一共？",
+      "options": [
+        "7",
+        "8",
+        "9"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "走 10 格路线",
+      "teach": "混合复习加减线索。",
+      "practice": "完成五道低风险题。",
+      "apply": "选择一道给家长讲。"
+    },
+    "evidence": [
+      "mixed-operations",
+      "explained-solution"
+    ],
+    "reviewTags": [
+      "addition-within-ten",
+      "subtraction-within-ten"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-51",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 51,
+    "stageId": "grouping-and-transfer",
+    "title": "第51天 · 两组两个",
+    "objective": "能看出 2 组、每组 2 个。",
+    "activityType": "repeated-groups",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "这里有几组？每组几个？",
+      "options": [
+        "2 组，每组 2 个",
+        "4 组，每组 1 个"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "给植物分队",
+      "teach": "把 4 个物品排成两组。",
+      "practice": "交换分组方式再描述。",
+      "apply": "给玩具分成两组。"
+    },
+    "evidence": [
+      "made-groups",
+      "described-groups"
+    ],
+    "reviewTags": [
+      "grouping"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-52",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 52,
+    "stageId": "grouping-and-transfer",
+    "title": "第52天 · 三组两个",
+    "objective": "能用实物表达 3 组、每组 2 个。",
+    "activityType": "repeated-groups",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "怎样摆出 3 组，每组 2 个？",
+      "options": [
+        "6 个分三组",
+        "3 个分两组"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "观察重复图案",
+      "teach": "先分组再总数。",
+      "practice": "完成两种分组。",
+      "apply": "给植物伙伴分 3 队。"
+    },
+    "evidence": [
+      "made-groups",
+      "counted-total"
+    ],
+    "reviewTags": [
+      "grouping",
+      "multiplication-experience"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-53",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 53,
+    "stageId": "grouping-and-transfer",
+    "title": "第53天 · 找规律",
+    "objective": "能补出简单的颜色或数量规律。",
+    "activityType": "pattern-complete",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "红、绿、红、绿，下一 个是什么？",
+      "options": [
+        "红",
+        "绿"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "给植物分队",
+      "teach": "用重复节奏读规律。",
+      "practice": "补三组图案。",
+      "apply": "用积木做一个规律。"
+    },
+    "evidence": [
+      "completed-pattern",
+      "created-pattern"
+    ],
+    "reviewTags": [
+      "pattern"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-54",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 54,
+    "stageId": "grouping-and-transfer",
+    "title": "第54天 · 生活里的数学",
+    "objective": "能把数量、比较或分组应用到新情景。",
+    "activityType": "transfer-math",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "给 2 个小朋友每人 2 个贴纸，需要几个？",
+      "options": [
+        "2",
+        "4",
+        "6"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "观察重复图案",
+      "teach": "画两个人和每人两个贴纸。",
+      "practice": "摆放并检查总数。",
+      "apply": "在家公平分配小物品。"
+    },
+    "evidence": [
+      "transferred-skill",
+      "shared-fairly"
+    ],
+    "reviewTags": [
+      "grouping",
+      "transfer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-55",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 55,
+    "stageId": "grouping-and-transfer",
+    "title": "第55天 · 数学花园毕业卡",
+    "objective": "能选择一个会做的数学技能并展示过程。",
+    "activityType": "portfolio-showcase",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择你想展示的数学任务。",
+      "options": [
+        "数一数",
+        "合起来",
+        "拿走",
+        "分成小组"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "给植物分队",
+      "teach": "示范如何说“我先……再……”。",
+      "practice": "完成个人挑战卡。",
+      "apply": "给家长展示并记录下一步。"
+    },
+    "evidence": [
+      "completed-choice",
+      "showed-process"
+    ],
+    "reviewTags": [
+      "mixed-transfer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-56",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 56,
+    "stageId": "grouping-and-transfer",
+    "title": "第56天 · 两组两个",
+    "objective": "能看出 2 组、每组 2 个。",
+    "activityType": "repeated-groups",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "这里有几组？每组几个？",
+      "options": [
+        "2 组，每组 2 个",
+        "4 组，每组 1 个"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "观察重复图案",
+      "teach": "把 4 个物品排成两组。",
+      "practice": "交换分组方式再描述。",
+      "apply": "给玩具分成两组。"
+    },
+    "evidence": [
+      "made-groups",
+      "described-groups"
+    ],
+    "reviewTags": [
+      "grouping"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-57",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 57,
+    "stageId": "grouping-and-transfer",
+    "title": "第57天 · 三组两个",
+    "objective": "能用实物表达 3 组、每组 2 个。",
+    "activityType": "repeated-groups",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "怎样摆出 3 组，每组 2 个？",
+      "options": [
+        "6 个分三组",
+        "3 个分两组"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "给植物分队",
+      "teach": "先分组再总数。",
+      "practice": "完成两种分组。",
+      "apply": "给植物伙伴分 3 队。"
+    },
+    "evidence": [
+      "made-groups",
+      "counted-total"
+    ],
+    "reviewTags": [
+      "grouping",
+      "multiplication-experience"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-58",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 58,
+    "stageId": "grouping-and-transfer",
+    "title": "第58天 · 找规律",
+    "objective": "能补出简单的颜色或数量规律。",
+    "activityType": "pattern-complete",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "红、绿、红、绿，下一 个是什么？",
+      "options": [
+        "红",
+        "绿"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "观察重复图案",
+      "teach": "用重复节奏读规律。",
+      "practice": "补三组图案。",
+      "apply": "用积木做一个规律。"
+    },
+    "evidence": [
+      "completed-pattern",
+      "created-pattern"
+    ],
+    "reviewTags": [
+      "pattern"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-59",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 59,
+    "stageId": "grouping-and-transfer",
+    "title": "第59天 · 生活里的数学",
+    "objective": "能把数量、比较或分组应用到新情景。",
+    "activityType": "transfer-math",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "给 2 个小朋友每人 2 个贴纸，需要几个？",
+      "options": [
+        "2",
+        "4",
+        "6"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "给植物分队",
+      "teach": "画两个人和每人两个贴纸。",
+      "practice": "摆放并检查总数。",
+      "apply": "在家公平分配小物品。"
+    },
+    "evidence": [
+      "transferred-skill",
+      "shared-fairly"
+    ],
+    "reviewTags": [
+      "grouping",
+      "transfer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-math-day-60",
+    "routeId": "preschool-math",
+    "subject": "math",
+    "day": 60,
+    "stageId": "grouping-and-transfer",
+    "title": "第60天 · 数学花园毕业卡",
+    "objective": "能选择一个会做的数学技能并展示过程。",
+    "activityType": "portfolio-showcase",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择你想展示的数学任务。",
+      "options": [
+        "数一数",
+        "合起来",
+        "拿走",
+        "分成小组"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "观察重复图案",
+      "teach": "示范如何说“我先……再……”。",
+      "practice": "完成个人挑战卡。",
+      "apply": "给家长展示并记录下一步。"
+    },
+    "evidence": [
+      "completed-choice",
+      "showed-process"
+    ],
+    "reviewTags": [
+      "mixed-transfer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  }
+]

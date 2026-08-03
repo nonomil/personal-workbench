@@ -1,0 +1,2253 @@
+[
+  {
+    "id": "preschool-english-phonics-day-001",
+    "routeId": "preschool-english-phonics",
+    "day": 1,
+    "stageId": "sound-awareness",
+    "title": "声音小侦探",
+    "objective": "听出两个声音是不是一样。",
+    "newPatterns": [
+      "word-awareness"
+    ],
+    "reviewPatterns": [],
+    "activityType": "sound-discrimination",
+    "durationMin": 10,
+    "coreEligible": true,
+    "examples": [
+      "拍手",
+      "敲桌子",
+      "铃声"
+    ],
+    "sentenceIds": [],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-002",
+    "routeId": "preschool-english-phonics",
+    "day": 2,
+    "stageId": "sound-awareness",
+    "title": "词语拍拍手",
+    "objective": "把一句话听成一个个词。",
+    "newPatterns": [
+      "syllable"
+    ],
+    "reviewPatterns": [
+      "word-awareness"
+    ],
+    "activityType": "syllable-clap",
+    "durationMin": 10,
+    "coreEligible": true,
+    "examples": [
+      "sun",
+      "sun-shine",
+      "rain-bow"
+    ],
+    "sentenceIds": [],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-003",
+    "routeId": "preschool-english-phonics",
+    "day": 3,
+    "stageId": "sound-awareness",
+    "title": "押韵小火车",
+    "objective": "听出词尾声音相近的词。",
+    "newPatterns": [
+      "rhyme"
+    ],
+    "reviewPatterns": [
+      "syllable"
+    ],
+    "activityType": "rhyme-match",
+    "durationMin": 10,
+    "coreEligible": true,
+    "examples": [
+      "cat-hat",
+      "sun-fun",
+      "pig-big"
+    ],
+    "sentenceIds": [],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-004",
+    "routeId": "preschool-english-phonics",
+    "day": 4,
+    "stageId": "sound-awareness",
+    "title": "谁和我开头一样",
+    "objective": "听出两个词的开头声音。",
+    "newPatterns": [
+      "initial-sound"
+    ],
+    "reviewPatterns": [
+      "rhyme"
+    ],
+    "activityType": "initial-sound-match",
+    "durationMin": 10,
+    "coreEligible": true,
+    "examples": [
+      "sun-sock",
+      "moon-mat",
+      "pig-pan"
+    ],
+    "sentenceIds": [],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-005",
+    "routeId": "preschool-english-phonics",
+    "day": 5,
+    "stageId": "sound-awareness",
+    "title": "机器人说话",
+    "objective": "把两个或三个口头音合成一个词。",
+    "newPatterns": [
+      "oral-blending",
+      "oral-segmenting"
+    ],
+    "reviewPatterns": [
+      "initial-sound",
+      "rhyme"
+    ],
+    "activityType": "oral-blend",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "/s/ /un/",
+      "/m/ /ap/",
+      "/p/ /ig/"
+    ],
+    "sentenceIds": [],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-006",
+    "routeId": "preschool-english-phonics",
+    "day": 6,
+    "stageId": "first-letter-sounds",
+    "title": "s 和 a 的声音",
+    "objective": "听音并匹配字母 s、a。",
+    "newPatterns": [
+      "s",
+      "a"
+    ],
+    "reviewPatterns": [
+      "initial-sound",
+      "oral-blending"
+    ],
+    "activityType": "grapheme-sound-match",
+    "durationMin": 10,
+    "coreEligible": true,
+    "examples": [
+      "s",
+      "a",
+      "sun",
+      "ant"
+    ],
+    "sentenceIds": [],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-007",
+    "routeId": "preschool-english-phonics",
+    "day": 7,
+    "stageId": "first-letter-sounds",
+    "title": "t 和 p 的声音",
+    "objective": "辨认 t、p，并复习 s、a。",
+    "newPatterns": [
+      "t",
+      "p"
+    ],
+    "reviewPatterns": [
+      "s",
+      "a"
+    ],
+    "activityType": "sound-discrimination",
+    "durationMin": 10,
+    "coreEligible": true,
+    "examples": [
+      "t",
+      "p",
+      "top",
+      "pan"
+    ],
+    "sentenceIds": [],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-008",
+    "routeId": "preschool-english-phonics",
+    "day": 8,
+    "stageId": "first-letter-sounds",
+    "title": "i 和 n 的声音",
+    "objective": "辨认 i、n，开始听短片段。",
+    "newPatterns": [
+      "i",
+      "n"
+    ],
+    "reviewPatterns": [
+      "s",
+      "a",
+      "t",
+      "p"
+    ],
+    "activityType": "grapheme-sound-match",
+    "durationMin": 10,
+    "coreEligible": true,
+    "examples": [
+      "i",
+      "n",
+      "in",
+      "nit"
+    ],
+    "sentenceIds": [],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-009",
+    "routeId": "preschool-english-phonics",
+    "day": 9,
+    "stageId": "first-letter-sounds",
+    "title": "m 和 d 的声音",
+    "objective": "辨认 m、d，并复习第一组字音。",
+    "newPatterns": [
+      "m",
+      "d"
+    ],
+    "reviewPatterns": [
+      "s",
+      "a",
+      "t",
+      "p",
+      "i",
+      "n"
+    ],
+    "activityType": "grapheme-sound-match",
+    "durationMin": 10,
+    "coreEligible": true,
+    "examples": [
+      "m",
+      "d",
+      "mad",
+      "dim"
+    ],
+    "sentenceIds": [],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-010",
+    "routeId": "preschool-english-phonics",
+    "day": 10,
+    "stageId": "first-letter-sounds",
+    "title": "第一组字音大复习",
+    "objective": "听音、找字母，并把两个音连起来。",
+    "newPatterns": [
+      "oral-blending-with-graphemes"
+    ],
+    "reviewPatterns": [
+      "s",
+      "a",
+      "t",
+      "p",
+      "i",
+      "n",
+      "m",
+      "d"
+    ],
+    "activityType": "blend-track",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "at",
+      "in",
+      "am",
+      "an"
+    ],
+    "sentenceIds": [
+      "phonics-text-sam-sat",
+      "phonics-text-pat-sat"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-011",
+    "routeId": "preschool-english-phonics",
+    "day": 11,
+    "stageId": "cvc-blending",
+    "title": "短 a 的第一批词",
+    "objective": "从左到右合成 sat、pat、tap。",
+    "newPatterns": [
+      "short-a",
+      "cvc-blending"
+    ],
+    "reviewPatterns": [
+      "s",
+      "a",
+      "t",
+      "p"
+    ],
+    "activityType": "blend-track",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "sat",
+      "pat",
+      "tap"
+    ],
+    "sentenceIds": [
+      "phonics-text-mat",
+      "phonics-text-map"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-012",
+    "routeId": "preschool-english-phonics",
+    "day": 12,
+    "stageId": "cvc-blending",
+    "title": "短 a 换首音",
+    "objective": "保持中间音不变，换首音读出新词。",
+    "newPatterns": [
+      "word-chain"
+    ],
+    "reviewPatterns": [
+      "short-a",
+      "cvc-blending"
+    ],
+    "activityType": "word-chain",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "sat",
+      "pat",
+      "mat",
+      "map",
+      "nap"
+    ],
+    "sentenceIds": [
+      "phonics-text-cat-sat",
+      "phonics-text-sit"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-013",
+    "routeId": "preschool-english-phonics",
+    "day": 13,
+    "stageId": "cvc-blending",
+    "title": "短 i 进声音花园",
+    "objective": "听出短 i，并读出 it、in、sit。",
+    "newPatterns": [
+      "short-i"
+    ],
+    "reviewPatterns": [
+      "short-a",
+      "cvc-blending"
+    ],
+    "activityType": "sound-discrimination",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "it",
+      "in",
+      "sit"
+    ],
+    "sentenceIds": [
+      "phonics-text-pin",
+      "phonics-text-hat"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-014",
+    "routeId": "preschool-english-phonics",
+    "day": 14,
+    "stageId": "cvc-blending",
+    "title": "短 i 合成词",
+    "objective": "合成 pin、tin、tip，并区分短 a 和短 i。",
+    "newPatterns": [
+      "short-i-cvc"
+    ],
+    "reviewPatterns": [
+      "short-a",
+      "short-i"
+    ],
+    "activityType": "blend-track",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "pin",
+      "tin",
+      "tip",
+      "tap"
+    ],
+    "sentenceIds": [
+      "phonics-text-dip"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-015",
+    "routeId": "preschool-english-phonics",
+    "day": 15,
+    "stageId": "cvc-blending",
+    "title": "三格拆音",
+    "objective": "把 map、man、dip 拆进三个音素格。",
+    "newPatterns": [
+      "segmenting-cvc"
+    ],
+    "reviewPatterns": [
+      "short-a",
+      "short-i",
+      "cvc-blending"
+    ],
+    "activityType": "segment-boxes",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "map",
+      "man",
+      "dip"
+    ],
+    "sentenceIds": [
+      "phonics-text-bat"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-016",
+    "routeId": "preschool-english-phonics",
+    "day": 16,
+    "stageId": "cvc-blending",
+    "title": "读词再找意思",
+    "objective": "读出短 a、短 i 词，再把词和原创图片配对。",
+    "newPatterns": [
+      "meaning-match"
+    ],
+    "reviewPatterns": [
+      "short-a",
+      "short-i",
+      "segmenting-cvc"
+    ],
+    "activityType": "meaning-match",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "map",
+      "pan",
+      "pig",
+      "pin"
+    ],
+    "sentenceIds": [
+      "phonics-text-man"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-017",
+    "routeId": "preschool-english-phonics",
+    "day": 17,
+    "stageId": "cvc-blending",
+    "title": "字母 c 加入队伍",
+    "objective": "认识 c 的常见 /k/ 音，并读 cat、cap。",
+    "newPatterns": [
+      "c",
+      "short-a-cvc"
+    ],
+    "reviewPatterns": [
+      "short-a",
+      "short-i",
+      "segmenting-cvc"
+    ],
+    "activityType": "grapheme-sound-match",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "c",
+      "cat",
+      "cap",
+      "can"
+    ],
+    "sentenceIds": [
+      "phonics-text-ham"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-018",
+    "routeId": "preschool-english-phonics",
+    "day": 18,
+    "stageId": "cvc-blending",
+    "title": "字母 h 的小帽子",
+    "objective": "认识 h 的常见 /h/ 音，并读 hat、ham。",
+    "newPatterns": [
+      "h"
+    ],
+    "reviewPatterns": [
+      "c",
+      "short-a",
+      "short-i"
+    ],
+    "activityType": "blend-track",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "h",
+      "hat",
+      "ham",
+      "hit"
+    ],
+    "sentenceIds": [
+      "phonics-text-hat"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-019",
+    "routeId": "preschool-english-phonics",
+    "day": 19,
+    "stageId": "cvc-blending",
+    "title": "字母 b 的小鼓",
+    "objective": "认识 b 的常见 /b/ 音，并读 bat、bit、bin。",
+    "newPatterns": [
+      "b"
+    ],
+    "reviewPatterns": [
+      "c",
+      "h",
+      "short-a",
+      "short-i"
+    ],
+    "activityType": "word-chain",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "b",
+      "bat",
+      "bit",
+      "bin"
+    ],
+    "sentenceIds": [
+      "phonics-text-bat"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-020",
+    "routeId": "preschool-english-phonics",
+    "day": 20,
+    "stageId": "cvc-blending",
+    "title": "前二十天小书",
+    "objective": "混合复习短 a、短 i，读两句原创短文。",
+    "newPatterns": [
+      "mixed-cvc-review"
+    ],
+    "reviewPatterns": [
+      "short-a",
+      "short-i",
+      "c",
+      "h",
+      "b",
+      "blend-track",
+      "segmenting-cvc"
+    ],
+    "activityType": "decodable-read",
+    "durationMin": 15,
+    "coreEligible": true,
+    "examples": [
+      "bat",
+      "cat",
+      "hat",
+      "pin",
+      "sit"
+    ],
+    "sentenceIds": [
+      "phonics-text-sam-sat",
+      "phonics-text-pat-sat"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-021",
+    "routeId": "preschool-english-phonics",
+    "day": 21,
+    "stageId": "short-vowels-and-families",
+    "title": "短 o 的圆圆声音",
+    "objective": "听出短 o，并读出 -ot 词族。",
+    "newPatterns": [
+      "short-o",
+      "-ot"
+    ],
+    "reviewPatterns": [
+      "short-a",
+      "short-i",
+      "cvc-blending"
+    ],
+    "activityType": "word-family",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "hot",
+      "pot",
+      "not"
+    ],
+    "sentenceIds": [
+      "phonics-text-tom-hot"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-022",
+    "routeId": "preschool-english-phonics",
+    "day": 22,
+    "stageId": "short-vowels-and-families",
+    "title": "跳进 -op 词族",
+    "objective": "用换首音的方法读 hop、mop、top。",
+    "newPatterns": [
+      "-op",
+      "word-family"
+    ],
+    "reviewPatterns": [
+      "short-o",
+      "-ot",
+      "short-a"
+    ],
+    "activityType": "word-chain",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "hop",
+      "mop",
+      "top"
+    ],
+    "sentenceIds": [
+      "phonics-text-hop-top"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-023",
+    "routeId": "preschool-english-phonics",
+    "day": 23,
+    "stageId": "short-vowels-and-families",
+    "title": "小狗和 -og",
+    "objective": "读出 dog、log、fog，并找出中间的短 o。",
+    "newPatterns": [
+      "-og"
+    ],
+    "reviewPatterns": [
+      "short-o",
+      "-ot",
+      "-op"
+    ],
+    "activityType": "meaning-match",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "dog",
+      "log",
+      "fog"
+    ],
+    "sentenceIds": [
+      "phonics-text-dog-log"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-024",
+    "routeId": "preschool-english-phonics",
+    "day": 24,
+    "stageId": "short-vowels-and-families",
+    "title": "短元音分拣站",
+    "objective": "区分短 a、短 i、短 o 的中间音。",
+    "newPatterns": [
+      "short-vowel-contrast"
+    ],
+    "reviewPatterns": [
+      "short-a",
+      "short-i",
+      "short-o",
+      "word-family"
+    ],
+    "activityType": "vowel-sort",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "cat",
+      "sit",
+      "hot"
+    ],
+    "sentenceIds": [
+      "phonics-text-mixed-vowels"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-025",
+    "routeId": "preschool-english-phonics",
+    "day": 25,
+    "stageId": "short-vowels-and-families",
+    "title": "短 e 的小门",
+    "objective": "听出短 e，并读出 -et、-en 词族。",
+    "newPatterns": [
+      "short-e",
+      "-et",
+      "-en"
+    ],
+    "reviewPatterns": [
+      "short-a",
+      "short-i",
+      "short-o"
+    ],
+    "activityType": "word-family",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "pet",
+      "get",
+      "ten"
+    ],
+    "sentenceIds": [
+      "phonics-text-ben-pet"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-026",
+    "routeId": "preschool-english-phonics",
+    "day": 26,
+    "stageId": "short-vowels-and-families",
+    "title": "短 u 的小伞",
+    "objective": "听出短 u，并读出 -ug、-un 词族。",
+    "newPatterns": [
+      "short-u",
+      "-ug",
+      "-un"
+    ],
+    "reviewPatterns": [
+      "short-e",
+      "short-o"
+    ],
+    "activityType": "word-family",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "bug",
+      "mug",
+      "sun"
+    ],
+    "sentenceIds": [
+      "phonics-text-sun-up"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-027",
+    "routeId": "preschool-english-phonics",
+    "day": 27,
+    "stageId": "short-vowels-and-families",
+    "title": "五个短元音花盆",
+    "objective": "把已学 CVC 词按中间元音分类。",
+    "newPatterns": [
+      "mixed-short-vowels"
+    ],
+    "reviewPatterns": [
+      "short-a",
+      "short-i",
+      "short-o",
+      "short-e",
+      "short-u"
+    ],
+    "activityType": "vowel-sort",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "map",
+      "pin",
+      "dog",
+      "pet",
+      "sun"
+    ],
+    "sentenceIds": [
+      "phonics-text-five-vowels"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-028",
+    "routeId": "preschool-english-phonics",
+    "day": 28,
+    "stageId": "short-vowels-and-families",
+    "title": "词族复习小书",
+    "objective": "读混合短元音词，并用图片说出一个词的意思。",
+    "newPatterns": [
+      "mixed-cvc-fluency"
+    ],
+    "reviewPatterns": [
+      "word-family",
+      "mixed-short-vowels"
+    ],
+    "activityType": "decodable-read",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "cat",
+      "dog",
+      "pet",
+      "sun"
+    ],
+    "sentenceIds": [
+      "phonics-text-five-vowels"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-029",
+    "routeId": "preschool-english-phonics",
+    "day": 29,
+    "stageId": "common-digraphs",
+    "title": "sh 在开头",
+    "objective": "认识 sh 的组合音，并读 ship、shop、shut。",
+    "newPatterns": [
+      "sh-initial"
+    ],
+    "reviewPatterns": [
+      "mixed-short-vowels",
+      "cvc-blending"
+    ],
+    "activityType": "digraph-match",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "ship",
+      "shop",
+      "shut"
+    ],
+    "sentenceIds": [
+      "phonics-text-ship-shop"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-030",
+    "routeId": "preschool-english-phonics",
+    "day": 30,
+    "stageId": "common-digraphs",
+    "title": "sh 在词尾",
+    "objective": "在 fish、dish 中找到词尾 sh。",
+    "newPatterns": [
+      "sh-final"
+    ],
+    "reviewPatterns": [
+      "sh-initial",
+      "short-i"
+    ],
+    "activityType": "digraph-position",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "fish",
+      "dish",
+      "wish"
+    ],
+    "sentenceIds": [
+      "phonics-text-fish-dash"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-031",
+    "routeId": "preschool-english-phonics",
+    "day": 31,
+    "stageId": "common-digraphs",
+    "title": "ch 小火车",
+    "objective": "认识 ch 的组合音，并读 chip、chat、chop。",
+    "newPatterns": [
+      "ch-initial"
+    ],
+    "reviewPatterns": [
+      "sh-initial",
+      "short-a",
+      "short-o"
+    ],
+    "activityType": "digraph-match",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "chip",
+      "chat",
+      "chop"
+    ],
+    "sentenceIds": [
+      "phonics-text-chad-chop"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-032",
+    "routeId": "preschool-english-phonics",
+    "day": 32,
+    "stageId": "common-digraphs",
+    "title": "ch 换位置",
+    "objective": "在 rich、much 中定位词尾 ch。",
+    "newPatterns": [
+      "ch-final"
+    ],
+    "reviewPatterns": [
+      "ch-initial",
+      "sh-final"
+    ],
+    "activityType": "digraph-position",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "rich",
+      "much",
+      "such"
+    ],
+    "sentenceIds": [
+      "phonics-text-rich-much"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-033",
+    "routeId": "preschool-english-phonics",
+    "day": 33,
+    "stageId": "common-digraphs",
+    "title": "th 的轻轻声音",
+    "objective": "听辨 th，并读 thin、that、this 中的组合。",
+    "newPatterns": [
+      "th"
+    ],
+    "reviewPatterns": [
+      "sh",
+      "ch",
+      "short-i",
+      "short-a"
+    ],
+    "activityType": "digraph-sound-sort",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "thin",
+      "that",
+      "this"
+    ],
+    "sentenceIds": [
+      "phonics-text-that-fish"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-034",
+    "routeId": "preschool-english-phonics",
+    "day": 34,
+    "stageId": "common-digraphs",
+    "title": "ck 结尾咔哒响",
+    "objective": "认识 ck 词尾，并读 back、pick、kick。",
+    "newPatterns": [
+      "ck"
+    ],
+    "reviewPatterns": [
+      "sh",
+      "ch",
+      "th",
+      "short-a",
+      "short-i"
+    ],
+    "activityType": "digraph-final",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "back",
+      "pick",
+      "kick"
+    ],
+    "sentenceIds": [
+      "phonics-text-jack-kick"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-035",
+    "routeId": "preschool-english-phonics",
+    "day": 35,
+    "stageId": "common-digraphs",
+    "title": "ng 拉长声音",
+    "objective": "认识 ng 词尾，并读 sing、ring、long。",
+    "newPatterns": [
+      "ng"
+    ],
+    "reviewPatterns": [
+      "ck",
+      "th",
+      "short-i",
+      "short-o"
+    ],
+    "activityType": "digraph-final",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "sing",
+      "ring",
+      "long"
+    ],
+    "sentenceIds": [
+      "phonics-text-king-sing"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-036",
+    "routeId": "preschool-english-phonics",
+    "day": 36,
+    "stageId": "common-digraphs",
+    "title": "组合音复习",
+    "objective": "混合识别 sh、ch、th、ck、ng，并配对词义。",
+    "newPatterns": [
+      "mixed-digraphs"
+    ],
+    "reviewPatterns": [
+      "sh",
+      "ch",
+      "th",
+      "ck",
+      "ng"
+    ],
+    "activityType": "digraph-review",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "ship",
+      "chip",
+      "thin",
+      "kick",
+      "sing"
+    ],
+    "sentenceIds": [
+      "phonics-text-ship-shop",
+      "phonics-text-king-sing"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-037",
+    "routeId": "preschool-english-phonics",
+    "day": 37,
+    "stageId": "consonant-blends",
+    "title": "st 站起来",
+    "objective": "保持两个辅音的声音，读 stop、step、stand。",
+    "newPatterns": [
+      "st"
+    ],
+    "reviewPatterns": [
+      "mixed-digraphs",
+      "short-e",
+      "short-o"
+    ],
+    "activityType": "blend-track",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "stop",
+      "step",
+      "stand"
+    ],
+    "sentenceIds": [
+      "phonics-text-stop-spin"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-038",
+    "routeId": "preschool-english-phonics",
+    "day": 38,
+    "stageId": "consonant-blends",
+    "title": "sp 转转转",
+    "objective": "读 spin、spot、spun，并听出两个开头音。",
+    "newPatterns": [
+      "sp"
+    ],
+    "reviewPatterns": [
+      "st",
+      "short-i",
+      "short-o",
+      "short-u"
+    ],
+    "activityType": "blend-track",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "spin",
+      "spot",
+      "spun"
+    ],
+    "sentenceIds": [
+      "phonics-text-stop-spin"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-039",
+    "routeId": "preschool-english-phonics",
+    "day": 39,
+    "stageId": "consonant-blends",
+    "title": "sl 慢慢滑",
+    "objective": "读 slam、slip、slap，不在辅音之间加元音。",
+    "newPatterns": [
+      "sl"
+    ],
+    "reviewPatterns": [
+      "st",
+      "sp",
+      "short-a",
+      "short-i"
+    ],
+    "activityType": "blend-track",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "slam",
+      "slip",
+      "slap"
+    ],
+    "sentenceIds": [
+      "phonics-text-slam-slip"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-040",
+    "routeId": "preschool-english-phonics",
+    "day": 40,
+    "stageId": "consonant-blends",
+    "title": "sk 滑过小路",
+    "objective": "读 skip、skin、skit，并保持连缀。",
+    "newPatterns": [
+      "sk"
+    ],
+    "reviewPatterns": [
+      "st",
+      "sp",
+      "sl",
+      "short-i"
+    ],
+    "activityType": "blend-track",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "skip",
+      "skin",
+      "skit"
+    ],
+    "sentenceIds": [
+      "phonics-text-skip-skin"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-041",
+    "routeId": "preschool-english-phonics",
+    "day": 41,
+    "stageId": "consonant-blends",
+    "title": "nd 手牵手",
+    "objective": "读 hand、sand、send，找到词尾 nd。",
+    "newPatterns": [
+      "nd"
+    ],
+    "reviewPatterns": [
+      "st",
+      "sp",
+      "sl",
+      "sk",
+      "short-a",
+      "short-e"
+    ],
+    "activityType": "blend-final",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "hand",
+      "sand",
+      "send"
+    ],
+    "sentenceIds": [
+      "phonics-text-hand-sand"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-042",
+    "routeId": "preschool-english-phonics",
+    "day": 42,
+    "stageId": "consonant-blends",
+    "title": "nt 小帐篷",
+    "objective": "读 tent、mint、pant，找到词尾 nt。",
+    "newPatterns": [
+      "nt"
+    ],
+    "reviewPatterns": [
+      "nd",
+      "short-e",
+      "short-i",
+      "short-a"
+    ],
+    "activityType": "blend-final",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "tent",
+      "mint",
+      "pant"
+    ],
+    "sentenceIds": [
+      "phonics-text-tent-mint"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-043",
+    "routeId": "preschool-english-phonics",
+    "day": 43,
+    "stageId": "consonant-blends",
+    "title": "mp 跳一跳",
+    "objective": "读 lamp、jump、camp，找到词尾 mp。",
+    "newPatterns": [
+      "mp"
+    ],
+    "reviewPatterns": [
+      "nd",
+      "nt",
+      "short-a",
+      "short-u"
+    ],
+    "activityType": "blend-final",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "lamp",
+      "jump",
+      "camp"
+    ],
+    "sentenceIds": [
+      "phonics-text-jump-camp"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-044",
+    "routeId": "preschool-english-phonics",
+    "day": 44,
+    "stageId": "consonant-blends",
+    "title": "ft 轻轻落地",
+    "objective": "读 left、gift、soft，找到词尾 ft。",
+    "newPatterns": [
+      "ft"
+    ],
+    "reviewPatterns": [
+      "nd",
+      "nt",
+      "mp",
+      "short-e",
+      "short-o"
+    ],
+    "activityType": "blend-final",
+    "durationMin": 12,
+    "coreEligible": true,
+    "examples": [
+      "left",
+      "gift",
+      "soft"
+    ],
+    "sentenceIds": [
+      "phonics-text-left-hand"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-045",
+    "routeId": "preschool-english-phonics",
+    "day": 45,
+    "stageId": "decodable-sentences",
+    "title": "两句短元音小路",
+    "objective": "先逐词合成，再读两句短元音短文。",
+    "newPatterns": [
+      "sentence-reading"
+    ],
+    "reviewPatterns": [
+      "mixed-short-vowels",
+      "cvc-blending"
+    ],
+    "activityType": "decodable-read",
+    "durationMin": 15,
+    "coreEligible": true,
+    "examples": [
+      "Tom got hot.",
+      "Ben got a pet."
+    ],
+    "sentenceIds": [
+      "phonics-text-tom-hot",
+      "phonics-text-ben-pet"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-046",
+    "routeId": "preschool-english-phonics",
+    "day": 46,
+    "stageId": "decodable-sentences",
+    "title": "sh 和 ch 小故事",
+    "objective": "读含 sh/ch 的两句短文，并指出图片线索。",
+    "newPatterns": [
+      "sentence-meaning"
+    ],
+    "reviewPatterns": [
+      "sh",
+      "ch",
+      "short-a",
+      "short-i"
+    ],
+    "activityType": "decodable-read",
+    "durationMin": 15,
+    "coreEligible": true,
+    "examples": [
+      "Ship is in a shop.",
+      "Chad can chop."
+    ],
+    "sentenceIds": [
+      "phonics-text-ship-shop",
+      "phonics-text-chad-chop"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-047",
+    "routeId": "preschool-english-phonics",
+    "day": 47,
+    "stageId": "decodable-sentences",
+    "title": "组合音侦探",
+    "objective": "在短文中圈出 th、ck、ng。",
+    "newPatterns": [
+      "sentence-pattern-hunt"
+    ],
+    "reviewPatterns": [
+      "th",
+      "ck",
+      "ng"
+    ],
+    "activityType": "pattern-hunt",
+    "durationMin": 15,
+    "coreEligible": true,
+    "examples": [
+      "That fish is thin.",
+      "King can sing."
+    ],
+    "sentenceIds": [
+      "phonics-text-that-fish",
+      "phonics-text-king-sing"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-048",
+    "routeId": "preschool-english-phonics",
+    "day": 48,
+    "stageId": "decodable-sentences",
+    "title": "st 和 sp 赛跑",
+    "objective": "读两句含 st/sp 的句子并按动作排序。",
+    "newPatterns": [
+      "sentence-fluency"
+    ],
+    "reviewPatterns": [
+      "st",
+      "sp",
+      "short-i",
+      "short-o"
+    ],
+    "activityType": "read-and-order",
+    "durationMin": 15,
+    "coreEligible": true,
+    "examples": [
+      "Stop and spin.",
+      "Stan can skip."
+    ],
+    "sentenceIds": [
+      "phonics-text-stop-spin",
+      "phonics-text-stan-skip"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-049",
+    "routeId": "preschool-english-phonics",
+    "day": 49,
+    "stageId": "decodable-sentences",
+    "title": "sl 和 sk 小路",
+    "objective": "读 sl/sk 句子，找出人物正在做的动作。",
+    "newPatterns": [
+      "sentence-comprehension"
+    ],
+    "reviewPatterns": [
+      "sl",
+      "sk",
+      "short-a",
+      "short-i"
+    ],
+    "activityType": "read-and-match",
+    "durationMin": 15,
+    "coreEligible": true,
+    "examples": [
+      "Slug is on a step.",
+      "Skip to the skin."
+    ],
+    "sentenceIds": [
+      "phonics-text-slam-slip",
+      "phonics-text-skip-skin"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-050",
+    "routeId": "preschool-english-phonics",
+    "day": 50,
+    "stageId": "decodable-sentences",
+    "title": "词尾连缀搬运工",
+    "objective": "读含 nd/nt/mp/ft 的句子，指出词尾组合。",
+    "newPatterns": [
+      "ending-blend-reading"
+    ],
+    "reviewPatterns": [
+      "nd",
+      "nt",
+      "mp",
+      "ft"
+    ],
+    "activityType": "ending-blend-hunt",
+    "durationMin": 15,
+    "coreEligible": true,
+    "examples": [
+      "Hand and tent.",
+      "Jump and camp."
+    ],
+    "sentenceIds": [
+      "phonics-text-hand-sand",
+      "phonics-text-jump-camp"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-051",
+    "routeId": "preschool-english-phonics",
+    "day": 51,
+    "stageId": "decodable-sentences",
+    "title": "四句花园小书",
+    "objective": "连续朗读四句短文，并用一张图复述意义。",
+    "newPatterns": [
+      "mini-story"
+    ],
+    "reviewPatterns": [
+      "mixed-digraphs",
+      "consonant-blends",
+      "mixed-short-vowels"
+    ],
+    "activityType": "mini-story",
+    "durationMin": 15,
+    "coreEligible": true,
+    "examples": [
+      "Sam has a red cap.",
+      "Sam can sit.",
+      "Sam can tap.",
+      "Sam can hop."
+    ],
+    "sentenceIds": [
+      "phonics-text-sam-cap-story"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-052",
+    "routeId": "preschool-english-phonics",
+    "day": 52,
+    "stageId": "decodable-sentences",
+    "title": "读完再回答",
+    "objective": "读短文后回答人物、动作或地点问题。",
+    "newPatterns": [
+      "meaning-after-reading"
+    ],
+    "reviewPatterns": [
+      "sentence-reading",
+      "mini-story"
+    ],
+    "activityType": "read-and-answer",
+    "durationMin": 15,
+    "coreEligible": true,
+    "examples": [
+      "Who?",
+      "What?",
+      "Where?"
+    ],
+    "sentenceIds": [
+      "phonics-text-garden-story"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-053",
+    "routeId": "preschool-english-phonics",
+    "day": 53,
+    "stageId": "transfer-and-review",
+    "title": "我的短元音错音卡",
+    "objective": "从个人复习队列中选择一个短元音并重新合成。",
+    "newPatterns": [
+      "personal-review"
+    ],
+    "reviewPatterns": [
+      "short-a",
+      "short-i",
+      "short-o",
+      "short-e",
+      "short-u"
+    ],
+    "activityType": "mistake-review",
+    "durationMin": 15,
+    "coreEligible": true,
+    "examples": [
+      "cat",
+      "pin",
+      "dog",
+      "pet",
+      "sun"
+    ],
+    "sentenceIds": [],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-054",
+    "routeId": "preschool-english-phonics",
+    "day": 54,
+    "stageId": "transfer-and-review",
+    "title": "我的组合音错音卡",
+    "objective": "从个人复习队列中复习一个 digraph，并在新词中寻找。",
+    "newPatterns": [
+      "personal-review"
+    ],
+    "reviewPatterns": [
+      "sh",
+      "ch",
+      "th",
+      "ck",
+      "ng"
+    ],
+    "activityType": "mistake-review",
+    "durationMin": 15,
+    "coreEligible": true,
+    "examples": [
+      "ship",
+      "chip",
+      "thin",
+      "kick",
+      "sing"
+    ],
+    "sentenceIds": [],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-055",
+    "routeId": "preschool-english-phonics",
+    "day": 55,
+    "stageId": "transfer-and-review",
+    "title": "我的连缀错音卡",
+    "objective": "从个人复习队列中复习一个词首或词尾连缀。",
+    "newPatterns": [
+      "personal-review"
+    ],
+    "reviewPatterns": [
+      "st",
+      "sp",
+      "sl",
+      "sk",
+      "nd",
+      "nt",
+      "mp",
+      "ft"
+    ],
+    "activityType": "mistake-review",
+    "durationMin": 15,
+    "coreEligible": true,
+    "examples": [
+      "stop",
+      "spin",
+      "slip",
+      "hand",
+      "jump"
+    ],
+    "sentenceIds": [],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-056",
+    "routeId": "preschool-english-phonics",
+    "day": 56,
+    "stageId": "transfer-and-review",
+    "title": "新词探险",
+    "objective": "用已学规则尝试读三个新词，并记录需要帮助的词。",
+    "newPatterns": [
+      "transfer-to-new-words"
+    ],
+    "reviewPatterns": [
+      "mixed-short-vowels",
+      "mixed-digraphs",
+      "consonant-blends"
+    ],
+    "activityType": "novel-word-read",
+    "durationMin": 15,
+    "coreEligible": true,
+    "examples": [
+      "shop",
+      "back",
+      "left"
+    ],
+    "sentenceIds": [],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-057",
+    "routeId": "preschool-english-phonics",
+    "day": 57,
+    "stageId": "transfer-and-review",
+    "title": "制作个人词卡",
+    "objective": "选择一个会读的词，完成字母、声音和图片三面卡。",
+    "newPatterns": [
+      "word-card"
+    ],
+    "reviewPatterns": [
+      "personal-review",
+      "meaning-match"
+    ],
+    "activityType": "portfolio-card",
+    "durationMin": 15,
+    "coreEligible": true,
+    "examples": [
+      "选择一个词",
+      "画一张图"
+    ],
+    "sentenceIds": [],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-058",
+    "routeId": "preschool-english-phonics",
+    "day": 58,
+    "stageId": "transfer-and-review",
+    "title": "熟悉短文再读一次",
+    "objective": "用更顺的节奏重新朗读熟悉短文，不追求速度。",
+    "newPatterns": [
+      "fluency-reread"
+    ],
+    "reviewPatterns": [
+      "sentence-reading",
+      "mini-story"
+    ],
+    "activityType": "reread-with-meaning",
+    "durationMin": 15,
+    "coreEligible": true,
+    "examples": [
+      "停顿",
+      "指读",
+      "复述"
+    ],
+    "sentenceIds": [],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-059",
+    "routeId": "preschool-english-phonics",
+    "day": 59,
+    "stageId": "transfer-and-review",
+    "title": "亲子轮流朗读",
+    "objective": "孩子读已准备的词或句，家长只在需要时提示。",
+    "newPatterns": [
+      "parent-reading"
+    ],
+    "reviewPatterns": [
+      "personal-review",
+      "fluency-reread"
+    ],
+    "activityType": "parent-read-along",
+    "durationMin": 15,
+    "coreEligible": true,
+    "examples": [
+      "我先读",
+      "你来读"
+    ],
+    "sentenceIds": [],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  },
+  {
+    "id": "preschool-english-phonics-day-060",
+    "routeId": "preschool-english-phonics",
+    "day": 60,
+    "stageId": "transfer-and-review",
+    "title": "自然拼读毕业小书",
+    "objective": "展示一个词、两句短文和一次迁移应用。",
+    "newPatterns": [
+      "mastery-showcase"
+    ],
+    "reviewPatterns": [
+      "mixed-review",
+      "parent-reading"
+    ],
+    "activityType": "portfolio-showcase",
+    "durationMin": 15,
+    "coreEligible": true,
+    "examples": [
+      "词卡",
+      "短文",
+      "生活中的英文词"
+    ],
+    "sentenceIds": [
+      "phonics-text-garden-story"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台自然拼读课程组"
+    }
+  }
+]

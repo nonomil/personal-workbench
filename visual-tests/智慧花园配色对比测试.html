@@ -128,6 +128,14 @@
         .garden-scene img { position: relative; z-index: 1; width: 57px; height: 57px; object-fit: contain; filter: drop-shadow(0 4px 3px rgba(45, 45, 58, .17)); }
         .garden-scene img:nth-child(2) { width: 67px; height: 67px; animation: plant-breathe 2.4s ease-in-out infinite; }
         .garden-scene img:nth-child(3) { width: 59px; height: 59px; animation: zombie-wobble 1.4s ease-in-out infinite; }
+        .seed-tray { display: flex; gap: 5px; margin-top: 8px; }
+        .seed-tray button { display: grid; min-width: 0; flex: 1; place-items: center; gap: 2px; padding: 4px; border: 1px solid var(--panel-line); border-radius: 8px; color: var(--panel-text); background: rgba(255, 255, 255, .62); cursor: pointer; font-size: 8px; font-weight: 900; }
+        .seed-tray button.is-selected { border-color: var(--panel-accent); background: var(--panel-accent-soft); }
+        .seed-tray img { width: 25px; height: 25px; object-fit: contain; }
+        .game-lawn { position: relative; }
+        .lawn-lane { position: absolute; right: 8px; bottom: 8px; left: 8px; height: 1px; background: rgba(255, 255, 255, .36); }
+        .wood-sign { padding: 5px 8px; border-radius: 7px; color: #FFFDF0; background: rgba(83, 52, 25, .58); }
+        .sun-counter { display: inline-flex; min-height: 26px; align-items: center; gap: 4px; margin-left: 5px; padding: 0 8px; border: 0; border-radius: 8px; color: #6D4A00; background: #FFD93D; cursor: pointer; font-size: 9px; font-weight: 900; }
         .reward-card { display: grid; grid-template-rows: auto 1fr auto; }
         .reward-art { display: grid; min-height: 72px; place-items: center; }
         .reward-art img { width: 64px; height: 64px; object-fit: contain; animation: sun-pulse 2s ease-in-out infinite; }
@@ -299,9 +307,9 @@
                             <main class="preview-content">
                                     <section class="preview-hero"><div><span class="eyebrow">TODAY / GARDEN DEFENSE</span><h2>${isLiquid ? '花园保卫战开始啦' : '今天的冒险开始啦'}</h2><p>先完成一件小事，收集阳光，再来点亮自己的小花园。</p></div><span class="preview-hero-art">${asset(isLiquid ? 'pvz-sunflower.png' : 'pvz-sun-token.png', '植物伙伴')}</span></section>
                                 <section class="stat-grid" aria-label="今日状态"><article class="stat-card sun"><small>阳光余额</small><strong data-metric="sunlight">40 <em>☀</em></strong></article><article class="stat-card mint"><small>豌豆能量</small><strong data-metric="energy">2 <em>发射</em></strong></article><article class="stat-card green"><small>连续成长</small><strong>3 <em>天</em></strong></article></section>
-                                <div class="section-line"><h3>今天要做</h3><small data-metric="progress">1 / 3 已点亮</small></div>
+                                <div class="section-line"><span class="wood-sign"><h3>今天要做</h3></span><small data-metric="progress">1 / 3 已点亮</small></div>
                                 <section class="task-grid" aria-label="今日任务">${tasks.map(taskCard).join('')}</section>
-                                <section class="garden-reward-grid"><article class="garden-card"><div class="garden-card-head"><div><h3>花园战况</h3><small>植物伙伴正在等你</small></div>${icon('leaf')}</div><div class="garden-scene">${asset('pvz-sunflower.png', '向日葵')}${asset('pvz-peashooter.png', '豌豆射手')}${asset('pvz-zombie-basic.png', '友好僵尸')}</div></article><article class="reward-card"><div class="reward-card-head"><div><h3>下一份奖励</h3><small>集齐阳光打开宝箱</small></div>${icon('gift')}</div><span class="reward-art">${asset('pvz-sun-token.png', '阳光奖励')}</span><button class="reward-button" type="button" data-action="claim-demo-reward">${icon('gift')}领取演示奖励</button></article></section>
+                                <section class="garden-reward-grid"><article class="garden-card"><div class="garden-card-head"><div><h3>花园战况</h3><small>植物伙伴正在等你</small></div>${icon('leaf')}</div><div class="seed-tray" aria-label="选择种子"><button type="button" data-action="select-seed" data-seed="sunflower" class="is-selected">${asset('pvz-sunflower.png', '向日葵')}<span>向日葵</span></button><button type="button" data-action="select-seed" data-seed="peashooter">${asset('pvz-peashooter.png', '豌豆射手')}<span>豌豆</span></button></div><div class="game-lawn"><div class="garden-scene"><span class="lawn-lane" aria-hidden="true"></span>${asset('pvz-sunflower.png', '向日葵')}${asset('pvz-peashooter.png', '豌豆射手')}${asset('pvz-zombie-basic.png', '友好僵尸')}</div></div><button class="sun-counter" type="button" data-action="collect-sun">${icon('sun')}收集阳光</button></article><article class="reward-card"><div class="reward-card-head"><div><h3>下一份奖励</h3><small>集齐阳光打开宝箱</small></div>${icon('gift')}</div><span class="reward-art">${asset('pvz-sun-token.png', '阳光奖励')}</span><button class="reward-button" type="button" data-action="claim-demo-reward">${icon('gift')}领取演示奖励</button></article></section>
                                 <section class="learning-strip"><div class="learning-copy"><strong>学习专区</strong><small>识字 · 拼音 · 古诗 · 数学 · 英语 · 运动</small></div><div class="learning-chips"><span class="learning-chip">识字 1/3</span><span class="learning-chip">数学 准备</span><span class="learning-chip">运动 今日</span></div></section>
                             </main>
                         </div>
@@ -359,6 +367,15 @@
                     state.sunlight += 20;
                     syncState();
                     showToast('+20 阳光，奖励已收进花园');
+                }
+                if (target.dataset.action === 'collect-sun') {
+                    state.sunlight += 5;
+                    syncState();
+                    showToast('+5 阳光，收集成功');
+                }
+                if (target.dataset.action === 'select-seed') {
+                    target.closest('.seed-tray').querySelectorAll('[data-action="select-seed"]').forEach(button => button.classList.toggle('is-selected', button === target));
+                    showToast(`已选择${target.dataset.seed === 'peashooter' ? '豌豆射手' : '向日葵'}`);
                 }
             });
 

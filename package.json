@@ -1,6 +1,6 @@
 {
   "name": "personal-workbench",
-  "version": "0.3.5",
+  "version": "0.4.0",
   "private": true,
   "description": "个人学习与成长工作台的网页与 Android APK 包装工程",
   "scripts": {

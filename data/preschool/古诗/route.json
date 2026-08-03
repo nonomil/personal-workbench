@@ -1,0 +1,122 @@
+{
+  "id": "preschool-poetry",
+  "subject": "poetry",
+  "title": "古诗画中游",
+  "description": "听一听、看画面、跟着节奏说一说。",
+  "ageBand": "preschool",
+  "dayCount": 60,
+  "lessonDurationMin": {
+    "min": 6,
+    "max": 10
+  },
+  "navigation": {
+    "parentRoute": "preschool-poetry",
+    "topLevel": false
+  },
+  "stages": [
+    {
+      "id": "listen-and-notice",
+      "days": [
+        1,
+        10
+      ],
+      "title": "听见画面",
+      "focus": [
+        "声音",
+        "节奏",
+        "自然"
+      ]
+    },
+    {
+      "id": "follow-and-order",
+      "days": [
+        11,
+        20
+      ],
+      "title": "跟读与排序",
+      "focus": [
+        "两句",
+        "节奏",
+        "先后"
+      ]
+    },
+    {
+      "id": "meaning-and-expression",
+      "days": [
+        21,
+        30
+      ],
+      "title": "理解与表达",
+      "focus": [
+        "画面",
+        "人物",
+        "感受"
+      ]
+    },
+    {
+      "id": "season-and-family",
+      "days": [
+        31,
+        40
+      ],
+      "title": "季节与亲情",
+      "focus": [
+        "春",
+        "夏",
+        "秋",
+        "亲情"
+      ]
+    },
+    {
+      "id": "portfolio-and-review",
+      "days": [
+        41,
+        50
+      ],
+      "title": "作品与复习",
+      "focus": [
+        "复述",
+        "朗诵",
+        "画面"
+      ]
+    },
+    {
+      "id": "final-showcase",
+      "days": [
+        51,
+        60
+      ],
+      "title": "亲子展示",
+      "focus": [
+        "选择",
+        "朗读",
+        "分享"
+      ]
+    }
+  ],
+  "dailyContract": {
+    "coreSlots": 1,
+    "optionalSlots": 3,
+    "steps": [
+      "warmup",
+      "teach",
+      "practice",
+      "apply",
+      "celebrate"
+    ],
+    "reviewRatioMin": 0.5,
+    "noSpeechRecognitionGate": true
+  },
+  "rewardContract": {
+    "source": "existing-preschool-activity",
+    "coreKind": "core",
+    "optionalKind": "optional",
+    "duplicatePolicy": "canonical-event-id",
+    "noSecondLedger": true
+  },
+  "source": {
+    "kind": "project-original",
+    "license": "project-original",
+    "attribution": "个人工作台幼儿课程组"
+  }
+}

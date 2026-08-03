@@ -1,0 +1,185 @@
+/* Restore the garden-green shell after the later WorkBuddy/game layers adjust layout. */
+body.variant-preschool {
+    --wb-cream: #eaf8e4;
+    --wb-paper: #fffef9;
+    --wb-mint: #e6f6e7;
+    --wb-mint-deep: #185b3b;
+    --wb-sky: #e8f7fa;
+    --wb-sky-deep: #347f91;
+    --wb-sun: #ffc83d;
+    --wb-orange: #f28a35;
+    --wb-ink: #185b3b;
+    --wb-muted: #66866b;
+    --wb-line: #d7ebd0;
+    --wb-shadow: 0 10px 26px rgba(34, 111, 57, .08);
+    background: #eff9eb;
+    color: #185b3b;
+}
+
+body.variant-preschool .app-shell,
+body.variant-preschool .main-content {
+    background: linear-gradient(180deg, #f7fbf1 0, #eff9eb 32%, #e8f2dd 100%);
+}
+
+body.variant-preschool .sidebar {
+    border-right: 0;
+    background: linear-gradient(180deg, #22734a, #145238);
+    box-shadow: 8px 0 24px rgba(20, 91, 57, .14);
+}
+
+body.variant-preschool .brand-mark {
+    background: #f9c938;
+    box-shadow: 0 5px 0 rgba(116, 75, 12, .28);
+}
+
+body.variant-preschool .brand strong {
+    color: #fffbe8;
+}
+
+body.variant-preschool .brand small,
+body.variant-preschool .sidebar-section-label,
+body.variant-preschool .sidebar-footnote,
+body.variant-preschool .mode-status small {
+    color: #c6e8bd;
+}
+
+body.variant-preschool .mode-status strong {
+    color: #fffbe8;
+}
+
+body.variant-preschool .sidebar-footer {
+    border-top-color: rgba(255, 255, 255, .22);
+}
+
+body.variant-preschool .nav-item {
+    color: #e0f5d7;
+    background: rgba(255, 255, 255, .07);
+}
+
+body.variant-preschool .nav-item:hover {
+    border-color: rgba(255, 255, 255, .26);
+    color: #fff;
+    background: rgba(255, 255, 255, .13);
+}
+
+body.variant-preschool .nav-item.is-active {
+    border-color: rgba(255, 255, 255, .55);
+    color: #185b3b;
+    background: #fff8dc;
+    box-shadow: 0 5px 0 rgba(11, 64, 41, .22);
+}
+
+body.variant-preschool .nav-item.is-active span,
+body.variant-preschool .nav-item.is-active kbd {
+    color: #185b3b;
+}
+
+body.variant-preschool .tool-button {
+    border-color: rgba(255, 255, 255, .22);
+    color: #e0f5d7;
+    background: rgba(255, 255, 255, .08);
+}
+
+body.variant-preschool .tool-button:hover {
+    border-color: rgba(255, 255, 255, .36);
+    color: #fff;
+    background: rgba(255, 255, 255, .14);
+}
+
+body.variant-preschool .topbar {
+    border-bottom-color: #d7ebd0;
+    background: rgba(255, 255, 255, .92);
+    box-shadow: 0 4px 18px rgba(31, 103, 56, .06);
+    backdrop-filter: blur(12px);
+}
+
+body.variant-preschool .topbar-context strong {
+    color: #185b3b;
+}
+
+body.variant-preschool .topbar-context b {
+    color: #bdd9c2;
+}
+
+body.variant-preschool .topbar-focus-button,
+body.variant-preschool .topbar-workbench-switcher {
+    border: 1px solid #cfe7c4;
+    color: #2f8a50;
+    background: #fff;
+    box-shadow: 0 3px 9px rgba(35, 116, 60, .08);
+}
+
+body.variant-preschool .topbar-focus-button svg,
+body.variant-preschool .topbar-workbench-switcher svg {
+    color: #2f8a50;
+}
+
+body.variant-preschool .topbar-focus-button:hover,
+body.variant-preschool .topbar-workbench-switcher:hover {
+    color: #185b3b;
+    background: #f7fff3;
+}
+
+body.variant-preschool .avatar {
+    color: #fff;
+    background: #2f8a50;
+    box-shadow: 0 4px 0 #185b3b;
+}
+
+body.variant-preschool .page-content {
+    background: transparent;
+}
+
+body.variant-preschool .workbench-overview-header h1,
+body.variant-preschool .pixel-page-header h1,
+body.variant-preschool .preschool-page-intro h1,
+body.variant-preschool .preschool-defense-game-head h2,
+body.variant-preschool .preschool-defense-section-title h2,
+body.variant-preschool .preschool-defense-board-head h2 {
+    color: #185b3b;
+}
+
+body.variant-preschool .workbench-kicker,
+body.variant-preschool .pixel-panel-kicker,
+body.variant-preschool .eyebrow {
+    color: #2f8a50;
+}
+
+body.variant-preschool .workbench-action-button {
+    background: #2f8a50;
+    box-shadow: 0 3px 0 #185b3b;
+}
+
+body.variant-preschool .workbench-action-button:hover {
+    background: #3a9860;
+}
+
+body.variant-preschool .workbench-text-button {
+    color: #2f8a50;
+}
+
+body.variant-preschool .workbench-text-button:hover {
+    background: #eaf8e4;
+}
+
+body.variant-preschool .preschool-defense-game-head,
+body.variant-preschool .preschool-defense-seeds,
+body.variant-preschool .preschool-defense-board-wrap,
+body.variant-preschool .preschool-defense-bottom,
+body.variant-preschool .pixel-quest-board,
+body.variant-preschool .pixel-side-panel,
+body.variant-preschool .pixel-bottom-bar,
+body.variant-preschool .preschool-section,
+body.variant-preschool .preschool-plan-card,
+body.variant-preschool .preschool-course-card,
+body.variant-preschool .preschool-reward-card {
+    border-color: #d7ebd0;
+    background-color: rgba(255, 255, 255, .95);
+    box-shadow: 0 10px 26px rgba(34, 111, 57, .08);
+}
+
+@media (max-width: 760px) {
+    body.variant-preschool .main-content {
+        background: #eff9eb;
+    }
+}

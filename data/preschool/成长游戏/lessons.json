@@ -1,0 +1,2618 @@
+[
+  {
+    "id": "preschool-garden-game-day-01",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 1,
+    "stageId": "seed-and-sun",
+    "title": "第1天 · 收集第一束光",
+    "objective": "完成一个学习活动后领取阳光。",
+    "activityType": "collect-sunlight",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "完成一项小任务，收集阳光。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看看今天的阳光",
+      "teach": "说明学习事件和阳光的关系。",
+      "practice": "从今日活动返回领取。",
+      "apply": "把阳光放进花园。"
+    },
+    "evidence": [
+      "completed-linked-activity",
+      "claimed-sunlight"
+    ],
+    "reviewTags": [
+      "sunlight"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-02",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 2,
+    "stageId": "seed-and-sun",
+    "title": "第2天 · 给种子喝水",
+    "objective": "能用阳光浇水并看到植物状态改变。",
+    "activityType": "water-seed",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "花 5 阳光给种子浇水。",
+      "options": [
+        "浇水",
+        "先不浇"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "摸一摸植物伙伴",
+      "teach": "展示余额、消耗和植物变化。",
+      "practice": "完成一次浇水。",
+      "apply": "说说植物需要什么。"
+    },
+    "evidence": [
+      "spent-sunlight",
+      "watered-plant"
+    ],
+    "reviewTags": [
+      "watering"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-03",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 3,
+    "stageId": "seed-and-sun",
+    "title": "第3天 · 认识植物伙伴",
+    "objective": "能选择并记住一个植物伙伴。",
+    "activityType": "choose-plant",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择今天陪你学习的植物。",
+      "options": [
+        "向日葵",
+        "豌豆射手",
+        "坚果伙伴"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看看今天的阳光",
+      "teach": "介绍三种原创伙伴的作用。",
+      "practice": "选择一个伙伴。",
+      "apply": "给伙伴起一个昵称。"
+    },
+    "evidence": [
+      "selected-companion",
+      "named-companion"
+    ],
+    "reviewTags": [
+      "collection"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-04",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 4,
+    "stageId": "seed-and-sun",
+    "title": "第4天 · 第一颗种子",
+    "objective": "能用累计阳光解锁第一颗种子并查看收藏。",
+    "activityType": "unlock-plant",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "查看已经解锁的种子。",
+      "options": [
+        "查看收藏"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "摸一摸植物伙伴",
+      "teach": "说明累计成长和余额不同。",
+      "practice": "打开收藏并查看。",
+      "apply": "说说下一颗想要什么。"
+    },
+    "evidence": [
+      "opened-collection",
+      "made-next-choice"
+    ],
+    "reviewTags": [
+      "collection"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-05",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 5,
+    "stageId": "seed-and-sun",
+    "title": "第5天 · 发芽复习",
+    "objective": "能完成收集、浇水、选择中的两项。",
+    "activityType": "mixed-garden-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择两项照料花园。",
+      "options": [
+        "收集",
+        "浇水",
+        "选择伙伴"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看看今天的阳光",
+      "teach": "回顾三种花园动作。",
+      "practice": "完成两项。",
+      "apply": "告诉家长花园状态。"
+    },
+    "evidence": [
+      "completed-two-garden-actions",
+      "reported-state"
+    ],
+    "reviewTags": [
+      "sunlight",
+      "watering",
+      "collection"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-06",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 6,
+    "stageId": "seed-and-sun",
+    "title": "第6天 · 收集第一束光",
+    "objective": "完成一个学习活动后领取阳光。",
+    "activityType": "collect-sunlight",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "完成一项小任务，收集阳光。",
+      "options": [],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "摸一摸植物伙伴",
+      "teach": "说明学习事件和阳光的关系。",
+      "practice": "从今日活动返回领取。",
+      "apply": "把阳光放进花园。"
+    },
+    "evidence": [
+      "completed-linked-activity",
+      "claimed-sunlight"
+    ],
+    "reviewTags": [
+      "sunlight"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-07",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 7,
+    "stageId": "seed-and-sun",
+    "title": "第7天 · 给种子喝水",
+    "objective": "能用阳光浇水并看到植物状态改变。",
+    "activityType": "water-seed",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "花 5 阳光给种子浇水。",
+      "options": [
+        "浇水",
+        "先不浇"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看看今天的阳光",
+      "teach": "展示余额、消耗和植物变化。",
+      "practice": "完成一次浇水。",
+      "apply": "说说植物需要什么。"
+    },
+    "evidence": [
+      "spent-sunlight",
+      "watered-plant"
+    ],
+    "reviewTags": [
+      "watering"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-08",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 8,
+    "stageId": "seed-and-sun",
+    "title": "第8天 · 认识植物伙伴",
+    "objective": "能选择并记住一个植物伙伴。",
+    "activityType": "choose-plant",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择今天陪你学习的植物。",
+      "options": [
+        "向日葵",
+        "豌豆射手",
+        "坚果伙伴"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "摸一摸植物伙伴",
+      "teach": "介绍三种原创伙伴的作用。",
+      "practice": "选择一个伙伴。",
+      "apply": "给伙伴起一个昵称。"
+    },
+    "evidence": [
+      "selected-companion",
+      "named-companion"
+    ],
+    "reviewTags": [
+      "collection"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-09",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 9,
+    "stageId": "seed-and-sun",
+    "title": "第9天 · 第一颗种子",
+    "objective": "能用累计阳光解锁第一颗种子并查看收藏。",
+    "activityType": "unlock-plant",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "查看已经解锁的种子。",
+      "options": [
+        "查看收藏"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看看今天的阳光",
+      "teach": "说明累计成长和余额不同。",
+      "practice": "打开收藏并查看。",
+      "apply": "说说下一颗想要什么。"
+    },
+    "evidence": [
+      "opened-collection",
+      "made-next-choice"
+    ],
+    "reviewTags": [
+      "collection"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-10",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 10,
+    "stageId": "seed-and-sun",
+    "title": "第10天 · 发芽复习",
+    "objective": "能完成收集、浇水、选择中的两项。",
+    "activityType": "mixed-garden-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择两项照料花园。",
+      "options": [
+        "收集",
+        "浇水",
+        "选择伙伴"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "摸一摸植物伙伴",
+      "teach": "回顾三种花园动作。",
+      "practice": "完成两项。",
+      "apply": "告诉家长花园状态。"
+    },
+    "evidence": [
+      "completed-two-garden-actions",
+      "reported-state"
+    ],
+    "reviewTags": [
+      "sunlight",
+      "watering",
+      "collection"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-11",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 11,
+    "stageId": "plant-growth",
+    "title": "第11天 · 植物长高",
+    "objective": "能查看累计成长和植物阶段。",
+    "activityType": "view-growth",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "植物现在长到哪一阶段？",
+      "options": [
+        "种子",
+        "发芽",
+        "开花"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "查看植物阶段",
+      "teach": "用成长条解释累计阳光。",
+      "practice": "查看阶段并选择。",
+      "apply": "说出植物下一步。"
+    },
+    "evidence": [
+      "viewed-growth",
+      "named-next-step"
+    ],
+    "reviewTags": [
+      "growth-stage"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-12",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 12,
+    "stageId": "plant-growth",
+    "title": "第12天 · 升级植物",
+    "objective": "能在余额足够时完成一次植物升级。",
+    "activityType": "upgrade-plant",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "花 30 阳光升级植物。",
+      "options": [
+        "升级",
+        "暂不升级"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "找一张新贴纸",
+      "teach": "说明消费和状态变更。",
+      "practice": "完成一次升级或选择暂缓。",
+      "apply": "比较升级前后外观。"
+    },
+    "evidence": [
+      "made-upgrade-choice",
+      "viewed-state-change"
+    ],
+    "reviewTags": [
+      "upgrade"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-13",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 13,
+    "stageId": "plant-growth",
+    "title": "第13天 · 收集贴纸",
+    "objective": "能从完成事件中领取一张原创贴纸。",
+    "activityType": "claim-sticker",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "查看今天得到的贴纸。",
+      "options": [
+        "查看贴纸"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "查看植物阶段",
+      "teach": "说明收藏事件不会重复。",
+      "practice": "打开收藏并确认。",
+      "apply": "选择一张贴纸讲故事。"
+    },
+    "evidence": [
+      "claimed-collection",
+      "told-story"
+    ],
+    "reviewTags": [
+      "collection"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-14",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 14,
+    "stageId": "plant-growth",
+    "title": "第14天 · 植物伙伴对话",
+    "objective": "能选择一个伙伴反馈并完成语音/文字夸奖。",
+    "activityType": "plant-feedback",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择植物给你的夸奖。",
+      "options": [
+        "你做得很棒",
+        "再试一次也很好"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "找一张新贴纸",
+      "teach": "展示语音不可用时的文字反馈。",
+      "practice": "播放或阅读反馈。",
+      "apply": "自己夸奖一次。"
+    },
+    "evidence": [
+      "read-feedback",
+      "self-encouraged"
+    ],
+    "reviewTags": [
+      "feedback"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-15",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 15,
+    "stageId": "plant-growth",
+    "title": "第15天 · 成长复习",
+    "objective": "能完成查看、升级、收藏中的两项。",
+    "activityType": "mixed-growth-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择两项成长操作。",
+      "options": [
+        "看阶段",
+        "升级",
+        "收集贴纸"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "查看植物阶段",
+      "teach": "复习成长点和阳光的区别。",
+      "practice": "完成两项。",
+      "apply": "告诉家长最喜欢的变化。"
+    },
+    "evidence": [
+      "completed-two-growth-actions",
+      "reported-change"
+    ],
+    "reviewTags": [
+      "growth-stage",
+      "upgrade",
+      "collection"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-16",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 16,
+    "stageId": "plant-growth",
+    "title": "第16天 · 植物长高",
+    "objective": "能查看累计成长和植物阶段。",
+    "activityType": "view-growth",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "植物现在长到哪一阶段？",
+      "options": [
+        "种子",
+        "发芽",
+        "开花"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "找一张新贴纸",
+      "teach": "用成长条解释累计阳光。",
+      "practice": "查看阶段并选择。",
+      "apply": "说出植物下一步。"
+    },
+    "evidence": [
+      "viewed-growth",
+      "named-next-step"
+    ],
+    "reviewTags": [
+      "growth-stage"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-17",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 17,
+    "stageId": "plant-growth",
+    "title": "第17天 · 升级植物",
+    "objective": "能在余额足够时完成一次植物升级。",
+    "activityType": "upgrade-plant",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "花 30 阳光升级植物。",
+      "options": [
+        "升级",
+        "暂不升级"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "查看植物阶段",
+      "teach": "说明消费和状态变更。",
+      "practice": "完成一次升级或选择暂缓。",
+      "apply": "比较升级前后外观。"
+    },
+    "evidence": [
+      "made-upgrade-choice",
+      "viewed-state-change"
+    ],
+    "reviewTags": [
+      "upgrade"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-18",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 18,
+    "stageId": "plant-growth",
+    "title": "第18天 · 收集贴纸",
+    "objective": "能从完成事件中领取一张原创贴纸。",
+    "activityType": "claim-sticker",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "查看今天得到的贴纸。",
+      "options": [
+        "查看贴纸"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "找一张新贴纸",
+      "teach": "说明收藏事件不会重复。",
+      "practice": "打开收藏并确认。",
+      "apply": "选择一张贴纸讲故事。"
+    },
+    "evidence": [
+      "claimed-collection",
+      "told-story"
+    ],
+    "reviewTags": [
+      "collection"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-19",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 19,
+    "stageId": "plant-growth",
+    "title": "第19天 · 植物伙伴对话",
+    "objective": "能选择一个伙伴反馈并完成语音/文字夸奖。",
+    "activityType": "plant-feedback",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择植物给你的夸奖。",
+      "options": [
+        "你做得很棒",
+        "再试一次也很好"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "查看植物阶段",
+      "teach": "展示语音不可用时的文字反馈。",
+      "practice": "播放或阅读反馈。",
+      "apply": "自己夸奖一次。"
+    },
+    "evidence": [
+      "read-feedback",
+      "self-encouraged"
+    ],
+    "reviewTags": [
+      "feedback"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-20",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 20,
+    "stageId": "plant-growth",
+    "title": "第20天 · 成长复习",
+    "objective": "能完成查看、升级、收藏中的两项。",
+    "activityType": "mixed-growth-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择两项成长操作。",
+      "options": [
+        "看阶段",
+        "升级",
+        "收集贴纸"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "找一张新贴纸",
+      "teach": "复习成长点和阳光的区别。",
+      "practice": "完成两项。",
+      "apply": "告诉家长最喜欢的变化。"
+    },
+    "evidence": [
+      "completed-two-growth-actions",
+      "reported-change"
+    ],
+    "reviewTags": [
+      "growth-stage",
+      "upgrade",
+      "collection"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-21",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 21,
+    "stageId": "garden-defense",
+    "title": "第21天 · 获得豌豆能量",
+    "objective": "能理解完成唯一学习活动会获得一颗能量。",
+    "activityType": "earn-defense-energy",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "完成活动后查看能量。",
+      "options": [
+        "查看能量"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "查看三路路线",
+      "teach": "区分阳光余额和防守能量。",
+      "practice": "完成关联活动并返回。",
+      "apply": "说说能量用来做什么。"
+    },
+    "evidence": [
+      "completed-linked-activity",
+      "viewed-energy"
+    ],
+    "reviewTags": [
+      "defense-energy"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-22",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 22,
+    "stageId": "garden-defense",
+    "title": "第22天 · 选择防守路线",
+    "objective": "能在三路棋盘中选择一条路线。",
+    "activityType": "choose-defense-lane",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择一条要守护的路线。",
+      "options": [
+        "上路",
+        "中路",
+        "下路"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "数一数豌豆能量",
+      "teach": "展示植物列、路径格、入侵者列。",
+      "practice": "点击一条路线。",
+      "apply": "说出路线位置。"
+    },
+    "evidence": [
+      "selected-lane",
+      "named-position"
+    ],
+    "reviewTags": [
+      "defense-lane"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-23",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 23,
+    "stageId": "garden-defense",
+    "title": "第23天 · 发射第一颗豌豆",
+    "objective": "能消耗 1 能量发射并看到命中反馈。",
+    "activityType": "fire-pea",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择能量足够时发射豌豆。",
+      "options": [
+        "发射",
+        "暂不发射"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "查看三路路线",
+      "teach": "先结算能量，再播放动画。",
+      "practice": "完成一次发射。",
+      "apply": "说说命中后发生什么。"
+    },
+    "evidence": [
+      "spent-energy",
+      "viewed-hit-feedback"
+    ],
+    "reviewTags": [
+      "fire-pea"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-24",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 24,
+    "stageId": "garden-defense",
+    "title": "第24天 · 友好入侵者",
+    "objective": "能理解小怪是提醒，不是扣分惩罚。",
+    "activityType": "invader-feedback",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "花园出现小怪时应该怎么办？",
+      "options": [
+        "完成一项小行动",
+        "删除所有成长"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "数一数豌豆能量",
+      "teach": "解释下一步行动和驱散。",
+      "practice": "选择一个可完成行动。",
+      "apply": "完成后查看状态。"
+    },
+    "evidence": [
+      "selected-recovery-action",
+      "understood-no-penalty"
+    ],
+    "reviewTags": [
+      "invader"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-25",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 25,
+    "stageId": "garden-defense",
+    "title": "第25天 · 防守复习",
+    "objective": "能完成路线选择、发射或驱散中的两项。",
+    "activityType": "mixed-defense-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择两项守护花园。",
+      "options": [
+        "选路线",
+        "发射",
+        "完成行动驱散"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "查看三路路线",
+      "teach": "回顾三种防守动作。",
+      "practice": "完成两项。",
+      "apply": "告诉家长花园战况。"
+    },
+    "evidence": [
+      "completed-two-defense-actions",
+      "reported-battle-state"
+    ],
+    "reviewTags": [
+      "defense-energy",
+      "defense-lane",
+      "invader"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-26",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 26,
+    "stageId": "garden-defense",
+    "title": "第26天 · 获得豌豆能量",
+    "objective": "能理解完成唯一学习活动会获得一颗能量。",
+    "activityType": "earn-defense-energy",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "完成活动后查看能量。",
+      "options": [
+        "查看能量"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "数一数豌豆能量",
+      "teach": "区分阳光余额和防守能量。",
+      "practice": "完成关联活动并返回。",
+      "apply": "说说能量用来做什么。"
+    },
+    "evidence": [
+      "completed-linked-activity",
+      "viewed-energy"
+    ],
+    "reviewTags": [
+      "defense-energy"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-27",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 27,
+    "stageId": "garden-defense",
+    "title": "第27天 · 选择防守路线",
+    "objective": "能在三路棋盘中选择一条路线。",
+    "activityType": "choose-defense-lane",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择一条要守护的路线。",
+      "options": [
+        "上路",
+        "中路",
+        "下路"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "查看三路路线",
+      "teach": "展示植物列、路径格、入侵者列。",
+      "practice": "点击一条路线。",
+      "apply": "说出路线位置。"
+    },
+    "evidence": [
+      "selected-lane",
+      "named-position"
+    ],
+    "reviewTags": [
+      "defense-lane"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-28",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 28,
+    "stageId": "garden-defense",
+    "title": "第28天 · 发射第一颗豌豆",
+    "objective": "能消耗 1 能量发射并看到命中反馈。",
+    "activityType": "fire-pea",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择能量足够时发射豌豆。",
+      "options": [
+        "发射",
+        "暂不发射"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "数一数豌豆能量",
+      "teach": "先结算能量，再播放动画。",
+      "practice": "完成一次发射。",
+      "apply": "说说命中后发生什么。"
+    },
+    "evidence": [
+      "spent-energy",
+      "viewed-hit-feedback"
+    ],
+    "reviewTags": [
+      "fire-pea"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-29",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 29,
+    "stageId": "garden-defense",
+    "title": "第29天 · 友好入侵者",
+    "objective": "能理解小怪是提醒，不是扣分惩罚。",
+    "activityType": "invader-feedback",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "花园出现小怪时应该怎么办？",
+      "options": [
+        "完成一项小行动",
+        "删除所有成长"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "查看三路路线",
+      "teach": "解释下一步行动和驱散。",
+      "practice": "选择一个可完成行动。",
+      "apply": "完成后查看状态。"
+    },
+    "evidence": [
+      "selected-recovery-action",
+      "understood-no-penalty"
+    ],
+    "reviewTags": [
+      "invader"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-30",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 30,
+    "stageId": "garden-defense",
+    "title": "第30天 · 防守复习",
+    "objective": "能完成路线选择、发射或驱散中的两项。",
+    "activityType": "mixed-defense-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择两项守护花园。",
+      "options": [
+        "选路线",
+        "发射",
+        "完成行动驱散"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "数一数豌豆能量",
+      "teach": "回顾三种防守动作。",
+      "practice": "完成两项。",
+      "apply": "告诉家长花园战况。"
+    },
+    "evidence": [
+      "completed-two-defense-actions",
+      "reported-battle-state"
+    ],
+    "reviewTags": [
+      "defense-energy",
+      "defense-lane",
+      "invader"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-31",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 31,
+    "stageId": "collection-and-reward",
+    "title": "第31天 · 奖励小店",
+    "objective": "能查看按层级分组的奖励。",
+    "activityType": "view-reward-shop",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择一个想了解的奖励层级。",
+      "options": [
+        "小奖励",
+        "亲子奖励",
+        "特别奖励"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看今日奖励",
+      "teach": "说明奖励由家长配置。",
+      "practice": "打开一个层级。",
+      "apply": "告诉家长想要什么。"
+    },
+    "evidence": [
+      "viewed-reward-tier",
+      "reported-choice"
+    ],
+    "reviewTags": [
+      "reward-shop"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-32",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 32,
+    "stageId": "collection-and-reward",
+    "title": "第32天 · 提出兑换",
+    "objective": "能提出一个奖励兑换请求并看到 pending 状态。",
+    "activityType": "request-reward",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择阳光足够的奖励申请。",
+      "options": [
+        "提出申请",
+        "先不申请"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "数一数收藏",
+      "teach": "展示 pending 不等于已兑现。",
+      "practice": "发起一次申请。",
+      "apply": "和家长约定确认时间。"
+    },
+    "evidence": [
+      "requested-reward",
+      "viewed-pending"
+    ],
+    "reviewTags": [
+      "reward-request"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-33",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 33,
+    "stageId": "collection-and-reward",
+    "title": "第33天 · 家长确认",
+    "objective": "能理解家长确认后才进入 claimed。",
+    "activityType": "parent-reward-confirmation",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "看到家长确认后可以做什么？",
+      "options": [
+        "领取约定奖励",
+        "重复申请十次"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看今日奖励",
+      "teach": "用状态流程解释。",
+      "practice": "查看确认状态。",
+      "apply": "和家长完成线下约定。"
+    },
+    "evidence": [
+      "understood-confirmation",
+      "completed-family-reward"
+    ],
+    "reviewTags": [
+      "reward-confirmation"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-34",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 34,
+    "stageId": "collection-and-reward",
+    "title": "第34天 · 收藏整理",
+    "objective": "能在收藏中找到一个植物、贴纸或徽章。",
+    "activityType": "collection-organize",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择一个收藏分类。",
+      "options": [
+        "植物",
+        "贴纸",
+        "徽章"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "数一数收藏",
+      "teach": "介绍收藏分类。",
+      "practice": "打开并查看一个物品。",
+      "apply": "说说如何获得。"
+    },
+    "evidence": [
+      "opened-collection-category",
+      "explained-source"
+    ],
+    "reviewTags": [
+      "collection"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-35",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 35,
+    "stageId": "collection-and-reward",
+    "title": "第35天 · 奖励复习",
+    "objective": "能完成查看、申请、确认流程中的两项。",
+    "activityType": "mixed-reward-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择两项奖励中心操作。",
+      "options": [
+        "看奖励",
+        "申请",
+        "看确认状态"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看今日奖励",
+      "teach": "回顾状态和阳光扣除时机。",
+      "practice": "完成两项。",
+      "apply": "和家长复盘是否可兑现。"
+    },
+    "evidence": [
+      "completed-two-reward-actions",
+      "family-review"
+    ],
+    "reviewTags": [
+      "reward-shop",
+      "reward-confirmation"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-36",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 36,
+    "stageId": "collection-and-reward",
+    "title": "第36天 · 奖励小店",
+    "objective": "能查看按层级分组的奖励。",
+    "activityType": "view-reward-shop",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择一个想了解的奖励层级。",
+      "options": [
+        "小奖励",
+        "亲子奖励",
+        "特别奖励"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "数一数收藏",
+      "teach": "说明奖励由家长配置。",
+      "practice": "打开一个层级。",
+      "apply": "告诉家长想要什么。"
+    },
+    "evidence": [
+      "viewed-reward-tier",
+      "reported-choice"
+    ],
+    "reviewTags": [
+      "reward-shop"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-37",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 37,
+    "stageId": "collection-and-reward",
+    "title": "第37天 · 提出兑换",
+    "objective": "能提出一个奖励兑换请求并看到 pending 状态。",
+    "activityType": "request-reward",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择阳光足够的奖励申请。",
+      "options": [
+        "提出申请",
+        "先不申请"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看今日奖励",
+      "teach": "展示 pending 不等于已兑现。",
+      "practice": "发起一次申请。",
+      "apply": "和家长约定确认时间。"
+    },
+    "evidence": [
+      "requested-reward",
+      "viewed-pending"
+    ],
+    "reviewTags": [
+      "reward-request"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-38",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 38,
+    "stageId": "collection-and-reward",
+    "title": "第38天 · 家长确认",
+    "objective": "能理解家长确认后才进入 claimed。",
+    "activityType": "parent-reward-confirmation",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "看到家长确认后可以做什么？",
+      "options": [
+        "领取约定奖励",
+        "重复申请十次"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "数一数收藏",
+      "teach": "用状态流程解释。",
+      "practice": "查看确认状态。",
+      "apply": "和家长完成线下约定。"
+    },
+    "evidence": [
+      "understood-confirmation",
+      "completed-family-reward"
+    ],
+    "reviewTags": [
+      "reward-confirmation"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-39",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 39,
+    "stageId": "collection-and-reward",
+    "title": "第39天 · 收藏整理",
+    "objective": "能在收藏中找到一个植物、贴纸或徽章。",
+    "activityType": "collection-organize",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择一个收藏分类。",
+      "options": [
+        "植物",
+        "贴纸",
+        "徽章"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看今日奖励",
+      "teach": "介绍收藏分类。",
+      "practice": "打开并查看一个物品。",
+      "apply": "说说如何获得。"
+    },
+    "evidence": [
+      "opened-collection-category",
+      "explained-source"
+    ],
+    "reviewTags": [
+      "collection"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-40",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 40,
+    "stageId": "collection-and-reward",
+    "title": "第40天 · 奖励复习",
+    "objective": "能完成查看、申请、确认流程中的两项。",
+    "activityType": "mixed-reward-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择两项奖励中心操作。",
+      "options": [
+        "看奖励",
+        "申请",
+        "看确认状态"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "数一数收藏",
+      "teach": "回顾状态和阳光扣除时机。",
+      "practice": "完成两项。",
+      "apply": "和家长复盘是否可兑现。"
+    },
+    "evidence": [
+      "completed-two-reward-actions",
+      "family-review"
+    ],
+    "reviewTags": [
+      "reward-shop",
+      "reward-confirmation"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-41",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 41,
+    "stageId": "daily-loop-and-planning",
+    "title": "第41天 · 三项核心",
+    "objective": "能看懂今日三项核心行动的顺序。",
+    "activityType": "view-daily-core",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "今天先做哪一项？",
+      "options": [
+        "核心 A",
+        "核心 B",
+        "核心 C"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看今日三项",
+      "teach": "说明三项核心和可选项。",
+      "practice": "选择下一项。",
+      "apply": "完成第一项。"
+    },
+    "evidence": [
+      "viewed-daily-plan",
+      "made-next-choice"
+    ],
+    "reviewTags": [
+      "daily-plan"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-42",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 42,
+    "stageId": "daily-loop-and-planning",
+    "title": "第42天 · 连续成长",
+    "objective": "能查看连续行动天数并理解不中断比比较更重要。",
+    "activityType": "view-streak",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "连续成长记录在哪里？",
+      "options": [
+        "成长页",
+        "删除页"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "回顾昨天一项",
+      "teach": "说明连续天数是自己的节奏。",
+      "practice": "查看并说出天数。",
+      "apply": "计划明天一项小行动。"
+    },
+    "evidence": [
+      "viewed-streak",
+      "made-plan"
+    ],
+    "reviewTags": [
+      "streak"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-43",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 43,
+    "stageId": "daily-loop-and-planning",
+    "title": "第43天 · 今日复盘",
+    "objective": "能选择一个完成活动和一个下次复习点。",
+    "activityType": "daily-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "今天哪一项需要再练？",
+      "options": [
+        "选择一个复习点"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看今日三项",
+      "teach": "用简单表情和标签复盘。",
+      "practice": "选择复习标签。",
+      "apply": "把复习点带入明天。"
+    },
+    "evidence": [
+      "selected-review-tag",
+      "planned-review"
+    ],
+    "reviewTags": [
+      "daily-review"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-44",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 44,
+    "stageId": "daily-loop-and-planning",
+    "title": "第44天 · 自己的节奏",
+    "objective": "能在核心和可选活动中做一个合理选择。",
+    "activityType": "choice-and-pacing",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "今天完成核心后想做什么？",
+      "options": [
+        "休息",
+        "可选复习",
+        "花园照料"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "回顾昨天一项",
+      "teach": "说明休息也是合理选择。",
+      "practice": "选择并完成。",
+      "apply": "说出为什么这样选。"
+    },
+    "evidence": [
+      "made-pacing-choice",
+      "explained-choice"
+    ],
+    "reviewTags": [
+      "pacing"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-45",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 45,
+    "stageId": "daily-loop-and-planning",
+    "title": "第45天 · 规划复习",
+    "objective": "能为明天选择一项核心和一项可选活动。",
+    "activityType": "next-day-plan",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "为明天选一个小目标。",
+      "options": [
+        "学习",
+        "运动",
+        "花园"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看今日三项",
+      "teach": "示范目标不超过一小步。",
+      "practice": "完成选择。",
+      "apply": "告诉家长。"
+    },
+    "evidence": [
+      "planned-next-day",
+      "reported-plan"
+    ],
+    "reviewTags": [
+      "planning"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-46",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 46,
+    "stageId": "daily-loop-and-planning",
+    "title": "第46天 · 三项核心",
+    "objective": "能看懂今日三项核心行动的顺序。",
+    "activityType": "view-daily-core",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "今天先做哪一项？",
+      "options": [
+        "核心 A",
+        "核心 B",
+        "核心 C"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "回顾昨天一项",
+      "teach": "说明三项核心和可选项。",
+      "practice": "选择下一项。",
+      "apply": "完成第一项。"
+    },
+    "evidence": [
+      "viewed-daily-plan",
+      "made-next-choice"
+    ],
+    "reviewTags": [
+      "daily-plan"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-47",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 47,
+    "stageId": "daily-loop-and-planning",
+    "title": "第47天 · 连续成长",
+    "objective": "能查看连续行动天数并理解不中断比比较更重要。",
+    "activityType": "view-streak",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "连续成长记录在哪里？",
+      "options": [
+        "成长页",
+        "删除页"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看今日三项",
+      "teach": "说明连续天数是自己的节奏。",
+      "practice": "查看并说出天数。",
+      "apply": "计划明天一项小行动。"
+    },
+    "evidence": [
+      "viewed-streak",
+      "made-plan"
+    ],
+    "reviewTags": [
+      "streak"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-48",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 48,
+    "stageId": "daily-loop-and-planning",
+    "title": "第48天 · 今日复盘",
+    "objective": "能选择一个完成活动和一个下次复习点。",
+    "activityType": "daily-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "今天哪一项需要再练？",
+      "options": [
+        "选择一个复习点"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "回顾昨天一项",
+      "teach": "用简单表情和标签复盘。",
+      "practice": "选择复习标签。",
+      "apply": "把复习点带入明天。"
+    },
+    "evidence": [
+      "selected-review-tag",
+      "planned-review"
+    ],
+    "reviewTags": [
+      "daily-review"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-49",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 49,
+    "stageId": "daily-loop-and-planning",
+    "title": "第49天 · 自己的节奏",
+    "objective": "能在核心和可选活动中做一个合理选择。",
+    "activityType": "choice-and-pacing",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "今天完成核心后想做什么？",
+      "options": [
+        "休息",
+        "可选复习",
+        "花园照料"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看今日三项",
+      "teach": "说明休息也是合理选择。",
+      "practice": "选择并完成。",
+      "apply": "说出为什么这样选。"
+    },
+    "evidence": [
+      "made-pacing-choice",
+      "explained-choice"
+    ],
+    "reviewTags": [
+      "pacing"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-50",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 50,
+    "stageId": "daily-loop-and-planning",
+    "title": "第50天 · 规划复习",
+    "objective": "能为明天选择一项核心和一项可选活动。",
+    "activityType": "next-day-plan",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "为明天选一个小目标。",
+      "options": [
+        "学习",
+        "运动",
+        "花园"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "回顾昨天一项",
+      "teach": "示范目标不超过一小步。",
+      "practice": "完成选择。",
+      "apply": "告诉家长。"
+    },
+    "evidence": [
+      "planned-next-day",
+      "reported-plan"
+    ],
+    "reviewTags": [
+      "planning"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-51",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 51,
+    "stageId": "showcase-and-care",
+    "title": "第51天 · 植物成长故事",
+    "objective": "能说出植物从种子到现在的一次变化。",
+    "activityType": "plant-growth-story",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "植物发生了什么变化？",
+      "options": [
+        "长高了",
+        "消失了"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "回看成长记录",
+      "teach": "回看成长时间线。",
+      "practice": "选择并说变化。",
+      "apply": "画一株植物。"
+    },
+    "evidence": [
+      "retold-growth",
+      "created-art"
+    ],
+    "reviewTags": [
+      "growth-story"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-52",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 52,
+    "stageId": "showcase-and-care",
+    "title": "第52天 · 我的学习徽章",
+    "objective": "能选择一个最有意义的学习徽章。",
+    "activityType": "badge-reflection",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪个徽章最像你的努力？",
+      "options": [
+        "识字",
+        "数学",
+        "英语",
+        "运动"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "选择最喜欢的变化",
+      "teach": "解释徽章来自活动事件。",
+      "practice": "选择一个并说原因。",
+      "apply": "查看相关活动。"
+    },
+    "evidence": [
+      "selected-badge",
+      "gave-reason"
+    ],
+    "reviewTags": [
+      "badge-reflection"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-53",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 53,
+    "stageId": "showcase-and-care",
+    "title": "第53天 · 花园小管家",
+    "objective": "能完成一次浇水、收藏或整理操作。",
+    "activityType": "garden-care",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择一项照料花园。",
+      "options": [
+        "浇水",
+        "整理收藏",
+        "查看植物"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "回看成长记录",
+      "teach": "回顾花园照料规则。",
+      "practice": "完成一项。",
+      "apply": "告诉家长状态。"
+    },
+    "evidence": [
+      "completed-care-action",
+      "reported-state"
+    ],
+    "reviewTags": [
+      "care"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-54",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 54,
+    "stageId": "showcase-and-care",
+    "title": "第54天 · 家长奖励回顾",
+    "objective": "能和家长确认一个可执行奖励。",
+    "activityType": "family-reward-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择一个可以一起完成的奖励。",
+      "options": [
+        "亲子散步",
+        "一起读书",
+        "小手工"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "选择最喜欢的变化",
+      "teach": "说明奖励要真实可兑现。",
+      "practice": "选择并提交确认。",
+      "apply": "完成一次亲子活动。"
+    },
+    "evidence": [
+      "selected-family-reward",
+      "completed-family-activity"
+    ],
+    "reviewTags": [
+      "family-reward"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-55",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 55,
+    "stageId": "showcase-and-care",
+    "title": "第55天 · 智慧花园毕业",
+    "objective": "能展示学习、成长、花园中的两项成果。",
+    "activityType": "garden-showcase",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择两项成果展示。",
+      "options": [
+        "学习记录",
+        "植物变化",
+        "收藏",
+        "奖励"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "回看成长记录",
+      "teach": "回顾 60 日记录和下一步。",
+      "practice": "完成两项展示。",
+      "apply": "领取成长徽章。"
+    },
+    "evidence": [
+      "showcase-two-evidence",
+      "received-badge"
+    ],
+    "reviewTags": [
+      "mastery-transfer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-56",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 56,
+    "stageId": "showcase-and-care",
+    "title": "第56天 · 植物成长故事",
+    "objective": "能说出植物从种子到现在的一次变化。",
+    "activityType": "plant-growth-story",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "植物发生了什么变化？",
+      "options": [
+        "长高了",
+        "消失了"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "选择最喜欢的变化",
+      "teach": "回看成长时间线。",
+      "practice": "选择并说变化。",
+      "apply": "画一株植物。"
+    },
+    "evidence": [
+      "retold-growth",
+      "created-art"
+    ],
+    "reviewTags": [
+      "growth-story"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-57",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 57,
+    "stageId": "showcase-and-care",
+    "title": "第57天 · 我的学习徽章",
+    "objective": "能选择一个最有意义的学习徽章。",
+    "activityType": "badge-reflection",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪个徽章最像你的努力？",
+      "options": [
+        "识字",
+        "数学",
+        "英语",
+        "运动"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "回看成长记录",
+      "teach": "解释徽章来自活动事件。",
+      "practice": "选择一个并说原因。",
+      "apply": "查看相关活动。"
+    },
+    "evidence": [
+      "selected-badge",
+      "gave-reason"
+    ],
+    "reviewTags": [
+      "badge-reflection"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-58",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 58,
+    "stageId": "showcase-and-care",
+    "title": "第58天 · 花园小管家",
+    "objective": "能完成一次浇水、收藏或整理操作。",
+    "activityType": "garden-care",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择一项照料花园。",
+      "options": [
+        "浇水",
+        "整理收藏",
+        "查看植物"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "选择最喜欢的变化",
+      "teach": "回顾花园照料规则。",
+      "practice": "完成一项。",
+      "apply": "告诉家长状态。"
+    },
+    "evidence": [
+      "completed-care-action",
+      "reported-state"
+    ],
+    "reviewTags": [
+      "care"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-59",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 59,
+    "stageId": "showcase-and-care",
+    "title": "第59天 · 家长奖励回顾",
+    "objective": "能和家长确认一个可执行奖励。",
+    "activityType": "family-reward-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择一个可以一起完成的奖励。",
+      "options": [
+        "亲子散步",
+        "一起读书",
+        "小手工"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "回看成长记录",
+      "teach": "说明奖励要真实可兑现。",
+      "practice": "选择并提交确认。",
+      "apply": "完成一次亲子活动。"
+    },
+    "evidence": [
+      "selected-family-reward",
+      "completed-family-activity"
+    ],
+    "reviewTags": [
+      "family-reward"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-garden-game-day-60",
+    "routeId": "preschool-garden-game",
+    "subject": "garden-game",
+    "day": 60,
+    "stageId": "showcase-and-care",
+    "title": "第60天 · 智慧花园毕业",
+    "objective": "能展示学习、成长、花园中的两项成果。",
+    "activityType": "garden-showcase",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择两项成果展示。",
+      "options": [
+        "学习记录",
+        "植物变化",
+        "收藏",
+        "奖励"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "选择最喜欢的变化",
+      "teach": "回顾 60 日记录和下一步。",
+      "practice": "完成两项展示。",
+      "apply": "领取成长徽章。"
+    },
+    "evidence": [
+      "showcase-two-evidence",
+      "received-badge"
+    ],
+    "reviewTags": [
+      "mastery-transfer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  }
+]

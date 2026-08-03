@@ -1,0 +1,123 @@
+{
+  "id": "preschool-math",
+  "subject": "math",
+  "title": "数学探险路",
+  "description": "先数一数、摆一摆，再走进数量和算式。",
+  "ageBand": "preschool",
+  "dayCount": 60,
+  "lessonDurationMin": {
+    "min": 6,
+    "max": 10
+  },
+  "navigation": {
+    "parentRoute": "preschool-math",
+    "topLevel": false
+  },
+  "stages": [
+    {
+      "id": "counting-correspondence",
+      "days": [
+        1,
+        10
+      ],
+      "title": "一一对应",
+      "focus": [
+        "1-3",
+        "点数",
+        "一样多"
+      ]
+    },
+    {
+      "id": "compare-and-classify",
+      "days": [
+        11,
+        20
+      ],
+      "title": "比较与分类",
+      "focus": [
+        "更多",
+        "更少",
+        "大",
+        "小",
+        "颜色"
+      ]
+    },
+    {
+      "id": "compose-within-five",
+      "days": [
+        21,
+        30
+      ],
+      "title": "5 以内合并",
+      "focus": [
+        "合起来",
+        "加 1",
+        "分开"
+      ]
+    },
+    {
+      "id": "take-away-within-five",
+      "days": [
+        31,
+        40
+      ],
+      "title": "5 以内取走",
+      "focus": [
+        "拿走",
+        "还剩",
+        "前进后退"
+      ]
+    },
+    {
+      "id": "within-ten-add-subtract",
+      "days": [
+        41,
+        50
+      ],
+      "title": "10 以内加减",
+      "focus": [
+        "凑 5",
+        "加减混合",
+        "算式"
+      ]
+    },
+    {
+      "id": "grouping-and-transfer",
+      "days": [
+        51,
+        60
+      ],
+      "title": "分组与迁移",
+      "focus": [
+        "几组",
+        "每组几个",
+        "规律"
+      ]
+    }
+  ],
+  "dailyContract": {
+    "coreSlots": 1,
+    "optionalSlots": 3,
+    "steps": [
+      "warmup",
+      "teach",
+      "practice",
+      "apply",
+      "celebrate"
+    ],
+    "reviewRatioMin": 0.5,
+    "noSpeechRecognitionGate": true
+  },
+  "rewardContract": {
+    "source": "existing-preschool-activity",
+    "coreKind": "core",
+    "optionalKind": "optional",
+    "duplicatePolicy": "canonical-event-id",
+    "noSecondLedger": true
+  },
+  "source": {
+    "kind": "project-original",
+    "license": "project-original",
+    "attribution": "个人工作台幼儿课程组"
+  }
+}

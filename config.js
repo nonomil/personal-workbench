@@ -33,7 +33,7 @@
     const preschoolPages = {
         overview: { title: '首页', eyebrow: 'HOME / GARDEN', heading: '今天点亮六项', description: '选一张图，完成一小步。' },
         calendar: { title: '日历打卡', eyebrow: 'CHECK-IN / CALENDAR', heading: '每天走过的路，都有小绿点', description: '完成任务会留下打卡记录，回头看看自己的坚持。' },
-        battle: { title: '植物大战', eyebrow: 'PLAY / DEFENSE', heading: '植物伙伴，准备发射', description: '完成小任务收集豌豆能量，守护自己的阳光花园。' },
+        battle: { title: '花园保卫战', eyebrow: 'PLAY / DEFENSE', heading: '选择植物，守护花园', description: '完成任务获得阳光和豌豆能量，再进入小游戏守护五路花园。' },
         growth: { title: '花园基地', eyebrow: 'GARDEN / GROW', heading: '我的小花园', description: '阳光、植物和星芒一起长大。' },
         plans: { title: '学习任务', eyebrow: 'TODAY / QUESTS', heading: '今天做什么', description: '做完一项，就点亮一颗星。' },
         courses: { title: '课程资源', eyebrow: 'LEARN / LIBRARY', heading: '识字、拼音、古诗、数学都在这里', description: '把参考站里的学习分区整理成自己的资源卡和小题目。' },
@@ -90,8 +90,8 @@
         },
         preschool: {
             id: 'preschool',
-            name: '植物大战暑假作业台',
-            shortName: '植物大战',
+            name: '阳光成长工作台',
+            shortName: '阳光成长',
             englishName: 'SUN GARDEN ADVENTURE',
             path: '../preschool-workbench/index.html',
             switchIcon: 'sprout',
@@ -194,18 +194,18 @@
                 },
                 {
                     id: 'preschool-english',
-                    title: '每日英语',
-                    description: '每天 5 个单词，带图片、例句和跟读，先会说出来。',
+                    title: '自然拼读',
+                    description: '学几个音、拼几个词，答对就收集阳光。',
                     icon: 'languages',
                     tone: 'lime',
-                    badge: '每日 5 个单词',
-                    note: '保留参考页“自动分配 5 词 + 例句”的节奏，让英语页更像单词卡盒。',
-                    highlights: ['动物 / 食物 / 数字', '图片 + 例句', '15 词解锁下一阶'],
-                    samples: ['wolf 狼', 'pig 猪', 'bread 面包'],
+                    badge: '3 张测验卡',
+                    note: '自然拼读资料放在研究目录，工作台只保留短测验和阳光奖励。',
+                    highlights: ['a / m / t', 'f / b', 'mat / bat / fat'],
+                    samples: ['a m t', 'f b', 'mat bat fat'],
                     lessons: [
-                        { id: 'preschool-english-1', title: '学习今日英语', minutes: 8, meta: '今天的 5 个单词', tip: '完成后点亮“学习今日英语”', activity: { mode: 'choice', prompt: 'wolf 是什么？', hint: '它是一种会嚎叫的动物。', options: ['狼', '猫', '鱼'], answer: 0, optionIcons: ['trees', 'heart', 'droplets'], success: '单词认对啦！' } },
-                        { id: 'preschool-english-2', title: '跟读一句短句', minutes: 8, meta: 'I see a cat.', tip: '先听，再大声说出来', activity: { mode: 'choice', prompt: 'I see a cat. 里有谁？', hint: 'cat 是小猫。', options: ['cat', 'sun', 'book'], answer: 0, optionIcons: ['heart', 'sun', 'book-open'], success: '短句听懂啦！' } },
-                        { id: 'preschool-english-3', title: '按阶段复习', minutes: 10, meta: '启蒙 / 进阶 / 挑战', tip: '学会 15 词再开下一阶', activity: { mode: 'choice', prompt: 'bread 是什么？', hint: '早餐里软软香香的食物。', options: ['面包', '水', '树'], answer: 0, optionIcons: ['book-open', 'droplets', 'tree-pine'], success: '词义记住啦！' } }
+                        { id: 'preschool-english-phonics-1', title: '认识 a、m、t', minutes: 6, meta: '先听音，再认字母', tip: '先复习 a、m、t 的声音，再开始测验。', activity: { mode: 'choice', prompt: '哪个字母发 /m/ 的音？', hint: 'm 像两座小山，声音是 /m/。', options: ['m', 'a', 't'], answer: 0, optionIcons: ['languages', 'sparkles', 'target'], success: 'a、m、t 认识啦！' }, source: { kind: 'open-reference', project: 'Open Source Phonics', lesson: 1, license: 'CC BY-NC-SA 4.0', url: 'https://www.opensourcephonics.org/120-lessons/' } },
+                        { id: 'preschool-english-phonics-2', title: '认识 f、b', minutes: 6, meta: '听首音，找字母', tip: '把 f、b 的声音和字母连起来。', activity: { mode: 'choice', prompt: 'fan 的开头音是哪一个？', hint: 'fan 先发 /f/，嘴唇和牙齿轻轻碰一下。', options: ['f', 'b', 'm'], answer: 0, optionIcons: ['languages', 'target', 'sparkles'], success: 'f、b 找对啦！' }, source: { kind: 'open-reference', project: 'Open Source Phonics', lesson: 2, license: 'CC BY-NC-SA 4.0', url: 'https://www.opensourcephonics.org/120-lessons/' } },
+                        { id: 'preschool-english-phonics-3', title: '拼读 mat、bat、fat', minutes: 8, meta: '把声音连成词', tip: '从左到右慢慢合成，再选择你读出的词。', activity: { mode: 'choice', prompt: 'm-a-t 合起来是哪一个词？', hint: '/m/ /a/ /t/，连起来读 mat。', options: ['mat', 'bat', 'fat'], answer: 0, optionIcons: ['book-open', 'target', 'sparkles'], success: '会把声音拼成词啦！' }, source: { kind: 'open-reference', project: 'Open Source Phonics', lesson: 3, license: 'CC BY-NC-SA 4.0', url: 'https://www.opensourcephonics.org/120-lessons/' } }
                     ]
                 },
                 {
@@ -261,7 +261,7 @@
         '.topbar-context strong': selected.pageMeta.overview.title,
         '.mode-status strong': '本地模式',
         '.mode-status small': selected.statusNote,
-        '.sidebar-footnote': selected.id === 'preschool' ? 'v0.3.5 · 幼儿版' : selected.id === 'child' ? 'v0.2 · 儿童版' : 'v0.2 · 成人版',
+        '.sidebar-footnote': selected.id === 'preschool' ? 'v0.4.0 · 幼儿版' : selected.id === 'child' ? 'v0.2 · 儿童版' : 'v0.2 · 成人版',
         '.avatar': selected.avatar
     };
     Object.keys(labelMap).forEach(function (selector) {

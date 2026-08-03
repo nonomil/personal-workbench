@@ -1,0 +1,2616 @@
+[
+  {
+    "id": "preschool-poetry-day-01",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 1,
+    "stageId": "listen-and-notice",
+    "title": "第1天 · 听见春天",
+    "objective": "能听一遍朗读并找出春天画面。",
+    "activityType": "listen-and-scene",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "诗里出现了春天吗？",
+      "options": [
+        "出现了",
+        "没有"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听风声",
+      "teach": "朗读《春晓》片段，展示春天图。",
+      "practice": "找花、鸟、雨等画面。",
+      "apply": "说一个春天声音。"
+    },
+    "evidence": [
+      "listened",
+      "matched-scene"
+    ],
+    "reviewTags": [
+      "spring"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-02",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 2,
+    "stageId": "listen-and-notice",
+    "title": "第2天 · 月亮在哪里",
+    "objective": "能把《静夜思》的月亮画面指出来。",
+    "activityType": "poem-scene-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "诗里的月亮在哪一幅图？",
+      "options": [
+        "月亮",
+        "太阳"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看一幅诗中画",
+      "teach": "用夜空图解释“月”。",
+      "practice": "图文配对。",
+      "apply": "晚上找月亮。"
+    },
+    "evidence": [
+      "matched-scene",
+      "parent-observation"
+    ],
+    "reviewTags": [
+      "moon"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-03",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 3,
+    "stageId": "listen-and-notice",
+    "title": "第3天 · 小鹅的声音",
+    "objective": "能听出《咏鹅》的动物画面。",
+    "activityType": "poem-animal-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "谁在诗里唱歌？",
+      "options": [
+        "鹅",
+        "猫"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听风声",
+      "teach": "模仿鹅叫和动作。",
+      "practice": "鹅图与诗句配对。",
+      "apply": "做小鹅走路动作。"
+    },
+    "evidence": [
+      "matched-animal",
+      "acted-animal"
+    ],
+    "reviewTags": [
+      "animal"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-04",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 4,
+    "stageId": "listen-and-notice",
+    "title": "第4天 · 小池的水",
+    "objective": "能找出《小池》中的水和荷叶。",
+    "activityType": "poem-nature-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "小池旁边有什么？",
+      "options": [
+        "荷叶",
+        "雪山"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看一幅诗中画",
+      "teach": "看小池画面，朗读两句。",
+      "practice": "找画面物件。",
+      "apply": "画一片荷叶。"
+    },
+    "evidence": [
+      "matched-nature",
+      "drew-scene"
+    ],
+    "reviewTags": [
+      "water",
+      "summer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-05",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 5,
+    "stageId": "listen-and-notice",
+    "title": "第5天 · 第一组诗复习",
+    "objective": "能从四幅图中找到读过的诗意象。",
+    "activityType": "poem-image-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪幅图是《静夜思》的画面？",
+      "options": [
+        "月夜",
+        "春雨",
+        "鹅群",
+        "小池"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听风声",
+      "teach": "用四幅图复习。",
+      "practice": "完成四次意象选择。",
+      "apply": "选择一幅图跟读一句。"
+    },
+    "evidence": [
+      "mixed-scene-review",
+      "read-with-parent"
+    ],
+    "reviewTags": [
+      "spring",
+      "moon",
+      "animal",
+      "water"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-06",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 6,
+    "stageId": "listen-and-notice",
+    "title": "第6天 · 听见春天",
+    "objective": "能听一遍朗读并找出春天画面。",
+    "activityType": "listen-and-scene",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "诗里出现了春天吗？",
+      "options": [
+        "出现了",
+        "没有"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看一幅诗中画",
+      "teach": "朗读《春晓》片段，展示春天图。",
+      "practice": "找花、鸟、雨等画面。",
+      "apply": "说一个春天声音。"
+    },
+    "evidence": [
+      "listened",
+      "matched-scene"
+    ],
+    "reviewTags": [
+      "spring"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-07",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 7,
+    "stageId": "listen-and-notice",
+    "title": "第7天 · 月亮在哪里",
+    "objective": "能把《静夜思》的月亮画面指出来。",
+    "activityType": "poem-scene-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "诗里的月亮在哪一幅图？",
+      "options": [
+        "月亮",
+        "太阳"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听风声",
+      "teach": "用夜空图解释“月”。",
+      "practice": "图文配对。",
+      "apply": "晚上找月亮。"
+    },
+    "evidence": [
+      "matched-scene",
+      "parent-observation"
+    ],
+    "reviewTags": [
+      "moon"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-08",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 8,
+    "stageId": "listen-and-notice",
+    "title": "第8天 · 小鹅的声音",
+    "objective": "能听出《咏鹅》的动物画面。",
+    "activityType": "poem-animal-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "谁在诗里唱歌？",
+      "options": [
+        "鹅",
+        "猫"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看一幅诗中画",
+      "teach": "模仿鹅叫和动作。",
+      "practice": "鹅图与诗句配对。",
+      "apply": "做小鹅走路动作。"
+    },
+    "evidence": [
+      "matched-animal",
+      "acted-animal"
+    ],
+    "reviewTags": [
+      "animal"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-09",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 9,
+    "stageId": "listen-and-notice",
+    "title": "第9天 · 小池的水",
+    "objective": "能找出《小池》中的水和荷叶。",
+    "activityType": "poem-nature-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "小池旁边有什么？",
+      "options": [
+        "荷叶",
+        "雪山"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听风声",
+      "teach": "看小池画面，朗读两句。",
+      "practice": "找画面物件。",
+      "apply": "画一片荷叶。"
+    },
+    "evidence": [
+      "matched-nature",
+      "drew-scene"
+    ],
+    "reviewTags": [
+      "water",
+      "summer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-10",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 10,
+    "stageId": "listen-and-notice",
+    "title": "第10天 · 第一组诗复习",
+    "objective": "能从四幅图中找到读过的诗意象。",
+    "activityType": "poem-image-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪幅图是《静夜思》的画面？",
+      "options": [
+        "月夜",
+        "春雨",
+        "鹅群",
+        "小池"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看一幅诗中画",
+      "teach": "用四幅图复习。",
+      "practice": "完成四次意象选择。",
+      "apply": "选择一幅图跟读一句。"
+    },
+    "evidence": [
+      "mixed-scene-review",
+      "read-with-parent"
+    ],
+    "reviewTags": [
+      "spring",
+      "moon",
+      "animal",
+      "water"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-11",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 11,
+    "stageId": "follow-and-order",
+    "title": "第11天 · 两句跟读",
+    "objective": "能跟读《春晓》中的两句。",
+    "activityType": "read-along",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "跟着节奏读两句。",
+      "options": [
+        "开始跟读"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "拍节奏",
+      "teach": "成人先读，孩子跟读。",
+      "practice": "慢速和正常速度各一次。",
+      "apply": "选择一个春天动作。"
+    },
+    "evidence": [
+      "read-along",
+      "kept-rhythm"
+    ],
+    "reviewTags": [
+      "spring",
+      "read-along"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-12",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 12,
+    "stageId": "follow-and-order",
+    "title": "第12天 · 诗句排队",
+    "objective": "能按画面先后排列两张诗句卡。",
+    "activityType": "line-order",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪一句先出现？",
+      "options": [
+        "第一句",
+        "第二句"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听一句找下一句",
+      "teach": "用画面线索排序。",
+      "practice": "交换卡片再排一次。",
+      "apply": "说“先……再……”。"
+    },
+    "evidence": [
+      "ordered-lines",
+      "used-sequence"
+    ],
+    "reviewTags": [
+      "order"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-13",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 13,
+    "stageId": "follow-and-order",
+    "title": "第13天 · 动作朗诵",
+    "objective": "能用两个动作帮助记住诗句。",
+    "activityType": "gesture-recitation",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪一个动作表示“看月亮”？",
+      "options": [
+        "抬头",
+        "跺脚"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "拍节奏",
+      "teach": "示范动作和句意。",
+      "practice": "动作配诗句。",
+      "apply": "自己设计一个动作。"
+    },
+    "evidence": [
+      "matched-gesture",
+      "created-gesture"
+    ],
+    "reviewTags": [
+      "gesture"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-14",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 14,
+    "stageId": "follow-and-order",
+    "title": "第14天 · 古诗声音",
+    "objective": "能分辨轻声和重读的节奏变化。",
+    "activityType": "rhythm-choice",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪种节奏更像轻轻的春风？",
+      "options": [
+        "轻轻读",
+        "大声喊"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听一句找下一句",
+      "teach": "示范两种朗读。",
+      "practice": "跟着节拍读。",
+      "apply": "给家长读一遍。"
+    },
+    "evidence": [
+      "followed-rhythm",
+      "read-to-parent"
+    ],
+    "reviewTags": [
+      "rhythm"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-15",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 15,
+    "stageId": "follow-and-order",
+    "title": "第15天 · 跟读小复习",
+    "objective": "能选择一首诗完成跟读或动作表达。",
+    "activityType": "poem-choice-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "今天想读哪一首？",
+      "options": [
+        "春晓",
+        "静夜思",
+        "咏鹅"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "拍节奏",
+      "teach": "让孩子自主选择。",
+      "practice": "完成两句跟读。",
+      "apply": "说出最喜欢的画面。"
+    },
+    "evidence": [
+      "made-choice",
+      "read-or-acted"
+    ],
+    "reviewTags": [
+      "read-along",
+      "choice"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-16",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 16,
+    "stageId": "follow-and-order",
+    "title": "第16天 · 两句跟读",
+    "objective": "能跟读《春晓》中的两句。",
+    "activityType": "read-along",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "跟着节奏读两句。",
+      "options": [
+        "开始跟读"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听一句找下一句",
+      "teach": "成人先读，孩子跟读。",
+      "practice": "慢速和正常速度各一次。",
+      "apply": "选择一个春天动作。"
+    },
+    "evidence": [
+      "read-along",
+      "kept-rhythm"
+    ],
+    "reviewTags": [
+      "spring",
+      "read-along"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-17",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 17,
+    "stageId": "follow-and-order",
+    "title": "第17天 · 诗句排队",
+    "objective": "能按画面先后排列两张诗句卡。",
+    "activityType": "line-order",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪一句先出现？",
+      "options": [
+        "第一句",
+        "第二句"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "拍节奏",
+      "teach": "用画面线索排序。",
+      "practice": "交换卡片再排一次。",
+      "apply": "说“先……再……”。"
+    },
+    "evidence": [
+      "ordered-lines",
+      "used-sequence"
+    ],
+    "reviewTags": [
+      "order"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-18",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 18,
+    "stageId": "follow-and-order",
+    "title": "第18天 · 动作朗诵",
+    "objective": "能用两个动作帮助记住诗句。",
+    "activityType": "gesture-recitation",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪一个动作表示“看月亮”？",
+      "options": [
+        "抬头",
+        "跺脚"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听一句找下一句",
+      "teach": "示范动作和句意。",
+      "practice": "动作配诗句。",
+      "apply": "自己设计一个动作。"
+    },
+    "evidence": [
+      "matched-gesture",
+      "created-gesture"
+    ],
+    "reviewTags": [
+      "gesture"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-19",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 19,
+    "stageId": "follow-and-order",
+    "title": "第19天 · 古诗声音",
+    "objective": "能分辨轻声和重读的节奏变化。",
+    "activityType": "rhythm-choice",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪种节奏更像轻轻的春风？",
+      "options": [
+        "轻轻读",
+        "大声喊"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "拍节奏",
+      "teach": "示范两种朗读。",
+      "practice": "跟着节拍读。",
+      "apply": "给家长读一遍。"
+    },
+    "evidence": [
+      "followed-rhythm",
+      "read-to-parent"
+    ],
+    "reviewTags": [
+      "rhythm"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-20",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 20,
+    "stageId": "follow-and-order",
+    "title": "第20天 · 跟读小复习",
+    "objective": "能选择一首诗完成跟读或动作表达。",
+    "activityType": "poem-choice-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "今天想读哪一首？",
+      "options": [
+        "春晓",
+        "静夜思",
+        "咏鹅"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听一句找下一句",
+      "teach": "让孩子自主选择。",
+      "practice": "完成两句跟读。",
+      "apply": "说出最喜欢的画面。"
+    },
+    "evidence": [
+      "made-choice",
+      "read-or-acted"
+    ],
+    "reviewTags": [
+      "read-along",
+      "choice"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-21",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 21,
+    "stageId": "meaning-and-expression",
+    "title": "第21天 · 诗里有什么",
+    "objective": "能从诗中找出两个物件。",
+    "activityType": "meaning-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "《静夜思》里能找到什么？",
+      "options": [
+        "月亮",
+        "书包"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "找一个诗中物件",
+      "teach": "用画面解释诗中物件。",
+      "practice": "找两个物件。",
+      "apply": "画出其中一个。"
+    },
+    "evidence": [
+      "matched-meaning",
+      "drew-object"
+    ],
+    "reviewTags": [
+      "meaning"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-22",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 22,
+    "stageId": "meaning-and-expression",
+    "title": "第22天 · 人物的心情",
+    "objective": "能用表情选择人物心情。",
+    "activityType": "emotion-choice",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "想家时可能是什么心情？",
+      "options": [
+        "想念",
+        "生气"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "说说喜欢什么",
+      "teach": "用表情解释“思”。",
+      "practice": "诗句和表情配对。",
+      "apply": "说一次想念家人的话。"
+    },
+    "evidence": [
+      "matched-emotion",
+      "expressed-feeling"
+    ],
+    "reviewTags": [
+      "emotion"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-23",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 23,
+    "stageId": "meaning-and-expression",
+    "title": "第23天 · 自然的变化",
+    "objective": "能说出诗中一个自然变化。",
+    "activityType": "nature-change",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "春天会发生什么？",
+      "options": [
+        "花开",
+        "雪人出现"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "找一个诗中物件",
+      "teach": "看季节图，连接诗意。",
+      "practice": "选择并说变化。",
+      "apply": "观察今天的天气。"
+    },
+    "evidence": [
+      "selected-change",
+      "observed-weather"
+    ],
+    "reviewTags": [
+      "season"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-24",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 24,
+    "stageId": "meaning-and-expression",
+    "title": "第24天 · 画面讲故事",
+    "objective": "能用自己的话讲一幅诗画。",
+    "activityType": "picture-retell",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "看图说说发生了什么。",
+      "options": [
+        "自由表达"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "说说喜欢什么",
+      "teach": "示范“我看见……”。",
+      "practice": "说两句画面。",
+      "apply": "录/说给家长听。"
+    },
+    "evidence": [
+      "retold-scene",
+      "spoke-to-parent"
+    ],
+    "reviewTags": [
+      "retell"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-25",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 25,
+    "stageId": "meaning-and-expression",
+    "title": "第25天 · 理解复习",
+    "objective": "能从新画面中迁移诗意象和情感。",
+    "activityType": "mixed-meaning-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "这幅夜空图让你想到哪首诗？",
+      "options": [
+        "静夜思",
+        "咏鹅",
+        "小池"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "找一个诗中物件",
+      "teach": "复习画面、诗名和感受。",
+      "practice": "完成三组匹配。",
+      "apply": "选诗画一幅新画。"
+    },
+    "evidence": [
+      "transferred-meaning",
+      "created-art"
+    ],
+    "reviewTags": [
+      "meaning",
+      "retell"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-26",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 26,
+    "stageId": "meaning-and-expression",
+    "title": "第26天 · 诗里有什么",
+    "objective": "能从诗中找出两个物件。",
+    "activityType": "meaning-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "《静夜思》里能找到什么？",
+      "options": [
+        "月亮",
+        "书包"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "说说喜欢什么",
+      "teach": "用画面解释诗中物件。",
+      "practice": "找两个物件。",
+      "apply": "画出其中一个。"
+    },
+    "evidence": [
+      "matched-meaning",
+      "drew-object"
+    ],
+    "reviewTags": [
+      "meaning"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-27",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 27,
+    "stageId": "meaning-and-expression",
+    "title": "第27天 · 人物的心情",
+    "objective": "能用表情选择人物心情。",
+    "activityType": "emotion-choice",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "想家时可能是什么心情？",
+      "options": [
+        "想念",
+        "生气"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "找一个诗中物件",
+      "teach": "用表情解释“思”。",
+      "practice": "诗句和表情配对。",
+      "apply": "说一次想念家人的话。"
+    },
+    "evidence": [
+      "matched-emotion",
+      "expressed-feeling"
+    ],
+    "reviewTags": [
+      "emotion"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-28",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 28,
+    "stageId": "meaning-and-expression",
+    "title": "第28天 · 自然的变化",
+    "objective": "能说出诗中一个自然变化。",
+    "activityType": "nature-change",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "春天会发生什么？",
+      "options": [
+        "花开",
+        "雪人出现"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "说说喜欢什么",
+      "teach": "看季节图，连接诗意。",
+      "practice": "选择并说变化。",
+      "apply": "观察今天的天气。"
+    },
+    "evidence": [
+      "selected-change",
+      "observed-weather"
+    ],
+    "reviewTags": [
+      "season"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-29",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 29,
+    "stageId": "meaning-and-expression",
+    "title": "第29天 · 画面讲故事",
+    "objective": "能用自己的话讲一幅诗画。",
+    "activityType": "picture-retell",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "看图说说发生了什么。",
+      "options": [
+        "自由表达"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "找一个诗中物件",
+      "teach": "示范“我看见……”。",
+      "practice": "说两句画面。",
+      "apply": "录/说给家长听。"
+    },
+    "evidence": [
+      "retold-scene",
+      "spoke-to-parent"
+    ],
+    "reviewTags": [
+      "retell"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-30",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 30,
+    "stageId": "meaning-and-expression",
+    "title": "第30天 · 理解复习",
+    "objective": "能从新画面中迁移诗意象和情感。",
+    "activityType": "mixed-meaning-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "这幅夜空图让你想到哪首诗？",
+      "options": [
+        "静夜思",
+        "咏鹅",
+        "小池"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "说说喜欢什么",
+      "teach": "复习画面、诗名和感受。",
+      "practice": "完成三组匹配。",
+      "apply": "选诗画一幅新画。"
+    },
+    "evidence": [
+      "transferred-meaning",
+      "created-art"
+    ],
+    "reviewTags": [
+      "meaning",
+      "retell"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-31",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 31,
+    "stageId": "season-and-family",
+    "title": "第31天 · 春晓小侦探",
+    "objective": "能找出春晓中的两个春天线索。",
+    "activityType": "season-clues",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪两个是春天线索？",
+      "options": [
+        "花和鸟",
+        "雪和冰"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看季节卡",
+      "teach": "按画面找线索。",
+      "practice": "选择线索并朗读关键词。",
+      "apply": "找生活中的春天。"
+    },
+    "evidence": [
+      "found-clues",
+      "read-keywords"
+    ],
+    "reviewTags": [
+      "spring"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-32",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 32,
+    "stageId": "season-and-family",
+    "title": "第32天 · 小池夏日",
+    "objective": "能用一句话描述小池画面。",
+    "activityType": "scene-description",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "小池里有什么？",
+      "options": [
+        "荷叶",
+        "枫叶"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "给家人一个拥抱",
+      "teach": "用颜色和位置描述。",
+      "practice": "完成“我看见……”句式。",
+      "apply": "画夏天的水边。"
+    },
+    "evidence": [
+      "described-scene",
+      "created-art"
+    ],
+    "reviewTags": [
+      "summer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-33",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 33,
+    "stageId": "season-and-family",
+    "title": "第33天 · 秋天的山",
+    "objective": "能把秋天颜色和诗画配对。",
+    "activityType": "season-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪种颜色更像秋天的山？",
+      "options": [
+        "红叶",
+        "粉雪"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看季节卡",
+      "teach": "展示秋色和山行画面。",
+      "practice": "颜色与季节配对。",
+      "apply": "在家找秋天色彩。"
+    },
+    "evidence": [
+      "matched-season",
+      "found-color"
+    ],
+    "reviewTags": [
+      "autumn"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-34",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 34,
+    "stageId": "season-and-family",
+    "title": "第34天 · 谢谢家人",
+    "objective": "能跟读一段亲情主题诗句并表达感谢。",
+    "activityType": "family-read-along",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "今天想对谁说谢谢？",
+      "options": [
+        "家人",
+        "花盆"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "给家人一个拥抱",
+      "teach": "解释亲情诗句的画面。",
+      "practice": "跟读和动作表达。",
+      "apply": "说一句谢谢。"
+    },
+    "evidence": [
+      "read-along",
+      "expressed-thanks"
+    ],
+    "reviewTags": [
+      "family"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-35",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 35,
+    "stageId": "season-and-family",
+    "title": "第35天 · 季节亲情复习",
+    "objective": "能选择诗句、画面或动作表达一个主题。",
+    "activityType": "theme-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择一个你想表达的主题。",
+      "options": [
+        "春天",
+        "夏天",
+        "家人"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看季节卡",
+      "teach": "展示三种表达方式。",
+      "practice": "完成一张主题卡。",
+      "apply": "给家长展示。"
+    },
+    "evidence": [
+      "selected-theme",
+      "showed-work"
+    ],
+    "reviewTags": [
+      "spring",
+      "summer",
+      "family"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-36",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 36,
+    "stageId": "season-and-family",
+    "title": "第36天 · 春晓小侦探",
+    "objective": "能找出春晓中的两个春天线索。",
+    "activityType": "season-clues",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪两个是春天线索？",
+      "options": [
+        "花和鸟",
+        "雪和冰"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "给家人一个拥抱",
+      "teach": "按画面找线索。",
+      "practice": "选择线索并朗读关键词。",
+      "apply": "找生活中的春天。"
+    },
+    "evidence": [
+      "found-clues",
+      "read-keywords"
+    ],
+    "reviewTags": [
+      "spring"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-37",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 37,
+    "stageId": "season-and-family",
+    "title": "第37天 · 小池夏日",
+    "objective": "能用一句话描述小池画面。",
+    "activityType": "scene-description",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "小池里有什么？",
+      "options": [
+        "荷叶",
+        "枫叶"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看季节卡",
+      "teach": "用颜色和位置描述。",
+      "practice": "完成“我看见……”句式。",
+      "apply": "画夏天的水边。"
+    },
+    "evidence": [
+      "described-scene",
+      "created-art"
+    ],
+    "reviewTags": [
+      "summer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-38",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 38,
+    "stageId": "season-and-family",
+    "title": "第38天 · 秋天的山",
+    "objective": "能把秋天颜色和诗画配对。",
+    "activityType": "season-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪种颜色更像秋天的山？",
+      "options": [
+        "红叶",
+        "粉雪"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "给家人一个拥抱",
+      "teach": "展示秋色和山行画面。",
+      "practice": "颜色与季节配对。",
+      "apply": "在家找秋天色彩。"
+    },
+    "evidence": [
+      "matched-season",
+      "found-color"
+    ],
+    "reviewTags": [
+      "autumn"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-39",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 39,
+    "stageId": "season-and-family",
+    "title": "第39天 · 谢谢家人",
+    "objective": "能跟读一段亲情主题诗句并表达感谢。",
+    "activityType": "family-read-along",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "今天想对谁说谢谢？",
+      "options": [
+        "家人",
+        "花盆"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看季节卡",
+      "teach": "解释亲情诗句的画面。",
+      "practice": "跟读和动作表达。",
+      "apply": "说一句谢谢。"
+    },
+    "evidence": [
+      "read-along",
+      "expressed-thanks"
+    ],
+    "reviewTags": [
+      "family"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-40",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 40,
+    "stageId": "season-and-family",
+    "title": "第40天 · 季节亲情复习",
+    "objective": "能选择诗句、画面或动作表达一个主题。",
+    "activityType": "theme-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择一个你想表达的主题。",
+      "options": [
+        "春天",
+        "夏天",
+        "家人"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "给家人一个拥抱",
+      "teach": "展示三种表达方式。",
+      "practice": "完成一张主题卡。",
+      "apply": "给家长展示。"
+    },
+    "evidence": [
+      "selected-theme",
+      "showed-work"
+    ],
+    "reviewTags": [
+      "spring",
+      "summer",
+      "family"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-41",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 41,
+    "stageId": "portfolio-and-review",
+    "title": "第41天 · 我会找诗名",
+    "objective": "能根据画面选择对应诗名。",
+    "activityType": "title-scene-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "月夜画面对应哪首诗？",
+      "options": [
+        "静夜思",
+        "小池"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "从诗名找画面",
+      "teach": "建立诗名和画面连接。",
+      "practice": "完成四组匹配。",
+      "apply": "说出最喜欢的诗名。"
+    },
+    "evidence": [
+      "matched-title",
+      "said-title"
+    ],
+    "reviewTags": [
+      "title"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-42",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 42,
+    "stageId": "portfolio-and-review",
+    "title": "第42天 · 我会讲画面",
+    "objective": "能用两句话复述一幅诗画。",
+    "activityType": "scene-retell",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "说说画面里先看见什么，再看见什么。",
+      "options": [
+        "自由表达"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "挑一首喜欢的诗",
+      "teach": "示范先后和位置词。",
+      "practice": "复述两句。",
+      "apply": "给家长讲一遍。"
+    },
+    "evidence": [
+      "retold-two-lines",
+      "read-to-parent"
+    ],
+    "reviewTags": [
+      "retell",
+      "order"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-43",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 43,
+    "stageId": "portfolio-and-review",
+    "title": "第43天 · 我会打节奏",
+    "objective": "能用拍手保持诗句节奏。",
+    "activityType": "rhythm-practice",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "跟着拍手读一遍。",
+      "options": [
+        "开始朗读"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "从诗名找画面",
+      "teach": "成人示范拍手节奏。",
+      "practice": "慢速/正常各一次。",
+      "apply": "设计自己的节奏。"
+    },
+    "evidence": [
+      "kept-rhythm",
+      "created-rhythm"
+    ],
+    "reviewTags": [
+      "rhythm"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-44",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 44,
+    "stageId": "portfolio-and-review",
+    "title": "第44天 · 我会选作品",
+    "objective": "能从朗读、排序、画画中选择一种展示。",
+    "activityType": "portfolio-choice",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "今天用什么方式展示？",
+      "options": [
+        "朗读",
+        "排句子",
+        "画画"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "挑一首喜欢的诗",
+      "teach": "解释三种展示方式。",
+      "practice": "完成一项作品。",
+      "apply": "保存到成长记录。"
+    },
+    "evidence": [
+      "made-choice",
+      "created-work"
+    ],
+    "reviewTags": [
+      "portfolio"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-45",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 45,
+    "stageId": "portfolio-and-review",
+    "title": "第45天 · 古诗小复习",
+    "objective": "能混合完成听、看、说、画中的两项。",
+    "activityType": "mixed-poetry-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择一项完成古诗挑战。",
+      "options": [
+        "听一首",
+        "找画面",
+        "说两句",
+        "画一幅"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "从诗名找画面",
+      "teach": "回顾四种证据。",
+      "practice": "完成两项。",
+      "apply": "告诉家长下一首想学什么。"
+    },
+    "evidence": [
+      "mixed-evidence",
+      "next-choice"
+    ],
+    "reviewTags": [
+      "mixed-review"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-46",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 46,
+    "stageId": "portfolio-and-review",
+    "title": "第46天 · 我会找诗名",
+    "objective": "能根据画面选择对应诗名。",
+    "activityType": "title-scene-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "月夜画面对应哪首诗？",
+      "options": [
+        "静夜思",
+        "小池"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "挑一首喜欢的诗",
+      "teach": "建立诗名和画面连接。",
+      "practice": "完成四组匹配。",
+      "apply": "说出最喜欢的诗名。"
+    },
+    "evidence": [
+      "matched-title",
+      "said-title"
+    ],
+    "reviewTags": [
+      "title"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-47",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 47,
+    "stageId": "portfolio-and-review",
+    "title": "第47天 · 我会讲画面",
+    "objective": "能用两句话复述一幅诗画。",
+    "activityType": "scene-retell",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "说说画面里先看见什么，再看见什么。",
+      "options": [
+        "自由表达"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "从诗名找画面",
+      "teach": "示范先后和位置词。",
+      "practice": "复述两句。",
+      "apply": "给家长讲一遍。"
+    },
+    "evidence": [
+      "retold-two-lines",
+      "read-to-parent"
+    ],
+    "reviewTags": [
+      "retell",
+      "order"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-48",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 48,
+    "stageId": "portfolio-and-review",
+    "title": "第48天 · 我会打节奏",
+    "objective": "能用拍手保持诗句节奏。",
+    "activityType": "rhythm-practice",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "跟着拍手读一遍。",
+      "options": [
+        "开始朗读"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "挑一首喜欢的诗",
+      "teach": "成人示范拍手节奏。",
+      "practice": "慢速/正常各一次。",
+      "apply": "设计自己的节奏。"
+    },
+    "evidence": [
+      "kept-rhythm",
+      "created-rhythm"
+    ],
+    "reviewTags": [
+      "rhythm"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-49",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 49,
+    "stageId": "portfolio-and-review",
+    "title": "第49天 · 我会选作品",
+    "objective": "能从朗读、排序、画画中选择一种展示。",
+    "activityType": "portfolio-choice",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "今天用什么方式展示？",
+      "options": [
+        "朗读",
+        "排句子",
+        "画画"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "从诗名找画面",
+      "teach": "解释三种展示方式。",
+      "practice": "完成一项作品。",
+      "apply": "保存到成长记录。"
+    },
+    "evidence": [
+      "made-choice",
+      "created-work"
+    ],
+    "reviewTags": [
+      "portfolio"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-50",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 50,
+    "stageId": "portfolio-and-review",
+    "title": "第50天 · 古诗小复习",
+    "objective": "能混合完成听、看、说、画中的两项。",
+    "activityType": "mixed-poetry-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择一项完成古诗挑战。",
+      "options": [
+        "听一首",
+        "找画面",
+        "说两句",
+        "画一幅"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "挑一首喜欢的诗",
+      "teach": "回顾四种证据。",
+      "practice": "完成两项。",
+      "apply": "告诉家长下一首想学什么。"
+    },
+    "evidence": [
+      "mixed-evidence",
+      "next-choice"
+    ],
+    "reviewTags": [
+      "mixed-review"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-51",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 51,
+    "stageId": "final-showcase",
+    "title": "第51天 · 我的最爱",
+    "objective": "能选择一首最喜欢的诗并说理由。",
+    "activityType": "favorite-poem-choice",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "你最喜欢哪首诗？",
+      "options": [
+        "春晓",
+        "静夜思",
+        "咏鹅",
+        "小池"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "回看作品",
+      "teach": "示范“我喜欢……因为……”。",
+      "practice": "完成选择和理由。",
+      "apply": "告诉家长。"
+    },
+    "evidence": [
+      "made-choice",
+      "gave-reason"
+    ],
+    "reviewTags": [
+      "favorite"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-52",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 52,
+    "stageId": "final-showcase",
+    "title": "第52天 · 亲子共读",
+    "objective": "能和家长完成两句轮流朗读。",
+    "activityType": "parent-reading",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "一人一句读一读。",
+      "options": [
+        "开始共读"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听一次熟悉朗读",
+      "teach": "示范轮流朗读。",
+      "practice": "完成两轮。",
+      "apply": "记录亲子阅读。"
+    },
+    "evidence": [
+      "parent-reading",
+      "completed-turns"
+    ],
+    "reviewTags": [
+      "parent-reading"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-53",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 53,
+    "stageId": "final-showcase",
+    "title": "第53天 · 诗中找数学",
+    "objective": "能在诗画中数出 1-5 个物件。",
+    "activityType": "cross-subject-poetry-math",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "画面里有几只小鸟？",
+      "options": [
+        "1",
+        "2",
+        "3"
+      ],
+      "answer": 2,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "回看作品",
+      "teach": "把诗画和点数连接。",
+      "practice": "数两幅诗画。",
+      "apply": "说出诗画中的数量。"
+    },
+    "evidence": [
+      "counted-scene",
+      "connected-subjects"
+    ],
+    "reviewTags": [
+      "transfer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-54",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 54,
+    "stageId": "final-showcase",
+    "title": "第54天 · 我的诗画",
+    "objective": "能制作一张诗画卡并说出诗名。",
+    "activityType": "poetry-card",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择一首诗制作画卡。",
+      "options": [
+        "选择一首"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听一次熟悉朗读",
+      "teach": "示范画面、诗名、我的话三部分。",
+      "practice": "完成卡片。",
+      "apply": "展示给家长。"
+    },
+    "evidence": [
+      "created-card",
+      "showed-card"
+    ],
+    "reviewTags": [
+      "portfolio"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-55",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 55,
+    "stageId": "final-showcase",
+    "title": "第55天 · 古诗花园毕业",
+    "objective": "能用听、读、画或讲中的两项展示成长。",
+    "activityType": "poetry-showcase",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择两项完成毕业展示。",
+      "options": [
+        "听",
+        "读",
+        "画",
+        "讲"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "回看作品",
+      "teach": "回顾 60 日作品。",
+      "practice": "完成两项展示。",
+      "apply": "领取古诗徽章。"
+    },
+    "evidence": [
+      "showcase-two-evidence",
+      "received-badge"
+    ],
+    "reviewTags": [
+      "mastery-transfer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-56",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 56,
+    "stageId": "final-showcase",
+    "title": "第56天 · 我的最爱",
+    "objective": "能选择一首最喜欢的诗并说理由。",
+    "activityType": "favorite-poem-choice",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "你最喜欢哪首诗？",
+      "options": [
+        "春晓",
+        "静夜思",
+        "咏鹅",
+        "小池"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听一次熟悉朗读",
+      "teach": "示范“我喜欢……因为……”。",
+      "practice": "完成选择和理由。",
+      "apply": "告诉家长。"
+    },
+    "evidence": [
+      "made-choice",
+      "gave-reason"
+    ],
+    "reviewTags": [
+      "favorite"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-57",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 57,
+    "stageId": "final-showcase",
+    "title": "第57天 · 亲子共读",
+    "objective": "能和家长完成两句轮流朗读。",
+    "activityType": "parent-reading",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "一人一句读一读。",
+      "options": [
+        "开始共读"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "回看作品",
+      "teach": "示范轮流朗读。",
+      "practice": "完成两轮。",
+      "apply": "记录亲子阅读。"
+    },
+    "evidence": [
+      "parent-reading",
+      "completed-turns"
+    ],
+    "reviewTags": [
+      "parent-reading"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-58",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 58,
+    "stageId": "final-showcase",
+    "title": "第58天 · 诗中找数学",
+    "objective": "能在诗画中数出 1-5 个物件。",
+    "activityType": "cross-subject-poetry-math",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "画面里有几只小鸟？",
+      "options": [
+        "1",
+        "2",
+        "3"
+      ],
+      "answer": 2,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听一次熟悉朗读",
+      "teach": "把诗画和点数连接。",
+      "practice": "数两幅诗画。",
+      "apply": "说出诗画中的数量。"
+    },
+    "evidence": [
+      "counted-scene",
+      "connected-subjects"
+    ],
+    "reviewTags": [
+      "transfer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-59",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 59,
+    "stageId": "final-showcase",
+    "title": "第59天 · 我的诗画",
+    "objective": "能制作一张诗画卡并说出诗名。",
+    "activityType": "poetry-card",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择一首诗制作画卡。",
+      "options": [
+        "选择一首"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "回看作品",
+      "teach": "示范画面、诗名、我的话三部分。",
+      "practice": "完成卡片。",
+      "apply": "展示给家长。"
+    },
+    "evidence": [
+      "created-card",
+      "showed-card"
+    ],
+    "reviewTags": [
+      "portfolio"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-poetry-day-60",
+    "routeId": "preschool-poetry",
+    "subject": "poetry",
+    "day": 60,
+    "stageId": "final-showcase",
+    "title": "第60天 · 古诗花园毕业",
+    "objective": "能用听、读、画或讲中的两项展示成长。",
+    "activityType": "poetry-showcase",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择两项完成毕业展示。",
+      "options": [
+        "听",
+        "读",
+        "画",
+        "讲"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听一次熟悉朗读",
+      "teach": "回顾 60 日作品。",
+      "practice": "完成两项展示。",
+      "apply": "领取古诗徽章。"
+    },
+    "evidence": [
+      "showcase-two-evidence",
+      "received-badge"
+    ],
+    "reviewTags": [
+      "mastery-transfer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  }
+]

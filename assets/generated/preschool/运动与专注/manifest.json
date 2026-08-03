@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "subject": "motion-focus",
+  "status": "seed-only",
+  "policy": {
+    "defaultLicense": "project-original",
+    "externalRequiresAttribution": true,
+    "unknownLicensePublishable": false,
+    "researchOnlyPath": "docs/运动与专注/research/raw"
+  },
+  "items": []
+}

@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "courseId": "preschool-english-phonics",
+  "status": "seed-only",
+  "policy": {
+    "defaultLicense": "project-original",
+    "externalRequiresAttribution": true,
+    "unknownLicensePublishable": false,
+    "researchCachePath": "tmp/phonics-downloads"
+  },
+  "items": []
+}

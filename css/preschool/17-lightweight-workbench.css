@@ -1,0 +1,41 @@
+/* Keep the workbench focused: core actions are visible, optional actions stay folded. */
+.preschool-optional-plans {
+    margin: 16px 0 0;
+    border: 1px solid rgba(79, 58, 32, 0.12);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.72);
+    overflow: hidden;
+}
+
+.preschool-optional-plans summary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 64px;
+    padding: 12px 16px;
+    cursor: pointer;
+    list-style: none;
+}
+
+.preschool-optional-plans summary::-webkit-details-marker { display: none; }
+
+.preschool-optional-plans summary > span {
+    display: grid;
+    gap: 3px;
+    min-width: 0;
+    flex: 1;
+}
+
+.preschool-optional-plans summary strong { color: #4f3a20; font-size: 16px; }
+.preschool-optional-plans summary small { color: #8c7965; font-size: 12px; }
+.preschool-optional-plans summary > b { color: #6d9f45; font-size: 13px; }
+.preschool-optional-plans summary > svg { color: #8c7965; transition: transform 160ms ease; }
+.preschool-optional-plans[open] summary > svg { transform: rotate(180deg); }
+.preschool-optional-plan-list { padding: 0 12px 12px; }
+.preschool-optional-plan-list .preschool-checkin-grid { border-top: 1px solid rgba(79, 58, 32, 0.08); padding-top: 12px; }
+
+@media (max-width: 560px) {
+    .preschool-optional-plans summary { min-height: 58px; padding: 10px 12px; }
+    .preschool-optional-plans summary small { white-space: normal; }
+    .preschool-optional-plan-list { padding: 0 8px 8px; }
+}

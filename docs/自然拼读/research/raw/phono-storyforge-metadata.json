@@ -1,0 +1,14 @@
+{
+  "full_name": "tanner-griffith/phono-storyforge",
+  "html_url": "https://github.com/tanner-griffith/phono-storyforge",
+  "default_branch": "main",
+  "license": {
+    "key": "apache-2.0",
+    "name": "Apache License 2.0",
+    "spdx_id": "Apache-2.0",
+    "url": "https://api.github.com/licenses/apache-2.0",
+    "node_id": "MDc6TGljZW5zZTI="
+  },
+  "description": "Closed-loop adaptive reading tutor for early & struggling readers (dyslexia-aware), built on Google's ADK. Keeps a per-child mastery model, picks the next phonics skill from real reading evidence, generates a guaranteed-decodable book, listens to the read-aloud, attributes every miscue to its grapheme, and adapts the next book session over session.",
+  "updated_at": "2026-07-29T02:08:13Z"
+}

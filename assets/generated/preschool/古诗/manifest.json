@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "subject": "poetry",
+  "status": "seed-only",
+  "policy": {
+    "defaultLicense": "project-original",
+    "externalRequiresAttribution": true,
+    "unknownLicensePublishable": false,
+    "researchOnlyPath": "docs/古诗/research/raw"
+  },
+  "items": []
+}

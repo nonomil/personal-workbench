@@ -1,0 +1,2642 @@
+[
+  {
+    "id": "preschool-english-day-01",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 1,
+    "stageId": "listen-and-move",
+    "title": "第1天 · Hello 你好",
+    "objective": "能听到 hello 后挥手或跟读。",
+    "activityType": "listen-and-move",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "听到 hello 做什么？",
+      "options": [
+        "挥手",
+        "睡觉"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听一个声音",
+      "teach": "示范 hello 和挥手。",
+      "practice": "听三次并选择动作。",
+      "apply": "见到家人说 hello。"
+    },
+    "evidence": [
+      "matched-command",
+      "spoke-word"
+    ],
+    "reviewTags": [
+      "hello"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-02",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 2,
+    "stageId": "listen-and-move",
+    "title": "第2天 · Bye bye",
+    "objective": "能在结束情景中使用 bye。",
+    "activityType": "listen-and-move",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "要离开时说什么？",
+      "options": [
+        "bye",
+        "apple"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "做一个动作",
+      "teach": "用离开场景示范 bye。",
+      "practice": "角色扮演告别。",
+      "apply": "和家长告别一次。"
+    },
+    "evidence": [
+      "matched-situation",
+      "role-play"
+    ],
+    "reviewTags": [
+      "bye"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-03",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 3,
+    "stageId": "listen-and-move",
+    "title": "第3天 · Stand up",
+    "objective": "能听懂 stand up 并站起来。",
+    "activityType": "listen-command",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "听到 stand up 要做什么？",
+      "options": [
+        "站起来",
+        "坐下"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听一个声音",
+      "teach": "用身体动作演示。",
+      "practice": "站/坐指令交替。",
+      "apply": "运动前听一次。"
+    },
+    "evidence": [
+      "followed-command",
+      "moved-body"
+    ],
+    "reviewTags": [
+      "stand-up"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-04",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 4,
+    "stageId": "listen-and-move",
+    "title": "第4天 · Clap your hands",
+    "objective": "能听懂 clap 并拍手。",
+    "activityType": "listen-command",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "clap 是什么动作？",
+      "options": [
+        "拍手",
+        "跺脚"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "做一个动作",
+      "teach": "示范词和动作。",
+      "practice": "跟着节奏拍手。",
+      "apply": "古诗朗读前拍两下。"
+    },
+    "evidence": [
+      "followed-command",
+      "kept-rhythm"
+    ],
+    "reviewTags": [
+      "clap"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-05",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 5,
+    "stageId": "listen-and-move",
+    "title": "第5天 · 动作热身复习",
+    "objective": "能在四个指令中正确完成两个。",
+    "activityType": "mixed-listening-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择一个你会做的动作。",
+      "options": [
+        "hello",
+        "bye",
+        "stand up",
+        "clap"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听一个声音",
+      "teach": "回顾四个动作。",
+      "practice": "完成四轮听指令。",
+      "apply": "告诉家长最喜欢哪个。"
+    },
+    "evidence": [
+      "followed-two-commands",
+      "made-choice"
+    ],
+    "reviewTags": [
+      "hello",
+      "bye",
+      "stand-up",
+      "clap"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-06",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 6,
+    "stageId": "listen-and-move",
+    "title": "第6天 · Hello 你好",
+    "objective": "能听到 hello 后挥手或跟读。",
+    "activityType": "listen-and-move",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "听到 hello 做什么？",
+      "options": [
+        "挥手",
+        "睡觉"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "做一个动作",
+      "teach": "示范 hello 和挥手。",
+      "practice": "听三次并选择动作。",
+      "apply": "见到家人说 hello。"
+    },
+    "evidence": [
+      "matched-command",
+      "spoke-word"
+    ],
+    "reviewTags": [
+      "hello"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-07",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 7,
+    "stageId": "listen-and-move",
+    "title": "第7天 · Bye bye",
+    "objective": "能在结束情景中使用 bye。",
+    "activityType": "listen-and-move",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "要离开时说什么？",
+      "options": [
+        "bye",
+        "apple"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听一个声音",
+      "teach": "用离开场景示范 bye。",
+      "practice": "角色扮演告别。",
+      "apply": "和家长告别一次。"
+    },
+    "evidence": [
+      "matched-situation",
+      "role-play"
+    ],
+    "reviewTags": [
+      "bye"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-08",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 8,
+    "stageId": "listen-and-move",
+    "title": "第8天 · Stand up",
+    "objective": "能听懂 stand up 并站起来。",
+    "activityType": "listen-command",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "听到 stand up 要做什么？",
+      "options": [
+        "站起来",
+        "坐下"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "做一个动作",
+      "teach": "用身体动作演示。",
+      "practice": "站/坐指令交替。",
+      "apply": "运动前听一次。"
+    },
+    "evidence": [
+      "followed-command",
+      "moved-body"
+    ],
+    "reviewTags": [
+      "stand-up"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-09",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 9,
+    "stageId": "listen-and-move",
+    "title": "第9天 · Clap your hands",
+    "objective": "能听懂 clap 并拍手。",
+    "activityType": "listen-command",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "clap 是什么动作？",
+      "options": [
+        "拍手",
+        "跺脚"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听一个声音",
+      "teach": "示范词和动作。",
+      "practice": "跟着节奏拍手。",
+      "apply": "古诗朗读前拍两下。"
+    },
+    "evidence": [
+      "followed-command",
+      "kept-rhythm"
+    ],
+    "reviewTags": [
+      "clap"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-10",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 10,
+    "stageId": "listen-and-move",
+    "title": "第10天 · 动作热身复习",
+    "objective": "能在四个指令中正确完成两个。",
+    "activityType": "mixed-listening-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择一个你会做的动作。",
+      "options": [
+        "hello",
+        "bye",
+        "stand up",
+        "clap"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "做一个动作",
+      "teach": "回顾四个动作。",
+      "practice": "完成四轮听指令。",
+      "apply": "告诉家长最喜欢哪个。"
+    },
+    "evidence": [
+      "followed-two-commands",
+      "made-choice"
+    ],
+    "reviewTags": [
+      "hello",
+      "bye",
+      "stand-up",
+      "clap"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-11",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 11,
+    "stageId": "theme-vocabulary",
+    "title": "第11天 · Red 红色",
+    "objective": "能把 red 与红色物品配对。",
+    "activityType": "picture-word-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪一个是 red？",
+      "options": [
+        "红色",
+        "蓝色"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "指一个颜色",
+      "teach": "展示红色物品和 red。",
+      "practice": "找红色并跟读。",
+      "apply": "找家里一件 red 物品。"
+    },
+    "evidence": [
+      "matched-color",
+      "repeated-word"
+    ],
+    "reviewTags": [
+      "red"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-12",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 12,
+    "stageId": "theme-vocabulary",
+    "title": "第12天 · Blue 蓝色",
+    "objective": "能把 blue 与蓝色物品配对。",
+    "activityType": "picture-word-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪一个是 blue？",
+      "options": [
+        "红色",
+        "蓝色"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "找一个动物",
+      "teach": "展示蓝色物品和 blue。",
+      "practice": "红蓝混合选择。",
+      "apply": "找一件 blue 物品。"
+    },
+    "evidence": [
+      "matched-color",
+      "found-object"
+    ],
+    "reviewTags": [
+      "blue",
+      "red"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-13",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 13,
+    "stageId": "theme-vocabulary",
+    "title": "第13天 · Cat 小猫",
+    "objective": "能听到 cat 后选猫图。",
+    "activityType": "animal-word-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "cat 是哪一个？",
+      "options": [
+        "猫",
+        "狗"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "指一个颜色",
+      "teach": "看猫图、听 cat。",
+      "practice": "猫狗配对。",
+      "apply": "模仿猫叫。"
+    },
+    "evidence": [
+      "matched-animal",
+      "acted-animal"
+    ],
+    "reviewTags": [
+      "cat"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-14",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 14,
+    "stageId": "theme-vocabulary",
+    "title": "第14天 · Dog 小狗",
+    "objective": "能听到 dog 后选狗图。",
+    "activityType": "animal-word-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "dog 是哪一个？",
+      "options": [
+        "猫",
+        "狗"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "找一个动物",
+      "teach": "看狗图、听 dog。",
+      "practice": "猫狗混合听辨。",
+      "apply": "说 dog 并做动作。"
+    },
+    "evidence": [
+      "matched-animal",
+      "spoke-word"
+    ],
+    "reviewTags": [
+      "dog",
+      "cat"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-15",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 15,
+    "stageId": "theme-vocabulary",
+    "title": "第15天 · 主题词复习",
+    "objective": "能混合匹配两个颜色和两个动物词。",
+    "activityType": "mixed-vocabulary-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择你听到的词。",
+      "options": [
+        "red",
+        "blue",
+        "cat",
+        "dog"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "指一个颜色",
+      "teach": "用四张图复习。",
+      "practice": "完成四次听图配对。",
+      "apply": "选一个词放进情景。"
+    },
+    "evidence": [
+      "mixed-vocabulary",
+      "made-choice"
+    ],
+    "reviewTags": [
+      "red",
+      "blue",
+      "cat",
+      "dog"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-16",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 16,
+    "stageId": "theme-vocabulary",
+    "title": "第16天 · Red 红色",
+    "objective": "能把 red 与红色物品配对。",
+    "activityType": "picture-word-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪一个是 red？",
+      "options": [
+        "红色",
+        "蓝色"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "找一个动物",
+      "teach": "展示红色物品和 red。",
+      "practice": "找红色并跟读。",
+      "apply": "找家里一件 red 物品。"
+    },
+    "evidence": [
+      "matched-color",
+      "repeated-word"
+    ],
+    "reviewTags": [
+      "red"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-17",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 17,
+    "stageId": "theme-vocabulary",
+    "title": "第17天 · Blue 蓝色",
+    "objective": "能把 blue 与蓝色物品配对。",
+    "activityType": "picture-word-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪一个是 blue？",
+      "options": [
+        "红色",
+        "蓝色"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "指一个颜色",
+      "teach": "展示蓝色物品和 blue。",
+      "practice": "红蓝混合选择。",
+      "apply": "找一件 blue 物品。"
+    },
+    "evidence": [
+      "matched-color",
+      "found-object"
+    ],
+    "reviewTags": [
+      "blue",
+      "red"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-18",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 18,
+    "stageId": "theme-vocabulary",
+    "title": "第18天 · Cat 小猫",
+    "objective": "能听到 cat 后选猫图。",
+    "activityType": "animal-word-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "cat 是哪一个？",
+      "options": [
+        "猫",
+        "狗"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "找一个动物",
+      "teach": "看猫图、听 cat。",
+      "practice": "猫狗配对。",
+      "apply": "模仿猫叫。"
+    },
+    "evidence": [
+      "matched-animal",
+      "acted-animal"
+    ],
+    "reviewTags": [
+      "cat"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-19",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 19,
+    "stageId": "theme-vocabulary",
+    "title": "第19天 · Dog 小狗",
+    "objective": "能听到 dog 后选狗图。",
+    "activityType": "animal-word-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "dog 是哪一个？",
+      "options": [
+        "猫",
+        "狗"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "指一个颜色",
+      "teach": "看狗图、听 dog。",
+      "practice": "猫狗混合听辨。",
+      "apply": "说 dog 并做动作。"
+    },
+    "evidence": [
+      "matched-animal",
+      "spoke-word"
+    ],
+    "reviewTags": [
+      "dog",
+      "cat"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-20",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 20,
+    "stageId": "theme-vocabulary",
+    "title": "第20天 · 主题词复习",
+    "objective": "能混合匹配两个颜色和两个动物词。",
+    "activityType": "mixed-vocabulary-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择你听到的词。",
+      "options": [
+        "red",
+        "blue",
+        "cat",
+        "dog"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "找一个动物",
+      "teach": "用四张图复习。",
+      "practice": "完成四次听图配对。",
+      "apply": "选一个词放进情景。"
+    },
+    "evidence": [
+      "mixed-vocabulary",
+      "made-choice"
+    ],
+    "reviewTags": [
+      "red",
+      "blue",
+      "cat",
+      "dog"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-21",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 21,
+    "stageId": "phonics-bridge",
+    "title": "第21天 · 听见 s",
+    "objective": "能在两个声音中找出 s 的首音。",
+    "activityType": "sound-discrimination",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪一个词以 s 开头？",
+      "options": [
+        "sun",
+        "cat"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听首音",
+      "teach": "示范 /s/ 和太阳图。",
+      "practice": "听三个词判断首音。",
+      "apply": "找一个 s 开头的词。"
+    },
+    "evidence": [
+      "heard-initial-sound",
+      "matched-word"
+    ],
+    "reviewTags": [
+      "s"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-22",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 22,
+    "stageId": "phonics-bridge",
+    "title": "第22天 · 听见 a",
+    "objective": "能听辨短 a 并跟读一个示例词。",
+    "activityType": "grapheme-sound-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪张字母卡表示目标音？",
+      "options": [
+        "a",
+        "i"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "拍音素节奏",
+      "teach": "示范 a 的短音。",
+      "practice": "a/i 听辨。",
+      "apply": "跟读 cat 或 map。"
+    },
+    "evidence": [
+      "matched-grapheme",
+      "read-cvc"
+    ],
+    "reviewTags": [
+      "a"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-23",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 23,
+    "stageId": "phonics-bridge",
+    "title": "第23天 · s-a-t 合成",
+    "objective": "能在引导下把 s-a-t 合成 sat。",
+    "activityType": "blend-track",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "s + a + t 读成什么？",
+      "options": [
+        "sat",
+        "sit"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听首音",
+      "teach": "连续合成三个音。",
+      "practice": "拖动声音珠。",
+      "apply": "读一句短句。"
+    },
+    "evidence": [
+      "blended-word",
+      "read-short-line"
+    ],
+    "reviewTags": [
+      "s",
+      "a",
+      "t",
+      "sat"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-24",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 24,
+    "stageId": "phonics-bridge",
+    "title": "第24天 · p-i-n 合成",
+    "objective": "能在引导下把 p-i-n 合成 pin。",
+    "activityType": "blend-track",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "p + i + n 读成什么？",
+      "options": [
+        "pin",
+        "pan"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "拍音素节奏",
+      "teach": "示范短 i。",
+      "practice": "比较 pin/pan。",
+      "apply": "找一个 pin 的图片意义。"
+    },
+    "evidence": [
+      "blended-word",
+      "matched-meaning"
+    ],
+    "reviewTags": [
+      "p",
+      "i",
+      "n",
+      "pin"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-25",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 25,
+    "stageId": "phonics-bridge",
+    "title": "第25天 · 声音字母复习",
+    "objective": "能完成两个音-字匹配和一个 CVC 合成。",
+    "activityType": "phonics-bridge-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择今天想读的词。",
+      "options": [
+        "sat",
+        "pin",
+        "map"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听首音",
+      "teach": "回顾音、字、词三层关系。",
+      "practice": "完成两张卡和一个词。",
+      "apply": "跟家长读一遍。"
+    },
+    "evidence": [
+      "matched-grapheme",
+      "blended-word",
+      "read-with-parent"
+    ],
+    "reviewTags": [
+      "phonics-bridge"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-26",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 26,
+    "stageId": "phonics-bridge",
+    "title": "第26天 · 听见 s",
+    "objective": "能在两个声音中找出 s 的首音。",
+    "activityType": "sound-discrimination",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪一个词以 s 开头？",
+      "options": [
+        "sun",
+        "cat"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "拍音素节奏",
+      "teach": "示范 /s/ 和太阳图。",
+      "practice": "听三个词判断首音。",
+      "apply": "找一个 s 开头的词。"
+    },
+    "evidence": [
+      "heard-initial-sound",
+      "matched-word"
+    ],
+    "reviewTags": [
+      "s"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-27",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 27,
+    "stageId": "phonics-bridge",
+    "title": "第27天 · 听见 a",
+    "objective": "能听辨短 a 并跟读一个示例词。",
+    "activityType": "grapheme-sound-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪张字母卡表示目标音？",
+      "options": [
+        "a",
+        "i"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听首音",
+      "teach": "示范 a 的短音。",
+      "practice": "a/i 听辨。",
+      "apply": "跟读 cat 或 map。"
+    },
+    "evidence": [
+      "matched-grapheme",
+      "read-cvc"
+    ],
+    "reviewTags": [
+      "a"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-28",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 28,
+    "stageId": "phonics-bridge",
+    "title": "第28天 · s-a-t 合成",
+    "objective": "能在引导下把 s-a-t 合成 sat。",
+    "activityType": "blend-track",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "s + a + t 读成什么？",
+      "options": [
+        "sat",
+        "sit"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "拍音素节奏",
+      "teach": "连续合成三个音。",
+      "practice": "拖动声音珠。",
+      "apply": "读一句短句。"
+    },
+    "evidence": [
+      "blended-word",
+      "read-short-line"
+    ],
+    "reviewTags": [
+      "s",
+      "a",
+      "t",
+      "sat"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-29",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 29,
+    "stageId": "phonics-bridge",
+    "title": "第29天 · p-i-n 合成",
+    "objective": "能在引导下把 p-i-n 合成 pin。",
+    "activityType": "blend-track",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "p + i + n 读成什么？",
+      "options": [
+        "pin",
+        "pan"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听首音",
+      "teach": "示范短 i。",
+      "practice": "比较 pin/pan。",
+      "apply": "找一个 pin 的图片意义。"
+    },
+    "evidence": [
+      "blended-word",
+      "matched-meaning"
+    ],
+    "reviewTags": [
+      "p",
+      "i",
+      "n",
+      "pin"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-30",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 30,
+    "stageId": "phonics-bridge",
+    "title": "第30天 · 声音字母复习",
+    "objective": "能完成两个音-字匹配和一个 CVC 合成。",
+    "activityType": "phonics-bridge-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择今天想读的词。",
+      "options": [
+        "sat",
+        "pin",
+        "map"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "拍音素节奏",
+      "teach": "回顾音、字、词三层关系。",
+      "practice": "完成两张卡和一个词。",
+      "apply": "跟家长读一遍。"
+    },
+    "evidence": [
+      "matched-grapheme",
+      "blended-word",
+      "read-with-parent"
+    ],
+    "reviewTags": [
+      "phonics-bridge"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-31",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 31,
+    "stageId": "situational-speaking",
+    "title": "第31天 · I see...",
+    "objective": "能用 I see + 图片词表达看见的东西。",
+    "activityType": "sentence-frame",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "看见猫可以怎么说？",
+      "options": [
+        "I see a cat.",
+        "I see sleep."
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看一幅场景图",
+      "teach": "示范句型和图片。",
+      "practice": "替换 cat/dog。",
+      "apply": "在家说一次 I see。"
+    },
+    "evidence": [
+      "used-sentence-frame",
+      "spoke-in-context"
+    ],
+    "reviewTags": [
+      "I-see"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-32",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 32,
+    "stageId": "situational-speaking",
+    "title": "第32天 · I like...",
+    "objective": "能用 I like 表达一个喜欢的物品。",
+    "activityType": "sentence-frame",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "喜欢苹果怎么说？",
+      "options": [
+        "I like apple.",
+        "I am apple."
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "选择想说的词",
+      "teach": "用喜欢表情示范。",
+      "practice": "选择两个主题词。",
+      "apply": "说一个喜欢的颜色。"
+    },
+    "evidence": [
+      "used-sentence-frame",
+      "expressed-preference"
+    ],
+    "reviewTags": [
+      "I-like"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-33",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 33,
+    "stageId": "situational-speaking",
+    "title": "第33天 · This is...",
+    "objective": "能用 This is 指认一个物品。",
+    "activityType": "sentence-frame",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "指着书怎么说？",
+      "options": [
+        "This is a book.",
+        "Book is run."
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看一幅场景图",
+      "teach": "示范指认句型。",
+      "practice": "书、花、球轮换。",
+      "apply": "给家长介绍一个物品。"
+    },
+    "evidence": [
+      "used-sentence-frame",
+      "introduced-object"
+    ],
+    "reviewTags": [
+      "This-is"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-34",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 34,
+    "stageId": "situational-speaking",
+    "title": "第34天 · Can I?",
+    "objective": "能在游戏中用 Can I? 请求一次。",
+    "activityType": "role-play-request",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "想要一个贴纸怎么说？",
+      "options": [
+        "Can I have a sticker?",
+        "I sticker."
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "选择想说的词",
+      "teach": "用请求和回应示范。",
+      "practice": "角色扮演请求。",
+      "apply": "礼貌请求一个小物品。"
+    },
+    "evidence": [
+      "role-play",
+      "used-request"
+    ],
+    "reviewTags": [
+      "Can-I"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-35",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 35,
+    "stageId": "situational-speaking",
+    "title": "第35天 · 情景口语复习",
+    "objective": "能从四个句型中选择一个完成情景表达。",
+    "activityType": "mixed-speaking-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择一个你想说的句型。",
+      "options": [
+        "I see",
+        "I like",
+        "This is",
+        "Can I"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看一幅场景图",
+      "teach": "回顾四个句型。",
+      "practice": "完成一轮角色扮演。",
+      "apply": "和家长说完整一句。"
+    },
+    "evidence": [
+      "selected-frame",
+      "spoke-full-sentence"
+    ],
+    "reviewTags": [
+      "speaking-transfer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-36",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 36,
+    "stageId": "situational-speaking",
+    "title": "第36天 · I see...",
+    "objective": "能用 I see + 图片词表达看见的东西。",
+    "activityType": "sentence-frame",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "看见猫可以怎么说？",
+      "options": [
+        "I see a cat.",
+        "I see sleep."
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "选择想说的词",
+      "teach": "示范句型和图片。",
+      "practice": "替换 cat/dog。",
+      "apply": "在家说一次 I see。"
+    },
+    "evidence": [
+      "used-sentence-frame",
+      "spoke-in-context"
+    ],
+    "reviewTags": [
+      "I-see"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-37",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 37,
+    "stageId": "situational-speaking",
+    "title": "第37天 · I like...",
+    "objective": "能用 I like 表达一个喜欢的物品。",
+    "activityType": "sentence-frame",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "喜欢苹果怎么说？",
+      "options": [
+        "I like apple.",
+        "I am apple."
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看一幅场景图",
+      "teach": "用喜欢表情示范。",
+      "practice": "选择两个主题词。",
+      "apply": "说一个喜欢的颜色。"
+    },
+    "evidence": [
+      "used-sentence-frame",
+      "expressed-preference"
+    ],
+    "reviewTags": [
+      "I-like"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-38",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 38,
+    "stageId": "situational-speaking",
+    "title": "第38天 · This is...",
+    "objective": "能用 This is 指认一个物品。",
+    "activityType": "sentence-frame",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "指着书怎么说？",
+      "options": [
+        "This is a book.",
+        "Book is run."
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "选择想说的词",
+      "teach": "示范指认句型。",
+      "practice": "书、花、球轮换。",
+      "apply": "给家长介绍一个物品。"
+    },
+    "evidence": [
+      "used-sentence-frame",
+      "introduced-object"
+    ],
+    "reviewTags": [
+      "This-is"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-39",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 39,
+    "stageId": "situational-speaking",
+    "title": "第39天 · Can I?",
+    "objective": "能在游戏中用 Can I? 请求一次。",
+    "activityType": "role-play-request",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "想要一个贴纸怎么说？",
+      "options": [
+        "Can I have a sticker?",
+        "I sticker."
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看一幅场景图",
+      "teach": "用请求和回应示范。",
+      "practice": "角色扮演请求。",
+      "apply": "礼貌请求一个小物品。"
+    },
+    "evidence": [
+      "role-play",
+      "used-request"
+    ],
+    "reviewTags": [
+      "Can-I"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-40",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 40,
+    "stageId": "situational-speaking",
+    "title": "第40天 · 情景口语复习",
+    "objective": "能从四个句型中选择一个完成情景表达。",
+    "activityType": "mixed-speaking-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择一个你想说的句型。",
+      "options": [
+        "I see",
+        "I like",
+        "This is",
+        "Can I"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "选择想说的词",
+      "teach": "回顾四个句型。",
+      "practice": "完成一轮角色扮演。",
+      "apply": "和家长说完整一句。"
+    },
+    "evidence": [
+      "selected-frame",
+      "spoke-full-sentence"
+    ],
+    "reviewTags": [
+      "speaking-transfer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-41",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 41,
+    "stageId": "story-and-transfer",
+    "title": "第41天 · 故事开头",
+    "objective": "能按图片说出故事开始发生了什么。",
+    "activityType": "story-sequence",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "第一幅图发生了什么？",
+      "options": [
+        "开始",
+        "结束"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看故事三张图",
+      "teach": "示范 first/begin。",
+      "practice": "图片排序。",
+      "apply": "讲给家长听。"
+    },
+    "evidence": [
+      "ordered-story",
+      "retold-scene"
+    ],
+    "reviewTags": [
+      "story-order"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-42",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 42,
+    "stageId": "story-and-transfer",
+    "title": "第42天 · 故事中间",
+    "objective": "能用一张图片描述故事中间动作。",
+    "activityType": "story-description",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "小伙伴正在做什么？",
+      "options": [
+        "play",
+        "sleep"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "预测下一幅图",
+      "teach": "用 play 和场景示范。",
+      "practice": "选择动作词。",
+      "apply": "做相同动作。"
+    },
+    "evidence": [
+      "matched-action",
+      "acted-story"
+    ],
+    "reviewTags": [
+      "story-action"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-43",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 43,
+    "stageId": "story-and-transfer",
+    "title": "第43天 · 故事结尾",
+    "objective": "能根据结尾图选择结果。",
+    "activityType": "story-ending",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "故事最后他们做了什么？",
+      "options": [
+        "go home",
+        "start"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看故事三张图",
+      "teach": "用结尾图解释结果。",
+      "practice": "三图排序和选择。",
+      "apply": "说 goodbye。"
+    },
+    "evidence": [
+      "ordered-story",
+      "used-goodbye"
+    ],
+    "reviewTags": [
+      "story-ending"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-44",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 44,
+    "stageId": "story-and-transfer",
+    "title": "第44天 · 听故事找词",
+    "objective": "能在故事中找出一个已学主题词。",
+    "activityType": "story-word-hunt",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "故事里出现了哪种动物？",
+      "options": [
+        "cat",
+        "tree"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "预测下一幅图",
+      "teach": "朗读短故事并停顿。",
+      "practice": "找词和配图。",
+      "apply": "说 I see a cat。"
+    },
+    "evidence": [
+      "found-word-in-story",
+      "used-sentence-frame"
+    ],
+    "reviewTags": [
+      "cat",
+      "story"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-45",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 45,
+    "stageId": "story-and-transfer",
+    "title": "第45天 · 故事复习",
+    "objective": "能完成听、说、看中的两项故事任务。",
+    "activityType": "mixed-story-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择两项完成故事挑战。",
+      "options": [
+        "排序",
+        "说一句",
+        "找一个词"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看故事三张图",
+      "teach": "回顾故事三段式。",
+      "practice": "完成两项。",
+      "apply": "记录最喜欢的角色。"
+    },
+    "evidence": [
+      "mixed-story-evidence",
+      "made-choice"
+    ],
+    "reviewTags": [
+      "story-transfer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-46",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 46,
+    "stageId": "story-and-transfer",
+    "title": "第46天 · 故事开头",
+    "objective": "能按图片说出故事开始发生了什么。",
+    "activityType": "story-sequence",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "第一幅图发生了什么？",
+      "options": [
+        "开始",
+        "结束"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "预测下一幅图",
+      "teach": "示范 first/begin。",
+      "practice": "图片排序。",
+      "apply": "讲给家长听。"
+    },
+    "evidence": [
+      "ordered-story",
+      "retold-scene"
+    ],
+    "reviewTags": [
+      "story-order"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-47",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 47,
+    "stageId": "story-and-transfer",
+    "title": "第47天 · 故事中间",
+    "objective": "能用一张图片描述故事中间动作。",
+    "activityType": "story-description",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "小伙伴正在做什么？",
+      "options": [
+        "play",
+        "sleep"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看故事三张图",
+      "teach": "用 play 和场景示范。",
+      "practice": "选择动作词。",
+      "apply": "做相同动作。"
+    },
+    "evidence": [
+      "matched-action",
+      "acted-story"
+    ],
+    "reviewTags": [
+      "story-action"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-48",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 48,
+    "stageId": "story-and-transfer",
+    "title": "第48天 · 故事结尾",
+    "objective": "能根据结尾图选择结果。",
+    "activityType": "story-ending",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "故事最后他们做了什么？",
+      "options": [
+        "go home",
+        "start"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "预测下一幅图",
+      "teach": "用结尾图解释结果。",
+      "practice": "三图排序和选择。",
+      "apply": "说 goodbye。"
+    },
+    "evidence": [
+      "ordered-story",
+      "used-goodbye"
+    ],
+    "reviewTags": [
+      "story-ending"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-49",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 49,
+    "stageId": "story-and-transfer",
+    "title": "第49天 · 听故事找词",
+    "objective": "能在故事中找出一个已学主题词。",
+    "activityType": "story-word-hunt",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "故事里出现了哪种动物？",
+      "options": [
+        "cat",
+        "tree"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看故事三张图",
+      "teach": "朗读短故事并停顿。",
+      "practice": "找词和配图。",
+      "apply": "说 I see a cat。"
+    },
+    "evidence": [
+      "found-word-in-story",
+      "used-sentence-frame"
+    ],
+    "reviewTags": [
+      "cat",
+      "story"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-50",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 50,
+    "stageId": "story-and-transfer",
+    "title": "第50天 · 故事复习",
+    "objective": "能完成听、说、看中的两项故事任务。",
+    "activityType": "mixed-story-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择两项完成故事挑战。",
+      "options": [
+        "排序",
+        "说一句",
+        "找一个词"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "预测下一幅图",
+      "teach": "回顾故事三段式。",
+      "practice": "完成两项。",
+      "apply": "记录最喜欢的角色。"
+    },
+    "evidence": [
+      "mixed-story-evidence",
+      "made-choice"
+    ],
+    "reviewTags": [
+      "story-transfer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-51",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 51,
+    "stageId": "final-english-showcase",
+    "title": "第51天 · 我的主题词",
+    "objective": "能选择并说出 3 个熟悉主题词。",
+    "activityType": "vocabulary-showcase",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择三个你会说的词。",
+      "options": [
+        "red",
+        "cat",
+        "apple",
+        "blue"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "回顾熟悉词",
+      "teach": "示范主题词卡展示。",
+      "practice": "完成三词选择和跟读。",
+      "apply": "给家长说一遍。"
+    },
+    "evidence": [
+      "selected-three-words",
+      "spoke-to-parent"
+    ],
+    "reviewTags": [
+      "vocabulary-transfer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-52",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 52,
+    "stageId": "final-english-showcase",
+    "title": "第52天 · 我的一句话",
+    "objective": "能选择一个句型完成口语表达。",
+    "activityType": "sentence-showcase",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择一个句型。",
+      "options": [
+        "I see",
+        "I like",
+        "This is",
+        "Can I"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听一遍自己的录音/朗读",
+      "teach": "示范完整句子。",
+      "practice": "替换一个词完成表达。",
+      "apply": "在家庭场景使用。"
+    },
+    "evidence": [
+      "spoke-full-sentence",
+      "used-in-life"
+    ],
+    "reviewTags": [
+      "speaking-transfer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-53",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 53,
+    "stageId": "final-english-showcase",
+    "title": "第53天 · 我会读一个词",
+    "objective": "能在自然拼读已学范围内尝试读一个词。",
+    "activityType": "decodable-word-showcase",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择一个词读一读。",
+      "options": [
+        "sat",
+        "pin",
+        "map"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "回顾熟悉词",
+      "teach": "示范逐音合成。",
+      "practice": "尝试两个词。",
+      "apply": "指图说明词义。"
+    },
+    "evidence": [
+      "read-cvc",
+      "matched-meaning"
+    ],
+    "reviewTags": [
+      "phonics-transfer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-54",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 54,
+    "stageId": "final-english-showcase",
+    "title": "第54天 · 亲子英语小卡",
+    "objective": "能制作一张词语或句型卡。",
+    "activityType": "english-card",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "制作你的英语小卡。",
+      "options": [
+        "词语卡",
+        "句型卡"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听一遍自己的录音/朗读",
+      "teach": "展示图片、英文、动作三部分。",
+      "practice": "完成一张卡。",
+      "apply": "给家长展示。"
+    },
+    "evidence": [
+      "created-card",
+      "showed-card"
+    ],
+    "reviewTags": [
+      "portfolio"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-55",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 55,
+    "stageId": "final-english-showcase",
+    "title": "第55天 · 英语花园毕业",
+    "objective": "能用听说读中的两项展示 60 日成长。",
+    "activityType": "english-showcase",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择两项完成毕业展示。",
+      "options": [
+        "听指令",
+        "说一句",
+        "读一个词"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "回顾熟悉词",
+      "teach": "回顾三条英语路线。",
+      "practice": "完成两项。",
+      "apply": "领取英语徽章。"
+    },
+    "evidence": [
+      "showcase-two-evidence",
+      "received-badge"
+    ],
+    "reviewTags": [
+      "mastery-transfer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-56",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 56,
+    "stageId": "final-english-showcase",
+    "title": "第56天 · 我的主题词",
+    "objective": "能选择并说出 3 个熟悉主题词。",
+    "activityType": "vocabulary-showcase",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择三个你会说的词。",
+      "options": [
+        "red",
+        "cat",
+        "apple",
+        "blue"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听一遍自己的录音/朗读",
+      "teach": "示范主题词卡展示。",
+      "practice": "完成三词选择和跟读。",
+      "apply": "给家长说一遍。"
+    },
+    "evidence": [
+      "selected-three-words",
+      "spoke-to-parent"
+    ],
+    "reviewTags": [
+      "vocabulary-transfer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-57",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 57,
+    "stageId": "final-english-showcase",
+    "title": "第57天 · 我的一句话",
+    "objective": "能选择一个句型完成口语表达。",
+    "activityType": "sentence-showcase",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择一个句型。",
+      "options": [
+        "I see",
+        "I like",
+        "This is",
+        "Can I"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "回顾熟悉词",
+      "teach": "示范完整句子。",
+      "practice": "替换一个词完成表达。",
+      "apply": "在家庭场景使用。"
+    },
+    "evidence": [
+      "spoke-full-sentence",
+      "used-in-life"
+    ],
+    "reviewTags": [
+      "speaking-transfer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-58",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 58,
+    "stageId": "final-english-showcase",
+    "title": "第58天 · 我会读一个词",
+    "objective": "能在自然拼读已学范围内尝试读一个词。",
+    "activityType": "decodable-word-showcase",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择一个词读一读。",
+      "options": [
+        "sat",
+        "pin",
+        "map"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听一遍自己的录音/朗读",
+      "teach": "示范逐音合成。",
+      "practice": "尝试两个词。",
+      "apply": "指图说明词义。"
+    },
+    "evidence": [
+      "read-cvc",
+      "matched-meaning"
+    ],
+    "reviewTags": [
+      "phonics-transfer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-59",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 59,
+    "stageId": "final-english-showcase",
+    "title": "第59天 · 亲子英语小卡",
+    "objective": "能制作一张词语或句型卡。",
+    "activityType": "english-card",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "制作你的英语小卡。",
+      "options": [
+        "词语卡",
+        "句型卡"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "回顾熟悉词",
+      "teach": "展示图片、英文、动作三部分。",
+      "practice": "完成一张卡。",
+      "apply": "给家长展示。"
+    },
+    "evidence": [
+      "created-card",
+      "showed-card"
+    ],
+    "reviewTags": [
+      "portfolio"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-english-day-60",
+    "routeId": "preschool-english",
+    "subject": "english",
+    "day": 60,
+    "stageId": "final-english-showcase",
+    "title": "第60天 · 英语花园毕业",
+    "objective": "能用听说读中的两项展示 60 日成长。",
+    "activityType": "english-showcase",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择两项完成毕业展示。",
+      "options": [
+        "听指令",
+        "说一句",
+        "读一个词"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听一遍自己的录音/朗读",
+      "teach": "回顾三条英语路线。",
+      "practice": "完成两项。",
+      "apply": "领取英语徽章。"
+    },
+    "evidence": [
+      "showcase-two-evidence",
+      "received-badge"
+    ],
+    "reviewTags": [
+      "mastery-transfer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  }
+]

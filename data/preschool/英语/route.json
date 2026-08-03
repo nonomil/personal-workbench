@@ -1,0 +1,129 @@
+{
+  "id": "preschool-english",
+  "subject": "english",
+  "title": "英语探险路",
+  "description": "听一听、说一说、读一小句。",
+  "ageBand": "preschool",
+  "dayCount": 60,
+  "lessonDurationMin": {
+    "min": 6,
+    "max": 12
+  },
+  "navigation": {
+    "parentRoute": "preschool-english",
+    "topLevel": false
+  },
+  "stages": [
+    {
+      "id": "listen-and-move",
+      "days": [
+        1,
+        10
+      ],
+      "title": "听音和动作",
+      "focus": [
+        "hello",
+        "bye",
+        "stand",
+        "clap"
+      ]
+    },
+    {
+      "id": "theme-vocabulary",
+      "days": [
+        11,
+        20
+      ],
+      "title": "主题词汇",
+      "focus": [
+        "red",
+        "blue",
+        "cat",
+        "dog",
+        "apple"
+      ]
+    },
+    {
+      "id": "phonics-bridge",
+      "days": [
+        21,
+        30
+      ],
+      "title": "声音和字母",
+      "focus": [
+        "s",
+        "a",
+        "t",
+        "p",
+        "i"
+      ]
+    },
+    {
+      "id": "situational-speaking",
+      "days": [
+        31,
+        40
+      ],
+      "title": "情景口语",
+      "focus": [
+        "I see",
+        "I like",
+        "This is",
+        "Can I"
+      ]
+    },
+    {
+      "id": "story-and-transfer",
+      "days": [
+        41,
+        50
+      ],
+      "title": "故事和迁移",
+      "focus": [
+        "beginning",
+        "middle",
+        "end",
+        "meaning"
+      ]
+    },
+    {
+      "id": "final-english-showcase",
+      "days": [
+        51,
+        60
+      ],
+      "title": "英语小展示",
+      "focus": [
+        "listen",
+        "speak",
+        "read",
+        "choose"
+      ]
+    }
+  ],
+  "dailyContract": {
+    "coreSlots": 1,
+    "optionalSlots": 3,
+    "steps": [
+      "warmup",
+      "teach",
+      "practice",
+      "apply",
+      "celebrate"
+    ],
+    "reviewRatioMin": 0.5,
+    "noSpeechRecognitionGate": true
+  },
+  "rewardContract": {
+    "source": "existing-preschool-activity",
+    "coreKind": "core",
+    "optionalKind": "optional",
+    "duplicatePolicy": "canonical-event-id",
+    "noSecondLedger": true
+  },
+  "source": {
+    "kind": "project-original",
+    "license": "project-original",
+    "attribution": "个人工作台幼儿课程组"
+  }
+}

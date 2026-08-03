@@ -1,0 +1,132 @@
+{
+  "plants": [
+    {
+      "id": "sun-sprout",
+      "name": "太阳芽",
+      "cost": 0,
+      "unlockTotalSunlight": 0,
+      "source": {
+        "kind": "project-original",
+        "license": "project-original",
+        "attribution": "个人工作台幼儿课程组"
+      }
+    },
+    {
+      "id": "pea-pal",
+      "name": "豌豆伙伴",
+      "cost": 20,
+      "unlockTotalSunlight": 40,
+      "source": {
+        "kind": "project-original",
+        "license": "project-original",
+        "attribution": "个人工作台幼儿课程组"
+      }
+    },
+    {
+      "id": "wallnut-pal",
+      "name": "坚果伙伴",
+      "cost": 30,
+      "unlockTotalSunlight": 80,
+      "source": {
+        "kind": "project-original",
+        "license": "project-original",
+        "attribution": "个人工作台幼儿课程组"
+      }
+    },
+    {
+      "id": "moon-mint",
+      "name": "月光薄荷",
+      "cost": 40,
+      "unlockTotalSunlight": 140,
+      "source": {
+        "kind": "project-original",
+        "license": "project-original",
+        "attribution": "个人工作台幼儿课程组"
+      }
+    },
+    {
+      "id": "rainbow-tree",
+      "name": "彩虹树",
+      "cost": 60,
+      "unlockTotalSunlight": 220,
+      "source": {
+        "kind": "project-original",
+        "license": "project-original",
+        "attribution": "个人工作台幼儿课程组"
+      }
+    },
+    {
+      "id": "star-flower",
+      "name": "星星花",
+      "cost": 80,
+      "unlockTotalSunlight": 320,
+      "source": {
+        "kind": "project-original",
+        "license": "project-original",
+        "attribution": "个人工作台幼儿课程组"
+      }
+    }
+  ],
+  "rewards": [
+    {
+      "id": "reward-sticker",
+      "name": "选一张贴纸",
+      "tier": "small",
+      "cost": 20,
+      "status": "parent-confirmed-only",
+      "source": {
+        "kind": "project-original",
+        "license": "project-original",
+        "attribution": "个人工作台幼儿课程组"
+      }
+    },
+    {
+      "id": "reward-story",
+      "name": "亲子读一本书",
+      "tier": "family",
+      "cost": 50,
+      "status": "parent-confirmed-only",
+      "source": {
+        "kind": "project-original",
+        "license": "project-original",
+        "attribution": "个人工作台幼儿课程组"
+      }
+    },
+    {
+      "id": "reward-walk",
+      "name": "亲子散步",
+      "tier": "family",
+      "cost": 60,
+      "status": "parent-confirmed-only",
+      "source": {
+        "kind": "project-original",
+        "license": "project-original",
+        "attribution": "个人工作台幼儿课程组"
+      }
+    },
+    {
+      "id": "reward-craft",
+      "name": "一起做小手工",
+      "tier": "happy",
+      "cost": 100,
+      "status": "parent-confirmed-only",
+      "source": {
+        "kind": "project-original",
+        "license": "project-original",
+        "attribution": "个人工作台幼儿课程组"
+      }
+    },
+    {
+      "id": "reward-special",
+      "name": "周末特别活动",
+      "tier": "special",
+      "cost": 200,
+      "status": "parent-confirmed-only",
+      "source": {
+        "kind": "project-original",
+        "license": "project-original",
+        "attribution": "个人工作台幼儿课程组"
+      }
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "id": "preschool-hanzi",
+  "subject": "hanzi",
+  "title": "识字小路",
+  "description": "从生活里看见字、听见字、理解字。",
+  "ageBand": "preschool",
+  "dayCount": 60,
+  "lessonDurationMin": {
+    "min": 5,
+    "max": 8
+  },
+  "navigation": {
+    "parentRoute": "preschool-chinese",
+    "topLevel": false
+  },
+  "stages": [
+    {
+      "id": "self-and-family",
+      "days": [
+        1,
+        10
+      ],
+      "title": "我和家人",
+      "focus": [
+        "我",
+        "你",
+        "人",
+        "手"
+      ]
+    },
+    {
+      "id": "nature-and-direction",
+      "days": [
+        11,
+        20
+      ],
+      "title": "自然与方向",
+      "focus": [
+        "日",
+        "月",
+        "天",
+        "山",
+        "水"
+      ]
+    },
+    {
+      "id": "quantity-and-color",
+      "days": [
+        21,
+        30
+      ],
+      "title": "数量与颜色",
+      "focus": [
+        "大",
+        "小",
+        "多",
+        "少",
+        "红",
+        "绿"
+      ]
+    },
+    {
+      "id": "animals-and-actions",
+      "days": [
+        31,
+        40
+      ],
+      "title": "动物与动作",
+      "focus": [
+        "猫",
+        "狗",
+        "鱼",
+        "花",
+        "吃",
+        "看"
+      ]
+    },
+    {
+      "id": "mixed-life-reading",
+      "days": [
+        41,
+        50
+      ],
+      "title": "生活短语",
+      "focus": [
+        "家",
+        "门",
+        "书",
+        "学",
+        "画",
+        "唱"
+      ]
+    },
+    {
+      "id": "transfer-and-review",
+      "days": [
+        51,
+        60
+      ],
+      "title": "混合迁移",
+      "focus": [
+        "我",
+        "日",
+        "大",
+        "猫",
+        "家",
+        "书"
+      ]
+    }
+  ],
+  "dailyContract": {
+    "coreSlots": 1,
+    "optionalSlots": 3,
+    "steps": [
+      "warmup",
+      "teach",
+      "practice",
+      "apply",
+      "celebrate"
+    ],
+    "reviewRatioMin": 0.5,
+    "noSpeechRecognitionGate": true
+  },
+  "rewardContract": {
+    "source": "existing-preschool-activity",
+    "coreKind": "core",
+    "optionalKind": "optional",
+    "duplicatePolicy": "canonical-event-id",
+    "noSecondLedger": true
+  },
+  "source": {
+    "kind": "project-original",
+    "license": "project-original",
+    "attribution": "个人工作台幼儿课程组"
+  }
+}

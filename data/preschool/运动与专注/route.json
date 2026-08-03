@@ -1,0 +1,122 @@
+{
+  "id": "preschool-motion-focus",
+  "subject": "motion-focus",
+  "title": "身体能量站",
+  "description": "动一动、停一停、记住一个小目标。",
+  "ageBand": "preschool",
+  "dayCount": 60,
+  "lessonDurationMin": {
+    "min": 3,
+    "max": 8
+  },
+  "navigation": {
+    "parentRoute": "preschool-motion",
+    "topLevel": false
+  },
+  "stages": [
+    {
+      "id": "body-awakening",
+      "days": [
+        1,
+        10
+      ],
+      "title": "身体唤醒",
+      "focus": [
+        "走",
+        "伸展",
+        "拍手"
+      ]
+    },
+    {
+      "id": "coordination",
+      "days": [
+        11,
+        20
+      ],
+      "title": "协调动作",
+      "focus": [
+        "跳",
+        "投",
+        "接",
+        "左右"
+      ]
+    },
+    {
+      "id": "balance-and-control",
+      "days": [
+        21,
+        30
+      ],
+      "title": "平衡与控制",
+      "focus": [
+        "平衡",
+        "慢走",
+        "停住"
+      ]
+    },
+    {
+      "id": "attention-games",
+      "days": [
+        31,
+        40
+      ],
+      "title": "专注小游戏",
+      "focus": [
+        "找相同",
+        "听指令",
+        "记路线"
+      ]
+    },
+    {
+      "id": "family-challenge",
+      "days": [
+        41,
+        50
+      ],
+      "title": "亲子挑战",
+      "focus": [
+        "轮流",
+        "合作",
+        "表达"
+      ]
+    },
+    {
+      "id": "movement-showcase",
+      "days": [
+        51,
+        60
+      ],
+      "title": "身体小展示",
+      "focus": [
+        "选择",
+        "坚持",
+        "感受"
+      ]
+    }
+  ],
+  "dailyContract": {
+    "coreSlots": 1,
+    "optionalSlots": 3,
+    "steps": [
+      "warmup",
+      "teach",
+      "practice",
+      "apply",
+      "celebrate"
+    ],
+    "reviewRatioMin": 0.5,
+    "noSpeechRecognitionGate": true
+  },
+  "rewardContract": {
+    "source": "existing-preschool-activity",
+    "coreKind": "core",
+    "optionalKind": "optional",
+    "duplicatePolicy": "canonical-event-id",
+    "noSecondLedger": true
+  },
+  "source": {
+    "kind": "project-original",
+    "license": "project-original",
+    "attribution": "个人工作台幼儿课程组"
+  }
+}

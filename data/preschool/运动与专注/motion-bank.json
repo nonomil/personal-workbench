@@ -1,0 +1,182 @@
+[
+  {
+    "id": "motion-01",
+    "name": "走线",
+    "type": "movement",
+    "durationSec": 45,
+    "safety": [
+      "成人在旁",
+      "地面清空"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "motion-02",
+    "name": "伸展",
+    "type": "movement",
+    "durationSec": 45,
+    "safety": [
+      "成人在旁",
+      "地面清空"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "motion-03",
+    "name": "拍手",
+    "type": "movement",
+    "durationSec": 45,
+    "safety": [
+      "成人在旁",
+      "地面清空"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "motion-04",
+    "name": "停走",
+    "type": "movement",
+    "durationSec": 45,
+    "safety": [
+      "成人在旁",
+      "地面清空"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "motion-05",
+    "name": "跳格",
+    "type": "movement",
+    "durationSec": 45,
+    "safety": [
+      "成人在旁",
+      "地面清空"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "motion-06",
+    "name": "投软球",
+    "type": "movement",
+    "durationSec": 45,
+    "safety": [
+      "成人在旁",
+      "地面清空"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "motion-07",
+    "name": "接滚球",
+    "type": "movement",
+    "durationSec": 45,
+    "safety": [
+      "成人在旁",
+      "地面清空"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "motion-08",
+    "name": "单脚平衡",
+    "type": "movement",
+    "durationSec": 45,
+    "safety": [
+      "成人在旁",
+      "地面清空"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "motion-09",
+    "name": "绕障碍",
+    "type": "focus",
+    "durationSec": 90,
+    "safety": [
+      "成人在旁",
+      "地面清空"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "motion-10",
+    "name": "找相同",
+    "type": "focus",
+    "durationSec": 90,
+    "safety": [
+      "成人在旁",
+      "地面清空"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "motion-11",
+    "name": "听两步指令",
+    "type": "focus",
+    "durationSec": 90,
+    "safety": [
+      "成人在旁",
+      "地面清空"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "motion-12",
+    "name": "路线记忆",
+    "type": "focus",
+    "durationSec": 90,
+    "safety": [
+      "成人在旁",
+      "地面清空"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  }
+]

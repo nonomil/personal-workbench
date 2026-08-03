@@ -24,7 +24,7 @@ const root = fileURLToPath(new URL('..', import.meta.url));
 
 test('seeds six preschool workbench quests across learning and life lanes', () => {
   const state = storage.createSeedState();
-  assert.equal(state.preschoolDayPlanVersion, 2);
+  assert.equal(state.preschoolDayPlanVersion, 3);
   assert.equal(state.dailyPlans.length, 6);
   assert.deepEqual(state.dailyPlans.map(item => item.title), ['完成今日识字', '朗读一首古诗', '数学闯关一关', '学习今日英语', '做一项运动', '专注力训练一题']);
   assert.equal(state.tasks.length, 6);
@@ -49,7 +49,7 @@ test('migrates an old three-quest preschool snapshot once without changing compl
     growth: { sunlight: 40, totalSunlightEarned: 40 }
   });
   const again = storage.normalizeState(old);
-  assert.equal(old.preschoolDayPlanVersion, 2);
+  assert.equal(old.preschoolDayPlanVersion, 3);
   assert.equal(old.dailyPlans.length, 6);
   assert.equal(old.dailyPlans.find(item => item.title === '完成今日识字').done, true);
   assert.equal(again.dailyPlans.length, 6);
@@ -65,12 +65,12 @@ test('merges reference learning zones into preschool resource cards', () => {
   assert.match(config, /title: '古诗专区'/);
   assert.match(config, /title: '数学专区'/);
   assert.match(config, /title: '专注力训练'/);
-  assert.match(config, /title: '每日英语'/);
+  assert.match(config, /title: '自然拼读'/);
   assert.match(config, /title: '每日运动'/);
   assert.match(config, /684 字启蒙字库/);
   assert.match(config, /23 个声母/);
   assert.match(config, /每关 10 首/);
-  assert.match(config, /5 个单词/);
+  assert.match(config, /3 张测验卡/);
   assert.match(config, /10 个动作/);
   assert.match(app, /preschool-course-badges/);
   assert.match(app, /preschool-course-samples/);
@@ -90,7 +90,7 @@ test('exposes the reference workbench learning lanes as separate preschool navig
     ['preschool-poetry', '古诗专区'],
     ['preschool-math', '数学专区'],
     ['preschool-focus', '专注力训练'],
-    ['preschool-english', '每日英语'],
+    ['preschool-english', '自然拼读'],
     ['preschool-exercise', '每日运动'],
     ['mistakes', '错题本'],
     ['rewards', '奖励商城']
@@ -139,7 +139,7 @@ test('keeps the refreshed reward tiers and five-lane defense contract in the pre
   const styles = readCssGraph(path.join(root, 'styles.css'));
   const tiers = Array.from(config.matchAll(/tier: '([^']+)'/g), match => match[1]);
   assert.equal(new Set(tiers).size, 4);
-  assert.match(config, /name: '植物大战暑假作业台'/);
+  assert.match(config, /name: '阳光成长工作台'/);
   assert.match(config, /englishName: 'SUN GARDEN ADVENTURE'/);
   assert.match(config, /tier: '小奖励'/);
   assert.match(config, /tier: '特别奖励'/);
@@ -164,13 +164,13 @@ test('keeps the refreshed reward tiers and five-lane defense contract in the pre
   assert.match(app, /pixel-battle-reward-panel/);
   assert.match(app, /function renderPreschoolDailyChallenge\(plans, defense\)/);
   assert.match(app, /pixel-daily-challenge/);
-  assert.match(app, /if \(ui\.page === 'battle'\) return renderPreschoolBattle\(\)/);
+  assert.match(app, /if \(ui\.page === 'battle'\) return renderPreschoolDefenseGame\(\)/);
   assert.match(app, /Array\.from\(\{ length: 5 \}/);
   assert.match(app, /laneIndex === 2/);
-  const statsPosition = app.indexOf('${renderPixelStats(growth, defense)}');
-  const worldPosition = app.indexOf('<div class="pixel-world-grid">', statsPosition);
-  const questsPosition = app.indexOf('<section class="pixel-quest-board">', worldPosition);
-  assert.equal(statsPosition >= 0 && worldPosition > statsPosition && questsPosition > worldPosition, true);
+  const homePosition = app.indexOf('function renderPreschoolHomeOverview(derived)');
+  const homeGameActionPosition = app.indexOf('data-page="battle"', homePosition);
+  const homeRewardActionPosition = app.indexOf('data-page="rewards"', homePosition);
+  assert.equal(homePosition >= 0 && homeGameActionPosition > homePosition && homeRewardActionPosition > homeGameActionPosition, true);
   assert.match(styles, /pixel-battle-lane-row/);
   assert.match(styles, /pixel-pea-projectile/);
   assert.match(styles, /--pixel-route:\s*#5420b8/);
@@ -201,8 +201,8 @@ test('keeps the refreshed reward tiers and five-lane defense contract in the pre
     assert.match(preschoolIndex, new RegExp(asset.replace('.', '\\.') ));
     assert.equal(fs.existsSync(path.join(root, 'assets', 'generated', 'preschool-pvz-2d', 'published', asset)), true, asset);
   }
-  assert.match(preschoolIndex, /植物大战暑假作业台/);
-  assert.match(preschoolIndex, /data-page="battle"[^>]*>[\s\S]*<span>植物大战<\/span>/);
+  assert.match(preschoolIndex, /阳光成长工作台/);
+  assert.match(preschoolIndex, /data-page="battle"[^>]*>[\s\S]*<span>花园保卫战<\/span>/);
   assert.match(preschoolIndex, /data-page="rewards"[^>]*>[\s\S]*<span>奖励商城<\/span>/);
 });
 
@@ -238,7 +238,7 @@ test('uses transparent PVZ plants and zombie variants across the preschool defen
   assert.match(app, /const plantAsset = preschoolPlantAsset\(activePlant\)/);
   assert.match(app, /pixel-hud-defense-art/);
   assert.match(app, /asset: 'player-energy-bars'/);
-  assert.match(config, /selected\.id === 'preschool' \? 'v0\.3\.5 · 幼儿版'/);
+  assert.match(config, /selected\.id === 'preschool' \? 'v0\.4\.0 · 幼儿版'/);
   assert.doesNotMatch(config, /v0\.2\.4 · 幼儿版/);
   assert.match(styles, /pixel-hud-defense-art/);
    assert.match(styles, /preschool-pvz-art/);
@@ -314,14 +314,25 @@ test('uses a workbench-first preschool overview while keeping the battle route s
   const styles = readCssGraph(path.join(root, 'styles.css'));
   const preschoolStyles = fs.readFileSync(path.join(root, 'css', 'preschool-workbench.css'), 'utf8');
   assert.match(app, /workbench-overview/);
-  assert.match(app, /workbench-today/);
-  assert.match(app, /workbench-garden-preview/);
-  assert.match(app, /workbench-reward-strip/);
-  assert.match(app, /pixel-world-grid/);
-  assert.match(app, /renderPixelMap\(growth, plans, true\)/);
+  assert.match(app, /preschool-home-overview/);
+  assert.match(app, /workbench-home-quest-panel/);
+  assert.match(app, /data-page="battle"/);
+  assert.match(app, /data-page="rewards"/);
+  assert.match(app, /function renderPreschoolDefenseGame\(\)/);
   assert.match(preschoolStyles, /15-workbuddy-overview\.css/);
   assert.match(styles, /workbench-overview/);
   assert.match(styles, /@media \(max-width: 760px\)[\s\S]*workbench-overview/);
+});
+
+test('keeps the preschool workbench on the garden-green shell', () => {
+  const preschoolStyles = fs.readFileSync(path.join(root, 'css', 'preschool-workbench.css'), 'utf8');
+  const greenTheme = fs.readFileSync(path.join(root, 'css', 'preschool', '18-green-theme-restore.css'), 'utf8');
+  const preschoolIndex = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
+  assert.match(preschoolStyles, /18-green-theme-restore\.css/);
+  assert.match(greenTheme, /background:\s*linear-gradient\(180deg,\s*#22734a,\s*#145238\)/);
+  assert.match(greenTheme, /background:\s*#eff9eb/);
+  assert.match(preschoolIndex, /theme-color" content="#2d8748"/);
+  assert.match(preschoolIndex, /20260803-green-shell/);
 });
 
 test('keeps preschool mobile status cards readable at reference widths', () => {
@@ -374,7 +385,7 @@ test('keeps the approved WorkBuddy finish layer and mobile shortcut contract', (
   for (const item of [
     ['overview', '首页'],
     ['courses', '学习'],
-    ['battle', '植物大战'],
+    ['battle', '花园保卫战'],
     ['rewards', '奖励'],
     ['more', '更多']
   ]) {

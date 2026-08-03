@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "subject": "english",
+  "status": "seed-only",
+  "policy": {
+    "defaultLicense": "project-original",
+    "externalRequiresAttribution": true,
+    "unknownLicensePublishable": false,
+    "researchOnlyPath": "docs/英语/research/raw"
+  },
+  "items": []
+}

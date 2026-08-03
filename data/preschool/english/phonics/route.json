@@ -1,0 +1,35 @@
+{
+  "id": "preschool-english-phonics",
+  "subject": "english",
+  "title": "自然拼读小路",
+  "description": "每天听一听、拼一拼、读一句，慢慢让声音和字母成为朋友。",
+  "ageBand": "preschool",
+  "dayCount": 60,
+  "lessonDurationMin": { "min": 8, "max": 15 },
+  "navigation": { "parentRoute": "preschool-english", "topLevel": false },
+  "stages": [
+    { "id": "sound-awareness", "days": [1, 5], "title": "听音探险", "focus": ["word-awareness", "syllable", "rhyme", "initial-sound", "oral-blending"] },
+    { "id": "first-letter-sounds", "days": [6, 12], "title": "第一组字音", "focus": ["s", "a", "t", "p", "i", "n", "m", "d"] },
+    { "id": "cvc-blending", "days": [13, 20], "title": "CVC 合成", "focus": ["short-a", "short-i", "segmenting", "blending"] },
+    { "id": "short-vowels-and-families", "days": [21, 28], "title": "短元音词族", "focus": ["short-o", "short-e", "short-u", "word-families"] },
+    { "id": "common-digraphs", "days": [29, 36], "title": "常见组合音", "focus": ["sh", "ch", "th", "ck", "ng"] },
+    { "id": "consonant-blends", "days": [37, 44], "title": "辅音连缀", "focus": ["st", "sp", "sl", "sk", "nd", "nt", "mp", "ft"] },
+    { "id": "decodable-sentences", "days": [45, 52], "title": "可解码短句", "focus": ["sentence-reading", "tricky-words", "meaning"] },
+    { "id": "transfer-and-review", "days": [53, 60], "title": "复习迁移", "focus": ["mixed-review", "reading-fluency", "parent-reading"] }
+  ],
+  "dailyContract": {
+    "coreSlots": 1,
+    "optionalSlots": 3,
+    "steps": ["sound-warmup", "new-or-review-pattern", "blend-or-segment", "meaningful-read", "celebrate"],
+    "reviewRatioMin": 0.5,
+    "noSpeechRecognitionGate": true
+  },
+  "rewardContract": {
+    "source": "existing-preschool-activity",
+    "coreKind": "core",
+    "optionalKind": "optional",
+    "duplicatePolicy": "canonical-event-id",
+    "noSecondLedger": true
+  },
+  "source": { "kind": "project-original", "license": "project-original", "attribution": "个人工作台自然拼读课程组" }
+}

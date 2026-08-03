@@ -1,0 +1,2664 @@
+[
+  {
+    "id": "preschool-hanzi-day-01",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 1,
+    "stageId": "self-and-family",
+    "title": "第1天 · 找到“我”",
+    "objective": "能在两张字卡中找到“我”。",
+    "activityType": "image-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪张字卡是“我”？",
+      "options": [
+        "我",
+        "你"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看图说一说“我”",
+      "teach": "用镜子和自画像解释“我”。",
+      "practice": "在两张卡里找“我”，再换位置。",
+      "apply": "指着自己说一次“我”。"
+    },
+    "evidence": [
+      "pointed-character",
+      "said-word"
+    ],
+    "reviewTags": [
+      "我"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-02",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 2,
+    "stageId": "self-and-family",
+    "title": "第2天 · 认识“你”",
+    "objective": "能在对话场景中认出“你”。",
+    "activityType": "role-character-choice",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "我对着谁说“你”？",
+      "options": [
+        "伙伴",
+        "太阳"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "找一找家人的动作",
+      "teach": "用两个人的对话示范“你”。",
+      "practice": "给人物卡配“你”。",
+      "apply": "和家长互指说“我/你”。"
+    },
+    "evidence": [
+      "matched-scene",
+      "spoke-word"
+    ],
+    "reviewTags": [
+      "我",
+      "你"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-03",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 3,
+    "stageId": "self-and-family",
+    "title": "第3天 · 找“人”",
+    "objective": "能把“人”与人物图片配对。",
+    "activityType": "character-picture-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪张图里有“人”？",
+      "options": [
+        "人物",
+        "花朵"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看图说一说“我”",
+      "teach": "观察“人”的字形和人物站立图。",
+      "practice": "找字、找图各一次。",
+      "apply": "在绘本封面找一个人。"
+    },
+    "evidence": [
+      "matched-image",
+      "found-in-book"
+    ],
+    "reviewTags": [
+      "人"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-04",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 4,
+    "stageId": "self-and-family",
+    "title": "第4天 · 手在哪里",
+    "objective": "能认出“手”并做出动作。",
+    "activityType": "character-action",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "用哪只手和“手”字打招呼？",
+      "options": [
+        "手",
+        "脚"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "找一找家人的动作",
+      "teach": "摸手、看字、听读音。",
+      "practice": "字卡和身体部位配对。",
+      "apply": "用手完成一次收拾。"
+    },
+    "evidence": [
+      "matched-body",
+      "completed-action"
+    ],
+    "reviewTags": [
+      "手"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-05",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 5,
+    "stageId": "self-and-family",
+    "title": "第5天 · 我和你复习",
+    "objective": "能区分“我/你/人”。",
+    "activityType": "mixed-character-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "指一指“你”。",
+      "options": [
+        "我",
+        "你",
+        "人"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看图说一说“我”",
+      "teach": "用人物小剧场复习三字。",
+      "practice": "连续完成三次指认。",
+      "apply": "说一句“我和你”。"
+    },
+    "evidence": [
+      "selected-character",
+      "said-phrase"
+    ],
+    "reviewTags": [
+      "我",
+      "你",
+      "人"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-06",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 6,
+    "stageId": "self-and-family",
+    "title": "第6天 · 找到“我”",
+    "objective": "能在两张字卡中找到“我”。",
+    "activityType": "image-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪张字卡是“我”？",
+      "options": [
+        "我",
+        "你"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "找一找家人的动作",
+      "teach": "用镜子和自画像解释“我”。",
+      "practice": "在两张卡里找“我”，再换位置。",
+      "apply": "指着自己说一次“我”。"
+    },
+    "evidence": [
+      "pointed-character",
+      "said-word"
+    ],
+    "reviewTags": [
+      "我"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-07",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 7,
+    "stageId": "self-and-family",
+    "title": "第7天 · 认识“你”",
+    "objective": "能在对话场景中认出“你”。",
+    "activityType": "role-character-choice",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "我对着谁说“你”？",
+      "options": [
+        "伙伴",
+        "太阳"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看图说一说“我”",
+      "teach": "用两个人的对话示范“你”。",
+      "practice": "给人物卡配“你”。",
+      "apply": "和家长互指说“我/你”。"
+    },
+    "evidence": [
+      "matched-scene",
+      "spoke-word"
+    ],
+    "reviewTags": [
+      "我",
+      "你"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-08",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 8,
+    "stageId": "self-and-family",
+    "title": "第8天 · 找“人”",
+    "objective": "能把“人”与人物图片配对。",
+    "activityType": "character-picture-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪张图里有“人”？",
+      "options": [
+        "人物",
+        "花朵"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "找一找家人的动作",
+      "teach": "观察“人”的字形和人物站立图。",
+      "practice": "找字、找图各一次。",
+      "apply": "在绘本封面找一个人。"
+    },
+    "evidence": [
+      "matched-image",
+      "found-in-book"
+    ],
+    "reviewTags": [
+      "人"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-09",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 9,
+    "stageId": "self-and-family",
+    "title": "第9天 · 手在哪里",
+    "objective": "能认出“手”并做出动作。",
+    "activityType": "character-action",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "用哪只手和“手”字打招呼？",
+      "options": [
+        "手",
+        "脚"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看图说一说“我”",
+      "teach": "摸手、看字、听读音。",
+      "practice": "字卡和身体部位配对。",
+      "apply": "用手完成一次收拾。"
+    },
+    "evidence": [
+      "matched-body",
+      "completed-action"
+    ],
+    "reviewTags": [
+      "手"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-10",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 10,
+    "stageId": "self-and-family",
+    "title": "第10天 · 我和你复习",
+    "objective": "能区分“我/你/人”。",
+    "activityType": "mixed-character-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "指一指“你”。",
+      "options": [
+        "我",
+        "你",
+        "人"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "找一找家人的动作",
+      "teach": "用人物小剧场复习三字。",
+      "practice": "连续完成三次指认。",
+      "apply": "说一句“我和你”。"
+    },
+    "evidence": [
+      "selected-character",
+      "said-phrase"
+    ],
+    "reviewTags": [
+      "我",
+      "你",
+      "人"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-11",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 11,
+    "stageId": "nature-and-direction",
+    "title": "第11天 · 太阳和“日”",
+    "objective": "能把“日”与太阳图配对。",
+    "activityType": "nature-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "太阳旁边是哪一个字？",
+      "options": [
+        "日",
+        "月"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看窗外说天气",
+      "teach": "看太阳图，朗读“日”。",
+      "practice": "找“日”并拖到太阳下。",
+      "apply": "今天找一次太阳。"
+    },
+    "evidence": [
+      "matched-nature",
+      "found-character"
+    ],
+    "reviewTags": [
+      "日"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-12",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 12,
+    "stageId": "nature-and-direction",
+    "title": "第12天 · 月亮和“月”",
+    "objective": "能认出“月”并说出月亮。",
+    "activityType": "nature-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "月亮是哪一个字？",
+      "options": [
+        "月",
+        "山"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "用手指天空",
+      "teach": "用夜空图解释“月”。",
+      "practice": "月亮图与字卡配对。",
+      "apply": "晚上和家长找月亮。"
+    },
+    "evidence": [
+      "matched-nature",
+      "parent-observation"
+    ],
+    "reviewTags": [
+      "月",
+      "日"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-13",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 13,
+    "stageId": "nature-and-direction",
+    "title": "第13天 · 天空的“天”",
+    "objective": "能在自然图中找到“天”。",
+    "activityType": "scene-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "天空上方放哪个字？",
+      "options": [
+        "水",
+        "天"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看窗外说天气",
+      "teach": "手指天空，连接“天”的意义。",
+      "practice": "在云朵场景中找字。",
+      "apply": "说“今天的天”。"
+    },
+    "evidence": [
+      "selected-character",
+      "spoke-phrase"
+    ],
+    "reviewTags": [
+      "天",
+      "日",
+      "月"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-14",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 14,
+    "stageId": "nature-and-direction",
+    "title": "第14天 · 山和水",
+    "objective": "能区分“山”和“水”。",
+    "activityType": "character-picture-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪一个字配小河？",
+      "options": [
+        "山",
+        "水"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "用手指天空",
+      "teach": "用山和河两张图做对比。",
+      "practice": "交换图卡再配一次。",
+      "apply": "画一座山和一条水。"
+    },
+    "evidence": [
+      "matched-image",
+      "drew-scene"
+    ],
+    "reviewTags": [
+      "山",
+      "水"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-15",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 15,
+    "stageId": "nature-and-direction",
+    "title": "第15天 · 自然字复习",
+    "objective": "能混合认出日、月、天、山、水。",
+    "activityType": "mixed-character-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "把“山”放到山图上。",
+      "options": [
+        "水",
+        "山",
+        "月"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看窗外说天气",
+      "teach": "用五张图卡快速回顾。",
+      "practice": "完成五次配对。",
+      "apply": "选择最喜欢的自然字。"
+    },
+    "evidence": [
+      "matched-five",
+      "made-choice"
+    ],
+    "reviewTags": [
+      "日",
+      "月",
+      "天",
+      "山",
+      "水"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-16",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 16,
+    "stageId": "nature-and-direction",
+    "title": "第16天 · 太阳和“日”",
+    "objective": "能把“日”与太阳图配对。",
+    "activityType": "nature-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "太阳旁边是哪一个字？",
+      "options": [
+        "日",
+        "月"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "用手指天空",
+      "teach": "看太阳图，朗读“日”。",
+      "practice": "找“日”并拖到太阳下。",
+      "apply": "今天找一次太阳。"
+    },
+    "evidence": [
+      "matched-nature",
+      "found-character"
+    ],
+    "reviewTags": [
+      "日"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-17",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 17,
+    "stageId": "nature-and-direction",
+    "title": "第17天 · 月亮和“月”",
+    "objective": "能认出“月”并说出月亮。",
+    "activityType": "nature-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "月亮是哪一个字？",
+      "options": [
+        "月",
+        "山"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看窗外说天气",
+      "teach": "用夜空图解释“月”。",
+      "practice": "月亮图与字卡配对。",
+      "apply": "晚上和家长找月亮。"
+    },
+    "evidence": [
+      "matched-nature",
+      "parent-observation"
+    ],
+    "reviewTags": [
+      "月",
+      "日"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-18",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 18,
+    "stageId": "nature-and-direction",
+    "title": "第18天 · 天空的“天”",
+    "objective": "能在自然图中找到“天”。",
+    "activityType": "scene-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "天空上方放哪个字？",
+      "options": [
+        "水",
+        "天"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "用手指天空",
+      "teach": "手指天空，连接“天”的意义。",
+      "practice": "在云朵场景中找字。",
+      "apply": "说“今天的天”。"
+    },
+    "evidence": [
+      "selected-character",
+      "spoke-phrase"
+    ],
+    "reviewTags": [
+      "天",
+      "日",
+      "月"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-19",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 19,
+    "stageId": "nature-and-direction",
+    "title": "第19天 · 山和水",
+    "objective": "能区分“山”和“水”。",
+    "activityType": "character-picture-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪一个字配小河？",
+      "options": [
+        "山",
+        "水"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看窗外说天气",
+      "teach": "用山和河两张图做对比。",
+      "practice": "交换图卡再配一次。",
+      "apply": "画一座山和一条水。"
+    },
+    "evidence": [
+      "matched-image",
+      "drew-scene"
+    ],
+    "reviewTags": [
+      "山",
+      "水"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-20",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 20,
+    "stageId": "nature-and-direction",
+    "title": "第20天 · 自然字复习",
+    "objective": "能混合认出日、月、天、山、水。",
+    "activityType": "mixed-character-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "把“山”放到山图上。",
+      "options": [
+        "水",
+        "山",
+        "月"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "用手指天空",
+      "teach": "用五张图卡快速回顾。",
+      "practice": "完成五次配对。",
+      "apply": "选择最喜欢的自然字。"
+    },
+    "evidence": [
+      "matched-five",
+      "made-choice"
+    ],
+    "reviewTags": [
+      "日",
+      "月",
+      "天",
+      "山",
+      "水"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-21",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 21,
+    "stageId": "quantity-and-color",
+    "title": "第21天 · 大和小",
+    "objective": "能把“大/小”与物品大小配对。",
+    "activityType": "size-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪一个是“大”？",
+      "options": [
+        "大",
+        "小"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "比较两盘物品",
+      "teach": "用大球和小球示范。",
+      "practice": "交换物品后再次判断。",
+      "apply": "在家找一个大物品。"
+    },
+    "evidence": [
+      "matched-size",
+      "found-object"
+    ],
+    "reviewTags": [
+      "大",
+      "小"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-22",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 22,
+    "stageId": "quantity-and-color",
+    "title": "第22天 · 更多和更少",
+    "objective": "能认出“多/少”的生活意义。",
+    "activityType": "quantity-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪一盘水果更多？",
+      "options": [
+        "多",
+        "少"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "找一找颜色",
+      "teach": "数两盘水果后连接字义。",
+      "practice": "看图选多/少。",
+      "apply": "分零食时说多或少。"
+    },
+    "evidence": [
+      "compared-quantity",
+      "said-relation"
+    ],
+    "reviewTags": [
+      "多",
+      "少"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-23",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 23,
+    "stageId": "quantity-and-color",
+    "title": "第23天 · 红色的“红”",
+    "objective": "能把“红”与红色物品配对。",
+    "activityType": "color-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪张卡是“红”？",
+      "options": [
+        "红",
+        "绿"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "比较两盘物品",
+      "teach": "用红花示范颜色和字。",
+      "practice": "找红色物品并点字。",
+      "apply": "在家找一个红色物品。"
+    },
+    "evidence": [
+      "matched-color",
+      "found-object"
+    ],
+    "reviewTags": [
+      "红"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-24",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 24,
+    "stageId": "quantity-and-color",
+    "title": "第24天 · 绿色的“绿”",
+    "objective": "能把“绿”与叶子配对。",
+    "activityType": "color-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "叶子旁边放哪个字？",
+      "options": [
+        "红",
+        "绿"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "找一找颜色",
+      "teach": "观察花园里的绿色。",
+      "practice": "绿字和叶子配对。",
+      "apply": "给花园植物浇水。"
+    },
+    "evidence": [
+      "matched-color",
+      "garden-action"
+    ],
+    "reviewTags": [
+      "绿",
+      "红"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-25",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 25,
+    "stageId": "quantity-and-color",
+    "title": "第25天 · 数量颜色复习",
+    "objective": "能混合识别大、小、多、少、红、绿。",
+    "activityType": "mixed-character-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择“少”。",
+      "options": [
+        "多",
+        "少",
+        "大"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "比较两盘物品",
+      "teach": "用一组混合图卡复习。",
+      "practice": "完成六次快速选择。",
+      "apply": "说一个“红色的小东西”。"
+    },
+    "evidence": [
+      "mixed-review",
+      "made-sentence"
+    ],
+    "reviewTags": [
+      "大",
+      "小",
+      "多",
+      "少",
+      "红",
+      "绿"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-26",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 26,
+    "stageId": "quantity-and-color",
+    "title": "第26天 · 大和小",
+    "objective": "能把“大/小”与物品大小配对。",
+    "activityType": "size-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪一个是“大”？",
+      "options": [
+        "大",
+        "小"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "找一找颜色",
+      "teach": "用大球和小球示范。",
+      "practice": "交换物品后再次判断。",
+      "apply": "在家找一个大物品。"
+    },
+    "evidence": [
+      "matched-size",
+      "found-object"
+    ],
+    "reviewTags": [
+      "大",
+      "小"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-27",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 27,
+    "stageId": "quantity-and-color",
+    "title": "第27天 · 更多和更少",
+    "objective": "能认出“多/少”的生活意义。",
+    "activityType": "quantity-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪一盘水果更多？",
+      "options": [
+        "多",
+        "少"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "比较两盘物品",
+      "teach": "数两盘水果后连接字义。",
+      "practice": "看图选多/少。",
+      "apply": "分零食时说多或少。"
+    },
+    "evidence": [
+      "compared-quantity",
+      "said-relation"
+    ],
+    "reviewTags": [
+      "多",
+      "少"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-28",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 28,
+    "stageId": "quantity-and-color",
+    "title": "第28天 · 红色的“红”",
+    "objective": "能把“红”与红色物品配对。",
+    "activityType": "color-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪张卡是“红”？",
+      "options": [
+        "红",
+        "绿"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "找一找颜色",
+      "teach": "用红花示范颜色和字。",
+      "practice": "找红色物品并点字。",
+      "apply": "在家找一个红色物品。"
+    },
+    "evidence": [
+      "matched-color",
+      "found-object"
+    ],
+    "reviewTags": [
+      "红"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-29",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 29,
+    "stageId": "quantity-and-color",
+    "title": "第29天 · 绿色的“绿”",
+    "objective": "能把“绿”与叶子配对。",
+    "activityType": "color-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "叶子旁边放哪个字？",
+      "options": [
+        "红",
+        "绿"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "比较两盘物品",
+      "teach": "观察花园里的绿色。",
+      "practice": "绿字和叶子配对。",
+      "apply": "给花园植物浇水。"
+    },
+    "evidence": [
+      "matched-color",
+      "garden-action"
+    ],
+    "reviewTags": [
+      "绿",
+      "红"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-30",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 30,
+    "stageId": "quantity-and-color",
+    "title": "第30天 · 数量颜色复习",
+    "objective": "能混合识别大、小、多、少、红、绿。",
+    "activityType": "mixed-character-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择“少”。",
+      "options": [
+        "多",
+        "少",
+        "大"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "找一找颜色",
+      "teach": "用一组混合图卡复习。",
+      "practice": "完成六次快速选择。",
+      "apply": "说一个“红色的小东西”。"
+    },
+    "evidence": [
+      "mixed-review",
+      "made-sentence"
+    ],
+    "reviewTags": [
+      "大",
+      "小",
+      "多",
+      "少",
+      "红",
+      "绿"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-31",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 31,
+    "stageId": "animals-and-actions",
+    "title": "第31天 · 小猫找“猫”",
+    "objective": "能把“猫”与猫的图片配对。",
+    "activityType": "animal-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪张卡是“猫”？",
+      "options": [
+        "猫",
+        "狗"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听动物叫声",
+      "teach": "看猫图、听猫叫、读“猫”。",
+      "practice": "猫图和猫字互换配对。",
+      "apply": "模仿猫走路。"
+    },
+    "evidence": [
+      "matched-animal",
+      "acted-animal"
+    ],
+    "reviewTags": [
+      "猫"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-32",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 32,
+    "stageId": "animals-and-actions",
+    "title": "第32天 · 小狗找“狗”",
+    "objective": "能认出“狗”并模仿动作。",
+    "activityType": "animal-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪张图是狗？",
+      "options": [
+        "鱼",
+        "狗"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "做一个动作",
+      "teach": "用狗图和动作示范。",
+      "practice": "字图配对两轮。",
+      "apply": "说“狗会走”。"
+    },
+    "evidence": [
+      "matched-animal",
+      "said-action"
+    ],
+    "reviewTags": [
+      "狗",
+      "猫"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-33",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 33,
+    "stageId": "animals-and-actions",
+    "title": "第33天 · 小鱼和“鱼”",
+    "objective": "能把“鱼”与水中场景配对。",
+    "activityType": "animal-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "水里是哪一个字？",
+      "options": [
+        "花",
+        "鱼"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听动物叫声",
+      "teach": "看水和鱼的关系。",
+      "practice": "把鱼字拖到水中。",
+      "apply": "画一条鱼。"
+    },
+    "evidence": [
+      "matched-scene",
+      "drew-animal"
+    ],
+    "reviewTags": [
+      "鱼"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-34",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 34,
+    "stageId": "animals-and-actions",
+    "title": "第34天 · 动作“吃”和“看”",
+    "objective": "能用动作区分“吃/看”。",
+    "activityType": "action-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "拿勺子是什么动作？",
+      "options": [
+        "吃",
+        "看"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "做一个动作",
+      "teach": "用玩具食物演示吃和看。",
+      "practice": "看动作选字。",
+      "apply": "饭前说一次“吃”。"
+    },
+    "evidence": [
+      "matched-action",
+      "used-in-life"
+    ],
+    "reviewTags": [
+      "吃",
+      "看"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-35",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 35,
+    "stageId": "animals-and-actions",
+    "title": "第35天 · 动物动作复习",
+    "objective": "能混合识别动物和动作字。",
+    "activityType": "mixed-character-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "找到“鱼”，再做游泳动作。",
+      "options": [
+        "鱼",
+        "狗",
+        "吃"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听动物叫声",
+      "teach": "把动物和动作混在一起复习。",
+      "practice": "完成四次字图动作配对。",
+      "apply": "选一个最喜欢的动物。"
+    },
+    "evidence": [
+      "mixed-review",
+      "acted-choice"
+    ],
+    "reviewTags": [
+      "猫",
+      "狗",
+      "鱼",
+      "吃",
+      "看"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-36",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 36,
+    "stageId": "animals-and-actions",
+    "title": "第36天 · 小猫找“猫”",
+    "objective": "能把“猫”与猫的图片配对。",
+    "activityType": "animal-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪张卡是“猫”？",
+      "options": [
+        "猫",
+        "狗"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "做一个动作",
+      "teach": "看猫图、听猫叫、读“猫”。",
+      "practice": "猫图和猫字互换配对。",
+      "apply": "模仿猫走路。"
+    },
+    "evidence": [
+      "matched-animal",
+      "acted-animal"
+    ],
+    "reviewTags": [
+      "猫"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-37",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 37,
+    "stageId": "animals-and-actions",
+    "title": "第37天 · 小狗找“狗”",
+    "objective": "能认出“狗”并模仿动作。",
+    "activityType": "animal-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪张图是狗？",
+      "options": [
+        "鱼",
+        "狗"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听动物叫声",
+      "teach": "用狗图和动作示范。",
+      "practice": "字图配对两轮。",
+      "apply": "说“狗会走”。"
+    },
+    "evidence": [
+      "matched-animal",
+      "said-action"
+    ],
+    "reviewTags": [
+      "狗",
+      "猫"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-38",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 38,
+    "stageId": "animals-and-actions",
+    "title": "第38天 · 小鱼和“鱼”",
+    "objective": "能把“鱼”与水中场景配对。",
+    "activityType": "animal-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "水里是哪一个字？",
+      "options": [
+        "花",
+        "鱼"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "做一个动作",
+      "teach": "看水和鱼的关系。",
+      "practice": "把鱼字拖到水中。",
+      "apply": "画一条鱼。"
+    },
+    "evidence": [
+      "matched-scene",
+      "drew-animal"
+    ],
+    "reviewTags": [
+      "鱼"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-39",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 39,
+    "stageId": "animals-and-actions",
+    "title": "第39天 · 动作“吃”和“看”",
+    "objective": "能用动作区分“吃/看”。",
+    "activityType": "action-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "拿勺子是什么动作？",
+      "options": [
+        "吃",
+        "看"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "听动物叫声",
+      "teach": "用玩具食物演示吃和看。",
+      "practice": "看动作选字。",
+      "apply": "饭前说一次“吃”。"
+    },
+    "evidence": [
+      "matched-action",
+      "used-in-life"
+    ],
+    "reviewTags": [
+      "吃",
+      "看"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-40",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 40,
+    "stageId": "animals-and-actions",
+    "title": "第40天 · 动物动作复习",
+    "objective": "能混合识别动物和动作字。",
+    "activityType": "mixed-character-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "找到“鱼”，再做游泳动作。",
+      "options": [
+        "鱼",
+        "狗",
+        "吃"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "做一个动作",
+      "teach": "把动物和动作混在一起复习。",
+      "practice": "完成四次字图动作配对。",
+      "apply": "选一个最喜欢的动物。"
+    },
+    "evidence": [
+      "mixed-review",
+      "acted-choice"
+    ],
+    "reviewTags": [
+      "猫",
+      "狗",
+      "鱼",
+      "吃",
+      "看"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-41",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 41,
+    "stageId": "mixed-life-reading",
+    "title": "第41天 · 回到“家”",
+    "objective": "能把“家”与房屋图配对。",
+    "activityType": "life-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪一个字是家？",
+      "options": [
+        "家",
+        "门"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "翻开一本书",
+      "teach": "从家人和房屋连接“家”。",
+      "practice": "房屋图和“家”字配对。",
+      "apply": "说“回家”。"
+    },
+    "evidence": [
+      "matched-home",
+      "said-phrase"
+    ],
+    "reviewTags": [
+      "家",
+      "人"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-42",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 42,
+    "stageId": "mixed-life-reading",
+    "title": "第42天 · 打开“门”",
+    "objective": "能认出“门”并完成开门动作。",
+    "activityType": "life-character-action",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "打开门前找哪个字？",
+      "options": [
+        "书",
+        "门"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看看家里的门",
+      "teach": "观察门的形状和动作。",
+      "practice": "开门图与字配对。",
+      "apply": "找家中一扇门。"
+    },
+    "evidence": [
+      "matched-object",
+      "found-object"
+    ],
+    "reviewTags": [
+      "门"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-43",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 43,
+    "stageId": "mixed-life-reading",
+    "title": "第43天 · 我的“书”",
+    "objective": "能把“书”与绘本配对。",
+    "activityType": "book-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪一个字配绘本？",
+      "options": [
+        "书",
+        "画"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "翻开一本书",
+      "teach": "摸书、翻页、读“书”。",
+      "practice": "从三张字卡中找书。",
+      "apply": "翻开一本书看一页。"
+    },
+    "evidence": [
+      "matched-book",
+      "read-page"
+    ],
+    "reviewTags": [
+      "书"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-44",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 44,
+    "stageId": "mixed-life-reading",
+    "title": "第44天 · 学、画、唱",
+    "objective": "能把三个动作字和活动图配对。",
+    "activityType": "activity-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "画画时选哪个字？",
+      "options": [
+        "唱",
+        "画",
+        "学"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看看家里的门",
+      "teach": "用三个活动场景示范。",
+      "practice": "逐图选择字。",
+      "apply": "完成一幅小画。"
+    },
+    "evidence": [
+      "matched-activity",
+      "created-work"
+    ],
+    "reviewTags": [
+      "学",
+      "画",
+      "唱"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-45",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 45,
+    "stageId": "mixed-life-reading",
+    "title": "第45天 · 生活字小书",
+    "objective": "能从生活字中选择并说一个短语。",
+    "activityType": "mixed-character-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择“家”，组成“回家”。",
+      "options": [
+        "家",
+        "书",
+        "门"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "翻开一本书",
+      "teach": "复习生活字并示范短语。",
+      "practice": "选择字卡组成短语。",
+      "apply": "给家长读自己的小短语。"
+    },
+    "evidence": [
+      "made-phrase",
+      "read-to-parent"
+    ],
+    "reviewTags": [
+      "家",
+      "门",
+      "书",
+      "学",
+      "画",
+      "唱"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-46",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 46,
+    "stageId": "mixed-life-reading",
+    "title": "第46天 · 回到“家”",
+    "objective": "能把“家”与房屋图配对。",
+    "activityType": "life-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪一个字是家？",
+      "options": [
+        "家",
+        "门"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看看家里的门",
+      "teach": "从家人和房屋连接“家”。",
+      "practice": "房屋图和“家”字配对。",
+      "apply": "说“回家”。"
+    },
+    "evidence": [
+      "matched-home",
+      "said-phrase"
+    ],
+    "reviewTags": [
+      "家",
+      "人"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-47",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 47,
+    "stageId": "mixed-life-reading",
+    "title": "第47天 · 打开“门”",
+    "objective": "能认出“门”并完成开门动作。",
+    "activityType": "life-character-action",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "打开门前找哪个字？",
+      "options": [
+        "书",
+        "门"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "翻开一本书",
+      "teach": "观察门的形状和动作。",
+      "practice": "开门图与字配对。",
+      "apply": "找家中一扇门。"
+    },
+    "evidence": [
+      "matched-object",
+      "found-object"
+    ],
+    "reviewTags": [
+      "门"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-48",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 48,
+    "stageId": "mixed-life-reading",
+    "title": "第48天 · 我的“书”",
+    "objective": "能把“书”与绘本配对。",
+    "activityType": "book-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "哪一个字配绘本？",
+      "options": [
+        "书",
+        "画"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看看家里的门",
+      "teach": "摸书、翻页、读“书”。",
+      "practice": "从三张字卡中找书。",
+      "apply": "翻开一本书看一页。"
+    },
+    "evidence": [
+      "matched-book",
+      "read-page"
+    ],
+    "reviewTags": [
+      "书"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-49",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 49,
+    "stageId": "mixed-life-reading",
+    "title": "第49天 · 学、画、唱",
+    "objective": "能把三个动作字和活动图配对。",
+    "activityType": "activity-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "画画时选哪个字？",
+      "options": [
+        "唱",
+        "画",
+        "学"
+      ],
+      "answer": 1,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "翻开一本书",
+      "teach": "用三个活动场景示范。",
+      "practice": "逐图选择字。",
+      "apply": "完成一幅小画。"
+    },
+    "evidence": [
+      "matched-activity",
+      "created-work"
+    ],
+    "reviewTags": [
+      "学",
+      "画",
+      "唱"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-50",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 50,
+    "stageId": "mixed-life-reading",
+    "title": "第50天 · 生活字小书",
+    "objective": "能从生活字中选择并说一个短语。",
+    "activityType": "mixed-character-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择“家”，组成“回家”。",
+      "options": [
+        "家",
+        "书",
+        "门"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看看家里的门",
+      "teach": "复习生活字并示范短语。",
+      "practice": "选择字卡组成短语。",
+      "apply": "给家长读自己的小短语。"
+    },
+    "evidence": [
+      "made-phrase",
+      "read-to-parent"
+    ],
+    "reviewTags": [
+      "家",
+      "门",
+      "书",
+      "学",
+      "画",
+      "唱"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-51",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 51,
+    "stageId": "transfer-and-review",
+    "title": "第51天 · 我的错字小队",
+    "objective": "能复习个人错字中的一个字。",
+    "activityType": "mistake-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "从错字卡里找今天要练的字。",
+      "options": [
+        "复习字",
+        "新字"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "快速找一个旧字",
+      "teach": "展示个人复习队列并给出线索。",
+      "practice": "完成两轮错字配图。",
+      "apply": "在生活中找这个字。"
+    },
+    "evidence": [
+      "reviewed-mistake",
+      "found-in-life"
+    ],
+    "reviewTags": [
+      "mistake-queue"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-52",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 52,
+    "stageId": "transfer-and-review",
+    "title": "第52天 · 字和图的旅行",
+    "objective": "能在新场景中识别已学字。",
+    "activityType": "transfer-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "公园图里找“花”。",
+      "options": [
+        "花",
+        "书",
+        "门"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看图猜今天的字",
+      "teach": "说明同一个字会出现在不同画面。",
+      "practice": "在三张新图中找字。",
+      "apply": "和家长一起拍/指出一个字。"
+    },
+    "evidence": [
+      "transferred-character",
+      "parent-observation"
+    ],
+    "reviewTags": [
+      "花",
+      "生活迁移"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-53",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 53,
+    "stageId": "transfer-and-review",
+    "title": "第53天 · 字卡小剧场",
+    "objective": "能用三张字卡说一个短语。",
+    "activityType": "character-phrase",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "用“我、看、书”说一句话。",
+      "options": [
+        "我看书",
+        "书看我"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "快速找一个旧字",
+      "teach": "用字卡排出短语。",
+      "practice": "交换顺序再排一次。",
+      "apply": "真的看一页书。"
+    },
+    "evidence": [
+      "ordered-phrase",
+      "completed-life-action"
+    ],
+    "reviewTags": [
+      "我",
+      "看",
+      "书"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-54",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 54,
+    "stageId": "transfer-and-review",
+    "title": "第54天 · 我会认的字",
+    "objective": "能从混合卡片中选出 8 个熟悉字。",
+    "activityType": "mastery-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "挑出你认识的字。",
+      "options": [
+        "自由选择"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看图猜今天的字",
+      "teach": "解释“认识就是能指出来”。",
+      "practice": "完成八张卡的自主选择。",
+      "apply": "告诉家长最喜欢的一个字。"
+    },
+    "evidence": [
+      "selected-known-cards",
+      "explained-choice"
+    ],
+    "reviewTags": [
+      "mixed-review"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-55",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 55,
+    "stageId": "transfer-and-review",
+    "title": "第55天 · 识字花园毕业卡",
+    "objective": "能展示一个字、一个词和一个生活应用。",
+    "activityType": "portfolio-showcase",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择一个字完成你的识字卡。",
+      "options": [
+        "选择一个已学字"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "快速找一个旧字",
+      "teach": "示范字、词、图三部分。",
+      "practice": "完成个人小卡。",
+      "apply": "给家长展示并记录下一步。"
+    },
+    "evidence": [
+      "created-card",
+      "showed-to-parent"
+    ],
+    "reviewTags": [
+      "mastery-transfer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-56",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 56,
+    "stageId": "transfer-and-review",
+    "title": "第56天 · 我的错字小队",
+    "objective": "能复习个人错字中的一个字。",
+    "activityType": "mistake-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "从错字卡里找今天要练的字。",
+      "options": [
+        "复习字",
+        "新字"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看图猜今天的字",
+      "teach": "展示个人复习队列并给出线索。",
+      "practice": "完成两轮错字配图。",
+      "apply": "在生活中找这个字。"
+    },
+    "evidence": [
+      "reviewed-mistake",
+      "found-in-life"
+    ],
+    "reviewTags": [
+      "mistake-queue"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-57",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 57,
+    "stageId": "transfer-and-review",
+    "title": "第57天 · 字和图的旅行",
+    "objective": "能在新场景中识别已学字。",
+    "activityType": "transfer-character-match",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "公园图里找“花”。",
+      "options": [
+        "花",
+        "书",
+        "门"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "快速找一个旧字",
+      "teach": "说明同一个字会出现在不同画面。",
+      "practice": "在三张新图中找字。",
+      "apply": "和家长一起拍/指出一个字。"
+    },
+    "evidence": [
+      "transferred-character",
+      "parent-observation"
+    ],
+    "reviewTags": [
+      "花",
+      "生活迁移"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-58",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 58,
+    "stageId": "transfer-and-review",
+    "title": "第58天 · 字卡小剧场",
+    "objective": "能用三张字卡说一个短语。",
+    "activityType": "character-phrase",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "用“我、看、书”说一句话。",
+      "options": [
+        "我看书",
+        "书看我"
+      ],
+      "answer": 0,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看图猜今天的字",
+      "teach": "用字卡排出短语。",
+      "practice": "交换顺序再排一次。",
+      "apply": "真的看一页书。"
+    },
+    "evidence": [
+      "ordered-phrase",
+      "completed-life-action"
+    ],
+    "reviewTags": [
+      "我",
+      "看",
+      "书"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-59",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 59,
+    "stageId": "transfer-and-review",
+    "title": "第59天 · 我会认的字",
+    "objective": "能从混合卡片中选出 8 个熟悉字。",
+    "activityType": "mastery-review",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "挑出你认识的字。",
+      "options": [
+        "自由选择"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "快速找一个旧字",
+      "teach": "解释“认识就是能指出来”。",
+      "practice": "完成八张卡的自主选择。",
+      "apply": "告诉家长最喜欢的一个字。"
+    },
+    "evidence": [
+      "selected-known-cards",
+      "explained-choice"
+    ],
+    "reviewTags": [
+      "mixed-review"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "preschool-hanzi-day-60",
+    "routeId": "preschool-hanzi",
+    "subject": "hanzi",
+    "day": 60,
+    "stageId": "transfer-and-review",
+    "title": "第60天 · 识字花园毕业卡",
+    "objective": "能展示一个字、一个词和一个生活应用。",
+    "activityType": "portfolio-showcase",
+    "durationMin": 8,
+    "activity": {
+      "prompt": "选择一个字完成你的识字卡。",
+      "options": [
+        "选择一个已学字"
+      ],
+      "answer": null,
+      "success": "完成一次尝试，花园收到一束阳光。"
+    },
+    "fourSteps": {
+      "warmup": "看图猜今天的字",
+      "teach": "示范字、词、图三部分。",
+      "practice": "完成个人小卡。",
+      "apply": "给家长展示并记录下一步。"
+    },
+    "evidence": [
+      "created-card",
+      "showed-to-parent"
+    ],
+    "reviewTags": [
+      "mastery-transfer"
+    ],
+    "reward": {
+      "source": "existing-preschool-activity",
+      "kind": "core",
+      "duplicatePolicy": "canonical-event-id"
+    },
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  }
+]

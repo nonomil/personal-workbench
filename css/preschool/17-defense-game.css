@@ -1,0 +1,124 @@
+/* Standalone preschool garden defense MVP. */
+body.variant-preschool .preschool-defense-game {
+    display: grid;
+    min-width: 0;
+    max-width: 1180px;
+    gap: 16px;
+    overflow: hidden;
+}
+
+body.variant-preschool .preschool-defense-game-head,
+body.variant-preschool .preschool-defense-seeds,
+body.variant-preschool .preschool-defense-board-wrap,
+body.variant-preschool .preschool-defense-bottom {
+    min-width: 0;
+    border: 1px solid #dcebd8;
+    border-radius: 18px;
+    background: #fffef9;
+    box-shadow: 0 8px 22px rgba(53, 110, 61, .08);
+}
+
+body.variant-preschool .preschool-defense-game-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 20px;
+}
+
+body.variant-preschool .preschool-defense-game-head h2,
+body.variant-preschool .preschool-defense-section-title h2,
+body.variant-preschool .preschool-defense-board-head h2 { margin: 4px 0 0; color: var(--garden-ink); font-size: 22px; }
+body.variant-preschool .preschool-defense-game-head p { margin: 5px 0 0; color: var(--garden-ink-soft); font-size: 12px; }
+body.variant-preschool .preschool-defense-game-stats { display: flex; flex: 0 0 auto; gap: 7px; }
+body.variant-preschool .preschool-defense-game-stats > span { display: grid; min-width: 65px; grid-template-columns: 26px auto; grid-template-rows: auto auto; align-items: center; padding: 7px 9px; border: 1px solid #e6eedb; border-radius: 12px; color: var(--garden-ink); background: #f8fcf1; }
+body.variant-preschool .preschool-defense-game-stats img { width: 24px; height: 24px; grid-row: 1 / span 2; object-fit: contain; }
+body.variant-preschool .preschool-defense-game-stats b { font-size: 16px; line-height: 1; }
+body.variant-preschool .preschool-defense-game-stats small { color: var(--garden-ink-soft); font-size: 9px; }
+
+body.variant-preschool .preschool-defense-seeds { padding: 16px; }
+body.variant-preschool .preschool-defense-section-title,
+body.variant-preschool .preschool-defense-board-head { display: flex; align-items: end; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+body.variant-preschool .preschool-defense-section-title > small { color: var(--garden-green); font-weight: 900; }
+body.variant-preschool .preschool-defense-seed-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 9px; }
+body.variant-preschool .preschool-defense-seed { display: grid; min-width: 0; min-height: 124px; place-items: center; gap: 4px; padding: 8px 5px; border: 1px solid #dfeadd; border-radius: 14px; color: var(--garden-ink); background: #fbfff8; cursor: pointer; }
+body.variant-preschool .preschool-defense-seed:hover,
+body.variant-preschool .preschool-defense-seed:focus-visible { border-color: #6fc56b; box-shadow: 0 5px 12px rgba(68, 151, 69, .14); }
+body.variant-preschool .preschool-defense-seed.is-active { border: 2px solid #5dbc61; background: #eefbea; box-shadow: 0 5px 12px rgba(68, 151, 69, .12); }
+body.variant-preschool .preschool-defense-seed.is-locked { opacity: .48; cursor: not-allowed; }
+body.variant-preschool .preschool-defense-seed > span { display: grid; width: 58px; height: 58px; place-items: center; }
+body.variant-preschool .preschool-defense-seed img { width: 56px; height: 56px; object-fit: contain; }
+body.variant-preschool .preschool-defense-seed strong { overflow: hidden; max-width: 100%; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+body.variant-preschool .preschool-defense-seed small { color: var(--garden-ink-soft); font-size: 9px; }
+
+body.variant-preschool .preschool-defense-board-wrap { padding: 18px; background: linear-gradient(180deg, #eff9ef, #d5efbd); }
+body.variant-preschool .preschool-defense-board-head { align-items: center; }
+body.variant-preschool .preschool-defense-board-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+body.variant-preschool .preschool-defense-board { display: grid; gap: 5px; min-width: 0; padding: 9px; border: 3px solid #72b85f; border-radius: 14px; background: #a5d875; box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .45); }
+body.variant-preschool .preschool-defense-lane { display: grid; min-width: 0; grid-template-columns: 44px minmax(0, 1fr); gap: 5px; align-items: stretch; }
+body.variant-preschool .preschool-defense-lane-label { display: grid; min-width: 0; place-items: center; border-radius: 8px; color: #397448; background: rgba(255, 255, 255, .48); font-size: 10px; font-weight: 900; }
+body.variant-preschool .preschool-defense-cells { display: grid; min-width: 0; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 4px; }
+body.variant-preschool .preschool-defense-cell { position: relative; display: grid; min-width: 0; min-height: 70px; place-items: center; padding: 2px; overflow: hidden; border: 1px solid rgba(57, 122, 59, .25); border-radius: 9px; background: rgba(235, 249, 185, .3); cursor: pointer; }
+body.variant-preschool .preschool-defense-cell:hover,
+body.variant-preschool .preschool-defense-cell:focus-visible { z-index: 2; border-color: #f59d4c; outline: 2px solid rgba(245, 157, 76, .28); background: rgba(255, 247, 192, .82); }
+body.variant-preschool .preschool-defense-cell.has-plant { background: rgba(223, 246, 195, .72); }
+body.variant-preschool .preschool-defense-cell.has-zombie { background: rgba(255, 224, 198, .72); }
+body.variant-preschool .preschool-defense-plant,
+body.variant-preschool .preschool-defense-zombie { position: relative; display: grid; width: 100%; height: 100%; place-items: center; }
+body.variant-preschool .preschool-defense-plant img { width: 58px; height: 58px; object-fit: contain; }
+body.variant-preschool .preschool-defense-zombie img { width: 58px; height: 62px; object-fit: contain; animation: preschool-defense-bob 1.4s ease-in-out infinite; }
+body.variant-preschool .preschool-defense-cell small { position: absolute; right: 2px; bottom: 2px; z-index: 2; padding: 1px 3px; border-radius: 5px; color: #fff; background: rgba(37, 86, 47, .72); font-size: 8px; line-height: 1; }
+body.variant-preschool .preschool-defense-zombie small { background: rgba(170, 72, 52, .82); }
+body.variant-preschool .preschool-defense-pea { position: absolute; top: 50%; left: 12%; width: 9px; height: 9px; border: 2px solid #e6a23b; border-radius: 50%; background: #fff3a5; box-shadow: 0 0 0 3px rgba(255, 255, 255, .45); animation: preschool-defense-pea 0.45s linear infinite; }
+body.variant-preschool .preschool-defense-legend { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; color: #54765b; font-size: 10px; }
+body.variant-preschool .preschool-defense-legend span { display: inline-flex; align-items: center; gap: 4px; }
+body.variant-preschool .preschool-defense-legend i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; }
+body.variant-preschool .preschool-defense-legend .legend-plant { background: #67b963; }
+body.variant-preschool .preschool-defense-legend .legend-zombie { background: #dd825e; }
+body.variant-preschool .preschool-defense-legend .legend-pea { background: #f1c84b; }
+
+body.variant-preschool .preschool-defense-bottom { display: flex; align-items: center; gap: 10px; padding: 14px 16px; }
+body.variant-preschool .preschool-defense-bottom > div { display: grid; flex: 1; min-width: 0; gap: 3px; }
+body.variant-preschool .preschool-defense-bottom strong { color: var(--garden-ink); font-size: 13px; }
+body.variant-preschool .preschool-defense-bottom small { color: var(--garden-ink-soft); font-size: 10px; }
+
+@keyframes preschool-defense-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+@keyframes preschool-defense-pea { from { transform: translateX(-2px); opacity: .5; } to { transform: translateX(10px); opacity: 1; } }
+
+@media (max-width: 700px) {
+    body.variant-preschool .preschool-defense-game-head { display: grid; }
+    body.variant-preschool .preschool-defense-game-stats { width: 100%; }
+    body.variant-preschool .preschool-defense-game-stats > span { flex: 1; }
+    body.variant-preschool .preschool-defense-seed-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    body.variant-preschool .preschool-defense-board-head { align-items: start; flex-direction: column; }
+    body.variant-preschool .preschool-defense-board-actions { justify-content: flex-start; }
+    body.variant-preschool .preschool-defense-cell { min-height: 60px; }
+    body.variant-preschool .preschool-defense-plant img,
+    body.variant-preschool .preschool-defense-zombie img { width: 48px; height: 50px; }
+}
+
+@media (max-width: 390px) {
+    body.variant-preschool .preschool-defense-game-head,
+    body.variant-preschool .preschool-defense-seeds,
+    body.variant-preschool .preschool-defense-board-wrap,
+    body.variant-preschool .preschool-defense-bottom { border-radius: 14px; }
+    body.variant-preschool .preschool-defense-game-head,
+    body.variant-preschool .preschool-defense-board-wrap { padding: 12px; }
+    body.variant-preschool .preschool-defense-seeds { padding: 11px; }
+    body.variant-preschool .preschool-defense-game-head h2,
+    body.variant-preschool .preschool-defense-section-title h2,
+    body.variant-preschool .preschool-defense-board-head h2 { font-size: 18px; }
+    body.variant-preschool .preschool-defense-lane { grid-template-columns: 34px minmax(0, 1fr); gap: 3px; }
+    body.variant-preschool .preschool-defense-board { gap: 3px; padding: 5px; border-width: 2px; }
+    body.variant-preschool .preschool-defense-cells { gap: 2px; }
+    body.variant-preschool .preschool-defense-cell { min-height: 47px; border-radius: 6px; }
+    body.variant-preschool .preschool-defense-plant img,
+    body.variant-preschool .preschool-defense-zombie img { width: 37px; height: 39px; }
+    body.variant-preschool .preschool-defense-cell small { font-size: 7px; }
+    body.variant-preschool .preschool-defense-bottom { align-items: stretch; flex-direction: column; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.variant-preschool .preschool-defense-zombie img,
+    body.variant-preschool .preschool-defense-pea { animation: none; }
+}

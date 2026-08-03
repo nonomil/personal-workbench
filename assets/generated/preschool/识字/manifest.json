@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "subject": "hanzi",
+  "status": "seed-only",
+  "policy": {
+    "defaultLicense": "project-original",
+    "externalRequiresAttribution": true,
+    "unknownLicensePublishable": false,
+    "researchOnlyPath": "docs/识字/research/raw"
+  },
+  "items": []
+}

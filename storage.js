@@ -5,14 +5,14 @@
     const variant = config.variant || 'adult';
     const STORAGE_KEY = config.current && config.current.storageKey ? config.current.storageKey : 'petbank_huchuliang_workbench_state_v1';
     const SCHEMA_VERSION = 5;
-    const PRESCHOOL_DAY_PLAN_VERSION = 2;
+    const PRESCHOOL_DAY_PLAN_VERSION = 3;
     const PRESCHOOL_DAILY_ITEMS = [
-        { id: 'story', title: '完成今日识字', category: '识字', priority: 'high', minutes: 10, initialDone: true, initialProgress: 40 },
-        { id: 'count', title: '朗读一首古诗', category: '古诗', priority: 'high', minutes: 10, initialDone: false, initialProgress: 0 },
-        { id: 'hello', title: '数学闯关一关', category: '数学', priority: 'high', minutes: 10, initialDone: false, initialProgress: 0 },
-        { id: 'draw', title: '学习今日英语', category: '英语', priority: 'medium', minutes: 8, initialDone: false, initialProgress: 0 },
-        { id: 'move', title: '做一项运动', category: '运动', priority: 'low', minutes: 15, initialDone: false, initialProgress: 0 },
-        { id: 'tidy', title: '专注力训练一题', category: '专注', priority: 'medium', minutes: 10, initialDone: false, initialProgress: 0 }
+        { id: 'story', title: '完成今日识字', category: '识字', priority: 'high', minutes: 10, required: true, initialDone: true, initialProgress: 40 },
+        { id: 'count', title: '朗读一首古诗', category: '古诗', priority: 'high', minutes: 10, required: true, initialDone: false, initialProgress: 0 },
+        { id: 'hello', title: '数学闯关一关', category: '数学', priority: 'high', minutes: 10, required: true, initialDone: false, initialProgress: 0 },
+        { id: 'draw', title: '学习今日英语', category: '英语', priority: 'medium', minutes: 8, required: false, initialDone: false, initialProgress: 0 },
+        { id: 'move', title: '做一项运动', category: '运动', priority: 'low', minutes: 15, required: false, initialDone: false, initialProgress: 0 },
+        { id: 'tidy', title: '专注力训练一题', category: '专注', priority: 'medium', minutes: 10, required: false, initialDone: false, initialProgress: 0 }
     ];
 
     function localDate(date) {
@@ -42,6 +42,7 @@
                 id: `preschool-task-${item.id}`,
                 title: item.title,
                 category: item.category,
+                required: item.required,
                 status: item.initialDone ? 'done' : 'todo',
                 priority: item.priority,
                 progress: item.initialDone ? 100 : item.initialProgress,
@@ -61,6 +62,7 @@
                 date: date,
                 title: item.title,
                 category: item.category,
+                required: item.required,
                 done: done,
                 order: index + 1,
                 createdAt: now,
@@ -108,6 +110,7 @@
             return Object.assign({}, item, {
                 title: template.title,
                 category: template.category,
+                required: template.required,
                 priority: template.priority,
                 estimateMinutes: template.minutes
             });
@@ -119,6 +122,7 @@
             return Object.assign({}, item, {
                 title: template.title,
                 category: template.category,
+                required: template.required,
                 order: order >= 0 ? order + 1 : index + 1
             });
         });
@@ -382,7 +386,7 @@
                 const planId = `preschool-plan-${item.id}`;
                 const taskId = `preschool-task-${item.id}`;
                 if (!existingPlanIds.has(planId) && !state.dailyPlans.some(entry => entry.date === today && entry.title === item.title)) {
-                    state.dailyPlans.push({ id: planId, date: today, title: item.title, category: item.category, done: false, order: index + 1, createdAt: now, completedAt: null });
+                    state.dailyPlans.push({ id: planId, date: today, title: item.title, category: item.category, required: item.required, done: false, order: index + 1, createdAt: now, completedAt: null });
                 }
                 if (!existingTaskIds.has(taskId) && !state.tasks.some(entry => entry.title === item.title)) {
                     state.tasks.push(Object.assign({}, createPreschoolTasks(now, today).find(entry => entry.id === taskId), { status: 'todo', progress: 0, completedAt: null }));
@@ -422,12 +426,12 @@
         }
 
         state.tasks = state.tasks.map(function (item) {
-            return Object.assign({ id: createId('task'), title: '未命名任务', category: '学习', status: 'todo', priority: 'medium', progress: 0, dueDate: '', estimateMinutes: 25, createdAt: state.updatedAt, completedAt: null }, item, {
+            return Object.assign({ id: createId('task'), title: '未命名任务', category: '学习', required: false, status: 'todo', priority: 'medium', progress: 0, dueDate: '', estimateMinutes: 25, createdAt: state.updatedAt, completedAt: null }, item, {
                 progress: clampNumber(item.progress, 0, 100, 0)
             });
         });
         state.dailyPlans = state.dailyPlans.map(function (item, index) {
-            return Object.assign({ id: createId('plan'), date: localDate(), title: '未命名计划', category: '学习', done: false, order: index + 1, createdAt: state.updatedAt, completedAt: null }, item, { done: Boolean(item.done) });
+            return Object.assign({ id: createId('plan'), date: localDate(), title: '未命名计划', category: '学习', required: false, done: false, order: index + 1, createdAt: state.updatedAt, completedAt: null }, item, { done: Boolean(item.done) });
         });
         state.readingLogs = state.readingLogs.map(function (item) {
             return Object.assign({ id: createId('reading'), date: localDate(), title: '未命名阅读', minutes: 0, pages: 0, note: '', createdAt: state.updatedAt }, item, {

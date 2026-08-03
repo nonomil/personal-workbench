@@ -1,0 +1,138 @@
+[
+  {
+    "id": "poem-chunxiao",
+    "title": "春晓",
+    "author": "孟浩然",
+    "theme": "spring",
+    "lines": [
+      "春眠不觉晓",
+      "处处闻啼鸟",
+      "夜来风雨声",
+      "花落知多少"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "poem-jingyesi",
+    "title": "静夜思",
+    "author": "李白",
+    "theme": "moon",
+    "lines": [
+      "床前明月光",
+      "疑是地上霜",
+      "举头望明月",
+      "低头思故乡"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "poem-yong-e",
+    "title": "咏鹅",
+    "author": "骆宾王",
+    "theme": "animal",
+    "lines": [
+      "鹅鹅鹅",
+      "曲项向天歌",
+      "白毛浮绿水",
+      "红掌拨清波"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "poem-minnong",
+    "title": "悯农",
+    "author": "李绅",
+    "theme": "labor",
+    "lines": [
+      "锄禾日当午",
+      "汗滴禾下土",
+      "谁知盘中餐",
+      "粒粒皆辛苦"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "poem-xiaochi",
+    "title": "小池",
+    "author": "杨万里",
+    "theme": "summer",
+    "lines": [
+      "泉眼无声惜细流",
+      "树阴照水爱晴柔",
+      "小荷才露尖尖角",
+      "早有蜻蜓立上头"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "poem-shanxing",
+    "title": "山行",
+    "author": "杜牧",
+    "theme": "autumn",
+    "lines": [
+      "远上寒山石径斜",
+      "白云生处有人家",
+      "停车坐爱枫林晚",
+      "霜叶红于二月花"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "poem-zengwanglun",
+    "title": "赠汪伦",
+    "author": "李白",
+    "theme": "friendship",
+    "lines": [
+      "李白乘舟将欲行",
+      "忽闻岸上踏歌声",
+      "桃花潭水深千尺",
+      "不及汪伦送我情"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "poem-youziyin",
+    "title": "游子吟",
+    "author": "孟郊",
+    "theme": "family",
+    "lines": [
+      "慈母手中线",
+      "游子身上衣",
+      "临行密密缝",
+      "意恐迟迟归"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  }
+]
