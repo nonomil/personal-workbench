@@ -238,7 +238,7 @@ test('uses transparent PVZ plants and zombie variants across the preschool defen
   assert.match(app, /const plantAsset = preschoolPlantAsset\(activePlant\)/);
   assert.match(app, /pixel-hud-defense-art/);
   assert.match(app, /asset: 'player-energy-bars'/);
-  assert.match(config, /selected\.id === 'preschool' \? 'v0\.4\.1 · 幼儿版'/);
+  assert.match(config, /selected\.id === 'preschool' \? 'v0\.4\.2 · 幼儿版'/);
   assert.doesNotMatch(config, /v0\.2\.4 · 幼儿版/);
   assert.match(styles, /pixel-hud-defense-art/);
    assert.match(styles, /preschool-pvz-art/);
@@ -402,7 +402,7 @@ test('keeps the approved WorkBuddy finish layer and mobile shortcut contract', (
     assert.match(preschoolIndex, new RegExp(`aria-label="${label}"`));
   }
   assert.match(preschoolIndex, /class="preschool-mobile-nav"/);
-  assert.match(preschoolIndex, /<span>花园战<\/span>/);
+  assert.match(preschoolIndex, /<span>花园保卫战<\/span>/);
   assert.match(styles, /safe-area-inset-bottom/);
   assert.match(styles, /preschool-mobile-nav-item \{ min-width: 44px; touch-action: manipulation; \}/);
   assert.match(app, /querySelectorAll\('\[data-mobile-nav\]'\)[\s\S]*classList\.toggle\('is-active'/);
@@ -513,4 +513,28 @@ test('keeps the preschool sidebar visible in landscape and manually collapsible 
   assert.match(styles, /@media \(min-aspect-ratio: 1 \/ 1\) and \(max-width: 760px\)[\s\S]*\.sidebar-scrim,[\s\S]*\.menu-toggle,[\s\S]*display:\s*none/);
   assert.match(styles, /@media \(max-aspect-ratio: 1 \/ 1\) and \(max-width: 760px\)[\s\S]*\.menu-toggle,[\s\S]*\.sidebar-close \{[^}]*display:\s*inline-grid/);
   assert.match(styles, /sidebar-scrim\.is-visible[\s\S]*display:\s*block !important/);
+});
+
+test('restores the summer learning lane without loading the full library into the home page', () => {
+  const config = fs.readFileSync(path.join(root, 'config.js'), 'utf8');
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const preschoolIndex = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
+  const compatibilityStyles = fs.readFileSync(path.join(root, 'styles.css'), 'utf8');
+  const styles = readCssGraph(path.join(root, 'styles.css'));
+  assert.match(config, /id: 'preschool-summer'/);
+  assert.match(config, /今日精选 · 6 张 \+ 完整资料库/);
+  assert.equal((config.match(/id: 'summer-[^']+'/g) || []).length, 6);
+  assert.match(config, /id: 'preschool-summer-4'/);
+  assert.match(app, /function renderPreschoolCourseResources\(course\)/);
+  assert.match(app, /function renderPreschoolSummerLibrary\(course\)/);
+  assert.match(app, /renderPreschoolCourseResources\(course\)/);
+  assert.match(app, /renderPreschoolSummerLibrary\(course\)/);
+  assert.match(app, /data-action="summer-library-category"/);
+  assert.match(app, /action === 'summer-library-step'/);
+  assert.match(app, /target\.dataset\.action === 'summer-library-item'/);
+  assert.match(preschoolIndex, /preschool-summer-learning-data\.js/);
+  assert.match(preschoolIndex, /data-course-id="preschool-summer"/);
+  assert.match(compatibilityStyles, /21-summer-library\.css/);
+  assert.match(styles, /preschool-course-resource-list/);
+  assert.match(styles, /preschool-summer-library-categories/);
 });

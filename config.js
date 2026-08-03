@@ -113,6 +113,31 @@
             ],
             childCourses: [
                 {
+                    id: 'preschool-summer',
+                    title: '暑假学习',
+                    description: '每天一张小学习单，晨读、识字、古诗、数学和复盘都能轻松完成。',
+                    icon: 'sun',
+                    tone: 'orange',
+                    badge: '今日精选 · 6 张 + 完整资料库',
+                    note: '参考“暑假每日学习打印版”：精选卡适合马上开始，完整资料库收纳 60 天晨读、45 天识字、60 首古诗和 8 周复盘。',
+                    highlights: ['60 天晨读', '45 天识字', '60 首古诗 · 8 周复盘'],
+                    samples: ['你好，暑假', '山 · 水 · 花 · 鸟', '鹅，鹅，鹅'],
+                    resources: [
+                        { id: 'summer-reading-01', kind: '晨读 · 5 分钟', title: '你好，暑假', content: '早上好，太阳笑。小朋友，起得早。', icon: 'sun', speak: '早上好，太阳笑。小朋友，起得早。' },
+                        { id: 'summer-literacy-01', kind: '识字 · 第 1 天', title: '自然小字卡', content: '山、水、火、木、日、月、石、田、人、口', icon: 'book-open', speak: '山，水，火，木，日，月，石，田，人，口。' },
+                        { id: 'summer-poem-01', kind: '古诗 · 今日一首', title: '咏鹅', content: '鹅，鹅，鹅，曲项向天歌。白毛浮绿水，红掌拨清波。', icon: 'moon', speak: '鹅，鹅，鹅，曲项向天歌。白毛浮绿水，红掌拨清波。' },
+                        { id: 'summer-classic-01', kind: '经典短句 · 读一遍', title: '先听清，再行动', content: '父母呼，应勿缓。父母命，行勿懒。', icon: 'heart', speak: '父母呼，应勿缓。父母命，行勿懒。' },
+                        { id: 'summer-math-01', kind: '数学 · 练一练', title: '阳光口算', content: '3 + 4 = ?　　9 - 5 = ?　　2 × 3 = ?', icon: 'calculator', speak: '阳光口算。三加四等于多少？九减五等于多少？二乘三等于多少？' },
+                        { id: 'summer-review-01', kind: '每周复盘 · 周末', title: '把喜欢的留下来', content: '我最喜欢读的句子是？我最熟的三个字是？下周想再看什么？', icon: 'calendar-check-2', speak: '把喜欢的留下来。我最喜欢读的句子是什么？我最熟的三个字是什么？' }
+                    ],
+                    lessons: [
+                        { id: 'preschool-summer-1', title: '打开每日学习单', minutes: 8, meta: '晨读 + 识字 + 古诗', tip: '先读一句，再认几个字，慢慢开始就好。', activity: { mode: 'choice', prompt: '暑假学习单先做哪一项？', hint: '先用一句晨读把小脑袋叫醒。', options: ['晨读一句', '马上看电视', '先把所有内容背完'], answer: 0, optionIcons: ['sun', 'tv', 'book-open'], success: '学习节奏找到了！' } },
+                        { id: 'preschool-summer-2', title: '晨读和识字', minutes: 10, meta: '5 分钟晨读 · 10 个字', tip: '读顺一句，再认一组生活里的字。', activity: { mode: 'choice', prompt: '“山、水、火、木”里哪个是植物？', hint: '它会从土地里长出来。', options: ['木', '水', '火'], answer: 0, optionIcons: ['tree-pine', 'droplets', 'flame'], success: '字卡认得真仔细！' } },
+                        { id: 'preschool-summer-3', title: '古诗小画面', minutes: 10, meta: '读《咏鹅》 · 想画面', tip: '边读边想白鹅和绿水的画面。', activity: { mode: 'choice', prompt: '《咏鹅》里白毛浮在哪里？', hint: '想想诗里绿色的地方。', options: ['绿水', '高山', '白云'], answer: 0, optionIcons: ['droplets', 'mountain', 'cloud'], success: '诗里的画面出现啦！' } },
+                        { id: 'preschool-summer-4', title: '周末复盘卡', minutes: 8, meta: '说一说 · 留一句', tip: '会说出一件喜欢的事，就是很好的复盘。', activity: { mode: 'choice', prompt: '每周复盘可以做什么？', hint: '想想这周读过、认过和喜欢过的内容。', options: ['说说喜欢的内容', '把学习全忘掉', '只看完成数量'], answer: 0, optionIcons: ['heart', 'moon', 'target'], success: '会回看，也会长大！' } }
+                    ]
+                },
+                {
                     id: 'preschool-literacy',
                     title: '识字专区',
                     description: '今天学 10 个汉字，按自然、植物、动物慢慢认。',
@@ -261,7 +286,7 @@
         '.topbar-context strong': selected.pageMeta.overview.title,
         '.mode-status strong': '本地模式',
         '.mode-status small': selected.statusNote,
-        '.sidebar-footnote': selected.id === 'preschool' ? 'v0.4.1 · 幼儿版' : selected.id === 'child' ? 'v0.4.1 · 儿童版' : 'v0.4.1 · 成人版',
+        '.sidebar-footnote': selected.id === 'preschool' ? 'v0.4.2 · 幼儿版' : selected.id === 'child' ? 'v0.4.2 · 儿童版' : 'v0.4.2 · 成人版',
         '.avatar': selected.avatar
     };
     Object.keys(labelMap).forEach(function (selector) {
