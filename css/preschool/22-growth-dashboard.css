@@ -1,0 +1,399 @@
+/* Loaded from 22-growth-dashboard.css. Garden base dashboard: a compact lawn scoreboard instead of a decorative hero image. */
+body.variant-preschool .preschool-growth-dashboard,
+body.variant-preschool .preschool-growth-progress,
+body.variant-preschool .preschool-achievement-wall {
+    position: relative;
+    overflow: hidden;
+    margin-top: 18px;
+    border: 1px solid rgba(255, 255, 255, .86);
+    border-radius: 26px;
+    box-shadow: 0 13px 30px rgba(46, 79, 47, .12), inset 0 1px 0 rgba(255, 255, 255, .72);
+}
+
+body.variant-preschool .preschool-growth-dashboard {
+    padding: clamp(18px, 3vw, 28px);
+    color: #fff8dc;
+    background:
+        radial-gradient(circle at 88% 12%, rgba(255, 233, 126, .25), transparent 24%),
+        radial-gradient(circle at 10% 110%, rgba(129, 211, 103, .25), transparent 30%),
+        linear-gradient(135deg, #174e35, #287245 55%, #3a8550);
+}
+
+body.variant-preschool .preschool-growth-dashboard::before,
+body.variant-preschool .preschool-growth-dashboard::after {
+    position: absolute;
+    width: 130px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(158, 220, 108, .12);
+    content: "";
+    transform: rotate(-12deg);
+    pointer-events: none;
+}
+
+body.variant-preschool .preschool-growth-dashboard::before { top: 22px; right: -38px; }
+body.variant-preschool .preschool-growth-dashboard::after { bottom: -18px; left: -30px; transform: rotate(18deg); }
+
+body.variant-preschool .preschool-growth-dashboard-head,
+body.variant-preschool .preschool-growth-record,
+body.variant-preschool .preschool-growth-section-head {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+body.variant-preschool .preschool-growth-dashboard-head h2,
+body.variant-preschool .preschool-growth-section-head h2 {
+    margin: 4px 0 0;
+    color: inherit;
+    font-size: clamp(20px, 2.6vw, 28px);
+    font-weight: 950;
+    letter-spacing: -.03em;
+}
+
+body.variant-preschool .preschool-growth-dashboard-head p,
+body.variant-preschool .preschool-growth-section-head p {
+    max-width: 600px;
+    margin: 6px 0 0;
+    color: inherit;
+    opacity: .76;
+    font-size: 12px;
+    line-height: 1.65;
+}
+
+body.variant-preschool .preschool-growth-kicker {
+    color: #ffe37c;
+    font-size: 10px;
+    font-weight: 950;
+    letter-spacing: .14em;
+}
+
+body.variant-preschool .preschool-growth-balance {
+    display: grid;
+    min-width: 96px;
+    justify-items: center;
+    padding: 9px 12px;
+    border: 1px solid rgba(255, 237, 143, .34);
+    border-radius: 16px;
+    background: rgba(12, 59, 38, .35);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12);
+}
+
+body.variant-preschool .preschool-growth-balance .preschool-generated-art {
+    width: 31px;
+    height: 31px;
+}
+
+body.variant-preschool .preschool-growth-balance strong {
+    color: #fff0a2;
+    font-size: 22px;
+    line-height: 1;
+}
+
+body.variant-preschool .preschool-growth-balance small {
+    margin-top: 3px;
+    color: rgba(255, 248, 220, .72);
+    font-size: 10px;
+    font-weight: 800;
+}
+
+body.variant-preschool .preschool-growth-stat-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 9px;
+    margin-top: 22px;
+}
+
+body.variant-preschool .preschool-growth-stat-card {
+    display: flex;
+    min-width: 0;
+    min-height: 83px;
+    align-items: center;
+    gap: 9px;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, .22);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, .12);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .14);
+}
+
+body.variant-preschool .preschool-growth-stat-icon,
+body.variant-preschool .preschool-growth-record-icon {
+    display: grid;
+    flex: 0 0 35px;
+    width: 35px;
+    height: 35px;
+    place-items: center;
+    border-radius: 12px;
+    color: #20553a;
+    background: #f8f0bc;
+}
+
+body.variant-preschool .preschool-growth-stat-icon svg,
+body.variant-preschool .preschool-growth-record-icon svg { width: 18px; height: 18px; }
+body.variant-preschool .preschool-growth-stat-card.tone-orange .preschool-growth-stat-icon { background: #ffd7a0; }
+body.variant-preschool .preschool-growth-stat-card.tone-pink .preschool-growth-stat-icon { background: #ffc6b5; }
+body.variant-preschool .preschool-growth-stat-card.tone-blue .preschool-growth-stat-icon { background: #bcebf0; }
+
+body.variant-preschool .preschool-growth-stat-copy {
+    display: grid;
+    min-width: 0;
+    gap: 2px;
+}
+
+body.variant-preschool .preschool-growth-stat-copy small,
+body.variant-preschool .preschool-growth-stat-copy em {
+    overflow: hidden;
+    color: rgba(255, 248, 220, .72);
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 800;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.variant-preschool .preschool-growth-stat-copy strong {
+    overflow: hidden;
+    color: #fff8dc;
+    font-size: clamp(17px, 2vw, 23px);
+    font-weight: 950;
+    line-height: 1.05;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.variant-preschool .preschool-growth-record {
+    justify-content: flex-start;
+    margin-top: 16px;
+    padding: 10px 12px;
+    border-top: 1px solid rgba(255, 255, 255, .16);
+}
+
+body.variant-preschool .preschool-growth-record-icon {
+    flex-basis: 31px;
+    width: 31px;
+    height: 31px;
+    border-radius: 10px;
+    background: #ccefc8;
+}
+
+body.variant-preschool .preschool-growth-record > span:nth-child(2) {
+    display: grid;
+    min-width: 0;
+    gap: 2px;
+}
+
+body.variant-preschool .preschool-growth-record small {
+    color: rgba(255, 248, 220, .64);
+    font-size: 10px;
+    font-weight: 800;
+}
+
+body.variant-preschool .preschool-growth-record strong {
+    overflow: hidden;
+    color: #fff8dc;
+    font-size: 13px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.variant-preschool .preschool-growth-record-action {
+    display: inline-flex;
+    min-height: 32px;
+    align-items: center;
+    gap: 4px;
+    margin-left: auto;
+    padding: 0 11px;
+    border: 1px solid rgba(255, 236, 133, .45);
+    border-radius: 999px;
+    color: #4c3a19;
+    background: #ffe681;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 950;
+    transition: transform .2s ease, background .2s ease;
+}
+
+body.variant-preschool .preschool-growth-record-action:hover,
+body.variant-preschool .preschool-growth-record-action:focus-visible { background: #fff0a7; transform: translateY(-1px); }
+body.variant-preschool .preschool-growth-record-action svg { width: 14px; height: 14px; }
+
+body.variant-preschool .preschool-growth-progress,
+body.variant-preschool .preschool-achievement-wall {
+    padding: clamp(17px, 3vw, 24px);
+    border-color: rgba(228, 209, 158, .72);
+    background: linear-gradient(145deg, rgba(255, 252, 236, .96), rgba(248, 240, 206, .9));
+}
+
+body.variant-preschool .preschool-growth-progress .preschool-growth-section-head,
+body.variant-preschool .preschool-achievement-wall .preschool-growth-section-head { color: #255d3b; }
+
+body.variant-preschool .preschool-growth-progress .preschool-growth-section-head p,
+body.variant-preschool .preschool-achievement-wall .preschool-growth-section-head p { color: #60725c; opacity: 1; }
+body.variant-preschool .preschool-growth-section-count {
+    flex: 0 0 auto;
+    padding: 6px 9px;
+    border: 1px solid rgba(57, 123, 68, .2);
+    border-radius: 999px;
+    color: #2d754b;
+    background: #e2f3d2;
+    font-size: 10px;
+    font-weight: 950;
+}
+
+body.variant-preschool .preschool-growth-progress-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px 20px;
+    margin-top: 20px;
+}
+
+body.variant-preschool .preschool-growth-progress-row { min-width: 0; }
+body.variant-preschool .preschool-growth-progress-copy {
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 8px;
+}
+
+body.variant-preschool .preschool-growth-progress-icon {
+    display: grid;
+    width: 30px;
+    height: 30px;
+    place-items: center;
+    border-radius: 10px;
+    color: #31724d;
+    background: #dcefc7;
+}
+
+body.variant-preschool .preschool-growth-progress-icon.tone-blue { color: #276f83; background: #d4edf0; }
+body.variant-preschool .preschool-growth-progress-icon.tone-orange { color: #a65e2c; background: #ffe0bb; }
+body.variant-preschool .preschool-growth-progress-icon svg { width: 16px; height: 16px; }
+body.variant-preschool .preschool-growth-progress-copy > span:nth-child(2) { display: grid; min-width: 0; gap: 2px; }
+body.variant-preschool .preschool-growth-progress-copy strong { color: #2f4d38; font-size: 12px; font-weight: 950; }
+body.variant-preschool .preschool-growth-progress-copy small { overflow: hidden; color: #73806e; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+body.variant-preschool .preschool-growth-progress-copy > b { color: #2d754b; font-size: 13px; font-weight: 950; }
+
+body.variant-preschool .preschool-growth-progress-bar {
+    height: 9px;
+    margin: 8px 0 0 40px;
+    overflow: hidden;
+    border: 1px solid rgba(49, 114, 77, .13);
+    border-radius: 999px;
+    background: #e4e7cf;
+}
+
+body.variant-preschool .preschool-growth-progress-bar i {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #71bc54, #31864e);
+    transition: width .35s ease;
+}
+
+body.variant-preschool .preschool-growth-progress-bar i.tone-blue { background: linear-gradient(90deg, #76ccd0, #3186a1); }
+body.variant-preschool .preschool-growth-progress-bar i.tone-orange { background: linear-gradient(90deg, #ffbd63, #e4753c); }
+
+body.variant-preschool .preschool-achievement-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 19px;
+}
+
+body.variant-preschool .preschool-achievement-card {
+    display: grid;
+    grid-template-columns: 37px minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    column-gap: 9px;
+    min-width: 0;
+    padding: 11px;
+    border: 1px solid rgba(69, 125, 61, .16);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, .75);
+    transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+}
+
+body.variant-preschool .preschool-achievement-card.is-unlocked:hover { box-shadow: 0 7px 14px rgba(58, 106, 55, .12); transform: translateY(-2px); }
+body.variant-preschool .preschool-achievement-card.is-locked { filter: grayscale(.7); opacity: .62; }
+body.variant-preschool .preschool-achievement-icon {
+    display: grid;
+    grid-row: 1 / span 2;
+    width: 37px;
+    height: 37px;
+    place-items: center;
+    border-radius: 13px;
+    color: #2d714b;
+    background: #dbf0c6;
+}
+
+body.variant-preschool .preschool-achievement-card.tone-gold .preschool-achievement-icon { color: #8d651e; background: #ffe9a2; }
+body.variant-preschool .preschool-achievement-card.tone-orange .preschool-achievement-icon { color: #a95c29; background: #ffd6ae; }
+body.variant-preschool .preschool-achievement-card.tone-blue .preschool-achievement-icon { color: #2c7184; background: #d1edf0; }
+body.variant-preschool .preschool-achievement-card.tone-pink .preschool-achievement-icon { color: #a14e55; background: #ffd4ce; }
+body.variant-preschool .preschool-achievement-icon svg { width: 18px; height: 18px; }
+body.variant-preschool .preschool-achievement-copy { display: grid; min-width: 0; gap: 3px; }
+body.variant-preschool .preschool-achievement-copy strong { overflow: hidden; color: #345640; font-size: 12px; font-weight: 950; text-overflow: ellipsis; white-space: nowrap; }
+body.variant-preschool .preschool-achievement-copy small { overflow: hidden; color: #7b8872; font-size: 10px; line-height: 1.45; text-overflow: ellipsis; white-space: nowrap; }
+body.variant-preschool .preschool-achievement-card > b { grid-column: 2; color: #438359; font-size: 9px; font-weight: 950; }
+body.variant-preschool .preschool-achievement-card.is-locked > b { color: #9b9b87; }
+
+body.variant-preschool .preschool-growth-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+body.variant-preschool .preschool-growth-actions .voice-toggle { margin-left: auto; }
+body.variant-preschool .preschool-growth-actions .btn-secondary { min-height: 42px; }
+body.variant-preschool .preschool-growth-actions + .preschool-section { margin-top: 18px; }
+body.variant-preschool .preschool-section .preschool-section-head p { margin: 4px 0 0; color: var(--wb-muted); font-size: 11px; }
+
+@media (max-width: 980px) {
+    body.variant-preschool .preschool-growth-stat-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    body.variant-preschool .preschool-achievement-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 680px) {
+    body.variant-preschool .preschool-growth-dashboard-head,
+    body.variant-preschool .preschool-growth-section-head { align-items: flex-start; }
+    body.variant-preschool .preschool-growth-dashboard-head { flex-direction: column; }
+    body.variant-preschool .preschool-growth-balance { grid-template-columns: 31px auto auto; width: 100%; justify-items: start; align-items: center; gap: 8px; }
+    body.variant-preschool .preschool-growth-balance strong { font-size: 20px; }
+    body.variant-preschool .preschool-growth-balance small { margin-top: 0; }
+    body.variant-preschool .preschool-growth-stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    body.variant-preschool .preschool-growth-progress-list { grid-template-columns: 1fr; gap: 15px; }
+    body.variant-preschool .preschool-achievement-grid { grid-template-columns: 1fr; }
+    body.variant-preschool .preschool-growth-record { align-items: flex-start; }
+    body.variant-preschool .preschool-growth-record-action { align-self: center; }
+    body.variant-preschool .preschool-growth-actions .voice-toggle { margin-left: 0; }
+}
+
+@media (max-width: 440px) {
+    body.variant-preschool .preschool-growth-dashboard,
+    body.variant-preschool .preschool-growth-progress,
+    body.variant-preschool .preschool-achievement-wall { border-radius: 20px; }
+    body.variant-preschool .preschool-growth-dashboard { padding: 16px; }
+    body.variant-preschool .preschool-growth-stat-card { min-height: 72px; padding: 8px; }
+    body.variant-preschool .preschool-growth-stat-icon { flex-basis: 30px; width: 30px; height: 30px; border-radius: 10px; }
+    body.variant-preschool .preschool-growth-stat-copy small,
+    body.variant-preschool .preschool-growth-stat-copy em { font-size: 9px; }
+    body.variant-preschool .preschool-growth-stat-copy strong { font-size: 16px; }
+    body.variant-preschool .preschool-growth-record strong { font-size: 12px; }
+    body.variant-preschool .preschool-growth-section-head h2 { font-size: 20px; }
+    body.variant-preschool .preschool-growth-progress-copy { grid-template-columns: 30px minmax(0, 1fr) auto; }
+    body.variant-preschool .preschool-growth-progress-bar { margin-left: 38px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.variant-preschool .preschool-growth-progress-bar i,
+    body.variant-preschool .preschool-achievement-card { transition: none; }
+    body.variant-preschool .preschool-achievement-card.is-unlocked:hover { transform: none; }
+}

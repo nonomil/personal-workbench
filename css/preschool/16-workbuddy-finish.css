@@ -529,3 +529,152 @@ body.variant-preschool .preschool-course-layout.is-focused { grid-template-colum
 @media (prefers-reduced-motion: reduce) {
     body.variant-preschool .preschool-course-directory-progress i { transition: none; transform: none; }
 }
+
+/* Preschool battle feedback: a defeated zombie falls first, then the state is removed. */
+body.variant-preschool .pixel-battle-lane-row.is-defeated {
+    background: rgba(255, 247, 186, .18);
+}
+
+body.variant-preschool .pixel-battle-invader.is-defeated {
+    z-index: 1;
+    cursor: default;
+    opacity: 1;
+    pointer-events: none;
+    transform-origin: 50% 88%;
+    animation: preschool-zombie-fall 720ms cubic-bezier(.22, .8, .35, 1) both;
+    filter: saturate(.68) brightness(.9);
+}
+
+body.variant-preschool .pixel-battle-invader.is-defeated .preschool-generated-art {
+    filter: grayscale(.18);
+}
+
+body.variant-preschool .pixel-pea-projectile.is-ice {
+    border-color: #237fa5;
+    background: #b9f4ff;
+    box-shadow: 3px 3px 0 rgba(33, 103, 138, .34), 0 0 11px rgba(148, 239, 255, .8);
+}
+
+body.variant-preschool .pixel-cherry-explosion {
+    position: absolute;
+    z-index: 8;
+    top: 50%;
+    right: 12%;
+    display: block;
+    width: 48px;
+    height: 48px;
+    border: 4px solid #fff3a4;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff7bb 0 18%, #ff9c45 19% 48%, #e84c4c 49% 70%, transparent 71%);
+    box-shadow: 0 0 0 6px rgba(255, 190, 72, .28), 0 0 22px rgba(255, 106, 57, .7);
+    transform: translateY(-50%) scale(.2);
+    animation: preschool-cherry-burst 620ms cubic-bezier(.2, .8, .28, 1) both;
+}
+
+@keyframes preschool-zombie-fall {
+    0% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+    42% { opacity: 1; transform: translateY(5px) rotate(18deg) scale(1.02); }
+    76% { opacity: .82; transform: translateY(16px) rotate(72deg) scale(.94); }
+    100% { opacity: 0; transform: translateY(27px) rotate(90deg) scale(.82); }
+}
+
+@keyframes preschool-cherry-burst {
+    0% { opacity: 0; transform: translateY(-50%) scale(.2); }
+    24% { opacity: 1; transform: translateY(-50%) scale(1.12); }
+    100% { opacity: 0; transform: translateY(-50%) scale(1.55); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.variant-preschool .pixel-battle-invader.is-defeated {
+        opacity: .78;
+        transform: translateY(12px) rotate(82deg) scale(.88);
+        animation: none;
+    }
+    body.variant-preschool .pixel-cherry-explosion { animation: none; opacity: .9; transform: translateY(-50%) scale(1); }
+}
+
+/* Preschool battle planting board: one visible 5x6 lawn, click or drop to plant. */
+body.variant-preschool .pixel-battle-grid { grid-template-columns: 42px minmax(0, 1fr); }
+body.variant-preschool .pixel-battle-lanes {
+    display: grid;
+    grid-template-rows: repeat(5, minmax(0, 1fr));
+    gap: 3px;
+    padding: 4px 6px;
+    background: transparent;
+}
+body.variant-preschool .pixel-battle-lane-row {
+    display: grid;
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr) minmax(68px, .18fr);
+    border: 0;
+    border-bottom: 1px solid rgba(55, 125, 51, .28);
+    border-radius: 0;
+    background: rgba(145, 205, 92, .2);
+    overflow: visible;
+}
+body.variant-preschool .pixel-battle-lane-row:nth-child(even) { background: rgba(60, 142, 61, .1); }
+body.variant-preschool .pixel-battle-lane-row.is-target { background: rgba(255, 235, 140, .3); box-shadow: inset 0 0 0 2px rgba(255, 248, 181, .28); }
+body.variant-preschool .pixel-battle-lane-cells {
+    display: grid;
+    min-width: 0;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 2px;
+    padding: 2px;
+}
+body.variant-preschool .pixel-battle-slot {
+    position: relative;
+    display: grid;
+    min-width: 0;
+    min-height: 54px;
+    place-items: end center;
+    padding: 0;
+    border: 1px dashed rgba(49, 117, 43, .26);
+    border-radius: 8px;
+    color: #1c5b38;
+    background: rgba(255, 255, 255, .08);
+    cursor: pointer;
+    transition: background .16s ease, box-shadow .16s ease, transform .16s ease;
+}
+body.variant-preschool .pixel-battle-slot::after { right: 16%; bottom: 4px; left: 16%; height: 6px; border-radius: 50%; background: rgba(53, 108, 36, .24); }
+body.variant-preschool .pixel-battle-slot.is-empty:hover,
+body.variant-preschool .pixel-battle-slot.is-empty:focus-visible,
+body.variant-preschool .pixel-battle-slot.is-drop-target {
+    border-color: #fff2a7;
+    background: rgba(255, 244, 158, .34);
+    box-shadow: inset 0 0 0 2px rgba(255, 248, 181, .36), 0 0 0 2px rgba(255, 226, 103, .18);
+    transform: translateY(-1px);
+}
+body.variant-preschool .pixel-battle-slot.is-occupied { border-style: solid; border-color: rgba(58, 126, 49, .28); background: rgba(255, 251, 186, .16); cursor: default; }
+body.variant-preschool .pixel-battle-slot-plant,
+body.variant-preschool .pixel-battle-slot-empty { position: relative; z-index: 1; display: grid; min-width: 0; place-items: end center; }
+body.variant-preschool .pixel-battle-slot-plant .preschool-generated-art { width: 45px; height: 52px; object-fit: contain; filter: drop-shadow(0 3px 1px rgba(34, 78, 35, .22)); }
+body.variant-preschool .pixel-battle-slot-plant b { position: absolute; right: 0; bottom: 5px; padding: 1px 3px; border-radius: 999px; color: #fffde1; background: rgba(31, 97, 47, .78); font-size: 7px; font-weight: 950; }
+body.variant-preschool .pixel-battle-slot-empty { align-self: center; place-items: center; opacity: .68; }
+body.variant-preschool .pixel-battle-slot-empty i { display: grid; width: 24px; height: 24px; place-items: center; border: 2px solid rgba(255, 246, 178, .75); border-radius: 50%; color: #fff5b4; background: rgba(65, 132, 55, .32); font-size: 20px; font-style: normal; line-height: 1; }
+body.variant-preschool .pixel-battle-slot-empty small { margin-top: 2px; color: rgba(255, 255, 220, .8); font-size: 8px; font-weight: 900; }
+body.variant-preschool .pixel-battle-invader-column { position: relative; display: grid; min-width: 0; place-items: end center; border-left: 1px solid rgba(55, 125, 51, .28); overflow: visible; }
+body.variant-preschool .pixel-battle-invader { width: 68px; height: 78px; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+body.variant-preschool .pixel-battle-invader .preschool-generated-art { width: 65px; height: 73px; object-fit: contain; filter: drop-shadow(0 4px 2px rgba(34, 64, 35, .26)); }
+body.variant-preschool .pixel-battle-invader.is-preview { opacity: .62; }
+body.variant-preschool .pvz-seed-packet[draggable="true"] { cursor: grab; touch-action: none; user-select: none; }
+body.variant-preschool .pvz-seed-packet[draggable="true"]:active { cursor: grabbing; }
+
+@media (max-width: 560px) {
+    body.variant-preschool .pixel-battle-grid { grid-template-columns: 27px minmax(0, 1fr); }
+    body.variant-preschool .pixel-battle-lanes { gap: 2px; padding: 3px; }
+    body.variant-preschool .pixel-battle-lane-row { grid-template-columns: minmax(0, 1fr) 54px; }
+    body.variant-preschool .pixel-battle-lane-cells { gap: 1px; padding: 1px; }
+    body.variant-preschool .pixel-battle-slot { min-height: 48px; border-radius: 6px; }
+    body.variant-preschool .pixel-battle-slot-plant .preschool-generated-art { width: 35px; height: 42px; }
+    body.variant-preschool .pixel-battle-slot-empty i { width: 19px; height: 19px; font-size: 16px; }
+    body.variant-preschool .pixel-battle-slot-empty small { font-size: 7px; }
+    body.variant-preschool .pixel-battle-invader { width: 52px; height: 63px; }
+    body.variant-preschool .pixel-battle-invader .preschool-generated-art { width: 50px; height: 58px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.variant-preschool .pixel-battle-slot { transition: none; }
+    body.variant-preschool .pixel-battle-slot.is-empty:hover,
+    body.variant-preschool .pixel-battle-slot.is-empty:focus-visible,
+    body.variant-preschool .pixel-battle-slot.is-drop-target { transform: none; }
+}

@@ -108,22 +108,26 @@
             const template = preschoolTaskTemplateById(item.id);
             if (!template) return item;
             return Object.assign({}, item, {
-                title: template.title,
-                category: template.category,
-                required: template.required,
-                priority: template.priority,
-                estimateMinutes: template.minutes
+                // The seed catalog supplies defaults only. Once a child or parent
+                // edits a task, the snapshot is the source of truth and must win
+                // over the historical template.
+                title: typeof item.title === 'string' && item.title.trim() ? item.title : template.title,
+                category: typeof item.category === 'string' && item.category.trim() ? item.category : template.category,
+                required: typeof item.required === 'boolean' ? item.required : template.required,
+                priority: item.priority || template.priority,
+                estimateMinutes: Number(item.estimateMinutes) > 0 ? item.estimateMinutes : template.minutes
             });
         });
         state.dailyPlans = state.dailyPlans.map(function (item, index) {
             const template = preschoolTaskTemplateById(item.id);
             if (!template) return item;
-            const order = PRESCHOOL_DAILY_ITEMS.findIndex(entry => entry.id === template.id);
             return Object.assign({}, item, {
-                title: template.title,
-                category: template.category,
-                required: template.required,
-                order: order >= 0 ? order + 1 : index + 1
+                // Do not re-seed titles, categories, required flags, or order on
+                // every save. Those fields are intentionally editable/deletable.
+                title: typeof item.title === 'string' && item.title.trim() ? item.title : template.title,
+                category: typeof item.category === 'string' && item.category.trim() ? item.category : template.category,
+                required: typeof item.required === 'boolean' ? item.required : template.required,
+                order: Number(item.order) > 0 ? item.order : index + 1
             });
         });
         return state;
@@ -426,12 +430,14 @@
         }
 
         state.tasks = state.tasks.map(function (item) {
-            return Object.assign({ id: createId('task'), title: '未命名任务', category: '学习', required: false, status: 'todo', priority: 'medium', progress: 0, dueDate: '', estimateMinutes: 25, createdAt: state.updatedAt, completedAt: null }, item, {
+            const template = variant === 'preschool' ? preschoolTaskTemplateById(item.id) : null;
+            return Object.assign({ id: createId('task'), title: '未命名任务', category: '学习', required: template ? template.required : false, status: 'todo', priority: 'medium', progress: 0, dueDate: '', estimateMinutes: 25, createdAt: state.updatedAt, completedAt: null }, item, {
                 progress: clampNumber(item.progress, 0, 100, 0)
             });
         });
         state.dailyPlans = state.dailyPlans.map(function (item, index) {
-            return Object.assign({ id: createId('plan'), date: localDate(), title: '未命名计划', category: '学习', required: false, done: false, order: index + 1, createdAt: state.updatedAt, completedAt: null }, item, { done: Boolean(item.done) });
+            const template = variant === 'preschool' ? preschoolTaskTemplateById(item.id) : null;
+            return Object.assign({ id: createId('plan'), date: localDate(), title: '未命名计划', category: '学习', required: template ? template.required : false, done: false, order: index + 1, createdAt: state.updatedAt, completedAt: null }, item, { done: Boolean(item.done) });
         });
         state.readingLogs = state.readingLogs.map(function (item) {
             return Object.assign({ id: createId('reading'), date: localDate(), title: '未命名阅读', minutes: 0, pages: 0, note: '', createdAt: state.updatedAt }, item, {
@@ -496,8 +502,13 @@
                 return { ok: false, error: error };
             }
         },
-        update: function (mutator) {
-            const current = this.load();
+        update: function (mutator, baseState) {
+            // A visible page can hold a normalized snapshot that is newer than
+            // the last localStorage write (for example after a migration or a
+            // second tab edits the same workbench). Use that snapshot when the
+            // caller supplies it, otherwise preserve the original load-first
+            // behavior for standalone repository consumers.
+            const current = baseState && typeof baseState === 'object' ? clone(baseState) : this.load();
             const next = clone(current);
             mutator(next);
             next.revision = (Number(current.revision) || 0) + 1;

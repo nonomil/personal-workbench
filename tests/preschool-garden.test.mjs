@@ -53,8 +53,8 @@ test('grants one defense energy for a unique learning event', () => {
   assert.equal(duplicate.growth.garden.defenseEnergy, 1);
 });
 
-test('fires a pea only when the garden has an active invader and energy', () => {
-  const ready = gardenEngine.normalize({ garden: { defenseEnergy: 1, invader: { active: true, health: 1, maxHealth: 3, wave: 2 } } });
+test('fires a pea only when the active plant is a shooter with an active invader and energy', () => {
+  const ready = gardenEngine.normalize({ garden: { activePlantId: 'plant-peashooter', unlockedPlantIds: ['plant-sunflower', 'plant-peashooter'], defenseEnergy: 1, invader: { active: true, health: 1, maxHealth: 3, wave: 2 } } });
   const result = gardenEngine.firePea(ready, '2026-07-29');
   assert.equal(result.ok, true);
   assert.equal(result.hit, true);
@@ -63,9 +63,55 @@ test('fires a pea only when the garden has an active invader and energy', () => 
   assert.equal(result.growth.garden.defenseShots, 1);
   assert.equal(result.growth.garden.invader.active, false);
 
-  const empty = gardenEngine.firePea(gardenEngine.normalize({}), '2026-07-29');
+  const empty = gardenEngine.firePea(gardenEngine.normalize({ garden: { activePlantId: 'plant-peashooter', unlockedPlantIds: ['plant-sunflower', 'plant-peashooter'], invader: { active: true, health: 3, maxHealth: 3 } } }), '2026-07-29');
   assert.equal(empty.ok, false);
-  assert.equal(empty.reason, '没有可发射的豌豆能量');
+  assert.equal(empty.reason, '需要 1 点豌豆能量');
+});
+
+test('gives each preschool plant a distinct skill and effect', () => {
+  const makeReady = (activePlantId, defenseEnergy = 3) => gardenEngine.normalize({
+    sunlight: 40,
+    garden: {
+      activePlantId,
+      unlockedPlantIds: ['plant-sunflower', 'plant-peashooter', 'plant-wallnut', 'plant-snowpea', 'plant-cherrybomb'],
+      defenseEnergy,
+      invader: { active: true, health: 5, maxHealth: 5, wave: 2 }
+    }
+  });
+
+  const sunflower = gardenEngine.usePlantSkill(makeReady('plant-sunflower', 0), '2026-07-29');
+  assert.equal(sunflower.ok, true);
+  assert.equal(sunflower.effect, 'sunlight');
+  assert.equal(sunflower.amount, 10);
+  assert.equal(sunflower.growth.sunlight, 50);
+
+  const wallnut = gardenEngine.usePlantSkill(makeReady('plant-wallnut'), '2026-07-29');
+  assert.equal(wallnut.ok, true);
+  assert.equal(wallnut.effect, 'block');
+  assert.equal(wallnut.damage, 0);
+  assert.equal(wallnut.growth.garden.invader.health, 5);
+  assert.equal(wallnut.growth.garden.invader.blockedTurns, 2);
+
+  const peashooter = gardenEngine.usePlantSkill(makeReady('plant-peashooter'), '2026-07-29');
+  assert.equal(peashooter.ok, true);
+  assert.equal(peashooter.effect, 'pea');
+  assert.equal(peashooter.damage, 1);
+  assert.equal(peashooter.growth.garden.defenseEnergy, 2);
+
+  const snowpea = gardenEngine.usePlantSkill(makeReady('plant-snowpea'), '2026-07-29');
+  assert.equal(snowpea.ok, true);
+  assert.equal(snowpea.effect, 'ice-pea');
+  assert.equal(snowpea.growth.garden.invader.slowedTurns, 2);
+
+  const cherrybomb = gardenEngine.usePlantSkill(makeReady('plant-cherrybomb'), '2026-07-29');
+  assert.equal(cherrybomb.ok, true);
+  assert.equal(cherrybomb.effect, 'blast');
+  assert.equal(cherrybomb.damage, 3);
+  assert.equal(cherrybomb.growth.garden.defenseEnergy, 1);
+
+  const wallnutFire = gardenEngine.firePea(makeReady('plant-wallnut'), '2026-07-29');
+  assert.equal(wallnutFire.ok, false);
+  assert.match(wallnutFire.reason, /坚果墙/);
 });
 
 test('spawns a wave without resetting an existing active invader', () => {
@@ -97,4 +143,46 @@ test('normalizes old growth snapshots without losing new garden state', () => {
   assert.equal(old.garden.invader.health, 3);
   assert.equal(old.garden.defenseEnergy, 0);
   assert.ok(Array.isArray(old.collection.seenEventIds));
+});
+
+test('settles a skill against an invader derived from a missed day', () => {
+  const ready = gardenEngine.normalize({
+    checkinDates: ['2026-07-28'],
+    garden: {
+      activePlantId: 'plant-peashooter',
+      unlockedPlantIds: ['plant-sunflower', 'plant-peashooter'],
+      defenseEnergy: 1,
+      invader: { active: false, health: 3, maxHealth: 3 }
+    }
+  });
+  const view = gardenEngine.getDefenseView(ready, '2026-07-29');
+  assert.equal(view.invader.active, true);
+  const result = gardenEngine.usePlantSkill(ready, '2026-07-29');
+  assert.equal(result.ok, true);
+  assert.equal(result.effect, 'pea');
+  assert.equal(result.growth.garden.invader.health, 2);
+});
+
+test('places the selected plant once and protects occupied cells', () => {
+  const ready = gardenEngine.normalize({
+    sunlight: 50,
+    garden: { activePlantId: 'plant-sunflower', unlockedPlantIds: ['plant-sunflower'] }
+  });
+  const placed = gardenEngine.placeDefensePlant(ready, 2, 3);
+  assert.equal(placed.ok, true);
+  assert.equal(placed.growth.sunlight, 25);
+  assert.deepEqual(placed.growth.garden.defense.plants[0], {
+    id: 'plant-1',
+    plantId: 'plant-sunflower',
+    lane: 2,
+    column: 3,
+    health: 3,
+    maxHealth: 3,
+    age: 0
+  });
+  const duplicate = gardenEngine.placeDefensePlant(placed.growth, 2, 3);
+  assert.equal(duplicate.ok, false);
+  assert.match(duplicate.reason, /已经有植物/);
+  assert.equal(duplicate.growth.sunlight, 25);
+  assert.equal(duplicate.growth.garden.defense.plants.length, 1);
 });

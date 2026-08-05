@@ -56,6 +56,104 @@ test('migrates an old three-quest preschool snapshot once without changing compl
   assert.deepEqual(again.dailyPlans.map(item => item.id), old.dailyPlans.map(item => item.id));
 });
 
+test('keeps preschool plans in one editable list instead of a fixed core and collapsed optional split', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const start = app.indexOf('function renderPreschoolPlans');
+  const end = app.indexOf('function renderPreschoolCalendar', start);
+  const plansRenderer = app.slice(start, end);
+  const rowRenderer = app.slice(app.indexOf('function renderPreschoolPlanRows'), start);
+  assert.match(plansRenderer, /const plans = derived\.todayPlans/);
+  assert.match(plansRenderer, /renderPreschoolPlanRows\(plans, \{ editable: true \}\)/);
+  assert.doesNotMatch(plansRenderer, /todayCorePlans|todayOptionalPlans|preschool-optional-plans/);
+  assert.doesNotMatch(app, /preschoolOptionalPlansOpen/);
+  assert.match(rowRenderer, /preschool-checkin-card-main/);
+  assert.match(rowRenderer, /data-action="edit-plan"/);
+  assert.match(rowRenderer, /data-action="delete-plan"/);
+  assert.doesNotMatch(rowRenderer, /<button class="preschool-checkin-card /);
+});
+
+test('bumps preschool runtime assets when the editable plan interaction changes', () => {
+  const html = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
+  assert.match(html, /preschool-workbench\.css\?v=20260806-plan-toggle-cache-v2/);
+  assert.match(html, /storage\.js\?v=20260806-plan-toggle-cache-v2/);
+  assert.match(html, /app\.js\?v=20260806-plan-toggle-cache-v5/);
+});
+
+test('updates from the visible preschool snapshot when persistence is one revision behind', () => {
+  const visibleState = storage.createSeedState();
+  const visiblePlan = visibleState.dailyPlans.find(item => item.id === 'preschool-plan-count');
+  visiblePlan.title = '页面中刚改名的古诗任务';
+  visiblePlan.done = false;
+
+  const staleState = storage.createSeedState();
+  staleState.dailyPlans = staleState.dailyPlans.filter(item => item.id !== visiblePlan.id);
+  let raw = JSON.stringify(staleState);
+  const originalStorage = globalThis.localStorage;
+  globalThis.localStorage = {
+    getItem() { return raw; },
+    setItem(_key, value) { raw = value; },
+    removeItem() {}
+  };
+
+  try {
+    const result = storage.repository.update(next => {
+      const item = next.dailyPlans.find(entry => entry.id === visiblePlan.id);
+      assert.ok(item, 'the visible plan must remain addressable during the update');
+      item.done = true;
+    }, visibleState);
+    const savedPlan = result.state.dailyPlans.find(item => item.id === visiblePlan.id);
+    assert.equal(savedPlan.title, '页面中刚改名的古诗任务');
+    assert.equal(savedPlan.done, true);
+  } finally {
+    globalThis.localStorage = originalStorage;
+  }
+});
+
+test('scopes preschool plan actions by date when daily seed ids repeat', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  assert.match(app, /function findDailyPlan\(/);
+  assert.match(app, /data-action="toggle-plan" data-id="\$\{escapeHtml\(item\.id\)\}" data-date="\$\{escapeHtml\(item\.date\)\}"/);
+  assert.match(app, /findDailyPlan\(state\.dailyPlans, target\.dataset\.id, target\.dataset\.date\)/);
+  assert.match(app, /findDailyPlan\(next\.dailyPlans, target\.dataset\.id, target\.dataset\.date\)/);
+  assert.match(app, /plan:\$\{item\.id\}:\$\{item\.date\}/);
+});
+
+test('preschool template normalization preserves renamed and custom daily plans', () => {
+  const today = storage.localDate();
+  const state = storage.normalizeState({
+    schemaVersion: 5,
+    preschoolDayPlanVersion: 3,
+    preschoolPlanSeedDates: [today],
+    tasks: [],
+    dailyPlans: [
+      { id: 'preschool-plan-story', date: today, title: '我自己的识字任务', category: '我的安排', required: true, done: true, order: 9 },
+      { id: 'custom-plan', date: today, title: '新建的数学游戏', category: '家庭活动', required: false, done: false, order: 10 }
+    ]
+  });
+  const renamed = state.dailyPlans.find(item => item.id === 'preschool-plan-story');
+  assert.equal(renamed.title, '我自己的识字任务');
+  assert.equal(renamed.category, '我的安排');
+  assert.equal(renamed.done, true);
+  assert.equal(state.dailyPlans.find(item => item.id === 'custom-plan').title, '新建的数学游戏');
+});
+
+test('turns the preschool garden base into a progress, achievement and collection dashboard', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const preschoolStyles = readCssGraph(path.join(root, 'css', 'preschool-workbench.css'));
+  assert.match(app, /preschool-growth-dashboard/);
+  assert.match(app, /preschool-growth-progress/);
+  assert.match(app, /preschool-achievement-wall/);
+  assert.match(app, /已完成任务/);
+  assert.match(app, /防守波次/);
+  assert.match(app, /击退僵尸/);
+  assert.match(app, /renderPreschoolCollection\(garden\)/);
+  assert.doesNotMatch(app, /renderPreschoolGardenBoard\(growth, false\)/);
+  assert.doesNotMatch(app, /<section class="preschool-growth-hero"/);
+  assert.match(preschoolStyles, /22-growth-dashboard\.css/);
+  assert.match(preschoolStyles, /preschool-achievement-card/);
+  assert.match(preschoolStyles, /preschool-growth-progress-bar/);
+});
+
 test('merges reference learning zones into preschool resource cards', () => {
   const config = fs.readFileSync(path.join(root, 'config.js'), 'utf8');
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
@@ -151,7 +249,7 @@ test('keeps the refreshed reward tiers and five-lane defense contract in the pre
   assert.match(app, /task-book-icon/);
   assert.match(app, /player-energy-bars/);
   assert.match(app, /growth\.collection/);
-  assert.equal((app.match(/pixel-battle-path-cell/g) || []).length >= 1, true);
+  assert.equal((app.match(/pixel-battle-slot/g) || []).length >= 1, true);
   assert.match(app, /preschool-pea-fired/);
   assert.match(app, /renderPixelStats/);
   assert.match(app, /pixel-stat-card/);
@@ -164,7 +262,9 @@ test('keeps the refreshed reward tiers and five-lane defense contract in the pre
   assert.match(app, /pixel-battle-reward-panel/);
   assert.match(app, /function renderPreschoolDailyChallenge\(plans, defense\)/);
   assert.match(app, /pixel-daily-challenge/);
-  assert.match(app, /if \(ui\.page === 'battle'\) return renderPreschoolDefenseGame\(\)/);
+  assert.match(app, /if \(ui\.page === 'battle'\) return renderPreschoolBattle\(\)/);
+  assert.doesNotMatch(app, /if \(ui\.page === 'battle'\) return renderPreschoolDefenseGame\(\)/);
+  assert.doesNotMatch(app, /if \(ui\.page === 'battle'\) ensurePreschoolDefenseLoop\(\);/);
   assert.match(app, /Array\.from\(\{ length: 5 \}/);
   assert.match(app, /laneIndex === 2/);
   const homePosition = app.indexOf('function renderPreschoolHomeOverview(derived)');
@@ -208,15 +308,21 @@ test('keeps the refreshed reward tiers and five-lane defense contract in the pre
 
 test('keeps preschool check-in cards visual and reward-led', () => {
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const preschoolStyles = fs.readFileSync(path.join(root, 'css', 'preschool-workbench.css'), 'utf8');
   const styles = readCssGraph(path.join(root, 'styles.css'));
   assert.match(app, /preschool-checkin-grid/);
   assert.match(app, /preschool-checkin-card/);
+  assert.match(app, /preschool-checkin-card-actions/);
   assert.match(app, /preschool-checkin-reward/);
   assert.match(app, /preschool-reward-progress/);
   assert.match(app, /preschool-reward-next/);
   assert.match(app, /sun-progress-bar/);
   assert.match(styles, /preschool-checkin-grid/);
   assert.match(styles, /preschool-checkin-card/);
+  assert.match(preschoolStyles, /23-plan-editor\.css/);
+  assert.match(styles, /preschool-checkin-card-main/);
+  assert.match(styles, /preschool-checkin-card-main\s*\{[^}]*grid-column:\s*1\s*\/\s*-1/);
+  assert.match(styles, /preschool-checkin-card-actions/);
   assert.match(styles, /preschool-checkin-card-check \{[^}]*top:\s*9px/);
   assert.match(styles, /preschool-checkin-card-top \{[^}]*padding-right:\s*31px/);
   assert.match(styles, /preschool-reward-progress/);
@@ -279,11 +385,24 @@ test('keeps the 2026-07-31 visual refresh versioned and alpha-safe', () => {
 test('keeps the preschool defense preview visible and readable before an invasion starts', () => {
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
   const styles = readCssGraph(path.join(root, 'styles.css'));
-  assert.match(app, /const showInvader = Boolean\(isTarget \|\| laneIndex === 2\)/);
-  assert.match(app, /pixel-battle-invader \$\{isTarget \? '' : 'is-preview'\}/);
+  assert.match(app, /const showInvader = Boolean\(isTarget \|\| \(laneIndex === 2 && !invader\.active && !invader\.wave\) \|\| isDefeated\)/);
+  assert.match(app, /pixel-battle-invader \$\{isDefeated \? 'is-defeated' : isTarget \? '' : 'is-preview'\}/);
   assert.match(styles, /Preschool 2\.5 readability/);
   assert.match(styles, /pixel-quest-copy strong \{ font-size: 20px; \}/);
   assert.match(styles, /pixel-battle-invader\.is-preview/);
+  assert.match(styles, /pixel-battle-invader\.is-defeated/);
+});
+
+test('keeps a defeated zombie in a temporary fall state before removing it', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const styles = readCssGraph(path.join(root, 'styles.css'));
+  assert.match(app, /function usePreschoolPlantSkill\(\)[\s\S]*preschoolGarden\.usePlantSkill/);
+  assert.match(app, /function firePreschoolPea\(\)[\s\S]*usePreschoolPlantSkill/);
+  assert.match(app, /ui\.battleEffect = \{ defeated: result\.defeated, effect: result\.effect \}/);
+  assert.match(app, /preschoolBattleEffectTimer = window\.setTimeout/);
+  assert.match(app, /ui\.battleEffect = null/);
+  assert.match(styles, /pixel-battle-invader\.is-defeated/);
+  assert.match(styles, /@keyframes preschool-zombie-fall/);
 });
 
 test('makes the preschool defense primary action state explicit', () => {
@@ -340,7 +459,7 @@ test('keeps the preschool workbench on the garden-green shell', () => {
   assert.match(greenTheme, /background:\s*linear-gradient\(180deg,\s*#22734a,\s*#145238\)/);
   assert.match(greenTheme, /background:\s*#eff9eb/);
   assert.match(preschoolIndex, /theme-color" content="#2d8748"/);
-  assert.match(preschoolIndex, /20260803-sidebar-orientation-ratio-important/);
+  assert.match(preschoolIndex, /20260806-plan-toggle-cache-v5/);
 });
 
 test('keeps preschool mobile status cards readable at reference widths', () => {
@@ -537,4 +656,28 @@ test('restores the summer learning lane without loading the full library into th
   assert.match(compatibilityStyles, /21-summer-library\.css/);
   assert.match(styles, /preschool-course-resource-list/);
   assert.match(styles, /preschool-summer-library-categories/);
+});
+
+test('exposes one interactive 5x6 planting board and a drag-capable seed tray', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const styles = readCssGraph(path.join(root, 'styles.css'));
+  assert.match(app, /data-action="place-defense-plant"/);
+  assert.match(app, /data-lane=/);
+  assert.match(app, /data-column=/);
+  assert.match(app, /draggable="\$\{unlocked \? 'true' : 'false'\}"/);
+  assert.match(app, /dataTransfer\.setData/);
+  assert.match(app, /drop/);
+  assert.match(app, /document\.addEventListener\('pointerdown'/);
+  assert.match(app, /document\.addEventListener\('pointerup'/);
+  assert.match(app, /elementFromPoint/);
+  assert.match(styles, /pixel-battle-slot/);
+  assert.match(styles, /pixel-battle-slot\.is-drop-target/);
+});
+
+test('routes plant skills by effect instead of animating every plant as a pea shooter', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  assert.match(app, /function animatePreschoolPea\(effect\)/);
+  assert.match(app, /\['pea', 'ice-pea', 'blast'\]\.includes\(skill\)/);
+  assert.match(app, /if \(skill === 'blast'\)/);
+  assert.match(app, /result\.effect/);
 });

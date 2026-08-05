@@ -2,11 +2,11 @@
     'use strict';
 
     const PLANT_CATALOG = Object.freeze([
-        { id: 'plant-sunflower', title: '向日葵', description: '收集阳光，让花园一直亮晶晶。', icon: 'sun', unlockAt: 0, tone: 'gold' },
-        { id: 'plant-peashooter', title: '豌豆射手', description: '发射小豌豆，守护学习花园。', icon: 'target', unlockAt: 20, tone: 'lime' },
-        { id: 'plant-wallnut', title: '坚果墙', description: '挡住僵尸，给小伙伴争取时间。', icon: 'shield-check', unlockAt: 60, tone: 'orange' },
-        { id: 'plant-snowpea', title: '寒冰射手', description: '冰冰豌豆，让僵尸慢一点。', icon: 'snowflake', unlockAt: 120, tone: 'blue' },
-        { id: 'plant-cherrybomb', title: '樱桃炸弹', description: '完成大目标，解锁超级植物。', icon: 'flame', unlockAt: 220, tone: 'pink' }
+        { id: 'plant-sunflower', title: '向日葵', description: '收集阳光，让花园一直亮晶晶。', icon: 'sun', unlockAt: 0, tone: 'gold', skill: 'sunlight', skillTitle: '收集阳光', skillDescription: '每天收集一次 +10 阳光。', energyCost: 0, damage: 0 },
+        { id: 'plant-peashooter', title: '豌豆射手', description: '发射小豌豆，守护学习花园。', icon: 'target', unlockAt: 20, tone: 'lime', skill: 'pea', skillTitle: '发射豌豆', skillDescription: '消耗 1 点能量，造成 1 点伤害。', energyCost: 1, damage: 1 },
+        { id: 'plant-wallnut', title: '坚果墙', description: '挡住僵尸，给小伙伴争取时间。', icon: 'shield-check', unlockAt: 60, tone: 'orange', skill: 'block', skillTitle: '坚果挡住', skillDescription: '不攻击，只把僵尸挡住 2 回合。', energyCost: 0, damage: 0 },
+        { id: 'plant-snowpea', title: '寒冰射手', description: '冰冰豌豆，让僵尸慢一点。', icon: 'snowflake', unlockAt: 120, tone: 'blue', skill: 'ice-pea', skillTitle: '发射冰豌豆', skillDescription: '消耗 1 点能量，造成伤害并冰冻 2 回合。', energyCost: 1, damage: 1 },
+        { id: 'plant-cherrybomb', title: '樱桃炸弹', description: '完成大目标，解锁超级植物。', icon: 'flame', unlockAt: 220, tone: 'pink', skill: 'blast', skillTitle: '樱桃爆炸', skillDescription: '消耗 2 点能量，造成 3 点范围伤害。', energyCost: 2, damage: 3 }
     ]);
 
     const ZOMBIE_CATALOG = Object.freeze([
@@ -158,8 +158,9 @@
             defenseEnergy: 0,
             defenseShots: 0,
             lastDefenseDate: '',
+            lastSkillDate: '',
             feedbackPreferences: { musicEnabled: false, motionEnabled: true },
-            invader: { active: false, kind: 'zombie-basic', defeated: 0, health: 3, maxHealth: 3, wave: 0, lastSpawnDate: '' },
+            invader: { active: false, kind: 'zombie-basic', defeated: 0, health: 3, maxHealth: 3, wave: 0, lastSpawnDate: '', blockedTurns: 0, slowedTurns: 0, lastEffect: '' },
             defense: createDefaultDefense()
         };
     }
@@ -183,12 +184,16 @@
         garden.defenseEnergy = Math.max(0, Math.min(9, Number(garden.defenseEnergy) || 0));
         garden.defenseShots = Math.max(0, Number(garden.defenseShots) || 0);
         garden.lastDefenseDate = String(garden.lastDefenseDate || '');
+        garden.lastSkillDate = String(garden.lastSkillDate || '');
         garden.feedbackPreferences = Object.assign(createDefaultGarden().feedbackPreferences, gardenSource.feedbackPreferences || {});
         garden.feedbackPreferences.musicEnabled = Boolean(garden.feedbackPreferences.musicEnabled);
         garden.feedbackPreferences.motionEnabled = garden.feedbackPreferences.motionEnabled !== false;
         garden.invader.health = Math.max(0, Math.min(9, Number(garden.invader.health) || 3));
         garden.invader.maxHealth = Math.max(1, Math.min(9, Number(garden.invader.maxHealth) || 3));
         garden.invader.wave = Math.max(0, Number(garden.invader.wave) || 0);
+        garden.invader.blockedTurns = Math.max(0, Math.min(3, Number(garden.invader.blockedTurns) || 0));
+        garden.invader.slowedTurns = Math.max(0, Math.min(3, Number(garden.invader.slowedTurns) || 0));
+        garden.invader.lastEffect = String(garden.invader.lastEffect || '');
         if (!garden.invader.active && garden.invader.health === 0) garden.invader.health = garden.invader.maxHealth;
         if (garden.invader.health > garden.invader.maxHealth) garden.invader.health = garden.invader.maxHealth;
         const collection = Object.assign(createDefaultCollection(), collectionSource, {
@@ -267,6 +272,9 @@
             growth.garden.invader.health = 0;
             growth.garden.invader.defeated += 1;
             growth.garden.invader.lastSpawnDate = '';
+            growth.garden.invader.blockedTurns = 0;
+            growth.garden.invader.slowedTurns = 0;
+            growth.garden.invader.lastEffect = 'defeated';
             invaderDefeated = true;
             if (!growth.collection.unlockedIds.includes('sticker-brave')) {
                 growth.collection.unlockedIds.push('sticker-brave');
@@ -288,38 +296,105 @@
             health: maxHealth,
             maxHealth: maxHealth,
             wave: wave,
-            lastSpawnDate: localDate(date)
+            lastSpawnDate: localDate(date),
+            blockedTurns: 0,
+            slowedTurns: 0,
+            lastEffect: ''
         });
         return { growth: growth, changed: true, spawned: true };
     }
 
-    function firePea(input, date) {
-        const growth = normalize(input);
-        if (growth.garden.defenseEnergy < 1) return { ok: false, growth: growth, hit: false, defeated: false, reason: '没有可发射的豌豆能量' };
-        if (!growth.garden.invader.active) return { ok: false, growth: growth, hit: false, defeated: false, reason: '花园里没有入侵者' };
-        growth.garden.defenseEnergy -= 1;
+    function activePlantFor(growth) {
+        return PLANT_CATALOG.find(plant => plant.id === growth.garden.activePlantId) || PLANT_CATALOG[0];
+    }
+
+    function includeVisibleInvader(growth, date) {
+        const invader = getInvaderView(growth, date);
+        if (invader.active && !growth.garden.invader.active) {
+            growth.garden.invader = Object.assign({}, growth.garden.invader, invader);
+        }
+        return growth;
+    }
+
+    function skillFailure(growth, reason) {
+        return { ok: false, growth: growth, hit: false, defeated: false, damage: 0, effect: 'none', energySpent: 0, amount: 0, reason: reason };
+    }
+
+    function attackWithPlant(growth, date, plant) {
+        const invader = growth.garden.invader;
+        const energyCost = Math.max(0, Number(plant.energyCost) || 0);
+        if (!invader.active) return skillFailure(growth, '花园里没有入侵者');
+        if (growth.garden.defenseEnergy < energyCost) return skillFailure(growth, `需要 ${energyCost} 点豌豆能量`);
+        growth.garden.defenseEnergy -= energyCost;
         growth.garden.defenseShots += 1;
         growth.garden.lastDefenseDate = localDate(date);
-        growth.garden.invader.health = Math.max(0, growth.garden.invader.health - 1);
-        const defeated = growth.garden.invader.health <= 0;
+        const damage = Math.max(1, Number(plant.damage) || 1);
+        invader.health = Math.max(0, invader.health - damage);
+        if (plant.skill === 'ice-pea') invader.slowedTurns = 2;
+        invader.blockedTurns = 0;
+        invader.lastEffect = plant.skill;
+        const defeated = invader.health <= 0;
         if (defeated) {
-            growth.garden.invader.active = false;
-            growth.garden.invader.defeated += 1;
-            growth.garden.invader.lastSpawnDate = '';
+            invader.active = false;
+            invader.defeated += 1;
+            invader.lastSpawnDate = '';
+            invader.blockedTurns = 0;
+            invader.slowedTurns = 0;
+            invader.lastEffect = 'defeated';
             if (!growth.collection.unlockedIds.includes('sticker-brave')) growth.collection.unlockedIds.push('sticker-brave');
         }
-        return { ok: true, growth: unlockByProgress(growth), hit: true, defeated: defeated, reason: '' };
+        return { ok: true, growth: unlockByProgress(growth), hit: true, defeated: defeated, damage: damage, effect: plant.skill, energySpent: energyCost, amount: 0, reason: '' };
+    }
+
+    function firePea(input, date) {
+        const growth = includeVisibleInvader(normalize(input), date);
+        const plant = activePlantFor(growth);
+        if (plant.skill !== 'pea' && plant.skill !== 'ice-pea') return skillFailure(growth, `${plant.title}不能发射豌豆，请切换到豌豆射手或寒冰射手`);
+        return attackWithPlant(growth, date, plant);
+    }
+
+    function usePlantSkill(input, date) {
+        const growth = includeVisibleInvader(normalize(input), date);
+        const plant = activePlantFor(growth);
+        if (plant.skill === 'sunlight') {
+            const today = localDate(date);
+            if (growth.garden.lastSkillDate === today) return skillFailure(growth, '向日葵今天已经收过阳光了');
+            growth.sunlight = Math.max(0, Number(growth.sunlight) || 0) + 10;
+            growth.garden.growthPoints += 10;
+            growth.garden.lastSkillDate = today;
+            growth.garden.lastEffect = 'sunlight';
+            return { ok: true, growth: unlockByProgress(growth), hit: false, defeated: false, damage: 0, effect: 'sunlight', energySpent: 0, amount: 10, reason: '' };
+        }
+        if (plant.skill === 'pea' || plant.skill === 'ice-pea' || plant.skill === 'blast') return attackWithPlant(growth, date, plant);
+        if (!growth.garden.invader.active) return skillFailure(growth, '先召唤一只僵尸，坚果墙才能挡住它');
+        if (growth.garden.invader.blockedTurns > 0) return skillFailure(growth, '坚果墙已经挡住这只僵尸了');
+        growth.garden.invader.blockedTurns = 2;
+        growth.garden.invader.slowedTurns = 0;
+        growth.garden.invader.lastEffect = 'block';
+        growth.garden.lastDefenseDate = localDate(date);
+        return { ok: true, growth: unlockByProgress(growth), hit: false, defeated: false, damage: 0, effect: 'block', energySpent: 0, amount: 0, blockedTurns: 2, reason: '' };
     }
 
     function getDefenseView(input, date) {
         const growth = normalize(input);
         const invader = getInvaderView(growth, date);
         const defense = growth.garden.defense;
+        const activePlant = activePlantFor(growth);
+        const energyCost = Math.max(0, Number(activePlant.energyCost) || 0);
+        const canUseSkill = activePlant.skill === 'sunlight'
+            ? growth.garden.lastSkillDate !== localDate(date)
+            : Boolean(invader.active && growth.garden.defenseEnergy >= energyCost);
         return {
             energy: growth.garden.defenseEnergy,
             shots: growth.garden.defenseShots,
             invader: invader,
-            canFire: Boolean(invader.active && growth.garden.defenseEnergy > 0),
+            canFire: Boolean(invader.active && (activePlant.skill === 'pea' || activePlant.skill === 'ice-pea') && growth.garden.defenseEnergy >= energyCost),
+            canUseSkill: canUseSkill,
+            activePlant: activePlant,
+            skill: activePlant.skill,
+            skillTitle: activePlant.skillTitle,
+            skillDescription: activePlant.skillDescription,
+            skillEnergyCost: energyCost,
             version: defense.version,
             board: defense.board,
             selectedPlantId: defense.selectedPlantId,
@@ -537,6 +612,7 @@
 
     global.PersonalWorkbenchPreschoolGarden = {
         PLANT_CATALOG: PLANT_CATALOG,
+        PLANT_RULES: DEFENSE_PLANT_RULES,
         ZOMBIE_CATALOG: ZOMBIE_CATALOG,
         COLLECTION_CATALOG: COLLECTION_CATALOG,
         ACTION_EVENTS: ACTION_EVENTS,
@@ -548,6 +624,7 @@
         recordEvent: recordEvent,
         spawnInvader: spawnInvader,
         firePea: firePea,
+        usePlantSkill: usePlantSkill,
         getDefenseView: getDefenseView,
         setFeedbackPreference: setFeedbackPreference,
         selectPlant: selectPlant,
