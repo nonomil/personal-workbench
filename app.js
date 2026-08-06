@@ -557,6 +557,7 @@
         if (!items.length) return renderEmpty('sparkles', '先加一项');
         return `<div class="preschool-checkin-grid">${items.map(function (item, index) {
             const done = Boolean(item.done);
+            const practice = getPreschoolPlanPractice(item);
             const asset = pixelQuestAsset(item);
             const tone = ['green', 'purple', 'orange'][index % 3];
             return `<article class="preschool-checkin-card tone-${tone} ${done ? 'is-done' : ''}">
@@ -567,7 +568,7 @@
                     <span class="preschool-checkin-card-check ${done ? 'is-done' : ''}">${done ? icon('check') : icon('circle')}</span>
                     <span class="preschool-checkin-card-action">${done ? '已点亮' : '开始'}${icon(done ? 'sparkles' : 'arrow-right')}</span>
                 </button>
-                ${editable ? `<div class="preschool-checkin-card-actions" aria-label="编辑任务"><button class="row-action" type="button" data-action="edit-plan" data-id="${escapeHtml(item.id)}" data-date="${escapeHtml(item.date)}" aria-label="编辑${escapeHtml(item.title)}" title="编辑任务">${icon('edit-3')}<span>编辑</span></button><button class="row-action danger" type="button" data-action="delete-plan" data-id="${escapeHtml(item.id)}" data-date="${escapeHtml(item.date)}" aria-label="删除${escapeHtml(item.title)}" title="删除任务">${icon('trash-2')}<span>删除</span></button></div>` : ''}
+                ${editable || (!done && practice) ? `<div class="preschool-checkin-card-actions" aria-label="任务操作">${!done && practice ? `<button class="row-action preschool-plan-practice" type="button" data-action="open-plan-practice" data-id="${escapeHtml(item.id)}" data-date="${escapeHtml(item.date)}" aria-label="练习${escapeHtml(item.title)}" title="打开轻量练习">${icon('play-circle')}<span>去练习</span></button>` : ''}${editable ? `<button class="row-action" type="button" data-action="edit-plan" data-id="${escapeHtml(item.id)}" data-date="${escapeHtml(item.date)}" aria-label="编辑${escapeHtml(item.title)}" title="编辑任务">${icon('edit-3')}<span>编辑</span></button><button class="row-action danger" type="button" data-action="delete-plan" data-id="${escapeHtml(item.id)}" data-date="${escapeHtml(item.date)}" aria-label="删除${escapeHtml(item.title)}" title="删除任务">${icon('trash-2')}<span>删除</span></button>` : ''}</div>` : ''}
             </article>`;
         }).join('')}</div>`;
     }
@@ -932,6 +933,11 @@
         return null;
     }
 
+    function getPreschoolPlanPractice(plan) {
+        if (!isPreschool || !plan || !plan.practiceLessonId) return null;
+        return findPreschoolLesson(plan.practiceLessonId);
+    }
+
     function getLessonActivity(lesson) {
         const source = lesson && lesson.activity && typeof lesson.activity === 'object' ? lesson.activity : {};
         const options = Array.isArray(source.options) && source.options.length ? source.options : ['我准备好了'];
@@ -988,7 +994,7 @@
         if (global.lucide && typeof global.lucide.createIcons === 'function') global.lucide.createIcons({ root: lessonDialogContent });
     }
 
-    function openLessonDialog(id) {
+    function openLessonDialog(id, planId, planDate) {
         if (!isPreschool || !lessonDialog || !lessonDialogContent) return false;
         const match = findPreschoolLesson(id);
         if (!match) {
@@ -998,15 +1004,32 @@
         const completedIds = state.courseProgress && Array.isArray(state.courseProgress.completedLessonIds)
             ? state.courseProgress.completedLessonIds
             : [];
+        const sourcePlan = planId ? findDailyPlan(state.dailyPlans, planId, planDate) : null;
+        if (planId && (!sourcePlan || sourcePlan.done)) {
+            showToast(sourcePlan && sourcePlan.done ? '这项任务已经完成啦。' : '找不到来源任务，请刷新页面后重试。', true);
+            return false;
+        }
         if (completedIds.includes(match.lesson.id)) {
+            if (sourcePlan) return completeCourseLesson(match.lesson.id, sourcePlan.id, sourcePlan.date);
             showToast('这节练习已经点亮啦。');
             return false;
         }
-        ui.lessonSession = { id: match.lesson.id, courseId: match.course.id, selectedIndex: null, correct: false };
+        ui.lessonSession = { id: match.lesson.id, courseId: match.course.id, selectedIndex: null, correct: false, planId: sourcePlan ? sourcePlan.id : '', planDate: sourcePlan ? sourcePlan.date : '' };
         renderLessonDialog();
         if (typeof lessonDialog.showModal === 'function' && !lessonDialog.open) lessonDialog.showModal();
         else lessonDialog.setAttribute('open', '');
         return true;
+    }
+
+    function openPreschoolPlanPractice(id, date) {
+        if (!isPreschool) return false;
+        const plan = findDailyPlan(state.dailyPlans, id, date);
+        const match = getPreschoolPlanPractice(plan);
+        if (!plan || plan.done || !match) {
+            showToast(plan && plan.done ? '这项任务已经完成啦。' : '这项任务暂时没有配套练习。', true);
+            return false;
+        }
+        return openLessonDialog(match.lesson.id, plan.id, plan.date);
     }
 
     function answerLesson(index) {
@@ -1030,7 +1053,7 @@
             return false;
         }
         const id = ui.lessonSession.id;
-        const ok = completeCourseLesson(id);
+        const ok = completeCourseLesson(id, ui.lessonSession.planId, ui.lessonSession.planDate);
         if (ok) closeLessonDialog();
         return ok;
     }
@@ -1319,8 +1342,9 @@
         const next = getNextPreschoolLesson();
         const done = derived.completedPlans;
         const total = derived.todayPlans.length;
+        const practiceDone = derived.todayPlans.filter(item => item.done && item.completionSource === 'practice').length;
         const nextRoute = next ? ` data-course-id="${escapeHtml(next.course.id)}"` : '';
-        return `<section class="preschool-home-evidence" aria-label="学习证据与下一步"><div class="preschool-home-evidence-head"><div><span class="pixel-panel-kicker">LEARNING EVIDENCE</span><h2>今天留下了什么</h2><p>完成一项，就留下一个看得见的成长证据；当前连续 ${growth.streak || 0} 天。</p></div><button class="workbench-text-button" type="button" data-action="navigate" data-page="plans">看全部任务${icon('arrow-up-right')}</button></div><div class="preschool-home-evidence-grid"><article class="preschool-home-evidence-card tone-green"><span class="preschool-home-evidence-icon">${icon('check-check')}</span><div><strong>${done}/${total || 0} 项打卡完成</strong><small>${total ? `今日进度 ${Math.round((done / total) * 100)}%` : '先安排今天的第一步'}</small></div></article><article class="preschool-home-evidence-card tone-blue"><span class="preschool-home-evidence-icon">${icon('book-open')}</span><div><strong>${todayReading ? escapeHtml(todayReading.title) : '还没有今日阅读记录'}</strong><small>${todayReading ? `${todayReading.minutes || 0} 分钟 · ${todayReading.pages || 0} 页` : '读完后留下一个词或一句话'}</small></div></article><button class="preschool-home-evidence-card tone-gold is-action" type="button" data-action="navigate" data-page="courses"${nextRoute}><span class="preschool-home-evidence-icon">${icon(next ? 'play-circle' : 'badge-check')}</span><div><strong>${next ? `下一张：${escapeHtml(next.lesson.title)}` : '学习路线已点亮'}</strong><small>${next ? `${escapeHtml(next.course.title)} · ${next.lesson.minutes || 10} 分钟` : `${completedIds.size} 张练习卡已完成`}</small></div><span class="preschool-home-evidence-arrow">${icon('arrow-up-right')}</span></button></div></section>`;
+        return `<section class="preschool-home-evidence" aria-label="学习证据与下一步"><div class="preschool-home-evidence-head"><div><span class="pixel-panel-kicker">LEARNING EVIDENCE</span><h2>今天留下了什么</h2><p>完成一项，就留下一个看得见的成长证据；当前连续 ${growth.streak || 0} 天。</p></div><button class="workbench-text-button" type="button" data-action="navigate" data-page="plans">看全部任务${icon('arrow-up-right')}</button></div><div class="preschool-home-evidence-grid"><article class="preschool-home-evidence-card tone-green"><span class="preschool-home-evidence-icon">${icon('check-check')}</span><div><strong>${done}/${total || 0} 项打卡完成</strong><small>${total ? `今日进度 ${Math.round((done / total) * 100)}% · 练习证据 ${practiceDone} 张` : '先安排今天的第一步'}</small></div></article><article class="preschool-home-evidence-card tone-blue"><span class="preschool-home-evidence-icon">${icon('book-open')}</span><div><strong>${todayReading ? escapeHtml(todayReading.title) : '还没有今日阅读记录'}</strong><small>${todayReading ? `${todayReading.minutes || 0} 分钟 · ${todayReading.pages || 0} 页` : '读完后留下一个词或一句话'}</small></div></article><button class="preschool-home-evidence-card tone-gold is-action" type="button" data-action="navigate" data-page="courses"${nextRoute}><span class="preschool-home-evidence-icon">${icon(next ? 'play-circle' : 'badge-check')}</span><div><strong>${next ? `下一张：${escapeHtml(next.lesson.title)}` : '学习路线已点亮'}</strong><small>${next ? `${escapeHtml(next.course.title)} · ${next.lesson.minutes || 10} 分钟` : `${completedIds.size} 张练习卡已完成`}</small></div><span class="preschool-home-evidence-arrow">${icon('arrow-up-right')}</span></button></div></section>`;
     }
 
     function renderPreschoolHomeBattlefield(plans, defense) {
@@ -1331,14 +1355,18 @@
         const invaderProfile = preschoolInvaderProfile(invader);
         const lanes = plans.map(function (item, index) {
             const done = Boolean(item.done);
+            const practice = item.practiceLessonId ? getPreschoolPlanPractice(item) : null;
             const plantAsset = lanePlants[index % lanePlants.length];
             const zombieAsset = laneZombies[index % laneZombies.length];
-            return `<button class="preschool-home-lane ${done ? 'is-done' : ''}" type="button" data-action="toggle-plan" data-id="${escapeHtml(item.id)}" data-date="${escapeHtml(item.date)}" aria-label="${done ? '取消完成' : '完成'}${escapeHtml(item.title)}">
-                <span class="preschool-home-lane-number">${index + 1}</span>
-                <span class="preschool-home-lane-characters"><span class="preschool-home-lane-plant">${preschoolAsset(plantAsset, '植物')}</span><span class="preschool-home-lane-zombie">${preschoolAsset(zombieAsset, '僵尸')}</span></span>
-                <span class="preschool-home-lane-copy"><small>${escapeHtml(item.category || '今日任务')}</small><strong>${escapeHtml(item.title)}</strong><em>${done ? '阳光已收集，战线已守住' : '完成任务，收集 +10 阳光'}</em></span>
-                <span class="preschool-home-lane-status">${done ? `${icon('check')} 已完成` : `${preschoolAsset('sun-token', '阳光')} +10`}</span>
-            </button>`;
+            return `<article class="preschool-home-lane ${done ? 'is-done' : ''} ${practice && !done ? 'has-practice' : 'main-only'}">
+                <button class="preschool-home-lane-main" type="button" data-action="toggle-plan" data-id="${escapeHtml(item.id)}" data-date="${escapeHtml(item.date)}" aria-label="${done ? '取消完成' : '完成'}${escapeHtml(item.title)}">
+                    <span class="preschool-home-lane-number">${index + 1}</span>
+                    <span class="preschool-home-lane-characters"><span class="preschool-home-lane-plant">${preschoolAsset(plantAsset, '植物')}</span><span class="preschool-home-lane-zombie">${preschoolAsset(zombieAsset, '僵尸')}</span></span>
+                    <span class="preschool-home-lane-copy"><small>${escapeHtml(item.category || '今日任务')}</small><strong>${escapeHtml(item.title)}</strong><em>${done ? '阳光已收集，战线已守住' : '完成任务，收集 +10 阳光'}</em></span>
+                    <span class="preschool-home-lane-status">${done ? `${icon('check')} 已完成` : `${preschoolAsset('sun-token', '阳光')} +10`}</span>
+                </button>
+                ${practice && !done ? `<button class="preschool-home-lane-practice" type="button" data-action="open-plan-practice" data-id="${escapeHtml(item.id)}" data-date="${escapeHtml(item.date)}" aria-label="练习${escapeHtml(item.title)}" title="完成轻量练习后获得练习证据">${icon('play-circle')}<span>去练习</span><small>答对 +20</small></button>` : ''}
+            </article>`;
         }).join('');
         return `<section class="preschool-home-battlefield" data-defense-state="${invader.active ? 'active' : 'ready'}" aria-label="今日草坪战场">
             <div class="preschool-home-battlefield-head"><div><span class="pixel-panel-kicker">SUN GARDEN / TODAY</span><h2>今日草坪战场</h2><p>点亮每一条任务战线，收集阳光守护花园。</p></div><strong>${completed}/${plans.length || 0} 战线点亮</strong></div>
@@ -2067,20 +2095,39 @@
         showToast('家庭互动已发送。');
     }
 
-    function completeCourseLesson(id) {
+    function completeCourseLesson(id, planId, planDate) {
         const catalog = Array.isArray(workbenchConfig.childCourses) ? workbenchConfig.childCourses : [];
         const valid = catalog.some(course => Array.isArray(course.lessons) && course.lessons.some(lesson => lesson.id === id));
         if (!valid || !global.PersonalWorkbenchChildCourses) {
             showToast('这节课暂时不可用。', true);
             return false;
         }
+        let lessonWasAlreadyComplete = false;
+        const lessonRewardId = `lesson:${id}`;
         const ok = commit(function (next) {
+            const sourcePlan = planId ? findDailyPlan(next.dailyPlans, planId, planDate) : null;
+            if (planId && (!sourcePlan || sourcePlan.done)) throw new Error(sourcePlan && sourcePlan.done ? '这项计划已经完成了' : '找不到来源计划，请刷新页面后重试。');
             const result = global.PersonalWorkbenchChildCourses.completeLesson(next.courseProgress, id);
-            if (!result.changed) throw new Error('这节课已经完成了');
+            if (!result.changed) {
+                if (!sourcePlan) throw new Error('这节课已经完成了');
+                lessonWasAlreadyComplete = true;
+                sourcePlan.done = true;
+                sourcePlan.completedAt = sourcePlan.completedAt || new Date().toISOString();
+                sourcePlan.completionSource = 'practice';
+                sourcePlan.completionRewardId = lessonRewardId;
+                return;
+            }
             next.courseProgress = result.progress;
-            awardSunlight(next, `lesson:${id}`, 20);
-        }, '课程完成，获得 20 阳光');
+            awardSunlight(next, lessonRewardId, 20);
+            if (sourcePlan) {
+                sourcePlan.done = true;
+                sourcePlan.completedAt = new Date().toISOString();
+                sourcePlan.completionSource = 'practice';
+                sourcePlan.completionRewardId = lessonRewardId;
+            }
+        }, '');
         if (ok) {
+            showToast(planId && lessonWasAlreadyComplete ? '练习已经完成，来源任务已同步。' : planId ? '练习完成，任务已同步，获得 20 阳光' : '课程完成，获得 20 阳光');
             speakPraise('太棒了，你完成了一节课！');
         }
         return ok;
@@ -2460,10 +2507,19 @@
         let message = '已保存';
         const ok = commit(function (next) {
             if (type === 'plan') {
-                const item = Object.assign({ id: id || storage.createId('plan'), date: storage.localDate(), title: '', category: '学习', done: false, order: next.dailyPlans.length + 1, createdAt: now, completedAt: null }, existing || {}, { title: String(values.title || '').trim(), date: values.date || storage.localDate(), category: values.category || '其它' });
+                const item = Object.assign({ id: id || storage.createId('plan'), date: storage.localDate(), title: '', category: '学习', practiceLessonId: '', completionSource: '', completionRewardId: '', done: false, order: next.dailyPlans.length + 1, createdAt: now, completedAt: null }, existing || {}, { title: String(values.title || '').trim(), date: values.date || storage.localDate(), category: values.category || '其它' });
                 if (!item.title) throw new Error('计划内容不能为空');
+                if (!item.done) item.completionSource = '';
                 upsertDailyPlan(next.dailyPlans, item, id ? ui.dialogDate : '');
-                if (item.done && !(existing && existing.done)) { awardSunlight(next, `plan:${item.id}:${item.date}`, 10); archiveItem(next, 'plan', item); }
+                if (item.done && !(existing && existing.done)) {
+                    const rewardId = storage.getPreschoolPlanRewardId(item);
+                    if (!item.completionRewardId) {
+                        item.completionRewardId = rewardId;
+                        awardSunlight(next, rewardId, 10);
+                    }
+                    item.completionSource = 'check-in';
+                    archiveItem(next, 'plan', item);
+                }
                 message = id ? '计划已更新' : '计划已添加';
             }
             if (type === 'task') {
@@ -2644,14 +2700,30 @@
         if (action === 'toggle-plan') {
             const before = findDailyPlan(state.dailyPlans, target.dataset.id, target.dataset.date);
             const completed = before ? !before.done : false;
+            let rewardGranted = false;
             const ok = commit(function (next) {
                 const item = findDailyPlan(next.dailyPlans, target.dataset.id, target.dataset.date);
                 if (!item) throw new Error('找不到这项计划，请刷新页面后重试。');
                 item.done = !item.done;
                 item.completedAt = item.done ? new Date().toISOString() : null;
-                if (item.done) { awardSunlight(next, `plan:${item.id}:${item.date}`, 10); archiveItem(next, 'plan', item); }
-            }, completed ? (isChild ? '计划完成了，获得 10 阳光' : '计划完成了') : '计划已恢复');
-            if (ok && completed) speakPraise('今天的打卡完成啦！');
+                if (item.done) {
+                    const rewardId = storage.getPreschoolPlanRewardId(item);
+                    if (!item.completionRewardId) {
+                        item.completionRewardId = rewardId;
+                        rewardGranted = awardSunlight(next, rewardId, 10);
+                    }
+                    item.completionSource = item.completionSource || 'check-in';
+                    archiveItem(next, 'plan', item);
+                } else {
+                    item.completionSource = '';
+                    const rewardId = storage.getPreschoolPlanRewardId(item);
+                    item.completionRewardId = item.completionRewardId || rewardId;
+                }
+            }, '');
+            if (ok) {
+                showToast(completed ? (isChild ? (rewardGranted ? '计划完成了，获得 10 阳光' : '计划完成了，阳光已经领取过啦') : '计划完成了') : '计划已恢复');
+                if (completed) speakPraise('今天的打卡完成啦！');
+            }
         }
         if (action === 'add-task') openDialog('task');
         if (action === 'edit-task') openDialog('task', target.dataset.id);
@@ -2701,6 +2773,7 @@
             }
         if (action === 'complete-lesson') completeCourseLesson(target.dataset.id);
         if (action === 'open-lesson') openLessonDialog(target.dataset.id);
+        if (action === 'open-plan-practice') openPreschoolPlanPractice(target.dataset.id, target.dataset.date);
         if (action === 'speak-resource') speakResource(target.dataset.text);
         if (action === 'summer-library-category') { ui.summerLibraryCategory = getSummerLibraryCategory(target.dataset.category).id; ui.summerLibraryItem = 0; render(); }
         if (action === 'summer-library-step') { const entries = getSummerLibraryEntries(ui.summerLibraryCategory); ui.summerLibraryItem = Math.max(0, Math.min(Math.max(0, entries.length - 1), (Number(ui.summerLibraryItem) || 0) + Number(target.dataset.direction || 0))); render(); }

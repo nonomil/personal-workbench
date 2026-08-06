@@ -255,3 +255,17 @@ body.variant-preschool .preschool-home-evidence-arrow svg { width: 15px; height:
     body.variant-preschool button.preschool-home-evidence-card:hover,
     body.variant-preschool button.preschool-home-evidence-card:focus-visible { transform: none; }
 }
+
+body.variant-preschool .preschool-plan-practice {
+    min-width: 44px;
+    border-color: #e4bd62;
+    color: #79511c;
+    background: #fff3c8;
+}
+
+body.variant-preschool .preschool-plan-practice:hover,
+body.variant-preschool .preschool-plan-practice:focus-visible {
+    border-color: #c6953e;
+    color: #5c3c15;
+    background: #ffe7a0;
+}

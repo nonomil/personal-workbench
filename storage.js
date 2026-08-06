@@ -7,12 +7,12 @@
     const SCHEMA_VERSION = 5;
     const PRESCHOOL_DAY_PLAN_VERSION = 3;
     const PRESCHOOL_DAILY_ITEMS = [
-        { id: 'story', title: '完成今日识字', category: '识字', priority: 'high', minutes: 10, required: true, initialDone: true, initialProgress: 40 },
-        { id: 'count', title: '朗读一首古诗', category: '古诗', priority: 'high', minutes: 10, required: true, initialDone: false, initialProgress: 0 },
-        { id: 'hello', title: '数学闯关一关', category: '数学', priority: 'high', minutes: 10, required: true, initialDone: false, initialProgress: 0 },
-        { id: 'draw', title: '学习今日英语', category: '英语', priority: 'medium', minutes: 8, required: false, initialDone: false, initialProgress: 0 },
-        { id: 'move', title: '做一项运动', category: '运动', priority: 'low', minutes: 15, required: false, initialDone: false, initialProgress: 0 },
-        { id: 'tidy', title: '专注力训练一题', category: '专注', priority: 'medium', minutes: 10, required: false, initialDone: false, initialProgress: 0 }
+        { id: 'story', title: '完成今日识字', category: '识字', priority: 'high', minutes: 10, required: true, initialDone: true, initialProgress: 40, practiceLessonId: 'preschool-chinese-1' },
+        { id: 'count', title: '朗读一首古诗', category: '古诗', priority: 'high', minutes: 10, required: true, initialDone: false, initialProgress: 0, practiceLessonId: 'preschool-poetry-1' },
+        { id: 'hello', title: '数学闯关一关', category: '数学', priority: 'high', minutes: 10, required: true, initialDone: false, initialProgress: 0, practiceLessonId: 'preschool-math-1' },
+        { id: 'draw', title: '学习今日英语', category: '英语', priority: 'medium', minutes: 8, required: false, initialDone: false, initialProgress: 0, practiceLessonId: 'preschool-english-phonics-1' },
+        { id: 'move', title: '做一项运动', category: '运动', priority: 'low', minutes: 15, required: false, initialDone: false, initialProgress: 0, practiceLessonId: '' },
+        { id: 'tidy', title: '专注力训练一题', category: '专注', priority: 'medium', minutes: 10, required: false, initialDone: false, initialProgress: 0, practiceLessonId: 'preschool-focus-1' }
     ];
 
     function localDate(date) {
@@ -63,12 +63,20 @@
                 title: item.title,
                 category: item.category,
                 required: item.required,
+                practiceLessonId: item.practiceLessonId || '',
+                completionSource: done ? 'seed' : '',
+                completionRewardId: '',
                 done: done,
                 order: index + 1,
                 createdAt: now,
                 completedAt: done ? now : null
             };
         });
+    }
+
+    function getPreschoolPlanRewardId(plan) {
+        if (!plan || !plan.id || !plan.date) return '';
+        return `plan:${plan.id}:${plan.date}`;
     }
 
     function createGrowthSeed() {
@@ -127,6 +135,9 @@
                 title: typeof item.title === 'string' && item.title.trim() ? item.title : template.title,
                 category: typeof item.category === 'string' && item.category.trim() ? item.category : template.category,
                 required: typeof item.required === 'boolean' ? item.required : template.required,
+                practiceLessonId: typeof item.practiceLessonId === 'string' ? item.practiceLessonId : (template.practiceLessonId || ''),
+                completionSource: typeof item.completionSource === 'string' ? item.completionSource : '',
+                completionRewardId: typeof item.completionRewardId === 'string' ? item.completionRewardId : '',
                 order: Number(item.order) > 0 ? item.order : index + 1
             });
         });
@@ -390,7 +401,7 @@
                 const planId = `preschool-plan-${item.id}`;
                 const taskId = `preschool-task-${item.id}`;
                 if (!existingPlanIds.has(planId) && !state.dailyPlans.some(entry => entry.date === today && entry.title === item.title)) {
-                    state.dailyPlans.push({ id: planId, date: today, title: item.title, category: item.category, required: item.required, done: false, order: index + 1, createdAt: now, completedAt: null });
+                    state.dailyPlans.push({ id: planId, date: today, title: item.title, category: item.category, required: item.required, practiceLessonId: item.practiceLessonId || '', completionSource: '', completionRewardId: '', done: false, order: index + 1, createdAt: now, completedAt: null });
                 }
                 if (!existingTaskIds.has(taskId) && !state.tasks.some(entry => entry.title === item.title)) {
                     state.tasks.push(Object.assign({}, createPreschoolTasks(now, today).find(entry => entry.id === taskId), { status: 'todo', progress: 0, completedAt: null }));
@@ -437,7 +448,12 @@
         });
         state.dailyPlans = state.dailyPlans.map(function (item, index) {
             const template = variant === 'preschool' ? preschoolTaskTemplateById(item.id) : null;
-            return Object.assign({ id: createId('plan'), date: localDate(), title: '未命名计划', category: '学习', required: template ? template.required : false, done: false, order: index + 1, createdAt: state.updatedAt, completedAt: null }, item, { done: Boolean(item.done) });
+            return Object.assign({ id: createId('plan'), date: localDate(), title: '未命名计划', category: '学习', required: template ? template.required : false, practiceLessonId: template ? (template.practiceLessonId || '') : '', completionSource: '', completionRewardId: '', done: false, order: index + 1, createdAt: state.updatedAt, completedAt: null }, item, {
+                done: Boolean(item.done),
+                practiceLessonId: typeof item.practiceLessonId === 'string' ? item.practiceLessonId : (template ? (template.practiceLessonId || '') : ''),
+                completionSource: typeof item.completionSource === 'string' ? item.completionSource : '',
+                completionRewardId: typeof item.completionRewardId === 'string' ? item.completionRewardId : ''
+            });
         });
         state.readingLogs = state.readingLogs.map(function (item) {
             return Object.assign({ id: createId('reading'), date: localDate(), title: '未命名阅读', minutes: 0, pages: 0, note: '', createdAt: state.updatedAt }, item, {
@@ -542,6 +558,7 @@
         createId: createId,
         createSeedState: createSeedState,
         normalizeState: normalizeState,
+        getPreschoolPlanRewardId: getPreschoolPlanRewardId,
         repository: repository
     };
 })(typeof window !== 'undefined' ? window : globalThis);

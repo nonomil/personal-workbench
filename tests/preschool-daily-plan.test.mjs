@@ -29,6 +29,13 @@ test('seeds three core preschool actions and three optional actions', () => {
     plans.filter(item => item.required).map(item => item.id),
     ['preschool-plan-story', 'preschool-plan-count', 'preschool-plan-hello']
   );
+  assert.equal(plans.find(item => item.id === 'preschool-plan-story').practiceLessonId, 'preschool-chinese-1');
+  assert.equal(plans.find(item => item.id === 'preschool-plan-draw').practiceLessonId, 'preschool-english-phonics-1');
+  assert.equal(plans.find(item => item.id === 'preschool-plan-move').practiceLessonId, '');
+  assert.equal(plans.find(item => item.id === 'preschool-plan-story').completionSource, 'seed');
+  assert.equal(plans.find(item => item.id === 'preschool-plan-story').completionRewardId, '');
+  assert.equal(plans.find(item => item.id === 'preschool-plan-count').completionSource, '');
+  assert.equal(plans.find(item => item.id === 'preschool-plan-count').completionRewardId, '');
 });
 
 test('adds required flags to legacy plans without changing completion state', () => {
@@ -47,8 +54,20 @@ test('adds required flags to legacy plans without changing completion state', ()
   const optional = state.dailyPlans.find(item => item.id === 'preschool-plan-draw');
   assert.equal(story.required, true);
   assert.equal(story.done, true);
+  assert.equal(story.practiceLessonId, 'preschool-chinese-1');
   assert.equal(optional.required, false);
   assert.equal(optional.done, false);
+  assert.equal(optional.practiceLessonId, 'preschool-english-phonics-1');
+  assert.equal(story.completionSource, '');
+  assert.equal(story.completionRewardId, '');
+  assert.equal(optional.completionSource, '');
+  assert.equal(optional.completionRewardId, '');
+});
+
+test('provides a stable plan reward id without coupling it to the UI', () => {
+  const rewardId = storage.getPreschoolPlanRewardId({ id: 'preschool-plan-draw', date: '2026-08-06' });
+  assert.equal(rewardId, 'plan:preschool-plan-draw:2026-08-06');
+  assert.equal(storage.getPreschoolPlanRewardId({ id: '', date: '2026-08-06' }), '');
 });
 
 test('keeps the 60-day phonics pack as runtime content and reference bank separate', () => {

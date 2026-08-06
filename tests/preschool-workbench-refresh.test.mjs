@@ -27,6 +27,14 @@ test('seeds six preschool workbench quests across learning and life lanes', () =
   assert.equal(state.preschoolDayPlanVersion, 3);
   assert.equal(state.dailyPlans.length, 6);
   assert.deepEqual(state.dailyPlans.map(item => item.title), ['完成今日识字', '朗读一首古诗', '数学闯关一关', '学习今日英语', '做一项运动', '专注力训练一题']);
+  assert.deepEqual(state.dailyPlans.map(item => item.practiceLessonId), [
+    'preschool-chinese-1',
+    'preschool-poetry-1',
+    'preschool-math-1',
+    'preschool-english-phonics-1',
+    '',
+    'preschool-focus-1'
+  ]);
   assert.equal(state.tasks.length, 6);
 });
 
@@ -54,6 +62,19 @@ test('migrates an old three-quest preschool snapshot once without changing compl
   assert.equal(old.dailyPlans.find(item => item.title === '完成今日识字').done, true);
   assert.equal(again.dailyPlans.length, 6);
   assert.deepEqual(again.dailyPlans.map(item => item.id), old.dailyPlans.map(item => item.id));
+  assert.equal(old.dailyPlans.find(item => item.id === 'preschool-plan-story').practiceLessonId, 'preschool-chinese-1');
+  assert.equal(old.dailyPlans.find(item => item.id === 'preschool-plan-count').practiceLessonId, 'preschool-poetry-1');
+});
+
+test('exposes a sibling practice action for mapped preschool plans without nesting buttons', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const homeStart = app.indexOf('function renderPreschoolHomeBattlefield');
+  const homeEnd = app.indexOf('function renderPreschoolHomeOverview', homeStart);
+  const homeTemplate = app.slice(homeStart, homeEnd);
+  assert.match(homeTemplate, /practiceLessonId/);
+  assert.match(homeTemplate, /open-plan-practice/);
+  assert.match(homeTemplate, /preschool-home-lane-main/);
+  assert.match(app, /ui\.lessonSession = \{ id: match\.lesson\.id, courseId: match\.course\.id, selectedIndex: null, correct: false, planId:/);
 });
 
 test('keeps preschool plans in one editable list instead of a fixed core and collapsed optional split', () => {
@@ -74,10 +95,10 @@ test('keeps preschool plans in one editable list instead of a fixed core and col
 
 test('bumps preschool runtime assets when the editable plan interaction changes', () => {
   const html = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
-  assert.match(html, /preschool-workbench\.css\?v=20260806-game-study-loop-v3/);
-  assert.match(html, /config\.js\?v=20260806-game-study-loop-v3/);
-  assert.match(html, /storage\.js\?v=20260806-plan-toggle-cache-v2/);
-  assert.match(html, /app\.js\?v=20260806-game-study-loop-v3/);
+  assert.match(html, /preschool-workbench\.css\?v=20260806-landscape-sidebar-v1/);
+  assert.match(html, /config\.js\?v=20260806-light-evidence-loop-v1/);
+  assert.match(html, /storage\.js\?v=20260806-light-evidence-loop-v1/);
+  assert.match(html, /app\.js\?v=20260806-light-evidence-loop-v1/);
 });
 
 test('updates from the visible preschool snapshot when persistence is one revision behind', () => {
@@ -116,7 +137,7 @@ test('scopes preschool plan actions by date when daily seed ids repeat', () => {
   assert.match(app, /data-action="toggle-plan" data-id="\$\{escapeHtml\(item\.id\)\}" data-date="\$\{escapeHtml\(item\.date\)\}"/);
   assert.match(app, /findDailyPlan\(state\.dailyPlans, target\.dataset\.id, target\.dataset\.date\)/);
   assert.match(app, /findDailyPlan\(next\.dailyPlans, target\.dataset\.id, target\.dataset\.date\)/);
-  assert.match(app, /plan:\$\{item\.id\}:\$\{item\.date\}/);
+  assert.match(app, /storage\.getPreschoolPlanRewardId\(item\)/);
 });
 
 test('preschool template normalization preserves renamed and custom daily plans', () => {
@@ -136,6 +157,26 @@ test('preschool template normalization preserves renamed and custom daily plans'
   assert.equal(renamed.category, '我的安排');
   assert.equal(renamed.done, true);
   assert.equal(state.dailyPlans.find(item => item.id === 'custom-plan').title, '新建的数学游戏');
+});
+
+test('guards plan rewards across practice, cancel and direct check-in paths', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  assert.match(app, /storage\.getPreschoolPlanRewardId\(item\)/);
+  assert.match(app, /item\.completionRewardId\s*=\s*item\.completionRewardId\s*\|\|\s*rewardId/);
+  assert.match(app, /if \(!item\.completionRewardId\)\s*\{[\s\S]{0,500}awardSunlight\(next, rewardId, 10\)/);
+  assert.match(app, /sourcePlan\.completionRewardId\s*=\s*lessonRewardId/);
+});
+
+test('synchronizes an already completed lesson into an unfinished source plan', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const completeStart = app.indexOf('function completeCourseLesson');
+  const completeEnd = app.indexOf('function claimStreakReward', completeStart);
+  const completeTemplate = app.slice(completeStart, completeEnd);
+  assert.match(completeTemplate, /if \(!result\.changed\)[\s\S]*sourcePlan/);
+  assert.match(completeTemplate, /sourcePlan\.done\s*=\s*true/);
+  assert.match(completeTemplate, /sourcePlan\.completionSource\s*=\s*'practice'/);
+  assert.match(completeTemplate, /sourcePlan\.completionRewardId\s*=\s*lessonRewardId/);
+  assert.match(app, /if \(completedIds\.includes\(match\.lesson\.id\)\)[\s\S]*completeCourseLesson\(match\.lesson\.id, sourcePlan\.id, sourcePlan\.date\)/);
 });
 
 test('turns the preschool garden base into a progress, achievement and collection dashboard', () => {
@@ -486,7 +527,7 @@ test('keeps the preschool workbench on the garden-green shell', () => {
   assert.match(greenTheme, /background:\s*linear-gradient\(180deg,\s*#22734a,\s*#145238\)/);
   assert.match(greenTheme, /background:\s*#eff9eb/);
   assert.match(preschoolIndex, /theme-color" content="#2d8748"/);
-  assert.match(preschoolIndex, /20260806-game-study-loop-v3/);
+  assert.match(preschoolIndex, /20260806-light-evidence-loop-v1/);
 });
 
 test('keeps preschool mobile status cards readable at reference widths', () => {
@@ -686,9 +727,9 @@ test('keeps the preschool sidebar visible in landscape and manually collapsible 
   assert.match(app, /matchMedia\('\(max-aspect-ratio: 1 \/ 1\)'\)/);
   assert.match(app, /if \(shouldAutoCloseSidebar\(\)\) closeSidebar\(\)/);
   assert.match(preschoolStyles, /20-sidebar-orientation\.css/);
-  assert.match(styles, /@media \(min-aspect-ratio: 1 \/ 1\) and \(max-width: 760px\)[\s\S]*\.sidebar \{[^}]*transform:\s*translateX\(0\)/);
+  assert.match(styles, /@media \(min-aspect-ratio: 1 \/ 1\) and \(max-width: 860px\)[\s\S]*\.sidebar \{[^}]*transform:\s*translateX\(0\)/);
   assert.match(styles, /@media \(max-aspect-ratio: 1 \/ 1\) and \(max-width: 760px\)[\s\S]*\.sidebar \{[^}]*transform:\s*translateX\(-100%\)/);
-  assert.match(styles, /@media \(min-aspect-ratio: 1 \/ 1\) and \(max-width: 760px\)[\s\S]*\.sidebar-scrim,[\s\S]*\.menu-toggle,[\s\S]*display:\s*none/);
+  assert.match(styles, /@media \(min-aspect-ratio: 1 \/ 1\) and \(max-width: 860px\)[\s\S]*\.sidebar-scrim,[\s\S]*\.menu-toggle,[\s\S]*display:\s*none/);
   assert.match(styles, /@media \(max-aspect-ratio: 1 \/ 1\) and \(max-width: 760px\)[\s\S]*\.menu-toggle,[\s\S]*\.sidebar-close \{[^}]*display:\s*inline-grid/);
   assert.match(styles, /sidebar-scrim\.is-visible[\s\S]*display:\s*block !important/);
 });

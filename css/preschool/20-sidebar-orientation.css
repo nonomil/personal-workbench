@@ -1,5 +1,5 @@
 /* Keep the workbench navigation persistent in landscape, while portrait phones use the menu toggle. */
-@media (min-aspect-ratio: 1 / 1) and (max-width: 760px) {
+@media (min-aspect-ratio: 1 / 1) and (max-width: 860px) {
     body.variant-preschool .sidebar {
         width: 248px;
         transform: translateX(0) !important;

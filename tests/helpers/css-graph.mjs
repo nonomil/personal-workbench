@@ -10,6 +10,7 @@ export function readCssGraph(entryPath, seen = new Set()) {
   const source = fs.readFileSync(absolutePath, 'utf8');
   return source.replace(IMPORT_RE, (_match, href) => {
     if (/^(?:https?:)?\/\//.test(href)) return '';
-    return readCssGraph(path.resolve(path.dirname(absolutePath), href), seen);
+    const localHref = href.split('?')[0].split('#')[0];
+    return readCssGraph(path.resolve(path.dirname(absolutePath), localHref), seen);
   });
 }
