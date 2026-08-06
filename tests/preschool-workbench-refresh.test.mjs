@@ -74,9 +74,10 @@ test('keeps preschool plans in one editable list instead of a fixed core and col
 
 test('bumps preschool runtime assets when the editable plan interaction changes', () => {
   const html = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
-  assert.match(html, /preschool-workbench\.css\?v=20260806-plan-toggle-cache-v2/);
+  assert.match(html, /preschool-workbench\.css\?v=20260806-game-study-loop-v3/);
+  assert.match(html, /config\.js\?v=20260806-game-study-loop-v3/);
   assert.match(html, /storage\.js\?v=20260806-plan-toggle-cache-v2/);
-  assert.match(html, /app\.js\?v=20260806-plan-toggle-cache-v5/);
+  assert.match(html, /app\.js\?v=20260806-game-study-loop-v3/);
 });
 
 test('updates from the visible preschool snapshot when persistence is one revision behind', () => {
@@ -344,7 +345,7 @@ test('uses transparent PVZ plants and zombie variants across the preschool defen
   assert.match(app, /const plantAsset = preschoolPlantAsset\(activePlant\)/);
   assert.match(app, /pixel-hud-defense-art/);
   assert.match(app, /asset: 'player-energy-bars'/);
-  assert.match(config, /selected\.id === 'preschool' \? 'v0\.4\.2 · 幼儿版'/);
+  assert.match(config, /selected\.id === 'preschool' \? 'v0\.4\.4 · 幼儿版'/);
   assert.doesNotMatch(config, /v0\.2\.4 · 幼儿版/);
   assert.match(styles, /pixel-hud-defense-art/);
    assert.match(styles, /preschool-pvz-art/);
@@ -435,6 +436,7 @@ test('uses a flat preschool battlefield overview while keeping the battle route 
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
   const styles = readCssGraph(path.join(root, 'styles.css'));
   const preschoolStyles = fs.readFileSync(path.join(root, 'css', 'preschool-workbench.css'), 'utf8');
+  const preschoolStyleGraph = readCssGraph(path.join(root, 'css', 'preschool-workbench.css'));
   assert.match(app, /workbench-overview/);
   assert.match(app, /preschool-home-overview/);
   assert.match(app, /preschool-home-battlefield/);
@@ -451,6 +453,31 @@ test('uses a flat preschool battlefield overview while keeping the battle route 
   assert.match(styles, /@media \(max-width: 760px\)[\s\S]*workbench-overview/);
 });
 
+test('connects the preschool home to the game-study loop without nesting the lesson engine', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const styles = readCssGraph(path.join(root, 'styles.css'));
+  const preschoolStyles = fs.readFileSync(path.join(root, 'css', 'preschool-workbench.css'), 'utf8');
+  const preschoolStyleGraph = readCssGraph(path.join(root, 'css', 'preschool-workbench.css'));
+  const preschoolIndex = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
+  const homeStart = app.indexOf('function renderPreschoolHomeOverview(derived)');
+  const homeEnd = app.indexOf('function renderPreschoolPage(derived)', homeStart);
+  const homeTemplate = app.slice(homeStart, homeEnd);
+  assert.match(homeTemplate, /renderPreschoolHomeIdentity/);
+  assert.match(homeTemplate, /renderPreschoolHomeEvidence/);
+  assert.match(app, /pixel-settings-button[\s\S]*icon\('settings-2'\)/);
+  assert.doesNotMatch(app, /pixel-settings-button[\s\S]*icon\('settings'\)/);
+  assert.match(app, /function renderPreschoolHomeIdentity[\s\S]*data-action="add-plan"/);
+  assert.match(app, /function renderPreschoolHomeEvidence[\s\S]*data-action="navigate" data-page="courses"/);
+  assert.doesNotMatch(homeTemplate, /data-action="open-lesson"/);
+  assert.match(app, /preschool-home-identity/);
+  assert.match(app, /preschool-home-evidence/);
+  assert.match(preschoolStyles, /24-game-study-loop\.css/);
+  assert.match(preschoolStyleGraph, /preschool-home-identity/);
+  assert.match(preschoolStyleGraph, /preschool-home-evidence/);
+  assert.match(preschoolIndex, /v0\.4\.4 · 幼儿版/);
+  assert.doesNotMatch(preschoolIndex, /v0\.4\.2 · 幼儿版/);
+});
+
 test('keeps the preschool workbench on the garden-green shell', () => {
   const preschoolStyles = fs.readFileSync(path.join(root, 'css', 'preschool-workbench.css'), 'utf8');
   const greenTheme = fs.readFileSync(path.join(root, 'css', 'preschool', '18-green-theme-restore.css'), 'utf8');
@@ -459,7 +486,7 @@ test('keeps the preschool workbench on the garden-green shell', () => {
   assert.match(greenTheme, /background:\s*linear-gradient\(180deg,\s*#22734a,\s*#145238\)/);
   assert.match(greenTheme, /background:\s*#eff9eb/);
   assert.match(preschoolIndex, /theme-color" content="#2d8748"/);
-  assert.match(preschoolIndex, /20260806-plan-toggle-cache-v5/);
+  assert.match(preschoolIndex, /20260806-game-study-loop-v3/);
 });
 
 test('keeps preschool mobile status cards readable at reference widths', () => {
@@ -561,6 +588,38 @@ test('keeps preschool option art aligned with its answer choices', () => {
       assert.ok(iconNames.has(item.slice(1, -1)), `unknown preschool option icon: ${item}`);
     }
   }
+});
+
+test('keeps every literal runtime icon reference backed by the offline icon registry', () => {
+  const iconsSource = fs.readFileSync(path.join(root, 'icons.js'), 'utf8');
+  const iconNames = new Set(Array.from(iconsSource.matchAll(/(?:'([^']+)'|([a-z][a-z0-9-]*)):\s*'/g), function (match) {
+    return match[1] || match[2];
+  }));
+  const runtimeSources = fs.readdirSync(root, { withFileTypes: true })
+    .filter(item => item.isFile() && item.name.endsWith('.js') && item.name !== 'icons.js')
+    .map(item => fs.readFileSync(path.join(root, item.name), 'utf8'));
+  const htmlSources = [
+    'index.html',
+    '成人成长工作台/index.html',
+    '儿童学习工作台/index.html',
+    'preschool-workbench/index.html'
+  ].filter(file => fs.existsSync(path.join(root, file)))
+    .map(file => fs.readFileSync(path.join(root, file), 'utf8'));
+  const references = new Set();
+  const nonIconLiterals = new Set(['done', 'mastered', 'steady']);
+  runtimeSources.forEach(function (source) {
+    Array.from(source.matchAll(/icon\(([^)]*)\)/g)).forEach(function (match) {
+      Array.from(match[1].matchAll(/['"]([a-z][a-z0-9-]*)['"]/g)).forEach(function (item) {
+        if (!nonIconLiterals.has(item[1])) references.add(item[1]);
+      });
+    });
+    Array.from(source.matchAll(/\b(?:icon|switchIcon):\s*['"]([a-z][a-z0-9-]*)['"]/g)).forEach(item => references.add(item[1]));
+  });
+  htmlSources.forEach(function (source) {
+    Array.from(source.matchAll(/data-lucide=["']([a-z][a-z0-9-]*)["']/g)).forEach(item => references.add(item[1]));
+  });
+  const missing = Array.from(references).filter(name => !iconNames.has(name)).sort();
+  assert.deepEqual(missing, []);
 });
 
 test('exposes the preschool lesson activity dialog contract', () => {

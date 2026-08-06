@@ -1298,6 +1298,31 @@
         return `${renderPreschoolIntro(PAGE_META.family, '', '', `<span class="tag lime">${messages.length} 条</span>`)}<section class="preschool-family-card"><div class="preschool-card-visual">${icon('message-circle-heart')}</div><h2>我想告诉家长</h2><form data-family-form><input type="hidden" name="author" value="小朋友"><input type="hidden" name="kind" value="child-share"><textarea name="body" maxlength="200" required placeholder="我今天会了……"></textarea><button class="btn-primary" type="submit">发出去${icon('send')}</button></form></section><section class="preschool-section"><div class="preschool-section-head"><div><span class="eyebrow">FAMILY</span><h2>家长说</h2></div></div><div class="preschool-family-feed">${messages.length ? messages.slice(0, 5).map(function (item) { return `<article><span class="preschool-card-visual">${icon(item.author === '家长' ? 'heart' : 'sparkles')}</span><div><strong>${escapeHtml(item.body)}</strong><small>${escapeHtml(item.author)}</small></div></article>`; }).join('') : renderEmpty('heart', '还没有留言')}</div></section>`;
     }
 
+    function renderPreschoolHomeIdentity(derived, growth, defense) {
+        const plans = derived.todayPlans;
+        const done = plans.filter(item => item.done).length;
+        const nextPlan = plans.find(item => !item.done);
+        const level = Number(growth.level) || 1;
+        const levelProgress = clamp(growth.levelProgress || 0, 0, 100);
+        const companionName = growth.unicorn && growth.unicorn.name ? growth.unicorn.name : '星芒';
+        const nextCopy = nextPlan ? `下一步：${escapeHtml(nextPlan.title)}` : '今日任务已经完成，可以去花园休息一下。';
+        return `<section class="preschool-home-identity" aria-label="专属伙伴与今日成长">
+            <div class="preschool-home-identity-main"><span class="preschool-home-identity-art">${preschoolAsset('star-companion', companionName)}</span><div class="preschool-home-identity-copy"><span class="eyebrow">MY GARDEN PARTNER</span><h2>${escapeHtml(companionName)} · Lv.${level}</h2><p>${nextCopy}</p><div class="preschool-home-level-track" role="progressbar" aria-label="成长等级进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${levelProgress}"><i style="width:${levelProgress}%"></i></div><small>再积累 ${Math.max(0, 100 - levelProgress)} 点成长经验，点亮下一级</small></div></div>
+            <div class="preschool-home-identity-stats"><span><b>${growth.sunlight || 0}</b><small>阳光</small></span><span><b>${growth.streak || 0}</b><small>连续行动</small></span><span><b>${defense && defense.energy ? defense.energy : 0}</b><small>豌豆能量</small></span></div>
+            <div class="preschool-home-identity-actions"><button class="workbench-action-button" type="button" data-action="add-plan">${icon('plus')}安排下一项</button><button class="workbench-secondary-button" type="button" data-action="navigate" data-page="plans">${icon('flag')}${nextPlan ? '去完成下一步' : '看今日任务'}</button><button class="workbench-text-button" type="button" data-action="navigate" data-page="growth">看成长${icon('arrow-up-right')}</button></div>
+        </section>`;
+    }
+
+    function renderPreschoolHomeEvidence(derived, growth) {
+        const todayReading = state.readingLogs.filter(item => item.date === derived.today).sort((a, b) => String(b.createdAt || '').localeCompare(String(a.createdAt || '')))[0];
+        const completedIds = new Set(state.courseProgress && Array.isArray(state.courseProgress.completedLessonIds) ? state.courseProgress.completedLessonIds : []);
+        const next = getNextPreschoolLesson();
+        const done = derived.completedPlans;
+        const total = derived.todayPlans.length;
+        const nextRoute = next ? ` data-course-id="${escapeHtml(next.course.id)}"` : '';
+        return `<section class="preschool-home-evidence" aria-label="学习证据与下一步"><div class="preschool-home-evidence-head"><div><span class="pixel-panel-kicker">LEARNING EVIDENCE</span><h2>今天留下了什么</h2><p>完成一项，就留下一个看得见的成长证据；当前连续 ${growth.streak || 0} 天。</p></div><button class="workbench-text-button" type="button" data-action="navigate" data-page="plans">看全部任务${icon('arrow-up-right')}</button></div><div class="preschool-home-evidence-grid"><article class="preschool-home-evidence-card tone-green"><span class="preschool-home-evidence-icon">${icon('check-check')}</span><div><strong>${done}/${total || 0} 项打卡完成</strong><small>${total ? `今日进度 ${Math.round((done / total) * 100)}%` : '先安排今天的第一步'}</small></div></article><article class="preschool-home-evidence-card tone-blue"><span class="preschool-home-evidence-icon">${icon('book-open')}</span><div><strong>${todayReading ? escapeHtml(todayReading.title) : '还没有今日阅读记录'}</strong><small>${todayReading ? `${todayReading.minutes || 0} 分钟 · ${todayReading.pages || 0} 页` : '读完后留下一个词或一句话'}</small></div></article><button class="preschool-home-evidence-card tone-gold is-action" type="button" data-action="navigate" data-page="courses"${nextRoute}><span class="preschool-home-evidence-icon">${icon(next ? 'play-circle' : 'badge-check')}</span><div><strong>${next ? `下一张：${escapeHtml(next.lesson.title)}` : '学习路线已点亮'}</strong><small>${next ? `${escapeHtml(next.course.title)} · ${next.lesson.minutes || 10} 分钟` : `${completedIds.size} 张练习卡已完成`}</small></div><span class="preschool-home-evidence-arrow">${icon('arrow-up-right')}</span></button></div></section>`;
+    }
+
     function renderPreschoolHomeBattlefield(plans, defense) {
         const lanePlants = ['plant-sunflower', 'plant-peashooter', 'plant-wallnut'];
         const laneZombies = ['zombie-basic', 'zombie-conehead', 'zombie-buckethead'];
@@ -1328,8 +1353,10 @@
         const done = plans.filter(item => item.done).length;
         const defense = getPreschoolDefense(growth);
         return `<div class="pixel-home workbench-overview preschool-home-overview">
-            <section class="pixel-page-header workbench-overview-header"><div><span class="pixel-panel-kicker workbench-kicker">TODAY / WORKBENCH</span><h1>今天，完成一小步</h1><p>${done}/${plans.length || 0} 项任务已完成，阳光和豌豆能量会在完成后到账。</p></div><div class="pixel-header-actions workbench-overview-actions"><span class="pixel-hud-sun">${preschoolAsset('sun-token', '阳光')}<strong>${growth.sunlight}</strong></span><span class="pixel-hud-defense"><span class="pixel-hud-defense-art">${preschoolAsset('player-energy-bars', '豌豆能量')}</span><strong>${defense.energy}</strong><span>能量</span></span><button class="pixel-settings-button" type="button" data-action="navigate" data-page="account" aria-label="打开设置" title="打开设置">${icon('settings')}</button></div></section>
+            <section class="pixel-page-header workbench-overview-header"><div><span class="pixel-panel-kicker workbench-kicker">TODAY / WORKBENCH</span><h1>今天，完成一小步</h1><p>${done}/${plans.length || 0} 项任务已完成，阳光和豌豆能量会在完成后到账。</p></div><div class="pixel-header-actions workbench-overview-actions"><span class="pixel-hud-sun">${preschoolAsset('sun-token', '阳光')}<strong>${growth.sunlight}</strong></span><span class="pixel-hud-defense"><span class="pixel-hud-defense-art">${preschoolAsset('player-energy-bars', '豌豆能量')}</span><strong>${defense.energy}</strong><span>能量</span></span><button class="pixel-settings-button" type="button" data-action="navigate" data-page="account" aria-label="打开设置" title="打开设置">${icon('settings-2')}</button></div></section>
+            ${renderPreschoolHomeIdentity(derived, growth, defense)}
             ${renderPreschoolHomeBattlefield(plans, defense)}
+            ${renderPreschoolHomeEvidence(derived, growth)}
             <div class="preschool-home-exits" aria-label="花园出口"><button class="workbench-action-button" type="button" data-action="navigate" data-page="battle">${icon('swords')} 去花园游戏</button><button class="workbench-secondary-button" type="button" data-action="navigate" data-page="rewards">${icon('gift')} 去领奖励</button></div>
         </div>`;
     }
