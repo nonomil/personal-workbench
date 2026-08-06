@@ -9,14 +9,15 @@
 - 儿童版：`petbank_huchuliang_child_workbench_state_v1`
 - 幼儿版：`petbank_huchuliang_preschool_workbench_state_v1`
 
-当前快照 `schemaVersion` 为 `5`。v1/v2/v3/v4 快照会在读取时补齐新字段，登录 session 和 API 地址永远不进入快照。
+当前快照 `schemaVersion` 为 `6`。v1/v2/v3/v4/v5 快照会在读取时补齐新字段，登录 session 和 API 地址永远不进入快照。幼儿版的 `preschoolTheme` 只允许 `garden-defense`、`voxel-adventure`、`platform-quest`，旧快照默认使用 `garden-defense`，不会影响任务完成状态。
 
 ```json
 {
-  "schemaVersion": 5,
+  "schemaVersion": 6,
   "profileId": "local-default",
   "revision": 1,
   "updatedAt": "2026-07-29T00:00:00.000Z",
+  "preschoolTheme": "garden-defense",
   "tasks": [],
   "dailyPlans": [],
   "readingLogs": [],

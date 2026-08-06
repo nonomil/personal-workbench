@@ -1,0 +1,7 @@
+Create a wide 3:2 hero artwork for an original preschool learning workbench called "Block Garden Adventure".
+
+Use the visual grammar of a polished voxel sandbox game: clearly cubic 3D terrain, square grass-and-dirt blocks with visible stepped edges, block-built oak trees, a small blue stream with a simple bridge, a wooden quest hut, a chest, bright purple crystals, floating block steps, and a friendly original child explorer with a square backpack and teal hood. The world must read immediately as a block-building adventure game, not as a generic 3D illustration.
+
+Composition: a game screenshot-like landscape with a safe, relatively uncluttered dark-blue sky and grass area on the left 35% for HTML text overlay; the main block-built scene and original explorer sit on the right and lower half. Strong silhouettes, chunky geometry, crisp pixel-like material details, cheerful but not childish pastel colors, high contrast at thumbnail size.
+
+This is an original visual direction, not an official Minecraft asset. Do not copy Minecraft, Steve, Alex, a Creeper, any trademark, logo, UI, font, or recognizable branded character. No readable text, letters, numbers, watermark, interface chrome, or photorealism. Leave all text to HTML.

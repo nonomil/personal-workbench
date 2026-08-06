@@ -47,8 +47,9 @@
 {
   "revision": 7,
   "payload": {
-    "schemaVersion": 5,
+    "schemaVersion": 6,
     "profileId": "local-default",
+    "preschoolTheme": "garden-defense",
     "tasks": [],
     "mistakes": [],
     "growth": {},

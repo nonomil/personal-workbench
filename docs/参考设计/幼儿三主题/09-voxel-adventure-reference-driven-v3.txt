@@ -1,0 +1,13 @@
+Use case: ui-mockup
+Asset type: portrait-first preschool learning workbench reference, 1024x1536
+This is a real usable web-app dashboard screenshot, not a poster, not a landing-page hero, and not a single giant game illustration.
+Preserve this exact information architecture: a fixed vertical navigation rail taking about 20-24% width; a compact game-world top banner; a warm white or very pale main content surface; a large companion/today panel; a two-column subject-card grid; a separate game-progress panel; a daily task checklist; and a reward-center exit card near the bottom.
+All cards must have large blank areas reserved for HTML/CSS labels. Do not render any readable text, letters, numbers, Chinese characters, fake writing, logo, watermark, browser chrome, or screenshot frame.
+Use clean 2D or 2.5D children's game UI illustration with strong outlines, controlled shadows, readable spacing, and large touch targets. Do not use generic SaaS charts, glassmorphism, photorealism, or a full-screen key art poster.
+
+Create the block-building voxel adventure variant of the common workbench.
+Use a saturated indigo-purple vertical navigation rail with large rounded inventory-like tiles and one bright yellow active tile. The rail should feel like a game menu, not a corporate sidebar.
+The top banner is a shallow panoramic voxel world: bright blue sky, square clouds, orthographic block-built grass and dirt islands with visible dirt cross-sections, square-leaf trees, stone steps, a wooden chest, a crystal cluster, and one original small cube companion. Put crystal and streak resources in chunky item-slot capsules.
+The main surface is cream-white. Below the banner show six subject cards in a two-column inventory/quest grid. Each card has a colored bookmark tab, one small voxel-built object, a blank label plate, and a clear empty area for HTML text. Do not fill the page with one large 3D scene.
+Below the subject cards show a compact voxel mission map: block path, small cave entrance, water channel, bridge, signpost, checkpoint markers, chest at the end, and a four-row daily checklist with crystal rewards. Finish with a large golden treasure chest reward exit.
+Visual language: crisp orthographic voxel, hard square silhouettes, visible stacked cube layers, limited cobalt/indigo/moss/stone/clay/gold palette, pixel-inspired bevels but not blurry pixel art. Avoid smooth rounded toy 3D, glossy generic game UI, official Minecraft textures, Steve, creeper, official logo, copied inventory screen, or random landscape poster.

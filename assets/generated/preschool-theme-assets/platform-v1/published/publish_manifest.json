@@ -1,0 +1,17 @@
+{
+  "theme": "platform-quest",
+  "version": "v1",
+  "source": "../platform-quest-assets-v1.png",
+  "cleanSource": "../clean-t30/platform-quest-assets-v1_clean.png",
+  "alphaThreshold": 24,
+  "assets": [
+    { "name": "platform-explorer", "file": "platform-explorer.png", "size": [285, 412] },
+    { "name": "platform-coin", "file": "platform-coin.png", "size": [305, 318] },
+    { "name": "platform-brick", "file": "platform-brick.png", "size": [311, 316] },
+    { "name": "platform-mystery-block", "file": "platform-mystery-block.png", "size": [347, 312] },
+    { "name": "platform-pipe", "file": "platform-pipe.png", "size": [307, 387] },
+    { "name": "platform-flag", "file": "platform-flag.png", "size": [291, 374] },
+    { "name": "platform-grass-platform", "file": "platform-grass-platform.png", "size": [275, 350] },
+    { "name": "platform-star-badge", "file": "platform-star-badge.png", "size": [415, 259] }
+  ]
+}

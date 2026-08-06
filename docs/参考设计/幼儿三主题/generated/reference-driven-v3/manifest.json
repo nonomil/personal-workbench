@@ -1,0 +1,48 @@
+{
+  "purpose": "reference-driven preschool workbench candidates",
+  "status": "candidate-awaiting-user-review",
+  "generatedBy": "gpt-image-2",
+  "endpointFamily": "Cliprox OpenAI Images compatible API",
+  "requestedSize": "1024x1536",
+  "requestedQuality": "high",
+  "sourceEvidence": [
+    "G:\\UserCode\\跨平台采集器\\notes\\游戏设计\\游戏化学习工作台\\感谢胡楚靓，手搓20多次的幼小衔接学习台\\img\\img_1.jpg",
+    "G:\\UserCode\\跨平台采集器\\notes\\游戏设计\\游戏化学习工作台\\刷胡楚静被种草的WorkBuddy工作台\\img\\img_1.webp",
+    "G:\\UserCode\\跨平台采集器\\notes\\游戏设计\\游戏化学习工作台\\给娃手搓个暑期作业台2.0版本\\img\\video_12s.png"
+  ],
+  "files": [
+    {
+      "id": "platform-quest",
+      "file": "platform-quest-reference-driven-v3.png",
+      "promptFile": "../../08-platform-quest-reference-driven-v3.txt",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 1652666,
+      "sha256": "9368D79A6F475D3DA1793BE714D611CD1B504D70078BD670486C44A8CAE9679C",
+      "visualCheck": "pass-candidate",
+      "notes": "red navigation, yellow active state, sky/brick/coin/pipe/flag header, six subject cards, platform path, task list, reward chest"
+    },
+    {
+      "id": "voxel-adventure",
+      "file": "voxel-adventure-reference-driven-v3.png",
+      "promptFile": "../../09-voxel-adventure-reference-driven-v3.txt",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 1769049,
+      "sha256": "1A3AAB8D520A5EB68B881BC66585B54A5D8C386627D51D575D7EC1016546CCA6",
+      "visualCheck": "pass-candidate",
+      "notes": "indigo inventory rail, orthographic block world, crystals, chest, six quest cards, voxel map, crystal checklist"
+    },
+    {
+      "id": "garden-defense",
+      "file": "garden-defense-reference-driven-v3.png",
+      "promptFile": "../../10-garden-defense-reference-driven-v3.txt",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 1924704,
+      "sha256": "6EE2EF9B4546A38CA3346DA56F3CFF4E3D30C07CA653C079A83F3945E832633E",
+      "visualCheck": "pass-candidate",
+      "notes": "purple-green garden rail, sunlight/shield resources, plant cards, 5x3 lawn defense panel, invaders, sunlight checklist, reward chest"
+    }
+  ]
+}

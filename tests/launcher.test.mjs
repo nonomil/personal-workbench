@@ -33,6 +33,17 @@ test('resolves static paths for the root launcher and current workbench pages', 
   assert.equal(launcher.getSiblingPath('adult', 'preschool'), '../preschool-workbench/index.html');
 });
 
+test('remembers a preschool theme without creating another workbench variant', () => {
+  assert.equal(launcher.getSelectedTheme(), null);
+  assert.equal(launcher.rememberTheme('voxel-adventure'), 'voxel-adventure');
+  assert.equal(launcher.getSelectedTheme(), 'voxel-adventure');
+  assert.equal(launcher.getPath('preschool'), './preschool-workbench/index.html?theme=voxel-adventure');
+  assert.equal(launcher.getPath('preschool', 'platform-quest'), './preschool-workbench/index.html?theme=platform-quest');
+  assert.equal(launcher.getSiblingPath('adult', 'preschool'), '../preschool-workbench/index.html?theme=voxel-adventure');
+  values.set(launcher.THEME_KEY, 'not-a-theme');
+  assert.equal(launcher.getSelectedTheme(), null);
+});
+
 test('only auto-redirects when a remembered choice exists and choose mode is absent', () => {
   launcher.remember('preschool');
   assert.equal(launcher.shouldAutoRedirect(''), true);

@@ -1,0 +1,685 @@
+/* Three original game grammars on one preschool workbench shell.
+   The page remains a readable dashboard; the theme supplies color, borders,
+   shallow world decoration, and semantic asset aliases. */
+body.variant-preschool[data-preschool-theme] {
+    --theme-bg: #eef7ed;
+    --theme-surface: #fffdf8;
+    --theme-surface-soft: #f4faef;
+    --theme-border: #cfe2c6;
+    --theme-border-strong: #8bbd78;
+    --theme-ink: #294f36;
+    --theme-muted: #6c816e;
+    --theme-accent: #38894f;
+    --theme-accent-deep: #1f6038;
+    --theme-highlight: #ffd452;
+    --theme-sidebar: linear-gradient(180deg, #3b286f 0%, #1f4d3c 100%);
+    --theme-sidebar-ink: #f5f9df;
+    --theme-sidebar-muted: #c3d6b9;
+    --theme-banner: linear-gradient(112deg, #a6e2ee 0%, #72c7e2 43%, #8ccf77 100%);
+    --theme-banner-border: #78b965;
+    --theme-task: #fffefa;
+    --theme-task-done: #edf8e6;
+    --theme-shadow: 0 12px 28px rgba(41, 79, 54, .11);
+    background: var(--theme-bg);
+    color: var(--theme-ink);
+}
+
+body.variant-preschool[data-preschool-theme] .app-shell,
+body.variant-preschool[data-preschool-theme] .main-content {
+    background: var(--theme-bg);
+}
+
+body.variant-preschool[data-preschool-theme] .main-content {
+    min-width: 0;
+}
+
+body.variant-preschool[data-preschool-theme] .sidebar {
+    background: var(--theme-sidebar);
+    box-shadow: 8px 0 25px rgba(31, 42, 65, .16);
+}
+
+body.variant-preschool[data-preschool-theme] .brand strong,
+body.variant-preschool[data-preschool-theme] .nav-item,
+body.variant-preschool[data-preschool-theme] .nav-item span,
+body.variant-preschool[data-preschool-theme] .mode-status strong {
+    color: var(--theme-sidebar-ink);
+}
+
+body.variant-preschool[data-preschool-theme] .brand small,
+body.variant-preschool[data-preschool-theme] .sidebar-section-label,
+body.variant-preschool[data-preschool-theme] .sidebar-footnote,
+body.variant-preschool[data-preschool-theme] .mode-status small {
+    color: var(--theme-sidebar-muted);
+}
+
+body.variant-preschool[data-preschool-theme] .brand-mark {
+    border-color: rgba(255, 255, 255, .32);
+    background: rgba(255, 215, 81, .95);
+    box-shadow: 0 4px 0 rgba(34, 38, 77, .28);
+}
+
+body.variant-preschool[data-preschool-theme] .primary-nav {
+    grid-template-columns: 1fr;
+    gap: 7px;
+}
+
+body.variant-preschool[data-preschool-theme] .nav-item {
+    display: flex;
+    min-height: 54px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 8px 11px;
+    border: 1px solid transparent;
+    border-radius: 13px;
+    text-align: left;
+    background: rgba(255, 255, 255, .08);
+}
+
+body.variant-preschool[data-preschool-theme] .nav-item::before {
+    top: 7px;
+    bottom: 7px;
+    width: 4px;
+    border-radius: 0 5px 5px 0;
+    background: transparent;
+}
+
+body.variant-preschool[data-preschool-theme] .nav-item:hover {
+    border-color: rgba(255, 255, 255, .27);
+    background: rgba(255, 255, 255, .14);
+}
+
+body.variant-preschool[data-preschool-theme] .nav-item.is-active {
+    border-color: rgba(255, 255, 255, .7);
+    color: #3f2a12;
+    background: var(--theme-highlight);
+    box-shadow: 0 4px 0 rgba(25, 31, 56, .22);
+}
+
+body.variant-preschool[data-preschool-theme] .nav-item.is-active span,
+body.variant-preschool[data-preschool-theme] .nav-item.is-active kbd {
+    color: #3f2a12;
+}
+
+body.variant-preschool[data-preschool-theme] .nav-item.is-active::before {
+    background: #fffdf0;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-nav-art {
+    display: block;
+    width: 33px;
+    height: 33px;
+    flex: 0 0 33px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 0 rgba(15, 26, 41, .2));
+}
+
+body.variant-preschool[data-preschool-theme] .nav-item span {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    font-size: 14px;
+    font-weight: 900;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.variant-preschool[data-preschool-theme] .nav-item kbd {
+    display: inline-flex;
+    min-width: 23px;
+    justify-content: center;
+    color: rgba(255, 255, 255, .62);
+    background: transparent;
+    font-size: 9px;
+}
+
+body.variant-preschool[data-preschool-theme] .sidebar-section-toggle {
+    min-height: 42px;
+    border-color: rgba(255, 255, 255, .14);
+    border-radius: 11px;
+    color: var(--theme-sidebar-ink);
+    background: rgba(0, 0, 0, .13);
+}
+
+body.variant-preschool[data-preschool-theme] .sidebar-section-toggle:hover {
+    border-color: rgba(255, 255, 255, .3);
+    background: rgba(255, 255, 255, .12);
+}
+
+body.variant-preschool[data-preschool-theme] .sidebar-section-toggle-meta {
+    color: var(--theme-sidebar-muted);
+}
+
+body.variant-preschool[data-preschool-theme] .topbar {
+    border-bottom-color: var(--theme-border);
+    background: rgba(255, 255, 255, .9);
+    box-shadow: 0 4px 16px rgba(54, 91, 65, .07);
+}
+
+body.variant-preschool[data-preschool-theme] .topbar-context,
+body.variant-preschool[data-preschool-theme] .topbar-context strong {
+    color: var(--theme-ink);
+}
+
+body.variant-preschool[data-preschool-theme] .topbar-focus-button {
+    color: #fff;
+    background: var(--theme-accent);
+    box-shadow: 0 3px 0 var(--theme-accent-deep);
+}
+
+body.variant-preschool[data-preschool-theme] .avatar {
+    color: #fff;
+    background: var(--theme-accent);
+    box-shadow: 0 3px 0 var(--theme-accent-deep);
+}
+
+body.variant-preschool[data-preschool-theme] .page-content {
+    width: min(100%, 1280px);
+    padding: 24px clamp(16px, 3vw, 42px) 64px;
+    background: transparent;
+}
+
+/* A shallow themed banner keeps the world feeling present without turning the
+   whole page into a background image or a generated poster. */
+body.variant-preschool[data-preschool-theme] .preschool-theme-banner {
+    position: relative;
+    display: grid;
+    min-height: 142px;
+    grid-template-columns: minmax(240px, .75fr) minmax(300px, 1.25fr);
+    align-items: stretch;
+    margin: 0 0 16px;
+    overflow: hidden;
+    border: 2px solid var(--theme-banner-border);
+    border-radius: 20px;
+    background: var(--theme-banner);
+    box-shadow: var(--theme-shadow);
+    isolation: isolate;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-theme-banner-copy {
+    z-index: 2;
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px clamp(18px, 3vw, 32px);
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-theme-banner-copy .pixel-panel-kicker {
+    margin: 0 0 5px;
+    color: rgba(30, 76, 55, .72);
+    font-size: 9px;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-theme-banner-copy h2 {
+    margin: 0;
+    color: #fffdf2;
+    font-size: clamp(20px, 2.4vw, 32px);
+    font-weight: 950;
+    letter-spacing: -.03em;
+    text-shadow: 0 2px 0 rgba(42, 83, 54, .2);
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-theme-banner-copy p {
+    max-width: 360px;
+    margin: 7px 0 0;
+    color: rgba(24, 69, 49, .8);
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1.5;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-theme-banner-scene {
+    position: relative;
+    min-width: 0;
+    overflow: hidden;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-theme-banner-scene::before {
+    position: absolute;
+    right: 5%;
+    bottom: -38px;
+    left: -8%;
+    height: 88px;
+    border-radius: 50% 50% 0 0;
+    background: rgba(255, 255, 255, .35);
+    content: '';
+}
+
+body.variant-preschool[data-preschool-theme] .theme-banner-cloud {
+    position: absolute;
+    width: 76px;
+    height: 19px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, .82);
+    box-shadow: 20px -10px 0 -4px rgba(255, 255, 255, .82), 44px 0 0 -5px rgba(255, 255, 255, .82);
+}
+
+body.variant-preschool[data-preschool-theme] .theme-banner-cloud.cloud-a { top: 24px; left: 15%; }
+body.variant-preschool[data-preschool-theme] .theme-banner-cloud.cloud-b { top: 49px; right: 16%; transform: scale(.72); opacity: .8; }
+
+body.variant-preschool[data-preschool-theme] .theme-banner-platform {
+    position: absolute;
+    bottom: 23px;
+    width: 118px;
+    height: 22px;
+    border-radius: 12px 12px 5px 5px;
+    background: #5aa853;
+    box-shadow: 0 12px 0 #9a6135, 0 15px 0 rgba(65, 72, 39, .14);
+}
+
+body.variant-preschool[data-preschool-theme] .theme-banner-platform.platform-a { left: 8%; }
+body.variant-preschool[data-preschool-theme] .theme-banner-platform.platform-b { right: 4%; width: 152px; background: #73b85e; }
+
+body.variant-preschool[data-preschool-theme] .theme-banner-object {
+    position: absolute;
+    z-index: 2;
+    right: 31%;
+    bottom: 24px;
+    display: grid;
+    width: 96px;
+    height: 100px;
+    place-items: end center;
+}
+
+body.variant-preschool[data-preschool-theme] .theme-banner-object img {
+    width: 96px;
+    height: 100px;
+    object-fit: contain;
+    filter: drop-shadow(0 5px 0 rgba(30, 68, 48, .23));
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-home-overview {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0;
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    color: var(--theme-ink);
+    background: transparent;
+    box-shadow: none;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-home-overview .workbench-overview-header {
+    margin: 0 0 14px;
+    padding: 0 2px;
+    align-items: center;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-home-overview .workbench-overview-header h1,
+body.variant-preschool[data-preschool-theme] .preschool-home-overview .workbench-overview-header p {
+    color: var(--theme-ink);
+    text-shadow: none;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-home-overview .workbench-overview-header h1 {
+    font-size: clamp(25px, 3vw, 39px);
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-home-overview .workbench-overview-header p {
+    color: var(--theme-muted);
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-home-overview .workbench-kicker,
+body.variant-preschool[data-preschool-theme] .preschool-home-overview .pixel-panel-kicker {
+    color: var(--theme-accent);
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-home-overview .workbench-overview-actions > span,
+body.variant-preschool[data-preschool-theme] .preschool-home-overview .workbench-overview-actions .pixel-settings-button {
+    border-color: var(--theme-border);
+    color: var(--theme-ink);
+    background: var(--theme-surface);
+    box-shadow: 0 3px 0 rgba(54, 91, 65, .08);
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-home-overview .workbench-overview-actions .pixel-hud-sun { background: #fff8d6; border-color: #efd378; }
+body.variant-preschool[data-preschool-theme] .preschool-home-overview .workbench-overview-actions .pixel-hud-defense { background: #e7f5e7; }
+
+body.variant-preschool[data-preschool-theme] .preschool-home-identity,
+body.variant-preschool[data-preschool-theme] .preschool-home-evidence {
+    border-color: var(--theme-border);
+    border-radius: 18px;
+    background: var(--theme-surface);
+    box-shadow: var(--theme-shadow);
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-home-identity {
+    margin: 0 0 16px;
+    padding: 16px 18px;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-home-identity-art {
+    border-color: var(--theme-border);
+    background: var(--theme-surface-soft);
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-home-identity-copy h2,
+body.variant-preschool[data-preschool-theme] .preschool-home-evidence-head h2 {
+    color: var(--theme-ink);
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-home-identity-copy p,
+body.variant-preschool[data-preschool-theme] .preschool-home-identity-copy small,
+body.variant-preschool[data-preschool-theme] .preschool-home-evidence-head p {
+    color: var(--theme-muted);
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-home-level-track { background: #e3eedc; border-color: var(--theme-border); }
+body.variant-preschool[data-preschool-theme] .preschool-home-level-track i { background: linear-gradient(90deg, var(--theme-highlight), var(--theme-accent)); }
+body.variant-preschool[data-preschool-theme] .preschool-home-identity-stats span { border-color: var(--theme-border); background: var(--theme-surface-soft); }
+body.variant-preschool[data-preschool-theme] .preschool-home-identity-stats b { color: var(--theme-accent-deep); }
+body.variant-preschool[data-preschool-theme] .workbench-action-button { background: var(--theme-accent); box-shadow: 0 3px 0 var(--theme-accent-deep); }
+body.variant-preschool[data-preschool-theme] .workbench-text-button { color: var(--theme-accent); }
+
+body.variant-preschool[data-preschool-theme] .preschool-home-battlefield {
+    margin: 0 0 16px;
+    padding: 17px;
+    border: 2px solid var(--theme-border-strong);
+    border-radius: 18px;
+    color: var(--theme-ink);
+    background: var(--theme-surface-soft);
+    box-shadow: var(--theme-shadow);
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-home-battlefield-head h2 { color: var(--theme-ink); }
+body.variant-preschool[data-preschool-theme] .preschool-home-battlefield-head p,
+body.variant-preschool[data-preschool-theme] .preschool-home-battlefield-foot { color: var(--theme-muted); }
+body.variant-preschool[data-preschool-theme] .preschool-home-battlefield-head > strong { color: #5c4213; border-color: #e5bd58; background: #fff0a7; }
+body.variant-preschool[data-preschool-theme] .preschool-home-battlefield-add { color: #fff; border-color: var(--theme-accent); background: var(--theme-accent); box-shadow: 0 3px 0 var(--theme-accent-deep); }
+body.variant-preschool[data-preschool-theme] .preschool-home-task-stat { border-color: var(--theme-border); background: var(--theme-surface); }
+body.variant-preschool[data-preschool-theme] .preschool-home-task-stat small { color: var(--theme-muted); }
+body.variant-preschool[data-preschool-theme] .preschool-home-task-stat b { color: var(--theme-accent-deep); }
+
+body.variant-preschool[data-preschool-theme] .preschool-home-lane {
+    min-height: 112px;
+    border: 2px solid var(--theme-border);
+    border-radius: 14px;
+    color: var(--theme-ink);
+    background: var(--theme-task);
+    box-shadow: 0 4px 0 rgba(60, 93, 57, .08);
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-home-lane:hover,
+body.variant-preschool[data-preschool-theme] .preschool-home-lane:focus-within {
+    border-color: var(--theme-accent);
+    outline-color: rgba(56, 137, 79, .2);
+    filter: none;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-home-lane.is-done { border-color: #9bcf7e; background: var(--theme-task-done); }
+body.variant-preschool[data-preschool-theme] .preschool-home-lane.is-optional { border-style: dashed; background: #fbf8ff; }
+body.variant-preschool[data-preschool-theme] .preschool-home-lane-number { color: #5a4214; border-color: #e6c45e; background: #fff0a4; }
+body.variant-preschool[data-preschool-theme] .preschool-home-lane-copy small { color: var(--theme-accent); }
+body.variant-preschool[data-preschool-theme] .preschool-home-lane-copy strong { color: var(--theme-ink); }
+body.variant-preschool[data-preschool-theme] .preschool-home-lane-copy em { color: var(--theme-muted); }
+body.variant-preschool[data-preschool-theme] .preschool-home-lane-status { color: var(--theme-accent-deep); border-color: var(--theme-border); background: var(--theme-surface-soft); }
+body.variant-preschool[data-preschool-theme] .preschool-home-lane.is-done .preschool-home-lane-status { color: #266d3c; border-color: #a1d283; background: #e1f4d6; }
+body.variant-preschool[data-preschool-theme] .preschool-home-lane-practice { color: #5c4213; border-color: #e6c45e; background: #fff1af; box-shadow: 0 3px 0 rgba(97, 66, 20, .16); }
+
+body.variant-preschool[data-preschool-theme] .preschool-home-evidence { margin: 0 0 16px; }
+body.variant-preschool[data-preschool-theme] .preschool-home-evidence-card { border-color: var(--theme-border); background: var(--theme-surface-soft); }
+body.variant-preschool[data-preschool-theme] .preschool-home-evidence-card strong { color: var(--theme-ink); }
+body.variant-preschool[data-preschool-theme] .preschool-home-evidence-card small { color: var(--theme-muted); }
+body.variant-preschool[data-preschool-theme] .preschool-home-rhythm { border-color: var(--theme-border); background: var(--theme-surface-soft); box-shadow: var(--theme-shadow); }
+body.variant-preschool[data-preschool-theme] .preschool-home-rhythm-copy strong { color: var(--theme-ink); }
+body.variant-preschool[data-preschool-theme] .preschool-home-rhythm-copy small { color: var(--theme-muted); }
+body.variant-preschool[data-preschool-theme] .preschool-home-exits { margin-top: 0; }
+
+/* Shared cards on secondary routes keep the same visual contract. */
+body.variant-preschool[data-preschool-theme] .preschool-section,
+body.variant-preschool[data-preschool-theme] .preschool-plan-card,
+body.variant-preschool[data-preschool-theme] .preschool-course-card,
+body.variant-preschool[data-preschool-theme] .preschool-reward-card,
+body.variant-preschool[data-preschool-theme] .preschool-mistake-card,
+body.variant-preschool[data-preschool-theme] .preschool-family-card,
+body.variant-preschool[data-preschool-theme] .preschool-defense-game-head,
+body.variant-preschool[data-preschool-theme] .preschool-defense-seeds,
+body.variant-preschool[data-preschool-theme] .preschool-defense-board-wrap,
+body.variant-preschool[data-preschool-theme] .preschool-defense-bottom {
+    border-color: var(--theme-border);
+    background: var(--theme-surface);
+    box-shadow: var(--theme-shadow);
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] {
+    --theme-bg: #eef1fb;
+    --theme-surface: #fffdf6;
+    --theme-surface-soft: #f7f2df;
+    --theme-border: #d5c49b;
+    --theme-border-strong: #ae8d4a;
+    --theme-ink: #2c315c;
+    --theme-muted: #717089;
+    --theme-accent: #6950c8;
+    --theme-accent-deep: #3e2d88;
+    --theme-highlight: #ffd24b;
+    --theme-sidebar: linear-gradient(180deg, #24205d 0%, #151741 100%);
+    --theme-banner: linear-gradient(180deg, #39b8ef 0%, #b8e7ee 68%, #73b950 69%, #5c9d44 100%);
+    --theme-banner-border: #397bc0;
+    --theme-task: #fffdf2;
+    --theme-task-done: #f0f5d9;
+    --theme-shadow: 0 7px 0 rgba(83, 61, 32, .11), 0 13px 24px rgba(42, 43, 92, .1);
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-theme-banner,
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-theme-banner {
+    border-radius: 10px;
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-theme-banner-platform {
+    border-radius: 2px;
+    background: #67b53f;
+    box-shadow: 0 12px 0 #755035, 0 15px 0 rgba(47, 53, 76, .16);
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-lane,
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-battlefield,
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-identity,
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-evidence {
+    border-radius: 10px;
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-lane-number,
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-lane-practice,
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-battlefield-add {
+    border-radius: 5px;
+}
+
+body.variant-preschool[data-preschool-theme='platform-quest'] {
+    --theme-bg: #eaf5fb;
+    --theme-surface: #fffefa;
+    --theme-surface-soft: #f7fbff;
+    --theme-border: #d6dbe7;
+    --theme-border-strong: #e0a52e;
+    --theme-ink: #3e2c41;
+    --theme-muted: #777183;
+    --theme-accent: #e54139;
+    --theme-accent-deep: #a82825;
+    --theme-highlight: #ffd02f;
+    --theme-sidebar: linear-gradient(180deg, #c82d2c 0%, #8e1c31 100%);
+    --theme-banner: linear-gradient(180deg, #47c9f1 0%, #b8eff9 64%, #6ec34f 65%, #4b9b3b 100%);
+    --theme-banner-border: #e0a52e;
+    --theme-task: #fffefa;
+    --theme-task-done: #eff9e9;
+    --theme-shadow: 0 7px 0 rgba(114, 69, 34, .11), 0 13px 24px rgba(88, 91, 125, .1);
+}
+
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-theme-banner::after {
+    position: absolute;
+    top: 42px;
+    right: 19%;
+    width: 75px;
+    height: 21px;
+    border: 3px solid #b84c23;
+    background: repeating-linear-gradient(90deg, #f08b20 0 19px, #c9501d 19px 22px);
+    box-shadow: 0 26px 0 -3px #6dbb40;
+    content: '';
+}
+
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-theme-banner-platform {
+    height: 19px;
+    border-radius: 10px 10px 3px 3px;
+    background: #71c24a;
+    box-shadow: 0 12px 0 #9c5a35, 0 15px 0 rgba(79, 50, 39, .15);
+}
+
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-lane,
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-battlefield,
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-identity,
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-evidence {
+    border-radius: 12px;
+}
+
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-lane-number,
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-lane-practice,
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-battlefield-add {
+    border-radius: 8px;
+}
+
+/* The theme picker lives in 设置 and uses CSS-only mini previews. */
+body.variant-preschool[data-preschool-theme] .preschool-theme-settings {
+    display: grid;
+    grid-template-columns: minmax(220px, .7fr) minmax(0, 1.3fr);
+    gap: 18px;
+    align-items: center;
+    margin: 0 0 14px;
+    padding: 18px;
+    border: 2px solid var(--theme-border);
+    border-radius: 17px;
+    background: var(--theme-surface);
+    box-shadow: var(--theme-shadow);
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-theme-settings-copy h2 {
+    margin: 4px 0 5px;
+    color: var(--theme-ink);
+    font-size: 20px;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-theme-settings-copy p {
+    margin: 0;
+    color: var(--theme-muted);
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-theme-options {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 9px;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-theme-option {
+    display: grid;
+    min-width: 0;
+    grid-template-columns: 54px minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    gap: 5px 9px;
+    padding: 9px;
+    border: 2px solid var(--theme-border);
+    border-radius: 11px;
+    color: var(--theme-ink);
+    background: var(--theme-surface-soft);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-theme-option:hover,
+body.variant-preschool[data-preschool-theme] .preschool-theme-option:focus-visible {
+    border-color: var(--theme-accent);
+    box-shadow: 0 4px 0 rgba(50, 72, 59, .1);
+    outline: none;
+    transform: translateY(-2px);
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-theme-option.is-active {
+    border-color: var(--theme-accent);
+    box-shadow: 0 0 0 2px rgba(56, 137, 79, .12), 0 4px 0 rgba(50, 72, 59, .1);
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-theme-option-preview {
+    position: relative;
+    display: block;
+    width: 54px;
+    height: 54px;
+    overflow: hidden;
+    grid-row: 1 / -1;
+    border: 1px solid rgba(45, 55, 80, .2);
+    border-radius: 8px;
+    background: linear-gradient(180deg, #8cd8ed 0 62%, #75b960 63% 100%);
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-theme-option-preview::before,
+body.variant-preschool[data-preschool-theme] .preschool-theme-option-preview::after,
+body.variant-preschool[data-preschool-theme] .preschool-theme-option-preview i,
+body.variant-preschool[data-preschool-theme] .preschool-theme-option-preview b,
+body.variant-preschool[data-preschool-theme] .preschool-theme-option-preview em {
+    position: absolute;
+    display: block;
+    content: '';
+}
+
+body.variant-preschool[data-preschool-theme] .theme-preview-garden-defense { background: linear-gradient(180deg, #8fd9ef 0 53%, #75be61 54% 100%); }
+body.variant-preschool[data-preschool-theme] .theme-preview-garden-defense::before { right: 0; bottom: 0; left: 0; height: 11px; background: #785038; }
+body.variant-preschool[data-preschool-theme] .theme-preview-garden-defense::after { top: 13px; left: 14px; width: 21px; height: 21px; border-radius: 50%; background: #ffd43e; box-shadow: 18px 9px 0 -5px #55a847; }
+body.variant-preschool[data-preschool-theme] .theme-preview-garden-defense i { right: 7px; bottom: 12px; width: 14px; height: 20px; border-radius: 9px 9px 4px 4px; background: #48a24c; }
+body.variant-preschool[data-preschool-theme] .theme-preview-voxel-adventure { border-radius: 2px; background: linear-gradient(180deg, #20a9e7 0 58%, #79bd47 59% 74%, #765033 75% 100%); }
+body.variant-preschool[data-preschool-theme] .theme-preview-voxel-adventure::before { top: 11px; left: 10px; width: 14px; height: 14px; background: #c8e6f5; box-shadow: 27px 18px 0 #7d52d2; }
+body.variant-preschool[data-preschool-theme] .theme-preview-voxel-adventure::after { right: 8px; bottom: 9px; width: 16px; height: 16px; background: #855a38; box-shadow: 0 -8px 0 #55a13c; }
+body.variant-preschool[data-preschool-theme] .theme-preview-platform-quest { background: linear-gradient(180deg, #43c9f0 0 58%, #73c44c 59% 73%, #9c5b36 74% 100%); }
+body.variant-preschool[data-preschool-theme] .theme-preview-platform-quest::before { top: 18px; right: 12px; width: 25px; height: 7px; border: 2px solid #bb4e22; background: #ef891e; box-shadow: -18px 0 0 -1px #ef891e; }
+body.variant-preschool[data-preschool-theme] .theme-preview-platform-quest::after { top: 7px; left: 13px; width: 9px; height: 17px; border-left: 3px solid #fff; background: #e5483f; }
+
+body.variant-preschool[data-preschool-theme] .preschool-theme-option-copy {
+    display: grid;
+    min-width: 0;
+    gap: 2px;
+    align-content: center;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-theme-option-copy strong,
+body.variant-preschool[data-preschool-theme] .preschool-theme-option-copy small {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-theme-option-copy strong { font-size: 12px; }
+body.variant-preschool[data-preschool-theme] .preschool-theme-option-copy small { color: var(--theme-muted); font-size: 10px; line-height: 1.3; }
+body.variant-preschool[data-preschool-theme] .preschool-theme-option-state { display: inline-flex; grid-column: 2; align-items: center; gap: 3px; color: var(--theme-accent); font-size: 10px; font-weight: 900; }
+body.variant-preschool[data-preschool-theme] .preschool-theme-option-state svg { width: 13px; height: 13px; }
+
+@media (max-width: 900px) {
+    body.variant-preschool[data-preschool-theme] .preschool-theme-settings { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 760px) {
+    body.variant-preschool[data-preschool-theme] .page-content { padding: 16px 13px calc(126px + env(safe-area-inset-bottom)); }
+    body.variant-preschool[data-preschool-theme] .preschool-theme-banner { min-height: 122px; grid-template-columns: minmax(0, 1fr) 1fr; }
+    body.variant-preschool[data-preschool-theme] .preschool-theme-banner-copy { padding: 15px; }
+    body.variant-preschool[data-preschool-theme] .preschool-theme-banner-copy h2 { font-size: 19px; }
+    body.variant-preschool[data-preschool-theme] .preschool-theme-banner-copy p { font-size: 10px; }
+    body.variant-preschool[data-preschool-theme] .preschool-theme-banner-scene { min-height: 120px; }
+    body.variant-preschool[data-preschool-theme] .theme-banner-object { right: 23%; bottom: 18px; transform: scale(.8); transform-origin: bottom center; }
+    body.variant-preschool[data-preschool-theme] .preschool-home-overview .workbench-overview-header { display: grid; gap: 10px; }
+    body.variant-preschool[data-preschool-theme] .preschool-theme-options { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 420px) {
+    body.variant-preschool[data-preschool-theme] .preschool-theme-banner { grid-template-columns: 1fr; }
+    body.variant-preschool[data-preschool-theme] .preschool-theme-banner-scene { display: none; }
+    body.variant-preschool[data-preschool-theme] .preschool-theme-banner-copy { min-height: 110px; }
+    body.variant-preschool[data-preschool-theme] .preschool-home-overview .workbench-overview-actions { grid-template-columns: repeat(2, minmax(0, 1fr)) 40px !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.variant-preschool[data-preschool-theme] .preschool-theme-option,
+    body.variant-preschool[data-preschool-theme] .preschool-home-lane { transition: none; }
+    body.variant-preschool[data-preschool-theme] .preschool-theme-option:hover,
+    body.variant-preschool[data-preschool-theme] .preschool-theme-option:focus-visible,
+    body.variant-preschool[data-preschool-theme] .preschool-home-lane:hover { transform: none; }
+}

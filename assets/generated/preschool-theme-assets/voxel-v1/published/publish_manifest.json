@@ -1,0 +1,17 @@
+{
+  "theme": "voxel-adventure",
+  "version": "v1",
+  "source": "../voxel-adventure-assets-v1.png",
+  "cleanSource": "../clean/voxel-adventure-assets-v1_clean.png",
+  "alphaThreshold": 24,
+  "assets": [
+    { "name": "voxel-companion", "file": "voxel-companion.png", "size": [320, 352] },
+    { "name": "voxel-grass-block", "file": "voxel-grass-block.png", "size": [285, 340] },
+    { "name": "voxel-stone-steps", "file": "voxel-stone-steps.png", "size": [313, 332] },
+    { "name": "voxel-chest", "file": "voxel-chest.png", "size": [317, 331] },
+    { "name": "voxel-purple-crystal", "file": "voxel-purple-crystal.png", "size": [349, 400] },
+    { "name": "voxel-water-channel", "file": "voxel-water-channel.png", "size": [288, 381] },
+    { "name": "voxel-bridge", "file": "voxel-bridge.png", "size": [355, 309] },
+    { "name": "voxel-block-tree", "file": "voxel-block-tree.png", "size": [349, 279] }
+  ]
+}

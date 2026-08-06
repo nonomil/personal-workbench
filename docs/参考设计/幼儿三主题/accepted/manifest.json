@@ -1,0 +1,58 @@
+{
+  "purpose": "accepted portrait-first preschool workbench references",
+  "generatedBy": "gpt-image-2",
+  "source": "Cliprox OpenAI Images compatible API",
+  "layoutContract": [
+    "theme-specific saturated left navigation",
+    "game-world top banner with resource pills",
+    "warm white content cards and two-column subject grid",
+    "theme-specific game scene",
+    "daily task checklist and reward exit"
+  ],
+  "files": [
+    {
+      "id": "garden-defense",
+      "file": "garden-defense-reference.png",
+      "sourceGeneratedFile": "../generated/second-pass/garden-defense-workbench-v2.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2160819,
+      "sha256": "66CC4C1E8AF92073D83361D9FE72489D1656521659F1413BA786031278ABD572",
+      "status": "accepted",
+      "notes": "purple-green navigation, lawn grid, soil planting slots, original plants and invaders"
+    },
+    {
+      "id": "voxel-adventure",
+      "file": "voxel-adventure-reference.png",
+      "sourceGeneratedFile": "../generated/second-pass/voxel-adventure-workbench-v2.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 1938280,
+      "sha256": "143C59F8A36E0558F1666523DF7A14413C3E2C39641A9FF8F1C34D77B2D762BE",
+      "status": "accepted",
+      "notes": "indigo navigation, voxel sky banner, subject cards, block map, crystals and chest"
+    },
+    {
+      "id": "platform-quest",
+      "file": "platform-quest-reference.png",
+      "sourceGeneratedFile": "../generated/second-pass/platform-quest-workbench-v2.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 1658472,
+      "sha256": "A3B6D93C40A2137793425C363AE10FD0397B8140A9065F85993DA41090F2EDE5",
+      "status": "accepted",
+      "notes": "red navigation, sky/brick/question-block/coin/platform grammar, original explorer and reward chest"
+    }
+  ],
+  "rejected": [
+    {
+      "files": [
+        "../generated/block-adventure-reference.png",
+        "../generated/storybook-quest-reference.png",
+        "../generated/rejected/round-one/block-adventure-reference.png",
+        "../generated/rejected/round-one/storybook-quest-reference.png"
+      ],
+      "reason": "first-round generic illustration or duplicate SHA-256 output; not a faithful workbench layout"
+    }
+  ]
+}

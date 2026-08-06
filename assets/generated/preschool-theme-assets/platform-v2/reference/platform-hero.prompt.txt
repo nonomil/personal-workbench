@@ -1,0 +1,7 @@
+Create a wide 3:2 hero artwork for an original preschool learning workbench called "Rainbow Platform Quest".
+
+Use the visual grammar of a polished classic 2D side-scrolling platform adventure: bright cyan sky, layered rounded clouds, distant green hills, a clearly readable horizontal path, chunky warm-brown brick ground, floating golden coins, generic mystery blocks with a sun symbol, green pipes, a small red-and-yellow finish flag, and an original child adventurer mid-jump. The explorer has an orange-red cap with a tiny star patch, teal jacket, yellow scarf, green shorts, and chunky red shoes; use a distinct face and silhouette with no moustache and no branded letter. The scene must read immediately as a platform game, not as a generic cartoon poster.
+
+Composition: a game screenshot-like scene with an uncluttered sky and path on the left 35% for HTML text overlay; place the explorer, blocks, coins, pipe and flag across the right and lower half. Use clean cel shading, bold dark outlines, saturated primary colors, simple readable shapes, and strong thumbnail contrast.
+
+This is an original visual direction inspired by platform-game conventions, not official Mario artwork. Do not copy Mario, Luigi, Princess Peach, Goomba, any trademark, logo, UI, font, or recognizable branded character. No readable text, letters, numbers, watermark, interface chrome, or photorealism. Leave all text to HTML.

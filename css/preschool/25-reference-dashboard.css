@@ -1,0 +1,297 @@
+/* Reference dashboard pass: keep the preschool home readable while making the
+   plan / evidence / rhythm hierarchy visible without adding a second state layer. */
+body.variant-preschool .preschool-home-date {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border: 1px solid rgba(255, 223, 107, .42);
+    border-radius: 999px;
+    color: #ffe98f;
+    background: rgba(29, 84, 39, .48);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .02em;
+}
+
+body.variant-preschool .preschool-home-identity-stats span {
+    background: rgba(255, 255, 255, .68);
+}
+
+body.variant-preschool .preschool-home-task-overview {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin: 0 0 13px;
+}
+
+body.variant-preschool .preschool-home-task-stat {
+    display: grid;
+    min-width: 0;
+    min-height: 47px;
+    align-content: center;
+    gap: 2px;
+    padding: 6px 10px;
+    border: 1px solid rgba(255, 232, 148, .26);
+    border-radius: 11px;
+    background: rgba(27, 85, 39, .62);
+}
+
+body.variant-preschool .preschool-home-battlefield-add {
+    display: inline-flex;
+    min-height: 34px;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 0 11px;
+    border: 1px solid rgba(255, 244, 185, .72);
+    border-radius: 10px;
+    color: #294d2c;
+    background: #fff0a9;
+    box-shadow: 0 3px 0 rgba(92, 61, 19, .22);
+    font: inherit;
+    font-size: 11px;
+    font-weight: 950;
+    cursor: pointer;
+    transition: transform .18s ease, background-color .18s ease, box-shadow .18s ease;
+}
+
+body.variant-preschool .preschool-home-battlefield-add svg {
+    width: 15px;
+    height: 15px;
+}
+
+body.variant-preschool .preschool-home-battlefield-add:hover {
+    background: #fff7ca;
+    box-shadow: 0 4px 0 rgba(92, 61, 19, .2);
+    transform: translateY(-1px);
+}
+
+body.variant-preschool .preschool-home-battlefield-add:active {
+    box-shadow: 0 1px 0 rgba(92, 61, 19, .2);
+    transform: translateY(2px);
+}
+
+body.variant-preschool .preschool-home-battlefield-add:focus-visible {
+    outline: 3px solid rgba(255, 255, 255, .9);
+    outline-offset: 2px;
+}
+
+body.variant-preschool .preschool-home-task-stat small {
+    overflow: hidden;
+    color: #cfe6b5;
+    font-size: 10px;
+    font-weight: 850;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.variant-preschool .preschool-home-task-stat b {
+    color: #fff5bb;
+    font-size: 17px;
+    font-weight: 950;
+    line-height: 1.05;
+}
+
+body.variant-preschool .preschool-home-task-stat.is-optional {
+    border-color: rgba(198, 167, 255, .34);
+    background: rgba(67, 50, 94, .54);
+}
+
+body.variant-preschool .preschool-home-task-stat.is-time {
+    border-color: rgba(112, 198, 219, .36);
+    background: rgba(25, 89, 103, .52);
+}
+
+body.variant-preschool .preschool-home-lane.is-optional {
+    border-color: #765b91;
+    background:
+        linear-gradient(180deg, rgba(93, 70, 112, .94), rgba(57, 43, 76, .96)),
+        repeating-linear-gradient(0deg, rgba(225, 202, 255, .06) 0 3px, transparent 3px 9px);
+}
+
+body.variant-preschool .preschool-home-lane.is-optional .preschool-home-lane-copy small {
+    color: #e4c7ff;
+}
+
+/* The reference workbench gives each task enough room for its title and next
+   action. Keep the plants and zombies as a visual cue, but let the task copy
+   remain the primary scan target on a desktop viewport. */
+@media (min-width: 1181px) {
+    body.variant-preschool .preschool-home-lanes {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+body.variant-preschool .preschool-home-rhythm {
+    display: grid;
+    grid-template-columns: minmax(190px, .72fr) minmax(0, 1.28fr);
+    gap: 14px;
+    align-items: center;
+    margin: 14px 0 18px;
+    padding: 13px 16px;
+    border: 2px solid #d3e4c5;
+    border-radius: 18px;
+    background: #f7fbef;
+    box-shadow: 0 8px 18px rgba(49, 93, 46, .08);
+}
+
+body.variant-preschool .preschool-home-rhythm-copy {
+    display: grid;
+    min-width: 0;
+    gap: 3px;
+}
+
+body.variant-preschool .preschool-home-rhythm-copy .pixel-panel-kicker {
+    margin: 0;
+    color: #4c9a59;
+    font-size: 9px;
+}
+
+body.variant-preschool .preschool-home-rhythm-copy strong {
+    color: #31563a;
+    font-size: 14px;
+    font-weight: 950;
+}
+
+body.variant-preschool .preschool-home-rhythm-copy small {
+    color: #778b74;
+    font-size: 10px;
+    line-height: 1.35;
+}
+
+body.variant-preschool .preschool-home-rhythm-days {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 5px;
+    min-width: 0;
+}
+
+body.variant-preschool .preschool-home-rhythm-day {
+    display: grid;
+    min-width: 0;
+    min-height: 58px;
+    place-items: center;
+    align-content: center;
+    gap: 2px;
+    padding: 5px 2px;
+    border: 1px solid #d9e8d0;
+    border-radius: 11px;
+    color: #5b7860;
+    background: #fffef8;
+}
+
+body.variant-preschool .preschool-home-rhythm-day small {
+    color: #8b9e87;
+    font-size: 9px;
+    font-weight: 850;
+}
+
+body.variant-preschool .preschool-home-rhythm-day b {
+    color: #3b6544;
+    font-size: 14px;
+    font-weight: 950;
+    line-height: 1;
+}
+
+body.variant-preschool .preschool-home-rhythm-day i {
+    min-width: 26px;
+    padding: 2px 3px;
+    border-radius: 999px;
+    color: #6d866f;
+    background: #eef5e6;
+    font-size: 9px;
+    font-style: normal;
+    font-weight: 900;
+    text-align: center;
+}
+
+body.variant-preschool .preschool-home-rhythm-day.is-complete {
+    border-color: #9fce82;
+    background: #edf9e3;
+}
+
+body.variant-preschool .preschool-home-rhythm-day.is-complete i {
+    color: #286d43;
+    background: #cdebb9;
+}
+
+body.variant-preschool .preschool-home-rhythm-day.is-progress {
+    border-color: #f0d084;
+    background: #fff9df;
+}
+
+body.variant-preschool .preschool-home-rhythm-day.is-progress i {
+    color: #8b651e;
+    background: #ffe6a0;
+}
+
+body.variant-preschool .preschool-home-rhythm-day.is-today {
+    border: 2px solid #4b9b58;
+    background: #e4f5d9;
+    box-shadow: 0 3px 0 rgba(44, 118, 63, .12);
+}
+
+body.variant-preschool .preschool-home-rhythm-day.is-today i {
+    color: #fff9dc;
+    background: #38864e;
+}
+
+body.variant-preschool .preschool-home-rhythm-day.is-empty {
+    opacity: .72;
+}
+
+@media (max-width: 760px) {
+    body.variant-preschool .preschool-home-task-overview {
+        gap: 6px;
+    }
+
+    body.variant-preschool .preschool-home-task-stat {
+        padding: 6px 7px;
+    }
+
+    body.variant-preschool .preschool-home-battlefield-add {
+        justify-self: start;
+    }
+
+    body.variant-preschool .preschool-home-rhythm {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 420px) {
+    body.variant-preschool .preschool-home-date {
+        font-size: 10px;
+    }
+
+    body.variant-preschool .preschool-home-task-stat small {
+        font-size: 9px;
+    }
+
+    body.variant-preschool .preschool-home-task-stat b {
+        font-size: 15px;
+    }
+
+    body.variant-preschool .preschool-home-rhythm {
+        padding: 11px 10px;
+    }
+
+    body.variant-preschool .preschool-home-rhythm-days {
+        gap: 3px;
+    }
+
+    body.variant-preschool .preschool-home-rhythm-day {
+        min-height: 53px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.variant-preschool .preschool-home-battlefield-add {
+        transition: none;
+    }
+
+    body.variant-preschool .preschool-home-rhythm-day {
+        transition: none;
+    }
+}

@@ -1,0 +1,9 @@
+{
+  "model": "gpt-image-2",
+  "promptFile": "G:\\StudyCode\\个人工作台\\docs\\参考设计\\幼儿三主题\\prompts\\platform-quest-asset-sheet-v1.txt",
+  "requestedSize": "1024x1024",
+  "requestedQuality": "medium",
+  "bytes": 1510724,
+  "format": "png",
+  "generatedAt": "2026-08-06T05:22:22.838Z"
+}

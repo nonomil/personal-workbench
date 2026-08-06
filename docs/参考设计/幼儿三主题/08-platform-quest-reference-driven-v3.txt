@@ -1,0 +1,13 @@
+Use case: ui-mockup
+Asset type: portrait-first preschool learning workbench reference, 1024x1536
+This is a real usable web-app dashboard screenshot, not a poster, not a landing-page hero, and not a single giant game illustration.
+Preserve this exact information architecture: a fixed vertical navigation rail taking about 20-24% width; a compact game-world top banner; a warm white or very pale main content surface; a large companion/today panel; a two-column subject-card grid; a separate game-progress panel; a daily task checklist; and a reward-center exit card near the bottom.
+All cards must have large blank areas reserved for HTML/CSS labels. Do not render any readable text, letters, numbers, Chinese characters, fake writing, logo, watermark, browser chrome, or screenshot frame.
+Use clean 2D or 2.5D children's game UI illustration with strong outlines, controlled shadows, readable spacing, and large touch targets. Do not use generic SaaS charts, glassmorphism, photorealism, or a full-screen key art poster.
+
+Create the platform-adventure themed variant of the common workbench.
+Use a saturated tomato-red vertical navigation rail with deep red inset panels, large rounded menu tiles, white simple pictograms, and one bright golden-yellow active tile. At the top of the rail place an original child explorer badge, not an official character.
+The top banner is a wide cheerful side-scrolling world strip: vivid cyan sky, layered white puffy clouds, green rounded hills, grass-topped brown platforms, a row of orange brick blocks, a few golden coin disks, one green pipe, and a small finish flag. Keep the banner shallow like a web header, not a full-screen landscape.
+The main companion panel is a large white card with a thin warm-gold border. Place an original small explorer companion on the left and blank label areas plus three or four chunky colored action buttons on the right. Below it place six clean subject cards in a two-column grid, each with a large simple icon, a colored top border, an empty title area, and a pill button.
+Place a separate horizontal platform-progress card lower down: several grass-topped floating dirt platforms connected by a dotted path, coin markers, a question reward block without any readable mark, and a treasure chest. End with a task checklist and a purple-gold reward chest card.
+Visual language: flat cheerful platform-game UI, crisp dark outlines, saturated red/yellow/sky-blue/leaf-green, warm white cards, limited soft shadows. Avoid shiny 3D dashboard treatment, realistic characters, official plumber/mustache/hat design, copied levels, official logos, and random game-poster composition.

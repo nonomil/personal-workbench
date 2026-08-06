@@ -43,6 +43,57 @@
         account: { title: '设置', eyebrow: 'SETTINGS', heading: '家长设置', description: '账号和多设备同步。' }
     };
 
+    // The three preschool looks share one data contract and one page shell. The
+    // theme only changes visual language and local asset aliases; it must not
+    // create a second task, reward, or course store.
+    const preschoolThemes = {
+        'garden-defense': {
+            id: 'garden-defense',
+            name: '阳光花园工作台',
+            englishName: 'SUN GARDEN ADVENTURE',
+            bannerKicker: 'SUN GARDEN / READY',
+            bannerTitle: '今天的花园，等你来点亮',
+            bannerDescription: '完成一小步，收集阳光，再去守护自己的花园。',
+            navLabel: '花园路线',
+            switchSummary: '阳光、植物与今日打卡',
+            assetMap: {
+                brand: 'sun-token', overview: 'sun-token', battle: 'plant-peashooter', calendar: 'plant-wallnut',
+                growth: 'plant-sunflower', plans: 'plant-wallnut', courses: 'storybook-token', mistakes: 'plant-wallnut',
+                rewards: 'sun-token', family: 'plant-sunflower', account: 'sun-token'
+            }
+        },
+        'voxel-adventure': {
+            id: 'voxel-adventure',
+            name: '方块探险工作台',
+            englishName: 'VOXEL ADVENTURE WORKBENCH',
+            bannerKicker: 'BLOCK BASE / READY',
+            bannerTitle: '今天，搭好自己的第一块基地',
+            bannerDescription: '完成任务收集晶体，把学习路线一步步铺出来。',
+            navLabel: '探险路线',
+            switchSummary: '方块基地、晶体与关卡路径',
+            assetMap: {
+                brand: 'small-crystal', overview: 'star-companion', battle: 'grass-platform', calendar: 'storybook-token',
+                growth: 'treasure-chest', plans: 'quest-flag-pedestal', courses: 'storybook-token', mistakes: 'small-crystal',
+                rewards: 'treasure-chest', family: 'star-companion', account: 'settings-gear'
+            }
+        },
+        'platform-quest': {
+            id: 'platform-quest',
+            name: '彩虹闯关工作台',
+            englishName: 'PLATFORM QUEST WORKBENCH',
+            bannerKicker: 'QUEST WORLD / READY',
+            bannerTitle: '跳上今天的第一块平台',
+            bannerDescription: '完成一项任务，收集金币，向终点旗子再走一步。',
+            navLabel: '闯关路线',
+            switchSummary: '平台、金币与奖励宝箱',
+            assetMap: {
+                brand: 'star-companion', overview: 'quest-flag-pedestal', battle: 'quest-flag-pedestal', calendar: 'storybook-token',
+                growth: 'treasure-chest', plans: 'sun-token', courses: 'storybook-token', mistakes: 'small-crystal',
+                rewards: 'treasure-chest', family: 'star-companion', account: 'settings-gear'
+            }
+        }
+    };
+
     const variants = {
         adult: {
             id: 'adult',
@@ -101,6 +152,8 @@
             avatar: '芽',
             statusNote: '本地快照 · 家长可备份',
             storageKey: 'petbank_huchuliang_preschool_workbench_state_v1',
+            defaultTheme: 'garden-defense',
+            themes: preschoolThemes,
             heroSrc: '../assets/generated/preschool/preschool-garden-hero.webp',
             heroAlt: '阳光花园里的植物伙伴和星星',
             pageMeta: preschoolPages,
@@ -273,7 +326,9 @@
         pageMeta: selected.pageMeta,
         actions: selected.actions,
         childRewards: selected.childRewards || [],
-        childCourses: selected.childCourses || []
+        childCourses: selected.childCourses || [],
+        defaultTheme: selected.defaultTheme || '',
+        themes: selected.themes || {}
     };
 
     if (!body) return;
@@ -286,7 +341,7 @@
         '.topbar-context strong': selected.pageMeta.overview.title,
         '.mode-status strong': '本地模式',
         '.mode-status small': selected.statusNote,
-        '.sidebar-footnote': selected.id === 'preschool' ? 'v0.4.5 · 幼儿版' : selected.id === 'child' ? 'v0.4.5 · 儿童版' : 'v0.4.5 · 成人版',
+        '.sidebar-footnote': selected.id === 'preschool' ? 'v0.5.0 · 幼儿版' : selected.id === 'child' ? 'v0.5.0 · 儿童版' : 'v0.5.0 · 成人版',
         '.avatar': selected.avatar
     };
     Object.keys(labelMap).forEach(function (selector) {

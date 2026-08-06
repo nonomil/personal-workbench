@@ -4,8 +4,9 @@
     const config = global.PersonalWorkbenchConfig || {};
     const variant = config.variant || 'adult';
     const STORAGE_KEY = config.current && config.current.storageKey ? config.current.storageKey : 'petbank_huchuliang_workbench_state_v1';
-    const SCHEMA_VERSION = 5;
+    const SCHEMA_VERSION = 6;
     const PRESCHOOL_DAY_PLAN_VERSION = 3;
+    const PRESCHOOL_THEME_IDS = ['garden-defense', 'voxel-adventure', 'platform-quest'];
     const PRESCHOOL_DAILY_ITEMS = [
         { id: 'story', title: '完成今日识字', category: '识字', priority: 'high', minutes: 10, required: true, initialDone: true, initialProgress: 40, practiceLessonId: 'preschool-chinese-1' },
         { id: 'count', title: '朗读一首古诗', category: '古诗', priority: 'high', minutes: 10, required: true, initialDone: false, initialProgress: 0, practiceLessonId: 'preschool-poetry-1' },
@@ -14,6 +15,11 @@
         { id: 'move', title: '做一项运动', category: '运动', priority: 'low', minutes: 15, required: false, initialDone: false, initialProgress: 0, practiceLessonId: '' },
         { id: 'tidy', title: '专注力训练一题', category: '专注', priority: 'medium', minutes: 10, required: false, initialDone: false, initialProgress: 0, practiceLessonId: 'preschool-focus-1' }
     ];
+
+    function normalizePreschoolTheme(value) {
+        const candidate = String(value || '').trim();
+        return PRESCHOOL_THEME_IDS.includes(candidate) ? candidate : 'garden-defense';
+    }
 
     function localDate(date) {
         const value = date instanceof Date ? date : new Date(date || Date.now());
@@ -183,6 +189,7 @@
             profileId: 'local-default',
             revision: 1,
             updatedAt: now,
+            preschoolTheme: variant === 'preschool' ? 'garden-defense' : '',
             preschoolDayPlanVersion: variant === 'preschool' ? PRESCHOOL_DAY_PLAN_VERSION : 0,
             preschoolPlanSeedDates: variant === 'preschool' ? [dateOffset(0)] : [],
             tasks: [
@@ -422,6 +429,7 @@
             profileId: typeof source.profileId === 'string' && source.profileId ? source.profileId : 'local-default',
             revision: Number.isInteger(source.revision) && source.revision >= 0 ? source.revision : 0,
             updatedAt: typeof source.updatedAt === 'string' ? source.updatedAt : new Date().toISOString(),
+            preschoolTheme: variant === 'preschool' ? normalizePreschoolTheme(source.preschoolTheme) : '',
             preschoolDayPlanVersion: Number(source.preschoolDayPlanVersion) || 0,
             preschoolPlanSeedDates: asArray(source.preschoolPlanSeedDates).filter(item => /^\d{4}-\d{2}-\d{2}$/.test(String(item))),
             tasks: asArray(source.tasks),
@@ -499,7 +507,7 @@
                 }
                 const parsed = JSON.parse(raw);
                 const normalized = normalizeState(parsed);
-                if (normalized.schemaVersion !== parsed.schemaVersion || normalized.revision !== parsed.revision || normalized.preschoolDayPlanVersion !== parsed.preschoolDayPlanVersion || JSON.stringify(normalized.preschoolPlanSeedDates) !== JSON.stringify(parsed.preschoolPlanSeedDates)) this.save(normalized);
+                if (normalized.schemaVersion !== parsed.schemaVersion || normalized.revision !== parsed.revision || normalized.preschoolTheme !== parsed.preschoolTheme || normalized.preschoolDayPlanVersion !== parsed.preschoolDayPlanVersion || JSON.stringify(normalized.preschoolPlanSeedDates) !== JSON.stringify(parsed.preschoolPlanSeedDates)) this.save(normalized);
                 return normalized;
             } catch (error) {
                 console.warn('[PersonalWorkbenchStorage] 读取本地快照失败，已使用初始数据', error);
@@ -553,6 +561,7 @@
     global.PersonalWorkbenchStorage = {
         STORAGE_KEY: STORAGE_KEY,
         SCHEMA_VERSION: SCHEMA_VERSION,
+        PRESCHOOL_THEME_IDS: PRESCHOOL_THEME_IDS.slice(),
         localDate: localDate,
         dateOffset: dateOffset,
         createId: createId,

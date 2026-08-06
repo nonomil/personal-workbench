@@ -1,0 +1,18 @@
+Use case: ui-mockup game asset pack
+Asset type: reusable transparent PNG components for a preschool learning workbench
+
+Create an original 2D platform-adventure asset sheet for a web workbench used by 4–7 year old children. This is a component sheet, not a poster and not a full-screen scene. The visual language must be unmistakably classic side-scrolling platform game UI: thick dark outlines, saturated tomato red, warm golden yellow, cyan sky blue, bright green, orange-brown brick, chunky simple shapes, clean cel shading, and a strong left-to-right level feeling. Use the visual grammar of platform games without copying any commercial character, logo, costume, level, or exact asset.
+
+Place exactly eight complete isolated objects in a clean 4x2 grid with generous spacing on a perfectly flat solid #00ff00 chroma-key background. No shadows outside the objects, no gradients or texture in the background, no overlaps, no cropped edges, no text, no letters, no numbers, no watermark.
+
+Objects, one per cell:
+1. an original small child explorer companion wearing a teal cap, orange scarf, blue backpack, and red shoes; friendly face, no famous plumber resemblance;
+2. a gold coin disk with a simple star cutout and a bright highlight;
+3. a chunky orange-brown brick block with two rows of mortar marks;
+4. a bright yellow mystery block with a raised blank diamond symbol, no readable question mark;
+5. a glossy green pipe section with a wide rim and simple cylindrical shading;
+6. a small red finish flag on a wooden pole with a gold star badge, no text;
+7. a grass-topped brown platform with a rounded green edge and a flat underside;
+8. a five-point gold star badge with a friendly face and a small red ribbon.
+
+Use crisp 2D game UI illustration, strong dark outlines, controlled cel-shaded highlights, readable silhouettes at 48px, no pixel noise, no painterly brushwork, no photorealism. Keep every object fully visible and visually separated for automatic cropping.

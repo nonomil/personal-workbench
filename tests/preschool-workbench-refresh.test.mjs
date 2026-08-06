@@ -77,6 +77,16 @@ test('exposes a sibling practice action for mapped preschool plans without nesti
   assert.match(app, /ui\.lessonSession = \{ id: match\.lesson\.id, courseId: match\.course\.id, selectedIndex: null, correct: false, planId:/);
 });
 
+test('keeps quick-add task action beside the preschool battlefield heading', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const battlefieldStart = app.indexOf('function renderPreschoolHomeBattlefield');
+  const overviewStart = app.indexOf('function renderPreschoolHomeOverview', battlefieldStart);
+  const battlefieldTemplate = app.slice(battlefieldStart, overviewStart);
+  assert.match(battlefieldTemplate, /data-action="add-plan"/);
+  assert.match(battlefieldTemplate, /安排任务/);
+  assert.match(battlefieldTemplate, /preschool-home-battlefield-add/);
+});
+
 test('keeps preschool plans in one editable list instead of a fixed core and collapsed optional split', () => {
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
   const start = app.indexOf('function renderPreschoolPlans');
@@ -95,10 +105,10 @@ test('keeps preschool plans in one editable list instead of a fixed core and col
 
 test('bumps preschool runtime assets when the editable plan interaction changes', () => {
   const html = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
-  assert.match(html, /preschool-workbench\.css\?v=20260806-task-wall-v1/);
+  assert.match(html, /preschool-workbench\.css\?v=20260806-three-theme-shell-v1/);
   assert.match(html, /config\.js\?v=20260806-light-evidence-loop-v1/);
-  assert.match(html, /storage\.js\?v=20260806-light-evidence-loop-v1/);
-  assert.match(html, /app\.js\?v=20260806-light-evidence-loop-v1/);
+  assert.match(html, /storage\.js\?v=20260806-three-theme-shell-v1/);
+  assert.match(html, /app\.js\?v=20260806-three-theme-shell-v1/);
 });
 
 test('updates from the visible preschool snapshot when persistence is one revision behind', () => {
@@ -386,7 +396,7 @@ test('uses transparent PVZ plants and zombie variants across the preschool defen
   assert.match(app, /const plantAsset = preschoolPlantAsset\(activePlant\)/);
   assert.match(app, /pixel-hud-defense-art/);
   assert.match(app, /asset: 'player-energy-bars'/);
-  assert.match(config, /selected\.id === 'preschool' \? 'v0\.4\.5 · 幼儿版'/);
+  assert.match(config, /selected\.id === 'preschool' \? 'v0\.5\.0 · 幼儿版'/);
   assert.doesNotMatch(config, /v0\.2\.4 · 幼儿版/);
   assert.match(styles, /pixel-hud-defense-art/);
    assert.match(styles, /preschool-pvz-art/);
@@ -497,11 +507,40 @@ test('uses a flat preschool battlefield overview while keeping the battle route 
 test('organizes the preschool home tasks as a responsive reference task wall', () => {
   const styles = readCssGraph(path.join(root, 'css', 'preschool-workbench.css'));
   assert.match(styles, /preschool-home-lanes\s*\{[\s\S]*grid-template-columns:\s*repeat\(3, minmax\(0, 1fr\)\)/);
+  assert.match(styles, /@media \(min-width: 1181px\)[\s\S]*preschool-home-lanes\s*\{[\s\S]*grid-template-columns:\s*repeat\(2, minmax\(0, 1fr\)\)/);
   assert.match(styles, /@media \(min-width: 761px\) and \(max-width: 1180px\)[\s\S]*preschool-home-lanes\s*\{[\s\S]*grid-template-columns:\s*repeat\(2, minmax\(0, 1fr\)\)/);
   assert.match(styles, /@media \(max-width: 760px\)[\s\S]*preschool-home-lanes\s*\{[\s\S]*grid-template-columns:\s*1fr/);
   assert.match(styles, /preschool-home-lane-main\s*\{[\s\S]*grid-template-rows:\s*auto auto/);
   assert.match(styles, /preschool-home-lane-status\s*\{[\s\S]*grid-column:\s*3/);
   assert.match(styles, /preschool-home-lane-practice\s*\{[\s\S]*grid-column:\s*1 \/ -1/);
+});
+
+test('translates the reference dashboard rhythm into existing preschool state', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const preschoolStyles = fs.readFileSync(path.join(root, 'css', 'preschool-workbench.css'), 'utf8');
+  const preschoolStyleGraph = readCssGraph(path.join(root, 'css', 'preschool-workbench.css'));
+  const homeStart = app.indexOf('function renderPreschoolHomeOverview');
+  const homeEnd = app.indexOf('function renderPreschoolPage', homeStart);
+  const homeTemplate = app.slice(homeStart, homeEnd);
+  const identityStart = app.indexOf('function renderPreschoolHomeIdentity');
+  const identityEnd = app.indexOf('function renderPreschoolHomeRhythm', identityStart);
+  const identityTemplate = app.slice(identityStart, identityEnd);
+  assert.match(app, /function renderPreschoolHomeRhythm\(derived\)/);
+  assert.match(app, /function getPreschoolPlanMinutes\(item\)/);
+  assert.match(app, /preschool-home-task-overview/);
+  assert.match(app, /必做任务/);
+  assert.match(app, /选做挑战/);
+  assert.match(app, /计划用时/);
+  assert.match(app, /preschool-home-date/);
+  assert.match(homeTemplate, /renderPreschoolHomeRhythm\(derived\)/);
+  assert.match(identityTemplate, /今日完成/);
+  assert.match(identityTemplate, /计划分钟/);
+  assert.doesNotMatch(identityTemplate, /<small>阳光<\/small>/);
+  assert.doesNotMatch(identityTemplate, /<small>豌豆能量<\/small>/);
+  assert.match(preschoolStyles, /25-reference-dashboard\.css/);
+  assert.match(preschoolStyleGraph, /preschool-home-rhythm/);
+  assert.match(preschoolStyleGraph, /preschool-home-task-overview/);
+  assert.match(preschoolStyleGraph, /@media \(max-width: 760px\)[\s\S]*preschool-home-rhythm/);
 });
 
 test('connects the preschool home to the game-study loop without nesting the lesson engine', () => {
@@ -525,7 +564,7 @@ test('connects the preschool home to the game-study loop without nesting the les
   assert.match(preschoolStyles, /24-game-study-loop\.css/);
   assert.match(preschoolStyleGraph, /preschool-home-identity/);
   assert.match(preschoolStyleGraph, /preschool-home-evidence/);
-  assert.match(preschoolIndex, /v0\.4\.5 · 幼儿版/);
+  assert.match(preschoolIndex, /v0\.5\.0 · 幼儿版/);
   assert.doesNotMatch(preschoolIndex, /v0\.4\.2 · 幼儿版/);
 });
 
@@ -538,6 +577,37 @@ test('keeps the preschool workbench on the garden-green shell', () => {
   assert.match(greenTheme, /background:\s*#eff9eb/);
   assert.match(preschoolIndex, /theme-color" content="#2d8748"/);
   assert.match(preschoolIndex, /20260806-light-evidence-loop-v1/);
+});
+
+test('keeps three preschool visual themes on one persisted workbench contract', () => {
+  const config = fs.readFileSync(path.join(root, 'config.js'), 'utf8');
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const preschoolStyles = fs.readFileSync(path.join(root, 'css', 'preschool-workbench.css'), 'utf8');
+  const themeStyles = readCssGraph(path.join(root, 'css', 'preschool-workbench.css'));
+  const preschoolIndex = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
+  assert.match(config, /garden-defense/);
+  assert.match(config, /voxel-adventure/);
+  assert.match(config, /platform-quest/);
+  assert.match(app, /function applyPreschoolTheme\(\)/);
+  assert.match(app, /function selectPreschoolTheme\(themeId\)/);
+  assert.match(app, /next\.preschoolTheme = themeId/);
+  assert.match(preschoolStyles, /26-theme-skins\.css/);
+  assert.match(themeStyles, /data-preschool-theme='voxel-adventure'/);
+  assert.match(themeStyles, /data-preschool-theme='platform-quest'/);
+  assert.match(themeStyles, /voxel-v2\/reference\/voxel-hero\.png/);
+  assert.match(themeStyles, /platform-v2\/reference\/platform-hero\.png/);
+  assert.match(preschoolIndex, /data-preschool-nav-art="brand"/);
+  const voxelState = storage.normalizeState({ tasks: [], dailyPlans: [], preschoolTheme: 'voxel-adventure' });
+  assert.equal(voxelState.preschoolTheme, 'voxel-adventure');
+  const invalidState = storage.normalizeState({ tasks: [], dailyPlans: [], preschoolTheme: 'not-a-theme' });
+  assert.equal(invalidState.preschoolTheme, 'garden-defense');
+});
+
+test('accepts the launcher theme query before the preschool page renders', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  assert.match(app, /function getRequestedPreschoolTheme\(\)/);
+  assert.match(app, /new URLSearchParams\(location\.search/);
+  assert.match(app, /state = Object\.assign\(\{\}, state, \{ preschoolTheme: requestedPreschoolTheme \}\)/);
 });
 
 test('keeps preschool mobile status cards readable at reference widths', () => {

@@ -1,0 +1,20 @@
+{
+  "status": "failed",
+  "prefix": "voxel-adventure-assets-v1",
+  "model": "gpt-image-2",
+  "apiUrl": "https://beeapi.ai/v1/images/generations",
+  "sizeRequested": "1024x1024",
+  "promptFile": "G:\\StudyCode\\个人工作台\\assets\\generated\\preschool-theme-assets\\voxel-v1\\voxel-adventure-assets-v1.prompt.txt",
+  "attempts": [
+    {
+      "attempt": 1,
+      "startedAt": "2026-08-06T13:19:08",
+      "response": "G:\\StudyCode\\个人工作台\\assets\\generated\\preschool-theme-assets\\voxel-v1\\voxel-adventure-assets-v1.response.attempt1.json",
+      "status": "error",
+      "httpStatus": 404,
+      "body": "{\"code\":404,\"message\":\"no enabled channel for model \\\"gpt-image-2\\\"\",\"request_id\":\"015abd99-b288-4f3f-87ec-67c37377d267\"}"
+    }
+  ],
+  "createdAt": "2026-08-06T13:19:12",
+  "nextAction": "re-run with --resume after the provider enables the model/channel"
+}

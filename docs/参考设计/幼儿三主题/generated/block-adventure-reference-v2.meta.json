@@ -1,0 +1,9 @@
+{
+  "bytes": 2188473,
+  "model": "gpt-image-2",
+  "promptFile": "docs\\参考设计\\幼儿三主题\\02-block-adventure-reference.txt",
+  "size": "1536x1024",
+  "quality": "low",
+  "variant": "v2-sequential-distinct",
+  "generatedAt": "2026-08-06T03:52:12.6231946Z"
+}

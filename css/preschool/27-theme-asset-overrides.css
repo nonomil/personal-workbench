@@ -1,0 +1,367 @@
+/* Authentic theme assets: the shell stays shared, but each game grammar gets
+   its own visible objects, edge language, and card rhythm. */
+body.variant-preschool[data-preschool-theme] .theme-banner-art {
+    position: absolute;
+    z-index: 2;
+    display: grid;
+    place-items: end center;
+    pointer-events: none;
+}
+
+body.variant-preschool[data-preschool-theme] .theme-banner-art img,
+body.variant-preschool[data-preschool-theme] .theme-banner-object img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 5px 0 rgba(33, 49, 51, .2));
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-home-identity-art .preschool-generated-art,
+body.variant-preschool[data-preschool-theme] .preschool-home-lane-characters .preschool-generated-art,
+body.variant-preschool[data-preschool-theme] .preschool-home-evidence-icon .preschool-generated-art {
+    object-fit: contain;
+}
+
+body.variant-preschool[data-preschool-theme='garden-defense'] .preschool-theme-banner-scene {
+    background-image: url("../../assets/generated/preschool-pvz-2d/background/published/pvz-garden-lawn-bg.png");
+    background-position: center;
+    background-size: cover;
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] {
+    background-color: #e7edf8;
+    background-image: linear-gradient(rgba(79, 105, 166, .035) 1px, transparent 1px), linear-gradient(90deg, rgba(79, 105, 166, .035) 1px, transparent 1px);
+    background-size: 24px 24px;
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .sidebar {
+    border-right: 4px solid #11144b;
+    background: #24215f;
+    box-shadow: 8px 0 0 rgba(17, 20, 75, .16);
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .brand-mark {
+    border: 3px solid #101343;
+    border-radius: 4px;
+    background: #ffcf32;
+    box-shadow: 0 4px 0 #b17b25;
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .nav-item {
+    border: 2px solid rgba(132, 139, 226, .55);
+    border-radius: 5px;
+    background: #312d78;
+    box-shadow: 0 4px 0 #151844;
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .nav-item:hover {
+    border-color: #c4c8ff;
+    background: #403b91;
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .nav-item.is-active {
+    border-color: #fff1a1;
+    color: #34245b;
+    background: #ffd83f;
+    box-shadow: 0 4px 0 #a56c25;
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .nav-item.is-active span,
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .nav-item.is-active kbd {
+    color: #34245b;
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .sidebar-section-toggle {
+    border: 2px solid #5e59a8;
+    border-radius: 5px;
+    background: #1a1b51;
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-theme-banner {
+    min-height: 188px;
+    grid-template-columns: minmax(250px, .66fr) minmax(360px, 1.34fr);
+    border: 3px solid #9c733d;
+    border-radius: 7px;
+    background: linear-gradient(180deg, #29b7ee 0 68%, #6fbf45 69% 78%, #765036 79% 100%);
+    box-shadow: 0 5px 0 rgba(88, 59, 34, .18), 0 14px 24px rgba(45, 60, 117, .13);
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-theme-banner-scene {
+    background-image: url("../../assets/generated/preschool-theme-assets/voxel-v2/reference/voxel-hero.png");
+    background-position: center;
+    background-size: cover;
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .theme-banner-cloud,
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .theme-banner-platform,
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .theme-banner-art,
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .theme-banner-object {
+    display: none;
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-theme-banner-copy {
+    background: linear-gradient(90deg, rgba(28, 40, 105, .96), rgba(35, 57, 130, .78));
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-theme-banner-copy h2 {
+    color: #fff4c7;
+    text-shadow: 0 3px 0 #23205c;
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-theme-banner-copy p {
+    color: #dce9ff;
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-theme-banner-scene::before {
+    right: -5%;
+    bottom: 18px;
+    left: -2%;
+    height: 22px;
+    border-radius: 0;
+    background: #68b842;
+    box-shadow: 0 20px 0 #775036;
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .theme-banner-cloud {
+    border-radius: 2px;
+    box-shadow: 18px -10px 0 -3px rgba(255, 255, 255, .84), 36px 0 0 -4px rgba(255, 255, 255, .84);
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .theme-banner-platform {
+    bottom: 16px;
+    width: 104px;
+    height: 24px;
+    border-radius: 1px;
+    background: #73c349;
+    box-shadow: 0 12px 0 #765036, 0 15px 0 rgba(37, 43, 78, .2);
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .theme-banner-platform.platform-a { left: 8%; }
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .theme-banner-platform.platform-b { right: 3%; width: 142px; }
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .theme-banner-art-tree { bottom: 19px; left: 5%; width: 132px; height: 144px; }
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .theme-banner-art-chest { right: 18%; bottom: 24px; width: 78px; height: 82px; }
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .theme-banner-art-crystal { right: 39%; bottom: 22px; width: 66px; height: 82px; }
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .theme-banner-object { right: 5%; bottom: 23px; width: 94px; height: 104px; }
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-identity,
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-evidence,
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-rhythm,
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-section,
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-course-card,
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-reward-card {
+    border: 3px solid #c09b5e;
+    border-radius: 7px;
+    box-shadow: 0 4px 0 rgba(111, 76, 34, .16), 0 12px 22px rgba(46, 51, 103, .1);
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-identity {
+    background: linear-gradient(135deg, #fffbed, #f3eed9);
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-identity-art {
+    border: 3px solid #ab8242;
+    border-radius: 5px;
+    background: #edf4d9;
+    box-shadow: inset 0 -6px 0 #c9954e;
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-identity-stats span,
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-evidence-card {
+    border: 2px solid #d1b478;
+    border-radius: 5px;
+    background: #fff9e9;
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-battlefield {
+    position: relative;
+    overflow: hidden;
+    border: 3px solid #a77c43;
+    border-radius: 7px;
+    background: #f3eedb;
+    box-shadow: 0 5px 0 rgba(104, 70, 34, .15);
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-battlefield::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 8px;
+    background: repeating-linear-gradient(90deg, #5b9d3b 0 28px, #79bd47 28px 56px);
+    content: '';
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-battlefield-head h2,
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-evidence-head h2,
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-rhythm-copy strong {
+    color: #343261;
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-lane {
+    border: 2px solid #b9955e;
+    border-radius: 5px;
+    color: #35325c;
+    background: #fff9e9;
+    box-shadow: 0 4px 0 #d8bd86;
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-lane:hover,
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-lane:focus-visible {
+    border-color: #6e5ad0;
+    outline-color: rgba(110, 90, 208, .22);
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-lane.is-done {
+    border-color: #74a852;
+    background: #edf6db;
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-lane-number {
+    border: 2px solid #a77933;
+    border-radius: 3px;
+    background: #ffd34a;
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-lane-copy small { color: #604db0; }
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-lane-copy strong { color: #343261; }
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-lane-status { border-radius: 4px; color: #4b3b9c; background: #ece7ff; }
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-exits .workbench-action-button { background: #5d4ec7; box-shadow: 0 4px 0 #382b88; }
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-exits .workbench-secondary-button { border-color: #c89d43; background: #ffd34a; box-shadow: 0 4px 0 #99652d; }
+
+body.variant-preschool[data-preschool-theme='platform-quest'] {
+    background-color: #e8f5fb;
+    background-image: radial-gradient(circle at 18% 14%, rgba(255, 255, 255, .9) 0 34px, transparent 35px), radial-gradient(circle at 82% 8%, rgba(255, 255, 255, .76) 0 28px, transparent 29px);
+}
+
+body.variant-preschool[data-preschool-theme='platform-quest'] .sidebar {
+    border-right: 4px solid #741b31;
+    background: #b92732;
+    box-shadow: 8px 0 0 rgba(116, 27, 49, .14);
+}
+
+body.variant-preschool[data-preschool-theme='platform-quest'] .brand-mark {
+    border: 3px solid #7b1e2d;
+    border-radius: 12px;
+    background: #ffd735;
+    box-shadow: 0 4px 0 #7b3520;
+}
+
+body.variant-preschool[data-preschool-theme='platform-quest'] .nav-item {
+    border: 2px solid #8d1f2d;
+    border-radius: 12px;
+    background: #d73537;
+    box-shadow: 0 4px 0 #851c2d;
+}
+
+body.variant-preschool[data-preschool-theme='platform-quest'] .nav-item:hover { border-color: #ff9b75; background: #e34a3e; }
+body.variant-preschool[data-preschool-theme='platform-quest'] .nav-item.is-active { border-color: #fff19b; color: #6f2430; background: #ffd533; box-shadow: 0 4px 0 #984021; }
+body.variant-preschool[data-preschool-theme='platform-quest'] .nav-item.is-active span,
+body.variant-preschool[data-preschool-theme='platform-quest'] .nav-item.is-active kbd { color: #6f2430; }
+body.variant-preschool[data-preschool-theme='platform-quest'] .sidebar-section-toggle { border: 2px solid #ef7060; border-radius: 12px; background: #97232f; }
+
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-theme-banner {
+    min-height: 190px;
+    grid-template-columns: minmax(250px, .7fr) minmax(360px, 1.3fr);
+    border: 3px solid #dc9e29;
+    border-radius: 14px;
+    background: linear-gradient(180deg, #38c5ef 0 67%, #76c950 68% 78%, #a85e31 79% 100%);
+    box-shadow: 0 5px 0 rgba(126, 66, 32, .18), 0 14px 24px rgba(55, 116, 151, .12);
+}
+
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-theme-banner-scene {
+    background-image: url("../../assets/generated/preschool-theme-assets/platform-v2/reference/platform-hero.png");
+    background-position: center;
+    background-size: cover;
+}
+
+body.variant-preschool[data-preschool-theme='platform-quest'] .theme-banner-cloud,
+body.variant-preschool[data-preschool-theme='platform-quest'] .theme-banner-platform,
+body.variant-preschool[data-preschool-theme='platform-quest'] .theme-banner-art,
+body.variant-preschool[data-preschool-theme='platform-quest'] .theme-banner-object {
+    display: none;
+}
+
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-theme-banner-copy {
+    background: linear-gradient(90deg, rgba(185, 38, 48, .96), rgba(207, 52, 48, .76));
+}
+
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-theme-banner-copy h2 { color: #fff9d5; text-shadow: 0 3px 0 #8c202e; }
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-theme-banner-copy p { color: #ffe6b0; }
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-theme-banner::after { display: none; }
+body.variant-preschool[data-preschool-theme='platform-quest'] .theme-banner-platform { bottom: 17px; height: 22px; border-radius: 12px 12px 4px 4px; background: #6cc44c; box-shadow: 0 12px 0 #9a5d35, 0 15px 0 rgba(84, 46, 35, .18); }
+body.variant-preschool[data-preschool-theme='platform-quest'] .theme-banner-art-explorer { right: 7%; bottom: 22px; width: 88px; height: 126px; }
+body.variant-preschool[data-preschool-theme='platform-quest'] .theme-banner-art-coin { top: 21px; right: 42%; width: 45px; height: 48px; }
+body.variant-preschool[data-preschool-theme='platform-quest'] .theme-banner-art-brick { top: 45px; left: 7%; width: 104px; height: 68px; }
+body.variant-preschool[data-preschool-theme='platform-quest'] .theme-banner-art-pipe { right: 25%; bottom: 18px; width: 58px; height: 80px; }
+body.variant-preschool[data-preschool-theme='platform-quest'] .theme-banner-art-flag { right: 1%; bottom: 20px; width: 64px; height: 86px; }
+
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-identity,
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-evidence,
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-rhythm,
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-section,
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-course-card,
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-reward-card {
+    border: 3px solid #d6dce6;
+    border-radius: 14px;
+    box-shadow: 0 5px 0 rgba(123, 70, 37, .12), 0 12px 22px rgba(61, 106, 135, .08);
+}
+
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-identity { background: #fffefa; }
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-identity-art { border: 3px solid #e2a52a; border-radius: 15px; background: #fff1b5; box-shadow: inset 0 -6px 0 #f3ca44; }
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-identity-stats span,
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-evidence-card { border: 2px solid #e5e8ee; border-radius: 12px; background: #fffefa; }
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-battlefield { border: 3px solid #d8dce5; border-radius: 14px; background: #fffefa; box-shadow: 0 5px 0 rgba(123, 70, 37, .12); }
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-battlefield::before { height: 9px; background: repeating-linear-gradient(90deg, #e5433e 0 33px, #f6bd2d 33px 66px, #2d9ed2 66px 99px, #66bc47 99px 132px); }
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-battlefield-head h2,
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-evidence-head h2,
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-rhythm-copy strong { color: #a72c32; }
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-lane { border: 2px solid #d6dbe4; border-radius: 12px; color: #4a3443; background: #fffefa; box-shadow: 0 4px 0 #e6b132; }
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-lane:nth-child(3n + 1) { border-top-color: #e5443c; }
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-lane:nth-child(3n + 2) { border-top-color: #f4b928; }
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-lane:nth-child(3n) { border-top-color: #3ca8dc; }
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-lane:hover,
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-lane:focus-visible { border-color: #e5443c; outline-color: rgba(229, 68, 60, .2); }
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-lane.is-done { border-color: #63b94a; background: #eff9e8; }
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-lane-number { border: 2px solid #d49325; border-radius: 50%; background: #ffd536; }
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-lane-copy small { color: #c33134; }
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-lane-copy strong { color: #493344; }
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-lane-status { border-radius: 999px; color: #a72c32; background: #fff0c2; }
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-exits .workbench-action-button { background: #e4423c; box-shadow: 0 4px 0 #9f252a; }
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-exits .workbench-secondary-button { border-color: #e0a52e; background: #ffd438; box-shadow: 0 4px 0 #a86b24; }
+
+@media (max-width: 760px) {
+    body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-theme-banner,
+    body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-theme-banner { min-height: 164px; grid-template-columns: minmax(0, .88fr) minmax(190px, 1.12fr); }
+    body.variant-preschool[data-preschool-theme='voxel-adventure'] .theme-banner-art-tree { left: 2%; width: 94px; height: 112px; }
+    body.variant-preschool[data-preschool-theme='voxel-adventure'] .theme-banner-art-chest { right: 18%; width: 58px; height: 64px; }
+    body.variant-preschool[data-preschool-theme='voxel-adventure'] .theme-banner-art-crystal { right: 39%; width: 48px; height: 62px; }
+    body.variant-preschool[data-preschool-theme='voxel-adventure'] .theme-banner-object { right: 4%; width: 68px; height: 80px; }
+    body.variant-preschool[data-preschool-theme='platform-quest'] .theme-banner-art-explorer { right: 7%; width: 66px; height: 94px; }
+    body.variant-preschool[data-preschool-theme='platform-quest'] .theme-banner-art-coin { right: 39%; width: 32px; height: 34px; }
+    body.variant-preschool[data-preschool-theme='platform-quest'] .theme-banner-art-brick { left: 7%; width: 80px; height: 52px; }
+    body.variant-preschool[data-preschool-theme='platform-quest'] .theme-banner-art-pipe { right: 25%; width: 42px; height: 60px; }
+    body.variant-preschool[data-preschool-theme='platform-quest'] .theme-banner-art-flag { right: 1%; width: 47px; height: 64px; }
+}
+
+@media (max-width: 560px) {
+    body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-theme-banner,
+    body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-theme-banner { min-height: 142px; grid-template-columns: 1fr; }
+    body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-theme-banner-scene,
+    body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-theme-banner-scene { display: block; min-height: 96px; }
+    body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-theme-banner-copy,
+    body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-theme-banner-copy { min-height: 106px; padding-bottom: 8px; }
+    body.variant-preschool[data-preschool-theme='voxel-adventure'] .theme-banner-art-tree { width: 78px; height: 86px; }
+    body.variant-preschool[data-preschool-theme='voxel-adventure'] .theme-banner-art-chest { right: 20%; width: 48px; height: 52px; }
+    body.variant-preschool[data-preschool-theme='voxel-adventure'] .theme-banner-art-crystal { right: 43%; width: 36px; height: 48px; }
+    body.variant-preschool[data-preschool-theme='voxel-adventure'] .theme-banner-object { right: 4%; width: 56px; height: 64px; }
+    body.variant-preschool[data-preschool-theme='platform-quest'] .theme-banner-art-explorer { right: 5%; width: 56px; height: 76px; }
+    body.variant-preschool[data-preschool-theme='platform-quest'] .theme-banner-art-coin { top: 9px; right: 42%; width: 28px; height: 30px; }
+    body.variant-preschool[data-preschool-theme='platform-quest'] .theme-banner-art-brick { top: 27px; left: 7%; width: 68px; height: 42px; }
+    body.variant-preschool[data-preschool-theme='platform-quest'] .theme-banner-art-pipe { right: 24%; bottom: 12px; width: 36px; height: 49px; }
+    body.variant-preschool[data-preschool-theme='platform-quest'] .theme-banner-art-flag { right: 1%; bottom: 13px; width: 38px; height: 52px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.variant-preschool[data-preschool-theme] .theme-banner-art img { animation: none !important; }
+}

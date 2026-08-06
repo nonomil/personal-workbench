@@ -1,0 +1,9 @@
+{
+  "model": "gpt-image-2",
+  "promptFile": "G:\\StudyCode\\个人工作台\\docs\\参考设计\\幼儿三主题\\09-voxel-adventure-reference-driven-v3.txt",
+  "requestedSize": "1024x1536",
+  "requestedQuality": "high",
+  "bytes": 1769049,
+  "format": "png",
+  "generatedAt": "2026-08-06T04:28:31.115Z"
+}

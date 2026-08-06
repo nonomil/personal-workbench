@@ -1,0 +1,12 @@
+Use case: ui-mockup
+Asset type: portrait-first preschool learning workbench reference, 1024x1536
+This is a real usable web-app dashboard screenshot, not a poster, not a landing-page hero, and not a single giant game illustration.
+Preserve this exact information architecture: a fixed vertical navigation rail taking about 20-24% width; a compact game-world top banner; a warm white or very pale main content surface; a large companion/today panel; a two-column subject-card grid; a separate game-progress panel; a daily task checklist; and a reward-center exit card near the bottom.
+All cards must have large blank areas reserved for HTML/CSS labels. Do not render any readable text, letters, numbers, Chinese characters, fake writing, logo, watermark, browser chrome, or screenshot frame.
+Use clean 2D or 2.5D children's game UI illustration with strong outlines, controlled shadows, readable spacing, and large touch targets. Do not use generic SaaS charts, glassmorphism, photorealism, or a full-screen key art poster.
+
+Create the lawn-defense variant of the common workbench.
+Use a deep purple and forest-green vertical navigation rail with large rounded garden-menu tiles. Add a bright lime or golden active tile and a small original sunflower guardian badge.
+The top banner is a shallow sunny backyard: blue sky, soft clouds, rolling lawn, white fence, layered leaves, sunlight resource capsules, a shield capsule, and a streak capsule. Keep it as a header behind the dashboard, not a giant garden painting.
+The main surface is warm white with a clear two-column subject-card grid. Each card has an original friendly plant or garden object, an empty text plate and a simple HTML label area. The central game panel is a compact lawn-defense card with a clearly readable 5 by 3 grass grid, brown soil planting holes, three original plants on the left, and a few harmless silly invaders approaching from the right. Include a separate daily checklist with sunlight reward chips and a reward chest exit.
+Visual language: chunky outlined 2D game UI, layered grass and soil, green/lime/purple/cream/sunlight-gold, friendly expressive faces, strong hierarchy, large touch targets. Avoid official Plants vs. Zombies characters, logos, copied artwork, realistic zombie horror, glossy generic SaaS dashboard, and single giant illustration.
