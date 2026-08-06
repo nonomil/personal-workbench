@@ -95,7 +95,7 @@ test('keeps preschool plans in one editable list instead of a fixed core and col
 
 test('bumps preschool runtime assets when the editable plan interaction changes', () => {
   const html = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
-  assert.match(html, /preschool-workbench\.css\?v=20260806-landscape-sidebar-v1/);
+  assert.match(html, /preschool-workbench\.css\?v=20260806-task-wall-v1/);
   assert.match(html, /config\.js\?v=20260806-light-evidence-loop-v1/);
   assert.match(html, /storage\.js\?v=20260806-light-evidence-loop-v1/);
   assert.match(html, /app\.js\?v=20260806-light-evidence-loop-v1/);
@@ -386,7 +386,7 @@ test('uses transparent PVZ plants and zombie variants across the preschool defen
   assert.match(app, /const plantAsset = preschoolPlantAsset\(activePlant\)/);
   assert.match(app, /pixel-hud-defense-art/);
   assert.match(app, /asset: 'player-energy-bars'/);
-  assert.match(config, /selected\.id === 'preschool' \? 'v0\.4\.4 · 幼儿版'/);
+  assert.match(config, /selected\.id === 'preschool' \? 'v0\.4\.5 · 幼儿版'/);
   assert.doesNotMatch(config, /v0\.2\.4 · 幼儿版/);
   assert.match(styles, /pixel-hud-defense-art/);
    assert.match(styles, /preschool-pvz-art/);
@@ -494,6 +494,16 @@ test('uses a flat preschool battlefield overview while keeping the battle route 
   assert.match(styles, /@media \(max-width: 760px\)[\s\S]*workbench-overview/);
 });
 
+test('organizes the preschool home tasks as a responsive reference task wall', () => {
+  const styles = readCssGraph(path.join(root, 'css', 'preschool-workbench.css'));
+  assert.match(styles, /preschool-home-lanes\s*\{[\s\S]*grid-template-columns:\s*repeat\(3, minmax\(0, 1fr\)\)/);
+  assert.match(styles, /@media \(min-width: 761px\) and \(max-width: 1180px\)[\s\S]*preschool-home-lanes\s*\{[\s\S]*grid-template-columns:\s*repeat\(2, minmax\(0, 1fr\)\)/);
+  assert.match(styles, /@media \(max-width: 760px\)[\s\S]*preschool-home-lanes\s*\{[\s\S]*grid-template-columns:\s*1fr/);
+  assert.match(styles, /preschool-home-lane-main\s*\{[\s\S]*grid-template-rows:\s*auto auto/);
+  assert.match(styles, /preschool-home-lane-status\s*\{[\s\S]*grid-column:\s*3/);
+  assert.match(styles, /preschool-home-lane-practice\s*\{[\s\S]*grid-column:\s*1 \/ -1/);
+});
+
 test('connects the preschool home to the game-study loop without nesting the lesson engine', () => {
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
   const styles = readCssGraph(path.join(root, 'styles.css'));
@@ -515,7 +525,7 @@ test('connects the preschool home to the game-study loop without nesting the les
   assert.match(preschoolStyles, /24-game-study-loop\.css/);
   assert.match(preschoolStyleGraph, /preschool-home-identity/);
   assert.match(preschoolStyleGraph, /preschool-home-evidence/);
-  assert.match(preschoolIndex, /v0\.4\.4 · 幼儿版/);
+  assert.match(preschoolIndex, /v0\.4\.5 · 幼儿版/);
   assert.doesNotMatch(preschoolIndex, /v0\.4\.2 · 幼儿版/);
 });
 

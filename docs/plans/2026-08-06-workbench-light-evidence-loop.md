@@ -93,7 +93,7 @@ npm run android:prepare
 ## 本轮执行结果（2026-08-06）
 
 - 任务 1–4 已落地：内置计划练习映射、旧快照兼容、同级练习入口、练习完成同步来源计划和证据摘要均已接入。
-- 定向验证：`node --test tests/preschool-workbench-refresh.test.mjs tests/preschool-daily-plan.test.mjs`，44/44 通过。
+- 定向验证：`node --test tests/preschool-workbench-refresh.test.mjs tests/preschool-daily-plan.test.mjs`，48/48 通过。
 - 全量验证：`npm test`，96/96 通过；`node --check app.js`、`node --check storage.js`、`git diff --check` 通过。
 - 浏览器验证：明确加载 `http://127.0.0.1:4178/preschool-workbench/index.html?cb=20260806-light-evidence-loop-v1#overview`；390×844 无横向溢出；英语练习使今日任务 3/6→4/6、阳光 100→120、豌豆能量 4→5，刷新后状态保持，运行日志为空。
 - 任务 5（提交、推送、Pages/APK/MuMu 发布验收）本轮未执行，按主控边界保持冻结；不能把本轮网页测试表述为已发布或 APK 已验收。

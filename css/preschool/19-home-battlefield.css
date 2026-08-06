@@ -97,6 +97,8 @@ body.variant-preschool .preschool-home-battlefield-head > strong {
 
 body.variant-preschool .preschool-home-lanes {
     display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
     gap: 10px;
 }
 
@@ -314,18 +316,20 @@ body.variant-preschool .preschool-home-exits .workbench-secondary-button {
 /* The lane is an article with two sibling actions. Keeping the check-in and
    practice controls separate prevents invalid nested buttons on touch screens. */
 body.variant-preschool .preschool-home-lane {
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr);
     align-items: stretch;
+    gap: 6px;
     padding: 9px;
 }
 
 body.variant-preschool .preschool-home-lane-main {
     display: grid;
     min-width: 0;
-    grid-template-columns: 34px 132px minmax(0, 1fr) auto;
+    grid-template-columns: 30px 88px minmax(0, 1fr);
+    grid-template-rows: auto auto;
     align-items: center;
-    gap: 12px;
-    min-height: 84px;
+    gap: 5px 8px;
+    min-height: 92px;
     padding: 0 3px 0 0;
     border: 0;
     color: inherit;
@@ -342,6 +346,7 @@ body.variant-preschool .preschool-home-lane-main:focus-visible {
 
 body.variant-preschool .preschool-home-lane-practice {
     display: grid;
+    grid-column: 1 / -1;
     min-width: 88px;
     min-height: 70px;
     place-content: center;
@@ -360,6 +365,12 @@ body.variant-preschool .preschool-home-lane-practice {
     transition: transform 160ms ease, filter 160ms ease, border-color 160ms ease;
 }
 
+body.variant-preschool .preschool-home-lane-main .preschool-home-lane-status {
+    grid-column: 3;
+    grid-row: 2;
+    justify-self: start;
+}
+
 body.variant-preschool .preschool-home-lane-practice:hover,
 body.variant-preschool .preschool-home-lane-practice:focus-visible {
     border-color: #fff5bf;
@@ -374,12 +385,17 @@ body.variant-preschool .preschool-home-lane-practice small { color: #8b5d20; fon
 body.variant-preschool .preschool-home-lane.main-only .preschool-home-lane-main { grid-column: 1 / -1; }
 
 @media (max-width: 760px) {
+    body.variant-preschool .preschool-home-lanes { grid-template-columns: 1fr; }
     body.variant-preschool .preschool-home-lane { grid-template-columns: minmax(0, 1fr); gap: 6px; }
     body.variant-preschool .preschool-home-lane-main { grid-template-columns: 30px 100px minmax(0, 1fr); gap: 8px; }
     body.variant-preschool .preschool-home-lane-main .preschool-home-lane-status { grid-column: 3; justify-self: start; min-height: 27px; }
     body.variant-preschool .preschool-home-lane-practice { grid-template-columns: auto auto auto; min-width: 0; min-height: 39px; place-content: center; justify-items: center; gap: 5px; padding: 6px 10px; }
     body.variant-preschool .preschool-home-lane-practice svg { width: 16px; height: 16px; }
     body.variant-preschool .preschool-home-lane-practice small { font-size: 10px; }
+}
+
+@media (min-width: 761px) and (max-width: 1180px) {
+    body.variant-preschool .preschool-home-lanes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 420px) {

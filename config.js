@@ -286,7 +286,7 @@
         '.topbar-context strong': selected.pageMeta.overview.title,
         '.mode-status strong': '本地模式',
         '.mode-status small': selected.statusNote,
-        '.sidebar-footnote': selected.id === 'preschool' ? 'v0.4.4 · 幼儿版' : selected.id === 'child' ? 'v0.4.4 · 儿童版' : 'v0.4.4 · 成人版',
+        '.sidebar-footnote': selected.id === 'preschool' ? 'v0.4.5 · 幼儿版' : selected.id === 'child' ? 'v0.4.5 · 儿童版' : 'v0.4.5 · 成人版',
         '.avatar': selected.avatar
     };
     Object.keys(labelMap).forEach(function (selector) {
