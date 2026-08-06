@@ -396,7 +396,7 @@ test('uses transparent PVZ plants and zombie variants across the preschool defen
   assert.match(app, /const plantAsset = preschoolPlantAsset\(activePlant\)/);
   assert.match(app, /pixel-hud-defense-art/);
   assert.match(app, /asset: 'player-energy-bars'/);
-  assert.match(config, /selected\.id === 'preschool' \? 'v0\.5\.1 · 幼儿版'/);
+  assert.match(config, /selected\.id === 'preschool' \? 'v0\.5\.2 · 幼儿版'/);
   assert.doesNotMatch(config, /v0\.2\.4 · 幼儿版/);
   assert.match(styles, /pixel-hud-defense-art/);
    assert.match(styles, /preschool-pvz-art/);
@@ -564,7 +564,7 @@ test('connects the preschool home to the game-study loop without nesting the les
   assert.match(preschoolStyles, /24-game-study-loop\.css/);
   assert.match(preschoolStyleGraph, /preschool-home-identity/);
   assert.match(preschoolStyleGraph, /preschool-home-evidence/);
-  assert.match(preschoolIndex, /v0\.5\.1 · 幼儿版/);
+  assert.match(preschoolIndex, /v0\.5\.2 · 幼儿版/);
   assert.doesNotMatch(preschoolIndex, /v0\.4\.2 · 幼儿版/);
 });
 

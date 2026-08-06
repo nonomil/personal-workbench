@@ -18,6 +18,20 @@ test('release contract keeps five launcher entries in the published order', () =
   assert.equal(result.checkedAssets, 5);
 });
 
+test('launcher exposes an accessible two-tier world selector', () => {
+  const projectRoot = fileURLToPath(new URL('..', import.meta.url));
+  const html = fs.readFileSync(path.join(projectRoot, 'index.html'), 'utf8');
+
+  assert.match(html, /class="launcher-skip-link"[^>]*href="#launcher-content"/);
+  assert.match(html, /<main[^>]*id="launcher-content"/);
+  assert.match(html, /data-launcher-group="preschool-worlds"/);
+  assert.match(html, /data-launcher-group="general-workbenches"/);
+  assert.match(html, /data-card-kind="world"/);
+  assert.match(html, /data-card-kind="workbench"/);
+  assert.match(html, /workbench-link--general/);
+  assert.match(html, /@media \(prefers-reduced-motion: reduce\)/);
+});
+
 test('Android workflow runs the web gates before uploading an APK', () => {
   const projectRoot = fileURLToPath(new URL('..', import.meta.url));
   const workflow = fs.readFileSync(path.join(projectRoot, '.github', 'workflows', 'android-apk.yml'), 'utf8');
