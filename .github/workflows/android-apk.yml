@@ -27,6 +27,18 @@ jobs:
       - name: Install JavaScript dependencies
         run: npm ci
 
+      - name: Run web regression tests
+        run: npm test
+
+      - name: Verify published launcher contract
+        run: npm run release:verify
+
+      - name: Check JavaScript entry points
+        run: |
+          node --check launcher.js
+          node --check app.js
+          node --check storage.js
+
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
@@ -49,6 +61,9 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew --no-daemon assembleDebug
+
+      - name: Verify debug APK is non-empty
+        run: test -s android/app/build/outputs/apk/debug/app-debug.apk
 
       - name: Name APK
         run: cp android/app/build/outputs/apk/debug/app-debug.apk "personal-workbench-${GITHUB_REF_NAME}.apk"

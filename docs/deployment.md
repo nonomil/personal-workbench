@@ -44,6 +44,7 @@ Android 版本使用 Capacitor 包装由 `scripts/prepare-mobile.mjs` 生成的 
 GitHub Actions workflow 位于 `.github/workflows/android-apk.yml`：
 
 - 推送到 `main` 自动运行 `Build Android APK`，构建结果会上传为 artifact；也可以在 Actions 页面手动运行；
+- Android 工程生成前会先运行 `npm test`、`npm run release:verify` 和关键 JavaScript 语法检查；构建后还会拒绝 0 字节或缺失的 APK；
 - 推送 `v*` 标签时自动构建，并把 Debug APK 附加到 GitHub Release；
 - 首版产物是可安装的 Debug APK，不包含生产签名；生产签名必须使用 GitHub Secrets 注入 keystore，不能提交到仓库。
 
@@ -73,9 +74,14 @@ npm run android:build
 ## 发布前检查
 
 ```powershell
-node --test (Get-ChildItem -LiteralPath 'tests' -Filter '*.test.mjs').FullName
-node --check 'app.js'
-node --check 'api-adapter.js'
+npm test
+npm run release:verify
+node --check launcher.js
+node --check app.js
+node --check storage.js
+npm run android:prepare
 ```
+
+`release:verify` 是无网络的五入口合同检查：确认幼儿三主题在前、成人/儿童在后，并确认五张入口卡的目标页面与主图都存在。上述本地检查通过，只能证明源码和待包装制品满足门禁；GitHub Pages、Actions artifact、APK 安装和 MuMu 仍必须用远端/设备证据单独核对。
 
 浏览器检查至少覆盖成人、儿童和幼儿三个入口、移动端侧栏、幼儿大图卡导航、成长、课程完成、错题记录、家庭互动和账号页。不要把真实 API 地址、账号、密码或 token 写进仓库文件。
