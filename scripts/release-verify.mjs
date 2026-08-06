@@ -44,6 +44,13 @@ const LAUNCHER_CARDS = [
   }
 ];
 
+const RUNTIME_VERSION_FILES = [
+  'config.js',
+  '成人成长工作台/index.html',
+  '儿童学习工作台/index.html',
+  'preschool-workbench/index.html'
+];
+
 function readRootHtml(projectRoot) {
   return fs.readFileSync(path.join(projectRoot, 'index.html'), 'utf8');
 }
@@ -60,6 +67,7 @@ function addError(errors, condition, message) {
 export function verifyLauncherContract(projectRoot = PROJECT_ROOT) {
   const errors = [];
   let html = '';
+  let version = null;
 
   try {
     html = readRootHtml(projectRoot);
@@ -97,9 +105,25 @@ export function verifyLauncherContract(projectRoot = PROJECT_ROOT) {
   addError(errors, html.includes('launcher.js'), '根入口未加载 launcher.js');
   addError(errors, html.includes('choose=1'), '根入口缺少重新选择入口');
 
+  try {
+    const packageJson = JSON.parse(fs.readFileSync(path.join(projectRoot, 'package.json'), 'utf8'));
+    const packageLock = JSON.parse(fs.readFileSync(path.join(projectRoot, 'package-lock.json'), 'utf8'));
+    version = String(packageJson.version || '');
+    addError(errors, /^\d+\.\d+\.\d+$/.test(version), `package.json 版本号无效：${version}`);
+    addError(errors, packageLock.version === packageJson.version, 'package.json 与 package-lock.json 版本不一致');
+    addError(errors, packageLock.packages?.['']?.version === packageJson.version, 'package-lock 根包版本不一致');
+    for (const relativePath of RUNTIME_VERSION_FILES) {
+      const runtimeText = fs.readFileSync(path.join(projectRoot, relativePath), 'utf8');
+      addError(errors, runtimeText.includes(`v${version}`), `${relativePath} 未包含 v${version} 版本标识`);
+    }
+  } catch (error) {
+    errors.push(`无法验证版本合同：${error.message}`);
+  }
+
   return {
     ok: errors.length === 0,
     errors,
+    version,
     preschoolThemes,
     preschoolHrefs,
     generalVariants,
