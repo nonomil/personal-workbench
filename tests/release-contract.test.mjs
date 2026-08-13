@@ -20,7 +20,7 @@ test('release contract keeps five launcher entries in the published order', () =
 
 test('launcher exposes an accessible two-tier world selector', () => {
   const projectRoot = fileURLToPath(new URL('..', import.meta.url));
-  const html = fs.readFileSync(path.join(projectRoot, 'index.html'), 'utf8');
+  const html = fs.readFileSync(path.join(projectRoot, 'prj', 'index.html'), 'utf8');
 
   assert.match(html, /class="launcher-skip-link"[^>]*href="#launcher-content"/);
   assert.match(html, /<main[^>]*id="launcher-content"/);
@@ -38,6 +38,6 @@ test('Android workflow runs the web gates before uploading an APK', () => {
 
   assert.match(workflow, /run: npm test/);
   assert.match(workflow, /run: npm run release:verify/);
-  assert.match(workflow, /node --check launcher\.js/);
+  assert.match(workflow, /node --check prj\/launcher\.js/);
   assert.match(workflow, /test -s android\/app\/build\/outputs\/apk\/debug\/app-debug\.apk/);
 });

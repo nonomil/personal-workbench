@@ -8,7 +8,7 @@ globalThis.localStorage = {
   removeItem(key) { values.delete(key); }
 };
 
-await import('../family-interaction.js');
+await import('../prj/family-interaction.js');
 const family = globalThis.PersonalWorkbenchFamily;
 
 test('keeps a shared family feed in its own local snapshot', () => {

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-await import('../child-courses.js');
+await import('../prj/child-courses.js');
 const courses = globalThis.PersonalWorkbenchChildCourses;
 
 test('completes each lesson once and keeps subject progress isolated', () => {

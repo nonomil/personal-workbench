@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(root, '..');
+const contentRoot = path.join(projectRoot, 'prj');
 const outputRoot = path.join(projectRoot, 'dist');
 const files = [
   'index.html',
@@ -20,16 +21,16 @@ const files = [
   'styles.css',
   'preschool-pvz-final.css'
 ];
-const directories = ['成人成长工作台', '儿童学习工作台', 'preschool-workbench', 'assets', 'css'];
+const directories = ['成人成长工作台', '儿童学习工作台', 'preschool-workbench', 'assets', 'css', 'games'];
 
 await fs.rm(outputRoot, { recursive: true, force: true });
 await fs.mkdir(outputRoot, { recursive: true });
 
 for (const file of files) {
-  await fs.copyFile(path.join(projectRoot, file), path.join(outputRoot, file));
+  await fs.copyFile(path.join(contentRoot, file), path.join(outputRoot, file));
 }
 for (const directory of directories) {
-  await fs.cp(path.join(projectRoot, directory), path.join(outputRoot, directory), { recursive: true });
+  await fs.cp(path.join(contentRoot, directory), path.join(outputRoot, directory), { recursive: true });
 }
 
-console.log(`[prepare-mobile] copied ${files.length} files and ${directories.length} directories to dist/`);
+console.log(`[prepare-mobile] copied ${files.length} files and ${directories.length} directories from prj/ to dist/`);

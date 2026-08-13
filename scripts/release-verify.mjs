@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const SCRIPT_PATH = fileURLToPath(import.meta.url);
 const PROJECT_ROOT = path.resolve(path.dirname(SCRIPT_PATH), '..');
+const CONTENT_ROOT = path.join(PROJECT_ROOT, 'prj');
 
 export const PRESCHOOL_THEMES = [
   'garden-defense',
@@ -51,13 +52,13 @@ const RUNTIME_VERSION_FILES = [
   'preschool-workbench/index.html'
 ];
 
-function readRootHtml(projectRoot) {
-  return fs.readFileSync(path.join(projectRoot, 'index.html'), 'utf8');
+function readLauncherHtml(contentRoot) {
+  return fs.readFileSync(path.join(contentRoot, 'index.html'), 'utf8');
 }
 
-function sourcePathForHref(projectRoot, href) {
+function sourcePathForHref(contentRoot, href) {
   const withoutPrefix = href.replace(/^\.\//, '').split('?')[0];
-  return path.join(projectRoot, ...withoutPrefix.split('/'));
+  return path.join(contentRoot, ...withoutPrefix.split('/'));
 }
 
 function addError(errors, condition, message) {
@@ -66,15 +67,16 @@ function addError(errors, condition, message) {
 
 export function verifyLauncherContract(projectRoot = PROJECT_ROOT) {
   const errors = [];
+  const contentRoot = path.join(projectRoot, 'prj');
   let html = '';
   let version = null;
 
   try {
-    html = readRootHtml(projectRoot);
+    html = readLauncherHtml(contentRoot);
   } catch (error) {
     return {
       ok: false,
-      errors: [`无法读取根入口 index.html：${error.message}`],
+      errors: [`无法读取 prj/index.html：${error.message}`],
       preschoolThemes: [],
       generalVariants: [],
       checkedAssets: 0
@@ -96,14 +98,14 @@ export function verifyLauncherContract(projectRoot = PROJECT_ROOT) {
   addError(errors, JSON.stringify(generalVariants) === JSON.stringify(GENERAL_VARIANTS), `通用入口顺序或数量错误：${generalVariants.join(', ')}`);
 
   for (const card of LAUNCHER_CARDS) {
-    addError(errors, html.includes(`href="${card.href}"`), `根入口缺少链接：${card.href}`);
-    addError(errors, html.includes(`src="${card.asset}"`), `根入口缺少卡片素材引用：${card.asset}`);
-    addError(errors, fs.existsSync(sourcePathForHref(projectRoot, card.href)), `入口目标不存在：${card.href}`);
-    addError(errors, fs.existsSync(sourcePathForHref(projectRoot, card.asset)), `卡片素材文件不存在：${card.asset}`);
+    addError(errors, html.includes(`href="${card.href}"`), `入口缺少链接：${card.href}`);
+    addError(errors, html.includes(`src="${card.asset}"`), `入口缺少卡片素材引用：${card.asset}`);
+    addError(errors, fs.existsSync(sourcePathForHref(contentRoot, card.href)), `入口目标不存在：${card.href}`);
+    addError(errors, fs.existsSync(sourcePathForHref(contentRoot, card.asset)), `卡片素材文件不存在：${card.asset}`);
   }
 
-  addError(errors, html.includes('launcher.js'), '根入口未加载 launcher.js');
-  addError(errors, html.includes('choose=1'), '根入口缺少重新选择入口');
+  addError(errors, html.includes('launcher.js'), '入口未加载 launcher.js');
+  addError(errors, html.includes('choose=1'), '入口缺少重新选择入口');
 
   try {
     const packageJson = JSON.parse(fs.readFileSync(path.join(projectRoot, 'package.json'), 'utf8'));
@@ -113,8 +115,8 @@ export function verifyLauncherContract(projectRoot = PROJECT_ROOT) {
     addError(errors, packageLock.version === packageJson.version, 'package.json 与 package-lock.json 版本不一致');
     addError(errors, packageLock.packages?.['']?.version === packageJson.version, 'package-lock 根包版本不一致');
     for (const relativePath of RUNTIME_VERSION_FILES) {
-      const runtimeText = fs.readFileSync(path.join(projectRoot, relativePath), 'utf8');
-      addError(errors, runtimeText.includes(`v${version}`), `${relativePath} 未包含 v${version} 版本标识`);
+      const runtimeText = fs.readFileSync(path.join(contentRoot, relativePath), 'utf8');
+      addError(errors, runtimeText.includes(`v${version}`), `prj/${relativePath} 未包含 v${version} 版本标识`);
     }
   } catch (error) {
     errors.push(`无法验证版本合同：${error.message}`);
@@ -128,7 +130,8 @@ export function verifyLauncherContract(projectRoot = PROJECT_ROOT) {
     preschoolHrefs,
     generalVariants,
     generalHrefs,
-    checkedAssets: LAUNCHER_CARDS.length
+    checkedAssets: LAUNCHER_CARDS.length,
+    contentRoot: CONTENT_ROOT
   };
 }
 

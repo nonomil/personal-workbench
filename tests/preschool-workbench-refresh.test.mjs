@@ -15,12 +15,12 @@ globalThis.localStorage = {
   removeItem() {}
 };
 
-await import('../preschool-garden.js?refresh=20260731');
-await import('../child-growth.js?refresh=20260731');
-await import('../storage.js?refresh=20260731');
+await import('../prj/preschool-garden.js?refresh=20260731');
+await import('../prj/child-growth.js?refresh=20260731');
+await import('../prj/storage.js?refresh=20260731');
 
 const storage = globalThis.PersonalWorkbenchStorage;
-const root = fileURLToPath(new URL('..', import.meta.url));
+const root = path.join(fileURLToPath(new URL('..', import.meta.url)), 'prj');
 
 test('seeds six preschool workbench quests across learning and life lanes', () => {
   const state = storage.createSeedState();
@@ -105,10 +105,11 @@ test('keeps preschool plans in one editable list instead of a fixed core and col
 
 test('bumps preschool runtime assets when the editable plan interaction changes', () => {
   const html = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
-  assert.match(html, /preschool-workbench\.css\?v=20260806-three-theme-shell-v1/);
+  assert.match(html, /preschool-workbench\.css\?v=20260813-real-workflow-card-v1/);
   assert.match(html, /config\.js\?v=20260806-light-evidence-loop-v1/);
   assert.match(html, /storage\.js\?v=20260806-three-theme-shell-v1/);
-  assert.match(html, /app\.js\?v=20260806-three-theme-shell-v1/);
+  assert.match(html, /app\.js\?v=20260813-real-workflow-card-v1/);
+  assert.match(html, /workbench-bridge\.js\?v=20260807-longterm-meta-v1/);
 });
 
 test('updates from the visible preschool snapshot when persistence is one revision behind', () => {
@@ -543,6 +544,30 @@ test('translates the reference dashboard rhythm into existing preschool state', 
   assert.match(preschoolStyleGraph, /@media \(max-width: 760px\)[\s\S]*preschool-home-rhythm/);
 });
 
+test('puts a single real-work workflow card above preschool home check-in lanes', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const styles = fs.readFileSync(path.join(root, 'css', 'preschool', '24-game-study-loop.css'), 'utf8');
+  const html = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
+  const workflowStart = app.indexOf('function getPreschoolHomeWorkflow');
+  const workflowRenderStart = app.indexOf('function renderPreschoolHomeWorkflowCard');
+  const homeStart = app.indexOf('function renderPreschoolHomeOverview(derived)');
+  const homeEnd = app.indexOf('function renderPreschoolPage(derived)', homeStart);
+  const homeTemplate = app.slice(homeStart, homeEnd);
+  const workflowRender = workflowRenderStart === -1 ? '' : app.slice(workflowRenderStart, homeStart);
+  assert.notEqual(workflowStart, -1);
+  assert.notEqual(workflowRenderStart, -1);
+  assert.match(homeTemplate, /renderPreschoolHomeWorkflowCard\(/);
+  assert.match(workflowRender, /open-plan-practice/);
+  assert.match(workflowRender, /已完成练习/);
+  assert.match(workflowRender, /open-world-game/);
+  assert.doesNotMatch(workflowRender, /toggle-plan/);
+  assert.doesNotMatch(workflowRender, /再完成\s*\d+\s*项打卡/);
+  assert.match(app, /item\.done && item\.completionSource === 'practice'/);
+  assert.match(styles, /preschool-home-workflow/);
+  assert.match(html, /app\.js\?v=20260813-real-workflow-card-v1/);
+  assert.doesNotMatch(app, /首页只负责打卡/);
+});
+
 test('connects the preschool home to the game-study loop without nesting the lesson engine', () => {
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
   const styles = readCssGraph(path.join(root, 'styles.css'));
@@ -608,6 +633,33 @@ test('accepts the launcher theme query before the preschool page renders', () =>
   assert.match(app, /function getRequestedPreschoolTheme\(\)/);
   assert.match(app, /new URLSearchParams\(location\.search/);
   assert.match(app, /state = Object\.assign\(\{\}, state, \{ preschoolTheme: requestedPreschoolTheme \}\)/);
+});
+
+test('in-app switcher exposes five entries including three preschool themes', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const config = fs.readFileSync(path.join(root, 'config.js'), 'utf8');
+  const styles = fs.readFileSync(path.join(root, 'css', 'child.css'), 'utf8');
+  assert.match(app, /function getWorkbenchSwitchEntries\(\)/);
+  assert.match(app, /getWorkbenchSwitchEntries\(\)/);
+  assert.match(app, /data-workbench-theme="\$\{escapeHtml\(entry\.theme\)\}"|data-workbench-theme="\$\{escapeHtml\(themeId\)\}"/);
+  assert.match(app, /theme=garden-defense/);
+  assert.match(app, /theme=voxel-adventure/);
+  assert.match(app, /theme=platform-quest/);
+  assert.match(app, /五个入口/);
+  assert.match(config, /data-workbench-theme/);
+  assert.match(styles, /workbench-switch-grid[\s\S]*repeat\(auto-fit|repeat\(2|repeat\(3|minmax\(0, 1fr\)/);
+});
+
+test('voxel and platform themes use their own game-like home and battle playbooks', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  assert.match(app, /function getPreschoolThemePlaybook\(\)/);
+  assert.match(app, /voxel-adventure[\s\S]*方块|我的世界|晶体|基地/);
+  assert.match(app, /platform-quest[\s\S]*闯关|金币|平台|旗/);
+  assert.match(app, /getPreschoolThemePlaybook\(\)/);
+  assert.match(app, /playbook\.homeTitle|playbook\.homeKicker|homeTitle:/);
+  assert.match(app, /playbook\.battleTitle|battleTitle:/);
+  assert.match(app, /voxel-grass-block|voxel-block-tree|voxel-purple-crystal/);
+  assert.match(app, /platform-grass-platform|platform-brick|platform-coin|platform-flag/);
 });
 
 test('keeps preschool mobile status cards readable at reference widths', () => {

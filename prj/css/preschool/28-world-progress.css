@@ -1,0 +1,463 @@
+/* 首页 · 三世界进度 + 今日游戏阳光 */
+
+.preschool-world-progress {
+    margin: 0 0 18px;
+    padding: 16px;
+    border: 3px solid rgba(45, 135, 72, .14);
+    border-radius: 22px;
+    background:
+        radial-gradient(circle at 12% 0%, rgba(255, 236, 140, .45), transparent 36%),
+        linear-gradient(180deg, #fffdf6, #f3faf0);
+    box-shadow: 0 10px 24px rgba(47, 61, 42, .06);
+}
+
+.preschool-world-progress-banner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.preschool-world-progress-banner h2 {
+    margin: 4px 0 6px;
+    font-size: clamp(18px, 2.4vw, 24px);
+}
+
+.preschool-world-progress-banner p {
+    margin: 0;
+    color: #5f6f55;
+    font-size: 13px;
+    line-height: 1.45;
+    max-width: 42ch;
+}
+
+.preschool-world-daily-sun {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    min-width: min(100%, 280px);
+    padding: 12px 14px;
+    border-radius: 16px;
+    border: 2px solid rgba(224, 184, 74, .45);
+    background: linear-gradient(160deg, #fff8d8, #fffef6);
+}
+
+.preschool-world-daily-sun img,
+.preschool-world-daily-sun .preschool-generated-art {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.preschool-world-daily-sun strong {
+    display: block;
+    font-size: 14px;
+}
+
+.preschool-world-daily-sun small {
+    display: block;
+    margin-top: 4px;
+    color: #8a6a20;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.preschool-world-progress-bar {
+    position: relative;
+    height: 10px;
+    margin-top: 8px;
+    border-radius: 999px;
+    overflow: hidden;
+    background: rgba(47, 61, 42, .1);
+}
+
+.preschool-world-progress-bar > i {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #7ec85a, #2d8748);
+    transition: width .25s ease;
+}
+
+.preschool-world-progress-bar.is-sun > i {
+    background: linear-gradient(90deg, #ffd56a, #f0a830);
+}
+
+.preschool-world-progress-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.preschool-world-progress-card {
+    display: grid;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 16px;
+    border: 2px solid rgba(47, 61, 42, .1);
+    background: rgba(255, 255, 255, .88);
+}
+
+.preschool-world-progress-card.theme-garden-defense {
+    border-top: 4px solid #2d8748;
+}
+
+.preschool-world-progress-card.theme-voxel-adventure {
+    border-top: 4px solid #3d5ccc;
+}
+
+.preschool-world-progress-card.theme-platform-quest {
+    border-top: 4px solid #e54139;
+}
+
+.preschool-world-progress-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    align-items: baseline;
+    font-weight: 850;
+}
+
+.preschool-world-progress-head span {
+    color: #5f6f55;
+    font-size: 12px;
+}
+
+.preschool-world-progress-card small {
+    color: #6a7a62;
+    font-size: 12px;
+    line-height: 1.35;
+}
+
+.preschool-world-progress-go {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 40px;
+    margin-top: 2px;
+    padding: 0 12px;
+    border-radius: 12px;
+    border: 2px solid rgba(47, 61, 42, .14);
+    background: #f4fbe8;
+    color: #2f3d2a;
+    font-weight: 850;
+    cursor: pointer;
+}
+
+.preschool-world-progress-go:hover {
+    border-color: #2d8748;
+    background: #e8f7d8;
+}
+
+.preschool-adventure-meta {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 14px;
+    margin-bottom: 14px;
+    padding: 14px;
+    border-radius: 16px;
+    border: 2px solid rgba(45, 135, 72, .16);
+    background: linear-gradient(135deg, rgba(255, 248, 216, .75), rgba(232, 247, 216, .9));
+}
+
+.preschool-adventure-meta h3 {
+    margin: 4px 0 6px;
+    font-size: 18px;
+}
+
+.preschool-adventure-meta p,
+.preschool-adventure-meta small {
+    margin: 0;
+    color: #5f6f55;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.preschool-adventure-meta .preschool-world-progress-bar {
+    margin: 8px 0;
+}
+
+.preschool-world-progress-bar.is-week > i {
+    background: linear-gradient(90deg, #6aa8ff, #3d5ccc);
+}
+
+.preschool-adventure-stamps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 8px 0 4px;
+}
+
+.preschool-adventure-stamp {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 0 10px;
+    border-radius: 999px;
+    border: 2px dashed rgba(47, 61, 42, .2);
+    background: rgba(255, 255, 255, .7);
+    font-size: 12px;
+    font-weight: 800;
+    color: #7a8a74;
+}
+
+.preschool-adventure-stamp.is-on {
+    border-style: solid;
+    border-color: #2d8748;
+    background: #e8f7d8;
+    color: #1f5a32;
+}
+
+.preschool-adventure-meta-side strong {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.preschool-adventure-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 8px;
+}
+
+.preschool-adventure-badge {
+    display: inline-flex;
+    padding: 4px 8px;
+    border-radius: 8px;
+    border: 1px solid rgba(47, 61, 42, .12);
+    background: rgba(255, 255, 255, .65);
+    font-size: 11px;
+    font-weight: 750;
+    color: #9aa498;
+}
+
+.preschool-adventure-badge.is-on {
+    background: #fff3c4;
+    border-color: #e0b84a;
+    color: #6a4e10;
+}
+
+@media (max-width: 900px) {
+    .preschool-world-progress-grid {
+        grid-template-columns: 1fr;
+    }
+    .preschool-adventure-meta {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* —— 本周冒险周报（成长页 / 家长页） —— */
+.preschool-weekly-report {
+    margin: 0 0 18px;
+    padding: 16px;
+    border: 3px solid rgba(45, 135, 72, .14);
+    border-radius: 22px;
+    background: linear-gradient(180deg, #fffef8, #f4faf0);
+    box-shadow: 0 10px 24px rgba(47, 61, 42, .06);
+}
+
+.preschool-weekly-report.is-parent {
+    border-color: rgba(61, 92, 204, .2);
+    background: linear-gradient(180deg, #f7f9ff, #f3faf0);
+}
+
+.preschool-weekly-report-head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.preschool-weekly-report-head h2 {
+    margin: 4px 0 6px;
+    font-size: clamp(18px, 2.4vw, 24px);
+}
+
+.preschool-weekly-report-head p {
+    margin: 0 0 8px;
+    color: #5f6f55;
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+.preschool-weekly-headline {
+    display: block;
+    margin: 0 0 4px;
+    font-size: 14px;
+    color: #2f3d2a;
+}
+
+.preschool-weekly-range {
+    color: #8a9a84;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.preschool-weekly-kpis {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(88px, 1fr));
+    gap: 8px;
+    min-width: min(100%, 240px);
+}
+
+.preschool-weekly-kpis span {
+    display: grid;
+    gap: 2px;
+    padding: 10px;
+    border-radius: 14px;
+    border: 2px solid rgba(47, 61, 42, .1);
+    background: rgba(255, 255, 255, .9);
+    text-align: center;
+}
+
+.preschool-weekly-kpis b {
+    font-size: 18px;
+    color: #2d8748;
+}
+
+.preschool-weekly-kpis small {
+    font-size: 11px;
+    color: #6a7a62;
+    font-weight: 750;
+}
+
+.preschool-weekly-days {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.preschool-weekly-day {
+    display: grid;
+    place-items: center;
+    gap: 2px;
+    min-height: 64px;
+    padding: 6px 4px;
+    border-radius: 12px;
+    border: 2px solid rgba(47, 61, 42, .08);
+    background: rgba(255, 255, 255, .75);
+    text-align: center;
+    font-weight: 800;
+}
+
+.preschool-weekly-day small {
+    font-size: 10px;
+    color: #8a9a84;
+}
+
+.preschool-weekly-day b {
+    font-size: 14px;
+}
+
+.preschool-weekly-day i {
+    font-style: normal;
+    font-size: 12px;
+    color: #b0b8aa;
+}
+
+.preschool-weekly-day.is-played {
+    border-color: rgba(45, 135, 72, .35);
+    background: #e8f7d8;
+}
+
+.preschool-weekly-day.is-played i { color: #2d8748; }
+
+.preschool-weekly-day.is-triple {
+    border-color: #e0b84a;
+    background: #fff3c4;
+}
+
+.preschool-weekly-day.is-triple i { color: #a07810; }
+
+.preschool-weekly-day.is-future {
+    opacity: .45;
+}
+
+.preschool-weekly-worlds {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.preschool-weekly-world {
+    display: grid;
+    gap: 6px;
+    padding: 12px;
+    border-radius: 14px;
+    border: 2px solid rgba(47, 61, 42, .1);
+    background: #fff;
+}
+
+.preschool-weekly-world.theme-garden-defense { border-top: 4px solid #2d8748; }
+.preschool-weekly-world.theme-voxel-adventure { border-top: 4px solid #3d5ccc; }
+.preschool-weekly-world.theme-platform-quest { border-top: 4px solid #e54139; }
+
+.preschool-weekly-world-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    font-weight: 850;
+    font-size: 13px;
+}
+
+.preschool-weekly-world small {
+    color: #6a7a62;
+    font-size: 12px;
+}
+
+.preschool-weekly-footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.preschool-weekly-badges strong,
+.preschool-weekly-tips strong {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+
+.preschool-weekly-tips ul {
+    margin: 0;
+    padding-left: 18px;
+    color: #5f6f55;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.preschool-weekly-empty {
+    color: #9aa498;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.preschool-weekly-note {
+    margin: 12px 0 0;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: rgba(61, 92, 204, .08);
+    color: #3d4a72;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.45;
+}
+
+@media (max-width: 900px) {
+    .preschool-weekly-worlds,
+    .preschool-weekly-footer {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .preschool-world-progress-bar > i {
+        transition: none;
+    }
+}

@@ -9,7 +9,7 @@ globalThis.localStorage = {
 };
 globalThis.PersonalWorkbenchConfig = { variant: 'child' };
 
-await import('../api-adapter.js');
+await import('../prj/api-adapter.js');
 const api = globalThis.PersonalWorkbenchApi;
 
 function response(status, payload) {

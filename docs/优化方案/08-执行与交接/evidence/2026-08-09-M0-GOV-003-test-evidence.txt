@@ -1,0 +1,820 @@
+M0-GOV-003 / GATE-0 condition-4 evidence
+========================================
+Project root: G:\StudyCode\个人工作台
+Evidence date (local): 2026-08-09
+Capture window start: 2026-08-09T01:34:53+08:00
+Capture window end:   2026-08-09T01:34:56+08:00
+Executor scope: bounded read-only verification; write only this evidence file
+Network: not used
+Git state: not modified
+Runtime/tests/package/release scripts/assets/prj: not modified
+
+COMMAND ORDER
+-------------
+1. npm test
+2. npm run release:verify   (only if 1 exit 0)
+3. node --check prj/app.js  (only if 2 exit 0)
+4. node --check prj/storage.js
+5. node --check prj/config.js
+
+EXIT CODES SUMMARY
+------------------
+1. npm test                    => 0
+2. npm run release:verify      => 0
+3. node --check prj/app.js     => 0
+4. node --check prj/storage.js => 0
+5. node --check prj/config.js  => 0
+
+================================================================
+COMMAND 1: npm test
+Working directory: G:\StudyCode\个人工作台
+Started:  2026-08-09T01:34:53+08:00
+Finished: 2026-08-09T01:34:55+08:00
+Exit code: 0
+--- combined stdout/stderr ---
+
+> personal-workbench@0.5.2 test
+> node --test tests/*.test.mjs
+
+TAP version 13
+# Subtest: keeps auth session separate and sends bearer credentials to the self-hosted API
+ok 1 - keeps auth session separate and sends bearer credentials to the self-hosted API
+  ---
+  duration_ms: 3.9411
+  type: 'test'
+  ...
+# Subtest: maps a selected child to snapshot pull and push endpoints
+ok 2 - maps a selected child to snapshot pull and push endpoints
+  ---
+  duration_ms: 2.7341
+  type: 'test'
+  ...
+# Subtest: returns a conflict result without hiding the server revision
+ok 3 - returns a conflict result without hiding the server revision
+  ---
+  duration_ms: 0.3915
+  type: 'test'
+  ...
+# Subtest: completes each lesson once and keeps subject progress isolated
+ok 4 - completes each lesson once and keeps subject progress isolated
+  ---
+  duration_ms: 1.2476
+  type: 'test'
+  ...
+# Subtest: calculates completion percentages for Chinese, math and English lessons
+ok 5 - calculates completion percentages for Chinese, math and English lessons
+  ---
+  duration_ms: 0.1994
+  type: 'test'
+  ...
+# Subtest: creates a child growth state with plant, unicorn and zombie branches
+ok 6 - creates a child growth state with plant, unicorn and zombie branches
+  ---
+  duration_ms: 1.6838
+  type: 'test'
+  ...
+# Subtest: awards an action once and adds one daily check-in bonus
+ok 7 - awards an action once and adds one daily check-in bonus
+  ---
+  duration_ms: 1.1973
+  type: 'test'
+  ...
+# Subtest: calculates streak rewards and unlocks pet styles as growth accumulates
+ok 8 - calculates streak rewards and unlocks pet styles as growth accumulates
+  ---
+  duration_ms: 2.0763
+  type: 'test'
+  ...
+# Subtest: claims a streak reward and clears a missed-day zombie on the next action
+ok 9 - claims a streak reward and clears a missed-day zombie on the next action
+  ---
+  duration_ms: 0.4532
+  type: 'test'
+  ...
+# Subtest: 儿童工作台入口继续使用独立 child 变体和共享持久化壳
+ok 10 - 儿童工作台入口继续使用独立 child 变体和共享持久化壳
+  ---
+  duration_ms: 1.0998
+  type: 'test'
+  ...
+# Subtest: 儿童首页包含冒险基地四个稳定结构
+ok 11 - 儿童首页包含冒险基地四个稳定结构
+  ---
+  duration_ms: 0.6219
+  type: 'test'
+  ...
+# Subtest: 儿童首页任务仍通过现有打卡动作，且不新增第二套积分入口
+ok 12 - 儿童首页任务仍通过现有打卡动作，且不新增第二套积分入口
+  ---
+  duration_ms: 0.7367
+  type: 'test'
+  ...
+# Subtest: 儿童版样式提供桌面两列、移动单列和减少动效规则
+ok 13 - 儿童版样式提供桌面两列、移动单列和减少动效规则
+  ---
+  duration_ms: 0.2754
+  type: 'test'
+  ...
+# Subtest: keeps a shared family feed in its own local snapshot
+ok 14 - keeps a shared family feed in its own local snapshot
+  ---
+  duration_ms: 5.1775
+  type: 'test'
+  ...
+# Subtest: rejects empty family messages and normalizes the author boundary
+ok 15 - rejects empty family messages and normalizes the author boundary
+  ---
+  duration_ms: 0.249
+  type: 'test'
+  ...
+# Subtest: accepts only the three supported workbench variants
+ok 16 - accepts only the three supported workbench variants
+  ---
+  duration_ms: 1.0082
+  type: 'test'
+  ...
+# Subtest: remembers a valid variant and ignores invalid stored values
+ok 17 - remembers a valid variant and ignores invalid stored values
+  ---
+  duration_ms: 0.1486
+  type: 'test'
+  ...
+# Subtest: resolves static paths for the root launcher and current workbench pages
+ok 18 - resolves static paths for the root launcher and current workbench pages
+  ---
+  duration_ms: 0.1447
+  type: 'test'
+  ...
+# Subtest: remembers a preschool theme without creating another workbench variant
+ok 19 - remembers a preschool theme without creating another workbench variant
+  ---
+  duration_ms: 0.1162
+  type: 'test'
+  ...
+# Subtest: never auto-redirects so the root launcher always shows multiple workbenches first
+ok 20 - never auto-redirects so the root launcher always shows multiple workbenches first
+  ---
+  duration_ms: 0.1008
+  type: 'test'
+  ...
+# Subtest: defines an isolated side-by-side wisdom garden palette comparison page
+ok 21 - defines an isolated side-by-side wisdom garden palette comparison page
+  ---
+  duration_ms: 2.3125
+  type: 'test'
+  ...
+# Subtest: 60 phonics lessons form a source-traceable continuous route
+ok 22 - 60 phonics lessons form a source-traceable continuous route
+  ---
+  duration_ms: 5.1667
+  type: 'test'
+  ...
+# Subtest: phonics words and sentences declare their taught-code boundary
+ok 23 - phonics words and sentences declare their taught-code boundary
+  ---
+  duration_ms: 1.7532
+  type: 'test'
+  ...
+# Subtest: keeps the 120-lesson reference bank separate from runtime phonics data
+ok 24 - keeps the 120-lesson reference bank separate from runtime phonics data
+  ---
+  duration_ms: 7.4302
+  type: 'test'
+  ...
+# Subtest: seeds three core preschool actions and three optional actions
+ok 25 - seeds three core preschool actions and three optional actions
+  ---
+  duration_ms: 8.6708
+  type: 'test'
+  ...
+# Subtest: adds required flags to legacy plans without changing completion state
+ok 26 - adds required flags to legacy plans without changing completion state
+  ---
+  duration_ms: 0.599
+  type: 'test'
+  ...
+# Subtest: provides a stable plan reward id without coupling it to the UI
+ok 27 - provides a stable plan reward id without coupling it to the UI
+  ---
+  duration_ms: 0.2297
+  type: 'test'
+  ...
+# Subtest: keeps the 60-day phonics pack as runtime content and reference bank separate
+ok 28 - keeps the 60-day phonics pack as runtime content and reference bank separate
+  ---
+  duration_ms: 3.3155
+  type: 'test'
+  ...
+# Subtest: creates a versioned five-lane six-column defense board
+ok 29 - creates a versioned five-lane six-column defense board
+  ---
+  duration_ms: 2.1908
+  type: 'test'
+  ...
+# Subtest: selects the active plant and places it once on an empty cell
+ok 30 - selects the active plant and places it once on an empty cell
+  ---
+  duration_ms: 0.5366
+  type: 'test'
+  ...
+# Subtest: rejects placement when sunlight is insufficient
+ok 31 - rejects placement when sunlight is insufficient
+  ---
+  duration_ms: 0.2135
+  type: 'test'
+  ...
+# Subtest: spawns three different zombies on different lanes with stable ids
+ok 32 - spawns three different zombies on different lanes with stable ids
+  ---
+  duration_ms: 2.4498
+  type: 'test'
+  ...
+# Subtest: keeps different zombie movement and health profiles observable
+ok 33 - keeps different zombie movement and health profiles observable
+  ---
+  duration_ms: 1.98
+  type: 'test'
+  ...
+# Subtest: wallnut blocks a zombie and never creates a projectile
+ok 34 - wallnut blocks a zombie and never creates a projectile
+  ---
+  duration_ms: 0.4892
+  type: 'test'
+  ...
+# Subtest: pea shooter creates a projectile while wallnut does not
+ok 35 - pea shooter creates a projectile while wallnut does not
+  ---
+  duration_ms: 0.6182
+  type: 'test'
+  ...
+# Subtest: preserves the active game snapshot across normalization
+ok 36 - preserves the active game snapshot across normalization
+  ---
+  duration_ms: 0.466
+  type: 'test'
+  ...
+# Subtest: does not resurrect defeated entities during normalization
+ok 37 - does not resurrect defeated entities during normalization
+  ---
+  duration_ms: 0.503
+  type: 'test'
+  ...
+# Subtest: creates a preschool garden with a starter plant and empty collection
+ok 38 - creates a preschool garden with a starter plant and empty collection
+  ---
+  duration_ms: 2.2707
+  type: 'test'
+  ...
+# Subtest: unlocks PVZ plant companions from lifetime sunlight
+ok 39 - unlocks PVZ plant companions from lifetime sunlight
+  ---
+  duration_ms: 0.2515
+  type: 'test'
+  ...
+# Subtest: records collection rewards once for learning events
+ok 40 - records collection rewards once for learning events
+  ---
+  duration_ms: 3.0229
+  type: 'test'
+  ...
+# Subtest: clears an active garden invader when a child completes an action
+ok 41 - clears an active garden invader when a child completes an action
+  ---
+  duration_ms: 0.4155
+  type: 'test'
+  ...
+# Subtest: grants one defense energy for a unique learning event
+ok 42 - grants one defense energy for a unique learning event
+  ---
+  duration_ms: 0.6056
+  type: 'test'
+  ...
+# Subtest: fires a pea only when the active plant is a shooter with an active invader and energy
+ok 43 - fires a pea only when the active plant is a shooter with an active invader and energy
+  ---
+  duration_ms: 0.5874
+  type: 'test'
+  ...
+# Subtest: gives each preschool plant a distinct skill and effect
+ok 44 - gives each preschool plant a distinct skill and effect
+  ---
+  duration_ms: 0.7608
+  type: 'test'
+  ...
+# Subtest: spawns a wave without resetting an existing active invader
+ok 45 - spawns a wave without resetting an existing active invader
+  ---
+  duration_ms: 0.4605
+  type: 'test'
+  ...
+# Subtest: stores preschool feedback preferences without changing learning data
+ok 46 - stores preschool feedback preferences without changing learning data
+  ---
+  duration_ms: 0.5954
+  type: 'test'
+  ...
+# Subtest: normalizes old growth snapshots without losing new garden state
+ok 47 - normalizes old growth snapshots without losing new garden state
+  ---
+  duration_ms: 0.5688
+  type: 'test'
+  ...
+# Subtest: settles a skill against an invader derived from a missed day
+ok 48 - settles a skill against an invader derived from a missed day
+  ---
+  duration_ms: 0.5321
+  type: 'test'
+  ...
+# Subtest: places the selected plant once and protects occupied cells
+ok 49 - places the selected plant once and protects occupied cells
+  ---
+  duration_ms: 0.5222
+  type: 'test'
+  ...
+# Subtest: every subject has a complete independent data and asset package
+ok 50 - every subject has a complete independent data and asset package
+  ---
+  duration_ms: 16.4902
+  type: 'test'
+  ...
+# Subtest: seeds six preschool workbench quests across learning and life lanes
+ok 51 - seeds six preschool workbench quests across learning and life lanes
+  ---
+  duration_ms: 4.002
+  type: 'test'
+  ...
+# Subtest: migrates an old three-quest preschool snapshot once without changing completed state
+ok 52 - migrates an old three-quest preschool snapshot once without changing completed state
+  ---
+  duration_ms: 8.6654
+  type: 'test'
+  ...
+# Subtest: exposes a sibling practice action for mapped preschool plans without nesting buttons
+ok 53 - exposes a sibling practice action for mapped preschool plans without nesting buttons
+  ---
+  duration_ms: 3.1445
+  type: 'test'
+  ...
+# Subtest: keeps quick-add task action beside the preschool battlefield heading
+ok 54 - keeps quick-add task action beside the preschool battlefield heading
+  ---
+  duration_ms: 3.1581
+  type: 'test'
+  ...
+# Subtest: keeps preschool plans in one editable list instead of a fixed core and collapsed optional split
+ok 55 - keeps preschool plans in one editable list instead of a fixed core and collapsed optional split
+  ---
+  duration_ms: 2.3228
+  type: 'test'
+  ...
+# Subtest: bumps preschool runtime assets when the editable plan interaction changes
+ok 56 - bumps preschool runtime assets when the editable plan interaction changes
+  ---
+  duration_ms: 0.3543
+  type: 'test'
+  ...
+# Subtest: updates from the visible preschool snapshot when persistence is one revision behind
+ok 57 - updates from the visible preschool snapshot when persistence is one revision behind
+  ---
+  duration_ms: 1.5028
+  type: 'test'
+  ...
+# Subtest: scopes preschool plan actions by date when daily seed ids repeat
+ok 58 - scopes preschool plan actions by date when daily seed ids repeat
+  ---
+  duration_ms: 4.6714
+  type: 'test'
+  ...
+# Subtest: preschool template normalization preserves renamed and custom daily plans
+ok 59 - preschool template normalization preserves renamed and custom daily plans
+  ---
+  duration_ms: 0.8883
+  type: 'test'
+  ...
+# Subtest: guards plan rewards across practice, cancel and direct check-in paths
+ok 60 - guards plan rewards across practice, cancel and direct check-in paths
+  ---
+  duration_ms: 3.0619
+  type: 'test'
+  ...
+# Subtest: synchronizes an already completed lesson into an unfinished source plan
+ok 61 - synchronizes an already completed lesson into an unfinished source plan
+  ---
+  duration_ms: 1.601
+  type: 'test'
+  ...
+# Subtest: turns the preschool garden base into a progress, achievement and collection dashboard
+ok 62 - turns the preschool garden base into a progress, achievement and collection dashboard
+  ---
+  duration_ms: 9.503
+  type: 'test'
+  ...
+# Subtest: merges reference learning zones into preschool resource cards
+ok 63 - merges reference learning zones into preschool resource cards
+  ---
+  duration_ms: 2.735
+  type: 'test'
+  ...
+# Subtest: exposes the reference workbench learning lanes as separate preschool navigation entries
+ok 64 - exposes the reference workbench learning lanes as separate preschool navigation entries
+  ---
+  duration_ms: 3.1333
+  type: 'test'
+  ...
+# Subtest: keeps preschool course content spacious and supports a focused learning lane
+ok 65 - keeps preschool course content spacious and supports a focused learning lane
+  ---
+  duration_ms: 5.606
+  type: 'test'
+  ...
+# Subtest: renders preschool courses as visual learning routes with clear step states
+ok 66 - renders preschool courses as visual learning routes with clear step states
+  ---
+  duration_ms: 7.9209
+  type: 'test'
+  ...
+# Subtest: keeps the refreshed reward tiers and five-lane defense contract in the preschool UI
+ok 67 - keeps the refreshed reward tiers and five-lane defense contract in the preschool UI
+  ---
+  duration_ms: 13.4666
+  type: 'test'
+  ...
+# Subtest: keeps preschool check-in cards visual and reward-led
+ok 68 - keeps preschool check-in cards visual and reward-led
+  ---
+  duration_ms: 12.4679
+  type: 'test'
+  ...
+# Subtest: uses transparent PVZ plants and zombie variants across the preschool defense UI
+ok 69 - uses transparent PVZ plants and zombie variants across the preschool defense UI
+  ---
+  duration_ms: 8.9498
+  type: 'test'
+  ...
+# Subtest: cycles through recognizable zombie variants as defense waves advance
+ok 70 - cycles through recognizable zombie variants as defense waves advance
+  ---
+  duration_ms: 0.3153
+  type: 'test'
+  ...
+# Subtest: keeps the 2026-07-31 visual refresh versioned and alpha-safe
+ok 71 - keeps the 2026-07-31 visual refresh versioned and alpha-safe
+  ---
+  duration_ms: 9.2695
+  type: 'test'
+  ...
+# Subtest: keeps the preschool defense preview visible and readable before an invasion starts
+ok 72 - keeps the preschool defense preview visible and readable before an invasion starts
+  ---
+  duration_ms: 6.5677
+  type: 'test'
+  ...
+# Subtest: keeps a defeated zombie in a temporary fall state before removing it
+ok 73 - keeps a defeated zombie in a temporary fall state before removing it
+  ---
+  duration_ms: 8.5443
+  type: 'test'
+  ...
+# Subtest: makes the preschool defense primary action state explicit
+ok 74 - makes the preschool defense primary action state explicit
+  ---
+  duration_ms: 6.1323
+  type: 'test'
+  ...
+# Subtest: keeps preschool reward feedback visible in the flat first-screen contract
+ok 75 - keeps preschool reward feedback visible in the flat first-screen contract
+  ---
+  duration_ms: 7.98
+  type: 'test'
+  ...
+# Subtest: uses a flat preschool battlefield overview while keeping the battle route separate
+ok 76 - uses a flat preschool battlefield overview while keeping the battle route separate
+  ---
+  duration_ms: 8.3171
+  type: 'test'
+  ...
+# Subtest: organizes the preschool home tasks as a responsive reference task wall
+ok 77 - organizes the preschool home tasks as a responsive reference task wall
+  ---
+  duration_ms: 8.3549
+  type: 'test'
+  ...
+# Subtest: translates the reference dashboard rhythm into existing preschool state
+ok 78 - translates the reference dashboard rhythm into existing preschool state
+  ---
+  duration_ms: 10.7877
+  type: 'test'
+  ...
+# Subtest: connects the preschool home to the game-study loop without nesting the lesson engine
+ok 79 - connects the preschool home to the game-study loop without nesting the lesson engine
+  ---
+  duration_ms: 13.291
+  type: 'test'
+  ...
+# Subtest: keeps the preschool workbench on the garden-green shell
+ok 80 - keeps the preschool workbench on the garden-green shell
+  ---
+  duration_ms: 0.6746
+  type: 'test'
+  ...
+# Subtest: keeps three preschool visual themes on one persisted workbench contract
+ok 81 - keeps three preschool visual themes on one persisted workbench contract
+  ---
+  duration_ms: 8.9685
+  type: 'test'
+  ...
+# Subtest: accepts the launcher theme query before the preschool page renders
+ok 82 - accepts the launcher theme query before the preschool page renders
+  ---
+  duration_ms: 1.5495
+  type: 'test'
+  ...
+# Subtest: in-app switcher exposes five entries including three preschool themes
+ok 83 - in-app switcher exposes five entries including three preschool themes
+  ---
+  duration_ms: 3.3043
+  type: 'test'
+  ...
+# Subtest: voxel and platform themes use their own game-like home and battle playbooks
+ok 84 - voxel and platform themes use their own game-like home and battle playbooks
+  ---
+  duration_ms: 2.4227
+  type: 'test'
+  ...
+# Subtest: keeps preschool mobile status cards readable at reference widths
+ok 85 - keeps preschool mobile status cards readable at reference widths
+  ---
+  duration_ms: 4.0231
+  type: 'test'
+  ...
+# Subtest: resets the page scroll position when switching workbench routes
+ok 86 - resets the page scroll position when switching workbench routes
+  ---
+  duration_ms: 1.2902
+  type: 'test'
+  ...
+# Subtest: gives preschool PVZ characters a gentle game idle animation with a reduced-motion fallback
+ok 87 - gives preschool PVZ characters a gentle game idle animation with a reduced-motion fallback
+  ---
+  duration_ms: 6.781
+  type: 'test'
+  ...
+# Subtest: keeps the approved WorkBuddy finish layer and mobile shortcut contract
+ok 88 - keeps the approved WorkBuddy finish layer and mobile shortcut contract
+  ---
+  duration_ms: 4.8356
+  type: 'test'
+  ...
+# Subtest: defines answerable activities for every preschool lesson
+ok 89 - defines answerable activities for every preschool lesson
+  ---
+  duration_ms: 0.878
+  type: 'test'
+  ...
+# Subtest: keeps preschool option art aligned with its answer choices
+ok 90 - keeps preschool option art aligned with its answer choices
+  ---
+  duration_ms: 1.5944
+  type: 'test'
+  ...
+# Subtest: keeps every literal runtime icon reference backed by the offline icon registry
+ok 91 - keeps every literal runtime icon reference backed by the offline icon registry
+  ---
+  duration_ms: 6.8168
+  type: 'test'
+  ...
+# Subtest: exposes the preschool lesson activity dialog contract
+ok 92 - exposes the preschool lesson activity dialog contract
+  ---
+  duration_ms: 3.2184
+  type: 'test'
+  ...
+# Subtest: keeps quick tests in the learning area instead of nesting them on the home page
+ok 93 - keeps quick tests in the learning area instead of nesting them on the home page
+  ---
+  duration_ms: 3.6746
+  type: 'test'
+  ...
+# Subtest: removes the duplicated preschool action path from the home page
+ok 94 - removes the duplicated preschool action path from the home page
+  ---
+  duration_ms: 4.125
+  type: 'test'
+  ...
+# Subtest: shows progress and current state in the preschool course directory
+ok 95 - shows progress and current state in the preschool course directory
+  ---
+  duration_ms: 5.3885
+  type: 'test'
+  ...
+# Subtest: keeps sidebar course lanes as the persistent navigation on focused course pages
+ok 96 - keeps sidebar course lanes as the persistent navigation on focused course pages
+  ---
+  duration_ms: 4.0984
+  type: 'test'
+  ...
+# Subtest: keeps the preschool sidebar visible in landscape and manually collapsible in portrait
+ok 97 - keeps the preschool sidebar visible in landscape and manually collapsible in portrait
+  ---
+  duration_ms: 8.3948
+  type: 'test'
+  ...
+# Subtest: restores the summer learning lane without loading the full library into the home page
+ok 98 - restores the summer learning lane without loading the full library into the home page
+  ---
+  duration_ms: 5.3922
+  type: 'test'
+  ...
+# Subtest: exposes one interactive 5x6 planting board and a drag-capable seed tray
+ok 99 - exposes one interactive 5x6 planting board and a drag-capable seed tray
+  ---
+  duration_ms: 6.2853
+  type: 'test'
+  ...
+# Subtest: routes plant skills by effect instead of animating every plant as a pea shooter
+ok 100 - routes plant skills by effect instead of animating every plant as a pea shooter
+  ---
+  duration_ms: 1.4823
+  type: 'test'
+  ...
+# Subtest: keeps product runtime under prj/ and toolchain at repo root
+ok 101 - keeps product runtime under prj/ and toolchain at repo root
+  ---
+  duration_ms: 2.9251
+  type: 'test'
+  ...
+# Subtest: prepare-mobile and release-verify read from prj/
+ok 102 - prepare-mobile and release-verify read from prj/
+  ---
+  duration_ms: 0.8155
+  type: 'test'
+  ...
+# Subtest: repo root keeps a thin Pages entry that points at prj launcher
+ok 103 - repo root keeps a thin Pages entry that points at prj launcher
+  ---
+  duration_ms: 1.1328
+  type: 'test'
+  ...
+# Subtest: release contract keeps five launcher entries in the published order
+ok 104 - release contract keeps five launcher entries in the published order
+  ---
+  duration_ms: 4.9191
+  type: 'test'
+  ...
+# Subtest: launcher exposes an accessible two-tier world selector
+ok 105 - launcher exposes an accessible two-tier world selector
+  ---
+  duration_ms: 2.1555
+  type: 'test'
+  ...
+# Subtest: Android workflow runs the web gates before uploading an APK
+ok 106 - Android workflow runs the web gates before uploading an APK
+  ---
+  duration_ms: 0.686
+  type: 'test'
+  ...
+# workbench contract: petbank_huchuliang_workbench_state_v1
+# Subtest: uses an isolated localStorage key and seeds a usable snapshot
+ok 107 - uses an isolated localStorage key and seeds a usable snapshot
+  ---
+  duration_ms: 6.37
+  type: 'test'
+  ...
+# Subtest: normalizes numeric ranges and preserves the snapshot shape
+ok 108 - normalizes numeric ranges and preserves the snapshot shape
+  ---
+  duration_ms: 0.9308
+  type: 'test'
+  ...
+# Subtest: updates revision and returns the saved state
+ok 109 - updates revision and returns the saved state
+  ---
+  duration_ms: 1.4723
+  type: 'test'
+  ...
+# Subtest: remote adapter reports local mode without making a network call
+ok 110 - remote adapter reports local mode without making a network call
+  ---
+  duration_ms: 0.3297
+  type: 'test'
+  ...
+# Subtest: keeps adult, child and preschool entry points isolated
+ok 111 - keeps adult, child and preschool entry points isolated
+  ---
+  duration_ms: 11.0124
+  type: 'test'
+  ...
+# Subtest: publishes versioned CSS manifests and nested preschool assets
+ok 112 - publishes versioned CSS manifests and nested preschool assets
+  ---
+  duration_ms: 13.2584
+  type: 'test'
+  ...
+# Subtest: keeps the adult dashboard and workbench switcher inside a phone viewport
+ok 113 - keeps the adult dashboard and workbench switcher inside a phone viewport
+  ---
+  duration_ms: 0.756
+  type: 'test'
+  ...
+# Subtest: preschool home surfaces three world progress and daily game sun cap
+ok 114 - preschool home surfaces three world progress and daily game sun cap
+  ---
+  duration_ms: 5.4055
+  type: 'test'
+  ...
+# Subtest: each world game is a self-contained folder with data and growth bridge
+ok 115 - each world game is a self-contained folder with data and growth bridge
+  ---
+  duration_ms: 2.5873
+  type: 'test'
+  ...
+# Subtest: each world game ships local stage-themed assets under its own assets folder
+ok 116 - each world game ships local stage-themed assets under its own assets folder
+  ---
+  duration_ms: 0.931
+  type: 'test'
+  ...
+# Subtest: growth content tables expose multiple stages or quests
+ok 117 - growth content tables expose multiple stages or quests
+  ---
+  duration_ms: 0.5309
+  type: 'test'
+  ...
+# Subtest: keeps three mini-game worlds in a separate games folder from workbench shell
+ok 118 - keeps three mini-game worlds in a separate games folder from workbench shell
+  ---
+  duration_ms: 3.289
+  type: 'test'
+  ...
+# Subtest: preschool workbench routes all three themes to independent world games
+ok 119 - preschool workbench routes all three themes to independent world games
+  ---
+  duration_ms: 3.8877
+  type: 'test'
+  ...
+1..119
+# tests 119
+# suites 0
+# pass 119
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 966.6093
+
+================================================================
+COMMAND 2: npm run release:verify
+Working directory: G:\StudyCode\个人工作台
+Started:  2026-08-09T01:34:55+08:00
+Finished: 2026-08-09T01:34:55+08:00
+Exit code: 0
+--- combined stdout/stderr ---
+
+> personal-workbench@0.5.2 release:verify
+> node scripts/release-verify.mjs
+
+[release-verify] ok: 3 preschool themes + 2 general workbenches; 5 assets checked
+
+================================================================
+COMMAND 3: node --check prj/app.js
+Working directory: G:\StudyCode\个人工作台
+Started:  2026-08-09T01:34:55+08:00
+Finished: 2026-08-09T01:34:56+08:00
+Exit code: 0
+--- combined stdout/stderr ---
+(empty)
+
+================================================================
+COMMAND 4: node --check prj/storage.js
+Working directory: G:\StudyCode\个人工作台
+Started:  2026-08-09T01:34:56+08:00
+Finished: 2026-08-09T01:34:56+08:00
+Exit code: 0
+--- combined stdout/stderr ---
+(empty)
+
+================================================================
+COMMAND 5: node --check prj/config.js
+Working directory: G:\StudyCode\个人工作台
+Started:  2026-08-09T01:34:56+08:00
+Finished: 2026-08-09T01:34:56+08:00
+Exit code: 0
+--- combined stdout/stderr ---
+(empty)
+
+================================================================
+CONSERVATIVE CONCLUSION
+-----------------------
+GATE-0 condition-4 (local consumer verification commands) PASSED on this machine at the timestamps above.
+All five ordered commands exited 0.
+npm test reported: tests 119, pass 119, fail 0 (see raw output).
+npm run release:verify reported ok for preschool themes + general workbenches + assets checked.
+node --check on prj/app.js, prj/storage.js, prj/config.js: all exit 0 (empty diagnostics = syntax OK).
+
+NOT claimed:
+- GATE-0 READY overall is NOT claimed.
+- GATE-0 condition 2 (662 root deletion mapping) is separate and remains UNVERIFIED.
+- No commit, push, publish, or APK performed.
+- No runtime/test/package/release-script/docs (other than this file)/assets/prj/git modifications in this slice.
+
+NOT_RUN: none (all five ordered commands were executed).

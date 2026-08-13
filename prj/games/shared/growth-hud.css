@@ -1,0 +1,56 @@
+/* 三世界共用：成长 HUD */
+.growth-hud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+.growth-hud .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 36px;
+    padding: 0 12px;
+    border-radius: 999px;
+    border: 2px solid rgba(0,0,0,.12);
+    background: rgba(255,253,246,.95);
+    font-weight: 800;
+    font-size: 13px;
+}
+.growth-hud .chip b { color: #2d8748; }
+.stage-map {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+    margin: 10px 0;
+}
+.stage-card {
+    text-align: left;
+    padding: 12px;
+    border: 2px solid rgba(0,0,0,.12);
+    border-radius: 14px;
+    background: #fffef8;
+    cursor: pointer;
+    font-weight: 700;
+}
+.stage-card small { display: block; color: #6a6a6a; font-weight: 600; margin-top: 4px; }
+.stage-card.is-locked { opacity: .45; cursor: not-allowed; }
+.stage-card.is-current { border-color: #f0c14a; box-shadow: 0 0 0 3px rgba(240,193,74,.35); }
+.stage-card .stars { color: #e6a800; letter-spacing: 2px; }
+.toast-game {
+    position: fixed;
+    left: 50%;
+    bottom: 24px;
+    transform: translateX(-50%);
+    z-index: 50;
+    padding: 12px 18px;
+    border-radius: 14px;
+    background: rgba(40,50,40,.92);
+    color: #fffdf8;
+    font-weight: 800;
+    max-width: 90vw;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .25s;
+}
+.toast-game.is-on { opacity: 1; }

@@ -8,7 +8,7 @@ globalThis.localStorage = {
   removeItem(key) { values.delete(key); }
 };
 
-await import('../launcher.js');
+await import('../prj/launcher.js');
 const launcher = globalThis.PersonalWorkbenchLauncher;
 
 test('accepts only the three supported workbench variants', () => {
@@ -44,10 +44,12 @@ test('remembers a preschool theme without creating another workbench variant', (
   assert.equal(launcher.getSelectedTheme(), null);
 });
 
-test('only auto-redirects when a remembered choice exists and choose mode is absent', () => {
+test('never auto-redirects so the root launcher always shows multiple workbenches first', () => {
   launcher.remember('preschool');
-  assert.equal(launcher.shouldAutoRedirect(''), true);
+  assert.equal(launcher.shouldAutoRedirect(''), false);
   assert.equal(launcher.shouldAutoRedirect('?choose=1'), false);
   values.delete(launcher.KEY);
   assert.equal(launcher.shouldAutoRedirect(''), false);
+  launcher.remember('child');
+  assert.equal(launcher.shouldAutoRedirect('?foo=1'), false);
 });

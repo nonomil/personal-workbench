@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-await import('../preschool-garden.js');
+await import('../prj/preschool-garden.js');
 const gardenEngine = globalThis.PersonalWorkbenchPreschoolGarden;
 
 function growthWithSunlight(sunlight = 200) {

@@ -16,7 +16,7 @@ globalThis.localStorage = {
   removeItem(key) { values.delete(key); }
 };
 
-await import('../storage.js?preschool-daily-plan-contract');
+await import('../prj/storage.js?preschool-daily-plan-contract');
 const storage = globalThis.PersonalWorkbenchStorage;
 
 test('seeds three core preschool actions and three optional actions', () => {
@@ -71,7 +71,7 @@ test('provides a stable plan reward id without coupling it to the UI', () => {
 });
 
 test('keeps the 60-day phonics pack as runtime content and reference bank separate', () => {
-  const root = fileURLToPath(new URL('..', import.meta.url));
+  const root = path.join(fileURLToPath(new URL('..', import.meta.url)), 'prj');
   const lessons = JSON.parse(fs.readFileSync(path.join(root, 'data', 'preschool', 'english', 'phonics', 'lessons.json'), 'utf8'));
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
   assert.equal(lessons.length, 60);

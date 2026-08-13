@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', 'prj');
 const dataDir = path.join(root, 'data', 'preschool', 'english', 'phonics');
 const source = { kind: 'project-original', license: 'project-original', attribution: '个人工作台自然拼读课程组' };
 

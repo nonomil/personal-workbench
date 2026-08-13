@@ -12,8 +12,8 @@ globalThis.localStorage = {
   removeItem(key) { values.delete(key); }
 };
 
-await import('../storage.js');
-await import('../api-adapter.js');
+await import('../prj/storage.js');
+await import('../prj/api-adapter.js');
 
 const storage = globalThis.PersonalWorkbenchStorage;
 
@@ -77,13 +77,14 @@ test('remote adapter reports local mode without making a network call', async ()
 
 test('keeps adult, child and preschool entry points isolated', () => {
   const root = fileURLToPath(new URL('..', import.meta.url));
-  const adultHtml = fs.readFileSync(path.join(root, '成人成长工作台', 'index.html'), 'utf8');
-  const childHtml = fs.readFileSync(path.join(root, '儿童学习工作台', 'index.html'), 'utf8');
-  const preschoolHtml = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
-  const legacyPreschoolHtml = fs.readFileSync(path.join(root, '幼儿学习工作台', 'index.html'), 'utf8');
-  const rootHtml = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-  const config = fs.readFileSync(path.join(root, 'config.js'), 'utf8');
-  const launcher = fs.readFileSync(path.join(root, 'launcher.js'), 'utf8');
+  const contentRoot = path.join(root, 'prj');
+  const adultHtml = fs.readFileSync(path.join(contentRoot, '成人成长工作台', 'index.html'), 'utf8');
+  const childHtml = fs.readFileSync(path.join(contentRoot, '儿童学习工作台', 'index.html'), 'utf8');
+  const preschoolHtml = fs.readFileSync(path.join(contentRoot, 'preschool-workbench', 'index.html'), 'utf8');
+  const legacyPreschoolHtml = fs.readFileSync(path.join(contentRoot, '幼儿学习工作台', 'index.html'), 'utf8');
+  const rootHtml = fs.readFileSync(path.join(contentRoot, 'index.html'), 'utf8');
+  const config = fs.readFileSync(path.join(contentRoot, 'config.js'), 'utf8');
+  const launcher = fs.readFileSync(path.join(contentRoot, 'launcher.js'), 'utf8');
   const packageJson = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
   const capacitorConfig = JSON.parse(fs.readFileSync(path.join(root, 'capacitor.config.json'), 'utf8'));
   const workflow = fs.readFileSync(path.join(root, '.github', 'workflows', 'android-apk.yml'), 'utf8');
@@ -144,11 +145,18 @@ test('keeps adult, child and preschool entry points isolated', () => {
   assert.match(config, /topbar-mode-link/);
   assert.match(config, /topbar-workbench-switcher/);
   assert.match(config, /dataset\.workbenchVariant/);
-  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
-  const styles = readCssGraph(path.join(root, 'styles.css'));
+  const app = fs.readFileSync(path.join(contentRoot, 'app.js'), 'utf8');
+  const styles = readCssGraph(path.join(contentRoot, 'styles.css'));
   assert.match(app, /workbench-switcher-panel/);
   assert.match(app, /renderWorkbenchSwitcher/);
   assert.match(app, /renderSettings[\s\S]*renderWorkbenchSwitcher/);
+  assert.match(app, /function getWorkbenchSwitchEntries/);
+  assert.match(app, /theme=garden-defense/);
+  assert.match(app, /theme=voxel-adventure/);
+  assert.match(app, /theme=platform-quest/);
+  assert.match(app, /五个入口/);
+  assert.match(config, /data-workbench-theme/);
+  assert.match(config, /theme=garden-defense|theme=\$\{|theme=\$\{encodeURIComponent/);
   assert.equal(capacitorConfig.appId, 'com.nonomil.personalworkbench');
   assert.equal(capacitorConfig.webDir, 'dist');
   assert.equal(packageJson.scripts['android:init'], 'npm run android:prepare && cap add android');
@@ -176,7 +184,7 @@ test('keeps adult, child and preschool entry points isolated', () => {
 });
 
 test('publishes versioned CSS manifests and nested preschool assets', () => {
-  const root = fileURLToPath(new URL('..', import.meta.url));
+  const root = path.join(fileURLToPath(new URL('..', import.meta.url)), 'prj');
   const manifests = {
     adult: path.join(root, 'css', 'adult-workbench.css'),
     child: path.join(root, 'css', 'child-workbench.css'),
@@ -193,7 +201,7 @@ test('publishes versioned CSS manifests and nested preschool assets', () => {
 });
 
 test('keeps the adult dashboard and workbench switcher inside a phone viewport', () => {
-  const root = fileURLToPath(new URL('..', import.meta.url));
+  const root = path.join(fileURLToPath(new URL('..', import.meta.url)), 'prj');
   const adultStyles = fs.readFileSync(path.join(root, 'css', 'adult.css'), 'utf8');
   assert.match(adultStyles, /body\.variant-adult \.dashboard-grid \{[^}]*grid-template-columns:\s*minmax\(0, 1fr\)/);
   assert.match(adultStyles, /body\.variant-adult \.dashboard-column \{[^}]*min-width:\s*0/);

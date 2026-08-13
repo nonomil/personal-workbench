@@ -4,7 +4,7 @@ import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
 
-const root = fileURLToPath(new URL('..', import.meta.url));
+const root = path.join(fileURLToPath(new URL('..', import.meta.url)), 'prj');
 const pagePath = path.join(root, 'visual-tests', '智慧花园配色对比测试.html');
 
 test('defines an isolated side-by-side wisdom garden palette comparison page', () => {

@@ -23,3 +23,6 @@ ios/
 .capacitor/
 *.apk
 *.aab
+
+# Local cleanup archive (old-project worktree backups, 2026-08-06)
+personal-workbench-cleanup-20260806/

@@ -2,10 +2,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const root = path.join(repoRoot, 'prj');
 const preschoolDataRoot = path.join(root, 'data', 'preschool');
 const preschoolAssetRoot = path.join(root, 'assets', 'generated', 'preschool');
-const tmpRoot = path.join(root, 'tmp');
+const tmpRoot = path.join(repoRoot, 'tmp');
 
 const source = { kind: 'project-original', license: 'project-original', attribution: '个人工作台幼儿课程组' };
 const reviewRules = {

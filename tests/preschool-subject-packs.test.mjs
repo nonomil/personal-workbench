@@ -4,7 +4,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const root = path.join(repoRoot, 'prj');
 const subjects = [
     ['识字', 'preschool-hanzi', 'character-bank.json'],
     ['数学', 'preschool-math', 'problem-bank.json'],
@@ -26,7 +27,7 @@ const readJson = file => JSON.parse(fs.readFileSync(file, 'utf8'));
 
 test('every subject has a complete independent data and asset package', () => {
     for (const [folder, routeId, bankFile] of subjects) {
-        const docsDir = path.join(root, 'docs', folder);
+        const docsDir = path.join(repoRoot, 'docs', folder);
         const dataDir = path.join(root, 'data', 'preschool', folder);
         const assetDir = path.join(root, 'assets', 'generated', 'preschool', folder);
         for (const file of requiredDocFiles) {
@@ -52,7 +53,7 @@ test('every subject has a complete independent data and asset package', () => {
         assert.equal(manifest.policy.unknownLicensePublishable, false);
         assert.equal(fs.existsSync(path.join(assetDir, 'original')), true);
         assert.equal(fs.existsSync(path.join(assetDir, 'external')), true);
-        assert.equal(fs.existsSync(path.join(root, 'tmp')), false, 'temporary downloads must stay outside the release tree');
+        assert.equal(fs.existsSync(path.join(repoRoot, 'tmp')), false, 'temporary downloads must stay outside the release tree');
 
         for (const lesson of lessons) {
             assert.equal(lesson.routeId, routeId);

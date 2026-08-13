@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-await import('../child-growth.js');
+await import('../prj/child-growth.js');
 const growthEngine = globalThis.PersonalWorkbenchChildGrowth;
 
 test('creates a child growth state with plant, unicorn and zombie branches', () => {

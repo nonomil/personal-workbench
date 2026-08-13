@@ -1,0 +1,45 @@
+你是“个人工作台减重与模块化专项”的独立门禁审查员。本轮不得调用任何工具，不得读取或修改文件，不得启动子代理，不得联网。你只能依据下方已经由 Codex 实际执行并收集的事实包做判断。
+
+目标：判断是否可以从 GATE-0 进入首个代码改造任务。输出必须包含：
+1. 结论：PASS / FAIL / BLOCKED（三选一）。
+2. 支撑结论的事实，明确区分“测试已通过”和“产品合同仍冲突”。
+3. 当前绝对不能做的动作。
+4. 下一张唯一建议任务卡：M0-GOV-002 或其他，并说明原因。
+5. 进入首个代码改造前必须建立的最小恢复点与验收证据。
+
+事实包：
+
+- 项目目录：G:\StudyCode\个人工作台。
+- 分支：main；HEAD：168ad67。
+- 当前工作树：Modified 25、Deleted 662、Untracked 14，合计 701 项变化。
+- 仓库正处于“旧根目录内容迁移到 prj/”的未完成状态；当前不得回滚、清理、暂存、提交或推送这些混合改动。
+- npm test：119/119 通过。
+- npm run release:verify：通过；当前合同仍明确验证 3 个 preschool themes + 2 个 general workbenches，共 5 个 launcher entries，5 个 assets checked。
+- node --check prj/app.js、node --check prj/storage.js、node --check prj/config.js：均退出码 0。
+- prepare-mobile.mjs 会先递归强制删除 dist，因此本轮只读审计没有运行 npm run android:prepare。
+- prepare-mobile.mjs 静态复制 13 个根文件，并整目录复制：成人成长工作台、儿童学习工作台、preschool-workbench、assets、css、games。
+- 因整目录复制 assets，raw/reference/split 等原始、参考和切片中间素材会进入 dist/APK。
+- prj/app.js 约 3,585 行、316KB，混合成人、少儿、幼儿逻辑。
+- 幼儿入口加载约 28 层历史 CSS；幼儿当前约 17 个一级入口。
+- prj/assets 约 68.7MB；当前 APK 约 60MB。
+- 现有合同测试仍锁定旧产品结构，例如：
+  - release contract keeps five launcher entries
+  - in-app switcher exposes five entries including three preschool themes
+  - keeps preschool plans in one editable list instead of a fixed core and collapsed optional split
+- 已批准的新产品方向：
+  - 根入口只显示成人、少儿、幼儿 3 个工作台；幼儿进入后再选择 3 种主题。
+  - 幼儿主导航收敛为：今天、学习、游戏、奖励、我的。
+  - 首页显示状态、3 项核心任务、折叠选做、反馈、游戏/奖励出口。
+  - 工作台负责打卡和轻测，趣味集中在独立游戏。
+  - 保留既有 localStorage 主键，不新增第二积分账本，不重新引入 Supabase，不换框架。
+- 当前自动化测试通过只证明旧合同自洽，不证明新产品方向已经实现。
+- 文档优化包已建立，但文档不等于运行代码变更。
+
+判断约束：
+
+- 不得建议在 701 项混合变化上直接大规模重构。
+- 不得把 npm test 和 release:verify 的通过解释为 GATE-0 已满足。
+- 应识别 prepare-mobile 的删除 dist 行为与资产全量复制风险。
+- 如果认为缺少恢复点或迁移边界证据，结论应为 BLOCKED 或 FAIL，并给出单一、可执行的最小下一步。
+
+请用中文简洁输出，不复述整份事实包。

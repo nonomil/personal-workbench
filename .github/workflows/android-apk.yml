@@ -35,9 +35,9 @@ jobs:
 
       - name: Check JavaScript entry points
         run: |
-          node --check launcher.js
-          node --check app.js
-          node --check storage.js
+          node --check prj/launcher.js
+          node --check prj/app.js
+          node --check prj/storage.js
 
       - name: Set up Java
         uses: actions/setup-java@v4

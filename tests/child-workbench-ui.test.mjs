@@ -4,7 +4,7 @@ import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
 
-const root = fileURLToPath(new URL('..', import.meta.url));
+const root = path.join(fileURLToPath(new URL('..', import.meta.url)), 'prj');
 const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
 const entry = fs.readFileSync(path.join(root, '儿童学习工作台', 'index.html'), 'utf8');
 const childCss = fs.readFileSync(path.join(root, 'css', 'child.css'), 'utf8');

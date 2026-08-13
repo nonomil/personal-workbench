@@ -15,7 +15,7 @@
 - [儿童学习工作台](https://nonomil.github.io/personal-workbench/儿童学习工作台/)
 - [阳光成长工作台](https://nonomil.github.io/personal-workbench/preschool-workbench/)
 
-GitHub Pages 使用 `main` 分支根目录作为静态站点来源，不需要构建命令。推送 HTML、CSS、JavaScript 或素材后，等待 GitHub Pages 完成部署即可。仓库设置路径：`Settings` → `Pages` → `Deploy from a branch` → `main` → `/ (root)`。
+产品运行时集中在 `prj/`（入口、工作台、CSS、素材、小游戏、资料包）。仓库根只保留工具链配置（`package.json`、`scripts/`、`tests/`、`docs/` 等）与薄跳转 `index.html` → `prj/`。GitHub Pages 仍用 `main` 根目录；打开站点会跳到 `prj/`。仓库设置：`Settings` → `Pages` → `Deploy from a branch` → `main` → `/ (root)`。
 
 ## Android APK
 
@@ -45,13 +45,12 @@ python -m http.server 7000
 
 然后打开：
 
-- `http://127.0.0.1:7000/成人成长工作台/`
-- `http://127.0.0.1:7000/儿童学习工作台/`
-- `http://127.0.0.1:7000/preschool-workbench/`
+- `http://127.0.0.1:7000/prj/`
+- `http://127.0.0.1:7000/prj/成人成长工作台/`
+- `http://127.0.0.1:7000/prj/儿童学习工作台/`
+- `http://127.0.0.1:7000/prj/preschool-workbench/`
 
-根目录 `index.html` 保留为兼容入口。
-
-也可以直接打开 `index.html`，但浏览器对部分本地资源和导入导出行为的限制可能更严格。
+仓库根 `index.html` 会跳转到 `prj/`。也可以直接打开 `prj/index.html`。
 
 ## 当前实现
 
