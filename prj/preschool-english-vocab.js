@@ -84,8 +84,45 @@
         return { day: day, cycle: cycle, batch: batch };
     }
 
+    function buildReviewQueue(progress, rules, today, words) {
+        const mastery = progress && progress.mastery ? progress.mastery : {};
+        const available = Array.isArray(words) ? words : Object.keys(mastery);
+        return available.filter(function (word) {
+            const key = String(word || '').toLowerCase();
+            const item = mastery[key] || mastery[word];
+            return item && item.nextReview && String(item.nextReview) <= String(today);
+        });
+    }
+
     function buildSpeakBatch(bank, progress, rules, today, preferred, size, level) {
-        return dailyWindow(bank, today, size, level).batch;
+        const daily = dailyWindow(bank, today, size, level);
+        const items = scopedBank(bank, level);
+        const count = Math.max(1, Math.min(items.length, Number(size) || 5));
+        const byText = {};
+        items.forEach(function (item) {
+            byText[item.text] = item;
+        });
+        const used = {};
+        const batch = [];
+        function pushItem(item, review) {
+            if (!item || used[item.text] || batch.length >= count) return;
+            used[item.text] = true;
+            batch.push(Object.assign({}, item, { review: !!review }));
+        }
+        buildReviewQueue(progress, rules, today, items.map(function (item) { return item.text; })).forEach(function (word) {
+            pushItem(byText[String(word || '').toLowerCase()], true);
+        });
+        if (preferred && !used[String(preferred).toLowerCase()] && byText[String(preferred).toLowerCase()]) {
+            const duePreferred = buildReviewQueue(progress, rules, today, [String(preferred).toLowerCase()]).length > 0;
+            if (duePreferred) pushItem(byText[String(preferred).toLowerCase()], true);
+        }
+        daily.batch.forEach(function (item) {
+            pushItem(item, false);
+        });
+        items.forEach(function (item) {
+            pushItem(item, false);
+        });
+        return batch;
     }
 
     function toMatchPairs(batch) {
@@ -134,6 +171,7 @@
         createDefaultProgress: createDefaultProgress,
         courseDay: courseDay,
         dailyWindow: dailyWindow,
+        buildReviewQueue: buildReviewQueue,
         buildSpeakBatch: buildSpeakBatch,
         toMatchPairs: toMatchPairs,
         markKnown: markKnown,

@@ -12,7 +12,7 @@
     const TILE = 32;
     const WORLD_COLS = 220;
     const WORLD_ROWS = 28;
-    const GROUND_ROW = 20;
+    const GROUND_ROW = 24;
     const GRAVITY = 0.42;
     const MOVE_SPEED = 3.2;
     const RUN_SPEED = 5.1;
@@ -23,6 +23,16 @@
     const VIEW_H = 540;
     const INVINCIBLE_MS = 1600;
     const CHASE_EVERY = 1100;
+    let playMods = { mode: 'easy', label: '简单', literacyKnown: 0, enemySpeed: 0.75, chaseMs: 1400, sunMult: 1, extraMob: false };
+
+    function refreshPlayMods() {
+        if (bridge.getPlayMods) playMods = bridge.getPlayMods();
+        return playMods;
+    }
+
+    function scaledSun(base) {
+        return Math.max(1, Math.round(Number(base || 0) * (playMods.sunMult || 1)));
+    }
     const LONG_PRESS_MS = 420;
     const pixels = window.VoxelPixelTiles;
 
@@ -64,8 +74,29 @@
         jump: './assets/hero/explorer-jump.png',
         mine: './assets/hero/explorer-mine.png'
     };
+    const SPARK = {
+        idle: './assets/enemies/spark-idle.png',
+        walkA: './assets/enemies/spark-walk-a.png'
+    };
+    const ENEMY_ART = {
+        spark: { idle: 'sparkIdle', walk: 'sparkWalkA', sw: 56, sh: 56, label: '晶晶' },
+        slime: { idle: 'slimeIdle', sw: 52, sh: 48, label: '史莱姆', bounce: true },
+        shroom: { idle: 'shroomIdle', sw: 52, sh: 56, label: '蘑菇仔' },
+        spider: { idle: 'spiderIdle', sw: 56, sh: 40, label: '蜘蛛', climb: true },
+        golem: { idle: 'golemIdle', sw: 56, sh: 56, label: '石傀儡' },
+        bat: { idle: 'batIdle', sw: 56, sh: 44, label: '蝙蝠', fly: true, bounce: true },
+        bee: { idle: 'beeIdle', sw: 52, sh: 48, label: '蜜蜂', fly: true, bounce: true },
+        snowman: { idle: 'snowmanIdle', sw: 56, sh: 76, label: '雪人' },
+        fire: { idle: 'fireSpiritIdle', sw: 52, sh: 52, label: '火焰精灵', fly: true, bounce: true },
+        cactus: { idle: 'cactusMonsterIdle', sw: 52, sh: 56, label: '仙人掌' },
+        ghost: { idle: 'ghostIdle', sw: 52, sh: 52, label: '幽灵', fly: true, bounce: true }
+    };
+    const BOX = { golem: { w: 48, h: 56 } };
     const SPRITE_W = 64;
     const SPRITE_H = 80;
+    const SPARK_W = 56;
+    const SPARK_H = 56;
+    const SPARK_HOP_MS = 280;
     const MINE_WINDUP = 180;
     const MINE_HIT = 380;
     const MINE_END = 560;
@@ -154,7 +185,7 @@
             let surface = GROUND_ROW + bias
                 + Math.floor(Math.sin((x + n * 7) * 0.18) * 1.4)
                 + Math.floor(Math.sin((x + n * 3) * 0.05) * 2);
-            surface = Math.max(14, Math.min(WORLD_ROWS - 6, surface));
+            surface = Math.max(20, Math.min(WORLD_ROWS - 3, surface));
             surfaceHeights[x] = surface;
             for (let y = surface; y < WORLD_ROWS; y += 1) {
                 if (y === WORLD_ROWS - 1) grid[y][x] = 'bedrock';
@@ -231,13 +262,31 @@
     }
 
     function spawnActors() {
-        creatures = [40, 90, 140].map(function (tileX, i) {
+        const lv = levelsApi.get(levelId);
+        const region = levelsApi.getRegion(lv && lv.region);
+        const kinds = (region && region.mobs && region.mobs.length) ? region.mobs : ['slime'];
+        const spots = playMods.extraMob ? [36, 88, 132, 176] : [36, 88, 132];
+        creatures = spots.map(function (tileX, i) {
+            const kind = kinds[i % kinds.length];
             const g = worldApi.applyGravity(world, tileX, 8);
-            return { kind: 'spark', x: g.x * TILE, y: g.y * TILE - 6, w: 32, h: 32, chase: i === 0 };
+            const box = BOX[kind] || { w: 40, h: 40 };
+            const facing = i % 2 === 0 ? 1 : -1;
+            return {
+                kind: kind,
+                x: g.x * TILE,
+                y: g.y * TILE - 8,
+                w: box.w,
+                h: box.h,
+                facing: facing,
+                hopUntil: 0,
+                chase: kind === 'spark',
+                climbDir: kind === 'spider' ? { x: facing, y: 0 } : undefined
+            };
         });
     }
 
     function enterLevel(id) {
+        refreshPlayMods();
         levelId = Math.max(1, Math.min(levelsApi.count, Number(id) || 1));
         generateWorld(levelId);
         session = { placedThis: {}, placedAnyThis: 0, collectedThis: {} };
@@ -247,7 +296,7 @@
         renderQuests();
         renderHotbar();
         const lv = levelsApi.get(levelId);
-        toast((lv && lv.title ? lv.title : '第 ' + levelId + ' 关') + ' · 挖资源走到出口');
+        toast((lv && lv.title ? lv.title : '第 ' + levelId + ' 关') + ' · 识字 ' + playMods.literacyKnown + ' · ' + playMods.label + '模式');
     }
 
     function loadProgress() {
@@ -320,7 +369,8 @@
         const html =
             '<span class="chip">阳光 <b>' + w.sunlight + '</b></span>' +
             '<span class="chip">生命 <b>' + hp + '</b>/' + worldApi.MAX_HP + '</span>' +
-            '<span class="chip">第 <b>' + levelId + '</b>/' + levelsApi.count + ' 关</span>';
+            '<span class="chip">第 <b>' + levelId + '</b>/' + levelsApi.count + ' 关</span>' +
+            '<span class="chip">识字 <b>' + (playMods.literacyKnown || 0) + '</b> · ' + playMods.label + '</span>';
         if (hud && hud.innerHTML !== html) hud.innerHTML = html;
         const bag = document.getElementById('bag-count');
         const coord = document.getElementById('coord-label');
@@ -338,7 +388,7 @@
         const award = bridge.awardSunlight({
             gameId: GAME_ID,
             eventKey: quest.daily ? quest.id : ('quest-' + quest.id),
-            amount: quest.reward,
+            amount: scaledSun(quest.reward),
             reason: quest.title
         });
         toast(award.awarded ? (quest.title + ' · +' + award.amount + ' 阳光') : (quest.title + ' · ' + award.reason));
@@ -448,8 +498,8 @@
 
     function cellAt(clientX, clientY) {
         const rect = canvas.getBoundingClientRect();
-        const px = (clientX - rect.left) * (VIEW_W / rect.width) + cameraX;
-        const py = (clientY - rect.top) * (VIEW_H / rect.height) + cameraY;
+        const px = (clientX - rect.left) * (canvas.width / rect.width) + cameraX;
+        const py = (clientY - rect.top) * (canvas.height / rect.height) + cameraY;
         const x = Math.floor(px / TILE);
         const y = Math.floor(py / TILE);
         if (x < 0 || y < 0 || x >= WORLD_COLS || y >= WORLD_ROWS) return null;
@@ -597,13 +647,24 @@
         }
     }
 
+    function fitCanvas() {
+        const box = canvas.getBoundingClientRect();
+        if (box.width < 32 || box.height < 32) return;
+        const nextH = Math.min(WORLD_ROWS * TILE, Math.max(VIEW_H, Math.round(VIEW_W * (box.height / box.width))));
+        if (canvas.width !== VIEW_W || canvas.height !== nextH) {
+            canvas.width = VIEW_W;
+            canvas.height = nextH;
+            ctx.imageSmoothingEnabled = false;
+        }
+    }
+
     function updateCamera() {
+        fitCanvas();
         cameraX = player.x - canvas.width * 0.42;
-        cameraY = player.y - canvas.height * 0.55;
         const maxCamX = WORLD_COLS * TILE - canvas.width;
         const maxCamY = WORLD_ROWS * TILE - canvas.height;
         cameraX = Math.round(Math.max(0, Math.min(maxCamX, cameraX)));
-        cameraY = Math.round(Math.max(0, Math.min(maxCamY, cameraY)));
+        cameraY = Math.round(Math.max(0, maxCamY));
     }
 
     function isInvincible(now) {
@@ -626,7 +687,10 @@
             if (hp <= 0) {
                 resetPlayer(true);
                 toast('没血了，回到起点。背包还在。');
-            } else toast('躲开晶晶！掉了 1 点生命。');
+            } else {
+                const art = ENEMY_ART[c.kind] || ENEMY_ART.spark;
+                toast('躲开' + art.label + '！掉了 1 点生命。');
+            }
             refreshWallet();
         });
     }
@@ -653,7 +717,7 @@
         const award = bridge.awardSunlight({
             gameId: GAME_ID,
             eventKey: 'level-' + levelId + '-clear',
-            amount: (lv && lv.rewardSun) || 12,
+            amount: scaledSun((lv && lv.rewardSun) || 12),
             reason: '通关方块第' + levelId + '关'
         });
         toast(award.awarded ? ((lv && lv.title) || '本关') + '通关 · +' + award.amount + ' 阳光' : '通关了');
@@ -723,17 +787,83 @@
         }
     }
 
+    // 蜘蛛：贴地走、爬墙、挂天花板。以自身所在格子判断支撑面，
+    // 前方撞墙则垂直爬升，到顶/到底再转回水平；支撑面消失就回头。
+    function stepSpider(c) {
+        const speed = 1.1 * (playMods.enemySpeed || 1);
+        const tx = Math.floor((c.x + c.w / 2) / TILE);
+        const ty = Math.floor((c.y + c.h / 2) / TILE);
+        const below = isSolidAt(tx, ty + 1);
+        const above = isSolidAt(tx, ty - 1);
+        const left = isSolidAt(tx - 1, ty);
+        const right = isSolidAt(tx + 1, ty);
+        const dir = c.climbDir || { x: 1, y: 0 };
+
+        if (dir.x !== 0) {
+            if (isSolidAt(tx + dir.x, ty)) {
+                c.climbDir = { x: 0, y: -1 };
+                return;
+            }
+            if (!below && !above) {
+                c.climbDir = { x: -dir.x, y: 0 };
+                return;
+            }
+            if (below) c.y = (ty + 1) * TILE - c.h;
+            else c.y = ty * TILE;
+            c.x += dir.x * speed;
+            c.facing = dir.x;
+            return;
+        }
+
+        const vy = dir.y === -1 ? -1 : 1;
+        if (isSolidAt(tx, ty + vy)) {
+            if (left && right) { c.climbDir = { x: 0, y: -vy }; return; }
+            c.climbDir = { x: c.facing || 1, y: 0 };
+            return;
+        }
+        if (right) c.x = (tx + 1) * TILE - c.w;
+        else if (left) c.x = tx * TILE;
+        else { c.climbDir = { x: c.facing || 1, y: 0 }; return; }
+        c.y += vy * speed;
+    }
+
     function tickWorld(now) {
         tickMine(now);
         updatePlayer();
-        if (now - lastChaseAt >= CHASE_EVERY) {
+        creatures.forEach(function (c) {
+            if (c.kind === 'spark') return;
+            const art = ENEMY_ART[c.kind] || ENEMY_ART.spark;
+            if (art.climb) {
+                stepSpider(c);
+                return;
+            }
+            const speed = (c.kind === 'slime' || c.kind === 'golem' ? 0.85 : 1.1) * (playMods.enemySpeed || 1);
+            c.x += (c.facing || 1) * speed;
+            if (rectIntersectsSolid(c.x, c.y, c.w, c.h)) {
+                c.facing = -(c.facing || 1);
+                c.x += c.facing * speed * 2;
+            }
+            if (art.fly) return;
+            if (!rectIntersectsSolid(c.x, c.y + 1, c.w, c.h)) {
+                c.y += 2.2;
+                if (rectIntersectsSolid(c.x, c.y, c.w, c.h)) {
+                    c.y = Math.floor((c.y + c.h - 1) / TILE) * TILE - c.h;
+                }
+            }
+        });
+        if (now - lastChaseAt >= (playMods.chaseMs || CHASE_EVERY)) {
             lastChaseAt = now;
             creatures = creatures.map(function (c) {
+                if (c.kind !== 'spark') return c;
                 const actor = { x: Math.floor(c.x / TILE), y: Math.floor(c.y / TILE), kind: 'spark' };
                 const target = { x: Math.floor(player.x / TILE), y: Math.floor(player.y / TILE) };
                 const next = worldApi.stepChase(world, actor, target);
-                c.x = next.x * TILE;
-                c.y = next.y * TILE - 4;
+                const nx = next.x * TILE;
+                const ny = next.y * TILE - 8;
+                if (nx !== c.x) c.facing = nx < c.x ? -1 : 1;
+                if (nx !== c.x || ny !== c.y) c.hopUntil = now + SPARK_HOP_MS;
+                c.x = nx;
+                c.y = ny;
                 return c;
             });
         }
@@ -840,42 +970,98 @@
         });
     }
 
+    function sparkPose(c, now) {
+        if (c.hopUntil && now < c.hopUntil) return 'sparkWalkA';
+        return (Math.floor(now / 320) % 2 === 0) ? 'sparkIdle' : (images.sparkWalkA ? 'sparkWalkA' : 'sparkIdle');
+    }
+
+    function enemyPose(c, now) {
+        const art = ENEMY_ART[c.kind] || ENEMY_ART.spark;
+        if (c.kind === 'spark') return sparkPose(c, now);
+        return art.idle;
+    }
+
     function drawCreatureSprite(c, now) {
-        const x = Math.round(c.x - cameraX);
-        const y = Math.round(c.y - cameraY);
+        const art = ENEMY_ART[c.kind] || ENEMY_ART.spark;
+        const sw = art.sw || SPARK_W;
+        const sh = art.sh || SPARK_H;
+        const bob = art.bounce ? Math.round(Math.sin((Number(now) || 0) / 180) * 3) : 0;
+        const dx = Math.round(c.x - cameraX + (c.w - sw) / 2);
+        const dy = Math.round(c.y - cameraY + c.h - sh - bob);
+        const pose = enemyPose(c, now);
+        const img = images[pose];
+        if (img) {
+            ctx.save();
+            ctx.imageSmoothingEnabled = false;
+            if (c.facing < 0) {
+                ctx.translate(dx + sw, dy);
+                ctx.scale(-1, 1);
+                ctx.drawImage(img, 0, 0, sw, sh);
+            } else {
+                ctx.drawImage(img, dx, dy, sw, sh);
+            }
+            ctx.restore();
+            return;
+        }
         const frame = Math.floor((Number(now) || 0) / 180) % 3;
         if (pixels) {
-            pixels.drawSprite(ctx, 'spark', x, y - 2, 32, 32, frame);
+            pixels.drawSprite(ctx, 'spark', dx, dy, sw, sh, frame);
             return;
         }
         ctx.fillStyle = '#7d5cff';
-        ctx.fillRect(x, y, c.w, c.h);
+        ctx.fillRect(dx, dy, c.w, c.h);
+    }
+
+    function regionSky() {
+        const region = levelsApi.getRegion(world && world.region);
+        return region || { sky: 'day' };
+    }
+
+    function horizonScreenY() {
+        let topSolid = WORLD_ROWS;
+        const startCol = Math.max(0, Math.floor(cameraX / TILE));
+        const endCol = Math.min(WORLD_COLS - 1, Math.ceil((cameraX + canvas.width) / TILE));
+        for (let x = startCol; x <= endCol; x += 1) {
+            for (let y = 0; y < WORLD_ROWS; y += 1) {
+                const kind = world.grid[y][x];
+                if (kind && kind !== 'air' && kind !== 'water') {
+                    if (y < topSolid) topSolid = y;
+                    break;
+                }
+            }
+        }
+        if (topSolid >= WORLD_ROWS) topSolid = GROUND_ROW;
+        return Math.round(topSolid * TILE - cameraY);
     }
 
     function drawSky() {
-        const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-        gradient.addColorStop(0, '#3d9ee0');
-        gradient.addColorStop(0.45, '#7ec8ef');
-        gradient.addColorStop(1, '#c8ecff');
-        ctx.fillStyle = gradient;
+        ctx.fillStyle = '#4a4642';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = '#ffe27a';
-        ctx.beginPath();
-        ctx.arc(120 - cameraX * 0.02, 70, 22, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = 'rgba(255,226,122,0.28)';
-        ctx.beginPath();
-        ctx.arc(120 - cameraX * 0.02, 70, 36, 0, Math.PI * 2);
-        ctx.fill();
-        if (pixels) {
-            [40, 180, 340, 520, 700].forEach(function (base, i) {
-                const hx = ((base - cameraX * 0.08) % (VIEW_W + 80)) - 40;
-                pixels.drawSprite(ctx, 'hill', hx, 210 + (i % 2) * 8, 90, 36, 0);
-            });
-            [[90, 46, 0.12], [280, 68, 0.16], [510, 38, 0.1], [740, 58, 0.14]].forEach(function (cl) {
-                const cx = ((cl[0] - cameraX * cl[2]) % (VIEW_W + 100)) - 40;
-                pixels.drawSprite(ctx, 'cloud', cx, cl[1], 72, 28, 0);
-            });
+        const info = regionSky();
+        const hy = Math.max(0, Math.min(canvas.height, horizonScreenY()));
+        if (hy <= 0) return;
+        const key = info.sky === 'dusk' ? 'skyDusk' : 'skyDay';
+        const img = images[key] || images.skyDay;
+        if (img) {
+            const srcH = Math.max(1, Math.round(img.height * 0.34));
+            const shift = Math.round(cameraX * 0.06) % canvas.width;
+            ctx.imageSmoothingEnabled = true;
+            ctx.drawImage(img, 0, 0, img.width, srcH, -shift, 0, canvas.width, hy);
+            ctx.drawImage(img, 0, 0, img.width, srcH, canvas.width - shift, 0, canvas.width, hy);
+        } else {
+            ctx.fillStyle = info.sky === 'dusk' ? '#8a6a7a' : '#7aa7c8';
+            ctx.fillRect(0, 0, canvas.width, hy);
+        }
+        const veil = {
+            warm: 'rgba(255,168,72,0.1)',
+            cave: 'rgba(18,14,36,0.38)',
+            cold: 'rgba(210,228,255,0.1)',
+            ember: 'rgba(90,18,8,0.22)',
+            void: 'rgba(24,10,48,0.4)'
+        }[info.veil];
+        if (veil) {
+            ctx.fillStyle = veil;
+            ctx.fillRect(0, 0, canvas.width, hy);
         }
     }
 
@@ -895,6 +1081,11 @@
         frameCount += 1;
         tickWorld(t);
         drawSky();
+        const worldBottom = WORLD_ROWS * TILE - cameraY;
+        if (worldBottom < canvas.height) {
+            ctx.fillStyle = '#2b2420';
+            ctx.fillRect(0, Math.max(0, worldBottom), canvas.width, canvas.height - worldBottom);
+        }
         const startCol = Math.max(0, Math.floor(cameraX / TILE));
         const endCol = Math.min(WORLD_COLS - 1, Math.ceil((cameraX + canvas.width) / TILE));
         const startRow = Math.max(0, Math.floor(cameraY / TILE));
@@ -983,6 +1174,9 @@
             if (k === 'd' || k === 'arrowright') setHold('right', false);
             if (e.code === 'Space' || k === 'w' || k === 'arrowup') player.jumpPressed = false;
         });
+        window.addEventListener('resize', function () {
+            updateCamera();
+        });
         const resetBtn = document.getElementById('reset-btn');
         if (resetBtn) resetBtn.addEventListener('click', function () { enterLevel(levelId); });
         const hudRefresh = document.getElementById('hud-refresh');
@@ -1006,7 +1200,21 @@
         loadImage('walkA', HERO.walkA),
         loadImage('walkB', HERO.walkB),
         loadImage('jump', HERO.jump),
-        loadImage('mine', HERO.mine)
+        loadImage('mine', HERO.mine),
+        loadImage('sparkIdle', SPARK.idle),
+        loadImage('sparkWalkA', SPARK.walkA),
+        loadImage('slimeIdle', './assets/enemies/slime-idle.png'),
+        loadImage('shroomIdle', './assets/enemies/shroom-idle.png'),
+        loadImage('spiderIdle', './assets/enemies/spider.png'),
+        loadImage('golemIdle', './assets/enemies/golem.png'),
+        loadImage('batIdle', './assets/enemies/bat-idle.png'),
+        loadImage('beeIdle', './assets/enemies/bee-idle.png'),
+        loadImage('snowmanIdle', './assets/enemies/snowman-idle.png'),
+        loadImage('fireSpiritIdle', './assets/enemies/fire-spirit-idle.png'),
+        loadImage('cactusMonsterIdle', './assets/enemies/cactus-monster.png'),
+        loadImage('ghostIdle', './assets/enemies/ghost.png'),
+        loadImage('skyDay', './assets/bg/sky-day.png'),
+        loadImage('skyDusk', './assets/bg/sky-dusk.png')
     ]).then(function () {
         try {
             renderHotbar();

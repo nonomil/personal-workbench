@@ -49,7 +49,7 @@ test('math lesson 1 builds counting rounds from L1 problem bank answers', () => 
         assert.match(round.prompt, /数一数/);
         assert.ok(round.tokens.length >= 1);
     }
-    assert.equal(mathBank.getRuntimeBank().length, parsed.length);
+    assert.ok(mathBank.getRuntimeBank().length >= parsed.length);
 });
 
 test('math lessons 2 and 3 build compare and arithmetic rounds from L2/L3', () => {

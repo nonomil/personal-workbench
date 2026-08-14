@@ -24,6 +24,8 @@
         flag: PUB + 'platform-flag.png',
         pipe: PUB + 'platform-pipe.png',
         enemy: PUB + 'platform-star-badge.png',
+        'block-question': PUB + 'platform-mystery-block.png',
+        'block-brick': PUB + 'platform-brick.png',
         ground: LOCAL + 'ground/ground-strip.png',
         dirt: LOCAL + 'ground/dirt-tile.png',
         'sky-day': LOCAL + 'bg/sky-day.png',
@@ -45,7 +47,12 @@
     let startTime = 0;
     let coins = 0;
     let cameraX = 0;
+    let cameraTarget = 0;
     let last = 0;
+    let pops = [];
+    let floats = [];
+    let stompCombo = 0;
+    let lastStompAt = -9999;
 
     const player = {
         x: 48, y: 320, w: 40, h: 52,
@@ -56,18 +63,23 @@
     const phy = window.PlatformPhysics || {
         GRAVITY: 1500, HOLD_GRAVITY: 780, JUMP_VY: -560, AIR_JUMP_VY: -520, MAX_FALL: 900,
         RUN_SPEED: 240, SPRINT_SPEED: 340, ENEMY_SPEED: 48,
-        COYOTE_MS: 120, JUMP_BUFFER_MS: 120, INVINCIBLE_MS: 2000, MAX_AIR_JUMPS: 1,
+        COYOTE_MS: 120, JUMP_BUFFER_MS: 120, INVINCIBLE_MS: 3000, MAX_AIR_JUMPS: 1,
+        START_HEARTS: 5, STAR_INVINCIBLE_MS: 8000, COIN_LIFE_MILESTONE: 100, FRICTION: 0.82,
         tryJump: function (now, g, j, c, b) { return (now - g) <= (c || 120) && (now - j) <= (b || 120); },
-        isInvincible: function (now, hit, ms) { return hit >= 0 && now - hit < (ms || 2000); },
+        isInvincible: function (now, hit, ms) { return hit >= 0 && now - hit < (ms || 3000); },
         canAirJump: function (used, max) { return (used || 0) < (max || 1); }
     };
     let lastGroundedAt = -9999;
     let lastJumpPressedAt = -9999;
     let jumpConsumedAt = -9999;
     let lastHitAt = -9999;
+    let starUntil = -1;
+    let hearts = 5;
+    let pickups = [];
     let airJumpsUsed = 0;
     let lastSafeX = 48;
     let lastSafeY = 320;
+    let playerPowered = false;
 
     function toast(msg) {
         const el = document.getElementById('toast');
@@ -104,6 +116,8 @@
             loadImage('sky-night', ASSET['sky-night']),
             loadImage('enemy-brownie', ASSET['enemy-brownie'], ASSET.enemy),
             loadImage('enemy-slime', ASSET['enemy-slime'], ASSET.enemy),
+            loadImage('block-question', ASSET['block-question']),
+            loadImage('block-brick', ASSET['block-brick']),
             loadImage('ground', ASSET.ground),
             loadImage('dirt', ASSET.dirt)
         ]);
@@ -121,6 +135,7 @@
         if (!Array.isArray(progress.clearedLevels)) progress.clearedLevels = [];
         if (!progress.stars) progress.stars = {};
         if (!Number.isFinite(progress.coinsTotal)) progress.coinsTotal = 0;
+        if (!progress.bestTime) progress.bestTime = {};
         bridge.saveProgress(GAME_ID, progress);
     }
 
@@ -135,6 +150,56 @@
     function starsText(id) {
         const n = Number(progress.stars[id] || 0);
         return '★'.repeat(n) + '☆'.repeat(Math.max(0, 3 - n));
+    }
+
+    const LEVEL_TIPS = {
+        1: '1–4 关可在空中连跳两次',
+        2: '先顶问号拿蘑菇，再碎砖块',
+        3: '星星无敌时碰怪也会消失',
+        5: '从这里起空中只能再跳一次',
+        6: '中间亮块是检查点，掉坑会回到那里',
+        7: '检查点在中段，别跳过',
+        10: '收齐金币并限时冲旗，拿满三星'
+    };
+
+    function updateCoinHud() {
+        const el = document.getElementById('coin-count');
+        if (!el || !level) return;
+        el.textContent = coins + ' / ' + level.coins.length;
+    }
+
+    function updateStarGoalsHud() {
+        const el = document.getElementById('star-goals');
+        if (!el || !level || !playing) return;
+        const coinOk = coins >= level.coins.length;
+        const elapsed = (performance.now() - startTime) / 1000;
+        const timeOk = elapsed <= level.parTime;
+        el.innerHTML =
+            '<span class="' + (won ? 'is-on' : '') + '">★到旗</span>' +
+            '<span class="' + (coinOk ? 'is-on' : '') + '">' + (coinOk ? '★' : '☆') + '金币</span>' +
+            '<span class="' + (timeOk ? 'is-on' : '') + '">' + (timeOk ? '★' : '☆') + '速度</span>';
+    }
+
+    function updateTimerHud() {
+        const el = document.getElementById('run-timer');
+        if (!el || !playing || !level) return;
+        const elapsed = Math.floor((performance.now() - startTime) / 1000);
+        const best = progress.bestTime && progress.bestTime[level.id];
+        el.textContent = elapsed + 's / ' + level.parTime + 's'
+            + (best ? (' · 最佳 ' + best + 's') : '');
+    }
+
+    function maxAirJumpsForLevel() {
+        if (!level) return phy.MAX_AIR_JUMPS || 1;
+        if (level.id <= (phy.EARLY_LEVEL_AIR_UNTIL || 4)) return phy.EARLY_LEVEL_AIR_JUMPS || 2;
+        return phy.MAX_AIR_JUMPS || 1;
+    }
+
+    function updateHeartsHud() {
+        const el = document.getElementById('heart-count');
+        if (!el) return;
+        const max = phy.START_HEARTS || 5;
+        el.textContent = '♥'.repeat(Math.max(0, hearts)) + '♡'.repeat(Math.max(0, max - hearts));
     }
 
     function renderMap() {
@@ -167,6 +232,14 @@
             starRow.className = 'stage-stars';
             starRow.textContent = locked ? '' : ('★★★'.slice(0, stars) + '☆☆☆'.slice(stars));
             btn.appendChild(starRow);
+            if (!locked) {
+                const best = progress.bestTime && progress.bestTime[lv.id];
+                const meta = document.createElement('span');
+                meta.className = 'stage-best';
+                if (best) meta.textContent = best + 's 最佳';
+                else meta.textContent = '≤' + lv.parTime + 's';
+                btn.appendChild(meta);
+            }
             if (!locked) btn.addEventListener('click', function () { enterLevel(lv.id); });
             map.appendChild(btn);
         });
@@ -205,31 +278,41 @@
         showPlay();
         playing = true;
         startTime = performance.now();
+        updateStarGoalsHud();
+        const tip = LEVEL_TIPS[level.id];
+        if (tip) setTimeout(function () { toast(tip); }, 350);
     }
 
     function resetRun() {
         player.x = 48; player.y = 320; player.vx = 0; player.vy = 0;
         player.onGround = false; player.facing = 1; player.pose = 'idle';
-        coins = 0; won = false; awarding = false; cameraX = 0;
+        coins = 0; won = false; awarding = false; cameraX = 0; cameraTarget = 0; pops = []; floats = [];
+        stompCombo = 0;
+        lastStompAt = -9999;
         lastGroundedAt = -9999;
         lastJumpPressedAt = -9999;
         jumpConsumedAt = -9999;
         lastHitAt = -9999;
+        starUntil = -1;
+        playerPowered = false;
+        hearts = phy.START_HEARTS || 5;
+        pickups = [];
         airJumpsUsed = 0;
         lastSafeX = 48;
         lastSafeY = 320;
         if (level) {
             level.coins.forEach(function (c) { c.taken = false; });
-            level.enemies.forEach(function (e, i) {
-                // restore from template
-            });
-            // re-get clean enemies
             const fresh = levelsApi.get(levelId);
             level.enemies = fresh.enemies;
             level.coins = fresh.coins;
+            level.blocks = fresh.blocks || [];
+            level.checkpoints = fresh.checkpoints || [];
         }
-        document.getElementById('coin-count').textContent = '0';
+        document.getElementById('coin-count').textContent = '0 / ' + (level ? level.coins.length : 0);
         document.getElementById('run-status').textContent = '奔跑中';
+        updateHeartsHud();
+        updateTimerHud();
+        updateStarGoalsHud();
         const poseEl = document.getElementById('pose-label');
         if (poseEl) poseEl.textContent = '站立';
     }
@@ -251,7 +334,133 @@
     function solids() {
         const ground = { x: 0, y: level.groundY, w: level.width, h: 100 };
         const pipe = level.pipe || { x: 0, y: 9999, w: 0, h: 0 };
-        return [ground, pipe].concat(level.platforms);
+        const blocks = (level.blocks || []).filter(function (b) { return !b.broken; });
+        return [ground, pipe].concat(level.platforms).concat(blocks);
+    }
+
+    function spawnFloat(x, y, text, color) {
+        floats.push({
+            x: x,
+            y: y,
+            text: text,
+            color: color || '#fffdf6',
+            life: 0.85,
+            vy: -56
+        });
+    }
+
+    function spawnPop(x, y) {
+        pops.push({ x: x, y: y, life: 0.45 });
+    }
+
+    function trySaveCheckpoint() {
+        if (!level || !level.checkpoints) return;
+        level.checkpoints.forEach(function (cp) {
+            if (cp.saved || !player.onGround) return;
+            const zone = { x: cp.x, y: cp.y, w: cp.w, h: cp.h };
+            if (!rectsOverlap(player, zone)) return;
+            cp.saved = true;
+            lastSafeX = cp.x + 8;
+            lastSafeY = cp.y - player.h;
+            if (lastSafeY > level.groundY - player.h) lastSafeY = level.groundY - player.h;
+            toast('记录检查点');
+        });
+    }
+
+    function bumpBlock(block, now) {
+        const canBreak = playerPowered || now < starUntil;
+        if (block.type === 'brick') {
+            if (canBreak && !block.broken) {
+                block.broken = true;
+                if (block.item === 'coin') {
+                    addCoin(now, 1);
+                    spawnPop(block.x + 8, block.y - 12);
+                }
+                toast('砖块碎啦');
+            } else if (!block.broken) {
+                toast(playerPowered ? '顶砖块' : '变大或星星才能碎砖');
+            }
+            return;
+        }
+        if (block.hit) return;
+        block.hit = true;
+        if (block.item === 'coin') {
+            addCoin(now, 1);
+            spawnPop(block.x + 8, block.y - 12);
+            toast('惊喜块 · +1 金币');
+            return;
+        }
+        spawnPickup(block.x + 4, block.y - 28, block.item);
+        toast(block.item === 'star' ? '星星飞出来啦！' : '蘑菇飞出来啦！');
+    }
+
+    function spawnPickup(x, y, kind) {
+        pickups.push({
+            kind: kind,
+            x: x,
+            y: y,
+            w: 28,
+            h: 28,
+            vx: 46,
+            vy: -120,
+            taken: false
+        });
+    }
+
+    function addCoin(now, amount) {
+        const coinBonus = ((bridge.getMetaBonuses && bridge.getMetaBonuses()) || {}).platformCoinBonus || 0;
+        const beforeTotal = (progress.coinsTotal || 0) + coins;
+        coins += (amount || 1) + coinBonus;
+        updateCoinHud();
+        const afterTotal = (progress.coinsTotal || 0) + coins;
+        const milestone = phy.COIN_LIFE_MILESTONE || 100;
+        const beforeM = Math.floor(beforeTotal / milestone);
+        const afterM = Math.floor(afterTotal / milestone);
+        if (afterM > beforeM) {
+            const max = phy.START_HEARTS || 5;
+            if (hearts < max) {
+                hearts += 1;
+                updateHeartsHud();
+                toast('收集满 ' + milestone + ' 金币 · +1 小心心');
+            } else {
+                toast('收集满 ' + milestone + ' 金币！');
+            }
+        }
+        void now;
+    }
+
+    function applyPickup(pickup) {
+        pickup.taken = true;
+        if (pickup.kind === 'mushroom') {
+            const max = phy.START_HEARTS || 5;
+            hearts = Math.min(max, hearts + 1);
+            playerPowered = true;
+            updateHeartsHud();
+            toast('吃到蘑菇 · 变大啦');
+            return;
+        }
+        if (pickup.kind === 'star') {
+            starUntil = performance.now() + (phy.STAR_INVINCIBLE_MS || 8000);
+            toast('星星无敌！');
+        }
+    }
+
+    function updatePickups(dt) {
+        pickups.forEach(function (pickup) {
+            if (pickup.taken) return;
+            pickup.vy += phy.GRAVITY * dt;
+            if (pickup.vy > phy.MAX_FALL) pickup.vy = phy.MAX_FALL;
+            pickup.x += pickup.vx * dt;
+            pickup.y += pickup.vy * dt;
+            solids().forEach(function (platform) {
+                if (!rectsOverlap(pickup, platform)) return;
+                if (pickup.vy >= 0 && pickup.y + pickup.h - platform.y < 16) {
+                    pickup.y = platform.y - pickup.h;
+                    pickup.vy = 0;
+                }
+            });
+            if (rectsOverlap(player, pickup)) applyPickup(pickup);
+        });
     }
 
     function updatePose(dt) {
@@ -266,8 +475,10 @@
         }         else player.pose = 'idle';
         const poseEl = document.getElementById('pose-label');
         if (poseEl) {
-            poseEl.textContent =
-                player.pose === 'jump' ? '跳跃' : player.pose === 'run' ? '奔跑' : '站立';
+            let label = player.pose === 'jump' ? '跳跃' : player.pose === 'run' ? '奔跑' : '站立';
+            if (playerPowered) label += '·大';
+            if (performance.now() < starUntil) label += '·星';
+            poseEl.textContent = label;
         }
     }
 
@@ -275,9 +486,12 @@
         if (!playing || !level || won) return;
         const now = performance.now();
         const speed = input.run ? (phy.SPRINT_SPEED || 340) : phy.RUN_SPEED;
-        player.vx = 0;
-        if (input.left) { player.vx -= speed; player.facing = -1; }
-        if (input.right) { player.vx += speed; player.facing = 1; }
+        if (input.left) { player.vx = -speed; player.facing = -1; }
+        else if (input.right) { player.vx = speed; player.facing = 1; }
+        else {
+            player.vx *= phy.FRICTION || 0.82;
+            if (Math.abs(player.vx) < 8) player.vx = 0;
+        }
         const g = (input.jumpHeld && player.vy < 0) ? phy.HOLD_GRAVITY : phy.GRAVITY;
         player.vy += g * dt;
         if (player.vy > phy.MAX_FALL) player.vy = phy.MAX_FALL;
@@ -290,9 +504,9 @@
             jumpConsumedAt = now;
             airJumpsUsed = 0;
         } else if (!player.onGround
-            && phy.canAirJump(airJumpsUsed, phy.MAX_AIR_JUMPS)
+            && phy.canAirJump(airJumpsUsed, maxAirJumpsForLevel())
             && lastJumpPressedAt > jumpConsumedAt
-            && now - lastJumpPressedAt <= (phy.JUMP_BUFFER_MS || 120)) {
+            && now - lastJumpPressedAt <= (phy.AIR_JUMP_BUFFER_MS || phy.JUMP_BUFFER_MS || 120)) {
             player.vy = phy.AIR_JUMP_VY || -520;
             lastJumpPressedAt = -9999;
             jumpConsumedAt = now;
@@ -315,50 +529,109 @@
             } else if (player.vy < 0) {
                 player.y = platform.y + platform.h;
                 player.vy = 0;
+                if (platform.type === 'question' || platform.type === 'brick') bumpBlock(platform, now);
             }
         });
         if (player.onGround) {
             lastGroundedAt = now;
             airJumpsUsed = 0;
-            lastSafeX = player.x;
-            lastSafeY = player.y;
+            if (player.x > lastSafeX + 40) {
+                lastSafeX = player.x;
+                lastSafeY = player.y;
+            }
+            trySaveCheckpoint();
         }
         player.x = Math.max(0, Math.min(level.width - player.w, player.x));
         if (player.y > VIEW_H + 80) respawnAtCheckpoint(now);
 
-        const shielded = phy.isInvincible(now, lastHitAt, phy.INVINCIBLE_MS);
+        const starActive = now < starUntil;
+        const shielded = starActive || phy.isInvincible(now, lastHitAt, phy.INVINCIBLE_MS);
         level.enemies.forEach(function (enemy) {
-            enemy.x += enemy.dir * (phy.ENEMY_SPEED || 48) * dt;
+            enemy.x += enemy.dir * (phy.ENEMY_SPEED || 34) * dt;
             if (enemy.x < enemy.minX || enemy.x > enemy.maxX) enemy.dir *= -1;
             if (enemy.x < -100) return;
             if (!rectsOverlap(player, enemy)) return;
             if (player.vy > 0 && player.y + player.h - enemy.y < 20) {
                 enemy.x = -9999;
                 player.vy = -340;
+                if (now - lastStompAt < 2000) stompCombo += 1;
+                else stompCombo = 1;
+                lastStompAt = now;
+                spawnFloat(enemy.x, enemy.y - 6, stompCombo > 1 ? ('连踩 x' + stompCombo) : '踩!', '#7ee07a');
                 return;
             }
-            if (shielded) return;
+            if (shielded) {
+                if (starActive) {
+                    enemy.x = -9999;
+                    spawnFloat(enemy.x, enemy.y - 6, '砰!', '#ffe566');
+                }
+                return;
+            }
             lastHitAt = now;
+            if (playerPowered) {
+                playerPowered = false;
+                player.vx = player.facing * -140;
+                player.vy = -180;
+                toast('变大保护挡了一下');
+                return;
+            }
+            hearts -= 1;
+            updateHeartsHud();
             player.vx = player.facing * -180;
             player.x += player.facing * -28;
             player.vy = -220;
-            toast('碰到了，闪几下再跑');
+            if (hearts <= 0) {
+                hearts = 3;
+                updateHeartsHud();
+                respawnAtCheckpoint(now);
+                toast('没心了，回到刚才的地方');
+            } else {
+                toast('碰到了，闪几下再跑');
+            }
         });
 
-        const coinBonus = ((bridge.getMetaBonuses && bridge.getMetaBonuses()) || {}).platformCoinBonus || 0;
         level.coins.forEach(function (coin) {
             if (coin.taken) return;
             if (rectsOverlap(player, { x: coin.x, y: coin.y, w: 22, h: 22 })) {
                 coin.taken = true;
-                coins += 1 + coinBonus;
-                document.getElementById('coin-count').textContent = String(coins);
+                addCoin(now, 1);
+                spawnPop(coin.x, coin.y);
+                spawnFloat(coin.x, coin.y - 8, '+1', '#ffd02f');
             }
+        });
+        updatePickups(dt);
+        pops = pops.filter(function (p) {
+            p.life -= dt;
+            p.y -= 90 * dt;
+            return p.life > 0;
+        });
+        floats = floats.filter(function (f) {
+            f.life -= dt;
+            f.y += f.vy * dt;
+            return f.life > 0;
         });
 
         if (rectsOverlap(player, level.flag)) onClear();
         updatePose(dt);
-        const look = player.facing * 72;
-        cameraX = Math.max(0, Math.min(level.width - VIEW_W, player.x - VIEW_W * 0.38 + look));
+        updateTimerHud();
+        updateStarGoalsHud();
+        const look = player.facing * (phy.CAMERA_LOOK || 80);
+        cameraTarget = Math.max(0, Math.min(level.width - VIEW_W, player.x - VIEW_W * 0.38 + look));
+        const lerp = Math.min(1, dt * (phy.CAMERA_LERP || 12));
+        cameraX += (cameraTarget - cameraX) * lerp;
+    }
+
+    function clearTips(star, rounded) {
+        const tips = [];
+        if (coins < level.coins.length) {
+            tips.push('还差 ' + (level.coins.length - coins) + ' 枚金币拿第二星');
+        }
+        if (rounded > level.parTime) {
+            tips.push('再快 ' + Math.max(1, Math.ceil(rounded - level.parTime)) + ' 秒可拿速度星');
+        }
+        if (star >= 3) tips.push('三星全收！');
+        else if (tips.length === 0) tips.push('再练一次冲三星');
+        return tips;
     }
 
     function onClear() {
@@ -368,9 +641,15 @@
         playing = false;
         document.getElementById('run-status').textContent = '通关！';
         const elapsed = (performance.now() - startTime) / 1000;
+        const rounded = Math.round(elapsed * 10) / 10;
+        if (!progress.bestTime) progress.bestTime = {};
+        const prevBest = progress.bestTime[level.id];
+        if (!prevBest || rounded < prevBest) progress.bestTime[level.id] = rounded;
+
         let star = 1;
         if (coins >= level.coins.length) star += 1;
-        if (elapsed <= level.parTime) star += 1;
+        const timeForStar = Math.min(rounded, progress.bestTime[level.id] || rounded);
+        if (timeForStar <= level.parTime) star += 1;
         star = Math.min(3, star);
 
         progress.stars[level.id] = Math.max(Number(progress.stars[level.id] || 0), star);
@@ -392,10 +671,12 @@
             bridge.grantProgressPoints(GAME_ID, 3 + star, 'clear-level-' + level.id);
         }
         if (typeof bridge.recordPlaySession === 'function') bridge.recordPlaySession(GAME_ID);
+        const tips = clearTips(star, rounded);
         const msg = award.awarded
-            ? `通关 ${level.title}！★×${star} · +${award.amount} 阳光`
-            : `通关！★×${star} · ${award.reason}`;
-        toast(msg);
+            ? `通关 ${level.title}！★×${star} · ${rounded}s · +${award.amount} 阳光`
+            : `通关！★×${star} · ${rounded}s · ${award.reason}`;
+        toast(msg + ' · ' + tips[0]);
+        updateStarGoalsHud();
         refreshWallet();
         setTimeout(showMap, 1600);
     }
@@ -441,30 +722,30 @@
             ctx.fillStyle = sky;
             ctx.fillRect(cameraX, 0, VIEW_W, level.groundY);
         }
-        // 地面：连续草皮 + 泥土层（不再用平台砖硬铺地面）
-        const groundH = VIEW_H - level.groundY;
-        if (images.ground) {
-            const gw = 160;
-            for (let x = 0; x < level.width; x += gw) {
-                ctx.drawImage(images.ground, x, level.groundY - 12, gw, 48);
+        // 地面：单层草皮 + 渐变泥土（避免横截面图平铺出“重复山丘”）
+        const gy = level.groundY;
+        const grassH = 18;
+        const dirtGrad = ctx.createLinearGradient(0, gy + grassH, 0, gy + 140);
+        dirtGrad.addColorStop(0, '#a06838');
+        dirtGrad.addColorStop(0.45, '#8b5a2b');
+        dirtGrad.addColorStop(1, '#6b4423');
+        ctx.fillStyle = dirtGrad;
+        ctx.fillRect(0, gy + grassH, level.width, VIEW_H - gy + 80);
+
+        if (images.platform) {
+            const slice = 64;
+            for (let x = 0; x < level.width; x += slice) {
+                const w = Math.min(slice, level.width - x);
+                ctx.drawImage(images.platform, x, gy - 8, w, grassH + 14);
             }
         } else {
             ctx.fillStyle = '#5db845';
-            ctx.fillRect(0, level.groundY, level.width, 18);
+            ctx.fillRect(0, gy, level.width, grassH);
         }
-        if (images.dirt) {
-            const tw = 64;
-            for (let x = 0; x < level.width; x += tw) {
-                for (let y = level.groundY + 28; y < VIEW_H; y += tw) {
-                    ctx.drawImage(images.dirt, x, y, tw, tw);
-                }
-            }
-        } else {
-            ctx.fillStyle = '#8b5a2b';
-            ctx.fillRect(0, level.groundY + 18, level.width, groundH);
-        }
-        ctx.fillStyle = 'rgba(60, 40, 20, .35)';
-        ctx.fillRect(0, level.groundY + 16, level.width, 4);
+        ctx.fillStyle = 'rgba(255, 255, 255, .28)';
+        ctx.fillRect(0, gy, level.width, 3);
+        ctx.fillStyle = 'rgba(40, 28, 18, .28)';
+        ctx.fillRect(0, gy + grassH - 1, level.width, 4);
 
         level.platforms.forEach(function (p) {
             if (images.platform) {
@@ -477,6 +758,48 @@
                 ctx.fillStyle = '#e08a28';
                 ctx.fillRect(p.x, p.y, p.w, p.h);
             }
+        });
+        (level.blocks || []).forEach(function (block) {
+            if (block.broken) return;
+            const imgKey = block.type === 'brick'
+                ? (block.hit ? 'block-brick' : 'block-brick')
+                : (block.hit ? 'block-brick' : 'block-question');
+            const img = images[imgKey] || images['block-question'];
+            if (img) ctx.drawImage(img, block.x, block.y, block.w, block.h);
+            else {
+                ctx.fillStyle = block.type === 'brick' ? '#c65a22' : '#f0b020';
+                ctx.fillRect(block.x, block.y, block.w, block.h);
+            }
+        });
+        pickups.forEach(function (pickup) {
+            if (pickup.taken) return;
+            if (pickup.kind === 'star' && images.enemy) {
+                ctx.drawImage(images.enemy, pickup.x, pickup.y, pickup.w, pickup.h);
+            } else if (images.coin) {
+                ctx.drawImage(images.coin, pickup.x, pickup.y, pickup.w, pickup.h);
+            }
+        });
+        (level.checkpoints || []).forEach(function (cp) {
+            ctx.fillStyle = cp.saved ? 'rgba(255, 208, 47, .55)' : 'rgba(255, 255, 255, .35)';
+            ctx.fillRect(cp.x, cp.y, cp.w, cp.h);
+            ctx.strokeStyle = 'rgba(62, 44, 65, .25)';
+            ctx.strokeRect(cp.x + 0.5, cp.y + 0.5, cp.w - 1, cp.h - 1);
+        });
+        pops.forEach(function (pop) {
+            ctx.globalAlpha = Math.max(0, pop.life / 0.45);
+            if (images.coin) ctx.drawImage(images.coin, pop.x, pop.y, 18, 18);
+            ctx.globalAlpha = 1;
+        });
+        floats.forEach(function (f) {
+            ctx.save();
+            ctx.globalAlpha = Math.min(1, f.life / 0.35);
+            ctx.fillStyle = f.color;
+            ctx.font = 'bold 17px sans-serif';
+            ctx.strokeStyle = 'rgba(62, 44, 65, .45)';
+            ctx.lineWidth = 3;
+            ctx.strokeText(f.text, f.x, f.y);
+            ctx.fillText(f.text, f.x, f.y);
+            ctx.restore();
         });
         if (images.pipe && level.pipe) ctx.drawImage(images.pipe, level.pipe.x, level.pipe.y, level.pipe.w, level.pipe.h);
         level.coins.forEach(function (coin, i) {
@@ -494,11 +817,20 @@
             }
         });
         if (images.flag) ctx.drawImage(images.flag, level.flag.x, level.flag.y, 48, level.flag.h);
-        const blink = phy.isInvincible(performance.now(), lastHitAt, phy.INVINCIBLE_MS)
+        const blink = (phy.isInvincible(performance.now(), lastHitAt, phy.INVINCIBLE_MS)
+            || performance.now() < starUntil)
             && Math.floor(performance.now() / 80) % 2 === 0;
-        if (!blink && !drawSprite(heroImage(), player.x, player.y, player.w, player.h, player.facing < 0)) {
-            ctx.fillStyle = '#e54139';
-            ctx.fillRect(player.x, player.y + 14, player.w, player.h - 14);
+        const drawW = playerPowered ? player.w + 6 : player.w;
+        const drawH = playerPowered ? player.h + 8 : player.h;
+        const drawY = playerPowered ? player.y - 8 : player.y;
+        if (!blink && !drawSprite(heroImage(), player.x, drawY, drawW, drawH, player.facing < 0)) {
+            ctx.fillStyle = playerPowered ? '#ff6b52' : '#e54139';
+            ctx.fillRect(player.x, drawY + 14, drawW, drawH - 14);
+        }
+        if (playerPowered) {
+            ctx.strokeStyle = 'rgba(255, 208, 47, .45)';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(player.x - 2, drawY - 2, drawW + 4, drawH + 4);
         }
         ctx.restore();
         if (won) {
@@ -506,7 +838,12 @@
             ctx.fillRect(0, 0, VIEW_W, VIEW_H);
             ctx.fillStyle = '#fff';
             ctx.font = 'bold 26px sans-serif';
-            ctx.fillText('冲线成功！', VIEW_W / 2 - 70, VIEW_H / 2);
+            ctx.textAlign = 'center';
+            ctx.fillText('冲线成功！', VIEW_W / 2, VIEW_H / 2 - 24);
+            const stars = Math.max(0, Math.min(3, Number(progress.stars[level.id]) || 0));
+            ctx.font = '20px sans-serif';
+            ctx.fillText('★'.repeat(stars) + '☆'.repeat(3 - stars), VIEW_W / 2, VIEW_H / 2 + 8);
+            ctx.textAlign = 'left';
         }
     }
 
@@ -549,14 +886,15 @@
             button.addEventListener('pointerup', function () { set(false); });
             button.addEventListener('pointercancel', function () { set(false); });
         });
-        const jumpBtn = document.querySelector('[data-action="jump"]');
-        jumpBtn.addEventListener('pointerdown', function (e) {
-            lastJumpPressedAt = performance.now();
-            input.jumpHeld = true;
-            jumpBtn.setPointerCapture(e.pointerId);
+        document.querySelectorAll('[data-action="jump"]').forEach(function (jumpBtn) {
+            jumpBtn.addEventListener('pointerdown', function (e) {
+                lastJumpPressedAt = performance.now();
+                input.jumpHeld = true;
+                jumpBtn.setPointerCapture(e.pointerId);
+            });
+            jumpBtn.addEventListener('pointerup', function () { input.jumpHeld = false; });
+            jumpBtn.addEventListener('pointercancel', function () { input.jumpHeld = false; });
         });
-        jumpBtn.addEventListener('pointerup', function () { input.jumpHeld = false; });
-        jumpBtn.addEventListener('pointercancel', function () { input.jumpHeld = false; });
         document.getElementById('restart-btn').addEventListener('click', resetRun);
         document.getElementById('back-map-btn').addEventListener('click', showMap);
         document.getElementById('map-btn').addEventListener('click', showMap);

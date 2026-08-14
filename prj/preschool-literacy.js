@@ -268,6 +268,10 @@
         const count = Math.max(1, Math.min(items.length, Number(size) || 8));
         const used = [];
         const batch = [];
+        const dueSet = {};
+        buildReviewQueue(progress, rules, today, items.map(function (item) { return item.char; })).forEach(function (char) {
+            dueSet[char] = true;
+        });
         for (let i = 0; i < count; i += 1) {
             const remaining = items.filter(function (item) { return used.indexOf(item.char) === -1; });
             const char = pickTodayChar(remaining.length ? remaining : items, progress, rules, today, i === 0 ? preferred : '');
@@ -278,7 +282,8 @@
                 char: item.char,
                 pinyin: item.pinyin,
                 words: item.words.slice(),
-                mark: null
+                mark: null,
+                review: dueSet[item.char] === true
             });
         }
         return batch;

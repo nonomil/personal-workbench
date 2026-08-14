@@ -36,6 +36,8 @@ test('preschool home surfaces three world progress and daily game sun cap', () =
   assert.match(bridge, /getWeeklyReport/);
   assert.match(bridge, /ADVENTURE_RANKS|MILESTONES/);
   assert.match(bridge, /grantProgressPoints/);
+  assert.match(bridge, /playModsFromLiteracy|getPlayMods/);
+  assert.doesNotMatch(bridge, /gameTickets|游戏券/);
   assert.match(shell, /workbench-bridge\.js/);
   assert.match(shell, /voxel-adventure\/data\/world\.js/);
   assert.match(app, /function renderPreschoolWeeklyAdventureReport/);
@@ -92,11 +94,22 @@ test('growth content tables expose multiple stages or quests', () => {
   const stages = fs.readFileSync(path.join(root, 'garden-defense', 'data', 'stages.js'), 'utf8');
   const quests = fs.readFileSync(path.join(root, 'voxel-adventure', 'data', 'quests.js'), 'utf8');
   const levels = fs.readFileSync(path.join(root, 'platform-quest', 'data', 'levels.js'), 'utf8');
-  // stages.js uses S(1, ...) / levels use L(1, ...)
   assert.equal((stages.match(/\bS\(\d+/g) || []).length >= 12, true, 'garden should have 12 stages');
   assert.match(stages, /waves|阳光/);
   const voxelLevels = fs.readFileSync(path.join(root, 'voxel-adventure', 'data', 'levels.js'), 'utf8');
   assert.equal((voxelLevels.match(/id:\s*\d+/g) || []).length >= 8, true, 'voxel should have 8 region levels');
   assert.match(voxelLevels, /region:|grassland|goal:/);
+  assert.match(levels, /checkpoints/);
   assert.equal((levels.match(/\bL\(\d+/g) || []).length >= 10, true, 'platform should have 10 levels');
+  assert.match(levels, /L\(1,\s*'青青草地',\s*2400/);
+  const widths = levels.match(/L\((\d+),\s*'[^']+',\s*(\d+)/g) || [];
+  const tooLong = widths.filter(function (line) {
+    const m = line.match(/L\((\d+),\s*'[^']+',\s*(\d+)/);
+    if (!m) return false;
+    const id = Number(m[1]);
+    const width = Number(m[2]);
+    if (id === 1) return false;
+    return width >= 1900;
+  });
+  assert.equal(tooLong.length, 0, 'levels 2–10 should stay under 1900px');
 });

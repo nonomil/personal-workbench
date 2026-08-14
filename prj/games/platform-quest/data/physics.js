@@ -9,8 +9,16 @@
 
     const COYOTE_MS = 120;
     const JUMP_BUFFER_MS = 120;
-    const INVINCIBLE_MS = 2000;
+    const INVINCIBLE_MS = 3000;
+    const STAR_INVINCIBLE_MS = 8000;
     const MAX_AIR_JUMPS = 1;
+    const EARLY_LEVEL_AIR_JUMPS = 2;
+    const EARLY_LEVEL_AIR_UNTIL = 4;
+    const AIR_JUMP_BUFFER_MS = 200;
+    const START_HEARTS = 5;
+    const COIN_LIFE_MILESTONE = 100;
+    const CAMERA_LOOK = 80;
+    const CAMERA_LERP = 12;
 
     function tryJump(now, lastGroundedAt, lastJumpPressedAt, coyoteMs, bufferMs) {
         const coyote = coyoteMs == null ? COYOTE_MS : coyoteMs;
@@ -34,7 +42,15 @@
         COYOTE_MS: COYOTE_MS,
         JUMP_BUFFER_MS: JUMP_BUFFER_MS,
         INVINCIBLE_MS: INVINCIBLE_MS,
+        STAR_INVINCIBLE_MS: STAR_INVINCIBLE_MS,
         MAX_AIR_JUMPS: MAX_AIR_JUMPS,
+        EARLY_LEVEL_AIR_JUMPS: EARLY_LEVEL_AIR_JUMPS,
+        EARLY_LEVEL_AIR_UNTIL: EARLY_LEVEL_AIR_UNTIL,
+        AIR_JUMP_BUFFER_MS: AIR_JUMP_BUFFER_MS,
+        START_HEARTS: START_HEARTS,
+        COIN_LIFE_MILESTONE: COIN_LIFE_MILESTONE,
+        CAMERA_LOOK: CAMERA_LOOK,
+        CAMERA_LERP: CAMERA_LERP,
         GRAVITY: 1500,
         HOLD_GRAVITY: 780,
         JUMP_VY: -620,
@@ -42,7 +58,8 @@
         MAX_FALL: 900,
         RUN_SPEED: 240,
         SPRINT_SPEED: 340,
-        ENEMY_SPEED: 48,
+        ENEMY_SPEED: 34,
+        FRICTION: 0.82,
         tryJump: tryJump,
         isInvincible: isInvincible,
         canAirJump: canAirJump

@@ -185,9 +185,9 @@
                     ],
                     lessons: [
                         { id: 'preschool-summer-1', title: '打开每日学习单', minutes: 8, meta: '晨读 + 识字 + 古诗', tip: '先读一句，再认几个字，慢慢开始就好。', activity: { mode: 'choice', prompt: '暑假学习单先做哪一项？', hint: '先用一句晨读把小脑袋叫醒。', options: ['晨读一句', '马上看电视', '先把所有内容背完'], answer: 0, optionIcons: ['sun', 'tv', 'book-open'], success: '学习节奏找到了！' } },
-                        { id: 'preschool-summer-2', title: '晨读和识字', minutes: 10, meta: '5 分钟晨读 · 10 个字', tip: '读顺一句，再认一组生活里的字。', activity: { mode: 'choice', prompt: '“山、水、火、木”里哪个是植物？', hint: '它会从土地里长出来。', options: ['木', '水', '火'], answer: 0, optionIcons: ['tree-pine', 'droplets', 'flame'], success: '字卡认得真仔细！' } },
-                        { id: 'preschool-summer-3', title: '古诗小画面', minutes: 10, meta: '读《咏鹅》 · 想画面', tip: '边读边想白鹅和绿水的画面。', activity: { mode: 'choice', prompt: '《咏鹅》里白毛浮在哪里？', hint: '想想诗里绿色的地方。', options: ['绿水', '高山', '白云'], answer: 0, optionIcons: ['droplets', 'mountain', 'cloud'], success: '诗里的画面出现啦！' } },
-                        { id: 'preschool-summer-4', title: '周末复盘卡', minutes: 8, meta: '说一说 · 留一句', tip: '会说出一件喜欢的事，就是很好的复盘。', activity: { mode: 'choice', prompt: '每周复盘可以做什么？', hint: '想想这周读过、认过和喜欢过的内容。', options: ['说说喜欢的内容', '把学习全忘掉', '只看完成数量'], answer: 0, optionIcons: ['heart', 'moon', 'target'], success: '会回看，也会长大！' } }
+                        { id: 'preschool-summer-2', title: '晨读和识字', minutes: 10, meta: 'L1 · 8 张生活字', tip: '读顺一句，再认一组生活里的字。', activity: { mode: 'literacy-flash', level: 'L1', char: '山', size: 8, prompt: '这些字，哪些会了？', hint: '会的点会了，不会的点不会。', options: ['会了', '不会', '先听一听'], answer: 0, optionIcons: ['check', 'rotate-ccw', 'volume-2'], success: '今天的字卡看完啦！' } },
+                        { id: 'preschool-summer-3', title: '古诗小画面', minutes: 10, meta: '听《咏鹅》 · 选下一句', tip: '边读边想白鹅和绿水的画面。', activity: { mode: 'poetry-line', preferred: 'poem-yong-e', size: 5, prompt: '下一句是哪一句？', hint: '先听这一句。', options: ['听一句', '选下一句', '下一题'], answer: 0, optionIcons: ['moon', 'droplets', 'flower-2'], success: '诗里的画面出现啦！' } },
+                        { id: 'preschool-summer-4', title: '周末复盘卡', minutes: 8, meta: '再认到期的字', tip: '会的跳过，不会的再看组词。', activity: { mode: 'literacy-flash', level: 'L1', char: '山', size: 8, prompt: '这些字，哪些还记得？', hint: '到期的字会标再认。', options: ['会了', '不会', '先听一听'], answer: 0, optionIcons: ['check', 'rotate-ccw', 'volume-2'], success: '会回看，也会长大！' } }
                     ]
                 },
                 {
@@ -241,19 +241,19 @@
                 {
                     id: 'preschool-math',
                     title: '数学专区',
-                    description: '先数一数，再比大小，再做 10 以内口算。',
+                    description: '先数一数、比大小，口算级别在设置里选。当前默认是 100 以内加减，加上 20 以内简单乘法。',
                     icon: 'calculator',
                     tone: 'blue',
                     badge: '五级题库',
-                    note: '五级都从题库出题，选错只提示，不扣阳光。',
-                    highlights: ['数一数', '比大小', '5 以内加减', '取走', '10 以内加减'],
-                    samples: ['数太阳', '哪边多', '5 - 2', '8 + 2'],
+                    note: '口算按设置出题，选错只提示，不扣阳光。',
+                    highlights: ['数一数', '比大小', '100 以内加减', '20 以内乘法'],
+                    samples: ['数太阳', '哪边多', '36 + 28', '4 × 5'],
                     lessons: [
                         { id: 'preschool-math-1', title: '数学闯关一关', minutes: 10, meta: 'L1 · 题库数一数', tip: '数一数有几个太阳，选错只提示。', activity: { mode: 'math-bank', level: 'L1', size: 5, prompt: '数一数，有几个太阳？', hint: '一个一个数。', options: ['1', '2', '3'], answer: 0, optionIcons: ['calculator', 'plus', 'circle-check'], success: '第一关数对啦！' } },
                         { id: 'preschool-math-2', title: '比大小', minutes: 8, meta: 'L2 · 题库比多少', tip: '看哪边太阳更多，选那个数。', activity: { mode: 'math-bank', level: 'L2', size: 5, prompt: '哪边太阳更多？', hint: '先数左边，再数右边。', options: ['左边', '右边', '再数一次'], answer: 0, optionIcons: ['calculator', 'plus', 'circle-check'], success: '比出来啦！' } },
-                        { id: 'preschool-math-3', title: '合起来', minutes: 10, meta: 'L3 · 题库口算', tip: '选错只提示，不会就再算一遍。', activity: { mode: 'math-bank', level: 'L3', size: 5, prompt: '算一算', hint: '用手指帮忙。', options: ['听一听', '选得数', '下一题'], answer: 0, optionIcons: ['calculator', 'plus', 'circle-check'], success: '口算过关啦！' } },
-                        { id: 'preschool-math-4', title: '拿走还剩', minutes: 10, meta: 'L4 · 5 以内取走', tip: '先看一共几个，再拿走几个。', activity: { mode: 'math-bank', level: 'L4', size: 5, prompt: '算一算还剩几个？', hint: '用手指帮忙。', options: ['听一听', '选得数', '下一题'], answer: 0, optionIcons: ['calculator', 'plus', 'circle-check'], success: '取走算对啦！' } },
-                        { id: 'preschool-math-5', title: '10 以内加减', minutes: 10, meta: 'L5 · 题库口算', tip: '加和减会混在一起。', activity: { mode: 'math-bank', level: 'L5', size: 5, prompt: '算一算', hint: '用手指帮忙。', options: ['听一听', '选得数', '下一题'], answer: 0, optionIcons: ['calculator', 'plus', 'circle-check'], success: '十以内过关啦！' } }
+                        { id: 'preschool-math-3', title: '口算练习一', minutes: 10, meta: 'L3 · 设置出口算', tip: '按设置里的口算级别出题，选错只提示。', activity: { mode: 'math-bank', level: 'L3', size: 8, prompt: '算一算', hint: '用草稿或心算。', options: ['听一听', '选得数', '下一题'], answer: 0, optionIcons: ['calculator', 'plus', 'circle-check'], success: '口算过关啦！' } },
+                        { id: 'preschool-math-4', title: '口算练习二', minutes: 10, meta: 'L4 · 设置出口算', tip: '还是当前口算级别，换一批题。', activity: { mode: 'math-bank', level: 'L4', size: 8, prompt: '算一算还剩多少？', hint: '用草稿或心算。', options: ['听一听', '选得数', '下一题'], answer: 0, optionIcons: ['calculator', 'plus', 'circle-check'], success: '又算对啦！' } },
+                        { id: 'preschool-math-5', title: '口算练习三', minutes: 10, meta: 'L5 · 设置出口算', tip: '加减和简单乘法会按设置混在一起。', activity: { mode: 'math-bank', level: 'L5', size: 8, prompt: '算一算', hint: '用草稿或心算。', options: ['听一听', '选得数', '下一题'], answer: 0, optionIcons: ['calculator', 'plus', 'circle-check'], success: '口算练完啦！' } }
                     ]
                 },
                 {
@@ -274,19 +274,42 @@
                 },
                 {
                     id: 'preschool-english',
-                    title: '自然拼读',
-                    description: '学几个音、拼几个词，答对就收集阳光。',
+                    title: '英语专区',
+                    description: '今日 5 词先听，再中英配对，再拼写。词库按 L1-L5 分级。',
                     icon: 'languages',
                     tone: 'lime',
                     badge: '500 词口语',
-                    note: '今日 5 词先听再配对再拼写。词库按 L1-L5 分级，第一课从 L1 起步。',
-                    highlights: ['今日 5 词', '中英配对', '拼读短词'],
-                    samples: ['hello', 'red', 'mat'],
+                    note: '点完会了或不会后，会进入中英翻牌和字母拼词。不扣阳光。',
+                    highlights: ['今日 5 词', '中英配对', '字母拼词'],
+                    samples: ['hello', 'red', 'apple'],
                     lessons: [
-                        { id: 'preschool-english-words-1', title: '今日 5 词', minutes: 8, meta: 'L1 · 按天听 5 个词和句子', tip: '先听单词和句子，再点会了或不会。点会了不会都不扣阳光。', activity: { mode: 'english-speak', level: 'L1', prompt: '听句子，这些词你会了吗？', hint: '点听句子，再点会了或不会。', preferred: 'hello', size: 5, options: ['会了', '不会', '听句子'], answer: 0, optionIcons: ['check', 'rotate-ccw', 'volume-2'], success: '这些词会听啦！' } },
-                        { id: 'preschool-english-phonics-1', title: '认识 a、m、t', minutes: 6, meta: '先听音，再认字母', tip: '先听关键词，再选出字母。', activity: { mode: 'phonics-letter', groups: 'amt', preferred: 'm', size: 3, prompt: '听一听，哪个字母？', hint: 'm 像两座小山，声音是 /m/。', options: ['m', 'a', 't'], answer: 0, optionIcons: ['languages', 'sparkles', 'target'], success: 'a、m、t 认识啦！' }, referenceMaterialId: 'open-source-phonics-lesson-001', source: { kind: 'reference-only', project: 'Open Source Phonics', lesson: 1, license: 'CC BY-NC-SA 4.0', url: 'https://www.opensourcephonics.org/120-lessons/' } },
-                        { id: 'preschool-english-phonics-2', title: '认识 f、b', minutes: 6, meta: '听首音，找字母', tip: '把 f、b 的声音和字母连起来。', activity: { mode: 'phonics-letter', groups: 'fb,amt', preferred: 'f', size: 5, prompt: '听一听，哪个字母？', hint: 'fan 先发 /f/，嘴唇和牙齿轻轻碰一下。', options: ['f', 'b', 'm'], answer: 0, optionIcons: ['languages', 'target', 'sparkles'], success: 'f、b 找对啦！' }, referenceMaterialId: 'open-source-phonics-lesson-002', source: { kind: 'reference-only', project: 'Open Source Phonics', lesson: 2, license: 'CC BY-NC-SA 4.0', url: 'https://www.opensourcephonics.org/120-lessons/' } },
-                        { id: 'preschool-english-phonics-3', title: '拼读短词', minutes: 8, meta: '词库听音选词 10 题', tip: '先听单词，再选出你听到的短词。选错会再听一遍。', activity: { mode: 'phonics-cvc', preferred: 'mat', size: 10, prompt: '听一听，哪个词？', hint: '从左到右把声音连起来。', options: ['听一听', '选一个词', '下一题'], answer: 0, optionIcons: ['volume-2', 'target', 'sparkles'], success: '会把声音拼成词啦！' }, referenceMaterialId: 'open-source-phonics-lesson-003', source: { kind: 'reference-only', project: 'Open Source Phonics', lesson: 3, license: 'CC BY-NC-SA 4.0', url: 'https://www.opensourcephonics.org/120-lessons/' } }
+                        { id: 'preschool-english-words-1', title: '今日 5 词', minutes: 8, meta: 'L1 · 听词 → 配对 → 拼写', tip: '先听单词和句子，点完会了或不会，再去配对。', activity: { mode: 'english-speak', level: 'L1', prompt: '听句子，这些词你会了吗？', hint: '点听句子，再点会了或不会。', preferred: 'hello', size: 5, options: ['会了', '不会', '听句子'], answer: 0, optionIcons: ['check', 'rotate-ccw', 'volume-2'], success: '这些词会听啦！' } }
+                    ],
+                    media: [
+                        { type: 'bilibili', title: 'Super Simple Songs 官方儿歌', note: '3-8 岁英语儿歌启蒙 · 246 分钟', bvid: 'BV1wHVs6GEJW', icon: 'music-2' },
+                        { type: 'bilibili', title: 'SSS 自然拼读动画 · 全 71 集', note: '自然拼读启蒙 · 36 小时', bvid: 'BV142A4z2EEV', icon: 'sparkles' },
+                        { type: 'bilibili', title: 'English Singsing · 全 1073 集', note: '日常对话与故事 · 英语启蒙必看', bvid: 'BV1qbC6YtE91', icon: 'languages' },
+                        { type: 'bilibili', title: '小猪佩奇英文版', note: '英文原声 · 生活场景动画', bvid: 'BV1i6ggzwE2F', icon: 'play-circle' },
+                        { type: 'bilibili', title: 'Minecraft 英语课 · 从零开始', note: '我的世界学英语 · 中英字幕慢速', bvid: 'BV1BwGKzbEF1', icon: 'gamepad-2' },
+                        { type: 'link', title: '英语启蒙打印资料包', note: '识字卡 / 练习纸 / 音频 · 替换为你自己的分享链接', url: 'https://pan.baidu.com/s/your-share-code', code: 'xxxx', icon: 'cloud-download' }
+                    ]
+                },
+                {
+                    id: 'preschool-phonics',
+                    title: '自然拼读',
+                    description: '听字母、拼短词，94 个拼读词按 L1-L5 走。',
+                    icon: 'sparkles',
+                    tone: 'orange',
+                    badge: '94 词拼读',
+                    note: '从字母听到 CVC 短词，选错再听一遍，不扣阳光。',
+                    highlights: ['听字母', '拼短词', 'L1-L5'],
+                    samples: ['m', 'f', 'mat'],
+                    lessons: [
+                        { id: 'preschool-english-phonics-1', title: '认识 a、m、t', minutes: 6, meta: 'L1 · 先听音，再认字母', tip: '先听关键词，再选出字母。', activity: { mode: 'phonics-letter', level: 'L1', groups: 'amt', preferred: 'm', size: 3, prompt: '听一听，哪个字母？', hint: 'm 像两座小山，声音是 /m/。', options: ['m', 'a', 't'], answer: 0, optionIcons: ['languages', 'sparkles', 'target'], success: 'a、m、t 认识啦！' }, referenceMaterialId: 'open-source-phonics-lesson-001', source: { kind: 'reference-only', project: 'Open Source Phonics', lesson: 1, license: 'CC BY-NC-SA 4.0', url: 'https://www.opensourcephonics.org/120-lessons/' } },
+                        { id: 'preschool-english-phonics-2', title: '认识 f、b', minutes: 6, meta: 'L2 · 听首音，找字母', tip: '把 f、b 的声音和字母连起来。', activity: { mode: 'phonics-letter', groups: 'fb,amt', preferred: 'f', size: 5, prompt: '听一听，哪个字母？', hint: 'fan 先发 /f/，嘴唇和牙齿轻轻碰一下。', options: ['f', 'b', 'm'], answer: 0, optionIcons: ['languages', 'target', 'sparkles'], success: 'f、b 找对啦！' }, referenceMaterialId: 'open-source-phonics-lesson-002', source: { kind: 'reference-only', project: 'Open Source Phonics', lesson: 2, license: 'CC BY-NC-SA 4.0', url: 'https://www.opensourcephonics.org/120-lessons/' } },
+                        { id: 'preschool-english-phonics-3', title: '拼读短词', minutes: 8, meta: 'L3 · 词库听音选词 10 题', tip: '先听单词，再选出你听到的短词。选错会再听一遍。', activity: { mode: 'phonics-cvc', preferred: 'mat', size: 10, prompt: '听一听，哪个词？', hint: '从左到右把声音连起来。', options: ['听一听', '选一个词', '下一题'], answer: 0, optionIcons: ['volume-2', 'target', 'sparkles'], success: '会把声音拼成词啦！' }, referenceMaterialId: 'open-source-phonics-lesson-003', source: { kind: 'reference-only', project: 'Open Source Phonics', lesson: 3, license: 'CC BY-NC-SA 4.0', url: 'https://www.opensourcephonics.org/120-lessons/' } },
+                        { id: 'preschool-phonics-4', title: '更多字母', minutes: 8, meta: 'L4 · 字母表听选', tip: '听关键词，选出字母。', activity: { mode: 'phonics-letter', groups: 'alpha', preferred: 's', size: 8, prompt: '听一听，哪个字母？', hint: '先听开头的声音。', options: ['听一听', '选字母', '下一题'], answer: 0, optionIcons: ['languages', 'target', 'sparkles'], success: '字母又多认识几个啦！' } },
+                        { id: 'preschool-phonics-5', title: '再拼短词', minutes: 8, meta: 'L5 · 词库听音选词', tip: '换一批短词，还是听完再选。', activity: { mode: 'phonics-cvc', preferred: 'sit', size: 10, prompt: '听一听，哪个词？', hint: '从左到右把声音连起来。', options: ['听一听', '选一个词', '下一题'], answer: 0, optionIcons: ['volume-2', 'target', 'sparkles'], success: '短词又拼对啦！' } }
                     ]
                 },
                 {

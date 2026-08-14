@@ -11,7 +11,8 @@
                 text: String(source.text || '').trim().toLowerCase(),
                 graphemes: Array.isArray(source.graphemes) ? source.graphemes.map(function (item) { return String(item || ''); }) : [],
                 phonemes: Array.isArray(source.phonemes) ? source.phonemes.map(function (item) { return String(item || ''); }) : [],
-                stageId: String(source.stageId || '')
+                stageId: String(source.stageId || ''),
+                level: String(source.level || '')
             };
         }).filter(function (item) {
             return item.text && item.stageId;

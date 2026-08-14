@@ -136,7 +136,14 @@ test('flash batch marks known chars as ready and teaches unknown chars with word
     const batch = literacy.buildFlashBatch(bank, empty, rules, '2026-08-14', '山', 8);
     assert.equal(batch.length, 8);
     assert.equal(batch[0].char, '山');
+    assert.equal(batch[0].review, false);
     assert.equal(new Set(batch.map(item => item.char)).size, 8);
+    let dueProgress = literacy.markFlash(empty, '山', true, '2026-08-14', rules);
+    const sameDay = literacy.buildFlashBatch(bank, dueProgress, rules, '2026-08-14', '山', 8);
+    assert.equal(sameDay.some(item => item.char === '山' && item.review), false);
+    const nextDay = literacy.buildFlashBatch(bank, dueProgress, rules, '2026-08-17', '水', 8);
+    assert.equal(nextDay[0].char, '山');
+    assert.equal(nextDay[0].review, true);
     let progress = literacy.markFlash(empty, '山', true, '2026-08-14', rules);
     assert.equal(progress.mastery['山'].state, 'ready');
     assert.equal(progress.mastery['山'].sunlightDelta, 0);
@@ -176,6 +183,8 @@ test('preschool literacy course copy drops 坡/始/游 and still has answerable 
     assert.match(app, /会了/);
     assert.match(app, /还不会/);
     assert.match(app, /renderPreschoolLiteracyMastery/);
+    assert.match(app, /今天再认/);
+    assert.match(app, /literacy-flash-review/);
     assert.match(app, /mode === 'literacy-bloom'[\s\S]{0,400}pickTodayChar/);
     assert.match(html, /preschool-literacy\.js/);
 });

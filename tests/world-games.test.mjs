@@ -27,6 +27,7 @@ test('keeps three mini-game worlds in a separate games folder from workbench she
   const platform = fs.readFileSync(platformHtml, 'utf8');
   const gardenScript = fs.readFileSync(gardenJs, 'utf8');
   const voxelScript = fs.readFileSync(voxelJs, 'utf8');
+  const voxelLevels = fs.readFileSync(path.join(root, 'games', 'voxel-adventure', 'data', 'levels.js'), 'utf8');
   const platformScript = fs.readFileSync(platformJs, 'utf8');
 
   assert.match(garden, /花园|garden|保卫/i);
@@ -58,10 +59,15 @@ test('keeps three mini-game worlds in a separate games folder from workbench she
   assert.match(voxelScript, /mineBlock|点击挖矿|长按放置/);
   assert.match(voxelScript, /const GAME_ID = 'voxel-adventure'/);
   assert.match(voxelScript, /VoxelLevels|cameraX|走到出口/);
+  assert.match(voxelScript, /cameraY = Math.round\(Math.max\(0, maxCamY\)\)/);
   assert.match(voxelScript, /kubo-sandbox|ikx337|VoxelPixelTiles|pixel-tiles|DS-Scratch/);
   assert.match(voxelScript, /wood_pick|stone_pick|levelGoalMet/);
   assert.match(voxelScript, /explorer-idle|SPRITE_W|explorerPose/);
+  assert.match(voxelScript, /sky-day|skyDusk|regionSky/);
   assert.match(voxelScript, /startMine|explorer-mine|drawPickSwing/);
+  assert.match(voxelScript, /spark-idle|sparkPose|sparkWalkA/);
+  assert.match(voxelScript, /slime-idle|shroom-idle|ENEMY_ART/);
+  assert.match(voxelLevels, /slime|shroom/);
   assert.match(voxelScript, /player\.y \+ 1/);
   assert.match(voxelScript, /VIEW_COLS|isVoid|掉下去了/);
   assert.doesNotMatch(voxelScript, /Creeper|Steve|苦力怕/);
@@ -72,6 +78,11 @@ test('keeps three mini-game worlds in a separate games folder from workbench she
   assert.match(platformScript, /jump|coin|flag|platform|run|idle|ground/i);
   assert.match(platformScript, /coyote|jumpBuffer|tryJump|COYOTE_MS/i);
   assert.match(platformScript, /isInvincible|canAirJump|INVINCIBLE_MS/);
+  assert.match(platformScript, /blocks|bumpBlock|heart-count|STAR_INVINCIBLE_MS|FRICTION/);
+  assert.match(platformScript, /platform-mystery-block|block-question/);
+  assert.match(platformScript, /bestTime|checkpoints|cameraTarget|run-timer/);
+  assert.match(platformScript, /playerPowered|maxAirJumpsForLevel|stage-best/);
+  assert.match(platformScript, /spawnFloat|star-goals|clearTips|LEVEL_TIPS/);
   assert.doesNotMatch(platform, /Mario|马里奥|Goomba|Koopa/);
   assert.doesNotMatch(platformScript, /Mario|马里奥|Goomba|Koopa/);
 });

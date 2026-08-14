@@ -496,8 +496,11 @@
             return Object.assign({ id: createId('review'), date: localDate(), title: '未命名复盘', mood: 'steady', body: '', nextAction: '', createdAt: state.updatedAt }, item);
         });
         state.mistakes = state.mistakes.map(function (item) {
-            return Object.assign({ id: createId('mistake'), date: localDate(), subject: '其它', question: '未命名错题', mistakeReason: '', correctAnswer: '', reviewDate: localDate(), status: 'todo', createdAt: state.updatedAt }, item, {
-                status: item.status === 'mastered' ? 'mastered' : 'todo'
+            return Object.assign({ id: createId('mistake'), date: localDate(), subject: '其它', question: '未命名错题', mistakeReason: '', correctAnswer: '', reviewDate: localDate(), status: 'todo', createdAt: state.updatedAt, sourceKey: '', lessonId: '', attempts: 0 }, item, {
+                status: item.status === 'mastered' ? 'mastered' : 'todo',
+                sourceKey: String(item.sourceKey || ''),
+                lessonId: String(item.lessonId || ''),
+                attempts: Math.max(0, Number(item.attempts) || 0)
             });
         });
         synchronizePreschoolTemplates(state);
@@ -571,6 +574,58 @@
         }
     };
 
+    function subjectForCourse(courseId) {
+        const map = {
+            'preschool-math': '数学',
+            'preschool-literacy': '识字',
+            'preschool-english': '英语',
+            'preschool-phonics': '拼读',
+            'preschool-pinyin': '拼音',
+            'preschool-poetry': '古诗',
+            'preschool-focus': '专注',
+            'preschool-summer': '暑假',
+            'preschool-exercise': '运动'
+        };
+        return map[String(courseId || '')] || '学习';
+    }
+
+    function recordLessonMistake(mistakes, input) {
+        const list = Array.isArray(mistakes) ? mistakes.slice() : [];
+        const source = input && typeof input === 'object' ? input : {};
+        const question = String(source.question || '').trim();
+        if (!question) return { mistakes: list, changed: false, item: null };
+        const sourceKey = String(source.sourceKey || '');
+        const existing = sourceKey ? list.find(function (item) { return item && item.sourceKey === sourceKey; }) : null;
+        if (existing) {
+            existing.question = question;
+            existing.subject = String(source.subject || existing.subject || '学习');
+            existing.correctAnswer = String(source.correctAnswer || existing.correctAnswer || '');
+            existing.mistakeReason = String(source.mistakeReason || existing.mistakeReason || '');
+            existing.status = 'todo';
+            if (source.date) existing.date = String(source.date);
+            if (source.reviewDate) existing.reviewDate = String(source.reviewDate);
+            if (source.lessonId) existing.lessonId = String(source.lessonId);
+            existing.attempts = Math.max(1, Number(existing.attempts) || 1) + 1;
+            return { mistakes: list, changed: true, item: existing };
+        }
+        const item = {
+            id: String(source.id || createId('mistake')),
+            date: String(source.date || localDate()),
+            subject: String(source.subject || '学习'),
+            question: question,
+            mistakeReason: String(source.mistakeReason || ''),
+            correctAnswer: String(source.correctAnswer || ''),
+            reviewDate: String(source.reviewDate || source.date || localDate()),
+            status: 'todo',
+            sourceKey: sourceKey,
+            lessonId: String(source.lessonId || ''),
+            createdAt: String(source.createdAt || new Date().toISOString()),
+            attempts: 1
+        };
+        list.unshift(item);
+        return { mistakes: list, changed: true, item: item };
+    }
+
     global.PersonalWorkbenchStorage = {
         STORAGE_KEY: STORAGE_KEY,
         SCHEMA_VERSION: SCHEMA_VERSION,
@@ -581,6 +636,8 @@
         createSeedState: createSeedState,
         normalizeState: normalizeState,
         getPreschoolPlanRewardId: getPreschoolPlanRewardId,
+        subjectForCourse: subjectForCourse,
+        recordLessonMistake: recordLessonMistake,
         repository: repository
     };
 })(typeof window !== 'undefined' ? window : globalThis);

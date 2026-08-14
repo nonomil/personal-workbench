@@ -164,6 +164,7 @@
             lastDefenseDate: '',
             lastSkillDate: '',
             feedbackPreferences: { musicEnabled: false, motionEnabled: true },
+            mathPracticeBand: 'mix100',
             invader: { active: false, kind: 'zombie-basic', defeated: 0, health: 3, maxHealth: 3, wave: 0, lastSpawnDate: '', blockedTurns: 0, slowedTurns: 0, lastEffect: '' },
             defense: createDefaultDefense()
         };
@@ -192,6 +193,7 @@
         garden.feedbackPreferences = Object.assign(createDefaultGarden().feedbackPreferences, gardenSource.feedbackPreferences || {});
         garden.feedbackPreferences.musicEnabled = Boolean(garden.feedbackPreferences.musicEnabled);
         garden.feedbackPreferences.motionEnabled = garden.feedbackPreferences.motionEnabled !== false;
+        garden.mathPracticeBand = normalizeMathPracticeBand(gardenSource.mathPracticeBand);
         garden.invader.health = Math.max(0, Math.min(9, Number(garden.invader.health) || 3));
         garden.invader.maxHealth = Math.max(1, Math.min(9, Number(garden.invader.maxHealth) || 3));
         garden.invader.wave = Math.max(0, Number(garden.invader.wave) || 0);
@@ -410,6 +412,21 @@
             status: defense.status,
             sunlight: Math.max(0, Number(growth.sunlight) || 0)
         };
+    }
+
+    function normalizeMathPracticeBand(value) {
+        if (global.PersonalWorkbenchPreschoolMathBank && typeof global.PersonalWorkbenchPreschoolMathBank.normalizePracticeBand === 'function') {
+            return global.PersonalWorkbenchPreschoolMathBank.normalizePracticeBand(value);
+        }
+        if (value === 'within10' || value === 'within20' || value === 'within50' || value === 'addsub100' || value === 'mix100') return value;
+        if (value === 'within100') return 'mix100';
+        return 'mix100';
+    }
+
+    function setMathPracticeBand(input, band) {
+        const growth = normalize(input);
+        growth.garden.mathPracticeBand = normalizeMathPracticeBand(band);
+        return { ok: true, growth: growth };
     }
 
     function setFeedbackPreference(input, key, enabled) {
@@ -651,6 +668,7 @@
         usePlantSkill: usePlantSkill,
         getDefenseView: getDefenseView,
         setFeedbackPreference: setFeedbackPreference,
+        setMathPracticeBand: setMathPracticeBand,
         selectPlant: selectPlant,
         startDefenseGame: startDefenseGame,
         placeDefensePlant: placeDefensePlant,

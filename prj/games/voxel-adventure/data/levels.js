@@ -9,56 +9,69 @@
         grassland: {
             title: '草原',
             blocks: ['grass', 'dirt'],
-            mobs: [],
+            mobs: ['slime', 'bee'],
+            sky: 'day',
             surfaceBias: 0,
             treeDensity: 1
         },
         forest: {
             title: '森林',
             blocks: ['grass', 'dirt', 'wood', 'leaf'],
-            mobs: ['spark'],
+            mobs: ['shroom', 'spark', 'bee'],
+            sky: 'day',
             surfaceBias: -1,
             treeDensity: 2.2
         },
         desert: {
             title: '沙漠',
             blocks: ['sand', 'sand', 'stone'],
-            mobs: ['spark'],
+            mobs: ['cactus', 'spark'],
+            sky: 'dusk',
+            veil: 'warm',
             surfaceBias: 1,
             treeDensity: 0.2
         },
         cave: {
             title: '矿洞',
             blocks: ['stone', 'coal', 'crystal'],
-            mobs: ['spark'],
+            mobs: ['spark', 'bat'],
+            sky: 'dusk',
+            veil: 'cave',
             surfaceBias: 2,
             treeDensity: 0.3
         },
         canyon: {
             title: '峡谷',
             blocks: ['stone', 'dirt', 'coal'],
-            mobs: ['spark'],
+            mobs: ['spark', 'spider', 'golem'],
+            sky: 'dusk',
             surfaceBias: -2,
             treeDensity: 0.5
         },
         snow: {
             title: '雪山',
             blocks: ['stone', 'crystal', 'dirt'],
-            mobs: ['spark'],
+            mobs: ['snowman', 'spark'],
+            sky: 'day',
+            veil: 'cold',
             surfaceBias: -3,
             treeDensity: 0.4
         },
         volcano: {
             title: '火山',
             blocks: ['stone', 'coal', 'crystal'],
-            mobs: ['spark'],
+            mobs: ['fire', 'spark'],
+            sky: 'dusk',
+            veil: 'ember',
             surfaceBias: 3,
             treeDensity: 0.1
         },
         end: {
             title: '终界前哨',
             blocks: ['stone', 'crystal', 'bedrock'],
-            mobs: ['spark'],
+            mobs: ['ghost', 'spark', 'bat'],
+            sky: 'dusk',
+            veil: 'void',
             surfaceBias: 0,
             treeDensity: 0
         }

@@ -9,7 +9,9 @@
             pinyin: { mastery: {} },
             poetry: { mastery: {} },
             math: { mastery: {} },
-            motion: { mastery: {} }
+            motion: { mastery: {} },
+            phonics: { mastery: {} },
+            phonics: { mastery: {} }
         };
     }
 
@@ -76,7 +78,9 @@
             pinyin: normalizeSimpleMastery(source.pinyin),
             poetry: normalizeSimpleMastery(source.poetry),
             math: normalizeSimpleMastery(source.math),
-            motion: normalizeSimpleMastery(source.motion)
+            motion: normalizeSimpleMastery(source.motion),
+            phonics: normalizeSimpleMastery(source.phonics),
+            phonics: normalizeSimpleMastery(source.phonics)
         };
     }
 

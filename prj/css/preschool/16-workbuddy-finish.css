@@ -799,6 +799,7 @@ body.variant-preschool .literacy-flash-grid {
     margin-top: 16px;
 }
 body.variant-preschool .literacy-flash-card {
+    position: relative;
     display: grid;
     justify-items: center;
     gap: 6px;
@@ -806,6 +807,22 @@ body.variant-preschool .literacy-flash-card {
     border: 1px solid rgba(78, 205, 196, .24);
     border-radius: 18px;
     background: #fffdf8;
+}
+body.variant-preschool .literacy-flash-review {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    min-height: 24px;
+    padding: 0 8px;
+    border-radius: 999px;
+    color: #8a4b12;
+    background: #ffe7b8;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 24px;
+}
+body.variant-preschool .literacy-flash-card.is-review {
+    border-color: rgba(255, 176, 64, .7);
 }
 body.variant-preschool .literacy-flash-card .literacy-char { font-size: 42px; }
 body.variant-preschool .literacy-flash-card .literacy-pinyin { font-size: 14px; }
@@ -917,6 +934,10 @@ body.variant-preschool .preschool-literacy-mastery span {
     background: #e0f7f2;
     font-size: 14px;
     font-weight: 800;
+}
+body.variant-preschool .preschool-literacy-mastery span.is-review {
+    color: #8a4b12;
+    background: #ffe7b8;
 }
 
 @media (max-width: 760px) {

@@ -1551,7 +1551,7 @@
         if (activity.mode === 'math-bank') {
             const engine = getMathBankEngine();
             if (!engine) return null;
-            const quiz = engine.buildQuiz(engine.getRuntimeBank(), { level: resolveLessonLevel(match), size: activity.size || 5 });
+            const quiz = engine.buildQuiz(engine.getRuntimeBank(), { level: resolveLessonLevel(match), band: getMathPracticeBand(), size: activity.size || 8, salt: String(match.lesson && match.lesson.id || '').length });
             if (!quiz || !quiz.rounds.length) return null;
             return { mode: 'math-bank', run: quiz, roundIndex: 0, roundCorrect: false, complete: false, speakLang: 'zh-CN' };
         }
@@ -1586,8 +1586,14 @@
         const activity = match.lesson.activity || {};
         const size = activity.size || 5;
         const daily = engine.dailyWindow(bank, storage.localDate(), size, resolveLessonLevel(match));
-        if (!daily.batch.length) return null;
-        return { mode: 'english-speak', phase: 'speak', batch: daily.batch, day: daily.day, level: resolveLessonLevel(match), match: null, spell: null, complete: false };
+        const mastery = state.courseProgress && state.courseProgress.english
+            ? state.courseProgress.english
+            : engine.createDefaultProgress();
+        const batch = typeof engine.buildSpeakBatch === 'function'
+            ? engine.buildSpeakBatch(bank, mastery, engine.getRuntimeRules(), storage.localDate(), activity.preferred || '', size, resolveLessonLevel(match))
+            : daily.batch;
+        if (!batch.length) return null;
+        return { mode: 'english-speak', phase: 'speak', batch: batch, day: daily.day, level: resolveLessonLevel(match), match: null, spell: null, complete: false };
     }
 
     function buildPlaySession(match) {
@@ -1844,11 +1850,16 @@
         } else if (english && english.mode === 'english-speak' && Array.isArray(english.batch)) {
             const marked = english.batch.filter(function (item) { return item.mark === 'known' || item.mark === 'unknown'; }).length;
             const allMarked = marked === english.batch.length;
+            const reviewCount = english.batch.filter(function (item) { return item.review; }).length;
             const cards = english.batch.map(function (item) {
-                return `<article class="literacy-flash-card is-${item.mark || 'plain'}"><div class="literacy-flash-marks"><button class="literacy-flash-speak" type="button" data-action="english-speak" data-text="${escapeHtml(item.text)}" aria-label="听单词">${icon('volume-2')} 听单词</button><button class="literacy-flash-speak" type="button" data-action="english-speak" data-text="${escapeHtml(item.phrase)}" aria-label="听句子">${icon('volume-2')} 听句子</button></div><p class="literacy-char">${escapeHtml(item.text)}</p><p class="literacy-pinyin">${escapeHtml(item.zh)}</p><p class="literacy-word">${escapeHtml(item.phrase)}</p><p class="literacy-word">${escapeHtml(item.phraseZh)}</p><div class="literacy-flash-marks"><button class="btn-secondary" type="button" data-action="english-known" data-word="${escapeHtml(item.text)}" data-known="1" aria-pressed="${item.mark === 'known'}">会了</button><button class="btn-secondary" type="button" data-action="english-known" data-word="${escapeHtml(item.text)}" data-known="0" aria-pressed="${item.mark === 'unknown'}">不会</button></div></article>`;
+                const reviewMark = item.review ? '<span class="literacy-flash-review">再认</span>' : '';
+                return `<article class="literacy-flash-card is-${item.mark || 'plain'}${item.review ? ' is-review' : ''}">${reviewMark}<div class="literacy-flash-marks"><button class="literacy-flash-speak" type="button" data-action="english-speak" data-text="${escapeHtml(item.text)}" aria-label="听单词">${icon('volume-2')} 听单词</button><button class="literacy-flash-speak" type="button" data-action="english-speak" data-text="${escapeHtml(item.phrase)}" aria-label="听句子">${icon('volume-2')} 听句子</button></div><p class="literacy-char">${escapeHtml(item.text)}</p><p class="literacy-pinyin">${escapeHtml(item.zh)}</p><p class="literacy-word">${escapeHtml(item.phrase)}</p><p class="literacy-word">${escapeHtml(item.phraseZh)}</p><div class="literacy-flash-marks"><button class="btn-secondary" type="button" data-action="english-known" data-word="${escapeHtml(item.text)}" data-known="1" aria-pressed="${item.mark === 'known'}">会了</button><button class="btn-secondary" type="button" data-action="english-known" data-word="${escapeHtml(item.text)}" data-known="0" aria-pressed="${item.mark === 'unknown'}">不会</button></div></article>`;
             }).join('');
-            const dayLabel = english.day ? `Day ${english.day} 英语 · ${english.batch.length} 个词` : '听句子，这些词你会了吗？';
-            lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">${escapeHtml(dayLabel)}</h3><p class="lesson-dialog-feedback">已标 ${marked}/${english.batch.length} 张。先听单词和句子，再点会了或不会。不扣阳光。</p><div class="literacy-flash-grid">${cards}</div><div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${allMarked ? '' : 'disabled'}>${icon(allMarked ? 'sparkles' : 'lock-keyhole')}${allMarked ? '下一关：中英配对' : '先点完会了和不会'}</button></div></div>`;
+            const dayLabel = reviewCount
+                ? `今天再认 ${reviewCount} 个词`
+                : (english.day ? `Day ${english.day} 英语 · ${english.batch.length} 个词` : '听句子，这些词你会了吗？');
+            const reviewHint = reviewCount ? `有 ${reviewCount} 张是到期再认，会的跳过。` : '';
+            lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">${escapeHtml(dayLabel)}</h3><p class="lesson-dialog-feedback">已标 ${marked}/${english.batch.length} 张。${reviewHint}先听单词和句子，再点会了或不会。不扣阳光。</p><div class="literacy-flash-grid">${cards}</div><div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${allMarked ? '' : 'disabled'}>${icon(allMarked ? 'sparkles' : 'lock-keyhole')}${allMarked ? '下一关：中英配对' : '先点完会了和不会'}</button></div></div>`;
         } else if (literacy && literacy.mode === 'literacy-flash' && Array.isArray(literacy.batch)) {
             const marked = literacy.batch.filter(function (item) { return item.mark === 'known' || item.mark === 'unknown'; }).length;
             const unknowns = literacy.batch.filter(function (item) { return item.mark === 'unknown'; });
@@ -1863,13 +1874,17 @@
                 const rememberBtn = literacy.complete ? '' : `<button class="btn-secondary" type="button" data-action="literacy-remember">${icon('check')}记住了</button>`;
                 lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}<div class="literacy-find-progress" aria-label="学不会的字"><span>不会的字 ${literacy.teachIndex + 1}/${total}</span></div><h3 class="lesson-dialog-prompt">看组词，记住这个字</h3><article class="literacy-card"><p class="literacy-pinyin">${escapeHtml(literacy.card.pinyin || '')}</p><p class="literacy-char">${escapeHtml(literacy.card.char)}</p><button class="btn-secondary" type="button" data-action="literacy-speak" data-text="${escapeHtml(literacy.card.speak || literacy.card.char)}" aria-label="听发音">${icon('volume-2')} 听一听</button>${strokeBoard}<div class="literacy-teach-block"><strong>组词</strong><div class="literacy-word-chips">${wordMarkup}</div></div><div class="literacy-teach-block"><strong>解词</strong><p>${escapeHtml(literacy.card.explain)}</p></div></article><p class="lesson-dialog-feedback">用词来记字，不用看图。有笔顺就点看笔顺，没有也不挡关。记住了就点记住了。</p><div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button>${rememberBtn}<button class="btn-primary" type="button" data-action="${last || literacy.complete ? 'lesson-finish' : 'literacy-teach-next'}">${icon('sparkles')}${last || literacy.complete ? '收集阳光，完成练习' : '下一个字'}</button></div></div>`;
             } else {
+                const reviewCount = literacy.batch.filter(function (item) { return item.review; }).length;
                 const cards = literacy.batch.map(function (item) {
-                    return `<article class="literacy-flash-card is-${item.mark || 'plain'}"><button class="literacy-flash-speak" type="button" data-action="literacy-speak" data-text="${escapeHtml(item.char)}" aria-label="听${escapeHtml(item.char)}">${icon('volume-2')}</button><p class="literacy-pinyin">${escapeHtml(item.pinyin || '')}</p><p class="literacy-char">${escapeHtml(item.char)}</p><div class="literacy-flash-marks"><button class="btn-secondary" type="button" data-action="literacy-mark" data-char="${escapeHtml(item.char)}" data-known="1" aria-pressed="${item.mark === 'known'}">会了</button><button class="btn-secondary" type="button" data-action="literacy-mark" data-char="${escapeHtml(item.char)}" data-known="0" aria-pressed="${item.mark === 'unknown'}">不会</button></div></article>`;
+                    const reviewMark = item.review ? '<span class="literacy-flash-review">再认</span>' : '';
+                    return `<article class="literacy-flash-card is-${item.mark || 'plain'}${item.review ? ' is-review' : ''}">${reviewMark}<button class="literacy-flash-speak" type="button" data-action="literacy-speak" data-text="${escapeHtml(item.char)}" aria-label="听${escapeHtml(item.char)}">${icon('volume-2')}</button><p class="literacy-pinyin">${escapeHtml(item.pinyin || '')}</p><p class="literacy-char">${escapeHtml(item.char)}</p><div class="literacy-flash-marks"><button class="btn-secondary" type="button" data-action="literacy-mark" data-char="${escapeHtml(item.char)}" data-known="1" aria-pressed="${item.mark === 'known'}">会了</button><button class="btn-secondary" type="button" data-action="literacy-mark" data-char="${escapeHtml(item.char)}" data-known="0" aria-pressed="${item.mark === 'unknown'}">不会</button></div></article>`;
                 }).join('');
                 const nextAction = literacy.complete ? 'lesson-finish' : (allMarked && unknowns.length ? 'literacy-teach-start' : 'lesson-finish');
                 const nextLabel = literacy.complete || (allMarked && !unknowns.length) ? '收集阳光，完成练习' : allMarked ? '学习不会的字' : '先点完会了和不会';
                 const canGo = literacy.complete || allMarked;
-                lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">这些字，哪些会了？</h3><p class="lesson-dialog-feedback">已标 ${marked}/${literacy.batch.length} 张。会的跳过，不会的再看组词。</p><div class="literacy-flash-grid">${cards}</div><div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="${nextAction}" ${canGo ? '' : 'disabled'}>${icon(canGo ? 'sparkles' : 'lock-keyhole')}${nextLabel}</button></div></div>`;
+                const prompt = reviewCount ? `这些字，哪些还记得？` : '这些字，哪些会了？';
+                const reviewHint = reviewCount ? `有 ${reviewCount} 张是到期再认。` : '';
+                lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">${escapeHtml(prompt)}</h3><p class="lesson-dialog-feedback">已标 ${marked}/${literacy.batch.length} 张。${reviewHint}会的跳过，不会的再看组词。</p><div class="literacy-flash-grid">${cards}</div><div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="${nextAction}" ${canGo ? '' : 'disabled'}>${icon(canGo ? 'sparkles' : 'lock-keyhole')}${nextLabel}</button></div></div>`;
             }
         } else if (literacy && literacy.mode === 'literacy-bloom' && literacy.bloom) {
             const bloomComplete = literacyBloomComplete(literacy);
@@ -1995,6 +2010,7 @@
         const pinyin = getPinyinEngine();
         const poetry = getPoetryEngine();
         const math = getMathBankEngine();
+        const phonics = getPhonicsEngine();
         const motionPack = global.PersonalWorkbenchLessonPack;
         return {
             literacy: literacy && typeof literacy.getRuntimeBank === 'function' ? literacy.getRuntimeBank() : [],
@@ -2002,6 +2018,7 @@
             pinyin: pinyin && typeof pinyin.getRuntimeBank === 'function' ? pinyin.getRuntimeBank() : [],
             poetry: poetry && typeof poetry.getRuntimeBank === 'function' ? poetry.getRuntimeBank() : [],
             math: math && typeof math.getRuntimeBank === 'function' ? math.getRuntimeBank() : [],
+            phonics: phonics && typeof phonics.getRuntimeBank === 'function' ? phonics.getRuntimeBank() : [],
             motion: motionPack && typeof motionPack.getMotionBank === 'function' ? motionPack.getMotionBank() : []
         };
     }
@@ -2019,7 +2036,8 @@
         'preschool-pinyin': 'pinyin',
         'preschool-poetry': 'poetry',
         'preschool-math': 'math',
-        'preschool-exercise': 'motion'
+        'preschool-exercise': 'motion',
+        'preschool-phonics': 'phonics'
     };
 
     function summarizeSubjectMastery(courseId) {
@@ -2062,6 +2080,10 @@
             } else if (track === 'math') {
                 session.bankQuiz.run.rounds.forEach(function (round) {
                     if (round && round.id) keys.push(String(round.id));
+                });
+            } else if (track === 'phonics') {
+                session.bankQuiz.run.rounds.forEach(function (round) {
+                    if (round && round.text) keys.push(String(round.text));
                 });
             }
         } else if (session.timer && track === 'motion') {
@@ -2230,6 +2252,20 @@
         return true;
     }
 
+    function recordPreschoolLessonMistake(payload) {
+        if (!isPreschool || !storage || typeof storage.recordLessonMistake !== 'function') return;
+        const source = payload && typeof payload === 'object' ? payload : {};
+        if (!String(source.question || '').trim()) return;
+        commit(function (next) {
+            const result = storage.recordLessonMistake(next.mistakes, Object.assign({
+                date: storage.localDate(),
+                reviewDate: storage.dateOffset(1),
+                createdAt: new Date().toISOString()
+            }, source));
+            next.mistakes = result.mistakes;
+        }, '');
+    }
+
     function markEnglishKnown(word, known) {
         const engine = getEnglishVocabEngine();
         const session = ui.lessonSession && ui.lessonSession.english;
@@ -2237,6 +2273,16 @@
         const item = session.batch.find(function (entry) { return entry.text === word; });
         if (!item) return false;
         item.mark = known ? 'known' : 'unknown';
+        if (!known) {
+            recordPreschoolLessonMistake({
+                subject: storage.subjectForCourse('preschool-english'),
+                question: item.text + (item.zh ? ' · ' + item.zh : ''),
+                correctAnswer: item.phrase || item.zh || item.text,
+                mistakeReason: '点了不会',
+                sourceKey: 'english:' + String(item.text || '').toLowerCase(),
+                lessonId: ui.lessonSession.id || 'preschool-english-words-1'
+            });
+        }
         commit(function (next) {
             const current = next.courseProgress && next.courseProgress.english
                 ? next.courseProgress.english
@@ -2461,6 +2507,16 @@
             literacy.roundCorrect = correct;
             literacy.char = round.char;
             recordLiteracyAttempt('quiz', correct);
+            if (!correct) {
+                recordPreschoolLessonMistake({
+                    subject: storage.subjectForCourse(match.course && match.course.id),
+                    question: '找字：' + (round.char || ''),
+                    correctAnswer: (round.options[round.answer] && (round.options[round.answer].label || round.options[round.answer])) || String(round.char || ''),
+                    mistakeReason: '选了 ' + ((round.options[selectedIndex] && (round.options[selectedIndex].label || round.options[selectedIndex])) || selectedIndex),
+                    sourceKey: (match.lesson.id || 'literacy') + ':' + (round.char || literacy.roundIndex),
+                    lessonId: match.lesson.id
+                });
+            }
             if (correct && literacy.roundIndex >= literacy.run.rounds.length - 1) {
                 literacy.complete = true;
                 ui.lessonSession.correct = true;
@@ -2478,6 +2534,16 @@
             ui.lessonSession.selectedIndex = selectedIndex;
             literacy.stepCorrect = correct;
             recordLiteracyAttempt(step.kind, correct);
+            if (!correct) {
+                recordPreschoolLessonMistake({
+                    subject: storage.subjectForCourse(match.course && match.course.id),
+                    question: step.prompt || step.kind || '识字练习',
+                    correctAnswer: (step.options[step.answer] && (step.options[step.answer].label || step.options[step.answer])) || '',
+                    mistakeReason: '选了 ' + ((step.options[selectedIndex] && (step.options[selectedIndex].label || step.options[selectedIndex])) || selectedIndex),
+                    sourceKey: (match.lesson.id || 'literacy') + ':loop:' + literacy.stepIndex,
+                    lessonId: match.lesson.id
+                });
+            }
             if (correct && literacy.stepIndex >= literacy.loop.steps.length - 1) {
                 literacy.complete = true;
                 ui.lessonSession.correct = true;
@@ -2495,6 +2561,16 @@
             const correct = selectedIndex === round.answer;
             ui.lessonSession.selectedIndex = selectedIndex;
             bankQuiz.roundCorrect = correct;
+            if (!correct) {
+                recordPreschoolLessonMistake({
+                    subject: storage.subjectForCourse(match.course && match.course.id),
+                    question: round.tokens || round.prompt || round.text || '口算',
+                    correctAnswer: String(round.options[round.answer] || ''),
+                    mistakeReason: '选了 ' + String(round.options[selectedIndex] || ''),
+                    sourceKey: (match.lesson.id || bankQuiz.mode) + ':' + (round.id || round.text || round.tokens || bankQuiz.roundIndex),
+                    lessonId: match.lesson.id
+                });
+            }
             if (correct && bankQuiz.roundIndex >= bankQuiz.run.rounds.length - 1) {
                 bankQuiz.complete = true;
                 ui.lessonSession.correct = true;
@@ -2509,6 +2585,16 @@
         if (!Number.isInteger(selectedIndex) || selectedIndex < 0 || selectedIndex >= activity.options.length) return false;
         ui.lessonSession.selectedIndex = selectedIndex;
         ui.lessonSession.correct = selectedIndex === activity.answer;
+        if (!ui.lessonSession.correct) {
+            recordPreschoolLessonMistake({
+                subject: storage.subjectForCourse(match.course && match.course.id),
+                question: activity.prompt || match.lesson.title || '练习题',
+                correctAnswer: String(activity.options[activity.answer] || ''),
+                mistakeReason: '选了 ' + String(activity.options[selectedIndex] || ''),
+                sourceKey: (match.lesson.id || 'choice') + ':' + String(activity.prompt || match.lesson.title || ''),
+                lessonId: match.lesson.id
+            });
+        }
         renderLessonDialog();
         if (ui.lessonSession.correct) speakPraise(activity.success);
         return ui.lessonSession.correct;
@@ -2650,6 +2736,22 @@
         return `<div class="preschool-course-samples">${items.map(function (item) {
             return `<span class="preschool-course-sample">${escapeHtml(item)}</span>`;
         }).join('')}</div>`;
+    }
+
+    function renderPreschoolCourseMedia(course) {
+        const media = course && Array.isArray(course.media) ? course.media : [];
+        if (!media.length) return '';
+        const videos = media.filter(function (item) { return item.type === 'bilibili'; });
+        const links = media.filter(function (item) { return item.type === 'link'; });
+        const videoMarkup = videos.map(function (item) {
+            const src = 'https://player.bilibili.com/player.html?bvid=' + encodeURIComponent(item.bvid) + '&page=1&high_quality=1&danmaku=0';
+            return `<details class="preschool-media-item is-video"><summary class="preschool-media-summary"><span class="preschool-media-mark">${icon(item.icon || 'play-circle')}</span><span class="preschool-media-copy"><strong>${escapeHtml(item.title)}</strong><small>${escapeHtml(item.note || 'B站动画')}</small></span><i class="preschool-media-chevron">${icon('chevron-right')}</i></summary><div class="preschool-media-frame"><iframe src="${src}" scrolling="no" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy" title="${escapeHtml(item.title)}"></iframe></div></details>`;
+        }).join('');
+        const linkMarkup = links.map(function (item) {
+            const code = item.code ? `<span class="preschool-media-code">提取码 ${escapeHtml(item.code)}</span>` : '';
+            return `<article class="preschool-media-item is-link"><div class="preschool-media-card-head"><span class="preschool-media-mark">${icon(item.icon || 'cloud-download')}</span><div><strong>${escapeHtml(item.title)}</strong><small>${escapeHtml(item.note || '网盘资料')}</small></div></div><div class="preschool-media-link-action"><span>${code || '家长可在浏览器打开'}</span><button class="btn-primary" type="button" data-action="open-resource" data-url="${escapeHtml(item.url)}">打开资源${icon('arrow-up-right')}</button></div></article>`;
+        }).join('');
+        return `<section class="preschool-course-media" aria-label="英语动画屋"><div class="preschool-course-media-head"><div><span class="eyebrow">ANIMATION ROOM</span><h3>英语动画屋</h3><p>点开一支动画看，看完回到小练习。</p></div><span class="preschool-course-media-count">${media.length} 个资源</span></div>${videoMarkup}${linkMarkup}</section>`;
     }
 
     function renderPreschoolCourseResources(course) {
@@ -2798,6 +2900,29 @@
         return `<div class="preschool-course-progress" aria-label="${escapeHtml(course.title)}课程进度"><div class="preschool-course-progress-head"><span>成长路线</span><strong>${completion.completed}/${completion.total} 张已点亮</strong><em class="preschool-course-status is-${status}" data-route-state="${status}">${statusLabel}</em></div><span class="preschool-course-progress-track" role="progressbar" aria-label="${escapeHtml(course.title)}完成度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${completion.percent}"><i style="width:${completion.percent}%"></i></span></div>`;
     }
 
+    function countDueReviews(courseId) {
+        const today = storage.localDate();
+        if (courseId === 'preschool-literacy') {
+            const engine = getLiteracyEngine();
+            if (!engine || typeof engine.buildReviewQueue !== 'function') return 0;
+            const progress = state.courseProgress && state.courseProgress.literacy
+                ? state.courseProgress.literacy
+                : engine.createDefaultProgress();
+            const chars = (engine.getRuntimeBank() || []).map(function (item) { return item.char; });
+            return engine.buildReviewQueue(progress, engine.getRuntimeRules(), today, chars).length;
+        }
+        if (courseId === 'preschool-english') {
+            const engine = getEnglishVocabEngine();
+            if (!engine || typeof engine.buildReviewQueue !== 'function') return 0;
+            const progress = state.courseProgress && state.courseProgress.english
+                ? state.courseProgress.english
+                : engine.createDefaultProgress();
+            const words = (engine.getRuntimeBank() || []).map(function (item) { return item.text; });
+            return engine.buildReviewQueue(progress, engine.getRuntimeRules(), today, words).length;
+        }
+        return 0;
+    }
+
     function renderPreschoolLiteracyMastery(course) {
         if (!course || course.id !== 'preschool-literacy') return '';
         const engine = getLiteracyEngine();
@@ -2810,7 +2935,8 @@
         const unseen = Math.max(0, bankSize - summary.total);
         const track = getCourseTrackProgress(course.id);
         const maxLevel = track && track.maxUnlocked ? track.maxUnlocked : 'L1';
-        return `<div class="preschool-literacy-mastery" aria-label="识字会了还不会"><span>会了 ${summary.known}</span><span>还不会 ${summary.unknown}</span><span>还没点 ${unseen}</span><span>已开到 ${escapeHtml(maxLevel)}</span></div>`;
+        const due = countDueReviews(course.id);
+        return `<div class="preschool-literacy-mastery" aria-label="识字会了还不会"><span>会了 ${summary.known}</span><span>还不会 ${summary.unknown}</span><span>还没点 ${unseen}</span><span class="is-review">今天再认 ${due}</span><span>已开到 ${escapeHtml(maxLevel)}</span></div>`;
     }
 
     function renderPreschoolEnglishMastery(course) {
@@ -2832,7 +2958,8 @@
         const unseen = Math.max(0, bankSize - known - unknown);
         const track = getCourseTrackProgress(course.id);
         const maxLevel = track && track.maxUnlocked ? track.maxUnlocked : 'L1';
-        return `<div class="preschool-literacy-mastery" aria-label="英语词掌握"><span>会了 ${known}</span><span>练过 ${unknown}</span><span>还没点 ${unseen}</span><span>已开到 ${escapeHtml(maxLevel)}</span></div>`;
+        const due = countDueReviews(course.id);
+        return `<div class="preschool-literacy-mastery" aria-label="英语词掌握"><span>会了 ${known}</span><span>练过 ${unknown}</span><span>还没点 ${unseen}</span><span class="is-review">今天再认 ${due}</span><span>已开到 ${escapeHtml(maxLevel)}</span></div>`;
     }
 
     function renderPreschoolSubjectMastery(course) {
@@ -2860,11 +2987,12 @@
             const isDone = routeState === 'done';
             const isLocked = routeState === 'locked';
             const lessonLevel = lesson && lesson.activity && lesson.activity.level ? lesson.activity.level : 'L1';
+            const dueCount = literacyReplay ? countDueReviews(course.id) : 0;
             const detail = isLocked
                 ? `${lessonLevel} · 先把前一级练到 80%`
                 : isDone
-                ? (literacyReplay ? '再认一个字 · 字库继续排队' : '完成啦 · 已记录到成长花园')
-                : `${lesson.minutes || 0} 分钟 · ${escapeHtml(lesson.meta || '看图选一选')}`;
+                ? (dueCount ? `今天再认 ${dueCount} 个` : (literacyReplay ? '再认一个字 · 字库继续排队' : '完成啦 · 已记录到成长花园'))
+                : (dueCount ? `今天再认 ${dueCount} 个 · ${lesson.minutes || 0} 分钟` : `${lesson.minutes || 0} 分钟 · ${escapeHtml(lesson.meta || '看图选一选')}`);
             const actionIcon = isLocked ? 'lock-keyhole' : isDone && !literacyReplay ? 'check' : routeState === 'current' || isDone ? 'play' : 'arrow-right';
             return `<button class="preschool-route-step is-${routeState}" type="button" data-action="${lessonAction}" data-id="${escapeHtml(lesson.id)}" data-route-state="${routeState}" ${isDone && !literacyReplay || isLocked ? 'disabled' : ''}><span class="preschool-route-step-number">${index + 1}</span><span class="preschool-route-step-art" aria-hidden="true">${getPreschoolLessonRouteArt(course, lesson, index)}</span><span class="preschool-route-step-copy"><strong>${escapeHtml(lesson.title)}</strong><small>${stateLabels[routeState]} · ${detail}</small></span><span class="preschool-route-step-action">${icon(actionIcon)}</span></button>`;
         }).join('')}</div>`;
@@ -2894,7 +3022,7 @@
     }
 
     function renderPreschoolCourseCard(course, focused) {
-        return `<article class="preschool-course-card tone-${escapeHtml(course.tone || 'blue')} ${focused ? 'is-focused' : ''}"><div class="preschool-course-head">${preschoolVisual(course.icon || 'book-open', preschoolAssetForIcon(course.icon || 'book-open'), course.title)}<div><span class="preschool-course-label">${focused ? '当前学习专区' : '学习专区'}</span><h2>${escapeHtml(course.title)}</h2><small>${escapeHtml(course.description || '')}</small></div><strong>${course.completed || 0}/${course.total || 0}</strong></div>${renderPreschoolCourseProgress(course)}${renderPreschoolLevelBands(course)}${renderPreschoolLiteracyMastery(course)}${renderPreschoolEnglishMastery(course)}${renderPreschoolSubjectMastery(course)}<div class="preschool-course-reference"><span>${icon('sparkles')}</span><p class="preschool-course-note">${escapeHtml(course.note || '选一张卡，开始今天的小练习。')}</p></div>${renderPreschoolCourseBadges(course)}${renderPreschoolCourseSamples(course)}${renderPreschoolCourseResources(course)}${renderPreschoolSummerLibrary(course)}<div class="preschool-course-lesson-heading"><div><span class="eyebrow">LEARNING ROUTE</span><h3>一步一步点亮小路线</h3></div><span>${course.total || (course.lessons || []).length} 张练习卡</span></div>${renderPreschoolCourseRoute(course)}</article>`;
+        return `<article class="preschool-course-card tone-${escapeHtml(course.tone || 'blue')} ${focused ? 'is-focused' : ''}"><div class="preschool-course-head">${preschoolVisual(course.icon || 'book-open', preschoolAssetForIcon(course.icon || 'book-open'), course.title)}<div><span class="preschool-course-label">${focused ? '当前学习专区' : '学习专区'}</span><h2>${escapeHtml(course.title)}</h2><small>${escapeHtml(course.description || '')}</small></div><strong>${course.completed || 0}/${course.total || 0}</strong></div>${renderPreschoolCourseProgress(course)}${renderPreschoolLevelBands(course)}${renderPreschoolLiteracyMastery(course)}${renderPreschoolEnglishMastery(course)}${renderPreschoolSubjectMastery(course)}<div class="preschool-course-reference"><span>${icon('sparkles')}</span><p class="preschool-course-note">${escapeHtml(course.note || '选一张卡，开始今天的小练习。')}</p></div>${renderPreschoolCourseBadges(course)}${renderPreschoolCourseSamples(course)}${renderPreschoolCourseMedia(course)}${renderPreschoolCourseResources(course)}${renderPreschoolSummerLibrary(course)}<div class="preschool-course-lesson-heading"><div><span class="eyebrow">LEARNING ROUTE</span><h3>一步一步点亮小路线</h3></div><span>${course.total || (course.lessons || []).length} 张练习卡</span></div>${renderPreschoolCourseRoute(course)}</article>`;
     }
 
     function renderPreschoolCourses() {
@@ -2906,7 +3034,7 @@
 
     function renderPreschoolMistakes() {
         const items = state.mistakes.slice().sort((a, b) => String(a.reviewDate || a.date).localeCompare(String(b.reviewDate || b.date)));
-        return `${renderPreschoolIntro(PAGE_META.mistakes, 'add-mistake', '记下来')}<section class="preschool-mistake-card"><div class="preschool-section-head"><div><span class="eyebrow">TRY AGAIN</span><h2>${items.length ? '再试一次' : '还没有题'}</h2></div><span class="preschool-card-visual">${icon('triangle-alert')}</span></div>${items.length ? `<div class="preschool-mistake-list">${items.map(function (item) { return `<article class="preschool-mistake-row"><span class="preschool-card-visual">${icon(item.status === 'mastered' ? 'check' : 'pencil')}</span><div><strong>${escapeHtml(item.question)}</strong><small>${escapeHtml(item.subject || '学习')} · ${item.status === 'mastered' ? '会了' : '再看看'}</small></div><button class="row-action" type="button" data-action="toggle-mistake" data-id="${escapeHtml(item.id)}" aria-label="标记${item.status === 'mastered' ? '未掌握' : '掌握'}" title="更新状态">${icon(item.status === 'mastered' ? 'rotate-ccw' : 'check')}</button></article>`; }).join('')}</div>` : renderEmpty('pencil', '把不会的题记下来')}</section>`;
+        return `${renderPreschoolIntro(PAGE_META.mistakes, 'add-mistake', '记下来')}<section class="preschool-mistake-card"><div class="preschool-section-head"><div><span class="eyebrow">TRY AGAIN</span><h2>${items.length ? '再试一次' : '还没有题'}</h2><p>${items.length ? '练习里选错的题会自动记在这里。' : '练习里选错或点不会，会自动记到这里。'}</p></div><span class="preschool-card-visual">${icon('triangle-alert')}</span></div>${items.length ? `<div class="preschool-mistake-list">${items.map(function (item) { return `<article class="preschool-mistake-row"><span class="preschool-card-visual">${icon(item.status === 'mastered' ? 'check' : 'pencil')}</span><div><strong>${escapeHtml(item.question)}</strong><small>${escapeHtml(item.subject || '学习')} · ${item.status === 'mastered' ? '会了' : '再看看'}${item.correctAnswer ? ' · 答案 ' + escapeHtml(item.correctAnswer) : ''}</small></div><button class="row-action" type="button" data-action="toggle-mistake" data-id="${escapeHtml(item.id)}" aria-label="标记${item.status === 'mastered' ? '未掌握' : '掌握'}" title="更新状态">${icon(item.status === 'mastered' ? 'rotate-ccw' : 'check')}</button></article>`; }).join('')}</div>` : renderEmpty('pencil', '练习里选错或点不会，会自动记到这里。')}</section>`;
     }
 
     function renderPreschoolRewards() {
@@ -3582,7 +3710,7 @@
         } else {
             body = `<section class="account-profile-card"><div><span class="eyebrow">SIGNED IN</span><h2>${escapeHtml(account.displayName || account.username || '已登录用户')}</h2><p>@${escapeHtml(account.username || '')} · ${escapeHtml(status.detail)}</p></div><button class="btn-quiet" type="button" data-action="account-logout">退出登录${icon('log-out')}</button></section><div class="account-grid"><section class="work-card"><div class="work-card-header"><div><h2>家庭和工作台档案</h2><p>一个孩子档案对应一份可同步的工作台快照。</p></div>${icon('users')}</div><div class="account-section"><label class="account-label" for="account-household">家庭</label><select id="account-household" data-account-household>${householdOptions || '<option value="">还没有家庭</option>'}</select><form class="account-inline-form" data-household-form><input name="name" required maxlength="80" placeholder="新家庭名称"><button class="btn-secondary" type="submit">创建家庭${icon('plus')}</button></form></div>${accountView.households.length ? `<div class="account-section"><label class="account-label" for="account-child-name">当前家庭新增档案</label><form class="account-inline-form" data-child-form><input name="name" id="account-child-name" required maxlength="40" placeholder="例如：小星"><button class="btn-secondary" type="submit">新增档案${icon('user-round-plus')}</button></form></div>` : ''}<div class="account-child-list">${children.length ? children.map(function (child) { const selected = activeChild && activeChild.id === child.id; return `<button class="account-child-option ${selected ? 'is-active' : ''}" type="button" data-action="account-select-child" data-id="${escapeHtml(child.id)}"><span class="list-card-mark ${selected ? 'lime' : 'blue'}">${icon(selected ? 'check' : 'user-round')}</span><span><strong>${escapeHtml(child.name)}</strong><small>${escapeHtml(child.localProfileId || '未绑定本地档案')}</small></span>${selected ? `<span class="tag lime">当前</span>` : icon('chevron-right')}</button>`; }).join('') : renderEmpty('user-round', accountView.households.length ? '还没有工作台档案，请先新增一个。' : '请先创建一个家庭。')}</div></section><section class="work-card sync-card"><div class="work-card-header"><div><h2>多设备同步</h2><p>当前工作台：${activeChild ? escapeHtml(activeChild.name) : '尚未选择'}</p></div>${icon('cloud')} </div><div class="sync-status-line"><span class="status-dot ${activeChild ? 'is-online' : ''}"></span><span>${activeChild ? '可以手动同步' : '先选择工作台档案'}</span></div><div class="sync-actions"><button class="btn-secondary" type="button" data-action="account-pull" ${activeChild ? '' : 'disabled'}>${icon('cloud-download')}从云端恢复</button><button class="btn-primary" type="button" data-action="account-push" ${activeChild ? '' : 'disabled'}>${icon('cloud-upload')}上传当前快照</button></div>${accountView.lastSyncAt ? `<small class="sync-note">最近一次同步：${escapeHtml(accountView.lastSyncAt)}${accountView.lastRemoteRevision ? ` · 远端 revision ${accountView.lastRemoteRevision}` : ''}</small>` : '<small class="sync-note">同步不会自动覆盖本地数据，冲突时会保留两边并提示你处理。</small>'}</section></div>`;
         }
-        return `${renderIntro(PAGE_META.account, '', '', `<span class="tag ${status.id === 'ready' ? 'lime' : status.id === 'signed-out' ? 'orange' : ''}">${escapeHtml(status.label)}</span>`)}${renderWorkbenchSwitcher()}${isPreschool ? `${renderPreschoolThemeSettings()}${renderPreschoolFeedbackSettings()}` : ''}${body}`;
+        return `${renderIntro(PAGE_META.account, '', '', `<span class="tag ${status.id === 'ready' ? 'lime' : status.id === 'signed-out' ? 'orange' : ''}">${escapeHtml(status.label)}</span>`)}${renderWorkbenchSwitcher()}${isPreschool ? `${renderPreschoolThemeSettings()}${renderPreschoolMathBandSettings()}${renderPreschoolFeedbackSettings()}` : ''}${body}`;
     }
 
     function renderPreschoolThemeSettings() {
@@ -3594,6 +3722,41 @@
             return `<button class="preschool-theme-option ${current ? 'is-active' : ''}" type="button" data-action="select-preschool-theme" data-theme-id="${escapeHtml(id)}" aria-pressed="${current ? 'true' : 'false'}"><span class="preschool-theme-option-preview theme-preview-${escapeHtml(id)}"><i></i><b></b><em></em></span><span class="preschool-theme-option-copy"><strong>${escapeHtml(theme.name)}</strong><small>${escapeHtml(theme.switchSummary || '')}</small></span><span class="preschool-theme-option-state">${current ? `${icon('check')} 当前` : icon('arrow-right')}</span></button>`;
         }).join('');
         return `<section class="preschool-theme-settings" aria-labelledby="preschool-theme-settings-title"><div class="preschool-theme-settings-copy"><span class="pixel-panel-kicker">WORKBENCH / THEME</span><h2 id="preschool-theme-settings-title">选择冒险主题</h2><p>只换颜色、边框和小物件；任务、阳光、奖励和完成状态继续使用同一份本地数据。</p></div><div class="preschool-theme-options">${cards}</div></section>`;
+    }
+
+    function getMathPracticeBand() {
+        const garden = state.growth && state.growth.garden;
+        const engine = getMathBankEngine();
+        const raw = garden && garden.mathPracticeBand;
+        if (engine && typeof engine.normalizePracticeBand === 'function') return engine.normalizePracticeBand(raw);
+        if (raw === 'within10' || raw === 'within20' || raw === 'within50' || raw === 'addsub100' || raw === 'mix100') return raw;
+        if (raw === 'within100') return 'mix100';
+        return 'mix100';
+    }
+
+    function setMathPracticeBand(band) {
+        if (!isPreschool || !preschoolGarden || typeof preschoolGarden.setMathPracticeBand !== 'function') return;
+        const nextBand = getMathBankEngine() && typeof getMathBankEngine().normalizePracticeBand === 'function'
+            ? getMathBankEngine().normalizePracticeBand(band)
+            : band;
+        const labels = { within10: '10 以内', within20: '20 以内', within50: '50 以内', addsub100: '100 以内', mix100: '100 以内 + 乘法' };
+        const ok = commit(function (next) {
+            const result = preschoolGarden.setMathPracticeBand(next.growth, nextBand);
+            if (!result.ok) throw new Error(result.reason || '口算级别无法保存');
+            next.growth = result.growth;
+        }, '口算已换成' + (labels[nextBand] || '当前级别'));
+        if (ok) render();
+    }
+
+    function renderPreschoolMathBandSettings() {
+        const engine = getMathBankEngine();
+        const bands = engine && typeof engine.listPracticeBands === 'function' ? engine.listPracticeBands() : [];
+        const current = getMathPracticeBand();
+        const cards = bands.map(function (band) {
+            const active = band.id === current;
+            return `<button class="pixel-feedback-option ${active ? 'is-active' : ''}" type="button" data-action="set-math-band" data-band="${escapeHtml(band.id)}" aria-pressed="${active ? 'true' : 'false'}"><strong>${escapeHtml(band.title)}</strong><small>${escapeHtml(band.summary)}</small>${active ? icon('check') : ''}</button>`;
+        }).join('');
+        return `<section class="pixel-feedback-settings math-band-settings"><div class="pixel-feedback-copy"><span class="pixel-panel-kicker">MATH / PRACTICE</span><h2>口算级别</h2><p>按现在会的来选。当前默认是 100 以内加减，加上 20 以内简单乘法。</p></div><div class="pixel-feedback-options">${cards}</div></section>`;
     }
 
     function renderPreschoolFeedbackSettings() {
@@ -3779,6 +3942,17 @@
             console.warn('[PersonalWorkbench] 素材朗读失败', error);
             showToast('这张素材暂时读不了，请直接看一看。', true);
         }
+    }
+
+    function openExternalResource(url) {
+        const target = String(url || '').trim();
+        if (!target) return;
+        const allowed = /^https:\/\//.test(target) || /^http:\/\//.test(target);
+        if (!allowed) {
+            showToast('这个资源地址不正确，请检查配置。', true);
+            return;
+        }
+        global.open(target, '_blank', 'noopener');
     }
 
     function speakPraise(message) {
@@ -4754,6 +4928,7 @@
         if (action === 'claim-streak-reward') claimStreakReward(target.dataset.id);
         if (action === 'select-style') selectGrowthStyle(target.dataset.id);
         if (action === 'select-preschool-theme') selectPreschoolTheme(target.dataset.themeId);
+        if (action === 'set-math-band') setMathPracticeBand(target.dataset.band);
         if (action === 'select-plant') selectPreschoolPlant(target.dataset.id);
         if (action === 'water-plant') waterGrowthPlant();
         if (action === 'feed-pet') feedPreschoolPet();
@@ -4799,6 +4974,7 @@
         if (action === 'open-lesson') openLessonDialog(target.dataset.id);
         if (action === 'open-plan-practice') openPreschoolPlanPractice(target.dataset.id, target.dataset.date);
         if (action === 'speak-resource') speakResource(target.dataset.text);
+        if (action === 'open-resource') openExternalResource(target.dataset.url);
         if (action === 'summer-library-category') { ui.summerLibraryCategory = getSummerLibraryCategory(target.dataset.category).id; ui.summerLibraryItem = 0; render(); }
         if (action === 'summer-library-step') { const entries = getSummerLibraryEntries(ui.summerLibraryCategory); ui.summerLibraryItem = Math.max(0, Math.min(Math.max(0, entries.length - 1), (Number(ui.summerLibraryItem) || 0) + Number(target.dataset.direction || 0))); render(); }
         if (action === 'lesson-answer') answerLesson(target.dataset.index);

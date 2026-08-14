@@ -157,9 +157,9 @@ test('math, poetry and motion banks fill every L1-L5 band', () => {
     const quiz4 = globalThis.PersonalWorkbenchPreschoolMathBank.buildQuiz(mathBank, { level: 'L4', size: 5 });
     const quiz5 = globalThis.PersonalWorkbenchPreschoolMathBank.buildQuiz(mathBank, { level: 'L5', size: 5 });
     assert.equal(quiz4.rounds.length, 5);
-    assert.ok(quiz4.rounds.every(round => round.level === 'L4' && /\d+ [+-] \d+ = \?/.test(round.tokens)));
+    assert.ok(quiz4.rounds.every(round => round.level === 'L4' && /\d+ [+\-×] \d+ = \?/.test(round.tokens)));
     assert.equal(quiz5.rounds.length, 5);
-    assert.ok(quiz5.rounds.every(round => round.level === 'L5' && /\d+ [+-] \d+ = \?/.test(round.tokens)));
+    assert.ok(quiz5.rounds.every(round => round.level === 'L5' && /\d+ [+\-×] \d+ = \?/.test(round.tokens)));
     assert.ok(l4.length >= 5);
     assert.ok(l5.length >= 5);
 

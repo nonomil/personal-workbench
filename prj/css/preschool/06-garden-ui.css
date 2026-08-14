@@ -253,7 +253,8 @@ body.variant-preschool .pixel-feedback-settings { grid-template-columns: minmax(
 body.variant-preschool .pixel-feedback-copy h2 { color: var(--garden-ink); font-family: inherit; }
 body.variant-preschool .pixel-feedback-copy p { color: var(--garden-ink-soft); }
 body.variant-preschool .pixel-feedback-option { min-height: 88px; padding: 12px 12px 12px 44px; border: 1px solid #e0cfa8; border-radius: 17px; color: var(--garden-ink); background: #fffdf6; box-shadow: 0 7px 18px rgba(37,112,58,.08); }
-body.variant-preschool .pixel-feedback-option:has(input:checked) { border-color: #93c985; background: #f0faeb; box-shadow: 0 0 0 3px rgba(112,189,93,.12); }
+body.variant-preschool .pixel-feedback-option:has(input:checked),
+body.variant-preschool .pixel-feedback-option.is-active { border-color: #93c985; background: #f0faeb; box-shadow: 0 0 0 3px rgba(112,189,93,.12); }
 body.variant-preschool .pixel-feedback-option input { accent-color: var(--garden-green); }
 body.variant-preschool .account-setup-card,
 body.variant-preschool .workbench-switcher-panel { border-radius: 26px; background: rgba(255,255,255,.96); box-shadow: 0 14px 32px rgba(37,112,58,.1); }
@@ -736,7 +737,8 @@ body.variant-preschool .pixel-feedback-copy h2 { color: var(--garden-ink); font-
 body.variant-preschool .pixel-feedback-copy p { color: var(--garden-ink-soft); }
 body.variant-preschool .pixel-feedback-options { gap: 10px; }
 body.variant-preschool .pixel-feedback-option { min-height: 88px; padding: 12px 12px 12px 44px; border: 1px solid #e0cfa8; border-radius: 17px; color: var(--garden-ink); background: #fffdf6; box-shadow: var(--garden-shadow-soft); cursor: pointer; }
-body.variant-preschool .pixel-feedback-option:has(input:checked) { border-color: #93c985; background: #f0faeb; box-shadow: 0 0 0 3px rgba(112,189,93,.12); }
+body.variant-preschool .pixel-feedback-option:has(input:checked),
+body.variant-preschool .pixel-feedback-option.is-active { border-color: #93c985; background: #f0faeb; box-shadow: 0 0 0 3px rgba(112,189,93,.12); }
 body.variant-preschool .pixel-feedback-option input { accent-color: var(--garden-green); }
 body.variant-preschool .pixel-feedback-option strong { font-family: inherit; }
 body.variant-preschool .pixel-feedback-option small { color: var(--garden-ink-soft); }

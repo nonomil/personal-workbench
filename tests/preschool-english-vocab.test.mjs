@@ -53,6 +53,19 @@ test('speak batch serves five daily word-in-sentence cards and never deducts sun
     assert.equal(progress.mastery.hello.sunlightDelta, 0);
 });
 
+test('speak batch puts due review words first using 1/3/7/14 without SM-2', () => {
+    const rules = { reviewIntervalsDays: [1, 3, 7, 14] };
+    const bank = vocab.parseBank(readBank());
+    let progress = vocab.markKnown(vocab.createDefaultProgress(), 'panda', true, '2026-08-14', rules);
+    assert.equal(progress.mastery.panda.nextReview, '2026-08-17');
+    const sameDay = vocab.buildSpeakBatch(bank, progress, rules, '2026-08-14', '', 5);
+    assert.equal(sameDay.some(item => item.text === 'panda' && item.review), false);
+    const dueDay = vocab.buildSpeakBatch(bank, progress, rules, '2026-08-17', '', 5);
+    assert.equal(dueDay[0].text, 'panda');
+    assert.equal(dueDay[0].review, true);
+    assert.deepEqual(vocab.buildReviewQueue(progress, rules, '2026-08-17', ['panda', 'blue']), ['panda']);
+});
+
 test('english mastery stays inside the existing courseProgress object', () => {
     const courses = globalThis.PersonalWorkbenchChildCourses;
     const normalized = courses.normalize({
@@ -72,6 +85,8 @@ test('preschool english course reads the vocab bank instead of handwritten word 
     assert.match(config, /mode: 'english-speak'/);
     assert.match(config, /id: 'preschool-english-words-1'/);
     assert.match(app, /dailyWindow/);
+    assert.match(app, /buildSpeakBatch/);
+    assert.match(app, /今天再认/);
     assert.match(app, /Day \$\{english\.day\}/);
     assert.match(app, /data-action="english-known"/);
     assert.match(app, /听句子/);

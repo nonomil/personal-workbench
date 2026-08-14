@@ -326,7 +326,7 @@ body.variant-preschool[data-preschool-theme='voxel-adventure'] .page-content {
 .vw-world-wrap {
     height: calc(100vh - 148px);
     min-height: 420px;
-    background: #87ceeb;
+    background: #3a3632;
 }
 
 .vw-world-frame {
@@ -335,7 +335,7 @@ body.variant-preschool[data-preschool-theme='voxel-adventure'] .page-content {
     height: 100%;
     min-height: 420px;
     border: 0;
-    background: #87ceeb;
+    background: #3a3632;
 }
 
 .vw-foot {

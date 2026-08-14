@@ -19,6 +19,27 @@
     const DAILY_GAME_SUN_CAP = 80;
     const GAME_IDS = ['garden-defense', 'voxel-adventure', 'platform-quest'];
 
+    function countLiteracyKnown(state) {
+        const mastery = state && state.courseProgress && state.courseProgress.literacy
+            && state.courseProgress.literacy.mastery;
+        return mastery && typeof mastery === 'object' ? Object.keys(mastery).length : 0;
+    }
+
+    function playModsFromLiteracy(known) {
+        const n = Math.max(0, Math.floor(Number(known) || 0));
+        if (n > 200) {
+            return { mode: 'hard', label: '困难', literacyKnown: n, enemySpeed: 1.3, chaseMs: 780, sunMult: 2, extraMob: true };
+        }
+        if (n >= 100) {
+            return { mode: 'normal', label: '普通', literacyKnown: n, enemySpeed: 1.15, chaseMs: 920, sunMult: 1.5, extraMob: false };
+        }
+        return { mode: 'easy', label: '简单', literacyKnown: n, enemySpeed: 0.75, chaseMs: 1400, sunMult: 1, extraMob: false };
+    }
+
+    function getPlayMods() {
+        return playModsFromLiteracy(countLiteracyKnown(readState()));
+    }
+
     /** 冒险等级门槛（累计冒险点） */
     const ADVENTURE_RANKS = [
         { level: 1, need: 0, title: '萌芽旅人', gardenStartSun: 0, platformCoinBonus: 0, voxelCrystalBonus: 0 },
@@ -614,6 +635,9 @@
         getMetaSummary: getMetaSummary,
         getMetaBonuses: getMetaBonuses,
         getWeeklyReport: getWeeklyReport,
-        adventureRankFromPoints: adventureRankFromPoints
+        adventureRankFromPoints: adventureRankFromPoints,
+        countLiteracyKnown: countLiteracyKnown,
+        playModsFromLiteracy: playModsFromLiteracy,
+        getPlayMods: getPlayMods
     };
 }(typeof window !== 'undefined' ? window : globalThis));

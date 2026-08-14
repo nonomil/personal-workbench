@@ -11,7 +11,7 @@
         'preschool-math': 'math',
         'preschool-exercise': 'motion',
         'preschool-english': 'english',
-        'preschool-phonics': 'english',
+        'preschool-phonics': 'phonics',
         'preschool-focus': 'literacy',
         'preschool-summer': 'literacy'
     };
@@ -22,7 +22,8 @@
         pinyin: { bank: 'pinyin', progress: 'pinyin', getKey: function (item) { return String(item && item.text || ''); } },
         poetry: { bank: 'poetry', progress: 'poetry', getKey: function (item) { return String(item && item.id || ''); } },
         math: { bank: 'math', progress: 'math', getKey: function (item) { return String(item && item.id || ''); } },
-        motion: { bank: 'motion', progress: 'motion', getKey: function (item) { return String(item && item.id || ''); } }
+        motion: { bank: 'motion', progress: 'motion', getKey: function (item) { return String(item && item.id || ''); } },
+        phonics: { bank: 'phonics', progress: 'phonics', getKey: function (item) { return String(item && (item.text || item.id) || ''); } }
     };
 
     function normalizeLevel(level) {

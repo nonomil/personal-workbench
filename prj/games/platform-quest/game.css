@@ -105,6 +105,17 @@ body {
     font-weight: 700;
     font-size: 13px;
 }
+.star-goals {
+    display: inline-flex;
+    gap: 8px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: rgba(255, 208, 47, .18);
+    font-size: 12px;
+    font-weight: 800;
+}
+.star-goals span { opacity: .55; }
+.star-goals span.is-on { opacity: 1; color: #c58a14; }
 .world-shell {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(220px, 280px);
@@ -146,7 +157,7 @@ body {
     height: auto;
     border: 3px solid #a82825;
     border-radius: 10px;
-    background: linear-gradient(180deg, #57d0f5 0 62%, #74c84f 62% 100%);
+    background: #57d0f5;
     touch-action: none;
 }
 
@@ -230,6 +241,13 @@ body {
     font-size: 12px;
     letter-spacing: 1px;
 }
+.stage-best {
+    min-height: 14px;
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.2;
+}
 .stage-lock {
     position: absolute;
     inset: 0;
@@ -266,4 +284,51 @@ body.is-picking .world-side { display: none; }
   display:inline-flex; align-items:center; justify-content:center;
   min-height:44px; padding:0 14px; border:2px solid rgba(62,44,65,.18);
   border-radius:12px; background:#fff7d6; color:inherit; font-weight:800; cursor:pointer;
+}
+
+.touch-pad {
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 120;
+    pointer-events: none;
+    padding: 0 16px 18px;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 12px;
+}
+.touch-pad-left,
+.touch-pad-right {
+    display: flex;
+    gap: 12px;
+    pointer-events: none;
+}
+.touch-btn {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, .55);
+    background: rgba(255, 255, 255, .28);
+    backdrop-filter: blur(4px);
+    color: #3e2c41;
+    font-size: 26px;
+    font-weight: 900;
+    pointer-events: auto;
+    touch-action: manipulation;
+    user-select: none;
+}
+.touch-btn-jump {
+    background: rgba(255, 208, 47, .45);
+    border-color: rgba(197, 138, 20, .65);
+}
+.touch-btn-run {
+    font-size: 18px;
+    background: rgba(255, 217, 160, .45);
+}
+@media (pointer: coarse), (max-width: 760px) {
+    .touch-pad { display: flex; }
+    .control-row-desktop { display: none; }
+    body:not(.is-picking) .world-shell { padding-bottom: 96px; }
 }

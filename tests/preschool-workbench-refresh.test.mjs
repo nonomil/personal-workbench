@@ -105,10 +105,10 @@ test('keeps preschool plans in one editable list instead of a fixed core and col
 
 test('bumps preschool runtime assets when the editable plan interaction changes', () => {
   const html = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
-  assert.match(html, /preschool-workbench\.css\?v=20260814-workshop-ui-v1/);
-  assert.match(html, /config\.js\?v=20260814-subject-bands-v1/);
-  assert.match(html, /storage\.js\?v=20260814-lesson-pack-v1/);
-  assert.match(html, /app\.js\?v=20260814-subject-levels-v1/);
+  assert.match(html, /preschool-workbench\.css\?v=20260814-review-queue-v1/);
+  assert.match(html, /config\.js\?v=20260814-summer-banks-v1/);
+  assert.match(html, /storage\.js\?v=20260814-lesson-mistakes-v1/);
+  assert.match(html, /app\.js\?v=20260814-review-queue-v1/);
   assert.match(html, /workbench-bridge\.js\?v=20260807-longterm-meta-v1/);
 });
 
@@ -217,7 +217,9 @@ test('merges reference learning zones into preschool resource cards', () => {
   assert.match(config, /title: '古诗专区'/);
   assert.match(config, /title: '数学专区'/);
   assert.match(config, /title: '专注力训练'/);
+  assert.match(config, /title: '英语专区'/);
   assert.match(config, /title: '自然拼读'/);
+  assert.match(config, /id: 'preschool-phonics'/);
   assert.match(config, /title: '每日运动'/);
   assert.match(config, /1500 字生活字库/);
   assert.match(config, /63 项拼音/);
@@ -242,7 +244,8 @@ test('exposes the reference workbench learning lanes as separate preschool navig
     ['preschool-poetry', '古诗专区'],
     ['preschool-math', '数学专区'],
     ['preschool-focus', '专注力训练'],
-    ['preschool-english', '自然拼读'],
+    ['preschool-english', '英语专区'],
+    ['preschool-phonics', '自然拼读'],
     ['preschool-exercise', '每日运动'],
     ['mistakes', '错题本'],
     ['rewards', '奖励商城']
@@ -579,7 +582,7 @@ test('puts a single real-work workflow card above preschool home check-in lanes'
   assert.doesNotMatch(workflowRender, /再完成\s*\d+\s*项打卡/);
   assert.match(app, /item\.done && item\.completionSource === 'practice'/);
   assert.match(styles, /preschool-home-workflow/);
-  assert.match(html, /app\.js\?v=20260814-subject-levels-v1/);
+  assert.match(html, /app\.js\?v=20260814-review-queue-v1/);
   assert.doesNotMatch(app, /首页只负责打卡/);
 });
 
@@ -746,8 +749,8 @@ test('defines answerable activities for every preschool lesson', () => {
   const config = fs.readFileSync(path.join(root, 'config.js'), 'utf8');
   const preschoolCourses = config.split("id: 'preschool-literacy'")[1].split("actions: { 'add-plan'")[0];
   const activities = preschoolCourses.match(/activity:\s*\{/g) || [];
-  assert.equal(activities.length, 24);
-  assert.equal((preschoolCourses.match(/optionIcons:\s*\[/g) || []).length, 24);
+  assert.equal(activities.length, 26);
+  assert.equal((preschoolCourses.match(/optionIcons:\s*\[/g) || []).length, 26);
   assert.match(preschoolCourses, /prompt: '/);
   assert.match(preschoolCourses, /options: \[/);
   assert.match(preschoolCourses, /answer: \d/);
@@ -769,7 +772,7 @@ test('keeps preschool option art aligned with its answer choices', () => {
       optionIcons: optionIcons ? (optionIcons[1].match(/'[^']*'/g) || []) : []
     };
   });
-  assert.equal(activities.length, 24);
+  assert.equal(activities.length, 26);
   for (const activity of activities) {
     assert.equal(activity.optionIcons.length, activity.options.length);
     for (const item of activity.optionIcons) {
@@ -891,6 +894,13 @@ test('restores the summer learning lane without loading the full library into th
   assert.match(config, /今日精选 · 6 张 \+ 完整资料库/);
   assert.equal((config.match(/id: 'summer-[^']+'/g) || []).length, 6);
   assert.match(config, /id: 'preschool-summer-4'/);
+  const summerBlock = config.split("id: 'preschool-summer'")[1].split("id: 'preschool-literacy'")[0];
+  assert.match(summerBlock, /id: 'preschool-summer-1'[\s\S]*mode: 'choice'/);
+  assert.match(summerBlock, /id: 'preschool-summer-2'[\s\S]*mode: 'literacy-flash'/);
+  assert.match(summerBlock, /id: 'preschool-summer-3'[\s\S]*mode: 'poetry-line'[\s\S]*preferred: 'poem-yong-e'/);
+  assert.match(summerBlock, /id: 'preschool-summer-4'[\s\S]*mode: 'literacy-flash'/);
+  assert.doesNotMatch(summerBlock, /哪个是植物/);
+  assert.doesNotMatch(summerBlock, /白毛浮在哪里/);
   assert.match(app, /function renderPreschoolCourseResources\(course\)/);
   assert.match(app, /function renderPreschoolSummerLibrary\(course\)/);
   assert.match(app, /renderPreschoolCourseResources\(course\)/);

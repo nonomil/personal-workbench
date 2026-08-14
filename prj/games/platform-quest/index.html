@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#e54139">
     <title>横版闯关 · 成长关卡</title>
     <link rel="stylesheet" href="../shared/growth-hud.css">
-    <link rel="stylesheet" href="./game.css?v=20260814-play-v3">
+    <link rel="stylesheet" href="./game.css?v=20260814-opt-v4">
 </head>
 <body data-world-game="platform-quest">
     <header class="world-bar">
@@ -31,12 +31,15 @@
             <div class="play-meta">
                 <strong id="level-title">第 1 关</strong>
                 <span>金币 <b id="coin-count">0</b></span>
+                <span>生命 <b id="heart-count">♥♥♥♥♥</b></span>
+                <span>时间 <b id="run-timer">0s</b></span>
+                <span class="star-goals" id="star-goals">★到旗 ☆金币 ☆速度</span>
                 <span>姿势 <b id="pose-label">站立</b></span>
                 <span>状态 <b id="run-status">准备</b></span>
             </div>
             <canvas id="world-canvas" width="960" height="480" aria-label="横版闯关画布"></canvas>
-            <p class="hint">左跑、右跑、跳（可二段跳）、按住奔跑。碰到会闪一下，掉坑回到刚才的地方。</p>
-            <div class="control-row">
+            <p class="hint">1–4 关可连跳两次；吃蘑菇变大能碎砖。顶惊喜块、过检查点、冲旗拿三星。</p>
+            <div class="control-row control-row-desktop">
                 <button type="button" data-hold="left">左跑</button>
                 <button type="button" data-action="jump">跳跃</button>
                 <button type="button" data-hold="right">右跑</button>
@@ -48,18 +51,28 @@
         <aside class="world-side">
             <h2>怎么玩</h2>
             <ul>
-                <li>踩怪</li>
-                <li>吃金币</li>
-                <li>冲到旗</li>
-                <li>空中再跳一次</li>
+                <li>顶惊喜块</li>
+                <li>吃蘑菇回血</li>
+                <li>看三星条</li>
+                <li>连踩得分</li>
             </ul>
             <p class="tip" id="progress-tip">加载中…</p>
         </aside>
     </main>
+    <div class="touch-pad" id="touch-pad" aria-hidden="true">
+        <div class="touch-pad-left">
+            <button type="button" class="touch-btn" data-hold="left" aria-label="左跑">◀</button>
+            <button type="button" class="touch-btn" data-hold="right" aria-label="右跑">▶</button>
+        </div>
+        <div class="touch-pad-right">
+            <button type="button" class="touch-btn touch-btn-jump" data-action="jump" aria-label="跳跃">⬆</button>
+            <button type="button" class="touch-btn touch-btn-run" data-hold="run" aria-label="奔跑">跑</button>
+        </div>
+    </div>
     <div class="toast-game" id="toast"></div>
     <script src="../shared/workbench-bridge.js"></script>
-    <script src="./data/physics.js?v=20260814-play-v3"></script>
-    <script src="./data/levels.js?v=20260814-play-v3"></script>
-    <script src="./game.js?v=20260814-play-v3"></script>
+    <script src="./data/physics.js?v=20260814-ground-v1"></script>
+    <script src="./data/levels.js?v=20260814-ground-v1"></script>
+    <script src="./game.js?v=20260814-ground-v1"></script>
 </body>
 </html>

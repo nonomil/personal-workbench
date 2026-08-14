@@ -30,7 +30,11 @@ test('60-day packs append onto literacy, math and english without replacing seed
     assert.equal(english.lessons[0].id, 'preschool-english-words-1');
     assert.ok(literacy.lessons.length >= 3 + data.hanzi.length);
     assert.ok(math.lessons.length >= 3 + data.math.length);
-    assert.ok(english.lessons.length >= 3 + data.english.length);
+    assert.ok(english.lessons.length >= 1 + data.english.length);
+    const phonics = course('preschool-phonics');
+    assert.ok(phonics);
+    assert.equal(phonics.lessons[0].id, 'preschool-english-phonics-1');
+    assert.ok(phonics.lessons.length >= 5);
     assert.ok(literacy.lessons.some(item => item.id === 'preschool-hanzi-day-01'));
     assert.equal(pack.choiceLessons(data.hanzi).length, data.hanzi.length);
 });
@@ -60,7 +64,7 @@ test('html and app wire the pack renderer and motion timer onto the existing dia
     const app = fs.readFileSync(path.join(repoRoot, 'prj', 'app.js'), 'utf8');
     const html = fs.readFileSync(path.join(repoRoot, 'prj', 'preschool-workbench', 'index.html'), 'utf8');
     const configSource = fs.readFileSync(path.join(repoRoot, 'prj', 'config.js'), 'utf8');
-    assert.equal((configSource.split("id: 'preschool-literacy'")[1].split("actions: { 'add-plan'")[0].match(/activity:\s*\{/g) || []).length, 24);
+    assert.equal((configSource.split("id: 'preschool-literacy'")[1].split("actions: { 'add-plan'")[0].match(/activity:\s*\{/g) || []).length, 26);
     assert.match(html, /preschool-lesson-pack-data\.js/);
     assert.match(html, /preschool-lesson-pack\.js/);
     assert.match(html, /preschool-play-games\.js/);
