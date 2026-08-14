@@ -1,0 +1,109 @@
+/* Play boards and motion countdown inside the existing lesson dialog. */
+body.variant-preschool .play-flip-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+}
+
+body.variant-preschool .play-flip-card,
+body.variant-preschool .play-odd-tile,
+body.variant-preschool .play-order-tile,
+body.variant-preschool .play-spell-tile {
+    min-height: 72px;
+    border: 1px solid rgba(78, 205, 196, .28);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, .9);
+    color: var(--wb-ink);
+    font-size: 28px;
+    font-weight: 800;
+}
+
+body.variant-preschool .play-flip-card.is-open,
+body.variant-preschool .play-flip-card.is-selected {
+    background: #fff8e8;
+    border-color: rgba(255, 176, 72, .7);
+}
+
+body.variant-preschool .play-flip-card.is-correct,
+body.variant-preschool .play-odd-tile.is-correct,
+body.variant-preschool .play-order-tile.is-correct {
+    background: #ecfaed;
+    border-color: rgba(107, 203, 119, .72);
+}
+
+body.variant-preschool .play-odd-tile.is-wrong,
+body.variant-preschool .play-order-tile.is-wrong,
+body.variant-preschool .play-spell-typed.is-wrong {
+    background: #fff0ed;
+    border-color: rgba(228, 111, 79, .55);
+}
+
+body.variant-preschool .play-odd-grid,
+body.variant-preschool .play-order-grid,
+body.variant-preschool .play-spell-tiles {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+}
+
+body.variant-preschool .play-spell-typed {
+    min-height: 48px;
+    margin: 0 0 12px;
+    padding: 8px 12px;
+    border-radius: 14px;
+    background: #e2f8f4;
+    font-size: 28px;
+    letter-spacing: .12em;
+    text-align: center;
+}
+
+body.variant-preschool .motion-timer-board {
+    display: grid;
+    justify-items: center;
+    gap: 12px;
+    padding: 8px 0 4px;
+}
+
+body.variant-preschool .motion-timer-ring {
+    display: grid;
+    place-items: center;
+    width: min(56vw, 220px);
+    height: min(56vw, 220px);
+    border-radius: 50%;
+    background:
+        conic-gradient(#3ecf8e calc(var(--progress, 0) * 1%), #e7f6ee 0);
+    box-shadow: 0 12px 28px rgba(45, 45, 58, .08);
+}
+
+body.variant-preschool .motion-timer-ring > span {
+    display: grid;
+    place-items: center;
+    width: 78%;
+    height: 78%;
+    border-radius: 50%;
+    background: #fff;
+    color: #1f6b4a;
+    font-size: 52px;
+    font-weight: 950;
+    line-height: 1;
+}
+
+body.variant-preschool .motion-timer-safety {
+    margin: 0;
+    color: #4d6458;
+    font-size: 15px;
+    text-align: center;
+}
+
+@media (max-width: 720px) {
+    body.variant-preschool .play-flip-grid,
+    body.variant-preschool .play-odd-grid,
+    body.variant-preschool .play-order-grid,
+    body.variant-preschool .play-spell-tiles {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    body.variant-preschool .motion-timer-ring > span {
+        font-size: 44px;
+    }
+}

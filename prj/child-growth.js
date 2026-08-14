@@ -64,7 +64,39 @@
             voiceEnabled: false,
             plant: { stage: 0, waterCount: 0, lastWateredDate: '' },
             unicorn: { name: '星芒', xp: 0, level: 1, activeStyleId: 'style-classic', unlockedStyleIds: ['style-classic'] },
-            zombie: { active: false, defeated: 0, lastSpawnDate: '' }
+            zombie: { active: false, defeated: 0, lastSpawnDate: '' },
+            achievements: { unlocked: [], history: [], lastShown: '', seen: [] },
+            pet: normalizePet(null)
+        };
+    }
+
+    function normalizePet(input) {
+        if (global.PersonalWorkbenchPet && typeof global.PersonalWorkbenchPet.normalize === 'function') {
+            return global.PersonalWorkbenchPet.normalize(input);
+        }
+        const source = input && typeof input === 'object' ? input : {};
+        return {
+            type: String(source.type || 'sunflower'),
+            name: String(source.name || '小向日葵'),
+            stage: Math.max(0, Math.min(3, Number(source.stage) || 0)),
+            exp: Math.max(0, Number(source.exp) || 0),
+            maxExp: Math.max(1, Number(source.maxExp) || 50),
+            hunger: Math.max(0, Math.min(100, source.hunger == null ? 80 : Number(source.hunger) || 0)),
+            lastUpdate: Number(source.lastUpdate) || Date.now(),
+            feedCount: Math.max(0, Number(source.feedCount) || 0)
+        };
+    }
+
+    function normalizeAchievements(input) {
+        if (global.PersonalWorkbenchAchievements && typeof global.PersonalWorkbenchAchievements.normalizeAchievements === 'function') {
+            return global.PersonalWorkbenchAchievements.normalizeAchievements(input);
+        }
+        const source = input && typeof input === 'object' ? input : {};
+        return {
+            unlocked: asArray(source.unlocked).filter(item => typeof item === 'string'),
+            history: asArray(source.history).filter(item => item && typeof item === 'object' && typeof item.id === 'string'),
+            lastShown: typeof source.lastShown === 'string' ? source.lastShown : '',
+            seen: asArray(source.seen).filter(item => typeof item === 'string')
         };
     }
 
@@ -81,7 +113,9 @@
             voiceEnabled: Boolean(source.voiceEnabled),
             plant: Object.assign(seed.plant, source.plant || {}),
             unicorn: Object.assign(seed.unicorn, source.unicorn || {}),
-            zombie: Object.assign(seed.zombie, source.zombie || {})
+            zombie: Object.assign(seed.zombie, source.zombie || {}),
+            achievements: normalizeAchievements(source.achievements),
+            pet: normalizePet(source.pet)
         });
         growth.plant.waterCount = Math.max(0, Number(growth.plant.waterCount) || 0);
         growth.unicorn.xp = Math.max(0, Number(growth.unicorn.xp) || growth.totalSunlightEarned);
@@ -129,6 +163,8 @@
         growth.plant = Object.assign({}, seed.plant, source.plant || {});
         growth.unicorn = Object.assign({}, seed.unicorn, source.unicorn || {});
         growth.zombie = Object.assign({}, seed.zombie, source.zombie || {});
+        growth.achievements = normalizeAchievements(source.achievements);
+        growth.pet = normalizePet(source.pet);
         return growth;
     }
 
@@ -194,7 +230,8 @@
             unlockedStreakRewardIds: unlockedStreakRewardIds,
             claimedStreakRewardIds: growth.claimedStreakRewardIds,
             streakRewards: STREAK_REWARDS,
-            styles: STYLE_CATALOG
+            styles: STYLE_CATALOG,
+            achievements: growth.achievements
         };
     }
 

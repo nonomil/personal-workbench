@@ -7,12 +7,13 @@
     const SCHEMA_VERSION = 6;
     const PRESCHOOL_DAY_PLAN_VERSION = 3;
     const PRESCHOOL_THEME_IDS = ['garden-defense', 'voxel-adventure', 'platform-quest'];
+    const PRESCHOOL_ENGLISH_WORD_LESSON_ID = 'preschool-english-words-1';
     const PRESCHOOL_DAILY_ITEMS = [
         { id: 'story', title: '完成今日识字', category: '识字', priority: 'high', minutes: 10, required: true, initialDone: true, initialProgress: 40, practiceLessonId: 'preschool-chinese-1' },
         { id: 'count', title: '朗读一首古诗', category: '古诗', priority: 'high', minutes: 10, required: true, initialDone: false, initialProgress: 0, practiceLessonId: 'preschool-poetry-1' },
         { id: 'hello', title: '数学闯关一关', category: '数学', priority: 'high', minutes: 10, required: true, initialDone: false, initialProgress: 0, practiceLessonId: 'preschool-math-1' },
-        { id: 'draw', title: '学习今日英语', category: '英语', priority: 'medium', minutes: 8, required: false, initialDone: false, initialProgress: 0, practiceLessonId: 'preschool-english-phonics-1' },
-        { id: 'move', title: '做一项运动', category: '运动', priority: 'low', minutes: 15, required: false, initialDone: false, initialProgress: 0, practiceLessonId: '' },
+        { id: 'draw', title: '学习今日英语', category: '英语', priority: 'medium', minutes: 8, required: false, initialDone: false, initialProgress: 0, practiceLessonId: PRESCHOOL_ENGLISH_WORD_LESSON_ID },
+        { id: 'move', title: '做一项运动', category: '运动', priority: 'low', minutes: 15, required: false, initialDone: false, initialProgress: 0, practiceLessonId: 'preschool-exercise-1' },
         { id: 'tidy', title: '专注力训练一题', category: '专注', priority: 'medium', minutes: 10, required: false, initialDone: false, initialProgress: 0, practiceLessonId: 'preschool-focus-1' }
     ];
 
@@ -116,6 +117,18 @@
         return null;
     }
 
+    function resolvePreschoolPracticeLessonId(item, template) {
+        const fallback = template && template.practiceLessonId ? template.practiceLessonId : '';
+        if (!item || typeof item.practiceLessonId !== 'string') return fallback;
+        if (item.id === 'preschool-plan-draw' && item.practiceLessonId === 'preschool-english-phonics-1') {
+            return PRESCHOOL_ENGLISH_WORD_LESSON_ID;
+        }
+        if (item.id === 'preschool-plan-move' && !item.practiceLessonId) {
+            return 'preschool-exercise-1';
+        }
+        return item.practiceLessonId;
+    }
+
     function synchronizePreschoolTemplates(state) {
         if (variant !== 'preschool') return state;
         state.tasks = state.tasks.map(function (item) {
@@ -141,7 +154,7 @@
                 title: typeof item.title === 'string' && item.title.trim() ? item.title : template.title,
                 category: typeof item.category === 'string' && item.category.trim() ? item.category : template.category,
                 required: typeof item.required === 'boolean' ? item.required : template.required,
-                practiceLessonId: typeof item.practiceLessonId === 'string' ? item.practiceLessonId : (template.practiceLessonId || ''),
+                practiceLessonId: resolvePreschoolPracticeLessonId(item, template),
                 completionSource: typeof item.completionSource === 'string' ? item.completionSource : '',
                 completionRewardId: typeof item.completionRewardId === 'string' ? item.completionRewardId : '',
                 order: Number(item.order) > 0 ? item.order : index + 1
@@ -458,7 +471,7 @@
             const template = variant === 'preschool' ? preschoolTaskTemplateById(item.id) : null;
             return Object.assign({ id: createId('plan'), date: localDate(), title: '未命名计划', category: '学习', required: template ? template.required : false, practiceLessonId: template ? (template.practiceLessonId || '') : '', completionSource: '', completionRewardId: '', done: false, order: index + 1, createdAt: state.updatedAt, completedAt: null }, item, {
                 done: Boolean(item.done),
-                practiceLessonId: typeof item.practiceLessonId === 'string' ? item.practiceLessonId : (template ? (template.practiceLessonId || '') : ''),
+                practiceLessonId: resolvePreschoolPracticeLessonId(item, template),
                 completionSource: typeof item.completionSource === 'string' ? item.completionSource : '',
                 completionRewardId: typeof item.completionRewardId === 'string' ? item.completionRewardId : ''
             });

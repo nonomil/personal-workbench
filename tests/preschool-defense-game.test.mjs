@@ -61,7 +61,7 @@ test('spawns three different zombies on different lanes with stable ids', () => 
 
 test('keeps different zombie movement and health profiles observable', () => {
   const wave = gardenEngine.spawnDefenseWave(gardenEngine.startDefenseGame(growthWithSunlight()).growth, '2026-08-03');
-  const ticked = gardenEngine.tickDefense(wave.growth, 3).growth.garden.defense;
+  const ticked = gardenEngine.tickDefense(wave.growth, 10).growth.garden.defense;
   const basic = ticked.zombies.find(item => item.kind === 'zombie-basic');
   const cone = ticked.zombies.find(item => item.kind === 'zombie-conehead');
   const bucket = ticked.zombies.find(item => item.kind === 'zombie-buckethead');
@@ -125,4 +125,41 @@ test('does not resurrect defeated entities during normalization', () => {
   const restored = gardenEngine.normalize(JSON.parse(JSON.stringify(growth))).garden.defense;
   assert.deepEqual(restored.plants, []);
   assert.deepEqual(restored.zombies, []);
+});
+
+test('marks defense lost when a zombie walks off the left edge', () => {
+  let growth = gardenEngine.startDefenseGame(growthWithSunlight(), '2026-08-13').growth;
+  growth = gardenEngine.selectPlant(growth, 'plant-peashooter').growth;
+  growth = gardenEngine.placeDefensePlant(growth, 0, 5).growth;
+  growth.garden.defense.zombies = [{
+    id: 'zombie-1',
+    kind: 'zombie-basic',
+    lane: 0,
+    column: 0,
+    health: 3,
+    maxHealth: 3,
+    slowTicks: 0,
+    moveClock: 99
+  }];
+  growth.garden.defense.wave = 1;
+  const ticked = gardenEngine.tickDefense(growth, 1);
+  assert.equal(ticked.growth.garden.defense.status, 'lost');
+  const restored = gardenEngine.normalize(JSON.parse(JSON.stringify(ticked.growth))).garden.defense;
+  assert.equal(restored.status, 'lost');
+});
+
+test('keeps a zombie on column zero through normalization', () => {
+  const growth = gardenEngine.startDefenseGame(growthWithSunlight(), '2026-08-13').growth;
+  growth.garden.defense.zombies = [{
+    id: 'zombie-edge',
+    kind: 'zombie-basic',
+    lane: 2,
+    column: 0,
+    health: 3,
+    maxHealth: 3,
+    slowTicks: 0,
+    moveClock: 1
+  }];
+  const restored = gardenEngine.normalize(JSON.parse(JSON.stringify(growth))).garden.defense;
+  assert.equal(restored.zombies[0].column, 0);
 });

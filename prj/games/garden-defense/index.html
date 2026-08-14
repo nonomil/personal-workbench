@@ -4,16 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="theme-color" content="#2d8748">
-    <title>花园保卫 · 种植发射</title>
+    <title>花园保卫</title>
     <link rel="stylesheet" href="../shared/growth-hud.css">
-    <link rel="stylesheet" href="./game.css">
+    <link rel="stylesheet" href="./game.css?v=20260814-map-node-v1">
 </head>
 <body data-world-game="garden-defense">
     <header class="world-bar">
         <div class="world-bar-copy">
-            <span class="kicker">PLANT · SKILL · SUNLIGHT</span>
+            <span class="kicker">花园</span>
             <h1>花园保卫</h1>
-            <p>种植物、发射技能、收集阳光。阳光写回幼儿工作台。</p>
+            <p>种植物，守家园。</p>
         </div>
         <div class="growth-hud" id="wallet-hud" aria-live="polite"></div>
         <div class="world-bar-actions">
@@ -24,15 +24,14 @@
     </header>
     <main class="world-shell">
         <section class="world-panel" id="panel-map">
-            <h2 class="panel-title">成长关卡 · 共 <span id="stage-count">12</span> 关</h2>
-            <p class="hint">每关需击退指定数量的僵尸。先种植物，再召唤，再点技能。</p>
-            <div class="stage-map" id="stage-map"></div>
+            <h2 class="panel-title">选关 · <span id="stage-count">12</span></h2>
+            <div class="stage-map" id="stage-map" aria-label="12 个花园关卡"></div>
         </section>
         <section class="world-panel is-hidden" id="panel-play">
             <div class="play-meta">
                 <strong id="stage-title">第 1 关</strong>
                 <span id="stage-blurb"></span>
-                <span>击退 <b id="kill-count">0</b>/<b id="kill-need">1</b></span>
+                <span>波次 <b id="kill-count">0</b>/<b id="kill-need">1</b></span>
                 <span>能量 <b id="energy-count">0</b></span>
                 <span>状态 <b id="run-status">准备</b></span>
             </div>
@@ -42,27 +41,25 @@
             </div>
             <div class="control-row">
                 <button type="button" id="spawn-btn">来一波僵尸</button>
-                <button type="button" id="skill-btn">使用技能</button>
                 <button type="button" id="restart-btn">重开本关</button>
                 <button type="button" id="back-map-btn">返回地图</button>
             </div>
-            <p class="hint" id="message-tip">选植物 → 点格子种下 → 召唤僵尸 → 点「使用技能」发射/收阳光。</p>
+            <p class="hint" id="message-tip">选种子点草坪种下。种好后僵尸会自己来，豌豆会自己打。点掉落的阳光。</p>
         </section>
         <aside class="world-side">
-            <h2>怎么玩</h2>
-            <ul>
-                <li>向日葵：收集阳光（每日一次）</li>
-                <li>豌豆/寒冰：消耗能量发射</li>
-                <li>坚果：挡住僵尸</li>
-                <li>樱桃：强力爆炸</li>
-            </ul>
+            <div class="how-pics" aria-label="怎么玩">
+                <figure><img id="how-sun" alt=""><figcaption>阳光</figcaption></figure>
+                <figure><img id="how-pea" alt=""><figcaption>发射</figcaption></figure>
+                <figure><img id="how-nut" alt=""><figcaption>挡住</figcaption></figure>
+                <figure><img id="how-zombie" alt=""><figcaption>别进家</figcaption></figure>
+            </div>
             <p class="tip" id="progress-tip">加载中…</p>
         </aside>
     </main>
     <div class="toast-game" id="toast" role="status"></div>
     <script src="../shared/workbench-bridge.js"></script>
-    <script src="../../preschool-garden.js"></script>
-    <script src="./data/stages.js"></script>
-    <script src="./game.js"></script>
+    <script src="../../preschool-garden.js?v=20260814-map-node-v1"></script>
+    <script src="./data/stages.js?v=20260814-play-v2"></script>
+    <script src="./game.js?v=20260814-play-v3"></script>
 </body>
 </html>

@@ -1,0 +1,485 @@
+/* Achievement badges: collection box, latest chip, celebration overlay, confetti. */
+
+body.variant-preschool .preschool-badge-box-link {
+    align-self: flex-start;
+    padding: 8px 12px;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .18);
+    color: #fff8dc;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+body.variant-preschool .preschool-growth-stat-card.is-action {
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    text-align: left;
+}
+
+body.variant-preschool .preschool-badge-collection,
+body.variant-preschool .preschool-parent-badge-wall {
+    position: relative;
+    overflow: hidden;
+    margin-top: 18px;
+    padding: clamp(16px, 2.4vw, 24px);
+    border: 1px solid rgba(255, 255, 255, .86);
+    border-radius: 26px;
+    box-shadow: 0 13px 30px rgba(46, 79, 47, .12), inset 0 1px 0 rgba(255, 255, 255, .72);
+    background:
+        radial-gradient(circle at 88% 8%, rgba(255, 233, 126, .28), transparent 24%),
+        linear-gradient(180deg, #fffdf6, #f3faf0);
+}
+
+body.variant-preschool .preschool-badge-groups {
+    display: grid;
+    gap: 14px;
+    margin-top: 16px;
+}
+
+body.variant-preschool .preschool-badge-group {
+    padding: 12px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, .48);
+}
+
+body.variant-preschool .preschool-badge-group h3 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 6px 12px;
+    margin: 0 0 10px;
+    font-size: 15px;
+    color: #23402a;
+}
+
+body.variant-preschool .preschool-badge-group h3 small {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7a62;
+}
+
+body.variant-preschool .preschool-badge-meter {
+    height: 8px;
+    margin: 0 0 10px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(46, 79, 47, .12);
+}
+
+body.variant-preschool .preschool-badge-meter i {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #7bc47f, #f4d35e);
+}
+
+body.variant-preschool .preschool-badge-collection-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+body.variant-preschool .preschool-badge-box-close {
+    padding: 6px 12px;
+    border: 0;
+    border-radius: 999px;
+    background: #2f8a45;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+body.variant-preschool .preschool-badge-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+body.variant-preschool .preschool-badge-group[data-group="unified"] .preschool-badge-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 700px) {
+    body.variant-preschool .preschool-badge-grid,
+    body.variant-preschool .preschool-badge-group[data-group="unified"] .preschool-badge-grid {
+        grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+    }
+}
+
+body.variant-preschool .preschool-badge-hero {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 14px;
+    padding: 14px 16px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, .72);
+}
+
+body.variant-preschool .preschool-badge-hero-trophy {
+    border: 0;
+    background: transparent;
+    font-size: 42px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+body.variant-preschool .preschool-badge-hero-copy small {
+    display: block;
+    font-size: 12px;
+    color: #6b7a62;
+}
+
+body.variant-preschool .preschool-badge-hero-copy strong {
+    font-size: 28px;
+    color: #23402a;
+}
+
+body.variant-preschool .preschool-badge-hero-copy span {
+    font-size: 16px;
+    color: #8a9a7e;
+}
+
+body.variant-preschool .preschool-badge-hero .preschool-badge-meter.is-overall {
+    flex: 1;
+    height: 12px;
+    margin: 0;
+}
+
+body.variant-preschool .preschool-badge-filters {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    margin-top: 12px;
+    padding-bottom: 2px;
+}
+
+body.variant-preschool .preschool-badge-filter {
+    flex: 0 0 auto;
+    padding: 6px 12px;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(46, 79, 47, .08);
+    color: #4d5f46;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+body.variant-preschool .preschool-badge-filter.is-active {
+    background: #2f8a45;
+    color: #fff;
+}
+
+body.variant-preschool .preschool-badge-ladder {
+    margin: -4px 0 8px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #7a8b72;
+}
+
+body.variant-preschool .preschool-badge-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 8px 10px;
+    border: 0;
+    border-radius: 18px;
+    font: inherit;
+    color: inherit;
+    text-align: center;
+    background: rgba(255, 255, 255, .72);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8);
+    cursor: pointer;
+}
+
+body.variant-preschool .preschool-badge-stage {
+    font-style: normal;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    color: #7a8b72;
+}
+
+body.variant-preschool .preschool-badge-new-chip {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    padding: 2px 6px;
+    border-radius: 999px;
+    background: #ef4444;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+body.variant-preschool .preschool-badge-card-meter {
+    display: block;
+    width: 100%;
+    height: 6px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(46, 79, 47, .12);
+}
+
+body.variant-preschool .preschool-badge-card-meter i {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #7bc47f, #f4d35e);
+}
+
+body.variant-preschool .preschool-parent-badge-wall .preschool-badge-meter.is-overall {
+    margin: 8px 0 0;
+}
+
+body.variant-preschool .preschool-achievement-bonus {
+    color: #c2410c;
+    font-weight: 700;
+}
+
+body.variant-preschool .preschool-achievement-overlay.is-confetti-only {
+    background: transparent;
+    backdrop-filter: none;
+    pointer-events: none;
+}
+
+body.variant-preschool .preschool-achievement-art small {
+    display: block;
+    margin-top: 2px;
+    font-size: 11px;
+    color: #7a8b72;
+}
+
+body.variant-preschool .preschool-badge-card strong {
+    font-size: 13px;
+    color: #23402a;
+}
+
+body.variant-preschool .preschool-badge-card small,
+body.variant-preschool .preschool-badge-card b {
+    font-size: 11px;
+    color: #6b7a62;
+    font-weight: 600;
+}
+
+body.variant-preschool .preschool-badge-card.is-locked {
+    filter: grayscale(1);
+    opacity: .62;
+}
+
+body.variant-preschool .preschool-badge-art svg,
+body.variant-preschool .preschool-badge-art img {
+    display: block;
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+}
+
+body.variant-preschool .preschool-badge-card[data-badge-id="UNIFIED_SILVER"].is-unlocked .preschool-badge-art,
+body.variant-preschool .preschool-badge-card[data-badge-id="UNIFIED_GOLD"].is-unlocked .preschool-badge-art,
+body.variant-preschool .preschool-achievement-art[data-badge-id="UNIFIED_SILVER"],
+body.variant-preschool .preschool-achievement-art[data-badge-id="UNIFIED_GOLD"] {
+    border-radius: 50%;
+    padding: 4px;
+    background: linear-gradient(135deg, #FF6B6B, #FFD93D, #6BCB77, #4D96FF, #9B59B6);
+    background-size: 400% 400%;
+    animation: preschoolBadgeRainbow 4s ease-in-out infinite;
+}
+
+body.variant-preschool .preschool-badge-card[data-badge-id="UNIFIED_SILVER"].is-unlocked .preschool-badge-art,
+body.variant-preschool .preschool-achievement-art[data-badge-id="UNIFIED_SILVER"] {
+    background: linear-gradient(135deg, #C0C0C0, #E8E8E8, #7DD3FC, #C0C0C0);
+}
+
+@keyframes preschoolBadgeRainbow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+body.variant-preschool .preschool-home-latest-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 148px;
+    padding: 8px 12px 8px 8px;
+    border: 0;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, .22);
+    color: inherit;
+    cursor: pointer;
+    text-align: left;
+}
+
+body.variant-preschool .preschool-home-latest-badge svg,
+body.variant-preschool .preschool-home-latest-badge img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+}
+
+body.variant-preschool .preschool-home-latest-badge b,
+body.variant-preschool .preschool-home-latest-badge span {
+    display: block;
+}
+
+body.variant-preschool .preschool-home-latest-badge small {
+    opacity: .78;
+    font-size: 11px;
+}
+
+body.variant-preschool .preschool-home-latest-badge.is-empty {
+    min-height: 52px;
+}
+
+body.variant-preschool .preschool-parent-badge-wall strong {
+    display: block;
+}
+
+body.variant-preschool .preschool-parent-badge-wall > small {
+    display: block;
+    margin-top: 4px;
+    color: #6b7a62;
+}
+
+body.variant-preschool .preschool-parent-badge-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+body.variant-preschool .preschool-parent-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 72px;
+}
+
+body.variant-preschool .preschool-parent-badge svg,
+body.variant-preschool .preschool-parent-badge img {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+}
+
+body.variant-preschool .preschool-parent-badge em {
+    font-style: normal;
+    font-size: 12px;
+    color: #34563a;
+}
+
+body.variant-preschool .preschool-achievement-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    display: grid;
+    place-items: center;
+    background: rgba(17, 24, 19, .46);
+    backdrop-filter: blur(8px);
+}
+
+body.variant-preschool .preschool-achievement-dialog {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    min-width: min(88vw, 320px);
+    padding: 28px 24px 22px;
+    border-radius: 28px;
+    background: linear-gradient(180deg, #fffdf8, #eef8e8);
+    box-shadow: 0 24px 60px rgba(20, 40, 24, .28);
+    text-align: center;
+}
+
+body.variant-preschool .preschool-achievement-arts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+body.variant-preschool .preschool-achievement-art {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 88px;
+    animation: preschoolBadgeUnlock .7s ease both;
+}
+
+body.variant-preschool .preschool-achievement-arts.is-single .preschool-achievement-art {
+    width: 120px;
+}
+
+body.variant-preschool .preschool-achievement-art svg,
+body.variant-preschool .preschool-achievement-art img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: contain;
+}
+
+body.variant-preschool .preschool-achievement-art em {
+    display: block;
+    margin-top: 4px;
+    font-style: normal;
+    font-size: 13px;
+    color: #34563a;
+}
+
+body.variant-preschool .preschool-achievement-dialog strong {
+    font-size: 28px;
+    color: #1f3b26;
+}
+
+body.variant-preschool .preschool-achievement-dialog small {
+    color: #5f7158;
+}
+
+body.variant-preschool .preschool-achievement-close {
+    margin-top: 8px;
+    padding: 10px 18px;
+    border: 0;
+    border-radius: 999px;
+    background: #2f8a45;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+body.variant-preschool .preschool-achievement-confetti {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+body.variant-preschool .preschool-confetti-piece {
+    position: absolute;
+    top: -12px;
+    animation: preschoolConfettiDrop 1.8s ease-in forwards;
+}
+
+@keyframes preschoolBadgeUnlock {
+    0% { transform: scale(0) rotate(-30deg); opacity: 0; }
+    60% { transform: scale(1.2) rotate(5deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes preschoolConfettiDrop {
+    0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(400px) rotate(720deg); opacity: 0; }
+}

@@ -1,0 +1,884 @@
+[
+  {
+    "id": "pinyin-initial-b",
+    "text": "b",
+    "initial": "b",
+    "sample": "爸",
+    "pinyin": "bà",
+    "kind": "initial",
+    "group": "lips",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-initial-p",
+    "text": "p",
+    "initial": "p",
+    "sample": "皮",
+    "pinyin": "pí",
+    "kind": "initial",
+    "group": "lips",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-initial-m",
+    "text": "m",
+    "initial": "m",
+    "sample": "妈",
+    "pinyin": "mā",
+    "kind": "initial",
+    "group": "lips",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-initial-f",
+    "text": "f",
+    "initial": "f",
+    "sample": "飞",
+    "pinyin": "fēi",
+    "kind": "initial",
+    "group": "lips",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-initial-d",
+    "text": "d",
+    "initial": "d",
+    "sample": "大",
+    "pinyin": "dà",
+    "kind": "initial",
+    "group": "tip",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-initial-t",
+    "text": "t",
+    "initial": "t",
+    "sample": "土",
+    "pinyin": "tǔ",
+    "kind": "initial",
+    "group": "tip",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-initial-n",
+    "text": "n",
+    "initial": "n",
+    "sample": "你",
+    "pinyin": "nǐ",
+    "kind": "initial",
+    "group": "tip",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-initial-l",
+    "text": "l",
+    "initial": "l",
+    "sample": "乐",
+    "pinyin": "lè",
+    "kind": "initial",
+    "group": "tip",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-initial-g",
+    "text": "g",
+    "initial": "g",
+    "sample": "哥",
+    "pinyin": "gē",
+    "kind": "initial",
+    "group": "root",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-initial-k",
+    "text": "k",
+    "initial": "k",
+    "sample": "可",
+    "pinyin": "kě",
+    "kind": "initial",
+    "group": "root",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-initial-h",
+    "text": "h",
+    "initial": "h",
+    "sample": "火",
+    "pinyin": "huǒ",
+    "kind": "initial",
+    "group": "root",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-initial-j",
+    "text": "j",
+    "initial": "j",
+    "sample": "鸡",
+    "pinyin": "jī",
+    "kind": "initial",
+    "group": "palatal",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-initial-q",
+    "text": "q",
+    "initial": "q",
+    "sample": "七",
+    "pinyin": "qī",
+    "kind": "initial",
+    "group": "palatal",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-initial-x",
+    "text": "x",
+    "initial": "x",
+    "sample": "西",
+    "pinyin": "xī",
+    "kind": "initial",
+    "group": "palatal",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-initial-zh",
+    "text": "zh",
+    "initial": "zh",
+    "sample": "知",
+    "pinyin": "zhī",
+    "kind": "initial",
+    "group": "retroflex",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-initial-ch",
+    "text": "ch",
+    "initial": "ch",
+    "sample": "吃",
+    "pinyin": "chī",
+    "kind": "initial",
+    "group": "retroflex",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-initial-sh",
+    "text": "sh",
+    "initial": "sh",
+    "sample": "师",
+    "pinyin": "shī",
+    "kind": "initial",
+    "group": "retroflex",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-initial-r",
+    "text": "r",
+    "initial": "r",
+    "sample": "日",
+    "pinyin": "rì",
+    "kind": "initial",
+    "group": "retroflex",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-initial-z",
+    "text": "z",
+    "initial": "z",
+    "sample": "字",
+    "pinyin": "zì",
+    "kind": "initial",
+    "group": "dental",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-initial-c",
+    "text": "c",
+    "initial": "c",
+    "sample": "草",
+    "pinyin": "cǎo",
+    "kind": "initial",
+    "group": "dental",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-initial-s",
+    "text": "s",
+    "initial": "s",
+    "sample": "丝",
+    "pinyin": "sī",
+    "kind": "initial",
+    "group": "dental",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-initial-y",
+    "text": "y",
+    "initial": "y",
+    "sample": "衣",
+    "pinyin": "yī",
+    "kind": "initial",
+    "group": "semi",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-initial-w",
+    "text": "w",
+    "initial": "w",
+    "sample": "乌",
+    "pinyin": "wū",
+    "kind": "initial",
+    "group": "semi",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-final-a",
+    "text": "a",
+    "initial": "",
+    "sample": "啊",
+    "pinyin": "ā",
+    "kind": "final",
+    "group": "simple",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-final-o",
+    "text": "o",
+    "initial": "",
+    "sample": "哦",
+    "pinyin": "ó",
+    "kind": "final",
+    "group": "simple",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-final-e",
+    "text": "e",
+    "initial": "",
+    "sample": "鹅",
+    "pinyin": "é",
+    "kind": "final",
+    "group": "simple",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-final-i",
+    "text": "i",
+    "initial": "",
+    "sample": "衣",
+    "pinyin": "yī",
+    "kind": "final",
+    "group": "simple",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-final-u",
+    "text": "u",
+    "initial": "",
+    "sample": "乌",
+    "pinyin": "wū",
+    "kind": "final",
+    "group": "simple",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-final-ü",
+    "text": "ü",
+    "initial": "",
+    "sample": "鱼",
+    "pinyin": "yú",
+    "kind": "final",
+    "group": "simple",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-final-ai",
+    "text": "ai",
+    "initial": "",
+    "sample": "爱",
+    "pinyin": "ài",
+    "kind": "final",
+    "group": "compound",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-final-ei",
+    "text": "ei",
+    "initial": "",
+    "sample": "诶",
+    "pinyin": "ēi",
+    "kind": "final",
+    "group": "compound",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-final-ui",
+    "text": "ui",
+    "initial": "",
+    "sample": "喂",
+    "pinyin": "wèi",
+    "kind": "final",
+    "group": "compound",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-final-ao",
+    "text": "ao",
+    "initial": "",
+    "sample": "袄",
+    "pinyin": "ǎo",
+    "kind": "final",
+    "group": "compound",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-final-ou",
+    "text": "ou",
+    "initial": "",
+    "sample": "欧",
+    "pinyin": "ōu",
+    "kind": "final",
+    "group": "compound",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-final-iu",
+    "text": "iu",
+    "initial": "",
+    "sample": "优",
+    "pinyin": "yōu",
+    "kind": "final",
+    "group": "compound",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-final-ie",
+    "text": "ie",
+    "initial": "",
+    "sample": "耶",
+    "pinyin": "yē",
+    "kind": "final",
+    "group": "compound",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-final-üe",
+    "text": "üe",
+    "initial": "",
+    "sample": "月",
+    "pinyin": "yuè",
+    "kind": "final",
+    "group": "compound",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-final-er",
+    "text": "er",
+    "initial": "",
+    "sample": "耳",
+    "pinyin": "ěr",
+    "kind": "final",
+    "group": "special",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-final-an",
+    "text": "an",
+    "initial": "",
+    "sample": "安",
+    "pinyin": "ān",
+    "kind": "final",
+    "group": "front-nasal",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-final-en",
+    "text": "en",
+    "initial": "",
+    "sample": "恩",
+    "pinyin": "ēn",
+    "kind": "final",
+    "group": "front-nasal",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-final-in",
+    "text": "in",
+    "initial": "",
+    "sample": "因",
+    "pinyin": "yīn",
+    "kind": "final",
+    "group": "front-nasal",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-final-un",
+    "text": "un",
+    "initial": "",
+    "sample": "温",
+    "pinyin": "wēn",
+    "kind": "final",
+    "group": "front-nasal",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-final-ün",
+    "text": "ün",
+    "initial": "",
+    "sample": "云",
+    "pinyin": "yún",
+    "kind": "final",
+    "group": "front-nasal",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-final-ang",
+    "text": "ang",
+    "initial": "",
+    "sample": "昂",
+    "pinyin": "áng",
+    "kind": "final",
+    "group": "back-nasal",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-final-eng",
+    "text": "eng",
+    "initial": "",
+    "sample": "亨",
+    "pinyin": "hēng",
+    "kind": "final",
+    "group": "back-nasal",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-final-ing",
+    "text": "ing",
+    "initial": "",
+    "sample": "英",
+    "pinyin": "yīng",
+    "kind": "final",
+    "group": "back-nasal",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-final-ong",
+    "text": "ong",
+    "initial": "",
+    "sample": "翁",
+    "pinyin": "wēng",
+    "kind": "final",
+    "group": "back-nasal",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-whole-zhi",
+    "text": "zhi",
+    "initial": "",
+    "sample": "知",
+    "pinyin": "zhī",
+    "kind": "whole",
+    "group": "whole",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-whole-chi",
+    "text": "chi",
+    "initial": "",
+    "sample": "吃",
+    "pinyin": "chī",
+    "kind": "whole",
+    "group": "whole",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-whole-shi",
+    "text": "shi",
+    "initial": "",
+    "sample": "师",
+    "pinyin": "shī",
+    "kind": "whole",
+    "group": "whole",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-whole-ri",
+    "text": "ri",
+    "initial": "",
+    "sample": "日",
+    "pinyin": "rì",
+    "kind": "whole",
+    "group": "whole",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-whole-zi",
+    "text": "zi",
+    "initial": "",
+    "sample": "字",
+    "pinyin": "zì",
+    "kind": "whole",
+    "group": "whole",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-whole-ci",
+    "text": "ci",
+    "initial": "",
+    "sample": "次",
+    "pinyin": "cì",
+    "kind": "whole",
+    "group": "whole",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-whole-si",
+    "text": "si",
+    "initial": "",
+    "sample": "丝",
+    "pinyin": "sī",
+    "kind": "whole",
+    "group": "whole",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-whole-yi",
+    "text": "yi",
+    "initial": "",
+    "sample": "衣",
+    "pinyin": "yī",
+    "kind": "whole",
+    "group": "whole",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-whole-wu",
+    "text": "wu",
+    "initial": "",
+    "sample": "乌",
+    "pinyin": "wū",
+    "kind": "whole",
+    "group": "whole",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-whole-yu",
+    "text": "yu",
+    "initial": "",
+    "sample": "鱼",
+    "pinyin": "yú",
+    "kind": "whole",
+    "group": "whole",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-whole-ye",
+    "text": "ye",
+    "initial": "",
+    "sample": "叶",
+    "pinyin": "yè",
+    "kind": "whole",
+    "group": "whole",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-whole-yue",
+    "text": "yue",
+    "initial": "",
+    "sample": "月",
+    "pinyin": "yuè",
+    "kind": "whole",
+    "group": "whole",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-whole-yuan",
+    "text": "yuan",
+    "initial": "",
+    "sample": "元",
+    "pinyin": "yuán",
+    "kind": "whole",
+    "group": "whole",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-whole-yin",
+    "text": "yin",
+    "initial": "",
+    "sample": "因",
+    "pinyin": "yīn",
+    "kind": "whole",
+    "group": "whole",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-whole-yun",
+    "text": "yun",
+    "initial": "",
+    "sample": "云",
+    "pinyin": "yún",
+    "kind": "whole",
+    "group": "whole",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "pinyin-whole-ying",
+    "text": "ying",
+    "initial": "",
+    "sample": "英",
+    "pinyin": "yīng",
+    "kind": "whole",
+    "group": "whole",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  }
+]

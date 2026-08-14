@@ -17,8 +17,14 @@ test('preschool home surfaces three world progress and daily game sun cap', () =
   assert.match(app, /function getWorldGameProgressRows\(/);
   assert.match(app, /DAILY_GAME_SUN_CAP\s*=\s*80/);
   assert.match(app, /今日游戏阳光/);
-  assert.match(app, /renderPreschoolHomeWorldProgress\(\)/);
+  const homeStart = app.indexOf('function renderPreschoolHomeOverview(derived)');
+  const homeEnd = app.indexOf('function renderPreschoolPage(derived)', homeStart);
+  const growthStart = app.indexOf('function renderPreschoolGrowth()');
+  const growthEnd = app.indexOf('function renderPreschoolPlans', growthStart);
+  assert.doesNotMatch(app.slice(homeStart, homeEnd), /renderPreschoolHomeWorldProgress\(\)/);
+  assert.match(app.slice(growthStart, growthEnd), /renderPreschoolHomeWorldProgress\(\)/);
   assert.match(app, /openPreschoolWorldGame\(forcedTheme/);
+  assert.match(app, /voxel-craft/);
   assert.match(app, /data-theme-id=/);
   assert.match(app, /getAdventureMetaView|adventureTitle|三世界长期冒险/);
   assert.match(css, /preschool-world-progress/);
@@ -31,6 +37,7 @@ test('preschool home surfaces three world progress and daily game sun cap', () =
   assert.match(bridge, /ADVENTURE_RANKS|MILESTONES/);
   assert.match(bridge, /grantProgressPoints/);
   assert.match(shell, /workbench-bridge\.js/);
+  assert.match(shell, /voxel-adventure\/data\/world\.js/);
   assert.match(app, /function renderPreschoolWeeklyAdventureReport/);
   assert.match(app, /本周冒险周报|孩子本周冒险报告/);
   assert.match(css, /preschool-weekly-report/);
@@ -47,6 +54,9 @@ test('each world game is a self-contained folder with data and growth bridge', (
   assert.equal(fs.existsSync(path.join(root, 'shared', 'workbench-bridge.js')), true);
   assert.equal(fs.existsSync(path.join(root, 'garden-defense', 'data', 'stages.js')), true);
   assert.equal(fs.existsSync(path.join(root, 'voxel-adventure', 'data', 'quests.js')), true);
+  assert.equal(fs.existsSync(path.join(root, 'voxel-adventure', 'workshop.js')), true);
+  const workshop = fs.readFileSync(path.join(root, 'voxel-adventure', 'workshop.js'), 'utf8');
+  assert.match(workshop, /voxel-craft|Crafting Table/);
   assert.equal(fs.existsSync(path.join(root, 'platform-quest', 'data', 'levels.js')), true);
 
   const bridge = fs.readFileSync(path.join(root, 'shared', 'workbench-bridge.js'), 'utf8');
@@ -84,7 +94,7 @@ test('growth content tables expose multiple stages or quests', () => {
   const levels = fs.readFileSync(path.join(root, 'platform-quest', 'data', 'levels.js'), 'utf8');
   // stages.js uses S(1, ...) / levels use L(1, ...)
   assert.equal((stages.match(/\bS\(\d+/g) || []).length >= 12, true, 'garden should have 12 stages');
-  assert.match(stages, /needKills|技能|阳光/);
+  assert.match(stages, /waves|阳光/);
   const voxelLevels = fs.readFileSync(path.join(root, 'voxel-adventure', 'data', 'levels.js'), 'utf8');
   assert.equal((voxelLevels.match(/\bL\(\d+/g) || []).length >= 8, true, 'voxel should have 8 side-scroll levels');
   assert.equal((levels.match(/\bL\(\d+/g) || []).length >= 10, true, 'platform should have 10 levels');

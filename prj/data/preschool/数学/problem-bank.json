@@ -171,10 +171,10 @@
   },
   {
     "id": "math-problem-11",
-    "skillId": "addition",
+    "skillId": "compare",
     "level": "L2",
-    "prompt": "花园数量题 11",
-    "answer": 1,
+    "prompt": "哪边太阳更多？",
+    "answer": 5,
     "manipulatives": [
       "sun-token",
       "fruit",
@@ -184,14 +184,17 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "left": 2,
+    "right": 5,
+    "op": ""
   },
   {
     "id": "math-problem-12",
-    "skillId": "grouping",
+    "skillId": "compare",
     "level": "L2",
-    "prompt": "花园数量题 12",
-    "answer": 2,
+    "prompt": "哪边太阳更多？",
+    "answer": 4,
     "manipulatives": [
       "sun-token",
       "fruit",
@@ -201,14 +204,17 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "left": 1,
+    "right": 4,
+    "op": ""
   },
   {
     "id": "math-problem-13",
-    "skillId": "counting",
+    "skillId": "compare",
     "level": "L2",
-    "prompt": "花园数量题 13",
-    "answer": 3,
+    "prompt": "哪边太阳更多？",
+    "answer": 6,
     "manipulatives": [
       "sun-token",
       "fruit",
@@ -218,14 +224,17 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "left": 6,
+    "right": 3,
+    "op": ""
   },
   {
     "id": "math-problem-14",
     "skillId": "compare",
     "level": "L2",
-    "prompt": "花园数量题 14",
-    "answer": 4,
+    "prompt": "哪边太阳更多？",
+    "answer": 8,
     "manipulatives": [
       "sun-token",
       "fruit",
@@ -235,13 +244,76 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "left": 8,
+    "right": 2,
+    "op": ""
   },
   {
     "id": "math-problem-15",
-    "skillId": "compose",
+    "skillId": "compare",
     "level": "L2",
-    "prompt": "花园数量题 15",
+    "prompt": "哪边太阳更多？",
+    "answer": 7,
+    "manipulatives": [
+      "sun-token",
+      "fruit",
+      "plant"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    },
+    "left": 4,
+    "right": 7,
+    "op": ""
+  },
+  {
+    "id": "math-problem-16",
+    "skillId": "compare",
+    "level": "L2",
+    "prompt": "哪边太阳更多？",
+    "answer": 9,
+    "manipulatives": [
+      "sun-token",
+      "fruit",
+      "plant"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    },
+    "left": 9,
+    "right": 1,
+    "op": ""
+  },
+  {
+    "id": "math-problem-17",
+    "skillId": "compare",
+    "level": "L2",
+    "prompt": "哪边太阳更多？",
+    "answer": 8,
+    "manipulatives": [
+      "sun-token",
+      "fruit",
+      "plant"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    },
+    "left": 3,
+    "right": 8,
+    "op": ""
+  },
+  {
+    "id": "math-problem-18",
+    "skillId": "compare",
+    "level": "L2",
+    "prompt": "哪边太阳更多？",
     "answer": 5,
     "manipulatives": [
       "sun-token",
@@ -252,65 +324,17 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
-  },
-  {
-    "id": "math-problem-16",
-    "skillId": "take-away",
-    "level": "L2",
-    "prompt": "花园数量题 16",
-    "answer": 1,
-    "manipulatives": [
-      "sun-token",
-      "fruit",
-      "plant"
-    ],
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
-    }
-  },
-  {
-    "id": "math-problem-17",
-    "skillId": "addition",
-    "level": "L2",
-    "prompt": "花园数量题 17",
-    "answer": 2,
-    "manipulatives": [
-      "sun-token",
-      "fruit",
-      "plant"
-    ],
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
-    }
-  },
-  {
-    "id": "math-problem-18",
-    "skillId": "grouping",
-    "level": "L2",
-    "prompt": "花园数量题 18",
-    "answer": 3,
-    "manipulatives": [
-      "sun-token",
-      "fruit",
-      "plant"
-    ],
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "left": 5,
+    "right": 2,
+    "op": ""
   },
   {
     "id": "math-problem-19",
-    "skillId": "counting",
+    "skillId": "compare",
     "level": "L2",
-    "prompt": "花园数量题 19",
-    "answer": 4,
+    "prompt": "哪边太阳更多？",
+    "answer": 7,
     "manipulatives": [
       "sun-token",
       "fruit",
@@ -320,14 +344,17 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "left": 7,
+    "right": 4,
+    "op": ""
   },
   {
     "id": "math-problem-20",
     "skillId": "compare",
     "level": "L2",
-    "prompt": "花园数量题 20",
-    "answer": 5,
+    "prompt": "哪边太阳更多？",
+    "answer": 9,
     "manipulatives": [
       "sun-token",
       "fruit",
@@ -337,14 +364,17 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "left": 2,
+    "right": 9,
+    "op": ""
   },
   {
     "id": "math-problem-21",
-    "skillId": "compose",
+    "skillId": "addition",
     "level": "L3",
-    "prompt": "花园数量题 21",
-    "answer": 1,
+    "prompt": "3 + 2 = ?",
+    "answer": 5,
     "manipulatives": [
       "sun-token",
       "fruit",
@@ -354,14 +384,17 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "left": 3,
+    "right": 2,
+    "op": "+"
   },
   {
     "id": "math-problem-22",
-    "skillId": "take-away",
+    "skillId": "addition",
     "level": "L3",
-    "prompt": "花园数量题 22",
-    "answer": 2,
+    "prompt": "4 + 5 = ?",
+    "answer": 9,
     "manipulatives": [
       "sun-token",
       "fruit",
@@ -371,14 +404,17 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "left": 4,
+    "right": 5,
+    "op": "+"
   },
   {
     "id": "math-problem-23",
-    "skillId": "addition",
+    "skillId": "take-away",
     "level": "L3",
-    "prompt": "花园数量题 23",
-    "answer": 3,
+    "prompt": "8 - 3 = ?",
+    "answer": 5,
     "manipulatives": [
       "sun-token",
       "fruit",
@@ -388,14 +424,17 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "left": 8,
+    "right": 3,
+    "op": "-"
   },
   {
     "id": "math-problem-24",
-    "skillId": "grouping",
+    "skillId": "addition",
     "level": "L3",
-    "prompt": "花园数量题 24",
-    "answer": 4,
+    "prompt": "6 + 4 = ?",
+    "answer": 10,
     "manipulatives": [
       "sun-token",
       "fruit",
@@ -405,13 +444,16 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "left": 6,
+    "right": 4,
+    "op": "+"
   },
   {
     "id": "math-problem-25",
-    "skillId": "counting",
+    "skillId": "take-away",
     "level": "L3",
-    "prompt": "花园数量题 25",
+    "prompt": "9 - 4 = ?",
     "answer": 5,
     "manipulatives": [
       "sun-token",
@@ -422,14 +464,17 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "left": 9,
+    "right": 4,
+    "op": "-"
   },
   {
     "id": "math-problem-26",
-    "skillId": "compare",
+    "skillId": "addition",
     "level": "L3",
-    "prompt": "花园数量题 26",
-    "answer": 1,
+    "prompt": "8 + 7 = ?",
+    "answer": 15,
     "manipulatives": [
       "sun-token",
       "fruit",
@@ -439,14 +484,17 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "left": 8,
+    "right": 7,
+    "op": "+"
   },
   {
     "id": "math-problem-27",
-    "skillId": "compose",
+    "skillId": "take-away",
     "level": "L3",
-    "prompt": "花园数量题 27",
-    "answer": 2,
+    "prompt": "12 - 5 = ?",
+    "answer": 7,
     "manipulatives": [
       "sun-token",
       "fruit",
@@ -456,14 +504,17 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "left": 12,
+    "right": 5,
+    "op": "-"
   },
   {
     "id": "math-problem-28",
-    "skillId": "take-away",
+    "skillId": "addition",
     "level": "L3",
-    "prompt": "花园数量题 28",
-    "answer": 3,
+    "prompt": "9 + 6 = ?",
+    "answer": 15,
     "manipulatives": [
       "sun-token",
       "fruit",
@@ -473,14 +524,17 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "left": 9,
+    "right": 6,
+    "op": "+"
   },
   {
     "id": "math-problem-29",
-    "skillId": "addition",
+    "skillId": "take-away",
     "level": "L3",
-    "prompt": "花园数量题 29",
-    "answer": 4,
+    "prompt": "11 - 4 = ?",
+    "answer": 7,
     "manipulatives": [
       "sun-token",
       "fruit",
@@ -490,14 +544,17 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "left": 11,
+    "right": 4,
+    "op": "-"
   },
   {
     "id": "math-problem-30",
-    "skillId": "grouping",
+    "skillId": "take-away",
     "level": "L3",
-    "prompt": "花园数量题 30",
-    "answer": 5,
+    "prompt": "10 - 3 = ?",
+    "answer": 7,
     "manipulatives": [
       "sun-token",
       "fruit",
@@ -507,6 +564,9 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "left": 10,
+    "right": 3,
+    "op": "-"
   }
 ]

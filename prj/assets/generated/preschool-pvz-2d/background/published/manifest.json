@@ -1,0 +1,13 @@
+{
+  "id": "pvz-garden-lawn-bg",
+  "source": "cursor-generateimage-2026-08-13",
+  "layout": "house-left, 5-horizontal-lanes, sidewalk-right, empty-for-sprites",
+  "consumer": [
+    "garden-defense"
+  ],
+  "copyright": "original-inspired-not-popcap-assets",
+  "files": {
+    "game": "G:\\StudyCode\\个人工作台\\prj\\games\\garden-defense\\assets\\bg\\lawn-day.png",
+    "published": "G:\\StudyCode\\个人工作台\\prj\\assets\\generated\\preschool-pvz-2d\\background\\published\\pvz-garden-lawn-bg.png"
+  }
+}

@@ -1,0 +1,406 @@
+/* 方块工作台：对照小孩哥 Nick's Workshop 的侧栏、今日、小卖部、背包、家长锁。 */
+body.variant-preschool[data-preschool-theme='voxel-adventure'] {
+    --vw-sky: #5dade2;
+    --vw-wood: #3e2723;
+    --vw-dirt: #6d4c41;
+    --vw-grass: #4caf50;
+    --vw-ink: #1b120c;
+    background: var(--vw-sky) !important;
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .app-shell,
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .main-content,
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .page-content {
+    background: var(--vw-sky);
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure']:has(.voxel-workshop) .sidebar,
+body.variant-preschool[data-preschool-theme='voxel-adventure']:has(.voxel-workshop) .topbar,
+body.variant-preschool[data-preschool-theme='voxel-adventure']:has(.voxel-workshop) .preschool-mobile-nav {
+    display: none !important;
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .main-content {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .page-content {
+    padding: 0;
+    max-width: none;
+}
+
+.voxel-workshop {
+    display: grid;
+    grid-template-columns: 88px minmax(0, 1fr);
+    min-height: 100vh;
+    color: #fff;
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+}
+
+.vw-rail {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 8px;
+    background: #1a120e;
+    border-right: 4px solid #0d0907;
+}
+
+.vw-rail-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-height: 64px;
+    padding: 8px 4px;
+    border: 2px solid transparent;
+    background: transparent;
+    color: #f3e2c4;
+    font-size: 11px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.vw-rail-item.is-on,
+.vw-rail-item:hover {
+    border-color: #7cff6b;
+    box-shadow: 0 0 0 1px #7cff6b;
+}
+
+.vw-grass {
+    display: block;
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(#5d9c3f 42%, #8b5a2b 42%);
+    border: 2px solid #2b1a10;
+}
+
+.vw-ico { font-size: 20px; line-height: 1; }
+
+.vw-main {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.vw-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    background: #4e342e;
+    border-bottom: 4px solid #3e2723;
+}
+
+.vw-title-block strong {
+    display: block;
+    font-size: 22px;
+    letter-spacing: .04em;
+}
+
+.vw-title-block small { color: #f0d9b5; font-size: 11px; }
+
+.vw-lv {
+    padding: 4px 10px;
+    background: #f0a202;
+    color: #3e2723;
+    font-weight: 900;
+    border: 2px solid #7a4e00;
+}
+
+.vw-xp {
+    flex: 1;
+    min-width: 120px;
+    height: 16px;
+    background: #1b120c;
+    border: 2px solid #0d0907;
+}
+
+.vw-xp i {
+    display: block;
+    height: 100%;
+    background: #4caf50;
+}
+
+.vw-xp-label { font-weight: 800; color: #ffe082; }
+
+.vw-body {
+    flex: 1;
+    padding: 14px 16px 88px;
+    overflow: auto;
+}
+
+.vw-alerts h2,
+.vw-block h2,
+.vw-shop h2,
+.vw-pack h2,
+.vw-craft h2,
+.vw-other h2 {
+    margin: 0 0 10px;
+    font-size: 16px;
+}
+
+.vw-alerts-box {
+    padding: 10px;
+    background: #ffe8e8;
+    border: 3px solid #e53935;
+    color: #4e1414;
+}
+
+.vw-alert-row { margin: 6px 0; font-weight: 700; }
+.vw-today {
+    display: inline-block;
+    margin-right: 8px;
+    padding: 2px 8px;
+    background: #ffb300;
+    color: #3e2723;
+    font-size: 11px;
+    font-weight: 900;
+}
+
+.vw-block { margin-top: 16px; }
+.vw-study h2 { background: #1e88e5; display: inline-block; padding: 4px 10px; }
+.vw-chore h2 { background: #1565c0; display: inline-block; padding: 4px 10px; }
+.vw-rewards h2 { color: #ffe082; }
+
+.vw-task-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+}
+
+.vw-task {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    text-align: left;
+    padding: 10px;
+    border: 2px solid #3e2723;
+    cursor: pointer;
+    color: #1b120c;
+    font-weight: 800;
+}
+
+.vw-task.green { background: #c8e6c9; }
+.vw-task.brown { background: #d7ccc8; }
+.vw-task.is-done { opacity: .55; }
+.vw-task small { display: block; color: #5d4037; font-weight: 700; }
+.vw-task-mark {
+    width: 22px;
+    height: 22px;
+    border: 2px solid #3e2723;
+    background: #fff;
+    text-align: center;
+    line-height: 18px;
+    color: #2e7d32;
+}
+
+.vw-reward-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+}
+
+.vw-reward {
+    padding: 12px;
+    background: #e8f5e9;
+    color: #1b120c;
+    border: 2px solid #3e2723;
+    text-align: center;
+}
+
+.vw-reward small, .vw-reward em { display: block; }
+.vw-tool-pic { font-size: 28px; }
+
+.vw-shop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+}
+
+.vw-card {
+    padding: 12px;
+    background: #f3efe6;
+    color: #1b120c;
+    border: 4px solid #1565c0;
+    text-align: center;
+}
+
+.vw-card-icon {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 8px;
+    background: #111;
+}
+
+.vw-card-icon img, .vw-swatch { width: 40px; height: 40px; object-fit: contain; }
+.vw-swatch { display: block; }
+.vw-card small, .vw-card p, .vw-card em, .vw-stock { display: block; }
+.vw-stock { color: #2e7d32; font-weight: 800; margin-top: 6px; }
+
+.vw-buy {
+    width: 100%;
+    margin-top: 8px;
+    min-height: 40px;
+    border: 0;
+    background: #f6a21a;
+    color: #1b120c;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.vw-buy:disabled { opacity: .45; cursor: not-allowed; }
+.vw-buy-ghost { background: #eceff1; margin-top: 10px; }
+
+.vw-grid {
+    display: grid;
+    grid-template-columns: repeat(9, minmax(36px, 1fr));
+    gap: 4px;
+    padding: 14px;
+    background: #c4a574;
+    border: 6px solid #8d6e46;
+}
+
+.vw-slot {
+    position: relative;
+    min-height: 48px;
+    background: #3e2723;
+    border: 3px inset #5d4037;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    display: grid;
+    place-items: center;
+}
+
+.vw-slot b {
+    position: absolute;
+    right: 3px;
+    bottom: 2px;
+    font-size: 11px;
+}
+
+.vw-close {
+    display: block;
+    margin: 14px 0 0 auto;
+    min-width: 120px;
+    min-height: 40px;
+    border: 0;
+    background: #e53935;
+    color: #fff;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.vw-world-frame {
+    display: block;
+    width: 100%;
+    min-height: calc(100vh - 150px);
+    border: 0;
+    background: #87ceeb;
+}
+
+.vw-foot {
+    position: sticky;
+    bottom: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    background: linear-gradient(#4caf50 46%, #6d4c41 46%);
+    border-top: 4px solid #2e7d32;
+    color: #fff;
+}
+
+.vw-stat {
+    padding: 4px 8px;
+    background: #1b120c;
+    font-weight: 800;
+}
+
+.vw-lock-btn {
+    width: 44px;
+    height: 44px;
+    border: 3px solid #1b5e20;
+    background: #66bb6a;
+    color: #1b120c;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 #1b5e20;
+}
+
+.vw-lock-tip {
+    padding: 4px 8px;
+    background: #263238;
+    font-size: 12px;
+}
+
+.vw-hearts { margin-left: auto; color: #e53935; letter-spacing: 1px; text-shadow: 0 1px 0 #1b120c; }
+
+.vw-empty, .vw-craft p, .vw-other p { color: #e3f2fd; }
+
+.vw-recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.vw-recipe {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    background: #efebe9;
+    border: 3px solid #3e2723;
+    color: #3e2723;
+}
+
+.vw-craft-2x2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 84px;
+    gap: 4px;
+}
+
+.vw-craft-2x2 .vw-slot {
+    min-height: 36px;
+    font-size: 12px;
+}
+
+.vw-craft-arrow {
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.vw-craft-out {
+    flex: 1;
+    min-width: 90px;
+}
+
+.vw-craft-out small {
+    display: block;
+    font-weight: 700;
+    color: #5d4037;
+}
+
+.vw-recipe .vw-buy { margin-left: auto; }
+
+@media (max-width: 760px) {
+    .voxel-workshop { grid-template-columns: 1fr; }
+    .vw-rail {
+        flex-direction: row;
+        overflow: auto;
+        border-right: 0;
+        border-bottom: 4px solid #0d0907;
+    }
+    .vw-rail-item { min-width: 72px; }
+    .vw-grid { grid-template-columns: repeat(6, minmax(36px, 1fr)); }
+}

@@ -31,8 +31,8 @@ test('seeds six preschool workbench quests across learning and life lanes', () =
     'preschool-chinese-1',
     'preschool-poetry-1',
     'preschool-math-1',
-    'preschool-english-phonics-1',
-    '',
+    'preschool-english-words-1',
+    'preschool-exercise-1',
     'preschool-focus-1'
   ]);
   assert.equal(state.tasks.length, 6);
@@ -105,10 +105,10 @@ test('keeps preschool plans in one editable list instead of a fixed core and col
 
 test('bumps preschool runtime assets when the editable plan interaction changes', () => {
   const html = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
-  assert.match(html, /preschool-workbench\.css\?v=20260813-real-workflow-card-v1/);
-  assert.match(html, /config\.js\?v=20260806-light-evidence-loop-v1/);
-  assert.match(html, /storage\.js\?v=20260806-three-theme-shell-v1/);
-  assert.match(html, /app\.js\?v=20260813-real-workflow-card-v1/);
+  assert.match(html, /preschool-workbench\.css\?v=20260814-voxel-islands-v1/);
+  assert.match(html, /config\.js\?v=20260814-play-games-v1/);
+  assert.match(html, /storage\.js\?v=20260814-english-plan-speak-v1/);
+  assert.match(html, /app\.js\?v=20260814-voxel-islands-v1/);
   assert.match(html, /workbench-bridge\.js\?v=20260807-longterm-meta-v1/);
 });
 
@@ -195,7 +195,8 @@ test('turns the preschool garden base into a progress, achievement and collectio
   const preschoolStyles = readCssGraph(path.join(root, 'css', 'preschool-workbench.css'));
   assert.match(app, /preschool-growth-dashboard/);
   assert.match(app, /preschool-growth-progress/);
-  assert.match(app, /preschool-achievement-wall/);
+  assert.match(app, /toggle-badge-box/);
+  assert.match(app, /renderCollectionBox/);
   assert.match(app, /已完成任务/);
   assert.match(app, /防守波次/);
   assert.match(app, /击退僵尸/);
@@ -203,7 +204,7 @@ test('turns the preschool garden base into a progress, achievement and collectio
   assert.doesNotMatch(app, /renderPreschoolGardenBoard\(growth, false\)/);
   assert.doesNotMatch(app, /<section class="preschool-growth-hero"/);
   assert.match(preschoolStyles, /22-growth-dashboard\.css/);
-  assert.match(preschoolStyles, /preschool-achievement-card/);
+  assert.match(preschoolStyles, /preschool-badge-collection/);
   assert.match(preschoolStyles, /preschool-growth-progress-bar/);
 });
 
@@ -218,10 +219,10 @@ test('merges reference learning zones into preschool resource cards', () => {
   assert.match(config, /title: '专注力训练'/);
   assert.match(config, /title: '自然拼读'/);
   assert.match(config, /title: '每日运动'/);
-  assert.match(config, /684 字启蒙字库/);
-  assert.match(config, /23 个声母/);
-  assert.match(config, /每关 10 首/);
-  assert.match(config, /3 张测验卡/);
+  assert.match(config, /240 字生活字库/);
+  assert.match(config, /63 项拼音/);
+  assert.match(config, /一关一首/);
+  assert.match(config, /340 词口语/);
   assert.match(config, /10 个动作/);
   assert.match(app, /preschool-course-badges/);
   assert.match(app, /preschool-course-samples/);
@@ -533,7 +534,7 @@ test('translates the reference dashboard rhythm into existing preschool state', 
   assert.match(app, /选做挑战/);
   assert.match(app, /计划用时/);
   assert.match(app, /preschool-home-date/);
-  assert.match(homeTemplate, /renderPreschoolHomeRhythm\(derived\)/);
+  assert.doesNotMatch(homeTemplate, /renderPreschoolHomeRhythm\(derived\)/);
   assert.match(identityTemplate, /今日完成/);
   assert.match(identityTemplate, /计划分钟/);
   assert.doesNotMatch(identityTemplate, /<small>阳光<\/small>/);
@@ -542,6 +543,20 @@ test('translates the reference dashboard rhythm into existing preschool state', 
   assert.match(preschoolStyleGraph, /preschool-home-rhythm/);
   assert.match(preschoolStyleGraph, /preschool-home-task-overview/);
   assert.match(preschoolStyleGraph, /@media \(max-width: 760px\)[\s\S]*preschool-home-rhythm/);
+});
+
+test('keeps world progress and weekly rhythm off the preschool home', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const homeStart = app.indexOf('function renderPreschoolHomeOverview(derived)');
+  const homeEnd = app.indexOf('function renderPreschoolPage(derived)', homeStart);
+  const homeTemplate = app.slice(homeStart, homeEnd);
+  const growthStart = app.indexOf('function renderPreschoolGrowth()');
+  const growthEnd = app.indexOf('function renderPreschoolPlans', growthStart);
+  const growthTemplate = app.slice(growthStart, growthEnd);
+  assert.doesNotMatch(homeTemplate, /renderPreschoolHomeWorldProgress\(/);
+  assert.doesNotMatch(homeTemplate, /renderPreschoolHomeRhythm\(/);
+  assert.match(growthTemplate, /renderPreschoolHomeWorldProgress\(/);
+  assert.match(growthTemplate, /renderPreschoolHomeRhythm\(derived\)/);
 });
 
 test('puts a single real-work workflow card above preschool home check-in lanes', () => {
@@ -564,7 +579,7 @@ test('puts a single real-work workflow card above preschool home check-in lanes'
   assert.doesNotMatch(workflowRender, /再完成\s*\d+\s*项打卡/);
   assert.match(app, /item\.done && item\.completionSource === 'practice'/);
   assert.match(styles, /preschool-home-workflow/);
-  assert.match(html, /app\.js\?v=20260813-real-workflow-card-v1/);
+  assert.match(html, /app\.js\?v=20260814-voxel-islands-v1/);
   assert.doesNotMatch(app, /首页只负责打卡/);
 });
 
@@ -601,7 +616,7 @@ test('keeps the preschool workbench on the garden-green shell', () => {
   assert.match(greenTheme, /background:\s*linear-gradient\(180deg,\s*#22734a,\s*#145238\)/);
   assert.match(greenTheme, /background:\s*#eff9eb/);
   assert.match(preschoolIndex, /theme-color" content="#2d8748"/);
-  assert.match(preschoolIndex, /20260806-light-evidence-loop-v1/);
+  assert.match(preschoolIndex, /data-workbench-variant="preschool"/);
 });
 
 test('keeps three preschool visual themes on one persisted workbench contract', () => {
@@ -731,8 +746,8 @@ test('defines answerable activities for every preschool lesson', () => {
   const config = fs.readFileSync(path.join(root, 'config.js'), 'utf8');
   const preschoolCourses = config.split("id: 'preschool-literacy'")[1].split("actions: { 'add-plan'")[0];
   const activities = preschoolCourses.match(/activity:\s*\{/g) || [];
-  assert.equal(activities.length, 21);
-  assert.equal((preschoolCourses.match(/optionIcons:\s*\[/g) || []).length, 21);
+  assert.equal(activities.length, 22);
+  assert.equal((preschoolCourses.match(/optionIcons:\s*\[/g) || []).length, 22);
   assert.match(preschoolCourses, /prompt: '/);
   assert.match(preschoolCourses, /options: \[/);
   assert.match(preschoolCourses, /answer: \d/);
@@ -754,7 +769,7 @@ test('keeps preschool option art aligned with its answer choices', () => {
       optionIcons: optionIcons ? (optionIcons[1].match(/'[^']*'/g) || []) : []
     };
   });
-  assert.equal(activities.length, 21);
+  assert.equal(activities.length, 22);
   for (const activity of activities) {
     assert.equal(activity.optionIcons.length, activity.options.length);
     for (const item of activity.optionIcons) {

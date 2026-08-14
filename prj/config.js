@@ -64,8 +64,8 @@
         },
         'voxel-adventure': {
             id: 'voxel-adventure',
-            name: '方块探险工作台',
-            englishName: 'VOXEL ADVENTURE WORKBENCH',
+            name: '方块工作台',
+            englishName: 'BLOCK WORKSHOP',
             bannerKicker: 'BLOCK BASE / READY',
             bannerTitle: '今天，搭好自己的第一块基地',
             bannerDescription: '完成任务收集晶体，把学习路线一步步铺出来。',
@@ -193,65 +193,65 @@
                 {
                     id: 'preschool-literacy',
                     title: '识字专区',
-                    description: '今天学 10 个汉字，按自然、植物、动物慢慢认。',
+                    description: '先批量闪卡，会的跳过，不会的再看组词和解词。',
                     icon: 'book-open',
                     tone: 'orange',
-                    badge: '684 字启蒙字库',
-                    note: '参考页里是自动分配 10 字 + 分类字库，这里整理成自己的识字路线。',
-                    highlights: ['今日 10 字', '自然 / 植物 / 动物', '学会 15 字解锁下一阶'],
-                    samples: ['坡 pō', '始 shǐ', '游 yóu'],
+                    badge: '240 字生活字库',
+                    note: '不配图也能认。会的点会了，不会的一张张看组词。',
+                    highlights: ['今日闪卡', '组词解词', '找字闯关'],
+                    samples: ['山 shān', '水 shuǐ', '猫 māo'],
                     lessons: [
-                        { id: 'preschool-chinese-1', title: '今日识字 10 字', minutes: 10, meta: '坡、始、游、她、店…', tip: '完成后点亮“完成今日识字”', activity: { mode: 'choice', prompt: '“坡”怎么读？', hint: '想想 p 开头的音。', options: ['pō', 'bō', 'mā'], answer: 0, optionIcons: ['languages', 'book-open', 'sparkles'], success: '会认“坡”啦！' } },
-                        { id: 'preschool-literacy-2', title: '分类认字', minutes: 8, meta: '自然 / 植物 / 动物', tip: '先认一类，再扩展到下一类', activity: { mode: 'choice', prompt: '下面哪个是植物？', hint: '植物会在土地里生长。', options: ['花', '猫', '山'], answer: 0, optionIcons: ['flower-2', 'heart', 'tree-pine'], success: '找到植物啦！' } },
-                        { id: 'preschool-literacy-3', title: '字库复习', minutes: 10, meta: '684 字启蒙字库', tip: '学会上一阶 15 字再解锁下一阶', activity: { mode: 'choice', prompt: '“游”字在哪个词里？', hint: '想想在水里玩。', options: ['游泳', '月亮', '安静'], answer: 0, optionIcons: ['droplets', 'moon', 'sparkles'], success: '词语配对成功！' } }
+                        { id: 'preschool-chinese-1', title: '今日闪卡', minutes: 6, meta: '8 张 · 会了就跳过', tip: '先点会了或不会，不会的字再看组词。', activity: { mode: 'literacy-flash', char: '山', size: 8, prompt: '这些字，哪些会了？', hint: '会的点会了，不会的点不会。', options: ['会了', '不会', '先听一听'], answer: 0, optionIcons: ['check', 'rotate-ccw', 'volume-2'], success: '今天的字卡看完啦！' } },
+                        { id: 'preschool-literacy-2', title: '组词开花 · 山', minutes: 6, meta: '大山 / 上山', tip: '选出带“山”的词，选错只提示。', activity: { mode: 'literacy-bloom', char: '山', prompt: '哪些词里有“山”？', hint: '想想大山和上山。', options: ['大山', '上山', '喝水'], answer: 0, optionIcons: ['trees', 'sprout', 'droplets'], success: '组词开花啦！' } },
+                        { id: 'preschool-literacy-3', title: '找字闯关', minutes: 5, meta: '5 关 · 每关十几秒', tip: '听一听，点出正确的字，选错只提示。', activity: { mode: 'literacy-find', char: '山', rounds: 5, prompt: '听一听，点出这个字。', hint: '先听发音，再点字。', options: ['山', '水', '火', '木'], answer: 0, optionIcons: ['trees', 'droplets', 'flame', 'sprout'], success: '闯关完成啦！' } }
                     ]
                 },
                 {
                     id: 'preschool-pinyin',
                     title: '拼音专区',
-                    description: '从声母开始，跟读、顺口溜和发音练习一起做。',
+                    description: '按汉语拼音方案听选声母、韵母和整体认读音节。',
                     icon: 'languages',
                     tone: 'blue',
-                    badge: '23 个声母',
-                    note: '把参考页的“全套拼音学习”压缩成更适合幼儿版的三张大卡。',
-                    highlights: ['声母', '单韵母 / 复韵母', '整体认读'],
-                    samples: ['b p m f', 'd t n l', 'zh ch sh r'],
+                    badge: '63 项拼音',
+                    note: '三课分别搬入 23 声母、24 韵母、16 整体认读，不抄开源口诀。',
+                    highlights: ['23 个声母', '24 个韵母', '16 个整体认读'],
+                    samples: ['b p m f', 'a o e i', 'zhi chi shi'],
                     lessons: [
-                        { id: 'preschool-pinyin-1', title: '声母跟读', minutes: 10, meta: 'b p m f d t n l', tip: '先听，再跟着读一遍', activity: { mode: 'choice', prompt: '“广播”的声母是哪一个？', hint: '广播 b，山坡 p。', options: ['b', 'p', 'm'], answer: 0, optionIcons: ['languages', 'book-open', 'sparkles'], success: '声母找对啦！' } },
-                        { id: 'preschool-pinyin-2', title: '顺口溜记忆', minutes: 8, meta: '广播 b，山坡 p', tip: '用顺口溜记住发音位置', activity: { mode: 'choice', prompt: '“山坡 p”要选哪个声母？', hint: '嘴唇轻轻闭上再打开。', options: ['p', 't', 'l'], answer: 0, optionIcons: ['languages', 'target', 'sparkle'], success: '顺口溜记住啦！' } },
-                        { id: 'preschool-pinyin-3', title: '发音小游戏', minutes: 10, meta: '轻短发音练习', tip: '点一下，和家长一起纠正口型', activity: { mode: 'choice', prompt: '跟读练习前，先做什么？', hint: '先听清楚，再开口。', options: ['听一遍', '马上乱点', '关灯'], answer: 0, optionIcons: ['book-open', 'play', 'moon'], success: '准备好跟读啦！' } }
+                        { id: 'preschool-pinyin-1', title: '声母跟读', minutes: 10, meta: '23 个声母', tip: '先听字音，再选出声母。', activity: { mode: 'pinyin-initial', kind: 'initial', preferred: 'b', size: 10, prompt: '听一听，哪个声母？', hint: '先听字，再找声母。', options: ['b', 'p', 'm'], answer: 0, optionIcons: ['languages', 'book-open', 'sparkles'], success: '声母找对啦！' } },
+                        { id: 'preschool-pinyin-2', title: '韵母对对碰', minutes: 8, meta: '24 个韵母配对', tip: '把韵母和例字翻牌配对。', activity: { mode: 'pinyin-match', kind: 'final', size: 6, prompt: '把韵母和例字配成一对。', hint: '先点韵母，再点对应的字。', options: ['a', 'o', 'e'], answer: 0, optionIcons: ['languages', 'target', 'sparkle'], success: '韵母配上啦！' } },
+                        { id: 'preschool-pinyin-3', title: '整体认读', minutes: 10, meta: '16 个整体认读音节', tip: '听音节，选出整体认读。', activity: { mode: 'pinyin-initial', kind: 'whole', preferred: 'zhi', size: 8, prompt: '听一听，哪个整体认读音节？', hint: '先听清楚，再开口。', options: ['zhi', 'chi', 'shi'], answer: 0, optionIcons: ['book-open', 'play', 'moon'], success: '整体认读找对啦！' } }
                     ]
                 },
                 {
                     id: 'preschool-poetry',
                     title: '古诗专区',
-                    description: '一关 10 首，从《静夜思》开始，朗读、跟读、会背一句。',
+                    description: '一关一首，从《静夜思》开始，听上一句选出下一句。',
                     icon: 'book-open',
                     tone: 'pink',
-                    badge: '每关 10 首',
-                    note: '参考页里是古诗关卡，这里保留“朗读 + 跟读 + 过关”的节奏。',
-                    highlights: ['《静夜思》', '朗读 / 跟读', '学会上关 3 首解锁下一关'],
+                    badge: '小学必背诗库',
+                    note: '听一句选下一句，诗句来自古诗题库。',
+                    highlights: ['《静夜思》', '听句选下句', '诗库过关'],
                     samples: ['床前明月光', '举头望明月', '低头思故乡'],
                     lessons: [
-                        { id: 'preschool-poetry-1', title: '朗读一首古诗', minutes: 10, meta: '从《静夜思》开始', tip: '完成后点亮“朗读一首古诗”', activity: { mode: 'choice', prompt: '“举头望明月”里望什么？', hint: '夜空里亮亮的东西。', options: ['明月', '大树', '小船'], answer: 0, optionIcons: ['moon', 'tree-pine', 'sparkles'], success: '诗句读懂啦！' } },
-                        { id: 'preschool-poetry-2', title: '跟读一句', minutes: 8, meta: '听一句，学一句', tip: '先学会节奏，再学解释', activity: { mode: 'choice', prompt: '诗人先看到了什么？', hint: '就在床前。', options: ['床前月光', '小河', '花朵'], answer: 0, optionIcons: ['moon', 'droplets', 'flower-2'], success: '画面想起来啦！' } },
-                        { id: 'preschool-poetry-3', title: '记住诗意', minutes: 10, meta: '一句诗 + 一个画面', tip: '会背一句也算过关', activity: { mode: 'choice', prompt: '《静夜思》的最后一句是？', hint: '想念自己的家乡。', options: ['低头思故乡', '春风吹又生', '一岁一枯荣'], answer: 0, optionIcons: ['book-marked', 'sprout', 'trees'], success: '诗意记住啦！' } }
+                        { id: 'preschool-poetry-1', title: '朗读一首古诗', minutes: 10, meta: '从《静夜思》开始', tip: '听上句，选出下句。', activity: { mode: 'poetry-line', preferred: 'poem-jingyesi', size: 5, prompt: '下一句是哪一句？', hint: '先听这一句。', options: ['听一句', '选下一句', '下一题'], answer: 0, optionIcons: ['moon', 'tree-pine', 'sparkles'], success: '诗句读懂啦！' } },
+                        { id: 'preschool-poetry-2', title: '跟读一句', minutes: 8, meta: '听一句，学一句', tip: '从《咏鹅》接着听。', activity: { mode: 'poetry-line', preferred: 'poem-yong-e', size: 5, prompt: '下一句是哪一句？', hint: '先听这一句。', options: ['听一句', '选下一句', '下一题'], answer: 0, optionIcons: ['moon', 'droplets', 'flower-2'], success: '画面想起来啦！' } },
+                        { id: 'preschool-poetry-3', title: '记住诗意', minutes: 10, meta: '诗库连句', tip: '会听下一句也算过关。', activity: { mode: 'poetry-line', preferred: 'poem-chunxiao', size: 5, prompt: '下一句是哪一句？', hint: '先听这一句。', options: ['听一句', '选下一句', '下一题'], answer: 0, optionIcons: ['book-marked', 'sprout', 'trees'], success: '诗意记住啦！' } }
                     ]
                 },
                 {
                     id: 'preschool-math',
                     title: '数学专区',
-                    description: '10 以内加减和 20 以内进退位，像闯关一样做口算。',
+                    description: '先数一数，再比大小，再做 10 以内口算。',
                     icon: 'calculator',
                     tone: 'blue',
-                    badge: '10 / 20 以内闯关',
-                    note: '保留参考页“换一题、闯一关”的节奏，改成更轻的任务卡。',
-                    highlights: ['10 以内加减', '20 以内进退位', '换一题'],
-                    samples: ['10 - 9 = ?', '8 + 7 = ?', '12 - 5 = ?'],
+                    badge: '三关题库',
+                    note: '三关都从题库出题，选错只提示，不扣阳光。',
+                    highlights: ['数一数', '比大小', '10 以内加减'],
+                    samples: ['数太阳', '哪边多', '8 + 7'],
                     lessons: [
-                        { id: 'preschool-math-1', title: '数学闯关一关', minutes: 10, meta: '完成 1 题就算过关', tip: '完成后点亮“数学闯关一关”', activity: { mode: 'choice', prompt: '10 - 9 = ?', hint: '从 10 个里拿走 9 个。', options: ['1', '2', '0'], answer: 0, optionIcons: ['calculator', 'plus', 'circle-check'], success: '第一关答对啦！' } },
-                        { id: 'preschool-math-2', title: '10 以内加减', minutes: 8, meta: '先快算，再核对', tip: '用手指或小物件辅助', activity: { mode: 'choice', prompt: '8 + 7 = ?', hint: '先凑成 10，再加剩下的。', options: ['15', '14', '16'], answer: 0, optionIcons: ['calculator', 'plus', 'circle-check'], success: '口算很棒！' } },
-                        { id: 'preschool-math-3', title: '20 以内挑战', minutes: 10, meta: '进位 / 退位', tip: '不会就换一题继续', activity: { mode: 'choice', prompt: '12 - 5 = ?', hint: '12 个拿走 5 个。', options: ['7', '8', '6'], answer: 0, optionIcons: ['calculator', 'plus', 'circle-check'], success: '挑战过关啦！' } }
+                        { id: 'preschool-math-1', title: '数学闯关一关', minutes: 10, meta: '题库数一数', tip: '数一数有几个太阳，选错只提示。', activity: { mode: 'math-bank', level: 'L1', size: 5, prompt: '数一数，有几个太阳？', hint: '一个一个数。', options: ['1', '2', '3'], answer: 0, optionIcons: ['calculator', 'plus', 'circle-check'], success: '第一关数对啦！' } },
+                        { id: 'preschool-math-2', title: '比大小', minutes: 8, meta: '题库比多少', tip: '看哪边太阳更多，选那个数。', activity: { mode: 'math-bank', level: 'L2', size: 5, prompt: '哪边太阳更多？', hint: '先数左边，再数右边。', options: ['左边', '右边', '再数一次'], answer: 0, optionIcons: ['calculator', 'plus', 'circle-check'], success: '比出来啦！' } },
+                        { id: 'preschool-math-3', title: '10 以内加减', minutes: 10, meta: '题库口算', tip: '选错只提示，不会就再算一遍。', activity: { mode: 'math-bank', level: 'L3', size: 5, prompt: '算一算', hint: '用手指帮忙。', options: ['听一听', '选得数', '下一题'], answer: 0, optionIcons: ['calculator', 'plus', 'circle-check'], success: '口算过关啦！' } }
                     ]
                 },
                 {
@@ -260,14 +260,14 @@
                     description: '找不同、迷宫、数数、规律、逻辑，练一题也算完成。',
                     icon: 'sparkles',
                     tone: 'gold',
-                    badge: '5 类训练',
-                    note: '参考页是题型切换式训练，这里保留题型感，不把页面做得太复杂。',
-                    highlights: ['找不同', '迷宫 / 数数', '规律 / 逻辑'],
-                    samples: ['🍊🍎🍊', '走迷宫', '找规律'],
+                    badge: '3 个小游戏',
+                    note: '记忆翻牌、找不同、数字排队都是重做的关卡，没有倒计时，选错不扣阳光。',
+                    highlights: ['记忆翻牌', '找不同', '数字排队'],
+                    samples: ['🍎🌞', '哪一个不同', '1 2 3'],
                     lessons: [
-                        { id: 'preschool-focus-1', title: '专注力训练一题', minutes: 10, meta: '找不同 / 迷宫 / 规律', tip: '完成后点亮“专注力训练一题”', activity: { mode: 'choice', prompt: '哪一行不一样？', hint: '看看中间那个图形。', options: ['○ △ ○', '○ ○ ○', '○ △ ○'], answer: 1, optionIcons: ['target', 'circle-check', 'sparkles'], success: '观察得真仔细！' } },
-                        { id: 'preschool-focus-2', title: '找不同', minutes: 8, meta: '圈出不一样的那个', tip: '先慢慢看，再动手', activity: { mode: 'choice', prompt: '找不同前，先做什么？', hint: '慢慢看，才不会漏掉。', options: ['慢慢看', '马上乱点', '闭上眼'], answer: 0, optionIcons: ['target', 'play', 'circle-check'], success: '专注小眼睛上线啦！' } },
-                        { id: 'preschool-focus-3', title: '规律小游戏', minutes: 10, meta: '下一步会是什么', tip: '说出来，再选答案', activity: { mode: 'choice', prompt: '○ △ ○ △ 之后是什么？', hint: '圆形和三角形轮流出现。', options: ['○', '△', '□'], answer: 0, optionIcons: ['circle-check', 'sparkle', 'target'], success: '规律找到了！' } }
+                        { id: 'preschool-focus-1', title: '专注力训练一题', minutes: 10, meta: '记忆翻牌 4 对', tip: '翻开两张一样的就可以收走。', activity: { mode: 'play-memory', size: 4, prompt: '找出两张一样的卡片。', hint: '先记住位置，再翻第二张。', options: ['○ △ ○', '○ ○ ○', '○ △ ○'], answer: 1, optionIcons: ['target', 'circle-check', 'sparkles'], success: '记性真好！' } },
+                        { id: 'preschool-focus-2', title: '找不同', minutes: 8, meta: '圈出不一样的那个', tip: '慢慢看，找出和其他不一样的。', activity: { mode: 'play-odd', size: 3, prompt: '哪一个和其他不一样？', hint: '先看相同的，再找那个不同的。', options: ['慢慢看', '马上乱点', '闭上眼'], answer: 0, optionIcons: ['target', 'play', 'circle-check'], success: '观察得真仔细！' } },
+                        { id: 'preschool-focus-3', title: '数字排队', minutes: 10, meta: '1 到 5 按顺序点', tip: '从小到大点数字。', activity: { mode: 'play-order', size: 5, prompt: '按从小到大点数字。', hint: '先找 1，再找 2。', options: ['○', '△', '□'], answer: 0, optionIcons: ['circle-check', 'sparkle', 'target'], success: '排队排好啦！' } }
                     ]
                 },
                 {
@@ -276,14 +276,15 @@
                     description: '学几个音、拼几个词，答对就收集阳光。',
                     icon: 'languages',
                     tone: 'lime',
-                    badge: '3 张测验卡',
-                    note: '自然拼读资料放在研究目录，工作台只保留短测验和阳光奖励。',
-                    highlights: ['a / m / t', 'f / b', 'mat / bat / fat'],
-                    samples: ['a m t', 'f b', 'mat bat fat'],
+                    badge: '340 词口语',
+                    note: '今日 5 词先听再配对再拼写。自然拼读第三课从词库出 10 题。',
+                    highlights: ['今日 5 词', '中英配对', '拼读短词'],
+                    samples: ['hello', 'red', 'mat'],
                     lessons: [
-                        { id: 'preschool-english-phonics-1', title: '认识 a、m、t', minutes: 6, meta: '先听音，再认字母', tip: '先复习 a、m、t 的声音，再开始测验。', activity: { mode: 'choice', prompt: '哪个字母发 /m/ 的音？', hint: 'm 像两座小山，声音是 /m/。', options: ['m', 'a', 't'], answer: 0, optionIcons: ['languages', 'sparkles', 'target'], success: 'a、m、t 认识啦！' }, referenceMaterialId: 'open-source-phonics-lesson-001', source: { kind: 'reference-only', project: 'Open Source Phonics', lesson: 1, license: 'CC BY-NC-SA 4.0', url: 'https://www.opensourcephonics.org/120-lessons/' } },
-                        { id: 'preschool-english-phonics-2', title: '认识 f、b', minutes: 6, meta: '听首音，找字母', tip: '把 f、b 的声音和字母连起来。', activity: { mode: 'choice', prompt: 'fan 的开头音是哪一个？', hint: 'fan 先发 /f/，嘴唇和牙齿轻轻碰一下。', options: ['f', 'b', 'm'], answer: 0, optionIcons: ['languages', 'target', 'sparkles'], success: 'f、b 找对啦！' }, referenceMaterialId: 'open-source-phonics-lesson-002', source: { kind: 'reference-only', project: 'Open Source Phonics', lesson: 2, license: 'CC BY-NC-SA 4.0', url: 'https://www.opensourcephonics.org/120-lessons/' } },
-                        { id: 'preschool-english-phonics-3', title: '拼读 mat、bat、fat', minutes: 8, meta: '把声音连成词', tip: '从左到右慢慢合成，再选择你读出的词。', activity: { mode: 'choice', prompt: 'm-a-t 合起来是哪一个词？', hint: '/m/ /a/ /t/，连起来读 mat。', options: ['mat', 'bat', 'fat'], answer: 0, optionIcons: ['book-open', 'target', 'sparkles'], success: '会把声音拼成词啦！' }, referenceMaterialId: 'open-source-phonics-lesson-003', source: { kind: 'reference-only', project: 'Open Source Phonics', lesson: 3, license: 'CC BY-NC-SA 4.0', url: 'https://www.opensourcephonics.org/120-lessons/' } }
+                        { id: 'preschool-english-words-1', title: '今日 5 词', minutes: 8, meta: '按天听 5 个词和句子', tip: '先听单词和句子，再点会了或不会。点会了不会都不扣阳光。', activity: { mode: 'english-speak', prompt: '听句子，这些词你会了吗？', hint: '点听句子，再点会了或不会。', preferred: 'hello', size: 5, options: ['会了', '不会', '听句子'], answer: 0, optionIcons: ['check', 'rotate-ccw', 'volume-2'], success: '这些词会听啦！' } },
+                        { id: 'preschool-english-phonics-1', title: '认识 a、m、t', minutes: 6, meta: '先听音，再认字母', tip: '先听关键词，再选出字母。', activity: { mode: 'phonics-letter', groups: 'amt', preferred: 'm', size: 3, prompt: '听一听，哪个字母？', hint: 'm 像两座小山，声音是 /m/。', options: ['m', 'a', 't'], answer: 0, optionIcons: ['languages', 'sparkles', 'target'], success: 'a、m、t 认识啦！' }, referenceMaterialId: 'open-source-phonics-lesson-001', source: { kind: 'reference-only', project: 'Open Source Phonics', lesson: 1, license: 'CC BY-NC-SA 4.0', url: 'https://www.opensourcephonics.org/120-lessons/' } },
+                        { id: 'preschool-english-phonics-2', title: '认识 f、b', minutes: 6, meta: '听首音，找字母', tip: '把 f、b 的声音和字母连起来。', activity: { mode: 'phonics-letter', groups: 'fb,amt', preferred: 'f', size: 5, prompt: '听一听，哪个字母？', hint: 'fan 先发 /f/，嘴唇和牙齿轻轻碰一下。', options: ['f', 'b', 'm'], answer: 0, optionIcons: ['languages', 'target', 'sparkles'], success: 'f、b 找对啦！' }, referenceMaterialId: 'open-source-phonics-lesson-002', source: { kind: 'reference-only', project: 'Open Source Phonics', lesson: 2, license: 'CC BY-NC-SA 4.0', url: 'https://www.opensourcephonics.org/120-lessons/' } },
+                        { id: 'preschool-english-phonics-3', title: '拼读短词', minutes: 8, meta: '词库听音选词 10 题', tip: '先听单词，再选出你听到的短词。选错会再听一遍。', activity: { mode: 'phonics-cvc', preferred: 'mat', size: 10, prompt: '听一听，哪个词？', hint: '从左到右把声音连起来。', options: ['听一听', '选一个词', '下一题'], answer: 0, optionIcons: ['volume-2', 'target', 'sparkles'], success: '会把声音拼成词啦！' }, referenceMaterialId: 'open-source-phonics-lesson-003', source: { kind: 'reference-only', project: 'Open Source Phonics', lesson: 3, license: 'CC BY-NC-SA 4.0', url: 'https://www.opensourcephonics.org/120-lessons/' } }
                     ]
                 },
                 {

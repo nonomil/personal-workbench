@@ -186,3 +186,25 @@ test('places the selected plant once and protects occupied cells', () => {
   assert.equal(duplicate.growth.sunlight, 25);
   assert.equal(duplicate.growth.garden.defense.plants.length, 1);
 });
+
+test('places plants at free lawn points on the same lane without filling a whole grid cell', () => {
+  const ready = gardenEngine.normalize({
+    sunlight: 80,
+    garden: { activePlantId: 'plant-sunflower', unlockedPlantIds: ['plant-sunflower'] }
+  });
+  const first = gardenEngine.placeDefensePlant(ready, 2, 0, { x: 0.22 });
+  assert.equal(first.ok, true);
+  assert.equal(first.plant.x, 0.22);
+  const second = gardenEngine.placeDefensePlant(first.growth, 2, 0, { x: 0.58 });
+  assert.equal(second.ok, true);
+  assert.equal(second.growth.garden.defense.plants.length, 2);
+  assert.equal(second.growth.garden.defense.plants[0].x, 0.22);
+  assert.equal(second.growth.garden.defense.plants[1].x, 0.58);
+  const restored = gardenEngine.normalize(JSON.parse(JSON.stringify(second.growth)));
+  assert.equal(restored.garden.defense.plants[0].x, 0.22);
+  assert.equal(restored.garden.defense.plants[1].x, 0.58);
+  const tooClose = gardenEngine.placeDefensePlant(second.growth, 2, 0, { x: 0.24 });
+  assert.equal(tooClose.ok, false);
+  assert.match(tooClose.reason, /已经有植物/);
+  assert.equal(tooClose.growth.garden.defense.plants.length, 2);
+});

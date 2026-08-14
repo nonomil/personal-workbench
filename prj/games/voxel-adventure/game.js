@@ -2,47 +2,80 @@
     'use strict';
 
     /**
-     * 方块世界 · 史蒂夫横版过关（可打怪）
-     * 不再使用等距沙盒
+     * 挖放循环对照小孩哥工作台：点击挖矿、右键/长按放置、WASD、空格跳。
+     * 走动/材料参考 KUBO；躲避怪参考 little-game-MC。画面只用本仓 voxel-v1。
      */
     const bridge = window.WorkbenchGameBridge;
-    const levelsApi = window.VoxelLevels;
-    const GAME_ID = 'voxel-adventure';
+    const worldApi = window.VoxelWorld;
+    const questsApi = window.VoxelQuests;
+    const VIEW_COLS = 16;
+    const VIEW_ROWS = 12;
     const VIEW_W = 960;
-    const VIEW_H = 480;
+    const VIEW_H = 540;
+    const INVINCIBLE_MS = 1600;
+    const MOVE_EVERY = 140;
+    const WANDER_EVERY = 700;
+    const CHASE_EVERY = 1100;
+    const FALL_EVERY = 140;
+    const JUMP_HANG_MS = 260;
+    const LONG_PRESS_MS = 420;
+    const THEME = '../../assets/generated/preschool-theme-assets/voxel-v1/published/';
+    const LOCAL = './assets/';
 
     const canvas = document.getElementById('world-canvas');
     const ctx = canvas.getContext('2d');
     canvas.width = VIEW_W;
     canvas.height = VIEW_H;
+    if (/embed=1/.test(location.search || '')) document.body.classList.add('mc-embed');
 
-    const LOCAL = './assets/';
-    const THEME = '../../assets/generated/preschool-theme-assets/voxel-v1/published/';
     const ASSET = {
-        idle: LOCAL + 'hero/steve-idle.png',
-        run: LOCAL + 'hero/steve-run.png',
-        enemy: LOCAL + 'enemies/creeper.png',
-        crystal: THEME + 'voxel-purple-crystal.png',
         grass: THEME + 'voxel-grass-block.png',
-        sky: LOCAL + 'bg/sky-day.png',
-        flag: '../../assets/generated/preschool-theme-assets/platform-v1/published/platform-flag.png'
+        dirt: THEME + 'voxel-dirt-block.png',
+        stone: THEME + 'voxel-stone-block.png',
+        wood: THEME + 'voxel-wood-block.png',
+        plank: THEME + 'voxel-wood-block.png',
+        crystal: THEME + 'voxel-purple-crystal.png',
+        water: THEME + 'voxel-water-channel.png',
+        bedrock: THEME + 'voxel-bedrock-block.png',
+        miner: THEME + 'voxel-miner.png',
+        spark: THEME + 'voxel-crystal-slime.png',
+        lamb: THEME + 'voxel-companion.png',
+        sky: LOCAL + 'bg/sky-day.png'
+    };
+
+    const FILL = {
+        grass: '#6ec34f',
+        dirt: '#a06a3c',
+        leaf: '#3d9e45',
+        plank: '#d4a574',
+        wood: '#c4894a',
+        stone: '#8a8f99',
+        sand: '#e6c36a',
+        water: '#4aa7d9',
+        coal: '#2e3238',
+        crystal: '#b59bff',
+        bedrock: '#3a3a44'
     };
 
     const images = {};
     let progress = null;
-    let level = null;
-    let levelId = 1;
-    let playing = false;
-    let won = false;
-    let crystals = 0;
-    let cameraX = 0;
-    let last = 0;
-
-    const player = {
-        x: 48, y: 320, w: 40, h: 52,
-        vx: 0, vy: 0, onGround: false, facing: 1, runFrame: 0, runTimer: 0
-    };
-    const input = { left: false, right: false, jump: false };
+    let world = null;
+    let inventory = worldApi.emptyInv();
+    let tool = 'hand';
+    let selectedKind = null;
+    let hover = null;
+    let session = { placedThis: {}, placedAnyThis: 0, collectedThis: {} };
+    let miner = { x: 1, y: 5 };
+    let hp = worldApi.MAX_HP;
+    let lastHitAt = -99999;
+    let creatures = [];
+    let holds = { left: false, right: false, jump: false };
+    let lastWanderAt = 0;
+    let lastChaseAt = 0;
+    let lastMoveAt = 0;
+    let lastFallAt = 0;
+    let jumpLockUntil = 0;
+    let press = null;
 
     function toast(msg) {
         const el = document.getElementById('toast');
@@ -52,331 +85,561 @@
         toast._t = setTimeout(function () { el.classList.remove('is-on'); }, 2400);
     }
 
-    function loadImage(key, src, fallback) {
+    function loadImage(key, src) {
         return new Promise(function (resolve) {
             const img = new Image();
             img.onload = function () { images[key] = img; resolve(img); };
-            img.onerror = function () {
-                if (fallback) loadImage(key, fallback, null).then(resolve);
-                else resolve(null);
-            };
+            img.onerror = function () { resolve(null); };
             img.src = src;
         });
     }
 
-    function loadAssets() {
-        return Promise.all([
-            loadImage('idle', ASSET.idle, THEME + 'voxel-companion.png'),
-            loadImage('run', ASSET.run, ASSET.idle),
-            loadImage('enemy', ASSET.enemy),
-            loadImage('crystal', ASSET.crystal),
-            loadImage('grass', ASSET.grass),
-            loadImage('sky', ASSET.sky),
-            loadImage('flag', ASSET.flag)
-        ]);
+    function spawnActors() {
+        miner = worldApi.spawnCell(world);
+        hp = worldApi.MAX_HP;
+        lastHitAt = -99999;
+        creatures = [
+            { kind: 'lamb', x: 5, y: miner.y },
+            { kind: 'calf', x: 9, y: miner.y },
+            { kind: 'spark', x: 12, y: miner.y }
+        ].map(function (c) {
+            const g = worldApi.applyGravity(world, c.x, c.y);
+            return { kind: c.kind, x: g.x, y: g.y };
+        });
     }
 
     function loadProgress() {
         progress = bridge.getProgress(GAME_ID).progress;
-        if (!progress.unlockedLevel) progress.unlockedLevel = 1;
-        if (!Array.isArray(progress.clearedLevels)) progress.clearedLevels = [];
-        // 兼容旧任务字段
         if (!Array.isArray(progress.questsDone)) progress.questsDone = [];
+        if (!Array.isArray(progress.clearedLevels)) progress.clearedLevels = [];
         if (!Number.isFinite(progress.crystalsTotal)) progress.crystalsTotal = 0;
+        if (!Number.isFinite(progress.buildTotal)) progress.buildTotal = 0;
+        if (!progress.buildTotalByKind || typeof progress.buildTotalByKind !== 'object') progress.buildTotalByKind = {};
+        if (!Number.isFinite(progress.rank)) progress.rank = 1;
+        if (worldApi.isValidWorld(progress.homeWorld)) {
+            world = worldApi.cloneWorld(progress.homeWorld);
+        } else {
+            world = worldApi.createDefaultWorld(3);
+        }
+        inventory = Object.assign(worldApi.emptyInv(), progress.inventory || {});
+        seedStarterQuestItems();
+        spawnActors();
         bridge.saveProgress(GAME_ID, progress);
+    }
+
+    function seedStarterQuestItems() {
+        const done = progress.questsDone || [];
+        if (done.indexOf('q1') !== -1) return;
+        if ((inventory.grass || 0) > 0) return;
+        inventory.grass = 8;
+        selectedKind = 'grass';
+        tool = 'hand';
+        progress.inventory = Object.assign(worldApi.emptyInv(), inventory);
+    }
+
+    function persistHome() {
+        progress.homeWorld = worldApi.cloneWorld(world);
+        progress.inventory = Object.assign(worldApi.emptyInv(), inventory);
+        bridge.saveProgress(GAME_ID, progress);
+    }
+
+    function rank() {
+        return worldApi.minerRank(progress.questsDone, questsApi.ranks);
+    }
+
+    function statsNow() {
+        return {
+            placedThis: session.placedThis,
+            placedAnyThis: session.placedAnyThis,
+            collectedThis: session.collectedThis,
+            buildTotal: progress.buildTotal || 0,
+            buildTotalByKind: progress.buildTotalByKind || {},
+            crystalsTotal: progress.crystalsTotal || 0,
+            blocksAlive: worldApi.countSolid(world)
+        };
+    }
+
+    function currentQuest() {
+        const done = progress.questsDone || [];
+        const r = rank();
+        const career = questsApi.list.find(function (q) {
+            return done.indexOf(q.id) === -1 && r >= (q.rank || 1);
+        });
+        if (career) return career;
+        const daily = questsApi.dailyForDate(questsApi.localDate());
+        if (daily && done.indexOf(daily.id) === -1) return daily;
+        return questsApi.list.find(function (q) { return done.indexOf(q.id) === -1; }) || null;
+    }
+
+    function bagTotal() {
+        return ['grass', 'dirt', 'wood', 'leaf', 'plank', 'stone', 'sand', 'water', 'coal', 'crystal'].reduce(function (sum, key) {
+            return sum + (Number(inventory[key]) || 0);
+        }, 0);
     }
 
     function refreshWallet() {
         const w = bridge.getWallet();
-        document.getElementById('wallet-hud').innerHTML =
-            `<span class="chip">阳光 <b>${w.sunlight}</b></span>` +
-            `<span class="chip">晶体 <b>${progress.crystalsTotal || 0}</b></span>` +
-            `<span class="chip">星芒 Lv.<b>${w.petLevel}</b></span>`;
-    }
-
-    function renderMap() {
-        const map = document.getElementById('level-map');
-        map.innerHTML = '';
-        levelsApi.list.forEach(function (lv) {
-            const locked = lv.id > progress.unlockedLevel;
-            const btn = document.createElement('button');
-            btn.type = 'button';
-            btn.className = 'stage-card' + (locked ? ' is-locked' : '');
-            btn.disabled = locked;
-            const cleared = progress.clearedLevels.indexOf(lv.id) !== -1;
-            btn.innerHTML = `<div>第 ${lv.id} 关 · ${lv.title}</div>` +
-                `<small>${cleared ? '已通关' : locked ? '未解锁' : '可挑战'} · 奖 ${lv.rewardSun} 阳光</small>`;
-            if (!locked) btn.addEventListener('click', function () { enterLevel(lv.id); });
-            map.appendChild(btn);
-        });
-        document.getElementById('progress-tip').textContent =
-            `解锁第 ${progress.unlockedLevel} 关 · 通关 ${progress.clearedLevels.length} · 晶体 ${progress.crystalsTotal}`;
-        refreshWallet();
-    }
-
-    function showMap() {
-        playing = false;
-        document.getElementById('panel-map').classList.remove('is-hidden');
-        document.getElementById('panel-play').classList.add('is-hidden');
-        renderMap();
-    }
-
-    function enterLevel(id) {
-        levelId = id;
-        level = levelsApi.get(id);
-        resetRun();
-        document.getElementById('level-title').textContent = `第 ${level.id} 关 · ${level.title}`;
-        document.getElementById('panel-map').classList.add('is-hidden');
-        document.getElementById('panel-play').classList.remove('is-hidden');
-        playing = true;
-        won = false;
-    }
-
-    function resetRun() {
-        player.x = 48; player.y = 320; player.vx = 0; player.vy = 0;
-        player.onGround = false; player.facing = 1;
-        crystals = 0; cameraX = 0; won = false;
-        if (level) {
-            level = levelsApi.get(levelId);
+        const hud = document.getElementById('wallet-hud');
+        if (hud) {
+            hud.innerHTML =
+                `<span class="chip">阳光 <b>${w.sunlight}</b></span>` +
+                `<span class="chip">生命 <b>${hp}</b>/${worldApi.MAX_HP}</span>` +
+                `<span class="chip">矿工 Lv.<b>${rank()}</b></span>`;
         }
-        document.getElementById('crystal-count').textContent = '0';
-        document.getElementById('run-status').textContent = '奔跑中';
+        const bag = document.getElementById('bag-count');
+        const coord = document.getElementById('coord-label');
+        if (bag) bag.textContent = String(bagTotal());
+        if (coord) coord.textContent = miner.x + ', ' + miner.y;
     }
 
-    function rectsOverlap(a, b) {
-        return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
-    }
-
-    function solids() {
-        return [{ x: 0, y: level.groundY, w: level.width, h: 100 }].concat(level.platforms);
-    }
-
-    function update(dt) {
-        if (!playing || !level || won) return;
-        const speed = 240;
-        player.vx = 0;
-        if (input.left) { player.vx -= speed; player.facing = -1; }
-        if (input.right) { player.vx += speed; player.facing = 1; }
-        if (Math.abs(player.vx) > 20) {
-            player.runTimer += dt;
-            if (player.runTimer > 0.12) {
-                player.runTimer = 0;
-                player.runFrame = 1 - player.runFrame;
-            }
-        }
-        player.vy += 1500 * dt;
-        if (input.jump && player.onGround) {
-            player.vy = -560;
-            player.onGround = false;
-            input.jump = false;
-        }
-        player.x += player.vx * dt;
-        player.y += player.vy * dt;
-        player.onGround = false;
-        solids().forEach(function (p) {
-            if (!rectsOverlap(player, p)) return;
-            const prevBottom = player.y + player.h - player.vy * dt;
-            if (player.vy >= 0 && prevBottom <= p.y + 10) {
-                player.y = p.y - player.h;
-                player.vy = 0;
-                player.onGround = true;
-            } else if (player.vy < 0) {
-                player.y = p.y + p.h;
-                player.vy = 0;
-            } else if (player.vx > 0) player.x = p.x - player.w;
-            else if (player.vx < 0) player.x = p.x + p.w;
-        });
-        player.x = Math.max(0, Math.min(level.width - player.w, player.x));
-        if (player.y > VIEW_H + 80) resetRun();
-
-        level.enemies.forEach(function (enemy) {
-            enemy.x += enemy.dir * 80 * dt;
-            if (enemy.x < enemy.minX || enemy.x > enemy.maxX) enemy.dir *= -1;
-            if (enemy.x < -100) return;
-            if (rectsOverlap(player, enemy)) {
-                if (player.vy > 0 && player.y + player.h - enemy.y < 22) {
-                    enemy.x = -9999;
-                    player.vy = -340;
-                } else resetRun();
-            }
-        });
-
-        const bonus = ((bridge.getMetaBonuses && bridge.getMetaBonuses()) || {}).voxelCrystalBonus || 0;
-        level.crystals.forEach(function (c) {
-            if (c.taken) return;
-            if (rectsOverlap(player, { x: c.x, y: c.y, w: 24, h: 24 })) {
-                c.taken = true;
-                crystals += 1 + bonus;
-                document.getElementById('crystal-count').textContent = String(crystals);
-            }
-        });
-
-        if (rectsOverlap(player, level.flag)) onClear();
-        cameraX = Math.max(0, Math.min(level.width - VIEW_W, player.x - VIEW_W * 0.35));
-    }
-
-    function onClear() {
-        if (won) return;
-        won = true;
-        playing = false;
-        document.getElementById('run-status').textContent = '通关！';
-        if (progress.clearedLevels.indexOf(level.id) === -1) progress.clearedLevels.push(level.id);
-        // 同步任务进度：用通关数映射 questsDone 数量，兼容首页统计
-        while (progress.questsDone.length < progress.clearedLevels.length) {
-            progress.questsDone.push('level-' + (progress.questsDone.length + 1));
-        }
-        progress.crystalsTotal = (progress.crystalsTotal || 0) + crystals;
-        if (progress.unlockedLevel < level.id + 1 && level.id < levelsApi.count) {
-            progress.unlockedLevel = level.id + 1;
-        }
-        progress.rank = Math.min(5, 1 + Math.floor(progress.clearedLevels.length / 2));
+    function completeQuest(quest) {
+        if (!quest || progress.questsDone.indexOf(quest.id) !== -1) return;
+        progress.questsDone.push(quest.id);
+        progress.rank = rank();
         bridge.saveProgress(GAME_ID, progress);
         const award = bridge.awardSunlight({
             gameId: GAME_ID,
-            eventKey: 'level-' + level.id + '-clear',
-            amount: level.rewardSun,
-            reason: '史蒂夫通关第' + level.id + '关'
+            eventKey: quest.daily ? quest.id : ('quest-' + quest.id),
+            amount: quest.reward,
+            reason: quest.title
         });
-        if (bridge.grantProgressPoints) bridge.grantProgressPoints(GAME_ID, 4, 'clear-' + level.id);
+        if (bridge.grantProgressPoints) bridge.grantProgressPoints(GAME_ID, 4, 'quest-' + quest.id);
         if (bridge.recordPlaySession) bridge.recordPlaySession(GAME_ID);
-        toast(award.awarded ? `通关！晶体 ${crystals} · +${award.amount} 阳光` : `通关！${award.reason}`);
+        toast(award.awarded ? (quest.title + ' · +' + award.amount + ' 阳光') : (quest.title + ' · ' + award.reason));
         refreshWallet();
-        setTimeout(showMap, 1400);
+        renderQuests();
+        renderHud();
     }
 
-    function drawSprite(img, x, y, maxW, maxH, flipX) {
-        if (!img) return false;
-        const ratio = img.naturalWidth / img.naturalHeight;
-        let dw = maxW;
-        let dh = dw / ratio;
-        if (dh > maxH) { dh = maxH; dw = dh * ratio; }
-        const dx = x + (maxW - dw) / 2;
-        const dy = y + (maxH - dh);
-        ctx.save();
-        if (flipX) {
-            ctx.translate(dx + dw, dy);
-            ctx.scale(-1, 1);
-            ctx.drawImage(img, 0, 0, dw, dh);
-        } else ctx.drawImage(img, dx, dy, dw, dh);
-        ctx.restore();
+    function checkQuests() {
+        const q = currentQuest();
+        if (q && worldApi.isQuestComplete(q, statsNow())) completeQuest(q);
+    }
+
+    function renderHud() {
+        const q = currentQuest();
+        const stats = statsNow();
+        const have = q ? worldApi.questValue(q, stats) : 0;
+        const need = q ? (q.need || 0) : 0;
+        const title = document.getElementById('quest-title');
+        const count = document.getElementById('quest-count');
+        const needEl = document.getElementById('quest-need');
+        const status = document.getElementById('run-status');
+        if (title) title.textContent = q ? (q.title + ' ' + have + '/' + need) : '方块世界';
+        if (count) count.textContent = String(have);
+        if (needEl) needEl.textContent = String(need);
+        if (status) status.textContent = q ? '建造中' : '休息';
+        refreshWallet();
+    }
+
+    function renderHotbar() {
+        const bar = document.getElementById('hotbar');
+        const tools = [
+            { id: 'hand', label: '木镐' },
+            { id: 'axe', label: '斧' },
+            { id: 'pick', label: '石镐' }
+        ];
+        const kinds = ['wood', 'plank', 'grass', 'sand', 'dirt', 'stone', 'crystal'];
+        const labels = {
+            grass: '草方块', dirt: '泥土', sand: '沙子', wood: '橡木', plank: '橡木板',
+            stone: '石头', crystal: '晶体'
+        };
+        bar.innerHTML = '';
+        tools.forEach(function (t) {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'hotbar-slot' + (tool === t.id ? ' is-tool-on' : '');
+            btn.innerHTML = '<small>' + t.label + '</small>';
+            btn.addEventListener('click', function () {
+                tool = t.id;
+                renderHotbar();
+            });
+            bar.appendChild(btn);
+        });
+        kinds.forEach(function (kind) {
+            const count = inventory[kind] || 0;
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'hotbar-slot' + (selectedKind === kind ? ' is-active' : '');
+            btn.disabled = count <= 0;
+            const img = images[kind];
+            btn.innerHTML = (img ? '<img src="' + img.src + '" alt="">' : '') +
+                '<b>' + count + '</b><small>' + labels[kind] + '</small>';
+            btn.addEventListener('click', function () {
+                if (count <= 0) return;
+                selectedKind = kind;
+                renderHotbar();
+            });
+            bar.appendChild(btn);
+        });
+    }
+
+    function renderQuests() {
+        const box = document.getElementById('quest-list');
+        const stats = statsNow();
+        const done = progress.questsDone || [];
+        const r = rank();
+        box.innerHTML = '';
+        const daily = questsApi.dailyForDate(questsApi.localDate());
+        const show = [daily].concat(questsApi.list.filter(function (q) { return r >= (q.rank || 1) || done.indexOf(q.id) !== -1; })).slice(0, 8);
+        show.forEach(function (q) {
+            if (!q) return;
+            const card = document.createElement('div');
+            const finished = done.indexOf(q.id) !== -1;
+            const have = Math.min(q.need, worldApi.questValue(q, stats));
+            card.className = 'quest-card' + (finished ? ' is-done' : '') + (q.daily ? ' is-daily' : '');
+            card.innerHTML = '<strong>' + q.title + '</strong><small>' + q.desc + '</small>' +
+                '<div class="quest-bar"><span style="width:' + Math.round((finished ? 1 : have / q.need) * 100) + '%"></span></div>' +
+                '<em>' + (finished ? '已完成' : (have + ' / ' + q.need)) + '</em>';
+            box.appendChild(card);
+        });
+        document.getElementById('progress-tip').textContent =
+            '任务 ' + done.length + ' · 矿工 ' + r;
+        refreshWallet();
+    }
+
+    function camera() {
+        const cols = world.cols;
+        const rows = world.rows;
+        const viewC = Math.min(VIEW_COLS, cols);
+        const viewR = Math.min(VIEW_ROWS, rows);
+        let ox = miner.x - Math.floor(viewC / 2);
+        let oy = miner.y - Math.floor(viewR / 2);
+        ox = Math.max(0, Math.min(ox, cols - viewC));
+        oy = Math.max(0, Math.min(oy, rows - viewR));
+        return { ox: ox, oy: oy, cols: viewC, rows: viewR };
+    }
+
+    function board() {
+        const cam = camera();
+        const tile = Math.floor(Math.min(VIEW_W / VIEW_COLS, VIEW_H / VIEW_ROWS));
+        const w = tile * cam.cols;
+        const h = tile * cam.rows;
+        return {
+            tile: tile,
+            x: Math.floor((VIEW_W - w) / 2),
+            y: Math.floor((VIEW_H - h) / 2),
+            w: w,
+            h: h,
+            ox: cam.ox,
+            oy: cam.oy,
+            cols: cam.cols,
+            rows: cam.rows
+        };
+    }
+
+    function cellAt(clientX, clientY) {
+        const rect = canvas.getBoundingClientRect();
+        const px = (clientX - rect.left) * (VIEW_W / rect.width);
+        const py = (clientY - rect.top) * (VIEW_H / rect.height);
+        const b = board();
+        const vx = Math.floor((px - b.x) / b.tile);
+        const vy = Math.floor((py - b.y) / b.tile);
+        if (vx < 0 || vy < 0 || vx >= b.cols || vy >= b.rows) return null;
+        const x = vx + b.ox;
+        const y = vy + b.oy;
+        if (x < 0 || y < 0 || x >= world.cols || y >= world.rows) return null;
+        return { x: x, y: y };
+    }
+
+    function doPlace(cell) {
+        if (!selectedKind) {
+            toast('先点下面背包里的方块，再右键或长按空地放下。');
+            return false;
+        }
+        const bag = worldApi.consumeFromInventory(inventory, selectedKind);
+        if (!bag.ok) { toast('没有这个方块了'); return false; }
+        const placed = worldApi.placeBlock(world, cell.x, cell.y, selectedKind);
+        if (!placed.ok) {
+            inventory = worldApi.addToInventory(bag.inventory, selectedKind, 1);
+            toast(placed.reason);
+            return false;
+        }
+        inventory = bag.inventory;
+        session.placedThis[selectedKind] = (session.placedThis[selectedKind] || 0) + 1;
+        session.placedAnyThis += 1;
+        progress.buildTotal = (progress.buildTotal || 0) + 1;
+        progress.buildTotalByKind[selectedKind] = (progress.buildTotalByKind[selectedKind] || 0) + 1;
+        if ((inventory[selectedKind] || 0) <= 0) selectedKind = null;
+        persistHome();
+        checkQuests();
+        renderHotbar();
+        renderHud();
+        renderQuests();
         return true;
     }
 
-    function draw() {
-        if (!level || document.getElementById('panel-play').classList.contains('is-hidden')) return;
-        ctx.clearRect(0, 0, VIEW_W, VIEW_H);
-        ctx.save();
-        ctx.translate(-cameraX, 0);
-
-        if (images.sky) {
-            for (let x = Math.floor(cameraX / VIEW_W) * VIEW_W; x < cameraX + VIEW_W + VIEW_W; x += VIEW_W) {
-                ctx.drawImage(images.sky, x, 0, VIEW_W, level.groundY);
-            }
-        } else {
-            ctx.fillStyle = '#6ec8f5';
-            ctx.fillRect(cameraX, 0, VIEW_W, level.groundY);
+    function doMine(cell) {
+        const dug = worldApi.mineBlock(world, cell.x, cell.y, tool, rank());
+        if (!dug.ok) {
+            toast(dug.reason);
+            return false;
         }
-
-        // 地面：方块铺设
-        const tile = 48;
-        for (let x = 0; x < level.width; x += tile) {
-            if (images.grass) ctx.drawImage(images.grass, x, level.groundY - 8, tile, tile);
-            else {
-                ctx.fillStyle = '#6ec34f';
-                ctx.fillRect(x, level.groundY, tile, 20);
-            }
-        }
-        ctx.fillStyle = '#8b6914';
-        ctx.fillRect(0, level.groundY + 36, level.width, VIEW_H - level.groundY);
-
-        level.platforms.forEach(function (p) {
-            if (images.grass) {
-                for (let x = p.x; x < p.x + p.w; x += 40) {
-                    ctx.drawImage(images.grass, x, p.y - 10, Math.min(40, p.x + p.w - x), 36);
-                }
-            } else {
-                ctx.fillStyle = '#7fca55';
-                ctx.fillRect(p.x, p.y, p.w, p.h);
-            }
+        (dug.dropped || [dug.kind]).forEach(function (kind) {
+            inventory = worldApi.addToInventory(inventory, kind, 1);
         });
-
-        level.crystals.forEach(function (c) {
-            if (c.taken) return;
-            const bounce = Math.sin(Date.now() / 200 + c.x) * 3;
-            if (images.crystal) ctx.drawImage(images.crystal, c.x, c.y + bounce, 28, 28);
-            else {
-                ctx.fillStyle = '#b59bff';
-                ctx.fillRect(c.x, c.y + bounce, 20, 20);
-            }
-        });
-
-        level.enemies.forEach(function (enemy) {
-            if (enemy.x < -100) return;
-            if (images.enemy) ctx.drawImage(images.enemy, enemy.x, enemy.y, enemy.w, enemy.h);
-            else {
-                ctx.fillStyle = '#3d8b40';
-                ctx.fillRect(enemy.x, enemy.y, enemy.w, enemy.h);
-            }
-        });
-
-        if (images.flag) ctx.drawImage(images.flag, level.flag.x, level.flag.y, 48, level.flag.h);
-        else {
-            ctx.fillStyle = '#e54139';
-            ctx.fillRect(level.flag.x, level.flag.y, 30, 24);
+        selectedKind = dug.kind;
+        if (dug.kind === 'wood' || dug.kind === 'leaf') {
+            toast('砍到了！选中背包后，右键或长按空地就能放下。');
         }
-
-        const pose = !player.onGround ? 'idle' : (Math.abs(player.vx) > 20 ? 'run' : 'idle');
-        const himg = pose === 'run' && player.runFrame === 0 && images.run ? images.run : (images.idle || images.run);
-        if (!drawSprite(himg, player.x, player.y, player.w, player.h, player.facing < 0)) {
-            ctx.fillStyle = '#3e8cde';
-            ctx.fillRect(player.x, player.y + 12, player.w, player.h - 12);
+        const quest = currentQuest();
+        if (quest && quest.type === 'build' && quest.block === dug.kind) {
+            toast('挖到了！选中下面的' + (dug.kind === 'grass' ? '草' : '方块') + '，右键或长按空地铺上去。');
         }
+        if (dug.kind === 'crystal') {
+            session.collectedThis.crystal = (session.collectedThis.crystal || 0) + 1;
+            progress.crystalsTotal = (progress.crystalsTotal || 0) + 1;
+        }
+        persistHome();
+        checkQuests();
+        renderHotbar();
+        renderHud();
+        renderQuests();
+        return true;
+    }
 
-        ctx.restore();
-        if (won) {
-            ctx.fillStyle = 'rgba(30,40,60,.45)';
-            ctx.fillRect(0, 0, VIEW_W, VIEW_H);
-            ctx.fillStyle = '#fff';
-            ctx.font = 'bold 26px sans-serif';
-            ctx.fillText('通关！晶体 ' + crystals, VIEW_W / 2 - 80, VIEW_H / 2);
+    function onPointerDown(e) {
+        const cell = cellAt(e.clientX, e.clientY);
+        if (!cell) return;
+        if (canvas.setPointerCapture) canvas.setPointerCapture(e.pointerId);
+        press = { x: cell.x, y: cell.y, at: performance.now(), button: e.button, placed: false };
+        if (e.button === 2) {
+            e.preventDefault();
+            press.placed = doPlace(cell);
         }
     }
 
-    function loop(ts) {
-        const now = ts || 0;
-        const dt = Math.min(0.033, (now - last) / 1000 || 0.016);
-        last = now;
-        update(dt);
-        draw();
-        requestAnimationFrame(loop);
+    function onPointerMove(e) {
+        hover = cellAt(e.clientX, e.clientY);
+        if (!press || press.placed) return;
+        if (hover && (hover.x !== press.x || hover.y !== press.y)) press = null;
+    }
+
+    function onPointerUp(e) {
+        if (!press) return;
+        const cell = { x: press.x, y: press.y };
+        const held = performance.now() - press.at;
+        const kind = worldApi.getCell(world, cell.x, cell.y);
+        if (!press.placed && e.button !== 2 && held >= LONG_PRESS_MS && worldApi.isPassable(kind) && selectedKind) {
+            doPlace(cell);
+        } else if (!press.placed && e.button !== 2) {
+            doMine(cell);
+        }
+        press = null;
+    }
+
+    function drawTile(kind, dx, dy, size) {
+        const img = images[kind];
+        if (img) {
+            ctx.drawImage(img, dx + 2, dy + 2, size - 4, size - 4);
+            return;
+        }
+        ctx.fillStyle = FILL[kind] || '#ccc';
+        ctx.fillRect(dx + 1, dy + 1, size - 2, size - 2);
+        ctx.strokeStyle = 'rgba(0,0,0,.18)';
+        ctx.strokeRect(dx + 1.5, dy + 1.5, size - 3, size - 3);
+    }
+
+    function actorScreen(actor, b) {
+        return {
+            x: b.x + (actor.x - b.ox) * b.tile + 4,
+            y: b.y + (actor.y - b.oy) * b.tile - Math.floor(b.tile * 0.15),
+            s: b.tile - 8
+        };
+    }
+
+    function inView(cell, b) {
+        return cell && (cell.x - b.ox) >= 0 && (cell.y - b.oy) >= 0
+            && (cell.x - b.ox) < b.cols && (cell.y - b.oy) < b.rows;
+    }
+
+    function respawnFromVoid() {
+        miner = worldApi.spawnCell(world);
+        hp = worldApi.MAX_HP;
+        toast('掉下去了，回到起点。背包还在。');
+        refreshWallet();
+    }
+
+    function isInvincible(now) {
+        return now - lastHitAt < INVINCIBLE_MS;
+    }
+
+    function bumpIfNeeded(now) {
+        creatures.forEach(function (c) {
+            if (c.kind !== 'spark') return;
+            if (!worldApi.sameCell(miner, c)) return;
+            if (isInvincible(now)) return;
+            lastHitAt = now;
+            hp = worldApi.hitMiner(hp, worldApi.BUMP_HP);
+            if (hp <= 0) {
+                miner = worldApi.spawnCell(world);
+                hp = worldApi.MAX_HP;
+                toast('被撞到了，回到起点。背包还在。');
+            } else {
+                toast('躲开晶晶！掉了 1 点生命。');
+            }
+            refreshWallet();
+        });
+    }
+
+    function tryStepMiner(dx, now) {
+        const moved = worldApi.tryMove(world, miner.x, miner.y, dx, 0);
+        if (!moved.ok) return;
+        miner = { x: moved.x, y: moved.y };
+        bumpIfNeeded(now);
+        refreshWallet();
+    }
+
+    function tryJump(now) {
+        if (now < jumpLockUntil) return;
+        const hopped = worldApi.jumpUp(world, miner.x, miner.y, 2);
+        if (!hopped.ok) return;
+        miner = { x: hopped.x, y: hopped.y };
+        jumpLockUntil = now + JUMP_HANG_MS;
+        bumpIfNeeded(now);
+    }
+
+    function tickWorld(now) {
+        if (now >= jumpLockUntil && now - lastFallAt >= FALL_EVERY) {
+            lastFallAt = now;
+            const fall = worldApi.stepFall(world, miner.x, miner.y);
+            if (fall.ok) miner = { x: fall.x, y: fall.y };
+            if (worldApi.isVoid(world, miner.x, miner.y)) respawnFromVoid();
+        }
+        if (now - lastWanderAt >= WANDER_EVERY) {
+            lastWanderAt = now;
+            creatures = creatures.map(function (c) {
+                if (c.kind === 'spark') return c;
+                const next = worldApi.stepWander(world, c, Math.random());
+                next.kind = c.kind;
+                return next;
+            });
+        }
+        if (now - lastChaseAt >= CHASE_EVERY) {
+            lastChaseAt = now;
+            creatures = creatures.map(function (c) {
+                if (c.kind !== 'spark') return c;
+                const next = worldApi.stepChase(world, c, miner);
+                next.kind = c.kind;
+                return next;
+            });
+        }
+        if (now - lastMoveAt >= MOVE_EVERY) {
+            lastMoveAt = now;
+            if (holds.jump) tryJump(now);
+            if (holds.left) tryStepMiner(-1, now);
+            else if (holds.right) tryStepMiner(1, now);
+        }
+        bumpIfNeeded(now);
+        if (worldApi.isVoid(world, miner.x, miner.y)) respawnFromVoid();
+    }
+
+    function drawActor(key, actor, b, now, flash) {
+        const pos = actorScreen(actor, b);
+        if (flash && Math.floor(now / 120) % 2 === 0) return;
+        const img = images[key];
+        if (img) {
+            ctx.drawImage(img, pos.x, pos.y, pos.s, pos.s + 6);
+            return;
+        }
+        ctx.fillStyle = key === 'spark' ? '#7d5cff' : '#f4d27a';
+        ctx.fillRect(pos.x, pos.y, pos.s, pos.s);
+    }
+
+    function draw(now) {
+        const t = Number(now) || 0;
+        tickWorld(t);
+        ctx.clearRect(0, 0, VIEW_W, VIEW_H);
+        if (images.sky) ctx.drawImage(images.sky, 0, 0, VIEW_W, VIEW_H);
+        else {
+            ctx.fillStyle = '#8fd3f4';
+            ctx.fillRect(0, 0, VIEW_W, VIEW_H);
+        }
+        const b = board();
+        for (let vy = 0; vy < b.rows; vy += 1) {
+            for (let vx = 0; vx < b.cols; vx += 1) {
+                const x = vx + b.ox;
+                const y = vy + b.oy;
+                const kind = world.grid[y][x];
+                const dx = b.x + vx * b.tile;
+                const dy = b.y + vy * b.tile;
+                if (kind === 'air') {
+                    ctx.fillStyle = 'rgba(255,255,255,.08)';
+                    ctx.fillRect(dx, dy, b.tile, b.tile);
+                } else drawTile(kind, dx, dy, b.tile);
+            }
+        }
+        if (inView(hover, b)) {
+            ctx.strokeStyle = selectedKind ? '#f0c14a' : '#fff';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(b.x + (hover.x - b.ox) * b.tile + 1, b.y + (hover.y - b.oy) * b.tile + 1, b.tile - 2, b.tile - 2);
+        }
+        if (press && selectedKind && inView(press, b)) {
+            const held = Math.min(1, (t - press.at) / LONG_PRESS_MS);
+            ctx.fillStyle = 'rgba(240,193,74,' + (0.2 + held * 0.45) + ')';
+            ctx.fillRect(b.x + (press.x - b.ox) * b.tile + 2, b.y + (press.y - b.oy) * b.tile + 2, (b.tile - 4) * held, b.tile - 4);
+        }
+        creatures.forEach(function (c) {
+            const key = c.kind === 'spark' ? 'spark' : 'lamb';
+            drawActor(key, c, b, t, false);
+        });
+        drawActor('miner', miner, b, t, isInvincible(t));
+        requestAnimationFrame(draw);
+    }
+
+    function setHold(name, on) {
+        if (!Object.prototype.hasOwnProperty.call(holds, name)) return;
+        holds[name] = !!on;
+    }
+
+    function resetHome() {
+        world = worldApi.createDefaultWorld(Date.now() % 97);
+        inventory = worldApi.emptyInv();
+        session = { placedThis: {}, placedAnyThis: 0, collectedThis: {} };
+        selectedKind = null;
+        tool = 'hand';
+        seedStarterQuestItems();
+        spawnActors();
+        persistHome();
+        renderHotbar();
+        renderHud();
+        renderQuests();
+        toast('家园刷新了，任务进度还在。');
     }
 
     function bind() {
+        canvas.addEventListener('pointerdown', onPointerDown);
+        canvas.addEventListener('pointermove', onPointerMove);
+        canvas.addEventListener('pointerup', onPointerUp);
+        canvas.addEventListener('pointercancel', function () { press = null; });
+        canvas.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+        canvas.addEventListener('mouseleave', function () { hover = null; });
+        document.querySelectorAll('[data-hold]').forEach(function (button) {
+            const name = button.getAttribute('data-hold');
+            button.addEventListener('pointerdown', function (e) {
+                e.preventDefault();
+                setHold(name, true);
+            });
+            button.addEventListener('pointerup', function () { setHold(name, false); });
+            button.addEventListener('pointerleave', function () { setHold(name, false); });
+            button.addEventListener('pointercancel', function () { setHold(name, false); });
+        });
         window.addEventListener('keydown', function (e) {
-            const k = e.key.toLowerCase();
-            if (k === 'a' || k === 'arrowleft') input.left = true;
-            if (k === 'd' || k === 'arrowright') input.right = true;
-            if (k === 'w' || k === 'arrowup' || k === ' ') { input.jump = true; e.preventDefault(); }
+            if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') setHold('left', true);
+            if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') setHold('right', true);
+            if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W' || e.key === ' ') {
+                e.preventDefault();
+                setHold('jump', true);
+            }
         });
         window.addEventListener('keyup', function (e) {
-            const k = e.key.toLowerCase();
-            if (k === 'a' || k === 'arrowleft') input.left = false;
-            if (k === 'd' || k === 'arrowright') input.right = false;
+            if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') setHold('left', false);
+            if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') setHold('right', false);
+            if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W' || e.key === ' ') setHold('jump', false);
         });
-        document.querySelectorAll('[data-hold]').forEach(function (button) {
-            const dir = button.dataset.hold;
-            const set = function (v) {
-                if (dir === 'left') input.left = v;
-                if (dir === 'right') input.right = v;
-            };
-            button.addEventListener('pointerdown', function (e) { set(true); button.setPointerCapture(e.pointerId); });
-            button.addEventListener('pointerup', function () { set(false); });
-            button.addEventListener('pointercancel', function () { set(false); });
-        });
-        document.querySelector('[data-action="jump"]').addEventListener('click', function () { input.jump = true; });
-        document.getElementById('restart-btn').addEventListener('click', resetRun);
-        document.getElementById('back-map-btn').addEventListener('click', showMap);
-        document.getElementById('map-btn').addEventListener('click', showMap);
+        document.getElementById('reset-btn').addEventListener('click', resetHome);
+        const hudRefresh = document.getElementById('hud-refresh');
+        if (hudRefresh) hudRefresh.addEventListener('click', resetHome);
         document.getElementById('fullscreen-btn').addEventListener('click', function () {
             const r = document.documentElement;
             if (!document.fullscreenElement) (r.requestFullscreen || function () {}).call(r);
@@ -385,12 +648,8 @@
         document.getElementById('back-link').href = bridge.backHref('voxel-adventure');
     }
 
-    // 兼容旧 CSS 类名
-    if (!document.querySelector('.stage-map') && document.getElementById('level-map')) {
-        document.getElementById('level-map').classList.add('stage-map');
-    }
-
     loadProgress();
+    if (!world) world = worldApi.createDefaultWorld(3);
     if (bridge.recordPlaySession) {
         const play = bridge.recordPlaySession(GAME_ID);
         if (play && play.awards && play.awards.length) {
@@ -398,8 +657,26 @@
         }
     }
     bind();
-    loadAssets().then(function () {
-        showMap();
-        requestAnimationFrame(loop);
+    Promise.all([
+        loadImage('grass', ASSET.grass),
+        loadImage('dirt', ASSET.dirt),
+        loadImage('stone', ASSET.stone),
+        loadImage('wood', ASSET.wood),
+        loadImage('plank', ASSET.plank),
+        loadImage('crystal', ASSET.crystal),
+        loadImage('water', ASSET.water),
+        loadImage('bedrock', ASSET.bedrock),
+        loadImage('miner', ASSET.miner),
+        loadImage('spark', ASSET.spark),
+        loadImage('lamb', ASSET.lamb),
+        loadImage('sky', ASSET.sky)
+    ]).then(function () {
+        renderHotbar();
+        renderHud();
+        renderQuests();
+        if (selectedKind === 'grass' && (progress.questsDone || []).indexOf('q1') === -1) {
+            toast('左键点树和草就能砍进背包。选中草后，右键或长按空地铺路。');
+        }
+        requestAnimationFrame(draw);
     });
-})();
+}());

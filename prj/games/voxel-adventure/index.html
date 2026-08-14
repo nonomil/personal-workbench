@@ -3,60 +3,60 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="theme-color" content="#2c315c">
-    <title>方块世界 · 史蒂夫横版</title>
+    <meta name="theme-color" content="#5dade2">
+    <title>方块世界</title>
     <link rel="stylesheet" href="../shared/growth-hud.css">
-    <link rel="stylesheet" href="./game.css">
+    <link rel="stylesheet" href="./game.css?v=20260814-islands-v1">
 </head>
-<body data-world-game="voxel-adventure">
-    <header class="world-bar">
+<body data-world-game="voxel-adventure" class="mc-world">
+    <header class="world-bar mc-top">
         <div class="world-bar-copy">
-            <span class="kicker">STEVE · SIDE SCROLL · COMBAT</span>
+            <span class="kicker">家园</span>
             <h1>方块世界</h1>
-            <p>史蒂夫横版过关：跑跳、踩怪、收集晶体。进度写回工作台。</p>
+            <p id="quest-title">点击挖矿 · 右键或长按放置</p>
         </div>
         <div class="growth-hud" id="wallet-hud"></div>
         <div class="world-bar-actions">
-            <button type="button" class="world-tool" id="map-btn">关卡</button>
+            <button type="button" class="world-tool" id="reset-btn">刷新</button>
             <button type="button" class="world-tool" id="fullscreen-btn">全屏</button>
             <a class="world-back" id="back-link" href="../../preschool-workbench/index.html?theme=voxel-adventure#overview">返回工作台</a>
         </div>
     </header>
-    <main class="world-shell">
-        <section class="world-panel" id="panel-map">
-            <h2 class="panel-title">方块关卡 · 共 8 关</h2>
-            <div class="stage-map" id="level-map"></div>
-        </section>
-        <section class="world-panel is-hidden" id="panel-play">
-            <div class="play-meta">
-                <strong id="level-title">第 1 关</strong>
-                <span>晶体 <b id="crystal-count">0</b></span>
+    <main class="world-shell mc-stage">
+        <section class="world-panel mc-panel">
+            <div class="play-meta is-hidden">
+                <span>进度 <b id="quest-count">0</b>/<b id="quest-need">8</b></span>
                 <span>状态 <b id="run-status">准备</b></span>
             </div>
-            <canvas id="world-canvas" width="960" height="480" aria-label="史蒂夫横版"></canvas>
-            <p class="hint">方向键/WASD 移动，空格跳跃。踩扁绿色怪物，收集晶体，冲向终点旗。</p>
-            <div class="control-row">
-                <button type="button" data-hold="left">左跑</button>
-                <button type="button" data-action="jump">跳跃</button>
-                <button type="button" data-hold="right">右跑</button>
-                <button type="button" id="restart-btn">重开</button>
-                <button type="button" id="back-map-btn">地图</button>
+            <div class="mc-view">
+                <canvas id="world-canvas" width="960" height="540" aria-label="方块家园"></canvas>
+                <div class="mc-hud">
+                    <div class="control-row" id="move-pad">
+                        <button type="button" data-hold="left" aria-label="左">◀</button>
+                        <button type="button" data-hold="right" aria-label="右">▶</button>
+                        <button type="button" data-hold="jump" aria-label="跳">▲</button>
+                    </div>
+                    <button type="button" class="mc-refresh" id="hud-refresh">刷新</button>
+                    <p class="hint mc-hint" id="message-tip">点击挖矿 | 右键/长按放置</p>
+                    <div class="mc-stats">
+                        <span>背包物品 <b id="bag-count">0</b></span>
+                        <span>坐标 <b id="coord-label">0,0</b></span>
+                    </div>
+                </div>
             </div>
+            <div class="hotbar" id="hotbar" aria-label="工具和背包"></div>
+            <p class="mc-footer">你的方块主世界 / Overworld — WASD 移动 | 空格跳跃 | 鼠标左键挖矿 | 右键/长按放置</p>
         </section>
-        <aside class="world-side">
-            <h2>史蒂夫冒险</h2>
-            <ul>
-                <li>踩怪可以消灭敌人</li>
-                <li>碰到侧面会重来</li>
-                <li>晶体可带回工作台进度</li>
-            </ul>
+        <aside class="world-side mc-quests">
+            <h2>任务</h2>
+            <div class="quest-list" id="quest-list"></div>
             <p class="tip" id="progress-tip">加载中…</p>
         </aside>
     </main>
     <div class="toast-game" id="toast"></div>
     <script src="../shared/workbench-bridge.js"></script>
-    <script src="./data/quests.js"></script>
-    <script src="./data/levels.js"></script>
-    <script src="./game.js"></script>
+    <script src="./data/quests.js?v=20260814-mc-v1"></script>
+    <script src="./data/world.js?v=20260814-islands-v1"></script>
+    <script src="./game.js?v=20260814-islands-v1"></script>
 </body>
 </html>

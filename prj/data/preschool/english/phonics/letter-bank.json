@@ -1,0 +1,314 @@
+[
+  {
+    "id": "letter-a",
+    "letter": "a",
+    "sound": "a",
+    "keyword": "apple",
+    "group": "amt",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "letter-b",
+    "letter": "b",
+    "sound": "b",
+    "keyword": "bat",
+    "group": "fb",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "letter-c",
+    "letter": "c",
+    "sound": "c",
+    "keyword": "cat",
+    "group": "alpha",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "letter-d",
+    "letter": "d",
+    "sound": "d",
+    "keyword": "dog",
+    "group": "alpha",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "letter-e",
+    "letter": "e",
+    "sound": "e",
+    "keyword": "egg",
+    "group": "alpha",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "letter-f",
+    "letter": "f",
+    "sound": "f",
+    "keyword": "fan",
+    "group": "fb",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "letter-g",
+    "letter": "g",
+    "sound": "g",
+    "keyword": "goat",
+    "group": "alpha",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "letter-h",
+    "letter": "h",
+    "sound": "h",
+    "keyword": "hat",
+    "group": "alpha",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "letter-i",
+    "letter": "i",
+    "sound": "i",
+    "keyword": "igloo",
+    "group": "alpha",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "letter-j",
+    "letter": "j",
+    "sound": "j",
+    "keyword": "jam",
+    "group": "alpha",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "letter-k",
+    "letter": "k",
+    "sound": "k",
+    "keyword": "kite",
+    "group": "alpha",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "letter-l",
+    "letter": "l",
+    "sound": "l",
+    "keyword": "leaf",
+    "group": "alpha",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "letter-m",
+    "letter": "m",
+    "sound": "m",
+    "keyword": "map",
+    "group": "amt",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "letter-n",
+    "letter": "n",
+    "sound": "n",
+    "keyword": "net",
+    "group": "alpha",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "letter-o",
+    "letter": "o",
+    "sound": "o",
+    "keyword": "octopus",
+    "group": "alpha",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "letter-p",
+    "letter": "p",
+    "sound": "p",
+    "keyword": "pan",
+    "group": "alpha",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "letter-q",
+    "letter": "q",
+    "sound": "q",
+    "keyword": "queen",
+    "group": "alpha",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "letter-r",
+    "letter": "r",
+    "sound": "r",
+    "keyword": "rat",
+    "group": "alpha",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "letter-s",
+    "letter": "s",
+    "sound": "s",
+    "keyword": "sun",
+    "group": "alpha",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "letter-t",
+    "letter": "t",
+    "sound": "t",
+    "keyword": "tap",
+    "group": "amt",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "letter-u",
+    "letter": "u",
+    "sound": "u",
+    "keyword": "umbrella",
+    "group": "alpha",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "letter-v",
+    "letter": "v",
+    "sound": "v",
+    "keyword": "van",
+    "group": "alpha",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "letter-w",
+    "letter": "w",
+    "sound": "w",
+    "keyword": "web",
+    "group": "alpha",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "letter-x",
+    "letter": "x",
+    "sound": "x",
+    "keyword": "box",
+    "group": "alpha",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "letter-y",
+    "letter": "y",
+    "sound": "y",
+    "keyword": "yellow",
+    "group": "alpha",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "letter-z",
+    "letter": "z",
+    "sound": "z",
+    "keyword": "zip",
+    "group": "alpha",
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  }
+]

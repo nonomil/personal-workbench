@@ -3,6 +3,11 @@
 Thumbs.db
 .vscode/
 .idea/
+.cursor/
+
+# Python bytecode
+__pycache__/
+*.pyc
 
 # Local preview and temporary output
 tmp/
@@ -26,3 +31,9 @@ ios/
 
 # Local cleanup archive (old-project worktree backups, 2026-08-06)
 personal-workbench-cleanup-20260806/
+
+# Downloaded badge-system reference clones
+docs/徽章系统/refs/
+
+# Downloaded learning-game reference clones
+docs/学习项目设计/refs/

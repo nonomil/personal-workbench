@@ -46,10 +46,24 @@ test('keeps three mini-game worlds in a separate games folder from workbench she
   assert.match(garden, /preschool-garden\.js/);
   assert.doesNotMatch(voxel, /preschool-garden\.js|renderPreschoolBattle|pixel-battle/);
   assert.doesNotMatch(platform, /preschool-garden\.js|renderPreschoolBattle|pixel-battle/);
-  assert.match(gardenScript, /placeDefensePlant|spawnInvader|usePlantSkill/);
-  assert.match(gardenScript, /boardMetrics|cell|技能|阳光/);
-  assert.match(voxelScript, /jump|crystal|enemy|steve|platform|run/i);
+  assert.match(gardenScript, /placeDefensePlant|tickDefense|spawnDefenseWave/);
+  assert.match(gardenScript, /boardMetrics|lawnFromEvent|阳光/);
+  assert.match(gardenScript, /任意种植|lawnFromEvent/);
+  assert.match(gardenScript, /function collectSun|spawnSkySun/);
+  assert.doesNotMatch(gardenScript, /function useSkill/);
+  assert.doesNotMatch(gardenScript, /fillRect\(x \+ 1, y \+ 1, m\.cell - 2/);
+  assert.match(voxelScript, /quest|inventory|breakBlock|placeBlock/i);
+  assert.match(voxelScript, /isPassable|stepChase|MAX_HP/);
+  assert.match(voxel, /点击挖矿|右键\/长按放置/);
+  assert.match(voxelScript, /mineBlock|点击挖矿|长按放置/);
+  assert.match(voxelScript, /VIEW_COLS|isVoid|掉下去了/);
+  assert.doesNotMatch(voxelScript, /Creeper|Steve|苦力怕/);
+  assert.doesNotMatch(voxel, /冲旗/);
   assert.match(platformScript, /jump|coin|flag|platform|run|idle|ground/i);
+  assert.match(platformScript, /coyote|jumpBuffer|tryJump|COYOTE_MS/i);
+  assert.match(platformScript, /isInvincible|canAirJump|INVINCIBLE_MS/);
+  assert.doesNotMatch(platform, /Mario|马里奥|Goomba|Koopa/);
+  assert.doesNotMatch(platformScript, /Mario|马里奥|Goomba|Koopa/);
 });
 
 test('preschool workbench routes all three themes to independent world games', () => {

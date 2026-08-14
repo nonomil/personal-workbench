@@ -6,14 +6,14 @@
     <meta name="theme-color" content="#e54139">
     <title>横版闯关 · 成长关卡</title>
     <link rel="stylesheet" href="../shared/growth-hud.css">
-    <link rel="stylesheet" href="./game.css">
+    <link rel="stylesheet" href="./game.css?v=20260814-play-v3">
 </head>
 <body data-world-game="platform-quest">
     <header class="world-bar">
         <div class="world-bar-copy">
-            <span class="kicker">MARIO-STYLE · PLATFORM</span>
+            <span class="kicker">闯关</span>
             <h1>横版闯关</h1>
-            <p>马里奥风主角：吃金币、踩怪、冲旗。地面连续铺设，通关阳光写回工作台。</p>
+            <p>跑、跳、吃金币、冲旗。</p>
         </div>
         <div class="growth-hud" id="wallet-hud"></div>
         <div class="world-bar-actions">
@@ -24,40 +24,42 @@
     </header>
     <main class="world-shell">
         <section class="world-panel" id="panel-map">
-            <h2 class="panel-title">冒险地图 · 10 关</h2>
+            <h2 class="panel-title">选关 · 10</h2>
             <div class="stage-map" id="level-map"></div>
         </section>
         <section class="world-panel is-hidden" id="panel-play">
             <div class="play-meta">
                 <strong id="level-title">第 1 关</strong>
                 <span>金币 <b id="coin-count">0</b></span>
-                <span>动作 <b id="pose-label">站立</b></span>
+                <span>姿势 <b id="pose-label">站立</b></span>
                 <span>状态 <b id="run-status">准备</b></span>
             </div>
             <canvas id="world-canvas" width="960" height="480" aria-label="横版闯关画布"></canvas>
-            <p class="hint">方向键 / WASD 移动，空格跳跃。触屏用下方按钮。</p>
+            <p class="hint">左跑、右跑、跳（可二段跳）、按住奔跑。碰到会闪一下，掉坑回到刚才的地方。</p>
             <div class="control-row">
                 <button type="button" data-hold="left">左跑</button>
                 <button type="button" data-action="jump">跳跃</button>
                 <button type="button" data-hold="right">右跑</button>
+                <button type="button" data-hold="run">奔跑</button>
                 <button type="button" id="restart-btn">重开</button>
                 <button type="button" id="back-map-btn">地图</button>
             </div>
         </section>
         <aside class="world-side">
-            <h2>成长环</h2>
+            <h2>怎么玩</h2>
             <ul>
-                <li>通关解锁下一关</li>
-                <li>金币与三星影响奖励</li>
-                <li>阳光进入工作台账本</li>
-                <li>idle / 跑 / 跳 动作切换</li>
+                <li>踩怪</li>
+                <li>吃金币</li>
+                <li>冲到旗</li>
+                <li>空中再跳一次</li>
             </ul>
             <p class="tip" id="progress-tip">加载中…</p>
         </aside>
     </main>
     <div class="toast-game" id="toast"></div>
     <script src="../shared/workbench-bridge.js"></script>
-    <script src="./data/levels.js"></script>
-    <script src="./game.js"></script>
+    <script src="./data/physics.js?v=20260814-play-v3"></script>
+    <script src="./data/levels.js?v=20260814-play-v3"></script>
+    <script src="./game.js?v=20260814-play-v3"></script>
 </body>
 </html>

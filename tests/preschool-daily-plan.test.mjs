@@ -30,8 +30,8 @@ test('seeds three core preschool actions and three optional actions', () => {
     ['preschool-plan-story', 'preschool-plan-count', 'preschool-plan-hello']
   );
   assert.equal(plans.find(item => item.id === 'preschool-plan-story').practiceLessonId, 'preschool-chinese-1');
-  assert.equal(plans.find(item => item.id === 'preschool-plan-draw').practiceLessonId, 'preschool-english-phonics-1');
-  assert.equal(plans.find(item => item.id === 'preschool-plan-move').practiceLessonId, '');
+  assert.equal(plans.find(item => item.id === 'preschool-plan-draw').practiceLessonId, 'preschool-english-words-1');
+  assert.equal(plans.find(item => item.id === 'preschool-plan-move').practiceLessonId, 'preschool-exercise-1');
   assert.equal(plans.find(item => item.id === 'preschool-plan-story').completionSource, 'seed');
   assert.equal(plans.find(item => item.id === 'preschool-plan-story').completionRewardId, '');
   assert.equal(plans.find(item => item.id === 'preschool-plan-count').completionSource, '');
@@ -47,7 +47,7 @@ test('adds required flags to legacy plans without changing completion state', ()
     tasks: [],
     dailyPlans: [
       { id: 'preschool-plan-story', date: today, title: '旧识字标题', done: true },
-      { id: 'preschool-plan-draw', date: today, title: '旧英语标题', done: false }
+      { id: 'preschool-plan-draw', date: today, title: '旧英语标题', done: false, practiceLessonId: 'preschool-english-phonics-1' }
     ]
   });
   const story = state.dailyPlans.find(item => item.id === 'preschool-plan-story');
@@ -57,7 +57,7 @@ test('adds required flags to legacy plans without changing completion state', ()
   assert.equal(story.practiceLessonId, 'preschool-chinese-1');
   assert.equal(optional.required, false);
   assert.equal(optional.done, false);
-  assert.equal(optional.practiceLessonId, 'preschool-english-phonics-1');
+  assert.equal(optional.practiceLessonId, 'preschool-english-words-1');
   assert.equal(story.completionSource, '');
   assert.equal(story.completionRewardId, '');
   assert.equal(optional.completionSource, '');

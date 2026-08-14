@@ -2,13 +2,23 @@
     'use strict';
 
     /**
-     * 花园保卫 · 种植 + 技能发射（非自动多僵尸塔防）
-     * 规则：selectPlant / placeDefensePlant / spawnInvader / usePlantSkill
+     * 花园保卫 · 种植物后豌豆自己发射（接近原版循环）
+     * 规则：selectPlant / placeDefensePlant / spawnDefenseWave / tickDefense
+     * 循环参考 G:/StudyCode/pvz-refs/PlantsVsZombiesJS（MIT）：同路才打、子弹平移、点阳光。
+     * 画面只用本仓 preschool-pvz-2d，不拷参考仓贴图。
      */
     const bridge = window.WorkbenchGameBridge;
     const garden = window.PersonalWorkbenchPreschoolGarden;
     const stagesApi = window.GardenDefenseStages;
     const GAME_ID = 'garden-defense';
+    const TICK_MS = 720;
+    const WALK_LURCH = 0.28;
+    const FIRST_WAVE_MS = 2800;
+    const NEXT_WAVE_MS = 1800;
+    let plantsLost = 0;
+    let lastPlantCount = 0;
+    let plantedAt = 0;
+    let wavePauseUntil = 0;
 
     const canvas = document.getElementById('world-canvas');
     const ctx = canvas.getContext('2d');
@@ -23,12 +33,18 @@
     const ASSETS = {
         bg: BG0,
         'bg-day': LOCAL + 'bg/lawn-day.png',
+        'bg-sunset': LOCAL + 'bg/lawn-sunset.png',
+        'bg-night': LOCAL + 'bg/lawn-night.png',
+        'zombie-walk-01': PVZ + 'pvz-zombie-walk-01.png',
+        'zombie-walk-02': PVZ + 'pvz-zombie-walk-02.png',
+        'zombie-walk-03': PVZ + 'pvz-zombie-walk-03.png',
+        'zombie-walk-04': PVZ + 'pvz-zombie-walk-04.png',
         sun: PVZ + 'pvz-sun-token.png',
         'plant-sunflower': PVZ + 'pvz-sunflower.png',
-        'plant-peashooter': PVZ + 'pvz-peashooter.png',
+        'plant-peashooter': PVZ + 'pvz-peashooter.png?v=20260814-pea-v2',
         'plant-wallnut': PVZ + 'pvz-wallnut.png',
         'plant-snowpea': PVZ + 'pvz-iceflower.png',
-        'plant-cherrybomb': PVZ + 'pvz-triple-peashooter.png',
+        'plant-cherrybomb': PVZ + 'pvz-cherrybomb.png',
         'zombie-basic': PVZ + 'pvz-zombie-basic.png',
         'zombie-conehead': PVZ + 'pvz-zombie-conehead.png',
         'zombie-buckethead': PVZ + 'pvz-zombie-buckethead.png'
@@ -37,11 +53,15 @@
     const images = {};
     let progress = null;
     let currentStage = null;
-    let stageKills = 0;
     let selectedPlantId = 'plant-sunflower';
-    let hoverCell = null;
+    let hoverPoint = null;
     let animPhase = 0;
-    let peaAnim = null; // {x0,y0,x1,y1,t}
+    let settled = false;
+    let lastDefenseTick = 0;
+    let enterAt = 0;
+    let lastSkySunAt = 0;
+    let skySuns = [];
+    let autoWaveTried = false;
 
     const els = {
         wallet: document.getElementById('wallet-hud'),
@@ -59,8 +79,7 @@
         progressTip: document.getElementById('progress-tip'),
         toast: document.getElementById('toast'),
         stageCount: document.getElementById('stage-count'),
-        back: document.getElementById('back-link'),
-        skillBtn: document.getElementById('skill-btn')
+        back: document.getElementById('back-link')
     };
 
     function toast(msg) {
@@ -81,6 +100,12 @@
 
     function loadAll() {
         return Promise.all(Object.keys(ASSETS).map(function (k) { return loadImg(k, ASSETS[k]); }));
+    }
+
+    function bgKeyForStage(stage) {
+        // lawn-night.png 是俯视花园+垫子，不能当战场；偶数关白天，奇数关黄昏。
+        const id = Number(stage && stage.id) || 1;
+        return id % 2 === 0 ? 'bg-day' : 'bg-sunset';
     }
 
     function growthState() {
@@ -118,44 +143,69 @@
         stagesApi.list.forEach(function (stage) {
             const locked = stage.id > progress.unlockedStage;
             const cleared = progress.clearedStages.indexOf(stage.id) !== -1;
+            const current = stage.id === progress.unlockedStage && !cleared;
+            const stars = Math.max(0, Math.min(3, Number(progress.stars[stage.id]) || (cleared ? 1 : 0)));
             const btn = document.createElement('button');
             btn.type = 'button';
-            btn.className = 'stage-card' + (locked ? ' is-locked' : '');
+            btn.className = 'stage-card' + (locked ? ' is-locked' : '') + (current ? ' is-current' : '') + (cleared ? ' is-cleared' : '');
             btn.disabled = locked;
-            btn.innerHTML = `<div>第 ${stage.id} 关 · ${stage.title}</div>` +
-                `<small>${stage.blurb}</small>` +
-                `<small>${cleared ? '已通关' : locked ? '未解锁' : '可挑战'} · 击退 ${stage.needKills} 只 · 奖 ${stage.rewardSun} 阳光</small>`;
+            btn.setAttribute('aria-label', locked ? '第 ' + stage.id + ' 关未解锁' : '第 ' + stage.id + ' 关');
+            const thumb = document.createElement('span');
+            thumb.className = 'stage-thumb';
+            const num = document.createElement('b');
+            num.className = 'stage-num';
+            num.textContent = String(stage.id);
+            thumb.appendChild(num);
+            if (locked) {
+                const lock = document.createElement('span');
+                lock.className = 'stage-lock';
+                lock.setAttribute('aria-hidden', 'true');
+                thumb.appendChild(lock);
+            }
+            btn.appendChild(thumb);
+            const starRow = document.createElement('span');
+            starRow.className = 'stage-stars';
+            starRow.textContent = locked ? '' : ('★★★'.slice(0, stars) + '☆☆☆'.slice(stars));
+            btn.appendChild(starRow);
             if (!locked) btn.addEventListener('click', function () { enterStage(stage.id); });
             els.map.appendChild(btn);
         });
-        els.progressTip.textContent = `解锁第 ${progress.unlockedStage} 关 · 通关 ${progress.clearedStages.length} 关`;
+        els.progressTip.textContent = progress.clearedStages.length + ' / ' + stagesApi.count;
         refreshWallet();
     }
 
     function showMap() {
+        document.body.classList.add('is-picking');
         els.panelMap.classList.remove('is-hidden');
         els.panelPlay.classList.add('is-hidden');
         renderMap();
     }
 
     function showPlay() {
+        document.body.classList.remove('is-picking');
         els.panelMap.classList.add('is-hidden');
         els.panelPlay.classList.remove('is-hidden');
     }
 
     function enterStage(id) {
         currentStage = stagesApi.get(id);
-        stageKills = 0;
+        settled = false;
+        lastDefenseTick = 0;
+        enterAt = performance.now();
+        lastSkySunAt = 0;
+        skySuns = [];
+        autoWaveTried = false;
+        plantedAt = 0;
+        wavePauseUntil = 0;
+        plantsLost = 0;
+        lastPlantCount = 0;
         const state = growthState();
         let g = state.growth;
-        // 给本关能量与开局阳光
         const metaBonus = (bridge.getMetaBonuses && bridge.getMetaBonuses()) || {};
         g.garden.defenseEnergy = Math.max(Number(g.garden.defenseEnergy) || 0, currentStage.startEnergy || 2);
         g.sunlight = Math.max(0, Number(g.sunlight) || 0) + (metaBonus.gardenStartSun || 0);
-        // 清空本关种植盘，方便重玩
-        g.garden.defense = garden.createDefaultDefense
-            ? garden.createDefaultDefense()
-            : { version: 1, board: { lanes: 5, columns: 6 }, plants: [], zombies: [], projectiles: [], selectedPlantId: 'plant-sunflower', wave: 0, nextEntityId: 1, tick: 0, defeated: 0, status: 'ready', startedAt: '' };
+        const started = garden.startDefenseGame(g, bridge.today());
+        g = started.growth;
         g.garden.invader = Object.assign(g.garden.invader || {}, {
             active: false, health: 3, maxHealth: 3, wave: 0, blockedTurns: 0, slowedTurns: 0, lastEffect: ''
         });
@@ -169,11 +219,11 @@
         selectedPlantId = 'plant-sunflower';
         commitGrowth(g);
 
-        els.stageTitle.textContent = `第 ${currentStage.id} 关 · ${currentStage.title}`;
-        els.stageBlurb.textContent = currentStage.blurb;
-        els.killNeed.textContent = String(currentStage.needKills);
+        els.stageTitle.textContent = '第 ' + currentStage.id + ' 关';
+        els.stageBlurb.textContent = currentStage.blurb || '';
+        els.killNeed.textContent = String(currentStage.waves || 1);
         els.killCount.textContent = '0';
-        els.tip.textContent = '选植物种在草坪上，再「来一波僵尸」，然后「使用技能」。';
+        els.tip.textContent = '选种子点草坪种下。豌豆会自己发射，点掉下来的阳光。';
         showPlay();
         renderSeeds();
         renderHud();
@@ -201,62 +251,205 @@
                 commitGrowth(r.growth);
                 selectedPlantId = plant.id;
                 renderSeeds();
-                updateSkillButton();
-                els.tip.textContent = `已选 ${plant.title}：${plant.skillDescription || plant.description}`;
+                els.tip.textContent = `已选 ${plant.title}：点草坪种下，有僵尸时会自己发射。`;
             });
             els.seeds.appendChild(btn);
         });
-        updateSkillButton();
     }
 
-    function updateSkillButton() {
-        const g = growthState().growth;
-        const plant = (garden.PLANT_CATALOG || []).find(function (p) { return p.id === g.garden.activePlantId; }) || {};
-        const inv = g.garden.invader || {};
-        let label = plant.skillTitle || '使用技能';
-        if (plant.skill === 'sunlight') label = '收集阳光';
-        else if (plant.skill === 'block') label = '坚果挡住';
-        else if (inv.active) label = (plant.skillTitle || '发射') + (plant.energyCost ? ` (${plant.energyCost}能量)` : '');
-        else label = '先召唤僵尸';
-        els.skillBtn.textContent = label;
+    function statusLabel(defense) {
+        if (!defense) return '准备';
+        if (defense.status === 'lost') return '失败';
+        if (defense.status === 'won') return '胜利';
+        if ((defense.zombies || []).length) return '战斗中';
+        if (defense.wave > 0) return '清场';
+        return '准备';
     }
 
     function renderHud() {
         const g = growthState().growth;
-        const inv = g.garden.invader || {};
+        const defense = g.garden.defense || {};
         els.energy.textContent = String(g.garden.defenseEnergy || 0);
-        els.killCount.textContent = String(stageKills);
-        if (currentStage) els.killNeed.textContent = String(currentStage.needKills);
-        els.status.textContent = inv.active ? `战斗中 HP ${inv.health}/${inv.maxHealth}` : '准备';
-        updateSkillButton();
+        els.killCount.textContent = String(defense.wave || 0);
+        if (currentStage) els.killNeed.textContent = String(currentStage.waves || 1);
+        els.status.textContent = statusLabel(defense);
         refreshWallet();
     }
 
     function boardMetrics() {
-        const lanes = 5, columns = 6;
-        const marginX = 56, marginTop = 40, marginBottom = 30;
-        const usableW = VIEW_W - marginX * 2;
-        const usableH = VIEW_H - marginTop - marginBottom;
-        let cell = Math.floor(Math.min(usableW / columns, usableH / lanes));
-        cell = Math.max(52, Math.min(cell, 88));
-        const boardW = cell * columns;
-        const boardH = cell * lanes;
+        const lanes = 5;
+        const columns = 6;
+        // 对齐 lawn-day.png 拉到 1080x540 后的草地：天空约上 37%，左右是房子和石路
+        const left = Math.round(VIEW_W * 0.125);
+        const top = Math.round(VIEW_H * 0.375);
+        const right = Math.round(VIEW_W * 0.855);
+        const bottom = VIEW_H - 6;
+        const width = right - left;
+        const height = bottom - top;
+        const laneH = height / lanes;
+        const plantH = Math.min(laneH * 1.12, 92);
+        const plantW = plantH * 0.72;
+        const zombieH = Math.min(laneH * 0.94, 72);
+        const zombieW = zombieH * 0.7;
         return {
-            lanes: lanes, columns: columns, cell: cell,
-            left: Math.floor((VIEW_W - boardW) / 2),
-            top: marginTop + Math.floor((usableH - boardH) / 2)
+            lanes: lanes,
+            columns: columns,
+            left: left,
+            top: top,
+            width: width,
+            height: height,
+            laneH: laneH,
+            plantW: plantW,
+            plantH: plantH,
+            zombieW: zombieW,
+            zombieH: zombieH,
+            cell: Math.floor(width / columns)
         };
     }
 
-    function cellFromEvent(event) {
+    function lawnFromEvent(event) {
         const rect = canvas.getBoundingClientRect();
         const x = (event.clientX - rect.left) * (canvas.width / rect.width);
         const y = (event.clientY - rect.top) * (canvas.height / rect.height);
         const m = boardMetrics();
-        const column = Math.floor((x - m.left) / m.cell);
-        const lane = Math.floor((y - m.top) / m.cell);
-        if (lane < 0 || lane >= m.lanes || column < 0 || column >= m.columns) return null;
-        return { lane: lane, column: column };
+        if (x < m.left || x > m.left + m.width || y < m.top || y > m.top + m.height) return null;
+        const nx = (x - m.left) / m.width;
+        const ny = (y - m.top) / m.height;
+        const lane = Math.min(m.lanes - 1, Math.max(0, Math.floor(ny * m.lanes)));
+        const column = Math.max(0, Math.min(m.columns - 1, Math.round(nx * (m.columns - 1))));
+        return { x: nx, y: ny, lane: lane, column: column, px: x, py: y };
+    }
+
+    function clampBoxToLawn(box, m) {
+        const w = Math.min(box.w, m.width);
+        const h = Math.min(box.h, m.laneH);
+        const x = Math.max(m.left, Math.min(m.left + m.width - w, box.x));
+        const y = Math.max(m.top, Math.min(m.top + m.height - h, box.y));
+        return { x: x, y: y, w: w, h: h };
+    }
+
+    function plantScreenBox(plant, m, bob) {
+        const nx = Number.isFinite(Number(plant.x)) ? Number(plant.x) : ((Number(plant.column) + 0.5) / m.columns);
+        const half = m.plantW / 2;
+        const cx = m.left + nx * m.width;
+        const groundY = m.top + (Number(plant.lane) + 1) * m.laneH + (bob || 0);
+        return clampBoxToLawn({ x: cx - half, y: groundY - m.plantH, w: m.plantW, h: m.plantH }, m);
+    }
+
+    function entityBox(lane, nx, m, bob, scale) {
+        const w = m.plantW * (scale || 1);
+        const h = m.plantH * (scale || 1);
+        const cx = m.left + nx * m.width;
+        const groundY = m.top + (Number(lane) + 1) * m.laneH + (bob || 0);
+        return clampBoxToLawn({ x: cx - w / 2, y: groundY - h, w: w, h: h }, m);
+    }
+
+    function zombieScreenBox(zombie, defense, m, frac, bob) {
+        const col = zombieDisplayColumn(defense, zombie, frac);
+        const nx = (col + 0.5) / m.columns;
+        const groundY = m.top + (Number(zombie.lane) + 1) * m.laneH + (bob || 0);
+        const cx = m.left + nx * m.width;
+        return clampBoxToLawn({
+            x: cx - m.zombieW / 2,
+            y: groundY - m.zombieH,
+            w: m.zombieW,
+            h: m.zombieH
+        }, m);
+    }
+
+    function tickFrac(ts) {
+        if (!lastDefenseTick) return 0;
+        return Math.max(0, Math.min(1, ((ts || 0) - lastDefenseTick) / TICK_MS));
+    }
+
+    function zombieIsBlocked(defense, zombie) {
+        return (defense.plants || []).some(function (plant) {
+            return plant.health > 0 && plant.lane === zombie.lane && plant.column === zombie.column - 1;
+        });
+    }
+
+    function lurchAmount(frac) {
+        const window = WALK_LURCH;
+        if (frac <= 0) return 0;
+        if (frac >= window) return 1;
+        const t = frac / window;
+        return t * t * (3 - 2 * t);
+    }
+
+    function idHash(id) {
+        let hash = 0;
+        String(id || '').split('').forEach(function (ch) {
+            hash = (hash * 31 + ch.charCodeAt(0)) | 0;
+        });
+        return Math.abs(hash % 1000) / 1000;
+    }
+
+    function zombieDisplayColumn(defense, zombie, frac) {
+        const rules = (garden.ZOMBIE_RULES || {})[zombie.kind] || { moveEvery: 10 };
+        const every = Math.max(1, Number(rules.moveEvery) || 10);
+        if (zombie.slowTicks > 0 || zombieIsBlocked(defense, zombie)) return Number(zombie.column);
+        const clock = Number(zombie.moveClock) || 0;
+        return Number(zombie.column) - Math.min(1, (clock + lurchAmount(frac)) / every);
+    }
+
+    function spawnSkySun(m) {
+        skySuns.push({
+            x: m.left + 80 + Math.random() * Math.max(40, m.width - 160),
+            y: 18,
+            r: 28,
+            vy: 1.15 + Math.random() * 0.55,
+            amount: 25,
+            born: performance.now()
+        });
+    }
+
+    function collectSun(sun) {
+        if (!sun || !sun.amount) return;
+        const g = growthState().growth;
+        g.sunlight = Math.max(0, Number(g.sunlight) || 0) + sun.amount;
+        commitGrowth(g);
+        skySuns = skySuns.filter(function (item) { return item !== sun; });
+        toast('阳光 +' + sun.amount);
+        renderHud();
+    }
+
+    function sunAtEvent(event) {
+        const rect = canvas.getBoundingClientRect();
+        const x = (event.clientX - rect.left) * (canvas.width / rect.width);
+        const y = (event.clientY - rect.top) * (canvas.height / rect.height);
+        for (let i = skySuns.length - 1; i >= 0; i -= 1) {
+            const sun = skySuns[i];
+            const dx = x - sun.x;
+            const dy = y - sun.y;
+            if (dx * dx + dy * dy <= (sun.r + 10) * (sun.r + 10)) return sun;
+        }
+        return null;
+    }
+
+    function updateSuns(ts, m) {
+        if (settled || els.panelPlay.classList.contains('is-hidden')) return;
+        if (!lastSkySunAt) lastSkySunAt = ts;
+        if (ts - lastSkySunAt > 7000) {
+            lastSkySunAt = ts;
+            spawnSkySun(m);
+        }
+        const floorY = m.top + m.height * 0.78;
+        skySuns = skySuns.filter(function (sun) {
+            if (sun.y < floorY) sun.y += sun.vy;
+            return ts - sun.born < 8000;
+        });
+    }
+
+    function drawSunToken(sun) {
+        const img = images.sun;
+        const size = sun.r * 2;
+        if (img) ctx.drawImage(img, sun.x - sun.r, sun.y - sun.r, size, size);
+        else {
+            ctx.beginPath();
+            ctx.fillStyle = '#f4c430';
+            ctx.arc(sun.x, sun.y, sun.r, 0, Math.PI * 2);
+            ctx.fill();
+        }
     }
 
     function drawSprite(key, boxX, boxY, boxW, boxH) {
@@ -276,15 +469,57 @@
         ctx.drawImage(img, boxX + (boxW - dw) / 2, boxY + (boxH - dh) / 2 + 4, dw, dh);
     }
 
-    function draw() {
+    function drawZombieActor(zombie, box, ts, frac, moving, eating, icy) {
+        const seed = idHash(zombie.id);
+        const speed = icy ? 0.8 : (eating ? 7 : (moving ? 2.1 : 0.55));
+        const phase = ((ts || 0) / 1000) * speed + seed * 6.28;
+        const lurch = moving ? lurchAmount(frac) : 0;
+        ctx.save();
+        ctx.fillStyle = 'rgba(0,0,0,.22)';
+        ctx.beginPath();
+        ctx.ellipse(box.x + box.w * 0.5, box.y + box.h - 3, box.w * 0.28, 6, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.translate(box.x + box.w * 0.5, box.y + box.h);
+        if (icy) ctx.filter = 'hue-rotate(155deg) saturate(0.75)';
+        if (eating) {
+            ctx.rotate(Math.sin(phase) * 0.08);
+            ctx.translate(Math.sin(phase) * -1.6, 0);
+        } else if (moving) {
+            const bounce = Math.sin(lurch * Math.PI) * 4;
+            const lean = 0.04 + lurch * 0.08 + Math.sin(phase) * 0.02;
+            const squash = 1 + Math.sin(lurch * Math.PI) * 0.05;
+            ctx.rotate(lean);
+            ctx.scale(1.03 / squash, squash);
+            ctx.translate(0, -bounce);
+        } else {
+            ctx.rotate(Math.sin(phase) * 0.03);
+            ctx.translate(0, Math.sin(phase) * 1.2);
+        }
+        const walkFrame = moving ? ('zombie-walk-0' + (Math.floor(((ts || 0) / 180) % 4) + 1)) : '';
+        const spriteKey = (zombie.kind === 'zombie-basic' && images[walkFrame]) ? walkFrame : zombie.kind;
+        drawSprite(spriteKey, -box.w / 2, -box.h, box.w, box.h);
+        ctx.restore();
+    }
+
+    function drawHealthBar(box, health, maxHealth) {
+        const barW = box.w * 0.7;
+        const x = box.x + box.w * 0.15;
+        ctx.fillStyle = 'rgba(0,0,0,.25)';
+        ctx.fillRect(x, box.y + 8, barW, 7);
+        ctx.fillStyle = '#e35a3a';
+        ctx.fillRect(x, box.y + 8, barW * (health / Math.max(1, maxHealth)), 7);
+    }
+
+    function draw(ts) {
         if (els.panelPlay.classList.contains('is-hidden')) return;
         const g = growthState().growth;
-        const defense = g.garden.defense || { plants: [] };
-        const inv = g.garden.invader || {};
+        const defense = g.garden.defense || { plants: [], zombies: [], projectiles: [] };
         const m = boardMetrics();
+        const frac = tickFrac(ts);
+        updateSuns(ts, m);
         ctx.clearRect(0, 0, VIEW_W, VIEW_H);
 
-        const bg = images['bg-day'] || images.bg;
+        const bg = images[bgKeyForStage(currentStage)] || images['bg-day'] || images.bg;
         if (bg) ctx.drawImage(bg, 0, 0, VIEW_W, VIEW_H);
         else {
             ctx.fillStyle = '#7ec8f0';
@@ -294,61 +529,50 @@
         }
 
         for (let lane = 0; lane < m.lanes; lane += 1) {
-            for (let col = 0; col < m.columns; col += 1) {
-                const x = m.left + col * m.cell;
-                const y = m.top + lane * m.cell;
-                ctx.fillStyle = (lane + col) % 2 === 0 ? 'rgba(98,168,62,.7)' : 'rgba(82,148,52,.65)';
-                ctx.fillRect(x + 1, y + 1, m.cell - 2, m.cell - 2);
-            }
+            const y = m.top + lane * m.laneH;
+            ctx.fillStyle = lane % 2 === 0 ? 'rgba(255,255,255,.06)' : 'rgba(0,0,0,.05)';
+            ctx.fillRect(m.left, y, m.width, m.laneH);
         }
-        if (hoverCell) {
-            ctx.fillStyle = 'rgba(255,245,140,.4)';
-            ctx.fillRect(m.left + hoverCell.column * m.cell + 1, m.top + hoverCell.lane * m.cell + 1, m.cell - 2, m.cell - 2);
+        if (hoverPoint && !settled) {
+            ctx.globalAlpha = 0.45;
+            const ghost = plantScreenBox({ lane: hoverPoint.lane, x: hoverPoint.x, column: hoverPoint.column }, m, 0);
+            drawSprite(selectedPlantId, ghost.x, ghost.y, ghost.w, ghost.h);
+            ctx.globalAlpha = 1;
         }
 
         (defense.plants || []).forEach(function (plant, i) {
-            const bob = Math.sin(animPhase * 2 + i) * 2;
-            drawSprite(plant.plantId, m.left + plant.column * m.cell, m.top + plant.lane * m.cell + bob, m.cell, m.cell);
+            const bob = Math.sin(animPhase * 2 + i) * 3;
+            const box = plantScreenBox(plant, m, bob);
+            drawSprite(plant.plantId, box.x, box.y, box.w, box.h);
         });
 
-        // 入侵者固定出现在中间行最右侧
-        if (inv.active || (inv.wave && inv.health === 0 && inv.lastEffect === 'defeated')) {
-            const lane = 2;
-            const col = 5;
-            const wobble = inv.active ? Math.sin(animPhase * 3) * 2 : 0;
-            const kind = inv.kind || 'zombie-basic';
-            drawSprite(kind, m.left + col * m.cell + wobble, m.top + lane * m.cell, m.cell, m.cell);
-            if (inv.active) {
-                const barW = m.cell * 0.7;
-                const x = m.left + col * m.cell + m.cell * 0.15;
-                ctx.fillStyle = 'rgba(0,0,0,.25)';
-                ctx.fillRect(x, m.top + lane * m.cell + 6, barW, 6);
-                ctx.fillStyle = '#e35a3a';
-                ctx.fillRect(x, m.top + lane * m.cell + 6, barW * (inv.health / Math.max(1, inv.maxHealth)), 6);
-                if (inv.blockedTurns > 0) {
-                    ctx.fillStyle = '#fff';
-                    ctx.font = 'bold 12px sans-serif';
-                    ctx.fillText('挡住!', x, m.top + lane * m.cell + 22);
-                }
+        (defense.zombies || []).forEach(function (zombie) {
+            const eating = zombieIsBlocked(defense, zombie);
+            const icy = zombie.slowTicks > 0;
+            const moving = !eating && !icy;
+            const box = zombieScreenBox(zombie, defense, m, frac, 0);
+            drawZombieActor(zombie, box, ts, frac, moving, eating, icy);
+            drawHealthBar(box, zombie.health, zombie.maxHealth);
+            if (icy) {
+                ctx.fillStyle = '#7ad7ff';
+                ctx.font = 'bold 14px sans-serif';
+                ctx.fillText('慢!', box.x + 8, box.y + 22);
             }
-        }
+        });
 
-        // 豌豆飞行动画
-        if (peaAnim) {
-            peaAnim.t += 0.08;
-            if (peaAnim.t >= 1) peaAnim = null;
-            else {
-                const t = peaAnim.t;
-                const px = peaAnim.x0 + (peaAnim.x1 - peaAnim.x0) * t;
-                const py = peaAnim.y0 + (peaAnim.y1 - peaAnim.y0) * t;
-                ctx.beginPath();
-                ctx.fillStyle = peaAnim.ice ? '#7ad7ff' : '#9ae24f';
-                ctx.arc(px, py, 10, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
+        (defense.projectiles || []).forEach(function (pea) {
+            const col = Number(pea.column) + frac;
+            const box = entityBox(pea.lane, (col + 0.5) / m.columns, m, 0, 0.45);
+            const px = box.x + box.w * 0.72;
+            const py = box.y + box.h * 0.42;
+            ctx.beginPath();
+            ctx.fillStyle = pea.slowTicks ? '#7ad7ff' : '#9ae24f';
+            ctx.arc(px, py, 11, 0, Math.PI * 2);
+            ctx.fill();
+        });
 
-        // HUD 阳光
+        skySuns.forEach(drawSunToken);
+
         ctx.fillStyle = 'rgba(0,0,0,.35)';
         ctx.fillRect(12, 12, 130, 30);
         ctx.fillStyle = '#fff8c8';
@@ -356,95 +580,81 @@
         ctx.fillText('阳光 ' + (g.sunlight || 0), 20, 32);
     }
 
+    function onPointerDown(event) {
+        const sun = sunAtEvent(event);
+        if (sun) {
+            collectSun(sun);
+            return;
+        }
+        placeAt(event);
+    }
+
     function placeAt(event) {
-        const cell = cellFromEvent(event);
-        if (!cell) return;
+        if (settled) return;
+        const point = lawnFromEvent(event);
+        if (!point) return;
         const g = growthState().growth;
-        const r = garden.placeDefensePlant(g, cell.lane, cell.column);
+        const status = (g.garden.defense || {}).status;
+        if (status === 'lost' || status === 'won') return;
+        const r = garden.placeDefensePlant(g, point.lane, point.column, { x: point.x });
         commitGrowth(r.growth);
-        els.tip.textContent = r.ok ? '种好了！可以召唤僵尸。' : (r.reason || '不能种');
+        els.tip.textContent = r.ok ? '种好了！再种几棵，僵尸马上自己来。' : (r.reason || '不能种');
+        if (r.ok && !plantedAt) plantedAt = performance.now();
         if (!r.ok) toast(r.reason || '不能种');
         renderSeeds();
         renderHud();
     }
 
-    function spawnInvader() {
+    function spawnWave() {
+        if (settled || !currentStage) return;
         const g = growthState().growth;
-        const r = garden.spawnInvader(g, bridge.today());
+        const status = (g.garden.defense || {}).status;
+        if (status === 'lost') return;
+        const r = garden.spawnDefenseWave(g, bridge.today());
         commitGrowth(r.growth);
-        if (r.spawned) {
-            els.tip.textContent = '僵尸来了！选好植物，点「使用技能」。';
+        if (r.ok) {
+            els.tip.textContent = '僵尸来了！同路的豌豆会自己发射。';
             toast('僵尸出现！');
         } else {
-            els.tip.textContent = r.growth.garden.invader.active ? '场上已有僵尸，先使用技能。' : '暂时不能召唤';
+            els.tip.textContent = r.reason || '暂时不能来一波';
+            toast(r.reason || '暂时不能来一波');
         }
         renderHud();
     }
 
-    function useSkill() {
-        const g = growthState().growth;
-        const plant = (garden.PLANT_CATALOG || []).find(function (p) { return p.id === g.garden.activePlantId; }) || {};
-        const m = boardMetrics();
-        const invLane = 2;
-        const invCol = 5;
-        // 找最近的同路植物做发射起点
-        const plants = (g.garden.defense && g.garden.defense.plants) || [];
-        const shooter = plants.filter(function (p) {
-            return p.lane === invLane && (p.plantId === 'plant-peashooter' || p.plantId === 'plant-snowpea' || p.plantId === 'plant-cherrybomb');
-        }).sort(function (a, b) { return b.column - a.column; })[0];
-
-        const r = garden.usePlantSkill(g, bridge.today());
-        commitGrowth(r.growth);
-        if (!r.ok) {
-            toast(r.reason || '不能用');
-            els.tip.textContent = r.reason || '技能失败';
-            renderHud();
+    function afterTick(g) {
+        const defense = g.garden.defense || {};
+        renderHud();
+        const alive = (defense.plants || []).length;
+        if (lastPlantCount && alive < lastPlantCount) plantsLost += lastPlantCount - alive;
+        lastPlantCount = alive;
+        if (defense.status === 'lost') {
+            settled = true;
+            toast('僵尸进家了');
+            els.tip.textContent = '僵尸进家了。可以重开本关，阳光还在。';
+            els.status.textContent = '失败';
             return;
         }
-
-        if (r.effect === 'sunlight') {
-            toast(`向日葵 +${r.amount || 10} 阳光！`);
-            els.tip.textContent = '阳光已到账，可用来种植物。';
-        } else if (r.effect === 'block') {
-            toast('坚果挡住啦！');
-        } else if (r.hit) {
-            // 飞行动画
-            const fromCol = shooter ? shooter.column : 1;
-            peaAnim = {
-                x0: m.left + fromCol * m.cell + m.cell * 0.6,
-                y0: m.top + invLane * m.cell + m.cell * 0.45,
-                x1: m.left + invCol * m.cell + m.cell * 0.3,
-                y1: m.top + invLane * m.cell + m.cell * 0.45,
-                t: 0,
-                ice: r.effect === 'ice-pea'
-            };
-            if (r.defeated) {
-                stageKills += 1;
-                toast(`击退！本关 ${stageKills}/${currentStage.needKills}`);
-                // 每关固定击退奖励（去重：关卡+击退序号）
-                bridge.awardSunlight({
-                    gameId: GAME_ID,
-                    eventKey: 'kill-s' + currentStage.id + '-n' + stageKills,
-                    amount: 2,
-                    reason: '击退僵尸'
-                });
-                if (stageKills >= currentStage.needKills) {
-                    onStageClear();
-                    return;
-                }
-            } else {
-                toast(`命中！伤害 ${r.damage}`);
-            }
+        if (defense.status !== 'won') return;
+        skySuns = [];
+        if (defense.wave >= (currentStage.waves || 1)) {
+            onStageClear();
+            return;
         }
+        wavePauseUntil = performance.now() + NEXT_WAVE_MS;
+        toast('清掉了！下一波马上到，抓紧补种。');
+        els.tip.textContent = '下一波马上到，抓紧补种。';
         renderHud();
-        refreshWallet();
     }
 
-    let clearing = false;
     function onStageClear() {
-        if (clearing || !currentStage) return;
-        clearing = true;
-        const star = Math.min(3, 1 + (stageKills >= currentStage.needKills ? 1 : 0) + 1);
+        if (settled || !currentStage) return;
+        settled = true;
+        let star = 1;
+        if (plantsLost === 0) star += 1;
+        const elapsed = (performance.now() - enterAt) / 1000;
+        if (elapsed <= (currentStage.parSec || 90)) star += 1;
+        star = Math.min(3, star);
         progress.stars[currentStage.id] = Math.max(Number(progress.stars[currentStage.id] || 0), star);
         if (progress.clearedStages.indexOf(currentStage.id) === -1) progress.clearedStages.push(currentStage.id);
         progress.totalWins = (progress.totalWins || 0) + 1;
@@ -468,20 +678,50 @@
         });
         if (bridge.grantProgressPoints) bridge.grantProgressPoints(GAME_ID, 3 + star, 'clear-' + currentStage.id);
         if (bridge.recordPlaySession) bridge.recordPlaySession(GAME_ID);
-        toast(award.awarded ? `通关！+${award.amount} 阳光` : `通关！${award.reason}`);
+        toast(award.awarded ? `通关！★×${star} · +${award.amount} 阳光` : `通关！★×${star} · ${award.reason}`);
         els.status.textContent = '胜利';
         setTimeout(function () {
-            clearing = false;
             showMap();
         }, 1500);
     }
 
+    function maybeAutoWave(ts) {
+        if (settled || !currentStage || !enterAt) return;
+        if (els.panelPlay.classList.contains('is-hidden')) return;
+        const g = growthState().growth;
+        const defense = g.garden.defense || {};
+        if (defense.wave > 0) return;
+        if (!(defense.plants || []).length || !plantedAt) return;
+        if (ts - plantedAt < FIRST_WAVE_MS) return;
+        autoWaveTried = true;
+        spawnWave();
+    }
+
+    function maybeResumeWave(ts) {
+        if (settled || !wavePauseUntil || ts < wavePauseUntil) return;
+        wavePauseUntil = 0;
+        spawnWave();
+    }
+
+    function maybeTickDefense(ts) {
+        if (settled || !currentStage) return;
+        if (els.panelPlay.classList.contains('is-hidden')) return;
+        if (wavePauseUntil) return;
+        const g = growthState().growth;
+        const status = (g.garden.defense || {}).status;
+        if (status !== 'playing') return;
+        if (ts - lastDefenseTick < TICK_MS) return;
+        lastDefenseTick = ts;
+        const r = garden.tickDefense(g, 1);
+        commitGrowth(r.growth);
+        afterTick(r.growth);
+    }
+
     function bind() {
-        canvas.addEventListener('pointerdown', placeAt);
-        canvas.addEventListener('pointermove', function (e) { hoverCell = cellFromEvent(e); });
-        canvas.addEventListener('pointerleave', function () { hoverCell = null; });
-        document.getElementById('spawn-btn').addEventListener('click', spawnInvader);
-        document.getElementById('skill-btn').addEventListener('click', useSkill);
+        canvas.addEventListener('pointerdown', onPointerDown);
+        canvas.addEventListener('pointermove', function (e) { hoverPoint = lawnFromEvent(e); });
+        canvas.addEventListener('pointerleave', function () { hoverPoint = null; });
+        document.getElementById('spawn-btn').addEventListener('click', spawnWave);
         document.getElementById('restart-btn').addEventListener('click', function () {
             if (currentStage) enterStage(currentStage.id);
         });
@@ -495,7 +735,10 @@
         els.back.href = bridge.backHref('garden-defense');
         function loop(ts) {
             animPhase = (ts || 0) / 1000;
-            draw();
+            maybeResumeWave(ts || 0);
+            maybeTickDefense(ts || 0);
+            maybeAutoWave(ts || 0);
+            draw(ts || 0);
             requestAnimationFrame(loop);
         }
         requestAnimationFrame(loop);
@@ -514,6 +757,14 @@
             }
         }
         loadAll().then(function () {
+            function setHow(id, key) {
+                const el = document.getElementById(id);
+                if (el && images[key]) el.src = images[key].src;
+            }
+            setHow('how-sun', 'plant-sunflower');
+            setHow('how-pea', 'plant-peashooter');
+            setHow('how-nut', 'plant-wallnut');
+            setHow('how-zombie', 'zombie-basic');
             renderMap();
             bind();
             showMap();

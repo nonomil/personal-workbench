@@ -1,0 +1,463 @@
+{
+  "pack": "preschool-badges-pets",
+  "version": "v1.2",
+  "notes": "11 achievement badges (no in-image text) + 3 theme pets x 4 stages. Names overlay in HTML.",
+  "defects": [
+    "PLATFORM_PET_CUB published file is v2 purple puffball.",
+    "PLATFORM_PET_EVOLVED matches explorer-idle; red cap + overalls are the canonical explorer.",
+    "VOXEL cub/growth/evolved/hungry now share the yellow-hat miner identity; older drifted files kept as *-prev.png.",
+    "Badge PNG is now consumed by preschool-achievements.js; SVG remains fallback.",
+    "奥特曼 / 宝可梦 theme pets were skipped."
+  ],
+  "assets": [
+    {
+      "id": "GARDEN_PET_EGG",
+      "name": "阳光蛋",
+      "path": "pets/published/pet-garden-egg.png",
+      "consumer": [
+        "growth-world",
+        "preschool-shell"
+      ],
+      "license": "project-original",
+      "source": "generated-and-reviewed",
+      "status": "approved-runtime",
+      "width": 1024,
+      "height": 1024,
+      "alpha_edge_max": 0,
+      "transparent_mode": "checkerboard"
+    },
+    {
+      "id": "GARDEN_PET_SPROUT",
+      "name": "小芽",
+      "path": "pets/published/pet-garden-sprout.png",
+      "consumer": [
+        "growth-world",
+        "preschool-shell"
+      ],
+      "license": "project-original",
+      "source": "generated-and-reviewed",
+      "status": "approved-runtime",
+      "width": 1024,
+      "height": 1024,
+      "alpha_edge_max": 0,
+      "transparent_mode": "checkerboard"
+    },
+    {
+      "id": "GARDEN_PET_GROWTH",
+      "name": "向日葵",
+      "path": "pets/published/pet-garden-sunflower.png",
+      "consumer": [
+        "growth-world",
+        "preschool-shell"
+      ],
+      "license": "project-original",
+      "source": "generated-and-reviewed",
+      "status": "approved-runtime",
+      "width": 1024,
+      "height": 1024,
+      "alpha_edge_max": 0,
+      "transparent_mode": "checkerboard"
+    },
+    {
+      "id": "GARDEN_PET_EVOLVED",
+      "name": "太阳花",
+      "path": "pets/published/pet-garden-evolved.png",
+      "consumer": [
+        "growth-world",
+        "preschool-shell"
+      ],
+      "license": "project-original",
+      "source": "generated-and-reviewed",
+      "status": "approved-runtime",
+      "width": 1024,
+      "height": 1024,
+      "alpha_edge_max": 0,
+      "transparent_mode": "checkerboard"
+    },
+    {
+      "id": "VOXEL_PET_EGG",
+      "name": "方块蛋",
+      "path": "pets/published/pet-voxel-egg.png",
+      "consumer": [
+        "growth-world",
+        "preschool-shell"
+      ],
+      "license": "project-original",
+      "source": "generated-and-reviewed",
+      "status": "approved-runtime",
+      "width": 1024,
+      "height": 1024,
+      "alpha_edge_max": 0,
+      "transparent_mode": "checkerboard"
+    },
+    {
+      "id": "VOXEL_PET_CUB",
+      "name": "小矿工",
+      "path": "pets/published/pet-voxel-cub.png",
+      "consumer": [
+        "growth-world",
+        "preschool-shell"
+      ],
+      "license": "project-original",
+      "source": "generated-and-reviewed",
+      "status": "approved-runtime",
+      "width": 1024,
+      "height": 1024,
+      "alpha_edge_max": 0,
+      "transparent_mode": "checkerboard"
+    },
+    {
+      "id": "VOXEL_PET_GROWTH",
+      "name": "成长矿工",
+      "path": "pets/published/pet-voxel-growth.png",
+      "consumer": [
+        "growth-world",
+        "preschool-shell"
+      ],
+      "license": "project-original",
+      "source": "generated-and-reviewed",
+      "status": "approved-runtime",
+      "width": 1024,
+      "height": 1024,
+      "alpha_edge_max": 0,
+      "transparent_mode": "checkerboard"
+    },
+    {
+      "id": "VOXEL_PET_EVOLVED",
+      "name": "进化矿工",
+      "path": "pets/published/pet-voxel-evolved.png",
+      "consumer": [
+        "growth-world",
+        "preschool-shell"
+      ],
+      "license": "project-original",
+      "source": "generated-and-reviewed",
+      "status": "approved-runtime",
+      "width": 1024,
+      "height": 1024,
+      "alpha_edge_max": 0,
+      "transparent_mode": "checkerboard"
+    },
+    {
+      "id": "PLATFORM_PET_EGG",
+      "name": "探险蛋",
+      "path": "pets/published/pet-platform-egg.png",
+      "consumer": [
+        "growth-world",
+        "preschool-shell"
+      ],
+      "license": "project-original",
+      "source": "generated-and-reviewed",
+      "status": "approved-runtime",
+      "width": 1024,
+      "height": 1024,
+      "alpha_edge_max": 0,
+      "transparent_mode": "checkerboard"
+    },
+    {
+      "id": "PLATFORM_PET_CUB",
+      "name": "蘑菇幼崽",
+      "path": "pets/published/pet-platform-cub.png",
+      "consumer": [
+        "growth-world",
+        "preschool-shell"
+      ],
+      "license": "project-original",
+      "source": "generated-and-reviewed",
+      "status": "approved-runtime",
+      "width": 1024,
+      "height": 1024,
+      "alpha_edge_max": 0,
+      "transparent_mode": "checkerboard"
+    },
+    {
+      "id": "PLATFORM_PET_GROWTH",
+      "name": "伙伴恐龙",
+      "path": "pets/published/pet-platform-growth.png",
+      "consumer": [
+        "growth-world",
+        "preschool-shell"
+      ],
+      "license": "project-original",
+      "source": "generated-and-reviewed",
+      "status": "approved-runtime",
+      "width": 1024,
+      "height": 1024,
+      "alpha_edge_max": 0,
+      "transparent_mode": "checkerboard"
+    },
+    {
+      "id": "PLATFORM_PET_EVOLVED",
+      "name": "探险家",
+      "path": "pets/published/pet-platform-evolved.png",
+      "consumer": [
+        "growth-world",
+        "preschool-shell"
+      ],
+      "license": "project-original",
+      "source": "generated-and-reviewed",
+      "status": "approved-runtime",
+      "width": 1024,
+      "height": 1024,
+      "alpha_edge_max": 0,
+      "transparent_mode": "checkerboard"
+    },
+    {
+      "id": "GARDEN_BRONZE",
+      "name": "花园新秀",
+      "path": "badges/published/badge-garden-bronze.png",
+      "consumer": [
+        "growth-world",
+        "preschool-shell"
+      ],
+      "license": "project-original",
+      "source": "generated-and-reviewed",
+      "status": "approved-runtime",
+      "width": 1024,
+      "height": 1024,
+      "alpha_edge_max": 0,
+      "transparent_mode": "checkerboard"
+    },
+    {
+      "id": "GARDEN_SILVER",
+      "name": "花园园丁",
+      "path": "badges/published/badge-garden-silver.png",
+      "consumer": [
+        "growth-world",
+        "preschool-shell"
+      ],
+      "license": "project-original",
+      "source": "generated-and-reviewed",
+      "status": "approved-runtime",
+      "width": 1024,
+      "height": 1024,
+      "alpha_edge_max": 0,
+      "transparent_mode": "checkerboard"
+    },
+    {
+      "id": "GARDEN_GOLD",
+      "name": "花园大师",
+      "path": "badges/published/badge-garden-gold.png",
+      "consumer": [
+        "growth-world",
+        "preschool-shell"
+      ],
+      "license": "project-original",
+      "source": "generated-and-reviewed",
+      "status": "approved-runtime",
+      "width": 1024,
+      "height": 1024,
+      "alpha_edge_max": 0,
+      "transparent_mode": "checkerboard"
+    },
+    {
+      "id": "MAP_BRONZE",
+      "name": "小探险家",
+      "path": "badges/published/badge-map-bronze.png",
+      "consumer": [
+        "growth-world",
+        "preschool-shell"
+      ],
+      "license": "project-original",
+      "source": "generated-and-reviewed",
+      "status": "approved-runtime",
+      "width": 1024,
+      "height": 1024,
+      "alpha_edge_max": 0,
+      "transparent_mode": "checkerboard"
+    },
+    {
+      "id": "MAP_SILVER",
+      "name": "探险先锋",
+      "path": "badges/published/badge-map-silver.png",
+      "consumer": [
+        "growth-world",
+        "preschool-shell"
+      ],
+      "license": "project-original",
+      "source": "generated-and-reviewed",
+      "status": "approved-runtime",
+      "width": 1024,
+      "height": 1024,
+      "alpha_edge_max": 0,
+      "transparent_mode": "checkerboard"
+    },
+    {
+      "id": "MAP_GOLD",
+      "name": "大冒险家",
+      "path": "badges/published/badge-map-gold.png",
+      "consumer": [
+        "growth-world",
+        "preschool-shell"
+      ],
+      "license": "project-original",
+      "source": "generated-and-reviewed",
+      "status": "approved-runtime",
+      "width": 1024,
+      "height": 1024,
+      "alpha_edge_max": 0,
+      "transparent_mode": "checkerboard"
+    },
+    {
+      "id": "BUILDER_BRONZE",
+      "name": "小镇居民",
+      "path": "badges/published/badge-builder-bronze.png",
+      "consumer": [
+        "growth-world",
+        "preschool-shell"
+      ],
+      "license": "project-original",
+      "source": "generated-and-reviewed",
+      "status": "approved-runtime",
+      "width": 1024,
+      "height": 1024,
+      "alpha_edge_max": 0,
+      "transparent_mode": "checkerboard"
+    },
+    {
+      "id": "BUILDER_SILVER",
+      "name": "小镇工匠",
+      "path": "badges/published/badge-builder-silver.png",
+      "consumer": [
+        "growth-world",
+        "preschool-shell"
+      ],
+      "license": "project-original",
+      "source": "generated-and-reviewed",
+      "status": "approved-runtime",
+      "width": 1024,
+      "height": 1024,
+      "alpha_edge_max": 0,
+      "transparent_mode": "checkerboard"
+    },
+    {
+      "id": "BUILDER_GOLD",
+      "name": "镇长",
+      "path": "badges/published/badge-builder-gold.png",
+      "consumer": [
+        "growth-world",
+        "preschool-shell"
+      ],
+      "license": "project-original",
+      "source": "generated-and-reviewed",
+      "status": "approved-runtime",
+      "width": 1024,
+      "height": 1024,
+      "alpha_edge_max": 0,
+      "transparent_mode": "checkerboard"
+    },
+    {
+      "id": "UNIFIED_SILVER",
+      "name": "三域行者",
+      "path": "badges/published/badge-unified-silver.png",
+      "consumer": [
+        "growth-world",
+        "preschool-shell"
+      ],
+      "license": "project-original",
+      "source": "generated-and-reviewed",
+      "status": "approved-runtime",
+      "width": 1024,
+      "height": 1024,
+      "alpha_edge_max": 0,
+      "transparent_mode": "checkerboard"
+    },
+    {
+      "id": "UNIFIED_GOLD",
+      "name": "全能大师",
+      "path": "badges/published/badge-unified-gold.png",
+      "consumer": [
+        "growth-world",
+        "preschool-shell"
+      ],
+      "license": "project-original",
+      "source": "generated-and-reviewed",
+      "status": "approved-runtime",
+      "width": 1024,
+      "height": 1024,
+      "alpha_edge_max": 0,
+      "transparent_mode": "checkerboard"
+    },
+    {
+      "id": "PET_FOOD",
+      "name": "饲料",
+      "path": "pets/published/pet-food.png",
+      "consumer": [
+        "growth-world",
+        "preschool-shell"
+      ],
+      "license": "project-original",
+      "source": "generated-and-reviewed",
+      "status": "approved-runtime",
+      "width": 1024,
+      "height": 1024,
+      "alpha_edge_max": 0,
+      "transparent_mode": "checkerboard"
+    },
+    {
+      "id": "GARDEN_PET_HUNGRY",
+      "name": "向日葵饥饿",
+      "path": "pets/published/pet-garden-hungry.png",
+      "consumer": [
+        "growth-world",
+        "preschool-shell"
+      ],
+      "license": "project-original",
+      "source": "generated-and-reviewed",
+      "status": "approved-runtime",
+      "width": 1024,
+      "height": 1024,
+      "alpha_edge_max": 0,
+      "transparent_mode": "checkerboard"
+    },
+    {
+      "id": "ICON_PET_FEED",
+      "name": "喂食按钮",
+      "path": "ui/published/icon-pet-feed.png",
+      "consumer": [
+        "growth-world",
+        "preschool-shell"
+      ],
+      "license": "project-original",
+      "source": "generated-and-reviewed",
+      "status": "approved-runtime",
+      "width": 1024,
+      "height": 1024,
+      "alpha_edge_max": 0,
+      "transparent_mode": "checkerboard"
+    },
+    {
+      "id": "VOXEL_PET_HUNGRY",
+      "name": "矿工饥饿",
+      "path": "pets/published/pet-voxel-hungry.png",
+      "consumer": [
+        "growth-world",
+        "preschool-shell"
+      ],
+      "license": "project-original",
+      "source": "generated-and-reviewed",
+      "status": "approved-runtime",
+      "width": 1024,
+      "height": 1024,
+      "alpha_edge_max": 0,
+      "transparent_mode": "checkerboard"
+    },
+    {
+      "id": "PLATFORM_PET_HUNGRY",
+      "name": "蘑菇饥饿",
+      "path": "pets/published/pet-platform-hungry.png",
+      "consumer": [
+        "growth-world",
+        "preschool-shell"
+      ],
+      "license": "project-original",
+      "source": "generated-and-reviewed",
+      "status": "approved-runtime",
+      "width": 1024,
+      "height": 1024,
+      "alpha_edge_max": 0,
+      "transparent_mode": "checkerboard"
+    }
+  ],
+  "updated": "2026-08-14"
+}

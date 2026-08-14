@@ -178,5 +178,65 @@
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
     }
+  },
+  {
+    "id": "motion-13",
+    "name": "开合跳",
+    "type": "movement",
+    "durationSec": 30,
+    "safety": [
+      "成人在旁",
+      "地面清空"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "motion-14",
+    "name": "深蹲",
+    "type": "movement",
+    "durationSec": 30,
+    "safety": [
+      "成人在旁",
+      "膝盖不要内扣"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "motion-15",
+    "name": "原地跑",
+    "type": "movement",
+    "durationSec": 30,
+    "safety": [
+      "成人在旁",
+      "脚下留空"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
+  },
+  {
+    "id": "motion-16",
+    "name": "高抬腿",
+    "type": "movement",
+    "durationSec": 30,
+    "safety": [
+      "成人在旁",
+      "扶墙也可以"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    }
   }
 ]

@@ -1,0 +1,387 @@
+/* Growth world three views + lightweight pet card. */
+
+body.variant-preschool .preschool-growth-world,
+body.variant-preschool .preschool-pet-card {
+    margin-top: 18px;
+    padding: clamp(16px, 2.4vw, 24px);
+    border: 1px solid rgba(255, 255, 255, .86);
+    border-radius: 26px;
+    background:
+        radial-gradient(circle at 88% 8%, rgba(255, 233, 126, .28), transparent 24%),
+        linear-gradient(180deg, #fffdf6, #f3faf0);
+    box-shadow: 0 13px 30px rgba(46, 79, 47, .12);
+}
+
+body.variant-preschool .growth-world-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 14px;
+}
+
+body.variant-preschool .growth-world-panel {
+    min-height: 220px;
+    padding: 14px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, .72);
+}
+
+body.variant-preschool .growth-world-panel h3 { margin: 0 0 4px; font-size: 18px; }
+body.variant-preschool .growth-world-panel p { margin: 0 0 10px; color: #5f6f55; font-size: 13px; }
+body.variant-preschool .growth-world-empty { color: #7a8a70; }
+
+body.variant-preschool .growth-world-flowers,
+body.variant-preschool .growth-world-bricks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+body.variant-preschool .growth-world-flower,
+body.variant-preschool .growth-world-brick {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    min-width: 52px;
+    padding: 8px 6px;
+    border: 0;
+    border-radius: 14px;
+    background: #fff;
+    cursor: pointer;
+}
+
+body.variant-preschool .growth-world-flower i {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--flower, #FF6B6B);
+}
+
+body.variant-preschool .growth-world-path {
+    height: 10px;
+    margin-bottom: 10px;
+    border-radius: 999px;
+    background: #e4eedc;
+    overflow: hidden;
+}
+
+body.variant-preschool .growth-world-path i {
+    display: block;
+    height: 100%;
+    background: #3a8550;
+}
+
+body.variant-preschool .growth-world-landmarks,
+body.variant-preschool .growth-world-butterflies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+body.variant-preschool .growth-world-landmark {
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: #e4eedc;
+    color: #7a8a70;
+    font-size: 12px;
+}
+
+body.variant-preschool .growth-world-landmark.is-on {
+    background: #d7f0c8;
+    color: #23402a;
+    font-weight: 700;
+}
+
+body.variant-preschool .growth-world-butterfly {
+    width: 14px;
+    height: 10px;
+    border-radius: 10px 10px 4px 4px;
+    background: #c77dff;
+    box-shadow: 6px 0 0 #4d96ff;
+    animation: growthWorldFlutter 1.6s ease-in-out infinite;
+}
+
+body.variant-preschool .growth-world-stops {
+    display: grid;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+}
+
+body.variant-preschool .growth-world-stop {
+    display: grid;
+    grid-template-columns: 28px 1fr auto;
+    gap: 8px;
+    align-items: center;
+    width: 100%;
+    padding: 8px 10px;
+    border: 0;
+    border-radius: 12px;
+    background: #fff;
+    color: #94a3b8;
+    text-align: left;
+    cursor: pointer;
+}
+
+body.variant-preschool .growth-world-stop.is-on { color: #23402a; font-weight: 700; }
+body.variant-preschool .growth-world-stop small { font-size: 11px; color: #7a8a70; }
+
+body.variant-preschool .growth-world-town {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+    height: 54px;
+    margin-bottom: 10px;
+    align-items: end;
+}
+
+body.variant-preschool .growth-world-town span {
+    display: block;
+    height: 10px;
+    border-radius: 6px 6px 2px 2px;
+    background: #dbe7d4;
+}
+
+body.variant-preschool .growth-world-town.is-level-1 .town-base,
+body.variant-preschool .growth-world-town.is-level-2 .town-base,
+body.variant-preschool .growth-world-town.is-level-3 .town-base,
+body.variant-preschool .growth-world-town.is-level-4 .town-base,
+body.variant-preschool .growth-world-town.is-level-5 .town-base { height: 14px; background: #c4b39a; }
+body.variant-preschool .growth-world-town.is-level-2 .town-wall,
+body.variant-preschool .growth-world-town.is-level-3 .town-wall,
+body.variant-preschool .growth-world-town.is-level-4 .town-wall,
+body.variant-preschool .growth-world-town.is-level-5 .town-wall { height: 22px; background: #8d9aa8; }
+body.variant-preschool .growth-world-town.is-level-3 .town-roof,
+body.variant-preschool .growth-world-town.is-level-4 .town-roof,
+body.variant-preschool .growth-world-town.is-level-5 .town-roof { height: 28px; background: #c2410c; }
+body.variant-preschool .growth-world-town.is-level-4 .town-house,
+body.variant-preschool .growth-world-town.is-level-5 .town-house { height: 36px; background: #3a8550; }
+body.variant-preschool .growth-world-town.is-level-5 .town-castle { height: 48px; background: #fbbf24; }
+
+@keyframes growthWorldFlutter {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+
+body.variant-preschool .growth-world-stop.is-on { color: #23402a; font-weight: 700; }
+body.variant-preschool .growth-world-panel.is-today { outline: 2px solid #f4c430; }
+
+body.variant-preschool .preschool-pet-card {
+    display: grid;
+    grid-template-columns: 72px 1fr auto;
+    gap: 14px;
+    align-items: center;
+}
+
+body.variant-preschool .preschool-pet-art {
+    display: grid;
+    place-items: center;
+    width: 72px;
+    height: 72px;
+    border-radius: 24px;
+    background: #fff3c4;
+}
+
+body.variant-preschool .preschool-pet-art img {
+    display: block;
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+}
+
+body.variant-preschool .preschool-home-pet-capsule {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 148px;
+    padding: 8px 12px 8px 8px;
+    border: 0;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, .22);
+    color: inherit;
+    cursor: pointer;
+    text-align: left;
+}
+
+body.variant-preschool .preschool-home-pet-capsule img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+}
+
+body.variant-preschool .preschool-home-pet-capsule b,
+body.variant-preschool .preschool-home-pet-capsule span {
+    display: block;
+}
+
+body.variant-preschool .preschool-home-pet-capsule small {
+    opacity: .78;
+    font-size: 11px;
+}
+
+body.variant-preschool .preschool-home-pet-capsule.is-hungry {
+    background: rgba(255, 224, 214, .9);
+    color: #7a3b2e;
+}
+
+body.variant-preschool .preschool-pet-hunger {
+    height: 10px;
+    margin-top: 8px;
+    border-radius: 999px;
+    background: #e4eedc;
+    overflow: hidden;
+}
+
+body.variant-preschool .preschool-pet-hunger i {
+    display: block;
+    height: 100%;
+    background: #2f8a45;
+}
+
+body.variant-preschool .preschool-pet-card.is-hungry .preschool-pet-art { background: #ffe0d6; }
+
+body.variant-preschool .preschool-pet-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+body.variant-preschool .preschool-pet-evolve-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 82;
+    display: grid;
+    place-items: center;
+    background: rgba(17, 24, 19, .46);
+}
+
+body.variant-preschool .preschool-pet-evolve-dialog {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-width: min(88vw, 280px);
+    padding: 24px;
+    border-radius: 28px;
+    background: linear-gradient(180deg, #fffdf8, #eef8e8);
+    text-align: center;
+}
+
+body.variant-preschool .preschool-pet-evolve-dialog img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    animation: preschoolBadgeUnlock .7s ease;
+}
+
+body.variant-preschool .preschool-pet-evolve-dialog button {
+    margin-top: 6px;
+    padding: 10px 18px;
+    border: 0;
+    border-radius: 999px;
+    background: #2f8a45;
+    color: #fff;
+    cursor: pointer;
+}
+
+body.variant-preschool .growth-world-panel small {
+    display: block;
+    margin: 8px 0 12px;
+    color: #6b7a62;
+    font-size: 12px;
+}
+
+body.variant-preschool .growth-world-enter {
+    width: 100%;
+    padding: 10px 12px;
+    border: 0;
+    border-radius: 999px;
+    background: #2f8a45;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+body.variant-preschool .preschool-growth-world.is-focus .growth-world-flowers {
+    min-height: 180px;
+}
+
+body.variant-preschool .preschool-growth-world.is-focus .growth-world-flower {
+    animation: growthWorldBloom .45s ease;
+}
+
+body.variant-preschool .growth-world-complete {
+    margin: 0 0 10px;
+    padding: 8px 12px;
+    border-radius: 14px;
+    background: #fff3c4;
+    color: #7a4d12;
+    font-weight: 700;
+}
+
+body.variant-preschool .growth-world-review-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 84;
+    display: grid;
+    place-items: center;
+    background: rgba(17, 24, 19, .46);
+}
+
+body.variant-preschool .growth-world-review-dialog {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    min-width: min(88vw, 280px);
+    padding: 28px 24px 20px;
+    border-radius: 28px;
+    background: linear-gradient(180deg, #fffdf8, #eef8e8);
+    text-align: center;
+}
+
+body.variant-preschool .growth-world-review-bloom {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff, var(--flower, #FF6B6B));
+}
+
+body.variant-preschool .growth-world-review-dialog b {
+    font-size: 56px;
+    line-height: 1;
+    color: #1f3b26;
+}
+
+body.variant-preschool .growth-world-review-dialog b.is-word {
+    font-size: 36px;
+}
+
+body.variant-preschool .growth-world-review-dialog small,
+body.variant-preschool .growth-world-review-dialog em,
+body.variant-preschool .growth-world-review-dialog i {
+    font-style: normal;
+    color: #5f7158;
+}
+
+body.variant-preschool .growth-world-review-dialog button {
+    margin-top: 8px;
+    padding: 10px 18px;
+    border: 0;
+    border-radius: 999px;
+    background: #2f8a45;
+    color: #fff;
+    cursor: pointer;
+}
+
+@keyframes growthWorldBloom {
+    0% { transform: scale(.7); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width: 900px) {
+    body.variant-preschool .growth-world-grid,
+    body.variant-preschool .preschool-pet-card { grid-template-columns: 1fr; }
+}

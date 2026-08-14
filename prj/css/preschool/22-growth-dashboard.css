@@ -139,6 +139,7 @@ body.variant-preschool .preschool-growth-record-icon svg { width: 18px; height: 
 body.variant-preschool .preschool-growth-stat-card.tone-orange .preschool-growth-stat-icon { background: #ffd7a0; }
 body.variant-preschool .preschool-growth-stat-card.tone-pink .preschool-growth-stat-icon { background: #ffc6b5; }
 body.variant-preschool .preschool-growth-stat-card.tone-blue .preschool-growth-stat-icon { background: #bcebf0; }
+body.variant-preschool .preschool-growth-stat-card.tone-gold .preschool-growth-stat-icon { background: #ffe9a2; }
 
 body.variant-preschool .preschool-growth-stat-copy {
     display: grid;

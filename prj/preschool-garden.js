@@ -26,9 +26,9 @@
     });
 
     const DEFENSE_ZOMBIE_RULES = Object.freeze({
-        'zombie-basic': { maxHealth: 3, moveEvery: 3 },
-        'zombie-conehead': { maxHealth: 5, moveEvery: 3 },
-        'zombie-buckethead': { maxHealth: 7, moveEvery: 4 }
+        'zombie-basic': { maxHealth: 3, moveEvery: 10 },
+        'zombie-conehead': { maxHealth: 5, moveEvery: 10 },
+        'zombie-buckethead': { maxHealth: 7, moveEvery: 13 }
     });
 
     const LEGACY_PLANT_IDS = Object.freeze({
@@ -95,7 +95,7 @@
                 const plant = item && typeof item === 'object' ? item : {};
                 const rule = DEFENSE_PLANT_RULES[plant.plantId] || DEFENSE_PLANT_RULES['plant-sunflower'];
                 const maxHealth = Math.max(1, Number(plant.maxHealth) || rule.maxHealth);
-                return {
+                const normalized = {
                     id: String(plant.id || `plant-${index + 1}`),
                     plantId: String(plant.plantId || 'plant-sunflower'),
                     lane: Math.max(0, Math.min(4, Math.floor(Number(plant.lane) || 0))),
@@ -104,6 +104,10 @@
                     maxHealth: maxHealth,
                     age: Math.max(0, Number(plant.age) || 0)
                 };
+                if (Number.isFinite(Number(plant.x))) {
+                    normalized.x = Math.max(0, Math.min(1, Number(plant.x)));
+                }
+                return normalized;
             }).filter(item => Object.prototype.hasOwnProperty.call(DEFENSE_PLANT_RULES, item.plantId) && item.health > 0),
             zombies: asArray(source.zombies).map(function (item, index) {
                 const zombie = item && typeof item === 'object' ? item : {};
@@ -112,12 +116,12 @@
                 return {
                     id: String(zombie.id || `zombie-${index + 1}`),
                     kind: Object.prototype.hasOwnProperty.call(DEFENSE_ZOMBIE_RULES, zombie.kind) ? zombie.kind : 'zombie-basic',
-                    lane: Math.max(0, Math.min(4, Math.floor(Number(zombie.lane) || 0))),
-                    column: Math.max(0, Math.min(5, Math.floor(Number(zombie.column) || 5))),
+                    lane: Math.max(0, Math.min(4, Number.isFinite(Number(zombie.lane)) ? Math.floor(Number(zombie.lane)) : 0)),
+                    column: Math.max(0, Math.min(5, Number.isFinite(Number(zombie.column)) ? Math.floor(Number(zombie.column)) : 5)),
                     health: clampHealth(zombie.health, maxHealth),
                     maxHealth: maxHealth,
                     slowTicks: Math.max(0, Number(zombie.slowTicks) || 0),
-                    moveClock: Math.max(0, Number(zombie.moveClock) || 0)
+                    moveClock: Math.max(0, Number.isFinite(Number(zombie.moveClock)) ? Number(zombie.moveClock) : 0)
                 };
             }).filter(item => item.health > 0),
             projectiles: asArray(source.projectiles).map(function (item, index) {
@@ -135,7 +139,7 @@
             nextEntityId: Math.max(1, Number(source.nextEntityId) || 1),
             tick: Math.max(0, Number(source.tick) || 0),
             defeated: Math.max(0, Number(source.defeated) || 0),
-            status: ['ready', 'playing', 'won'].includes(source.status) ? source.status : 'ready',
+            status: ['ready', 'playing', 'won', 'lost'].includes(source.status) ? source.status : 'ready',
             startedAt: String(source.startedAt || '')
         });
         defense.board.lanes = 5;
@@ -440,29 +444,43 @@
         return { ok: true, growth: growth, defense: defense };
     }
 
-    function placeDefensePlant(input, lane, column) {
+    function placeDefensePlant(input, lane, column, point) {
         const growth = normalize(input);
         const defense = growth.garden.defense;
         const laneNumber = Math.floor(Number(lane));
         const columnNumber = Math.floor(Number(column));
         const plantId = defense.selectedPlantId || growth.garden.activePlantId;
         const rule = DEFENSE_PLANT_RULES[plantId];
-        if (!Number.isInteger(laneNumber) || laneNumber < 0 || laneNumber >= 5 || !Number.isInteger(columnNumber) || columnNumber < 0 || columnNumber >= 6) {
+        const hasPoint = point && Number.isFinite(Number(point.x));
+        const plantX = hasPoint ? Math.max(0, Math.min(1, Number(point.x))) : null;
+        const combatColumn = hasPoint
+            ? Math.max(0, Math.min(5, Math.round(plantX * 5)))
+            : columnNumber;
+        if (!Number.isInteger(laneNumber) || laneNumber < 0 || laneNumber >= 5 || !Number.isInteger(combatColumn) || combatColumn < 0 || combatColumn >= 6) {
             return { ok: false, growth: growth, reason: '这个位置不在花园里' };
         }
         if (!rule || !growth.garden.unlockedPlantIds.includes(plantId)) return { ok: false, growth: growth, reason: '这个植物伙伴还没有出现' };
-        if (defense.plants.some(item => item.lane === laneNumber && item.column === columnNumber)) return { ok: false, growth: growth, reason: '这个位置已经有植物了' };
+        const occupied = defense.plants.some(function (item) {
+            if (item.lane !== laneNumber) return false;
+            if (hasPoint) {
+                const otherX = Number.isFinite(item.x) ? item.x : ((item.column + 0.5) / 6);
+                return Math.abs(otherX - plantX) < 0.12;
+            }
+            return item.column === combatColumn;
+        });
+        if (occupied) return { ok: false, growth: growth, reason: '这个位置已经有植物了' };
         if (Math.max(0, Number(growth.sunlight) || 0) < rule.cost) return { ok: false, growth: growth, reason: '阳光还不够' };
         growth.sunlight = Math.max(0, Number(growth.sunlight) - rule.cost);
         const plant = {
             id: defenseEntityId(defense, 'plant'),
             plantId: plantId,
             lane: laneNumber,
-            column: columnNumber,
+            column: combatColumn,
             health: rule.maxHealth,
             maxHealth: rule.maxHealth,
             age: 0
         };
+        if (hasPoint) plant.x = plantX;
         defense.plants.push(plant);
         defense.status = 'playing';
         return { ok: true, growth: growth, plant: plant };
@@ -506,6 +524,7 @@
 
     function stepDefense(growth) {
         const defense = growth.garden.defense;
+        if (defense.status === 'lost' || defense.status === 'won') return growth;
         defense.tick += 1;
         defense.plants.forEach(function (plant) {
             plant.age += 1;
@@ -562,9 +581,14 @@
             }
             const rule = DEFENSE_ZOMBIE_RULES[zombie.kind] || DEFENSE_ZOMBIE_RULES['zombie-basic'];
             zombie.moveClock += 1;
-            if (zombie.moveClock >= rule.moveEvery && zombie.column > 0) {
-                zombie.column -= 1;
-                zombie.moveClock = 0;
+            if (zombie.moveClock >= rule.moveEvery) {
+                if (zombie.column > 0) {
+                    zombie.column -= 1;
+                    zombie.moveClock = 0;
+                } else {
+                    zombie.column = -1;
+                    defense.status = 'lost';
+                }
             }
         });
 
@@ -575,7 +599,7 @@
         }
         defense.zombies = defense.zombies.filter(item => item.health > 0 && item.column >= 0);
         defense.plants = defense.plants.filter(item => item.health > 0);
-        if (!defense.zombies.length && defense.wave > 0) defense.status = 'won';
+        if (defense.status !== 'lost' && !defense.zombies.length && defense.wave > 0) defense.status = 'won';
         return growth;
     }
 
@@ -632,6 +656,7 @@
         placeDefensePlant: placeDefensePlant,
         spawnDefenseWave: spawnDefenseWave,
         tickDefense: tickDefense,
-        getView: getView
+        getView: getView,
+        ZOMBIE_RULES: DEFENSE_ZOMBIE_RULES
     };
 }(typeof window !== 'undefined' ? window : globalThis));

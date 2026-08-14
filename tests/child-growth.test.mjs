@@ -4,14 +4,9 @@ import test from 'node:test';
 await import('../prj/child-growth.js');
 const growthEngine = globalThis.PersonalWorkbenchChildGrowth;
 
-test('creates a child growth state with plant, unicorn and zombie branches', () => {
+test('keeps empty achievements on a fresh growth state', () => {
   const growth = growthEngine.createDefaultGrowth();
-  assert.equal(growth.sunlight, 0);
-  assert.equal(growth.totalSunlightEarned, 0);
-  assert.deepEqual(growth.checkinDates, []);
-  assert.equal(growth.plant.stage, 0);
-  assert.equal(growth.unicorn.level, 1);
-  assert.equal(growth.zombie.active, false);
+  assert.deepEqual(growth.achievements, { unlocked: [], history: [], lastShown: '', seen: [] });
 });
 
 test('awards an action once and adds one daily check-in bonus', () => {

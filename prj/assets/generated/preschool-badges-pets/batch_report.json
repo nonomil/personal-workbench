@@ -1,0 +1,465 @@
+{
+  "missing": [],
+  "reports": [
+    {
+      "mode": "checkerboard",
+      "notes": [
+        "removed-checkerboard"
+      ],
+      "edge": {
+        "nonzero": 0,
+        "max": 0,
+        "count": 4092
+      },
+      "wrote": "g:\\StudyCode\\个人工作台\\prj\\assets\\generated\\preschool-badges-pets\\pets\\published\\pet-garden-egg.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "id": "GARDEN_PET_EGG",
+      "label": "阳光蛋",
+      "pack": "pets",
+      "file": "pet-garden-egg.png"
+    },
+    {
+      "mode": "checkerboard",
+      "notes": [
+        "removed-checkerboard"
+      ],
+      "edge": {
+        "nonzero": 0,
+        "max": 0,
+        "count": 4092
+      },
+      "wrote": "g:\\StudyCode\\个人工作台\\prj\\assets\\generated\\preschool-badges-pets\\pets\\published\\pet-garden-sprout.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "id": "GARDEN_PET_SPROUT",
+      "label": "小芽",
+      "pack": "pets",
+      "file": "pet-garden-sprout.png"
+    },
+    {
+      "mode": "checkerboard",
+      "notes": [
+        "removed-checkerboard"
+      ],
+      "edge": {
+        "nonzero": 0,
+        "max": 0,
+        "count": 4092
+      },
+      "wrote": "g:\\StudyCode\\个人工作台\\prj\\assets\\generated\\preschool-badges-pets\\pets\\published\\pet-garden-sunflower.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "id": "GARDEN_PET_GROWTH",
+      "label": "向日葵",
+      "pack": "pets",
+      "file": "pet-garden-sunflower.png"
+    },
+    {
+      "mode": "checkerboard",
+      "notes": [
+        "removed-checkerboard"
+      ],
+      "edge": {
+        "nonzero": 0,
+        "max": 0,
+        "count": 4092
+      },
+      "wrote": "g:\\StudyCode\\个人工作台\\prj\\assets\\generated\\preschool-badges-pets\\pets\\published\\pet-garden-evolved.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "id": "GARDEN_PET_EVOLVED",
+      "label": "太阳花",
+      "pack": "pets",
+      "file": "pet-garden-evolved.png"
+    },
+    {
+      "mode": "checkerboard",
+      "notes": [
+        "removed-checkerboard"
+      ],
+      "edge": {
+        "nonzero": 0,
+        "max": 0,
+        "count": 4092
+      },
+      "wrote": "g:\\StudyCode\\个人工作台\\prj\\assets\\generated\\preschool-badges-pets\\pets\\published\\pet-voxel-egg.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "id": "VOXEL_PET_EGG",
+      "label": "方块蛋",
+      "pack": "pets",
+      "file": "pet-voxel-egg.png"
+    },
+    {
+      "mode": "checkerboard",
+      "notes": [
+        "removed-checkerboard"
+      ],
+      "edge": {
+        "nonzero": 0,
+        "max": 0,
+        "count": 4092
+      },
+      "wrote": "g:\\StudyCode\\个人工作台\\prj\\assets\\generated\\preschool-badges-pets\\pets\\published\\pet-voxel-cub.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "id": "VOXEL_PET_CUB",
+      "label": "小矿工",
+      "pack": "pets",
+      "file": "pet-voxel-cub.png"
+    },
+    {
+      "mode": "checkerboard",
+      "notes": [
+        "removed-checkerboard"
+      ],
+      "edge": {
+        "nonzero": 0,
+        "max": 0,
+        "count": 4092
+      },
+      "wrote": "g:\\StudyCode\\个人工作台\\prj\\assets\\generated\\preschool-badges-pets\\pets\\published\\pet-voxel-growth.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "id": "VOXEL_PET_GROWTH",
+      "label": "成长矿工",
+      "pack": "pets",
+      "file": "pet-voxel-growth.png"
+    },
+    {
+      "mode": "checkerboard",
+      "notes": [
+        "removed-checkerboard"
+      ],
+      "edge": {
+        "nonzero": 0,
+        "max": 0,
+        "count": 4092
+      },
+      "wrote": "g:\\StudyCode\\个人工作台\\prj\\assets\\generated\\preschool-badges-pets\\pets\\published\\pet-voxel-evolved.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "id": "VOXEL_PET_EVOLVED",
+      "label": "进化矿工",
+      "pack": "pets",
+      "file": "pet-voxel-evolved.png"
+    },
+    {
+      "mode": "checkerboard",
+      "notes": [
+        "removed-checkerboard"
+      ],
+      "edge": {
+        "nonzero": 0,
+        "max": 0,
+        "count": 4092
+      },
+      "wrote": "g:\\StudyCode\\个人工作台\\prj\\assets\\generated\\preschool-badges-pets\\pets\\published\\pet-platform-egg.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "id": "PLATFORM_PET_EGG",
+      "label": "探险蛋",
+      "pack": "pets",
+      "file": "pet-platform-egg.png"
+    },
+    {
+      "mode": "checkerboard",
+      "notes": [
+        "removed-checkerboard"
+      ],
+      "edge": {
+        "nonzero": 0,
+        "max": 0,
+        "count": 4092
+      },
+      "wrote": "g:\\StudyCode\\个人工作台\\prj\\assets\\generated\\preschool-badges-pets\\pets\\published\\pet-platform-cub.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "id": "PLATFORM_PET_CUB",
+      "label": "蘑菇幼崽",
+      "pack": "pets",
+      "file": "pet-platform-cub.png"
+    },
+    {
+      "mode": "checkerboard",
+      "notes": [
+        "removed-checkerboard"
+      ],
+      "edge": {
+        "nonzero": 0,
+        "max": 0,
+        "count": 4092
+      },
+      "wrote": "g:\\StudyCode\\个人工作台\\prj\\assets\\generated\\preschool-badges-pets\\pets\\published\\pet-platform-growth.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "id": "PLATFORM_PET_GROWTH",
+      "label": "伙伴恐龙",
+      "pack": "pets",
+      "file": "pet-platform-growth.png"
+    },
+    {
+      "mode": "checkerboard",
+      "notes": [
+        "removed-checkerboard"
+      ],
+      "edge": {
+        "nonzero": 0,
+        "max": 0,
+        "count": 4092
+      },
+      "wrote": "g:\\StudyCode\\个人工作台\\prj\\assets\\generated\\preschool-badges-pets\\pets\\published\\pet-platform-evolved.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "id": "PLATFORM_PET_EVOLVED",
+      "label": "探险家",
+      "pack": "pets",
+      "file": "pet-platform-evolved.png"
+    },
+    {
+      "mode": "checkerboard",
+      "notes": [
+        "removed-checkerboard"
+      ],
+      "edge": {
+        "nonzero": 0,
+        "max": 0,
+        "count": 4092
+      },
+      "wrote": "g:\\StudyCode\\个人工作台\\prj\\assets\\generated\\preschool-badges-pets\\badges\\published\\badge-garden-bronze.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "id": "GARDEN_BRONZE",
+      "label": "花园新秀",
+      "pack": "badges",
+      "file": "badge-garden-bronze.png"
+    },
+    {
+      "mode": "checkerboard",
+      "notes": [
+        "removed-checkerboard"
+      ],
+      "edge": {
+        "nonzero": 0,
+        "max": 0,
+        "count": 4092
+      },
+      "wrote": "g:\\StudyCode\\个人工作台\\prj\\assets\\generated\\preschool-badges-pets\\badges\\published\\badge-garden-silver.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "id": "GARDEN_SILVER",
+      "label": "花园园丁",
+      "pack": "badges",
+      "file": "badge-garden-silver.png"
+    },
+    {
+      "mode": "checkerboard",
+      "notes": [
+        "removed-checkerboard"
+      ],
+      "edge": {
+        "nonzero": 0,
+        "max": 0,
+        "count": 4092
+      },
+      "wrote": "g:\\StudyCode\\个人工作台\\prj\\assets\\generated\\preschool-badges-pets\\badges\\published\\badge-garden-gold.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "id": "GARDEN_GOLD",
+      "label": "花园大师",
+      "pack": "badges",
+      "file": "badge-garden-gold.png"
+    },
+    {
+      "mode": "checkerboard",
+      "notes": [
+        "removed-checkerboard"
+      ],
+      "edge": {
+        "nonzero": 0,
+        "max": 0,
+        "count": 4092
+      },
+      "wrote": "g:\\StudyCode\\个人工作台\\prj\\assets\\generated\\preschool-badges-pets\\badges\\published\\badge-map-bronze.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "id": "MAP_BRONZE",
+      "label": "小探险家",
+      "pack": "badges",
+      "file": "badge-map-bronze.png"
+    },
+    {
+      "mode": "checkerboard",
+      "notes": [
+        "removed-checkerboard"
+      ],
+      "edge": {
+        "nonzero": 0,
+        "max": 0,
+        "count": 4092
+      },
+      "wrote": "g:\\StudyCode\\个人工作台\\prj\\assets\\generated\\preschool-badges-pets\\badges\\published\\badge-map-silver.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "id": "MAP_SILVER",
+      "label": "探险先锋",
+      "pack": "badges",
+      "file": "badge-map-silver.png"
+    },
+    {
+      "mode": "checkerboard",
+      "notes": [
+        "removed-checkerboard"
+      ],
+      "edge": {
+        "nonzero": 0,
+        "max": 0,
+        "count": 4092
+      },
+      "wrote": "g:\\StudyCode\\个人工作台\\prj\\assets\\generated\\preschool-badges-pets\\badges\\published\\badge-map-gold.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "id": "MAP_GOLD",
+      "label": "大冒险家",
+      "pack": "badges",
+      "file": "badge-map-gold.png"
+    },
+    {
+      "mode": "checkerboard",
+      "notes": [
+        "removed-checkerboard"
+      ],
+      "edge": {
+        "nonzero": 0,
+        "max": 0,
+        "count": 4092
+      },
+      "wrote": "g:\\StudyCode\\个人工作台\\prj\\assets\\generated\\preschool-badges-pets\\badges\\published\\badge-builder-bronze.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "id": "BUILDER_BRONZE",
+      "label": "小镇居民",
+      "pack": "badges",
+      "file": "badge-builder-bronze.png"
+    },
+    {
+      "mode": "checkerboard",
+      "notes": [
+        "removed-checkerboard"
+      ],
+      "edge": {
+        "nonzero": 0,
+        "max": 0,
+        "count": 4092
+      },
+      "wrote": "g:\\StudyCode\\个人工作台\\prj\\assets\\generated\\preschool-badges-pets\\badges\\published\\badge-builder-silver.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "id": "BUILDER_SILVER",
+      "label": "小镇工匠",
+      "pack": "badges",
+      "file": "badge-builder-silver.png"
+    },
+    {
+      "mode": "checkerboard",
+      "notes": [
+        "removed-checkerboard"
+      ],
+      "edge": {
+        "nonzero": 0,
+        "max": 0,
+        "count": 4092
+      },
+      "wrote": "g:\\StudyCode\\个人工作台\\prj\\assets\\generated\\preschool-badges-pets\\badges\\published\\badge-builder-gold.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "id": "BUILDER_GOLD",
+      "label": "镇长",
+      "pack": "badges",
+      "file": "badge-builder-gold.png"
+    },
+    {
+      "mode": "checkerboard",
+      "notes": [
+        "removed-checkerboard"
+      ],
+      "edge": {
+        "nonzero": 0,
+        "max": 0,
+        "count": 4092
+      },
+      "wrote": "g:\\StudyCode\\个人工作台\\prj\\assets\\generated\\preschool-badges-pets\\badges\\published\\badge-unified-silver.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "id": "UNIFIED_SILVER",
+      "label": "三域行者",
+      "pack": "badges",
+      "file": "badge-unified-silver.png"
+    },
+    {
+      "mode": "checkerboard",
+      "notes": [
+        "removed-checkerboard"
+      ],
+      "edge": {
+        "nonzero": 0,
+        "max": 0,
+        "count": 4092
+      },
+      "wrote": "g:\\StudyCode\\个人工作台\\prj\\assets\\generated\\preschool-badges-pets\\badges\\published\\badge-unified-gold.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "id": "UNIFIED_GOLD",
+      "label": "全能大师",
+      "pack": "badges",
+      "file": "badge-unified-gold.png"
+    }
+  ]
+}

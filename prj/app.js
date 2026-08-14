@@ -38,7 +38,8 @@
     const CATEGORY_COLORS = { 学习: 'orange', 阅读: 'blue', 实践: 'lime', 运动: 'gold', 自控: 'orange', 其它: 'blue' };
     const PRIORITY_LABELS = { high: '高优先', medium: '常规', low: '低优先' };
     const STATUS_LABELS = { todo: '待开始', doing: '进行中', done: '已完成' };
-    const ui = { page: getPageFromHash(), courseId: getCourseIdFromHash(), courseNavExpanded: getPageFromHash() === 'courses', taskFilter: 'all', dialogType: '', dialogId: '', dialogArea: '', dialogDate: '', lessonSession: null, summerLibraryCategory: 'daily', summerLibraryItem: 0, battleEffect: null };
+    const ui = { page: getPageFromHash(), courseId: getCourseIdFromHash(), courseNavExpanded: getPageFromHash() === 'courses', taskFilter: 'all', dialogType: '', dialogId: '', dialogArea: '', dialogDate: '', lessonSession: null, summerLibraryCategory: 'daily', summerLibraryItem: 0, battleEffect: null, growthWorld: '', badgeBoxOpen: false, badgeFilter: 'all' };
+    let lessonMotionTimerId = 0;
     const isPreschool = workbenchConfig.variant === 'preschool';
     const isChild = workbenchConfig.variant === 'child' || isPreschool;
     const isAdult = workbenchConfig.variant === 'adult';
@@ -848,6 +849,7 @@
         if (isPreschool && requested === 'battle' && openPreschoolWorldGame()) return;
         ui.page = requested;
         ui.courseId = ui.page === 'courses' ? String(courseId || '') : '';
+        if (ui.page !== 'growth') ui.growthWorld = '';
         if (ui.page !== 'battle') {
             ui.battleEffect = null;
             if (preschoolBattleEffectTimer) {
@@ -1272,16 +1274,13 @@
         const zombieDefeated = Math.max(Number(defense.defeated) || 0, Number(garden.invader && garden.invader.defeated) || 0, Number(growth.zombieDefeated) || 0);
         const collection = garden.collection || { unlockedIds: [], total: 0 };
         const unlockedCollectionIds = Array.isArray(collection.unlockedIds) ? collection.unlockedIds : [];
-        const achievements = [
-            { id: 'first-step', title: '第一步', description: '完成第一项今日任务', icon: 'circle-check', tone: 'lime', unlocked: completedPlanCount >= 1 },
-            { id: 'sun-team', title: '阳光小队', description: '累计收集 100 阳光', icon: 'sun', tone: 'gold', unlocked: totalSunlight >= 100 },
-            { id: 'garden-guard', title: '花园守护者', description: '击退第一只僵尸', icon: 'shield-check', tone: 'blue', unlocked: zombieDefeated >= 1 },
-            { id: 'wave-three', title: '三波挑战', description: '完成 3 波花园防守', icon: 'flag', tone: 'orange', unlocked: wave >= 3 },
-            { id: 'plant-collector', title: '植物收藏家', description: '解锁 3 位植物伙伴', icon: 'sprout', tone: 'lime', unlocked: unlockedPlantIds.length >= 3 },
-            { id: 'streak-seven', title: '七日坚持', description: '最佳连续打卡达到 7 天', icon: 'flame', tone: 'pink', unlocked: Number(growth.bestStreak) >= 7 },
-            { id: 'badge-collector', title: '徽章收集家', description: '点亮 3 枚花园徽章', icon: 'album', tone: 'blue', unlocked: unlockedCollectionIds.length >= 3 }
-        ];
-        const unlockedAchievementCount = achievements.filter(item => item.unlocked).length;
+        const badgeEngine = global.PersonalWorkbenchAchievements;
+        const badgeUnlocked = Array.isArray(state.growth && state.growth.achievements && state.growth.achievements.unlocked)
+            ? state.growth.achievements.unlocked.length
+            : 0;
+        const badgeUnseen = badgeEngine && typeof badgeEngine.unseenBadgeIds === 'function'
+            ? badgeEngine.unseenBadgeIds(state.growth && state.growth.achievements).length
+            : 0;
         return {
             sunlight: Math.max(0, Number(growth.sunlight) || 0),
             todayDone: todayDone,
@@ -1300,8 +1299,9 @@
             level: Number(growth.level) || 1,
             levelPercent: clamp(Number(growth.levelProgress) || 0, 0, 100),
             levelProgressLabel: `Lv.${Number(growth.level) || 1} · ${Number(growth.levelProgress) || 0}/100 成长经验`,
-            achievements: achievements,
-            unlockedAchievementCount: unlockedAchievementCount,
+            badgeUnlocked: badgeUnlocked,
+            badgeUnseen: badgeUnseen,
+            badgeTotal: 11,
             collectionCount: unlockedCollectionIds.length,
             collectionTotal: Number(collection.total) || 0,
             nextAction: todayDone < todayTotal ? `完成今日第 ${todayDone + 1} 项任务` : wave === 0 ? '去花园游戏挑战第一波' : zombieDefeated > 0 ? '继续解锁植物伙伴' : '去花园游戏击退僵尸'
@@ -1314,11 +1314,18 @@
             { label: '防守波次', value: stats.wave, meta: '花园战绩', icon: 'flag', tone: 'orange' },
             { label: '击退僵尸', value: stats.zombieDefeated, meta: stats.zombieActive ? '还有僵尸提醒' : '花园安全', icon: 'bug', tone: stats.zombieActive ? 'pink' : 'blue' },
             { label: '植物伙伴', value: `${stats.unlockedPlantCount}/${stats.plantCount}`, meta: '已解锁图鉴', icon: 'sprout', tone: 'lime' },
-            { label: '收集徽章', value: `${stats.unlockedAchievementCount}/${stats.achievements.length}`, meta: '成就墙', icon: 'album', tone: 'gold' }
+            { label: '成长徽章', value: `${stats.badgeUnlocked}/${stats.badgeTotal}`, meta: '收集箱', icon: 'album', tone: 'gold', action: 'toggle-badge-box' }
         ];
+        const cardMarkup = cards.map(function (card) {
+            const inner = `<span class="preschool-growth-stat-icon">${icon(card.icon)}</span><span class="preschool-growth-stat-copy"><small>${card.label}</small><strong>${card.value}</strong><em>${card.meta}</em></span>`;
+            if (card.action) {
+                return `<button class="preschool-growth-stat-card tone-${card.tone} is-action badge-collection-toggle" type="button" data-action="${escapeHtml(card.action)}" aria-expanded="${ui.badgeBoxOpen ? 'true' : 'false'}">${inner}</button>`;
+            }
+            return `<article class="preschool-growth-stat-card tone-${card.tone}">${inner}</article>`;
+        }).join('');
         return `<section class="preschool-growth-dashboard" aria-label="花园成长总览">
-            <div class="preschool-growth-dashboard-head"><div><span class="preschool-growth-kicker">GARDEN BASE / PROGRESS</span><h2>我的花园成长记录</h2><p>任务是阳光，防守是挑战，徽章记录每一次坚持。</p></div><div class="preschool-growth-balance">${preschoolAsset('sun-token', '阳光')}<strong>${stats.sunlight}</strong><small>当前阳光</small></div></div>
-            <div class="preschool-growth-stat-grid">${cards.map(function (card) { return `<article class="preschool-growth-stat-card tone-${card.tone}"><span class="preschool-growth-stat-icon">${icon(card.icon)}</span><span class="preschool-growth-stat-copy"><small>${card.label}</small><strong>${card.value}</strong><em>${card.meta}</em></span></article>`; }).join('')}</div>
+            <div class="preschool-growth-dashboard-head"><div><span class="preschool-growth-kicker">GARDEN BASE / PROGRESS</span><h2>我的花园成长记录</h2><p>任务是阳光，防守是挑战，徽章记录每一次坚持。</p></div><div class="preschool-growth-balance">${preschoolAsset('sun-token', '阳光')}<strong>${stats.sunlight}</strong><small>当前阳光</small></div><button class="preschool-badge-box-link badge-collection-toggle" type="button" data-action="toggle-badge-box" aria-expanded="${ui.badgeBoxOpen ? 'true' : 'false'}">🏅 徽章收集箱 ${stats.badgeUnlocked}/${stats.badgeTotal}${stats.badgeUnseen ? ' · 新' : ''}</button></div>
+            <div class="preschool-growth-stat-grid">${cardMarkup}</div>
             <div class="preschool-growth-record"><span class="preschool-growth-record-icon">${icon(stats.zombieActive ? 'shield-alert' : 'shield-check')}</span><span><small>下一步</small><strong>${stats.nextAction}</strong></span><button class="preschool-growth-record-action" type="button" data-action="navigate" data-page="${stats.todayDone < stats.todayTotal ? 'plans' : 'battle'}">${stats.todayDone < stats.todayTotal ? '去打卡' : '去挑战'} ${icon('arrow-up-right')}</button></div>
         </section>`;
     }
@@ -1331,10 +1338,6 @@
             { label: '防守进度', value: `${stats.wave}/${stats.waveGoal} 波`, meta: stats.zombieDefeated ? `已击退 ${stats.zombieDefeated} 只僵尸` : '挑战第一波，记录你的战绩', percent: stats.wavePercent, icon: 'shield-check', tone: 'orange' }
         ];
         return `<section class="preschool-growth-progress"><div class="preschool-growth-section-head"><div><span class="preschool-growth-kicker">PROGRESS TRACK</span><h2>四条成长进度</h2><p>把抽象的“成长”变成看得见的下一步。</p></div><span class="preschool-growth-section-count">${stats.todayDone}/${stats.todayTotal} 今日</span></div><div class="preschool-growth-progress-list">${rows.map(function (row) { return `<div class="preschool-growth-progress-row"><div class="preschool-growth-progress-copy"><span class="preschool-growth-progress-icon tone-${row.tone}">${icon(row.icon)}</span><span><strong>${row.label}</strong><small>${row.value} · ${row.meta}</small></span><b>${Math.round(row.percent)}%</b></div><div class="preschool-growth-progress-bar" role="progressbar" aria-label="${row.label}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(row.percent)}"><i class="tone-${row.tone}" style="width:${clamp(row.percent, 0, 100)}%"></i></div></div>`; }).join('')}</div></section>`;
-    }
-
-    function renderPreschoolAchievementWall(stats) {
-        return `<section class="preschool-achievement-wall"><div class="preschool-growth-section-head"><div><span class="preschool-growth-kicker">ACHIEVEMENT WALL</span><h2>成就墙</h2><p>每一枚徽章都对应一次真实行动。</p></div><span class="preschool-growth-section-count">${stats.unlockedAchievementCount}/${stats.achievements.length} 已点亮</span></div><div class="preschool-achievement-grid">${stats.achievements.map(function (item) { return `<article class="preschool-achievement-card tone-${item.tone} ${item.unlocked ? 'is-unlocked' : 'is-locked'}"><span class="preschool-achievement-icon">${icon(item.icon)}</span><span class="preschool-achievement-copy"><strong>${item.title}</strong><small>${item.description}</small></span><b>${item.unlocked ? '已点亮' : '未点亮'}</b></article>`; }).join('')}</div></section>`;
     }
 
     function renderPreschoolWeeklyAdventureReport(options) {
@@ -1395,6 +1398,7 @@
                 <div class="preschool-weekly-badges"><strong>已点亮徽章</strong><div class="preschool-adventure-badges">${badges}</div></div>
                 <div class="preschool-weekly-tips"><strong>给家长的小建议</strong><ul>${tips}</ul></div>
             </div>
+            ${forParent && global.PersonalWorkbenchAchievements ? global.PersonalWorkbenchAchievements.renderParentBadgeWall(state.growth && state.growth.achievements) : ''}
             ${forParent ? `<p class="preschool-weekly-note">说明：游戏阳光有每日上限（${report.dailyCap}），与学习打卡阳光共用同一账本；坚持比刷分更重要。</p>` : ''}
         </section>`;
     }
@@ -1412,11 +1416,25 @@
             const claimed = growth.claimedStreakRewardIds.includes(reward.id);
             return `<div class="preschool-streak-card ${claimed ? 'is-claimed' : ''}"><span>${escapeHtml(reward.days)}天</span><strong>${escapeHtml(reward.title)}</strong>${claimed ? `<small>已领</small>` : unlocked ? `<button class="row-action" type="button" data-action="claim-streak-reward" data-id="${escapeHtml(reward.id)}" aria-label="领取${escapeHtml(reward.title)}" title="领取奖励">${icon('gift')}</button>` : `<small>继续</small>`}</div>`;
         }).join('');
+        const badgeEngine = global.PersonalWorkbenchAchievements;
+        const badgeBox = badgeEngine && ui.badgeBoxOpen
+            ? badgeEngine.renderCollectionBox(state.growth && state.growth.achievements, badgeEngine.getGrowthStats(state, workbenchConfig.childCourses), { filter: ui.badgeFilter || 'all' })
+            : '';
+        const petCard = global.PersonalWorkbenchPet
+            ? global.PersonalWorkbenchPet.renderCard(state.growth, getPreschoolThemeId())
+            : '';
+        const growthWorld = global.PersonalWorkbenchGrowthWorld
+            ? global.PersonalWorkbenchGrowthWorld.render(state, workbenchConfig.childCourses, { today: storage.localDate(), focus: ui.growthWorld })
+            : '';
         return `${renderPreschoolIntro(PAGE_META.growth, '', '', `<span class="points-chip">${icon('sun')}${growth.sunlight}</span>`)}${
             renderPreschoolGrowthDashboard(stats)}${
+            badgeBox}${
+            petCard}${
+            growthWorld}${
+            renderPreschoolHomeWorldProgress()}${
+            renderPreschoolHomeRhythm(derived)}${
             renderPreschoolWeeklyAdventureReport({ forParent: false })}${
-            renderPreschoolGrowthProgress(stats)}${
-            renderPreschoolAchievementWall(stats)}
+            renderPreschoolGrowthProgress(stats)}
             <section class="preschool-growth-actions"><button class="btn-primary" type="button" data-action="water-plant" ${waterAvailable ? '' : 'disabled'}>${icon('droplets')}${growth.lastWateredDate === storage.localDate() ? '已浇水' : '浇水'}</button><label class="voice-toggle"><input type="checkbox" data-action="toggle-voice" ${growth.voiceEnabled ? 'checked' : ''}><span class="voice-toggle-track"></span><span>语音鼓励</span></label><button class="btn-secondary" type="button" data-action="navigate" data-page="plans">去打卡${icon('arrow-up-right')}</button><button class="btn-secondary" type="button" data-action="navigate" data-page="battle">去花园游戏${icon('swords')}</button></section>
             <section class="preschool-section"><div class="preschool-section-head"><div><span class="eyebrow">STREAK</span><h2>连续奖励</h2><p>连续行动会解锁阳光和新造型。</p></div><span class="tag gold">${growth.streak} 天</span></div><div class="preschool-streak-grid">${rewardCards}</div></section>
             <section class="preschool-section"><div class="preschool-section-head"><div><span class="eyebrow">PLANTS</span><h2>植物伙伴图鉴</h2><p>收集阳光，解锁新的技能伙伴。</p></div><span class="tag lime">${stats.unlockedPlantCount}/${stats.plantCount} 已出现</span></div><div class="preschool-plant-grid">${garden.plants.map(function (plant) { const unlocked = garden.unlockedPlantIds.includes(plant.id); const active = plant.id === garden.activePlantId; const assetName = preschoolPlantAsset(plant); return `<button class="preschool-plant-card ${active ? 'is-active' : ''} ${unlocked ? '' : 'is-locked'} tone-${escapeHtml(plant.tone || 'lime')}" type="button" data-action="select-plant" data-id="${escapeHtml(plant.id)}" ${unlocked ? '' : 'disabled'}><span class="${assetName ? 'has-image' : ''}">${assetName ? preschoolAsset(assetName, unlocked ? plant.title : '未出现') : icon(plant.icon)}</span><strong>${escapeHtml(unlocked ? plant.title : '未出现')}</strong><small>${escapeHtml(unlocked ? plant.description : `${plant.unlockAt} 阳光出现`)}</small></button>`; }).join('')}</div></section>
@@ -1462,6 +1480,247 @@
         return null;
     }
 
+    function getLiteracyEngine() {
+        return global.PersonalWorkbenchPreschoolLiteracy || null;
+    }
+
+    function getEnglishVocabEngine() {
+        return global.PersonalWorkbenchPreschoolEnglishVocab || null;
+    }
+
+    function getPhonicsEngine() {
+        return global.PersonalWorkbenchPreschoolPhonics || null;
+    }
+
+    function getMathBankEngine() {
+        return global.PersonalWorkbenchPreschoolMathBank || null;
+    }
+
+    function getPinyinEngine() {
+        return global.PersonalWorkbenchPreschoolPinyin || null;
+    }
+
+    function getPlayGamesEngine() {
+        return global.PersonalWorkbenchPreschoolPlayGames || null;
+    }
+
+    function getPoetryEngine() {
+        return global.PersonalWorkbenchPreschoolPoetry || null;
+    }
+
+    function isLiteracyLesson(match) {
+        const mode = match && match.lesson && match.lesson.activity && match.lesson.activity.mode;
+        return mode === 'literacy-loop' || mode === 'literacy-bloom' || mode === 'literacy-review' || mode === 'literacy-find' || mode === 'literacy-flash';
+    }
+
+    function isEnglishSpeakLesson(match) {
+        const mode = match && match.lesson && match.lesson.activity && match.lesson.activity.mode;
+        return mode === 'english-speak';
+    }
+
+    function isBankQuizLesson(match) {
+        const mode = match && match.lesson && match.lesson.activity && match.lesson.activity.mode;
+        return mode === 'phonics-cvc' || mode === 'phonics-letter' || mode === 'math-bank' || mode === 'pinyin-initial' || mode === 'poetry-line';
+    }
+
+    function isPlayLesson(match) {
+        const mode = match && match.lesson && match.lesson.activity && match.lesson.activity.mode;
+        return mode === 'play-memory' || mode === 'play-odd' || mode === 'play-order' || mode === 'pinyin-match';
+    }
+
+    function isMotionTimerLesson(match) {
+        const mode = match && match.lesson && match.lesson.activity && match.lesson.activity.mode;
+        return mode === 'motion-timer';
+    }
+
+    function isReplayableLesson(match) {
+        return isLiteracyLesson(match) || isEnglishSpeakLesson(match) || isBankQuizLesson(match) || isPlayLesson(match) || isMotionTimerLesson(match);
+    }
+
+    function buildBankQuizSession(match) {
+        const activity = match && match.lesson && match.lesson.activity ? match.lesson.activity : {};
+        if (activity.mode === 'phonics-cvc') {
+            const engine = getPhonicsEngine();
+            if (!engine) return null;
+            const quiz = engine.buildBlendQuiz(engine.getRuntimeBank(), { preferred: activity.preferred || 'mat', size: activity.size || 10 });
+            if (!quiz || !quiz.rounds.length) return null;
+            return { mode: 'phonics-cvc', run: quiz, roundIndex: 0, roundCorrect: false, complete: false, speakLang: 'en-US' };
+        }
+        if (activity.mode === 'math-bank') {
+            const engine = getMathBankEngine();
+            if (!engine) return null;
+            const quiz = engine.buildQuiz(engine.getRuntimeBank(), { level: activity.level || 'L1', size: activity.size || 5 });
+            if (!quiz || !quiz.rounds.length) return null;
+            return { mode: 'math-bank', run: quiz, roundIndex: 0, roundCorrect: false, complete: false, speakLang: 'zh-CN' };
+        }
+        if (activity.mode === 'phonics-letter') {
+            const engine = getPhonicsEngine();
+            if (!engine) return null;
+            const quiz = engine.buildLetterQuiz(engine.getRuntimeLetters(), { groups: activity.groups || '', preferred: activity.preferred || 'm', size: activity.size || 5 });
+            if (!quiz || !quiz.rounds.length) return null;
+            return { mode: 'phonics-letter', run: quiz, roundIndex: 0, roundCorrect: false, complete: false, speakLang: 'en-US' };
+        }
+        if (activity.mode === 'pinyin-initial') {
+            const engine = getPinyinEngine();
+            if (!engine) return null;
+            const quiz = engine.buildInitialQuiz(engine.getRuntimeBank(), { kind: activity.kind || 'initial', groups: activity.groups || '', preferred: activity.preferred || 'b', size: activity.size || 8 });
+            if (!quiz || !quiz.rounds.length) return null;
+            return { mode: 'pinyin-initial', run: quiz, roundIndex: 0, roundCorrect: false, complete: false, speakLang: 'zh-CN' };
+        }
+        if (activity.mode === 'poetry-line') {
+            const engine = getPoetryEngine();
+            if (!engine) return null;
+            const quiz = engine.buildLineQuiz(engine.getRuntimeBank(), { preferred: activity.preferred || 'poem-jingyesi', size: activity.size || 5 });
+            if (!quiz || !quiz.rounds.length) return null;
+            return { mode: 'poetry-line', run: quiz, roundIndex: 0, roundCorrect: false, complete: false, speakLang: 'zh-CN' };
+        }
+        return null;
+    }
+
+    function buildEnglishSession(match) {
+        const engine = getEnglishVocabEngine();
+        if (!engine || !match) return null;
+        const bank = engine.getRuntimeBank();
+        const activity = match.lesson.activity || {};
+        const size = activity.size || 5;
+        const daily = engine.dailyWindow(bank, storage.localDate(), size);
+        if (!daily.batch.length) return null;
+        return { mode: 'english-speak', phase: 'speak', batch: daily.batch, day: daily.day, match: null, spell: null, complete: false };
+    }
+
+    function buildPlaySession(match) {
+        const engine = getPlayGamesEngine();
+        const activity = match && match.lesson && match.lesson.activity ? match.lesson.activity : {};
+        if (!engine) return null;
+        if (activity.mode === 'play-memory') {
+            return { kind: 'memory', board: engine.buildMemoryBoard(activity.size || 4, 5), complete: false };
+        }
+        if (activity.mode === 'play-odd') {
+            const run = engine.buildOddRounds(activity.size || 3, 7);
+            return { kind: 'odd', run: run, roundIndex: 0, roundCorrect: false, complete: false };
+        }
+        if (activity.mode === 'play-order') {
+            return { kind: 'order', run: engine.buildOrderRound(activity.size || 5, 4), complete: false };
+        }
+        if (activity.mode === 'pinyin-match') {
+            const pinyin = getPinyinEngine();
+            if (!pinyin) return null;
+            const kind = String(activity.kind || 'final');
+            const pool = pinyin.getRuntimeBank().filter(function (item) { return item.kind === kind; }).slice(0, activity.size || 6);
+            return { kind: 'match', board: engine.buildMatchBoard(pinyin.toMatchPairs(pool), 2), complete: false };
+        }
+        return null;
+    }
+
+    function buildLiteracySession(match) {
+        const engine = getLiteracyEngine();
+        if (!engine || !match) return null;
+        const bank = engine.getRuntimeBank();
+        const rules = engine.getRuntimeRules();
+        const activity = match.lesson.activity || {};
+        const mastery = state.courseProgress && state.courseProgress.literacy
+            ? state.courseProgress.literacy
+            : engine.createDefaultProgress();
+        if (activity.mode === 'literacy-flash') {
+            const batch = engine.buildFlashBatch(bank, mastery, rules, storage.localDate(), activity.char || '山', activity.size || 8);
+            return { mode: 'literacy-flash', batch: batch, phase: 'mark', teachIndex: 0, card: null, complete: false };
+        }
+        if (activity.mode === 'literacy-bloom') {
+            const char = engine.pickTodayChar(bank, mastery, rules, storage.localDate(), activity.char || '山');
+            const bloom = engine.buildWordBloom(bank, char);
+            return bloom ? { mode: 'literacy-bloom', char: bloom.char, bloom: bloom, selected: {}, complete: false } : null;
+        }
+        if (activity.mode === 'literacy-find' || activity.mode === 'literacy-review') {
+            const run = engine.buildFindRun(bank, mastery, rules, storage.localDate(), activity.char || '山', activity.rounds || 5);
+            if (!run || !run.rounds.length) return null;
+            return { mode: 'literacy-find', char: run.rounds[0].char, run: run, roundIndex: 0, roundCorrect: false, hint: false, complete: false };
+        }
+        const char = engine.pickTodayChar(bank, mastery, rules, storage.localDate(), activity.char || '山');
+        const loop = engine.buildLoop(bank, char);
+        if (!loop) return null;
+        return { mode: activity.mode, char: loop.char, loop: loop, stepIndex: 0, stepCorrect: false, complete: false };
+    }
+
+    function buildMotionTimerSession(match) {
+        const activity = match && match.lesson && match.lesson.activity ? match.lesson.activity : {};
+        const durationSec = Math.max(15, Math.min(90, Number(activity.durationSec) || 45));
+        return {
+            durationSec: durationSec,
+            remaining: durationSec,
+            safety: Array.isArray(activity.safety) ? activity.safety.slice() : [],
+            prompt: String(activity.prompt || (match.lesson && match.lesson.title) || '开始做'),
+            success: String(activity.success || '做完啦！'),
+            complete: false
+        };
+    }
+
+    function clearLessonMotionTimer() {
+        if (lessonMotionTimerId) {
+            clearInterval(lessonMotionTimerId);
+            lessonMotionTimerId = 0;
+        }
+    }
+
+    function tickLessonMotionTimer() {
+        const timer = ui.lessonSession && ui.lessonSession.timer;
+        if (!timer || timer.complete) {
+            clearLessonMotionTimer();
+            return;
+        }
+        timer.remaining = Math.max(0, Number(timer.remaining) - 1);
+        if (timer.remaining <= 0) {
+            timer.complete = true;
+            ui.lessonSession.correct = true;
+            clearLessonMotionTimer();
+            speakPraise(timer.success);
+        }
+        renderLessonDialog();
+    }
+
+    function startLessonMotionTimer() {
+        clearLessonMotionTimer();
+        lessonMotionTimerId = setInterval(tickLessonMotionTimer, 1000);
+    }
+
+    function completeMotionTimer() {
+        const timer = ui.lessonSession && ui.lessonSession.timer;
+        if (!timer) return false;
+        timer.complete = true;
+        timer.remaining = 0;
+        ui.lessonSession.correct = true;
+        clearLessonMotionTimer();
+        renderLessonDialog();
+        speakPraise(timer.success);
+        return true;
+    }
+
+    function recordLiteracyAttempt(activityType, correct) {
+        const engine = getLiteracyEngine();
+        const session = ui.lessonSession && ui.lessonSession.literacy;
+        if (!engine || !session || !session.char) return;
+        let newBadges = [];
+        commit(function (next) {
+            const current = next.courseProgress && next.courseProgress.literacy
+                ? next.courseProgress.literacy
+                : engine.createDefaultProgress();
+            const updated = engine.recordAttempt(current, session.char, {
+                correct: !!correct,
+                date: storage.localDate(),
+                activityType: activityType
+            }, engine.getRuntimeRules());
+            next.courseProgress = global.PersonalWorkbenchChildCourses.saveLiteracy(next.courseProgress, updated);
+            newBadges = applyPreschoolAchievements(next);
+        }, '');
+        presentPreschoolAchievements(newBadges);
+    }
+
+    function literacyBloomComplete(session) {
+        if (!session || !session.bloom) return false;
+        return session.bloom.options.every(function (option) {
+            return !!session.selected[option.word] === !!option.correct;
+        });
+    }
+
     function getPreschoolPlanPractice(plan) {
         if (!isPreschool || !plan || !plan.practiceLessonId) return null;
         return findPreschoolLesson(plan.practiceLessonId);
@@ -1481,6 +1740,139 @@
             answer: answer,
             success: String(source.success || '准备好啦！')
         };
+    }
+
+    function renderPlayMatchBody(progressHead, prompt, board, hint, nextLabel) {
+        const cards = (board.cards || []).map(function (card, index) {
+            const open = card.matched || (board.selected || []).indexOf(index) >= 0;
+            return `<button class="play-match-card ${card.matched ? 'is-matched' : ''} ${open ? 'is-open' : ''}" type="button" data-action="play-flip" data-index="${index}" ${card.matched ? 'disabled' : ''}><span>${open ? escapeHtml(card.face) : '?'}</span></button>`;
+        }).join('');
+        const canGo = !!board.complete;
+        return `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">${escapeHtml(prompt)}</h3><p class="lesson-dialog-feedback">${escapeHtml(hint || '')} 已配 ${board.matchedCount || 0} 对。</p><div class="play-match-grid">${cards}</div><div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${canGo ? '' : 'disabled'}>${icon(canGo ? 'sparkles' : 'lock-keyhole')}${escapeHtml(nextLabel || '收集阳光，完成练习')}</button></div></div>`;
+    }
+
+    function renderPlaySpellBody(progressHead, spell) {
+        const tiles = (spell.tiles || []).map(function (letter) {
+            return `<button class="play-spell-tile" type="button" data-action="play-spell" data-letter="${escapeHtml(letter)}">${escapeHtml(letter)}</button>`;
+        }).join('');
+        const feedback = spell.complete ? '拼对啦！' : (spell.wrong ? '再从头拼一次。' : '按顺序点出这个词的字母。');
+        return `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">拼一拼 ${escapeHtml(spell.zh || '')}</h3><p class="literacy-char">${escapeHtml(spell.typed || '…')}</p><p class="lesson-dialog-feedback">${escapeHtml(feedback)}</p><div class="play-spell-row">${tiles}</div><div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${spell.complete ? '' : 'disabled'}>${icon(spell.complete ? 'sparkles' : 'lock-keyhole')}${spell.complete ? '收集阳光，完成练习' : '先把词拼完'}</button></div></div>`;
+    }
+
+    function renderPlayLessonBody(progressHead, play) {
+        if (play.kind === 'match' || play.kind === 'memory') {
+            const prompt = play.kind === 'memory' ? '找出两张一样的卡片。' : '把两边配成一对。';
+            return renderPlayMatchBody(progressHead, prompt, play.board || {}, '选错再翻两张就好，不扣阳光。', '收集阳光，完成练习');
+        }
+        if (play.kind === 'odd' && play.run) {
+            const round = play.run.rounds[play.roundIndex] || play.run.rounds[0];
+            const tiles = (round.tiles || []).map(function (tile, index) {
+                const picked = ui.lessonSession.selectedIndex === index;
+                const good = play.roundCorrect && index === round.oddIndex;
+                return `<button class="play-match-card ${good ? 'is-matched' : ''} ${picked && !play.roundCorrect ? 'is-wrong' : ''}" type="button" data-action="play-odd" data-index="${index}" ${play.roundCorrect ? 'disabled' : ''}><span>${escapeHtml(tile)}</span></button>`;
+            }).join('');
+            const canGo = play.complete || play.roundCorrect;
+            const nextAction = play.complete || (play.roundCorrect && play.roundIndex >= play.run.rounds.length - 1) ? 'lesson-finish' : 'play-odd-next';
+            return `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">${escapeHtml(round.prompt || '哪一个和其他不一样？')}</h3><p class="lesson-dialog-feedback">第 ${play.roundIndex + 1}/${play.run.rounds.length} 题。没有倒计时。</p><div class="play-match-grid">${tiles}</div><div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="${nextAction}" ${canGo ? '' : 'disabled'}>${icon(canGo ? 'sparkles' : 'lock-keyhole')}${play.complete ? '收集阳光，完成练习' : '下一题'}</button></div></div>`;
+        }
+        if (play.kind === 'order' && play.run) {
+            const used = play.run.typed || [];
+            const tiles = (play.run.tiles || []).map(function (value) {
+                const done = used.indexOf(value) >= 0;
+                return `<button class="play-spell-tile ${done ? 'is-used' : ''}" type="button" data-action="play-order" data-value="${value}" ${done ? 'disabled' : ''}>${value}</button>`;
+            }).join('');
+            return `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">按从小到大点数字</h3><p class="literacy-word">${escapeHtml(used.join(' ') || '先点 1')}</p><p class="lesson-dialog-feedback">${play.run.wrong ? '再找下一个数。' : '没有倒计时，点错只提示。'}</p><div class="play-spell-row">${tiles}</div><div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${play.run.complete ? '' : 'disabled'}>${icon(play.run.complete ? 'sparkles' : 'lock-keyhole')}${play.run.complete ? '收集阳光，完成练习' : '先把数字排好'}</button></div></div>`;
+        }
+        return `<div class="lesson-dialog-body">${progressHead}<p class="lesson-dialog-feedback">这节小游戏暂时不可用。</p></div>`;
+    }
+
+    function renderLiteracyStrokeBoard(card, playKey) {
+        const strokes = card && Array.isArray(card.strokes) ? card.strokes : [];
+        if (!strokes.length) return '';
+        const token = Math.max(0, Number(playKey) || 0);
+        const paths = strokes.map(function (d, index) {
+            return `<path pathLength="1" style="--i:${index}" d="${escapeHtml(d)}"></path>`;
+        }).join('');
+        return `<div class="literacy-stroke-board" data-play="${token}"><svg class="literacy-stroke-svg is-playing" viewBox="0 0 1024 1024" aria-hidden="true">${paths}</svg><button class="btn-secondary" type="button" data-action="literacy-stroke" aria-label="再看一遍笔顺">${icon('rotate-ccw')} 看笔顺</button></div>`;
+    }
+
+    function renderPlayMatchBody(progressHead, prompt, board, hint, nextLabel) {
+        const cards = (board && Array.isArray(board.cards) ? board.cards : []).map(function (card, index) {
+            const selected = board.selected && board.selected.indexOf(index) >= 0;
+            const open = !!(card.matched || selected);
+            const mark = card.matched ? 'is-correct' : selected ? 'is-selected' : '';
+            return `<button class="play-flip-card ${mark} ${open ? 'is-open' : ''}" type="button" data-action="play-flip" data-index="${index}" ${card.matched || (board && board.complete) ? 'disabled' : ''} aria-pressed="${open}"><span>${open ? escapeHtml(card.face) : '?'}</span></button>`;
+        }).join('');
+        const done = !!(board && board.complete);
+        const feedback = done
+            ? '<p class="lesson-dialog-feedback is-success" role="status">配对完成啦！</p>'
+            : `<p class="lesson-dialog-feedback">${escapeHtml(hint || '先点一张，再点另一张。')}</p>`;
+        return `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">${escapeHtml(prompt || '找出一对。')}</h3><div class="play-flip-grid" role="group" aria-label="翻牌">${cards}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${done ? '' : 'disabled'}>${icon(done ? 'sparkles' : 'lock-keyhole')}${escapeHtml(nextLabel || (done ? '收集阳光，完成练习' : '配完再领取'))}</button></div></div>`;
+    }
+
+    function renderPlaySpellBody(progressHead, spell) {
+        const round = spell && typeof spell === 'object' ? spell : {};
+        const tiles = (Array.isArray(round.tiles) ? round.tiles : []).map(function (letter) {
+            return `<button class="play-spell-tile" type="button" data-action="play-spell" data-letter="${escapeHtml(letter)}" ${round.complete ? 'disabled' : ''}>${escapeHtml(letter)}</button>`;
+        }).join('');
+        const feedback = round.complete
+            ? '<p class="lesson-dialog-feedback is-success" role="status">拼出来啦！</p>'
+            : round.wrong
+                ? '<p class="lesson-dialog-feedback" role="status">再从第一个字母开始。</p>'
+                : '<p class="lesson-dialog-feedback">按顺序点字母。</p>';
+        return `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">拼出 ${escapeHtml(round.target || '')}</h3><p class="literacy-pinyin">${escapeHtml(round.zh || '')}</p><p class="play-spell-typed${round.wrong ? ' is-wrong' : ''}">${escapeHtml(round.typed || '') || '…'}</p><div class="play-spell-tiles" role="group" aria-label="字母">${tiles}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${round.complete ? '' : 'disabled'}>${icon(round.complete ? 'sparkles' : 'lock-keyhole')}${round.complete ? '收集阳光，完成练习' : '拼完再领取'}</button></div></div>`;
+    }
+
+    function renderPlaySessionBody(progressHead, play, activity) {
+        if (!play) return '';
+        if (play.kind === 'memory' || play.kind === 'match') {
+            return renderPlayMatchBody(progressHead, activity.prompt, play.board, activity.hint, play.complete ? '收集阳光，完成练习' : '配完再领取');
+        }
+        if (play.kind === 'odd') {
+            const total = play.run && Array.isArray(play.run.rounds) ? play.run.rounds.length : 0;
+            const round = play.run && play.run.rounds ? (play.run.rounds[play.roundIndex] || play.run.rounds[0] || {}) : {};
+            const tiles = (round.tiles || []).map(function (face, index) {
+                const isWrong = ui.lessonSession.selectedIndex === index && !play.roundCorrect && !play.complete;
+                return `<button class="play-odd-tile ${isWrong ? 'is-wrong' : ''}" type="button" data-action="play-odd" data-index="${index}" ${play.complete ? 'disabled' : ''}>${escapeHtml(face)}</button>`;
+            }).join('');
+            const feedback = play.complete
+                ? '<p class="lesson-dialog-feedback is-success" role="status">找出来啦！</p>'
+                : isWrongFeedback(play)
+                    ? '<p class="lesson-dialog-feedback" role="status">再看看哪个不一样。</p>'
+                    : `<p class="lesson-dialog-feedback">${escapeHtml(round.prompt || activity.prompt || '哪一个和其他不一样？')}</p>`;
+            return `<div class="lesson-dialog-body">${progressHead}<div class="literacy-find-progress" aria-label="找不同进度"><span>第 ${(play.roundIndex || 0) + 1}/${total || 1} 关</span></div><h3 class="lesson-dialog-prompt">${escapeHtml(round.prompt || activity.prompt || '哪一个和其他不一样？')}</h3><div class="play-odd-grid" role="group" aria-label="找不同">${tiles}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${play.complete ? '' : 'disabled'}>${icon(play.complete ? 'sparkles' : 'lock-keyhole')}${play.complete ? '收集阳光，完成练习' : '找完再领取'}</button></div></div>`;
+        }
+        if (play.kind === 'order') {
+            const run = play.run || {};
+            const typed = Array.isArray(run.typed) ? run.typed : [];
+            const tiles = (Array.isArray(run.tiles) ? run.tiles : []).map(function (value) {
+                const used = typed.indexOf(value) >= 0;
+                return `<button class="play-order-tile ${used ? 'is-correct' : ''} ${run.wrong && !used ? 'is-wrong' : ''}" type="button" data-action="play-order" data-value="${value}" ${play.complete || used ? 'disabled' : ''}>${escapeHtml(String(value))}</button>`;
+            }).join('');
+            const feedback = play.complete
+                ? '<p class="lesson-dialog-feedback is-success" role="status">排队排好啦！</p>'
+                : run.wrong
+                    ? '<p class="lesson-dialog-feedback" role="status">再从 1 开始。</p>'
+                    : `<p class="lesson-dialog-feedback">${escapeHtml(activity.prompt || '按从小到大点数字。')}</p>`;
+            return `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">${escapeHtml(activity.prompt || '按从小到大点数字。')}</h3><p class="play-spell-typed">${typed.join(' ') || '…'}</p><div class="play-order-grid" role="group" aria-label="数字排队">${tiles}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${play.complete ? '' : 'disabled'}>${icon(play.complete ? 'sparkles' : 'lock-keyhole')}${play.complete ? '收集阳光，完成练习' : '排完再领取'}</button></div></div>`;
+        }
+        return '';
+    }
+
+    function isWrongFeedback(play) {
+        return ui.lessonSession && ui.lessonSession.selectedIndex !== null && !play.roundCorrect && !play.complete;
+    }
+
+    function renderMotionTimerBody(progressHead, timer, activity) {
+        const total = Math.max(1, Number(timer && timer.durationSec) || 45);
+        const remaining = Math.max(0, Number(timer && timer.remaining) || 0);
+        const progress = Math.round(((total - remaining) / total) * 100);
+        const done = !!(timer && timer.complete);
+        const safety = ((timer && timer.safety) || []).map(function (item) { return escapeHtml(item); }).join(' · ');
+        const feedback = done
+            ? `<p class="lesson-dialog-feedback is-success" role="status">${escapeHtml((timer && timer.success) || '做完啦！')} 阳光已经准备好啦。</p>`
+            : `<p class="lesson-dialog-feedback">${escapeHtml(activity.hint || '跟着大圆做，成人在旁。')}</p>`;
+        return `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">${escapeHtml((timer && timer.prompt) || activity.prompt || '开始做')}</h3><div class="motion-timer-board"><div class="motion-timer-ring" style="--progress:${progress}" aria-label="还剩 ${remaining} 秒"><span>${done ? '好' : remaining}</span></div>${safety ? `<p class="motion-timer-safety">${safety}</p>` : ''}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-secondary" type="button" data-action="motion-done">${icon('check')}做完了</button><button class="btn-primary" type="button" data-action="lesson-finish" ${done ? '' : 'disabled'}>${icon(done ? 'sparkles' : 'lock-keyhole')}${done ? '收集阳光，完成练习' : '做完再领取'}</button></div></div>`;
     }
 
     function renderLessonDialog() {
@@ -1505,21 +1897,161 @@
         }).length;
         const courseTotal = lessons.length || 1;
         const coursePercent = Math.round((completedInCourse / courseTotal) * 100);
-        const selectedIndex = ui.lessonSession.selectedIndex;
-        const correct = ui.lessonSession.correct;
-        const optionMarkup = activity.options.map(function (option, index) {
-            const isSelected = selectedIndex === index;
-            const isCorrect = correct && index === activity.answer;
-            const isWrong = isSelected && !correct;
-            const optionIcon = activity.optionIcons[index] || match.course.icon || 'sparkles';
-            return `<button class="lesson-dialog-option ${isCorrect ? 'is-correct' : ''} ${isWrong ? 'is-wrong' : ''}" type="button" data-action="lesson-answer" data-index="${index}" aria-pressed="${isSelected}" ${correct ? 'disabled' : ''}><span class="lesson-dialog-option-index">${String.fromCharCode(65 + index)}</span><span class="lesson-dialog-option-art" aria-hidden="true">${icon(optionIcon)}</span><strong>${escapeHtml(option)}</strong>${isCorrect ? icon('check') : isWrong ? icon('rotate-ccw') : icon('arrow-right')}</button>`;
-        }).join('');
-        const feedback = correct
-            ? `<p class="lesson-dialog-feedback is-success" role="status">${escapeHtml(activity.success)} 阳光和豌豆能量已经准备好啦。</p>`
-            : selectedIndex === null
-                ? `<p class="lesson-dialog-feedback">${escapeHtml(activity.hint)}</p>`
-                : '<p class="lesson-dialog-feedback is-error" role="alert">还差一点，再看看提示，换一个答案试试。</p>';
-        lessonDialogContent.innerHTML = `<div class="lesson-dialog-body"><span class="lesson-dialog-course">${escapeHtml(match.course.title)}</span><div class="lesson-dialog-progress"><div><span>第 ${lessonIndex + 1} 张练习</span><strong>已完成 ${completedInCourse}/${lessons.length || 0}</strong></div><span class="lesson-dialog-progress-track" role="progressbar" aria-label="当前课程进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${coursePercent}"><i style="width:${coursePercent}%"></i></span></div><h3 class="lesson-dialog-prompt">${escapeHtml(activity.prompt)}</h3><div class="lesson-dialog-options" role="group" aria-label="练习选项">${optionMarkup}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${correct ? '' : 'disabled'}>${icon(correct ? 'sparkles' : 'lock-keyhole')}${correct ? '收集阳光，完成练习' : '答对后领取奖励'}</button></div></div>`;
+        const progressHead = `<span class="lesson-dialog-course">${escapeHtml(match.course.title)}</span><div class="lesson-dialog-progress"><div><span>第 ${lessonIndex + 1} 张练习</span><strong>已完成 ${completedInCourse}/${lessons.length || 0}</strong></div><span class="lesson-dialog-progress-track" role="progressbar" aria-label="当前课程进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${coursePercent}"><i style="width:${coursePercent}%"></i></span></div>`;
+        const english = ui.lessonSession.english;
+        const literacy = ui.lessonSession.literacy;
+        const bankQuiz = ui.lessonSession.bankQuiz;
+        if (english && english.mode === 'english-speak' && Array.isArray(english.batch) && english.phase === 'match' && english.match) {
+            lessonDialogContent.innerHTML = renderPlayMatchBody(progressHead, '把英文和中文配成一对。', english.match, '配对完成就可以去拼写。', '下一关：拼写这个词');
+        } else if (english && english.mode === 'english-speak' && Array.isArray(english.batch) && english.phase === 'spell' && english.spell) {
+            lessonDialogContent.innerHTML = renderPlaySpellBody(progressHead, english.spell);
+        } else if (english && english.mode === 'english-speak' && Array.isArray(english.batch)) {
+            const marked = english.batch.filter(function (item) { return item.mark === 'known' || item.mark === 'unknown'; }).length;
+            const allMarked = marked === english.batch.length;
+            const cards = english.batch.map(function (item) {
+                return `<article class="literacy-flash-card is-${item.mark || 'plain'}"><div class="literacy-flash-marks"><button class="literacy-flash-speak" type="button" data-action="english-speak" data-text="${escapeHtml(item.text)}" aria-label="听单词">${icon('volume-2')} 听单词</button><button class="literacy-flash-speak" type="button" data-action="english-speak" data-text="${escapeHtml(item.phrase)}" aria-label="听句子">${icon('volume-2')} 听句子</button></div><p class="literacy-char">${escapeHtml(item.text)}</p><p class="literacy-pinyin">${escapeHtml(item.zh)}</p><p class="literacy-word">${escapeHtml(item.phrase)}</p><p class="literacy-word">${escapeHtml(item.phraseZh)}</p><div class="literacy-flash-marks"><button class="btn-secondary" type="button" data-action="english-known" data-word="${escapeHtml(item.text)}" data-known="1" aria-pressed="${item.mark === 'known'}">会了</button><button class="btn-secondary" type="button" data-action="english-known" data-word="${escapeHtml(item.text)}" data-known="0" aria-pressed="${item.mark === 'unknown'}">不会</button></div></article>`;
+            }).join('');
+            const dayLabel = english.day ? `Day ${english.day} 英语 · ${english.batch.length} 个词` : '听句子，这些词你会了吗？';
+            lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">${escapeHtml(dayLabel)}</h3><p class="lesson-dialog-feedback">已标 ${marked}/${english.batch.length} 张。先听单词和句子，再点会了或不会。不扣阳光。</p><div class="literacy-flash-grid">${cards}</div><div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${allMarked ? '' : 'disabled'}>${icon(allMarked ? 'sparkles' : 'lock-keyhole')}${allMarked ? '下一关：中英配对' : '先点完会了和不会'}</button></div></div>`;
+        } else if (literacy && literacy.mode === 'literacy-flash' && Array.isArray(literacy.batch)) {
+            const marked = literacy.batch.filter(function (item) { return item.mark === 'known' || item.mark === 'unknown'; }).length;
+            const unknowns = literacy.batch.filter(function (item) { return item.mark === 'unknown'; });
+            const allMarked = marked === literacy.batch.length;
+            if (literacy.phase === 'teach' && literacy.card) {
+                const total = Math.max(1, unknowns.length);
+                const wordMarkup = literacy.card.words.map(function (word) {
+                    return `<span class="literacy-word-chip">${escapeHtml(word)}</span>`;
+                }).join('');
+                const last = literacy.teachIndex >= total - 1;
+                const strokeBoard = renderLiteracyStrokeBoard(literacy.card, literacy.strokePlay);
+                const rememberBtn = literacy.complete ? '' : `<button class="btn-secondary" type="button" data-action="literacy-remember">${icon('check')}记住了</button>`;
+                lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}<div class="literacy-find-progress" aria-label="学不会的字"><span>不会的字 ${literacy.teachIndex + 1}/${total}</span></div><h3 class="lesson-dialog-prompt">看组词，记住这个字</h3><article class="literacy-card"><p class="literacy-pinyin">${escapeHtml(literacy.card.pinyin || '')}</p><p class="literacy-char">${escapeHtml(literacy.card.char)}</p><button class="btn-secondary" type="button" data-action="literacy-speak" data-text="${escapeHtml(literacy.card.speak || literacy.card.char)}" aria-label="听发音">${icon('volume-2')} 听一听</button>${strokeBoard}<div class="literacy-teach-block"><strong>组词</strong><div class="literacy-word-chips">${wordMarkup}</div></div><div class="literacy-teach-block"><strong>解词</strong><p>${escapeHtml(literacy.card.explain)}</p></div></article><p class="lesson-dialog-feedback">用词来记字，不用看图。有笔顺就点看笔顺，没有也不挡关。记住了就点记住了。</p><div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button>${rememberBtn}<button class="btn-primary" type="button" data-action="${last || literacy.complete ? 'lesson-finish' : 'literacy-teach-next'}">${icon('sparkles')}${last || literacy.complete ? '收集阳光，完成练习' : '下一个字'}</button></div></div>`;
+            } else {
+                const cards = literacy.batch.map(function (item) {
+                    return `<article class="literacy-flash-card is-${item.mark || 'plain'}"><button class="literacy-flash-speak" type="button" data-action="literacy-speak" data-text="${escapeHtml(item.char)}" aria-label="听${escapeHtml(item.char)}">${icon('volume-2')}</button><p class="literacy-pinyin">${escapeHtml(item.pinyin || '')}</p><p class="literacy-char">${escapeHtml(item.char)}</p><div class="literacy-flash-marks"><button class="btn-secondary" type="button" data-action="literacy-mark" data-char="${escapeHtml(item.char)}" data-known="1" aria-pressed="${item.mark === 'known'}">会了</button><button class="btn-secondary" type="button" data-action="literacy-mark" data-char="${escapeHtml(item.char)}" data-known="0" aria-pressed="${item.mark === 'unknown'}">不会</button></div></article>`;
+                }).join('');
+                const nextAction = literacy.complete ? 'lesson-finish' : (allMarked && unknowns.length ? 'literacy-teach-start' : 'lesson-finish');
+                const nextLabel = literacy.complete || (allMarked && !unknowns.length) ? '收集阳光，完成练习' : allMarked ? '学习不会的字' : '先点完会了和不会';
+                const canGo = literacy.complete || allMarked;
+                lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">这些字，哪些会了？</h3><p class="lesson-dialog-feedback">已标 ${marked}/${literacy.batch.length} 张。会的跳过，不会的再看组词。</p><div class="literacy-flash-grid">${cards}</div><div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="${nextAction}" ${canGo ? '' : 'disabled'}>${icon(canGo ? 'sparkles' : 'lock-keyhole')}${nextLabel}</button></div></div>`;
+            }
+        } else if (literacy && literacy.mode === 'literacy-bloom' && literacy.bloom) {
+            const bloomComplete = literacyBloomComplete(literacy);
+            const optionMarkup = literacy.bloom.options.map(function (option, index) {
+                const selected = !!literacy.selected[option.word];
+                const mark = bloomComplete ? (option.correct ? 'is-correct' : selected ? 'is-wrong' : '') : (selected ? 'is-selected' : '');
+                return `<button class="lesson-dialog-option ${mark}" type="button" data-action="literacy-bloom" data-word="${escapeHtml(option.word)}" aria-pressed="${selected}"><span class="lesson-dialog-option-index">${String.fromCharCode(65 + index)}</span><strong>${escapeHtml(option.word)}</strong>${selected ? icon('check') : icon('arrow-right')}</button>`;
+            }).join('');
+            const feedback = bloomComplete
+                ? `<p class="lesson-dialog-feedback is-success" role="status">组词开花啦！阳光已经准备好。</p>`
+                : `<p class="lesson-dialog-feedback">${escapeHtml(literacy.bloom.prompt)}</p>`;
+            lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}<div class="literacy-steps" aria-label="组词"><span class="literacy-step is-active">组</span></div><h3 class="lesson-dialog-prompt">${escapeHtml(literacy.bloom.prompt)}</h3><div class="lesson-dialog-options literacy-bloom-options" role="group" aria-label="组词选项">${optionMarkup}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${bloomComplete ? '' : 'disabled'}>${icon(bloomComplete ? 'sparkles' : 'lock-keyhole')}${bloomComplete ? '收集阳光，完成练习' : '选对后再领取'}</button></div></div>`;
+        } else if (literacy && literacy.run) {
+            const round = literacy.run.rounds[literacy.roundIndex] || literacy.run.rounds[0];
+            const total = literacy.run.rounds.length;
+            const stars = literacy.run.rounds.map(function (_item, index) {
+                const done = index < literacy.roundIndex || literacy.complete;
+                const current = index === literacy.roundIndex && !literacy.complete;
+                return `<span class="literacy-star${done ? ' is-done' : ''}${current ? ' is-active' : ''}" aria-hidden="true">${icon('sparkles')}</span>`;
+            }).join('');
+            const optionMarkup = round.options.map(function (option, index) {
+                const isSelected = ui.lessonSession.selectedIndex === index;
+                const isCorrect = literacy.roundCorrect && index === round.answer;
+                const isWrong = isSelected && !literacy.roundCorrect;
+                return `<button class="lesson-dialog-option literacy-find-option ${isCorrect ? 'is-correct' : ''} ${isWrong ? 'is-wrong' : ''}" type="button" data-action="lesson-answer" data-index="${index}" aria-pressed="${isSelected}" ${literacy.roundCorrect ? 'disabled' : ''}><span class="lesson-dialog-option-index">${String.fromCharCode(65 + index)}</span><strong>${escapeHtml(option.label)}</strong>${isCorrect ? icon('check') : isWrong ? icon('rotate-ccw') : icon('arrow-right')}</button>`;
+            }).join('');
+            const canAdvance = literacy.roundCorrect || literacy.complete;
+            const nextAction = literacy.complete ? 'lesson-finish' : 'literacy-next';
+            const nextLabel = literacy.complete ? '收集阳光，完成练习' : literacy.roundIndex >= total - 1 ? '收集阳光，完成练习' : '下一关';
+            const feedback = literacy.complete
+                ? '<p class="lesson-dialog-feedback is-success" role="status">闯关完成啦！阳光已经准备好。</p>'
+                : literacy.roundCorrect
+                    ? '<p class="lesson-dialog-feedback is-success" role="status">找对啦，下一关吧。</p>'
+                    : ui.lessonSession.selectedIndex !== null
+                        ? '<p class="lesson-dialog-feedback" role="status">再想想哦～</p>'
+                        : `<p class="lesson-dialog-feedback">${escapeHtml(round.prompt)}</p>`;
+            lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}<div class="literacy-find-progress" aria-label="找字进度"><span>第 ${literacy.roundIndex + 1}/${total} 关</span><span class="literacy-stars">${stars}</span></div><h3 class="lesson-dialog-prompt">${escapeHtml(round.prompt)}</h3><article class="literacy-card literacy-find-cue"><p class="literacy-pinyin">${escapeHtml(round.pinyin || '')}</p>${literacy.hint && round.word ? `<p class="literacy-word">${escapeHtml(round.word)}</p>` : ''}<div class="literacy-find-tools"><button class="btn-secondary" type="button" data-action="literacy-speak" data-text="${escapeHtml(round.speak || round.char)}" aria-label="听发音">${icon('volume-2')} 听一听</button><button class="btn-secondary" type="button" data-action="literacy-hint" aria-label="看提示">${icon('sparkles')} 提示</button></div></article><div class="lesson-dialog-options literacy-find-options" role="group" aria-label="找字选项">${optionMarkup}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="${nextAction}" ${canAdvance ? '' : 'disabled'}>${icon(canAdvance ? 'sparkles' : 'lock-keyhole')}${nextLabel}</button></div></div>`;
+        } else if (literacy && literacy.loop) {
+            const step = literacy.loop.steps[literacy.stepIndex] || literacy.loop.steps[0];
+            const stepNames = ['认', '练', '测'];
+            const stepNav = `<div class="literacy-steps" aria-label="认练测">${stepNames.map(function (name, index) {
+                const current = index === literacy.stepIndex;
+                const done = index < literacy.stepIndex || literacy.complete;
+                return `<span class="literacy-step${current ? ' is-active' : ''}${done ? ' is-done' : ''}">${name}</span>`;
+            }).join('')}</div>`;
+            let body = '';
+            if (step.kind === 'recognize') {
+                body = `<article class="literacy-card"><p class="literacy-pinyin">${escapeHtml(step.pinyin || '')}</p><p class="literacy-char">${escapeHtml(step.char)}</p><p class="literacy-word">${escapeHtml(step.word || '')}</p><button class="btn-secondary" type="button" data-action="literacy-speak" data-text="${escapeHtml(step.speak || step.char)}" aria-label="听发音">${icon('volume-2')} 听一听</button></article>`;
+            } else {
+                const optionMarkup = step.options.map(function (option, index) {
+                    const isSelected = ui.lessonSession.selectedIndex === index;
+                    const isCorrect = literacy.stepCorrect && index === step.answer;
+                    const isWrong = isSelected && !literacy.stepCorrect;
+                    return `<button class="lesson-dialog-option ${isCorrect ? 'is-correct' : ''} ${isWrong ? 'is-wrong' : ''}" type="button" data-action="lesson-answer" data-index="${index}" aria-pressed="${isSelected}" ${literacy.stepCorrect ? 'disabled' : ''}><span class="lesson-dialog-option-index">${String.fromCharCode(65 + index)}</span><strong>${escapeHtml(option.label)}</strong>${isCorrect ? icon('check') : isWrong ? icon('rotate-ccw') : icon('arrow-right')}</button>`;
+                }).join('');
+                body = `${step.kind === 'quiz' ? `<button class="btn-secondary literacy-speak-inline" type="button" data-action="literacy-speak" data-text="${escapeHtml(literacy.loop.char)}" aria-label="听发音">${icon('volume-2')} 听字音</button>` : ''}<div class="lesson-dialog-options" role="group" aria-label="练习选项">${optionMarkup}</div>`;
+            }
+            const canAdvance = step.kind === 'recognize' || literacy.stepCorrect;
+            const feedback = literacy.complete
+                ? `<p class="lesson-dialog-feedback is-success" role="status">太棒了！阳光已经准备好啦。</p>`
+                : literacy.stepCorrect
+                    ? '<p class="lesson-dialog-feedback is-success" role="status">对啦，下一关吧。</p>'
+                    : `<p class="lesson-dialog-feedback">${escapeHtml(step.prompt)}</p>`;
+            const nextLabel = literacy.complete ? '收集阳光，完成练习' : step.kind === 'recognize' ? '下一关：练' : literacy.stepIndex === 1 ? '下一关：测' : '收集阳光，完成练习';
+            const nextAction = literacy.complete ? 'lesson-finish' : 'literacy-next';
+            lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}${stepNav}<h3 class="lesson-dialog-prompt">${escapeHtml(step.prompt)}</h3>${body}${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="${nextAction}" ${canAdvance || literacy.complete ? '' : 'disabled'}>${icon(literacy.complete || canAdvance ? 'sparkles' : 'lock-keyhole')}${nextLabel}</button></div></div>`;
+        } else if (bankQuiz && bankQuiz.run && Array.isArray(bankQuiz.run.rounds)) {
+            const total = bankQuiz.run.rounds.length;
+            const round = bankQuiz.run.rounds[bankQuiz.roundIndex] || bankQuiz.run.rounds[0];
+            const stars = Array.from({ length: total }, function (_item, index) {
+                return `<span class="${index < bankQuiz.roundIndex || bankQuiz.complete ? 'is-on' : ''}">★</span>`;
+            }).join('');
+            const optionMarkup = (round.options || []).map(function (option, index) {
+                const isSelected = ui.lessonSession.selectedIndex === index;
+                const isCorrect = bankQuiz.roundCorrect && index === round.answer;
+                const isWrong = isSelected && !bankQuiz.roundCorrect;
+                return `<button class="lesson-dialog-option literacy-find-option ${isCorrect ? 'is-correct' : ''} ${isWrong ? 'is-wrong' : ''}" type="button" data-action="lesson-answer" data-index="${index}" aria-pressed="${isSelected}" ${bankQuiz.roundCorrect ? 'disabled' : ''}><span class="lesson-dialog-option-index">${String.fromCharCode(65 + index)}</span><strong>${escapeHtml(option)}</strong>${isCorrect ? icon('check') : isWrong ? icon('rotate-ccw') : icon('arrow-right')}</button>`;
+            }).join('');
+            const speakText = round.speak || round.text || '';
+            const cue = bankQuiz.mode === 'math-bank'
+                ? `<p class="literacy-char">${escapeHtml(round.tokens || '')}</p>`
+                : bankQuiz.mode === 'poetry-line'
+                    ? `<p class="literacy-pinyin">${escapeHtml(round.title || '')}</p><p class="literacy-word">${escapeHtml(round.tokens || '')}</p>`
+                    : `<p class="literacy-pinyin">${escapeHtml(round.blend || '')}</p><p class="literacy-char">${bankQuiz.roundCorrect ? escapeHtml(round.text || '') : '?'}</p>`;
+            const canAdvance = bankQuiz.roundCorrect || bankQuiz.complete;
+            const nextLabel = bankQuiz.complete ? '收集阳光，完成练习' : (bankQuiz.roundIndex >= total - 1 ? '收集阳光，完成练习' : '下一题');
+            const nextAction = bankQuiz.complete || (bankQuiz.roundCorrect && bankQuiz.roundIndex >= total - 1) ? 'lesson-finish' : 'bank-quiz-next';
+            const feedback = bankQuiz.complete
+                ? '<p class="lesson-dialog-feedback is-success" role="status">太棒了！阳光已经准备好啦。</p>'
+                : bankQuiz.roundCorrect
+                    ? '<p class="lesson-dialog-feedback is-success" role="status">对啦，下一题吧。</p>'
+                    : ui.lessonSession.selectedIndex !== null
+                        ? '<p class="lesson-dialog-feedback" role="status">再想想哦～</p>'
+                        : `<p class="lesson-dialog-feedback">${escapeHtml(round.prompt || '')}</p>`;
+            lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}<div class="literacy-find-progress" aria-label="题目进度"><span>第 ${bankQuiz.roundIndex + 1}/${total} 题</span><span class="literacy-stars">${stars}</span></div><h3 class="lesson-dialog-prompt">${escapeHtml(round.prompt || '')}</h3><article class="literacy-card literacy-find-cue">${cue}<div class="literacy-find-tools"><button class="btn-secondary" type="button" data-action="bank-quiz-speak" data-text="${escapeHtml(speakText)}" data-lang="${escapeHtml(bankQuiz.speakLang || 'zh-CN')}" aria-label="听一听">${icon('volume-2')} 听一听</button></div></article><div class="lesson-dialog-options literacy-find-options" role="group" aria-label="选项">${optionMarkup}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="${nextAction}" ${canAdvance ? '' : 'disabled'}>${icon(canAdvance ? 'sparkles' : 'lock-keyhole')}${nextLabel}</button></div></div>`;
+        } else if (ui.lessonSession.play) {
+            lessonDialogContent.innerHTML = renderPlayLessonBody(progressHead, ui.lessonSession.play);
+        } else if (ui.lessonSession.timer) {
+            const timer = ui.lessonSession.timer;
+            const safety = (timer.safety || []).map(function (item) { return `<span>${escapeHtml(item)}</span>`; }).join('');
+            lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">${escapeHtml(timer.prompt || '开始做')}</h3><p class="literacy-char">${timer.remaining} 秒</p><p class="lesson-dialog-feedback">${timer.complete ? escapeHtml(timer.success || '做完啦！') : '大圆倒计时，成人在旁。做完也可以提前点完成。'}</p><div class="preschool-literacy-mastery">${safety}</div><div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="motion-done">${icon('sparkles')}做完了</button><button class="btn-primary" type="button" data-action="lesson-finish" ${timer.complete ? '' : 'disabled'}>${icon(timer.complete ? 'sparkles' : 'lock-keyhole')}${timer.complete ? '收集阳光，完成练习' : '先做完这一轮'}</button></div></div>`;
+        } else {
+            const selectedIndex = ui.lessonSession.selectedIndex;
+            const correct = ui.lessonSession.correct;
+            const optionMarkup = activity.options.map(function (option, index) {
+                const isSelected = selectedIndex === index;
+                const isCorrect = correct && index === activity.answer;
+                const isWrong = isSelected && !correct;
+                const optionIcon = activity.optionIcons[index] || match.course.icon || 'sparkles';
+                return `<button class="lesson-dialog-option ${isCorrect ? 'is-correct' : ''} ${isWrong ? 'is-wrong' : ''}" type="button" data-action="lesson-answer" data-index="${index}" aria-pressed="${isSelected}" ${correct ? 'disabled' : ''}><span class="lesson-dialog-option-index">${String.fromCharCode(65 + index)}</span><span class="lesson-dialog-option-art" aria-hidden="true">${icon(optionIcon)}</span><strong>${escapeHtml(option)}</strong>${isCorrect ? icon('check') : isWrong ? icon('rotate-ccw') : icon('arrow-right')}</button>`;
+            }).join('');
+            const feedback = correct
+                ? `<p class="lesson-dialog-feedback is-success" role="status">${escapeHtml(activity.success)} 阳光和豌豆能量已经准备好啦。</p>`
+                : selectedIndex === null
+                    ? `<p class="lesson-dialog-feedback">${escapeHtml(activity.hint)}</p>`
+                    : '<p class="lesson-dialog-feedback is-error" role="alert">还差一点，再看看提示，换一个答案试试。</p>';
+            lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">${escapeHtml(activity.prompt)}</h3><div class="lesson-dialog-options" role="group" aria-label="练习选项">${optionMarkup}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${correct ? '' : 'disabled'}>${icon(correct ? 'sparkles' : 'lock-keyhole')}${correct ? '收集阳光，完成练习' : '答对后领取奖励'}</button></div></div>`;
+        }
         if (global.lucide && typeof global.lucide.createIcons === 'function') global.lucide.createIcons({ root: lessonDialogContent });
     }
 
@@ -1539,14 +2071,25 @@
             return false;
         }
         if (completedIds.includes(match.lesson.id)) {
-            if (sourcePlan) return completeCourseLesson(match.lesson.id, sourcePlan.id, sourcePlan.date);
-            showToast('这节练习已经点亮啦。');
-            return false;
+            if (!isReplayableLesson(match)) {
+                    if (sourcePlan) return completeCourseLesson(match.lesson.id, sourcePlan.id, sourcePlan.date);
+                    showToast('这节练习已经点亮啦。');
+                    return false;
+            }
         }
         ui.lessonSession = { id: match.lesson.id, courseId: match.course.id, selectedIndex: null, correct: false, planId: sourcePlan ? sourcePlan.id : '', planDate: sourcePlan ? sourcePlan.date : '' };
+        if (isLiteracyLesson(match)) ui.lessonSession.literacy = buildLiteracySession(match);
+        if (isEnglishSpeakLesson(match)) ui.lessonSession.english = buildEnglishSession(match);
+        if (isBankQuizLesson(match)) ui.lessonSession.bankQuiz = buildBankQuizSession(match);
+        if (isPlayLesson(match)) ui.lessonSession.play = buildPlaySession(match);
+        if (isMotionTimerLesson(match)) {
+            ui.lessonSession.timer = buildMotionTimerSession(match);
+            startLessonMotionTimer();
+        }
         renderLessonDialog();
         if (typeof lessonDialog.showModal === 'function' && !lessonDialog.open) lessonDialog.showModal();
         else lessonDialog.setAttribute('open', '');
+        speakBankQuizRound();
         return true;
     }
 
@@ -1561,10 +2104,353 @@
         return openLessonDialog(match.lesson.id, plan.id, plan.date);
     }
 
+    function flipPlayCard(index) {
+        const engine = getPlayGamesEngine();
+        if (!engine || !ui.lessonSession) return false;
+        const selected = Number(index);
+        const english = ui.lessonSession.english;
+        if (english && english.phase === 'match' && english.match) {
+            english.match = engine.flipCard(english.match, selected);
+            renderLessonDialog();
+            return true;
+        }
+        const play = ui.lessonSession.play;
+        if (play && play.board) {
+            play.board = engine.flipCard(play.board, selected);
+            play.complete = !!play.board.complete;
+            ui.lessonSession.correct = play.complete;
+            renderLessonDialog();
+            return true;
+        }
+        return false;
+    }
+
+    function tapPlaySpell(letter) {
+        const engine = getPlayGamesEngine();
+        const english = ui.lessonSession && ui.lessonSession.english;
+        if (!engine || !english || !english.spell) return false;
+        english.spell = engine.tapSpell(english.spell, letter);
+        if (english.spell.complete) ui.lessonSession.correct = true;
+        renderLessonDialog();
+        return true;
+    }
+
+    function tapPlayOrder(value) {
+        const engine = getPlayGamesEngine();
+        const play = ui.lessonSession && ui.lessonSession.play;
+        if (!engine || !play || !play.run) return false;
+        play.run = engine.tapOrder(play.run, value);
+        play.complete = !!play.run.complete;
+        ui.lessonSession.correct = play.complete;
+        renderLessonDialog();
+        return true;
+    }
+
+    function tapPlayOdd(index) {
+        const play = ui.lessonSession && ui.lessonSession.play;
+        if (!play || !play.run) return false;
+        const round = play.run.rounds[play.roundIndex] || play.run.rounds[0];
+        const selected = Number(index);
+        play.roundCorrect = !!round && selected === round.oddIndex;
+        ui.lessonSession.selectedIndex = selected;
+        if (play.roundCorrect && play.roundIndex >= play.run.rounds.length - 1) {
+            play.complete = true;
+            ui.lessonSession.correct = true;
+        }
+        renderLessonDialog();
+        if (play.roundCorrect) speakPraise('找对啦');
+        return play.roundCorrect;
+    }
+
+    function advancePlayOdd() {
+        const play = ui.lessonSession && ui.lessonSession.play;
+        if (!play || !play.roundCorrect || !play.run) return false;
+        if (play.roundIndex < play.run.rounds.length - 1) {
+            play.roundIndex += 1;
+            play.roundCorrect = false;
+            ui.lessonSession.selectedIndex = null;
+        } else {
+            play.complete = true;
+            ui.lessonSession.correct = true;
+        }
+        renderLessonDialog();
+        return true;
+    }
+
+    function markEnglishKnown(word, known) {
+        const engine = getEnglishVocabEngine();
+        const session = ui.lessonSession && ui.lessonSession.english;
+        if (!engine || !session || !Array.isArray(session.batch)) return false;
+        const item = session.batch.find(function (entry) { return entry.text === word; });
+        if (!item) return false;
+        item.mark = known ? 'known' : 'unknown';
+        commit(function (next) {
+            const current = next.courseProgress && next.courseProgress.english
+                ? next.courseProgress.english
+                : engine.createDefaultProgress();
+            next.courseProgress = global.PersonalWorkbenchChildCourses.saveEnglish(
+                next.courseProgress,
+                engine.markKnown(current, word, !!known, storage.localDate(), engine.getRuntimeRules())
+            );
+        }, '');
+        session.complete = false;
+        ui.lessonSession.correct = false;
+        renderLessonDialog();
+        return true;
+    }
+
+    function markLiteracyFlash(char, known) {
+        const engine = getLiteracyEngine();
+        const session = ui.lessonSession && ui.lessonSession.literacy;
+        if (!engine || !session || !Array.isArray(session.batch)) return false;
+        const item = session.batch.find(function (entry) { return entry.char === char; });
+        if (!item) return false;
+        item.mark = known ? 'known' : 'unknown';
+        session.char = char;
+        commit(function (next) {
+            const current = next.courseProgress && next.courseProgress.literacy
+                ? next.courseProgress.literacy
+                : engine.createDefaultProgress();
+            next.courseProgress = global.PersonalWorkbenchChildCourses.saveLiteracy(
+                next.courseProgress,
+                engine.markFlash(current, char, !!known, storage.localDate(), engine.getRuntimeRules())
+            );
+        }, '');
+        const allMarked = session.batch.every(function (entry) { return entry.mark === 'known' || entry.mark === 'unknown'; });
+        const unknowns = session.batch.filter(function (entry) { return entry.mark === 'unknown'; });
+        if (allMarked && !unknowns.length) {
+            session.complete = true;
+            ui.lessonSession.correct = true;
+        } else {
+            session.complete = false;
+            ui.lessonSession.correct = false;
+        }
+        renderLessonDialog();
+        return true;
+    }
+
+    function startLiteracyTeach() {
+        const engine = getLiteracyEngine();
+        const session = ui.lessonSession && ui.lessonSession.literacy;
+        if (!engine || !session || !Array.isArray(session.batch)) return false;
+        const unknowns = session.batch.filter(function (entry) { return entry.mark === 'unknown'; });
+        if (!unknowns.length) {
+            session.complete = true;
+            ui.lessonSession.correct = true;
+            renderLessonDialog();
+            return true;
+        }
+        session.phase = 'teach';
+        session.teachIndex = 0;
+        session.char = unknowns[0].char;
+        session.card = engine.buildTeachCard(engine.getRuntimeBank(), session.char);
+        renderLessonDialog();
+        return true;
+    }
+
+    function advanceLiteracyTeach() {
+        const engine = getLiteracyEngine();
+        const session = ui.lessonSession && ui.lessonSession.literacy;
+        if (!engine || !session || session.phase !== 'teach') return false;
+        const unknowns = session.batch.filter(function (entry) { return entry.mark === 'unknown'; });
+        if (session.teachIndex >= unknowns.length - 1) {
+            session.complete = true;
+            ui.lessonSession.correct = true;
+        } else {
+            session.teachIndex += 1;
+            session.char = unknowns[session.teachIndex].char;
+            session.card = engine.buildTeachCard(engine.getRuntimeBank(), session.char);
+        }
+        renderLessonDialog();
+        return true;
+    }
+
+    function rememberLiteracyTeach() {
+        const engine = getLiteracyEngine();
+        const session = ui.lessonSession && ui.lessonSession.literacy;
+        if (!engine || !session || session.phase !== 'teach' || !session.char) return false;
+        const item = session.batch.find(function (entry) { return entry.char === session.char; });
+        if (item) item.mark = 'known';
+        commit(function (next) {
+            const current = next.courseProgress && next.courseProgress.literacy
+                ? next.courseProgress.literacy
+                : engine.createDefaultProgress();
+            next.courseProgress = global.PersonalWorkbenchChildCourses.saveLiteracy(
+                next.courseProgress,
+                engine.markFlash(current, session.char, true, storage.localDate(), engine.getRuntimeRules())
+            );
+        }, '');
+        const remaining = session.batch.filter(function (entry) { return entry.mark === 'unknown'; });
+        if (!remaining.length || session.teachIndex >= remaining.length) {
+            session.complete = true;
+            ui.lessonSession.correct = true;
+        } else {
+            session.char = remaining[session.teachIndex].char;
+            session.card = engine.buildTeachCard(engine.getRuntimeBank(), session.char);
+        }
+        renderLessonDialog();
+        return true;
+    }
+
+    function speakBankQuizRound() {
+        const bankQuiz = ui.lessonSession && ui.lessonSession.bankQuiz;
+        if (!bankQuiz || !bankQuiz.run) return;
+        const round = bankQuiz.run.rounds[bankQuiz.roundIndex];
+        if (round && round.speak) speakLiteracy(round.speak, bankQuiz.speakLang || 'zh-CN');
+    }
+
+    function advanceBankQuiz() {
+        if (!isPreschool || !ui.lessonSession || !ui.lessonSession.bankQuiz) return false;
+        const session = ui.lessonSession.bankQuiz;
+        if (!session.roundCorrect && !session.complete) return false;
+        if (session.roundIndex >= session.run.rounds.length - 1) {
+            session.complete = true;
+            ui.lessonSession.correct = true;
+        } else {
+            session.roundIndex += 1;
+            session.roundCorrect = false;
+            ui.lessonSession.selectedIndex = null;
+        }
+        renderLessonDialog();
+        if (!session.complete) speakBankQuizRound();
+        return true;
+    }
+
+    function speakLiteracy(text, lang) {
+        if (!global.speechSynthesis || !global.SpeechSynthesisUtterance) {
+            showToast('当前浏览器暂不支持听发音。', true);
+            return;
+        }
+        try {
+            global.speechSynthesis.cancel();
+            const utterance = new global.SpeechSynthesisUtterance(String(text || ''));
+            utterance.lang = lang || 'zh-CN';
+            utterance.rate = 0.8;
+            global.speechSynthesis.speak(utterance);
+        } catch (error) {
+            console.warn('[PersonalWorkbench] 识字发音失败', error);
+            showToast('暂时听不了，请看大字。', true);
+        }
+    }
+
+    function advanceLiteracy() {
+        if (!isPreschool || !ui.lessonSession || !ui.lessonSession.literacy) return false;
+        const session = ui.lessonSession.literacy;
+        if (session.run) {
+            if (!session.roundCorrect && !session.complete) return false;
+            if (session.roundIndex >= session.run.rounds.length - 1) {
+                session.complete = true;
+                ui.lessonSession.correct = true;
+            } else {
+                session.roundIndex += 1;
+                session.roundCorrect = false;
+                session.hint = false;
+                session.char = session.run.rounds[session.roundIndex].char;
+                ui.lessonSession.selectedIndex = null;
+            }
+            renderLessonDialog();
+            return true;
+        }
+        if (!session.loop) return false;
+        const step = session.loop.steps[session.stepIndex] || session.loop.steps[0];
+        if (step.kind === 'recognize') {
+            recordLiteracyAttempt('recognize', true);
+            session.stepIndex += 1;
+            session.stepCorrect = false;
+            ui.lessonSession.selectedIndex = null;
+            renderLessonDialog();
+            return true;
+        }
+        if (!session.stepCorrect) return false;
+        if (session.stepIndex >= session.loop.steps.length - 1) {
+            session.complete = true;
+            ui.lessonSession.correct = true;
+        } else {
+            session.stepIndex += 1;
+            session.stepCorrect = false;
+            ui.lessonSession.selectedIndex = null;
+        }
+        renderLessonDialog();
+        return true;
+    }
+
+    function toggleLiteracyHint() {
+        if (!isPreschool || !ui.lessonSession || !ui.lessonSession.literacy || !ui.lessonSession.literacy.run) return false;
+        ui.lessonSession.literacy.hint = !ui.lessonSession.literacy.hint;
+        renderLessonDialog();
+        return true;
+    }
+
+    function toggleLiteracyBloom(word) {
+        if (!isPreschool || !ui.lessonSession || !ui.lessonSession.literacy || !ui.lessonSession.literacy.bloom) return false;
+        const session = ui.lessonSession.literacy;
+        const key = String(word || '');
+        if (!key) return false;
+        session.selected[key] = !session.selected[key];
+        session.complete = literacyBloomComplete(session);
+        ui.lessonSession.correct = session.complete;
+        renderLessonDialog();
+        return session.complete;
+    }
+
     function answerLesson(index) {
         if (!isPreschool || !ui.lessonSession) return false;
         const match = findPreschoolLesson(ui.lessonSession.id);
         if (!match) return false;
+        const literacy = ui.lessonSession.literacy;
+        if (literacy && literacy.run) {
+            const round = literacy.run.rounds[literacy.roundIndex] || literacy.run.rounds[0];
+            if (!round || !Array.isArray(round.options)) return false;
+            const selectedIndex = Number(index);
+            if (!Number.isInteger(selectedIndex) || selectedIndex < 0 || selectedIndex >= round.options.length) return false;
+            const correct = selectedIndex === round.answer;
+            ui.lessonSession.selectedIndex = selectedIndex;
+            literacy.roundCorrect = correct;
+            literacy.char = round.char;
+            recordLiteracyAttempt('quiz', correct);
+            if (correct && literacy.roundIndex >= literacy.run.rounds.length - 1) {
+                literacy.complete = true;
+                ui.lessonSession.correct = true;
+            }
+            renderLessonDialog();
+            if (correct) speakPraise('找对啦');
+            return correct;
+        }
+        if (literacy && literacy.loop) {
+            const step = literacy.loop.steps[literacy.stepIndex] || literacy.loop.steps[0];
+            if (!step || !Array.isArray(step.options)) return false;
+            const selectedIndex = Number(index);
+            if (!Number.isInteger(selectedIndex) || selectedIndex < 0 || selectedIndex >= step.options.length) return false;
+            const correct = selectedIndex === step.answer;
+            ui.lessonSession.selectedIndex = selectedIndex;
+            literacy.stepCorrect = correct;
+            recordLiteracyAttempt(step.kind, correct);
+            if (correct && literacy.stepIndex >= literacy.loop.steps.length - 1) {
+                literacy.complete = true;
+                ui.lessonSession.correct = true;
+            }
+            renderLessonDialog();
+            if (correct) speakPraise(step.kind === 'quiz' ? '听对啦' : '找对啦');
+            return correct;
+        }
+        const bankQuiz = ui.lessonSession.bankQuiz;
+        if (bankQuiz && bankQuiz.run && Array.isArray(bankQuiz.run.rounds)) {
+            const round = bankQuiz.run.rounds[bankQuiz.roundIndex] || bankQuiz.run.rounds[0];
+            if (!round || !Array.isArray(round.options)) return false;
+            const selectedIndex = Number(index);
+            if (!Number.isInteger(selectedIndex) || selectedIndex < 0 || selectedIndex >= round.options.length) return false;
+            const correct = selectedIndex === round.answer;
+            ui.lessonSession.selectedIndex = selectedIndex;
+            bankQuiz.roundCorrect = correct;
+            if (correct && bankQuiz.roundIndex >= bankQuiz.run.rounds.length - 1) {
+                bankQuiz.complete = true;
+                ui.lessonSession.correct = true;
+            }
+            renderLessonDialog();
+            if (correct) speakPraise(bankQuiz.mode === 'math-bank' ? '数对啦' : '听对啦');
+            else if (round.speak) speakBankQuizRound();
+            return correct;
+        }
         const activity = getLessonActivity(match.lesson);
         const selectedIndex = Number(index);
         if (!Number.isInteger(selectedIndex) || selectedIndex < 0 || selectedIndex >= activity.options.length) return false;
@@ -1577,7 +2463,76 @@
 
     function finishLesson() {
         if (!isPreschool || !ui.lessonSession) return false;
-        if (!ui.lessonSession.correct) {
+        const literacy = ui.lessonSession.literacy;
+        const english = ui.lessonSession.english;
+        const play = ui.lessonSession.play;
+        const playEngine = getPlayGamesEngine();
+        const vocabEngine = getEnglishVocabEngine();
+        if (english && english.mode === 'english-speak') {
+            const allMarked = (english.batch || []).every(function (entry) { return entry.mark === 'known' || entry.mark === 'unknown'; });
+            if ((english.phase || 'speak') === 'speak') {
+                if (!allMarked || !playEngine || !vocabEngine) {
+                    showToast('先点完会了和不会，再去配对。', true);
+                    return false;
+                }
+                english.phase = 'match';
+                english.match = playEngine.buildMatchBoard(vocabEngine.toMatchPairs(english.batch), english.day || 1);
+                renderLessonDialog();
+                return false;
+            }
+            if (english.phase === 'match') {
+                if (!english.match || !english.match.complete) {
+                    showToast('先把英文和中文配完。', true);
+                    return false;
+                }
+                english.phase = 'spell';
+                english.spell = playEngine.buildSpellRound(english.batch[0], english.day || 1);
+                renderLessonDialog();
+                return false;
+            }
+            if (!english.spell || !english.spell.complete) {
+                showToast('先把这个词拼完。', true);
+                return false;
+            }
+            english.complete = true;
+            ui.lessonSession.correct = true;
+        } else if (play) {
+            const ready = !!(play.complete || (play.board && play.board.complete) || (play.run && play.run.complete));
+            if (!ready) {
+                showToast('先把这局小游戏玩完。', true);
+                return false;
+            }
+            play.complete = true;
+            ui.lessonSession.correct = true;
+        } else if (ui.lessonSession.timer) {
+            if (!ui.lessonSession.timer.complete) {
+                showToast('先做完这一轮，再领取阳光哦。', true);
+                return false;
+            }
+            ui.lessonSession.correct = true;
+        } else if (literacy) {
+            if (literacy.mode === 'literacy-flash' && literacy.phase === 'teach') {
+                const unknowns = (literacy.batch || []).filter(function (entry) { return entry.mark === 'unknown'; });
+                if (literacy.teachIndex >= Math.max(0, unknowns.length - 1)) {
+                    literacy.complete = true;
+                    ui.lessonSession.correct = true;
+                }
+            }
+            const ready = !!literacy.complete || (literacy.bloom && literacyBloomComplete(literacy));
+            if (!ready) {
+                showToast('先答对题目，再领取阳光哦。', true);
+                return false;
+            }
+            literacy.complete = true;
+            ui.lessonSession.correct = true;
+            if (literacy.bloom) recordLiteracyAttempt('practice', true);
+        } else if (ui.lessonSession.bankQuiz) {
+            if (!ui.lessonSession.bankQuiz.complete) {
+                showToast('先答对题目，再领取阳光哦。', true);
+                return false;
+            }
+            ui.lessonSession.correct = true;
+        } else if (!ui.lessonSession.correct) {
             showToast('先答对题目，再领取阳光哦。', true);
             return false;
         }
@@ -1772,16 +2727,32 @@
         return `<div class="preschool-course-progress" aria-label="${escapeHtml(course.title)}课程进度"><div class="preschool-course-progress-head"><span>成长路线</span><strong>${completion.completed}/${completion.total} 张已点亮</strong><em class="preschool-course-status is-${status}" data-route-state="${status}">${statusLabel}</em></div><span class="preschool-course-progress-track" role="progressbar" aria-label="${escapeHtml(course.title)}完成度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${completion.percent}"><i style="width:${completion.percent}%"></i></span></div>`;
     }
 
+    function renderPreschoolLiteracyMastery(course) {
+        if (!course || course.id !== 'preschool-literacy') return '';
+        const engine = getLiteracyEngine();
+        if (!engine || typeof engine.summarizeMastery !== 'function') return '';
+        const literacy = state.courseProgress && state.courseProgress.literacy
+            ? state.courseProgress.literacy
+            : engine.createDefaultProgress();
+        const summary = engine.summarizeMastery(literacy);
+        const bankSize = (engine.getRuntimeBank() || []).length;
+        const unseen = Math.max(0, bankSize - summary.total);
+        return `<div class="preschool-literacy-mastery" aria-label="识字会了还不会"><span>会了 ${summary.known}</span><span>还不会 ${summary.unknown}</span><span>还没点 ${unseen}</span></div>`;
+    }
+
     function renderPreschoolCourseRoute(course) {
         const lessonAction = isPreschool ? 'open-lesson' : 'complete-lesson';
         const completion = getPreschoolCourseCompletion(course);
         const stateLabels = { done: '已点亮', current: '现在来做', next: '下一张' };
         return `<div class="preschool-course-route" aria-label="${escapeHtml(course.title)}学习路线">${completion.lessons.map(function (lesson, index) {
             const routeState = getPreschoolLessonRouteState(completion, lesson, index);
+            const literacyReplay = isLiteracyLesson({ lesson: lesson }) || isEnglishSpeakLesson({ lesson: lesson });
             const isDone = routeState === 'done';
-            const detail = isDone ? '完成啦 · 已记录到成长花园' : `${lesson.minutes || 0} 分钟 · ${escapeHtml(lesson.meta || '看图选一选')}`;
-            const actionIcon = isDone ? 'check' : routeState === 'current' ? 'play' : 'arrow-right';
-            return `<button class="preschool-route-step is-${routeState}" type="button" data-action="${lessonAction}" data-id="${escapeHtml(lesson.id)}" data-route-state="${routeState}" ${isDone ? 'disabled' : ''}><span class="preschool-route-step-number">${index + 1}</span><span class="preschool-route-step-art" aria-hidden="true">${getPreschoolLessonRouteArt(course, lesson, index)}</span><span class="preschool-route-step-copy"><strong>${escapeHtml(lesson.title)}</strong><small>${stateLabels[routeState]} · ${detail}</small></span><span class="preschool-route-step-action">${icon(actionIcon)}</span></button>`;
+            const detail = isDone
+                ? (literacyReplay ? '再认一个字 · 字库继续排队' : '完成啦 · 已记录到成长花园')
+                : `${lesson.minutes || 0} 分钟 · ${escapeHtml(lesson.meta || '看图选一选')}`;
+            const actionIcon = isDone && !literacyReplay ? 'check' : routeState === 'current' || isDone ? 'play' : 'arrow-right';
+            return `<button class="preschool-route-step is-${routeState}" type="button" data-action="${lessonAction}" data-id="${escapeHtml(lesson.id)}" data-route-state="${routeState}" ${isDone && !literacyReplay ? 'disabled' : ''}><span class="preschool-route-step-number">${index + 1}</span><span class="preschool-route-step-art" aria-hidden="true">${getPreschoolLessonRouteArt(course, lesson, index)}</span><span class="preschool-route-step-copy"><strong>${escapeHtml(lesson.title)}</strong><small>${stateLabels[routeState]} · ${detail}</small></span><span class="preschool-route-step-action">${icon(actionIcon)}</span></button>`;
         }).join('')}</div>`;
     }
 
@@ -1809,7 +2780,7 @@
     }
 
     function renderPreschoolCourseCard(course, focused) {
-        return `<article class="preschool-course-card tone-${escapeHtml(course.tone || 'blue')} ${focused ? 'is-focused' : ''}"><div class="preschool-course-head">${preschoolVisual(course.icon || 'book-open', preschoolAssetForIcon(course.icon || 'book-open'), course.title)}<div><span class="preschool-course-label">${focused ? '当前学习专区' : '学习专区'}</span><h2>${escapeHtml(course.title)}</h2><small>${escapeHtml(course.description || '')}</small></div><strong>${course.completed || 0}/${course.total || 0}</strong></div>${renderPreschoolCourseProgress(course)}<div class="preschool-course-reference"><span>${icon('sparkles')}</span><p class="preschool-course-note">${escapeHtml(course.note || '选一张卡，开始今天的小练习。')}</p></div>${renderPreschoolCourseBadges(course)}${renderPreschoolCourseSamples(course)}${renderPreschoolCourseResources(course)}${renderPreschoolSummerLibrary(course)}<div class="preschool-course-lesson-heading"><div><span class="eyebrow">LEARNING ROUTE</span><h3>一步一步点亮小路线</h3></div><span>${course.total || (course.lessons || []).length} 张练习卡</span></div>${renderPreschoolCourseRoute(course)}</article>`;
+        return `<article class="preschool-course-card tone-${escapeHtml(course.tone || 'blue')} ${focused ? 'is-focused' : ''}"><div class="preschool-course-head">${preschoolVisual(course.icon || 'book-open', preschoolAssetForIcon(course.icon || 'book-open'), course.title)}<div><span class="preschool-course-label">${focused ? '当前学习专区' : '学习专区'}</span><h2>${escapeHtml(course.title)}</h2><small>${escapeHtml(course.description || '')}</small></div><strong>${course.completed || 0}/${course.total || 0}</strong></div>${renderPreschoolCourseProgress(course)}${renderPreschoolLiteracyMastery(course)}<div class="preschool-course-reference"><span>${icon('sparkles')}</span><p class="preschool-course-note">${escapeHtml(course.note || '选一张卡，开始今天的小练习。')}</p></div>${renderPreschoolCourseBadges(course)}${renderPreschoolCourseSamples(course)}${renderPreschoolCourseResources(course)}${renderPreschoolSummerLibrary(course)}<div class="preschool-course-lesson-heading"><div><span class="eyebrow">LEARNING ROUTE</span><h3>一步一步点亮小路线</h3></div><span>${course.total || (course.lessons || []).length} 张练习卡</span></div>${renderPreschoolCourseRoute(course)}</article>`;
     }
 
     function renderPreschoolCourses() {
@@ -1971,7 +2942,7 @@
         const actionIcon = workflow.kind === 'practice' ? 'play-circle' : workflow.kind === 'game' ? 'swords' : workflow.kind === 'empty' ? 'plus' : 'flag';
         return `<section class="preschool-home-identity" aria-label="专属伙伴与今日成长">
             <div class="preschool-home-identity-main"><span class="preschool-home-identity-art">${preschoolAsset('star-companion', companionName)}</span><div class="preschool-home-identity-copy"><span class="eyebrow">MY GARDEN PARTNER</span><h2>${escapeHtml(companionName)} · Lv.${level}</h2><p>${nextCopy}</p><div class="preschool-home-level-track" role="progressbar" aria-label="成长等级进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${levelProgress}"><i style="width:${levelProgress}%"></i></div><small>再积累 ${Math.max(0, 100 - levelProgress)} 点成长经验，点亮下一级</small></div></div>
-            <div class="preschool-home-identity-stats"><span><b>${done}/${plans.length || 0}</b><small>今日完成</small></span><span><b>${plannedMinutes}</b><small>计划分钟</small></span><span><b>${growth.streak || 0}</b><small>连续行动</small></span></div>
+            <div class="preschool-home-identity-stats"><span><b>${done}/${plans.length || 0}</b><small>今日完成</small></span><span><b>${plannedMinutes}</b><small>计划分钟</small></span><span><b>${growth.streak || 0}</b><small>连续行动</small></span>${global.PersonalWorkbenchPet ? global.PersonalWorkbenchPet.renderCapsule(state.growth, getPreschoolThemeId()) : ''}${global.PersonalWorkbenchAchievements ? global.PersonalWorkbenchAchievements.renderLastShown(state.growth && state.growth.achievements) : ''}</div>
             <div class="preschool-home-identity-actions"><button class="workbench-action-button" type="button" ${preschoolWorkflowActionAttrs(workflow)}>${icon(actionIcon)}${escapeHtml(workflow.cta)}</button><button class="workbench-secondary-button" type="button" data-action="add-plan">${icon('plus')}安排下一项</button><button class="workbench-text-button" type="button" data-action="navigate" data-page="growth">看成长${icon('arrow-up-right')}</button></div>
         </section>`;
     }
@@ -2054,6 +3025,12 @@
     }
 
     function renderPreschoolHomeOverview(derived) {
+        if (getPreschoolThemeId() === 'voxel-adventure' && global.VoxelWorkshop && typeof global.VoxelWorkshop.render === 'function') {
+            return global.VoxelWorkshop.render({
+                plans: derived.todayPlans || [],
+                today: derived.today
+            });
+        }
         const growth = getChildGrowth();
         const plans = derived.todayPlans;
         const done = plans.filter(item => item.done).length;
@@ -2064,9 +3041,7 @@
             ${renderPreschoolHomeWorkflowCard(plans)}
             ${renderPreschoolHomeIdentity(derived, growth, defense)}
             ${renderPreschoolHomeBattlefield(plans, defense)}
-            ${renderPreschoolHomeWorldProgress()}
             ${renderPreschoolHomeEvidence(derived, growth)}
-            ${renderPreschoolHomeRhythm(derived)}
             <div class="preschool-home-exits" aria-label="冒险出口"><button class="workbench-action-button" type="button" ${getPreschoolThemePlaybook().worldGameHref ? 'data-action="open-world-game"' : 'data-action="navigate" data-page="battle"'}>${icon('swords')} ${escapeHtml(getPreschoolThemePlaybook().exitGame)}</button><button class="workbench-secondary-button" type="button" data-action="navigate" data-page="rewards">${icon('gift')} 去领奖励</button></div>
         </div>`;
     }
@@ -2844,6 +3819,110 @@
         showToast('家庭互动已发送。');
     }
 
+    function applyPreschoolAchievements(next) {
+        if (!isPreschool || !global.PersonalWorkbenchAchievements || typeof global.PersonalWorkbenchAchievements.checkAchievements !== 'function') return [];
+        const result = global.PersonalWorkbenchAchievements.checkAchievements(next, {
+            catalog: Array.isArray(workbenchConfig.childCourses) ? workbenchConfig.childCourses : []
+        });
+        if (result && result.growth) next.growth = result.growth;
+        if (global.PersonalWorkbenchPet && typeof global.PersonalWorkbenchPet.takePendingHappiness === 'function') {
+            const pending = global.PersonalWorkbenchPet.takePendingHappiness();
+            if (pending) next.growth = global.PersonalWorkbenchPet.addHappiness(next.growth || {}, pending);
+        }
+        return result && Array.isArray(result.newlyUnlocked) ? result.newlyUnlocked : [];
+    }
+
+    function feedPreschoolPet() {
+        if (!isPreschool || !global.PersonalWorkbenchPet) return;
+        let evolved = false;
+        const ok = commit(function (next) {
+            const result = global.PersonalWorkbenchPet.feed(next.growth, Date.now());
+            if (!result.ok) throw new Error(result.reason);
+            next.growth = result.growth;
+            evolved = result.evolved;
+        }, '');
+        if (ok) {
+            showToast(evolved ? '伙伴进化了！' : '喂饱啦');
+            if (evolved && global.PersonalWorkbenchPet.showEvolution) {
+                global.PersonalWorkbenchPet.showEvolution(getPreschoolThemeId(), state.growth && state.growth.pet && state.growth.pet.stage);
+            }
+        }
+    }
+
+    function patPreschoolPet() {
+        if (!isPreschool || !global.PersonalWorkbenchPet) return;
+        const ok = commit(function (next) {
+            next.growth = global.PersonalWorkbenchPet.pat(next.growth, Date.now());
+        }, '');
+        if (ok) showToast('摸摸，好开心');
+    }
+
+    function reviewGrowthWorld(text, lang, toast) {
+        if (!text) return;
+        if (toast) showToast(toast);
+        if (!global.speechSynthesis || !global.SpeechSynthesisUtterance) return;
+        try {
+            global.speechSynthesis.cancel();
+            const utterance = new global.SpeechSynthesisUtterance(String(text));
+            utterance.lang = lang || 'zh-CN';
+            utterance.rate = 0.85;
+            global.speechSynthesis.speak(utterance);
+        } catch (error) {
+            console.warn('[PersonalWorkbench] 成长世界复习发音失败', error);
+        }
+    }
+
+    function markPreschoolBadgesSeen(ids) {
+        const engine = global.PersonalWorkbenchAchievements;
+        if (!isPreschool || !engine || typeof engine.markAchievementsSeen !== 'function') return false;
+        const unseen = typeof engine.unseenBadgeIds === 'function'
+            ? engine.unseenBadgeIds(state.growth && state.growth.achievements)
+            : [];
+        if (!unseen.length) return false;
+        const pending = Array.isArray(ids) && ids.length
+            ? ids.filter(function (id) { return unseen.indexOf(id) >= 0; })
+            : unseen;
+        if (!pending.length) return false;
+        return commit(function (next) {
+            next.growth.achievements = engine.markAchievementsSeen(next.growth.achievements, pending);
+        }, '');
+    }
+
+    function togglePreschoolBadgeBox() {
+        ui.badgeBoxOpen = !ui.badgeBoxOpen;
+        if (!ui.badgeBoxOpen && markPreschoolBadgesSeen()) return;
+        render();
+        if (ui.badgeBoxOpen) {
+            const box = document.getElementById('preschool-badge-collection');
+            if (box && typeof box.scrollIntoView === 'function') box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
+    function reviewPreschoolBadge(target) {
+        const text = target && target.dataset ? target.dataset.speak : '';
+        if (!text) return;
+        showToast(text);
+        speakPraise(text);
+        const badgeId = target && target.dataset ? target.dataset.badgeId : '';
+        if (badgeId) markPreschoolBadgesSeen([badgeId]);
+    }
+
+    function presentPreschoolAchievements(ids) {
+        if (!isPreschool || !ids || !ids.length) return;
+        ui.badgeBoxOpen = true;
+        render();
+        if (global.PersonalWorkbenchAchievements && typeof global.PersonalWorkbenchAchievements.showAchievementCelebration === 'function') {
+            global.PersonalWorkbenchAchievements.showAchievementCelebration(ids, document, function () {
+                markPreschoolBadgesSeen(ids);
+            });
+        }
+        const defs = global.PersonalWorkbenchAchievements && global.PersonalWorkbenchAchievements.BADGE_DEFS
+            ? global.PersonalWorkbenchAchievements.BADGE_DEFS
+            : {};
+        const names = ids.map(function (id) { return defs[id] && defs[id].name; }).filter(Boolean);
+        if (names.length) speakPraise(names.length === 1 ? `点亮了${names[0]}！` : `一次点亮了${names.join('、')}！`);
+    }
+
     function completeCourseLesson(id, planId, planDate) {
         const catalog = Array.isArray(workbenchConfig.childCourses) ? workbenchConfig.childCourses : [];
         const valid = catalog.some(course => Array.isArray(course.lessons) && course.lessons.some(lesson => lesson.id === id));
@@ -2852,6 +3931,7 @@
             return false;
         }
         let lessonWasAlreadyComplete = false;
+        let newBadges = [];
         const lessonRewardId = `lesson:${id}`;
         const ok = commit(function (next) {
             const sourcePlan = planId ? findDailyPlan(next.dailyPlans, planId, planDate) : null;
@@ -2864,6 +3944,8 @@
                 sourcePlan.completedAt = sourcePlan.completedAt || new Date().toISOString();
                 sourcePlan.completionSource = 'practice';
                 sourcePlan.completionRewardId = lessonRewardId;
+                newBadges = applyPreschoolAchievements(next);
+                if (global.PersonalWorkbenchPet) next.growth = global.PersonalWorkbenchPet.awardExp(next.growth || {}, 5);
                 return;
             }
             next.courseProgress = result.progress;
@@ -2874,10 +3956,13 @@
                 sourcePlan.completionSource = 'practice';
                 sourcePlan.completionRewardId = lessonRewardId;
             }
+            newBadges = applyPreschoolAchievements(next);
+            if (global.PersonalWorkbenchPet) next.growth = global.PersonalWorkbenchPet.awardExp(next.growth || {}, 5);
         }, '');
         if (ok) {
             showToast(planId && lessonWasAlreadyComplete ? '练习已经完成，来源任务已同步。' : planId ? '练习完成，任务已同步，获得 20 阳光' : '课程完成，获得 20 阳光');
             speakPraise('太棒了，你完成了一节课！');
+            presentPreschoolAchievements(newBadges);
         }
         return ok;
     }
@@ -3435,10 +4520,45 @@
         if (!target) return;
         const action = target.dataset.action;
         if (isPreschool && action !== 'toggle-music' && getPreschoolFeedbackPreference('musicEnabled', false)) startPreschoolMusic();
-        if (action === 'navigate') setPage(target.dataset.page, false, target.dataset.courseId);
+        if (action === 'navigate') {
+            if (target.dataset.openBadges === '1') ui.badgeBoxOpen = true;
+            setPage(target.dataset.page, false, target.dataset.courseId);
+        }
+        if (action === 'toggle-badge-box') togglePreschoolBadgeBox();
+        if (action === 'review-badge') reviewPreschoolBadge(target);
+        if (action === 'filter-badge-group') {
+            ui.badgeFilter = target.dataset.group || 'all';
+            render();
+        }
+        if (action === 'badge-confetti' && global.PersonalWorkbenchAchievements && typeof global.PersonalWorkbenchAchievements.burstBadgeConfetti === 'function') {
+            global.PersonalWorkbenchAchievements.burstBadgeConfetti();
+        }
         if (action === 'open-world-game') {
             const forcedTheme = target.dataset.themeId || '';
             if (!openPreschoolWorldGame(forcedTheme || undefined)) setPage('battle');
+            return;
+        }
+        if (action === 'voxel-workshop-tab') {
+            if (global.VoxelWorkshop) global.VoxelWorkshop.tab = target.dataset.tab || 'home';
+            render();
+            return;
+        }
+        if (action === 'voxel-buy') {
+            const bought = global.VoxelWorkshop && global.VoxelWorkshop.buy(target.dataset.item);
+            showToast((bought && bought.reason) || '买不了');
+            if (bought && bought.ok) render();
+            return;
+        }
+        if (action === 'voxel-craft') {
+            const made = global.VoxelWorkshop && global.VoxelWorkshop.craft(target.dataset.recipe);
+            showToast((made && made.reason) || '合成不了');
+            if (made && made.ok) render();
+            return;
+        }
+        if (action === 'voxel-parent-lock') {
+            const lock = global.VoxelWorkshop && global.VoxelWorkshop.toggleLock();
+            showToast((lock && lock.reason) || '家长锁');
+            if (lock && lock.ok) render();
             return;
         }
         if (action === 'toggle-course-nav') {
@@ -3455,6 +4575,7 @@
             const before = findDailyPlan(state.dailyPlans, target.dataset.id, target.dataset.date);
             const completed = before ? !before.done : false;
             let rewardGranted = false;
+            let newBadges = [];
             const ok = commit(function (next) {
                 const item = findDailyPlan(next.dailyPlans, target.dataset.id, target.dataset.date);
                 if (!item) throw new Error('找不到这项计划，请刷新页面后重试。');
@@ -3468,6 +4589,8 @@
                     }
                     item.completionSource = item.completionSource || 'check-in';
                     archiveItem(next, 'plan', item);
+                    newBadges = applyPreschoolAchievements(next);
+                    if (global.PersonalWorkbenchPet) next.growth = global.PersonalWorkbenchPet.awardExp(next.growth || {}, 5);
                 } else {
                     item.completionSource = '';
                     const rewardId = storage.getPreschoolPlanRewardId(item);
@@ -3477,6 +4600,7 @@
             if (ok) {
                 showToast(completed ? (isChild ? (rewardGranted ? '计划完成了，获得 10 阳光' : '计划完成了，阳光已经领取过啦') : '计划完成了') : '计划已恢复');
                 if (completed) speakPraise('今天的打卡完成啦！');
+                presentPreschoolAchievements(newBadges);
             }
         }
         if (action === 'add-task') openDialog('task');
@@ -3515,6 +4639,34 @@
         if (action === 'select-preschool-theme') selectPreschoolTheme(target.dataset.themeId);
         if (action === 'select-plant') selectPreschoolPlant(target.dataset.id);
         if (action === 'water-plant') waterGrowthPlant();
+        if (action === 'feed-pet') feedPreschoolPet();
+        if (action === 'pat-pet') patPreschoolPet();
+        if (action === 'review-growth-flower') {
+            if (global.PersonalWorkbenchGrowthWorld && typeof global.PersonalWorkbenchGrowthWorld.showReview === 'function') {
+                global.PersonalWorkbenchGrowthWorld.showReview('flower', target.dataset);
+            }
+            reviewGrowthWorld(target.dataset.char, 'zh-CN', '');
+        }
+        if (action === 'review-growth-brick') {
+            if (global.PersonalWorkbenchGrowthWorld && typeof global.PersonalWorkbenchGrowthWorld.showReview === 'function') {
+                global.PersonalWorkbenchGrowthWorld.showReview('brick', target.dataset);
+            }
+            reviewGrowthWorld(target.dataset.word, 'en-US', '');
+        }
+        if (action === 'review-growth-stop') {
+            const name = target.dataset.name || '这里';
+            showToast(target.dataset.unlocked === 'true' ? `已经到达${name}` : `再坚持${target.dataset.remain || '?'}天就能到达${name}`);
+        }
+        if (action === 'open-growth-world') {
+            ui.growthWorld = target.dataset.world === 'map' || target.dataset.world === 'builder' ? target.dataset.world : 'garden';
+            render();
+            return;
+        }
+        if (action === 'close-growth-world') {
+            ui.growthWorld = '';
+            render();
+            return;
+        }
         if (action === 'spawn-invader') spawnPreschoolInvader();
         if (action === 'fire-pea') firePreschoolPea();
         if (action === 'start-defense-game') startPreschoolDefenseGame();
@@ -3533,6 +4685,29 @@
         if (action === 'summer-library-category') { ui.summerLibraryCategory = getSummerLibraryCategory(target.dataset.category).id; ui.summerLibraryItem = 0; render(); }
         if (action === 'summer-library-step') { const entries = getSummerLibraryEntries(ui.summerLibraryCategory); ui.summerLibraryItem = Math.max(0, Math.min(Math.max(0, entries.length - 1), (Number(ui.summerLibraryItem) || 0) + Number(target.dataset.direction || 0))); render(); }
         if (action === 'lesson-answer') answerLesson(target.dataset.index);
+        if (action === 'literacy-speak') speakLiteracy(target.dataset.text);
+        if (action === 'english-speak') speakLiteracy(target.dataset.text, 'en-US');
+        if (action === 'english-known') markEnglishKnown(target.dataset.word, target.dataset.known === '1');
+        if (action === 'play-flip') flipPlayCard(target.dataset.index);
+        if (action === 'play-spell') tapPlaySpell(target.dataset.letter);
+        if (action === 'play-order') tapPlayOrder(target.dataset.value);
+        if (action === 'play-odd') tapPlayOdd(target.dataset.index);
+        if (action === 'play-odd-next') advancePlayOdd();
+        if (action === 'literacy-mark') markLiteracyFlash(target.dataset.char, target.dataset.known === '1');
+        if (action === 'literacy-teach-start') startLiteracyTeach();
+        if (action === 'literacy-teach-next') advanceLiteracyTeach();
+        if (action === 'literacy-remember') rememberLiteracyTeach();
+        if (action === 'literacy-stroke') {
+            if (ui.lessonSession && ui.lessonSession.literacy) {
+                ui.lessonSession.literacy.strokePlay = (Number(ui.lessonSession.literacy.strokePlay) || 0) + 1;
+                renderLessonDialog();
+            }
+        }
+        if (action === 'literacy-hint') toggleLiteracyHint();
+        if (action === 'literacy-next') advanceLiteracy();
+        if (action === 'bank-quiz-next') advanceBankQuiz();
+        if (action === 'bank-quiz-speak') speakLiteracy(target.dataset.text, target.dataset.lang || 'zh-CN');
+        if (action === 'literacy-bloom') toggleLiteracyBloom(target.dataset.word);
         if (action === 'lesson-finish') finishLesson();
         if (action === 'close-lesson') closeLessonDialog();
         if (action === 'open-focus') openDialog('focus');

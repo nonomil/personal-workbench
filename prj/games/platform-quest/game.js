@@ -15,9 +15,9 @@
     const PUB = '../../assets/generated/preschool-theme-assets/platform-v1/published/';
     const LOCAL = './assets/';
     const ASSET = {
-        idle: LOCAL + 'hero/mario-idle.png',
-        run: LOCAL + 'hero/mario-run.png',
-        jump: LOCAL + 'hero/mario-jump.png',
+        idle: PUB + 'platform-explorer.png',
+        run: LOCAL + 'hero/explorer-run.png',
+        jump: LOCAL + 'hero/explorer-jump.png',
         idleFallback: PUB + 'platform-explorer.png',
         coin: PUB + 'platform-coin.png',
         platform: PUB + 'platform-grass-platform.png',
@@ -52,7 +52,22 @@
         vx: 0, vy: 0, onGround: false, facing: 1,
         pose: 'idle', runFrame: 0, runTimer: 0
     };
-    const input = { left: false, right: false, jump: false };
+    const input = { left: false, right: false, jumpHeld: false, run: false };
+    const phy = window.PlatformPhysics || {
+        GRAVITY: 1500, HOLD_GRAVITY: 780, JUMP_VY: -560, AIR_JUMP_VY: -520, MAX_FALL: 900,
+        RUN_SPEED: 240, SPRINT_SPEED: 340, ENEMY_SPEED: 48,
+        COYOTE_MS: 120, JUMP_BUFFER_MS: 120, INVINCIBLE_MS: 2000, MAX_AIR_JUMPS: 1,
+        tryJump: function (now, g, j, c, b) { return (now - g) <= (c || 120) && (now - j) <= (b || 120); },
+        isInvincible: function (now, hit, ms) { return hit >= 0 && now - hit < (ms || 2000); },
+        canAirJump: function (used, max) { return (used || 0) < (max || 1); }
+    };
+    let lastGroundedAt = -9999;
+    let lastJumpPressedAt = -9999;
+    let jumpConsumedAt = -9999;
+    let lastHitAt = -9999;
+    let airJumpsUsed = 0;
+    let lastSafeX = 48;
+    let lastSafeY = 320;
 
     function toast(msg) {
         const el = document.getElementById('toast');
@@ -127,29 +142,49 @@
         map.innerHTML = '';
         levelsApi.list.forEach(function (lv) {
             const locked = lv.id > progress.unlockedLevel;
+            const cleared = progress.clearedLevels.indexOf(lv.id) !== -1;
+            const current = lv.id === progress.unlockedLevel && !cleared;
+            const stars = Math.max(0, Math.min(3, Number(progress.stars[lv.id]) || (cleared ? 1 : 0)));
             const btn = document.createElement('button');
             btn.type = 'button';
-            btn.className = 'stage-card' + (locked ? ' is-locked' : '');
+            btn.className = 'stage-card' + (locked ? ' is-locked' : '') + (current ? ' is-current' : '') + (cleared ? ' is-cleared' : '');
             btn.disabled = locked;
-            btn.innerHTML = `<div>第 ${lv.id} 关 · ${lv.title}</div>` +
-                `<div class="stars">${starsText(lv.id)}</div>` +
-                `<small>${locked ? '未解锁' : '奖励 ' + lv.rewardSun + ' 阳光'}</small>`;
+            btn.setAttribute('aria-label', locked ? '第 ' + lv.id + ' 关未解锁' : '第 ' + lv.id + ' 关');
+            const thumb = document.createElement('span');
+            thumb.className = 'stage-thumb';
+            const num = document.createElement('b');
+            num.className = 'stage-num';
+            num.textContent = String(lv.id);
+            thumb.appendChild(num);
+            if (locked) {
+                const lock = document.createElement('span');
+                lock.className = 'stage-lock';
+                lock.setAttribute('aria-hidden', 'true');
+                thumb.appendChild(lock);
+            }
+            btn.appendChild(thumb);
+            const starRow = document.createElement('span');
+            starRow.className = 'stage-stars';
+            starRow.textContent = locked ? '' : ('★★★'.slice(0, stars) + '☆☆☆'.slice(stars));
+            btn.appendChild(starRow);
             if (!locked) btn.addEventListener('click', function () { enterLevel(lv.id); });
             map.appendChild(btn);
         });
         document.getElementById('progress-tip').textContent =
-            `已解锁 ${progress.unlockedLevel} 关 · 通关 ${progress.clearedLevels.length} · 金币 ${progress.coinsTotal}`;
+            progress.clearedLevels.length + ' / ' + levelsApi.count;
         refreshWallet();
     }
 
     function showMap() {
         playing = false;
+        document.body.classList.add('is-picking');
         document.getElementById('panel-map').classList.remove('is-hidden');
         document.getElementById('panel-play').classList.add('is-hidden');
         renderMap();
     }
 
     function showPlay() {
+        document.body.classList.remove('is-picking');
         document.getElementById('panel-map').classList.add('is-hidden');
         document.getElementById('panel-play').classList.remove('is-hidden');
     }
@@ -176,6 +211,13 @@
         player.x = 48; player.y = 320; player.vx = 0; player.vy = 0;
         player.onGround = false; player.facing = 1; player.pose = 'idle';
         coins = 0; won = false; awarding = false; cameraX = 0;
+        lastGroundedAt = -9999;
+        lastJumpPressedAt = -9999;
+        jumpConsumedAt = -9999;
+        lastHitAt = -9999;
+        airJumpsUsed = 0;
+        lastSafeX = 48;
+        lastSafeY = 320;
         if (level) {
             level.coins.forEach(function (c) { c.taken = false; });
             level.enemies.forEach(function (e, i) {
@@ -188,7 +230,18 @@
         }
         document.getElementById('coin-count').textContent = '0';
         document.getElementById('run-status').textContent = '奔跑中';
-        document.getElementById('pose-label').textContent = '站立';
+        const poseEl = document.getElementById('pose-label');
+        if (poseEl) poseEl.textContent = '站立';
+    }
+
+    function respawnAtCheckpoint(now) {
+        player.x = lastSafeX;
+        player.y = lastSafeY;
+        player.vx = 0;
+        player.vy = 0;
+        lastHitAt = now || performance.now();
+        airJumpsUsed = 0;
+        toast('掉下去了，回到刚才的地方');
     }
 
     function rectsOverlap(a, b) {
@@ -210,52 +263,86 @@
                 player.runTimer = 0;
                 player.runFrame = (player.runFrame + 1) % 2;
             }
-        } else player.pose = 'idle';
-        document.getElementById('pose-label').textContent =
-            player.pose === 'jump' ? '跳跃' : player.pose === 'run' ? '奔跑' : '站立';
+        }         else player.pose = 'idle';
+        const poseEl = document.getElementById('pose-label');
+        if (poseEl) {
+            poseEl.textContent =
+                player.pose === 'jump' ? '跳跃' : player.pose === 'run' ? '奔跑' : '站立';
+        }
     }
 
     function update(dt) {
         if (!playing || !level || won) return;
-        const speed = 240;
+        const now = performance.now();
+        const speed = input.run ? (phy.SPRINT_SPEED || 340) : phy.RUN_SPEED;
         player.vx = 0;
         if (input.left) { player.vx -= speed; player.facing = -1; }
         if (input.right) { player.vx += speed; player.facing = 1; }
-        player.vy += 1500 * dt;
-        if (input.jump && player.onGround) {
-            player.vy = -560;
+        const g = (input.jumpHeld && player.vy < 0) ? phy.HOLD_GRAVITY : phy.GRAVITY;
+        player.vy += g * dt;
+        if (player.vy > phy.MAX_FALL) player.vy = phy.MAX_FALL;
+        if (phy.tryJump(now, lastGroundedAt, lastJumpPressedAt, phy.COYOTE_MS, phy.JUMP_BUFFER_MS)
+            && now - jumpConsumedAt > 80) {
+            player.vy = phy.JUMP_VY;
             player.onGround = false;
-            input.jump = false;
+            lastGroundedAt = -9999;
+            lastJumpPressedAt = -9999;
+            jumpConsumedAt = now;
+            airJumpsUsed = 0;
+        } else if (!player.onGround
+            && phy.canAirJump(airJumpsUsed, phy.MAX_AIR_JUMPS)
+            && lastJumpPressedAt > jumpConsumedAt
+            && now - lastJumpPressedAt <= (phy.JUMP_BUFFER_MS || 120)) {
+            player.vy = phy.AIR_JUMP_VY || -520;
+            lastJumpPressedAt = -9999;
+            jumpConsumedAt = now;
+            airJumpsUsed += 1;
         }
         player.x += player.vx * dt;
+        solids().forEach(function (platform) {
+            if (!rectsOverlap(player, platform)) return;
+            if (player.vx > 0) player.x = platform.x - player.w;
+            else if (player.vx < 0) player.x = platform.x + platform.w;
+        });
         player.y += player.vy * dt;
         player.onGround = false;
         solids().forEach(function (platform) {
             if (!rectsOverlap(player, platform)) return;
-            const prevBottom = player.y + player.h - player.vy * dt;
-            if (player.vy >= 0 && prevBottom <= platform.y + 10) {
+            if (player.vy >= 0 && player.y + player.h - platform.y < Math.max(18, player.vy * dt + 8)) {
                 player.y = platform.y - player.h;
                 player.vy = 0;
                 player.onGround = true;
             } else if (player.vy < 0) {
                 player.y = platform.y + platform.h;
                 player.vy = 0;
-            } else if (player.vx > 0) player.x = platform.x - player.w;
-            else if (player.vx < 0) player.x = platform.x + platform.w;
+            }
         });
+        if (player.onGround) {
+            lastGroundedAt = now;
+            airJumpsUsed = 0;
+            lastSafeX = player.x;
+            lastSafeY = player.y;
+        }
         player.x = Math.max(0, Math.min(level.width - player.w, player.x));
-        if (player.y > VIEW_H + 80) resetRun();
+        if (player.y > VIEW_H + 80) respawnAtCheckpoint(now);
 
+        const shielded = phy.isInvincible(now, lastHitAt, phy.INVINCIBLE_MS);
         level.enemies.forEach(function (enemy) {
-            enemy.x += enemy.dir * 75 * dt;
+            enemy.x += enemy.dir * (phy.ENEMY_SPEED || 48) * dt;
             if (enemy.x < enemy.minX || enemy.x > enemy.maxX) enemy.dir *= -1;
             if (enemy.x < -100) return;
-            if (rectsOverlap(player, enemy)) {
-                if (player.vy > 0 && player.y + player.h - enemy.y < 20) {
-                    enemy.x = -9999;
-                    player.vy = -340;
-                } else resetRun();
+            if (!rectsOverlap(player, enemy)) return;
+            if (player.vy > 0 && player.y + player.h - enemy.y < 20) {
+                enemy.x = -9999;
+                player.vy = -340;
+                return;
             }
+            if (shielded) return;
+            lastHitAt = now;
+            player.vx = player.facing * -180;
+            player.x += player.facing * -28;
+            player.vy = -220;
+            toast('碰到了，闪几下再跑');
         });
 
         const coinBonus = ((bridge.getMetaBonuses && bridge.getMetaBonuses()) || {}).platformCoinBonus || 0;
@@ -270,7 +357,8 @@
 
         if (rectsOverlap(player, level.flag)) onClear();
         updatePose(dt);
-        cameraX = Math.max(0, Math.min(level.width - VIEW_W, player.x - VIEW_W * 0.35));
+        const look = player.facing * 72;
+        cameraX = Math.max(0, Math.min(level.width - VIEW_W, player.x - VIEW_W * 0.38 + look));
     }
 
     function onClear() {
@@ -406,7 +494,9 @@
             }
         });
         if (images.flag) ctx.drawImage(images.flag, level.flag.x, level.flag.y, 48, level.flag.h);
-        if (!drawSprite(heroImage(), player.x, player.y, player.w, player.h, player.facing < 0)) {
+        const blink = phy.isInvincible(performance.now(), lastHitAt, phy.INVINCIBLE_MS)
+            && Math.floor(performance.now() / 80) % 2 === 0;
+        if (!blink && !drawSprite(heroImage(), player.x, player.y, player.w, player.h, player.facing < 0)) {
             ctx.fillStyle = '#e54139';
             ctx.fillRect(player.x, player.y + 14, player.w, player.h - 14);
         }
@@ -434,24 +524,39 @@
             const k = e.key.toLowerCase();
             if (k === 'a' || k === 'arrowleft') input.left = true;
             if (k === 'd' || k === 'arrowright') input.right = true;
-            if (k === 'w' || k === 'arrowup' || k === ' ') { input.jump = true; e.preventDefault(); }
+            if (k === 'shift') input.run = true;
+            if (k === 'w' || k === 'arrowup' || k === ' ') {
+                if (!input.jumpHeld) lastJumpPressedAt = performance.now();
+                input.jumpHeld = true;
+                e.preventDefault();
+            }
         });
         window.addEventListener('keyup', function (e) {
             const k = e.key.toLowerCase();
             if (k === 'a' || k === 'arrowleft') input.left = false;
             if (k === 'd' || k === 'arrowright') input.right = false;
+            if (k === 'shift') input.run = false;
+            if (k === 'w' || k === 'arrowup' || k === ' ') input.jumpHeld = false;
         });
         document.querySelectorAll('[data-hold]').forEach(function (button) {
             const dir = button.dataset.hold;
             const set = function (v) {
                 if (dir === 'left') input.left = v;
                 if (dir === 'right') input.right = v;
+                if (dir === 'run') input.run = v;
             };
             button.addEventListener('pointerdown', function (e) { set(true); button.setPointerCapture(e.pointerId); });
             button.addEventListener('pointerup', function () { set(false); });
             button.addEventListener('pointercancel', function () { set(false); });
         });
-        document.querySelector('[data-action="jump"]').addEventListener('click', function () { input.jump = true; });
+        const jumpBtn = document.querySelector('[data-action="jump"]');
+        jumpBtn.addEventListener('pointerdown', function (e) {
+            lastJumpPressedAt = performance.now();
+            input.jumpHeld = true;
+            jumpBtn.setPointerCapture(e.pointerId);
+        });
+        jumpBtn.addEventListener('pointerup', function () { input.jumpHeld = false; });
+        jumpBtn.addEventListener('pointercancel', function () { input.jumpHeld = false; });
         document.getElementById('restart-btn').addEventListener('click', resetRun);
         document.getElementById('back-map-btn').addEventListener('click', showMap);
         document.getElementById('map-btn').addEventListener('click', showMap);
