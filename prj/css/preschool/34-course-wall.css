@@ -46,6 +46,7 @@
 .preschool-course-wall-card.tone-lime { background: #eefae4; border-color: rgba(120, 190, 60, 0.4); }
 .preschool-course-wall-card.tone-pink { background: #ffeef3; border-color: rgba(235, 110, 150, 0.35); }
 .preschool-course-wall-card.tone-gold { background: #fff7dc; border-color: rgba(224, 172, 62, 0.45); }
+.preschool-course-wall-card.tone-green { background: #eaf7ea; border-color: rgba(63, 162, 92, 0.4); }
 
 @media (max-width: 760px) {
     .preschool-course-wall { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }

@@ -85,8 +85,10 @@ test('each world game is a self-contained folder with data and growth bridge', (
 });
 
 test('each world game ships local stage-themed assets under its own assets folder', () => {
-  assert.equal(fs.existsSync(path.join(root, 'garden-defense', 'assets', 'bg', 'lawn-day.png')), true);
-  assert.equal(fs.existsSync(path.join(root, 'garden-defense', 'assets', 'bg', 'lawn-night.png')), true);
+  // 2026-08-15 用户裁决：花园背景统一为 pvz-garden-lawn-bg.webp，角色为像素 pvz 套图
+  assert.equal(fs.existsSync(path.join(root, 'garden-defense', 'assets', 'bg', 'pvz-garden-lawn-bg.webp')), true);
+  assert.equal(fs.existsSync(path.join(root, 'garden-defense', 'assets', 'plants', 'plant-sunflower.png')), true);
+  assert.equal(fs.existsSync(path.join(root, 'garden-defense', 'assets', 'zombies', 'zombie-basic.webp')), true);
   assert.equal(fs.existsSync(path.join(root, 'voxel-adventure', 'assets', 'bg', 'sky-day.png')), true);
   assert.equal(fs.existsSync(path.join(root, 'platform-quest', 'assets', 'bg', 'sky-day.png')), true);
   assert.equal(fs.existsSync(path.join(root, 'platform-quest', 'assets', 'enemies', 'shroom-idle.png')), true);

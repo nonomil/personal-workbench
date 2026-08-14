@@ -126,5 +126,5 @@ test('settings and math lessons read the selected practice band', () => {
     assert.match(config, /口算级别在设置里选|100 以内/);
     assert.match(html, /preschool-math-bank\.js\?v=20260814-math-bands-v2/);
     assert.match(html, /preschool-garden\.js\?v=20260814-zombie-pace-v1/);
-    assert.match(html, /app\.js\?v=20260815-streak-v1/);
+    assert.match(html, /app\.js\?v=20260815-flashcards-v1/);
 });

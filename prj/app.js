@@ -38,7 +38,7 @@
     const CATEGORY_COLORS = { 学习: 'orange', 阅读: 'blue', 实践: 'lime', 运动: 'gold', 自控: 'orange', 其它: 'blue' };
     const PRIORITY_LABELS = { high: '高优先', medium: '常规', low: '低优先' };
     const STATUS_LABELS = { todo: '待开始', doing: '进行中', done: '已完成' };
-    const ui = { page: getPageFromHash(), courseId: getCourseIdFromHash(), courseNavExpanded: getPageFromHash() === 'courses', taskFilter: 'all', dialogType: '', dialogId: '', dialogArea: '', dialogDate: '', lessonSession: null, summerLibraryCategory: 'daily', summerLibraryItem: 0, battleEffect: null, growthWorld: '', badgeBoxOpen: false, badgeFilter: 'all' };
+    const ui = { page: getPageFromHash(), courseId: getCourseIdFromHash(), courseNavExpanded: getPageFromHash() === 'courses', taskFilter: 'all', dialogType: '', dialogId: '', dialogArea: '', dialogDate: '', lessonSession: null, courseCards: null, courseClassic: false, summerLibraryCategory: 'daily', summerLibraryItem: 0, battleEffect: null, growthWorld: '', badgeBoxOpen: false, badgeFilter: 'all' };
     let lessonMotionTimerId = 0;
     const isPreschool = workbenchConfig.variant === 'preschool';
     const isChild = workbenchConfig.variant === 'child' || isPreschool;
@@ -850,7 +850,12 @@
         const requested = PAGE_META[page] ? page : 'overview';
         if (isPreschool && requested === 'battle' && openPreschoolWorldGame()) return;
         ui.page = requested;
-        ui.courseId = ui.page === 'courses' ? String(courseId || '') : '';
+        const nextCourseId = ui.page === 'courses' ? String(courseId || '') : '';
+        if (ui.courseId !== nextCourseId) {
+            ui.courseCards = null;
+            ui.courseClassic = false;
+        }
+        ui.courseId = nextCourseId;
         if (ui.page !== 'growth') ui.growthWorld = '';
         if (ui.page !== 'battle') {
             ui.battleEffect = null;
@@ -3045,6 +3050,162 @@
         return `<section class="preschool-course-today"><span class="preschool-course-today-art" aria-hidden="true">${preschoolAsset('storybook-token', '今日学习')}</span><div class="preschool-course-today-copy"><small>${headline}</small><strong>${escapeHtml(workflow.title)}</strong></div><button class="btn-primary preschool-course-today-cta" type="button" ${preschoolWorkflowActionAttrs(workflow)}>${icon('play')}<span>${escapeHtml(workflow.cta || '开始')}</span></button></section>`;
     }
 
+    const PRESCHOOL_FLASHCARD_COURSES = new Set(['preschool-literacy', 'preschool-english', 'preschool-pinyin', 'preschool-phonics']);
+    const PRESCHOOL_FLASHCARD_SIZE = { 'preschool-literacy': 8, 'preschool-english': 5, 'preschool-pinyin': 8, 'preschool-phonics': 8 };
+
+    function buildPreschoolCourseCardItems(course) {
+        const today = storage.localDate();
+        const size = PRESCHOOL_FLASHCARD_SIZE[course.id] || 8;
+        const track = getCourseTrackProgress(course.id);
+        const level = track && track.maxUnlocked ? track.maxUnlocked : 'L1';
+        if (course.id === 'preschool-literacy') {
+            const engine = getLiteracyEngine();
+            if (!engine || typeof engine.buildFlashBatch !== 'function') return [];
+            const progress = state.courseProgress && state.courseProgress.literacy ? state.courseProgress.literacy : engine.createDefaultProgress();
+            return engine.buildFlashBatch(engine.getRuntimeBank(), progress, engine.getRuntimeRules(), today, '', size, level).map(function (item) {
+                const words = Array.isArray(item.words) ? item.words.filter(Boolean) : [];
+                const rows = words.length ? [{ label: '组词', text: words.join(' · ') }] : [{ label: '读一读', text: item.pinyin || item.char }];
+                return { key: item.char, main: item.char, sub: item.pinyin || '', rows: rows, speak: item.char, lang: 'zh-CN', review: !!item.review };
+            });
+        }
+        if (course.id === 'preschool-english') {
+            const engine = getEnglishVocabEngine();
+            if (!engine || typeof engine.buildSpeakBatch !== 'function') return [];
+            const progress = state.courseProgress && state.courseProgress.english ? state.courseProgress.english : engine.createDefaultProgress();
+            return engine.buildSpeakBatch(engine.getRuntimeBank(), progress, engine.getRuntimeRules(), today, '', size, level).map(function (item) {
+                const rows = [
+                    item.zh ? { label: '意思', text: item.zh } : null,
+                    item.phrase ? { label: '句子', text: item.phrase } : null,
+                    item.phraseZh ? { label: '句意', text: item.phraseZh } : null
+                ].filter(Boolean);
+                return { key: item.text, main: item.text, sub: item.theme || '', rows: rows, speak: item.text, lang: 'en-US', review: !!item.review };
+            });
+        }
+        const trackName = PRESCHOOL_SUBJECT_TRACK[course.id];
+        const banks = getLevelBanks();
+        const bank = trackName && Array.isArray(banks[trackName]) ? banks[trackName] : [];
+        if (!bank.length) return [];
+        const levels = global.PersonalWorkbenchBankLevels;
+        const mastery = state.courseProgress && state.courseProgress[trackName] && state.courseProgress[trackName].mastery
+            ? state.courseProgress[trackName].mastery
+            : {};
+        const isReady = function (item) {
+            const entry = mastery[item.text];
+            return !!(entry && (entry.state === 'ready' || entry.state === 'maintenance'));
+        };
+        const isPracticing = function (item) {
+            const entry = mastery[item.text];
+            return !!(entry && !isReady(item));
+        };
+        const notReady = bank.filter(function (item) { return !isReady(item); });
+        const practicing = notReady.filter(isPracticing);
+        const unseen = notReady.filter(function (item) { return !isPracticing(item); });
+        const ordered = practicing.concat(unseen);
+        const scoped = levels && typeof levels.levelPool === 'function' ? levels.levelPool(ordered, level) : ordered;
+        const picked = (scoped.length ? scoped : ordered).slice(0, size);
+        if (course.id === 'preschool-pinyin') {
+            const kindLabels = { initial: '声母', final: '韵母', whole: '整体认读' };
+            return picked.map(function (item) {
+                const rows = [
+                    item.sample ? { label: '例字', text: item.sample } : null,
+                    item.pinyin ? { label: '拼音', text: item.pinyin } : null
+                ].filter(Boolean);
+                return { key: item.text, main: item.text, sub: kindLabels[item.kind] || '', rows: rows, speak: item.sample || item.text, lang: 'zh-CN', review: isPracticing(item) };
+            });
+        }
+        return picked.map(function (item) {
+            const graphemes = Array.isArray(item.graphemes) ? item.graphemes.join(' · ') : '';
+            const rows = graphemes ? [{ label: '拼一拼', text: graphemes }] : [];
+            return { key: item.text, main: item.text, sub: item.stageId ? '拼读词' : '', rows: rows, speak: item.text, lang: 'en-US', review: isPracticing(item) };
+        });
+    }
+
+    function getPreschoolCourseCardSession(course) {
+        if (ui.courseCards && ui.courseCards.courseId === course.id && Array.isArray(ui.courseCards.items)) return ui.courseCards;
+        ui.courseCards = { courseId: course.id, items: buildPreschoolCourseCardItems(course), index: 0, marks: {} };
+        return ui.courseCards;
+    }
+
+    function renderPreschoolCourseFlashcards(course) {
+        const session = getPreschoolCourseCardSession(course);
+        const total = session.items.length;
+        if (!total || session.index >= total) return renderPreschoolFlashcardComplete(course, session);
+        const item = session.items[session.index];
+        const dots = session.items.map(function (_, dotIndex) {
+            const stateClass = dotIndex < session.index ? 'is-on' : dotIndex === session.index ? 'is-current' : '';
+            return `<i class="${stateClass}"></i>`;
+        }).join('');
+        const rows = item.rows.map(function (row) {
+            return `<div class="preschool-flashcard-row"><small>${escapeHtml(row.label)}</small><strong>${escapeHtml(row.text)}</strong></div>`;
+        }).join('');
+        return `<div class="preschool-flashcard-page tone-${escapeHtml(course.tone || 'blue')}"><div class="preschool-flashcard-top"><button class="workbench-text-button" type="button" data-action="navigate" data-page="courses">${icon('arrow-left')}<span>卡片墙</span></button><strong>${escapeHtml(getPreschoolCourseShortTitle(course))} · 今天 ${total} 张</strong><span class="preschool-flashcard-dots" aria-label="第 ${session.index + 1} 张，共 ${total} 张">${dots}</span></div><p class="preschool-flashcard-count">第 ${session.index + 1} / ${total} 张${item.review ? '<em class="preschool-flashcard-review">复习</em>' : ''}</p><div class="preschool-flashcard"><div class="preschool-flashcard-main"><strong>${escapeHtml(item.main)}</strong>${item.sub ? `<small>${escapeHtml(item.sub)}</small>` : ''}</div><div class="preschool-flashcard-rows">${rows}</div></div><div class="preschool-flashcard-toolbar"><button class="preschool-flashcard-speak" type="button" data-action="${item.lang === 'en-US' ? 'english-speak' : 'literacy-speak'}" data-text="${escapeHtml(item.speak)}" aria-label="朗读${escapeHtml(item.main)}" title="点我朗读">${icon('volume-2')}<span>听一听</span></button></div><div class="preschool-flashcard-actions"><button class="preschool-flashcard-mark is-unknown" type="button" data-action="flashcard-mark" data-known="0">${icon('rotate-ccw')}<span>还不会</span></button><button class="preschool-flashcard-mark is-known" type="button" data-action="flashcard-mark" data-known="1">${icon('check')}<span>会了</span></button></div><div class="preschool-flashcard-foot"><button class="workbench-text-button" type="button" data-action="flashcard-classic">看看资料和其他练习</button></div></div>`;
+    }
+
+    function renderPreschoolFlashcardComplete(course, session) {
+        const marks = session.marks || {};
+        const markedKeys = Object.keys(marks);
+        const knownCount = markedKeys.filter(function (key) { return marks[key] === 'known'; }).length;
+        const unknownCount = markedKeys.length - knownCount;
+        const empty = !session.items.length;
+        const lessons = (Array.isArray(course.lessons) ? course.lessons : []).filter(function (lesson) {
+            return !(lesson.activity && lesson.activity.mode === 'literacy-flash');
+        });
+        const lessonButtons = lessons.map(function (lesson) {
+            return `<button class="btn-primary preschool-flashcard-lesson" type="button" data-action="open-lesson" data-id="${escapeHtml(lesson.id)}">${icon('play')}<span>${escapeHtml(lesson.title)}</span></button>`;
+        }).join('');
+        return `<div class="preschool-flashcard-page tone-${escapeHtml(course.tone || 'blue')}"><div class="preschool-flashcard-top"><button class="workbench-text-button" type="button" data-action="navigate" data-page="courses">${icon('arrow-left')}<span>卡片墙</span></button><strong>${escapeHtml(getPreschoolCourseShortTitle(course))}</strong><span></span></div><section class="preschool-flashcard-complete"><span class="preschool-flashcard-complete-art" aria-hidden="true">${preschoolAsset('star-companion', '完成')}</span><h2>${empty ? '这一级的卡都翻完啦！' : '今天的小卡翻完啦！🎉'}</h2><p>${empty ? '去练一练，明天再来认新的。' : `会了 ${knownCount}${unknownCount ? ` · 明天再认 ${unknownCount}` : ''}`}</p>${lessonButtons ? `<div class="preschool-flashcard-complete-lessons">${lessonButtons}</div>` : ''}<div class="preschool-flashcard-foot"><button class="workbench-text-button" type="button" data-action="flashcard-classic">看看资料和其他练习</button></div></section></div>`;
+    }
+
+    function markPreschoolFlashcard(known) {
+        const session = ui.courseCards;
+        if (!session || !Array.isArray(session.items) || session.index >= session.items.length) return;
+        const item = session.items[session.index];
+        const today = storage.localDate();
+        if (session.courseId === 'preschool-literacy') {
+            const engine = getLiteracyEngine();
+            if (!engine || typeof engine.markFlash !== 'function') return;
+            commit(function (next) {
+                const current = next.courseProgress && next.courseProgress.literacy ? next.courseProgress.literacy : engine.createDefaultProgress();
+                next.courseProgress = global.PersonalWorkbenchChildCourses.saveLiteracy(next.courseProgress, engine.markFlash(current, item.key, !!known, today, engine.getRuntimeRules()));
+            }, '');
+        } else if (session.courseId === 'preschool-english') {
+            const engine = getEnglishVocabEngine();
+            if (!engine || typeof engine.markKnown !== 'function') return;
+            if (!known) {
+                recordPreschoolLessonMistake({
+                    subject: storage.subjectForCourse('preschool-english'),
+                    question: item.main + (item.rows && item.rows[0] ? ' · ' + item.rows[0].text : ''),
+                    correctAnswer: item.rows && item.rows[1] ? item.rows[1].text : item.main,
+                    mistakeReason: '翻卡点了不会',
+                    sourceKey: 'english:' + String(item.key || '').toLowerCase(),
+                    lessonId: 'preschool-english-words-1'
+                });
+            }
+            commit(function (next) {
+                const current = next.courseProgress && next.courseProgress.english ? next.courseProgress.english : engine.createDefaultProgress();
+                next.courseProgress = global.PersonalWorkbenchChildCourses.saveEnglish(next.courseProgress, engine.markKnown(current, item.key, !!known, today, engine.getRuntimeRules()));
+            }, '');
+        } else {
+            const trackName = PRESCHOOL_SUBJECT_TRACK[session.courseId];
+            const courses = global.PersonalWorkbenchChildCourses;
+            if (!trackName || !courses || typeof courses.saveSubject !== 'function') return;
+            commit(function (next) {
+                const current = next.courseProgress && next.courseProgress[trackName] ? next.courseProgress[trackName] : { mastery: {} };
+                if (known && typeof courses.markSubjectReady === 'function') {
+                    next.courseProgress = courses.saveSubject(next.courseProgress, trackName, courses.markSubjectReady(current, [item.key], today));
+                } else {
+                    const mastery = Object.assign({}, current.mastery || {});
+                    const prev = mastery[item.key] || { state: 'introduced', dates: [], attempts: 0, correct: 0 };
+                    mastery[item.key] = { state: 'practicing', dates: (Array.isArray(prev.dates) ? prev.dates : []).concat([today]), attempts: (Number(prev.attempts) || 0) + 1, correct: Number(prev.correct) || 0 };
+                    next.courseProgress = courses.saveSubject(next.courseProgress, trackName, { mastery: mastery });
+                }
+            }, '');
+        }
+        session.marks[item.key] = known ? 'known' : 'unknown';
+        session.index += 1;
+        render();
+    }
+
     function renderPreschoolCourseCard(course, focused) {
         return `<article class="preschool-course-card tone-${escapeHtml(course.tone || 'blue')} ${focused ? 'is-focused' : ''}"><div class="preschool-course-head">${preschoolVisual(course.icon || 'book-open', preschoolAssetForIcon(course.icon || 'book-open'), course.title)}<div><span class="preschool-course-label">${focused ? '当前学习专区' : '学习专区'}</span><h2>${escapeHtml(course.title)}</h2><small>${escapeHtml(course.description || '')}</small></div><strong>${course.completed || 0}/${course.total || 0}</strong></div>${renderPreschoolCourseProgress(course)}${renderPreschoolLevelBands(course)}${renderPreschoolLiteracyMastery(course)}${renderPreschoolEnglishMastery(course)}${renderPreschoolSubjectMastery(course)}<div class="preschool-course-reference"><span>${icon('sparkles')}</span><p class="preschool-course-note">${escapeHtml(course.note || '选一张卡，开始今天的小练习。')}</p></div>${renderPreschoolCourseBadges(course)}${renderPreschoolCourseSamples(course)}${renderPreschoolCourseMedia(course)}${renderPreschoolCourseResources(course)}${renderPreschoolSummerLibrary(course)}<div class="preschool-course-lesson-heading"><div><span class="eyebrow">LEARNING ROUTE</span><h3>一步一步点亮小路线</h3></div><span>${course.total || (course.lessons || []).length} 张练习卡</span></div>${renderPreschoolCourseRoute(course)}</article>`;
     }
@@ -3055,7 +3216,13 @@
         if (!activeCourse) {
             return `${renderPreschoolIntro(PAGE_META.courses, '', '', `<span class="tag lime">${courses.length} 个专区</span>`)}${renderPreschoolCoursesTodayCard()}<div class="preschool-course-wall" aria-label="学科卡片墙">${courses.map(function (course) { return renderPreschoolCourseWallCard(course); }).join('')}</div>`;
         }
-        return `${renderPreschoolIntro(PAGE_META.courses, '', '', `<span class="tag lime">${escapeHtml(activeCourse.title)}</span>`)}<div class="preschool-course-layout is-focused"><div class="preschool-course-content"><section class="preschool-course-library-note"><span class="preschool-course-library-art">${preschoolAsset('storybook-token', '学习资源')}</span><div><span class="eyebrow">REFERENCE LIBRARY</span><h2>正在学习：${escapeHtml(activeCourse.title)}</h2><p>这里保留题型、样例和练习节奏，做完一张就点亮一张。</p></div><button class="btn-secondary" type="button" data-action="navigate" data-page="courses">查看全部${icon('layout-grid')}</button></section><div class="preschool-course-grid">${renderPreschoolCourseCard(activeCourse, true)}</div></div></div>`;
+        if (PRESCHOOL_FLASHCARD_COURSES.has(activeCourse.id) && !ui.courseClassic) {
+            return `${renderPreschoolIntro(PAGE_META.courses, '', '', `<span class="tag lime">${escapeHtml(activeCourse.title)}</span>`)}<div class="preschool-course-layout is-focused"><div class="preschool-course-content">${renderPreschoolCourseFlashcards(activeCourse)}</div></div>`;
+        }
+        const classicSwitch = PRESCHOOL_FLASHCARD_COURSES.has(activeCourse.id)
+            ? `<button class="btn-secondary" type="button" data-action="flashcard-cards">回到翻卡模式${icon('rotate-ccw')}</button>`
+            : '';
+        return `${renderPreschoolIntro(PAGE_META.courses, '', '', `<span class="tag lime">${escapeHtml(activeCourse.title)}</span>`)}<div class="preschool-course-layout is-focused"><div class="preschool-course-content"><section class="preschool-course-library-note"><span class="preschool-course-library-art">${preschoolAsset('storybook-token', '学习资源')}</span><div><span class="eyebrow">REFERENCE LIBRARY</span><h2>正在学习：${escapeHtml(activeCourse.title)}</h2><p>这里保留题型、样例和练习节奏，做完一张就点亮一张。</p></div>${classicSwitch}<button class="btn-secondary" type="button" data-action="navigate" data-page="courses">查看全部${icon('layout-grid')}</button></section><div class="preschool-course-grid">${renderPreschoolCourseCard(activeCourse, true)}</div></div></div>`;
     }
 
     function renderPreschoolMistakes() {
@@ -4980,6 +5147,9 @@
             }
         if (action === 'complete-lesson') completeCourseLesson(target.dataset.id);
         if (action === 'open-lesson') openLessonDialog(target.dataset.id);
+        if (action === 'flashcard-mark') markPreschoolFlashcard(target.dataset.known === '1');
+        if (action === 'flashcard-classic') { ui.courseClassic = true; render(); }
+        if (action === 'flashcard-cards') { ui.courseClassic = false; render(); }
         if (action === 'open-plan-practice') openPreschoolPlanPractice(target.dataset.id, target.dataset.date);
         if (action === 'speak-resource') speakResource(target.dataset.text);
         if (action === 'open-resource') openExternalResource(target.dataset.url);

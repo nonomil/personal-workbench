@@ -240,7 +240,14 @@ test('garden advanceMoveClocks paces zombies by literacy tier without touching t
 });
 
 test('garden settlement lines show gain, adventure progress and nearest locked milestone', () => {
-  const buildSettlementLines = extractGardenFn(gardenSrc(), 'buildSettlementLines');
+  const src = gardenSrc();
+  const gapMatch = src.match(/function milestoneGapText\([\s\S]*?\n    \}\n/);
+  assert.ok(gapMatch, 'milestoneGapText missing in garden game.js');
+  const buildMatch = src.match(/function buildSettlementLines\([\s\S]*?\n    \}\n/);
+  assert.ok(buildMatch, 'buildSettlementLines missing in garden game.js');
+  const box = {};
+  vm.runInNewContext(gapMatch[0] + '\n' + buildMatch[0] + '\nthis.buildSettlementLines = buildSettlementLines;', box);
+  const buildSettlementLines = box.buildSettlementLines;
   const meta = {
     adventurePoints: 50,
     adventureLevel: 3,

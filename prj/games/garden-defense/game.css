@@ -441,3 +441,129 @@ body.is-picking .world-side {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
+
+/* ===== S1（T20260815-GD）：难度档位徽标 / 星芒观战席 / 结算三行 / 里程碑庆祝卡 ===== */
+.mod-badge {
+    margin-left: auto;
+    padding: 6px 12px;
+    min-height: 32px;
+    font-size: 12px;
+    font-weight: 800;
+    color: #2f3d2a;
+    background: linear-gradient(135deg, #ffe27a, #ffb347);
+    border: 2px solid rgba(47, 61, 42, .25);
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+.companion-hud {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    pointer-events: none;
+}
+.companion-hud img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .25));
+}
+.companion-hud b { font-size: 30px; }
+.companion-say {
+    max-width: 46vw;
+    padding: 6px 10px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #2f3d2a;
+    background: rgba(255, 252, 220, .95);
+    border: 2px solid rgba(47, 61, 42, .2);
+    border-radius: 12px 12px 12px 4px;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity .25s, transform .25s;
+}
+.companion-say.is-on { opacity: 1; transform: none; }
+
+.settle-layer,
+.celebrate-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: rgba(24, 36, 20, .55);
+}
+.settle-layer.is-hidden,
+.celebrate-layer.is-hidden { display: none; }
+
+.settle-card {
+    width: min(420px, 100%);
+    padding: 20px;
+    text-align: center;
+    background: #fffcf2;
+    border: 3px solid rgba(47, 61, 42, .2);
+    border-radius: 20px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, .25);
+}
+.settle-card h3 { margin: 0 0 8px; font-size: 22px; color: #2f3d2a; }
+.settle-gain { margin: 4px 0; font-size: 16px; font-weight: 800; color: #d98200; }
+.settle-companion { margin: 4px 0; font-size: 13px; color: var(--muted); }
+.settle-progress p { margin: 8px 0 4px; font-size: 13px; font-weight: 700; color: #2f3d2a; }
+.settle-bar { height: 10px; background: rgba(47, 61, 42, .15); border-radius: 999px; overflow: hidden; }
+.settle-bar span { display: block; height: 100%; background: linear-gradient(90deg, #8fd14f, #ffb347); border-radius: 999px; }
+.settle-goal { margin: 10px 0 4px; font-size: 13px; font-weight: 700; color: #5f6f55; }
+.settle-actions { display: flex; gap: 10px; justify-content: center; margin-top: 12px; }
+.settle-actions button {
+    min-height: 44px;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 800;
+    color: #fffcf2;
+    background: #4b9e3f;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+}
+.settle-actions button:nth-child(2) { background: #8a9b7d; }
+
+.celebrate-card {
+    width: min(320px, 100%);
+    padding: 24px 20px;
+    text-align: center;
+    background: radial-gradient(circle at 50% 20%, #fff6d8, #fffcf2 70%);
+    border: 3px solid #ffce54;
+    border-radius: 24px;
+    box-shadow: 0 0 40px rgba(255, 206, 84, .55);
+    animation: celebrate-pop .35s ease-out;
+}
+.celebrate-card img { width: 84px; height: 84px; object-fit: contain; }
+.celebrate-card b { font-size: 48px; }
+.celebrate-kicker { margin: 6px 0 0; font-size: 12px; font-weight: 800; letter-spacing: .12em; color: #d98200; }
+.celebrate-card h3 { margin: 4px 0; font-size: 24px; color: #2f3d2a; }
+.celebrate-sub { margin: 2px 0 12px; font-size: 14px; font-weight: 700; color: var(--muted); }
+.celebrate-card button {
+    min-height: 44px;
+    padding: 10px 32px;
+    font-size: 15px;
+    font-weight: 800;
+    color: #fffcf2;
+    background: #ffb347;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+}
+@keyframes celebrate-pop {
+    from { transform: scale(.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width: 560px) {
+    .companion-say { max-width: 56vw; font-size: 11px; }
+    .companion-hud img { width: 40px; height: 40px; }
+    .mod-badge { font-size: 11px; padding: 5px 10px; }
+}

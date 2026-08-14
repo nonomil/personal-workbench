@@ -42,10 +42,15 @@
                 <span>波次 <b id="kill-count">0</b>/<b id="kill-need">1</b></span>
                 <span>能量 <b id="energy-count">0</b></span>
                 <span>状态 <b id="run-status">准备</b></span>
+                <button type="button" class="mod-badge" id="mod-badge" title="多认字可以解锁更强的僵尸和更多阳光">难度 · 统一</button>
             </div>
             <div class="seed-tray" id="seed-tray" aria-label="植物种子"></div>
             <div class="board-wrap">
                 <canvas id="world-canvas" width="1080" height="540" aria-label="花园战场"></canvas>
+                <div class="companion-hud" id="companion-hud" aria-live="polite">
+                    <span class="companion-say" id="companion-say"></span>
+                    <img src="../../assets/generated/preschool-pixel/published/star-companion.png?v=20260815-s1" alt="星芒" onerror="this.replaceWith(Object.assign(document.createElement('b'),{textContent:'🦄'}))">
+                </div>
             </div>
             <div class="control-row">
                 <button type="button" id="spawn-btn">来一波僵尸</button>
@@ -55,10 +60,35 @@
             <p class="hint" id="message-tip">选种子点草坪种下。种好后僵尸会自己来，豌豆会自己打。点掉落的阳光。</p>
         </section>
     </main>
+    <div class="settle-layer is-hidden" id="settle-layer" role="dialog" aria-label="本局结算">
+        <div class="settle-card">
+            <h3 id="settle-title">通关！</h3>
+            <p class="settle-gain" id="settle-gain"></p>
+            <p class="settle-companion" id="settle-companion"></p>
+            <div class="settle-progress">
+                <p id="settle-progress-label"></p>
+                <div class="settle-bar"><span id="settle-bar-fill"></span></div>
+            </div>
+            <p class="settle-goal" id="settle-goal"></p>
+            <div class="settle-actions">
+                <button type="button" id="settle-retry-btn">再玩一次</button>
+                <button type="button" id="settle-map-btn">回到关卡图</button>
+            </div>
+        </div>
+    </div>
+    <div class="celebrate-layer is-hidden" id="celebrate-layer" role="dialog" aria-label="里程碑庆祝">
+        <div class="celebrate-card">
+            <img src="../../assets/generated/preschool-pixel/published/star-companion.png?v=20260815-s1" alt="星芒庆祝" onerror="this.replaceWith(Object.assign(document.createElement('b'),{textContent:'🦄'}))">
+            <p class="celebrate-kicker">里程碑点亮</p>
+            <h3 id="celebrate-title"></h3>
+            <p class="celebrate-sub" id="celebrate-sub"></p>
+            <button type="button" id="celebrate-close-btn">收下</button>
+        </div>
+    </div>
     <div class="toast-game" id="toast" role="status"></div>
     <script src="../shared/workbench-bridge.js"></script>
     <script src="../../preschool-garden.js?v=20260814-zombie-pace-v1"></script>
     <script src="./data/stages.js?v=20260814-play-v2"></script>
-    <script src="./game.js?v=20260815-ref-v1"></script>
+    <script src="./game.js?v=20260815-s1"></script>
 </body>
 </html>

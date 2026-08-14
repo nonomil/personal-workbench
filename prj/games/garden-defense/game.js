@@ -61,6 +61,14 @@
     let skySuns = [];
     let autoWaveTried = false;
 
+    // ===== S1：学习难度联动（G1）/ 结算三行（G2）/ 星芒陪伴（G3）=====
+    const USE_PLAY_MODS = true;
+    let playMods = null;
+    let speedAcc = {};
+    let extraSeq = 0;
+    let celebrateQueue = [];
+    const COMPANION_ART = '../../assets/generated/preschool-pixel/published/star-companion.png?v=20260815-s1';
+
     const els = {
         wallet: document.getElementById('wallet-hud'),
         map: document.getElementById('stage-map'),
@@ -77,7 +85,22 @@
         progressTip: document.getElementById('progress-tip'),
         toast: document.getElementById('toast'),
         stageCount: document.getElementById('stage-count'),
-        back: document.getElementById('back-link')
+        back: document.getElementById('back-link'),
+        modBadge: document.getElementById('mod-badge'),
+        companionSay: document.getElementById('companion-say'),
+        settleLayer: document.getElementById('settle-layer'),
+        settleTitle: document.getElementById('settle-title'),
+        settleGain: document.getElementById('settle-gain'),
+        settleCompanion: document.getElementById('settle-companion'),
+        settleProgressLabel: document.getElementById('settle-progress-label'),
+        settleBarFill: document.getElementById('settle-bar-fill'),
+        settleGoal: document.getElementById('settle-goal'),
+        settleRetry: document.getElementById('settle-retry-btn'),
+        settleMap: document.getElementById('settle-map-btn'),
+        celebrateLayer: document.getElementById('celebrate-layer'),
+        celebrateTitle: document.getElementById('celebrate-title'),
+        celebrateSub: document.getElementById('celebrate-sub'),
+        celebrateClose: document.getElementById('celebrate-close-btn')
     };
 
     function toast(msg) {
@@ -85,6 +108,143 @@
         els.toast.classList.add('is-on');
         clearTimeout(toast._t);
         toast._t = setTimeout(function () { els.toast.classList.remove('is-on'); }, 2400);
+    }
+
+    // ===== G1：难度应用纯函数（合同测试经 vm 抽取断言）=====
+    // mods 为 null 时行为与现状完全一致（bridge 无 getPlayMods 的兜底）
+    function applyPlayMods(wave, mods) {
+        const base = wave || {};
+        const zombies = (base.zombies || []).map(function (z) {
+            return Object.assign({}, z, { speedMult: mods ? (Number(mods.enemySpeed) || 1) : 1 });
+        });
+        return {
+            zombies: zombies,
+            extraMob: mods && mods.extraMob ? 1 : 0,
+            rewardSun: mods ? Math.round((Number(base.rewardSun) || 0) * (Number(mods.sunMult) || 1)) : (Number(base.rewardSun) || 0)
+        };
+    }
+
+    // 速度乘数只落在应用层：不动规则层的 moveEvery，而是按倍率快慢补偿 moveClock。
+    // acc 是 game.js 侧的每僵尸小数累加器（不写入 growth 状态，normalize 会丢弃未知字段）。
+    function advanceMoveClocks(defense, acc, mods) {
+        const map = acc || {};
+        if (!defense || !mods) return map;
+        const mult = Number(mods.enemySpeed) || 1;
+        if (mult === 1) return map;
+        (defense.zombies || []).forEach(function (zombie) {
+            if (!zombie || Number(zombie.health) <= 0 || Number(zombie.slowTicks) > 0) return;
+            const blocked = (defense.plants || []).some(function (plant) {
+                return plant && plant.health > 0 && plant.lane === zombie.lane && plant.column === zombie.column - 1;
+            });
+            if (blocked) return;
+            const key = String(zombie.id);
+            map[key] = (Number(map[key]) || 0) + (mult - 1);
+            if (map[key] >= 1) {
+                const whole = Math.floor(map[key]);
+                zombie.moveClock = (Number(zombie.moveClock) || 0) + whole;
+                map[key] -= whole;
+            } else if (map[key] <= -1) {
+                const whole = Math.ceil(map[key]);
+                zombie.moveClock = Math.max(0, (Number(zombie.moveClock) || 0) + whole);
+                map[key] -= whole;
+            }
+        });
+        return map;
+    }
+
+    // ===== G2：结算三行数据组装（meta 即 bridge.getMetaSummary() 的返回值）=====
+    function milestoneGapText(badge, meta) {
+        const m = /^(ms-(garden|voxel|platform)-)(\d+)$/.exec(badge.id || '');
+        if (m) {
+            const key = m[2] === 'garden' ? 'gardenClears' : (m[2] === 'voxel' ? 'voxelQuests' : 'platformClears');
+            const unit = m[2] === 'voxel' ? '个任务' : '关';
+            return '还差 ' + Math.max(1, (Number(m[3]) || 0) - (Number(meta && meta[key]) || 0)) + ' ' + unit;
+        }
+        if (badge.id === 'ms-stars-20') return '还差 ' + Math.max(1, 20 - (Number(meta && meta.totalStars) || 0)) + ' 颗星';
+        const play = /^ms-play-(\d+)$/.exec(badge.id || '');
+        if (play) return '还差 ' + Math.max(1, Number(play[1]) - (Number(meta && meta.playDaysTotal) || 0)) + ' 天';
+        return badge.desc || '';
+    }
+
+    function buildSettlementLines(input) {
+        const data = input || {};
+        const meta = data.meta || {};
+        const badges = Array.isArray(meta.badges) ? meta.badges : [];
+        const next = badges.filter(function (b) { return b && !b.unlocked; })[0] || null;
+        const points = Number(meta.adventurePoints) || 0;
+        const need = meta.nextRank ? (Number(meta.nextRank.need) || points) : points;
+        const mult = Number(data.sunMult) || 1;
+        let gain = '';
+        if (data.won) {
+            gain = data.sunCapped
+                ? '本局所得：今日阳光已达上限，星芒帮你记着 ★×' + (Number(data.stars) || 0)
+                : '本局所得：阳光 +' + (Number(data.sunAwarded) || 0) + (mult > 1 ? '（×' + mult + '）' : '') + ' · ★×' + (Number(data.stars) || 0);
+        }
+        return {
+            gain: gain,
+            progressLabel: '冒险等级 Lv.' + (meta.adventureLevel || 1) + ' ' + (meta.adventureTitle || '') + ' · ' + points + '/' + need,
+            progressPercent: need > 0 ? Math.min(100, Math.round(points / need * 100)) : 100,
+            nextGoal: next
+                ? '下一个目标：' + next.title + ' · ' + milestoneGapText(next, meta)
+                : '所有里程碑都点亮啦，{who}是最棒的花园守护者！'
+        };
+    }
+
+    // ===== G3：星芒文案池（开局按档位 3 条 / 通关 4 条 / 失败打气 5 条含策略提示）=====
+    const COMPANION_LINES = {
+        welcome: {
+            '简单': [
+                '今天的僵尸慢悠悠，{who}随便种都能守住。',
+                '简单模式开启！星芒陪你先认识向日葵。',
+                '僵尸走得很慢，多攒一点阳光再种豌豆吧。'
+            ],
+            '普通': [
+                '僵尸速度刚刚好，{who}想好再种哦。',
+                '先种向日葵再种豌豆，规划好每一步。',
+                '今天的僵尸有点精神，记得留阳光补坚果。'
+            ],
+            '困难': [
+                '今天的僵尸有点快，{who}先多种向日葵哦。',
+                '困难模式！前排坚果、后排豌豆是关键。',
+                '僵尸又快又多，星芒在旁边帮你加油。'
+            ]
+        },
+        win: [
+            '{who}守得太棒了！星芒给你鼓掌。',
+            '守住啦！这波僵尸一个都没进家。',
+            '厉害！阳光和星星都拿到手啦。',
+            '{who}的花园固若金汤，星芒看呆了。'
+        ],
+        fail: [
+            '差一点点！下次把坚果种在僵尸来的前排试试。',
+            '别急，先种两棵向日葵攒阳光，再来守一次。',
+            '僵尸太快啦，试试寒冰豌豆让它慢下来。',
+            '这一波没守住，樱桃炸弹留给僵尸扎堆的时候用。',
+            '阳光要省着花，先把这一路种满再管别的路。'
+        ]
+    };
+
+    function companionLine(kind, mods, petLevel, pick) {
+        let pool;
+        if (kind === 'welcome') {
+            const label = (mods && mods.label) || '普通';
+            pool = (COMPANION_LINES.welcome || {})[label] || COMPANION_LINES.welcome['普通'];
+        } else {
+            pool = COMPANION_LINES[kind] || [];
+        }
+        if (!pool || !pool.length) return '';
+        const index = typeof pick === 'number' ? (Math.abs(Math.floor(pick)) % pool.length) : Math.floor(Math.random() * pool.length);
+        const who = Number(petLevel) >= 3 ? '小园长' : '小朋友';
+        return String(pool[index]).replace(/\{who\}/g, who);
+    }
+
+    // bridge 的 awards（recordPlaySession / grantProgressPoints 返回）里筛里程碑庆祝卡
+    function milestoneCardsFrom(awards) {
+        return (Array.isArray(awards) ? awards : []).filter(function (a) {
+            return a && a.kind === 'milestone';
+        }).map(function (a) {
+            return { id: a.id, title: a.title || '里程碑', sun: Number(a.amount) || 0, claimed: !!a.claimed };
+        });
     }
 
     function loadImg(key, src) {
@@ -220,9 +380,13 @@
         els.killNeed.textContent = String(currentStage.waves || 1);
         els.killCount.textContent = '0';
         els.tip.textContent = '选种子点草坪种下。豌豆会自己发射，点掉下来的阳光。';
+        hideSettle();
+        speedAcc = {};
         showPlay();
         renderSeeds();
         renderHud();
+        renderModBadge();
+        companionSay(companionLine('welcome', USE_PLAY_MODS ? playMods : null, petLevelNow()));
         spawnWave();
     }
 
@@ -271,6 +435,70 @@
         if (currentStage) els.killNeed.textContent = String(currentStage.waves || 1);
         els.status.textContent = statusLabel(defense);
         refreshWallet();
+    }
+
+    // ===== S1 UI 层 =====
+    function petLevelNow() {
+        try {
+            const w = bridge.getWallet();
+            return (w && Number(w.petLevel)) || 1;
+        } catch (e) {
+            return 1;
+        }
+    }
+
+    function renderModBadge() {
+        if (!els.modBadge) return;
+        const label = (USE_PLAY_MODS && playMods) ? playMods.label : '统一';
+        els.modBadge.textContent = '难度 · ' + label;
+        els.modBadge.title = '多认字可以解锁更强的僵尸和更多阳光';
+    }
+
+    function companionSay(line) {
+        if (!els.companionSay || !line) return;
+        els.companionSay.textContent = line;
+        els.companionSay.classList.add('is-on');
+        clearTimeout(companionSay._t);
+        companionSay._t = setTimeout(function () {
+            els.companionSay.classList.remove('is-on');
+        }, 6000);
+    }
+
+    function showSettle(opts) {
+        if (!els.settleLayer) return;
+        const lines = buildSettlementLines(opts || {});
+        const o = opts || {};
+        els.settleTitle.textContent = o.title || '';
+        els.settleGain.textContent = lines.gain || '';
+        els.settleCompanion.textContent = o.companionLine || '';
+        els.settleProgressLabel.textContent = lines.progressLabel;
+        els.settleBarFill.style.width = lines.progressPercent + '%';
+        els.settleGoal.textContent = lines.nextGoal.replace(/\{who\}/g, petLevelNow() >= 3 ? '小园长' : '小朋友');
+        if (els.settleRetry) els.settleRetry.textContent = o.won ? '再玩一次' : '重开本关';
+        els.settleLayer.classList.remove('is-hidden');
+    }
+
+    function hideSettle() {
+        if (els.settleLayer) els.settleLayer.classList.add('is-hidden');
+    }
+
+    function queueCelebrations(awards) {
+        const cards = milestoneCardsFrom(awards);
+        if (!cards.length) return;
+        celebrateQueue = celebrateQueue.concat(cards);
+        showNextCelebration();
+    }
+
+    function showNextCelebration() {
+        if (!els.celebrateLayer) return;
+        if (!celebrateQueue.length) {
+            els.celebrateLayer.classList.add('is-hidden');
+            return;
+        }
+        const card = celebrateQueue[0];
+        els.celebrateTitle.textContent = card.title;
+        els.celebrateSub.textContent = card.claimed ? ('奖励阳光 +' + card.sun + ' · 星芒为你欢呼！') : '今日阳光已达上限，成就已点亮！';
+        els.celebrateLayer.classList.remove('is-hidden');
     }
 
     function boardMetrics() {
@@ -606,6 +834,23 @@
         const status = (g.garden.defense || {}).status;
         if (status === 'lost') return;
         const r = garden.spawnDefenseWave(g, bridge.today(), { stageId: currentStage && currentStage.id });
+        if (r.ok && USE_PLAY_MODS && applyPlayMods({ rewardSun: 0, zombies: [] }, playMods).extraMob) {
+            // 困难档：每波额外 +1 普通僵尸（应用层直接补位，不动规则层）
+            const defense = r.growth.garden.defense;
+            const taken = (defense.zombies || []).map(function (z) { return z.lane; });
+            const lane = [0, 1, 2, 3, 4].filter(function (l) { return taken.indexOf(l) === -1; })[0];
+            extraSeq += 1;
+            (defense.zombies || (defense.zombies = [])).push({
+                id: 'zombie-extra-' + extraSeq + '-' + bridge.today(),
+                kind: 'zombie-basic',
+                lane: lane === undefined ? 2 : lane,
+                column: 5,
+                health: 3,
+                maxHealth: 3,
+                slowTicks: 0,
+                moveClock: 0
+            });
+        }
         commitGrowth(r.growth);
         if (r.ok) {
             els.tip.textContent = '僵尸来了！同路的豌豆会自己发射。';
@@ -628,6 +873,16 @@
             toast('僵尸进家了');
             els.tip.textContent = '僵尸进家了。可以重开本关，阳光还在。';
             els.status.textContent = '失败';
+            const failLine = companionLine('fail', USE_PLAY_MODS ? playMods : null, petLevelNow());
+            companionSay(failLine);
+            showSettle({
+                won: false,
+                stars: 0,
+                sunAwarded: 0,
+                title: '差一点点！',
+                companionLine: '星芒：' + failLine,
+                meta: (bridge.getMetaSummary && bridge.getMetaSummary()) || {}
+            });
             return;
         }
         if (defense.status !== 'won') return;
@@ -664,20 +919,38 @@
         });
         bridge.writeState(state);
         bridge.saveProgress(GAME_ID, progress);
+        const shaped = applyPlayMods({ rewardSun: currentStage.rewardSun, zombies: [] }, USE_PLAY_MODS ? playMods : null);
         const award = bridge.awardSunlight({
             gameId: GAME_ID,
             eventKey: 'stage-' + currentStage.id + '-clear',
-            amount: currentStage.rewardSun,
+            amount: shaped.rewardSun,
             energy: 1,
             reason: '通关第' + currentStage.id + '关'
         });
-        if (bridge.grantProgressPoints) bridge.grantProgressPoints(GAME_ID, 3 + star, 'clear-' + currentStage.id);
-        if (bridge.recordPlaySession) bridge.recordPlaySession(GAME_ID);
+        const awards = [];
+        if (bridge.grantProgressPoints) {
+            const pr = bridge.grantProgressPoints(GAME_ID, 3 + star, 'clear-' + currentStage.id);
+            if (pr && Array.isArray(pr.awards)) awards.push.apply(awards, pr.awards);
+        }
+        if (bridge.recordPlaySession) {
+            const play = bridge.recordPlaySession(GAME_ID);
+            if (play && Array.isArray(play.awards)) awards.push.apply(awards, play.awards);
+        }
         toast(award.awarded ? `通关！★×${star} · +${award.amount} 阳光` : `通关！★×${star} · ${award.reason}`);
         els.status.textContent = '胜利';
-        setTimeout(function () {
-            showMap();
-        }, 1500);
+        const winLine = companionLine('win', USE_PLAY_MODS ? playMods : null, petLevelNow());
+        companionSay(winLine);
+        showSettle({
+            won: true,
+            stars: star,
+            sunAwarded: award.awarded ? award.amount : shaped.rewardSun,
+            sunMult: shaped.rewardSun === Number(currentStage.rewardSun) ? 1 : (playMods ? playMods.sunMult : 1),
+            sunCapped: !award.awarded,
+            title: '通关！第 ' + currentStage.id + ' 关',
+            companionLine: '星芒：' + winLine,
+            meta: (bridge.getMetaSummary && bridge.getMetaSummary()) || {}
+        });
+        queueCelebrations(awards);
     }
 
     function maybeAutoWave(ts) {
@@ -707,6 +980,7 @@
         if (status !== 'playing') return;
         if (ts - lastDefenseTick < TICK_MS) return;
         lastDefenseTick = ts;
+        if (USE_PLAY_MODS) advanceMoveClocks(g.garden.defense, speedAcc, playMods);
         const r = garden.tickDefense(g, 1);
         commitGrowth(r.growth);
         afterTick(r.growth);
@@ -728,6 +1002,31 @@
             else if (document.exitFullscreen) document.exitFullscreen();
         });
         els.back.href = bridge.backHref('garden-defense');
+        if (els.modBadge) {
+            els.modBadge.addEventListener('click', function () {
+                const msg = '多认字可以解锁更强的僵尸和更多阳光！';
+                toast(msg);
+                els.tip.textContent = msg + '（当前：' + ((USE_PLAY_MODS && playMods) ? playMods.label : '统一') + '）';
+            });
+        }
+        if (els.settleRetry) {
+            els.settleRetry.addEventListener('click', function () {
+                hideSettle();
+                if (currentStage) enterStage(currentStage.id);
+            });
+        }
+        if (els.settleMap) {
+            els.settleMap.addEventListener('click', function () {
+                hideSettle();
+                showMap();
+            });
+        }
+        if (els.celebrateClose) {
+            els.celebrateClose.addEventListener('click', function () {
+                celebrateQueue.shift();
+                showNextCelebration();
+            });
+        }
         function loop(ts) {
             animPhase = (ts || 0) / 1000;
             maybeResumeWave(ts || 0);
@@ -745,10 +1044,13 @@
             return;
         }
         loadProgress();
+        if (USE_PLAY_MODS && bridge.getPlayMods) playMods = bridge.getPlayMods();
+        renderModBadge();
         if (bridge.recordPlaySession) {
             const play = bridge.recordPlaySession(GAME_ID);
             if (play && play.awards && play.awards.length) {
                 toast(play.awards.map(function (a) { return a.title; }).join(' · '));
+                queueCelebrations(play.awards);
             }
         }
         loadAll().then(function () {

@@ -1,0 +1,71 @@
+/* 35 · 学习详情页：翻页学习卡片（识字/英语/拼音/拼读） */
+
+.preschool-flashcard-page { display: grid; gap: 12px; }
+.preschool-flashcard-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.preschool-flashcard-top > strong { font-size: 1.05rem; color: #23422c; }
+.preschool-flashcard-dots { display: inline-flex; gap: 6px; }
+.preschool-flashcard-dots i { width: 10px; height: 10px; border-radius: 50%; background: rgba(35, 66, 44, 0.15); }
+.preschool-flashcard-dots i.is-on { background: #3fa25c; }
+.preschool-flashcard-dots i.is-current { background: #ffffff; box-shadow: 0 0 0 2px #3fa25c; }
+.preschool-flashcard-count { margin: 0; font-size: 0.9rem; color: #5c7350; display: flex; align-items: center; gap: 8px; }
+.preschool-flashcard-review { font-style: normal; font-size: 0.75rem; font-weight: 700; color: #8a6b1f; background: rgba(224, 172, 62, 0.2); border-radius: 999px; padding: 2px 10px; }
+
+.preschool-flashcard {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; align-items: center;
+    background: #ffffff; border-radius: 26px; padding: 30px 26px;
+    border: 2px solid rgba(63, 162, 92, 0.25);
+    box-shadow: 0 12px 28px rgba(31, 73, 42, 0.1);
+    min-height: 260px;
+}
+.preschool-flashcard-main { display: grid; justify-items: center; gap: 8px; text-align: center; }
+.preschool-flashcard-main > strong { font-size: 4.6rem; line-height: 1.1; font-weight: 800; color: #23422c; overflow-wrap: anywhere; }
+.preschool-flashcard-main > small { font-size: 1.15rem; color: #6b7f5e; font-weight: 700; }
+.preschool-flashcard-rows { display: grid; gap: 10px; align-content: center; }
+.preschool-flashcard-row { background: #f7faf3; border-radius: 14px; padding: 10px 16px; display: grid; gap: 2px; }
+.preschool-flashcard-row small { font-size: 0.78rem; color: #8a6b1f; font-weight: 700; }
+.preschool-flashcard-row strong { font-size: 1.1rem; color: #23422c; line-height: 1.4; overflow-wrap: anywhere; }
+
+/* 学科色调（沿用 wall 的 tone 口径） */
+.preschool-flashcard-page.tone-orange .preschool-flashcard { border-color: rgba(240, 145, 55, 0.45); background: #fffaf2; }
+.preschool-flashcard-page.tone-blue .preschool-flashcard { border-color: rgba(64, 140, 230, 0.4); background: #f5faff; }
+.preschool-flashcard-page.tone-lime .preschool-flashcard { border-color: rgba(120, 190, 60, 0.45); background: #f8fdf1; }
+.preschool-flashcard-page.tone-pink .preschool-flashcard { border-color: rgba(235, 110, 150, 0.4); background: #fff7fa; }
+.preschool-flashcard-page.tone-gold .preschool-flashcard { border-color: rgba(224, 172, 62, 0.5); background: #fffbec; }
+
+.preschool-flashcard-toolbar { display: flex; justify-content: center; }
+.preschool-flashcard-speak {
+    display: inline-flex; align-items: center; gap: 8px;
+    min-height: 48px; padding: 0 22px; border-radius: 999px;
+    border: 2px solid rgba(63, 162, 92, 0.35); background: #ffffff;
+    color: #2c7a45; font-size: 1rem; font-weight: 700; cursor: pointer;
+}
+.preschool-flashcard-speak:hover, .preschool-flashcard-speak:focus-visible { background: #eefae4; }
+.preschool-flashcard-speak svg { width: 20px; height: 20px; }
+
+.preschool-flashcard-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.preschool-flashcard-mark {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    min-height: 60px; border-radius: 18px; font-size: 1.15rem; font-weight: 800; cursor: pointer;
+    border: 2px solid transparent; transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.preschool-flashcard-mark svg { width: 22px; height: 22px; }
+.preschool-flashcard-mark.is-unknown { background: #ffffff; border-color: rgba(224, 122, 62, 0.5); color: #b05a1e; }
+.preschool-flashcard-mark.is-known { background: #2d8748; border-color: #2d8748; color: #ffffff; box-shadow: 0 8px 18px rgba(45, 135, 72, 0.28); }
+.preschool-flashcard-mark:hover, .preschool-flashcard-mark:focus-visible { transform: translateY(-2px); }
+
+.preschool-flashcard-foot { display: flex; justify-content: center; }
+
+.preschool-flashcard-complete { display: grid; justify-items: center; gap: 12px; text-align: center; background: #ffffff; border-radius: 26px; padding: 34px 24px; border: 2px solid rgba(224, 172, 62, 0.45); box-shadow: 0 12px 28px rgba(31, 73, 42, 0.1); }
+.preschool-flashcard-complete-art { width: 84px; height: 84px; display: grid; place-items: center; }
+.preschool-flashcard-complete-art img { width: 100%; height: 100%; object-fit: contain; }
+.preschool-flashcard-complete h2 { margin: 0; font-size: 1.5rem; color: #23422c; }
+.preschool-flashcard-complete p { margin: 0; font-size: 1rem; color: #5c7350; }
+.preschool-flashcard-complete-lessons { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.preschool-flashcard-lesson { display: inline-flex; align-items: center; gap: 8px; min-height: 52px; padding: 0 20px; border-radius: 16px; font-size: 1rem; }
+.preschool-flashcard-lesson svg { width: 18px; height: 18px; }
+
+@media (max-width: 760px) {
+    .preschool-flashcard { grid-template-columns: 1fr; gap: 14px; padding: 22px 18px; min-height: 0; }
+    .preschool-flashcard-main > strong { font-size: 3.6rem; }
+    .preschool-flashcard-top { flex-wrap: wrap; }
+}

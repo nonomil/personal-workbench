@@ -2,22 +2,26 @@
 
 | 路径 | 用途 | 关卡映射 |
 |------|------|----------|
-| bg/lawn-day.png | 白天草坪 | 1–4 |
-| bg/lawn-sunset.png | 黄昏草坪 | 5–8 |
-| bg/lawn-night.png | 夜晚草坪 | 9–12 |
-| zombies/garden-walker-v4.png | 普通僵尸（v4 重绘） | 全部关卡 |
-| zombies/garden-flag-v4.png | 旗帜僵尸（v4 新增） | 波次首领 |
-| zombies/garden-cone-walker-v4.png | 路障僵尸（v4 重绘） | 中期关卡 |
-| zombies/garden-pail-walker-v4.png | 铁桶僵尸（v4 重绘） | 高关 |
-| zombies/garden-football-v4.png | 橄榄球僵尸（v4 新增） | 高关 |
-| enemies/zombie-flag.png | 旗帜怪备选 | 波次装饰 / 高关 |
-| enemies/zombie-bucket-alt.png | 铁桶变体 | 高关铁桶替换 |
+| bg/pvz-garden-lawn-bg.webp | 草坪背景（webp，301KB） | 全部关卡 |
+| bg/pvz-garden-lawn-bg.png | 同图 png 版（2.1MB，备份不引用） | — |
+| plants/plant-sunflower.png | 向日葵 | 第 1 关起 |
+| plants/plant-peashooter.png | 豌豆射手 | 第 1 关起 |
+| plants/plant-wallnut.png | 坚果墙 | 第 3 关起 |
+| plants/plant-snowpea.png | 寒冰豌豆 | 第 4 关起 |
+| plants/plant-cherrybomb.webp | 樱桃炸弹 | 第 6 关起 |
+| zombies/zombie-basic.webp | 普通僵尸 | 全部关卡 |
+| zombies/zombie-flag.webp | 旗帜僵尸 | 波次首领 |
+| zombies/zombie-conehead.webp | 路障僵尸 | 中期关卡 |
+| zombies/zombie-buckethead.webp | 铁桶僵尸 | 高关 |
+| zombies/zombie-football.webp | 橄榄球僵尸 | 高关 |
 
-- 僵尸 v4 批次（2026-08-15）：按 `docs/01-方案/工作台小游戏设计/01-花园保卫战/DS--植物大战僵尸--生图提示词.md`
-  措辞生成（Agnes，`#ff00ff` 幕布），`scripts/key-garden-zombie.py` 品红抠底 + 512×640 底部对齐；
-  僵尸精灵同时发布到 `prj/assets/generated/preschool-pvz-2d/published/garden-*-v4.png`
-  供工作台嵌入版（`prj/app.js` PRESCHOOL_PVZ_ASSETS）加载。
-- 旗帜/橄榄球此前复用普通/路障贴图，v4 起为独立形象。
-- 下岗留存：`zombies/garden-{walker,cone-walker,pail-walker}{,-v3}.png`（旧版）
-  不再被引用，留在盘上待用户决定删除。
-- 植物与太阳仍优先 `preschool-pvz-2d/published`（观感更接近验收版）。
+- 2026-08-15 用户裁决（覆盖总纲 §5 绘本卡通措辞）：角色统一换用
+  `prj/games/ref/assets/generated/preschool-pixel/pvz/` 像素套图（植物 5 + 僵尸 5，
+  RGBA 透明底），背景统一 `pvz-garden-lawn-bg.webp`（与 ref 目录 md5 一致）。
+  花园/黄昏/夜晚三张 lawn-*.png 与 v4/v5 僵尸批次全部下岗，不再被引用，
+  留在 git 历史与盘上（部分已由并行会话删除）待用户决定清理。
+- 星芒观战小像（S1 G3）：`../../assets/generated/preschool-pixel/published/star-companion.png`，
+  加载失败 emoji 🦄 兜底。
+- 太阳仍用 `preschool-pvz-2d/published/pvz-sun-token.png`。
+- 工作台嵌入版（`prj/app.js` PRESCHOOL_PVZ_ASSETS）加载的 `garden-*-v4.png`
+  已随 v4 下岗不再更新，待工作台侧后续统一（不在 T20260815-GD 范围）。
