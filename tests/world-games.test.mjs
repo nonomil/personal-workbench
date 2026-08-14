@@ -58,9 +58,17 @@ test('keeps three mini-game worlds in a separate games folder from workbench she
   assert.match(voxelScript, /mineBlock|点击挖矿|长按放置/);
   assert.match(voxelScript, /const GAME_ID = 'voxel-adventure'/);
   assert.match(voxelScript, /VoxelLevels|cameraX|走到出口/);
+  assert.match(voxelScript, /kubo-sandbox|ikx337|VoxelPixelTiles|pixel-tiles|DS-Scratch/);
+  assert.match(voxelScript, /wood_pick|stone_pick|levelGoalMet/);
+  assert.match(voxelScript, /explorer-idle|SPRITE_W|explorerPose/);
+  assert.match(voxelScript, /startMine|explorer-mine|drawPickSwing/);
+  assert.match(voxelScript, /player\.y \+ 1/);
   assert.match(voxelScript, /VIEW_COLS|isVoid|掉下去了/);
   assert.doesNotMatch(voxelScript, /Creeper|Steve|苦力怕/);
   assert.doesNotMatch(voxel, /冲旗/);
+  assert.doesNotMatch(voxel, /横版过关/);
+  assert.doesNotMatch(voxel, /我的世界|Minecraft/);
+  assert.doesNotMatch(garden, /我的世界|Minecraft|马里奥|Mario|植物大战僵尸|Plants vs/);
   assert.match(platformScript, /jump|coin|flag|platform|run|idle|ground/i);
   assert.match(platformScript, /coyote|jumpBuffer|tryJump|COYOTE_MS/i);
   assert.match(platformScript, /isInvincible|canAirJump|INVINCIBLE_MS/);
@@ -81,4 +89,9 @@ test('preschool workbench routes all three themes to independent world games', (
   assert.match(app, /navGameLabel/);
   assert.doesNotMatch(app, /voxel-adventure[\s\S]{0,120}exitGame: '去花园游戏'/);
   assert.match(prepare, /'games'/);
+});
+
+test('launcher avoids third-party game trademark wording in public copy', () => {
+  const launcher = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+  assert.doesNotMatch(launcher, /我的世界|Minecraft|马里奥|Mario|植物大战僵尸|Plants vs/);
 });

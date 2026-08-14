@@ -6,14 +6,14 @@
     <meta name="theme-color" content="#5dade2">
     <title>方块世界</title>
     <link rel="stylesheet" href="../shared/growth-hud.css">
-    <link rel="stylesheet" href="./game.css?v=20260814-sidescroll-v1">
+    <link rel="stylesheet" href="./game.css?v=20260814-art-v2">
 </head>
 <body data-world-game="voxel-adventure" class="mc-world">
     <header class="world-bar mc-top">
         <div class="world-bar-copy">
             <span class="kicker">关卡</span>
             <h1>方块世界</h1>
-            <p id="quest-title">横版过关 · 走到出口</p>
+            <p id="quest-title">方块世界 · 挖一挖、放一放</p>
         </div>
         <div class="growth-hud" id="wallet-hud"></div>
         <div class="world-bar-actions">
@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div class="hotbar" id="hotbar" aria-label="工具和背包"></div>
-            <p class="mc-footer">横版过关 — WASD 移动 | 空格跳跃 | 鼠标左键挖矿 | 右键/长按放置 | 走到出口</p>
+            <p class="mc-footer">方块世界 — WASD 移动 | 空格跳跃 | 鼠标左键挖矿 | 右键/长按放置 | 走到出口</p>
         </section>
         <aside class="world-side mc-quests">
             <h2>关卡</h2>
@@ -56,8 +56,9 @@
     <div class="toast-game" id="toast"></div>
     <script src="../shared/workbench-bridge.js"></script>
     <script src="./data/quests.js?v=20260814-mc-v1"></script>
-    <script src="./data/levels.js?v=20260814-sidescroll-v1"></script>
-    <script src="./data/world.js?v=20260814-islands-v1"></script>
-    <script src="./game.js?v=20260814-sidescroll-v1"></script>
+    <script src="./data/levels.js?v=20260814-regions-v1"></script>
+    <script src="./data/world.js?v=20260814-tools-v1"></script>
+    <script src="./pixel-tiles.js?v=20260814-art-v2"></script>
+    <script src="./game.js?v=20260814-idle-v1"></script>
 </body>
 </html>

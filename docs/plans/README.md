@@ -6,6 +6,7 @@
 
 - 产品方案：`docs/工作台小游戏设计/`
 - 任务包（按 templates 装配）：[`T20260813-world-games-growth/`](./T20260813-world-games-growth/README.md)
+- 审查整改包（2026-08-14 审查结论）：[`T20260814-audit-remediation/`](./T20260814-audit-remediation/README.md)
 - 历史日期稿：`old/`（不叠加）
 - 模板本身：`templates/`（只复制需要的卡，不要一次生成全部）
 

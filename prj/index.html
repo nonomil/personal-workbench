@@ -151,16 +151,16 @@
         <div class="launcher-group-heading launcher-group-heading-worlds" id="preschool-worlds-heading"><strong>幼儿游戏世界</strong><small>同一套幼儿任务数据 · 三种视觉主题</small><span>01 — 03</span></div>
         <section class="workbench-grid workbench-grid-preschool" aria-labelledby="preschool-worlds-heading" data-launcher-group="preschool-worlds">
             <a class="workbench-link" data-card-kind="world" data-workbench-variant="preschool" data-workbench-theme="garden-defense" href="./preschool-workbench/index.html?theme=garden-defense">
-                <span class="workbench-visual"><span class="workbench-index">01 / GARDEN</span><span class="workbench-status" data-recent-status hidden>上次使用</span><img class="workbench-image" src="./assets/generated/preschool-pvz-2d/background/published/pvz-garden-lawn-bg.png" alt="植物大战僵尸式的阳光草坪战场"></span>
-                <span class="workbench-copy"><span><span class="workbench-eyebrow">PRESCHOOL / GARDEN DEFENSE</span><h2>植物大战僵尸式花园</h2><p>完成学习收集阳光，选择植物卡片，守护五路草坪并收集徽章。</p></span><span class="open-link">进入花园版 <span aria-hidden="true">&#8594;</span></span></span>
+                <span class="workbench-visual"><span class="workbench-index">01 / GARDEN</span><span class="workbench-status" data-recent-status hidden>上次使用</span><img class="workbench-image" src="./assets/generated/preschool-pvz-2d/background/published/pvz-garden-lawn-bg.png" alt="阳光草坪保卫战场"></span>
+                <span class="workbench-copy"><span><span class="workbench-eyebrow">PRESCHOOL / GARDEN DEFENSE</span><h2>花园保卫战</h2><p>完成学习收集阳光，选择植物卡片，守护五路草坪并收集徽章。</p></span><span class="open-link">进入花园版 <span aria-hidden="true">&#8594;</span></span></span>
             </a>
             <a class="workbench-link" data-card-kind="world" data-workbench-variant="preschool" data-workbench-theme="voxel-adventure" href="./preschool-workbench/index.html?theme=voxel-adventure">
-                <span class="workbench-visual"><span class="workbench-index">02 / VOXEL</span><span class="workbench-status" data-recent-status hidden>上次使用</span><img class="workbench-image" src="./assets/generated/preschool-theme-assets/voxel-v2/reference/voxel-hero.png" alt="我的世界式的方块山谷、基地和原创探险者"></span>
-                <span class="workbench-copy"><span><span class="workbench-eyebrow">PRESCHOOL / BLOCK ADVENTURE</span><h2>我的世界式方块探险</h2><p>收集晶体、搭建基地、走过方块路线，把每项学习变成一块新地形。</p></span><span class="open-link">进入方块版 <span aria-hidden="true">&#8594;</span></span></span>
+                <span class="workbench-visual"><span class="workbench-index">02 / VOXEL</span><span class="workbench-status" data-recent-status hidden>上次使用</span><img class="workbench-image" src="./assets/generated/preschool-theme-assets/voxel-v2/reference/voxel-hero.png" alt="方块山谷、基地和原创探险者"></span>
+                <span class="workbench-copy"><span><span class="workbench-eyebrow">PRESCHOOL / BLOCK ADVENTURE</span><h2>方块世界探险</h2><p>收集晶体、搭建基地、走过方块路线，把每项学习变成一块新地形。</p></span><span class="open-link">进入方块版 <span aria-hidden="true">&#8594;</span></span></span>
             </a>
             <a class="workbench-link" data-card-kind="world" data-workbench-variant="preschool" data-workbench-theme="platform-quest" href="./preschool-workbench/index.html?theme=platform-quest">
-                <span class="workbench-visual"><span class="workbench-index">03 / QUEST</span><span class="workbench-status" data-recent-status hidden>上次使用</span><img class="workbench-image" src="./assets/generated/preschool-theme-assets/platform-v2/reference/platform-hero.png" alt="马里奥式的原创横版平台闯关场景"></span>
-                <span class="workbench-copy"><span><span class="workbench-eyebrow">PRESCHOOL / PLATFORM QUEST</span><h2>马里奥式横版闯关</h2><p>跳过平台、收集金币、抵达旗帜，把今日任务走成一条闯关路线。</p></span><span class="open-link">进入闯关版 <span aria-hidden="true">&#8594;</span></span></span>
+                <span class="workbench-visual"><span class="workbench-index">03 / QUEST</span><span class="workbench-status" data-recent-status hidden>上次使用</span><img class="workbench-image" src="./assets/generated/preschool-theme-assets/platform-v2/reference/platform-hero.png" alt="原创横版平台闯关场景"></span>
+                <span class="workbench-copy"><span><span class="workbench-eyebrow">PRESCHOOL / PLATFORM QUEST</span><h2>横版闯关</h2><p>跳过平台、收集金币、抵达旗帜，把今日任务走成一条闯关路线。</p></span><span class="open-link">进入闯关版 <span aria-hidden="true">&#8594;</span></span></span>
             </a>
         </section>
         <div class="launcher-group-heading launcher-group-heading-general" id="general-workbenches-heading"><strong>成人与少儿工作台</strong><small>计划、学习与成长记录</small><span>04 — 05</span></div>
@@ -188,9 +188,9 @@
             const selected = launcher.getSelected();
             const selectedTheme = selected === 'preschool' ? launcher.getSelectedTheme() : null;
             const themeDetails = {
-                'garden-defense': { title: '植物大战僵尸式花园', description: '收集阳光、选择植物，守护五路草坪。' },
-                'voxel-adventure': { title: '我的世界式方块探险', description: '搭建基地、收集晶体，走过自己的方块路线。' },
-                'platform-quest': { title: '马里奥式横版闯关', description: '跳过平台、收集金币，向终点旗帜再走一步。' }
+                'garden-defense': { title: '花园保卫战', description: '收集阳光、选择植物，守护五路草坪。' },
+                'voxel-adventure': { title: '方块世界探险', description: '搭建基地、收集晶体，走过自己的方块路线。' },
+                'platform-quest': { title: '横版闯关', description: '跳过平台、收集金币，向终点旗帜再走一步。' }
             };
             const details = {
                 adult: { title: '成人成长工作台', description: '计划、记录与复盘，给今天留一块安静的空间。' },
