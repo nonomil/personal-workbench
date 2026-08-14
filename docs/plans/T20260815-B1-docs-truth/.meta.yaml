@@ -1,0 +1,42 @@
+task_id: "T20260815-B1"
+title: "文档回真：卡片墙状态 + 刷新测试断言 + 三处课程合同对数"
+status: "done"
+priority: "P0"
+phase: "single"
+assignee: ""
+created: "2026-08-15"
+completed: "2026-08-15"
+depends_on: []
+estimated_hours: 4
+actual_hours: 0
+files:
+  - path: "docs/01-方案/2026-08-15-学习专区卡片墙布局方案.md"
+    change_type: "modify"
+  - path: "tests/preschool-workbench-refresh.test.mjs"
+    change_type: "modify"
+  - path: "docs/02-课程/幼儿课程方案/README.md"
+    change_type: "modify"
+  - path: "docs/02-课程/幼儿课程方案/00-总控/数据与奖励合同.md"
+    change_type: "modify"
+  - path: "docs/02-课程/识字/01-课程总方案.md"
+    change_type: "modify"
+  - path: "docs/02-课程/幼儿课程方案/01-识字/识字分方案.md"
+    change_type: "modify"
+  - path: "docs/02-课程/幼儿课程方案/00-总控/总计划.md"
+    change_type: "modify"
+    note: "R3 同批改（steps.md 步骤 4 授权：'三项核心'表述复查出现处）"
+  - path: "docs/02-课程/成长游戏/02-60日课程表.md"
+    change_type: "modify"
+    note: "R3 同批改（同上）"
+acceptance:
+  - "卡片墙方案文档头部状态与代码一致（已实施 + 缓存戳）"
+  - "preschool-workbench-refresh 测试断言当前卡片墙结构且通过"
+  - "grep 不再出现"每天三项核心"类表述；任务数与 config.js 实况一致"
+  - "数据与奖励合同数值逐项对照 storage.js / workbench-bridge.js 改齐或标注裁决"
+  - "识字目标改为"已上 240 / 主线 1500"口径"
+  - "npm test 退出码 0，零产品代码改动"
+tags:
+  - preschool
+  - docs-truth
+  - course-contract
+notes: "源于 docs/01-方案/2026-08-15-学习内容体系优化/04-学习功能优化方案.md P0-1。对数以代码为准；若发现代码内部自相矛盾，记录进 test-report 并停下问用户，不顺手改代码。"

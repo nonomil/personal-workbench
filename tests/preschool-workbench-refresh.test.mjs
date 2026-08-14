@@ -105,10 +105,10 @@ test('keeps preschool plans in one editable list instead of a fixed core and col
 
 test('bumps preschool runtime assets when the editable plan interaction changes', () => {
   const html = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
-  assert.match(html, /preschool-workbench\.css\?v=20260815-course-wall-v1/);
+  assert.match(html, /preschool-workbench\.css\?v=20260815-flashcards-v1/);
   assert.match(html, /config\.js\?v=20260814-summer-banks-v1/);
   assert.match(html, /storage\.js\?v=20260814-lesson-mistakes-v1/);
-  assert.match(html, /app\.js\?v=20260815-streak-v1/);
+  assert.match(html, /app\.js\?v=20260815-flashcards-v1/);
   assert.match(html, /workbench-bridge\.js\?v=20260807-longterm-meta-v1/);
 });
 
@@ -262,6 +262,10 @@ test('exposes the reference workbench learning lanes as separate preschool navig
 test('keeps preschool course content spacious and supports a focused learning lane', () => {
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
   const styles = readCssGraph(path.join(root, 'css', 'preschool-workbench.css'));
+  const workbenchCss = fs.readFileSync(path.join(root, 'css', 'preschool-workbench.css'), 'utf8');
+  assert.match(app, /renderPreschoolCourseWallCard/);
+  assert.match(app, /renderPreschoolCoursesTodayCard/);
+  assert.match(workbenchCss, /34-course-wall\.css\?v=20260815-course-wall-v1/);
   assert.match(app, /preschool-course-wall/);
   assert.match(app, /preschool-course-today/);
   assert.match(app, /preschool-course-layout/);
@@ -583,7 +587,7 @@ test('puts a single real-work workflow card above preschool home check-in lanes'
   assert.doesNotMatch(workflowRender, /再完成\s*\d+\s*项打卡/);
   assert.match(app, /item\.done && item\.completionSource === 'practice'/);
   assert.match(styles, /preschool-home-workflow/);
-  assert.match(html, /app\.js\?v=20260815-streak-v1/);
+  assert.match(html, /app\.js\?v=20260815-flashcards-v1/);
   assert.doesNotMatch(app, /首页只负责打卡/);
 });
 
@@ -938,4 +942,26 @@ test('routes plant skills by effect instead of animating every plant as a pea sh
   assert.match(app, /\['pea', 'ice-pea', 'blast'\]\.includes\(skill\)/);
   assert.match(app, /if \(skill === 'blast'\)/);
   assert.match(app, /result\.effect/);
+});
+
+test('turns flashcard subjects into a flip-card page with known/unknown marking', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const styles = readCssGraph(path.join(root, 'css', 'preschool-workbench.css'));
+  const workbenchCss = fs.readFileSync(path.join(root, 'css', 'preschool-workbench.css'), 'utf8');
+  assert.match(app, /PRESCHOOL_FLASHCARD_COURSES = new Set\(\['preschool-literacy', 'preschool-english', 'preschool-pinyin', 'preschool-phonics'\]\)/);
+  assert.match(app, /function buildPreschoolCourseCardItems\(course\)/);
+  assert.match(app, /buildFlashBatch/);
+  assert.match(app, /buildSpeakBatch/);
+  assert.match(app, /markFlash\(current, item\.key/);
+  assert.match(app, /markKnown\(current, item\.key/);
+  assert.match(app, /markSubjectReady\(current, \[item\.key\]/);
+  assert.match(app, /function renderPreschoolCourseFlashcards\(course\)/);
+  assert.match(app, /function renderPreschoolFlashcardComplete\(course, session\)/);
+  assert.match(app, /data-action="flashcard-mark" data-known="0"/);
+  assert.match(app, /data-action="flashcard-classic"/);
+  assert.match(app, /if \(action === 'flashcard-mark'\) markPreschoolFlashcard/);
+  assert.match(workbenchCss, /35-course-flashcards\.css\?v=20260815-flashcards-v1/);
+  assert.match(styles, /preschool-flashcard-actions/);
+  assert.match(styles, /preschool-flashcard-mark\.is-known/);
+  assert.match(styles, /preschool-flashcard-complete-lessons/);
 });

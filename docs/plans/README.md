@@ -8,7 +8,7 @@
 - 任务包（按 templates 装配）：[`T20260813-world-games-growth/`](./T20260813-world-games-growth/README.md)
 - 审查整改包（2026-08-14 审查结论）：[`T20260814-audit-remediation/`](./T20260814-audit-remediation/README.md)
 - 学习内容体系优化批次（源头 `docs/01-方案/2026-08-15-学习内容体系优化/`，建议顺序 B1→B2→B3→B4）：
-  - [`T20260815-B1-docs-truth/`](./T20260815-B1-docs-truth/README.md) 文档回真（P0，pending）
+  - [`T20260815-B1-docs-truth/`](./T20260815-B1-docs-truth/README.md) 文档回真（P0，review 已执行待验收：5 处偏离改齐、npm test 259/259，见其 test-report）
   - [`T20260815-B2-practice-review/`](./T20260815-B2-practice-review/README.md) 六项接练习 + 错题回流（P0，pending）
   - [`T20260815-B3-reward-loop/`](./T20260815-B3-reward-loop/README.md) 奖励闭环四件套（P1，blocked 等 B2）
   - [`T20260815-B4-content-deepening/`](./T20260815-B4-content-deepening/README.md) 内容深化（P2，deferred 按需启动）
