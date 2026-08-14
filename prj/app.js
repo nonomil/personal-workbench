@@ -64,9 +64,11 @@
         'plant-wallnut': 'pvz-wallnut.png',
         'plant-snowpea': 'pvz-iceflower.png',
         'plant-cherrybomb': 'pvz-triple-peashooter.png',
-        'zombie-basic': 'pvz-zombie-basic.png',
-        'zombie-conehead': 'pvz-zombie-conehead.png',
-        'zombie-buckethead': 'pvz-zombie-buckethead.png'
+        'zombie-basic': 'garden-walker.png?v=20260814-walker-v2',
+        'zombie-conehead': 'garden-cone-walker.png?v=20260814-walker-v2',
+        'zombie-buckethead': 'garden-pail-walker.png?v=20260814-walker-v2',
+        'zombie-flag': 'garden-walker.png?v=20260814-walker-v2',
+        'zombie-football': 'garden-cone-walker.png?v=20260814-walker-v2'
     };
     const PRESCHOOL_THEME_ASSET_FILES = {
         'voxel-adventure': {

@@ -48,7 +48,10 @@ test('keeps three mini-game worlds in a separate games folder from workbench she
   assert.doesNotMatch(voxel, /preschool-garden\.js|renderPreschoolBattle|pixel-battle/);
   assert.doesNotMatch(platform, /preschool-garden\.js|renderPreschoolBattle|pixel-battle/);
   assert.match(gardenScript, /placeDefensePlant|tickDefense|spawnDefenseWave/);
+  assert.match(gardenScript, /drawZombieActor|zombie-conehead|zombie-buckethead/);
   assert.match(gardenScript, /boardMetrics|lawnFromEvent|阳光/);
+  assert.match(gardenScript, /laneH \* 1\.62/);
+  assert.match(gardenScript, /laneH \* 2\.05/);
   assert.match(gardenScript, /任意种植|lawnFromEvent/);
   assert.match(gardenScript, /function collectSun|spawnSkySun/);
   assert.doesNotMatch(gardenScript, /function useSkill/);

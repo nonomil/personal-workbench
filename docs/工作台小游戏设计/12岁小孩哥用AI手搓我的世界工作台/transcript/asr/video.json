@@ -1,0 +1,619 @@
+{
+  "source": "asr",
+  "input": "audio.wav",
+  "model": "base",
+  "requestedLanguage": "auto",
+  "language": "zh",
+  "duration": 126.967,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 0.64,
+      "text": "大家好",
+      "avgLogprob": -0.6251,
+      "noSpeechProb": 0.0717
+    },
+    {
+      "start": 0.64,
+      "end": 1.96,
+      "text": "今天不是一起活了",
+      "avgLogprob": -0.6251,
+      "noSpeechProb": 0.0717
+    },
+    {
+      "start": 1.96,
+      "end": 3.16,
+      "text": "今天是一个",
+      "avgLogprob": -0.6251,
+      "noSpeechProb": 0.0717
+    },
+    {
+      "start": 3.16,
+      "end": 4.4,
+      "text": "一个下雨",
+      "avgLogprob": -0.6251,
+      "noSpeechProb": 0.0717
+    },
+    {
+      "start": 4.4,
+      "end": 5.76,
+      "text": "你们觉得这个水游戏吗",
+      "avgLogprob": -0.6251,
+      "noSpeechProb": 0.0717
+    },
+    {
+      "start": 5.76,
+      "end": 6.44,
+      "text": "路过温",
+      "avgLogprob": -0.6251,
+      "noSpeechProb": 0.0717
+    },
+    {
+      "start": 6.44,
+      "end": 8.0,
+      "text": "其实我哥给我做的",
+      "avgLogprob": -0.6251,
+      "noSpeechProb": 0.0717
+    },
+    {
+      "start": 8.0,
+      "end": 9.44,
+      "text": "我也是被工作宰了",
+      "avgLogprob": -0.6251,
+      "noSpeechProb": 0.0717
+    },
+    {
+      "start": 9.98,
+      "end": 10.86,
+      "text": "你只需要三个",
+      "avgLogprob": -0.6251,
+      "noSpeechProb": 0.0717
+    },
+    {
+      "start": 10.86,
+      "end": 12.26,
+      "text": "就没让AI帮你出出来",
+      "avgLogprob": -0.6251,
+      "noSpeechProb": 0.0717
+    },
+    {
+      "start": 12.26,
+      "end": 13.5,
+      "text": "一个像这样的路过温",
+      "avgLogprob": -0.6251,
+      "noSpeechProb": 0.0717
+    },
+    {
+      "start": 13.5,
+      "end": 14.5,
+      "text": "那就工作台的",
+      "avgLogprob": -0.6251,
+      "noSpeechProb": 0.0717
+    },
+    {
+      "start": 14.5,
+      "end": 15.34,
+      "text": "就是我心动",
+      "avgLogprob": -0.6251,
+      "noSpeechProb": 0.0717
+    },
+    {
+      "start": 15.34,
+      "end": 17.5,
+      "text": "我比较的学习的生活的",
+      "avgLogprob": -0.6251,
+      "noSpeechProb": 0.0717
+    },
+    {
+      "start": 17.5,
+      "end": 18.7,
+      "text": "那我现在就让我",
+      "avgLogprob": -0.6251,
+      "noSpeechProb": 0.0717
+    },
+    {
+      "start": 18.7,
+      "end": 19.74,
+      "text": "介绍一下我的工作台",
+      "avgLogprob": -0.6251,
+      "noSpeechProb": 0.0717
+    },
+    {
+      "start": 19.74,
+      "end": 20.7,
+      "text": "就很健康的",
+      "avgLogprob": -0.6251,
+      "noSpeechProb": 0.0717
+    },
+    {
+      "start": 20.7,
+      "end": 22.54,
+      "text": "这是我的工作台",
+      "avgLogprob": -0.6251,
+      "noSpeechProb": 0.0717
+    },
+    {
+      "start": 22.54,
+      "end": 24.98,
+      "text": "然后左边是一夜的等方了",
+      "avgLogprob": -0.6251,
+      "noSpeechProb": 0.0717
+    },
+    {
+      "start": 24.98,
+      "end": 26.38,
+      "text": "一上面是学习",
+      "avgLogprob": -0.6251,
+      "noSpeechProb": 0.0717
+    },
+    {
+      "start": 26.38,
+      "end": 28.26,
+      "text": "生活和家务务",
+      "avgLogprob": -0.6251,
+      "noSpeechProb": 0.0717
+    },
+    {
+      "start": 28.26,
+      "end": 29.3,
+      "text": "这三个模块",
+      "avgLogprob": -0.6251,
+      "noSpeechProb": 0.0717
+    },
+    {
+      "start": 29.3,
+      "end": 31.3,
+      "text": "还是让我工作工作",
+      "avgLogprob": -0.2777,
+      "noSpeechProb": 0.0054
+    },
+    {
+      "start": 31.3,
+      "end": 32.02,
+      "text": "学习",
+      "avgLogprob": -0.2777,
+      "noSpeechProb": 0.0054
+    },
+    {
+      "start": 32.02,
+      "end": 33.38,
+      "text": "来转去这些经验的",
+      "avgLogprob": -0.2777,
+      "noSpeechProb": 0.0054
+    },
+    {
+      "start": 33.38,
+      "end": 34.14,
+      "text": "下面",
+      "avgLogprob": -0.2777,
+      "noSpeechProb": 0.0054
+    },
+    {
+      "start": 34.14,
+      "end": 36.02,
+      "text": "还有我最喜欢的三个模块",
+      "avgLogprob": -0.2777,
+      "noSpeechProb": 0.0054
+    },
+    {
+      "start": 36.02,
+      "end": 37.54,
+      "text": "就是小麦布",
+      "avgLogprob": -0.2777,
+      "noSpeechProb": 0.0054
+    },
+    {
+      "start": 37.54,
+      "end": 40.54,
+      "text": "世界和背包模块",
+      "avgLogprob": -0.2777,
+      "noSpeechProb": 0.0054
+    },
+    {
+      "start": 40.54,
+      "end": 41.98,
+      "text": "那我们一起来看一下",
+      "avgLogprob": -0.2777,
+      "noSpeechProb": 0.0054
+    },
+    {
+      "start": 41.98,
+      "end": 43.82,
+      "text": "这三个模块是长什么样的吧",
+      "avgLogprob": -0.2777,
+      "noSpeechProb": 0.0054
+    },
+    {
+      "start": 43.82,
+      "end": 46.3,
+      "text": "首先是这个世界很快",
+      "avgLogprob": -0.2777,
+      "noSpeechProb": 0.0054
+    },
+    {
+      "start": 46.3,
+      "end": 47.98,
+      "text": "我用AI打造了一个",
+      "avgLogprob": -0.2777,
+      "noSpeechProb": 0.0054
+    },
+    {
+      "start": 47.98,
+      "end": 50.1,
+      "text": "我的世界的游戏场景",
+      "avgLogprob": -0.2777,
+      "noSpeechProb": 0.0054
+    },
+    {
+      "start": 50.1,
+      "end": 52.1,
+      "text": "像这些是移动",
+      "avgLogprob": -0.2777,
+      "noSpeechProb": 0.0054
+    },
+    {
+      "start": 52.1,
+      "end": 54.02,
+      "text": "也可以按WASD",
+      "avgLogprob": -0.2777,
+      "noSpeechProb": 0.0054
+    },
+    {
+      "start": 54.02,
+      "end": 55.42,
+      "text": "这里就跳",
+      "avgLogprob": -0.2777,
+      "noSpeechProb": 0.0054
+    },
+    {
+      "start": 55.42,
+      "end": 56.7,
+      "text": "往后走",
+      "avgLogprob": -0.2777,
+      "noSpeechProb": 0.0054
+    },
+    {
+      "start": 56.7,
+      "end": 58.7,
+      "text": "这些功能兴神的",
+      "avgLogprob": -0.2777,
+      "noSpeechProb": 0.0054
+    },
+    {
+      "start": 58.7,
+      "end": 60.18,
+      "text": "接下来这里还有一系列",
+      "avgLogprob": -0.3416,
+      "noSpeechProb": 0.0007
+    },
+    {
+      "start": 60.18,
+      "end": 60.9,
+      "text": "我挖过",
+      "avgLogprob": -0.3416,
+      "noSpeechProb": 0.0007
+    },
+    {
+      "start": 60.9,
+      "end": 63.3,
+      "text": "并且我背包里面有我的东西",
+      "avgLogprob": -0.3416,
+      "noSpeechProb": 0.0007
+    },
+    {
+      "start": 63.3,
+      "end": 64.18,
+      "text": "还平下矿",
+      "avgLogprob": -0.3416,
+      "noSpeechProb": 0.0007
+    },
+    {
+      "start": 64.18,
+      "end": 65.06,
+      "text": "打怪",
+      "avgLogprob": -0.3416,
+      "noSpeechProb": 0.0007
+    },
+    {
+      "start": 65.06,
+      "end": 66.18,
+      "text": "如果死了",
+      "avgLogprob": -0.3416,
+      "noSpeechProb": 0.0007
+    },
+    {
+      "start": 66.18,
+      "end": 66.9,
+      "text": "后上没选了",
+      "avgLogprob": -0.3416,
+      "noSpeechProb": 0.0007
+    },
+    {
+      "start": 66.9,
+      "end": 68.9,
+      "text": "还这里还会有提示",
+      "avgLogprob": -0.3416,
+      "noSpeechProb": 0.0007
+    },
+    {
+      "start": 68.9,
+      "end": 71.59,
+      "text": "这是我们的小麦布模块",
+      "avgLogprob": -0.3416,
+      "noSpeechProb": 0.0007
+    },
+    {
+      "start": 71.59,
+      "end": 73.51,
+      "text": "这这里会显示一些",
+      "avgLogprob": -0.3416,
+      "noSpeechProb": 0.0007
+    },
+    {
+      "start": 73.51,
+      "end": 75.99,
+      "text": "我们可能在平常玩我的世界",
+      "avgLogprob": -0.3416,
+      "noSpeechProb": 0.0007
+    },
+    {
+      "start": 75.99,
+      "end": 77.75,
+      "text": "是损消用的原料",
+      "avgLogprob": -0.3416,
+      "noSpeechProb": 0.0007
+    },
+    {
+      "start": 77.75,
+      "end": 78.47,
+      "text": "而这里",
+      "avgLogprob": -0.3416,
+      "noSpeechProb": 0.0007
+    },
+    {
+      "start": 78.47,
+      "end": 79.91,
+      "text": "就是我们合成之后的",
+      "avgLogprob": -0.3416,
+      "noSpeechProb": 0.0007
+    },
+    {
+      "start": 79.91,
+      "end": 80.83,
+      "text": "体验稿",
+      "avgLogprob": -0.3416,
+      "noSpeechProb": 0.0007
+    },
+    {
+      "start": 80.83,
+      "end": 81.87,
+      "text": "师傅",
+      "avgLogprob": -0.3416,
+      "noSpeechProb": 0.0007
+    },
+    {
+      "start": 81.87,
+      "end": 82.47,
+      "text": "实践",
+      "avgLogprob": -0.3416,
+      "noSpeechProb": 0.0007
+    },
+    {
+      "start": 82.47,
+      "end": 82.99,
+      "text": "钻实践",
+      "avgLogprob": -0.3416,
+      "noSpeechProb": 0.0007
+    },
+    {
+      "start": 82.99,
+      "end": 83.63,
+      "text": "这些东西",
+      "avgLogprob": -0.3416,
+      "noSpeechProb": 0.0007
+    },
+    {
+      "start": 83.63,
+      "end": 85.43,
+      "text": "第三个就是背包",
+      "avgLogprob": -0.3416,
+      "noSpeechProb": 0.0007
+    },
+    {
+      "start": 85.43,
+      "end": 87.15,
+      "text": "是用我的世界里面",
+      "avgLogprob": -0.3416,
+      "noSpeechProb": 0.0007
+    },
+    {
+      "start": 87.15,
+      "end": 90.31,
+      "text": "红缓的一些格子里面存放的一些物品",
+      "avgLogprob": -0.3603,
+      "noSpeechProb": 0.2485
+    },
+    {
+      "start": 90.31,
+      "end": 90.99,
+      "text": "比如说",
+      "avgLogprob": -0.3603,
+      "noSpeechProb": 0.2485
+    },
+    {
+      "start": 90.99,
+      "end": 92.07,
+      "text": "石稿",
+      "avgLogprob": -0.3603,
+      "noSpeechProb": 0.2485
+    },
+    {
+      "start": 92.07,
+      "end": 93.07,
+      "text": "乌贵",
+      "avgLogprob": -0.3603,
+      "noSpeechProb": 0.2485
+    },
+    {
+      "start": 93.07,
+      "end": 93.63,
+      "text": "石套",
+      "avgLogprob": -0.3603,
+      "noSpeechProb": 0.2485
+    },
+    {
+      "start": 93.63,
+      "end": 94.51,
+      "text": "木箭",
+      "avgLogprob": -0.3603,
+      "noSpeechProb": 0.2485
+    },
+    {
+      "start": 94.51,
+      "end": 96.11,
+      "text": "还有钻实箭这些",
+      "avgLogprob": -0.3603,
+      "noSpeechProb": 0.2485
+    },
+    {
+      "start": 96.11,
+      "end": 96.79,
+      "text": "什么",
+      "avgLogprob": -0.3603,
+      "noSpeechProb": 0.2485
+    },
+    {
+      "start": 96.79,
+      "end": 98.43,
+      "text": "你还把孩子自己玩",
+      "avgLogprob": -0.3603,
+      "noSpeechProb": 0.2485
+    },
+    {
+      "start": 98.43,
+      "end": 99.35,
+      "text": "工作台",
+      "avgLogprob": -0.3603,
+      "noSpeechProb": 0.2485
+    },
+    {
+      "start": 99.35,
+      "end": 100.15,
+      "text": "没事",
+      "avgLogprob": -0.3603,
+      "noSpeechProb": 0.2485
+    },
+    {
+      "start": 100.15,
+      "end": 102.15,
+      "text": "这可是有家人所的屁股",
+      "avgLogprob": -0.3603,
+      "noSpeechProb": 0.2485
+    },
+    {
+      "start": 102.15,
+      "end": 102.63,
+      "text": "家人所",
+      "avgLogprob": -0.3603,
+      "noSpeechProb": 0.2485
+    },
+    {
+      "start": 102.63,
+      "end": 103.27,
+      "text": "共同思议",
+      "avgLogprob": -0.3603,
+      "noSpeechProb": 0.2485
+    },
+    {
+      "start": 103.27,
+      "end": 103.95,
+      "text": "就是你点",
+      "avgLogprob": -0.3603,
+      "noSpeechProb": 0.2485
+    },
+    {
+      "start": 103.95,
+      "end": 105.27,
+      "text": "然后就可以上锁",
+      "avgLogprob": -0.3603,
+      "noSpeechProb": 0.2485
+    },
+    {
+      "start": 105.27,
+      "end": 107.63,
+      "text": "这样还就再也动不了里面的东西了",
+      "avgLogprob": -0.3603,
+      "noSpeechProb": 0.2485
+    },
+    {
+      "start": 107.63,
+      "end": 108.03,
+      "text": "什么",
+      "avgLogprob": -0.3603,
+      "noSpeechProb": 0.2485
+    },
+    {
+      "start": 108.03,
+      "end": 110.31,
+      "text": "你说你刚才没有在我的工作台里面",
+      "avgLogprob": -0.3603,
+      "noSpeechProb": 0.2485
+    },
+    {
+      "start": 110.31,
+      "end": 112.11,
+      "text": "看到这个家人所吗",
+      "avgLogprob": -0.3603,
+      "noSpeechProb": 0.2485
+    },
+    {
+      "start": 112.11,
+      "end": 113.11,
+      "text": "那是因为",
+      "avgLogprob": -0.3603,
+      "noSpeechProb": 0.2485
+    },
+    {
+      "start": 113.11,
+      "end": 115.55,
+      "text": "这其实是我弟的工作台",
+      "avgLogprob": -0.3603,
+      "noSpeechProb": 0.2485
+    },
+    {
+      "start": 115.55,
+      "end": 117.55,
+      "text": "那么以上就是我工作台的分享",
+      "avgLogprob": -0.6416,
+      "noSpeechProb": 0.0058
+    },
+    {
+      "start": 117.55,
+      "end": 119.23,
+      "text": "如果您也感兴趣的话",
+      "avgLogprob": -0.6416,
+      "noSpeechProb": 0.0058
+    },
+    {
+      "start": 119.23,
+      "end": 121.35,
+      "text": "你的离婚区交出你的工作台吧",
+      "avgLogprob": -0.6416,
+      "noSpeechProb": 0.0058
+    },
+    {
+      "start": 121.35,
+      "end": 122.35,
+      "text": "那么下期视频再见",
+      "avgLogprob": -0.6416,
+      "noSpeechProb": 0.0058
+    },
+    {
+      "start": 122.35,
+      "end": 123.15,
+      "text": "我再见",
+      "avgLogprob": -0.6416,
+      "noSpeechProb": 0.0058
+    }
+  ]
+}

@@ -68,11 +68,11 @@
     let creatures = [];
     const images = {};
     const HERO = {
-        idle: './assets/hero/explorer-idle.png',
-        walkA: './assets/hero/explorer-walk-a.png',
-        walkB: './assets/hero/explorer-walk-b.png',
-        jump: './assets/hero/explorer-jump.png',
-        mine: './assets/hero/explorer-mine.png'
+        idle: './assets/hero/explorer-idle.png?v=20260814-steve-v2',
+        walkA: './assets/hero/explorer-walk-a.png?v=20260814-steve-v2',
+        walkB: './assets/hero/explorer-walk-b.png?v=20260814-steve-v2',
+        jump: './assets/hero/explorer-jump.png?v=20260814-steve-v2',
+        mine: './assets/hero/explorer-mine.png?v=20260814-steve-v2'
     };
     const SPARK = {
         idle: './assets/enemies/spark-idle.png',
@@ -89,7 +89,8 @@
         snowman: { idle: 'snowmanIdle', sw: 56, sh: 76, label: '雪人' },
         fire: { idle: 'fireSpiritIdle', sw: 52, sh: 52, label: '火焰精灵', fly: true, bounce: true },
         cactus: { idle: 'cactusMonsterIdle', sw: 52, sh: 56, label: '仙人掌' },
-        ghost: { idle: 'ghostIdle', sw: 52, sh: 52, label: '幽灵', fly: true, bounce: true }
+        ghost: { idle: 'ghostIdle', sw: 52, sh: 52, label: '幽灵', fly: true, bounce: true },
+        creeper: { idle: 'creeperIdle', sw: 48, sh: 64, label: '绿爆爆' }
     };
     const BOX = { golem: { w: 48, h: 56 } };
     const SPRITE_W = 64;
@@ -876,7 +877,8 @@
     function drawBlock(tileX, tileY, kind) {
         const x = Math.round(tileX * TILE - cameraX);
         const y = Math.round(tileY * TILE - cameraY);
-        if (pixels && pixels.drawTile(ctx, kind, x, y, TILE, frameCount)) return;
+        // 地砖一律静止帧(水面不播动画)
+        if (pixels && pixels.drawTile(ctx, kind, x, y, TILE, 0)) return;
         ctx.fillStyle = '#ccc';
         ctx.fillRect(x, y, TILE, TILE);
     }
@@ -1213,6 +1215,7 @@
         loadImage('fireSpiritIdle', './assets/enemies/fire-spirit-idle.png'),
         loadImage('cactusMonsterIdle', './assets/enemies/cactus-monster.png'),
         loadImage('ghostIdle', './assets/enemies/ghost.png'),
+        loadImage('creeperIdle', './assets/enemies/creeper.png'),
         loadImage('skyDay', './assets/bg/sky-day.png'),
         loadImage('skyDusk', './assets/bg/sky-dusk.png')
     ]).then(function () {

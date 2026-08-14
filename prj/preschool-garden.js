@@ -26,10 +26,24 @@
     });
 
     const DEFENSE_ZOMBIE_RULES = Object.freeze({
-        'zombie-basic': { maxHealth: 3, moveEvery: 10 },
-        'zombie-conehead': { maxHealth: 5, moveEvery: 10 },
-        'zombie-buckethead': { maxHealth: 7, moveEvery: 13 }
+        'zombie-basic': { maxHealth: 3, moveEvery: 18 },
+        'zombie-conehead': { maxHealth: 5, moveEvery: 17 },
+        'zombie-buckethead': { maxHealth: 8, moveEvery: 22 },
+        'zombie-flag': { maxHealth: 4, moveEvery: 16 },
+        'zombie-football': { maxHealth: 9, moveEvery: 15 }
     });
+
+    function wavePlan(stageId, wave) {
+        const id = Math.max(1, Math.min(12, Number(stageId) || 1));
+        const w = Math.max(1, Number(wave) || 1);
+        if (id <= 3) return { count: 1, maxAlive: 1, kinds: ['zombie-basic'] };
+        if (id <= 6) return { count: w === 1 ? 1 : 2, maxAlive: 2, kinds: ['zombie-basic', 'zombie-conehead'] };
+        if (id <= 9) return { count: 2, maxAlive: 2, kinds: ['zombie-basic', 'zombie-conehead', 'zombie-buckethead'] };
+        const kinds = id >= 12 && w >= 2
+            ? ['zombie-flag', 'zombie-buckethead', 'zombie-football']
+            : ['zombie-flag', 'zombie-basic', 'zombie-conehead', 'zombie-buckethead'];
+        return { count: 2, maxAlive: 2, kinds: kinds };
+    }
 
     const LEGACY_PLANT_IDS = Object.freeze({
         'plant-sun-sprout': 'plant-sunflower',
@@ -503,18 +517,21 @@
         return { ok: true, growth: growth, plant: plant };
     }
 
-    function spawnDefenseWave(input, date) {
+    function spawnDefenseWave(input, date, opts) {
         const growth = normalize(input);
         const defense = growth.garden.defense;
-        if (defense.zombies.length >= 3) return { ok: false, growth: growth, spawned: [], reason: '这一波已经有三只僵尸了' };
+        const options = opts && typeof opts === 'object' ? opts : {};
         const wave = defense.wave + 1;
+        const plan = wavePlan(options.stageId, wave);
+        if (defense.zombies.length >= plan.maxAlive) {
+            return { ok: false, growth: growth, spawned: [], reason: '这一波僵尸还在路上' };
+        }
         const lanes = [0, 2, 4, 1, 3].filter(lane => !defense.zombies.some(item => item.lane === lane));
-        const kinds = ['zombie-basic', 'zombie-conehead', 'zombie-buckethead'];
         const spawned = [];
-        const count = Math.min(3 - defense.zombies.length, lanes.length);
+        const count = Math.min(plan.count, plan.maxAlive - defense.zombies.length, lanes.length);
         for (let index = 0; index < count; index += 1) {
-            const kind = kinds[(wave - 1 + index) % kinds.length];
-            const rule = DEFENSE_ZOMBIE_RULES[kind];
+            const kind = plan.kinds[(wave - 1 + index) % plan.kinds.length];
+            const rule = DEFENSE_ZOMBIE_RULES[kind] || DEFENSE_ZOMBIE_RULES['zombie-basic'];
             const zombie = {
                 id: defenseEntityId(defense, 'zombie'),
                 kind: kind,
@@ -675,6 +692,7 @@
         spawnDefenseWave: spawnDefenseWave,
         tickDefense: tickDefense,
         getView: getView,
+        wavePlan: wavePlan,
         ZOMBIE_RULES: DEFENSE_ZOMBIE_RULES
     };
 }(typeof window !== 'undefined' ? window : globalThis));

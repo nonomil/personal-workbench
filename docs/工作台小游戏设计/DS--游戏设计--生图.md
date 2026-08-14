@@ -2,29 +2,39 @@
 
 ---
 
-## 一、Grok Imagine 使用方式
+## 一、生图接口(CliproxAPI · gpt-image-2)
 
-### 方式一：X 平台直接使用（快速验证）
+> 接口规范来源:`G:\StudyCode\宠物积分系统\docs\生图\生图接口资源key\GPT生图-CliproxAPI.md`
 
-在 X 侧边栏打开 Grok，选择 **“Imagine”** 模式，直接输入提示词即可生成。支持通过**追加对话进行微调**，适合快速测试风格。
+| 项 | 值 |
+|---|---|
+| **Endpoint** | `POST https://rn6.nonom.top/v1/images/generations`(本机 `http://rn6.nonom.top/v1/images/generations`) |
+| **Auth** | `Authorization: Bearer sk-cli-proxy-deploy-2026` |
+| **模型** | `gpt-image-2`(OpenAI Images 兼容) |
+| **返回** | **只有 `b64_json`,解码后是 JPEG(无透明通道、无 url)** |
+| **实测尺寸** | `1024x1024`(宽高比待逐批验证) |
 
-### 方式二：API 批量调用（生产级）
+**curl 示例**:
 
-**请求地址**：`https://api.x.ai/v1/images/generations`
-
-**Python 示例**：
-```python
-import xai_sdk
-client = xai_sdk.Client()
-response = client.image.sample(
-    prompt="你的提示词",
-    model="grok-imagine-image-quality",  # 高质量版
-    n=1,  # 一次生成1-10张
-)
-print(response.url)
+```bash
+curl -s https://rn6.nonom.top/v1/images/generations \
+  -H "Authorization: Bearer sk-cli-proxy-deploy-2026" \
+  -H "Content-Type: application/json" \
+  -d '{"model":"gpt-image-2","prompt":"...","n":1,"size":"1024x1024"}' \
+| python3 -c "
+import sys,json,base64
+d=json.load(sys.stdin)
+open('out.jpg','wb').write(base64.b64decode(d['data'][0]['b64_json']))
+print('saved out.jpg')
+"
 ```
 
-**定价**：约 **$0.05 / 张**。宽高比支持 1:1、16:9、9:16、4:3、3:4 等。返回的 URL 是临时的，需及时下载。
+**硬性管线规则(血泪教训,2026-08-14 视觉复盘得出)**:
+
+1. **JPEG ≠ 可直接当贴图**。返回没有透明通道,任何"精灵/瓦片"类素材必须走 key 抠图流程(参照 `prj/assets/generated/voxel-paper-mc/raw/` 的 `*-key.png` 配对做法),白底图直接进游戏 = 画面里出现白边地皮(横版闯关 2026-08-14 之前的 bug)。
+2. **生成前先约定用途规格**:整场景背景(16:9 拉伸)/ 可平铺条带(要求横向无缝)/ 精灵(要求纯色底便于抠图)。1280×720 的整图被代码压成 48px 高的"地皮条"这种事故,是提示词里没写清用途造成的。
+3. **一套素材一批生成**:同批用统一风格后缀 + 同一参考描述,跨批次的图不要混进同一画面(卡通主角 + 像素敌人 + 高清渲染背景 = 丑的根源)。
+4. **优先用代码画**:地砖、格子、UI 托架这类规则图形,canvas/CSS 画永远比生图对齐、可控、体积小(`pixel-tiles.js` / `pixel-decor.js` 路线)。生图只用于角色、复杂场景。
 
 
 ## 二、核心提示词技巧
@@ -243,30 +253,35 @@ shared/
       └── buttons/
 ```
 
-### 7.3 API批量生成脚本（Python）
+### 7.3 API批量生成脚本（Python · CliproxAPI gpt-image-2）
 
 ```python
-import xai_sdk
-import time
-import json
+import base64, json, time, urllib.request
 
-client = xai_sdk.Client()
+ENDPOINT = "https://rn6.nonom.top/v1/images/generations"
+KEY = "sk-cli-proxy-deploy-2026"
 
-# 提示词列表
 prompts = [
     {"name": "peashooter", "prompt": "A cute cartoon pea shooter..."},
     {"name": "sunflower", "prompt": "A cute cartoon sunflower..."},
-    # ... 更多提示词
+    # ... 更多提示词;精灵类统一加纯色底后缀便于 key 抠图
 ]
 
 for item in prompts:
-    response = client.image.sample(
-        prompt=item["prompt"],
-        model="grok-imagine-image-quality",
-        n=4,  # 每批4张供筛选
-    )
-    # 保存URL列表
-    with open(f"{item['name']}_urls.json", "w") as f:
-        json.dump(response.urls, f)
+    body = json.dumps({
+        "model": "gpt-image-2",
+        "prompt": item["prompt"],
+        "n": 1,
+        "size": "1024x1024",
+    }).encode()
+    req = urllib.request.Request(ENDPOINT, data=body, headers={
+        "Authorization": "Bearer " + KEY,
+        "Content-Type": "application/json",
+    })
+    with urllib.request.urlopen(req, timeout=180) as resp:
+        data = json.load(resp)
+    with open(f"{item['name']}.jpg", "wb") as f:
+        f.write(base64.b64decode(data["data"][0]["b64_json"]))
+    print("saved", item["name"])
     time.sleep(1)  # 避免限流
 ```

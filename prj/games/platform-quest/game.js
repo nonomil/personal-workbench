@@ -3,6 +3,8 @@
 
     const bridge = window.WorkbenchGameBridge;
     const levelsApi = window.PlatformLevels;
+    const pixels = window.VoxelPixelTiles;
+    const decor = window.PlatformPixelDecor;
     const GAME_ID = 'platform-quest';
 
     const canvas = document.getElementById('world-canvas');
@@ -12,27 +14,24 @@
     canvas.width = VIEW_W;
     canvas.height = VIEW_H;
 
-    const PUB = '../../assets/generated/preschool-theme-assets/platform-v1/published/';
+    // Paper-MC 家族贴图:水管工主角(world-rebuild 批次三帧) + 同批小怪,地砖由 pixel-tiles.js 代码绘制
+    // 主角帧缺失时回退到跳跳侠 4 帧,再回退旧探险家帧,保证离线可玩
     const LOCAL = './assets/';
     const ASSET = {
-        idle: PUB + 'platform-explorer.png',
-        run: LOCAL + 'hero/explorer-run.png',
-        jump: LOCAL + 'hero/explorer-jump.png',
-        idleFallback: PUB + 'platform-explorer.png',
-        coin: PUB + 'platform-coin.png',
-        platform: PUB + 'platform-grass-platform.png',
-        flag: PUB + 'platform-flag.png',
-        pipe: PUB + 'platform-pipe.png',
-        enemy: PUB + 'platform-star-badge.png',
-        'block-question': PUB + 'platform-mystery-block.png',
-        'block-brick': PUB + 'platform-brick.png',
-        ground: LOCAL + 'ground/ground-strip.png',
-        dirt: LOCAL + 'ground/dirt-tile.png',
-        'sky-day': LOCAL + 'bg/sky-day.png',
-        'sky-sunset': LOCAL + 'bg/sky-sunset.png',
-        'sky-night': LOCAL + 'bg/sky-night.png',
-        'enemy-brownie': LOCAL + 'enemies/enemy-brownie.png',
-        'enemy-slime': LOCAL + 'enemies/enemy-slime.png'
+        idle: LOCAL + 'hero/hero-idle.png',
+        walkA: LOCAL + 'hero/hero-run.png',
+        walkB: LOCAL + 'hero/hero-run.png',
+        jump: LOCAL + 'hero/hero-jump.png',
+        idleLegacy: LOCAL + 'hero/jumper-idle.png',
+        walkALegacy: LOCAL + 'hero/jumper-walk-a.png',
+        walkBLegacy: LOCAL + 'hero/jumper-walk-b.png',
+        jumpLegacy: LOCAL + 'hero/jumper-jump.png',
+        'sky-day': LOCAL + 'bg/sky-day.png?v=20260814-mario-sky-v1',
+        'sky-sunset': LOCAL + 'bg/sky-sunset.png?v=20260814-mario-sky-v1',
+        'sky-night': LOCAL + 'bg/sky-night.png?v=20260814-mario-sky-v1',
+        'enemy-shroom': LOCAL + 'enemies/enemy-brownie.png',
+        'enemy-slime': LOCAL + 'enemies/enemy-slime.png',
+        'enemy-bat': LOCAL + 'enemies/bat-idle.png'
     };
 
     const images = {};
@@ -40,7 +39,7 @@
     let level = null;
     let levelId = 1;
     let skyKey = 'sky-day';
-    let enemyKey = 'enemy';
+    let enemyKey = 'enemy-shroom';
     let playing = false;
     let won = false;
     let awarding = false;
@@ -101,32 +100,64 @@
         });
     }
 
+    // Web Audio 合成音效:零素材文件,首次用户手势时解锁
+    const sfx = (function () {
+        let actx = null;
+        function ensure() {
+            const AC = window.AudioContext || window.webkitAudioContext;
+            if (!AC) return null;
+            if (!actx) actx = new AC();
+            if (actx.state === 'suspended') actx.resume();
+            return actx;
+        }
+        function tone(freq, dur, type, vol, slideTo, delay) {
+            const ac = ensure();
+            if (!ac) return;
+            const t0 = ac.currentTime + (delay || 0);
+            const osc = ac.createOscillator();
+            const gain = ac.createGain();
+            osc.type = type || 'square';
+            osc.frequency.setValueAtTime(freq, t0);
+            if (slideTo) osc.frequency.exponentialRampToValueAtTime(slideTo, t0 + dur);
+            gain.gain.setValueAtTime(vol || 0.1, t0);
+            gain.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+            osc.connect(gain);
+            gain.connect(ac.destination);
+            osc.start(t0);
+            osc.stop(t0 + dur + 0.03);
+        }
+        return {
+            unlock: ensure,
+            jump: function () { tone(320, 0.16, 'square', 0.08, 640); },
+            coin: function () { tone(988, 0.08, 'square', 0.07); tone(1319, 0.14, 'square', 0.07, null, 0.06); },
+            stomp: function () { tone(240, 0.1, 'triangle', 0.14, 90); },
+            hurt: function () { tone(220, 0.2, 'sawtooth', 0.08, 110); },
+            fall: function () { tone(400, 0.3, 'triangle', 0.08, 120); },
+            power: function () { [523, 659, 784, 1047].forEach(function (f, i) { tone(f, 0.1, 'square', 0.07, null, i * 0.07); }); },
+            clear: function () { [523, 659, 784, 1047, 1319].forEach(function (f, i) { tone(f, 0.14, 'square', 0.08, null, i * 0.1); }); },
+            bump: function () { tone(170, 0.07, 'square', 0.09, 120); }
+        };
+    }());
+
     function loadAssets() {
         return Promise.all([
-            loadImage('idle', ASSET.idle, ASSET.idleFallback),
-            loadImage('run', ASSET.run, ASSET.idleFallback),
-            loadImage('jump', ASSET.jump, ASSET.idleFallback),
-            loadImage('coin', ASSET.coin),
-            loadImage('platform', ASSET.platform),
-            loadImage('flag', ASSET.flag),
-            loadImage('pipe', ASSET.pipe),
-            loadImage('enemy', ASSET.enemy),
+            loadImage('idle', ASSET.idle, ASSET.idleLegacy),
+            loadImage('walkA', ASSET.walkA, ASSET.walkALegacy),
+            loadImage('walkB', ASSET.walkB, ASSET.walkBLegacy),
+            loadImage('jump', ASSET.jump, ASSET.jumpLegacy),
             loadImage('sky-day', ASSET['sky-day']),
             loadImage('sky-sunset', ASSET['sky-sunset']),
             loadImage('sky-night', ASSET['sky-night']),
-            loadImage('enemy-brownie', ASSET['enemy-brownie'], ASSET.enemy),
-            loadImage('enemy-slime', ASSET['enemy-slime'], ASSET.enemy),
-            loadImage('block-question', ASSET['block-question']),
-            loadImage('block-brick', ASSET['block-brick']),
-            loadImage('ground', ASSET.ground),
-            loadImage('dirt', ASSET.dirt)
+            loadImage('enemy-shroom', ASSET['enemy-shroom']),
+            loadImage('enemy-slime', ASSET['enemy-slime']),
+            loadImage('enemy-bat', ASSET['enemy-bat'])
         ]);
     }
 
     function themeForLevel(id) {
-        if (id >= 8) return { sky: 'sky-night', enemy: 'enemy-slime' };
-        if (id >= 4) return { sky: 'sky-sunset', enemy: id % 2 === 0 ? 'enemy-slime' : 'enemy-brownie' };
-        return { sky: 'sky-day', enemy: 'enemy-brownie' };
+        if (id >= 8) return { sky: 'sky-night', enemy: 'enemy-bat' };
+        if (id >= 4) return { sky: 'sky-sunset', enemy: id % 2 === 0 ? 'enemy-slime' : 'enemy-shroom' };
+        return { sky: 'sky-day', enemy: 'enemy-shroom' };
     }
 
     function loadProgress() {
@@ -285,7 +316,7 @@
 
     function resetRun() {
         player.x = 48; player.y = 320; player.vx = 0; player.vy = 0;
-        player.onGround = false; player.facing = 1; player.pose = 'idle';
+        player.onGround = false; player.facing = 1; player.pose = 'idle'; player.ride = null;
         coins = 0; won = false; awarding = false; cameraX = 0; cameraTarget = 0; pops = []; floats = [];
         stompCombo = 0;
         lastStompAt = -9999;
@@ -322,8 +353,10 @@
         player.y = lastSafeY;
         player.vx = 0;
         player.vy = 0;
+        player.ride = null;
         lastHitAt = now || performance.now();
         airJumpsUsed = 0;
+        sfx.fall();
         toast('掉下去了，回到刚才的地方');
     }
 
@@ -369,6 +402,7 @@
 
     function bumpBlock(block, now) {
         const canBreak = playerPowered || now < starUntil;
+        sfx.bump();
         if (block.type === 'brick') {
             if (canBreak && !block.broken) {
                 block.broken = true;
@@ -410,6 +444,7 @@
     function addCoin(now, amount) {
         const coinBonus = ((bridge.getMetaBonuses && bridge.getMetaBonuses()) || {}).platformCoinBonus || 0;
         const beforeTotal = (progress.coinsTotal || 0) + coins;
+        sfx.coin();
         coins += (amount || 1) + coinBonus;
         updateCoinHud();
         const afterTotal = (progress.coinsTotal || 0) + coins;
@@ -431,6 +466,7 @@
 
     function applyPickup(pickup) {
         pickup.taken = true;
+        sfx.power();
         if (pickup.kind === 'mushroom') {
             const max = phy.START_HEARTS || 5;
             hearts = Math.min(max, hearts + 1);
@@ -482,9 +518,40 @@
         }
     }
 
+    // 移动平台:正弦往返;玩家站在上面时随台移动
+    function updateMovingPlatforms(now) {
+        (level.platforms || []).forEach(function (p) {
+            p.dx = 0;
+            p.dy = 0;
+            if (!p.mv) return;
+            if (p.baseX === undefined) { p.baseX = p.x; p.baseY = p.y; }
+            const mv = p.mv;
+            const t = (Number(now) || 0) / 1000;
+            const off = Math.sin(t * (mv.speed || 1) + (mv.phase || 0)) * (mv.range || 36);
+            const nx = mv.axis === 'x' ? p.baseX + off : p.baseX;
+            const ny = mv.axis === 'y' ? p.baseY + off : p.baseY;
+            p.dx = nx - p.x;
+            p.dy = ny - p.y;
+            p.x = nx;
+            p.y = ny;
+        });
+        if (player.ride && player.onGround) {
+            player.x += player.ride.dx || 0;
+            player.y += player.ride.dy || 0;
+        }
+    }
+
+    // 敌人速度随关卡小幅递增(第10关约1.5倍封顶)
+    function enemySpeed() {
+        const base = phy.ENEMY_SPEED || 34;
+        const id = level ? level.id : 1;
+        return base * (1 + Math.min(0.5, (id - 1) * 0.06));
+    }
+
     function update(dt) {
         if (!playing || !level || won) return;
         const now = performance.now();
+        updateMovingPlatforms(now);
         const speed = input.run ? (phy.SPRINT_SPEED || 340) : phy.RUN_SPEED;
         if (input.left) { player.vx = -speed; player.facing = -1; }
         else if (input.right) { player.vx = speed; player.facing = 1; }
@@ -499,10 +566,12 @@
             && now - jumpConsumedAt > 80) {
             player.vy = phy.JUMP_VY;
             player.onGround = false;
+            player.ride = null;
             lastGroundedAt = -9999;
             lastJumpPressedAt = -9999;
             jumpConsumedAt = now;
             airJumpsUsed = 0;
+            sfx.jump();
         } else if (!player.onGround
             && phy.canAirJump(airJumpsUsed, maxAirJumpsForLevel())
             && lastJumpPressedAt > jumpConsumedAt
@@ -511,6 +580,7 @@
             lastJumpPressedAt = -9999;
             jumpConsumedAt = now;
             airJumpsUsed += 1;
+            sfx.jump();
         }
         player.x += player.vx * dt;
         solids().forEach(function (platform) {
@@ -526,12 +596,14 @@
                 player.y = platform.y - player.h;
                 player.vy = 0;
                 player.onGround = true;
+                player.ride = platform.mv ? platform : null;
             } else if (player.vy < 0) {
                 player.y = platform.y + platform.h;
                 player.vy = 0;
                 if (platform.type === 'question' || platform.type === 'brick') bumpBlock(platform, now);
             }
         });
+        if (!player.onGround) player.ride = null;
         if (player.onGround) {
             lastGroundedAt = now;
             airJumpsUsed = 0;
@@ -547,7 +619,7 @@
         const starActive = now < starUntil;
         const shielded = starActive || phy.isInvincible(now, lastHitAt, phy.INVINCIBLE_MS);
         level.enemies.forEach(function (enemy) {
-            enemy.x += enemy.dir * (phy.ENEMY_SPEED || 34) * dt;
+            enemy.x += enemy.dir * enemySpeed() * dt;
             if (enemy.x < enemy.minX || enemy.x > enemy.maxX) enemy.dir *= -1;
             if (enemy.x < -100) return;
             if (!rectsOverlap(player, enemy)) return;
@@ -557,12 +629,14 @@
                 if (now - lastStompAt < 2000) stompCombo += 1;
                 else stompCombo = 1;
                 lastStompAt = now;
+                sfx.stomp();
                 spawnFloat(enemy.x, enemy.y - 6, stompCombo > 1 ? ('连踩 x' + stompCombo) : '踩!', '#7ee07a');
                 return;
             }
             if (shielded) {
                 if (starActive) {
                     enemy.x = -9999;
+                    sfx.stomp();
                     spawnFloat(enemy.x, enemy.y - 6, '砰!', '#ffe566');
                 }
                 return;
@@ -572,11 +646,13 @@
                 playerPowered = false;
                 player.vx = player.facing * -140;
                 player.vy = -180;
+                sfx.hurt();
                 toast('变大保护挡了一下');
                 return;
             }
             hearts -= 1;
             updateHeartsHud();
+            sfx.hurt();
             player.vx = player.facing * -180;
             player.x += player.facing * -28;
             player.vy = -220;
@@ -639,6 +715,7 @@
         won = true;
         awarding = true;
         playing = false;
+        sfx.clear();
         document.getElementById('run-status').textContent = '通关！';
         const elapsed = (performance.now() - startTime) / 1000;
         const rounded = Math.round(elapsed * 10) / 10;
@@ -690,6 +767,7 @@
         const dx = x + (maxW - dw) / 2;
         const dy = y + (maxH - dh);
         ctx.save();
+        ctx.imageSmoothingEnabled = false;
         if (flipX) {
             ctx.translate(dx + dw, dy);
             ctx.scale(-1, 1);
@@ -700,14 +778,58 @@
     }
 
     function heroImage() {
-        if (player.pose === 'jump' && images.jump) return images.jump;
-        if (player.pose === 'run') return (player.runFrame === 0 && images.run) ? images.run : (images.idle || images.run);
-        return images.idle || images.run || images.jump;
+        // 本地主角三件套:idle/run/jump 连贯动作帧;run 时 run/idle 交替成走路节奏
+        if (player.pose === 'jump') return images.jump || images.walkA || images.idle;
+        if (player.pose === 'run') {
+            return (player.runFrame === 0 ? images.walkA : images.walkB) || images.idle;
+        }
+        return images.idle || images.walkA;
+    }
+
+    // 主角绘制:contain-fit + 底部中心锚点 + 跳跃倾角(上升抬头、下落前倾)
+    function drawHero(img, x, y, maxW, maxH, flipX, tilt) {
+        if (!img) return false;
+        const ratio = img.naturalWidth / img.naturalHeight;
+        let dw = maxW;
+        let dh = dw / ratio;
+        if (dh > maxH) { dh = maxH; dw = dh * ratio; }
+        ctx.save();
+        ctx.imageSmoothingEnabled = false;
+        ctx.translate(x + maxW / 2, y + maxH);
+        ctx.rotate(flipX ? -tilt : tilt);
+        if (flipX) ctx.scale(-1, 1);
+        ctx.drawImage(img, -dw / 2, -dh, dw, dh);
+        ctx.restore();
+        return true;
+    }
+
+    function drawParallaxBack() {
+        // 天空图已含远山和云
+    }
+
+    // 地面 = 草方块行 + 泥土行(与方块世界同一套代码地砖)
+    function drawGround() {
+        const TILE = 32;
+        const x0 = Math.floor(cameraX / TILE) * TILE;
+        const x1 = cameraX + VIEW_W + TILE;
+        if (pixels) {
+            for (let x = x0; x < x1; x += TILE) pixels.drawTile(ctx, 'grass', x, level.groundY, TILE);
+            for (let y = level.groundY + TILE; y < VIEW_H; y += TILE) {
+                for (let x = x0; x < x1; x += TILE) pixels.drawTile(ctx, 'dirt', x, y, TILE);
+            }
+            return;
+        }
+        ctx.fillStyle = '#4fbf3a';
+        ctx.fillRect(cameraX, level.groundY, VIEW_W + TILE, 18);
+        ctx.fillStyle = '#8a5a2b';
+        ctx.fillRect(cameraX, level.groundY + 18, VIEW_W + TILE, VIEW_H - level.groundY - 18);
     }
 
     function draw() {
         if (!level || document.getElementById('panel-play').classList.contains('is-hidden')) return;
         ctx.clearRect(0, 0, VIEW_W, VIEW_H);
+        ctx.imageSmoothingEnabled = false;
+        const now = Date.now();
         ctx.save();
         ctx.translate(-cameraX, 0);
         const skyImg = images[skyKey] || images['sky-day'];
@@ -722,38 +844,12 @@
             ctx.fillStyle = sky;
             ctx.fillRect(cameraX, 0, VIEW_W, level.groundY);
         }
-        // 地面：单层草皮 + 渐变泥土（避免横截面图平铺出“重复山丘”）
-        const gy = level.groundY;
-        const grassH = 18;
-        const dirtGrad = ctx.createLinearGradient(0, gy + grassH, 0, gy + 140);
-        dirtGrad.addColorStop(0, '#a06838');
-        dirtGrad.addColorStop(0.45, '#8b5a2b');
-        dirtGrad.addColorStop(1, '#6b4423');
-        ctx.fillStyle = dirtGrad;
-        ctx.fillRect(0, gy + grassH, level.width, VIEW_H - gy + 80);
-
-        if (images.platform) {
-            const slice = 64;
-            for (let x = 0; x < level.width; x += slice) {
-                const w = Math.min(slice, level.width - x);
-                ctx.drawImage(images.platform, x, gy - 8, w, grassH + 14);
-            }
-        } else {
-            ctx.fillStyle = '#5db845';
-            ctx.fillRect(0, gy, level.width, grassH);
-        }
-        ctx.fillStyle = 'rgba(255, 255, 255, .28)';
-        ctx.fillRect(0, gy, level.width, 3);
-        ctx.fillStyle = 'rgba(40, 28, 18, .28)';
-        ctx.fillRect(0, gy + grassH - 1, level.width, 4);
+        drawParallaxBack(now);
+        drawGround();
 
         level.platforms.forEach(function (p) {
-            if (images.platform) {
-                const slice = 48;
-                for (let x = p.x; x < p.x + p.w; x += slice) {
-                    const w = Math.min(slice, p.x + p.w - x);
-                    ctx.drawImage(images.platform, x, p.y - 8, w, p.h + 18);
-                }
+            if (decor) {
+                decor.platformSlice(ctx, p.x, p.y - 2, p.w, p.h + 6);
             } else {
                 ctx.fillStyle = '#e08a28';
                 ctx.fillRect(p.x, p.y, p.w, p.h);
@@ -761,33 +857,34 @@
         });
         (level.blocks || []).forEach(function (block) {
             if (block.broken) return;
-            const imgKey = block.type === 'brick'
-                ? (block.hit ? 'block-brick' : 'block-brick')
-                : (block.hit ? 'block-brick' : 'block-question');
-            const img = images[imgKey] || images['block-question'];
-            if (img) ctx.drawImage(img, block.x, block.y, block.w, block.h);
-            else {
-                ctx.fillStyle = block.type === 'brick' ? '#c65a22' : '#f0b020';
+            const kind = block.type === 'brick' ? 'block-brick' : 'block-question';
+            if (decor) {
+                if (kind === 'block-brick') decor.drawBrick(ctx, block.x, block.y, block.w);
+                else decor.drawQuestion(ctx, block.x, block.y, block.w, block.hit);
+            } else {
+                ctx.fillStyle = kind === 'block-brick' ? '#c65a22' : '#f0b020';
                 ctx.fillRect(block.x, block.y, block.w, block.h);
             }
         });
         pickups.forEach(function (pickup) {
             if (pickup.taken) return;
-            if (pickup.kind === 'star' && images.enemy) {
-                ctx.drawImage(images.enemy, pickup.x, pickup.y, pickup.w, pickup.h);
-            } else if (images.coin) {
-                ctx.drawImage(images.coin, pickup.x, pickup.y, pickup.w, pickup.h);
+            if (!decor) return;
+            if (pickup.kind === 'star') {
+                decor.drawStar(ctx, pickup.x, pickup.y, pickup.w + 4, Math.floor(now / 180) % 2);
+            } else if (pickup.kind === 'mushroom') {
+                decor.drawShroom(ctx, pickup.x, pickup.y, pickup.w);
             }
         });
         (level.checkpoints || []).forEach(function (cp) {
-            ctx.fillStyle = cp.saved ? 'rgba(255, 208, 47, .55)' : 'rgba(255, 255, 255, .35)';
+            ctx.fillStyle = cp.saved ? 'rgba(255, 208, 47, .30)' : 'rgba(255, 255, 255, .18)';
             ctx.fillRect(cp.x, cp.y, cp.w, cp.h);
             ctx.strokeStyle = 'rgba(62, 44, 65, .25)';
             ctx.strokeRect(cp.x + 0.5, cp.y + 0.5, cp.w - 1, cp.h - 1);
+            if (decor) decor.checkpoint(ctx, cp.x, cp.y, cp.w, cp.h, cp.saved);
         });
         pops.forEach(function (pop) {
             ctx.globalAlpha = Math.max(0, pop.life / 0.45);
-            if (images.coin) ctx.drawImage(images.coin, pop.x, pop.y, 18, 18);
+            if (decor) decor.drawCoin(ctx, pop.x, pop.y, 18, Math.floor(now / 90) % 4);
             ctx.globalAlpha = 1;
         });
         floats.forEach(function (f) {
@@ -801,31 +898,51 @@
             ctx.fillText(f.text, f.x, f.y);
             ctx.restore();
         });
-        if (images.pipe && level.pipe) ctx.drawImage(images.pipe, level.pipe.x, level.pipe.y, level.pipe.w, level.pipe.h);
+        if (decor && level.pipe) decor.pipe(ctx, level.pipe.x, level.pipe.y, level.pipe.w, level.pipe.h);
         level.coins.forEach(function (coin, i) {
             if (coin.taken) return;
-            const bounce = Math.sin(Date.now() / 220 + i) * 3;
-            if (images.coin) ctx.drawImage(images.coin, coin.x, coin.y + bounce, 24, 24);
+            const bounce = Math.sin(now / 220 + i) * 3;
+            if (decor) decor.drawCoin(ctx, coin.x, coin.y + bounce, 24, Math.floor(now / 140 + i) % 4);
         });
-        level.enemies.forEach(function (enemy, ei) {
+        level.enemies.forEach(function (enemy) {
             if (enemy.x < -100) return;
-            const eImg = images[enemyKey] || images.enemy || images['enemy-brownie'];
-            if (eImg) {
-                // 交替两种怪增加变化
-                const alt = (ei % 2 === 0) ? eImg : (images['enemy-slime'] || images['enemy-brownie'] || eImg);
-                ctx.drawImage(alt, enemy.x, enemy.y, enemy.w, enemy.h);
-            }
+            const eImg = images[enemyKey] || images['enemy-shroom'] || images['enemy-slime'];
+            if (!eImg) return;
+            const bob = enemyKey === 'enemy-bat' ? Math.sin(now / 260 + enemy.x) * 4 - 8 : 0;
+            drawSprite(eImg, enemy.x, enemy.y + bob, enemy.w, enemy.h + 6, enemy.dir < 0);
         });
-        if (images.flag) ctx.drawImage(images.flag, level.flag.x, level.flag.y, 48, level.flag.h);
+        if (decor) decor.flag(ctx, level.flag.x, level.flag.y, level.flag.w, level.flag.h, Math.floor(now / 400) % 2);
         const blink = (phy.isInvincible(performance.now(), lastHitAt, phy.INVINCIBLE_MS)
             || performance.now() < starUntil)
             && Math.floor(performance.now() / 80) % 2 === 0;
         const drawW = playerPowered ? player.w + 6 : player.w;
         const drawH = playerPowered ? player.h + 8 : player.h;
         const drawY = playerPowered ? player.y - 8 : player.y;
-        if (!blink && !drawSprite(heroImage(), player.x, drawY, drawW, drawH, player.facing < 0)) {
-            ctx.fillStyle = playerPowered ? '#ff6b52' : '#e54139';
-            ctx.fillRect(player.x, drawY + 14, drawW, drawH - 14);
+        if (!blink) {
+            const heroImg = heroImage();
+            let drawn = heroImg ? drawHero(heroImg, player.x, drawY, drawW, drawH, player.facing < 0, 0) : false;
+            if (!drawn && pixels) {
+                const frame = player.pose === 'jump' ? 3
+                    : player.pose === 'run' ? (player.runFrame === 0 ? 1 : 2) : 0;
+                const sw = 32;
+                const sh = 55;
+                const dx = Math.round(player.x + (drawW - sw) / 2);
+                const dy = Math.round(drawY + drawH - sh);
+                ctx.save();
+                if (player.facing < 0) {
+                    ctx.translate(dx + sw, dy);
+                    ctx.scale(-1, 1);
+                    pixels.drawSprite(ctx, 'explorer', 0, 0, sw, sh, frame);
+                } else {
+                    pixels.drawSprite(ctx, 'explorer', dx, dy, sw, sh, frame);
+                }
+                ctx.restore();
+                drawn = true;
+            }
+            if (!drawn) {
+                ctx.fillStyle = playerPowered ? '#ff6b52' : '#e54139';
+                ctx.fillRect(player.x, drawY + 14, drawW, drawH - 14);
+            }
         }
         if (playerPowered) {
             ctx.strokeStyle = 'rgba(255, 208, 47, .45)';
@@ -857,6 +974,9 @@
     }
 
     function bind() {
+        const unlock = function () { sfx.unlock(); };
+        window.addEventListener('pointerdown', unlock, { once: true });
+        window.addEventListener('keydown', unlock, { once: true });
         window.addEventListener('keydown', function (e) {
             const k = e.key.toLowerCase();
             if (k === 'a' || k === 'arrowleft') input.left = true;
@@ -918,6 +1038,11 @@
     bind();
     loadAssets().then(function () {
         showMap();
+        // ?level=N 直达关卡(验收后段关卡用;不写进度解锁)
+        const direct = parseInt(new URLSearchParams(location.search).get('level'), 10);
+        if (Number.isInteger(direct) && direct >= 1 && direct <= levelsApi.count) {
+            enterLevel(direct);
+        }
         requestAnimationFrame(loop);
     });
 })();

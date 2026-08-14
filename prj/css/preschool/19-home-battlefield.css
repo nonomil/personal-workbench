@@ -166,7 +166,7 @@ body.variant-preschool .preschool-home-lane-zombie {
     place-items: end center;
 }
 
-body.variant-preschool .preschool-home-lane-zombie { width: 62px; margin-left: -17px; }
+body.variant-preschool .preschool-home-lane-zombie { width: 92px; margin-left: -17px; }
 
 body.variant-preschool .preschool-home-lane-plant img {
     width: 72px;
@@ -176,8 +176,8 @@ body.variant-preschool .preschool-home-lane-plant img {
 }
 
 body.variant-preschool .preschool-home-lane-zombie img {
-    width: 57px;
-    height: 78px;
+    width: 88px;
+    height: 108px;
     object-fit: contain;
     filter: drop-shadow(0 4px 0 rgba(31, 32, 19, .35));
     animation: preschool-home-zombie-sway 1.9s ease-in-out infinite;

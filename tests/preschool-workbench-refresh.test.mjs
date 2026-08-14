@@ -105,10 +105,10 @@ test('keeps preschool plans in one editable list instead of a fixed core and col
 
 test('bumps preschool runtime assets when the editable plan interaction changes', () => {
   const html = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
-  assert.match(html, /preschool-workbench\.css\?v=20260814-review-queue-v1/);
+  assert.match(html, /preschool-workbench\.css\?v=20260814-walker-v2/);
   assert.match(html, /config\.js\?v=20260814-summer-banks-v1/);
   assert.match(html, /storage\.js\?v=20260814-lesson-mistakes-v1/);
-  assert.match(html, /app\.js\?v=20260814-review-queue-v1/);
+  assert.match(html, /app\.js\?v=20260814-walker-v2/);
   assert.match(html, /workbench-bridge\.js\?v=20260807-longterm-meta-v1/);
 });
 
@@ -582,7 +582,7 @@ test('puts a single real-work workflow card above preschool home check-in lanes'
   assert.doesNotMatch(workflowRender, /再完成\s*\d+\s*项打卡/);
   assert.match(app, /item\.done && item\.completionSource === 'practice'/);
   assert.match(styles, /preschool-home-workflow/);
-  assert.match(html, /app\.js\?v=20260814-review-queue-v1/);
+  assert.match(html, /app\.js\?v=20260814-walker-v2/);
   assert.doesNotMatch(app, /首页只负责打卡/);
 });
 

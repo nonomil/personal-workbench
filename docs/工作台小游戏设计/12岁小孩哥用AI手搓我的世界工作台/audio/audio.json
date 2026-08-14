@@ -1,0 +1,9 @@
+{
+  "sourceVideo": "video.mp4",
+  "videoDurationSeconds": 126.94,
+  "audioDurationSeconds": 126.967,
+  "sampleRate": 16000,
+  "channels": 1,
+  "format": "wav",
+  "codec": "pcm_s16le"
+}

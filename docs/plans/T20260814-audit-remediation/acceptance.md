@@ -21,10 +21,12 @@
 
 ## 功能验收（S2）
 
-- [ ] 删除文件与 requirements-source B4 清单一致（voxel steve×4 + creeper×2 + platform mario×6，含 keyed）
-- [ ] 两份 `assets/manifest.md` 同步更新
+> 2026-08-14 用户改判：素材不删，合入游戏替换主角（见 test-report 阶段 3）。以下按「合入」口径验收。
+
+- [x] 素材合入：platform 主角三帧（world-rebuild 批次，中性名）+ 敌人槽 brownie/slime；voxel 史蒂夫 + 绿爆爆（并行会话完成）
+- [x] 两份 `assets/manifest.md` 同步更新
 - [ ] 三世界页面 Console 无 404 / 无破图
-  - 验证：浏览器三页 + `npm test`
+  - 验证：浏览器三页 + `npm test`（本会话无浏览器工具，待真机补验；`npm test` 238/238 绿）
 
 ## 功能验收（S3）
 

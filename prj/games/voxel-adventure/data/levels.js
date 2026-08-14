@@ -9,7 +9,7 @@
         grassland: {
             title: '草原',
             blocks: ['grass', 'dirt'],
-            mobs: ['slime', 'bee'],
+            mobs: ['slime', 'creeper', 'bee'],
             sky: 'day',
             surfaceBias: 0,
             treeDensity: 1
@@ -34,7 +34,7 @@
         cave: {
             title: '矿洞',
             blocks: ['stone', 'coal', 'crystal'],
-            mobs: ['spark', 'bat'],
+            mobs: ['spark', 'bat', 'creeper'],
             sky: 'dusk',
             veil: 'cave',
             surfaceBias: 2,

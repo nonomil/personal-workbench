@@ -109,9 +109,9 @@ body.is-fullscreen .world-bar {
 
 .world-shell {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(220px, 280px);
-    gap: 16px;
-    padding: 16px clamp(14px, 3vw, 24px) 28px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    padding: 8px clamp(10px, 2vw, 16px) 16px;
 }
 
 .world-panel,
@@ -150,24 +150,40 @@ body.is-fullscreen .world-bar {
 
 .seed-tray {
     display: flex;
-    gap: 8px;
+    gap: 10px;
     overflow-x: auto;
-    padding-bottom: 10px;
+    padding: 12px 14px 14px;
+    /* 木质托架:木板纹 + 内凹阴影 */
+    background:
+        repeating-linear-gradient(90deg, rgba(0, 0, 0, .07) 0 2px, transparent 2px 36px),
+        linear-gradient(180deg, #a86a34, #8a4f22 58%, #74431c);
+    border: 3px solid #5c3012;
+    border-radius: 18px;
+    box-shadow:
+        inset 0 2px 0 rgba(255, 235, 200, .28),
+        inset 0 -4px 8px rgba(0, 0, 0, .28),
+        0 4px 10px rgba(60, 35, 10, .25);
+    scrollbar-width: thin;
 }
 
 .seed-card {
     flex: 0 0 auto;
-    min-width: 88px;
-    height: 86px;
+    min-width: 104px;
+    height: 118px;
     flex-direction: column;
     gap: 2px;
     padding: 8px 10px;
-    background: linear-gradient(160deg, #fff8d8, #e8f6c8);
+    /* 种子袋:米纸 + 底边压线 */
+    background: linear-gradient(180deg, #fffdf2, #f2e3b8);
+    border: 2px solid #d8c48e;
+    border-bottom-color: #b89a58;
+    border-radius: 10px;
+    box-shadow: 0 2px 0 rgba(92, 48, 18, .45);
 }
 
 .seed-card img {
-    width: 36px;
-    height: 36px;
+    width: 64px;
+    height: 64px;
     object-fit: contain;
     animation: world-idle-bob 2.4s ease-in-out infinite;
 }
@@ -192,8 +208,8 @@ body.is-fullscreen .world-bar {
 }
 
 .seed-card.is-selected {
-    border-color: var(--warm);
-    box-shadow: 0 0 0 3px rgba(244, 185, 66, .35);
+    border-color: #f4b942;
+    box-shadow: 0 0 0 3px rgba(244, 185, 66, .45), 0 2px 0 rgba(92, 48, 18, .45);
     transform: translateY(-2px);
 }
 
@@ -216,7 +232,7 @@ body.is-fullscreen .world-bar {
     width: 100%;
     height: auto;
     aspect-ratio: 1080 / 540;
-    max-height: min(64vh, 580px);
+    max-height: min(82vh, 920px);
     object-fit: contain;
     background: #79c24e;
     touch-action: manipulation;
@@ -361,8 +377,8 @@ body.is-fullscreen .world-bar {
     text-align: center;
 }
 .how-pics img {
-    width: 56px;
-    height: 56px;
+    width: 88px;
+    height: 88px;
     object-fit: contain;
     filter: drop-shadow(0 2px 2px rgba(0,0,0,.12));
 }

@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#e54139">
     <title>横版闯关 · 成长关卡</title>
     <link rel="stylesheet" href="../shared/growth-hud.css">
-    <link rel="stylesheet" href="./game.css?v=20260814-opt-v4">
+    <link rel="stylesheet" href="./game.css?v=20260814-wide-v1">
 </head>
 <body data-world-game="platform-quest">
     <header class="world-bar">
@@ -24,7 +24,7 @@
     </header>
     <main class="world-shell">
         <section class="world-panel" id="panel-map">
-            <h2 class="panel-title">选关 · 10</h2>
+            <h2 class="panel-title">选关 · 10 <small class="tip" id="progress-tip">加载中…</small></h2>
             <div class="stage-map" id="level-map"></div>
         </section>
         <section class="world-panel is-hidden" id="panel-play">
@@ -38,7 +38,6 @@
                 <span>状态 <b id="run-status">准备</b></span>
             </div>
             <canvas id="world-canvas" width="960" height="480" aria-label="横版闯关画布"></canvas>
-            <p class="hint">1–4 关可连跳两次；吃蘑菇变大能碎砖。顶惊喜块、过检查点、冲旗拿三星。</p>
             <div class="control-row control-row-desktop">
                 <button type="button" data-hold="left">左跑</button>
                 <button type="button" data-action="jump">跳跃</button>
@@ -48,16 +47,6 @@
                 <button type="button" id="back-map-btn">地图</button>
             </div>
         </section>
-        <aside class="world-side">
-            <h2>怎么玩</h2>
-            <ul>
-                <li>顶惊喜块</li>
-                <li>吃蘑菇回血</li>
-                <li>看三星条</li>
-                <li>连踩得分</li>
-            </ul>
-            <p class="tip" id="progress-tip">加载中…</p>
-        </aside>
     </main>
     <div class="touch-pad" id="touch-pad" aria-hidden="true">
         <div class="touch-pad-left">
@@ -71,8 +60,10 @@
     </div>
     <div class="toast-game" id="toast"></div>
     <script src="../shared/workbench-bridge.js"></script>
+    <script src="../voxel-adventure/pixel-tiles.js?v=20260814-art-v2"></script>
+    <script src="./pixel-decor.js?v=20260814-art-v1"></script>
     <script src="./data/physics.js?v=20260814-ground-v1"></script>
-    <script src="./data/levels.js?v=20260814-ground-v1"></script>
-    <script src="./game.js?v=20260814-ground-v1"></script>
+    <script src="./data/levels.js?v=20260814-play-v1"></script>
+    <script src="./game.js?v=20260814-mario-sky-v1"></script>
 </body>
 </html>

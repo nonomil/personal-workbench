@@ -28,14 +28,21 @@
 - **范围扩大记录（如实）**：审查阶段商标 grep 只含 我的世界/Mario/steve/Minecraft，遗漏「植物大战僵尸式」——执行时在 launcher 发现 3 处（alt/h2/themeDetails），补入合同断言并一并修复。最终 launcher 清理 9 处：植物大战僵尸式×3 + 我的世界式×3 + 马里奥式×3。
 - 结论：允许推进。
 
-## 阶段 3 — S2 素材清理（未执行）
+## 阶段 3 — S2 素材处置（2026-08-14 用户改判：合入替代删除）
 
-- 用户确认删除：**否**（等用户明确授权后执行）。
-- 删除前置 grep（代码引用）：未执行（随删除执行）。
-- 删除文件数：—（对照清单 12，待确认）。
-- 三世界 Console：—。
-- `npm test`：—。
-- 结论：**挂起**。12 个 PNG（voxel steve×4 + creeper×2、platform mario×6）已验证零代码引用，等用户点头即删。
+- 用户裁决：素材**不删**，改为合入游戏并替换主角（原话「这些游戏资源合入 当前游戏，替换主角」，
+  且已授权「这些素材合入游戏中，我允许」；商标相近图可进游戏，公开文案仍避商标词）。
+- platform-quest 执行：ref/games 内 mario-idle/run/jump 三张 MD5 完全相同（同一帧拷贝三份，不可用作多姿势主角）；
+  改用 ref README 指向的仓内生成批次 `prj/assets/generated/world-rebuild-20260807/keyed/platform/actions/`
+  三张真·分姿势帧（idle 285×412 / run 503×583 / jump 524×730，key 抠底），以中性名
+  `assets/hero/hero-{idle,run,jump}.png` 接入主角槽；跳跳侠 jumper 4 帧降为回退链第二层，explorer 第三层。
+  敌人槽同步替换：enemy-shroom→enemy-brownie.png、enemy-slime→enemy-slime.png（本目录 S2 期间删掉的旧文件恢复），
+  bat 不动；旧 shroom-idle/slime-idle 下岗留存盘上，待用户决定删除。bg×3 与 ref 逐字节相同，未动。
+- voxel-adventure 执行：由并行会话（cc-bridge 对等协作）以内容替换方式完成——explorer-* 槽位内为史蒂夫两帧
+  （idle/run），creeper 以 ENEMY_ART「绿爆爆」接入草原/矿洞 mobs，papermc/ 五帧留作发布回切备份。
+- 三世界 Console 真机验证：本会话无浏览器工具，未做；ASSET 全部路径已逐一验证存在于盘。
+- `npm test`：**退出码 0，238 项全绿**（含商标合同断言：launcher/两游戏页/game.js 均无「马里奥/Mario/苦力怕/Steve」字样）。
+- 结论：S2 以「合入」口径关闭，删除清单作废；S1 商标合同不受影响（公开文案层零商标词）。
 
 ## 阶段 4 — S1 回归（已执行）
 

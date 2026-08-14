@@ -11,10 +11,10 @@
     const garden = window.PersonalWorkbenchPreschoolGarden;
     const stagesApi = window.GardenDefenseStages;
     const GAME_ID = 'garden-defense';
-    const TICK_MS = 720;
-    const WALK_LURCH = 0.28;
-    const FIRST_WAVE_MS = 2800;
-    const NEXT_WAVE_MS = 1800;
+    const TICK_MS = 880;
+    const WALK_LURCH = 0.2;
+    const FIRST_WAVE_MS = 4200;
+    const NEXT_WAVE_MS = 2800;
     let plantsLost = 0;
     let lastPlantCount = 0;
     let plantedAt = 0;
@@ -35,19 +35,17 @@
         'bg-day': LOCAL + 'bg/lawn-day.png',
         'bg-sunset': LOCAL + 'bg/lawn-sunset.png',
         'bg-night': LOCAL + 'bg/lawn-night.png',
-        'zombie-walk-01': PVZ + 'pvz-zombie-walk-01.png',
-        'zombie-walk-02': PVZ + 'pvz-zombie-walk-02.png',
-        'zombie-walk-03': PVZ + 'pvz-zombie-walk-03.png',
-        'zombie-walk-04': PVZ + 'pvz-zombie-walk-04.png',
         sun: PVZ + 'pvz-sun-token.png',
         'plant-sunflower': PVZ + 'pvz-sunflower.png',
-        'plant-peashooter': PVZ + 'pvz-peashooter.png?v=20260814-pea-v2',
+        'plant-peashooter': PVZ + 'pvz-peashooter.png?v=20260814-actor-scale-v1',
         'plant-wallnut': PVZ + 'pvz-wallnut.png',
         'plant-snowpea': PVZ + 'pvz-iceflower.png',
         'plant-cherrybomb': PVZ + 'pvz-cherrybomb.png',
-        'zombie-basic': PVZ + 'pvz-zombie-basic.png',
-        'zombie-conehead': PVZ + 'pvz-zombie-conehead.png',
-        'zombie-buckethead': PVZ + 'pvz-zombie-buckethead.png'
+        'zombie-basic': LOCAL + 'zombies/garden-walker.png?v=20260814-walker-v2',
+        'zombie-conehead': LOCAL + 'zombies/garden-cone-walker.png?v=20260814-walker-v2',
+        'zombie-buckethead': LOCAL + 'zombies/garden-pail-walker.png?v=20260814-walker-v2',
+        'zombie-flag': LOCAL + 'zombies/garden-walker.png?v=20260814-walker-v2',
+        'zombie-football': LOCAL + 'zombies/garden-cone-walker.png?v=20260814-walker-v2'
     };
 
     const images = {};
@@ -103,9 +101,7 @@
     }
 
     function bgKeyForStage(stage) {
-        // lawn-night.png 是俯视花园+垫子，不能当战场；偶数关白天，奇数关黄昏。
-        const id = Number(stage && stage.id) || 1;
-        return id % 2 === 0 ? 'bg-day' : 'bg-sunset';
+        return 'bg-day';
     }
 
     function growthState() {
@@ -287,10 +283,10 @@
         const width = right - left;
         const height = bottom - top;
         const laneH = height / lanes;
-        const plantH = Math.min(laneH * 1.12, 92);
-        const plantW = plantH * 0.72;
-        const zombieH = Math.min(laneH * 0.94, 72);
-        const zombieW = zombieH * 0.7;
+        const plantH = Math.round(laneH * 1.62);
+        const plantW = Math.round(plantH * 0.9);
+        const zombieH = Math.round(laneH * 2.05);
+        const zombieW = Math.round(zombieH * 0.82);
         return {
             lanes: lanes,
             columns: columns,
@@ -322,10 +318,8 @@
 
     function clampBoxToLawn(box, m) {
         const w = Math.min(box.w, m.width);
-        const h = Math.min(box.h, m.laneH);
         const x = Math.max(m.left, Math.min(m.left + m.width - w, box.x));
-        const y = Math.max(m.top, Math.min(m.top + m.height - h, box.y));
-        return { x: x, y: y, w: w, h: h };
+        return { x: x, y: box.y, w: w, h: box.h };
     }
 
     function plantScreenBox(plant, m, bob) {
@@ -385,7 +379,7 @@
     }
 
     function zombieDisplayColumn(defense, zombie, frac) {
-        const rules = (garden.ZOMBIE_RULES || {})[zombie.kind] || { moveEvery: 10 };
+        const rules = (garden.ZOMBIE_RULES || {})[zombie.kind] || { moveEvery: 18 };
         const every = Math.max(1, Number(rules.moveEvery) || 10);
         if (zombie.slowTicks > 0 || zombieIsBlocked(defense, zombie)) return Number(zombie.column);
         const clock = Number(zombie.moveClock) || 0;
@@ -460,44 +454,31 @@
             return;
         }
         const ratio = img.naturalWidth / img.naturalHeight;
-        let dw = boxW * 0.86;
+        let dw = boxW * 0.98;
         let dh = dw / ratio;
-        if (dh > boxH * 0.86) {
-            dh = boxH * 0.86;
+        if (dh > boxH * 0.98) {
+            dh = boxH * 0.98;
             dw = dh * ratio;
         }
-        ctx.drawImage(img, boxX + (boxW - dw) / 2, boxY + (boxH - dh) / 2 + 4, dw, dh);
+        ctx.drawImage(img, boxX + (boxW - dw) / 2, boxY + (boxH - dh), dw, dh);
     }
 
     function drawZombieActor(zombie, box, ts, frac, moving, eating, icy) {
         const seed = idHash(zombie.id);
-        const speed = icy ? 0.8 : (eating ? 7 : (moving ? 2.1 : 0.55));
+        const speed = icy ? 0.55 : (eating ? 4.2 : (moving ? 1.05 : 0.4));
         const phase = ((ts || 0) / 1000) * speed + seed * 6.28;
         const lurch = moving ? lurchAmount(frac) : 0;
         ctx.save();
-        ctx.fillStyle = 'rgba(0,0,0,.22)';
+        ctx.fillStyle = 'rgba(0,0,0,.18)';
         ctx.beginPath();
-        ctx.ellipse(box.x + box.w * 0.5, box.y + box.h - 3, box.w * 0.28, 6, 0, 0, Math.PI * 2);
+        ctx.ellipse(box.x + box.w * 0.5, box.y + box.h - 2, box.w * 0.22, 5, 0, 0, Math.PI * 2);
         ctx.fill();
         ctx.translate(box.x + box.w * 0.5, box.y + box.h);
         if (icy) ctx.filter = 'hue-rotate(155deg) saturate(0.75)';
-        if (eating) {
-            ctx.rotate(Math.sin(phase) * 0.08);
-            ctx.translate(Math.sin(phase) * -1.6, 0);
-        } else if (moving) {
-            const bounce = Math.sin(lurch * Math.PI) * 4;
-            const lean = 0.04 + lurch * 0.08 + Math.sin(phase) * 0.02;
-            const squash = 1 + Math.sin(lurch * Math.PI) * 0.05;
-            ctx.rotate(lean);
-            ctx.scale(1.03 / squash, squash);
-            ctx.translate(0, -bounce);
-        } else {
-            ctx.rotate(Math.sin(phase) * 0.03);
-            ctx.translate(0, Math.sin(phase) * 1.2);
-        }
-        const walkFrame = moving ? ('zombie-walk-0' + (Math.floor(((ts || 0) / 180) % 4) + 1)) : '';
-        const spriteKey = (zombie.kind === 'zombie-basic' && images[walkFrame]) ? walkFrame : zombie.kind;
-        drawSprite(spriteKey, -box.w / 2, -box.h, box.w, box.h);
+        if (eating) ctx.translate(Math.sin(phase) * -2.4, 0);
+        else if (moving) ctx.translate(0, Math.sin(lurch * Math.PI) * -3);
+        const key = images[zombie.kind] ? zombie.kind : 'zombie-basic';
+        drawSprite(key, -box.w / 2, -box.h, box.w, box.h);
         ctx.restore();
     }
 
@@ -527,12 +508,25 @@
             ctx.fillStyle = '#6fbf4b';
             ctx.fillRect(0, VIEW_H * 0.3, VIEW_W, VIEW_H);
         }
-
-        for (let lane = 0; lane < m.lanes; lane += 1) {
-            const y = m.top + lane * m.laneH;
-            ctx.fillStyle = lane % 2 === 0 ? 'rgba(255,255,255,.06)' : 'rgba(0,0,0,.05)';
-            ctx.fillRect(m.left, y, m.width, m.laneH);
+        const stageId = Number(currentStage && currentStage.id) || 1;
+        if (stageId % 2 === 1) {
+            ctx.fillStyle = 'rgba(255,132,48,0.12)';
+            ctx.fillRect(0, 0, VIEW_W, VIEW_H);
         }
+
+        // PvZ 式明暗棋盘格草坪:5 行 × 6 列按 (行+列) 交替,格子可读才好放植物
+        const cellW = m.width / m.columns;
+        for (let lane = 0; lane < m.lanes; lane += 1) {
+            for (let col = 0; col < m.columns; col += 1) {
+                ctx.fillStyle = (lane + col) % 2 === 0
+                    ? 'rgba(255, 252, 214, .16)'
+                    : 'rgba(24, 66, 14, .13)';
+                ctx.fillRect(m.left + col * cellW, m.top + lane * m.laneH, cellW + 0.5, m.laneH);
+            }
+        }
+        ctx.strokeStyle = 'rgba(46, 84, 28, .28)';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(m.left - 1, m.top - 1, m.width + 2, m.height + 2);
         if (hoverPoint && !settled) {
             ctx.globalAlpha = 0.45;
             const ghost = plantScreenBox({ lane: hoverPoint.lane, x: hoverPoint.x, column: hoverPoint.column }, m, 0);
@@ -610,7 +604,7 @@
         const g = growthState().growth;
         const status = (g.garden.defense || {}).status;
         if (status === 'lost') return;
-        const r = garden.spawnDefenseWave(g, bridge.today());
+        const r = garden.spawnDefenseWave(g, bridge.today(), { stageId: currentStage && currentStage.id });
         commitGrowth(r.growth);
         if (r.ok) {
             els.tip.textContent = '僵尸来了！同路的豌豆会自己发射。';
@@ -757,14 +751,6 @@
             }
         }
         loadAll().then(function () {
-            function setHow(id, key) {
-                const el = document.getElementById(id);
-                if (el && images[key]) el.src = images[key].src;
-            }
-            setHow('how-sun', 'plant-sunflower');
-            setHow('how-pea', 'plant-peashooter');
-            setHow('how-nut', 'plant-wallnut');
-            setHow('how-zombie', 'zombie-basic');
             renderMap();
             bind();
             showMap();

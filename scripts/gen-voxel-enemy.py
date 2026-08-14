@@ -4,9 +4,10 @@
 Usage:
     set VOXEL_IMG_KEY=<key>
     python scripts/gen-voxel-enemy.py <name> --prompt "<prompt>" [--model gpt-image-2] [--out DIR]
+        [--endpoint URL] [--key-env NAME] [--quality low|medium|high]
 
 Saves b64 image to <out>/<name>.png (default cursor assets dir).
-Reads API key from env VOXEL_IMG_KEY only.
+Reads API key from env VOXEL_IMG_KEY by default (--key-env to override).
 """
 import argparse
 import base64
@@ -28,11 +29,16 @@ def main() -> int:
     ap.add_argument("--prompt", required=True)
     ap.add_argument("--model", default="gpt-image-2")
     ap.add_argument("--out", default=str(DEFAULT_OUT))
+    ap.add_argument("--endpoint", default=ENDPOINT)
+    ap.add_argument("--key-env", default="VOXEL_IMG_KEY")
+    ap.add_argument("--quality", default=None)
+    ap.add_argument("--no-response-format", action="store_true",
+                    help="omit response_format field (e.g. Agnes rejects it)")
     args = ap.parse_args()
 
-    key = os.environ.get("VOXEL_IMG_KEY")
+    key = os.environ.get(args.key_env)
     if not key:
-        print("error: VOXEL_IMG_KEY not set", file=sys.stderr)
+        print(f"error: {args.key_env} not set", file=sys.stderr)
         return 2
 
     out_dir = Path(args.out)
@@ -43,13 +49,16 @@ def main() -> int:
         "prompt": args.prompt,
         "n": 1,
         "size": "1024x1024",
-        "response_format": "b64_json",
     }
+    if not args.no_response_format:
+        payload["response_format"] = "b64_json"
+    if args.quality:
+        payload["quality"] = args.quality
     headers = {"Authorization": f"Bearer {key}", "Content-Type": "application/json"}
 
     t0 = time.time()
     try:
-        resp = requests.post(ENDPOINT, headers=headers, json=payload, timeout=180)
+        resp = requests.post(args.endpoint, headers=headers, json=payload, timeout=180)
     except requests.Timeout:
         print("error: request timed out after 180s", file=sys.stderr)
         return 3

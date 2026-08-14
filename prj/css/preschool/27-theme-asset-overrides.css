@@ -29,6 +29,32 @@ body.variant-preschool[data-preschool-theme='garden-defense'] .preschool-theme-b
     background-size: cover;
 }
 
+body.variant-preschool[data-preschool-theme='garden-defense'] .theme-banner-art-sunflower {
+    left: 6%;
+    bottom: 10px;
+    width: 118px;
+    height: 128px;
+}
+
+body.variant-preschool[data-preschool-theme='garden-defense'] .theme-banner-art-peashooter {
+    left: 28%;
+    bottom: 8px;
+    width: 126px;
+    height: 136px;
+}
+
+body.variant-preschool[data-preschool-theme='garden-defense'] .theme-banner-object {
+    right: 4%;
+    bottom: 6px;
+    width: 148px;
+    height: 156px;
+}
+
+body.variant-preschool[data-preschool-theme='garden-defense'] .theme-banner-object img {
+    width: 148px;
+    height: 156px;
+}
+
 body.variant-preschool[data-preschool-theme='voxel-adventure'] {
     background-color: #e7edf8;
     background-image: linear-gradient(rgba(79, 105, 166, .035) 1px, transparent 1px), linear-gradient(90deg, rgba(79, 105, 166, .035) 1px, transparent 1px);

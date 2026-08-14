@@ -83,7 +83,9 @@ test('each world game ships local stage-themed assets under its own assets folde
   assert.equal(fs.existsSync(path.join(root, 'garden-defense', 'assets', 'bg', 'lawn-night.png')), true);
   assert.equal(fs.existsSync(path.join(root, 'voxel-adventure', 'assets', 'bg', 'sky-day.png')), true);
   assert.equal(fs.existsSync(path.join(root, 'platform-quest', 'assets', 'bg', 'sky-day.png')), true);
-  assert.equal(fs.existsSync(path.join(root, 'platform-quest', 'assets', 'enemies', 'enemy-brownie.png')), true);
+  assert.equal(fs.existsSync(path.join(root, 'platform-quest', 'assets', 'enemies', 'shroom-idle.png')), true);
+  assert.equal(fs.existsSync(path.join(root, 'platform-quest', 'assets', 'hero', 'explorer-walk-a.png')), true);
+  assert.equal(fs.existsSync(path.join(root, 'platform-quest', 'pixel-decor.js')), true);
   const gardenJs = fs.readFileSync(path.join(root, 'garden-defense', 'game.js'), 'utf8');
   assert.match(gardenJs, /bgKeyForStage|lawn-day|lawn-night/);
   const platformJs = fs.readFileSync(path.join(root, 'platform-quest', 'game.js'), 'utf8');
