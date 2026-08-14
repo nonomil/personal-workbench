@@ -127,11 +127,12 @@
         attachCourse('preschool-exercise', exerciseSeedLessons().concat(asArray(data.moveDays).map(function (row) {
             return timerLesson(row.id, row.title, row.prompt, 45, ['成人在旁', '地面清空'], { meta: row.day ? ('第 ' + row.day + ' 天') : '运动' });
         })), true);
-        const literacy = (global.PersonalWorkbenchConfig.childCourses || []).find(function (item) { return item.id === 'preschool-literacy'; });
-        const math = (global.PersonalWorkbenchConfig.childCourses || []).find(function (item) { return item.id === 'preschool-math'; });
-        const english = (global.PersonalWorkbenchConfig.childCourses || []).find(function (item) { return item.id === 'preschool-english'; });
-        const focus = (global.PersonalWorkbenchConfig.childCourses || []).find(function (item) { return item.id === 'preschool-focus'; });
-        const exercise = (global.PersonalWorkbenchConfig.childCourses || []).find(function (item) { return item.id === 'preschool-exercise'; });
+        const preschoolCourses = (global.PersonalWorkbenchConfig.variants && global.PersonalWorkbenchConfig.variants.preschool && global.PersonalWorkbenchConfig.variants.preschool.childCourses) || global.PersonalWorkbenchConfig.childCourses || [];
+        const literacy = preschoolCourses.find(function (item) { return item.id === 'preschool-literacy'; });
+        const math = preschoolCourses.find(function (item) { return item.id === 'preschool-math'; });
+        const english = preschoolCourses.find(function (item) { return item.id === 'preschool-english'; });
+        const focus = preschoolCourses.find(function (item) { return item.id === 'preschool-focus'; });
+        const exercise = preschoolCourses.find(function (item) { return item.id === 'preschool-exercise'; });
         if (literacy) literacy.note = '今日闪卡还在，60 日识字课也接到同一条路线。';
         if (math) math.note = '三关题库还在，60 日点数课也接到同一条路线。';
         if (english) english.note = '听词和拼读还在，60 日英语课也接到同一条路线。';

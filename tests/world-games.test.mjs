@@ -56,6 +56,8 @@ test('keeps three mini-game worlds in a separate games folder from workbench she
   assert.match(voxelScript, /isPassable|stepChase|MAX_HP/);
   assert.match(voxel, /点击挖矿|右键\/长按放置/);
   assert.match(voxelScript, /mineBlock|点击挖矿|长按放置/);
+  assert.match(voxelScript, /const GAME_ID = 'voxel-adventure'/);
+  assert.match(voxelScript, /VoxelLevels|cameraX|走到出口/);
   assert.match(voxelScript, /VIEW_COLS|isVoid|掉下去了/);
   assert.doesNotMatch(voxelScript, /Creeper|Steve|苦力怕/);
   assert.doesNotMatch(voxel, /冲旗/);

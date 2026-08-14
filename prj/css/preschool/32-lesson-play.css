@@ -1,11 +1,13 @@
 /* Play boards and motion countdown inside the existing lesson dialog. */
-body.variant-preschool .play-flip-grid {
+body.variant-preschool .play-flip-grid,
+body.variant-preschool .play-match-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 10px;
 }
 
 body.variant-preschool .play-flip-card,
+body.variant-preschool .play-match-card,
 body.variant-preschool .play-odd-tile,
 body.variant-preschool .play-order-tile,
 body.variant-preschool .play-spell-tile {
@@ -19,14 +21,17 @@ body.variant-preschool .play-spell-tile {
 }
 
 body.variant-preschool .play-flip-card.is-open,
-body.variant-preschool .play-flip-card.is-selected {
+body.variant-preschool .play-flip-card.is-selected,
+body.variant-preschool .play-match-card.is-open {
     background: #fff8e8;
     border-color: rgba(255, 176, 72, .7);
 }
 
 body.variant-preschool .play-flip-card.is-correct,
+body.variant-preschool .play-match-card.is-matched,
 body.variant-preschool .play-odd-tile.is-correct,
-body.variant-preschool .play-order-tile.is-correct {
+body.variant-preschool .play-order-tile.is-correct,
+body.variant-preschool .play-spell-tile.is-used {
     background: #ecfaed;
     border-color: rgba(107, 203, 119, .72);
 }
@@ -40,7 +45,8 @@ body.variant-preschool .play-spell-typed.is-wrong {
 
 body.variant-preschool .play-odd-grid,
 body.variant-preschool .play-order-grid,
-body.variant-preschool .play-spell-tiles {
+body.variant-preschool .play-spell-tiles,
+body.variant-preschool .play-spell-row {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 10px;
@@ -97,9 +103,11 @@ body.variant-preschool .motion-timer-safety {
 
 @media (max-width: 720px) {
     body.variant-preschool .play-flip-grid,
+    body.variant-preschool .play-match-grid,
     body.variant-preschool .play-odd-grid,
     body.variant-preschool .play-order-grid,
-    body.variant-preschool .play-spell-tiles {
+    body.variant-preschool .play-spell-tiles,
+    body.variant-preschool .play-spell-row {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 

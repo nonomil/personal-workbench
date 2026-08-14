@@ -105,10 +105,10 @@ test('keeps preschool plans in one editable list instead of a fixed core and col
 
 test('bumps preschool runtime assets when the editable plan interaction changes', () => {
   const html = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
-  assert.match(html, /preschool-workbench\.css\?v=20260814-voxel-islands-v1/);
-  assert.match(html, /config\.js\?v=20260814-play-games-v1/);
-  assert.match(html, /storage\.js\?v=20260814-english-plan-speak-v1/);
-  assert.match(html, /app\.js\?v=20260814-voxel-islands-v1/);
+  assert.match(html, /preschool-workbench\.css\?v=20260814-voxel-world-fix-v1/);
+  assert.match(html, /config\.js\?v=20260814-ref-ingest-v1/);
+  assert.match(html, /storage\.js\?v=20260814-lesson-pack-v1/);
+  assert.match(html, /app\.js\?v=20260814-lesson-pack-v1/);
   assert.match(html, /workbench-bridge\.js\?v=20260807-longterm-meta-v1/);
 });
 
@@ -222,7 +222,7 @@ test('merges reference learning zones into preschool resource cards', () => {
   assert.match(config, /240 字生活字库/);
   assert.match(config, /63 项拼音/);
   assert.match(config, /一关一首/);
-  assert.match(config, /340 词口语/);
+  assert.match(config, /470 词口语/);
   assert.match(config, /10 个动作/);
   assert.match(app, /preschool-course-badges/);
   assert.match(app, /preschool-course-samples/);
@@ -398,7 +398,7 @@ test('uses transparent PVZ plants and zombie variants across the preschool defen
   assert.match(app, /const plantAsset = preschoolPlantAsset\(activePlant\)/);
   assert.match(app, /pixel-hud-defense-art/);
   assert.match(app, /asset: 'player-energy-bars'/);
-  assert.match(config, /selected\.id === 'preschool' \? 'v0\.5\.2 · 幼儿版'/);
+  assert.match(config, /selected\.id === 'preschool' \? 'v0\.6\.0 · 幼儿版'/);
   assert.doesNotMatch(config, /v0\.2\.4 · 幼儿版/);
   assert.match(styles, /pixel-hud-defense-art/);
    assert.match(styles, /preschool-pvz-art/);
@@ -579,7 +579,7 @@ test('puts a single real-work workflow card above preschool home check-in lanes'
   assert.doesNotMatch(workflowRender, /再完成\s*\d+\s*项打卡/);
   assert.match(app, /item\.done && item\.completionSource === 'practice'/);
   assert.match(styles, /preschool-home-workflow/);
-  assert.match(html, /app\.js\?v=20260814-voxel-islands-v1/);
+  assert.match(html, /app\.js\?v=20260814-lesson-pack-v1/);
   assert.doesNotMatch(app, /首页只负责打卡/);
 });
 
@@ -604,7 +604,7 @@ test('connects the preschool home to the game-study loop without nesting the les
   assert.match(preschoolStyles, /24-game-study-loop\.css/);
   assert.match(preschoolStyleGraph, /preschool-home-identity/);
   assert.match(preschoolStyleGraph, /preschool-home-evidence/);
-  assert.match(preschoolIndex, /v0\.5\.2 · 幼儿版/);
+  assert.match(preschoolIndex, /v0\.6\.0 · 幼儿版/);
   assert.doesNotMatch(preschoolIndex, /v0\.4\.2 · 幼儿版/);
 });
 

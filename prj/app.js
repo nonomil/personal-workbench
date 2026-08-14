@@ -1796,73 +1796,6 @@
         return `<div class="literacy-stroke-board" data-play="${token}"><svg class="literacy-stroke-svg is-playing" viewBox="0 0 1024 1024" aria-hidden="true">${paths}</svg><button class="btn-secondary" type="button" data-action="literacy-stroke" aria-label="再看一遍笔顺">${icon('rotate-ccw')} 看笔顺</button></div>`;
     }
 
-    function renderPlayMatchBody(progressHead, prompt, board, hint, nextLabel) {
-        const cards = (board && Array.isArray(board.cards) ? board.cards : []).map(function (card, index) {
-            const selected = board.selected && board.selected.indexOf(index) >= 0;
-            const open = !!(card.matched || selected);
-            const mark = card.matched ? 'is-correct' : selected ? 'is-selected' : '';
-            return `<button class="play-flip-card ${mark} ${open ? 'is-open' : ''}" type="button" data-action="play-flip" data-index="${index}" ${card.matched || (board && board.complete) ? 'disabled' : ''} aria-pressed="${open}"><span>${open ? escapeHtml(card.face) : '?'}</span></button>`;
-        }).join('');
-        const done = !!(board && board.complete);
-        const feedback = done
-            ? '<p class="lesson-dialog-feedback is-success" role="status">配对完成啦！</p>'
-            : `<p class="lesson-dialog-feedback">${escapeHtml(hint || '先点一张，再点另一张。')}</p>`;
-        return `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">${escapeHtml(prompt || '找出一对。')}</h3><div class="play-flip-grid" role="group" aria-label="翻牌">${cards}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${done ? '' : 'disabled'}>${icon(done ? 'sparkles' : 'lock-keyhole')}${escapeHtml(nextLabel || (done ? '收集阳光，完成练习' : '配完再领取'))}</button></div></div>`;
-    }
-
-    function renderPlaySpellBody(progressHead, spell) {
-        const round = spell && typeof spell === 'object' ? spell : {};
-        const tiles = (Array.isArray(round.tiles) ? round.tiles : []).map(function (letter) {
-            return `<button class="play-spell-tile" type="button" data-action="play-spell" data-letter="${escapeHtml(letter)}" ${round.complete ? 'disabled' : ''}>${escapeHtml(letter)}</button>`;
-        }).join('');
-        const feedback = round.complete
-            ? '<p class="lesson-dialog-feedback is-success" role="status">拼出来啦！</p>'
-            : round.wrong
-                ? '<p class="lesson-dialog-feedback" role="status">再从第一个字母开始。</p>'
-                : '<p class="lesson-dialog-feedback">按顺序点字母。</p>';
-        return `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">拼出 ${escapeHtml(round.target || '')}</h3><p class="literacy-pinyin">${escapeHtml(round.zh || '')}</p><p class="play-spell-typed${round.wrong ? ' is-wrong' : ''}">${escapeHtml(round.typed || '') || '…'}</p><div class="play-spell-tiles" role="group" aria-label="字母">${tiles}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${round.complete ? '' : 'disabled'}>${icon(round.complete ? 'sparkles' : 'lock-keyhole')}${round.complete ? '收集阳光，完成练习' : '拼完再领取'}</button></div></div>`;
-    }
-
-    function renderPlaySessionBody(progressHead, play, activity) {
-        if (!play) return '';
-        if (play.kind === 'memory' || play.kind === 'match') {
-            return renderPlayMatchBody(progressHead, activity.prompt, play.board, activity.hint, play.complete ? '收集阳光，完成练习' : '配完再领取');
-        }
-        if (play.kind === 'odd') {
-            const total = play.run && Array.isArray(play.run.rounds) ? play.run.rounds.length : 0;
-            const round = play.run && play.run.rounds ? (play.run.rounds[play.roundIndex] || play.run.rounds[0] || {}) : {};
-            const tiles = (round.tiles || []).map(function (face, index) {
-                const isWrong = ui.lessonSession.selectedIndex === index && !play.roundCorrect && !play.complete;
-                return `<button class="play-odd-tile ${isWrong ? 'is-wrong' : ''}" type="button" data-action="play-odd" data-index="${index}" ${play.complete ? 'disabled' : ''}>${escapeHtml(face)}</button>`;
-            }).join('');
-            const feedback = play.complete
-                ? '<p class="lesson-dialog-feedback is-success" role="status">找出来啦！</p>'
-                : isWrongFeedback(play)
-                    ? '<p class="lesson-dialog-feedback" role="status">再看看哪个不一样。</p>'
-                    : `<p class="lesson-dialog-feedback">${escapeHtml(round.prompt || activity.prompt || '哪一个和其他不一样？')}</p>`;
-            return `<div class="lesson-dialog-body">${progressHead}<div class="literacy-find-progress" aria-label="找不同进度"><span>第 ${(play.roundIndex || 0) + 1}/${total || 1} 关</span></div><h3 class="lesson-dialog-prompt">${escapeHtml(round.prompt || activity.prompt || '哪一个和其他不一样？')}</h3><div class="play-odd-grid" role="group" aria-label="找不同">${tiles}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${play.complete ? '' : 'disabled'}>${icon(play.complete ? 'sparkles' : 'lock-keyhole')}${play.complete ? '收集阳光，完成练习' : '找完再领取'}</button></div></div>`;
-        }
-        if (play.kind === 'order') {
-            const run = play.run || {};
-            const typed = Array.isArray(run.typed) ? run.typed : [];
-            const tiles = (Array.isArray(run.tiles) ? run.tiles : []).map(function (value) {
-                const used = typed.indexOf(value) >= 0;
-                return `<button class="play-order-tile ${used ? 'is-correct' : ''} ${run.wrong && !used ? 'is-wrong' : ''}" type="button" data-action="play-order" data-value="${value}" ${play.complete || used ? 'disabled' : ''}>${escapeHtml(String(value))}</button>`;
-            }).join('');
-            const feedback = play.complete
-                ? '<p class="lesson-dialog-feedback is-success" role="status">排队排好啦！</p>'
-                : run.wrong
-                    ? '<p class="lesson-dialog-feedback" role="status">再从 1 开始。</p>'
-                    : `<p class="lesson-dialog-feedback">${escapeHtml(activity.prompt || '按从小到大点数字。')}</p>`;
-            return `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">${escapeHtml(activity.prompt || '按从小到大点数字。')}</h3><p class="play-spell-typed">${typed.join(' ') || '…'}</p><div class="play-order-grid" role="group" aria-label="数字排队">${tiles}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${play.complete ? '' : 'disabled'}>${icon(play.complete ? 'sparkles' : 'lock-keyhole')}${play.complete ? '收集阳光，完成练习' : '排完再领取'}</button></div></div>`;
-        }
-        return '';
-    }
-
-    function isWrongFeedback(play) {
-        return ui.lessonSession && ui.lessonSession.selectedIndex !== null && !play.roundCorrect && !play.complete;
-    }
-
     function renderMotionTimerBody(progressHead, timer, activity) {
         const total = Math.max(1, Number(timer && timer.durationSec) || 45);
         const remaining = Math.max(0, Number(timer && timer.remaining) || 0);
@@ -2032,9 +1965,7 @@
         } else if (ui.lessonSession.play) {
             lessonDialogContent.innerHTML = renderPlayLessonBody(progressHead, ui.lessonSession.play);
         } else if (ui.lessonSession.timer) {
-            const timer = ui.lessonSession.timer;
-            const safety = (timer.safety || []).map(function (item) { return `<span>${escapeHtml(item)}</span>`; }).join('');
-            lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">${escapeHtml(timer.prompt || '开始做')}</h3><p class="literacy-char">${timer.remaining} 秒</p><p class="lesson-dialog-feedback">${timer.complete ? escapeHtml(timer.success || '做完啦！') : '大圆倒计时，成人在旁。做完也可以提前点完成。'}</p><div class="preschool-literacy-mastery">${safety}</div><div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="motion-done">${icon('sparkles')}做完了</button><button class="btn-primary" type="button" data-action="lesson-finish" ${timer.complete ? '' : 'disabled'}>${icon(timer.complete ? 'sparkles' : 'lock-keyhole')}${timer.complete ? '收集阳光，完成练习' : '先做完这一轮'}</button></div></div>`;
+            lessonDialogContent.innerHTML = renderMotionTimerBody(progressHead, ui.lessonSession.timer, activity);
         } else {
             const selectedIndex = ui.lessonSession.selectedIndex;
             const correct = ui.lessonSession.correct;
@@ -2543,6 +2474,7 @@
     }
 
     function closeLessonDialog() {
+        clearLessonMotionTimer();
         if (!lessonDialog) return;
         if (typeof lessonDialog.close === 'function' && lessonDialog.open) lessonDialog.close();
         else lessonDialog.removeAttribute('open');
@@ -4693,6 +4625,7 @@
         if (action === 'play-order') tapPlayOrder(target.dataset.value);
         if (action === 'play-odd') tapPlayOdd(target.dataset.index);
         if (action === 'play-odd-next') advancePlayOdd();
+        if (action === 'motion-done') completeMotionTimer();
         if (action === 'literacy-mark') markLiteracyFlash(target.dataset.char, target.dataset.known === '1');
         if (action === 'literacy-teach-start') startLiteracyTeach();
         if (action === 'literacy-teach-next') advanceLiteracyTeach();
@@ -4853,7 +4786,7 @@
     entryDialog.addEventListener('click', function (event) { if (event.target === entryDialog) closeDialog(); });
     if (lessonDialog) {
         lessonDialog.addEventListener('click', function (event) { if (event.target === lessonDialog) closeLessonDialog(); });
-        lessonDialog.addEventListener('close', function () { ui.lessonSession = null; if (lessonDialogContent) lessonDialogContent.innerHTML = ''; });
+        lessonDialog.addEventListener('close', function () { clearLessonMotionTimer(); ui.lessonSession = null; if (lessonDialogContent) lessonDialogContent.innerHTML = ''; });
     }
 
     if (!location.hash) history.replaceState(null, '', '#overview');

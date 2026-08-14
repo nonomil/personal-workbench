@@ -133,6 +133,11 @@ body.variant-preschool[data-preschool-theme='voxel-adventure'] .page-content {
     overflow: auto;
 }
 
+.voxel-workshop[data-vw-tab="world"] .vw-body {
+    padding: 0;
+    overflow: hidden;
+}
+
 .vw-alerts h2,
 .vw-block h2,
 .vw-shop h2,
@@ -297,10 +302,17 @@ body.variant-preschool[data-preschool-theme='voxel-adventure'] .page-content {
     cursor: pointer;
 }
 
+.vw-world-wrap {
+    height: calc(100vh - 148px);
+    min-height: 420px;
+    background: #87ceeb;
+}
+
 .vw-world-frame {
     display: block;
     width: 100%;
-    min-height: calc(100vh - 150px);
+    height: 100%;
+    min-height: 420px;
     border: 0;
     background: #87ceeb;
 }

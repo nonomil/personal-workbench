@@ -276,7 +276,7 @@
                     description: '学几个音、拼几个词，答对就收集阳光。',
                     icon: 'languages',
                     tone: 'lime',
-                    badge: '340 词口语',
+                    badge: '470 词口语',
                     note: '今日 5 词先听再配对再拼写。自然拼读第三课从词库出 10 题。',
                     highlights: ['今日 5 词', '中英配对', '拼读短词'],
                     samples: ['hello', 'red', 'mat'],
@@ -342,7 +342,7 @@
         '.topbar-context strong': selected.pageMeta.overview.title,
         '.mode-status strong': '本地模式',
         '.mode-status small': selected.statusNote,
-        '.sidebar-footnote': selected.id === 'preschool' ? 'v0.5.2 · 幼儿版' : selected.id === 'child' ? 'v0.5.2 · 儿童版' : 'v0.5.2 · 成人版',
+        '.sidebar-footnote': selected.id === 'preschool' ? 'v0.6.0 · 幼儿版' : selected.id === 'child' ? 'v0.6.0 · 儿童版' : 'v0.6.0 · 成人版',
         '.avatar': selected.avatar
     };
     Object.keys(labelMap).forEach(function (selector) {

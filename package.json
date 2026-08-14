@@ -1,10 +1,11 @@
 {
   "name": "personal-workbench",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "private": true,
   "description": "个人学习与成长工作台的网页与 Android APK 包装工程",
   "scripts": {
-    "test": "node --test tests/*.test.mjs",
+    "test": "node --test --test-concurrency=1 tests/*.test.mjs",
+    "ingest:refs": "node scripts/ingest-reference-banks.mjs && python scripts/build-literacy-data.py && python scripts/build-preschool-banks.py",
     "release:verify": "node scripts/release-verify.mjs",
     "android:prepare": "node scripts/prepare-mobile.mjs",
     "android:init": "npm run android:prepare && cap add android",

@@ -6,18 +6,18 @@
     <meta name="theme-color" content="#5dade2">
     <title>方块世界</title>
     <link rel="stylesheet" href="../shared/growth-hud.css">
-    <link rel="stylesheet" href="./game.css?v=20260814-islands-v1">
+    <link rel="stylesheet" href="./game.css?v=20260814-sidescroll-v1">
 </head>
 <body data-world-game="voxel-adventure" class="mc-world">
     <header class="world-bar mc-top">
         <div class="world-bar-copy">
-            <span class="kicker">家园</span>
+            <span class="kicker">关卡</span>
             <h1>方块世界</h1>
-            <p id="quest-title">点击挖矿 · 右键或长按放置</p>
+            <p id="quest-title">横版过关 · 走到出口</p>
         </div>
         <div class="growth-hud" id="wallet-hud"></div>
         <div class="world-bar-actions">
-            <button type="button" class="world-tool" id="reset-btn">刷新</button>
+            <button type="button" class="world-tool" id="reset-btn">重开本关</button>
             <button type="button" class="world-tool" id="fullscreen-btn">全屏</button>
             <a class="world-back" id="back-link" href="../../preschool-workbench/index.html?theme=voxel-adventure#overview">返回工作台</a>
         </div>
@@ -36,8 +36,8 @@
                         <button type="button" data-hold="right" aria-label="右">▶</button>
                         <button type="button" data-hold="jump" aria-label="跳">▲</button>
                     </div>
-                    <button type="button" class="mc-refresh" id="hud-refresh">刷新</button>
-                    <p class="hint mc-hint" id="message-tip">点击挖矿 | 右键/长按放置</p>
+                    <button type="button" class="mc-refresh" id="hud-refresh">重开</button>
+                    <p class="hint mc-hint" id="message-tip">点击挖矿 | 右键/长按放置 | 走到出口</p>
                     <div class="mc-stats">
                         <span>背包物品 <b id="bag-count">0</b></span>
                         <span>坐标 <b id="coord-label">0,0</b></span>
@@ -45,10 +45,10 @@
                 </div>
             </div>
             <div class="hotbar" id="hotbar" aria-label="工具和背包"></div>
-            <p class="mc-footer">你的方块主世界 / Overworld — WASD 移动 | 空格跳跃 | 鼠标左键挖矿 | 右键/长按放置</p>
+            <p class="mc-footer">横版过关 — WASD 移动 | 空格跳跃 | 鼠标左键挖矿 | 右键/长按放置 | 走到出口</p>
         </section>
         <aside class="world-side mc-quests">
-            <h2>任务</h2>
+            <h2>关卡</h2>
             <div class="quest-list" id="quest-list"></div>
             <p class="tip" id="progress-tip">加载中…</p>
         </aside>
@@ -56,7 +56,8 @@
     <div class="toast-game" id="toast"></div>
     <script src="../shared/workbench-bridge.js"></script>
     <script src="./data/quests.js?v=20260814-mc-v1"></script>
+    <script src="./data/levels.js?v=20260814-sidescroll-v1"></script>
     <script src="./data/world.js?v=20260814-islands-v1"></script>
-    <script src="./game.js?v=20260814-islands-v1"></script>
+    <script src="./game.js?v=20260814-sidescroll-v1"></script>
 </body>
 </html>

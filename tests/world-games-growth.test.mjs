@@ -72,7 +72,7 @@ test('each world game is a self-contained folder with data and growth bridge', (
   assert.match(voxelHtml, /workbench-bridge\.js/);
   assert.match(platformHtml, /workbench-bridge\.js/);
   assert.match(gardenHtml, /stages\.js|成长关卡/);
-  assert.match(voxelHtml, /quests\.js|成长任务/);
+  assert.match(voxelHtml, /levels\.js|成长关卡/);
   assert.match(platformHtml, /levels\.js|成长关卡/);
 });
 

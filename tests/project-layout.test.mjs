@@ -44,7 +44,7 @@ test('prepare-mobile and release-verify read from prj/', () => {
   assert.match(prepare, /['"]prj['"]|join\([^)]*['"]prj['"]/);
   assert.match(release, /['"]prj['"]|join\([^)]*['"]prj['"]/);
   assert.match(workflow, /node --check prj\/launcher\.js/);
-  assert.match(pkg, /"test":\s*"node --test tests\/\*\.test\.mjs"/);
+  assert.match(pkg, /"test":\s*"node --test(?: --test-concurrency=1)? tests\/\*\.test\.mjs"/);
 });
 
 test('repo root keeps a thin Pages entry that points at prj launcher', () => {
