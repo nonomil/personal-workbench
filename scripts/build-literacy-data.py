@@ -5,7 +5,8 @@ root = Path(__file__).resolve().parents[1]
 prj = root / "prj"
 bank = json.loads((prj / "data" / "preschool" / "识字" / "character-bank.json").read_text(encoding="utf-8"))
 rules = json.loads((prj / "data" / "preschool" / "识字" / "review-rules.json").read_text(encoding="utf-8"))
-payload = {"bank": bank, "reviewRules": rules}
+levels = json.loads((prj / "data" / "preschool" / "levels.json").read_text(encoding="utf-8"))
+payload = {"bank": bank, "reviewRules": rules, "levels": levels}
 body = json.dumps(payload, ensure_ascii=False)
 js = (
     "(function (global) {\n"

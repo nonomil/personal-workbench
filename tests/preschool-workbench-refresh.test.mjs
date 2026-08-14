@@ -105,10 +105,10 @@ test('keeps preschool plans in one editable list instead of a fixed core and col
 
 test('bumps preschool runtime assets when the editable plan interaction changes', () => {
   const html = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
-  assert.match(html, /preschool-workbench\.css\?v=20260814-voxel-world-fix-v1/);
-  assert.match(html, /config\.js\?v=20260814-ref-ingest-v1/);
+  assert.match(html, /preschool-workbench\.css\?v=20260814-workshop-ui-v1/);
+  assert.match(html, /config\.js\?v=20260814-subject-bands-v1/);
   assert.match(html, /storage\.js\?v=20260814-lesson-pack-v1/);
-  assert.match(html, /app\.js\?v=20260814-lesson-pack-v1/);
+  assert.match(html, /app\.js\?v=20260814-subject-levels-v1/);
   assert.match(html, /workbench-bridge\.js\?v=20260807-longterm-meta-v1/);
 });
 
@@ -219,10 +219,10 @@ test('merges reference learning zones into preschool resource cards', () => {
   assert.match(config, /title: '专注力训练'/);
   assert.match(config, /title: '自然拼读'/);
   assert.match(config, /title: '每日运动'/);
-  assert.match(config, /240 字生活字库/);
+  assert.match(config, /1500 字生活字库/);
   assert.match(config, /63 项拼音/);
   assert.match(config, /一关一首/);
-  assert.match(config, /470 词口语/);
+  assert.match(config, /500 词口语/);
   assert.match(config, /10 个动作/);
   assert.match(app, /preschool-course-badges/);
   assert.match(app, /preschool-course-samples/);
@@ -579,7 +579,7 @@ test('puts a single real-work workflow card above preschool home check-in lanes'
   assert.doesNotMatch(workflowRender, /再完成\s*\d+\s*项打卡/);
   assert.match(app, /item\.done && item\.completionSource === 'practice'/);
   assert.match(styles, /preschool-home-workflow/);
-  assert.match(html, /app\.js\?v=20260814-lesson-pack-v1/);
+  assert.match(html, /app\.js\?v=20260814-subject-levels-v1/);
   assert.doesNotMatch(app, /首页只负责打卡/);
 });
 
@@ -746,8 +746,8 @@ test('defines answerable activities for every preschool lesson', () => {
   const config = fs.readFileSync(path.join(root, 'config.js'), 'utf8');
   const preschoolCourses = config.split("id: 'preschool-literacy'")[1].split("actions: { 'add-plan'")[0];
   const activities = preschoolCourses.match(/activity:\s*\{/g) || [];
-  assert.equal(activities.length, 22);
-  assert.equal((preschoolCourses.match(/optionIcons:\s*\[/g) || []).length, 22);
+  assert.equal(activities.length, 24);
+  assert.equal((preschoolCourses.match(/optionIcons:\s*\[/g) || []).length, 24);
   assert.match(preschoolCourses, /prompt: '/);
   assert.match(preschoolCourses, /options: \[/);
   assert.match(preschoolCourses, /answer: \d/);
@@ -769,7 +769,7 @@ test('keeps preschool option art aligned with its answer choices', () => {
       optionIcons: optionIcons ? (optionIcons[1].match(/'[^']*'/g) || []) : []
     };
   });
-  assert.equal(activities.length, 22);
+  assert.equal(activities.length, 24);
   for (const activity of activities) {
     assert.equal(activity.optionIcons.length, activity.options.length);
     for (const item of activity.optionIcons) {

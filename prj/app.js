@@ -1301,7 +1301,9 @@
             levelProgressLabel: `Lv.${Number(growth.level) || 1} · ${Number(growth.levelProgress) || 0}/100 成长经验`,
             badgeUnlocked: badgeUnlocked,
             badgeUnseen: badgeUnseen,
-            badgeTotal: 11,
+            badgeTotal: badgeEngine && typeof badgeEngine.BADGE_COUNT === 'number'
+                ? badgeEngine.BADGE_COUNT
+                : (badgeEngine && Array.isArray(badgeEngine.BADGE_ORDER) ? badgeEngine.BADGE_ORDER.length : 19),
             collectionCount: unlockedCollectionIds.length,
             collectionTotal: Number(collection.total) || 0,
             nextAction: todayDone < todayTotal ? `完成今日第 ${todayDone + 1} 项任务` : wave === 0 ? '去花园游戏挑战第一波' : zombieDefeated > 0 ? '继续解锁植物伙伴' : '去花园游戏击退僵尸'
@@ -1418,7 +1420,7 @@
         }).join('');
         const badgeEngine = global.PersonalWorkbenchAchievements;
         const badgeBox = badgeEngine && ui.badgeBoxOpen
-            ? badgeEngine.renderCollectionBox(state.growth && state.growth.achievements, badgeEngine.getGrowthStats(state, workbenchConfig.childCourses), { filter: ui.badgeFilter || 'all' })
+            ? badgeEngine.renderCollectionBox(state.growth && state.growth.achievements, badgeEngine.getGrowthStats(state, workbenchConfig.childCourses, getLevelBanks()), { filter: ui.badgeFilter || 'all' })
             : '';
         const petCard = global.PersonalWorkbenchPet
             ? global.PersonalWorkbenchPet.renderCard(state.growth, getPreschoolThemeId())
@@ -1549,7 +1551,7 @@
         if (activity.mode === 'math-bank') {
             const engine = getMathBankEngine();
             if (!engine) return null;
-            const quiz = engine.buildQuiz(engine.getRuntimeBank(), { level: activity.level || 'L1', size: activity.size || 5 });
+            const quiz = engine.buildQuiz(engine.getRuntimeBank(), { level: resolveLessonLevel(match), size: activity.size || 5 });
             if (!quiz || !quiz.rounds.length) return null;
             return { mode: 'math-bank', run: quiz, roundIndex: 0, roundCorrect: false, complete: false, speakLang: 'zh-CN' };
         }
@@ -1563,14 +1565,14 @@
         if (activity.mode === 'pinyin-initial') {
             const engine = getPinyinEngine();
             if (!engine) return null;
-            const quiz = engine.buildInitialQuiz(engine.getRuntimeBank(), { kind: activity.kind || 'initial', groups: activity.groups || '', preferred: activity.preferred || 'b', size: activity.size || 8 });
+            const quiz = engine.buildInitialQuiz(engine.getRuntimeBank(), { kind: activity.kind || 'initial', groups: activity.groups || '', preferred: activity.preferred || 'b', size: activity.size || 8, level: resolveLessonLevel(match) });
             if (!quiz || !quiz.rounds.length) return null;
             return { mode: 'pinyin-initial', run: quiz, roundIndex: 0, roundCorrect: false, complete: false, speakLang: 'zh-CN' };
         }
         if (activity.mode === 'poetry-line') {
             const engine = getPoetryEngine();
             if (!engine) return null;
-            const quiz = engine.buildLineQuiz(engine.getRuntimeBank(), { preferred: activity.preferred || 'poem-jingyesi', size: activity.size || 5 });
+            const quiz = engine.buildLineQuiz(engine.getRuntimeBank(), { preferred: activity.preferred || 'poem-jingyesi', size: activity.size || 5, level: resolveLessonLevel(match) });
             if (!quiz || !quiz.rounds.length) return null;
             return { mode: 'poetry-line', run: quiz, roundIndex: 0, roundCorrect: false, complete: false, speakLang: 'zh-CN' };
         }
@@ -1583,9 +1585,9 @@
         const bank = engine.getRuntimeBank();
         const activity = match.lesson.activity || {};
         const size = activity.size || 5;
-        const daily = engine.dailyWindow(bank, storage.localDate(), size);
+        const daily = engine.dailyWindow(bank, storage.localDate(), size, resolveLessonLevel(match));
         if (!daily.batch.length) return null;
-        return { mode: 'english-speak', phase: 'speak', batch: daily.batch, day: daily.day, match: null, spell: null, complete: false };
+        return { mode: 'english-speak', phase: 'speak', batch: daily.batch, day: daily.day, level: resolveLessonLevel(match), match: null, spell: null, complete: false };
     }
 
     function buildPlaySession(match) {
@@ -1618,24 +1620,25 @@
         const bank = engine.getRuntimeBank();
         const rules = engine.getRuntimeRules();
         const activity = match.lesson.activity || {};
+        const level = resolveLessonLevel(match);
         const mastery = state.courseProgress && state.courseProgress.literacy
             ? state.courseProgress.literacy
             : engine.createDefaultProgress();
         if (activity.mode === 'literacy-flash') {
-            const batch = engine.buildFlashBatch(bank, mastery, rules, storage.localDate(), activity.char || '山', activity.size || 8);
-            return { mode: 'literacy-flash', batch: batch, phase: 'mark', teachIndex: 0, card: null, complete: false };
+            const batch = engine.buildFlashBatch(bank, mastery, rules, storage.localDate(), activity.char || '山', activity.size || 8, level);
+            return { mode: 'literacy-flash', batch: batch, phase: 'mark', teachIndex: 0, card: null, level: level, complete: false };
         }
         if (activity.mode === 'literacy-bloom') {
-            const char = engine.pickTodayChar(bank, mastery, rules, storage.localDate(), activity.char || '山');
+            const char = engine.pickTodayChar(bank, mastery, rules, storage.localDate(), activity.char || '山', level);
             const bloom = engine.buildWordBloom(bank, char);
-            return bloom ? { mode: 'literacy-bloom', char: bloom.char, bloom: bloom, selected: {}, complete: false } : null;
+            return bloom ? { mode: 'literacy-bloom', char: bloom.char, bloom: bloom, selected: {}, level: level, complete: false } : null;
         }
         if (activity.mode === 'literacy-find' || activity.mode === 'literacy-review') {
-            const run = engine.buildFindRun(bank, mastery, rules, storage.localDate(), activity.char || '山', activity.rounds || 5);
+            const run = engine.buildFindRun(bank, mastery, rules, storage.localDate(), activity.char || '山', activity.rounds || 5, level);
             if (!run || !run.rounds.length) return null;
-            return { mode: 'literacy-find', char: run.rounds[0].char, run: run, roundIndex: 0, roundCorrect: false, hint: false, complete: false };
+            return { mode: 'literacy-find', char: run.rounds[0].char, run: run, roundIndex: 0, roundCorrect: false, hint: false, level: level, complete: false };
         }
-        const char = engine.pickTodayChar(bank, mastery, rules, storage.localDate(), activity.char || '山');
+        const char = engine.pickTodayChar(bank, mastery, rules, storage.localDate(), activity.char || '山', level);
         const loop = engine.buildLoop(bank, char);
         if (!loop) return null;
         return { mode: activity.mode, char: loop.char, loop: loop, stepIndex: 0, stepCorrect: false, complete: false };
@@ -1986,6 +1989,117 @@
         if (global.lucide && typeof global.lucide.createIcons === 'function') global.lucide.createIcons({ root: lessonDialogContent });
     }
 
+    function getLevelBanks() {
+        const literacy = getLiteracyEngine();
+        const english = getEnglishVocabEngine();
+        const pinyin = getPinyinEngine();
+        const poetry = getPoetryEngine();
+        const math = getMathBankEngine();
+        const motionPack = global.PersonalWorkbenchLessonPack;
+        return {
+            literacy: literacy && typeof literacy.getRuntimeBank === 'function' ? literacy.getRuntimeBank() : [],
+            english: english && typeof english.getRuntimeBank === 'function' ? english.getRuntimeBank() : [],
+            pinyin: pinyin && typeof pinyin.getRuntimeBank === 'function' ? pinyin.getRuntimeBank() : [],
+            poetry: poetry && typeof poetry.getRuntimeBank === 'function' ? poetry.getRuntimeBank() : [],
+            math: math && typeof math.getRuntimeBank === 'function' ? math.getRuntimeBank() : [],
+            motion: motionPack && typeof motionPack.getMotionBank === 'function' ? motionPack.getMotionBank() : []
+        };
+    }
+
+    const PRESCHOOL_LEVEL_BAND_COURSES = new Set([
+        'preschool-literacy',
+        'preschool-english',
+        'preschool-pinyin',
+        'preschool-poetry',
+        'preschool-math',
+        'preschool-exercise'
+    ]);
+
+    const PRESCHOOL_SUBJECT_TRACK = {
+        'preschool-pinyin': 'pinyin',
+        'preschool-poetry': 'poetry',
+        'preschool-math': 'math',
+        'preschool-exercise': 'motion'
+    };
+
+    function summarizeSubjectMastery(courseId) {
+        const track = PRESCHOOL_SUBJECT_TRACK[courseId];
+        if (!track || !global.PersonalWorkbenchChildCourses) return null;
+        const banks = getLevelBanks();
+        const bank = banks[track] || [];
+        const progressRoot = state.courseProgress && state.courseProgress[track]
+            ? state.courseProgress[track]
+            : { mastery: {} };
+        const mastery = progressRoot.mastery || {};
+        let known = 0;
+        let unknown = 0;
+        Object.keys(mastery).forEach(function (key) {
+            const entry = mastery[key];
+            if (entry && (entry.state === 'ready' || entry.state === 'maintenance')) known += 1;
+            else unknown += 1;
+        });
+        const unseen = Math.max(0, bank.length - known - unknown);
+        return { known: known, unknown: unknown, unseen: unseen, bankSize: bank.length };
+    }
+
+    function recordSubjectProgressFromLesson(next, match) {
+        const courses = global.PersonalWorkbenchChildCourses;
+        const levels = global.PersonalWorkbenchBankLevels;
+        if (!courses || !levels || !match || !match.course || !ui.lessonSession) return;
+        const track = levels.trackForCourse(match.course.id);
+        if (track === 'literacy' || track === 'english') return;
+        const date = storage.localDate();
+        const keys = [];
+        const activity = match.lesson && match.lesson.activity ? match.lesson.activity : {};
+        const session = ui.lessonSession;
+        if (session.bankQuiz && session.bankQuiz.run && Array.isArray(session.bankQuiz.run.rounds)) {
+            if (track === 'pinyin') {
+                session.bankQuiz.run.rounds.forEach(function (round) {
+                    if (round && round.text) keys.push(String(round.text));
+                });
+            } else if (track === 'poetry') {
+                if (activity.preferred) keys.push(String(activity.preferred));
+            } else if (track === 'math') {
+                session.bankQuiz.run.rounds.forEach(function (round) {
+                    if (round && round.id) keys.push(String(round.id));
+                });
+            }
+        } else if (session.timer && track === 'motion') {
+            if (activity.motionId) keys.push(String(activity.motionId));
+            else {
+                const bank = getLevelBanks().motion || [];
+                const byTitle = bank.find(function (item) { return item.name === match.lesson.title; });
+                if (byTitle) keys.push(byTitle.id);
+            }
+        }
+        if (!keys.length) return;
+        const current = next.courseProgress && next.courseProgress[track]
+            ? next.courseProgress[track]
+            : { mastery: {} };
+        next.courseProgress = courses.saveSubject(next.courseProgress, track, courses.markSubjectReady(current, keys, date));
+    }
+
+    function getCourseTrackProgress(courseId) {
+        const levels = global.PersonalWorkbenchBankLevels;
+        if (!levels || typeof levels.resolveTrackProgress !== 'function') return null;
+        return levels.resolveTrackProgress(courseId, state.courseProgress, getLevelBanks());
+    }
+
+    function resolveLessonLevel(match) {
+        const levels = global.PersonalWorkbenchBankLevels;
+        const activity = match && match.lesson && match.lesson.activity ? match.lesson.activity : {};
+        const requested = activity.level || 'L1';
+        if (!levels || typeof levels.clampLevel !== 'function' || !match || !match.course) return requested;
+        return levels.clampLevel(requested, getCourseTrackProgress(match.course.id));
+    }
+
+    function isLessonLevelUnlocked(match) {
+        const levels = global.PersonalWorkbenchBankLevels;
+        if (!match || !levels || typeof levels.isLevelUnlocked !== 'function') return true;
+        const activity = match.lesson && match.lesson.activity ? match.lesson.activity : {};
+        return levels.isLevelUnlocked(activity.level || 'L1', getCourseTrackProgress(match.course.id));
+    }
+
     function openLessonDialog(id, planId, planDate) {
         if (!isPreschool || !lessonDialog || !lessonDialogContent) return false;
         const match = findPreschoolLesson(id);
@@ -2007,6 +2121,14 @@
                     showToast('这节练习已经点亮啦。');
                     return false;
             }
+        }
+        if (!isLessonLevelUnlocked(match)) {
+            const levels = global.PersonalWorkbenchBankLevels;
+            const hint = levels && typeof levels.unlockHint === 'function'
+                ? levels.unlockHint((match.lesson.activity && match.lesson.activity.level) || 'L1', getCourseTrackProgress(match.course.id))
+                : '';
+            showToast(hint || '这一级还没解锁，先把前面的练熟。', true);
+            return false;
         }
         ui.lessonSession = { id: match.lesson.id, courseId: match.course.id, selectedIndex: null, correct: false, planId: sourcePlan ? sourcePlan.id : '', planDate: sourcePlan ? sourcePlan.date : '' };
         if (isLiteracyLesson(match)) ui.lessonSession.literacy = buildLiteracySession(match);
@@ -2634,13 +2756,30 @@
         };
     }
 
-    function getPreschoolLessonRouteState(completion, lesson, index) {
+    function getPreschoolLessonRouteState(completion, lesson, index, course) {
         if (completion.lessons.indexOf(lesson) < 0) return 'next';
+        const match = course && lesson ? { course: course, lesson: lesson } : null;
+        if (match && !isLessonLevelUnlocked(match)) return 'locked';
         const completedIds = new Set(state.courseProgress && Array.isArray(state.courseProgress.completedLessonIds)
             ? state.courseProgress.completedLessonIds
             : []);
         if (completedIds.has(lesson.id)) return 'done';
         return index === completion.firstIncompleteIndex ? 'current' : 'next';
+    }
+
+    function renderPreschoolLevelBands(course) {
+        if (!course || !PRESCHOOL_LEVEL_BAND_COURSES.has(course.id)) return '';
+        const levels = global.PersonalWorkbenchBankLevels;
+        const track = getCourseTrackProgress(course.id);
+        if (!levels || !track || !Array.isArray(track.bands)) return '';
+        const maxUnlocked = track.maxUnlocked || 'L1';
+        return `<div class="preschool-level-bands" aria-label="${escapeHtml(course.title)}分级进度">${track.bands.map(function (band) {
+            const unlocked = levels.isLevelUnlocked(band.level, track);
+            const current = band.level === maxUnlocked;
+            const stateClass = unlocked ? (current ? 'is-current' : 'is-unlocked') : 'is-locked';
+            const stateLabel = unlocked ? (current ? '进行中' : '已解锁') : '未解锁';
+            return `<article class="preschool-level-band ${stateClass}"><strong>${escapeHtml(band.level)} · ${escapeHtml(levels.labelFor(band.level))}</strong><span class="preschool-level-band-track" role="progressbar" aria-label="${escapeHtml(band.level)}掌握度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${band.percent}"><i style="width:${band.percent}%"></i></span><span class="preschool-level-band-state">${stateLabel} · ${band.ready}/${band.total}</span></article>`;
+        }).join('')}</div>`;
     }
 
     function getPreschoolLessonRouteArt(course, lesson, index) {
@@ -2669,22 +2808,65 @@
         const summary = engine.summarizeMastery(literacy);
         const bankSize = (engine.getRuntimeBank() || []).length;
         const unseen = Math.max(0, bankSize - summary.total);
-        return `<div class="preschool-literacy-mastery" aria-label="识字会了还不会"><span>会了 ${summary.known}</span><span>还不会 ${summary.unknown}</span><span>还没点 ${unseen}</span></div>`;
+        const track = getCourseTrackProgress(course.id);
+        const maxLevel = track && track.maxUnlocked ? track.maxUnlocked : 'L1';
+        return `<div class="preschool-literacy-mastery" aria-label="识字会了还不会"><span>会了 ${summary.known}</span><span>还不会 ${summary.unknown}</span><span>还没点 ${unseen}</span><span>已开到 ${escapeHtml(maxLevel)}</span></div>`;
+    }
+
+    function renderPreschoolEnglishMastery(course) {
+        if (!course || course.id !== 'preschool-english') return '';
+        const engine = getEnglishVocabEngine();
+        if (!engine) return '';
+        const english = state.courseProgress && state.courseProgress.english
+            ? state.courseProgress.english
+            : engine.createDefaultProgress();
+        const mastery = english.mastery || {};
+        let known = 0;
+        let unknown = 0;
+        Object.keys(mastery).forEach(function (word) {
+            const stateName = mastery[word] && mastery[word].state;
+            if (stateName === 'ready' || stateName === 'maintenance') known += 1;
+            else unknown += 1;
+        });
+        const bankSize = (engine.getRuntimeBank() || []).length;
+        const unseen = Math.max(0, bankSize - known - unknown);
+        const track = getCourseTrackProgress(course.id);
+        const maxLevel = track && track.maxUnlocked ? track.maxUnlocked : 'L1';
+        return `<div class="preschool-literacy-mastery" aria-label="英语词掌握"><span>会了 ${known}</span><span>练过 ${unknown}</span><span>还没点 ${unseen}</span><span>已开到 ${escapeHtml(maxLevel)}</span></div>`;
+    }
+
+    function renderPreschoolSubjectMastery(course) {
+        if (!course || !PRESCHOOL_SUBJECT_TRACK[course.id]) return '';
+        const summary = summarizeSubjectMastery(course.id);
+        if (!summary) return '';
+        const track = getCourseTrackProgress(course.id);
+        const maxLevel = track && track.maxUnlocked ? track.maxUnlocked : 'L1';
+        const labels = {
+            'preschool-pinyin': '拼音掌握',
+            'preschool-poetry': '古诗掌握',
+            'preschool-math': '数学掌握',
+            'preschool-exercise': '运动掌握'
+        };
+        return `<div class="preschool-literacy-mastery" aria-label="${escapeHtml(labels[course.id] || '掌握进度')}"><span>会了 ${summary.known}</span><span>练过 ${summary.unknown}</span><span>还没点 ${summary.unseen}</span><span>已开到 ${escapeHtml(maxLevel)}</span></div>`;
     }
 
     function renderPreschoolCourseRoute(course) {
         const lessonAction = isPreschool ? 'open-lesson' : 'complete-lesson';
         const completion = getPreschoolCourseCompletion(course);
-        const stateLabels = { done: '已点亮', current: '现在来做', next: '下一张' };
+        const stateLabels = { done: '已点亮', current: '现在来做', next: '下一张', locked: '还没解锁' };
         return `<div class="preschool-course-route" aria-label="${escapeHtml(course.title)}学习路线">${completion.lessons.map(function (lesson, index) {
-            const routeState = getPreschoolLessonRouteState(completion, lesson, index);
+            const routeState = getPreschoolLessonRouteState(completion, lesson, index, course);
             const literacyReplay = isLiteracyLesson({ lesson: lesson }) || isEnglishSpeakLesson({ lesson: lesson });
             const isDone = routeState === 'done';
-            const detail = isDone
+            const isLocked = routeState === 'locked';
+            const lessonLevel = lesson && lesson.activity && lesson.activity.level ? lesson.activity.level : 'L1';
+            const detail = isLocked
+                ? `${lessonLevel} · 先把前一级练到 80%`
+                : isDone
                 ? (literacyReplay ? '再认一个字 · 字库继续排队' : '完成啦 · 已记录到成长花园')
                 : `${lesson.minutes || 0} 分钟 · ${escapeHtml(lesson.meta || '看图选一选')}`;
-            const actionIcon = isDone && !literacyReplay ? 'check' : routeState === 'current' || isDone ? 'play' : 'arrow-right';
-            return `<button class="preschool-route-step is-${routeState}" type="button" data-action="${lessonAction}" data-id="${escapeHtml(lesson.id)}" data-route-state="${routeState}" ${isDone && !literacyReplay ? 'disabled' : ''}><span class="preschool-route-step-number">${index + 1}</span><span class="preschool-route-step-art" aria-hidden="true">${getPreschoolLessonRouteArt(course, lesson, index)}</span><span class="preschool-route-step-copy"><strong>${escapeHtml(lesson.title)}</strong><small>${stateLabels[routeState]} · ${detail}</small></span><span class="preschool-route-step-action">${icon(actionIcon)}</span></button>`;
+            const actionIcon = isLocked ? 'lock-keyhole' : isDone && !literacyReplay ? 'check' : routeState === 'current' || isDone ? 'play' : 'arrow-right';
+            return `<button class="preschool-route-step is-${routeState}" type="button" data-action="${lessonAction}" data-id="${escapeHtml(lesson.id)}" data-route-state="${routeState}" ${isDone && !literacyReplay || isLocked ? 'disabled' : ''}><span class="preschool-route-step-number">${index + 1}</span><span class="preschool-route-step-art" aria-hidden="true">${getPreschoolLessonRouteArt(course, lesson, index)}</span><span class="preschool-route-step-copy"><strong>${escapeHtml(lesson.title)}</strong><small>${stateLabels[routeState]} · ${detail}</small></span><span class="preschool-route-step-action">${icon(actionIcon)}</span></button>`;
         }).join('')}</div>`;
     }
 
@@ -2712,7 +2894,7 @@
     }
 
     function renderPreschoolCourseCard(course, focused) {
-        return `<article class="preschool-course-card tone-${escapeHtml(course.tone || 'blue')} ${focused ? 'is-focused' : ''}"><div class="preschool-course-head">${preschoolVisual(course.icon || 'book-open', preschoolAssetForIcon(course.icon || 'book-open'), course.title)}<div><span class="preschool-course-label">${focused ? '当前学习专区' : '学习专区'}</span><h2>${escapeHtml(course.title)}</h2><small>${escapeHtml(course.description || '')}</small></div><strong>${course.completed || 0}/${course.total || 0}</strong></div>${renderPreschoolCourseProgress(course)}${renderPreschoolLiteracyMastery(course)}<div class="preschool-course-reference"><span>${icon('sparkles')}</span><p class="preschool-course-note">${escapeHtml(course.note || '选一张卡，开始今天的小练习。')}</p></div>${renderPreschoolCourseBadges(course)}${renderPreschoolCourseSamples(course)}${renderPreschoolCourseResources(course)}${renderPreschoolSummerLibrary(course)}<div class="preschool-course-lesson-heading"><div><span class="eyebrow">LEARNING ROUTE</span><h3>一步一步点亮小路线</h3></div><span>${course.total || (course.lessons || []).length} 张练习卡</span></div>${renderPreschoolCourseRoute(course)}</article>`;
+        return `<article class="preschool-course-card tone-${escapeHtml(course.tone || 'blue')} ${focused ? 'is-focused' : ''}"><div class="preschool-course-head">${preschoolVisual(course.icon || 'book-open', preschoolAssetForIcon(course.icon || 'book-open'), course.title)}<div><span class="preschool-course-label">${focused ? '当前学习专区' : '学习专区'}</span><h2>${escapeHtml(course.title)}</h2><small>${escapeHtml(course.description || '')}</small></div><strong>${course.completed || 0}/${course.total || 0}</strong></div>${renderPreschoolCourseProgress(course)}${renderPreschoolLevelBands(course)}${renderPreschoolLiteracyMastery(course)}${renderPreschoolEnglishMastery(course)}${renderPreschoolSubjectMastery(course)}<div class="preschool-course-reference"><span>${icon('sparkles')}</span><p class="preschool-course-note">${escapeHtml(course.note || '选一张卡，开始今天的小练习。')}</p></div>${renderPreschoolCourseBadges(course)}${renderPreschoolCourseSamples(course)}${renderPreschoolCourseResources(course)}${renderPreschoolSummerLibrary(course)}<div class="preschool-course-lesson-heading"><div><span class="eyebrow">LEARNING ROUTE</span><h3>一步一步点亮小路线</h3></div><span>${course.total || (course.lessons || []).length} 张练习卡</span></div>${renderPreschoolCourseRoute(course)}</article>`;
     }
 
     function renderPreschoolCourses() {
@@ -3754,7 +3936,8 @@
     function applyPreschoolAchievements(next) {
         if (!isPreschool || !global.PersonalWorkbenchAchievements || typeof global.PersonalWorkbenchAchievements.checkAchievements !== 'function') return [];
         const result = global.PersonalWorkbenchAchievements.checkAchievements(next, {
-            catalog: Array.isArray(workbenchConfig.childCourses) ? workbenchConfig.childCourses : []
+            catalog: Array.isArray(workbenchConfig.childCourses) ? workbenchConfig.childCourses : [],
+            banks: getLevelBanks()
         });
         if (result && result.growth) next.growth = result.growth;
         if (global.PersonalWorkbenchPet && typeof global.PersonalWorkbenchPet.takePendingHappiness === 'function') {
@@ -3868,6 +4051,8 @@
         const ok = commit(function (next) {
             const sourcePlan = planId ? findDailyPlan(next.dailyPlans, planId, planDate) : null;
             if (planId && (!sourcePlan || sourcePlan.done)) throw new Error(sourcePlan && sourcePlan.done ? '这项计划已经完成了' : '找不到来源计划，请刷新页面后重试。');
+            const match = findPreschoolLesson(id);
+            recordSubjectProgressFromLesson(next, match);
             const result = global.PersonalWorkbenchChildCourses.completeLesson(next.courseProgress, id);
             if (!result.changed) {
                 if (!sourcePlan) throw new Error('这节课已经完成了');

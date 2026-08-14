@@ -5,6 +5,11 @@ import test from 'node:test';
 import { fileURLToPath } from 'node:url';
 
 const repoRoot = fileURLToPath(new URL('..', import.meta.url));
+await import('../prj/preschool-bank-levels.js');
+await import('../prj/preschool-literacy-data.js');
+await import('../prj/preschool-literacy.js');
+await import('../prj/preschool-english-vocab-data.js');
+await import('../prj/preschool-english-vocab.js');
 await import('../prj/preschool-growth-world.js');
 const engine = globalThis.PersonalWorkbenchGrowthWorld;
 
@@ -71,6 +76,12 @@ test('renders three world chooser cards and focused flower review hooks', () => 
   const garden = engine.render(makeState({ chars: ['山'], checkinDates: ['2026-08-01'] }), [], { focus: 'garden' });
   assert.match(garden, /data-action="review-growth-flower"/);
   assert.match(garden, /返回三个世界/);
+});
+
+test('growth world panels show literacy and english level bands', () => {
+  const html = engine.render(makeState({ chars: ['山'] }), []);
+  assert.match(html, /识字 L1/);
+  assert.match(html, /英语 L1/);
 });
 
 test('preschool shell loads the growth-world module', () => {

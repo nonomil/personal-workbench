@@ -134,10 +134,20 @@ body.mc-world.mc-embed .mc-quests {
     background: linear-gradient(180deg, #fff, #e8eeff);
 }
 
-.hotbar-slot img {
-    width: 32px;
-    height: 32px;
+.hotbar-slot img,
+.hotbar-swatch,
+.hotbar-pixel {
+    width: 36px;
+    height: 36px;
     object-fit: contain;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+.hotbar-swatch {
+    display: block;
+    border: 1px solid rgba(0, 0, 0, 0.22);
+    box-sizing: border-box;
 }
 
 .hotbar-slot small {
@@ -302,9 +312,12 @@ body.mc-world.mc-embed .mc-quests {
 .mc-view #world-canvas {
     width: 100%;
     max-height: min(68vh, 640px);
-    border: 0;
+    border: 4px solid #2a2a2a;
     border-radius: 0;
     background: #87ceeb;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    box-shadow: inset 0 0 0 2px #555;
 }
 
 .mc-hud {
@@ -369,13 +382,26 @@ body.mc-world.mc-embed .mc-quests {
 .mc-world .hotbar-slot {
     width: 58px;
     height: 58px;
-    border: 3px solid #555;
-    border-radius: 2px;
-    background: #2b2b2b;
+    border: 3px solid #3a3a3a;
+    border-radius: 0;
+    background: #8b8b8b;
     color: #fff;
+    box-shadow: inset -2px -2px 0 #555, inset 2px 2px 0 #c6c6c6;
 }
 
 .mc-world .hotbar-slot small { color: #ffe082; }
+.mc-world .hotbar-slot kbd {
+    position: absolute;
+    left: 3px;
+    top: 2px;
+    padding: 0 3px;
+    border: 1px solid #222;
+    border-radius: 2px;
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    font-size: 9px;
+    line-height: 12px;
+}
 .mc-world .hotbar-slot.is-active {
     border-color: #ff9800;
     box-shadow: 0 0 0 2px #ff9800;

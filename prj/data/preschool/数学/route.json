@@ -25,7 +25,8 @@
         "1-3",
         "点数",
         "一样多"
-      ]
+      ],
+      "level": "L1"
     },
     {
       "id": "compare-and-classify",
@@ -40,7 +41,8 @@
         "大",
         "小",
         "颜色"
-      ]
+      ],
+      "level": "L2"
     },
     {
       "id": "compose-within-five",
@@ -53,7 +55,8 @@
         "合起来",
         "加 1",
         "分开"
-      ]
+      ],
+      "level": "L3"
     },
     {
       "id": "take-away-within-five",
@@ -66,7 +69,8 @@
         "拿走",
         "还剩",
         "前进后退"
-      ]
+      ],
+      "level": "L4"
     },
     {
       "id": "within-ten-add-subtract",
@@ -79,7 +83,8 @@
         "凑 5",
         "加减混合",
         "算式"
-      ]
+      ],
+      "level": "L5"
     },
     {
       "id": "grouping-and-transfer",
@@ -92,7 +97,8 @@
         "几组",
         "每组几个",
         "规律"
-      ]
+      ],
+      "level": "L5"
     }
   ],
   "dailyContract": {

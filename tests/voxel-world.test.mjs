@@ -3,8 +3,10 @@ import test from 'node:test';
 
 await import('../prj/games/voxel-adventure/data/world.js');
 await import('../prj/games/voxel-adventure/data/quests.js');
+await import('../prj/games/voxel-adventure/data/levels.js');
 const VW = globalThis.VoxelWorld;
 const Q = globalThis.VoxelQuests;
+const VL = globalThis.VoxelLevels;
 
 test('default voxel world is a bounded grass-dirt-stone home', () => {
   const world = VW.createDefaultWorld(3);
@@ -38,7 +40,7 @@ test('hand breaks grass into inventory and place puts it back', () => {
   assert.equal(VW.getCell(world, x, y), 'grass');
 });
 
-test('pick cannot mine stone until miner rank 2', () => {
+test('hand cannot mine stone; wood pick can (Paper MC tool chain)', () => {
   const world = VW.createDefaultWorld(3);
   let sx = 0;
   let sy = 0;
@@ -47,11 +49,12 @@ test('pick cannot mine stone until miner rank 2', () => {
       if (world.grid[y][x] === 'stone') { sx = x; sy = y; }
     }
   }
-  const low = VW.breakBlock(world, sx, sy, 'pick', 1);
-  assert.equal(low.ok, false);
-  const high = VW.breakBlock(world, sx, sy, 'pick', 2);
-  assert.equal(high.ok, true);
-  assert.equal(VW.canBreak('bedrock', 'pick', 5), false);
+  const hand = VW.breakBlock(world, sx, sy, 'hand', 1);
+  assert.equal(hand.ok, false);
+  assert.match(hand.reason, /木镐/);
+  const pick = VW.breakBlock(world, sx, sy, 'wood_pick', 1);
+  assert.equal(pick.ok, true);
+  assert.equal(VW.canBreak('bedrock', 'wood_pick', 5), false);
 });
 
 test('saved home world round-trips without changing size', () => {
@@ -89,7 +92,7 @@ test('home world has sand water coal and keeps six crystals', () => {
   assert.equal(VW.isPassable('sand'), false);
 });
 
-test('hand scoops sand and pick needs rank 2 for coal', () => {
+test('hand scoops sand and wood pick mines coal', () => {
   const world = VW.createDefaultWorld(3);
   let sx = 0;
   let sy = 0;
@@ -108,10 +111,42 @@ test('hand scoops sand and pick needs rank 2 for coal', () => {
       if (world.grid[y][x] === 'coal') { cx = x; cy = y; }
     }
   }
-  assert.equal(VW.breakBlock(world, cx, cy, 'pick', 1).ok, false);
-  const dug = VW.breakBlock(world, cx, cy, 'pick', 2);
+  assert.equal(VW.breakBlock(world, cx, cy, 'hand', 1).ok, false);
+  const dug = VW.breakBlock(world, cx, cy, 'wood_pick', 2);
   assert.equal(dug.ok, true);
   assert.equal(dug.kind, 'coal');
+});
+
+test('stone pick mines crystal; hand cannot', () => {
+  const world = VW.createDefaultWorld(3);
+  let cx = 0;
+  let cy = 0;
+  for (let y = 0; y < world.rows; y += 1) {
+    for (let x = 0; x < world.cols; x += 1) {
+      if (world.grid[y][x] === 'crystal') { cx = x; cy = y; break; }
+    }
+  }
+  assert.equal(VW.breakBlock(world, cx, cy, 'wood_pick', 1).ok, false);
+  assert.equal(VW.breakBlock(world, cx, cy, 'stone_pick', 1).ok, true);
+});
+
+test('craft stick and wood pick from planks', () => {
+  let inv = VW.emptyInv();
+  inv.plank = 5;
+  const sticks = VW.craft(inv, 'stick');
+  assert.equal(sticks.ok, true);
+  assert.equal(sticks.inventory.stick, 4);
+  assert.equal(sticks.inventory.plank, 3);
+  const pick = VW.craft(sticks.inventory, 'wood_pick');
+  assert.equal(pick.ok, true);
+  assert.equal(pick.inventory.wood_pick, 1);
+});
+
+test('eight region levels expose goals from DS scratch doc', () => {
+  assert.equal(VL.count, 8);
+  assert.equal(VL.get(1).region, 'grassland');
+  assert.equal(VL.get(4).goal.type, 'coal');
+  assert.equal(VL.REGIONS.forest.treeDensity > 1, true);
 });
 
 test('spark chases miner one cell and bump costs one heart', () => {

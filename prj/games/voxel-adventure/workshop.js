@@ -17,8 +17,11 @@
         { id: 'crystal', name: '晶体', nameEn: 'Crystal', desc: '闪亮的矿石', cost: 20, kind: 'crystal', icon: 'voxel-purple-crystal.png' },
         { id: 'water', name: '水', nameEn: 'Water', desc: '可以铺成水塘', cost: 8, kind: 'water', icon: 'voxel-water-channel.png' }
     ];
-    const EMPTY = { grass: 0, dirt: 0, wood: 0, leaf: 0, plank: 0, stone: 0, sand: 0, water: 0, coal: 0, crystal: 0 };
-    const KIND_LABEL = { grass: '草', dirt: '土', wood: '木', leaf: '叶', plank: '板', stone: '石', sand: '沙', water: '水', coal: '煤', crystal: '晶' };
+    const EMPTY = { grass: 0, dirt: 0, wood: 0, leaf: 0, plank: 0, stone: 0, sand: 0, water: 0, coal: 0, crystal: 0, stick: 0, wood_pick: 0, stone_pick: 0 };
+    const KIND_LABEL = {
+        grass: '草', dirt: '土', wood: '木', leaf: '叶', plank: '板', stone: '石', sand: '沙', water: '水',
+        coal: '煤', crystal: '晶', stick: '棍', wood_pick: '木镐', stone_pick: '石镐'
+    };
     const TABS = [
         { id: 'home', label: '学习', labelEn: 'Study', icon: 'book' },
         { id: 'life', label: '生活', labelEn: 'Life', icon: 'life' },
@@ -84,20 +87,30 @@
         return Math.max(1, Number(p.rank) || Math.min(5, 1 + Math.floor(n / 2)));
     }
 
+    function kindSrc(kind, size) {
+        const tiles = global.VoxelPixelTiles;
+        if (!tiles) return '';
+        if (tiles.kindIcon) return tiles.kindIcon(kind, size || 48);
+        if (tiles.tilePreviewDataUrl) return tiles.tilePreviewDataUrl(kind, size);
+        if (tiles.iconPreviewDataUrl) return tiles.iconPreviewDataUrl(kind, size);
+        return '';
+    }
+
+    function kindImg(kind, cls, size) {
+        const src = kindSrc(kind, size);
+        if (src) return '<img class="' + (cls || 'vw-pixel') + '" src="' + src + '" alt="">';
+        return '<span class="vw-swatch"></span>';
+    }
+
     function iconMarkup(name) {
-        if (name === 'grass') return '<span class="vw-grass" aria-hidden="true"></span>';
-        if (name === 'cart') return '<span class="vw-ico">🛒</span>';
-        if (name === 'pack') return '<span class="vw-ico">🎒</span>';
-        if (name === 'book') return '<span class="vw-ico">📖</span>';
-        if (name === 'life') return '<span class="vw-ico">⌂</span>';
-        if (name === 'chore') return '<span class="vw-ico">🧹</span>';
-        return '<span class="vw-ico">⏱</span>';
+        const key = name === 'grass' ? 'grass' : name;
+        const src = kindSrc(key, 36);
+        if (src) return '<img class="vw-rail-ico" src="' + src + '" alt="">';
+        return '<span class="vw-ico">◆</span>';
     }
 
     function itemIcon(item) {
-        if (item.icon) return '<img src="' + THEME + item.icon + '" alt="">';
-        const fill = { sand: '#e6c36a', coal: '#2e3238' }[item.id] || '#8a8f99';
-        return '<span class="vw-swatch" style="background:' + fill + '"></span>';
+        return kindImg(item.kind || item.id, 'vw-pixel', 64);
     }
 
     function rail(active) {
@@ -113,22 +126,22 @@
         const have = xp();
         const pct = Math.min(100, have % 100);
         return '<header class="vw-head">' +
+            '<img class="vw-hero" src="../games/voxel-adventure/assets/hero/explorer-idle.png" alt="">' +
             '<div class="vw-title-block"><strong>方块工作台</strong><small>Block Workshop</small></div>' +
             '<span class="vw-lv">Lv.' + lv + '</span>' +
             '<div class="vw-xp" role="progressbar" aria-valuenow="' + have + '"><i style="width:' + pct + '%"></i></div>' +
-            '<span class="vw-xp-label">XP ' + have + '</span>' +
+            '<span class="vw-xp-label">阳光 ' + have + '</span>' +
             '</header>';
     }
 
     function footBar() {
         const locked = isLocked();
-        const hearts = '<span class="vw-hearts" aria-label="生命">❤❤❤❤❤❤❤❤❤❤</span>';
         return '<footer class="vw-foot">' +
-            '<span class="vw-stat">◆ ' + bagCount() + '</span>' +
-            '<span class="vw-stat">◆ ' + xp() + '</span>' +
-            '<button type="button" class="vw-lock-btn" data-action="voxel-parent-lock">' + (locked ? '已锁' : '锁') + '</button>' +
-            '<span class="vw-lock-tip">Parent Lock / 家长锁</span>' +
-            hearts +
+            '<span class="vw-stat">' + kindImg('pack', 'vw-foot-ico', 28) + ' ' + bagCount() + '</span>' +
+            '<span class="vw-stat">' + kindImg('crystal', 'vw-foot-ico', 28) + ' ' + xp() + '</span>' +
+            '<button type="button" class="vw-lock-btn" data-action="voxel-parent-lock">' +
+            kindImg('lock', 'vw-foot-ico', 28) + (locked ? '已锁' : '开锁') + '</button>' +
+            '<span class="vw-lock-tip">家长锁</span>' +
             '</footer>';
     }
 
@@ -162,10 +175,10 @@
             '<section class="vw-block vw-chore"><h2>家务 / Chores</h2><div class="vw-task-grid">' +
             (chores.length ? chores.map(function (p) { return planCard(p, 'brown'); }).join('') : '<p class="vw-empty">还没有家务卡片</p>') +
             '</div></section>' +
-            '<section class="vw-block vw-rewards"><h2>★ 等级奖励 / Level Rewards</h2><div class="vw-reward-grid">' +
-            '<article class="vw-reward"><span class="vw-tool-pic">⛏</span><strong>木镐</strong><small>Wooden Pickaxe</small><em>' + (lv >= 1 ? '已解锁' : 'Lv.1') + '</em></article>' +
-            '<article class="vw-reward"><span class="vw-tool-pic">🪓</span><strong>石斧</strong><small>Stone Axe</small><em>' + (lv >= 1 ? '已解锁' : 'Lv.1') + '</em></article>' +
-            '<article class="vw-reward"><span class="vw-tool-pic">⛏</span><strong>石镐</strong><small>Stone Pickaxe</small><em>' + (lv >= 2 ? '已解锁' : 'Lv.2') + '</em></article>' +
+            '<section class="vw-block vw-rewards"><h2>工具柜 / Tools</h2><div class="vw-reward-grid">' +
+            '<article class="vw-reward">' + kindImg('wood_pick', 'vw-tool-pic', 56) + '<strong>木镐</strong><small>挖石头和煤</small><em>' + (lv >= 1 ? '已解锁' : 'Lv.1') + '</em></article>' +
+            '<article class="vw-reward">' + kindImg('stone_pick', 'vw-tool-pic', 56) + '<strong>石镐</strong><small>挖晶体</small><em>' + (lv >= 2 ? '已解锁' : 'Lv.2') + '</em></article>' +
+            '<article class="vw-reward">' + kindImg('plank', 'vw-tool-pic', 56) + '<strong>橡木板</strong><small>合成材料</small><em>工作台</em></article>' +
             '</div></section></div>';
     }
 
@@ -180,7 +193,7 @@
         Object.keys(inputs || {}).forEach(function (kind) {
             const n = Number(inputs[kind]) || 0;
             for (let i = 0; i < n && cells.length < 4; i += 1) {
-                cells.push('<div class="vw-slot"><span>' + KIND_LABEL[kind] + '</span></div>');
+                cells.push('<div class="vw-slot">' + kindImg(kind, 'vw-slot-ico', 32) + '</div>');
             }
         });
         while (cells.length < 4) cells.push('<div class="vw-slot is-empty"></div>');
@@ -194,25 +207,27 @@
                 '<p>合成台还没准备好。</p></section>';
         }
         return '<section class="vw-craft"><h2>合成台 / Crafting Table</h2>' +
-            '<p>2×2 合成。1 橡木 → 4 橡木板。合成后带到世界里放下。</p>' +
+            '<p>把左边材料合成右边的新东西。1 橡木 → 4 板 → 木棍 → 镐子。</p>' +
             '<div class="vw-recipe-grid">' + recipes.map(function (recipe) {
                 const can = Object.keys(recipe.inputs || {}).every(function (kind) {
                     return (Number(bag[kind]) || 0) >= recipe.inputs[kind];
                 });
+                const outKind = Object.keys(recipe.outputs || {})[0] || recipe.id;
                 return '<article class="vw-recipe">' +
                     recipeSlots(recipe.inputs) +
                     '<span class="vw-craft-arrow">→</span>' +
-                    '<div class="vw-craft-out"><strong>' + recipe.name + '</strong>' +
+                    '<div class="vw-craft-out">' + kindImg(outKind, 'vw-out-ico', 48) +
+                    '<strong>' + recipe.name + '</strong>' +
                     '<small>' + recipeLine(recipe.inputs) + ' → ' + recipeLine(recipe.outputs) + '</small></div>' +
                     '<button type="button" class="vw-buy" data-action="voxel-craft" data-recipe="' + recipe.id + '"' +
-                    (locked || !can ? ' disabled' : '') + '>合成 Craft</button></article>';
+                    (locked || !can ? ' disabled' : '') + '>合成</button></article>';
             }).join('') + '</div></section>';
     }
 
     function renderShop() {
         const bag = inventory();
         const locked = isLocked();
-        return '<div class="vw-shop"><h2>材料 Materials</h2><div class="vw-shop-grid">' +
+        return '<div class="vw-shop"><h2>小卖部 / Shop</h2><div class="vw-shop-grid">' +
             SHOP.map(function (item) {
                 const stock = Number(bag[item.kind]) || 0;
                 return '<article class="vw-card">' +
@@ -235,7 +250,7 @@
         kinds.forEach(function (kind) {
             const n = Number(bag[kind]) || 0;
             if (!n) return;
-            cells.push('<div class="vw-slot"><span>' + labels[kind] + '</span><b>' + n + '</b></div>');
+            cells.push('<div class="vw-slot" title="' + labels[kind] + '">' + kindImg(kind, 'vw-slot-ico', 36) + '<b>' + n + '</b></div>');
         });
         while (cells.length < 36) cells.push('<div class="vw-slot is-empty"></div>');
         return '<div class="vw-pack"><h2>背包 / Inventory</h2><div class="vw-grid">' + cells.join('') +

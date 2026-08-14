@@ -100,6 +100,34 @@
         return current;
     }
 
+    function levelStats(state) {
+        const bankLevels = global.PersonalWorkbenchBankLevels;
+        if (!bankLevels || typeof bankLevels.resolveLevelStats !== 'function') {
+            return {
+                literacy: { maxUnlocked: 'L1', maxIndex: 0, bands: [] },
+                english: { maxUnlocked: 'L1', maxIndex: 0, bands: [] }
+            };
+        }
+        const literacy = global.PersonalWorkbenchPreschoolLiteracy;
+        const vocab = global.PersonalWorkbenchPreschoolEnglishVocab;
+        const banks = {
+            literacy: literacy && typeof literacy.getRuntimeBank === 'function' ? literacy.getRuntimeBank() : [],
+            english: vocab && typeof vocab.getRuntimeBank === 'function' ? vocab.getRuntimeBank() : []
+        };
+        return bankLevels.resolveLevelStats(state && state.courseProgress, banks);
+    }
+
+    function nextLevelHint(track, levelsView) {
+        const bankLevels = global.PersonalWorkbenchBankLevels;
+        if (!bankLevels || typeof bankLevels.levelIndex !== 'function') return '';
+        const maxIndex = levelsView && typeof levelsView.maxIndex === 'number' ? levelsView.maxIndex : 0;
+        if (maxIndex >= 4) return '五级已全部开放';
+        const nextLevel = bankLevels.LEVELS[maxIndex + 1];
+        const trackProgress = { bands: levelsView.bands || [], threshold: bankLevels.UNLOCK_THRESHOLD };
+        const hint = bankLevels.unlockHint(nextLevel, trackProgress);
+        return hint || '';
+    }
+
     function getView(state, catalog, options) {
         const opts = options || {};
         const today = String(opts.today || '');
@@ -130,7 +158,9 @@
         const landmarks = GARDEN_LANDMARKS.map(function (item) {
             return Object.assign({}, item, { unlocked: flowers.length >= item.at });
         });
+        const levels = levelStats(state);
         return {
+            levels: levels,
             garden: {
                 flowers: flowers,
                 butterflies: Math.floor(flowers.length / 10),
@@ -192,16 +222,21 @@
     function renderChooser(view) {
         const nextLandmark = view.garden.landmarks.find(function (item) { return !item.unlocked; });
         const nextStop = view.adventure.locations.find(function (item) { return !item.unlocked; });
-        const gardenHint = nextLandmark
+        const literacyHint = nextLevelHint('literacy', view.levels.literacy);
+        const englishHint = nextLevelHint('english', view.levels.english);
+        const gardenHint = literacyHint || (nextLandmark
             ? `再认 ${nextLandmark.at - view.garden.flowers.length} 个字点亮${escapeHtml(nextLandmark.name)}`
-            : '花园已经长成小庄园';
+            : '花园已经长成小庄园');
         const mapHint = nextStop
             ? `再坚持 ${nextStop.at - view.adventure.days} 天到达${escapeHtml(nextStop.name)}`
             : '整张地图已经点亮';
+        const builderHint = englishHint || `再学会英语词，小镇会继续长高`;
         const gardenMarks = view.garden.landmarks.map(function (item) {
             return `<span class="growth-world-landmark ${item.unlocked ? 'is-on' : 'is-off'}">${escapeHtml(item.name)}</span>`;
         }).join('');
-        return `<section class="preschool-growth-world" aria-label="成长世界"><div class="preschool-growth-section-head"><div><span class="preschool-growth-kicker">GROWTH WORLD</span><h2>我的成长世界</h2><p>花、路、砖都来自已经完成的学习，不另做一份假进度。</p></div></div><div class="growth-world-grid"><article class="growth-world-panel is-garden"><h3>花园世界</h3><p>${view.garden.flowers.length} 朵花 · ${view.garden.butterflies} 只蝴蝶</p><div class="growth-world-landmarks">${gardenMarks}</div><small>${gardenHint}</small><button class="growth-world-enter" type="button" data-action="open-growth-world" data-world="garden">进入花园</button></article><article class="growth-world-panel is-map ${view.adventure.todayHighlight ? 'is-today' : ''}"><h3>冒险地图</h3><p>${view.adventure.days} 天打卡 · 路径 ${view.adventure.pathPercent}%</p><div class="growth-world-path" role="progressbar" aria-valuenow="${view.adventure.pathPercent}" aria-valuemin="0" aria-valuemax="100"><i style="width:${view.adventure.pathPercent}%"></i></div><small>${mapHint}</small><button class="growth-world-enter" type="button" data-action="open-growth-world" data-world="map">进入地图</button></article><article class="growth-world-panel is-builder"><h3>建造世界</h3><p>${view.builder.bricks.length} 块砖 · ${escapeHtml(view.builder.buildingName)}</p><div class="growth-world-town is-level-${view.builder.townLevel}" aria-hidden="true"><span class="town-base"></span><span class="town-wall"></span><span class="town-roof"></span><span class="town-house"></span><span class="town-castle"></span></div><button class="growth-world-enter" type="button" data-action="open-growth-world" data-world="builder">进入建造</button></article></div></section>`;
+        const literacyMax = view.levels && view.levels.literacy ? view.levels.literacy.maxUnlocked : 'L1';
+        const englishMax = view.levels && view.levels.english ? view.levels.english.maxUnlocked : 'L1';
+        return `<section class="preschool-growth-world" aria-label="成长世界"><div class="preschool-growth-section-head"><div><span class="preschool-growth-kicker">GROWTH WORLD</span><h2>我的成长世界</h2><p>花、路、砖都来自已经完成的学习，不另做一份假进度。</p></div></div><div class="growth-world-grid"><article class="growth-world-panel is-garden"><h3>花园世界</h3><p>${view.garden.flowers.length} 朵花 · 识字 ${escapeHtml(literacyMax)}</p><div class="growth-world-landmarks">${gardenMarks}</div><small>${gardenHint}</small><button class="growth-world-enter" type="button" data-action="open-growth-world" data-world="garden">进入花园</button></article><article class="growth-world-panel is-map ${view.adventure.todayHighlight ? 'is-today' : ''}"><h3>冒险地图</h3><p>${view.adventure.days} 天打卡 · 路径 ${view.adventure.pathPercent}%</p><div class="growth-world-path" role="progressbar" aria-valuenow="${view.adventure.pathPercent}" aria-valuemin="0" aria-valuemax="100"><i style="width:${view.adventure.pathPercent}%"></i></div><small>${mapHint}</small><button class="growth-world-enter" type="button" data-action="open-growth-world" data-world="map">进入地图</button></article><article class="growth-world-panel is-builder"><h3>建造世界</h3><p>${view.builder.bricks.length} 块砖 · 英语 ${escapeHtml(englishMax)}</p><div class="growth-world-town is-level-${view.builder.townLevel}" aria-hidden="true"><span class="town-base"></span><span class="town-wall"></span><span class="town-roof"></span><span class="town-house"></span><span class="town-castle"></span></div><small>${builderHint}</small><button class="growth-world-enter" type="button" data-action="open-growth-world" data-world="builder">进入建造</button></article></div></section>`;
     }
 
     function renderFocus(view, focus) {

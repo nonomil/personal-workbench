@@ -5,11 +5,40 @@
         { id: 'garden', title: '花园世界', ids: ['GARDEN_BRONZE', 'GARDEN_SILVER', 'GARDEN_GOLD'] },
         { id: 'map', title: '冒险地图', ids: ['MAP_BRONZE', 'MAP_SILVER', 'MAP_GOLD'] },
         { id: 'builder', title: '建造世界', ids: ['BUILDER_BRONZE', 'BUILDER_SILVER', 'BUILDER_GOLD'] },
+        { id: 'levels', title: '分级解锁', ids: ['LITERACY_L2', 'LITERACY_L3', 'LITERACY_L4', 'LITERACY_L5', 'ENGLISH_L2', 'ENGLISH_L3', 'ENGLISH_L4', 'ENGLISH_L5'] },
         { id: 'unified', title: '三域', ids: ['UNIFIED_SILVER', 'UNIFIED_GOLD'] }
     ];
     const BADGE_ORDER = BADGE_GROUPS.reduce(function (ids, group) {
         return ids.concat(group.ids);
     }, []);
+    const BADGE_COUNT = BADGE_ORDER.length;
+
+    function levelUnlocked(stats, track, level) {
+        const entry = stats && stats.levels && stats.levels[track];
+        const maxIndex = entry && typeof entry.maxIndex === 'number' ? entry.maxIndex : 0;
+        const bankLevels = global.PersonalWorkbenchBankLevels;
+        const targetIndex = bankLevels && typeof bankLevels.levelIndex === 'function'
+            ? bankLevels.levelIndex(level)
+            : ['L1', 'L2', 'L3', 'L4', 'L5'].indexOf(String(level || 'L1').toUpperCase());
+        return maxIndex >= targetIndex;
+    }
+
+    function makeLevelBadge(id, track, level, name, tier, color) {
+        const trackLabel = track === 'literacy' ? '识字' : '英语';
+        return {
+            id: id,
+            name: name,
+            description: trackLabel + '分级开到 ' + level,
+            category: 'levels',
+            track: track,
+            level: level,
+            tier: tier,
+            color: color,
+            mark: 'level-gate',
+            conditionLabel: trackLabel + '开到 ' + level,
+            check: function (stats) { return levelUnlocked(stats, track, level); }
+        };
+    }
 
     const BADGE_DEFS = {
         GARDEN_BRONZE: { id: 'GARDEN_BRONZE', name: '花园新秀', description: '已学汉字达到10个', category: 'garden', tier: 'bronze', color: '#CD7F32', mark: 'flower', conditionLabel: '已学汉字 10 个', need: 10, check: function (stats) { return Number(stats.garden && stats.garden.flowers) >= 10; } },
@@ -21,6 +50,14 @@
         BUILDER_BRONZE: { id: 'BUILDER_BRONZE', name: '小镇居民', description: '英语或拼读课达到10节', category: 'builder', tier: 'bronze', color: '#CD7F32', mark: 'house', conditionLabel: '已完成 10 节英语课', need: 10, check: function (stats) { return Number(stats.builder && stats.builder.bricks) >= 10; } },
         BUILDER_SILVER: { id: 'BUILDER_SILVER', name: '小镇工匠', description: '英语或拼读课达到50节', category: 'builder', tier: 'silver', color: '#C0C0C0', mark: 'house-brick', conditionLabel: '已完成 50 节英语课', need: 50, check: function (stats) { return Number(stats.builder && stats.builder.bricks) >= 50; } },
         BUILDER_GOLD: { id: 'BUILDER_GOLD', name: '镇长', description: '英语或拼读课达到100节', category: 'builder', tier: 'gold', color: '#FFD700', mark: 'castle', conditionLabel: '已完成 100 节英语课', need: 100, check: function (stats) { return Number(stats.builder && stats.builder.bricks) >= 100; } },
+        LITERACY_L2: makeLevelBadge('LITERACY_L2', 'literacy', 'L2', '识字 L2', 'bronze', '#CD7F32'),
+        LITERACY_L3: makeLevelBadge('LITERACY_L3', 'literacy', 'L3', '识字 L3', 'silver', '#C0C0C0'),
+        LITERACY_L4: makeLevelBadge('LITERACY_L4', 'literacy', 'L4', '识字 L4', 'gold', '#FFD700'),
+        LITERACY_L5: makeLevelBadge('LITERACY_L5', 'literacy', 'L5', '识字 L5', 'gold', '#FBBF24'),
+        ENGLISH_L2: makeLevelBadge('ENGLISH_L2', 'english', 'L2', '英语 L2', 'bronze', '#CD7F32'),
+        ENGLISH_L3: makeLevelBadge('ENGLISH_L3', 'english', 'L3', '英语 L3', 'silver', '#C0C0C0'),
+        ENGLISH_L4: makeLevelBadge('ENGLISH_L4', 'english', 'L4', '英语 L4', 'gold', '#FFD700'),
+        ENGLISH_L5: makeLevelBadge('ENGLISH_L5', 'english', 'L5', '英语 L5', 'gold', '#FBBF24'),
         UNIFIED_SILVER: { id: 'UNIFIED_SILVER', name: '三域行者', description: '三项银牌全部点亮', category: 'unified', tier: 'silver', color: '#7DD3FC', mark: 'rings', conditionLabel: '三枚银牌都点亮了', check: function (stats, unlocked) { return hasAll(unlocked, ['GARDEN_SILVER', 'MAP_SILVER', 'BUILDER_SILVER']); } },
         UNIFIED_GOLD: { id: 'UNIFIED_GOLD', name: '全能大师', description: '三项金牌全部点亮', category: 'unified', tier: 'gold', color: '#FBBF24', mark: 'rings-crown', conditionLabel: '三枚金牌都点亮了', check: function (stats, unlocked) { return hasAll(unlocked, ['GARDEN_GOLD', 'MAP_GOLD', 'BUILDER_GOLD']); } }
     };
@@ -130,22 +167,31 @@
         }).length;
     }
 
-    // 花朵=已学汉字；天数=全日任务完成；砖块=英语/拼读完成课（不含英语计划，避免重复计数）
-    function getGrowthStats(state, catalog) {
+    // 花朵=已学汉字；天数=全日任务完成；砖块=英语/拼读完成课；分级=词库掌握度解锁阶梯
+    function getGrowthStats(state, catalog, banks) {
         const progress = state && state.courseProgress && typeof state.courseProgress === 'object' ? state.courseProgress : {};
         const mastery = progress.literacy && progress.literacy.mastery && typeof progress.literacy.mastery === 'object'
             ? progress.literacy.mastery
             : {};
-        return {
+        const stats = {
             garden: { flowers: Object.keys(mastery).length },
             adventure: { days: countFullPlanDays(state) },
-            builder: { bricks: countCompletedLessons(catalog, progress.completedLessonIds, /english|phonics/i) }
+            builder: { bricks: countCompletedLessons(catalog, progress.completedLessonIds, /english|phonics/i) },
+            levels: {
+                literacy: { maxUnlocked: 'L1', maxIndex: 0, bands: [] },
+                english: { maxUnlocked: 'L1', maxIndex: 0, bands: [] }
+            }
         };
+        const bankLevels = global.PersonalWorkbenchBankLevels;
+        if (bankLevels && typeof bankLevels.resolveLevelStats === 'function' && banks && typeof banks === 'object') {
+            stats.levels = bankLevels.resolveLevelStats(progress, banks);
+        }
+        return stats;
     }
 
     function checkAchievements(state, options) {
         const opts = options || {};
-        const stats = opts.stats || getGrowthStats(state, opts.catalog);
+        const stats = opts.stats || getGrowthStats(state, opts.catalog, opts.banks);
         const now = Number(opts.now) || Date.now();
         const growth = clone(state && state.growth ? state.growth : {});
         const current = normalizeAchievements(growth.achievements);
@@ -186,6 +232,9 @@
         if (kind === 'rings' || kind === 'rings-crown') {
             return `<g transform="translate(40,40)" fill="none" stroke="${color}" stroke-width="3"><circle cx="-10" cy="2" r="10"/><circle cx="10" cy="2" r="10"/><circle cx="0" cy="-8" r="10"/>${kind === 'rings-crown' ? `<polygon points="-8,-22 -4,-30 0,-22 4,-30 8,-22 10,-16 -10,-16" fill="${color}" stroke="none"/>` : ''}</g>`;
         }
+        if (kind === 'level-gate') {
+            return `<g transform="translate(24,24)"><rect x="8" y="14" width="16" height="22" rx="2" fill="none" stroke="${color}" stroke-width="2"/><path d="M8 14 L16 6 L24 14" fill="none" stroke="${color}" stroke-width="2"/><circle cx="16" cy="24" r="3" fill="${color}"/></g>`;
+        }
         return '';
     }
 
@@ -210,12 +259,23 @@
         if (def.category === 'garden') return Number(stats.garden && stats.garden.flowers) || 0;
         if (def.category === 'map') return Number(stats.adventure && stats.adventure.days) || 0;
         if (def.category === 'builder') return Number(stats.builder && stats.builder.bricks) || 0;
+        if (def.category === 'levels') {
+            const entry = stats.levels && stats.levels[def.track];
+            return entry && typeof entry.maxIndex === 'number' ? entry.maxIndex + 1 : 1;
+        }
         return 0;
     }
 
     function badgeProgressLabel(def, stats, unlockedSet) {
         if (!def) return '';
         if (def.category === 'unified') return badgeRemainingHint(def, unlockedSet, stats);
+        if (def.category === 'levels') {
+            const entry = stats && stats.levels && stats.levels[def.track];
+            const max = entry && entry.maxUnlocked ? entry.maxUnlocked : 'L1';
+            return levelUnlocked(stats, def.track, def.level)
+                ? def.conditionLabel
+                : `${def.track === 'literacy' ? '识字' : '英语'}现在 ${max}`;
+        }
         const have = badgeHave(def, stats);
         const need = Number(def.need) || 0;
         if (def.category === 'garden') return `已学汉字 ${have}/${need}`;
@@ -232,6 +292,13 @@
             return left ? `还差 ${left} 枚${kind}` : def.conditionLabel;
         }
         if (!stats) return def.description;
+        if (def.category === 'levels') {
+            const entry = stats.levels && stats.levels[def.track];
+            const max = entry && entry.maxUnlocked ? entry.maxUnlocked : 'L1';
+            return levelUnlocked(stats, def.track, def.level)
+                ? def.conditionLabel
+                : `现在开到 ${max}，继续练上一级`;
+        }
         const have = badgeHave(def, stats);
         const need = Number(def.need) || 0;
         const left = Math.max(0, need - have);
@@ -243,6 +310,7 @@
 
     function badgeStageLabel(def) {
         if (!def) return '';
+        if (def.category === 'levels') return '分级';
         if (def.tier === 'bronze') return '探索者';
         if (def.tier === 'silver') return '建造者';
         return '大师';
@@ -288,6 +356,10 @@
         if (group.id === 'garden') return Math.min(100, Math.round((Number(stats && stats.garden && stats.garden.flowers) || 0) / 100 * 100));
         if (group.id === 'map') return Math.min(100, Math.round((Number(stats && stats.adventure && stats.adventure.days) || 0) / 30 * 100));
         if (group.id === 'builder') return Math.min(100, Math.round((Number(stats && stats.builder && stats.builder.bricks) || 0) / 100 * 100));
+        if (group.id === 'levels') {
+            const got = group.ids.filter(function (id) { return unlocked.has(id); }).length;
+            return Math.round(got / group.ids.length * 100);
+        }
         const marks = ['GARDEN_SILVER', 'MAP_SILVER', 'BUILDER_SILVER', 'GARDEN_GOLD', 'MAP_GOLD', 'BUILDER_GOLD'];
         const got = marks.filter(function (id) { return unlocked.has(id); }).length;
         return Math.round(got / marks.length * 100);
@@ -299,7 +371,9 @@
         const cards = group.ids.map(function (id) {
             return renderBadgeCard(BADGE_DEFS[id], unlocked.has(id), stats, unlocked, unseenSet);
         }).join('');
-        const ladder = group.id === 'unified' ? '' : '<p class="preschool-badge-ladder">探索者 → 建造者 → 大师</p>';
+        const ladder = group.id === 'unified' ? '' : group.id === 'levels'
+            ? '<p class="preschool-badge-ladder">L2 → L3 → L4 → L5</p>'
+            : '<p class="preschool-badge-ladder">探索者 → 建造者 → 大师</p>';
         return `<div class="preschool-badge-group" data-group="${escapeHtml(group.id)}"><h3>${escapeHtml(group.title)} <small>${got}/${group.ids.length} · ${escapeHtml(groupProgressHint(group, unlocked, stats))}</small></h3>${ladder}<div class="preschool-badge-meter" role="progressbar" aria-label="${escapeHtml(group.title)}进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${percent}"><i style="width:${percent}%"></i></div><div class="preschool-badge-grid">${cards}</div></div>`;
     }
 
@@ -326,21 +400,23 @@
         const flowers = stats && stats.garden ? stats.garden.flowers : '';
         const days = stats && stats.adventure ? stats.adventure.days : '';
         const bricks = stats && stats.builder ? stats.builder.bricks : '';
-        const meta = [flowers !== '' ? `${flowers} 个汉字` : '', days !== '' ? `${days} 个全日` : '', bricks !== '' ? `${bricks} 节英语课` : ''].filter(Boolean).join(' · ');
-        const overall = Math.round(current.unlocked.length / BADGE_ORDER.length * 100);
-        return `<section class="preschool-badge-collection" id="preschool-badge-collection" aria-label="徽章收集箱"><div class="preschool-growth-section-head"><div><span class="preschool-growth-kicker">BADGE BOX</span><h2>徽章收集箱</h2><p>徽章只记录已经完成的学习，不另做一份假进度。${meta ? `现在：${escapeHtml(meta)}` : ''}</p></div><div class="preschool-badge-collection-actions"><span class="preschool-growth-section-count">${current.unlocked.length}/11 已收集</span><button class="preschool-badge-box-close badge-collection-toggle" type="button" data-action="toggle-badge-box">收起</button></div></div><div class="preschool-badge-hero"><button class="preschool-badge-hero-trophy" type="button" data-action="badge-confetti" aria-label="撒花">🏅</button><div class="preschool-badge-hero-copy"><small>徽章收集</small><strong>${current.unlocked.length}<span>/11</span></strong></div><div class="preschool-badge-meter is-overall" role="progressbar" aria-label="徽章收集进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${overall}"><i style="width:${overall}%"></i></div></div>${renderBadgeFilters(filter)}<div class="preschool-badge-groups">${groups}</div></section>`;
+        const literacyLevel = stats && stats.levels && stats.levels.literacy ? stats.levels.literacy.maxUnlocked : '';
+        const englishLevel = stats && stats.levels && stats.levels.english ? stats.levels.english.maxUnlocked : '';
+        const meta = [flowers !== '' ? `${flowers} 个汉字` : '', days !== '' ? `${days} 个全日` : '', bricks !== '' ? `${bricks} 节英语课` : '', literacyLevel ? `识字 ${literacyLevel}` : '', englishLevel ? `英语 ${englishLevel}` : ''].filter(Boolean).join(' · ');
+        const overall = Math.round(current.unlocked.length / BADGE_COUNT * 100);
+        return `<section class="preschool-badge-collection" id="preschool-badge-collection" aria-label="徽章收集箱"><div class="preschool-growth-section-head"><div><span class="preschool-growth-kicker">BADGE BOX</span><h2>徽章收集箱</h2><p>徽章只记录已经完成的学习，不另做一份假进度。${meta ? `现在：${escapeHtml(meta)}` : ''}</p></div><div class="preschool-badge-collection-actions"><span class="preschool-growth-section-count">${current.unlocked.length}/${BADGE_COUNT} 已收集</span><button class="preschool-badge-box-close badge-collection-toggle" type="button" data-action="toggle-badge-box">收起</button></div></div><div class="preschool-badge-hero"><button class="preschool-badge-hero-trophy" type="button" data-action="badge-confetti" aria-label="撒花">🏅</button><div class="preschool-badge-hero-copy"><small>徽章收集</small><strong>${current.unlocked.length}<span>/${BADGE_COUNT}</span></strong></div><div class="preschool-badge-meter is-overall" role="progressbar" aria-label="徽章收集进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${overall}"><i style="width:${overall}%"></i></div></div>${renderBadgeFilters(filter)}<div class="preschool-badge-groups">${groups}</div></section>`;
     }
 
     function renderParentBadgeWall(achievements) {
         const current = normalizeAchievements(achievements);
         const items = current.unlocked.map(function (id) { return BADGE_DEFS[id]; }).filter(Boolean);
-        const overall = Math.round(items.length / BADGE_ORDER.length * 100);
+        const overall = Math.round(items.length / BADGE_COUNT * 100);
         const cards = items.length
             ? items.map(function (def) {
                 return `<span class="preschool-parent-badge" title="${escapeHtml(def.description)}">${renderBadgeArt(def, true)}<em>${escapeHtml(def.name)}</em><small>${escapeHtml(badgeStageLabel(def))}</small></span>`;
             }).join('')
             : '<span class="preschool-weekly-empty">还没有成长徽章，识字、打卡和英语会慢慢点亮。</span>';
-        return `<section class="preschool-parent-badge-wall" aria-label="徽章墙"><strong>🏅 徽章墙</strong><small>${items.length}/11 已获得</small><div class="preschool-badge-meter is-overall" role="progressbar" aria-label="徽章墙进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${overall}"><i style="width:${overall}%"></i></div><div class="preschool-parent-badge-list">${cards}</div></section>`;
+        return `<section class="preschool-parent-badge-wall" aria-label="徽章墙"><strong>🏅 徽章墙</strong><small>${items.length}/${BADGE_COUNT} 已获得</small><div class="preschool-badge-meter is-overall" role="progressbar" aria-label="徽章墙进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${overall}"><i style="width:${overall}%"></i></div><div class="preschool-parent-badge-list">${cards}</div></section>`;
     }
 
     function isLastShownFresh(current, now) {
@@ -437,6 +513,7 @@
 
     global.PersonalWorkbenchAchievements = {
         BADGE_ORDER: BADGE_ORDER,
+        BADGE_COUNT: BADGE_COUNT,
         BADGE_GROUPS: BADGE_GROUPS,
         BADGE_DEFS: BADGE_DEFS,
         normalizeAchievements: normalizeAchievements,

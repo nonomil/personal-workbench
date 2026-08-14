@@ -1,6 +1,6 @@
 /**
- * 方块世界 · 网格挖放（循环参考 G:/StudyCode/game-refs/minecraft-2d）
- * 材料/走动参考 KUBO；躲避怪参考 little-game-MC。不拷参考仓源码或贴图。
+ * 方块世界 · 网格挖放（Paper Minecraft / DS-Scratch-我的世界.md）
+ * 工具递进链：空手 → 木镐 → 石镐；合成配方驱动解锁。
  */
 (function (global) {
     'use strict';
@@ -10,19 +10,35 @@
     const MAX_HP = 20;
     const BUMP_HP = 1;
     const KINDS = ['air', 'grass', 'dirt', 'wood', 'leaf', 'plank', 'stone', 'sand', 'water', 'coal', 'crystal', 'bedrock'];
+    const TOOLS = {
+        hand: { label: '空手', level: 0, mine: ['grass', 'dirt', 'sand', 'wood', 'leaf', 'plank', 'water'] },
+        wood_pick: { label: '木镐', level: 1, mine: ['grass', 'dirt', 'sand', 'wood', 'leaf', 'plank', 'water', 'stone', 'coal'] },
+        stone_pick: { label: '石镐', level: 2, mine: ['grass', 'dirt', 'sand', 'wood', 'leaf', 'plank', 'water', 'stone', 'coal', 'crystal'] },
+        iron_pick: { label: '铁镐', level: 3, mine: ['all'] }
+    };
+    /** @deprecated 兼容旧测试名 */
     const TOOL_BREAKS = {
-        hand: ['grass', 'dirt', 'sand', 'water', 'wood', 'leaf', 'plank'],
+        hand: TOOLS.hand.mine,
+        wood_pick: TOOLS.wood_pick.mine,
+        stone_pick: TOOLS.stone_pick.mine,
+        iron_pick: ['all'],
         axe: ['wood', 'leaf', 'plank'],
-        pick: ['stone', 'coal', 'crystal']
+        pick: TOOLS.stone_pick.mine
     };
     const RECIPES = [
         { id: 'plank', name: '橡木板', nameEn: 'Oak Plank', inputs: { wood: 1 }, outputs: { plank: 4 } },
         { id: 'wood', name: '橡木', nameEn: 'Oak', inputs: { plank: 4 }, outputs: { wood: 1 } },
-        { id: 'grass', name: '草方块', nameEn: 'Grass Block', inputs: { dirt: 2 }, outputs: { grass: 1 } }
+        { id: 'grass', name: '草方块', nameEn: 'Grass Block', inputs: { dirt: 2 }, outputs: { grass: 1 } },
+        { id: 'stick', name: '木棍', nameEn: 'Stick', inputs: { plank: 2 }, outputs: { stick: 4 } },
+        { id: 'wood_pick', name: '木镐', nameEn: 'Wood Pickaxe', inputs: { plank: 3, stick: 2 }, outputs: { wood_pick: 1 } },
+        { id: 'stone_pick', name: '石镐', nameEn: 'Stone Pickaxe', inputs: { stone: 3, stick: 2 }, outputs: { stone_pick: 1 } }
     ];
 
     function emptyInv() {
-        return { grass: 0, dirt: 0, wood: 0, leaf: 0, plank: 0, stone: 0, sand: 0, water: 0, coal: 0, crystal: 0 };
+        return {
+            grass: 0, dirt: 0, wood: 0, leaf: 0, plank: 0, stone: 0, sand: 0, water: 0,
+            coal: 0, crystal: 0, stick: 0, wood_pick: 0, stone_pick: 0
+        };
     }
 
     function fillIsland(grid, x0, x1, grassY) {
@@ -119,12 +135,50 @@
         return rank;
     }
 
-    function canBreak(kind, tool, rank) {
+    function canBreak(kind, toolId) {
         if (!kind || kind === 'air' || kind === 'bedrock') return false;
-        const allowed = TOOL_BREAKS[tool] || [];
-        if (allowed.indexOf(kind) === -1) return false;
-        if ((kind === 'stone' || kind === 'coal' || kind === 'crystal') && (Number(rank) || 1) < 2) return false;
-        return true;
+        const tool = TOOLS[toolId] || TOOLS.hand;
+        if (tool.mine.indexOf('all') !== -1) return true;
+        return tool.mine.indexOf(kind) !== -1;
+    }
+
+    function breakReason(kind, toolId) {
+        if (kind === 'bedrock') return '基岩挖不了';
+        if (!kind || kind === 'air') return '这里没有方块';
+        if (canBreak(kind, toolId)) return '';
+        if ((kind === 'stone' || kind === 'coal') && !canBreak(kind, toolId) && canBreak(kind, 'wood_pick')) {
+            return '需要木镐才能挖' + (kind === 'coal' ? '煤炭' : '石头');
+        }
+        if (kind === 'crystal' && !canBreak(kind, toolId) && canBreak(kind, 'stone_pick')) {
+            return '需要石镐才能挖晶体';
+        }
+        return '换个工具试试';
+    }
+
+    function breakBlock(world, x, y, toolId, _rank) {
+        const kind = getCell(world, x, y);
+        if (!canBreak(kind, toolId)) {
+            return { ok: false, reason: breakReason(kind, toolId), kind: kind, world: world };
+        }
+        world.grid[y][x] = 'air';
+        return { ok: true, kind: kind, world: world };
+    }
+
+    function mineBlock(world, x, y, toolId, _rank) {
+        const kind = getCell(world, x, y);
+        const first = breakBlock(world, x, y, toolId);
+        if (!first.ok) return first;
+        const dropped = [first.kind];
+        if (kind === 'wood') {
+            let yy = y - 1;
+            while (yy >= 0 && getCell(world, x, yy) === 'wood') {
+                const more = breakBlock(world, x, yy, toolId);
+                if (!more.ok) break;
+                dropped.push('wood');
+                yy -= 1;
+            }
+        }
+        return { ok: true, kind: first.kind, dropped: dropped, world: world };
     }
 
     function addToInventory(inv, kind, n) {
@@ -139,32 +193,6 @@
         if ((Number(bag[kind]) || 0) <= 0) return { ok: false, inventory: bag };
         bag[kind] -= 1;
         return { ok: true, inventory: bag };
-    }
-
-    function breakBlock(world, x, y, tool, rank) {
-        const kind = getCell(world, x, y);
-        if (!canBreak(kind, tool, rank)) {
-            return { ok: false, reason: kind === 'bedrock' ? '基岩挖不了' : '换个工具试试', kind: kind, world: world };
-        }
-        world.grid[y][x] = 'air';
-        return { ok: true, kind: kind, world: world };
-    }
-
-    function mineBlock(world, x, y, tool, rank) {
-        const kind = getCell(world, x, y);
-        const first = breakBlock(world, x, y, tool, rank);
-        if (!first.ok) return first;
-        const dropped = [first.kind];
-        if (kind === 'wood') {
-            let yy = y - 1;
-            while (yy >= 0 && getCell(world, x, yy) === 'wood') {
-                const more = breakBlock(world, x, yy, tool, rank);
-                if (!more.ok) break;
-                dropped.push('wood');
-                yy -= 1;
-            }
-        }
-        return { ok: true, kind: first.kind, dropped: dropped, world: world };
     }
 
     function placeBlock(world, x, y, kind) {
@@ -319,7 +347,9 @@
         MAX_HP: MAX_HP,
         BUMP_HP: BUMP_HP,
         KINDS: KINDS,
+        TOOLS: TOOLS,
         TOOL_BREAKS: TOOL_BREAKS,
+        breakReason: breakReason,
         RECIPES: RECIPES,
         emptyInv: emptyInv,
         createDefaultWorld: createDefaultWorld,

@@ -3,6 +3,7 @@ import json
 
 root = Path(__file__).resolve().parents[1]
 prj = root / "prj"
+levels = json.loads((prj / "data" / "preschool" / "levels.json").read_text(encoding="utf-8"))
 
 def write_data_js(global_name, payload, out_name):
     body = json.dumps(payload, ensure_ascii=False)
@@ -23,7 +24,7 @@ def build_english():
     path = prj / "data" / "preschool" / "英语" / "vocabulary-bank.json"
     bank = json.loads(path.read_text(encoding="utf-8"))
     rules = json.loads((prj / "data" / "preschool" / "英语" / "review-rules.json").read_text(encoding="utf-8"))
-    write_data_js("PersonalWorkbenchEnglishVocabData", {"bank": bank, "reviewRules": rules}, "preschool-english-vocab-data.js")
+    write_data_js("PersonalWorkbenchEnglishVocabData", {"bank": bank, "reviewRules": rules, "levels": levels}, "preschool-english-vocab-data.js")
     print("english words", len(bank))
 
 
@@ -31,7 +32,7 @@ def build_phonics():
     bank = json.loads((prj / "data" / "preschool" / "english" / "phonics" / "word-bank.json").read_text(encoding="utf-8"))
     letters_path = prj / "data" / "preschool" / "english" / "phonics" / "letter-bank.json"
     letters = json.loads(letters_path.read_text(encoding="utf-8")) if letters_path.exists() else []
-    write_data_js("PersonalWorkbenchPhonicsData", {"bank": bank, "letters": letters}, "preschool-phonics-data.js")
+    write_data_js("PersonalWorkbenchPhonicsData", {"bank": bank, "letters": letters, "levels": levels}, "preschool-phonics-data.js")
 
 
 def build_pinyin():
@@ -39,20 +40,21 @@ def build_pinyin():
     if not path.exists():
         return
     bank = json.loads(path.read_text(encoding="utf-8"))
-    write_data_js("PersonalWorkbenchPinyinData", {"bank": bank}, "preschool-pinyin-data.js")
+    write_data_js("PersonalWorkbenchPinyinData", {"bank": bank, "levels": levels}, "preschool-pinyin-data.js")
 
 
 def build_poetry():
     bank = json.loads((prj / "data" / "preschool" / "古诗" / "poem-bank.json").read_text(encoding="utf-8"))
-    write_data_js("PersonalWorkbenchPoetryData", {"bank": bank}, "preschool-poetry-data.js")
+    write_data_js("PersonalWorkbenchPoetryData", {"bank": bank, "levels": levels}, "preschool-poetry-data.js")
 
 
 def build_math():
     bank = json.loads((prj / "data" / "preschool" / "数学" / "problem-bank.json").read_text(encoding="utf-8"))
-    write_data_js("PersonalWorkbenchMathBankData", {"bank": bank}, "preschool-math-data.js")
+    write_data_js("PersonalWorkbenchMathBankData", {"bank": bank, "levels": levels}, "preschool-math-data.js")
 
 
 if __name__ == "__main__":
+    write_data_js("PersonalWorkbenchPreschoolLevels", levels, "preschool-levels-data.js")
     build_english()
     build_phonics()
     build_pinyin()

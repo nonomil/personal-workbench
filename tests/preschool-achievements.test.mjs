@@ -173,10 +173,12 @@ test('collection box groups badges by garden, map, and builder', () => {
     builder: { bricks: 0 }
   });
   assert.match(box, /徽章收集箱/);
-  assert.match(box, /2\/11/);
+  assert.match(box, /2\/19/);
   assert.match(box, /data-group="garden"/);
   assert.match(box, /data-group="map"/);
   assert.match(box, /data-group="builder"/);
+  assert.match(box, /data-group="levels"/);
+  assert.match(box, /分级解锁/);
   assert.match(box, /data-group="unified"/);
   assert.match(box, /花园世界/);
   assert.match(box, /冒险地图/);
@@ -218,7 +220,7 @@ test('collection box groups badges by garden, map, and builder', () => {
 
   const wall = engine.renderParentBadgeWall(achievements);
   assert.match(wall, /徽章墙/);
-  assert.match(wall, /2\/11 已获得/);
+  assert.match(wall, /2\/19 已获得/);
   assert.match(wall, /花园新秀/);
   assert.match(wall, /小探险家/);
   assert.doesNotMatch(wall, /花园园丁/);
@@ -305,6 +307,28 @@ test('preserves seen ids when a later badge unlocks', () => {
   assert.deepEqual(result.growth.achievements.seen, ['GARDEN_BRONZE']);
   assert.ok(result.newlyUnlocked.includes('GARDEN_SILVER'));
   assert.ok(!result.growth.achievements.seen.includes('GARDEN_SILVER'));
+});
+
+test('unlocks literacy and english level badges when bands advance', () => {
+  const stats = {
+    garden: { flowers: 0 },
+    adventure: { days: 0 },
+    builder: { bricks: 0 },
+    levels: {
+      literacy: { maxUnlocked: 'L3', maxIndex: 2 },
+      english: { maxUnlocked: 'L2', maxIndex: 1 }
+    }
+  };
+  const result = engine.checkAchievements(makeState({}), { stats: stats, now: 11 });
+  assert.ok(result.newlyUnlocked.includes('LITERACY_L2'));
+  assert.ok(result.newlyUnlocked.includes('LITERACY_L3'));
+  assert.ok(result.newlyUnlocked.includes('ENGLISH_L2'));
+  assert.ok(!result.newlyUnlocked.includes('LITERACY_L4'));
+  assert.ok(!result.newlyUnlocked.includes('ENGLISH_L3'));
+
+  const html = engine.renderCelebrationHtml(['LITERACY_L3']);
+  assert.match(html, /识字 L3/);
+  assert.match(html, /分级/);
 });
 
 test('preschool shell loads the achievement module before app.js', () => {

@@ -568,5 +568,405 @@
     "left": 10,
     "right": 3,
     "op": "-"
+  },
+  {
+    "id": "math-problem-31",
+    "manipulatives": [
+      "sun-token",
+      "fruit",
+      "plant"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    },
+    "skillId": "take-away",
+    "level": "L4",
+    "left": 5,
+    "right": 1,
+    "op": "-",
+    "answer": 4,
+    "prompt": "5 - 1 = ?"
+  },
+  {
+    "id": "math-problem-32",
+    "manipulatives": [
+      "sun-token",
+      "fruit",
+      "plant"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    },
+    "skillId": "take-away",
+    "level": "L4",
+    "left": 5,
+    "right": 2,
+    "op": "-",
+    "answer": 3,
+    "prompt": "5 - 2 = ?"
+  },
+  {
+    "id": "math-problem-33",
+    "manipulatives": [
+      "sun-token",
+      "fruit",
+      "plant"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    },
+    "skillId": "take-away",
+    "level": "L4",
+    "left": 5,
+    "right": 3,
+    "op": "-",
+    "answer": 2,
+    "prompt": "5 - 3 = ?"
+  },
+  {
+    "id": "math-problem-34",
+    "manipulatives": [
+      "sun-token",
+      "fruit",
+      "plant"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    },
+    "skillId": "take-away",
+    "level": "L4",
+    "left": 4,
+    "right": 1,
+    "op": "-",
+    "answer": 3,
+    "prompt": "4 - 1 = ?"
+  },
+  {
+    "id": "math-problem-35",
+    "manipulatives": [
+      "sun-token",
+      "fruit",
+      "plant"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    },
+    "skillId": "take-away",
+    "level": "L4",
+    "left": 4,
+    "right": 2,
+    "op": "-",
+    "answer": 2,
+    "prompt": "4 - 2 = ?"
+  },
+  {
+    "id": "math-problem-36",
+    "manipulatives": [
+      "sun-token",
+      "fruit",
+      "plant"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    },
+    "skillId": "take-away",
+    "level": "L4",
+    "left": 3,
+    "right": 1,
+    "op": "-",
+    "answer": 2,
+    "prompt": "3 - 1 = ?"
+  },
+  {
+    "id": "math-problem-37",
+    "manipulatives": [
+      "sun-token",
+      "fruit",
+      "plant"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    },
+    "skillId": "take-away",
+    "level": "L4",
+    "left": 5,
+    "right": 4,
+    "op": "-",
+    "answer": 1,
+    "prompt": "5 - 4 = ?"
+  },
+  {
+    "id": "math-problem-38",
+    "manipulatives": [
+      "sun-token",
+      "fruit",
+      "plant"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    },
+    "skillId": "take-away",
+    "level": "L4",
+    "left": 4,
+    "right": 3,
+    "op": "-",
+    "answer": 1,
+    "prompt": "4 - 3 = ?"
+  },
+  {
+    "id": "math-problem-39",
+    "manipulatives": [
+      "sun-token",
+      "fruit",
+      "plant"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    },
+    "skillId": "take-away",
+    "level": "L4",
+    "left": 5,
+    "right": 0,
+    "op": "-",
+    "answer": 5,
+    "prompt": "5 - 0 = ?"
+  },
+  {
+    "id": "math-problem-40",
+    "manipulatives": [
+      "sun-token",
+      "fruit",
+      "plant"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    },
+    "skillId": "take-away",
+    "level": "L4",
+    "left": 3,
+    "right": 2,
+    "op": "-",
+    "answer": 1,
+    "prompt": "3 - 2 = ?"
+  },
+  {
+    "id": "math-problem-41",
+    "manipulatives": [
+      "sun-token",
+      "fruit",
+      "plant"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    },
+    "skillId": "addition",
+    "level": "L5",
+    "left": 6,
+    "right": 3,
+    "op": "+",
+    "answer": 9,
+    "prompt": "6 + 3 = ?"
+  },
+  {
+    "id": "math-problem-42",
+    "manipulatives": [
+      "sun-token",
+      "fruit",
+      "plant"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    },
+    "skillId": "addition",
+    "level": "L5",
+    "left": 7,
+    "right": 2,
+    "op": "+",
+    "answer": 9,
+    "prompt": "7 + 2 = ?"
+  },
+  {
+    "id": "math-problem-43",
+    "manipulatives": [
+      "sun-token",
+      "fruit",
+      "plant"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    },
+    "skillId": "addition",
+    "level": "L5",
+    "left": 5,
+    "right": 5,
+    "op": "+",
+    "answer": 10,
+    "prompt": "5 + 5 = ?"
+  },
+  {
+    "id": "math-problem-44",
+    "manipulatives": [
+      "sun-token",
+      "fruit",
+      "plant"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    },
+    "skillId": "addition",
+    "level": "L5",
+    "left": 8,
+    "right": 2,
+    "op": "+",
+    "answer": 10,
+    "prompt": "8 + 2 = ?"
+  },
+  {
+    "id": "math-problem-45",
+    "manipulatives": [
+      "sun-token",
+      "fruit",
+      "plant"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    },
+    "skillId": "addition",
+    "level": "L5",
+    "left": 9,
+    "right": 1,
+    "op": "+",
+    "answer": 10,
+    "prompt": "9 + 1 = ?"
+  },
+  {
+    "id": "math-problem-46",
+    "manipulatives": [
+      "sun-token",
+      "fruit",
+      "plant"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    },
+    "skillId": "take-away",
+    "level": "L5",
+    "left": 10,
+    "right": 4,
+    "op": "-",
+    "answer": 6,
+    "prompt": "10 - 4 = ?"
+  },
+  {
+    "id": "math-problem-47",
+    "manipulatives": [
+      "sun-token",
+      "fruit",
+      "plant"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    },
+    "skillId": "take-away",
+    "level": "L5",
+    "left": 9,
+    "right": 3,
+    "op": "-",
+    "answer": 6,
+    "prompt": "9 - 3 = ?"
+  },
+  {
+    "id": "math-problem-48",
+    "manipulatives": [
+      "sun-token",
+      "fruit",
+      "plant"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    },
+    "skillId": "take-away",
+    "level": "L5",
+    "left": 8,
+    "right": 5,
+    "op": "-",
+    "answer": 3,
+    "prompt": "8 - 5 = ?"
+  },
+  {
+    "id": "math-problem-49",
+    "manipulatives": [
+      "sun-token",
+      "fruit",
+      "plant"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    },
+    "skillId": "take-away",
+    "level": "L5",
+    "left": 7,
+    "right": 4,
+    "op": "-",
+    "answer": 3,
+    "prompt": "7 - 4 = ?"
+  },
+  {
+    "id": "math-problem-50",
+    "manipulatives": [
+      "sun-token",
+      "fruit",
+      "plant"
+    ],
+    "source": {
+      "kind": "project-original",
+      "license": "project-original",
+      "attribution": "个人工作台幼儿课程组"
+    },
+    "skillId": "take-away",
+    "level": "L5",
+    "left": 10,
+    "right": 6,
+    "op": "-",
+    "answer": 4,
+    "prompt": "10 - 6 = ?"
   }
 ]

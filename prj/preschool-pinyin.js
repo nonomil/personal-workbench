@@ -12,7 +12,8 @@
                 sample: String(source.sample || '').trim(),
                 pinyin: String(source.pinyin || '').trim(),
                 kind: String(source.kind || 'initial').trim() || 'initial',
-                group: String(source.group || '').trim()
+                group: String(source.group || '').trim(),
+                level: String(source.level || 'L1').trim() || 'L1'
             };
         }).filter(function (item) {
             return item.text && item.sample && item.pinyin;
@@ -35,11 +36,14 @@
     function buildInitialQuiz(bank, options) {
         const settings = options && typeof options === 'object' ? options : {};
         const kind = String(settings.kind || 'initial');
+        const level = String(settings.level || '').trim();
         const groups = String(settings.groups || '').split(',').map(function (item) { return item.trim(); }).filter(Boolean);
-        const pool = (Array.isArray(bank) ? bank : []).filter(function (item) {
+        const helper = global.PersonalWorkbenchBankLevels;
+        let pool = (Array.isArray(bank) ? bank : []).filter(function (item) {
             if (item.kind !== kind) return false;
             return !groups.length || groups.indexOf(item.group) >= 0;
         });
+        if (level && helper) pool = helper.levelPoolOrAll(pool, level);
         const preferred = String(settings.preferred || '').trim();
         const size = Math.max(1, Math.min(pool.length, Number(settings.size) || 8));
         const ordered = [];

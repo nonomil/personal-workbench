@@ -25,7 +25,8 @@
         "走",
         "伸展",
         "拍手"
-      ]
+      ],
+      "level": "L1"
     },
     {
       "id": "coordination",
@@ -39,7 +40,8 @@
         "投",
         "接",
         "左右"
-      ]
+      ],
+      "level": "L2"
     },
     {
       "id": "balance-and-control",
@@ -52,7 +54,8 @@
         "平衡",
         "慢走",
         "停住"
-      ]
+      ],
+      "level": "L3"
     },
     {
       "id": "attention-games",
@@ -65,7 +68,8 @@
         "找相同",
         "听指令",
         "记路线"
-      ]
+      ],
+      "level": "L4"
     },
     {
       "id": "family-challenge",
@@ -78,7 +82,8 @@
         "轮流",
         "合作",
         "表达"
-      ]
+      ],
+      "level": "L5"
     },
     {
       "id": "movement-showcase",
@@ -91,7 +96,8 @@
         "选择",
         "坚持",
         "感受"
-      ]
+      ],
+      "level": "L5"
     }
   ],
   "dailyContract": {

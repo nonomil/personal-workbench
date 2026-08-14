@@ -16,7 +16,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "word-pat",
@@ -35,7 +36,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "word-map",
@@ -54,7 +56,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "word-tap",
@@ -73,7 +76,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "word-mat",
@@ -92,7 +96,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "word-mad",
@@ -111,7 +116,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "word-sad",
@@ -130,7 +136,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "word-sam",
@@ -149,7 +156,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "word-am",
@@ -166,7 +174,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "word-at",
@@ -183,7 +192,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L1"
   },
   {
     "id": "word-an",
@@ -200,7 +210,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L1"
   },
   {
     "id": "word-in",
@@ -217,7 +228,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "word-it",
@@ -234,7 +246,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "word-is",
@@ -251,7 +264,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "word-sit",
@@ -270,7 +284,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "word-pin",
@@ -289,7 +304,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "word-pit",
@@ -308,7 +324,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "word-tip",
@@ -327,7 +344,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "word-tin",
@@ -346,7 +364,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "word-nip",
@@ -365,7 +384,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "word-pan",
@@ -384,7 +404,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "word-nap",
@@ -403,7 +424,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "word-man",
@@ -422,7 +444,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "word-can",
@@ -441,7 +464,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "word-cat",
@@ -460,7 +484,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "word-hat",
@@ -479,7 +504,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "word-ham",
@@ -498,7 +524,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "word-hit",
@@ -517,7 +544,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "word-bit",
@@ -536,7 +564,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "word-bin",
@@ -555,7 +584,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "word-dip",
@@ -574,7 +604,8 @@
     "source": {
       "kind": "project-original",
       "license": "project-original"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "word-hot",
@@ -594,7 +625,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "word-pot",
@@ -614,7 +646,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "word-not",
@@ -634,7 +667,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "word-hop",
@@ -654,7 +688,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "word-mop",
@@ -674,7 +709,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "word-top",
@@ -694,7 +730,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "word-dog",
@@ -714,7 +751,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "word-log",
@@ -734,7 +772,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "word-fog",
@@ -754,7 +793,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "word-pet",
@@ -774,7 +814,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "word-get",
@@ -794,7 +835,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "word-ten",
@@ -814,7 +856,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "word-bed",
@@ -834,7 +877,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "word-bug",
@@ -854,7 +898,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "word-mug",
@@ -874,7 +919,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "word-sun",
@@ -894,7 +940,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "word-run",
@@ -914,7 +961,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "word-fun",
@@ -934,7 +982,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "word-ship",
@@ -954,7 +1003,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "word-shop",
@@ -974,7 +1024,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "word-shut",
@@ -994,7 +1045,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "word-fish",
@@ -1014,7 +1066,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "word-dish",
@@ -1034,7 +1087,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "word-wish",
@@ -1054,7 +1108,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "word-chip",
@@ -1074,7 +1129,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "word-chat",
@@ -1094,7 +1150,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "word-chop",
@@ -1114,7 +1171,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "word-rich",
@@ -1134,7 +1192,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "word-much",
@@ -1154,7 +1213,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "word-such",
@@ -1174,7 +1234,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "word-thin",
@@ -1194,7 +1255,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "word-that",
@@ -1214,7 +1276,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "word-this",
@@ -1234,7 +1297,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "word-back",
@@ -1254,7 +1318,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "word-pick",
@@ -1274,7 +1339,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "word-kick",
@@ -1294,7 +1360,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "word-sing",
@@ -1314,7 +1381,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "word-ring",
@@ -1334,7 +1402,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "word-long",
@@ -1354,7 +1423,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "word-stop",
@@ -1375,7 +1445,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L5"
   },
   {
     "id": "word-step",
@@ -1396,7 +1467,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L5"
   },
   {
     "id": "word-stand",
@@ -1418,7 +1490,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L5"
   },
   {
     "id": "word-spin",
@@ -1439,7 +1512,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L5"
   },
   {
     "id": "word-spot",
@@ -1460,7 +1534,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L5"
   },
   {
     "id": "word-spun",
@@ -1481,7 +1556,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L5"
   },
   {
     "id": "word-slam",
@@ -1502,7 +1578,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L5"
   },
   {
     "id": "word-slip",
@@ -1523,7 +1600,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L5"
   },
   {
     "id": "word-slap",
@@ -1544,7 +1622,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L5"
   },
   {
     "id": "word-skip",
@@ -1565,7 +1644,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L5"
   },
   {
     "id": "word-skin",
@@ -1586,7 +1666,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L5"
   },
   {
     "id": "word-skit",
@@ -1607,7 +1688,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L5"
   },
   {
     "id": "word-hand",
@@ -1628,7 +1710,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L5"
   },
   {
     "id": "word-sand",
@@ -1649,7 +1732,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L5"
   },
   {
     "id": "word-send",
@@ -1670,7 +1754,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L5"
   },
   {
     "id": "word-tent",
@@ -1691,7 +1776,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L5"
   },
   {
     "id": "word-mint",
@@ -1712,7 +1798,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L5"
   },
   {
     "id": "word-pant",
@@ -1733,7 +1820,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L5"
   },
   {
     "id": "word-lamp",
@@ -1754,7 +1842,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L5"
   },
   {
     "id": "word-jump",
@@ -1775,7 +1864,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L5"
   },
   {
     "id": "word-camp",
@@ -1796,7 +1886,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L5"
   },
   {
     "id": "word-left",
@@ -1817,7 +1908,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L5"
   },
   {
     "id": "word-gift",
@@ -1838,7 +1930,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L5"
   },
   {
     "id": "word-soft",
@@ -1859,6 +1952,7 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台自然拼读课程组"
-    }
+    },
+    "level": "L5"
   }
 ]

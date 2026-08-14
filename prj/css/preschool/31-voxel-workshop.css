@@ -78,6 +78,26 @@ body.variant-preschool[data-preschool-theme='voxel-adventure'] .page-content {
 }
 
 .vw-ico { font-size: 20px; line-height: 1; }
+.vw-rail-ico,
+.vw-foot-ico,
+.vw-slot-ico,
+.vw-out-ico,
+.vw-tool-pic,
+.vw-hero {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    object-fit: contain;
+}
+.vw-rail-ico { width: 32px; height: 32px; }
+.vw-foot-ico { width: 22px; height: 22px; vertical-align: middle; }
+.vw-slot-ico { width: 28px; height: 28px; }
+.vw-out-ico { width: 40px; height: 40px; display: block; margin-bottom: 4px; }
+.vw-hero {
+    width: 52px;
+    height: 64px;
+    background: #2a1a10;
+    border: 3px solid #1b120c;
+}
 
 .vw-main {
     display: flex;
@@ -218,7 +238,7 @@ body.variant-preschool[data-preschool-theme='voxel-adventure'] .page-content {
 }
 
 .vw-reward small, .vw-reward em { display: block; }
-.vw-tool-pic { font-size: 28px; }
+.vw-tool-pic { width: 48px; height: 48px; display: block; margin: 0 auto 6px; }
 
 .vw-shop-grid {
     display: grid;
@@ -237,13 +257,14 @@ body.variant-preschool[data-preschool-theme='voxel-adventure'] .page-content {
 .vw-card-icon {
     display: grid;
     place-items: center;
-    width: 56px;
-    height: 56px;
+    width: 72px;
+    height: 72px;
     margin: 0 auto 8px;
-    background: #111;
+    background: #2a1a10;
+    border: 3px inset #5d4037;
 }
 
-.vw-card-icon img, .vw-swatch { width: 40px; height: 40px; object-fit: contain; }
+.vw-card-icon img, .vw-swatch, .vw-pixel { width: 56px; height: 56px; object-fit: contain; image-rendering: pixelated; image-rendering: crisp-edges; }
 .vw-swatch { display: block; }
 .vw-card small, .vw-card p, .vw-card em, .vw-stock { display: block; }
 .vw-stock { color: #2e7d32; font-weight: 800; margin-top: 6px; }
@@ -337,7 +358,7 @@ body.variant-preschool[data-preschool-theme='voxel-adventure'] .page-content {
 }
 
 .vw-lock-btn {
-    width: 44px;
+    min-width: 72px;
     height: 44px;
     border: 3px solid #1b5e20;
     background: #66bb6a;
@@ -345,6 +366,10 @@ body.variant-preschool[data-preschool-theme='voxel-adventure'] .page-content {
     font-weight: 900;
     cursor: pointer;
     box-shadow: 3px 3px 0 #1b5e20;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 8px;
 }
 
 .vw-lock-tip {

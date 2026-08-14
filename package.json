@@ -5,7 +5,9 @@
   "description": "个人学习与成长工作台的网页与 Android APK 包装工程",
   "scripts": {
     "test": "node --test --test-concurrency=1 tests/*.test.mjs",
-    "ingest:refs": "node scripts/ingest-reference-banks.mjs && python scripts/build-literacy-data.py && python scripts/build-preschool-banks.py",
+    "ingest:refs": "node scripts/ingest-reference-banks.mjs && python scripts/assign-bank-levels.py && python scripts/build-literacy-data.py && python scripts/build-preschool-banks.py",
+    "build:scale-banks": "python scripts/build-scale-banks.py",
+    "assign:bank-levels": "python scripts/assign-bank-levels.py && python scripts/build-literacy-data.py && python scripts/build-preschool-banks.py",
     "release:verify": "node scripts/release-verify.mjs",
     "android:prepare": "node scripts/prepare-mobile.mjs",
     "android:init": "npm run android:prepare && cap add android",
@@ -17,6 +19,8 @@
   },
   "devDependencies": {
     "@capacitor/android": "8.4.2",
-    "@capacitor/cli": "8.4.2"
+    "@capacitor/cli": "8.4.2",
+    "cnchar": "^3.2.6",
+    "cnchar-words": "^3.2.6"
   }
 }

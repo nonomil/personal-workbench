@@ -20,7 +20,7 @@ function readBank() {
 
 test('parses the character bank into unique life characters with child words', () => {
     const parsed = literacy.parseBank(readBank());
-    assert.ok(parsed.length >= 230, `expected at least 230 chars, got ${parsed.length}`);
+    assert.ok(parsed.length >= 1500, `expected at least 1500 chars, got ${parsed.length}`);
     assert.equal(literacy.getRuntimeBank().length, parsed.length);
     const chars = parsed.map(item => item.char);
     assert.equal(new Set(chars).size, parsed.length);
@@ -30,6 +30,7 @@ test('parses the character bank into unique life characters with child words', (
         assert.ok(item.theme);
         assert.ok(item.words.length >= 2, `${item.char} needs two child words`);
         assert.ok(item.words.every(word => word.includes(item.char)));
+        assert.match(item.level, /^L[1-5]$/);
         assert.equal(banned.includes(item.char), false, `banned char leaked: ${item.char}`);
     }
 });
@@ -97,14 +98,16 @@ test('child-courses snapshot keeps literacy mastery inside the existing progress
 test('today picker uses due chars then unseen bank chars and prefers 山 as the first seed', () => {
     const rules = JSON.parse(fs.readFileSync(rulesPath, 'utf8'));
     const bank = literacy.parseBank(readBank());
+    const chars = bank.map(item => item.char);
+    const firstUnseen = chars.find(char => char !== '山') || chars[0];
     const empty = literacy.createDefaultProgress();
     assert.equal(literacy.pickTodayChar(bank, empty, rules, '2026-08-14', '山'), '山');
     let progress = literacy.recordAttempt(empty, '山', { correct: true, date: '2026-08-14', activityType: 'quiz' }, rules);
-    assert.equal(literacy.pickTodayChar(bank, progress, rules, '2026-08-14', '山'), '我');
+    assert.equal(literacy.pickTodayChar(bank, progress, rules, '2026-08-14', '山'), firstUnseen);
     assert.equal(literacy.pickTodayChar(bank, progress, rules, '2026-08-15', '山'), '山');
     progress = literacy.recordAttempt(progress, '山', { correct: true, date: '2026-08-15', activityType: 'practice' }, rules);
     assert.equal(progress.mastery['山'].state, 'ready');
-    assert.equal(literacy.pickTodayChar(bank, progress, rules, '2026-08-16', '山'), '我');
+    assert.equal(literacy.pickTodayChar(bank, progress, rules, '2026-08-16', '山'), firstUnseen);
 });
 
 test('find run builds five unique 4-choice rounds without giving away the answer in the prompt', () => {
@@ -120,7 +123,7 @@ test('find run builds five unique 4-choice rounds without giving away the answer
         assert.equal(round.options[round.answer].label, round.char);
         assert.ok(round.options.every(option => option.label.length === 1));
         assert.equal(banned.some(char => round.options.some(option => option.label === char)), false);
-        assert.equal(round.prompt.includes(round.char), false);
+        assert.equal(round.prompt, '听一听，点出这个字');
         assert.ok(round.pinyin);
         assert.ok(round.word);
     }

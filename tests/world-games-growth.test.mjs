@@ -72,7 +72,7 @@ test('each world game is a self-contained folder with data and growth bridge', (
   assert.match(voxelHtml, /workbench-bridge\.js/);
   assert.match(platformHtml, /workbench-bridge\.js/);
   assert.match(gardenHtml, /stages\.js|成长关卡/);
-  assert.match(voxelHtml, /levels\.js|成长关卡/);
+  assert.match(voxelHtml, /levels\.js|quests\.js|成长关卡/);
   assert.match(platformHtml, /levels\.js|成长关卡/);
 });
 
@@ -96,6 +96,7 @@ test('growth content tables expose multiple stages or quests', () => {
   assert.equal((stages.match(/\bS\(\d+/g) || []).length >= 12, true, 'garden should have 12 stages');
   assert.match(stages, /waves|阳光/);
   const voxelLevels = fs.readFileSync(path.join(root, 'voxel-adventure', 'data', 'levels.js'), 'utf8');
-  assert.equal((voxelLevels.match(/\bL\(\d+/g) || []).length >= 8, true, 'voxel should have 8 side-scroll levels');
+  assert.equal((voxelLevels.match(/id:\s*\d+/g) || []).length >= 8, true, 'voxel should have 8 region levels');
+  assert.match(voxelLevels, /region:|grassland|goal:/);
   assert.equal((levels.match(/\bL\(\d+/g) || []).length >= 10, true, 'platform should have 10 levels');
 });

@@ -26,7 +26,8 @@
         "你",
         "人",
         "手"
-      ]
+      ],
+      "level": "L1"
     },
     {
       "id": "nature-and-direction",
@@ -41,7 +42,8 @@
         "天",
         "山",
         "水"
-      ]
+      ],
+      "level": "L2"
     },
     {
       "id": "quantity-and-color",
@@ -57,7 +59,8 @@
         "少",
         "红",
         "绿"
-      ]
+      ],
+      "level": "L3"
     },
     {
       "id": "animals-and-actions",
@@ -73,7 +76,8 @@
         "花",
         "吃",
         "看"
-      ]
+      ],
+      "level": "L4"
     },
     {
       "id": "mixed-life-reading",
@@ -89,7 +93,8 @@
         "学",
         "画",
         "唱"
-      ]
+      ],
+      "level": "L5"
     },
     {
       "id": "transfer-and-review",
@@ -105,7 +110,8 @@
         "猫",
         "家",
         "书"
-      ]
+      ],
+      "level": "L5"
     }
   ],
   "dailyContract": {

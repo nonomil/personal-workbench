@@ -72,6 +72,7 @@ def load_motion():
             "type": item.get("type") or "movement",
             "durationSec": int(item.get("durationSec") or 45),
             "safety": list(item.get("safety") or ["成人在旁"]),
+            "level": str(item.get("level") or "L1"),
         }
         for item in bank
     ]

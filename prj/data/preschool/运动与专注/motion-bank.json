@@ -12,7 +12,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "level": "L1"
   },
   {
     "id": "motion-02",
@@ -27,7 +28,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "level": "L1"
   },
   {
     "id": "motion-03",
@@ -42,7 +44,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "level": "L1"
   },
   {
     "id": "motion-04",
@@ -57,7 +60,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "level": "L1"
   },
   {
     "id": "motion-05",
@@ -72,7 +76,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "motion-06",
@@ -87,7 +92,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "motion-07",
@@ -102,7 +108,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "motion-08",
@@ -117,7 +124,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "motion-09",
@@ -132,7 +140,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "motion-10",
@@ -147,7 +156,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "motion-11",
@@ -162,7 +172,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "level": "L5"
   },
   {
     "id": "motion-12",
@@ -177,7 +188,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "level": "L5"
   },
   {
     "id": "motion-13",
@@ -192,7 +204,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "motion-14",
@@ -207,7 +220,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "motion-15",
@@ -222,7 +236,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "motion-16",
@@ -237,6 +252,7 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "level": "L3"
   }
 ]

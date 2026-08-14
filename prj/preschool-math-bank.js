@@ -109,13 +109,14 @@
 
     function buildArithmeticQuiz(bank, options) {
         const settings = options && typeof options === 'object' ? options : {};
-        const pool = levelPool(bank, 'L3').filter(function (item) {
+        const level = String(settings.level || 'L3');
+        const pool = levelPool(bank, level).filter(function (item) {
             return item.op === '+' || item.op === '-';
         });
         const size = Math.max(1, Math.min(pool.length, Number(settings.size) || 5));
         return {
             mode: 'math-bank',
-            level: 'L3',
+            level: level,
             rounds: pool.slice(0, size).map(function (item, index) {
                 const value = Math.max(0, Math.round(item.answer));
                 const options = choiceOptions(value, index + 5);
@@ -138,7 +139,7 @@
     function buildQuiz(bank, options) {
         const level = String(options && options.level || 'L1');
         if (level === 'L2') return buildCompareQuiz(bank, options);
-        if (level === 'L3') return buildArithmeticQuiz(bank, options);
+        if (level === 'L3' || level === 'L4' || level === 'L5') return buildArithmeticQuiz(bank, options);
         return buildCountQuiz(bank, options);
     }
 

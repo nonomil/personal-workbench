@@ -26,7 +26,8 @@
         "bye",
         "stand",
         "clap"
-      ]
+      ],
+      "level": "L1"
     },
     {
       "id": "theme-vocabulary",
@@ -41,7 +42,8 @@
         "cat",
         "dog",
         "apple"
-      ]
+      ],
+      "level": "L2"
     },
     {
       "id": "phonics-bridge",
@@ -56,7 +58,8 @@
         "t",
         "p",
         "i"
-      ]
+      ],
+      "level": "L3"
     },
     {
       "id": "situational-speaking",
@@ -70,7 +73,8 @@
         "I like",
         "This is",
         "Can I"
-      ]
+      ],
+      "level": "L4"
     },
     {
       "id": "story-and-transfer",
@@ -84,7 +88,8 @@
         "middle",
         "end",
         "meaning"
-      ]
+      ],
+      "level": "L5"
     },
     {
       "id": "final-english-showcase",
@@ -98,7 +103,8 @@
         "speak",
         "read",
         "choose"
-      ]
+      ],
+      "level": "L5"
     }
   ],
   "dailyContract": {

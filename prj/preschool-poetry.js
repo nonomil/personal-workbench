@@ -13,7 +13,8 @@
                 id: String(source.id || ''),
                 title: String(source.title || '').trim(),
                 author: String(source.author || '').trim(),
-                lines: lines
+                lines: lines,
+                level: String(source.level || 'L1').trim() || 'L1'
             };
         }).filter(function (item) {
             return item.id && item.title && item.lines.length >= 2;
@@ -29,9 +30,12 @@
 
     function buildLineQuiz(bank, options) {
         const settings = options && typeof options === 'object' ? options : {};
-        const poems = Array.isArray(bank) ? bank : [];
         const preferred = String(settings.preferred || 'poem-jingyesi');
+        const level = String(settings.level || '').trim();
         const size = Math.max(1, Math.min(8, Number(settings.size) || 5));
+        const helper = global.PersonalWorkbenchBankLevels;
+        let poems = Array.isArray(bank) ? bank.slice() : [];
+        if (level && helper) poems = helper.levelPoolOrAll(poems, level);
         const ordered = [];
         const preferredPoem = poems.find(function (item) { return item.id === preferred; });
         if (preferredPoem) ordered.push(preferredPoem);
@@ -93,6 +97,7 @@
             const activity = Object.assign({}, seed.activity || {}, {
                 mode: 'poetry-line',
                 preferred: poem.id,
+                level: poem.level || 'L1',
                 size: Math.max(3, Math.min(5, poem.lines.length - 1))
             });
             return {

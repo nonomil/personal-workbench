@@ -33,20 +33,24 @@
     }
 
     function timerLesson(id, title, prompt, durationSec, safety, extras) {
+        const opts = extras && typeof extras === 'object' ? extras : {};
+        const extraActivity = opts.activity && typeof opts.activity === 'object' ? opts.activity : {};
+        const activity = Object.assign({
+            mode: 'motion-timer',
+            prompt: String(prompt || title || '开始做'),
+            durationSec: Math.max(15, Math.min(90, Number(durationSec) || 45)),
+            safety: asArray(safety),
+            level: 'L1',
+            success: '做完啦！'
+        }, extraActivity);
         return Object.assign({
             id: String(id || ''),
             title: String(title || '做一项运动'),
             minutes: Math.max(1, Math.round((Number(durationSec) || 45) / 60) || 1),
             meta: (Number(durationSec) || 45) + ' 秒',
             tip: asArray(safety).join(' · ') || '成人在旁，慢慢做。',
-            activity: {
-                mode: 'motion-timer',
-                prompt: String(prompt || title || '开始做'),
-                durationSec: Math.max(15, Math.min(90, Number(durationSec) || 45)),
-                safety: asArray(safety),
-                success: '做完啦！'
-            }
-        }, extras || {});
+            activity: activity
+        }, opts, { activity: activity });
     }
 
     function packData() {
@@ -77,13 +81,27 @@
                 item.name,
                 '做：' + item.name,
                 item.durationSec,
-                item.safety
+                item.safety,
+                { activity: { level: String(item.level || 'L1') } }
             );
             if (index === 0) lesson.id = 'preschool-exercise-1';
             if (index === 1) lesson.id = 'preschool-exercise-2';
             if (index === 2) lesson.id = 'preschool-exercise-3';
+            if (item && item.id) lesson.activity.motionId = String(item.id);
             return lesson;
         });
+    }
+
+    function getMotionBank() {
+        return asArray(packData().motionBank).map(function (item) {
+            const source = item && typeof item === 'object' ? item : {};
+            return {
+                id: String(source.id || ''),
+                name: String(source.name || ''),
+                level: String(source.level || 'L1'),
+                type: String(source.type || 'movement')
+            };
+        }).filter(function (item) { return item.id; });
     }
 
     function mergeLessons(existing, extra) {
@@ -153,6 +171,7 @@
         choiceLessons: choiceLessons,
         timerLesson: timerLesson,
         exerciseSeedLessons: exerciseSeedLessons,
+        getMotionBank: getMotionBank,
         attachLessonPacks: attachLessonPacks
     };
 })(typeof window !== 'undefined' ? window : globalThis);

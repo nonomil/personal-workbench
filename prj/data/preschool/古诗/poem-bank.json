@@ -14,7 +14,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "level": "L1"
   },
   {
     "id": "poem-jingyesi",
@@ -31,7 +32,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "level": "L1"
   },
   {
     "id": "poem-yong-e",
@@ -48,7 +50,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "level": "L1"
   },
   {
     "id": "poem-minnong",
@@ -65,7 +68,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "level": "L1"
   },
   {
     "id": "poem-xiaochi",
@@ -82,7 +86,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "level": "L1"
   },
   {
     "id": "poem-shanxing",
@@ -99,7 +104,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "poem-zengwanglun",
@@ -116,7 +122,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "poem-youziyin",
@@ -133,7 +140,8 @@
       "kind": "project-original",
       "license": "project-original",
       "attribution": "个人工作台幼儿课程组"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "poem-dengguanquelou",
@@ -150,7 +158,8 @@
       "kind": "public-domain",
       "license": "public-domain",
       "attribution": "原诗公有领域"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "poem-minnong-1",
@@ -167,7 +176,8 @@
       "kind": "public-domain",
       "license": "public-domain",
       "attribution": "原诗公有领域"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "poem-gulangyuexing",
@@ -184,7 +194,8 @@
       "kind": "public-domain",
       "license": "public-domain",
       "attribution": "原诗公有领域"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "poem-feng",
@@ -201,7 +212,8 @@
       "kind": "public-domain",
       "license": "public-domain",
       "attribution": "原诗公有领域"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "poem-shancun",
@@ -218,7 +230,8 @@
       "kind": "public-domain",
       "license": "public-domain",
       "attribution": "原诗公有领域"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "poem-chishang",
@@ -235,7 +248,8 @@
       "kind": "public-domain",
       "license": "public-domain",
       "attribution": "原诗公有领域"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "poem-hua",
@@ -252,7 +266,8 @@
       "kind": "public-domain",
       "license": "public-domain",
       "attribution": "原诗公有领域"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "poem-jiangnan",
@@ -272,7 +287,8 @@
       "kind": "public-domain",
       "license": "public-domain",
       "attribution": "原诗公有领域"
-    }
+    },
+    "level": "L5"
   },
   {
     "id": "poem-chilege",
@@ -289,7 +305,8 @@
       "kind": "public-domain",
       "license": "public-domain",
       "attribution": "原诗公有领域"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "poem-cao",
@@ -306,7 +323,8 @@
       "kind": "public-domain",
       "license": "public-domain",
       "attribution": "原诗公有领域"
-    }
+    },
+    "level": "L2"
   },
   {
     "id": "poem-wanglu",
@@ -323,7 +341,8 @@
       "kind": "public-domain",
       "license": "public-domain",
       "attribution": "原诗公有领域"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "poem-zaofa",
@@ -340,7 +359,8 @@
       "kind": "public-domain",
       "license": "public-domain",
       "attribution": "原诗公有领域"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "poem-wangtianmen",
@@ -357,7 +377,8 @@
       "kind": "public-domain",
       "license": "public-domain",
       "attribution": "原诗公有领域"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "poem-biedongda",
@@ -374,7 +395,8 @@
       "kind": "public-domain",
       "license": "public-domain",
       "attribution": "原诗公有领域"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "poem-jueju",
@@ -391,7 +413,8 @@
       "kind": "public-domain",
       "license": "public-domain",
       "attribution": "原诗公有领域"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "poem-jiangxue",
@@ -408,7 +431,8 @@
       "kind": "public-domain",
       "license": "public-domain",
       "attribution": "原诗公有领域"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "poem-xunyinzhe",
@@ -425,7 +449,8 @@
       "kind": "public-domain",
       "license": "public-domain",
       "attribution": "原诗公有领域"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "poem-fengqiao",
@@ -442,7 +467,8 @@
       "kind": "public-domain",
       "license": "public-domain",
       "attribution": "原诗公有领域"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "poem-chusai",
@@ -459,7 +485,8 @@
       "kind": "public-domain",
       "license": "public-domain",
       "attribution": "原诗公有领域"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "poem-liangzhou",
@@ -476,7 +503,8 @@
       "kind": "public-domain",
       "license": "public-domain",
       "attribution": "原诗公有领域"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "poem-jiuyuejiuri",
@@ -493,7 +521,8 @@
       "kind": "public-domain",
       "license": "public-domain",
       "attribution": "原诗公有领域"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "poem-huixiang",
@@ -510,7 +539,8 @@
       "kind": "public-domain",
       "license": "public-domain",
       "attribution": "原诗公有领域"
-    }
+    },
+    "level": "L1"
   },
   {
     "id": "poem-xiaoerchuidiao",
@@ -527,7 +557,8 @@
       "kind": "public-domain",
       "license": "public-domain",
       "attribution": "原诗公有领域"
-    }
+    },
+    "level": "L4"
   },
   {
     "id": "poem-suojian",
@@ -544,7 +575,8 @@
       "kind": "public-domain",
       "license": "public-domain",
       "attribution": "原诗公有领域"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "poem-meihua",
@@ -561,7 +593,8 @@
       "kind": "public-domain",
       "license": "public-domain",
       "attribution": "原诗公有领域"
-    }
+    },
+    "level": "L3"
   },
   {
     "id": "poem-yuanri",
@@ -578,6 +611,7 @@
       "kind": "public-domain",
       "license": "public-domain",
       "attribution": "原诗公有领域"
-    }
+    },
+    "level": "L4"
   }
 ]

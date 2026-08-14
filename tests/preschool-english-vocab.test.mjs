@@ -19,7 +19,7 @@ function readBank() {
 test('vocabulary bank keeps unique child words with a meaning and a sentence', () => {
     const parsed = vocab.parseBank(readBank());
     const texts = parsed.map(item => item.text.toLowerCase());
-    assert.ok(parsed.length >= 300, `expected at least 300 words, got ${parsed.length}`);
+    assert.ok(parsed.length >= 500, `expected at least 500 words, got ${parsed.length}`);
     assert.ok(texts.includes('panda') && texts.includes('look') && texts.includes('school'));
     assert.equal(new Set(texts).size, parsed.length);
     for (const item of parsed) {
@@ -29,6 +29,7 @@ test('vocabulary bank keeps unique child words with a meaning and a sentence', (
         assert.ok(item.phrase);
         assert.equal(item.phrase.toLowerCase().includes(item.text.toLowerCase()), true, `${item.text} missing from phrase`);
         assert.ok(item.phraseZh);
+        assert.match(item.level, /^L[1-5]$/);
     }
     assert.equal(vocab.getRuntimeBank().length, parsed.length);
 });

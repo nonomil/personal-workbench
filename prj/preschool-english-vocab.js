@@ -13,7 +13,8 @@
                 zh: String(source.zh || '').trim(),
                 theme: String(source.theme || '').trim(),
                 phrase: String(source.phrase || '').trim(),
-                phraseZh: String(source.phraseZh || '').trim()
+                phraseZh: String(source.phraseZh || '').trim(),
+                level: String(source.level || 'L1').trim() || 'L1'
             };
         }).filter(function (item) {
             return item.text && item.zh && item.phrase && item.phraseZh;
@@ -64,8 +65,14 @@
         return ((diff % length) + length) % length + 1;
     }
 
-    function dailyWindow(bank, today, size) {
-        const items = Array.isArray(bank) ? bank : [];
+    function scopedBank(bank, level) {
+        const helper = global.PersonalWorkbenchBankLevels;
+        if (!helper || !level) return Array.isArray(bank) ? bank : [];
+        return helper.levelPoolOrAll(bank, level);
+    }
+
+    function dailyWindow(bank, today, size, level) {
+        const items = scopedBank(bank, level);
         const count = Math.max(1, Math.min(items.length, Number(size) || 5));
         const cycle = Math.max(1, Math.ceil(items.length / count));
         const day = courseDay(today, cycle);
@@ -77,8 +84,8 @@
         return { day: day, cycle: cycle, batch: batch };
     }
 
-    function buildSpeakBatch(bank, progress, rules, today, preferred, size) {
-        return dailyWindow(bank, today, size).batch;
+    function buildSpeakBatch(bank, progress, rules, today, preferred, size, level) {
+        return dailyWindow(bank, today, size, level).batch;
     }
 
     function toMatchPairs(batch) {

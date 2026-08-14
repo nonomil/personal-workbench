@@ -25,7 +25,8 @@
         "声音",
         "节奏",
         "自然"
-      ]
+      ],
+      "level": "L1"
     },
     {
       "id": "follow-and-order",
@@ -38,7 +39,8 @@
         "两句",
         "节奏",
         "先后"
-      ]
+      ],
+      "level": "L2"
     },
     {
       "id": "meaning-and-expression",
@@ -51,7 +53,8 @@
         "画面",
         "人物",
         "感受"
-      ]
+      ],
+      "level": "L3"
     },
     {
       "id": "season-and-family",
@@ -65,7 +68,8 @@
         "夏",
         "秋",
         "亲情"
-      ]
+      ],
+      "level": "L4"
     },
     {
       "id": "portfolio-and-review",
@@ -78,7 +82,8 @@
         "复述",
         "朗诵",
         "画面"
-      ]
+      ],
+      "level": "L5"
     },
     {
       "id": "final-showcase",
@@ -91,7 +96,8 @@
         "选择",
         "朗读",
         "分享"
-      ]
+      ],
+      "level": "L5"
     }
   ],
   "dailyContract": {

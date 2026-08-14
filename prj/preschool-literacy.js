@@ -4,6 +4,32 @@
     const STATES = ['introduced', 'practicing', 'ready', 'maintenance'];
     const DEFAULT_INTERVALS = [1, 3, 7, 14];
 
+    function rowLevel(row) {
+        if (!Array.isArray(row)) return 'L1';
+        for (let index = row.length - 1; index >= 4; index -= 1) {
+            const value = String(row[index] || '').trim();
+            if (/^L[1-5]$/.test(value)) return value;
+        }
+        return 'L1';
+    }
+
+    function rowExplain(row) {
+        if (!Array.isArray(row) || row.length < 5) return '';
+        const fifth = String(row[4] || '').trim();
+        if (/^L[1-5]$/.test(fifth)) return '';
+        return fifth;
+    }
+
+    function getLevelHelper() {
+        return global.PersonalWorkbenchBankLevels || null;
+    }
+
+    function scopedBank(bank, level) {
+        const helper = getLevelHelper();
+        if (!helper || !level) return Array.isArray(bank) ? bank : [];
+        return helper.levelPoolOrAll(bank, level);
+    }
+
     function parseBank(raw) {
         return (Array.isArray(raw) ? raw : []).map(function (row) {
             const words = Array.isArray(row && row[3]) ? row[3].map(function (word) { return String(word || '').trim(); }).filter(Boolean) : [];
@@ -12,7 +38,8 @@
                 pinyin: String(row && row[1] || '').trim(),
                 theme: String(row && row[2] || '').trim(),
                 words: words,
-                explain: String(row && row[4] || '').trim()
+                explain: rowExplain(row),
+                level: rowLevel(row)
             };
         }).filter(function (item) {
             return item.char.length === 1;
@@ -187,8 +214,8 @@
         });
     }
 
-    function pickTodayChar(bank, progress, rules, today, preferred) {
-        const items = Array.isArray(bank) ? bank : [];
+    function pickTodayChar(bank, progress, rules, today, preferred, level) {
+        const items = scopedBank(bank, level);
         const chars = items.map(function (item) { return item.char; });
         const due = buildReviewQueue(progress, rules, today, chars);
         if (due.length) return due[0];
@@ -205,8 +232,8 @@
         return chars[0] || '';
     }
 
-    function buildFindRun(bank, progress, rules, today, preferred, roundCount) {
-        const items = Array.isArray(bank) ? bank : [];
+    function buildFindRun(bank, progress, rules, today, preferred, roundCount, level) {
+        const items = scopedBank(bank, level);
         const count = Math.max(1, Math.min(items.length, Number(roundCount) || 5));
         const used = [];
         const rounds = [];
@@ -236,8 +263,8 @@
         return { rounds: rounds };
     }
 
-    function buildFlashBatch(bank, progress, rules, today, preferred, size) {
-        const items = Array.isArray(bank) ? bank : [];
+    function buildFlashBatch(bank, progress, rules, today, preferred, size, level) {
+        const items = scopedBank(bank, level);
         const count = Math.max(1, Math.min(items.length, Number(size) || 8));
         const used = [];
         const batch = [];

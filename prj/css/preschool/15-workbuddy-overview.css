@@ -943,6 +943,20 @@ body.variant-preschool .preschool-route-step.is-done .preschool-route-step-art {
 body.variant-preschool .preschool-route-step.is-done .preschool-route-step-action { color: #fff; background: #70bd71; }
 body.variant-preschool .preschool-route-step.is-next { background: #fcfdf9; }
 body.variant-preschool .preschool-route-step.is-next .preschool-route-step-art { background: #edf5ed; }
+body.variant-preschool .preschool-route-step.is-locked { border-color: #e8e8de; background: #f7f7f2; opacity: .82; cursor: not-allowed; }
+body.variant-preschool .preschool-route-step.is-locked .preschool-route-step-number { color: #fff; background: #c5c5b8; }
+body.variant-preschool .preschool-route-step.is-locked .preschool-route-step-action { color: #fff; background: #c5c5b8; }
+body.variant-preschool .preschool-level-bands { display: grid; gap: 8px; margin: 12px 0 4px; }
+body.variant-preschool .preschool-level-band { display: grid; grid-template-columns: 52px minmax(0, 1fr) auto; gap: 8px; align-items: center; padding: 8px 10px; border: 1px solid #e3eee0; border-radius: 12px; background: #fbfdf8; }
+body.variant-preschool .preschool-level-band.is-unlocked { border-color: #c8e4c0; }
+body.variant-preschool .preschool-level-band.is-current { border-color: #f2c373; background: #fff9e9; }
+body.variant-preschool .preschool-level-band.is-locked { opacity: .72; }
+body.variant-preschool .preschool-level-band strong { color: #365d47; font-size: 11px; }
+body.variant-preschool .preschool-level-band small { color: #9a9b8e; font-size: 10px; }
+body.variant-preschool .preschool-level-band-track { overflow: hidden; height: 8px; border-radius: 99px; background: #edf3ea; }
+body.variant-preschool .preschool-level-band-track i { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #8ecf84, #5ea866); }
+body.variant-preschool .preschool-level-band.is-locked .preschool-level-band-track i { background: #d8d8cc; }
+body.variant-preschool .preschool-level-band-state { color: #7a947f; font-size: 10px; font-weight: 800; white-space: nowrap; }
 
 body.variant-preschool .preschool-calendar-layout { display: grid; grid-template-columns: minmax(0, 1fr) 250px; gap: 18px; align-items: start; }
 body.variant-preschool .preschool-calendar-card,
