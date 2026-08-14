@@ -66,7 +66,23 @@
             unicorn: { name: '星芒', xp: 0, level: 1, activeStyleId: 'style-classic', unlockedStyleIds: ['style-classic'] },
             zombie: { active: false, defeated: 0, lastSpawnDate: '' },
             achievements: { unlocked: [], history: [], lastShown: '', seen: [] },
-            pet: normalizePet(null)
+            pet: normalizePet(null),
+            streakRepair: { cardsUsedByMonth: {}, repairedDates: [] }
+        };
+    }
+
+    const STREAK_REPAIR_MONTHLY_CARDS = 2;
+
+    function normalizeStreakRepair(input) {
+        const source = input && typeof input === 'object' ? input : {};
+        const cards = source.cardsUsedByMonth && typeof source.cardsUsedByMonth === 'object' ? source.cardsUsedByMonth : {};
+        const used = {};
+        Object.keys(cards).forEach(function (key) {
+            if (/^\d{4}-\d{2}$/.test(key)) used[key] = Math.max(0, Number(cards[key]) || 0);
+        });
+        return {
+            cardsUsedByMonth: used,
+            repairedDates: asArray(source.repairedDates).filter(item => /^\d{4}-\d{2}-\d{2}$/.test(String(item))).sort()
         };
     }
 
@@ -115,7 +131,8 @@
             unicorn: Object.assign(seed.unicorn, source.unicorn || {}),
             zombie: Object.assign(seed.zombie, source.zombie || {}),
             achievements: normalizeAchievements(source.achievements),
-            pet: normalizePet(source.pet)
+            pet: normalizePet(source.pet),
+            streakRepair: normalizeStreakRepair(source.streakRepair)
         });
         growth.plant.waterCount = Math.max(0, Number(growth.plant.waterCount) || 0);
         growth.unicorn.xp = Math.max(0, Number(growth.unicorn.xp) || growth.totalSunlightEarned);
@@ -165,6 +182,7 @@
         growth.zombie = Object.assign({}, seed.zombie, source.zombie || {});
         growth.achievements = normalizeAchievements(source.achievements);
         growth.pet = normalizePet(source.pet);
+        growth.streakRepair = normalizeStreakRepair(source.streakRepair);
         return growth;
     }
 
@@ -202,6 +220,43 @@
         return { growth: derive(growth), awarded: true, dailyBonus: dailyBonus, zombieDefeated: zombieDefeated };
     }
 
+    function repairStreak(input, date) {
+        const growth = normalize(input);
+        const today = localDate(date);
+        const yesterday = dateOffset(today, -1);
+        if (growth.checkinDates.includes(yesterday)) {
+            return { ok: false, growth: growth, reason: '昨天没有断档，不需要补签' };
+        }
+        const month = today.slice(0, 7);
+        const used = Number(growth.streakRepair.cardsUsedByMonth[month]) || 0;
+        if (used >= STREAK_REPAIR_MONTHLY_CARDS) {
+            return { ok: false, growth: growth, reason: `这个月的 ${STREAK_REPAIR_MONTHLY_CARDS} 张补签卡都用完了，下个月再来` };
+        }
+        growth.streakRepair.cardsUsedByMonth[month] = used + 1;
+        growth.streakRepair.repairedDates.push(yesterday);
+        growth.streakRepair.repairedDates.sort();
+        growth.checkinDates.push(yesterday);
+        growth.checkinDates.sort();
+        // 补签只恢复连续性:不发当日阳光、不进 awardedIds 结算路径
+        return { ok: true, growth: derive(growth), repairedDate: yesterday, cardsLeft: STREAK_REPAIR_MONTHLY_CARDS - used - 1 };
+    }
+
+    function getStreakRepairView(growth, today) {
+        const month = today.slice(0, 7);
+        const used = Number(growth.streakRepair.cardsUsedByMonth[month]) || 0;
+        const yesterday = dateOffset(today, -1);
+        const yesterdayMissing = !growth.checkinDates.includes(yesterday);
+        const hasHistory = growth.checkinDates.some(function (item) { return item < yesterday; });
+        return {
+            available: Math.max(0, STREAK_REPAIR_MONTHLY_CARDS - used),
+            usedThisMonth: used,
+            monthlyCards: STREAK_REPAIR_MONTHLY_CARDS,
+            yesterday: yesterday,
+            canRepair: yesterdayMissing && used < STREAK_REPAIR_MONTHLY_CARDS && hasHistory,
+            welcomeBack: yesterdayMissing && hasHistory
+        };
+    }
+
     function getView(input, date) {
         const growth = derive(normalize(input));
         const today = localDate(date);
@@ -230,6 +285,7 @@
             unlockedStreakRewardIds: unlockedStreakRewardIds,
             claimedStreakRewardIds: growth.claimedStreakRewardIds,
             streakRewards: STREAK_REWARDS,
+            streakRepair: getStreakRepairView(growth, today),
             styles: STYLE_CATALOG,
             achievements: growth.achievements
         };
@@ -285,6 +341,8 @@
         recordAction: recordAction,
         getView: getView,
         claimStreakReward: claimStreakReward,
+        repairStreak: repairStreak,
+        STREAK_REPAIR_MONTHLY_CARDS: STREAK_REPAIR_MONTHLY_CARDS,
         selectStyle: selectStyle,
         waterPlant: waterPlant,
         setVoiceEnabled: setVoiceEnabled,

@@ -39,3 +39,12 @@ docs/徽章系统/refs/
 docs/学习项目设计/refs/
 docs/工作台小游戏设计/refs/
 refs/
+
+# 本地专用游戏素材(商标形象,仅本地自用,不入库不发布)
+prj/games/ref/
+prj/games/platform-quest/assets/hero/jumper-*.png
+prj/games/voxel-adventure/assets/hero/steve-*.png
+prj/games/voxel-adventure/assets/hero/miner-idle.png
+prj/games/voxel-adventure/assets/hero/keyed/
+prj/games/voxel-adventure/assets/enemies/keyed/
+prj/games/voxel-adventure/assets/enemies/green-boom.png

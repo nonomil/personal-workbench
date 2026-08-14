@@ -6,7 +6,7 @@ import pdfplumber
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_PDF = ROOT / "docs" / "自然拼读" / "research" / "resources" / "open-source-phonics" / "all-1-120-lessons.pdf"
+SOURCE_PDF = ROOT / "docs" / "02-课程" / "自然拼读" / "research" / "resources" / "open-source-phonics" / "all-1-120-lessons.pdf"
 OUTPUT = ROOT / "data" / "preschool" / "english" / "phonics" / "reference-bank.json"
 
 LESSON_RE = re.compile(r"^LESSON\s+(\d+)$", re.IGNORECASE)

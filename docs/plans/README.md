@@ -4,9 +4,18 @@
 
 ## 当前执行
 
-- 产品方案：`docs/工作台小游戏设计/`
+- 产品方案：`docs/01-方案/工作台小游戏设计/`
 - 任务包（按 templates 装配）：[`T20260813-world-games-growth/`](./T20260813-world-games-growth/README.md)
 - 审查整改包（2026-08-14 审查结论）：[`T20260814-audit-remediation/`](./T20260814-audit-remediation/README.md)
+- 学习内容体系优化批次（源头 `docs/01-方案/2026-08-15-学习内容体系优化/`，建议顺序 B1→B2→B3→B4）：
+  - [`T20260815-B1-docs-truth/`](./T20260815-B1-docs-truth/README.md) 文档回真（P0，pending）
+  - [`T20260815-B2-practice-review/`](./T20260815-B2-practice-review/README.md) 六项接练习 + 错题回流（P0，pending）
+  - [`T20260815-B3-reward-loop/`](./T20260815-B3-reward-loop/README.md) 奖励闭环四件套（P1，blocked 等 B2）
+  - [`T20260815-B4-content-deepening/`](./T20260815-B4-content-deepening/README.md) 内容深化（P2，deferred 按需启动）
+- 三游戏优化包（2026-08-15 分册方案落地，推荐按序执行，不并行）：
+  1. [`T20260815-garden-optimize/`](./T20260815-garden-optimize/README.md) 花园：playMods + 结算三行 + 星芒陪伴
+  2. [`T20260815-voxel-optimize/`](./T20260815-voxel-optimize/README.md) 方块：周报总数 bug + 结算三行 + 升段仪式（唯一动 bridge 的包）
+  3. [`T20260815-platform-optimize/`](./T20260815-platform-optimize/README.md) 横版：碰撞债清偿 + 手感锁定 + playMods + 结算三行
 - 历史日期稿：`old/`（不叠加）
 - 模板本身：`templates/`（只复制需要的卡，不要一次生成全部）
 

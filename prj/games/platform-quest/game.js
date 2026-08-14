@@ -50,6 +50,7 @@
     let last = 0;
     let pops = [];
     let floats = [];
+    let debris = [];
     let stompCombo = 0;
     let lastStompAt = -9999;
 
@@ -135,7 +136,15 @@
             fall: function () { tone(400, 0.3, 'triangle', 0.08, 120); },
             power: function () { [523, 659, 784, 1047].forEach(function (f, i) { tone(f, 0.1, 'square', 0.07, null, i * 0.07); }); },
             clear: function () { [523, 659, 784, 1047, 1319].forEach(function (f, i) { tone(f, 0.14, 'square', 0.08, null, i * 0.1); }); },
-            bump: function () { tone(170, 0.07, 'square', 0.09, 120); }
+            bump: function () { tone(170, 0.07, 'square', 0.09, 120); },
+            break: function () {
+                tone(140, 0.06, 'square', 0.11, 80);
+                tone(90, 0.12, 'triangle', 0.09, 45, 0.04);
+            },
+            question: function () {
+                tone(520, 0.05, 'square', 0.08, 780);
+                tone(780, 0.1, 'square', 0.07, 1040, 0.05);
+            }
         };
     }());
 
@@ -184,8 +193,8 @@
     }
 
     const LEVEL_TIPS = {
-        1: '1–4 关可在空中连跳两次',
-        2: '先顶问号拿蘑菇，再碎砖块',
+        1: '1–4 关可连跳两次；顶悬浮砖块有碎裂音效',
+        2: '顶问号拿道具，跳起来也能撞碎砖块',
         3: '星星无敌时碰怪也会消失',
         5: '从这里起空中只能再跳一次',
         6: '中间亮块是检查点，掉坑会回到那里',
@@ -317,7 +326,8 @@
     function resetRun() {
         player.x = 48; player.y = 320; player.vx = 0; player.vy = 0;
         player.onGround = false; player.facing = 1; player.pose = 'idle'; player.ride = null;
-        coins = 0; won = false; awarding = false; cameraX = 0; cameraTarget = 0; pops = []; floats = [];
+        coins = 0; won = false; awarding = false; cameraX = 0; cameraTarget = 0;
+        pops = []; floats = []; debris = [];
         stompCombo = 0;
         lastStompAt = -9999;
         lastGroundedAt = -9999;
@@ -400,28 +410,49 @@
         });
     }
 
+    function isBumpBlock(solid) {
+        return solid && (solid.type === 'question' || solid.type === 'brick');
+    }
+
+    function spawnDebris(x, y, w) {
+        const n = 5;
+        for (let i = 0; i < n; i += 1) {
+            debris.push({
+                x: x + (w / n) * i + 4,
+                y: y + 6,
+                w: 8,
+                h: 8,
+                vx: (i - n / 2) * 38 + (Math.random() - 0.5) * 30,
+                vy: -120 - Math.random() * 80,
+                life: 0.55,
+                color: i % 2 ? '#c65a22' : '#e08a4a'
+            });
+        }
+    }
+
     function bumpBlock(block, now) {
-        const canBreak = playerPowered || now < starUntil;
-        sfx.bump();
         if (block.type === 'brick') {
-            if (canBreak && !block.broken) {
-                block.broken = true;
-                if (block.item === 'coin') {
-                    addCoin(now, 1);
-                    spawnPop(block.x + 8, block.y - 12);
-                }
-                toast('砖块碎啦');
-            } else if (!block.broken) {
-                toast(playerPowered ? '顶砖块' : '变大或星星才能碎砖');
+            if (block.broken) return;
+            block.broken = true;
+            sfx.break();
+            spawnDebris(block.x, block.y, block.w);
+            if (block.item === 'coin') {
+                addCoin(now, 1);
+                spawnPop(block.x + 8, block.y - 12);
             }
+            spawnFloat(block.x + 4, block.y - 10, '碎!', '#ffd02f');
             return;
         }
-        if (block.hit) return;
+        if (block.hit) {
+            sfx.bump();
+            return;
+        }
         block.hit = true;
+        sfx.question();
         if (block.item === 'coin') {
             addCoin(now, 1);
             spawnPop(block.x + 8, block.y - 12);
-            toast('惊喜块 · +1 金币');
+            spawnFloat(block.x + 4, block.y - 10, '+1', '#ffd02f');
             return;
         }
         spawnPickup(block.x + 4, block.y - 28, block.item);
@@ -585,8 +616,16 @@
         player.x += player.vx * dt;
         solids().forEach(function (platform) {
             if (!rectsOverlap(player, platform)) return;
+            if (!player.vx) return;
+            // 最小穿透轴:横向穿透小于纵向重叠才水平推出,否则交给竖直解算
+            // (修复:下落按住方向键时,全宽地面把玩家瞬移到关卡边缘)
+            const penX = player.vx > 0
+                ? (player.x + player.w) - platform.x
+                : platform.x + platform.w - player.x;
+            const penY = (player.y + player.h) - platform.y;
+            if (penX >= penY) return;
             if (player.vx > 0) player.x = platform.x - player.w;
-            else if (player.vx < 0) player.x = platform.x + platform.w;
+            else player.x = platform.x + platform.w;
         });
         player.y += player.vy * dt;
         player.onGround = false;
@@ -600,7 +639,7 @@
             } else if (player.vy < 0) {
                 player.y = platform.y + platform.h;
                 player.vy = 0;
-                if (platform.type === 'question' || platform.type === 'brick') bumpBlock(platform, now);
+                if (isBumpBlock(platform)) bumpBlock(platform, now);
             }
         });
         if (!player.onGround) player.ride = null;
@@ -644,7 +683,6 @@
             lastHitAt = now;
             if (playerPowered) {
                 playerPowered = false;
-                player.vx = player.facing * -140;
                 player.vy = -180;
                 sfx.hurt();
                 toast('变大保护挡了一下');
@@ -653,8 +691,6 @@
             hearts -= 1;
             updateHeartsHud();
             sfx.hurt();
-            player.vx = player.facing * -180;
-            player.x += player.facing * -28;
             player.vy = -220;
             if (hearts <= 0) {
                 hearts = 3;
@@ -685,6 +721,13 @@
             f.life -= dt;
             f.y += f.vy * dt;
             return f.life > 0;
+        });
+        debris = debris.filter(function (d) {
+            d.life -= dt;
+            d.vy += 520 * dt;
+            d.x += d.vx * dt;
+            d.y += d.vy * dt;
+            return d.life > 0;
         });
 
         if (rectsOverlap(player, level.flag)) onClear();
@@ -896,6 +939,13 @@
             ctx.lineWidth = 3;
             ctx.strokeText(f.text, f.x, f.y);
             ctx.fillText(f.text, f.x, f.y);
+            ctx.restore();
+        });
+        debris.forEach(function (d) {
+            ctx.save();
+            ctx.globalAlpha = Math.max(0, d.life / 0.55);
+            ctx.fillStyle = d.color;
+            ctx.fillRect(d.x, d.y, d.w, d.h);
             ctx.restore();
         });
         if (decor && level.pipe) decor.pipe(ctx, level.pipe.x, level.pipe.y, level.pipe.w, level.pipe.h);

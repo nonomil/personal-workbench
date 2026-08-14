@@ -1,5 +1,10 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const root = path.join(fileURLToPath(new URL('..', import.meta.url)), 'prj');
 
 await import('../prj/games/platform-quest/data/physics.js');
 const P = globalThis.PlatformPhysics;
@@ -41,4 +46,15 @@ test('one extra air jump is allowed then blocked', () => {
 test('early levels allow a third jump via extended air jump budget', () => {
   assert.equal(P.EARLY_LEVEL_AIR_JUMPS, 2);
   assert.equal(P.AIR_JUMP_BUFFER_MS, 200);
+});
+
+test('horizontal collision uses minimal-penetration guard against the full-width ground', () => {
+  const game = fs.readFileSync(path.join(root, 'games', 'platform-quest', 'game.js'), 'utf8');
+  assert.match(game, /penX >= penY/, 'horizontal resolve must skip when vertical overlap dominates (falling onto full-width ground must not teleport to level edge)');
+});
+
+test('dead horizontal knockback assignments are removed', () => {
+  const game = fs.readFileSync(path.join(root, 'games', 'platform-quest', 'game.js'), 'utf8');
+  assert.doesNotMatch(game, /player\.vx = player\.facing \* -\d/, 'horizontal knockback was dead code (overwritten by input next frame); vertical pop stays');
+  assert.match(game, /player\.vy = -220/, 'hurt vertical pop must remain');
 });

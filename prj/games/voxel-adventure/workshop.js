@@ -254,7 +254,7 @@
         });
         while (cells.length < 36) cells.push('<div class="vw-slot is-empty"></div>');
         return '<div class="vw-pack"><h2>背包 / Inventory</h2><div class="vw-grid">' + cells.join('') +
-            '</div><button type="button" class="vw-close" data-action="voxel-workshop-tab" data-tab="home">关闭 Close</button></div>';
+            '</div><button type="button" class="vw-close" data-action="voxel-workshop-close">关闭 Close</button></div>';
     }
 
     function renderWorld() {
@@ -271,6 +271,33 @@
             '<button type="button" class="vw-buy vw-buy-ghost" data-action="navigate" data-page="family">家长互动</button>' +
             '</div>';
     }
+
+    // 游戏内嵌面板:只保留方块专属模块(小卖部+合成台 / 背包 / 家长锁)
+    const GAME_TABS = TABS.filter(function (tab) {
+        return ['shop', 'pack', 'other'].indexOf(tab.id) !== -1;
+    });
+
+    api.renderGamePanel = function (tab) {
+        const active = GAME_TABS.some(function (t) { return t.id === tab; }) ? tab : 'shop';
+        let body = '';
+        if (active === 'pack') body = renderPack();
+        else if (active === 'other') {
+            const locked = isLocked();
+            body = '<div class="vw-other"><h2>家长锁 / Parent Lock</h2>' +
+                '<p>上锁后，游戏里的购买和合成都不能用，只能挖方块做任务。</p>' +
+                '<p>当前：<strong>' + (locked ? '已上锁' : '未上锁') + '</strong></p>' +
+                '<button type="button" class="vw-buy" data-action="voxel-parent-lock">' + (locked ? '解锁' : '上锁') + '</button></div>';
+        } else body = renderShop();
+        return '<div class="voxel-workshop vw-game-panel" data-vw-tab="' + active + '">' +
+            '<div class="vw-game-tabs">' +
+            GAME_TABS.map(function (t) {
+                return '<button type="button" class="vw-rail-item' + (t.id === active ? ' is-on' : '') +
+                    '" data-action="voxel-workshop-tab" data-tab="' + t.id + '">' +
+                    iconMarkup(t.icon) + '<span>' + t.label + '</span></button>';
+            }).join('') +
+            '<button type="button" class="vw-game-close" data-action="voxel-workshop-close" aria-label="关闭工坊">×</button>' +
+            '</div><div class="vw-main vw-game-main"><div class="vw-body">' + body + '</div></div></div>';
+    };
 
     function renderLife(ctx) {
         return '<div class="vw-life"><h2>生活 / Life</h2><p>学习、家务做完会换成 XP（阳光），再去小卖部换方块。</p>' +

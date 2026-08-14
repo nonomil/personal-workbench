@@ -420,7 +420,7 @@ for (const definition of definitions) {
         schemaVersion: 1,
         subject: definition.subject,
         status: 'seed-only',
-        policy: { defaultLicense: 'project-original', externalRequiresAttribution: true, unknownLicensePublishable: false, researchOnlyPath: `docs/${definition.folder}/research/raw` },
+        policy: { defaultLicense: 'project-original', externalRequiresAttribution: true, unknownLicensePublishable: false, researchOnlyPath: `docs/02-课程/${definition.folder}/research/raw` },
         items: []
     });
     writeText(path.join(assetDir, 'original', 'README.md'), '只放通过内容、视觉和版权检查的项目原创图片、音频和打印材料。每个文件必须登记在上级 manifest.json。');

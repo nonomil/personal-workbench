@@ -1,8 +1,8 @@
 # voxel-adventure 本地资源
 
 > ⚠️ **本地专用形象**:当前 `hero/explorer-*.png` 槽位放的是**史蒂夫两帧**(idle/run,源自 `../../ref/voxel-adventure/assets/hero/`,按内容裁齐),
-> `enemies/creeper.png` 为**苦力怕**(草原/矿洞出没)。两者均为 Mojang 商标角色,**只能本地自用,不得进入对外发布包**。
-> 发布前切回原创形象:把 `hero/papermc/` 五个文件复制回 `hero/` 覆盖,并把 `data/levels.js` 里 mobs 的 `creeper` 移除即可。
+> `enemies/green-boom.png`(本地名 creeper.png 改中性名)为**苦力怕形象**(草原/矿洞出没)。两者均为 Mojang 商标角色,**只能本地自用,不得进入对外发布包**。
+> 发布前切回原创形象:把 `hero/papermc/` 五个文件复制回 `hero/` 覆盖,并把 `data/levels.js` 里 mobs 的 `creeper` 移除即可(或直接删 green-boom.png,敌人会回退为代码像素怪)。
 
 | 路径 | 实际内容 | 用途 |
 |------|----------|------|
@@ -14,7 +14,7 @@
 | hero/papermc/ | Paper-MC 探险家五帧备份 | 发布用原创主角 |
 | hero/steve-idle.png、steve-run.png | 史蒂夫原始帧(未裁) | 冗余,可删 |
 | hero/miner-idle.png、keyed/ | 历史遗留 | 未使用 |
-| enemies/creeper.png | 苦力怕 | 草原/矿洞敌人(48×64) |
+| enemies/green-boom.png | 苦力怕形象(本地专用,已 ignore) | 草原/矿洞敌人(48×64) |
 | enemies/其余 | Paper-MC 家族 11 种 | 各区域敌人 |
 | bg/sky-day.png | 等级 1–3 天空 |
 | bg/sky-dusk.png | 等级 4–5 黄昏天空 |

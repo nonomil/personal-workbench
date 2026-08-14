@@ -24,7 +24,12 @@ test('preschool home surfaces three world progress and daily game sun cap', () =
   assert.doesNotMatch(app.slice(homeStart, homeEnd), /renderPreschoolHomeWorldProgress\(\)/);
   assert.match(app.slice(growthStart, growthEnd), /renderPreschoolHomeWorldProgress\(\)/);
   assert.match(app, /openPreschoolWorldGame\(forcedTheme/);
-  assert.match(app, /voxel-craft/);
+  // 方块工坊已折叠进游戏页:工作台不再接管,由游戏页加载 workshop.js 并处理 voxel-craft
+  const voxelGameJs = fs.readFileSync(path.join(root, 'voxel-adventure', 'game.js'), 'utf8');
+  const voxelGameHtml = fs.readFileSync(path.join(root, 'voxel-adventure', 'index.html'), 'utf8');
+  assert.match(voxelGameJs, /voxel-craft/);
+  assert.match(voxelGameHtml, /workshop\.js/);
+  assert.match(voxelGameHtml, /workshop-overlay/);
   assert.match(app, /data-theme-id=/);
   assert.match(app, /getAdventureMetaView|adventureTitle|三世界长期冒险/);
   assert.match(css, /preschool-world-progress/);
@@ -39,7 +44,8 @@ test('preschool home surfaces three world progress and daily game sun cap', () =
   assert.match(bridge, /playModsFromLiteracy|getPlayMods/);
   assert.doesNotMatch(bridge, /gameTickets|游戏券/);
   assert.match(shell, /workbench-bridge\.js/);
-  assert.match(shell, /voxel-adventure\/data\/world\.js/);
+  // 方块工坊折叠进游戏页后,工作台不再加载 voxel 脚本(保持与其他主题一致的标准布局)
+  assert.doesNotMatch(shell, /voxel-adventure/);
   assert.match(app, /function renderPreschoolWeeklyAdventureReport/);
   assert.match(app, /本周冒险周报|孩子本周冒险报告/);
   assert.match(css, /preschool-weekly-report/);
@@ -114,4 +120,14 @@ test('growth content tables expose multiple stages or quests', () => {
     return width >= 1900;
   });
   assert.equal(tooLong.length, 0, 'levels 2–10 should stay under 1900px');
+});
+
+test('badge totals derive from the catalog length, never hardcoded', () => {
+  const achievements = fs.readFileSync(path.join(fileURLToPath(new URL('..', import.meta.url)), 'prj', 'preschool-achievements.js'), 'utf8');
+  const bridge = fs.readFileSync(path.join(root, 'shared', 'workbench-bridge.js'), 'utf8');
+  assert.match(achievements, /BADGE_COUNT = BADGE_ORDER\.length/);
+  assert.match(bridge, /badgeTotal: badges\.length/);
+  for (const src of [achievements, bridge, fs.readFileSync(path.join(fileURLToPath(new URL('..', import.meta.url)), 'prj', 'app.js'), 'utf8')]) {
+    assert.doesNotMatch(src, /badgeTotal\s*[:=]\s*11\b/, 'badge total must not be hardcoded to 11');
+  }
 });

@@ -40,8 +40,8 @@
 - `prj/games/voxel-adventure/index.html`（静态文案）
 - `prj/index.html`（启动器 5 处商标词）
 - `tests/world-games.test.mjs`（合同断言）
-- `docs/学习项目设计/2026-08-14-学习项目设计-落地分析.md`（笔顺行修订）
-- `docs/优化方案2/幼小衔接工作台-方案文档/03-伙伴与激励/02-徽章与券.md`（券裁决标注）
+- `docs/01-方案/学习项目设计/01-落地分析-识字与字卡.md`（笔顺行修订）
+- `docs/01-方案/优化方案2/幼小衔接工作台-方案文档/03-伙伴与激励/02-徽章与券.md`（券裁决标注）
 
 **不碰：** `game.js` 游戏逻辑、`workbench-bridge.js`、localStorage key、花园世界、徽章判定逻辑（已验收为正确）。
 

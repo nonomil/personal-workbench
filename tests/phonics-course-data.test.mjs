@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const root = path.join(repoRoot, 'prj');
 const dataDir = path.join(root, 'data', 'preschool', 'english', 'phonics');
-const docsDir = path.join(repoRoot, 'docs', '自然拼读');
+const docsDir = path.join(repoRoot, 'docs', '02-课程', '自然拼读');
 const assetDir = path.join(root, 'assets', 'generated', 'preschool', 'phonics');
 
 function readJson(name) {

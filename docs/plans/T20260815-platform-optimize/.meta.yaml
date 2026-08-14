@@ -1,0 +1,31 @@
+task_id: "T20260815-PQ"
+title: "横版闯关优化一期：碰撞债清偿 + 手感锁定 + playMods + 结算三行"
+status: "pending"
+priority: "P0"
+phase: "S1-connect"
+assignee: ""
+created: "2026-08-15"
+completed: ""
+depends_on: []
+estimated_hours: 10
+actual_hours: 0
+files:
+  - path: "prj/games/platform-quest/game.js"
+    change_type: "modify"
+  - path: "prj/games/platform-quest/game.css"
+    change_type: "modify"
+  - path: "tests/world-games.test.mjs"
+    change_type: "modify"
+  - path: "tests/platform-physics.test.mjs"
+    change_type: "create-or-modify"
+acceptance:
+  - "水平击退死代码删除；全宽地面碰撞有保护，两条断言守护"
+  - "coyote/jump buffer/可变跳高抽为纯函数并有四个边界断言"
+  - "识字三档下敌人速度与通关阳光可被测试区分"
+  - "结算页含用时/新纪录/冒险进度/下一目标；星芒出场（文案节流）"
+  - "npm test 全绿，无新 localStorage key"
+tags:
+  - preschool
+  - world-games
+  - platform-quest
+notes: "方案源：docs/01-方案/工作台小游戏设计/03-横版闯关/。R1 碰撞债来自综合改进规划§3 P0（当前状态 3.13 记录在案），与手感重构同片代码故并入本包。S2（时间挑战外显/检查点反馈/关卡减肥）待 S1 收口。"

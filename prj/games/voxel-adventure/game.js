@@ -296,7 +296,14 @@
         renderHud();
         renderQuests();
         renderHotbar();
+        showPlay();
         const lv = levelsApi.get(levelId);
+        const titleEl = document.getElementById('level-title');
+        if (titleEl) titleEl.textContent = '第 ' + levelId + ' 关 · ' + (lv && lv.title ? lv.title : '');
+        const goalEl = document.getElementById('goal-label');
+        if (goalEl) goalEl.textContent = lv && lv.goal
+            ? ((lv.goal.label || lv.goal.type) + ' ' + lv.goal.count + ' + 出口')
+            : '走到出口通关';
         toast((lv && lv.title ? lv.title : '第 ' + levelId + ' 关') + ' · 识字 ' + playMods.literacyKnown + ' · ' + playMods.label + '模式');
     }
 
@@ -475,26 +482,59 @@
     }
 
     function renderQuests() {
-        const box = document.getElementById('quest-list');
+        const box = document.getElementById('stage-map');
         if (!box) return;
         box.innerHTML = '';
+        box.setAttribute('aria-label', levelsApi.count + ' 个区域关卡');
+        const countEl = document.getElementById('stage-count');
+        if (countEl) countEl.textContent = String(levelsApi.count);
         levelsApi.list.forEach(function (lv) {
             const locked = lv.id > (progress.unlockedLevel || 1);
             const cleared = (progress.clearedLevels || []).indexOf(lv.id) !== -1;
             const card = document.createElement('button');
             card.type = 'button';
-            card.className = 'quest-card' + (lv.id === levelId ? ' is-daily' : '') + (cleared ? ' is-done' : '');
+            card.className = 'stage-card' + (locked ? ' is-locked' : '')
+                + (cleared ? ' is-cleared' : '') + (lv.id === levelId && !locked ? ' is-current' : '');
             card.disabled = locked;
-            card.innerHTML = '<strong>第 ' + lv.id + ' 关 · ' + lv.title + '</strong>' +
-                '<small>' + (locked ? '先通前面一关' : (cleared ? '已通关 · 再走一次' : (
-                    (lv.goal ? (lv.goal.label || lv.goal.type) + ' ' + lv.goal.count + ' + 出口' : '走到出口通关')
-                ))) + '</small>';
+            card.setAttribute('aria-label', locked
+                ? '第 ' + lv.id + ' 关未解锁'
+                : '第 ' + lv.id + ' 关 ' + lv.title);
+            const thumb = document.createElement('span');
+            thumb.className = 'stage-thumb';
+            const num = document.createElement('b');
+            num.className = 'stage-num';
+            num.textContent = String(lv.id);
+            thumb.appendChild(num);
+            if (locked) {
+                const lock = document.createElement('span');
+                lock.className = 'stage-lock';
+                lock.setAttribute('aria-hidden', 'true');
+                thumb.appendChild(lock);
+            }
+            card.appendChild(thumb);
+            const title = document.createElement('span');
+            title.className = 'stage-best';
+            title.textContent = locked ? '先通前面一关' : (lv.title + (cleared ? ' ✓' : ''));
+            card.appendChild(title);
             if (!locked) card.addEventListener('click', function () { enterLevel(lv.id); });
             box.appendChild(card);
         });
         const tip = document.getElementById('progress-tip');
         if (tip) tip.textContent = '通关 ' + (progress.clearedLevels || []).length + ' / ' + levelsApi.count;
         refreshWallet();
+    }
+
+    function showMap() {
+        document.body.classList.add('is-picking');
+        document.getElementById('panel-map').classList.remove('is-hidden');
+        document.getElementById('panel-play').classList.add('is-hidden');
+        renderQuests();
+    }
+
+    function showPlay() {
+        document.body.classList.remove('is-picking');
+        document.getElementById('panel-map').classList.add('is-hidden');
+        document.getElementById('panel-play').classList.remove('is-hidden');
     }
 
     function cellAt(clientX, clientY) {
@@ -726,6 +766,7 @@
         renderHud();
         setTimeout(function () {
             if (levelId < levelsApi.count) enterLevel(levelId + 1);
+            else showMap();
         }, 1200);
     }
 
@@ -1079,6 +1120,10 @@
     }
 
     function draw(now) {
+        if (document.getElementById('panel-play').classList.contains('is-hidden')) {
+            requestAnimationFrame(draw);
+            return;
+        }
         const t = Number(now) || 0;
         frameCount += 1;
         tickWorld(t);
@@ -1183,6 +1228,65 @@
         if (resetBtn) resetBtn.addEventListener('click', function () { enterLevel(levelId); });
         const hudRefresh = document.getElementById('hud-refresh');
         if (hudRefresh) hudRefresh.addEventListener('click', function () { enterLevel(levelId); });
+        const mapBtn = document.getElementById('map-btn');
+        if (mapBtn) mapBtn.addEventListener('click', showMap);
+
+        // 方块工坊(游戏内):小卖部/合成台/背包/家长锁
+        const workshopOverlay = document.getElementById('workshop-overlay');
+        let workshopTab = 'shop';
+
+        function renderWorkshopPanel() {
+            const api = window.VoxelWorkshop;
+            if (!workshopOverlay || !api || typeof api.renderGamePanel !== 'function') return;
+            workshopOverlay.innerHTML = api.renderGamePanel(workshopTab);
+        }
+
+        function closeWorkshop() {
+            if (!workshopOverlay) return;
+            workshopOverlay.classList.add('is-hidden');
+            inventory = Object.assign(worldApi.emptyInv(), progress.inventory || {});
+            renderHotbar();
+            renderHud();
+        }
+
+        const workshopBtn = document.getElementById('workshop-btn');
+        if (workshopBtn) workshopBtn.addEventListener('click', function () {
+            workshopTab = 'shop';
+            renderWorkshopPanel();
+            if (workshopOverlay) workshopOverlay.classList.remove('is-hidden');
+        });
+        if (workshopOverlay) {
+            workshopOverlay.addEventListener('click', function (e) {
+                if (e.target === workshopOverlay) { closeWorkshop(); return; }
+                const target = e.target.closest ? e.target.closest('[data-action]') : null;
+                if (!target) return;
+                const action = target.getAttribute('data-action');
+                const api = window.VoxelWorkshop;
+                if (action === 'voxel-workshop-close') { closeWorkshop(); return; }
+                if (action === 'voxel-workshop-tab') {
+                    workshopTab = target.getAttribute('data-tab') || 'shop';
+                    renderWorkshopPanel();
+                    return;
+                }
+                if (!api) return;
+                if (action === 'voxel-buy') {
+                    const r = api.buy(target.getAttribute('data-item'));
+                    toast(r && r.reason ? r.reason : '买不了');
+                    if (r && r.ok) renderWorkshopPanel();
+                } else if (action === 'voxel-craft') {
+                    const r = api.craft(target.getAttribute('data-recipe'));
+                    toast(r && r.reason ? r.reason : '合成不了');
+                    if (r && r.ok) renderWorkshopPanel();
+                } else if (action === 'voxel-parent-lock') {
+                    const r = api.toggleLock();
+                    toast(r && r.reason ? r.reason : '家长锁');
+                    renderWorkshopPanel();
+                }
+            });
+            window.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && !workshopOverlay.classList.contains('is-hidden')) closeWorkshop();
+            });
+        }
         const fullBtn = document.getElementById('fullscreen-btn');
         if (fullBtn) fullBtn.addEventListener('click', function () {
             const r = document.documentElement;
@@ -1194,9 +1298,10 @@
     }
 
     loadProgress();
-    enterLevel(progress.unlockedLevel || 1);
+    levelId = Math.max(1, Math.min(levelsApi.count, progress.unlockedLevel || 1));
     if (bridge.recordPlaySession) bridge.recordPlaySession(GAME_ID);
     bind();
+    showMap();
     Promise.all([
         loadImage('idle', HERO.idle),
         loadImage('walkA', HERO.walkA),
@@ -1215,7 +1320,7 @@
         loadImage('fireSpiritIdle', './assets/enemies/fire-spirit-idle.png'),
         loadImage('cactusMonsterIdle', './assets/enemies/cactus-monster.png'),
         loadImage('ghostIdle', './assets/enemies/ghost.png'),
-        loadImage('creeperIdle', './assets/enemies/creeper.png'),
+        loadImage('creeperIdle', './assets/enemies/green-boom.png'),
         loadImage('skyDay', './assets/bg/sky-day.png'),
         loadImage('skyDusk', './assets/bg/sky-dusk.png')
     ]).then(function () {

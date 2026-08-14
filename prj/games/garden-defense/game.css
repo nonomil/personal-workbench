@@ -269,6 +269,35 @@ body.is-fullscreen .world-bar {
 
 .is-hidden { display: none !important; }
 .panel-title { margin: 0 0 8px; font-size: 18px; }
+.zombie-showcase {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    align-items: end;
+    justify-content: center;
+    margin: 8px 0 16px;
+    padding: 12px 16px 8px;
+    border-radius: 16px;
+    background: rgba(255, 253, 246, .72);
+    border: 2px solid rgba(47, 61, 42, .12);
+}
+.zombie-showcase figure {
+    margin: 0;
+    text-align: center;
+}
+.zombie-showcase img {
+    display: block;
+    height: 168px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 6px 0 rgba(47, 61, 42, .18));
+}
+.zombie-showcase figcaption {
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 800;
+}
 .play-meta {
     display: flex;
     flex-wrap: wrap;

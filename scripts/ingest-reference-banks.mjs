@@ -4,7 +4,7 @@ import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const refs = path.join(repoRoot, 'docs', '学习项目设计', 'refs');
+const refs = path.join(repoRoot, 'docs', '01-方案', '学习项目设计', 'refs');
 const prj = path.join(repoRoot, 'prj');
 const bannedChars = new Set(['坡', '始', '游', '她', '店']);
 const allowedThemes = new Set([

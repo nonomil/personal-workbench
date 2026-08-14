@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>学习专区卡片墙 · 效果参考</title>
+<!-- 真实上线的卡片墙样式（本次新增的文件，预览直接引用它，所见即所得） -->
+<link rel="stylesheet" href="../prj/css/preschool/34-course-wall.css">
+<style>
+    /* ===== 以下只是预览文档的脚手架样式，不属于上线代码 ===== */
+    body { margin: 0; font-family: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif; background: #e6efe2; color: #23422c; }
+    .preview-page { max-width: 980px; margin: 0 auto; padding: 26px 22px 48px; background: #f7faf3; min-height: 100vh; box-shadow: 0 0 0 1px rgba(35,66,44,0.06); }
+    .doc-header { margin-bottom: 6px; }
+    .doc-header h1 { font-size: 1.35rem; margin: 0 0 4px; }
+    .doc-header p { margin: 0 0 14px; color: #5c7350; font-size: 0.9rem; }
+    .doc-tag { display: inline-block; background: #2d8748; color: #fff; font-size: 0.72rem; font-weight: 700; border-radius: 999px; padding: 2px 10px; margin-right: 6px; vertical-align: 2px; }
+    .doc-section-title { font-size: 1rem; margin: 26px 0 10px; padding-left: 10px; border-left: 4px solid #3fa25c; }
+    /* btn-primary 的真实样式在 base.css，这里只是预览近似 */
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: #2d8748; color: #fff; border: none; border-radius: 16px; font-weight: 700; cursor: pointer; }
+    .btn-primary svg { width: 18px; height: 18px; fill: currentColor; }
+    .doc-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 14px rgba(31,73,42,0.08); }
+    .doc-table th, .doc-table td { padding: 10px 14px; text-align: left; border-bottom: 1px solid #e4ecdf; }
+    .doc-table th { background: #eef5e9; font-size: 0.8rem; color: #4a6741; }
+    .doc-table tr:last-child td { border-bottom: none; }
+    .doc-note { background: #fff8e6; border: 1px solid rgba(224,172,62,0.4); border-radius: 14px; padding: 12px 16px; font-size: 0.88rem; line-height: 1.7; }
+    .doc-note strong { color: #8a6b1f; }
+    .doc-frames { display: flex; gap: 18px; flex-wrap: wrap; align-items: flex-start; }
+    .doc-frame-label { font-size: 0.8rem; color: #5c7350; margin: 0 0 6px; }
+    .doc-iframe { width: 390px; height: 620px; border: 2px solid #c4d6ba; border-radius: 20px; background: #f7faf3; }
+    /* 详情页结构示意（预览专用，非上线样式） */
+    .mock-detail { background: #fff; border-radius: 18px; padding: 16px; box-shadow: 0 6px 18px rgba(31,73,42,0.08); display: grid; gap: 12px; }
+    .mock-note-bar { display: flex; gap: 12px; align-items: center; background: #f2f7ec; border-radius: 14px; padding: 12px 14px; }
+    .mock-note-bar img { width: 44px; height: 44px; object-fit: contain; }
+    .mock-note-bar small { color: #7a8f6d; font-size: 0.72rem; letter-spacing: 0.08em; }
+    .mock-note-bar strong { display: block; font-size: 1.05rem; }
+    .mock-note-bar p { margin: 2px 0 0; font-size: 0.82rem; color: #5c7350; }
+    .mock-btn-ghost { margin-left: auto; border: 2px solid #c4d6ba; border-radius: 12px; padding: 8px 14px; font-size: 0.85rem; font-weight: 700; color: #2c7a45; white-space: nowrap; }
+    .mock-card { border: 2px solid #ffe0b3; border-radius: 16px; padding: 14px; display: grid; gap: 10px; background: #fffaf2; }
+    .mock-layer { display: grid; grid-template-columns: 64px 1fr; gap: 10px; align-items: start; background: #fff; border-radius: 12px; padding: 10px 12px; border: 1px dashed #e0d6bd; font-size: 0.88rem; }
+    .mock-layer > i { font-style: normal; font-size: 0.72rem; font-weight: 700; color: #a08c5a; background: #faf3df; border-radius: 8px; padding: 4px 6px; text-align: center; }
+    .mock-layer p { margin: 2px 0 0; font-size: 0.8rem; color: #6b7f5e; }
+    .mock-row { display: flex; gap: 12px; align-items: center; }
+    .mock-row img { width: 52px; height: 52px; object-fit: contain; }
+    .mock-row > b { margin-left: auto; font-size: 1.1rem; color: #8a6b1f; }
+    .mock-bar { display: inline-block; width: 130px; height: 8px; border-radius: 99px; background: #eee4c8; vertical-align: middle; margin-left: 8px; position: relative; }
+    .mock-bar s { position: absolute; inset: 0 66% 0 0; background: #3fa25c; border-radius: 99px; }
+    .mock-steps { display: grid; gap: 8px; }
+    .mock-step { display: flex; align-items: center; gap: 10px; background: #f7faf3; border-radius: 12px; padding: 10px 12px; border: 1px solid #e4ecdf; }
+    .mock-step > b { width: 26px; height: 26px; border-radius: 50%; background: #e4ecdf; color: #4a6741; display: grid; place-items: center; font-size: 0.8rem; flex: none; }
+    .mock-step.is-current { border-color: #3fa25c; background: #eefae4; }
+    .mock-step.is-done { opacity: 0.75; }
+    .mock-step small { display: block; color: #6b7f5e; font-size: 0.78rem; }
+    .mock-step > span { margin-left: auto; color: #2c7a45; font-weight: 700; }
+    /* 嵌入模式（给 390px 小窗 iframe 用）：只留页面本体 */
+    body.is-embed { background: #f7faf3; }
+    body.is-embed .preview-page { padding: 10px 12px 20px; max-width: none; box-shadow: none; min-height: auto; }
+    body.is-embed .doc-only { display: none !important; }
+</style>
+</head>
+<body>
+<div class="preview-page">
+
+    <header class="doc-header doc-only">
+        <h1><span class="doc-tag">效果参考</span>学习专区：今日任务卡 + 学科卡片墙</h1>
+        <p>本页是静态效果稿，卡片样式直接引用本次新增的 <code>34-course-wall.css</code>，插图为真实素材；进度点与状态为示例数据。依次包含：改造后首屏 → 点进学科的详情页示意 → 390px 手机宽度实排。</p>
+    </header>
+
+    <!-- ===== 以下为改造后 #courses 首屏的真实结构（示例数据） ===== -->
+
+    <section class="preschool-course-today">
+        <span class="preschool-course-today-art" aria-hidden="true"><img class="preschool-generated-art" src="../prj/assets/generated/preschool/preschool-storybook.webp" alt="今日学习"></span>
+        <div class="preschool-course-today-copy"><small>今天学什么？</small><strong>完成今日识字 · 认 4 个字</strong></div>
+        <button class="btn-primary preschool-course-today-cta" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><span>去练习</span></button>
+    </section>
+
+    <div class="preschool-course-wall" aria-label="学科卡片墙">
+        <button class="preschool-course-wall-card tone-orange" type="button" aria-label="打开暑假学习"><span class="preschool-course-wall-art" aria-hidden="true"><img class="preschool-generated-art" src="../prj/assets/generated/preschool-pvz-2d/published/pvz-sun-token.png" alt=""></span><strong>暑假</strong><span class="preschool-course-wall-dots" role="progressbar" aria-label="暑假学习完成度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="66"><i class="is-on"></i><i class="is-on"></i><i class=""></i></span><span class="preschool-course-wall-state is-active" data-route-state="active">继续</span></button>
+        <button class="preschool-course-wall-card tone-orange" type="button" aria-label="打开识字专区"><span class="preschool-course-wall-art" aria-hidden="true"><img class="preschool-generated-art" src="../prj/assets/generated/preschool/preschool-storybook.webp" alt=""></span><strong>识字</strong><span class="preschool-course-wall-dots" role="progressbar" aria-label="识字专区完成度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"><i class="is-on"></i><i class="is-on"></i><i class="is-on"></i></span><span class="preschool-course-wall-state is-complete" data-route-state="complete">完成</span></button>
+        <button class="preschool-course-wall-card tone-blue" type="button" aria-label="打开拼音专区"><span class="preschool-course-wall-art" aria-hidden="true"><img class="preschool-generated-art" src="../prj/assets/generated/preschool/preschool-storybook.webp" alt=""></span><strong>拼音</strong><span class="preschool-course-wall-dots" role="progressbar" aria-label="拼音专区完成度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="34"><i class="is-on"></i><i class=""></i><i class=""></i></span><span class="preschool-course-wall-state is-active" data-route-state="active">继续</span></button>
+        <button class="preschool-course-wall-card tone-pink" type="button" aria-label="打开古诗专区"><span class="preschool-course-wall-art" aria-hidden="true"><img class="preschool-generated-art" src="../prj/assets/generated/preschool/preschool-storybook.webp" alt=""></span><strong>古诗</strong><span class="preschool-course-wall-dots" role="progressbar" aria-label="古诗专区完成度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i class=""></i><i class=""></i><i class=""></i></span><span class="preschool-course-wall-state is-ready" data-route-state="ready">开始</span></button>
+        <button class="preschool-course-wall-card tone-blue" type="button" aria-label="打开数学专区"><span class="preschool-course-wall-art" aria-hidden="true"><img class="preschool-generated-art" src="../prj/assets/generated/preschool-pvz-2d/published/pvz-sun-token.png" alt=""></span><strong>数学</strong><span class="preschool-course-wall-dots" role="progressbar" aria-label="数学专区完成度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="66"><i class="is-on"></i><i class="is-on"></i><i class=""></i></span><span class="preschool-course-wall-state is-active" data-route-state="active">继续</span></button>
+        <button class="preschool-course-wall-card tone-gold" type="button" aria-label="打开专注力训练"><span class="preschool-course-wall-art" aria-hidden="true"><img class="preschool-generated-art" src="../prj/assets/generated/preschool/preschool-star.webp" alt=""></span><strong>专注</strong><span class="preschool-course-wall-dots" role="progressbar" aria-label="专注力训练完成度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="34"><i class="is-on"></i><i class=""></i><i class=""></i></span><span class="preschool-course-wall-state is-active" data-route-state="active">继续</span></button>
+        <button class="preschool-course-wall-card tone-lime" type="button" aria-label="打开英语专区"><span class="preschool-course-wall-art" aria-hidden="true"><img class="preschool-generated-art" src="../prj/assets/generated/preschool/preschool-storybook.webp" alt=""></span><strong>英语</strong><span class="preschool-course-wall-dots" role="progressbar" aria-label="英语专区完成度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i class=""></i><i class=""></i><i class=""></i></span><span class="preschool-course-wall-state is-ready" data-route-state="ready">开始</span></button>
+        <button class="preschool-course-wall-card tone-orange" type="button" aria-label="打开自然拼读"><span class="preschool-course-wall-art" aria-hidden="true"><img class="preschool-generated-art" src="../prj/assets/generated/preschool/preschool-star.webp" alt=""></span><strong>拼读</strong><span class="preschool-course-wall-dots" role="progressbar" aria-label="自然拼读完成度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i class=""></i><i class=""></i><i class=""></i></span><span class="preschool-course-wall-state is-ready" data-route-state="ready">开始</span></button>
+        <button class="preschool-course-wall-card tone-green" type="button" aria-label="打开每日运动"><span class="preschool-course-wall-art" aria-hidden="true"><img class="preschool-generated-art" src="../prj/assets/generated/preschool/preschool-star.webp" alt=""></span><strong>运动</strong><span class="preschool-course-wall-dots" role="progressbar" aria-label="每日运动完成度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="34"><i class="is-on"></i><i class=""></i><i class=""></i></span><span class="preschool-course-wall-state is-active" data-route-state="active">继续</span></button>
+    </div>
+
+    <!-- ===== 文档说明区 ===== -->
+
+    <h2 class="doc-section-title doc-only">点进学科卡之后：详情页（以识字专区为例，结构示意）</h2>
+    <p class="doc-frame-label doc-only">具体学习内容全部在这里，本次一行没改——总览只是入口，点任意学科卡进来还是原来的完整页面。左侧小签标出每一层（示意数据，非最终像素）：</p>
+    <div class="mock-detail doc-only">
+        <div class="mock-note-bar">
+            <img src="../prj/assets/generated/preschool/preschool-storybook.webp" alt="">
+            <div><small>REFERENCE LIBRARY</small><strong>正在学习：识字专区</strong><p>这里保留题型、样例和练习节奏，做完一张就点亮一张。</p></div>
+            <span class="mock-btn-ghost">查看全部 ▦</span>
+        </div>
+        <div class="mock-card">
+            <div class="mock-layer"><i>卡头</i><div class="mock-row"><img src="../prj/assets/generated/preschool/preschool-storybook.webp" alt=""><div><small style="color:#a08c5a;font-size:0.72rem">当前学习专区</small><strong>识字专区</strong><p>先批量闪卡，会的跳过，不会的再看组词和解词。</p></div><b>1/3</b></div></div>
+            <div class="mock-layer"><i>进度条</i><div>成长路线 <strong>1/3</strong> 张已点亮 · 正在进行<span class="mock-bar"><s></s></span></div></div>
+            <div class="mock-layer"><i>分级带</i><div><strong>L1 认字起步</strong> 进行中 · L2–L5 未解锁（前一级练到 80% 解锁下一级）</div></div>
+            <div class="mock-layer"><i>掌握统计</i><div>会了 <strong>12</strong> · 还不会 <strong>3</strong> · 还没点 <strong>1485</strong> · 今天再认 <strong>4</strong> · 已开到 <strong>L2</strong></div></div>
+            <div class="mock-layer"><i>参考说明</i><div>不配图也能认。会的点会了，不会的一张张看组词。默认从 L1 起步，逐步解锁 L2-L5。</div></div>
+            <div class="mock-layer"><i>徽章示例</i><div>🏅 1500 字生活字库 · 示例：山 shān / 水 shuǐ / 猫 māo</div></div>
+            <div class="mock-layer"><i>学习路线</i><div class="mock-steps">
+                <div class="mock-step is-done"><b>1</b><div><strong>今日闪卡</strong><small>已点亮 · 今天再认 4 个（可重练）</small></div><span>↻</span></div>
+                <div class="mock-step is-current"><b>2</b><div><strong>组词开花 · 山</strong><small>现在来做 · 6 分钟 · L1 · 大山 / 上山</small></div><span>▶</span></div>
+                <div class="mock-step"><b>3</b><div><strong>找字闯关</strong><small>下一张 · 5 分钟 · L1 · 5 关</small></div><span>→</span></div>
+            </div></div>
+        </div>
+    </div>
+
+    <h2 class="doc-section-title doc-only">390px 手机宽度实排（两列大卡）</h2>
+    <div class="doc-frames doc-only">
+        <div>
+            <p class="doc-frame-label">390 × 620 视窗内真实渲染（媒体查询生效）：</p>
+            <iframe class="doc-iframe" src="./course-wall-preview.html?embed=1" title="390px 移动端效果"></iframe>
+        </div>
+    </div>
+
+    <h2 class="doc-section-title doc-only">旧卡 vs 新卡</h2>
+    <table class="doc-table doc-only">
+        <tr><th>内容层</th><th>旧总览卡（9 张大卡）</th><th>新卡片墙</th></tr>
+        <tr><td>插图</td><td>有</td><td>保留（76px 居中）</td></tr>
+        <tr><td>标题</td><td>长标题 + 英文小标题</td><td>只留两个字短标题</td></tr>
+        <tr><td>进度</td><td>进度条 + 成长路线 n/m 文案</td><td>3 个进度点（≥33 / 66 / 99 各亮一颗）</td></tr>
+        <tr><td>状态</td><td>状态文案</td><td>状态字：开始 / 继续 / 完成</td></tr>
+        <tr><td>长描述 / 示例词 / 参考说明 / 掌握统计 / 分级带 / 徽章资源</td><td>全部叠在总览卡上</td><td>总览全部移除，只在点进学科后的详情页展示</td></tr>
+        <tr><td>页内目录</td><td>左侧"学习专区"目录（与侧边栏 9 入口重复）</td><td>删除，导航交给侧边栏</td></tr>
+        <tr><td>点击区域</td><td>卡内多个小按钮</td><td>整张卡就是一个按钮，点哪都进学科</td></tr>
+    </table>
+
+    <h2 class="doc-section-title doc-only">做预览时发现的两点（如实告知）</h2>
+    <div class="doc-note doc-only">
+        <p style="margin:0 0 6px"><strong>1. 插图重复：</strong>按现有 <code>preschoolAssetForIcon</code> 映射，识字 / 拼音 / 古诗 / 英语四科共用同一张"故事书"插图，专注 / 拼读 / 运动共用"星芒"插图。卡片墙上区分学科主要靠<strong>底色 + 两个字标题</strong>。若希望每科一张专属插图，需要另开一轮生图。</p>
+        <p style="margin:0"><strong>2. 运动专区是 green 色：</strong>方案只定义了 orange / blue / lime / pink / gold 五种底色，<code>tone-green</code> 没有对应样式，上面最后一张"运动"卡显示为默认白底。要么补一条 tone-green 样式，要么把运动的 tone 改成已有色（如 lime）。</p>
+    </div>
+
+    <h2 class="doc-section-title doc-only">今日任务卡的四种状态（复用首页工作流，不新造逻辑）</h2>
+    <table class="doc-table doc-only">
+        <tr><th>当天任务情况</th><th>头部文案</th><th>按钮</th></tr>
+        <tr><td>有未完成的练习任务</td><td>今天学什么？</td><td>去练习 → 直接打开该练习</td></tr>
+        <tr><td>全部完成</td><td>今天都学完啦！</td><td>进当前主题游戏</td></tr>
+        <tr><td>只剩非练习任务</td><td>还差一点点</td><td>看任务 → 任务页</td></tr>
+        <tr><td>当天无任务</td><td>今天学什么？</td><td>安排一项</td></tr>
+    </table>
+
+</div>
+<script>
+    if (new URLSearchParams(location.search).has('embed')) document.body.classList.add('is-embed');
+</script>
+</body>
+</html>

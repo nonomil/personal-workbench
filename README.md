@@ -4,8 +4,8 @@
 
 当前源码发布候选：`v0.5.2`。
 
-- [v0.5.2 发布说明](docs/发布/v0.5.2.md)
-- [v0.5.1 发布说明](docs/发布/v0.5.1.md)
+- [v0.5.2 发布说明](docs/04-发布/v0.5.2.md)
+- [v0.5.1 发布说明](docs/04-发布/v0.5.1.md)
 
 ## GitHub Pages 网站
 
@@ -68,8 +68,8 @@ python -m http.server 7000
 
 ## 资料目录
 
-- `docs/幼儿学习工作台研究/`：本地资料分析、Tavily/Firecrawl 原始证据、外部来源和许可证清单。
-- `docs/幼儿课程方案/`：幼儿版总方案、六学科分方案、自然拼读 60 日路线、成长游戏、资料授权和实施验收。
+- `docs/03-研究与参考/幼儿学习工作台研究/`：本地资料分析、Tavily/Firecrawl 原始证据、外部来源和许可证清单。
+- `docs/02-课程/幼儿课程方案/`：幼儿版总方案、六学科分方案、自然拼读 60 日路线、成长游戏、资料授权和实施验收。
 - `docs/research.md`：调研结论与设计推断。
 - `docs/sources.md`：来源、抓取时间和使用边界。
 - `docs/case-study-xhs.md`：小红书案例拆解。
@@ -77,6 +77,6 @@ python -m http.server 7000
 - `docs/api-contract.md`：现有自托管账号、家庭、档案和快照 API 契约。
 - `docs/deployment.md`：Vercel 静态前端与自托管后端部署说明。
 - `docs/database/schema.sql`：SQLite 数据库预留草案。
-- `docs/prompts/`：本地生成素材所用提示词。
+- `docs/99-归档/prompts/`：本地生成素材所用提示词。
 - `docs/wechat-tutorials.md`：公众号文章与 WorkBuddy 教程整理。
 - `docs/image-generation-tests.md`：Agnes、Bee、TokenX24 等接口测试记录。

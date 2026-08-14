@@ -1,0 +1,32 @@
+task_id: "T20260815-GD"
+title: "花园保卫战优化一期：playMods 难度联动 + 结算三行 + 星芒陪伴"
+status: "pending"
+priority: "P0"
+phase: "S1-connect"
+assignee: ""
+created: "2026-08-15"
+completed: ""
+depends_on: []
+estimated_hours: 8
+actual_hours: 0
+files:
+  - path: "prj/games/garden-defense/game.js"
+    change_type: "modify"
+  - path: "prj/games/garden-defense/game.css"
+    change_type: "modify"
+  - path: "prj/games/garden-defense/index.html"
+    change_type: "modify"
+  - path: "tests/world-games.test.mjs"
+    change_type: "modify"
+  - path: "prj/games/garden-defense/data/stages.js"
+    change_type: "modify (S2)"
+acceptance:
+  - "识字 20/150/250 三档下僵尸速度与通关阳光可被测试区分"
+  - "结算页含本局所得/冒险等级进度/下一目标三行"
+  - "星芒 HUD 出场且里程碑解锁弹庆祝卡"
+  - "npm test 全绿，无新 localStorage key，日限 80 不被绕过"
+tags:
+  - preschool
+  - world-games
+  - garden-defense
+notes: "方案源：docs/01-方案/工作台小游戏设计/01-花园保卫战/（01 玩法 / 03 成长陪伴 / 04 落地路线）。S2（roster 曲线/土豆地雷/星级重定义）待 S1 收口后展开。素材未就绪时用占位，不阻塞。"

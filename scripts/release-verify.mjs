@@ -1,5 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
+import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const SCRIPT_PATH = fileURLToPath(import.meta.url);
@@ -139,13 +141,111 @@ function isDirectInvocation() {
   return process.argv[1] && path.resolve(process.argv[1]) === path.resolve(SCRIPT_PATH);
 }
 
+// ── 素材白名单 ─────────────────────────────────────────────
+// 商标形象(马里奥/史蒂夫/苦力怕)只允许本地自用:可以留在工作树,但必须被 git
+// ignore(不入库、不随 git 发布制品出去);主角发布槽位必须与 papermc 原创备份逐字节一致。
+
+export const TRADEMARK_NAME_RE = /mario|steve|creeper/i;
+
+export const HERO_SLOT_CONTRACTS = [
+  {
+    game: 'platform-quest',
+    slots: ['explorer-idle.png', 'explorer-walk-a.png', 'explorer-walk-b.png', 'explorer-jump.png']
+  },
+  {
+    game: 'voxel-adventure',
+    slots: ['explorer-idle.png', 'explorer-walk-a.png', 'explorer-walk-b.png', 'explorer-jump.png', 'explorer-mine.png']
+  }
+];
+
+function walkFiles(root, out = []) {
+  for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
+    const full = path.join(root, entry.name);
+    if (entry.isDirectory()) walkFiles(full, out);
+    else out.push(full);
+  }
+  return out;
+}
+
+export function md5FileSync(filePath) {
+  return crypto.createHash('md5').update(fs.readFileSync(filePath)).digest('hex');
+}
+
+function gitIgnored(projectRoot, relativePath, git) {
+  const result = git(['check-ignore', '--', relativePath], projectRoot);
+  return result.status === 0;
+}
+
+export function verifyAssetAllowlist(projectRoot = PROJECT_ROOT, options = {}) {
+  const errors = [];
+  const contentRoot = path.join(projectRoot, 'prj');
+  const git = options.git || function gitFn(args, cwd) {
+    return spawnSync('git', args, { cwd, encoding: 'utf8' });
+  };
+
+  try {
+    const files = walkFiles(contentRoot);
+
+    // 规则A:商标命名文件必须被 git ignore(未 ignore = 会入库发布 = 违规)
+    const offenders = files.filter((file) => TRADEMARK_NAME_RE.test(path.basename(file)));
+    for (const file of offenders) {
+      const rel = path.relative(projectRoot, file).split(path.sep).join('/');
+      if (!gitIgnored(projectRoot, rel, git)) {
+        errors.push(`商标命名素材未被 git ignore,会进入发布制品:${rel}`);
+      }
+    }
+
+    // 规则B:主角发布槽位必须等于 papermc 原创备份(md5)
+    for (const contract of HERO_SLOT_CONTRACTS) {
+      const heroDir = path.join(contentRoot, 'games', contract.game, 'assets', 'hero');
+      const backupDir = path.join(heroDir, 'papermc');
+      for (const slot of contract.slots) {
+        const slotPath = path.join(heroDir, slot);
+        const backupPath = path.join(backupDir, slot);
+        if (!fs.existsSync(backupPath)) {
+          errors.push(`缺少原创主角备份,无法校验槽位:${path.relative(projectRoot, backupPath)}`);
+          continue;
+        }
+        if (!fs.existsSync(slotPath)) {
+          errors.push(`主角槽位缺失:${path.relative(projectRoot, slotPath)}`);
+          continue;
+        }
+        if (md5FileSync(slotPath) !== md5FileSync(backupPath)) {
+          errors.push(`主角槽位不是原创备份内容(疑似本地形象覆盖未还原):${path.relative(projectRoot, slotPath)}`);
+        }
+      }
+    }
+
+    // 规则C:本地参考仓 ref/ 必须被 ignore
+    if (fs.existsSync(path.join(contentRoot, 'games', 'ref')) && !gitIgnored(projectRoot, 'prj/games/ref', git)) {
+      errors.push('prj/games/ref/ 存在但未被 git ignore(商标素材原件会入库)');
+    }
+
+    // 规则D:platform 马里奥槽位(jumper-*,中性名)存在则必须被 ignore
+    const jumperDir = path.join(contentRoot, 'games', 'platform-quest', 'assets', 'hero');
+    if (fs.existsSync(jumperDir)) {
+      for (const name of fs.readdirSync(jumperDir)) {
+        if (/^jumper-.*\.png$/.test(name) && !gitIgnored(projectRoot, `prj/games/platform-quest/assets/hero/${name}`, git)) {
+          errors.push(`本地专用主角未被 git ignore:prj/games/platform-quest/assets/hero/${name}`);
+        }
+      }
+    }
+  } catch (error) {
+    errors.push(`素材白名单检查失败:${error.message}`);
+  }
+
+  return { ok: errors.length === 0, errors };
+}
+
 if (isDirectInvocation()) {
   const result = verifyLauncherContract();
-  if (!result.ok) {
+  const assets = verifyAssetAllowlist();
+  const allErrors = result.errors.concat(assets.errors);
+  if (!result.ok || !assets.ok) {
     console.error('[release-verify] failed');
-    result.errors.forEach((error) => console.error(`- ${error}`));
+    allErrors.forEach((error) => console.error(`- ${error}`));
     process.exitCode = 1;
   } else {
-    console.log(`[release-verify] ok: ${result.preschoolThemes.length} preschool themes + ${result.generalVariants.length} general workbenches; ${result.checkedAssets} assets checked`);
+    console.log(`[release-verify] ok: ${result.preschoolThemes.length} preschool themes + ${result.generalVariants.length} general workbenches; ${result.checkedAssets} assets checked; asset allowlist clean`);
   }
 }

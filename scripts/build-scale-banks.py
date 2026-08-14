@@ -10,7 +10,7 @@ import sys
 from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
-refs = root / "docs" / "学习项目设计" / "refs"
+refs = root / "docs" / "01-方案" / "学习项目设计" / "refs"
 prj = root / "prj"
 
 HANZI_TARGET = 1500

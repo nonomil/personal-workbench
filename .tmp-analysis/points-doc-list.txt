@@ -1,0 +1,286 @@
+docs\01-方案\徽章系统\DS--徽章系统设计.md
+docs\01-方案\徽章系统\refs\CoreXP\CoreXP_Badge_Index.md
+docs\01-方案\徽章系统\refs\CoreXP\README.md
+docs\01-方案\徽章系统\refs\CoreXP\1. Character & Spirituality\badges\Kindness_Agent.md
+docs\01-方案\徽章系统\refs\CoreXP\1. Character & Spirituality\badges\Pathfinder.md
+docs\01-方案\徽章系统\refs\CoreXP\1. Character & Spirituality\badges\Spiritual_Seeker_LDS.md
+docs\01-方案\徽章系统\refs\CoreXP\2. Health & Physical Wellness\badges\Clean and Capable\Clean_and_Capable.md
+docs\01-方案\徽章系统\refs\CoreXP\2. Health & Physical Wellness\badges\First Aid Hero\First_Aid_Hero.md
+docs\01-方案\徽章系统\refs\CoreXP\2. Health & Physical Wellness\badges\Fit Force\Fit_Force.md
+docs\01-方案\徽章系统\refs\CoreXP\2. Health & Physical Wellness\badges\Fuel Master\Fuel_Master.md
+docs\01-方案\徽章系统\refs\CoreXP\2. Health & Physical Wellness\badges\Rest and Recharge\Rest_and_Recharge.md
+docs\01-方案\徽章系统\refs\CoreXP\3. Emotional & Mental Resilience\badges\Bounce_Back.md
+docs\01-方案\徽章系统\refs\CoreXP\3. Emotional & Mental Resilience\badges\Calm_Commander.md
+docs\01-方案\徽章系统\refs\CoreXP\3. Emotional & Mental Resilience\badges\Mind_Master.md
+docs\01-方案\徽章系统\refs\CoreXP\3. Emotional & Mental Resilience\badges\Self_Reflector.md
+docs\01-方案\徽章系统\refs\CoreXP\3. Emotional & Mental Resilience\badges\Stillness_Scout.md
+docs\01-方案\徽章系统\refs\CoreXP\4. Relationships & Social Skills\badges\Empathy_and_Friendship.md
+docs\01-方案\徽章系统\refs\CoreXP\4. Relationships & Social Skills\badges\Good_Communicator.md
+docs\01-方案\徽章系统\refs\CoreXP\4. Relationships & Social Skills\badges\Team_and_Conflict_Skills.md
+docs\01-方案\徽章系统\refs\CoreXP\5. Practical Life Skills\badges\Fix_It_Scout.md
+docs\01-方案\徽章系统\refs\CoreXP\5. Practical Life Skills\badges\Home_Helper.md
+docs\01-方案\徽章系统\refs\CoreXP\5. Practical Life Skills\badges\Money_Smart.md
+docs\01-方案\徽章系统\refs\CoreXP\5. Practical Life Skills\badges\Personal_Manager.md
+docs\01-方案\徽章系统\refs\CoreXP\5. Practical Life Skills\badges\Safety_Scout.md
+docs\01-方案\徽章系统\refs\CoreXP\6. Creativity & Innovation\badges\Creative_Maker.md
+docs\01-方案\徽章系统\refs\CoreXP\6. Creativity & Innovation\badges\Digital_Creator.md
+docs\01-方案\徽章系统\refs\CoreXP\6. Creativity & Innovation\badges\Idea_Builder.md
+docs\01-方案\徽章系统\refs\CoreXP\6. Creativity & Innovation\badges\Music_Explorer.md
+docs\01-方案\徽章系统\refs\CoreXP\6. Creativity & Innovation\badges\Storyteller.md
+docs\01-方案\徽章系统\refs\CoreXP\7. Nature & Citizenship\badges\Animal_Ally.md
+docs\01-方案\徽章系统\refs\CoreXP\7. Nature & Citizenship\badges\Civic_Explorer_Local.md
+docs\01-方案\徽章系统\refs\CoreXP\7. Nature & Citizenship\badges\Civic_Explorer_National.md
+docs\01-方案\徽章系统\refs\CoreXP\7. Nature & Citizenship\badges\Civic_Explorer_State.md
+docs\01-方案\徽章系统\refs\CoreXP\7. Nature & Citizenship\badges\Civic_Explorer_World.md
+docs\01-方案\徽章系统\refs\CoreXP\7. Nature & Citizenship\badges\Community_Helper.md
+docs\01-方案\徽章系统\refs\CoreXP\7. Nature & Citizenship\badges\Earth_Steward.md
+docs\01-方案\徽章系统\refs\CoreXP\7. Nature & Citizenship\badges\Outdoor_Adventurer.md
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\.dockerignore
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\.gitignore
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\docker-compose.yml
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\Dockerfile
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\LICENSE
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\README.md
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\.github\workflows\ci.yml
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\.github\workflows\docker-publish.yml
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\index.html
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\package-lock.json
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\package.json
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\vite.config.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\vite.demo.config.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\demo\banner.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\demo\index.html
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\demo\main.jsx
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\demo\mock-api.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\public\manifest.webmanifest
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\public\sw.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\public\icons\apple-touch-icon.png
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\public\icons\icon-192.png
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\public\icons\icon-512.png
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\public\icons\icon-maskable-512.png
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\src\api.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\src\App.jsx
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\src\hooks.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\src\index.css
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\src\main.jsx
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\src\money.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\src\sounds.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\src\themes.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\src\assets\fonts\baloo2-latin.woff2
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\src\assets\fonts\OFL.txt
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\src\components\Celebration.jsx
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\src\components\EmojiPicker.jsx
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\src\components\KidCode.jsx
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\src\components\ProgressMeter.jsx
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\src\components\ui.jsx
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\src\screens\AvatarSelect.jsx
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\src\screens\KidHome.jsx
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\src\screens\ParentDashboard.jsx
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\src\screens\Setup.jsx
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\client\test\quiet.test.mjs
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\docs\.nojekyll
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\docs\index.html
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\docs\QA-AUDIT.md
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\docs\screenshots\avatar-select.png
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\docs\screenshots\celebration.png
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\docs\screenshots\kid-home.png
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\docs\screenshots\parent-dashboard.png
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\docs\screenshots\setup-wizard.png
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\scripts\build-demo.mjs
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\package-lock.json
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\package.json
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\src\actionToken.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\src\backup.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\src\badges.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\src\bonus.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\src\config.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\src\dates.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\src\db.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\src\digest.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\src\familyGoal.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\src\index.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\src\notify.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\src\pinGuard.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\src\schedule.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\src\seed.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\src\seedData.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\src\service.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\src\settings.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\src\streakFreeze.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\src\themes.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\src\vacation.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\src\routes\kiosk.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\src\routes\parent.js
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\test\helpers.mjs
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\test\p0.test.mjs
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\test\p1.test.mjs
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\test\p3.test.mjs
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\test\p4.test.mjs
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\test\p4b.test.mjs
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\test\quiet.test.mjs
+docs\01-方案\徽章系统\refs\Kids-Reward-Chart-System\server\test\restore.test.mjs
+docs\01-方案\徽章系统\refs\StarKids\.dockerignore
+docs\01-方案\徽章系统\refs\StarKids\.env.docker
+docs\01-方案\徽章系统\refs\StarKids\.env.example
+docs\01-方案\徽章系统\refs\StarKids\.gitignore
+docs\01-方案\徽章系统\refs\StarKids\docker-compose.yml
+docs\01-方案\徽章系统\refs\StarKids\docker-deploy.bat
+docs\01-方案\徽章系统\refs\StarKids\docker-deploy.sh
+docs\01-方案\徽章系统\refs\StarKids\docker-entrypoint.sh
+docs\01-方案\徽章系统\refs\StarKids\Dockerfile
+docs\01-方案\徽章系统\refs\StarKids\eslint.config.mjs
+docs\01-方案\徽章系统\refs\StarKids\next-env.d.ts
+docs\01-方案\徽章系统\refs\StarKids\next.config.ts
+docs\01-方案\徽章系统\refs\StarKids\package-lock.json
+docs\01-方案\徽章系统\refs\StarKids\package.json
+docs\01-方案\徽章系统\refs\StarKids\postcss.config.mjs
+docs\01-方案\徽章系统\refs\StarKids\prisma.config.ts
+docs\01-方案\徽章系统\refs\StarKids\query
+docs\01-方案\徽章系统\refs\StarKids\README.md
+docs\01-方案\徽章系统\refs\StarKids\tsconfig.json
+docs\01-方案\徽章系统\refs\StarKids\tsconfig.tsbuildinfo
+docs\01-方案\徽章系统\refs\StarKids\.github\workflows\docker-build.yml
+docs\01-方案\徽章系统\refs\StarKids\.trae\skills\clean-code-review\SKILL.md
+docs\01-方案\徽章系统\refs\StarKids\.trae\skills\code-refactoring\SKILL.md
+docs\01-方案\徽章系统\refs\StarKids\.trae\skills\design-to-code\SKILL.md
+docs\01-方案\徽章系统\refs\StarKids\.trae\skills\frontend-design-ultimate\SKILL.md
+docs\01-方案\徽章系统\refs\StarKids\.trae\skills\human-optimized-frontend\SKILL.md
+docs\01-方案\徽章系统\refs\StarKids\.trae\skills\project-code-standard\SKILL.md
+docs\01-方案\徽章系统\refs\StarKids\.trae\skills\ui-audit\SKILL.md
+docs\01-方案\徽章系统\refs\StarKids\.trae\skills\ui-design-system\SKILL.md
+docs\01-方案\徽章系统\refs\StarKids\.trae\skills\ux-researcher-designer\SKILL.md
+docs\01-方案\徽章系统\refs\StarKids\docker\prisma.config.ts
+docs\01-方案\徽章系统\refs\StarKids\docs\DESIGN-DOCUMENT.md
+docs\01-方案\徽章系统\refs\StarKids\docs\UI-DESIGN-REF.md
+docs\01-方案\徽章系统\refs\StarKids\prisma\schema.prisma
+docs\01-方案\徽章系统\refs\StarKids\prisma\seed.ts
+docs\01-方案\徽章系统\refs\StarKids\prisma\migrations\migration_lock.toml
+docs\01-方案\徽章系统\refs\StarKids\prisma\migrations\0000_init\migration.sql
+docs\01-方案\徽章系统\refs\StarKids\public\.gitkeep
+docs\01-方案\徽章系统\refs\StarKids\src\auth.ts
+docs\01-方案\徽章系统\refs\StarKids\src\middleware.ts
+docs\01-方案\徽章系统\refs\StarKids\src\app\globals.css
+docs\01-方案\徽章系统\refs\StarKids\src\app\layout.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\app\page.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\app\(admin)\layout.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\app\(admin)\admin\page.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\app\(admin)\admin\achievements\page.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\app\(admin)\admin\analytics\page.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\app\(admin)\admin\family\page.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\app\(admin)\admin\notifications\page.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\app\(admin)\admin\pets\page.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\app\(admin)\admin\points\page.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\app\(admin)\admin\shop\page.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\app\(admin)\admin\tasks\page.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\app\(kids)\layout.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\app\(kids)\kids\page.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\app\(kids)\kids\achievements\page.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\app\(kids)\kids\notifications\page.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\app\(kids)\kids\pet\page.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\app\(kids)\kids\shop\page.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\app\(kids)\kids\tasks\page.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\app\api\admin\achievements\route.ts
+docs\01-方案\徽章系统\refs\StarKids\src\app\api\admin\analytics\route.ts
+docs\01-方案\徽章系统\refs\StarKids\src\app\api\admin\outfits\route.ts
+docs\01-方案\徽章系统\refs\StarKids\src\app\api\auth\[...nextauth]\route.ts
+docs\01-方案\徽章系统\refs\StarKids\src\app\api\family\add-kid\route.ts
+docs\01-方案\徽章系统\refs\StarKids\src\app\api\family\members\route.ts
+docs\01-方案\徽章系统\refs\StarKids\src\app\api\kids\achievements\route.ts
+docs\01-方案\徽章系统\refs\StarKids\src\app\api\kids\me\route.ts
+docs\01-方案\徽章系统\refs\StarKids\src\app\api\kids\pet\route.ts
+docs\01-方案\徽章系统\refs\StarKids\src\app\api\kids\shop\route.ts
+docs\01-方案\徽章系统\refs\StarKids\src\app\api\kids\tasks\route.ts
+docs\01-方案\徽章系统\refs\StarKids\src\app\api\notifications\route.ts
+docs\01-方案\徽章系统\refs\StarKids\src\app\api\points\config\route.ts
+docs\01-方案\徽章系统\refs\StarKids\src\app\api\register\route.ts
+docs\01-方案\徽章系统\refs\StarKids\src\app\api\shop\route.ts
+docs\01-方案\徽章系统\refs\StarKids\src\app\api\tasks\route.ts
+docs\01-方案\徽章系统\refs\StarKids\src\app\api\tasks\[taskId]\assign\route.ts
+docs\01-方案\徽章系统\refs\StarKids\src\app\dashboard\page.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\app\forbidden\page.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\app\login\page.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\app\login\error\page.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\app\register\page.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\app\register-auth\page.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\components\admin\AdminSidebar.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\components\auth\SessionProvider.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\components\kids\KidsBottomNav.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\components\kids\KidsLogoutButton.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\components\notifications\NotificationBell.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\components\ui\EmptyState.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\components\ui\PageTransition.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\components\ui\Skeleton.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\components\ui\ToastProvider.tsx
+docs\01-方案\徽章系统\refs\StarKids\src\lib\achievement-engine.ts
+docs\01-方案\徽章系统\refs\StarKids\src\lib\constants.ts
+docs\01-方案\徽章系统\refs\StarKids\src\lib\db.ts
+docs\01-方案\徽章系统\refs\StarKids\src\lib\points-engine.ts
+docs\01-方案\徽章系统\refs\StarKids\src\lib\utils.ts
+docs\01-方案\徽章系统\refs\StarKids\src\lib\actions\achievements.ts
+docs\01-方案\徽章系统\refs\StarKids\src\lib\actions\family.ts
+docs\01-方案\徽章系统\refs\StarKids\src\lib\actions\notifications.ts
+docs\01-方案\徽章系统\refs\StarKids\src\lib\actions\outfits.ts
+docs\01-方案\徽章系统\refs\StarKids\src\lib\actions\pets.ts
+docs\01-方案\徽章系统\refs\StarKids\src\lib\actions\register.ts
+docs\01-方案\徽章系统\refs\StarKids\src\lib\actions\shop.ts
+docs\01-方案\徽章系统\refs\StarKids\src\lib\actions\tasks.ts
+docs\01-方案\徽章系统\refs\StarKids\src\types\next-auth.d.ts
+docs\01-方案\徽章系统\refs\StarKids\tests\test-suite.ts
+docs\01-方案\优化方案2\04_游戏设计方案汇总_成长世界与开源整合.md
+docs\01-方案\优化方案2\05_成就徽章系统_完整方案与提示词.md
+docs\01-方案\优化方案2\06_宠物养成系统_轻量抽取方案.md
+docs\01-方案\优化方案2\07_认字游戏优化方案与开源项目全景参考.md
+docs\01-方案\优化方案2\徽章系统.md
+docs\01-方案\优化方案2\幼小衔接工作台-方案文档.zip
+docs\01-方案\优化方案2\DS--优化.md
+docs\01-方案\优化方案2\workbuddy_智慧花园_对话整理.zip
+docs\01-方案\优化方案2\workbuddy整理\README_总索引.md
+docs\01-方案\优化方案2\workbuddy整理\01_需求与优化建议\优化建议_游戏性学习性成长性.md
+docs\01-方案\优化方案2\workbuddy整理\02_提示词合集\提示词A_简化开箱即用版.md
+docs\01-方案\优化方案2\workbuddy整理\02_提示词合集\提示词B_V3.0极致细节版.md
+docs\01-方案\优化方案2\workbuddy整理\02_提示词合集\提示词C_技术细节完整版_移动优先.md
+docs\01-方案\优化方案2\workbuddy整理\02_提示词合集\提示词D1_视觉素材补充_本地绘图版.md
+docs\01-方案\优化方案2\workbuddy整理\02_提示词合集\提示词D2_混元3生图调用版_含踩坑.md
+docs\01-方案\优化方案2\workbuddy整理\03_技术架构讨论\参考文章_胡楚靓WorkBuddy工作台原文.md
+docs\01-方案\优化方案2\workbuddy整理\03_技术架构讨论\LocalStorage_vs_Supabase.md
+docs\01-方案\优化方案2\workbuddy整理\04_PWA与发音说明\PWA部署与发音技术说明.md
+docs\01-方案\优化方案2\workbuddy整理\05_小红书文案\文案V1_简化版_三套风格.md
+docs\01-方案\优化方案2\workbuddy整理\05_小红书文案\文案V2_含踩坑经验_推荐使用.md
+docs\01-方案\优化方案2\workbuddy整理\06_AI生图方案\混元3生图能力调研总结.md
+docs\01-方案\优化方案2\对话\Deepseek对话.md
+docs\01-方案\优化方案2\幼小衔接工作台-方案文档\README.md
+docs\01-方案\优化方案2\幼小衔接工作台-方案文档\00-总览\00-索引与阅读顺序.md
+docs\01-方案\优化方案2\幼小衔接工作台-方案文档\00-总览\01-产品定位与用户.md
+docs\01-方案\优化方案2\幼小衔接工作台-方案文档\00-总览\02-架构与数据原则.md
+docs\01-方案\优化方案2\幼小衔接工作台-方案文档\01-工作台\01-三主题与导航.md
+docs\01-方案\优化方案2\幼小衔接工作台-方案文档\01-工作台\02-信息层级与文案.md
+docs\01-方案\优化方案2\幼小衔接工作台-方案文档\02-学习\00-学习模块总览.md
+docs\01-方案\优化方案2\幼小衔接工作台-方案文档\02-学习\01-认练测闭环.md
+docs\01-方案\优化方案2\幼小衔接工作台-方案文档\02-学习\02-识字.md
+docs\01-方案\优化方案2\幼小衔接工作台-方案文档\02-学习\03-拼音与拼读.md
+docs\01-方案\优化方案2\幼小衔接工作台-方案文档\02-学习\04-数学.md
+docs\01-方案\优化方案2\幼小衔接工作台-方案文档\02-学习\05-英语单词.md
+docs\01-方案\优化方案2\幼小衔接工作台-方案文档\02-学习\06-专注与运动.md
+docs\01-方案\优化方案2\幼小衔接工作台-方案文档\02-学习\07-古诗.md
+docs\01-方案\优化方案2\幼小衔接工作台-方案文档\02-学习\08-词库与分级.md
+docs\01-方案\优化方案2\幼小衔接工作台-方案文档\03-伙伴与激励\01-宠物与积分.md
+docs\01-方案\优化方案2\幼小衔接工作台-方案文档\03-伙伴与激励\02-徽章与券.md
+docs\01-方案\优化方案2\幼小衔接工作台-方案文档\04-游戏世界\01-成长世界与短局.md
+docs\01-方案\优化方案2\幼小衔接工作台-方案文档\04-游戏世界\02-方块与马里奥要点.md
+docs\01-方案\优化方案2\幼小衔接工作台-方案文档\05-素材与语音\01-素材工厂与TTS.md
+docs\01-方案\优化方案2\幼小衔接工作台-方案文档\06-计划与验收\01-落地对照与缺口.md
+docs\01-方案\优化方案2\幼小衔接工作台-方案文档\06-计划与验收\02-版本与协作建议.md
+docs\01-方案\优化方案2\幼小衔接工作台-方案文档\07-参考与边界\01-开源参考清单.md
+docs\01-方案\优化方案2\幼小衔接工作台-方案文档\07-参考与边界\02-明确不做.md
+docs\01-方案\什么是真正的工作台\什么是真正的工作台.md
+docs\01-方案\什么是真正的工作台\meta.json
+docs\01-方案\什么是真正的工作台\img\img_01.png
+docs\01-方案\什么是真正的工作台\img\img_02.png
+docs\01-方案\什么是真正的工作台\img\img_03.png
+docs\01-方案\什么是真正的工作台\img\img_04.png
+docs\01-方案\什么是真正的工作台\img\img_05.png
+docs\01-方案\什么是真正的工作台\img\img_06.png
+docs\01-方案\什么是真正的工作台\img\img_07.png
+docs\01-方案\什么是真正的工作台\img\img_08.png
+docs\01-方案\什么是真正的工作台\img\img_09.png
+docs\01-方案\什么是真正的工作台\img\img_10.png

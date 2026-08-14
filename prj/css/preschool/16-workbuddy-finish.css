@@ -977,3 +977,15 @@ body.variant-preschool .play-spell-tile {
     font-weight: 900;
 }
 body.variant-preschool .play-spell-tile.is-used { opacity: .4; }
+
+/* 幼小衔接:课程进度计数弱化,孩子的注意力留给题目本身 */
+body.variant-preschool .lesson-dialog-course { font-size: 10px; opacity: .8; }
+body.variant-preschool .lesson-dialog-progress > div { font-size: 11px; opacity: .7; }
+body.variant-preschool .lesson-dialog-prompt { font-size: clamp(22px, 4.4vw, 34px); }
+body.variant-preschool .lesson-dialog-feedback { font-size: 15px; }
+body.variant-preschool .lesson-quit { min-width: 46px; padding: 10px 14px; font-size: 18px; }
+
+/* 断连保护:成长页"欢迎回来"补签行 */
+.streak-repair-row { display: flex; align-items: center; gap: 12px; margin: 8px 0 10px; padding: 10px 12px; border-radius: 14px; background: #fff4d6; border: 2px dashed rgba(224, 172, 62, .6); }
+.streak-repair-row small { flex: 1; min-width: 0; color: #8a6b1f; font-weight: 700; line-height: 1.45; }
+.streak-repair-row .btn-secondary { flex: 0 0 auto; white-space: nowrap; }

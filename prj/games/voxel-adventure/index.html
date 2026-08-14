@@ -6,7 +6,8 @@
     <meta name="theme-color" content="#5dade2">
     <title>方块世界</title>
     <link rel="stylesheet" href="../shared/growth-hud.css">
-    <link rel="stylesheet" href="./game.css?v=20260814-ground-v1">
+    <link rel="stylesheet" href="../../css/preschool/31-voxel-workshop.css?v=20260814-game-v1">
+    <link rel="stylesheet" href="./game.css?v=20260814-side-v3">
 </head>
 <body data-world-game="voxel-adventure" class="mc-world">
     <header class="world-bar mc-top">
@@ -17,15 +18,23 @@
         </div>
         <div class="growth-hud" id="wallet-hud"></div>
         <div class="world-bar-actions">
+            <button type="button" class="world-tool" id="map-btn">关卡</button>
+            <button type="button" class="world-tool" id="workshop-btn">工坊</button>
             <button type="button" class="world-tool" id="reset-btn">重开本关</button>
             <button type="button" class="world-tool" id="fullscreen-btn">全屏</button>
             <a class="world-back" id="back-link" href="../../preschool-workbench/index.html?theme=voxel-adventure#overview">返回工作台</a>
         </div>
     </header>
     <main class="world-shell mc-stage">
-        <section class="world-panel mc-panel">
-            <div class="play-meta is-hidden">
-                <span>进度 <b id="quest-count">0</b>/<b id="quest-need">8</b></span>
+        <section class="world-panel" id="panel-map">
+            <h2 class="panel-title">选关 · <span id="stage-count">8</span> <small class="tip" id="progress-tip">加载中…</small></h2>
+            <div class="stage-map" id="stage-map" aria-label="8 个区域关卡"></div>
+        </section>
+        <section class="world-panel is-hidden" id="panel-play">
+            <div class="play-meta">
+                <strong id="level-title">第 1 关</strong>
+                <span id="goal-label">走到出口通关</span>
+                <span>目标 <b id="quest-count">0</b>/<b id="quest-need">8</b></span>
                 <span>状态 <b id="run-status">准备</b></span>
             </div>
             <div class="mc-view">
@@ -47,18 +56,15 @@
             <div class="hotbar" id="hotbar" aria-label="工具和背包"></div>
             <p class="mc-footer">方块世界 — WASD 移动 | 空格跳跃 | 鼠标左键挖矿 | 右键/长按放置 | 走到出口</p>
         </section>
-        <aside class="world-side mc-quests">
-            <h2>关卡</h2>
-            <div class="quest-list" id="quest-list"></div>
-            <p class="tip" id="progress-tip">加载中…</p>
-        </aside>
     </main>
     <div class="toast-game" id="toast"></div>
+    <div class="vw-overlay is-hidden" id="workshop-overlay" aria-label="方块工坊"></div>
     <script src="../shared/workbench-bridge.js?v=20260814-playmods-v1"></script>
     <script src="./data/quests.js?v=20260814-mc-v1"></script>
     <script src="./data/levels.js?v=20260814-mob-v2"></script>
     <script src="./data/world.js?v=20260814-tools-v1"></script>
     <script src="./pixel-tiles.js?v=20260814-art-v2"></script>
-    <script src="./game.js?v=20260814-water-v4"></script>
+    <script src="./workshop.js?v=20260814-game-v1"></script>
+    <script src="./game.js?v=20260815-assets-v1"></script>
 </body>
 </html>

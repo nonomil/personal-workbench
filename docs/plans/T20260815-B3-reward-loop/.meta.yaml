@@ -1,0 +1,42 @@
+task_id: "T20260815-B3"
+title: "奖励闭环四件套：家长确认兑换 + 两档任务 + 喂养直连/连击/防刷分 + 英语日定量"
+status: "blocked"
+priority: "P1"
+phase: "S1-parent-confirm"
+assignee: ""
+created: "2026-08-15"
+completed: ""
+depends_on: ["T20260815-B2"]
+estimated_hours: 20
+actual_hours: 0
+files:
+  - path: "prj/app.js"
+    change_type: "modify"
+  - path: "prj/storage.js"
+    change_type: "modify"
+  - path: "prj/config.js"
+    change_type: "modify"
+  - path: "prj/preschool-pet.js"
+    change_type: "modify"
+  - path: "prj/preschool-english-data.js"
+    change_type: "modify"
+  - path: "prj/css/preschool/34-course-wall.css"
+    change_type: "modify"
+  - path: "docs/data-model.md"
+    change_type: "modify"
+  - path: "docs/02-课程/英语/01-课程总方案.md"
+    change_type: "modify"
+  - path: "tests/preschool-rewards-confirm.test.mjs"
+    change_type: "create"
+acceptance:
+  - "兑换必经 pending→家长确认→核销；刷新后 pending 保留；测试覆盖"
+  - "必做未完时冒险入口置灰且有提示；完成后点亮可进游戏"
+  - "完成课弹层可一键去喂星芒；今日卡显示连续学习天数；重开已完成课有防刷分提示"
+  - "英语今日 3 词可见；词库 80 词；掌握/复习分色；相关测试绿"
+  - "全程无新货币、无奖励数值放松、无外部 IP；npm test 全绿"
+tags:
+  - preschool
+  - reward-loop
+  - parent-confirm
+  - english
+notes: "来源：学习内容体系优化 03 借鉴裁决 + 04 P1。S1 允许最小新增 storage 字段（pending 兑换态），其余 S 优先派生值。S4 词库 80 词必须自写例句、只用公版词表（Dolch/课标），禁止从 NC/ND 参考仓抄。"

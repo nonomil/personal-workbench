@@ -5,7 +5,7 @@
      * 花园保卫 · 种植物后豌豆自己发射（接近原版循环）
      * 规则：selectPlant / placeDefensePlant / spawnDefenseWave / tickDefense
      * 循环参考 G:/StudyCode/pvz-refs/PlantsVsZombiesJS（MIT）：同路才打、子弹平移、点阳光。
-     * 画面只用本仓 preschool-pvz-2d，不拷参考仓贴图。
+     * 角色用 preschool-pixel/pvz，草坪用 pvz-garden-lawn-bg.webp。
      */
     const bridge = window.WorkbenchGameBridge;
     const garden = window.PersonalWorkbenchPreschoolGarden;
@@ -28,24 +28,24 @@
     canvas.height = VIEW_H;
 
     const PVZ = '../../assets/generated/preschool-pvz-2d/published/';
-    const BG0 = '../../assets/generated/preschool-pvz-2d/background/published/pvz-garden-lawn-bg.png';
     const LOCAL = './assets/';
+    const LAWN = LOCAL + 'bg/pvz-garden-lawn-bg.webp?v=20260815-ref-v1';
     const ASSETS = {
-        bg: BG0,
-        'bg-day': LOCAL + 'bg/lawn-day.png',
-        'bg-sunset': LOCAL + 'bg/lawn-sunset.png',
-        'bg-night': LOCAL + 'bg/lawn-night.png',
+        bg: LAWN,
+        'bg-day': LAWN,
+        'bg-sunset': LAWN,
+        'bg-night': LAWN,
         sun: PVZ + 'pvz-sun-token.png',
-        'plant-sunflower': PVZ + 'pvz-sunflower.png',
-        'plant-peashooter': PVZ + 'pvz-peashooter.png?v=20260814-actor-scale-v1',
-        'plant-wallnut': PVZ + 'pvz-wallnut.png',
-        'plant-snowpea': PVZ + 'pvz-iceflower.png',
-        'plant-cherrybomb': PVZ + 'pvz-cherrybomb.png',
-        'zombie-basic': LOCAL + 'zombies/garden-walker.png?v=20260814-walker-v2',
-        'zombie-conehead': LOCAL + 'zombies/garden-cone-walker.png?v=20260814-walker-v2',
-        'zombie-buckethead': LOCAL + 'zombies/garden-pail-walker.png?v=20260814-walker-v2',
-        'zombie-flag': LOCAL + 'zombies/garden-walker.png?v=20260814-walker-v2',
-        'zombie-football': LOCAL + 'zombies/garden-cone-walker.png?v=20260814-walker-v2'
+        'plant-sunflower': LOCAL + 'plants/plant-sunflower.png?v=20260815-ref-v1',
+        'plant-peashooter': LOCAL + 'plants/plant-peashooter.png?v=20260815-ref-v1',
+        'plant-wallnut': LOCAL + 'plants/plant-wallnut.png?v=20260815-ref-v1',
+        'plant-snowpea': LOCAL + 'plants/plant-snowpea.png?v=20260815-ref-v1',
+        'plant-cherrybomb': LOCAL + 'plants/plant-cherrybomb.webp?v=20260815-ref-v1',
+        'zombie-basic': LOCAL + 'zombies/zombie-basic.webp?v=20260815-ref-v1',
+        'zombie-conehead': LOCAL + 'zombies/zombie-conehead.webp?v=20260815-ref-v1',
+        'zombie-buckethead': LOCAL + 'zombies/zombie-buckethead.webp?v=20260815-ref-v1',
+        'zombie-flag': LOCAL + 'zombies/zombie-flag.webp?v=20260815-ref-v1',
+        'zombie-football': LOCAL + 'zombies/zombie-football.webp?v=20260815-ref-v1'
     };
 
     const images = {};
@@ -223,6 +223,7 @@
         showPlay();
         renderSeeds();
         renderHud();
+        spawnWave();
     }
 
     function renderSeeds() {
@@ -285,8 +286,8 @@
         const laneH = height / lanes;
         const plantH = Math.round(laneH * 1.62);
         const plantW = Math.round(plantH * 0.9);
-        const zombieH = Math.round(laneH * 2.05);
-        const zombieW = Math.round(zombieH * 0.82);
+        const zombieH = Math.round(laneH * 2.72);
+        const zombieW = Math.round(zombieH * 0.88);
         return {
             lanes: lanes,
             columns: columns,

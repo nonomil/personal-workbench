@@ -46,9 +46,21 @@
       "feedbackPreferences": { "musicEnabled": false, "motionEnabled": true },
       "invader": { "active": false, "kind": "cloudy-bug", "defeated": 0, "health": 3, "maxHealth": 3, "wave": 0, "lastSpawnDate": "" }
     },
-    "collection": { "unlockedIds": [], "claimedIds": [], "seenEventIds": [], "total": 6 }
+    "collection": { "unlockedIds": [], "claimedIds": [], "seenEventIds": [], "total": 6 },
+    "achievements": { "unlocked": [], "history": [], "lastShown": "", "seen": [] },
+    "streakRepair": { "cardsUsedByMonth": { "2026-08": 0 }, "repairedDates": [] },
+    "worldGames": {
+      "garden-defense": { "unlockedStage": 1, "clearedStages": [], "stars": {}, "bestWave": 0, "totalWins": 0, "totalDefeated": 0 },
+      "voxel-adventure": { "rank": 1, "crystalsTotal": 0, "blocksBuilt": 0, "questsDone": [], "unlockedLevel": 1, "clearedLevels": [], "inventory": {} },
+      "platform-quest": { "unlockedLevel": 1, "clearedLevels": [], "stars": {}, "coinsTotal": 0, "bestTime": {} },
+      "meta": { "playDays": [], "weekly": {}, "milestones": [] }
+    }
   },
-  "courseProgress": { "completedLessonIds": [] },
+  "courseProgress": {
+    "completedLessonIds": [],
+    "literacy": { "charStates": {}, "knownCount": 0 },
+    "english": { "wordStates": {}, "knownCount": 0 }
+  },
   "adult": {
     "language": "zh-CN",
     "lifeEntries": [
@@ -71,6 +83,7 @@
 
 - 计划、学习任务、课程和首次阅读记录分别使用稳定事件 ID发放阳光；重复事件不会重复奖励。
 - 当天第一次有效行动额外增加 10 阳光并记录 `checkinDates`，连续天数按本地 `YYYY-MM-DD` 计算。
+- 断连保护:`growth.streakRepair` 记录补签卡用量(`cardsUsedByMonth`,按 `YYYY-MM` 每月最多 2 张,跨月自动按月键重置)与已补日期(`repairedDates`)。`repairStreak` 只能把"昨天"补进 `checkinDates` 以恢复连续性,**不**发放当日 +10 阳光、不进 `awardedIds` 结算路径;昨天无断档或月度用尽时拒绝。
 - 植物阶段由累计阳光决定；浇水每天一次，消耗 5 阳光。
 - 独角兽 XP 与阳光同步增长，100 XP 升一级；等级和连续天数可解锁造型。
 - 最近一次打卡不是今天时，成长地图显示僵尸入侵提示；完成今天第一项行动后驱散。
@@ -92,6 +105,16 @@
 ## 家庭互动
 
 家庭 feed 单独存储在 `petbank_huchuliang_family_updates_v1`，字段为 `id`、`author`、`kind`、`body`、`date`、`createdAt`。它不会跟随成人/儿童工作台快照上传，后续如需云端家庭动态必须增加明确的后端资源和权限模型。
+
+## 幼儿版徽章与世界游戏(2026-08-15 补记)
+
+- `growth.achievements` 由 `preschool-achievements.js` 归一化:`unlocked`(徽章 id 列表,19 枚目录派生,总数 `BADGE_COUNT = BADGE_ORDER.length`,不硬编码)、`history`(解锁时间记录)、`seen`(已看过弹层的徽章,用于"NEW"角标)、`lastShown`。三处展示(徽章收集箱 / 成长卡 / 周报)总数口径一致。
+- `growth.worldGames` 由 `games/shared/workbench-bridge.js` 管理,与三世界游戏页共用同一账本:
+  - `garden-defense`:`unlockedStage / clearedStages / stars{stageId→1-3} / bestWave / totalWins / totalDefeated`;
+  - `voxel-adventure`:`rank / crystalsTotal / blocksBuilt / questsDone[] / unlockedLevel / clearedLevels[] / inventory{方块kind→数量}`,方块工坊(小卖部/合成/家长锁)的库存也写在这里;
+  - `platform-quest`:`unlockedLevel / clearedLevels / stars{levelId→1-3} / coinsTotal / bestTime{levelId→秒}`;
+  - `meta`:游玩日期戳、周目标、里程碑;游戏阳光每日上限 80、单事件上限 40,由 bridge 幂等去重。
+- `courseProgress` 除 `completedLessonIds` 外,识字/英语各有按字/词的掌握状态表(`charStates` / `wordStates`),由 `child-courses.js` 维护,复习队列(1/3/7/14 天)从这些状态派生。
 
 ## 约束
 

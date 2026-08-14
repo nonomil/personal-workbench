@@ -1,0 +1,19 @@
+task_id: "T20260815-B4"
+title: "内容深化：新练习 mode + 三科 60 日挂入 + 学情摘要 + 数据合同消费"
+status: "deferred"
+priority: "P2"
+phase: "not-started"
+assignee: ""
+created: "2026-08-15"
+completed: ""
+depends_on: ["T20260815-B2", "T20260815-B3"]
+estimated_hours: 32
+actual_hours: 0
+files: []
+acceptance:
+  - "启动时按 task-decomposition 逐项装配控制面并定义验收"
+tags:
+  - preschool
+  - content
+  - deferred
+notes: "轻量待启动包：C1–C4 可独立启动。files 留空，启动具体子项时填。来源：学习内容体系优化 04 P2。"

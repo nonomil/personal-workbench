@@ -24,7 +24,7 @@ body.variant-preschool[data-preschool-theme] .preschool-home-evidence-icon .pres
 }
 
 body.variant-preschool[data-preschool-theme='garden-defense'] .preschool-theme-banner-scene {
-    background-image: url("../../assets/generated/preschool-pvz-2d/background/published/pvz-garden-lawn-bg.png");
+    background-image: url("../../assets/generated/preschool-pvz-2d/background/published/pvz-garden-lawn-bg.webp");
     background-position: center;
     background-size: cover;
 }

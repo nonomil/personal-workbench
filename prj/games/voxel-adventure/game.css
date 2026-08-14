@@ -19,7 +19,6 @@ body {
 }
 
 body.mc-world.mc-embed .mc-top,
-body.mc-world.mc-embed .mc-quests,
 body.mc-world.mc-embed .mc-footer {
     display: none;
 }
@@ -253,11 +252,12 @@ body.mc-embed .mc-view #world-canvas {
 .panel-title { margin: 0 0 10px; }
 .world-shell {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(220px, 280px);
+    grid-template-columns: minmax(0, 1fr);
     gap: 14px;
-    padding: 12px clamp(12px, 2.5vw, 20px) 20px;
+    width: min(1480px, calc(100% - 24px));
+    margin: 12px auto 20px;
 }
-.world-panel, .world-side {
+.world-panel {
     border: 3px solid rgba(42, 49, 72, .12);
     border-radius: 20px;
     background: rgba(247, 249, 255, .92);
@@ -273,33 +273,81 @@ body.mc-embed .mc-view #world-canvas {
     border: 3px solid rgba(42,49,72,.14);
     background: #4a4642;
 }
-.world-shell--split {
+/* 选关地图(与花园/横版同款结构,方块世界配色) */
+.stage-map {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(240px, 300px);
-    gap: 14px;
-    padding: 12px clamp(12px, 2.5vw, 20px) 20px;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    gap: 16px 10px;
+    margin: 8px 0 4px;
+    justify-items: center;
 }
-.quest-side {
-    border: 3px solid rgba(42, 49, 72, .12);
-    border-radius: 20px;
-    background: rgba(247, 249, 255, .92);
-    padding: 14px;
+.stage-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+    max-width: 92px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
 }
-.quest-list { display: flex; flex-direction: column; gap: 8px; max-height: 52vh; overflow: auto; }
-.quest-card {
-    padding: 10px;
-    border-radius: 12px;
-    border: 2px solid rgba(42,49,72,.1);
-    background: #fff;
+.stage-card:disabled { cursor: not-allowed; }
+.stage-thumb {
+    display: grid;
+    place-items: center;
+    position: relative;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 4px solid #4fbf3a;
+    background:
+        repeating-linear-gradient(90deg, #8a5a2b 0 12px, #7a4f24 12px 24px);
+    box-shadow: inset 0 -10px 0 rgba(74, 70, 66, .28), inset 0 4px 0 #4fbf3a, 0 4px 0 #2f8a24;
 }
-.quest-card.is-done { opacity: .65; background: #eef8e8; }
-.quest-card.is-daily {
+.stage-num {
+    color: #fffdf6;
+    font-size: 28px;
+    line-height: 1;
+    font-weight: 900;
+    text-shadow: 0 2px 0 rgba(42, 26, 16, .45);
+}
+.stage-card.is-current .stage-thumb {
     border-color: #f0c14a;
-    background: linear-gradient(180deg, #fff9e8, #fff);
-    box-shadow: 0 0 0 2px rgba(240, 193, 74, .25);
+    box-shadow: inset 0 -10px 0 rgba(74, 70, 66, .28), inset 0 4px 0 #4fbf3a, 0 0 0 3px rgba(240, 193, 74, .4), 0 4px 0 #2f8a24;
 }
-.quest-card strong { display: block; font-size: 14px; }
-.quest-card small, .quest-card em { display: block; color: var(--muted); font-size: 12px; margin-top: 4px; }
+.stage-card.is-cleared .stage-thumb { border-color: #6bb86a; }
+.stage-card.is-locked .stage-thumb { filter: grayscale(.6); }
+.stage-lock {
+    position: absolute;
+    inset: 0;
+    background: rgba(40, 30, 40, .28);
+    border-radius: 50%;
+}
+.stage-lock::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 42%;
+    width: 16px;
+    height: 12px;
+    border-radius: 3px;
+    background: #fff8d8;
+    transform: translate(-50%, 0);
+    box-shadow: 0 -8px 0 -4px #fff8d8, inset 0 0 0 2px #c9a24a;
+}
+.stage-best {
+    min-height: 14px;
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+}
+@media (max-width: 860px) {
+    .stage-map { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
 .quest-bar {
     height: 8px;
     border-radius: 99px;
@@ -450,13 +498,59 @@ body.mc-embed .mc-view #world-canvas {
     font-weight: 700;
 }
 
-.mc-quests {
-    display: none;
-}
 
-@media (min-width: 1100px) {
-    .mc-stage:not(.mc-embed-stage) {
-        grid-template-columns: minmax(0, 1fr) 240px;
-    }
-    body.mc-world:not(.mc-embed) .mc-quests { display: block; }
+/* 游戏内方块工坊弹层(小卖部/合成台/背包/家长锁) */
+.vw-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    background: rgba(24, 18, 12, .62);
+    display: grid;
+    place-items: center;
+    padding: 18px;
+}
+.vw-overlay .voxel-workshop.vw-game-panel {
+    --vw-sky: #5dade2;
+    min-height: 0;
+    height: min(86vh, 700px);
+    width: min(980px, 96vw);
+    grid-template-columns: minmax(0, 1fr);
+    background: #f7f4ec;
+    border: 4px solid #5c3012;
+    border-radius: 18px;
+    overflow: hidden;
+}
+.vw-game-tabs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    background: linear-gradient(180deg, #a86a34, #8a4f22);
+    border-bottom: 3px solid #5c3012;
+}
+.vw-game-tabs .vw-rail-item {
+    background: rgba(255, 244, 214, .16);
+    border-radius: 10px;
+    padding: 6px 12px;
+}
+.vw-game-tabs .vw-rail-item.is-on {
+    background: #fff4d6;
+}
+.vw-game-close {
+    margin-left: auto;
+    width: 34px;
+    height: 34px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(42, 26, 16, .35);
+    color: #fff4d6;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+}
+.vw-game-close:hover { background: rgba(42, 26, 16, .6); }
+.vw-game-main {
+    min-height: 0;
+    overflow: auto;
+    color: #2a1a10;
 }

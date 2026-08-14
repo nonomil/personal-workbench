@@ -105,10 +105,10 @@ test('keeps preschool plans in one editable list instead of a fixed core and col
 
 test('bumps preschool runtime assets when the editable plan interaction changes', () => {
   const html = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
-  assert.match(html, /preschool-workbench\.css\?v=20260814-walker-v2/);
+  assert.match(html, /preschool-workbench\.css\?v=20260815-course-wall-v1/);
   assert.match(html, /config\.js\?v=20260814-summer-banks-v1/);
   assert.match(html, /storage\.js\?v=20260814-lesson-mistakes-v1/);
-  assert.match(html, /app\.js\?v=20260814-walker-v2/);
+  assert.match(html, /app\.js\?v=20260815-streak-v1/);
   assert.match(html, /workbench-bridge\.js\?v=20260807-longterm-meta-v1/);
 });
 
@@ -261,15 +261,16 @@ test('exposes the reference workbench learning lanes as separate preschool navig
 
 test('keeps preschool course content spacious and supports a focused learning lane', () => {
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
-  const styles = readCssGraph(path.join(root, 'styles.css'));
-  assert.match(app, /preschool-course-directory/);
+  const styles = readCssGraph(path.join(root, 'css', 'preschool-workbench.css'));
+  assert.match(app, /preschool-course-wall/);
+  assert.match(app, /preschool-course-today/);
   assert.match(app, /preschool-course-layout/);
   assert.match(app, /activeCourse/);
-  assert.match(styles, /preschool-course-layout/);
-  assert.match(styles, /preschool-course-directory/);
+  assert.match(styles, /preschool-course-wall/);
+  assert.match(styles, /preschool-course-today/);
   assert.match(styles, /grid-template-columns:\s*repeat\(2, minmax\(0, 1fr\)\)/);
   assert.match(styles, /preschool-course-card\.is-focused/);
-  assert.match(styles, /preschool-course-reference/);
+  assert.doesNotMatch(app, /renderPreschoolCourseDirectory/);
 });
 
 test('renders preschool courses as visual learning routes with clear step states', () => {
@@ -582,7 +583,7 @@ test('puts a single real-work workflow card above preschool home check-in lanes'
   assert.doesNotMatch(workflowRender, /再完成\s*\d+\s*项打卡/);
   assert.match(app, /item\.done && item\.completionSource === 'practice'/);
   assert.match(styles, /preschool-home-workflow/);
-  assert.match(html, /app\.js\?v=20260814-walker-v2/);
+  assert.match(html, /app\.js\?v=20260815-streak-v1/);
   assert.doesNotMatch(app, /首页只负责打卡/);
 });
 
@@ -848,22 +849,22 @@ test('removes the duplicated preschool action path from the home page', () => {
   assert.doesNotMatch(styles, /preschool-action-path/);
 });
 
-test('shows progress and current state in the preschool course directory', () => {
+test('shows progress and current state on the preschool course wall', () => {
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
-  const styles = readCssGraph(path.join(root, 'styles.css'));
-  assert.match(app, /preschool-course-directory-progress/);
-  assert.match(app, /preschool-course-directory-state/);
+  const styles = readCssGraph(path.join(root, 'css', 'preschool-workbench.css'));
+  assert.match(app, /preschool-course-wall-dots/);
+  assert.match(app, /preschool-course-wall-state/);
   assert.match(app, /role="progressbar"/);
   assert.match(app, /data-route-state="\$\{status\}"/);
-  assert.match(styles, /preschool-course-directory-progress/);
-  assert.match(styles, /preschool-course-directory-state/);
+  assert.match(styles, /preschool-course-wall-dots/);
+  assert.match(styles, /preschool-course-wall-state/);
 });
 
 test('keeps sidebar course lanes as the persistent navigation on focused course pages', () => {
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
   const styles = readCssGraph(path.join(root, 'styles.css'));
   const preschoolIndex = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
-  assert.match(app, /activeCourse \? '' : renderPreschoolCourseDirectory\(courses, activeCourse\)/);
+  assert.doesNotMatch(app, /renderPreschoolCourseDirectory/);
   assert.match(preschoolIndex, /data-sidebar-section="course-lanes"/);
   assert.match(styles, /preschool-course-layout\.is-focused[\s\S]*grid-template-columns:\s*minmax\(0, 1fr\)/);
   assert.doesNotMatch(styles, /preschool-courses-page[\s\S]*preschool-course-sidebar-section/);

@@ -56,19 +56,19 @@
     const PIXEL_ASSET_BASE = '../assets/generated/preschool-pixel/reference/gpt-output-20260730/published-gpt-v2/';
     const PIXEL_REFRESH_ASSET_BASE = '../assets/generated/preschool-pixel/refresh-20260731/published/';
     // 花园角色优先用已验收的 preschool-pvz-2d（比 world-rebuild 更接近塔防原版观感）
-    const PRESCHOOL_PVZ_ASSET_BASE = '../assets/generated/preschool-pvz-2d/published/';
+    const PRESCHOOL_PVZ_ASSET_BASE = '../assets/generated/preschool-pixel/pvz/';
     const PRESCHOOL_PVZ_ASSETS = {
-        'sun-token': 'pvz-sun-token.png',
-        'plant-sunflower': 'pvz-sunflower.png',
-        'plant-peashooter': 'pvz-peashooter.png',
-        'plant-wallnut': 'pvz-wallnut.png',
-        'plant-snowpea': 'pvz-iceflower.png',
-        'plant-cherrybomb': 'pvz-triple-peashooter.png',
-        'zombie-basic': 'garden-walker.png?v=20260814-walker-v2',
-        'zombie-conehead': 'garden-cone-walker.png?v=20260814-walker-v2',
-        'zombie-buckethead': 'garden-pail-walker.png?v=20260814-walker-v2',
-        'zombie-flag': 'garden-walker.png?v=20260814-walker-v2',
-        'zombie-football': 'garden-cone-walker.png?v=20260814-walker-v2'
+        'sun-token': '../preschool-pvz-2d/published/pvz-sun-token.png',
+        'plant-sunflower': 'plant-sunflower.png?v=20260815-ref-v1',
+        'plant-peashooter': 'plant-peashooter.png?v=20260815-ref-v1',
+        'plant-wallnut': 'plant-wallnut.png?v=20260815-ref-v1',
+        'plant-snowpea': 'plant-snowpea.png?v=20260815-ref-v1',
+        'plant-cherrybomb': 'plant-cherrybomb.webp?v=20260815-ref-v1',
+        'zombie-basic': 'zombie-basic.webp?v=20260815-ref-v1',
+        'zombie-conehead': 'zombie-conehead.webp?v=20260815-ref-v1',
+        'zombie-buckethead': 'zombie-buckethead.webp?v=20260815-ref-v1',
+        'zombie-flag': 'zombie-flag.webp?v=20260815-ref-v1',
+        'zombie-football': 'zombie-football.webp?v=20260815-ref-v1'
     };
     const PRESCHOOL_THEME_ASSET_FILES = {
         'voxel-adventure': {
@@ -1440,7 +1440,7 @@
             renderPreschoolWeeklyAdventureReport({ forParent: false })}${
             renderPreschoolGrowthProgress(stats)}
             <section class="preschool-growth-actions"><button class="btn-primary" type="button" data-action="water-plant" ${waterAvailable ? '' : 'disabled'}>${icon('droplets')}${growth.lastWateredDate === storage.localDate() ? '已浇水' : '浇水'}</button><label class="voice-toggle"><input type="checkbox" data-action="toggle-voice" ${growth.voiceEnabled ? 'checked' : ''}><span class="voice-toggle-track"></span><span>语音鼓励</span></label><button class="btn-secondary" type="button" data-action="navigate" data-page="plans">去打卡${icon('arrow-up-right')}</button><button class="btn-secondary" type="button" data-action="navigate" data-page="battle">去花园游戏${icon('swords')}</button></section>
-            <section class="preschool-section"><div class="preschool-section-head"><div><span class="eyebrow">STREAK</span><h2>连续奖励</h2><p>连续行动会解锁阳光和新造型。</p></div><span class="tag gold">${growth.streak} 天</span></div><div class="preschool-streak-grid">${rewardCards}</div></section>
+            <section class="preschool-section"><div class="preschool-section-head"><div><span class="eyebrow">STREAK</span><h2>连续奖励</h2><p>连续行动会解锁阳光和新造型。</p></div><span class="tag gold">${growth.streak} 天</span></div>${growth.streakRepair && growth.streakRepair.canRepair ? `<div class="streak-repair-row"><small>欢迎回来！昨天断了一下，用一张补签卡把记录接上（这个月还有 ${growth.streakRepair.available} 张）。</small><button class="btn-secondary" type="button" data-action="repair-streak">${icon('heart')}补签卡接上</button></div>` : ''}<div class="preschool-streak-grid">${rewardCards}</div></section>
             <section class="preschool-section"><div class="preschool-section-head"><div><span class="eyebrow">PLANTS</span><h2>植物伙伴图鉴</h2><p>收集阳光，解锁新的技能伙伴。</p></div><span class="tag lime">${stats.unlockedPlantCount}/${stats.plantCount} 已出现</span></div><div class="preschool-plant-grid">${garden.plants.map(function (plant) { const unlocked = garden.unlockedPlantIds.includes(plant.id); const active = plant.id === garden.activePlantId; const assetName = preschoolPlantAsset(plant); return `<button class="preschool-plant-card ${active ? 'is-active' : ''} ${unlocked ? '' : 'is-locked'} tone-${escapeHtml(plant.tone || 'lime')}" type="button" data-action="select-plant" data-id="${escapeHtml(plant.id)}" ${unlocked ? '' : 'disabled'}><span class="${assetName ? 'has-image' : ''}">${assetName ? preschoolAsset(assetName, unlocked ? plant.title : '未出现') : icon(plant.icon)}</span><strong>${escapeHtml(unlocked ? plant.title : '未出现')}</strong><small>${escapeHtml(unlocked ? plant.description : `${plant.unlockAt} 阳光出现`)}</small></button>`; }).join('')}</div></section>
             ${renderPreschoolCollection(garden)}
             <section class="preschool-section"><div class="preschool-section-head"><div><span class="eyebrow">STYLE</span><h2>星芒造型</h2><p>成长等级越高，陪伴造型越丰富。</p></div><span class="tag blue">Lv.${growth.level} · ${escapeHtml(activeStyle.title)}</span></div><div class="preschool-style-grid">${growth.styles.map(function (style) { const unlocked = growth.unlockedStyleIds.includes(style.id); const active = style.id === growth.activeStyleId; const assetName = preschoolAssetForIcon(style.icon); return `<button class="preschool-style-card ${active ? 'is-active' : ''} ${unlocked ? '' : 'is-locked'}" type="button" data-action="select-style" data-id="${escapeHtml(style.id)}" ${unlocked ? '' : 'disabled'}><span class="${assetName ? 'has-image' : ''}">${assetName ? preschoolAsset(assetName, style.title) : icon(style.icon)}</span><strong>${escapeHtml(style.title)}</strong></button>`; }).join('')}</div></section>`;
@@ -1449,7 +1449,7 @@
     function renderPreschoolPlans(derived) {
         const plans = derived.todayPlans;
         const done = plans.filter(item => item.done).length;
-        return `${renderPreschoolIntro(PAGE_META.plans, 'add-plan', '加一项', `<span class="points-chip">${icon('circle-check')}${done}/${plans.length}</span>`)}<section class="preschool-plan-card"><div class="preschool-section-head"><div><span class="eyebrow">TODAY / ALL TASKS</span><h2>今天的学习任务</h2><p>每一项都可以单独勾选、改名或删除，不再区分固定任务和可选活动。</p></div></div>${renderPreschoolPlanRows(plans, { editable: true })}</section>`;
+        return `${renderPreschoolIntro(PAGE_META.plans, 'add-plan', '加一项', `<span class="points-chip">${icon('circle-check')}${done}/${plans.length}</span>`)}<section class="preschool-plan-card"><div class="preschool-section-head"><div><span class="eyebrow">TODAY / ALL TASKS</span><h2>今天的学习任务</h2><p>做完一项，点亮一颗星。</p></div></div>${renderPreschoolPlanRows(plans, { editable: true })}</section>`;
     }
 
     function renderPreschoolCalendar(derived) {
@@ -1743,13 +1743,13 @@
         const answer = Math.max(0, Math.min(options.length - 1, Number.isInteger(Number(source.answer)) ? Number(source.answer) : 0));
         return {
             prompt: String(source.prompt || `准备完成“${lesson && lesson.title ? lesson.title : '这项练习'}”吗？`),
-            hint: String(source.hint || (lesson && lesson.tip) || '先看清楚，再选一个答案。'),
+            hint: String(source.hint || (lesson && lesson.tip) || '选一个'),
             options: options.map(function (item) { return String(item); }),
             optionIcons: Array.isArray(source.optionIcons)
                 ? source.optionIcons.map(function (item) { return String(item); })
                 : [],
             answer: answer,
-            success: String(source.success || '准备好啦！')
+            success: String(source.success || '好！')
         };
     }
 
@@ -1759,21 +1759,21 @@
             return `<button class="play-match-card ${card.matched ? 'is-matched' : ''} ${open ? 'is-open' : ''}" type="button" data-action="play-flip" data-index="${index}" ${card.matched ? 'disabled' : ''}><span>${open ? escapeHtml(card.face) : '?'}</span></button>`;
         }).join('');
         const canGo = !!board.complete;
-        return `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">${escapeHtml(prompt)}</h3><p class="lesson-dialog-feedback">${escapeHtml(hint || '')} 已配 ${board.matchedCount || 0} 对。</p><div class="play-match-grid">${cards}</div><div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${canGo ? '' : 'disabled'}>${icon(canGo ? 'sparkles' : 'lock-keyhole')}${escapeHtml(nextLabel || '收集阳光，完成练习')}</button></div></div>`;
+        return `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">${escapeHtml(prompt)}</h3><p class="lesson-dialog-feedback">${escapeHtml(hint || '')}</p><div class="play-match-grid">${cards}</div><div class="lesson-dialog-actions"><button class="btn-secondary lesson-quit" type="button" data-action="close-lesson" aria-label="先放一放" title="先放一放">${icon('x')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${canGo ? '' : 'disabled'}>${icon(canGo ? 'sparkles' : 'lock-keyhole')}完成</button></div></div>`;
     }
 
     function renderPlaySpellBody(progressHead, spell) {
         const tiles = (spell.tiles || []).map(function (letter) {
             return `<button class="play-spell-tile" type="button" data-action="play-spell" data-letter="${escapeHtml(letter)}">${escapeHtml(letter)}</button>`;
         }).join('');
-        const feedback = spell.complete ? '拼对啦！' : (spell.wrong ? '再从头拼一次。' : '按顺序点出这个词的字母。');
-        return `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">拼一拼 ${escapeHtml(spell.zh || '')}</h3><p class="literacy-char">${escapeHtml(spell.typed || '…')}</p><p class="lesson-dialog-feedback">${escapeHtml(feedback)}</p><div class="play-spell-row">${tiles}</div><div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${spell.complete ? '' : 'disabled'}>${icon(spell.complete ? 'sparkles' : 'lock-keyhole')}${spell.complete ? '收集阳光，完成练习' : '先把词拼完'}</button></div></div>`;
+        const feedback = spell.complete ? '拼对啦！' : (spell.wrong ? '再试一次' : '按顺序点');
+        return `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">拼一拼 ${escapeHtml(spell.zh || '')}</h3><p class="literacy-char">${escapeHtml(spell.typed || '…')}</p><p class="lesson-dialog-feedback">${escapeHtml(feedback)}</p><div class="play-spell-row">${tiles}</div><div class="lesson-dialog-actions"><button class="btn-secondary lesson-quit" type="button" data-action="close-lesson" aria-label="先放一放" title="先放一放">${icon('x')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${spell.complete ? '' : 'disabled'}>${icon(spell.complete ? 'sparkles' : 'lock-keyhole')}${spell.complete ? '完成' : '继续'}</button></div></div>`;
     }
 
     function renderPlayLessonBody(progressHead, play) {
         if (play.kind === 'match' || play.kind === 'memory') {
             const prompt = play.kind === 'memory' ? '找出两张一样的卡片。' : '把两边配成一对。';
-            return renderPlayMatchBody(progressHead, prompt, play.board || {}, '选错再翻两张就好，不扣阳光。', '收集阳光，完成练习');
+            return renderPlayMatchBody(progressHead, prompt, play.board || {}, '', '完成');
         }
         if (play.kind === 'odd' && play.run) {
             const round = play.run.rounds[play.roundIndex] || play.run.rounds[0];
@@ -1784,7 +1784,7 @@
             }).join('');
             const canGo = play.complete || play.roundCorrect;
             const nextAction = play.complete || (play.roundCorrect && play.roundIndex >= play.run.rounds.length - 1) ? 'lesson-finish' : 'play-odd-next';
-            return `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">${escapeHtml(round.prompt || '哪一个和其他不一样？')}</h3><p class="lesson-dialog-feedback">第 ${play.roundIndex + 1}/${play.run.rounds.length} 题。没有倒计时。</p><div class="play-match-grid">${tiles}</div><div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="${nextAction}" ${canGo ? '' : 'disabled'}>${icon(canGo ? 'sparkles' : 'lock-keyhole')}${play.complete ? '收集阳光，完成练习' : '下一题'}</button></div></div>`;
+            return `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">${escapeHtml(round.prompt || '哪一个和其他不一样？')}</h3><p class="lesson-dialog-feedback">第 ${play.roundIndex + 1}/${play.run.rounds.length} 题</p><div class="play-match-grid">${tiles}</div><div class="lesson-dialog-actions"><button class="btn-secondary lesson-quit" type="button" data-action="close-lesson" aria-label="先放一放" title="先放一放">${icon('x')}</button><button class="btn-primary" type="button" data-action="${nextAction}" ${canGo ? '' : 'disabled'}>${icon(canGo ? 'sparkles' : 'lock-keyhole')}${play.complete ? '完成' : '下一题'}</button></div></div>`;
         }
         if (play.kind === 'order' && play.run) {
             const used = play.run.typed || [];
@@ -1792,7 +1792,7 @@
                 const done = used.indexOf(value) >= 0;
                 return `<button class="play-spell-tile ${done ? 'is-used' : ''}" type="button" data-action="play-order" data-value="${value}" ${done ? 'disabled' : ''}>${value}</button>`;
             }).join('');
-            return `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">按从小到大点数字</h3><p class="literacy-word">${escapeHtml(used.join(' ') || '先点 1')}</p><p class="lesson-dialog-feedback">${play.run.wrong ? '再找下一个数。' : '没有倒计时，点错只提示。'}</p><div class="play-spell-row">${tiles}</div><div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${play.run.complete ? '' : 'disabled'}>${icon(play.run.complete ? 'sparkles' : 'lock-keyhole')}${play.run.complete ? '收集阳光，完成练习' : '先把数字排好'}</button></div></div>`;
+            return `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">按从小到大点数字</h3><p class="literacy-word">${escapeHtml(used.join(' ') || '先点 1')}</p><p class="lesson-dialog-feedback">${play.run.wrong ? '再试一次！' : '从小到大点'}</p><div class="play-spell-row">${tiles}</div><div class="lesson-dialog-actions"><button class="btn-secondary lesson-quit" type="button" data-action="close-lesson" aria-label="先放一放" title="先放一放">${icon('x')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${play.run.complete ? '' : 'disabled'}>${icon(play.run.complete ? 'sparkles' : 'lock-keyhole')}${play.run.complete ? '完成' : '继续'}</button></div></div>`;
         }
         return `<div class="lesson-dialog-body">${progressHead}<p class="lesson-dialog-feedback">这节小游戏暂时不可用。</p></div>`;
     }
@@ -1814,9 +1814,9 @@
         const done = !!(timer && timer.complete);
         const safety = ((timer && timer.safety) || []).map(function (item) { return escapeHtml(item); }).join(' · ');
         const feedback = done
-            ? `<p class="lesson-dialog-feedback is-success" role="status">${escapeHtml((timer && timer.success) || '做完啦！')} 阳光已经准备好啦。</p>`
-            : `<p class="lesson-dialog-feedback">${escapeHtml(activity.hint || '跟着大圆做，成人在旁。')}</p>`;
-        return `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">${escapeHtml((timer && timer.prompt) || activity.prompt || '开始做')}</h3><div class="motion-timer-board"><div class="motion-timer-ring" style="--progress:${progress}" aria-label="还剩 ${remaining} 秒"><span>${done ? '好' : remaining}</span></div>${safety ? `<p class="motion-timer-safety">${safety}</p>` : ''}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-secondary" type="button" data-action="motion-done">${icon('check')}做完了</button><button class="btn-primary" type="button" data-action="lesson-finish" ${done ? '' : 'disabled'}>${icon(done ? 'sparkles' : 'lock-keyhole')}${done ? '收集阳光，完成练习' : '做完再领取'}</button></div></div>`;
+            ? `<p class="lesson-dialog-feedback is-success" role="status">${escapeHtml((timer && timer.success) || '做完啦！')} 好啦！</p>`
+            : `<p class="lesson-dialog-feedback">${escapeHtml(activity.hint || '跟着做')}</p>`;
+        return `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">${escapeHtml((timer && timer.prompt) || activity.prompt || '开始做')}</h3><div class="motion-timer-board"><div class="motion-timer-ring" style="--progress:${progress}" aria-label="还剩 ${remaining} 秒"><span>${done ? '好' : remaining}</span></div>${safety ? `<p class="motion-timer-safety">${safety}</p>` : ''}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary lesson-quit" type="button" data-action="close-lesson" aria-label="先放一放" title="先放一放">${icon('x')}</button><button class="btn-secondary" type="button" data-action="motion-done">${icon('check')}做完了</button><button class="btn-primary" type="button" data-action="lesson-finish" ${done ? '' : 'disabled'}>${icon(done ? 'sparkles' : 'lock-keyhole')}${done ? '完成' : '继续'}</button></div></div>`;
     }
 
     function renderLessonDialog() {
@@ -1841,12 +1841,12 @@
         }).length;
         const courseTotal = lessons.length || 1;
         const coursePercent = Math.round((completedInCourse / courseTotal) * 100);
-        const progressHead = `<span class="lesson-dialog-course">${escapeHtml(match.course.title)}</span><div class="lesson-dialog-progress"><div><span>第 ${lessonIndex + 1} 张练习</span><strong>已完成 ${completedInCourse}/${lessons.length || 0}</strong></div><span class="lesson-dialog-progress-track" role="progressbar" aria-label="当前课程进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${coursePercent}"><i style="width:${coursePercent}%"></i></span></div>`;
+        const progressHead = `<span class="lesson-dialog-course">${escapeHtml(match.course.title)}</span><div class="lesson-dialog-progress"><div><span>${lessonIndex + 1}/${courseTotal}</span></div><span class="lesson-dialog-progress-track" role="progressbar" aria-label="当前课程进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${coursePercent}"><i style="width:${coursePercent}%"></i></span></div>`;
         const english = ui.lessonSession.english;
         const literacy = ui.lessonSession.literacy;
         const bankQuiz = ui.lessonSession.bankQuiz;
         if (english && english.mode === 'english-speak' && Array.isArray(english.batch) && english.phase === 'match' && english.match) {
-            lessonDialogContent.innerHTML = renderPlayMatchBody(progressHead, '把英文和中文配成一对。', english.match, '配对完成就可以去拼写。', '下一关：拼写这个词');
+            lessonDialogContent.innerHTML = renderPlayMatchBody(progressHead, '把英文和中文配成一对。', english.match, '', '下一步');
         } else if (english && english.mode === 'english-speak' && Array.isArray(english.batch) && english.phase === 'spell' && english.spell) {
             lessonDialogContent.innerHTML = renderPlaySpellBody(progressHead, english.spell);
         } else if (english && english.mode === 'english-speak' && Array.isArray(english.batch)) {
@@ -1860,8 +1860,8 @@
             const dayLabel = reviewCount
                 ? `今天再认 ${reviewCount} 个词`
                 : (english.day ? `Day ${english.day} 英语 · ${english.batch.length} 个词` : '听句子，这些词你会了吗？');
-            const reviewHint = reviewCount ? `有 ${reviewCount} 张是到期再认，会的跳过。` : '';
-            lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">${escapeHtml(dayLabel)}</h3><p class="lesson-dialog-feedback">已标 ${marked}/${english.batch.length} 张。${reviewHint}先听单词和句子，再点会了或不会。不扣阳光。</p><div class="literacy-flash-grid">${cards}</div><div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${allMarked ? '' : 'disabled'}>${icon(allMarked ? 'sparkles' : 'lock-keyhole')}${allMarked ? '下一关：中英配对' : '先点完会了和不会'}</button></div></div>`;
+            const reviewHint = reviewCount ? `` : '';
+            lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">${escapeHtml(dayLabel)}</h3><p class="lesson-dialog-feedback">听一听，会了吗？ ${marked}/${english.batch.length}</p><div class="literacy-flash-grid">${cards}</div><div class="lesson-dialog-actions"><button class="btn-secondary lesson-quit" type="button" data-action="close-lesson" aria-label="先放一放" title="先放一放">${icon('x')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${allMarked ? '' : 'disabled'}>${icon(allMarked ? 'sparkles' : 'lock-keyhole')}${allMarked ? '下一步' : '继续'}</button></div></div>`;
         } else if (literacy && literacy.mode === 'literacy-flash' && Array.isArray(literacy.batch)) {
             const marked = literacy.batch.filter(function (item) { return item.mark === 'known' || item.mark === 'unknown'; }).length;
             const unknowns = literacy.batch.filter(function (item) { return item.mark === 'unknown'; });
@@ -1874,7 +1874,7 @@
                 const last = literacy.teachIndex >= total - 1;
                 const strokeBoard = renderLiteracyStrokeBoard(literacy.card, literacy.strokePlay);
                 const rememberBtn = literacy.complete ? '' : `<button class="btn-secondary" type="button" data-action="literacy-remember">${icon('check')}记住了</button>`;
-                lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}<div class="literacy-find-progress" aria-label="学不会的字"><span>不会的字 ${literacy.teachIndex + 1}/${total}</span></div><h3 class="lesson-dialog-prompt">看组词，记住这个字</h3><article class="literacy-card"><p class="literacy-pinyin">${escapeHtml(literacy.card.pinyin || '')}</p><p class="literacy-char">${escapeHtml(literacy.card.char)}</p><button class="btn-secondary" type="button" data-action="literacy-speak" data-text="${escapeHtml(literacy.card.speak || literacy.card.char)}" aria-label="听发音">${icon('volume-2')} 听一听</button>${strokeBoard}<div class="literacy-teach-block"><strong>组词</strong><div class="literacy-word-chips">${wordMarkup}</div></div><div class="literacy-teach-block"><strong>解词</strong><p>${escapeHtml(literacy.card.explain)}</p></div></article><p class="lesson-dialog-feedback">用词来记字，不用看图。有笔顺就点看笔顺，没有也不挡关。记住了就点记住了。</p><div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button>${rememberBtn}<button class="btn-primary" type="button" data-action="${last || literacy.complete ? 'lesson-finish' : 'literacy-teach-next'}">${icon('sparkles')}${last || literacy.complete ? '收集阳光，完成练习' : '下一个字'}</button></div></div>`;
+                lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}<div class="literacy-find-progress" aria-label="学不会的字"><span>不会的字 ${literacy.teachIndex + 1}/${total}</span></div><h3 class="lesson-dialog-prompt">看组词，记住这个字</h3><article class="literacy-card"><p class="literacy-pinyin">${escapeHtml(literacy.card.pinyin || '')}</p><p class="literacy-char">${escapeHtml(literacy.card.char)}</p><button class="btn-secondary" type="button" data-action="literacy-speak" data-text="${escapeHtml(literacy.card.speak || literacy.card.char)}" aria-label="听发音">${icon('volume-2')} 听一听</button>${strokeBoard}<div class="literacy-teach-block"><strong>组词</strong><div class="literacy-word-chips">${wordMarkup}</div></div><div class="literacy-teach-block"><strong>解词</strong><p>${escapeHtml(literacy.card.explain)}</p></div></article><p class="lesson-dialog-feedback">看一遍，记住它！</p><div class="lesson-dialog-actions"><button class="btn-secondary lesson-quit" type="button" data-action="close-lesson" aria-label="先放一放" title="先放一放">${icon('x')}</button>${rememberBtn}<button class="btn-primary" type="button" data-action="${last || literacy.complete ? 'lesson-finish' : 'literacy-teach-next'}">${icon('sparkles')}${last || literacy.complete ? '完成' : '下一个字'}</button></div></div>`;
             } else {
                 const reviewCount = literacy.batch.filter(function (item) { return item.review; }).length;
                 const cards = literacy.batch.map(function (item) {
@@ -1882,23 +1882,23 @@
                     return `<article class="literacy-flash-card is-${item.mark || 'plain'}${item.review ? ' is-review' : ''}">${reviewMark}<button class="literacy-flash-speak" type="button" data-action="literacy-speak" data-text="${escapeHtml(item.char)}" aria-label="听${escapeHtml(item.char)}">${icon('volume-2')}</button><p class="literacy-pinyin">${escapeHtml(item.pinyin || '')}</p><p class="literacy-char">${escapeHtml(item.char)}</p><div class="literacy-flash-marks"><button class="btn-secondary" type="button" data-action="literacy-mark" data-char="${escapeHtml(item.char)}" data-known="1" aria-pressed="${item.mark === 'known'}">会了</button><button class="btn-secondary" type="button" data-action="literacy-mark" data-char="${escapeHtml(item.char)}" data-known="0" aria-pressed="${item.mark === 'unknown'}">不会</button></div></article>`;
                 }).join('');
                 const nextAction = literacy.complete ? 'lesson-finish' : (allMarked && unknowns.length ? 'literacy-teach-start' : 'lesson-finish');
-                const nextLabel = literacy.complete || (allMarked && !unknowns.length) ? '收集阳光，完成练习' : allMarked ? '学习不会的字' : '先点完会了和不会';
+                const nextLabel = literacy.complete || (allMarked && !unknowns.length) ? '完成' : allMarked ? '学一学' : '继续';
                 const canGo = literacy.complete || allMarked;
                 const prompt = reviewCount ? `这些字，哪些还记得？` : '这些字，哪些会了？';
-                const reviewHint = reviewCount ? `有 ${reviewCount} 张是到期再认。` : '';
-                lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">${escapeHtml(prompt)}</h3><p class="lesson-dialog-feedback">已标 ${marked}/${literacy.batch.length} 张。${reviewHint}会的跳过，不会的再看组词。</p><div class="literacy-flash-grid">${cards}</div><div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="${nextAction}" ${canGo ? '' : 'disabled'}>${icon(canGo ? 'sparkles' : 'lock-keyhole')}${nextLabel}</button></div></div>`;
+                const reviewHint = reviewCount ? `` : '';
+                lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">${escapeHtml(prompt)}</h3><p class="lesson-dialog-feedback">会了吗？点一点 ${marked}/${literacy.batch.length}</p><div class="literacy-flash-grid">${cards}</div><div class="lesson-dialog-actions"><button class="btn-secondary lesson-quit" type="button" data-action="close-lesson" aria-label="先放一放" title="先放一放">${icon('x')}</button><button class="btn-primary" type="button" data-action="${nextAction}" ${canGo ? '' : 'disabled'}>${icon(canGo ? 'sparkles' : 'lock-keyhole')}${nextLabel}</button></div></div>`;
             }
         } else if (literacy && literacy.mode === 'literacy-bloom' && literacy.bloom) {
             const bloomComplete = literacyBloomComplete(literacy);
             const optionMarkup = literacy.bloom.options.map(function (option, index) {
                 const selected = !!literacy.selected[option.word];
                 const mark = bloomComplete ? (option.correct ? 'is-correct' : selected ? 'is-wrong' : '') : (selected ? 'is-selected' : '');
-                return `<button class="lesson-dialog-option ${mark}" type="button" data-action="literacy-bloom" data-word="${escapeHtml(option.word)}" aria-pressed="${selected}"><span class="lesson-dialog-option-index">${String.fromCharCode(65 + index)}</span><strong>${escapeHtml(option.word)}</strong>${selected ? icon('check') : icon('arrow-right')}</button>`;
+                return `<button class="lesson-dialog-option ${mark}" type="button" data-action="literacy-bloom" data-word="${escapeHtml(option.word)}" aria-pressed="${selected}"><strong>${escapeHtml(option.word)}</strong>${selected ? icon('check') : icon('arrow-right')}</button>`;
             }).join('');
             const feedback = bloomComplete
-                ? `<p class="lesson-dialog-feedback is-success" role="status">组词开花啦！阳光已经准备好。</p>`
+                ? `<p class="lesson-dialog-feedback is-success" role="status">开花啦！</p>`
                 : `<p class="lesson-dialog-feedback">${escapeHtml(literacy.bloom.prompt)}</p>`;
-            lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}<div class="literacy-steps" aria-label="组词"><span class="literacy-step is-active">组</span></div><h3 class="lesson-dialog-prompt">${escapeHtml(literacy.bloom.prompt)}</h3><div class="lesson-dialog-options literacy-bloom-options" role="group" aria-label="组词选项">${optionMarkup}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${bloomComplete ? '' : 'disabled'}>${icon(bloomComplete ? 'sparkles' : 'lock-keyhole')}${bloomComplete ? '收集阳光，完成练习' : '选对后再领取'}</button></div></div>`;
+            lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}<div class="literacy-steps" aria-label="组词"><span class="literacy-step is-active">组</span></div><h3 class="lesson-dialog-prompt">${escapeHtml(literacy.bloom.prompt)}</h3><div class="lesson-dialog-options literacy-bloom-options" role="group" aria-label="组词选项">${optionMarkup}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary lesson-quit" type="button" data-action="close-lesson" aria-label="先放一放" title="先放一放">${icon('x')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${bloomComplete ? '' : 'disabled'}>${icon(bloomComplete ? 'sparkles' : 'lock-keyhole')}${bloomComplete ? '完成' : '继续'}</button></div></div>`;
         } else if (literacy && literacy.run) {
             const round = literacy.run.rounds[literacy.roundIndex] || literacy.run.rounds[0];
             const total = literacy.run.rounds.length;
@@ -1911,19 +1911,19 @@
                 const isSelected = ui.lessonSession.selectedIndex === index;
                 const isCorrect = literacy.roundCorrect && index === round.answer;
                 const isWrong = isSelected && !literacy.roundCorrect;
-                return `<button class="lesson-dialog-option literacy-find-option ${isCorrect ? 'is-correct' : ''} ${isWrong ? 'is-wrong' : ''}" type="button" data-action="lesson-answer" data-index="${index}" aria-pressed="${isSelected}" ${literacy.roundCorrect ? 'disabled' : ''}><span class="lesson-dialog-option-index">${String.fromCharCode(65 + index)}</span><strong>${escapeHtml(option.label)}</strong>${isCorrect ? icon('check') : isWrong ? icon('rotate-ccw') : icon('arrow-right')}</button>`;
+                return `<button class="lesson-dialog-option literacy-find-option ${isCorrect ? 'is-correct' : ''} ${isWrong ? 'is-wrong' : ''}" type="button" data-action="lesson-answer" data-index="${index}" aria-pressed="${isSelected}" ${literacy.roundCorrect ? 'disabled' : ''}><strong>${escapeHtml(option.label)}</strong>${isCorrect ? icon('check') : isWrong ? icon('rotate-ccw') : icon('arrow-right')}</button>`;
             }).join('');
             const canAdvance = literacy.roundCorrect || literacy.complete;
             const nextAction = literacy.complete ? 'lesson-finish' : 'literacy-next';
-            const nextLabel = literacy.complete ? '收集阳光，完成练习' : literacy.roundIndex >= total - 1 ? '收集阳光，完成练习' : '下一关';
+            const nextLabel = literacy.complete ? '完成' : literacy.roundIndex >= total - 1 ? '完成' : '下一关';
             const feedback = literacy.complete
-                ? '<p class="lesson-dialog-feedback is-success" role="status">闯关完成啦！阳光已经准备好。</p>'
+                ? '<p class="lesson-dialog-feedback is-success" role="status">全部答对啦！</p>'
                 : literacy.roundCorrect
-                    ? '<p class="lesson-dialog-feedback is-success" role="status">找对啦，下一关吧。</p>'
+                    ? '<p class="lesson-dialog-feedback is-success" role="status">答对啦！</p>'
                     : ui.lessonSession.selectedIndex !== null
                         ? '<p class="lesson-dialog-feedback" role="status">再想想哦～</p>'
                         : `<p class="lesson-dialog-feedback">${escapeHtml(round.prompt)}</p>`;
-            lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}<div class="literacy-find-progress" aria-label="找字进度"><span>第 ${literacy.roundIndex + 1}/${total} 关</span><span class="literacy-stars">${stars}</span></div><h3 class="lesson-dialog-prompt">${escapeHtml(round.prompt)}</h3><article class="literacy-card literacy-find-cue"><p class="literacy-pinyin">${escapeHtml(round.pinyin || '')}</p>${literacy.hint && round.word ? `<p class="literacy-word">${escapeHtml(round.word)}</p>` : ''}<div class="literacy-find-tools"><button class="btn-secondary" type="button" data-action="literacy-speak" data-text="${escapeHtml(round.speak || round.char)}" aria-label="听发音">${icon('volume-2')} 听一听</button><button class="btn-secondary" type="button" data-action="literacy-hint" aria-label="看提示">${icon('sparkles')} 提示</button></div></article><div class="lesson-dialog-options literacy-find-options" role="group" aria-label="找字选项">${optionMarkup}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="${nextAction}" ${canAdvance ? '' : 'disabled'}>${icon(canAdvance ? 'sparkles' : 'lock-keyhole')}${nextLabel}</button></div></div>`;
+            lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}<div class="literacy-find-progress" aria-label="找字进度"><span>第 ${literacy.roundIndex + 1}/${total} 关</span><span class="literacy-stars">${stars}</span></div><h3 class="lesson-dialog-prompt">${escapeHtml(round.prompt)}</h3><article class="literacy-card literacy-find-cue"><p class="literacy-pinyin">${escapeHtml(round.pinyin || '')}</p>${literacy.hint && round.word ? `<p class="literacy-word">${escapeHtml(round.word)}</p>` : ''}<div class="literacy-find-tools"><button class="btn-secondary" type="button" data-action="literacy-speak" data-text="${escapeHtml(round.speak || round.char)}" aria-label="听发音">${icon('volume-2')} 听一听</button><button class="btn-secondary" type="button" data-action="literacy-hint" aria-label="看提示">${icon('sparkles')} 提示</button></div></article><div class="lesson-dialog-options literacy-find-options" role="group" aria-label="找字选项">${optionMarkup}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary lesson-quit" type="button" data-action="close-lesson" aria-label="先放一放" title="先放一放">${icon('x')}</button><button class="btn-primary" type="button" data-action="${nextAction}" ${canAdvance ? '' : 'disabled'}>${icon(canAdvance ? 'sparkles' : 'lock-keyhole')}${nextLabel}</button></div></div>`;
         } else if (literacy && literacy.loop) {
             const step = literacy.loop.steps[literacy.stepIndex] || literacy.loop.steps[0];
             const stepNames = ['认', '练', '测'];
@@ -1940,19 +1940,19 @@
                     const isSelected = ui.lessonSession.selectedIndex === index;
                     const isCorrect = literacy.stepCorrect && index === step.answer;
                     const isWrong = isSelected && !literacy.stepCorrect;
-                    return `<button class="lesson-dialog-option ${isCorrect ? 'is-correct' : ''} ${isWrong ? 'is-wrong' : ''}" type="button" data-action="lesson-answer" data-index="${index}" aria-pressed="${isSelected}" ${literacy.stepCorrect ? 'disabled' : ''}><span class="lesson-dialog-option-index">${String.fromCharCode(65 + index)}</span><strong>${escapeHtml(option.label)}</strong>${isCorrect ? icon('check') : isWrong ? icon('rotate-ccw') : icon('arrow-right')}</button>`;
+                    return `<button class="lesson-dialog-option ${isCorrect ? 'is-correct' : ''} ${isWrong ? 'is-wrong' : ''}" type="button" data-action="lesson-answer" data-index="${index}" aria-pressed="${isSelected}" ${literacy.stepCorrect ? 'disabled' : ''}><strong>${escapeHtml(option.label)}</strong>${isCorrect ? icon('check') : isWrong ? icon('rotate-ccw') : icon('arrow-right')}</button>`;
                 }).join('');
                 body = `${step.kind === 'quiz' ? `<button class="btn-secondary literacy-speak-inline" type="button" data-action="literacy-speak" data-text="${escapeHtml(literacy.loop.char)}" aria-label="听发音">${icon('volume-2')} 听字音</button>` : ''}<div class="lesson-dialog-options" role="group" aria-label="练习选项">${optionMarkup}</div>`;
             }
             const canAdvance = step.kind === 'recognize' || literacy.stepCorrect;
             const feedback = literacy.complete
-                ? `<p class="lesson-dialog-feedback is-success" role="status">太棒了！阳光已经准备好啦。</p>`
+                ? `<p class="lesson-dialog-feedback is-success" role="status">太棒了！</p>`
                 : literacy.stepCorrect
-                    ? '<p class="lesson-dialog-feedback is-success" role="status">对啦，下一关吧。</p>'
+                    ? '<p class="lesson-dialog-feedback is-success" role="status">对啦！</p>'
                     : `<p class="lesson-dialog-feedback">${escapeHtml(step.prompt)}</p>`;
-            const nextLabel = literacy.complete ? '收集阳光，完成练习' : step.kind === 'recognize' ? '下一关：练' : literacy.stepIndex === 1 ? '下一关：测' : '收集阳光，完成练习';
+            const nextLabel = literacy.complete ? '完成' : '完成';
             const nextAction = literacy.complete ? 'lesson-finish' : 'literacy-next';
-            lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}${stepNav}<h3 class="lesson-dialog-prompt">${escapeHtml(step.prompt)}</h3>${body}${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="${nextAction}" ${canAdvance || literacy.complete ? '' : 'disabled'}>${icon(literacy.complete || canAdvance ? 'sparkles' : 'lock-keyhole')}${nextLabel}</button></div></div>`;
+            lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}${stepNav}<h3 class="lesson-dialog-prompt">${escapeHtml(step.prompt)}</h3>${body}${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary lesson-quit" type="button" data-action="close-lesson" aria-label="先放一放" title="先放一放">${icon('x')}</button><button class="btn-primary" type="button" data-action="${nextAction}" ${canAdvance || literacy.complete ? '' : 'disabled'}>${icon(literacy.complete || canAdvance ? 'sparkles' : 'lock-keyhole')}${nextLabel}</button></div></div>`;
         } else if (bankQuiz && bankQuiz.run && Array.isArray(bankQuiz.run.rounds)) {
             const total = bankQuiz.run.rounds.length;
             const round = bankQuiz.run.rounds[bankQuiz.roundIndex] || bankQuiz.run.rounds[0];
@@ -1963,7 +1963,7 @@
                 const isSelected = ui.lessonSession.selectedIndex === index;
                 const isCorrect = bankQuiz.roundCorrect && index === round.answer;
                 const isWrong = isSelected && !bankQuiz.roundCorrect;
-                return `<button class="lesson-dialog-option literacy-find-option ${isCorrect ? 'is-correct' : ''} ${isWrong ? 'is-wrong' : ''}" type="button" data-action="lesson-answer" data-index="${index}" aria-pressed="${isSelected}" ${bankQuiz.roundCorrect ? 'disabled' : ''}><span class="lesson-dialog-option-index">${String.fromCharCode(65 + index)}</span><strong>${escapeHtml(option)}</strong>${isCorrect ? icon('check') : isWrong ? icon('rotate-ccw') : icon('arrow-right')}</button>`;
+                return `<button class="lesson-dialog-option literacy-find-option ${isCorrect ? 'is-correct' : ''} ${isWrong ? 'is-wrong' : ''}" type="button" data-action="lesson-answer" data-index="${index}" aria-pressed="${isSelected}" ${bankQuiz.roundCorrect ? 'disabled' : ''}><strong>${escapeHtml(option)}</strong>${isCorrect ? icon('check') : isWrong ? icon('rotate-ccw') : icon('arrow-right')}</button>`;
             }).join('');
             const speakText = round.speak || round.text || '';
             const cue = bankQuiz.mode === 'math-bank'
@@ -1972,16 +1972,16 @@
                     ? `<p class="literacy-pinyin">${escapeHtml(round.title || '')}</p><p class="literacy-word">${escapeHtml(round.tokens || '')}</p>`
                     : `<p class="literacy-pinyin">${escapeHtml(round.blend || '')}</p><p class="literacy-char">${bankQuiz.roundCorrect ? escapeHtml(round.text || '') : '?'}</p>`;
             const canAdvance = bankQuiz.roundCorrect || bankQuiz.complete;
-            const nextLabel = bankQuiz.complete ? '收集阳光，完成练习' : (bankQuiz.roundIndex >= total - 1 ? '收集阳光，完成练习' : '下一题');
+            const nextLabel = bankQuiz.complete ? '完成' : (bankQuiz.roundIndex >= total - 1 ? '完成' : '下一题');
             const nextAction = bankQuiz.complete || (bankQuiz.roundCorrect && bankQuiz.roundIndex >= total - 1) ? 'lesson-finish' : 'bank-quiz-next';
             const feedback = bankQuiz.complete
-                ? '<p class="lesson-dialog-feedback is-success" role="status">太棒了！阳光已经准备好啦。</p>'
+                ? '<p class="lesson-dialog-feedback is-success" role="status">太棒了！</p>'
                 : bankQuiz.roundCorrect
-                    ? '<p class="lesson-dialog-feedback is-success" role="status">对啦，下一题吧。</p>'
+                    ? '<p class="lesson-dialog-feedback is-success" role="status">对啦！</p>'
                     : ui.lessonSession.selectedIndex !== null
                         ? '<p class="lesson-dialog-feedback" role="status">再想想哦～</p>'
                         : `<p class="lesson-dialog-feedback">${escapeHtml(round.prompt || '')}</p>`;
-            lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}<div class="literacy-find-progress" aria-label="题目进度"><span>第 ${bankQuiz.roundIndex + 1}/${total} 题</span><span class="literacy-stars">${stars}</span></div><h3 class="lesson-dialog-prompt">${escapeHtml(round.prompt || '')}</h3><article class="literacy-card literacy-find-cue">${cue}<div class="literacy-find-tools"><button class="btn-secondary" type="button" data-action="bank-quiz-speak" data-text="${escapeHtml(speakText)}" data-lang="${escapeHtml(bankQuiz.speakLang || 'zh-CN')}" aria-label="听一听">${icon('volume-2')} 听一听</button></div></article><div class="lesson-dialog-options literacy-find-options" role="group" aria-label="选项">${optionMarkup}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="${nextAction}" ${canAdvance ? '' : 'disabled'}>${icon(canAdvance ? 'sparkles' : 'lock-keyhole')}${nextLabel}</button></div></div>`;
+            lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}<div class="literacy-find-progress" aria-label="题目进度"><span>第 ${bankQuiz.roundIndex + 1}/${total} 题</span><span class="literacy-stars">${stars}</span></div><h3 class="lesson-dialog-prompt">${escapeHtml(round.prompt || '')}</h3><article class="literacy-card literacy-find-cue">${cue}<div class="literacy-find-tools"><button class="btn-secondary" type="button" data-action="bank-quiz-speak" data-text="${escapeHtml(speakText)}" data-lang="${escapeHtml(bankQuiz.speakLang || 'zh-CN')}" aria-label="听一听">${icon('volume-2')} 听一听</button></div></article><div class="lesson-dialog-options literacy-find-options" role="group" aria-label="选项">${optionMarkup}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary lesson-quit" type="button" data-action="close-lesson" aria-label="先放一放" title="先放一放">${icon('x')}</button><button class="btn-primary" type="button" data-action="${nextAction}" ${canAdvance ? '' : 'disabled'}>${icon(canAdvance ? 'sparkles' : 'lock-keyhole')}${nextLabel}</button></div></div>`;
         } else if (ui.lessonSession.play) {
             lessonDialogContent.innerHTML = renderPlayLessonBody(progressHead, ui.lessonSession.play);
         } else if (ui.lessonSession.timer) {
@@ -1994,14 +1994,14 @@
                 const isCorrect = correct && index === activity.answer;
                 const isWrong = isSelected && !correct;
                 const optionIcon = activity.optionIcons[index] || match.course.icon || 'sparkles';
-                return `<button class="lesson-dialog-option ${isCorrect ? 'is-correct' : ''} ${isWrong ? 'is-wrong' : ''}" type="button" data-action="lesson-answer" data-index="${index}" aria-pressed="${isSelected}" ${correct ? 'disabled' : ''}><span class="lesson-dialog-option-index">${String.fromCharCode(65 + index)}</span><span class="lesson-dialog-option-art" aria-hidden="true">${icon(optionIcon)}</span><strong>${escapeHtml(option)}</strong>${isCorrect ? icon('check') : isWrong ? icon('rotate-ccw') : icon('arrow-right')}</button>`;
+                return `<button class="lesson-dialog-option ${isCorrect ? 'is-correct' : ''} ${isWrong ? 'is-wrong' : ''}" type="button" data-action="lesson-answer" data-index="${index}" aria-pressed="${isSelected}" ${correct ? 'disabled' : ''}><span class="lesson-dialog-option-art" aria-hidden="true">${icon(optionIcon)}</span><strong>${escapeHtml(option)}</strong>${isCorrect ? icon('check') : isWrong ? icon('rotate-ccw') : icon('arrow-right')}</button>`;
             }).join('');
             const feedback = correct
                 ? `<p class="lesson-dialog-feedback is-success" role="status">${escapeHtml(activity.success)} 阳光和豌豆能量已经准备好啦。</p>`
                 : selectedIndex === null
                     ? `<p class="lesson-dialog-feedback">${escapeHtml(activity.hint)}</p>`
                     : '<p class="lesson-dialog-feedback is-error" role="alert">还差一点，再看看提示，换一个答案试试。</p>';
-            lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">${escapeHtml(activity.prompt)}</h3><div class="lesson-dialog-options" role="group" aria-label="练习选项">${optionMarkup}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary" type="button" data-action="close-lesson">先放一放${icon('pause')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${correct ? '' : 'disabled'}>${icon(correct ? 'sparkles' : 'lock-keyhole')}${correct ? '收集阳光，完成练习' : '答对后领取奖励'}</button></div></div>`;
+            lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">${escapeHtml(activity.prompt)}</h3><div class="lesson-dialog-options" role="group" aria-label="练习选项">${optionMarkup}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary lesson-quit" type="button" data-action="close-lesson" aria-label="先放一放" title="先放一放">${icon('x')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${correct ? '' : 'disabled'}>${icon(correct ? 'sparkles' : 'lock-keyhole')}${correct ? '完成' : '答对后领取奖励'}</button></div></div>`;
         }
         if (global.lucide && typeof global.lucide.createIcons === 'function') global.lucide.createIcons({ root: lessonDialogContent });
     }
@@ -3012,15 +3012,37 @@
         return getPreschoolCourses().find(function (course) { return course.id === id; }) || null;
     }
 
-    function renderPreschoolCourseDirectory(courses, activeCourse) {
-        return `<aside class="preschool-course-directory"><div class="preschool-course-directory-head"><span class="eyebrow">LEARNING LANES</span><strong>学习专区</strong><small>选一个入口，打开完整资源。</small></div><button class="preschool-course-directory-item ${activeCourse ? '' : 'is-active'}" type="button" data-action="navigate" data-page="courses"><span>${icon('layout-grid')}</span><span class="preschool-course-directory-copy"><strong>全部资源</strong><small>${courses.length} 个专区</small></span><span class="preschool-course-directory-state is-overview">总览</span></button>${courses.map(function (course) {
-            const completion = getPreschoolCourseCompletion(course);
-            const status = completion.percent >= 100 ? 'complete' : completion.completed ? 'active' : 'ready';
-            const statusLabel = status === 'complete' ? '已点亮' : status === 'active' ? '继续' : '准备';
-            const iconName = course.icon || 'book-open';
-            const art = preschoolAssetForIcon(iconName) ? preschoolAsset(preschoolAssetForIcon(iconName), course.title) : icon(iconName);
-            return `<button class="preschool-course-directory-item ${activeCourse && activeCourse.id === course.id ? 'is-active' : ''}" type="button" data-action="navigate" data-page="courses" data-course-id="${escapeHtml(course.id)}"><span>${art}</span><span class="preschool-course-directory-copy"><strong>${escapeHtml(course.title)}</strong><small>${completion.completed}/${completion.total} 个小练习</small><span class="preschool-course-directory-progress" role="progressbar" aria-label="${escapeHtml(course.title)}完成度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${completion.percent}"><i style="width:${completion.percent}%"></i></span></span><span class="preschool-course-directory-state is-${status}" data-route-state="${status}">${statusLabel}</span></button>`;
-        }).join('')}</aside>`;
+    function getPreschoolCourseShortTitle(course) {
+        const shortTitles = {
+            'preschool-summer': '暑假', 'preschool-literacy': '识字',
+            'preschool-pinyin': '拼音', 'preschool-poetry': '古诗',
+            'preschool-math': '数学', 'preschool-focus': '专注',
+            'preschool-english': '英语', 'preschool-phonics': '拼读',
+            'preschool-exercise': '运动'
+        };
+        return shortTitles[course.id] || course.title;
+    }
+
+    function renderPreschoolCourseWallCard(course) {
+        const completion = getPreschoolCourseCompletion(course);
+        const status = completion.percent >= 100 ? 'complete' : completion.completed ? 'active' : 'ready';
+        const statusLabel = status === 'complete' ? '完成' : status === 'active' ? '继续' : '开始';
+        const dots = [1, 2, 3].map(function (step) {
+            return `<i class="${completion.percent >= step * 33 ? 'is-on' : ''}"></i>`;
+        }).join('');
+        const iconName = course.icon || 'book-open';
+        const art = preschoolAssetForIcon(iconName) ? preschoolAsset(preschoolAssetForIcon(iconName), course.title) : icon(iconName);
+        return `<button class="preschool-course-wall-card tone-${escapeHtml(course.tone || 'blue')}" type="button" data-action="navigate" data-page="courses" data-course-id="${escapeHtml(course.id)}" aria-label="打开${escapeHtml(course.title)}"><span class="preschool-course-wall-art" aria-hidden="true">${art}</span><strong>${escapeHtml(getPreschoolCourseShortTitle(course))}</strong><span class="preschool-course-wall-dots" role="progressbar" aria-label="${escapeHtml(course.title)}完成度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${completion.percent}">${dots}</span><span class="preschool-course-wall-state is-${status}" data-route-state="${status}">${statusLabel}</span></button>`;
+    }
+
+    function renderPreschoolCoursesTodayCard() {
+        const today = storage.localDate();
+        const plans = (Array.isArray(state.dailyPlans) ? state.dailyPlans : [])
+            .filter(function (item) { return item.date === today; })
+            .sort(function (a, b) { return (a.order || 0) - (b.order || 0); });
+        const workflow = getPreschoolHomeWorkflow(plans);
+        const headline = workflow.kind === 'game' ? '今天都学完啦！' : workflow.kind === 'rest' ? '还差一点点' : '今天学什么？';
+        return `<section class="preschool-course-today"><span class="preschool-course-today-art" aria-hidden="true">${preschoolAsset('storybook-token', '今日学习')}</span><div class="preschool-course-today-copy"><small>${headline}</small><strong>${escapeHtml(workflow.title)}</strong></div><button class="btn-primary preschool-course-today-cta" type="button" ${preschoolWorkflowActionAttrs(workflow)}>${icon('play')}<span>${escapeHtml(workflow.cta || '开始')}</span></button></section>`;
     }
 
     function renderPreschoolCourseCard(course, focused) {
@@ -3030,8 +3052,10 @@
     function renderPreschoolCourses() {
         const courses = getPreschoolCourses();
         const activeCourse = getPreschoolCourseById(ui.courseId);
-        const visibleCourses = activeCourse ? [activeCourse] : courses;
-        return `${renderPreschoolIntro(PAGE_META.courses, '', '', `<span class="tag lime">${activeCourse ? activeCourse.title : `${courses.length} 个分区`}</span>`)}<div class="preschool-course-layout ${activeCourse ? 'is-focused' : ''}">${activeCourse ? '' : renderPreschoolCourseDirectory(courses, activeCourse)}<div class="preschool-course-content"><section class="preschool-course-library-note"><span class="preschool-course-library-art">${preschoolAsset('storybook-token', '学习资源')}</span><div><span class="eyebrow">REFERENCE LIBRARY</span><h2>${activeCourse ? `正在学习：${escapeHtml(activeCourse.title)}` : '把每天的学习分成清楚的小入口'}</h2><p>${activeCourse ? '这里保留参考网页里的题型、样例和练习节奏，做完一张就点亮一张。' : '识字、拼音、古诗、数学、专注力、英语和运动各有自己的入口，孩子不用在一张大卡里找内容。'}</p></div>${activeCourse ? `<button class="btn-secondary" type="button" data-action="navigate" data-page="courses">查看全部${icon('layout-grid')}</button>` : ''}</section><div class="preschool-course-grid">${visibleCourses.map(function (course) { return renderPreschoolCourseCard(course, Boolean(activeCourse)); }).join('')}</div></div></div>`;
+        if (!activeCourse) {
+            return `${renderPreschoolIntro(PAGE_META.courses, '', '', `<span class="tag lime">${courses.length} 个专区</span>`)}${renderPreschoolCoursesTodayCard()}<div class="preschool-course-wall" aria-label="学科卡片墙">${courses.map(function (course) { return renderPreschoolCourseWallCard(course); }).join('')}</div>`;
+        }
+        return `${renderPreschoolIntro(PAGE_META.courses, '', '', `<span class="tag lime">${escapeHtml(activeCourse.title)}</span>`)}<div class="preschool-course-layout is-focused"><div class="preschool-course-content"><section class="preschool-course-library-note"><span class="preschool-course-library-art">${preschoolAsset('storybook-token', '学习资源')}</span><div><span class="eyebrow">REFERENCE LIBRARY</span><h2>正在学习：${escapeHtml(activeCourse.title)}</h2><p>这里保留题型、样例和练习节奏，做完一张就点亮一张。</p></div><button class="btn-secondary" type="button" data-action="navigate" data-page="courses">查看全部${icon('layout-grid')}</button></section><div class="preschool-course-grid">${renderPreschoolCourseCard(activeCourse, true)}</div></div></div>`;
     }
 
     function renderPreschoolMistakes() {
@@ -3269,12 +3293,6 @@
     }
 
     function renderPreschoolHomeOverview(derived) {
-        if (getPreschoolThemeId() === 'voxel-adventure' && global.VoxelWorkshop && typeof global.VoxelWorkshop.render === 'function') {
-            return global.VoxelWorkshop.render({
-                plans: derived.todayPlans || [],
-                today: derived.today
-            });
-        }
         const growth = getChildGrowth();
         const plans = derived.todayPlans;
         const done = plans.filter(item => item.done).length;
@@ -3620,7 +3638,7 @@
             const active = growth.activeStyleId === style.id;
             return `<button class="style-option ${active ? 'is-active' : ''} ${unlocked ? '' : 'is-locked'}" type="button" data-action="select-style" data-id="${escapeHtml(style.id)}" ${unlocked ? '' : 'disabled'}><span class="list-card-mark ${escapeHtml(style.tone)}">${icon(style.icon)}</span><span><strong>${escapeHtml(style.title)}</strong><small>${escapeHtml(style.description)}</small></span>${active ? icon('check') : unlocked ? '' : icon('lock-keyhole')}</button>`;
         }).join('');
-        return `${renderIntro(PAGE_META.growth, '', '', `<span class="points-chip">${icon('sun')}${growth.sunlight} 阳光</span>`)}<section class="growth-map-hero"><div class="growth-map-copy"><span class="eyebrow">STARLIGHT / GROWTH MAP</span><h2>星芒正在穿过自己的小花园</h2><p>当前是 ${escapeHtml(activeStyle.title)}，成长等级 ${growth.level}。完成一件真实的小事，给植物和星芒都留下一点能量。</p><div class="growth-map-actions"><button class="btn-primary" type="button" data-action="navigate" data-page="plans">去完成今天的行动${icon('arrow-up-right')}</button><label class="voice-toggle"><input type="checkbox" data-action="toggle-voice" ${growth.voiceEnabled ? 'checked' : ''}><span class="voice-toggle-track"></span><span>语音夸奖</span></label></div></div><div class="growth-map-art"><img src="${escapeHtml(workbenchConfig.current.heroSrc)}" alt="明亮学习桌上的书本和成长徽章"><div class="growth-pet-badge">${icon(activeStyle.icon)}<strong>${escapeHtml(growth.unicorn.name)}</strong><small>LEVEL ${growth.level}</small></div></div></section><div class="growth-feature-grid"><section class="growth-feature-card plant-feature"><div class="growth-feature-head"><span class="list-card-mark lime">${icon(growth.plant.icon)}</span><div><span class="eyebrow">PLANT / GARDEN</span><h3>${escapeHtml(growth.plant.title)}</h3></div><span class="tag lime">阶段 ${growth.plant.stage}</span></div><p>累计获得 ${growth.totalSunlightEarned} 阳光，植物会从种子慢慢长成自己的小森林。</p><div class="progress-track"><span style="width:${Math.min(100, Math.round((growth.totalSunlightEarned % 120) / 120 * 100))}%"></span></div><div class="growth-feature-foot"><small>浇水 ${growth.plantWaterCount} 次</small><button class="btn-secondary" type="button" data-action="water-plant" ${waterAvailable ? '' : 'disabled'}>${icon('droplets')}${growth.lastWateredDate === storage.localDate() ? '今天已浇水' : '浇水 · 5 阳光'}</button></div></section><section class="growth-feature-card pet-feature"><div class="growth-feature-head"><span class="list-card-mark orange">${icon(activeStyle.icon)}</span><div><span class="eyebrow">UNICORN / COMPANION</span><h3>${escapeHtml(growth.unicorn.name)}</h3></div><span class="tag orange">LEVEL ${growth.level}</span></div><p>当前造型：${escapeHtml(activeStyle.title)}。再积累 ${100 - (growth.petXp % 100)} XP 就会靠近下一级。</p><div class="progress-track"><span style="width:${growth.petXp % 100}%"></span></div><div class="growth-feature-foot"><small>${growth.petXp} XP · 已解锁 ${growth.unlockedStyleIds.length} 种造型</small><button class="btn-quiet" type="button" data-action="navigate" data-page="rewards">去看奖励${icon('chevron-right')}</button></div></section><section class="growth-feature-card zombie-feature ${growth.zombieActive ? 'is-alert' : ''}"><div class="growth-feature-head"><span class="list-card-mark ${growth.zombieActive ? 'gold' : 'blue'}">${icon(growth.zombieActive ? 'ghost' : 'shield-check')}</span><div><span class="eyebrow">GARDEN / GUARD</span><h3>${growth.zombieActive ? '小僵尸来捣蛋了' : '花园今天很平安'}</h3></div></div><p>${growth.zombieActive ? '昨天没有留下成长记录，完成今天的一项行动就能把它驱散。' : `已经驱散 ${growth.zombieDefeated} 次，继续用行动守住自己的节奏。`}</p><div class="growth-feature-foot"><small>${growth.zombieActive ? '等待今日第一次打卡' : '守护状态正常'}</small><button class="btn-secondary" type="button" data-action="navigate" data-page="plans">${icon('shield')}${growth.zombieActive ? '去驱散' : '查看打卡'}</button></div></section></div><div class="growth-detail-grid"><section class="work-card"><div class="work-card-header"><div><h2>连续奖励</h2><p>当前连续 ${growth.streak} 天 · 最好 ${growth.bestStreak} 天</p></div>${icon('flame')}</div><div class="streak-reward-list">${streakRewards}</div></section><section class="work-card"><div class="work-card-header"><div><h2>造型衣橱</h2><p>完成成长和连续奖励，逐步解锁星芒的新样子。</p></div>${icon('shirt')}</div><div class="style-options">${styles}</div></section></div>`;
+        return `${renderIntro(PAGE_META.growth, '', '', `<span class="points-chip">${icon('sun')}${growth.sunlight} 阳光</span>`)}<section class="growth-map-hero"><div class="growth-map-copy"><span class="eyebrow">STARLIGHT / GROWTH MAP</span><h2>星芒正在穿过自己的小花园</h2><p>当前是 ${escapeHtml(activeStyle.title)}，成长等级 ${growth.level}。完成一件真实的小事，给植物和星芒都留下一点能量。</p><div class="growth-map-actions"><button class="btn-primary" type="button" data-action="navigate" data-page="plans">去完成今天的行动${icon('arrow-up-right')}</button><label class="voice-toggle"><input type="checkbox" data-action="toggle-voice" ${growth.voiceEnabled ? 'checked' : ''}><span class="voice-toggle-track"></span><span>语音夸奖</span></label></div></div><div class="growth-map-art"><img src="${escapeHtml(workbenchConfig.current.heroSrc)}" alt="明亮学习桌上的书本和成长徽章"><div class="growth-pet-badge">${icon(activeStyle.icon)}<strong>${escapeHtml(growth.unicorn.name)}</strong><small>LEVEL ${growth.level}</small></div></div></section><div class="growth-feature-grid"><section class="growth-feature-card plant-feature"><div class="growth-feature-head"><span class="list-card-mark lime">${icon(growth.plant.icon)}</span><div><span class="eyebrow">PLANT / GARDEN</span><h3>${escapeHtml(growth.plant.title)}</h3></div><span class="tag lime">阶段 ${growth.plant.stage}</span></div><p>累计获得 ${growth.totalSunlightEarned} 阳光，植物会从种子慢慢长成自己的小森林。</p><div class="progress-track"><span style="width:${Math.min(100, Math.round((growth.totalSunlightEarned % 120) / 120 * 100))}%"></span></div><div class="growth-feature-foot"><small>浇水 ${growth.plantWaterCount} 次</small><button class="btn-secondary" type="button" data-action="water-plant" ${waterAvailable ? '' : 'disabled'}>${icon('droplets')}${growth.lastWateredDate === storage.localDate() ? '今天已浇水' : '浇水 · 5 阳光'}</button></div></section><section class="growth-feature-card pet-feature"><div class="growth-feature-head"><span class="list-card-mark orange">${icon(activeStyle.icon)}</span><div><span class="eyebrow">UNICORN / COMPANION</span><h3>${escapeHtml(growth.unicorn.name)}</h3></div><span class="tag orange">LEVEL ${growth.level}</span></div><p>当前造型：${escapeHtml(activeStyle.title)}。再积累 ${100 - (growth.petXp % 100)} XP 就会靠近下一级。</p><div class="progress-track"><span style="width:${growth.petXp % 100}%"></span></div><div class="growth-feature-foot"><small>${growth.petXp} XP · 已解锁 ${growth.unlockedStyleIds.length} 种造型</small><button class="btn-quiet" type="button" data-action="navigate" data-page="rewards">去看奖励${icon('chevron-right')}</button></div></section><section class="growth-feature-card zombie-feature ${growth.zombieActive ? 'is-alert' : ''}"><div class="growth-feature-head"><span class="list-card-mark ${growth.zombieActive ? 'gold' : 'blue'}">${icon(growth.zombieActive ? 'ghost' : 'shield-check')}</span><div><span class="eyebrow">GARDEN / GUARD</span><h3>${growth.zombieActive ? '小僵尸来捣蛋了' : '花园今天很平安'}</h3></div></div><p>${growth.zombieActive ? '昨天没有留下成长记录，完成今天的一项行动就能把它驱散。' : `已经驱散 ${growth.zombieDefeated} 次，继续用行动守住自己的节奏。`}</p><div class="growth-feature-foot"><small>${growth.zombieActive ? '等待今日第一次打卡' : '守护状态正常'}</small><button class="btn-secondary" type="button" data-action="navigate" data-page="plans">${icon('shield')}${growth.zombieActive ? '去驱散' : '查看打卡'}</button></div></section></div><div class="growth-detail-grid"><section class="work-card"><div class="work-card-header"><div><h2>连续奖励</h2><p>当前连续 ${growth.streak} 天 · 最好 ${growth.bestStreak} 天</p></div>${icon('flame')}</div>${growth.streakRepair && growth.streakRepair.canRepair ? `<div class="streak-repair-row"><small>欢迎回来！昨天断了一下，用一张补签卡把记录接上（这个月还有 ${growth.streakRepair.available} 张）。</small><button class="btn-secondary" type="button" data-action="repair-streak">${icon('heart')}补签卡接上</button></div>` : ''}<div class="streak-reward-list">${streakRewards}</div></section><section class="work-card"><div class="work-card-header"><div><h2>造型衣橱</h2><p>完成成长和连续奖励，逐步解锁星芒的新样子。</p></div>${icon('shirt')}</div><div class="style-options">${styles}</div></section></div>`;
     }
 
     function renderCourses() {
@@ -4298,6 +4316,16 @@
         if (ok) showPreschoolCelebration({ message: '植物伙伴换好啦！' });
     }
 
+    function repairGrowthStreak() {
+        if (!isChild || !global.PersonalWorkbenchChildGrowth) return;
+        const ok = commit(function (next) {
+            const result = global.PersonalWorkbenchChildGrowth.repairStreak(next.growth, storage.localDate());
+            if (!result.ok) throw new Error(result.reason);
+            next.growth = result.growth;
+        }, '连续记录接上啦');
+        if (ok) render();
+    }
+
     function waterGrowthPlant() {
         if (!isChild || !global.PersonalWorkbenchChildGrowth) return;
         let gardenEvent = null;
@@ -4348,7 +4376,7 @@
             if (!result.ok) throw new Error(result.reason);
             next.growth = result.growth;
         }, '植物种下啦');
-        if (ok) speakPraise('植物伙伴准备好啦！');
+        if (ok) speakPraise('植物伙伴好！');
     }
 
     function spawnPreschoolDefenseWave() {
@@ -4831,29 +4859,6 @@
             if (!openPreschoolWorldGame(forcedTheme || undefined)) setPage('battle');
             return;
         }
-        if (action === 'voxel-workshop-tab') {
-            if (global.VoxelWorkshop) global.VoxelWorkshop.tab = target.dataset.tab || 'home';
-            render();
-            return;
-        }
-        if (action === 'voxel-buy') {
-            const bought = global.VoxelWorkshop && global.VoxelWorkshop.buy(target.dataset.item);
-            showToast((bought && bought.reason) || '买不了');
-            if (bought && bought.ok) render();
-            return;
-        }
-        if (action === 'voxel-craft') {
-            const made = global.VoxelWorkshop && global.VoxelWorkshop.craft(target.dataset.recipe);
-            showToast((made && made.reason) || '合成不了');
-            if (made && made.ok) render();
-            return;
-        }
-        if (action === 'voxel-parent-lock') {
-            const lock = global.VoxelWorkshop && global.VoxelWorkshop.toggleLock();
-            showToast((lock && lock.reason) || '家长锁');
-            if (lock && lock.ok) render();
-            return;
-        }
         if (action === 'toggle-course-nav') {
             ui.courseNavExpanded = !ui.courseNavExpanded;
             setCourseNavExpanded(ui.courseNavExpanded);
@@ -4933,6 +4938,7 @@
         if (action === 'set-math-band') setMathPracticeBand(target.dataset.band);
         if (action === 'select-plant') selectPreschoolPlant(target.dataset.id);
         if (action === 'water-plant') waterGrowthPlant();
+        if (action === 'repair-streak') repairGrowthStreak();
         if (action === 'feed-pet') feedPreschoolPet();
         if (action === 'pat-pet') patPreschoolPet();
         if (action === 'review-growth-flower') {

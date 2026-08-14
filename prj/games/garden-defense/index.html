@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#2d8748">
     <title>花园保卫</title>
     <link rel="stylesheet" href="../shared/growth-hud.css">
-    <link rel="stylesheet" href="./game.css?v=20260814-wide-lawn-v1">
+    <link rel="stylesheet" href="./game.css?v=20260815-ref-v1">
 </head>
 <body data-world-game="garden-defense">
     <header class="world-bar">
@@ -25,6 +25,13 @@
     <main class="world-shell">
         <section class="world-panel" id="panel-map">
             <h2 class="panel-title">选关 · <span id="stage-count">12</span></h2>
+            <div class="zombie-showcase" aria-label="本关僵尸">
+                <figure><img src="./assets/zombies/zombie-basic.webp?v=20260815-ref-v1" alt="普通僵尸"><figcaption>普通</figcaption></figure>
+                <figure><img src="./assets/zombies/zombie-flag.webp?v=20260815-ref-v1" alt="旗帜僵尸"><figcaption>旗帜</figcaption></figure>
+                <figure><img src="./assets/zombies/zombie-conehead.webp?v=20260815-ref-v1" alt="路障僵尸"><figcaption>路障</figcaption></figure>
+                <figure><img src="./assets/zombies/zombie-buckethead.webp?v=20260815-ref-v1" alt="铁桶僵尸"><figcaption>铁桶</figcaption></figure>
+                <figure><img src="./assets/zombies/zombie-football.webp?v=20260815-ref-v1" alt="橄榄球僵尸"><figcaption>橄榄球</figcaption></figure>
+            </div>
             <div class="stage-map" id="stage-map" aria-label="12 个花园关卡"></div>
             <p class="tip" id="progress-tip">加载中…</p>
         </section>
@@ -52,6 +59,6 @@
     <script src="../shared/workbench-bridge.js"></script>
     <script src="../../preschool-garden.js?v=20260814-zombie-pace-v1"></script>
     <script src="./data/stages.js?v=20260814-play-v2"></script>
-    <script src="./game.js?v=20260814-walker-v2"></script>
+    <script src="./game.js?v=20260815-ref-v1"></script>
 </body>
 </html>

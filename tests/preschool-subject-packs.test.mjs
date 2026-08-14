@@ -27,7 +27,7 @@ const readJson = file => JSON.parse(fs.readFileSync(file, 'utf8'));
 
 test('every subject has a complete independent data and asset package', () => {
     for (const [folder, routeId, bankFile] of subjects) {
-        const docsDir = path.join(repoRoot, 'docs', folder);
+        const docsDir = path.join(repoRoot, 'docs', '02-课程', folder);
         const dataDir = path.join(root, 'data', 'preschool', folder);
         const assetDir = path.join(root, 'assets', 'generated', 'preschool', folder);
         for (const file of requiredDocFiles) {
