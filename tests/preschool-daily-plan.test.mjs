@@ -22,9 +22,9 @@ const storage = globalThis.PersonalWorkbenchStorage;
 test('seeds three core preschool actions and three optional actions', () => {
   const today = storage.localDate();
   const plans = storage.repository.load().dailyPlans.filter(item => item.date === today);
-  assert.equal(plans.length, 6);
+  assert.equal(plans.length, 9);
   assert.equal(plans.filter(item => item.required === true).length, 3);
-  assert.equal(plans.filter(item => item.required === false).length, 3);
+  assert.equal(plans.filter(item => item.required === false).length, 6);
   assert.deepEqual(
     plans.filter(item => item.required).map(item => item.id),
     ['preschool-plan-story', 'preschool-plan-count', 'preschool-plan-hello']
@@ -32,6 +32,9 @@ test('seeds three core preschool actions and three optional actions', () => {
   assert.equal(plans.find(item => item.id === 'preschool-plan-story').practiceLessonId, 'preschool-chinese-1');
   assert.equal(plans.find(item => item.id === 'preschool-plan-draw').practiceLessonId, 'preschool-english-words-1');
   assert.equal(plans.find(item => item.id === 'preschool-plan-move').practiceLessonId, 'preschool-exercise-1');
+  assert.equal(plans.find(item => item.id === 'preschool-plan-picturebook').checkinMode, 'timed');
+  assert.equal(plans.find(item => item.id === 'preschool-plan-cartoon').estimateMinutes, 20);
+  assert.equal(plans.find(item => item.id === 'preschool-plan-listen').hint, '早晚各一次 · 约15分钟');
   assert.equal(plans.find(item => item.id === 'preschool-plan-story').completionSource, 'seed');
   assert.equal(plans.find(item => item.id === 'preschool-plan-story').completionRewardId, '');
   assert.equal(plans.find(item => item.id === 'preschool-plan-count').completionSource, '');

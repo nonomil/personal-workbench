@@ -9,6 +9,22 @@
 .preschool-flashcard-dots i.is-current { background: #ffffff; box-shadow: 0 0 0 2px #3fa25c; }
 .preschool-flashcard-count { margin: 0; font-size: 0.9rem; color: #5c7350; display: flex; align-items: center; gap: 8px; }
 .preschool-flashcard-review { font-style: normal; font-size: 0.75rem; font-weight: 700; color: #8a6b1f; background: rgba(224, 172, 62, 0.2); border-radius: 999px; padding: 2px 10px; }
+.preschool-flashcard-levels,
+.preschool-practice-level-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.preschool-flashcard-level,
+.preschool-practice-level-chip {
+    display: inline-flex; flex-direction: column; align-items: flex-start; gap: 2px;
+    min-height: 40px; padding: 6px 12px; border-radius: 999px; cursor: pointer;
+    border: 2px solid rgba(63, 162, 92, 0.28); background: #ffffff; color: #2c7a45;
+    font-size: 0.82rem; font-weight: 800;
+}
+.preschool-practice-level-chip { border-radius: 16px; min-height: 58px; padding: 8px 12px; }
+.preschool-practice-level-chip small { font-size: 0.7rem; font-weight: 650; color: #6b7f5e; }
+.preschool-flashcard-level.is-active,
+.preschool-practice-level-chip.is-active { background: #2d8748; border-color: #2d8748; color: #ffffff; }
+.preschool-practice-level-chip.is-active small { color: rgba(255, 255, 255, 0.86); }
+.practice-level-settings .preschool-practice-level-row { display: grid; gap: 8px; margin-top: 14px; }
+.practice-level-settings .preschool-practice-level-row h3 { margin: 0; font-size: 1rem; color: #23422c; }
 
 .preschool-flashcard {
     display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; align-items: center;
@@ -18,9 +34,24 @@
     min-height: 260px;
 }
 .preschool-flashcard-main { display: grid; justify-items: center; gap: 8px; text-align: center; }
+.preschool-card-art { width: 112px; height: 112px; display: block; }
+.preschool-flashcard-main > .preschool-card-art { width: 120px; height: 120px; }
+.preschool-flashcard-main > .preschool-card-photo { object-fit: contain; border-radius: 18px; background: #f7faf3; }
+.preschool-poem-today-head .preschool-card-art { width: 88px; height: 88px; margin: 0 auto 4px; }
+.literacy-flash-card .preschool-card-art,
+.literacy-card .preschool-card-art { width: 72px; height: 72px; }
 .preschool-flashcard-main > strong { font-size: 4.6rem; line-height: 1.1; font-weight: 800; color: #23422c; overflow-wrap: anywhere; }
 .preschool-flashcard-main > small { font-size: 1.15rem; color: #6b7f5e; font-weight: 700; }
 .preschool-flashcard-rows { display: grid; gap: 10px; align-content: center; }
+.preschool-flashcard-cover {
+    min-height: 160px; border-radius: 18px; cursor: pointer;
+    display: grid; place-content: center; gap: 6px; text-align: center;
+    border: 2px dashed rgba(63, 162, 92, 0.4); background: #f7faf3;
+    color: #2c7a45;
+}
+.preschool-flashcard-cover small { font-size: 0.85rem; font-weight: 700; color: #8a6b1f; }
+.preschool-flashcard-cover strong { font-size: 1.2rem; }
+.preschool-flashcard-cover:hover, .preschool-flashcard-cover:focus-visible { background: #eefae4; }
 .preschool-flashcard-row { background: #f7faf3; border-radius: 14px; padding: 10px 16px; display: grid; gap: 2px; }
 .preschool-flashcard-row small { font-size: 0.78rem; color: #8a6b1f; font-weight: 700; }
 .preschool-flashcard-row strong { font-size: 1.1rem; color: #23422c; line-height: 1.4; overflow-wrap: anywhere; }
@@ -51,6 +82,9 @@
 .preschool-flashcard-mark svg { width: 22px; height: 22px; }
 .preschool-flashcard-mark.is-unknown { background: #ffffff; border-color: rgba(224, 122, 62, 0.5); color: #b05a1e; }
 .preschool-flashcard-mark.is-known { background: #2d8748; border-color: #2d8748; color: #ffffff; box-shadow: 0 8px 18px rgba(45, 135, 72, 0.28); }
+.preschool-flashcard-mark.is-nav { background: #ffffff; border-color: rgba(63, 162, 92, 0.4); color: #2c7a45; box-shadow: none; }
+.preschool-flashcard-mark:disabled { opacity: 0.4; cursor: default; transform: none; }
+.preschool-flashcard-actions-inline { max-width: 420px; margin: 0 auto; width: 100%; }
 .preschool-flashcard-mark:hover, .preschool-flashcard-mark:focus-visible { transform: translateY(-2px); }
 
 .preschool-flashcard-foot { display: flex; justify-content: center; }
@@ -68,4 +102,66 @@
     .preschool-flashcard { grid-template-columns: 1fr; gap: 14px; padding: 22px 18px; min-height: 0; }
     .preschool-flashcard-main > strong { font-size: 3.6rem; }
     .preschool-flashcard-top { flex-wrap: wrap; }
+}
+
+/* 专注力：今日单任务启动页 */
+.preschool-focus-today { display: grid; justify-items: center; gap: 10px; text-align: center; background: #ffffff; border-radius: 26px; padding: 34px 24px; border: 2px solid rgba(224, 172, 62, 0.45); box-shadow: 0 12px 28px rgba(31, 73, 42, 0.1); }
+.preschool-focus-today-art { width: 96px; height: 96px; display: grid; place-items: center; }
+.preschool-focus-today-art img, .preschool-focus-today-art svg { width: 100%; height: 100%; object-fit: contain; }
+.preschool-focus-today small { font-size: 0.82rem; color: #8a6b1f; font-weight: 700; letter-spacing: 0.08em; }
+.preschool-focus-today h2 { margin: 0; font-size: 1.6rem; color: #23422c; }
+.preschool-focus-today p { margin: 0; font-size: 0.95rem; color: #5c7350; }
+.preschool-focus-today-tip { background: #fffbec; border-radius: 12px; padding: 8px 14px; }
+.preschool-focus-today-start { display: inline-flex; align-items: center; gap: 8px; min-height: 56px; padding: 0 28px; border-radius: 18px; font-size: 1.15rem; margin-top: 6px; }
+.preschool-focus-today-start svg { width: 20px; height: 20px; }
+.preschool-focus-today-others { display: flex; gap: 4px 14px; flex-wrap: wrap; justify-content: center; align-items: center; font-size: 0.85rem; color: #5c7350; }
+
+/* 暑假：今日任务汇总 */
+.preschool-summer-today { display: grid; gap: 14px; }
+.preschool-summer-today-head h2 { margin: 2px 0 4px; font-size: 1.35rem; color: #23422c; }
+.preschool-summer-today-head p { margin: 0; font-size: 0.9rem; color: #5c7350; }
+.preschool-summer-today-list { display: grid; gap: 10px; }
+.preschool-summer-task {
+    display: flex; align-items: center; gap: 14px; text-align: left;
+    min-height: 64px; padding: 12px 16px; border-radius: 18px;
+    background: #ffffff; border: 2px solid rgba(240, 145, 55, 0.3); cursor: pointer;
+    box-shadow: 0 6px 16px rgba(31, 73, 42, 0.07);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.preschool-summer-task:hover, .preschool-summer-task:focus-visible { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(31, 73, 42, 0.14); }
+.preschool-summer-task-icon { width: 44px; height: 44px; flex: none; display: grid; place-items: center; border-radius: 12px; background: #fff3e4; color: #b05a1e; }
+.preschool-summer-task-icon svg { width: 22px; height: 22px; }
+.preschool-summer-task-copy { flex: 1 1 auto; min-width: 0; display: grid; gap: 1px; }
+.preschool-summer-task-copy small { font-size: 0.76rem; color: #8a6b1f; font-weight: 700; }
+.preschool-summer-task-copy strong { font-size: 1.02rem; color: #23422c; }
+.preschool-summer-task-copy em { font-style: normal; font-size: 0.82rem; color: #6b7f5e; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.preschool-summer-task-go { flex: none; color: #b05a1e; }
+.preschool-summer-task-go svg { width: 20px; height: 20px; }
+
+/* 古诗：今日一首（全文 + 讲解） */
+.preschool-poem-today {
+    display: grid; justify-items: center; gap: 14px; text-align: center;
+    background: #ffffff; border-radius: 26px; padding: 28px 22px;
+    border: 2px solid rgba(64, 140, 230, 0.35);
+    box-shadow: 0 12px 28px rgba(31, 73, 42, 0.1);
+}
+.preschool-poem-today-head { display: grid; gap: 2px; }
+.preschool-poem-today-head h2 { margin: 0; font-size: 1.9rem; color: #23422c; letter-spacing: 0.12em; }
+.preschool-poem-today-head small { font-size: 0.95rem; color: #8a6b1f; font-weight: 700; }
+.preschool-poem-lines { display: grid; gap: 6px; }
+.preschool-poem-lines p { margin: 0; font-size: 1.55rem; font-weight: 700; color: #23422c; line-height: 1.5; letter-spacing: 0.06em; }
+.preschool-poem-meaning {
+    display: grid; gap: 4px; text-align: left; max-width: 560px;
+    background: #f7faf3; border-radius: 16px; padding: 12px 18px;
+}
+.preschool-poem-meaning small { font-size: 0.78rem; color: #8a6b1f; font-weight: 700; }
+.preschool-poem-meaning p { margin: 0; font-size: 1rem; color: #3c5636; line-height: 1.7; }
+.preschool-poem-ask { display: grid; justify-items: center; gap: 10px; text-align: center; padding: 4px 0 2px; }
+.preschool-poem-ask h2 { margin: 0; font-size: 1.35rem; color: #23422c; }
+.preschool-poem-ask p { margin: 0; font-size: 0.95rem; color: #5c7350; }
+
+@media (max-width: 760px) {
+    .preschool-poem-today { padding: 22px 16px; }
+    .preschool-poem-today-head h2 { font-size: 1.6rem; }
+    .preschool-poem-lines p { font-size: 1.3rem; }
 }

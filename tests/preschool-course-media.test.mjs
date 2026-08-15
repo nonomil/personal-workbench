@@ -27,7 +27,7 @@ test('每支 B站 视频都使用可内嵌播放器地址', () => {
     const rendererStart = app.indexOf('function renderPreschoolCourseMedia(course)');
     const renderer = app.slice(rendererStart, app.indexOf('function renderPreschoolCourseResources(course)', rendererStart));
     assert.match(renderer, /https:\/\/player\.bilibili\.com\/player\.html\?bvid='/);
-    assert.match(renderer, /encodeURIComponent\(item\.bvid\)/);
+    assert.match(renderer, /encodeURIComponent\(active\.bvid\)/);
     assert.match(renderer, /page=1&high_quality=1&danmaku=0/);
 });
 
@@ -36,13 +36,19 @@ test('app.js 提供 renderPreschoolCourseMedia 并接入课程卡', () => {
     assert.match(app, /\$\{renderPreschoolCourseSamples\(course\)\}\$\{renderPreschoolCourseMedia\(course\)\}\$\{renderPreschoolCourseResources\(course\)\}/);
 });
 
-test('视频以手风琴 details/summary 呈现，折叠时零 iframe 高度', () => {
+test('视频以封面卡片点开，播放器单独占一层且同时可打卡', () => {
     const rendererStart = app.indexOf('function renderPreschoolCourseMedia(course)');
     const rendererEnd = app.indexOf('function renderPreschoolCourseResources(course)');
     const renderer = app.slice(rendererStart, rendererEnd);
-    assert.match(renderer, /<details class="preschool-media-item is-video">/);
-    assert.match(renderer, /<summary class="preschool-media-summary">/);
+    assert.match(renderer, /data-action="media-open"/);
+    assert.match(renderer, /preschool-media-stage/);
+    assert.match(renderer, /preschool-media-cover/);
+    assert.match(renderer, /preschool-media-grid/);
     assert.match(renderer, /<div class="preschool-media-frame">/);
+    assert.doesNotMatch(renderer, /<details class="preschool-media-card/);
+    assert.match(app, /function checkInPreschoolEnglishFromMedia\(/);
+    assert.match(app, /function completePreschoolPlanCheckIn\(/);
+    assert.doesNotMatch(app, /localStorage\.(setItem|getItem)\(['"]mediaBvid/);
 });
 
 test('网盘链接使用 open-resource 动作，地址仅接受 http(s)', () => {
@@ -52,11 +58,11 @@ test('网盘链接使用 open-resource 动作，地址仅接受 http(s)', () => 
     assert.ok(app.includes("global.open(target, '_blank', 'noopener');"));
 });
 
-test('33-course-media.css 已注册且提供手风琴样式', () => {
+test('33-course-media.css 已注册且提供封面卡片样式', () => {
     assert.match(manifest, /@import url\("\.\/preschool\/33-course-media\.css/);
-    assert.match(css, /\.preschool-media-item\.is-video/);
-    assert.match(css, /\.preschool-media-summary/);
-    assert.match(css, /details-marker/);
-    assert.match(css, /\[open\] \.preschool-media-chevron/);
+    assert.match(css, /\.preschool-media-grid/);
+    assert.match(css, /\.preschool-media-cover/);
+    assert.match(css, /\.preschool-media-stage/);
     assert.match(css, /aspect-ratio: 16 \/ 9/);
+    assert.doesNotMatch(css, /\.preschool-media-card\.is-video\[open\]/);
 });

@@ -16,9 +16,12 @@ body {
     margin: 0;
     min-height: 100vh;
     color: var(--ink);
-    background:
-        radial-gradient(circle at 12% 18%, rgba(255, 236, 140, .55), transparent 28%),
-        linear-gradient(180deg, #8fd3f4 0 42%, #7ec85a 42% 100%);
+    background-color: #7eb85a;
+    background-image: url('./assets/bg/garden-page-bg.webp?v=20260815-pagebg-v1');
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 body.is-fullscreen .world-bar {
@@ -126,6 +129,14 @@ body.is-fullscreen .world-bar {
     padding: 14px;
 }
 
+#panel-play.world-panel {
+    padding: 8px 0 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
 .world-side {
     padding: 18px;
 }
@@ -150,40 +161,38 @@ body.is-fullscreen .world-bar {
 
 .seed-tray {
     display: flex;
-    gap: 10px;
+    gap: 6px;
     overflow-x: auto;
-    padding: 12px 14px 14px;
-    /* 木质托架:木板纹 + 内凹阴影 */
-    background:
-        repeating-linear-gradient(90deg, rgba(0, 0, 0, .07) 0 2px, transparent 2px 36px),
-        linear-gradient(180deg, #a86a34, #8a4f22 58%, #74431c);
-    border: 3px solid #5c3012;
-    border-radius: 18px;
+    max-width: min(860px, 88vw);
+    margin: 0 auto 8px;
+    padding: 8px 10px 10px;
+    background: linear-gradient(180deg, #f6e7b4, #e0c57a 70%, #c9a85a);
+    border: 2px solid #b8923d;
+    border-radius: 10px 10px 14px 14px;
     box-shadow:
-        inset 0 2px 0 rgba(255, 235, 200, .28),
-        inset 0 -4px 8px rgba(0, 0, 0, .28),
-        0 4px 10px rgba(60, 35, 10, .25);
+        inset 0 1px 0 rgba(255, 248, 220, .7),
+        0 3px 0 rgba(140, 100, 30, .28);
     scrollbar-width: thin;
 }
 
 .seed-card {
     flex: 0 0 auto;
-    min-width: 104px;
-    height: 118px;
+    min-width: 72px;
+    width: 72px;
+    height: 96px;
     flex-direction: column;
-    gap: 2px;
-    padding: 8px 10px;
-    /* 种子袋:米纸 + 底边压线 */
-    background: linear-gradient(180deg, #fffdf2, #f2e3b8);
+    gap: 0;
+    padding: 5px 4px 4px;
+    background: linear-gradient(180deg, #fffdf6, #f3e4b4);
     border: 2px solid #d8c48e;
     border-bottom-color: #b89a58;
-    border-radius: 10px;
-    box-shadow: 0 2px 0 rgba(92, 48, 18, .45);
+    border-radius: 8px;
+    box-shadow: 0 2px 0 rgba(92, 48, 18, .28);
 }
 
 .seed-card img {
-    width: 64px;
-    height: 64px;
+    width: 40px;
+    height: 40px;
     object-fit: contain;
     animation: world-idle-bob 2.4s ease-in-out infinite;
 }
@@ -197,8 +206,12 @@ body.is-fullscreen .world-bar {
     .seed-card img { animation: none; }
 }
 
-.seed-card small {
+.seed-card span {
     font-size: 11px;
+    line-height: 1.2;
+}
+.seed-card small {
+    font-size: 9px;
     color: var(--muted);
 }
 
@@ -214,13 +227,21 @@ body.is-fullscreen .world-bar {
 }
 
 .seed-card.is-locked {
-    opacity: .45;
-    filter: grayscale(.4);
+    opacity: 1;
+    filter: grayscale(1) brightness(.78);
     cursor: not-allowed;
+    background: linear-gradient(180deg, #d8d8d8, #b8b8b8);
+    border-color: #9a9a9a;
+    color: #6a6a6a;
 }
+.seed-card.is-locked img { filter: grayscale(1) brightness(.7); }
+.seed-card.is-locked b,
+.seed-card.is-locked small { color: #6a6a6a; }
 
 .board-wrap {
     position: relative;
+    max-width: min(860px, 88vw);
+    margin: 0 auto;
     border-radius: 18px;
     overflow: hidden;
     border: 3px solid rgba(47, 61, 42, .18);
@@ -232,7 +253,7 @@ body.is-fullscreen .world-bar {
     width: 100%;
     height: auto;
     aspect-ratio: 1080 / 540;
-    max-height: min(82vh, 920px);
+    max-height: min(62vh, 640px);
     object-fit: contain;
     background: #79c24e;
     touch-action: manipulation;
@@ -272,31 +293,40 @@ body.is-fullscreen .world-bar {
 .zombie-showcase {
     display: flex;
     flex-wrap: wrap;
-    gap: 18px;
+    gap: 10px 14px;
     align-items: end;
     justify-content: center;
-    margin: 8px 0 16px;
-    padding: 12px 16px 8px;
-    border-radius: 16px;
-    background: rgba(255, 253, 246, .72);
-    border: 2px solid rgba(47, 61, 42, .12);
+    margin: 6px 0 12px;
+    padding: 8px 12px 6px;
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(135, 206, 235, .35), rgba(126, 200, 90, .28));
+    border: 1px solid rgba(47, 61, 42, .1);
 }
 .zombie-showcase figure {
     margin: 0;
+    width: 56px;
     text-align: center;
 }
 .zombie-showcase img {
     display: block;
-    height: 168px;
-    width: auto;
+    height: 56px;
+    width: 56px;
+    margin: 0 auto;
     object-fit: contain;
-    filter: drop-shadow(0 6px 0 rgba(47, 61, 42, .18));
+    filter: drop-shadow(0 2px 0 rgba(47, 61, 42, .12));
 }
 .zombie-showcase figcaption {
-    margin-top: 4px;
+    margin-top: 2px;
     color: var(--muted);
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 800;
+}
+.zombie-showcase figure.is-locked img {
+    filter: grayscale(1) brightness(.72);
+    opacity: .85;
+}
+.zombie-showcase figure.is-locked figcaption {
+    color: #7a7a7a;
 }
 .play-meta {
     display: flex;

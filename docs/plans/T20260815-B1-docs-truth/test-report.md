@@ -24,12 +24,29 @@
 - `npm test` 全量基线：**253 项，246 过 / 7 失败（退出码 1）**，失败全部在 `tests/world-games.test.mjs`（garden `game.js` 缺 `USE_PLAY_MODS`/`applyPlayMods`/`advanceMoveClocks`/`buildSettlementLines` 等），与本包文件域无交集；用户裁决按"无新增失败"口径放行（见 execution-check）。
 - 结论（允许推进 / 否）：**允许推进**（侦查完成，R2 补断言 + R1/R3/R4/R5 文档修订开始）。
 
+### 阶段 0 · 本次执行复核（2026-08-15）
+
+- 复核范围：B1 允许改动文件当前均无未提交状态；以下证据为本次执行取得，未把历史报告当作新鲜证据。
+- refresh 测试现状：`node --test tests/preschool-workbench-refresh.test.mjs` → **53/53 通过，退出码 0**；当前测试已守护卡片墙，不再有 `preschool-course-directory` 断言。
+- 卡片墙实况（代码实读）：`prj/app.js:3031–3050` 定义 `renderPreschoolCourseWallCard` 与 `renderPreschoolCoursesTodayCard`；卡片使用 `.preschool-course-wall-card`、`.preschool-course-wall-art`、`.preschool-course-wall-dots`、`.preschool-course-wall-state`，今日卡使用 `.preschool-course-today` 与 `.preschool-course-today-cta`；`prj/app.js:3213–3217` 由 `renderPreschoolCourses` 组装今日卡和 `.preschool-course-wall`。`prj/css/preschool-workbench.css:38` 引入 `34-course-wall.css?v=20260815-course-wall-v1`。
+- 每日任务实数：**6 项**。`prj/config.js:33–44` 只提供页面文案；实际种子定义在 `prj/storage.js:11–18`：完成今日识字、朗读一首古诗、数学闯关一关、学习今日英语、做一项运动、专注力训练一题；前 3 项 `required: true`，后 3 项为可选。
+- 奖励实录（本次代码核对）：课完成 `+20`（`prj/app.js:4430`）；每日计划打卡 `+10`（`prj/app.js:4840、5053`）；成长任务 `+15`（`prj/app.js:4852`）；阅读新记录 `+5`（`prj/app.js:4865`）；当天首次有效行动额外 `+10`，由 `daily-checkin:{date}` 去重（`prj/child-growth.js:189–211`）；连续奖励为 1 日 `+10`、7 日 `+30`，3/14/30 日为造型（`prj/child-growth.js:4–10`）。
+- 游戏奖励实录：`prj/games/shared/workbench-bridge.js:19` 的 `DAILY_GAME_SUN_CAP = 80`；`awardSunlight` 以 `game:{gameId}:{eventKey}` 去重，并写入 `game-sun:{date}:{gameId}:{amount}` 统计日 cap（`:243–279`）；日游玩 `+3`、三界同日 `+8`、周游玩达标 `+15`、本周三界日 `+12`（`:348–394`）；11 个里程碑阳光值按 `MILESTONES` 顺序为 `+12/+20/+30/+12/+25/+12/+30/+18/+40/+22/+16`（`:55–66、411–433`）。与工作台行动奖励是两条独立代码路径，本次未发现内部矛盾。
+- 识字库实数：只读执行 Node 统计 `prj/preschool-literacy-data.js` 得 `1500` 条、唯一字 `1500`，L1–L5 各 `300`；`prj/preschool-literacy.js:357–360` 的 `getRuntimeBank()` 直接解析完整 `data.bank`，无 240 截断。
+- 本次门控/侦查结论：**允许推进**。所有改定数值均已从 `prj/` 代码实读；未触发 task.md §8 的代码内部数值矛盾升级。
+
 ## 阶段 1：测试迁移
 
 - 状态：**完成（2026-08-15）**
 - 命令与退出码：`node --test tests/preschool-workbench-refresh.test.mjs` → **52/52 通过，退出码 0**；`grep -c "course-directory" tests/preschool-workbench-refresh.test.mjs` → 0（退出码 1，旧断言清除）。
 - 说明：断言迁移主体已在基线 commit `ebc5592` 固化（上一会话在途工作，侦查确认 52/52 绿 + 无残留）。本包在其上按 steps.md 步骤 2 补齐三条断言：`renderPreschoolCourseWallCard`、`renderPreschoolCoursesTodayCard`、`34-course-wall.css?v=20260815-course-wall-v1` @import（tests/preschool-workbench-refresh.test.mjs:262 起）。
 - 结论：**允许推进（R1/R3/R4/R5 文档修订开始）。**
+
+### 阶段 1 · 本次执行复核（2026-08-15）
+
+- 当前测试文件已包含目标断言：`renderPreschoolCourseWallCard`、`renderPreschoolCoursesTodayCard`、`preschool-course-wall`、`preschool-course-today`、`34-course-wall.css?v=20260815-course-wall-v1`；`preschool-course-directory` 无残留。
+- `node --test tests/preschool-workbench-refresh.test.mjs` → **53/53 通过，退出码 0**。
+- 结论：**允许推进**。本次没有覆盖已有测试改动，也没有发现卡片墙实现缺陷。
 
 ## 阶段 2：文档修订
 
@@ -53,6 +70,14 @@
   - `rg "60-80|60–80" docs/02-课程/识字/ docs/02-课程/幼儿课程方案/01-识字/` → 见 R5 记录。
 - 结论：**允许推进（R5 识字目标改口）。**
 
+### 阶段 2 · 本次执行复核（2026-08-15）
+
+- 卡片墙文档反证：头部包含“已实施”、缓存戳 `20260815-course-wall-v1`、落点 CSS/`app.js` 渲染函数、守护测试和实现差异注记；`rg` 命中并退出码 0。
+- 每日任务反证：`rg "三项核心|每天三项" docs/02-课程` 无匹配，退出码 1；代码实数仍为 6 项，前 3 项必做、后 3 项可选。
+- 奖励合同反证：`数据与奖励合同.md` 已登记课完成 +20、计划 +10、任务 +15、阅读 +5、首次行动 +10、连续奖励、游戏日 cap 80、日/周/三界奖励及 11 个里程碑完整数值；家长兑换和“三项核心全部完成 +20”均保留“裁决：未实现”。
+- 识字目标反证：`rg "60-80|60–80" ...` 无匹配，退出码 1；两处文档均登记运行库 1500 字、L1–L5 各 300，并注明 60 日表不等于字库全量。
+- 结论：**允许推进**。本阶段未触发代码内部数值矛盾升级。
+
 ## 阶段 3：回归
 
 - 状态：**完成（终局快照 2026-08-15 01:45:38）**
@@ -60,6 +85,42 @@
 - `node --test tests/preschool-workbench-refresh.test.mjs`：52/52，退出码 0（01:45 快照）；`grep -c "course-directory"` = 0（退出码 1）。
 - `git status` 改动面核对：本包改动 = `.meta.yaml` files 所列 **8 个文件**（6 个原域 + 2 个 R3 同批改）+ 本包控制面（test-report / execution-check / requirements-checklist / .meta.yaml / README）。以 `git diff ebc5592 --stat` 逐文件核对，零产品代码改动。工作树中另有**并发会话**的在途改动（`prj/games/garden-defense/*`、`prj/app.js`、`prj/css/*`、`docs/plans/T20260815-asset-allowlist/*` 等），非本包所为，未触碰。
 - 结论：**本包完成，待用户验收。**
+
+### 阶段 3 · 本次执行复核（2026-08-15）
+
+- `npm test` → **260/260 通过，退出码 0**。
+- `node --test tests/preschool-workbench-refresh.test.mjs` → **53/53 通过，退出码 0**。
+- `git status` 核对：当前未提交项仍仅属于其他方案/计划域及未跟踪计划目录；本包目标文件的工作树改动来自本次控制面回写与 R4 合同精确化，不含 `prj/` 产品代码、`workbench-bridge.js` 或 localStorage 变更。
+- `.meta.yaml` 已从 `done` 调整为 `review`；`requirements-checklist.md` 的“最终验收”列保持“待确认”。
+- 结论：**执行完成，待用户验收；不执行 commit。**
+
+### 并发重叠后的停止记录（2026-08-15）
+
+- B1 复核完成后，另一会话将 HEAD 推进到 `e470e5d`，并继续修改 `prj/app.js`、`prj/css/*`、`prj/preschool-workbench/index.html` 及其他测试；其中 `tests/preschool-workbench-refresh.test.mjs` 已出现新的未提交改动，直接命中 B1 文件域。
+- 重叠后的最新回归：`npm test` → **264 项，259 通过 / 5 失败，退出码 1**；`node --test tests/preschool-workbench-refresh.test.mjs` → **53 项，50 通过 / 3 失败，退出码 1**。失败包含并行会话更新课程页面/缓存戳后，原有 flashcard 合同仍按旧 `PRESCHOOL_FLASHCARD_COURSES` 文本断言的情形。
+- 该失败不能归因于本次 B1 文档与奖励合同改动；本会话不覆盖并行会话的测试、产品代码或缓存戳，也不继续追改 B1 测试。
+- 当前结论：**停止，等待用户裁决并行改动的处置（先提交/混行/待其完成后再复测）。** 最终验收列和 B1 `review` 状态保持不变。
+
+### 并发重叠续行（2026-08-15）
+
+- 用户授权由本会话自行裁决后，采用当前并行代码为事实、保留并行工作树、不回滚、不提交的处理；refresh 合同已随并行课程页缓存戳和数学卡片扩展对齐。
+- `npm test` → **264/264 通过，退出码 0**。
+- `node --test tests/preschool-workbench-refresh.test.mjs` → **53/53 通过，退出码 0**。
+- 当前结论：**阻塞解除，B1 执行证据齐全，状态保持 `review`，最终验收仍留给用户。** 本会话未改并行产品代码，未覆盖并行测试改动。
+
+### 阶段 3 · 终局复核（2026-08-15）
+
+- 数学合同失败复核：`node --test tests/preschool-math-practice.test.mjs` → **8/8 通过，退出码 0**。此前过渡失败的两个戳断言现已与工作台入口实际 `preschool-garden.js?v=20260815-practice-levels-v1` 对齐；本次未再修改数学测试或产品代码。
+- `node --test tests/preschool-workbench-refresh.test.mjs` → **53/53 通过，退出码 0**。
+- `npm test` → **268/268 通过，退出码 0**。
+- 本阶段结论：**允许推进，执行完成，待用户验收。** B1 保持 `review`，不执行 commit；当前并行工作树改动继续按既定归属保留。
+
+### 阶段 3 · 并行 points-lighting 收敛后的终局复核（2026-08-15）
+
+- 并行包 `T20260815-points-lighting` 在 refresh 测试中新增的两条“日历点亮”合同曾短暂造成 **269 项中 267 通过 / 2 失败**；代码实读确认失败来自其实现尚未落地，本会话未覆盖该并行改动。
+- 并行实现落地后，`node --test tests/preschool-workbench-refresh.test.mjs` → **54/54 通过，退出码 0**；`node --test tests/preschool-math-practice.test.mjs` → **8/8 通过，退出码 0**。
+- 最新 `npm test` → **269/269 通过，退出码 0**；`git diff --check` → **退出码 0**（仅有 Git 的 LF/CRLF 提示，无 whitespace error）。
+- 本阶段结论：**允许推进，B1 执行完成，待用户验收。** 并行工作树按现状保留；B1 状态保持 `review`，不执行 commit。
 
 ## 遗留 / 升级记录
 

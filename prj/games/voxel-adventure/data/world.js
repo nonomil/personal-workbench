@@ -135,6 +135,43 @@
         return rank;
     }
 
+    const BLUEPRINTS = {
+        hut: { x: 3, y: 7, pattern: ['wwwww', 'w...w', 'w...w', 'ww.ww'] },
+        tower: { x: 8, y: 6, pattern: ['.sss.', 's...s', 's...s', '.s.s.'] },
+        garden: { x: 14, y: 8, pattern: ['ggggg', 'g...g', 'g.#.g', 'ggggg'] }
+    };
+
+    function blueprintCoverage(world, id) {
+        const spec = BLUEPRINTS[id];
+        if (!spec || !world) return 0;
+        let need = 0;
+        let have = 0;
+        spec.pattern.forEach(function (line, row) {
+            String(line).split('').forEach(function (ch, col) {
+                if (ch === '.') return;
+                need += 1;
+                const kind = getCell(world, spec.x + col, spec.y + row);
+                if (ch === 'w' && (kind === 'wood' || kind === 'plank')) have += 1;
+                else if (ch === 's' && kind === 'stone') have += 1;
+                else if (ch === 'g' && kind === 'grass') have += 1;
+                else if (ch === '#' && kind && kind !== 'air' && kind !== 'bedrock') have += 1;
+            });
+        });
+        return need ? Math.round((have / need) * 100) : 0;
+    }
+
+    function rankMineReason(kind, rank) {
+        const r = Math.max(1, Number(rank) || 1);
+        if ((kind === 'stone' || kind === 'coal') && r < 3) return '石镐才能挖石头，先做完 4 个任务';
+        if (kind === 'crystal' && r < 5) return '晶体镐才能挖矿脉，先做完 10 个任务';
+        return '';
+    }
+
+    function canMineAtRank(kind, toolId, rank, gated) {
+        if (gated && rankMineReason(kind, rank)) return false;
+        return canBreak(kind, toolId);
+    }
+
     function canBreak(kind, toolId) {
         if (!kind || kind === 'air' || kind === 'bedrock') return false;
         const tool = TOOLS[toolId] || TOOLS.hand;
@@ -312,11 +349,34 @@
         if (quest.type === 'collect') return Number(collected.crystal) || 0;
         if (quest.type === 'collect_total') return Number(stats.crystalsTotal) || 0;
         if (quest.type === 'blocks_alive') return Number(stats.blocksAlive) || 0;
+        if (quest.type === 'blueprint') return Number(stats.blueprintCoverage) || 0;
         return 0;
     }
 
     function isQuestComplete(quest, stats) {
         return questValue(quest, stats) >= (Number(quest && quest.need) || 0);
+    }
+
+    const HOME_SNAP_CODE = Object.freeze({
+        air: '.', grass: 'g', dirt: 'd', wood: 'w', leaf: 'l', plank: 'p',
+        stone: 's', sand: 'n', water: 'u', coal: 'c', crystal: 'y', bedrock: 'b'
+    });
+
+    function encodeHomeGrid(grid) {
+        return (grid || []).map(function (row) {
+            return (row || []).map(function (cell) {
+                return HOME_SNAP_CODE[cell] || '.';
+            }).join('');
+        });
+    }
+
+    function makeHomeSnapshot(world, date) {
+        const grid = encodeHomeGrid(world && world.grid);
+        return {
+            date: String(date || ''),
+            blocks: countSolid(world),
+            grid: grid
+        };
     }
 
     function craft(inv, recipeId) {
@@ -377,8 +437,15 @@
         sameCell: sameCell,
         hitMiner: hitMiner,
         minerRank: minerRank,
+        BLUEPRINTS: BLUEPRINTS,
+        blueprintCoverage: blueprintCoverage,
+        rankMineReason: rankMineReason,
+        canMineAtRank: canMineAtRank,
         questValue: questValue,
         isQuestComplete: isQuestComplete,
-        craft: craft
+        craft: craft,
+        HOME_SNAP_CODE: HOME_SNAP_CODE,
+        encodeHomeGrid: encodeHomeGrid,
+        makeHomeSnapshot: makeHomeSnapshot
     };
 }(typeof window !== 'undefined' ? window : globalThis));

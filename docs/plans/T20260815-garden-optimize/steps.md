@@ -59,6 +59,7 @@
 
 ### 6. 回归（R8）
 
+- [ ] **更新缓存戳**：`prj/games/garden-defense/index.html` 中 `game.js?v=` 改为新戳（如 `20260815-gd-s1`）；`game.css` 如有 `?v=` 同步；若测试有戳断言一并更新——**不更新戳，步骤 7 的浏览器验证会拿旧代码得出错误结论**
 - [ ] `node --test tests/world-games.test.mjs`
 - [ ] `npm test`
 - **验证：** 退出码 0（预期 238+新增）

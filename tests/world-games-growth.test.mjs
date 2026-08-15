@@ -49,6 +49,14 @@ test('preschool home surfaces three world progress and daily game sun cap', () =
   assert.match(app, /function renderPreschoolWeeklyAdventureReport/);
   assert.match(app, /本周冒险周报|孩子本周冒险报告/);
   assert.match(css, /preschool-weekly-report/);
+  assert.match(app, /function renderPreschoolVoxelHomeCard/);
+  assert.match(app, /bridge\.readState/);
+  assert.match(app.slice(growthStart, growthEnd), /renderPreschoolVoxelHomeCard\(\)/);
+  assert.match(app, /我的家园/);
+  assert.doesNotMatch(app, /史蒂夫/);
+  assert.match(app, /'voxel-adventure': \{ href: '[^']+', label: '方块世界', unit: '任务', total: 12 \}/);
+  assert.match(css, /preschool-voxel-home/);
+  assert.match(bridge, /家园 /);
 });
 
 test('each world game is a self-contained folder with data and growth bridge', () => {
@@ -110,18 +118,15 @@ test('growth content tables expose multiple stages or quests', () => {
   assert.equal((voxelLevels.match(/id:\s*\d+/g) || []).length >= 8, true, 'voxel should have 8 region levels');
   assert.match(voxelLevels, /region:|grassland|goal:/);
   assert.match(levels, /checkpoints/);
-  assert.equal((levels.match(/\bL\(\d+/g) || []).length >= 10, true, 'platform should have 10 levels');
-  assert.match(levels, /L\(1,\s*'青青草地',\s*2400/);
-  const widths = levels.match(/L\((\d+),\s*'[^']+',\s*(\d+)/g) || [];
-  const tooLong = widths.filter(function (line) {
-    const m = line.match(/L\((\d+),\s*'[^']+',\s*(\d+)/);
-    if (!m) return false;
-    const id = Number(m[1]);
-    const width = Number(m[2]);
-    if (id === 1) return false;
-    return width >= 1900;
-  });
-  assert.equal(tooLong.length, 0, 'levels 2–10 should stay under 1900px');
+  assert.equal((levels.match(/\bL\(\d+/g) || []).length >= 14, true, 'platform should have 14 levels');
+  assert.match(levels, /function plantOn\(/);
+  assert.match(levels, /L\(11, '硬壳山谷'/);
+  assert.match(levels, /L\(1,\s*'青青草地',\s*6400/);
+  assert.match(levels, /groundsFromPits/, 'levels must cut the floor into segments with pits');
+  assert.match(levels, /function stairs\(/, 'levels must include Mario-like stair stacks');
+  assert.match(levels, /function underMap\(/, 'levels must ship an underground pipe room');
+  assert.match(levels, /'ball'/, 'question blocks can drop a bouncing-ball item');
+  assert.match(levels, /L\(2, '砖块台阶'[\s\S]*?\[enemyOn\(12\)/, 'level 2 first enemy must stand off the pipe');
 });
 
 test('badge totals derive from the catalog length, never hardcoded', () => {

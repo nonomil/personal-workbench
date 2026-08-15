@@ -8,17 +8,17 @@ function growthWithSunlight(sunlight = 200) {
   return gardenEngine.normalize({
     sunlight,
     garden: {
-      unlockedPlantIds: ['plant-sunflower', 'plant-peashooter', 'plant-wallnut', 'plant-snowpea', 'plant-cherrybomb']
+      unlockedPlantIds: ['plant-sunflower', 'plant-peashooter', 'plant-wallnut', 'plant-snowpea', 'plant-cherrybomb', 'plant-potatomine']
     }
   });
 }
 
-test('creates a versioned five-lane six-column defense board', () => {
+test('creates a versioned five-lane eight-column defense board', () => {
   const growth = gardenEngine.normalize({});
   const defense = growth.garden.defense;
   assert.equal(defense.version, 1);
   assert.equal(defense.board.lanes, 5);
-  assert.equal(defense.board.columns, 6);
+  assert.equal(defense.board.columns, 8);
   assert.deepEqual(defense.plants, []);
   assert.deepEqual(defense.zombies, []);
 });
@@ -59,14 +59,42 @@ test('spawns one slow basic zombie on the first garden day', () => {
   assert.equal(gardenEngine.wavePlan(1, 1).count, 1);
 });
 
+test('roster overrides default wave kinds and potato mine arms then pops one zombie', () => {
+  const started = gardenEngine.startDefenseGame(growthWithSunlight(), '2026-08-03');
+  const wave = gardenEngine.spawnDefenseWave(started.growth, '2026-08-03', {
+    stageId: 9,
+    roster: ['football']
+  });
+  assert.equal(wave.spawned[0].kind, 'zombie-football');
+  const noRoster = gardenEngine.wavePlan(1, 1);
+  assert.deepEqual(noRoster.kinds, ['zombie-basic']);
+
+  let growth = gardenEngine.startDefenseGame(growthWithSunlight(80)).growth;
+  growth = gardenEngine.selectPlant(growth, 'plant-potatomine').growth;
+  const placed = gardenEngine.placeDefensePlant(growth, 2, 3);
+  assert.equal(placed.ok, true);
+  assert.equal(placed.growth.sunlight, 60);
+  growth = placed.growth;
+  growth.garden.defense.zombies = [{
+    id: 'z1', kind: 'zombie-buckethead', lane: 2, column: 3, health: 32, maxHealth: 32, slowTicks: 0, moveClock: 0
+  }];
+  growth = gardenEngine.tickDefense(growth, 2).growth;
+  assert.equal(growth.garden.defense.plants[0].health > 0, true);
+  assert.equal(growth.garden.defense.zombies[0].health, 32);
+  growth = gardenEngine.tickDefense(growth, 1).growth;
+  assert.equal(growth.garden.defense.plants.length, 0);
+  assert.equal(growth.garden.defense.zombies.length, 0);
+  assert.equal(growth.garden.defense.defeated, 1);
+});
+
 test('later stages mix tougher zombies but keep the wave small', () => {
   const started = gardenEngine.startDefenseGame(growthWithSunlight(), '2026-08-03');
   const wave = gardenEngine.spawnDefenseWave(started.growth, '2026-08-03', { stageId: 8 });
   assert.equal(wave.ok, true);
-  assert.equal(wave.spawned.length, 2);
-  assert.equal(wave.growth.garden.defense.zombies.length, 2);
+  assert.equal(wave.spawned.length, 1);
+  assert.equal(wave.growth.garden.defense.zombies.length, 1);
   assert.ok(wave.spawned.every(item => ['zombie-basic', 'zombie-conehead', 'zombie-buckethead'].includes(item.kind)));
-  assert.equal(gardenEngine.wavePlan(12, 2).maxAlive, 2);
+  assert.equal(gardenEngine.wavePlan(12, 2).maxAlive, 6);
   assert.ok(gardenEngine.wavePlan(12, 2).kinds.includes('zombie-football'));
 });
 
@@ -77,7 +105,7 @@ test('keeps different zombie movement and health profiles observable', () => {
     { id: 'b', kind: 'zombie-conehead', lane: 2, column: 5, health: 5, maxHealth: 5, slowTicks: 0, moveClock: 0 },
     { id: 'c', kind: 'zombie-buckethead', lane: 4, column: 5, health: 8, maxHealth: 8, slowTicks: 0, moveClock: 0 }
   ];
-  const ticked = gardenEngine.tickDefense(growth, 18).growth.garden.defense;
+  const ticked = gardenEngine.tickDefense(growth, 36).growth.garden.defense;
   const basic = ticked.zombies.find(item => item.kind === 'zombie-basic');
   const cone = ticked.zombies.find(item => item.kind === 'zombie-conehead');
   const bucket = ticked.zombies.find(item => item.kind === 'zombie-buckethead');
@@ -179,4 +207,30 @@ test('keeps a zombie on column zero through normalization', () => {
   }];
   const restored = gardenEngine.normalize(JSON.parse(JSON.stringify(growth))).garden.defense;
   assert.equal(restored.zombies[0].column, 0);
+});
+
+test('clearing the last zombie does not mark the defense won by itself', () => {
+  let growth = gardenEngine.startDefenseGame(growthWithSunlight(), '2026-08-15').growth;
+  growth.garden.defense.status = 'playing';
+  growth.garden.defense.wave = 1;
+  growth.garden.defense.zombies = [{
+    id: 'z-last',
+    kind: 'zombie-basic',
+    lane: 0,
+    column: 3,
+    health: 1,
+    maxHealth: 10,
+    slowTicks: 0,
+    moveClock: 0
+  }];
+  growth.garden.defense.projectiles = [{
+    id: 'pea-1',
+    lane: 0,
+    column: 3,
+    damage: 1,
+    slowTicks: 0
+  }];
+  const ticked = gardenEngine.tickDefense(growth, 1).growth.garden.defense;
+  assert.equal(ticked.zombies.length, 0);
+  assert.equal(ticked.status, 'playing');
 });

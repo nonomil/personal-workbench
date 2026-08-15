@@ -54,10 +54,15 @@ test('phonics words and sentences declare their taught-code boundary', () => {
     assert.equal(new Set(words.map(item => item.id)).size, words.length);
     assert.equal(new Set(sentences.map(item => item.id)).size, sentences.length);
     for (const word of words) {
-        assert.ok(word.id && word.text && word.stageId);
-        assert.ok(Array.isArray(word.graphemes));
-        assert.ok(Array.isArray(word.phonemes));
-        assert.ok(word.source && word.source.kind === 'project-original');
+        const extra = word.extra && typeof word.extra === 'object' ? word.extra : {};
+        const stageId = word.stageId || extra.stageId;
+        const graphemes = Array.isArray(extra.graphemes) ? extra.graphemes : word.graphemes;
+        const phonemes = Array.isArray(extra.phonemes) ? extra.phonemes : word.phonemes;
+        assert.ok(word.id && word.text && stageId);
+        assert.ok(Array.isArray(graphemes));
+        assert.ok(Array.isArray(phonemes));
+        const sourceKind = word.source && typeof word.source === 'object' ? word.source.kind : word.source;
+        assert.ok(sourceKind === 'project-original' || sourceKind === 'base-phonics');
     }
     for (const sentence of sentences) {
         assert.ok(sentence.id && sentence.text && sentence.stageId);

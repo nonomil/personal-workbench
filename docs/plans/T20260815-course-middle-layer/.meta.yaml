@@ -1,0 +1,37 @@
+task_id: "T20260815-course-middle-layer"
+title: "学习专区中间层改版：墙卡今日预览 + classic 拆为更多练习菜单 + 家长详情折叠"
+status: "review"
+priority: "P1"
+phase: "S1"
+assignee: ""
+created: "2026-08-15"
+completed: ""
+depends_on: []
+estimated_hours: 6
+actual_hours: 0
+files:
+  - path: "prj/app.js"
+    change_type: "modify"
+  - path: "prj/css/preschool/36-course-menu.css"
+    change_type: "create"
+  - path: "prj/css/preschool-workbench.css"
+    change_type: "modify"
+  - path: "prj/preschool-workbench/index.html"
+    change_type: "modify"
+  - path: "tests/preschool-workbench-refresh.test.mjs"
+    change_type: "modify"
+  - path: "tests/preschool-lesson-mistakes.test.mjs"
+    change_type: "modify"
+  - path: "tests/preschool-math-practice.test.mjs"
+    change_type: "modify"
+acceptance:
+  - "墙卡每张有今日预览行（翻卡张数/今日诗题/今日训练），完成科显示「今天做完啦 ✓」"
+  - "flashcard-classic 落点为孩子层菜单（≤5 个大按钮），不再直落 8 层大卡"
+  - "「家长看详情」details 默认折叠，展开为原样 renderPreschoolCourseCard(course, true)"
+  - "「看看资料和其他练习」改为「更多练习」，暑假「浏览完整资料库」改「更多资料」"
+  - "零新 localStorage key；不动今日学习页/数据结构/侧边栏；npm test 全绿"
+tags:
+  - preschool
+  - courses
+  - ui
+notes: "源头方案 docs/01-方案/2026-08-15-学习专区中间层改版方案.md。与 B2 禁止同时进行。缓存戳升 20260815-course-middle-v1 前先侦查当前戳与全部断言测试。断言戳的测试可能不止 refresh 一个文件（lesson-mistakes、math-practice 等），侦查后把实际改动的测试文件补进本列表。"

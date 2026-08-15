@@ -14,6 +14,7 @@
                 title: String(source.title || '').trim(),
                 author: String(source.author || '').trim(),
                 lines: lines,
+                meaning: String(source.meaning || '').trim(),
                 level: String(source.level || 'L1').trim() || 'L1'
             };
         }).filter(function (item) {

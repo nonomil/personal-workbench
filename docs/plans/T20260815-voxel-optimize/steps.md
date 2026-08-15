@@ -57,6 +57,7 @@
 
 ### 6. 回归（R9）
 
+- [ ] **更新缓存戳**：`prj/games/voxel-adventure/index.html` 中 `game.js?v=` 与 `workbench-bridge.js?v=`（现为 `20260815-weekly-v1`）都改为新戳；花园/横版页对 bridge 是**无戳引用**（不用改文件，但步骤 7 冒烟前浏览器要强刷 Ctrl+F5）；若测试有戳断言一并更新
 - [ ] `node --test tests/world-games.test.mjs`
 - [ ] `npm test`
 - **验证：** 退出码 0（预期 238+新增）；voxel 合同关键词（quest/inventory/breakBlock/placeBlock）仍在

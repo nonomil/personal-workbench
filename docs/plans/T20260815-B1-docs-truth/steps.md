@@ -1,6 +1,6 @@
 # T20260815-B1 — 文档回真步骤
 
-> 优先级：P0 | 状态：pending | 前置：execution-check 放行
+> 优先级：P0 | 状态：review | 前置：execution-check 放行
 > 单阶段包，按序执行。验证以退出码为准：`exit 0` 通过。
 
 ## 目标

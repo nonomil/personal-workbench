@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#e54139">
     <title>横版闯关 · 成长关卡</title>
     <link rel="stylesheet" href="../shared/growth-hud.css">
-    <link rel="stylesheet" href="./game.css?v=20260814-wide-v1">
+    <link rel="stylesheet" href="./game.css?v=20260815-s2-v1">
 </head>
 <body data-world-game="platform-quest">
     <header class="world-bar">
@@ -17,6 +17,7 @@
         </div>
         <div class="growth-hud" id="wallet-hud"></div>
         <div class="world-bar-actions">
+            <button type="button" class="mod-badge" id="mod-badge" title="多认字可以解锁更快的怪和更多阳光">难度 · 统一</button>
             <button type="button" class="world-tool" id="map-btn">关卡</button>
             <button type="button" class="world-tool" id="fullscreen-btn">全屏</button>
             <a class="world-back" id="back-link" href="../../preschool-workbench/index.html?theme=platform-quest#overview">返回工作台</a>
@@ -24,7 +25,7 @@
     </header>
     <main class="world-shell">
         <section class="world-panel" id="panel-map">
-            <h2 class="panel-title">选关 · 10 <small class="tip" id="progress-tip">加载中…</small></h2>
+            <h2 class="panel-title">选关 · <span id="level-total">14</span> <small class="tip" id="progress-tip">加载中…</small></h2>
             <div class="stage-map" id="level-map"></div>
         </section>
         <section class="world-panel is-hidden" id="panel-play">
@@ -37,12 +38,19 @@
                 <span>姿势 <b id="pose-label">站立</b></span>
                 <span>状态 <b id="run-status">准备</b></span>
             </div>
-            <canvas id="world-canvas" width="960" height="480" aria-label="横版闯关画布"></canvas>
+            <div class="play-stage">
+                <canvas id="world-canvas" width="960" height="480" aria-label="横版闯关画布"></canvas>
+                <div class="companion-hud" id="companion-hud" aria-live="polite">
+                    <img src="../../assets/generated/preschool-pixel/published/star-companion.png?v=20260815-s1" alt="星芒" onerror="this.replaceWith(Object.assign(document.createElement('b'),{textContent:'🦄'}))">
+                    <span class="companion-say" id="companion-say"></span>
+                </div>
+            </div>
             <div class="control-row control-row-desktop">
                 <button type="button" data-hold="left">左跑</button>
                 <button type="button" data-action="jump">跳跃</button>
                 <button type="button" data-hold="right">右跑</button>
                 <button type="button" data-hold="run">奔跑</button>
+                <button type="button" data-hold="down">下钻</button>
                 <button type="button" id="restart-btn">重开</button>
                 <button type="button" id="back-map-btn">地图</button>
             </div>
@@ -56,14 +64,30 @@
         <div class="touch-pad-right">
             <button type="button" class="touch-btn touch-btn-jump" data-action="jump" aria-label="跳跃">⬆</button>
             <button type="button" class="touch-btn touch-btn-run" data-hold="run" aria-label="奔跑">跑</button>
+            <button type="button" class="touch-btn" data-hold="down" aria-label="下钻">⬇</button>
         </div>
     </div>
     <div class="toast-game" id="toast"></div>
-    <script src="../shared/workbench-bridge.js"></script>
+    <div class="settle-layer is-hidden" id="settle-layer" role="dialog" aria-label="本局结算">
+        <div class="settle-card">
+            <h3 id="settle-title">通关！</h3>
+            <p class="settle-gain" id="settle-gain"></p>
+            <div class="settle-progress">
+                <p id="settle-progress-label"></p>
+                <div class="settle-bar"><span id="settle-bar-fill"></span></div>
+            </div>
+            <p class="settle-goal" id="settle-goal"></p>
+            <div class="settle-actions">
+                <button type="button" id="settle-close-btn">继续</button>
+            </div>
+        </div>
+    </div>
+    <script src="../shared/workbench-bridge.js?v=20260815-sfx-v1"></script>
+    <script src="../shared/game-sfx.js?v=20260815-sfx-v1"></script>
     <script src="../voxel-adventure/pixel-tiles.js?v=20260814-art-v2"></script>
-    <script src="./pixel-decor.js?v=20260814-art-v1"></script>
+    <script src="./pixel-decor.js?v=20260815-ball-v1"></script>
     <script src="./data/physics.js?v=20260814-ground-v1"></script>
-    <script src="./data/levels.js?v=20260814-blocks-v2"></script>
-    <script src="./game.js?v=20260814-bump-break-v2"></script>
+    <script src="./data/levels.js?v=20260815-cast-v2"></script>
+    <script src="./game.js?v=20260815-cast-v2"></script>
 </body>
 </html>

@@ -2,24 +2,24 @@
    The page remains a readable dashboard; the theme supplies color, borders,
    shallow world decoration, and semantic asset aliases. */
 body.variant-preschool[data-preschool-theme] {
-    --theme-bg: #eef7ed;
-    --theme-surface: #fffdf8;
-    --theme-surface-soft: #f4faef;
-    --theme-border: #cfe2c6;
-    --theme-border-strong: #8bbd78;
-    --theme-ink: #294f36;
-    --theme-muted: #6c816e;
-    --theme-accent: #38894f;
-    --theme-accent-deep: #1f6038;
-    --theme-highlight: #ffd452;
-    --theme-sidebar: linear-gradient(180deg, #3b286f 0%, #1f4d3c 100%);
-    --theme-sidebar-ink: #f5f9df;
-    --theme-sidebar-muted: #c3d6b9;
-    --theme-banner: linear-gradient(112deg, #a6e2ee 0%, #72c7e2 43%, #8ccf77 100%);
-    --theme-banner-border: #78b965;
+    --theme-bg: #f0f3ea;
+    --theme-surface: #fffefa;
+    --theme-surface-soft: #f3f6ee;
+    --theme-border: rgba(90, 110, 96, .18);
+    --theme-border-strong: #6fa893;
+    --theme-ink: #2d3e36;
+    --theme-muted: #6b7a70;
+    --theme-accent: #6fa893;
+    --theme-accent-deep: #476352;
+    --theme-highlight: #d4b96a;
+    --theme-sidebar: linear-gradient(180deg, #476352 0%, #2d3e36 100%);
+    --theme-sidebar-ink: #e7efe8;
+    --theme-sidebar-muted: #b7c9ba;
+    --theme-banner: linear-gradient(112deg, #b8dfe4 0%, #8fc9d8 43%, #a5cf96 100%);
+    --theme-banner-border: rgba(90, 110, 96, .25);
     --theme-task: #fffefa;
-    --theme-task-done: #edf8e6;
-    --theme-shadow: 0 12px 28px rgba(41, 79, 54, .11);
+    --theme-task-done: #eef4e9;
+    --theme-shadow: 0 1px 2px rgba(75, 95, 82, .06), 0 12px 30px rgba(75, 95, 82, .1);
     background: var(--theme-bg);
     color: var(--theme-ink);
 }
@@ -113,6 +113,15 @@ body.variant-preschool[data-preschool-theme] .preschool-nav-art {
     flex: 0 0 33px;
     object-fit: contain;
     filter: drop-shadow(0 2px 0 rgba(15, 26, 41, .2));
+}
+
+body.variant-preschool[data-preschool-theme] svg.preschool-nav-art {
+    width: 22px;
+    height: 22px;
+    flex-basis: 22px;
+    stroke: currentColor;
+    fill: none;
+    filter: none;
 }
 
 body.variant-preschool[data-preschool-theme] .nav-item span {
@@ -445,22 +454,22 @@ body.variant-preschool[data-preschool-theme] .preschool-defense-bottom {
 }
 
 body.variant-preschool[data-preschool-theme='voxel-adventure'] {
-    --theme-bg: #eef1fb;
-    --theme-surface: #fffdf6;
-    --theme-surface-soft: #f7f2df;
-    --theme-border: #d5c49b;
-    --theme-border-strong: #ae8d4a;
-    --theme-ink: #2c315c;
-    --theme-muted: #717089;
-    --theme-accent: #6950c8;
-    --theme-accent-deep: #3e2d88;
-    --theme-highlight: #ffd24b;
-    --theme-sidebar: linear-gradient(180deg, #24205d 0%, #151741 100%);
-    --theme-banner: linear-gradient(180deg, #39b8ef 0%, #b8e7ee 68%, #73b950 69%, #5c9d44 100%);
-    --theme-banner-border: #397bc0;
-    --theme-task: #fffdf2;
-    --theme-task-done: #f0f5d9;
-    --theme-shadow: 0 7px 0 rgba(83, 61, 32, .11), 0 13px 24px rgba(42, 43, 92, .1);
+    --theme-bg: #eff0f6;
+    --theme-surface: #fffdf8;
+    --theme-surface-soft: #f2f1f8;
+    --theme-border: rgba(88, 82, 140, .18);
+    --theme-border-strong: #7a6fc0;
+    --theme-ink: #33345c;
+    --theme-muted: #75759a;
+    --theme-accent: #7a6fc0;
+    --theme-accent-deep: #4a3f8f;
+    --theme-highlight: #e5b83f;
+    --theme-sidebar: linear-gradient(180deg, #3d3878 0%, #26234f 100%);
+    --theme-banner: linear-gradient(180deg, #6fc3e8 0%, #c2e9f0 68%, #7cc061 69%, #64a850 100%);
+    --theme-banner-border: rgba(88, 82, 140, .25);
+    --theme-task: #fffdf8;
+    --theme-task-done: #eef0e8;
+    --theme-shadow: 0 1px 2px rgba(80, 74, 140, .06), 0 12px 30px rgba(80, 74, 140, .11);
 }
 
 body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-theme-banner,
@@ -488,22 +497,22 @@ body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-b
 }
 
 body.variant-preschool[data-preschool-theme='platform-quest'] {
-    --theme-bg: #eaf5fb;
-    --theme-surface: #fffefa;
-    --theme-surface-soft: #f7fbff;
-    --theme-border: #d6dbe7;
-    --theme-border-strong: #e0a52e;
-    --theme-ink: #3e2c41;
-    --theme-muted: #777183;
-    --theme-accent: #e54139;
-    --theme-accent-deep: #a82825;
-    --theme-highlight: #ffd02f;
-    --theme-sidebar: linear-gradient(180deg, #c82d2c 0%, #8e1c31 100%);
-    --theme-banner: linear-gradient(180deg, #47c9f1 0%, #b8eff9 64%, #6ec34f 65%, #4b9b3b 100%);
-    --theme-banner-border: #e0a52e;
+    --theme-bg: #faf6ec;
+    --theme-surface: #fffdf7;
+    --theme-surface-soft: #f6f1e2;
+    --theme-border: rgba(133, 102, 38, .16);
+    --theme-border-strong: #c99a44;
+    --theme-ink: #4a4132;
+    --theme-muted: #8d8270;
+    --theme-accent: #c99a44;
+    --theme-accent-deep: #856626;
+    --theme-highlight: #d4b96a;
+    --theme-sidebar: linear-gradient(180deg, #96742f 0%, #6b5322 100%);
+    --theme-banner: linear-gradient(180deg, #7ec8e8 0%, #cdeef5 64%, #8cc463 65%, #6aa348 100%);
+    --theme-banner-border: rgba(133, 102, 38, .25);
     --theme-task: #fffefa;
-    --theme-task-done: #eff9e9;
-    --theme-shadow: 0 7px 0 rgba(114, 69, 34, .11), 0 13px 24px rgba(88, 91, 125, .1);
+    --theme-task-done: #f3eedd;
+    --theme-shadow: 0 1px 2px rgba(133, 102, 38, .06), 0 12px 30px rgba(133, 102, 38, .1);
 }
 
 body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-theme-banner::after {
@@ -512,8 +521,8 @@ body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-theme-b
     right: 19%;
     width: 75px;
     height: 21px;
-    border: 3px solid #b84c23;
-    background: repeating-linear-gradient(90deg, #f08b20 0 19px, #c9501d 19px 22px);
+    border: 3px solid #a8743a;
+    background: repeating-linear-gradient(90deg, #e0a552 0 19px, #b9822f 19px 22px);
     box-shadow: 0 26px 0 -3px #6dbb40;
     content: '';
 }

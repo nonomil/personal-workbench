@@ -2,7 +2,7 @@
     'use strict';
 
     const STREAK_REWARDS = [
-        { id: 'streak-1', days: 1, title: '第一颗星', description: '完成第一天打卡，给自己一束小阳光。', kind: 'sunlight', amount: 10, icon: 'star' },
+        { id: 'streak-1', days: 1, title: '第一颗星', description: '完成第一天点亮，给自己一束小阳光。', kind: 'sunlight', amount: 10, icon: 'star' },
         { id: 'streak-3', days: 3, title: '三日小火苗', description: '连续三天行动，解锁闪闪造型。', kind: 'style', styleId: 'style-sparkle', icon: 'sparkles' },
         { id: 'streak-7', days: 7, title: '七日小花园', description: '连续一周行动，获得一份额外阳光。', kind: 'sunlight', amount: 30, icon: 'flower-2' },
         { id: 'streak-14', days: 14, title: '两周守护者', description: '连续两周完成，解锁彩虹造型。', kind: 'style', styleId: 'style-rainbow', icon: 'rainbow' },

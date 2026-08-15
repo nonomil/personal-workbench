@@ -1,0 +1,51 @@
+/* 36 · 纸感柔光：世界素材低透明嵌入（萌宠冒险岛手法） */
+body.variant-preschool[data-preschool-theme] .main-content {
+    position: relative;
+}
+
+body.variant-preschool[data-preschool-theme] .main-content > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* 阳光花园：草坪全景大图垫在主区域顶部，渐隐 */
+body.variant-preschool[data-preschool-theme='garden-defense'] .main-content::before {
+    content: '';
+    position: absolute; inset: 0 0 auto 0; height: 320px;
+    background: url("../../assets/generated/preschool-pvz-2d/background/published/pvz-garden-lawn-bg.webp") center top / cover no-repeat;
+    opacity: .12;
+    filter: saturate(.65) brightness(1.05);
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 0%, transparent 100%);
+    pointer-events: none;
+}
+
+/* 方块探险：草方块 + 紫水晶角落漂浮 */
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .main-content::before {
+    content: '';
+    position: absolute; top: 24px; right: 36px; width: 84px; height: 84px;
+    background: url("../../assets/generated/preschool-theme-assets/voxel-v1/published/voxel-grass-block.webp") center / contain no-repeat;
+    opacity: .14; filter: saturate(.8); transform: rotate(6deg); pointer-events: none;
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .main-content::after {
+    content: '';
+    position: absolute; bottom: 40px; right: 130px; width: 60px; height: 60px;
+    background: url("../../assets/generated/preschool-theme-assets/voxel-v1/published/voxel-purple-crystal.webp") center / contain no-repeat;
+    opacity: .11; filter: saturate(.8); transform: rotate(-8deg); pointer-events: none;
+}
+
+/* 彩虹闯关：砖块 + 金币角落漂浮 */
+body.variant-preschool[data-preschool-theme='platform-quest'] .main-content::before {
+    content: '';
+    position: absolute; top: 24px; right: 36px; width: 84px; height: 84px;
+    background: url("../../assets/generated/preschool-theme-assets/platform-v1/published/platform-brick.webp") center / contain no-repeat;
+    opacity: .14; filter: saturate(.8); transform: rotate(6deg); pointer-events: none;
+}
+
+body.variant-preschool[data-preschool-theme='platform-quest'] .main-content::after {
+    content: '';
+    position: absolute; bottom: 40px; right: 130px; width: 56px; height: 56px;
+    background: url("../../assets/generated/preschool-theme-assets/platform-v1/published/platform-coin.webp") center / contain no-repeat;
+    opacity: .11; filter: saturate(.8); transform: rotate(-8deg); pointer-events: none;
+}

@@ -554,3 +554,103 @@ body.mc-embed .mc-view #world-canvas {
     overflow: auto;
     color: #2a1a10;
 }
+
+.hotbar-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    background: #111;
+}
+
+.companion-hud {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px 10px 0;
+    flex: 0 0 auto;
+}
+.companion-hud img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .35));
+}
+.companion-hud b { font-size: 30px; }
+.companion-say {
+    max-width: 36vw;
+    padding: 6px 10px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #2a1a10;
+    background: rgba(255, 244, 214, .95);
+    border: 2px solid #5c3012;
+    border-radius: 12px 12px 12px 4px;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity .25s, transform .25s;
+}
+.companion-say.is-on { opacity: 1; transform: none; }
+
+.settle-layer,
+.celebrate-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: rgba(24, 18, 12, .55);
+}
+.settle-layer.is-hidden,
+.celebrate-layer.is-hidden { display: none; }
+
+.settle-card {
+    width: min(420px, 100%);
+    padding: 20px;
+    text-align: center;
+    background: #fff4d6;
+    border: 3px solid #5c3012;
+    border-radius: 20px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, .25);
+}
+.settle-card h3 { margin: 0 0 8px; font-size: 22px; color: #2a1a10; }
+.settle-gain { margin: 4px 0; font-size: 16px; font-weight: 800; color: #c77800; }
+.settle-companion { margin: 4px 0; font-size: 13px; color: #6a4a2a; }
+.settle-progress p { margin: 8px 0 4px; font-size: 13px; font-weight: 700; color: #2a1a10; }
+.settle-bar { height: 10px; background: rgba(92, 48, 18, .15); border-radius: 999px; overflow: hidden; }
+.settle-bar span { display: block; height: 100%; background: linear-gradient(90deg, #5dade2, #ffb347); border-radius: 999px; }
+.settle-goal { margin: 10px 0 4px; font-size: 13px; font-weight: 700; color: #5c3012; }
+.settle-actions { display: flex; gap: 10px; justify-content: center; margin-top: 12px; }
+.settle-actions button,
+.celebrate-card button {
+    min-height: 44px;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 800;
+    color: #fff4d6;
+    background: #3d5ccc;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+.celebrate-card {
+    width: min(320px, 100%);
+    padding: 24px 20px;
+    text-align: center;
+    background: radial-gradient(circle at 50% 20%, #fff6d8, #fff4d6 70%);
+    border: 3px solid #ffce54;
+    border-radius: 24px;
+    box-shadow: 0 0 40px rgba(255, 206, 84, .55);
+}
+.celebrate-card img { width: 84px; height: 84px; object-fit: contain; }
+.celebrate-card b { font-size: 48px; }
+.celebrate-kicker { margin: 6px 0 0; font-size: 12px; font-weight: 800; letter-spacing: .12em; color: #c77800; }
+.celebrate-card h3 { margin: 4px 0; font-size: 24px; color: #2a1a10; }
+.celebrate-sub { margin: 2px 0 12px; font-size: 14px; font-weight: 700; color: #6a4a2a; }
+
+@media (max-width: 560px) {
+    .companion-say { max-width: 42vw; font-size: 11px; }
+    .companion-hud img { width: 40px; height: 40px; }
+}

@@ -10,6 +10,7 @@
       "夜来风雨声",
       "花落知多少"
     ],
+    "meaning": "春天的早晨睡得真香，醒来到处听见小鸟叫。想想昨晚的风雨，不知道吹落了多少花。",
     "source": {
       "kind": "project-original",
       "license": "project-original",
@@ -28,6 +29,7 @@
       "举头望明月",
       "低头思故乡"
     ],
+    "meaning": "晚上看见床前亮亮的月光，李白抬起头看月亮，低下头就想起了远方的家。",
     "source": {
       "kind": "project-original",
       "license": "project-original",
@@ -46,6 +48,7 @@
       "白毛浮绿水",
       "红掌拨清波"
     ],
+    "meaning": "大白鹅弯着长长的脖子对天唱歌，白白的羽毛浮在绿绿的水上，红红的脚掌拨着水游。",
     "source": {
       "kind": "project-original",
       "license": "project-original",
@@ -64,6 +67,7 @@
       "谁知盘中餐",
       "粒粒皆辛苦"
     ],
+    "meaning": "农民伯伯顶着大太阳锄地，汗珠滴进土里。碗里的每一粒米饭，都来得不容易。",
     "source": {
       "kind": "project-original",
       "license": "project-original",
@@ -82,6 +86,7 @@
       "小荷才露尖尖角",
       "早有蜻蜓立上头"
     ],
+    "meaning": "小泉眼悄悄地流着水，小荷叶刚刚露出尖尖角，就有一只蜻蜓停在上面了。",
     "source": {
       "kind": "project-original",
       "license": "project-original",
@@ -100,6 +105,7 @@
       "停车坐爱枫林晚",
       "霜叶红于二月花"
     ],
+    "meaning": "秋天的山里，杜牧停下车看枫树林，被霜打过的红叶，比二月的花还要红。",
     "source": {
       "kind": "project-original",
       "license": "project-original",
@@ -118,6 +124,7 @@
       "桃花潭水深千尺",
       "不及汪伦送我情"
     ],
+    "meaning": "李白坐船要走了，好朋友汪伦踏着歌声来送他。桃花潭水再深，也比不上朋友的感情深。",
     "source": {
       "kind": "project-original",
       "license": "project-original",
@@ -136,6 +143,7 @@
       "临行密密缝",
       "意恐迟迟归"
     ],
+    "meaning": "妈妈拿着针线，给要出远门的孩子密密地缝衣服。妈妈的爱像春天的太阳，怎么也报答不完。",
     "source": {
       "kind": "project-original",
       "license": "project-original",
@@ -154,6 +162,7 @@
       "欲穷千里目",
       "更上一层楼"
     ],
+    "meaning": "太阳靠着山落下，黄河流进大海。想看得更远，就要再上一层楼。",
     "source": {
       "kind": "public-domain",
       "license": "public-domain",
@@ -172,6 +181,7 @@
       "四海无闲田",
       "农夫犹饿死"
     ],
+    "meaning": "春天种下一粒种子，秋天能收很多很多粮食。可是种地的农夫还会挨饿，所以我们要爱惜粮食。",
     "source": {
       "kind": "public-domain",
       "license": "public-domain",
@@ -190,6 +200,7 @@
       "又疑瑶台镜",
       "飞在青云端"
     ],
+    "meaning": "小时候不认识月亮，把它叫作白玉盘，又觉得它像一面会飞的镜子。",
     "source": {
       "kind": "public-domain",
       "license": "public-domain",
@@ -208,6 +219,7 @@
       "过江千尺浪",
       "入竹万竿斜"
     ],
+    "meaning": "风能吹落秋天的叶子，能吹开春天的花，吹过江面掀起大浪，吹进竹林让竹子弯腰。",
     "source": {
       "kind": "public-domain",
       "license": "public-domain",
@@ -226,6 +238,7 @@
       "亭台六七座",
       "八九十枝花"
     ],
+    "meaning": "走一走二三里路，看见四五户人家、六七座亭子，还有八九十枝花。诗里藏着数字一到十。",
     "source": {
       "kind": "public-domain",
       "license": "public-domain",
@@ -244,6 +257,7 @@
       "不解藏踪迹",
       "浮萍一道开"
     ],
+    "meaning": "一个小孩划着小船，偷偷采了白莲回来。他不知道藏起来，水面的浮萍留下了一条小路。",
     "source": {
       "kind": "public-domain",
       "license": "public-domain",
@@ -262,6 +276,7 @@
       "春去花还在",
       "人来鸟不惊"
     ],
+    "meaning": "远远看山有颜色，走近听水没有声音；春天过去花还在，人来了鸟也不飞。原来这是一幅画。",
     "source": {
       "kind": "public-domain",
       "license": "public-domain",
@@ -283,6 +298,7 @@
       "鱼戏莲叶南",
       "鱼戏莲叶北"
     ],
+    "meaning": "江南到了采莲的时候，莲叶挨挨挤挤。小鱼在莲叶中间游来游去，一会儿东一会儿西。",
     "source": {
       "kind": "public-domain",
       "license": "public-domain",
@@ -301,6 +317,7 @@
       "天苍苍野茫茫",
       "风吹草低见牛羊"
     ],
+    "meaning": "阴山脚下的大草原，天空像一个大大的帐篷。风一吹草弯下腰，就看见了成群的牛羊。",
     "source": {
       "kind": "public-domain",
       "license": "public-domain",
@@ -319,6 +336,7 @@
       "野火烧不尽",
       "春风吹又生"
     ],
+    "meaning": "草原上的草一年枯萎一次又绿一次，野火烧也烧不完，春风一吹又长出来了。",
     "source": {
       "kind": "public-domain",
       "license": "public-domain",
@@ -337,6 +355,7 @@
       "飞流直下三千尺",
       "疑是银河落九天"
     ],
+    "meaning": "太阳照着香炉峰升起紫色的烟，瀑布从很高的地方飞流直下，好像银河从天上落下来。",
     "source": {
       "kind": "public-domain",
       "license": "public-domain",
@@ -355,6 +374,7 @@
       "两岸猿声啼不住",
       "轻舟已过万重山"
     ],
+    "meaning": "早晨告别彩云里的白帝城，小船顺流而下飞快，一天就到了千里外的江陵。",
     "source": {
       "kind": "public-domain",
       "license": "public-domain",
@@ -373,6 +393,7 @@
       "两岸青山相对出",
       "孤帆一片日边来"
     ],
+    "meaning": "长江像一把利剑劈开天门山，绿色的江水在这里转弯，一片小船帆从太阳那边漂过来。",
     "source": {
       "kind": "public-domain",
       "license": "public-domain",
@@ -391,6 +412,7 @@
       "莫愁前路无知己",
       "天下谁人不识君"
     ],
+    "meaning": "北风大雪里送别朋友董大。别发愁，你这么有名，天下谁不认识你呢？",
     "source": {
       "kind": "public-domain",
       "license": "public-domain",
@@ -409,6 +431,7 @@
       "窗含西岭千秋雪",
       "门泊东吴万里船"
     ],
+    "meaning": "两只黄鹂在绿柳树上唱歌，一行白鹭飞上蓝天。窗外看得见千年不化的雪山，门口停着远方来的船。",
     "source": {
       "kind": "public-domain",
       "license": "public-domain",
@@ -427,6 +450,7 @@
       "孤舟蓑笠翁",
       "独钓寒江雪"
     ],
+    "meaning": "大雪天，山上没有鸟飞，路上没有人走。只有一位老爷爷披着蓑衣，独自在江边钓鱼。",
     "source": {
       "kind": "public-domain",
       "license": "public-domain",
@@ -445,6 +469,7 @@
       "只在此山中",
       "云深不知处"
     ],
+    "meaning": "贾岛去山里找一位隐者，松树下的童子说：师傅采药去了，就在这座山里，可是云太深找不到。",
     "source": {
       "kind": "public-domain",
       "license": "public-domain",
@@ -463,6 +488,7 @@
       "姑苏城外寒山寺",
       "夜半钟声到客船"
     ],
+    "meaning": "月亮落下、乌鸦啼叫的夜晚，船停在枫桥边。半夜，城外寒山寺的钟声传到了船上。",
     "source": {
       "kind": "public-domain",
       "license": "public-domain",
@@ -481,6 +507,7 @@
       "但使龙城飞将在",
       "不教胡马度阴山"
     ],
+    "meaning": "月亮还是秦汉时候的月亮，守边的战士还没有回家。盼望着有英雄将军守住边关。",
     "source": {
       "kind": "public-domain",
       "license": "public-domain",
@@ -499,6 +526,7 @@
       "羌笛何须怨杨柳",
       "春风不度玉门关"
     ],
+    "meaning": "黄河好像流到了白云中间，一座孤城立在高山下。春风吹不到玉门关，边塞又远又荒凉。",
     "source": {
       "kind": "public-domain",
       "license": "public-domain",
@@ -517,6 +545,7 @@
       "遥知兄弟登高处",
       "遍插茱萸少一人"
     ],
+    "meaning": "重阳节到了，王维一个人在外地，特别想念远方的兄弟们。",
     "source": {
       "kind": "public-domain",
       "license": "public-domain",
@@ -535,6 +564,7 @@
       "儿童相见不相识",
       "笑问客从何处来"
     ],
+    "meaning": "贺知章老了才回到家乡，口音没变，头发却白了。村里的孩子不认识他，笑着问：客人你从哪里来？",
     "source": {
       "kind": "public-domain",
       "license": "public-domain",
@@ -553,6 +583,7 @@
       "路人借问遥招手",
       "怕得鱼惊不应人"
     ],
+    "meaning": "一个小孩学着大人的样子钓鱼，坐在草里侧着身子。路人问路他远远招手，怕吓跑了鱼不敢说话。",
     "source": {
       "kind": "public-domain",
       "license": "public-domain",
@@ -571,6 +602,7 @@
       "意欲捕鸣蝉",
       "忽然闭口立"
     ],
+    "meaning": "牧童骑在黄牛背上唱歌，忽然看见一只知了，想捉住它，就马上闭嘴站着不动了。",
     "source": {
       "kind": "public-domain",
       "license": "public-domain",
@@ -589,6 +621,7 @@
       "遥知不是雪",
       "为有暗香来"
     ],
+    "meaning": "冬天墙角有几枝梅花，冒着寒冷独自开放。远远闻见香味，才知道那不是雪。",
     "source": {
       "kind": "public-domain",
       "license": "public-domain",
@@ -607,6 +640,7 @@
       "千门万户曈曈日",
       "总把新桃换旧符"
     ],
+    "meaning": "过年啦！放鞭炮、喝屠苏酒，千家万户把旧桃符换成新的，热热闹闹迎接新年。",
     "source": {
       "kind": "public-domain",
       "license": "public-domain",

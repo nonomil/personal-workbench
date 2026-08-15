@@ -1,0 +1,179 @@
+/* 36 · 学习专区中间层：墙卡今日预览 + 更多练习菜单 + 家长详情折叠 */
+
+.preschool-course-wall-preview {
+    display: block;
+    max-width: 100%;
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #5c7350;
+    overflow-wrap: anywhere;
+}
+
+.preschool-course-menu {
+    display: grid;
+    gap: 12px;
+    min-width: 0;
+}
+
+.preschool-course-menu-home,
+.preschool-course-menu .preschool-flashcard-lesson,
+.preschool-course-menu-chip,
+.preschool-course-more-lessons > summary,
+.preschool-course-parent-detail > summary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    width: 100%;
+    padding: 10px 16px;
+    border-radius: 16px;
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.preschool-course-menu-shortcuts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+}
+
+.preschool-course-menu-chip {
+    border: 2px solid rgba(63, 162, 92, 0.35);
+    background: #ffffff;
+    color: #2c7a45;
+}
+
+.preschool-course-more-lessons,
+.preschool-course-parent-detail {
+    min-width: 0;
+    border-radius: 18px;
+    background: #ffffff;
+    border: 2px solid rgba(63, 162, 92, 0.22);
+    overflow: hidden;
+}
+
+.preschool-course-more-lessons > summary,
+.preschool-course-parent-detail > summary {
+    list-style: none;
+    justify-content: flex-start;
+    background: #f7faf3;
+    color: #23422c;
+}
+
+.preschool-course-more-lessons > summary::-webkit-details-marker,
+.preschool-course-parent-detail > summary::-webkit-details-marker {
+    display: none;
+}
+
+.preschool-course-menu-lessons {
+    display: grid;
+    gap: 10px;
+    padding: 12px;
+}
+
+.preschool-course-parent-detail > .preschool-course-card {
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+@media (max-width: 760px) {
+    .preschool-course-menu-shortcuts { grid-template-columns: 1fr; }
+}
+
+.preschool-course-wall-extras {
+    margin-top: 22px;
+    min-width: 0;
+}
+
+.preschool-course-wall-extras-title {
+    margin: 0 0 12px;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #23422c;
+}
+
+.preschool-course-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin: 0 0 14px;
+    min-width: 0;
+}
+
+.preschool-course-tab {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 8px 10px;
+    border: 2px solid rgba(63, 162, 92, 0.28);
+    border-radius: 16px;
+    background: #ffffff;
+    color: #2c7a45;
+    font-size: 0.95rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.preschool-course-tab.is-active {
+    background: #eaf7ea;
+    border-color: #3fa25c;
+    color: #1f4a2a;
+}
+
+.preschool-course-media-pane,
+.preschool-course-media-empty {
+    display: grid;
+    gap: 12px;
+    min-width: 0;
+}
+
+.preschool-course-media-empty {
+    padding: 18px 16px;
+    border-radius: 18px;
+    background: #ffffff;
+    border: 2px solid rgba(63, 162, 92, 0.22);
+}
+
+@media (max-width: 390px) {
+    .preschool-course-wall-extras .preschool-course-wall { grid-template-columns: 1fr; }
+    .preschool-course-tabs { gap: 6px; }
+    .preschool-course-tab { font-size: 0.88rem; padding: 8px 6px; }
+}
+
+.preschool-course-menu-grid {
+    margin-top: 0;
+}
+
+.preschool-course-menu-card .preschool-media-cover-wrap {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 4 / 3;
+    background: #eaf7ea;
+}
+
+.preschool-course-menu-card .preschool-media-cover-wrap img,
+.preschool-course-menu-card .preschool-media-cover-wrap svg {
+    width: 58%;
+    height: 58%;
+    object-fit: contain;
+}
+
+.preschool-course-menu-card.is-level .preschool-flashcard-levels {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0 12px 12px;
+}
+
+.preschool-course-menu-card.is-level .preschool-flashcard-level {
+    min-height: 36px;
+    padding: 6px 10px;
+    width: auto;
+}

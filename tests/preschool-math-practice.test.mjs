@@ -125,6 +125,35 @@ test('settings and math lessons read the selected practice band', () => {
     assert.doesNotMatch(app, /一年级|二年级/);
     assert.match(config, /口算级别在设置里选|100 以内/);
     assert.match(html, /preschool-math-bank\.js\?v=20260814-math-bands-v2/);
-    assert.match(html, /preschool-garden\.js\?v=20260814-zombie-pace-v1/);
-    assert.match(html, /app\.js\?v=20260815-flashcards-v1/);
+    assert.match(html, /preschool-garden\.js\?v=20260815-s2-v1/);
+    assert.match(html, /app\.js\?v=20260815-english-auto-v1/);
+});
+
+test('garden stores per-subject practice levels without grade labels or a new storage key', () => {
+    const growth = gardenEngine.normalize({});
+    assert.equal(growth.garden.practiceLevels.literacy, 'L1');
+    assert.equal(growth.garden.practiceLevels.english, 'L1');
+    assert.equal(growth.garden.practiceLevels.pinyin, 'L1');
+    assert.equal(growth.garden.practiceLevels.poetry, 'L1');
+    assert.equal(growth.garden.practiceLevels.phonics, 'L1');
+    assert.equal(growth.garden.practiceLevels.math, 'L1');
+    assert.equal(growth.garden.practiceLevels.motion, 'L1');
+    const next = gardenEngine.setPracticeLevel(growth, 'literacy', 'L3');
+    assert.equal(next.ok, true);
+    assert.equal(next.growth.garden.practiceLevels.literacy, 'L3');
+    assert.equal(next.growth.garden.practiceLevels.english, 'L1');
+    const bad = gardenEngine.setPracticeLevel(growth, 'literacy', '一年级');
+    assert.equal(bad.ok, false);
+    const legacy = gardenEngine.normalize({ garden: { practiceLevels: { literacy: 'L4', english: 'grade-2' } } });
+    assert.equal(legacy.garden.practiceLevels.literacy, 'L4');
+    assert.equal(legacy.garden.practiceLevels.english, 'L1');
+});
+
+test('settings and today cards read the selected subject practice level', () => {
+    const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+    assert.match(app, /renderPreschoolPracticeLevelSettings/);
+    assert.match(app, /set-practice-level/);
+    assert.match(app, /getPracticeLevelForCourse/);
+    assert.match(app, /preschool-flashcard-levels/);
+    assert.doesNotMatch(app, /一年级|二年级|年级/);
 });

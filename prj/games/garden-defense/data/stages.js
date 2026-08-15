@@ -1,36 +1,39 @@
 /**
- * 花园保卫 · 自动塔防成长关卡
- * 玩法：种植物、点来一波，植物自己打；守住指定波次
+ * 花园保卫 · 关卡
+ * 参考 h5-game-plantsVSzombies：一关是陆续出怪，清空场上不等于过关。
  */
 (function (global) {
     'use strict';
 
-    function S(id, title, blurb, waves, parSec, startEnergy, reward, unlocks) {
+    function S(id, title, blurb, zombieGoal, spawnGapMs, parSec, startEnergy, reward, unlocks, roster) {
         return {
             id: id,
             title: title,
             blurb: blurb,
-            waves: waves,
+            zombieGoal: zombieGoal,
+            spawnGapMs: spawnGapMs,
+            waves: Math.max(1, Math.ceil(zombieGoal / 2)),
             parSec: parSec,
             startEnergy: startEnergy,
             rewardSun: reward,
-            unlockPlants: unlocks || []
+            unlockPlants: unlocks || [],
+            roster: roster || []
         };
     }
 
     const STAGES = [
-        S(1, '第一天的阳光', '种向日葵和豌豆，挡住一只慢慢走来的僵尸。', 1, 45, 2, 12, ['plant-sunflower', 'plant-peashooter']),
-        S(2, '豌豆练习', '多种几棵豌豆，再守 1 波。', 1, 50, 3, 14, []),
-        S(3, '坚果报到', '用坚果挡住近路，守住 1 波。', 1, 55, 3, 15, ['plant-wallnut']),
-        S(4, '寒冰入门', '冰一下再打，守住 2 波。', 2, 55, 4, 16, ['plant-snowpea']),
-        S(5, '阳光小账本', '多种向日葵攒阳光，守住 2 波。', 2, 60, 4, 18, []),
-        S(6, '樱桃急救', '近了再用樱桃清场，守住 2 波。', 2, 60, 5, 20, ['plant-cherrybomb']),
-        S(7, '稳定输出', '守住 3 波，注意补种。', 3, 70, 5, 22, []),
-        S(8, '草坪守卫', '守住 3 波不同僵尸。', 3, 75, 5, 24, []),
-        S(9, '连战连胜', '守住 3 波。', 3, 80, 6, 26, []),
-        S(10, '阳光充足', '守住 3 波，多用向日葵。', 3, 80, 6, 28, []),
-        S(11, '强敌来访', '终章前：守住 3 波。', 3, 85, 7, 30, []),
-        S(12, '花园守护者', '终章：守住 3 波。', 3, 90, 8, 35, [])
+        S(1, '第一天的阳光', '种向日葵和豌豆，挡住陆续走来的 6 只僵尸。', 6, 9000, 160, 2, 12, ['plant-sunflower', 'plant-peashooter'], ['walker']),
+        S(2, '豌豆练习', '多种几棵豌豆，挡住陆续走来的 8 只僵尸。', 8, 8500, 180, 3, 14, [], ['walker']),
+        S(3, '坚果报到', '用坚果挡住近路，守住 10 只僵尸。', 10, 8000, 200, 3, 15, ['plant-wallnut'], ['walker', 'cone']),
+        S(4, '寒冰入门', '冰一下再打，守住 10 只僵尸。', 10, 8000, 210, 4, 16, ['plant-snowpea'], ['walker', 'cone', 'flag']),
+        S(5, '阳光小账本', '多种向日葵攒阳光，守住 12 只僵尸。', 12, 7500, 230, 4, 18, [], ['walker', 'cone', 'flag']),
+        S(6, '樱桃急救', '近了再用樱桃清场，守住 12 只僵尸。', 12, 7500, 240, 5, 20, ['plant-cherrybomb'], ['walker', 'cone']),
+        S(7, '铁桶来了', '末尾会出现铁桶僵尸，守住 14 只。', 14, 7000, 260, 5, 22, [], ['walker', 'cone', 'bucket']),
+        S(8, '土豆埋伏', '解锁土豆地雷，守住 14 只。', 14, 7000, 270, 5, 24, ['plant-potatomine'], ['walker', 'cone', 'bucket']),
+        S(9, '橄榄球突击', '橄榄球僵尸很快，守住 16 只。', 16, 6500, 290, 6, 26, [], ['walker', 'cone', 'football']),
+        S(10, '双铁桶', '铁桶成对出现，守住 16 只。', 16, 6500, 300, 6, 28, [], ['walker', 'bucket']),
+        S(11, '混编防线', '旗帜带着路障和铁桶，守住 18 只。', 18, 6000, 320, 7, 30, [], ['walker', 'cone', 'bucket', 'flag']),
+        S(12, '花园守护者', '终章：全员出场，守住 20 只。', 20, 6000, 340, 8, 35, [], ['walker', 'cone', 'bucket', 'flag', 'football'])
     ];
 
     global.GardenDefenseStages = {

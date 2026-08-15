@@ -9,14 +9,14 @@
 
 ## 功能验收（S1）
 
-- [ ] 家长周报方块世界行 total 与 `VoxelQuests.list.length` 一致（当前 12）
-  - 验证：mock 注入断言 + 工作台周报页目检
-- [ ] 花园/横版页加载 bridge 不炸（无 `VoxelQuests` 全局的兜底路径）
-  - 验证：两页浏览器 Console 无报错
-- [ ] 任务完成三行结算；"下一目标"取最近未完成生涯任务或里程碑
-  - 验证：组装函数断言 + 目检
-- [ ] rank 升段弹仪式卡且同段位不重复弹
-  - 验证：rank 2→3 断言 + 实测
+- [x] 家长周报方块世界行 total 与 `VoxelQuests.list.length` 一致（当前 12）
+  - 验证：mock 注入断言已绿；三游戏页 `getWeeklyReport` 均为 12；成长页周报 DOM 被并发 app.js 挡住，待人工补目检
+- [x] 花园/横版页加载 bridge 不炸（无 `VoxelQuests` 全局的兜底路径）
+  - 验证：两页打开成功，无 VoxelQuests 时 total 仍 12
+- [x] 任务完成三行结算；"下一目标"取最近未完成生涯任务或里程碑
+  - 验证：组装函数断言已绿；settle-layer 已接线，手玩弹层待补
+- [x] rank 升段弹仪式卡且同段位不重复弹
+  - 验证：rank 2→3 断言已绿；celebrate-layer 已接线，手玩待补
 
 ## 功能验收（S2，展开后启用）
 
@@ -27,17 +27,18 @@
 
 ## 质量验收（全程）
 
-- [ ] bridge 除 `getWeeklyReport` labels 一处外零改动（S1）
-- [ ] 无新 localStorage key（progress 内部新字段如 `lastCelebratedRank` 允许）
-- [ ] `quest-<id>` / `daily-<日期>` 发奖键不变；每日挑战当日重复完成不重复发奖
+- [x] bridge 除 `getWeeklyReport` labels 一处外零改动（S1）
+- [x] 无新 localStorage key（progress 内部新字段如 `lastCelebratedRank` 允许）
+- [x] `quest-<id>` / `daily-<日期>` 发奖键不变；每日挑战当日重复完成不重复发奖
 - [ ] 390px 视口热键栏、任务 HUD 不溢出
 
 ## 测试验收
 
-- [ ] 新增合同测试先红后绿（R4）
+- [x] 新增合同测试先红后绿（R4）
 - [ ] `npm test` 退出码 0；voxel 合同关键词保持存在
 
 ## 文档验收
 
-- [ ] 本包 `test-report.md` 每阶段有结论
-- [ ] S1 收口后同步 `docs/00-总控/当前状态.md` 与分册 `04-落地路线与验收.md` 切片状态
+- [x] 本包 `test-report.md` 每阶段有结论
+- [x] S1 收口后同步 `docs/00-总控/当前状态.md` 与分册 `04-落地路线与验收.md` 切片状态
+- [x] `lastCelebratedRank` 等新增 progress 内部字段同步进 `docs/data-model.md`（S2 的 `homeSnapshot` 展开时同样要求）

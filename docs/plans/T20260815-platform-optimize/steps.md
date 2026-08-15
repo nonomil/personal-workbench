@@ -65,6 +65,7 @@
 
 ### 7. 回归（R9）
 
+- [ ] **更新缓存戳**：`prj/games/platform-quest/index.html` 中 `game.js?v=` 改为新戳（如 `20260815-pq-s1`）；`game.css` 如有 `?v=` 同步；若测试有戳断言一并更新
 - [ ] `node --test tests/platform-physics.test.mjs tests/world-games.test.mjs`
 - [ ] `npm test`
 - **验证：** 退出码 0（预期 238+新增）

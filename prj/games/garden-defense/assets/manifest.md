@@ -7,6 +7,7 @@
 | plants/plant-sunflower.png | 向日葵 | 第 1 关起 |
 | plants/plant-peashooter.png | 豌豆射手 | 第 1 关起 |
 | plants/plant-wallnut.png | 坚果墙 | 第 3 关起 |
+| plants/plant-potatomine.png | 土豆地雷（正式贴图，490×567 透明底） | 第 8 关起 |
 | plants/plant-snowpea.png | 寒冰豌豆 | 第 4 关起 |
 | plants/plant-cherrybomb.webp | 樱桃炸弹 | 第 6 关起 |
 | zombies/zombie-basic.webp | 普通僵尸 | 全部关卡 |

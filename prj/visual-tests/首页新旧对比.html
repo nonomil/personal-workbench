@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>首页对比 · 旧 vs 新</title>
+    <!-- 对比稿自带样式，不引入工作台 CSS，避免选择器打架导致重叠。 -->
+    <style>
+        :root {
+            --ink: #243528;
+            --muted: #5d6d5f;
+            --line: rgba(36, 53, 40, .12);
+            --cream: #f4f7ee;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at 12% 0%, #fff7d6, transparent 36%),
+                linear-gradient(180deg, #eef6e4, #dcead0);
+            font-family: "Nunito", "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+        .lab {
+            width: min(1680px, calc(100% - 24px));
+            margin: 0 auto;
+            padding: 18px 0 28px;
+        }
+        .lab-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+        .lab-head small { display: block; color: #6b8a3a; font-size: 11px; font-weight: 900; letter-spacing: .12em; }
+        .lab-head h1 { margin: 6px 0 6px; font-size: clamp(26px, 4vw, 40px); line-height: 1.1; }
+        .lab-head p { max-width: 640px; margin: 0; color: var(--muted); line-height: 1.6; }
+        .lab-switch { display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-start; }
+        .lab-switch button {
+            min-height: 40px;
+            padding: 0 14px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: rgba(255,255,255,.72);
+            color: var(--muted);
+            font: inherit;
+            font-weight: 800;
+            cursor: pointer;
+        }
+        .lab-switch button.is-on { color: #315d2b; background: #ddf4b8; border-color: #b7d97a; }
+        .board { display: grid; grid-template-columns: 1fr; gap: 16px; }
+        .board.is-old-only .panel-new,
+        .board.is-new-only .panel-old { display: none; }
+        .panel { min-width: 0; padding: 12px; border: 1px solid var(--line); border-radius: 22px; background: rgba(255,255,255,.5); }
+        .panel-new { border-color: rgba(73, 140, 48, .28); box-shadow: 0 16px 40px rgba(49, 93, 43, .08); }
+        .panel-label { display: flex; justify-content: space-between; gap: 10px; padding: 6px 8px 12px; }
+        .panel-label strong { display: block; font-size: 16px; }
+        .panel-label em { display: block; margin-top: 3px; color: var(--muted); font-style: normal; font-size: 12px; line-height: 1.45; }
+        .chip { display: inline-flex; min-height: 26px; align-items: center; padding: 0 9px; border-radius: 999px; background: #fff; font-size: 11px; font-weight: 900; }
+        .panel-new .chip { color: #315d2b; background: #ddf4b8; }
+        .phone {
+            width: 100%;
+            overflow: visible;
+            border: 1px solid rgba(36, 53, 40, .16);
+            border-radius: 18px;
+            background: #e8f3d8;
+        }
+        .phone-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 10px 12px;
+            background: rgba(255,255,255,.78);
+            border-bottom: 1px solid rgba(36, 53, 40, .08);
+            font-size: 12px;
+            font-weight: 800;
+        }
+        .home {
+            padding: 12px;
+            display: grid;
+            grid-template-columns: minmax(280px, .92fr) minmax(320px, 1.08fr);
+            gap: 12px;
+            align-items: start;
+        }
+        .home-col { display: grid; gap: 10px; min-width: 0; }
+        .home.is-new {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+        }
+        .home-top,
+        .home.is-new .wall,
+        .home.is-new .exits {
+            width: 100%;
+        }
+        .home-top {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 88px;
+            gap: 12px;
+            align-items: stretch;
+        }
+        .hud { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+        .hud h2 { margin: 0; font-size: 22px; }
+        .hud p { margin: 4px 0 0; color: #4d6148; font-size: 12px; }
+        .sun {
+            display: inline-flex; align-items: center; gap: 6px;
+            min-height: 36px; padding: 0 10px; border-radius: 999px;
+            background: #fff6c8; font-weight: 900;
+        }
+        .sun img, .art { width: 22px; height: 22px; object-fit: contain; }
+        .banner, .card, .lane, .stat, .exit {
+            border: 1px solid rgba(49, 93, 43, .12);
+            border-radius: 16px;
+            background: rgba(255,255,255,.86);
+        }
+        .banner { display: grid; grid-template-columns: 1fr 72px; min-height: 78px; overflow: hidden; }
+        .banner div { padding: 12px; }
+        .banner small { color: #6b8a3a; font-size: 10px; font-weight: 900; letter-spacing: .08em; }
+        .banner h3 { margin: 4px 0; font-size: 18px; }
+        .banner p { margin: 0; color: var(--muted); font-size: 12px; }
+        .banner-art { display: flex; align-items: end; justify-content: end; padding: 8px; background: linear-gradient(180deg, #b7e37a, #7fbf4a); }
+        .banner-art img { width: 64px; height: 64px; }
+        .next {
+            display: grid; gap: 4px; width: 100%; padding: 14px 16px;
+            border: 0; border-radius: 16px; text-align: left; cursor: default;
+            background: linear-gradient(135deg, #ffe08a, #ffd14a);
+            box-shadow: 0 6px 0 #d7a51a;
+        }
+        .next small { font-size: 11px; font-weight: 900; }
+        .next strong { font-size: 20px; }
+        .next span { display: inline-flex; margin-top: 6px; font-weight: 900; }
+        .hero-next {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 96px;
+            align-items: center;
+            min-height: 112px;
+            overflow: hidden;
+            border: 2px solid #8a5c32;
+            border-radius: 18px;
+            text-align: left;
+            cursor: default;
+            color: #fff9dc;
+            background:
+                linear-gradient(90deg, rgba(17, 91, 45, .72) 0%, rgba(17, 91, 45, .28) 58%, rgba(17, 91, 45, .08) 100%),
+                url("../assets/generated/preschool-pvz-2d/background/published/pvz-garden-lawn-bg.webp") center / cover;
+            box-shadow: 0 4px 0 rgba(55, 36, 19, .22);
+        }
+        .hero-next-copy { display: grid; align-content: center; gap: 4px; padding: 12px 8px 12px 16px; }
+        .hero-next-copy small { font-size: 11px; font-weight: 900; letter-spacing: .08em; color: #ffd663; }
+        .hero-next-copy strong { font-size: clamp(20px, 2.2vw, 26px); line-height: 1.15; text-shadow: 0 2px 0 rgba(56, 50, 25, .35); }
+        .hero-next-copy p { margin: 0; color: #d9efba; font-size: 12px; }
+        .hero-next-copy span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+            min-height: 32px;
+            margin-top: 4px;
+            padding: 0 12px;
+            border-radius: 999px;
+            background: #ffd14a;
+            color: #315d2b;
+            font-weight: 900;
+            box-shadow: 0 3px 0 #d7a51a;
+        }
+        .hero-next > img {
+            display: block;
+            width: 88px;
+            height: 108px;
+            margin: 0 8px 0 0;
+            object-fit: contain;
+            pointer-events: none;
+            filter: drop-shadow(0 6px 0 rgba(33, 49, 51, .2));
+        }
+        .status-card { padding: 12px; display: grid; gap: 10px; align-content: start; }
+        .status-card h3 { margin: 0; font-size: 16px; }
+        .status-card p { margin: 3px 0 0; color: var(--muted); font-size: 12px; }
+        .status-card .identity-main { grid-template-columns: 44px 1fr; }
+        .status-card .identity-main img { width: 44px; height: 44px; }
+        .status-card .sun { justify-content: center; min-height: 42px; padding: 0 6px; font-size: 13px; }
+        .status-mini { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+        .status-mini .stat { padding: 6px 4px; }
+        .status-tile {
+            width: 88px;
+            height: 88px;
+            padding: 6px;
+            display: grid;
+            place-items: center;
+            align-content: center;
+            gap: 2px;
+            border-radius: 16px;
+            text-align: center;
+        }
+        .status-tile img { width: 44px; height: 44px; object-fit: contain; }
+        .status-tile strong { font-size: 12px; line-height: 1.1; }
+        .status-tile small { color: var(--muted); font-size: 10px; font-weight: 800; }
+        .task-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px;
+        }
+        .task-card {
+            display: grid;
+            justify-items: center;
+            gap: 4px;
+            min-height: 0;
+            padding: 10px 8px;
+            border: 1px solid rgba(49, 93, 43, .12);
+            border-radius: 14px;
+            background: #fff;
+            text-align: center;
+        }
+        .task-card img { width: 40px; height: 40px; object-fit: contain; }
+        .task-card small { color: var(--muted); font-size: 10px; font-weight: 800; }
+        .task-card strong { font-size: 13px; line-height: 1.25; }
+        .task-card em { font-style: normal; font-size: 11px; font-weight: 800; color: #6b8a3a; }
+        .task-card.is-done { background: #eef8df; }
+        .task-card.is-now { border-color: #e0b12a; background: #fff8d6; box-shadow: 0 3px 0 #e0b12a; }
+        .identity { padding: 12px; display: grid; gap: 10px; }
+        .identity-main { display: grid; grid-template-columns: 52px 1fr; gap: 10px; align-items: center; }
+        .identity-main img { width: 52px; height: 52px; }
+        .identity h3 { margin: 0; font-size: 16px; }
+        .identity p { margin: 3px 0 0; color: var(--muted); font-size: 12px; }
+        .bar { height: 8px; border-radius: 999px; background: #e5eed8; overflow: hidden; }
+        .bar i { display: block; width: 40%; height: 100%; background: #6bcb77; }
+        .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .stat { padding: 8px; text-align: center; }
+        .stat b { display: block; font-size: 18px; }
+        .stat small { color: var(--muted); }
+        .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+        .btn, .ghost, .text {
+            min-height: 36px; padding: 0 10px; border-radius: 12px; font: inherit; font-weight: 800; cursor: default;
+        }
+        .btn { border: 0; background: #4aa33a; color: #fff; }
+        .ghost { border: 1px solid var(--line); background: #fff; }
+        .text { border: 0; background: transparent; color: #315d2b; }
+        .wall { padding: 12px; display: grid; gap: 8px; }
+        .wall-head { display: flex; justify-content: space-between; gap: 8px; align-items: start; }
+        .wall-head h3 { margin: 0; font-size: 18px; }
+        .wall-head p { margin: 4px 0 0; color: var(--muted); font-size: 12px; }
+        .overview { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+        .lane { display: grid; grid-template-columns: 1fr auto; align-items: center; padding: 8px; gap: 8px; }
+        .lane.is-done { background: #eef8df; }
+        .lane-main { display: grid; grid-template-columns: 22px 44px 1fr auto; gap: 8px; align-items: center; }
+        .lane img { width: 20px; height: 20px; }
+        .lane small { color: var(--muted); font-size: 10px; }
+        .lane strong { display: block; font-size: 13px; }
+        .practice { min-height: 44px; padding: 0 8px; border: 0; border-radius: 10px; background: #fff6c8; font-weight: 800; }
+        .evidence { padding: 12px; display: grid; gap: 8px; }
+        .evidence-grid { display: grid; gap: 8px; }
+        .e-card { display: grid; grid-template-columns: 28px 1fr; gap: 8px; padding: 10px; border-radius: 12px; background: #f6faef; }
+        .exits { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .exit { min-height: 42px; display: grid; place-items: center; font-weight: 800; }
+        .partner-row {
+            display: grid;
+            grid-template-columns: 36px 1fr auto;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 10px;
+        }
+        .partner-row img { width: 36px; height: 36px; }
+        .partner-row strong { display: block; font-size: 14px; }
+        .partner-row small { color: var(--muted); }
+        .cut { outline: 2px dashed #e07a2f; outline-offset: 2px; position: relative; }
+        .cut::after {
+            content: attr(data-cut);
+            position: absolute;
+            top: 6px;
+            right: 8px;
+            padding: 1px 6px;
+            border-radius: 999px;
+            background: #ffe1c4;
+            color: #8a4b25;
+            font-size: 10px;
+            font-weight: 900;
+        }
+        .count { margin: 10px 4px 0; color: var(--muted); font-size: 12px; font-weight: 800; }
+        @media (max-width: 820px) {
+            .home { grid-template-columns: 1fr; }
+            .home-top { grid-template-columns: minmax(0, 1fr) 72px; }
+            .status-tile { width: 72px; height: 72px; }
+            .task-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+    </style>
+</head>
+<body>
+    <div class="lab">
+        <header class="lab-head">
+            <div>
+                <small>DEMO / NOT WIRED</small>
+                <h1>旧首页 vs 新首页</h1>
+                <p>这是静态对比稿，不改正式工作台。新稿借宠物积分首页的横屏骨架，但更简：带图主卡并进下一步，状态放到右上角，右边只留任务墙。</p>
+            </div>
+            <div class="lab-switch" role="group" aria-label="对比方式">
+                <button type="button" data-view="both">并排看</button>
+                <button type="button" data-view="old">只看旧</button>
+                <button type="button" class="is-on" data-view="new">只看新</button>
+            </div>
+        </header>
+
+        <div class="board is-new-only" id="board">
+            <section class="panel panel-old">
+                <div class="panel-label">
+                    <div>
+                        <strong>旧首页 · 现在线上</strong>
+                        <em>6 块内容叠在一起，下一步被说了三遍。</em>
+                    </div>
+                    <span class="chip">7 个区块</span>
+                </div>
+                <div class="phone" aria-label="旧首页预览">
+                    <div class="phone-top"><span>阳光花园工作台 / 首页</span><span>切换工作台</span></div>
+                    <div class="home">
+                        <div class="home-col">
+                            <div class="hud">
+                                <div>
+                                    <h2>今天，先做这一步</h2>
+                                    <p>2026-08-15 · 周六 · 2/6 项已完成</p>
+                                </div>
+                                <span class="sun"><img src="../assets/generated/preschool-pvz-2d/published/pvz-sun-token.png" alt="">40</span>
+                            </div>
+
+                            <section class="banner cut" data-cut="可合并">
+                                <div>
+                                    <small>ADVENTURE / READY</small>
+                                    <h3>今天的花园，等你来点亮</h3>
+                                    <p>完成一小步，收集阳光，再去守护自己的花园。</p>
+                                </div>
+                                <div class="banner-art">
+                                    <img src="../assets/generated/preschool-pvz-2d/published/pvz-sunflower.png" alt="">
+                                </div>
+                            </section>
+
+                            <button class="next cut" type="button" data-cut="并进横幅">
+                                <small>下一步</small>
+                                <strong>下一步：朗读一首古诗</strong>
+                                <span>去练习</span>
+                            </button>
+
+                            <section class="card identity cut" data-cut="移到右上">
+                                <div class="identity-main">
+                                    <img src="../assets/generated/preschool/star-companion.webp" alt="" onerror="this.src='../assets/generated/preschool-pvz-2d/published/pvz-sun-token.png'">
+                                    <div>
+                                        <h3>星芒 · Lv.1</h3>
+                                        <p>下一步：朗读一首古诗</p>
+                                        <div class="bar"><i></i></div>
+                                    </div>
+                                </div>
+                                <div class="stats">
+                                    <span class="stat"><b>2/6</b><small>今日完成</small></span>
+                                    <span class="stat"><b>63</b><small>计划分钟</small></span>
+                                    <span class="stat"><b>1</b><small>连续行动</small></span>
+                                </div>
+                                <div class="actions">
+                                    <button class="btn" type="button">去练习</button>
+                                    <button class="ghost" type="button">安排下一项</button>
+                                    <button class="text" type="button">看成长</button>
+                                </div>
+                            </section>
+                        </div>
+
+                        <div class="home-col">
+                            <section class="card wall">
+                                <div class="wall-head">
+                                    <div>
+                                        <h3>今日草坪战场</h3>
+                                        <p>点亮每一条任务战线</p>
+                                    </div>
+                                    <strong>2/6</strong>
+                                </div>
+                                <div class="overview">
+                                    <span class="stat"><small>必做</small><b>1/3</b></span>
+                                    <span class="stat"><small>选做</small><b>1/3</b></span>
+                                    <span class="stat"><small>用时</small><b>63 分</b></span>
+                                </div>
+                                <article class="lane is-done"><div class="lane-main"><b>1</b><span><img src="../assets/generated/preschool-pvz-2d/published/pvz-sunflower.png" alt=""></span><span><small>必做</small><strong>完成今日识字</strong></span><span>已完成</span></div></article>
+                                <article class="lane"><div class="lane-main"><b>2</b><span><img src="../assets/generated/preschool-pvz-2d/published/pvz-peashooter.png" alt=""></span><span><small>必做</small><strong>朗读一首古诗</strong></span><span>+10</span></div><button class="practice" type="button">去练习</button></article>
+                                <article class="lane"><div class="lane-main"><b>3</b><span><img src="../assets/generated/preschool-pvz-2d/published/pvz-wallnut.png" alt=""></span><span><small>必做</small><strong>数学闯关一关</strong></span><span>+10</span></div><button class="practice" type="button">去练习</button></article>
+                                <article class="lane"><div class="lane-main"><b>4</b><span><img src="../assets/generated/preschool-pvz-2d/published/pvz-sunflower.png" alt=""></span><span><small>选做</small><strong>学习今日英语</strong></span><span>已完成</span></div></article>
+                                <article class="lane"><div class="lane-main"><b>5</b><span><img src="../assets/generated/preschool-pvz-2d/published/pvz-peashooter.png" alt=""></span><span><small>选做</small><strong>做一项运动</strong></span><span>+10</span></div></article>
+                                <article class="lane"><div class="lane-main"><b>6</b><span><img src="../assets/generated/preschool-pvz-2d/published/pvz-wallnut.png" alt=""></span><span><small>选做</small><strong>专注力训练一题</strong></span><span>+10</span></div></article>
+                            </section>
+
+                            <section class="card evidence cut" data-cut="可删">
+                                <h3>今天留下了什么</h3>
+                                <p>完成一项，就留下一个看得见的成长证据；当前连续 1 天。</p>
+                                <div class="evidence-grid">
+                                    <div class="e-card"><span>✓</span><div><strong>2/6 项已点亮</strong><small>今日进度 33%</small></div></div>
+                                    <div class="e-card"><span>书</span><div><strong>还没有今日阅读记录</strong><small>读完后留下一句话</small></div></div>
+                                    <div class="e-card"><span>▶</span><div><strong>下一张：打开每日学习单</strong><small>暑假学习 · 8 分钟</small></div></div>
+                                </div>
+                            </section>
+
+                            <div class="exits">
+                                <div class="exit">去花园游戏</div>
+                                <div class="exit">去领奖励</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="count">旧首页仍然挤。橙色虚线 = 新稿准备拿掉或合并的块。</p>
+            </section>
+
+            <section class="panel panel-new">
+                <div class="panel-label">
+                    <div>
+                        <strong>新首页 · 带图主卡</strong>
+                        <em>星芒收成右上角小方块。今日任务改成多列卡片。</em>
+                    </div>
+                    <span class="chip">3 个区块</span>
+                </div>
+                <div class="phone" aria-label="新首页预览">
+                    <div class="phone-top"><span>阳光花园工作台 / 首页</span><span>切换工作台</span></div>
+                    <div class="home is-new">
+                        <div class="home-top">
+                            <div class="hero-next" role="button">
+                                <div class="hero-next-copy">
+                                    <small>现在就做 · 周六</small>
+                                    <strong>朗读一首古诗</strong>
+                                    <p>完成一小步，收集阳光，再去守护自己的花园。</p>
+                                    <span>去练习</span>
+                                </div>
+                                <img src="../assets/generated/preschool-pvz-2d/published/pvz-sunflower.webp" width="88" height="108" alt="向日葵">
+                            </div>
+                            <section class="card status-tile" aria-label="星芒">
+                                <img src="../assets/generated/preschool/star-companion.webp" alt="" onerror="this.src='../assets/generated/preschool-pvz-2d/published/pvz-sun-token.png'">
+                                <strong>星芒</strong>
+                                <small>Lv.1</small>
+                            </section>
+                        </div>
+
+                        <section class="card wall">
+                            <div class="wall-head">
+                                <div>
+                                    <h3>今天的任务</h3>
+                                    <p>做完一项，点亮一颗星</p>
+                                </div>
+                                <strong>2/6</strong>
+                            </div>
+                            <div class="task-grid">
+                                <article class="task-card is-done"><img src="../assets/generated/preschool-pvz-2d/published/pvz-sunflower.png" alt=""><small>必做</small><strong>完成今日识字</strong><em>已点亮</em></article>
+                                <article class="task-card is-now"><img src="../assets/generated/preschool-pvz-2d/published/pvz-peashooter.png" alt=""><small>必做</small><strong>朗读一首古诗</strong><em>+10</em></article>
+                                <article class="task-card"><img src="../assets/generated/preschool-pvz-2d/published/pvz-wallnut.png" alt=""><small>必做</small><strong>数学闯关一关</strong><em>+10</em></article>
+                                <article class="task-card is-done"><img src="../assets/generated/preschool-pvz-2d/published/pvz-sunflower.png" alt=""><small>选做</small><strong>学习今日英语</strong><em>已点亮</em></article>
+                                <article class="task-card"><img src="../assets/generated/preschool-pvz-2d/published/pvz-peashooter.png" alt=""><small>选做</small><strong>做一项运动</strong><em>+10</em></article>
+                                <article class="task-card"><img src="../assets/generated/preschool-pvz-2d/published/pvz-wallnut.png" alt=""><small>选做</small><strong>专注力训练一题</strong><em>+10</em></article>
+                            </div>
+                        </section>
+
+                        <div class="exits">
+                            <div class="exit">去花园游戏</div>
+                            <div class="exit">去领奖励</div>
+                        </div>
+                    </div>
+                </div>
+                <p class="count">上排：草地主卡 + 星芒方块。下排：3×2 任务卡片。底栏两个出口。</p>
+            </section>
+        </div>
+    </div>
+    <script>
+        const board = document.getElementById('board');
+        function showView(view) {
+            document.querySelectorAll('[data-view]').forEach(function (item) {
+                item.classList.toggle('is-on', item.dataset.view === view);
+            });
+            board.className = 'board' + (view === 'old' ? ' is-old-only' : view === 'new' ? ' is-new-only' : '');
+        }
+        document.querySelectorAll('[data-view]').forEach(function (button) {
+            button.addEventListener('click', function () { showView(button.dataset.view); });
+        });
+        showView(location.hash === '#old' ? 'old' : 'new');
+    </script>
+</body>
+</html>

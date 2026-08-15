@@ -114,6 +114,49 @@ test('gives each preschool plant a distinct skill and effect', () => {
   assert.match(wallnutFire.reason, /坚果墙/);
 });
 
+test('keeps sunflower skill sunlight outside the lifetime sunlight ledger', () => {
+  const ready = gardenEngine.normalize({
+    sunlight: 40,
+    totalSunlightEarned: 100,
+    awardedIds: ['lesson:2026-08-15'],
+    unicorn: { xp: 12 },
+    garden: { activePlantId: 'plant-sunflower', unlockedPlantIds: ['plant-sunflower'], growthPoints: 100 }
+  });
+  const result = gardenEngine.usePlantSkill(ready, '2026-08-15');
+
+  assert.equal(result.ok, true);
+  assert.equal(result.growth.sunlight, 50);
+  assert.equal(result.growth.garden.growthPoints, 110);
+  assert.equal(result.growth.totalSunlightEarned, 100);
+  assert.deepEqual(result.growth.awardedIds, ['lesson:2026-08-15']);
+  assert.equal(result.growth.unicorn.xp, 12);
+});
+
+test('keeps sunflower defense-tick sunlight outside the lifetime sunlight ledger', () => {
+  const ready = gardenEngine.normalize({
+    sunlight: 40,
+    totalSunlightEarned: 100,
+    awardedIds: ['lesson:2026-08-15'],
+    unicorn: { xp: 12 },
+    garden: {
+      growthPoints: 100,
+      defense: {
+        tick: 4,
+        status: 'ready',
+        plants: [{ id: 'plant-1', plantId: 'plant-sunflower', lane: 0, column: 0, health: 3, maxHealth: 3, age: 0 }]
+      }
+    }
+  });
+  const result = gardenEngine.tickDefense(ready, 1);
+
+  assert.equal(result.ok, true);
+  assert.equal(result.growth.sunlight, 50);
+  assert.equal(result.growth.garden.growthPoints, 110);
+  assert.equal(result.growth.totalSunlightEarned, 100);
+  assert.deepEqual(result.growth.awardedIds, ['lesson:2026-08-15']);
+  assert.equal(result.growth.unicorn.xp, 12);
+});
+
 test('spawns a wave without resetting an existing active invader', () => {
   const calm = gardenEngine.spawnInvader(gardenEngine.normalize({}), '2026-07-29');
   assert.equal(calm.growth.garden.invader.active, true);

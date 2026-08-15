@@ -236,3 +236,145 @@ body.variant-preschool .preschool-media-link-action .btn-primary:active {
     body.variant-preschool .preschool-media-link-action { align-items: flex-start; flex-direction: column; }
     body.variant-preschool .preschool-media-link-action .btn-primary { width: 100%; justify-content: center; }
 }
+
+body.variant-preschool .preschool-media-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 14px;
+}
+
+body.variant-preschool .preschool-media-stage {
+    display: grid;
+    gap: 10px;
+    margin-top: 14px;
+    min-width: 0;
+}
+
+body.variant-preschool .preschool-media-stage-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    min-width: 0;
+}
+
+body.variant-preschool .preschool-media-stage-bar strong {
+    min-width: 0;
+    color: #185b3b;
+    font-size: 15px;
+    font-weight: 900;
+    overflow-wrap: anywhere;
+}
+
+body.variant-preschool .preschool-media-stage .preschool-media-frame {
+    border-radius: 16px;
+}
+
+body.variant-preschool .preschool-media-card {
+    display: grid;
+    align-content: start;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 2px solid rgba(63, 162, 92, 0.22);
+    border-radius: 16px;
+    background: #ffffff;
+    overflow: hidden;
+    box-shadow: 0 8px 18px rgba(31, 73, 42, 0.08);
+    text-align: left;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+}
+
+body.variant-preschool .preschool-media-card.is-video.is-active {
+    border-color: #3fa25c;
+    box-shadow: 0 0 0 3px rgba(63, 162, 92, 0.22);
+}
+
+body.variant-preschool .preschool-media-card-face {
+    display: grid;
+    gap: 8px;
+    padding: 0 0 12px;
+    cursor: pointer;
+    list-style: none;
+}
+
+body.variant-preschool .preschool-media-card-face::-webkit-details-marker {
+    display: none;
+}
+
+body.variant-preschool .preschool-media-card-face strong,
+body.variant-preschool .preschool-media-card.is-link .preschool-media-card-face strong {
+    padding: 0 12px;
+    color: #21482e;
+    font-size: 15px;
+    font-weight: 900;
+    line-height: 1.3;
+}
+
+body.variant-preschool .preschool-media-card-face small,
+body.variant-preschool .preschool-media-card.is-link .preschool-media-card-face small {
+    padding: 0 12px;
+    color: #7b9180;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+body.variant-preschool .preschool-media-cover-wrap {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #12351f;
+    overflow: hidden;
+}
+
+body.variant-preschool .preschool-media-cover {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+body.variant-preschool .preschool-media-cover.is-fallback {
+    display: grid;
+    place-items: center;
+    height: 100%;
+    background: #eaf7ea;
+}
+
+body.variant-preschool .preschool-media-cover.is-fallback img,
+body.variant-preschool .preschool-media-cover.is-fallback svg {
+    width: 48%;
+    height: 48%;
+    object-fit: contain;
+}
+
+body.variant-preschool .preschool-media-play {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    color: #ffffff;
+    background: rgba(32, 96, 48, 0.86);
+}
+
+body.variant-preschool .preschool-media-play svg {
+    width: 16px;
+    height: 16px;
+}
+
+body.variant-preschool .preschool-media-card.is-link .preschool-media-link-action {
+    padding: 0 12px 12px;
+}
+
+@media (max-width: 760px) {
+    body.variant-preschool .preschool-media-grid { grid-template-columns: 1fr; }
+}

@@ -5,10 +5,13 @@
      * 横版引擎 kubo-sandbox；视觉 Paper Minecraft（DS-Scratch-我的世界.md）。
      */
     const bridge = window.WorkbenchGameBridge;
+    const sfx = window.WorkbenchGameSfx;
     const worldApi = window.VoxelWorld;
     const questsApi = window.VoxelQuests;
     const levelsApi = window.VoxelLevels;
     const GAME_ID = 'voxel-adventure';
+    const USE_TOOL_GATE = true;
+    const COMPANION_IMG = '../../assets/generated/preschool-theme-assets/voxel-v1/published/voxel-companion.png';
     const TILE = 32;
     const WORLD_COLS = 220;
     const WORLD_ROWS = 28;
@@ -33,6 +36,157 @@
     function scaledSun(base) {
         return Math.max(1, Math.round(Number(base || 0) * (playMods.sunMult || 1)));
     }
+
+    function nearestVoxelGoal(meta, quests, questsDone) {
+        const done = Array.isArray(questsDone) ? questsDone : [];
+        const nextQuest = (Array.isArray(quests) ? quests : []).find(function (q) {
+            return q && !q.daily && done.indexOf(q.id) === -1;
+        }) || null;
+        const nextBadge = (meta && Array.isArray(meta.badges) ? meta.badges : []).find(function (b) {
+            return b && !b.unlocked;
+        }) || null;
+        const questRemain = nextQuest ? 1 : Infinity;
+        let badgeRemain = Infinity;
+        if (nextBadge) {
+            const m = /(\d+)/.exec(nextBadge.desc || nextBadge.title || '');
+            const need = m ? Number(m[1]) : 0;
+            const have = Number(meta && meta.voxelQuests) || 0;
+            badgeRemain = need > 0 ? Math.max(1, need - have) : 1;
+        }
+        if (!nextQuest && !nextBadge) return '所有任务和里程碑都完成啦，继续自由建造吧！';
+        if (questRemain <= badgeRemain && nextQuest) {
+            return '下一个目标：' + nextQuest.title + ' · ' + (nextQuest.desc || '还差 1 个任务');
+        }
+        return '下一个目标：' + nextBadge.title + ' · 还差 ' + badgeRemain + ' 个任务';
+    }
+
+    function buildQuestSummary(input) {
+        const data = input || {};
+        const meta = data.meta || {};
+        const points = Number(meta.adventurePoints) || 0;
+        const need = meta.nextRank ? (Number(meta.nextRank.need) || points) : points;
+        let gain = '';
+        if (data.sunCapped) {
+            gain = '本任务所得：今日阳光已达上限';
+        } else {
+            gain = '本任务所得：阳光 +' + (Number(data.sunAwarded) || 0);
+            if (data.questTitle) gain += ' · ' + data.questTitle;
+        }
+        return {
+            gain: gain,
+            progressLabel: '冒险等级 Lv.' + (meta.adventureLevel || 1) + ' ' + (meta.adventureTitle || '') + ' · ' + points + '/' + need,
+            progressPercent: need > 0 ? Math.min(100, Math.round(points / need * 100)) : 100,
+            nextGoal: nearestVoxelGoal(meta, data.quests, data.questsDone)
+        };
+    }
+
+    const COMPANION_LINES = {
+        welcome: [
+            '先放几块草，把家门口铺平。',
+            '带上镐，去收集晶体吧。',
+            '搭一点小路，基地会越来越好看。'
+        ],
+        quest: [
+            '搭得真整齐，阳光也进账啦。',
+            '收集完成！这块晶体亮闪闪。',
+            '放下去的方块都站稳了，真棒。',
+            '又搭好一截，星芒给你鼓掌。'
+        ],
+        daily: [
+            '今天的活干完啦',
+            '今日收集任务完成，收工回家。',
+            '今天又放了好多块，基地更热闹了。'
+        ],
+        streak: [
+            '连续三天都把今日活干完，星芒要给你戴小旗。',
+            '三天连着搭建收集，你已经是工地小队长了。'
+        ]
+    };
+
+    function companionLine(kind, pick) {
+        const pool = COMPANION_LINES[kind] || COMPANION_LINES.quest || [];
+        if (!pool.length) return '';
+        const index = typeof pick === 'number' ? (Math.abs(Math.floor(pick)) % pool.length) : Math.floor(Math.random() * pool.length);
+        return String(pool[index]);
+    }
+
+    function onRankUp(prevRank, nextRank, lastCelebratedRank) {
+        const next = Number(nextRank) || 0;
+        const prev = Number(prevRank) || 1;
+        const last = Number(lastCelebratedRank) || 1;
+        if (next <= 1 || next <= last || next <= prev) return null;
+        const titles = { 2: '草地旅人', 3: '石匠学徒', 4: '晶体猎手', 5: '方块大师' };
+        return {
+            rank: next,
+            title: titles[next] || '矿工',
+            ability: '继续挖，更深的矿层在等你'
+        };
+    }
+
+    function countDailyStreak(questsDone, todayStr) {
+        const done = Array.isArray(questsDone) ? questsDone : [];
+        let streak = 0;
+        const day = String(todayStr || '').slice(0, 10);
+        if (!day) return 0;
+        const start = new Date(day + 'T12:00:00');
+        for (let i = 0; i < 7; i += 1) {
+            const d = new Date(start);
+            d.setDate(start.getDate() - i);
+            const key = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+            const hit = done.some(function (id) { return String(id).indexOf('daily:' + key + ':') === 0; });
+            if (!hit) break;
+            streak += 1;
+        }
+        return streak;
+    }
+
+    function sayCompanion(text) {
+        const el = document.getElementById('companion-say');
+        if (!el || !text) return;
+        el.textContent = text;
+        el.classList.add('is-on');
+        clearTimeout(sayCompanion._t);
+        sayCompanion._t = setTimeout(function () { el.classList.remove('is-on'); }, 3200);
+    }
+
+    function showSettleLayer(lines) {
+        const layer = document.getElementById('settle-layer');
+        if (!layer) return;
+        const gain = document.getElementById('settle-gain');
+        const progress = document.getElementById('settle-progress-label');
+        const bar = document.getElementById('settle-bar-fill');
+        const goal = document.getElementById('settle-goal');
+        const talk = document.getElementById('settle-companion');
+        if (gain) gain.textContent = lines.gain || '';
+        if (progress) progress.textContent = lines.progressLabel || '';
+        if (bar) bar.style.width = (Number(lines.progressPercent) || 0) + '%';
+        if (goal) goal.textContent = lines.nextGoal || '';
+        if (talk) talk.textContent = lines.companion || '';
+        layer.classList.remove('is-hidden');
+        if (sfx && sfx.clear) sfx.clear();
+    }
+
+    function hideSettleLayer() {
+        const layer = document.getElementById('settle-layer');
+        if (layer) layer.classList.add('is-hidden');
+    }
+
+    function showRankUpCard(card) {
+        const layer = document.getElementById('celebrate-layer');
+        if (!layer || !card) return;
+        const title = document.getElementById('celebrate-title');
+        const sub = document.getElementById('celebrate-sub');
+        if (title) title.textContent = '升到 ' + card.title;
+        if (sub) sub.textContent = card.ability;
+        layer.classList.remove('is-hidden');
+        if (sfx && sfx.rankUp) sfx.rankUp();
+    }
+
+    function hideRankUpCard() {
+        const layer = document.getElementById('celebrate-layer');
+        if (layer) layer.classList.add('is-hidden');
+    }
+
     const LONG_PRESS_MS = 420;
     const pixels = window.VoxelPixelTiles;
 
@@ -316,6 +470,7 @@
         if (!Number.isFinite(progress.buildTotal)) progress.buildTotal = 0;
         if (!progress.buildTotalByKind || typeof progress.buildTotalByKind !== 'object') progress.buildTotalByKind = {};
         if (!Number.isFinite(progress.rank)) progress.rank = 1;
+        if (!Number.isFinite(progress.lastCelebratedRank)) progress.lastCelebratedRank = progress.rank || 1;
         inventory = Object.assign(worldApi.emptyInv(), progress.inventory || {});
         seedStarterQuestItems();
         bridge.saveProgress(GAME_ID, progress);
@@ -337,6 +492,14 @@
         bridge.saveProgress(GAME_ID, progress);
     }
 
+    function captureHomeSnapshot() {
+        const today = questsApi && questsApi.localDate ? questsApi.localDate() : '';
+        progress.homeSnapshot = worldApi.makeHomeSnapshot
+            ? worldApi.makeHomeSnapshot(world, today)
+            : { date: today, blocks: worldApi.countSolid(world), grid: [] };
+        return progress.homeSnapshot;
+    }
+
     function rank() {
         return worldApi.minerRank(progress.questsDone, questsApi.ranks);
     }
@@ -349,7 +512,13 @@
             buildTotal: progress.buildTotal || 0,
             buildTotalByKind: progress.buildTotalByKind || {},
             crystalsTotal: progress.crystalsTotal || 0,
-            blocksAlive: worldApi.countSolid(world)
+            blocksAlive: worldApi.countSolid(world),
+            blueprintCoverage: (function () {
+                const q = currentQuest();
+                return q && q.type === 'blueprint' && worldApi.blueprintCoverage
+                    ? worldApi.blueprintCoverage(world, q.blueprint)
+                    : 0;
+            }())
         };
     }
 
@@ -390,6 +559,7 @@
 
     function completeQuest(quest) {
         if (!quest || progress.questsDone.indexOf(quest.id) !== -1) return;
+        const prevRank = Number(progress.rank) || rank();
         progress.questsDone.push(quest.id);
         progress.rank = rank();
         persistBag();
@@ -399,6 +569,31 @@
             amount: scaledSun(quest.reward),
             reason: quest.title
         });
+        const meta = bridge.getMetaSummary ? bridge.getMetaSummary() : {};
+        const talkKind = quest.daily
+            ? (countDailyStreak(progress.questsDone, questsApi && questsApi.localDate ? questsApi.localDate() : '') >= 3 ? 'streak' : 'daily')
+            : 'quest';
+        const talk = companionLine(talkKind);
+        const lines = buildQuestSummary({
+            sunAwarded: award.awarded ? award.amount : 0,
+            sunCapped: !award.awarded,
+            questTitle: quest.title,
+            daily: !!quest.daily,
+            meta: meta,
+            quests: questsApi && questsApi.list,
+            questsDone: progress.questsDone,
+            companion: talk
+        });
+        captureHomeSnapshot();
+        persistBag();
+        showSettleLayer(lines);
+        sayCompanion(talk);
+        const card = onRankUp(prevRank, progress.rank, progress.lastCelebratedRank);
+        if (card) {
+            progress.lastCelebratedRank = progress.rank;
+            persistBag();
+            showRankUpCard(card);
+        }
         toast(award.awarded ? (quest.title + ' · +' + award.amount + ' 阳光') : (quest.title + ' · ' + award.reason));
         renderQuests();
         renderHud();
@@ -585,6 +780,13 @@
         if (!canEditTile(cell.x, cell.y)) return false;
         const kind = worldApi.getCell(world, cell.x, cell.y);
         if (!kind || kind === 'air') return false;
+        if (USE_TOOL_GATE && worldApi.rankMineReason) {
+            const gate = worldApi.rankMineReason(kind, rank());
+            if (gate) {
+                toast(gate);
+                return false;
+            }
+        }
         if (!worldApi.canBreak(kind, tool)) {
             toast(worldApi.breakReason ? worldApi.breakReason(kind, tool) : '换个工具试试');
             return false;
@@ -1228,6 +1430,13 @@
         if (resetBtn) resetBtn.addEventListener('click', function () { enterLevel(levelId); });
         const hudRefresh = document.getElementById('hud-refresh');
         if (hudRefresh) hudRefresh.addEventListener('click', function () { enterLevel(levelId); });
+        const homeShot = document.getElementById('home-shot-btn');
+        if (homeShot) homeShot.addEventListener('click', function () {
+            const snap = captureHomeSnapshot();
+            persistBag();
+            toast('家园已拍照 · ' + (snap.blocks || 0) + ' 块');
+            sayCompanion('这块家园，带回去给家长看。');
+        });
         const mapBtn = document.getElementById('map-btn');
         if (mapBtn) mapBtn.addEventListener('click', showMap);
 
@@ -1287,6 +1496,10 @@
                 if (e.key === 'Escape' && !workshopOverlay.classList.contains('is-hidden')) closeWorkshop();
             });
         }
+        const settleClose = document.getElementById('settle-close-btn');
+        if (settleClose) settleClose.addEventListener('click', hideSettleLayer);
+        const celebrateClose = document.getElementById('celebrate-close-btn');
+        if (celebrateClose) celebrateClose.addEventListener('click', hideRankUpCard);
         const fullBtn = document.getElementById('fullscreen-btn');
         if (fullBtn) fullBtn.addEventListener('click', function () {
             const r = document.documentElement;
@@ -1329,6 +1542,7 @@
             renderHud();
             renderQuests();
             toast('A/D 跑，空格跳，左键挖，右键放。');
+            sayCompanion(companionLine('welcome'));
         } catch (err) {}
         requestAnimationFrame(draw);
     });

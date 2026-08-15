@@ -3,7 +3,8 @@
 | 能力 | 参考 | 本仓实现 |
 |------|------|----------|
 | 变跳高、奔跑摩擦 | [mahmodnasser/mario](https://github.com/mahmodnasser/mario) | `data/physics.js` |
-| 惊喜块 / 顶块出道具 | 同上 | `data/levels.js` blocks + `game.js` bumpBlock |
+| 变大后才能打碎砖/草格 | 同上 `powerUpGrow` + `Block.bump`（small 只顶、big 才碎） | `canBreakSolid` + `playerPowered` |
+| 平台按 32 正方格铺、顶一下只碎一格 | 同上 `addPlatform` / `Block.bump` / 分块碰撞 | `expandPlatformsToCubes` + `pickBumpTarget`；草台用 `pixel-tiles` 草方块画，不整条碎 |
 | coyote / jump buffer | HTML5_Platformer, bros | `data/physics.js` |
 | 二段跳 | super-catrio 思路 | `game.js` airJumpsUsed |
 | 贴图（主角） | 本仓 `world-rebuild-20260807` 批次 | `assets/hero/hero-{idle,run,jump}.png` 三帧动作图（key 抠底），2026-08-14 用户授权合入 |

@@ -550,10 +550,17 @@
             });
             const labels = {
                 'garden-defense': { label: '花园保卫', unit: '关', done: gardenClears(wg), total: 12 },
-                'voxel-adventure': { label: '方块世界', unit: '关', done: voxelQuests(wg), total: 8 },
+                'voxel-adventure': { label: '方块世界', unit: '关', done: voxelQuests(wg), total: (global.VoxelQuests && global.VoxelQuests.list ? global.VoxelQuests.list.length : 12) },
                 'platform-quest': { label: '横版闯关', unit: '关', done: platformClears(wg), total: 10 }
             };
             const L = labels[id];
+            let fact = '';
+            if (id === 'voxel-adventure') {
+                const snap = (wg['voxel-adventure'] || {}).homeSnapshot || {};
+                if (snap.date || snap.blocks) {
+                    fact = '家园 ' + (Number(snap.blocks) || 0) + ' 块' + (snap.date ? '，更新于 ' + snap.date : '');
+                }
+            }
             return {
                 id: id,
                 label: L.label,
@@ -561,7 +568,8 @@
                 done: L.done,
                 total: L.total,
                 unit: L.unit,
-                percent: Math.round((L.done / L.total) * 100)
+                percent: Math.round((L.done / L.total) * 100),
+                fact: fact
             };
         });
         const badgesUnlocked = (summary.badges || []).filter(function (b) { return b.unlocked; });

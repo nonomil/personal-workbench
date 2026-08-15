@@ -224,6 +224,11 @@ body {
     font-weight: 700;
     line-height: 1.2;
 }
+.stage-challenge {
+    color: #c45c14;
+    font-size: 10px;
+    font-weight: 800;
+}
 .stage-lock {
     position: absolute;
     inset: 0;
@@ -306,4 +311,79 @@ body.is-picking .world-shell { grid-template-columns: 1fr; }
     .touch-pad { display: flex; }
     .control-row-desktop { display: none; }
     body:not(.is-picking) .world-shell { padding-bottom: 96px; }
+}
+
+.mod-badge {
+    min-height: 36px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 800;
+    color: #3e2c41;
+    background: #ffe566;
+    border: 2px solid rgba(62, 44, 65, .18);
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+.play-stage { position: relative; }
+.companion-hud {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    pointer-events: none;
+}
+.companion-hud img { width: 48px; height: 48px; object-fit: contain; }
+.companion-hud b { font-size: 30px; }
+.companion-say {
+    max-width: 42vw;
+    padding: 6px 10px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #3e2c41;
+    background: rgba(255, 254, 250, .95);
+    border: 2px solid rgba(62, 44, 65, .18);
+    border-radius: 12px 12px 12px 4px;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity .25s, transform .25s;
+}
+.companion-say.is-on { opacity: 1; transform: none; }
+
+.settle-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: rgba(62, 44, 65, .45);
+}
+.settle-layer.is-hidden { display: none; }
+.settle-card {
+    width: min(420px, 100%);
+    padding: 20px;
+    text-align: center;
+    background: #fffefa;
+    border: 3px solid #e0a52e;
+    border-radius: 20px;
+}
+.settle-card h3 { margin: 0 0 8px; }
+.settle-gain { margin: 4px 0; font-size: 16px; font-weight: 800; color: #e54139; }
+.settle-progress p { margin: 8px 0 4px; font-size: 13px; font-weight: 700; }
+.settle-bar { height: 10px; background: rgba(62, 44, 65, .12); border-radius: 999px; overflow: hidden; }
+.settle-bar span { display: block; height: 100%; background: linear-gradient(90deg, #6ec34f, #e0a52e); }
+.settle-goal { margin: 10px 0 4px; font-size: 13px; font-weight: 700; }
+.settle-actions button {
+    min-height: 44px;
+    padding: 10px 22px;
+    font-weight: 800;
+    color: #fffefa;
+    background: #e54139;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
 }

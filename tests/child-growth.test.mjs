@@ -34,6 +34,14 @@ test('calculates streak rewards and unlocks pet styles as growth accumulates', (
   assert.ok(view.unicorn.level >= 2);
 });
 
+test('describes the first streak reward as lighting a day, not checking in', () => {
+  const view = growthEngine.getView(growthEngine.createDefaultGrowth(), '2026-08-15');
+  const first = view.streakRewards.find((item) => item.id === 'streak-1');
+  assert.ok(first);
+  assert.match(first.description, /点亮/);
+  assert.doesNotMatch(first.description, /打卡/);
+});
+
 test('claims a streak reward and clears a missed-day zombie on the next action', () => {
   let growth = growthEngine.createDefaultGrowth();
   growth = growthEngine.recordAction(growth, { eventId: 'plan:old', amount: 10, date: '2026-07-28' }).growth;

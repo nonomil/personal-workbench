@@ -1,0 +1,662 @@
+/* Simple preschool home: lawn hero, companion tile, 3x2 task cards. */
+body.variant-preschool[data-preschool-theme] .preschool-home-overview.is-simple,
+body.variant-preschool .preschool-home-overview.is-simple {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 1260px;
+    margin: 0 auto;
+    padding: clamp(14px, 2vw, 22px);
+    overflow: visible;
+    border: 2px solid #c9ddb4;
+    border-radius: 22px;
+    color: #243528;
+    background:
+        radial-gradient(circle at 12% 0%, #fff7d6, transparent 36%),
+        linear-gradient(180deg, #eef6e4, #dcead0);
+    box-shadow: none;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-home-overview.is-simple .workbench-overview-header,
+body.variant-preschool .preschool-home-overview.is-simple .workbench-overview-header {
+    margin: 0;
+    align-items: center;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-home-overview.is-simple .workbench-overview-header h1,
+body.variant-preschool .preschool-home-overview.is-simple .workbench-overview-header h1 {
+    color: #243528;
+    font-size: clamp(22px, 2.6vw, 32px);
+    text-shadow: none;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-home-overview.is-simple .workbench-overview-header p,
+body.variant-preschool[data-preschool-theme] .preschool-home-overview.is-simple .workbench-kicker,
+body.variant-preschool[data-preschool-theme] .preschool-home-overview.is-simple .pixel-panel-kicker,
+body.variant-preschool .preschool-home-overview.is-simple .workbench-overview-header p,
+body.variant-preschool .preschool-home-overview.is-simple .workbench-kicker,
+body.variant-preschool .preschool-home-overview.is-simple .pixel-panel-kicker {
+    color: #5d6d5f;
+}
+
+body.variant-preschool .preschool-home-top {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 88px;
+    gap: 12px;
+    align-items: stretch;
+}
+
+body.variant-preschool .preschool-home-hero,
+body.variant-preschool .preschool-home-hero-card {
+    min-width: 0;
+}
+
+body.variant-preschool .preschool-home-hero-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 96px;
+    align-items: center;
+    width: 100%;
+    min-height: 112px;
+    overflow: hidden;
+    padding: 0;
+    border: 2px solid #8a5c32;
+    border-radius: 18px;
+    color: #fff9dc;
+    text-align: left;
+    cursor: pointer;
+    background:
+        linear-gradient(90deg, rgba(17, 91, 45, .72) 0%, rgba(17, 91, 45, .28) 58%, rgba(17, 91, 45, .08) 100%),
+        url("../../assets/generated/preschool-pvz-2d/background/published/pvz-garden-lawn-bg.webp") center / cover;
+    box-shadow: 0 4px 0 rgba(55, 36, 19, .22);
+}
+
+body.variant-preschool .preschool-home-hero-copy {
+    display: grid;
+    align-content: center;
+    gap: 4px;
+    padding: 12px 8px 12px 16px;
+}
+
+body.variant-preschool .preschool-home-hero-copy small {
+    color: #ffd663;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .08em;
+}
+
+body.variant-preschool .preschool-home-hero-copy strong {
+    font-size: clamp(20px, 2.2vw, 26px);
+    line-height: 1.15;
+    text-shadow: 0 2px 0 rgba(56, 50, 25, .35);
+}
+
+body.variant-preschool .preschool-home-hero-copy p,
+body.variant-preschool .preschool-home-hero-copy em {
+    margin: 0;
+    color: #d9efba;
+    font-size: 12px;
+    font-style: normal;
+}
+
+body.variant-preschool .preschool-home-hero-copy span {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    min-height: 32px;
+    margin-top: 4px;
+    padding: 0 12px;
+    border-radius: 999px;
+    color: #315d2b;
+    background: #ffd14a;
+    font-weight: 900;
+    box-shadow: 0 3px 0 #d7a51a;
+}
+
+body.variant-preschool .preschool-home-hero-copy span svg {
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+}
+
+body.variant-preschool .preschool-home-hero-art {
+    display: grid;
+    place-items: end center;
+    height: 100%;
+    padding: 6px 8px 0 0;
+}
+
+body.variant-preschool .preschool-home-hero-art img {
+    width: 88px;
+    height: 108px;
+    object-fit: contain;
+    filter: drop-shadow(0 6px 0 rgba(33, 49, 51, .2));
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-home-overview.is-simple .preschool-home-companion-tile,
+body.variant-preschool .preschool-home-overview.is-simple .preschool-home-companion-tile {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 88px;
+    height: 88px;
+    place-items: center;
+    align-content: center;
+    align-self: start;
+    gap: 2px;
+    margin: 0;
+    padding: 6px;
+    border: 1px solid rgba(49, 93, 43, .12);
+    border-radius: 16px;
+    color: #243528;
+    background: rgba(255, 255, 255, .92);
+    box-shadow: none;
+    text-align: center;
+    cursor: pointer;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-home-overview.is-simple .preschool-home-companion-tile .preschool-home-identity-art,
+body.variant-preschool[data-preschool-theme] .preschool-home-overview.is-simple .preschool-home-companion-tile .preschool-home-identity-art img,
+body.variant-preschool .preschool-home-overview.is-simple .preschool-home-companion-tile .preschool-home-identity-art,
+body.variant-preschool .preschool-home-overview.is-simple .preschool-home-companion-tile .preschool-home-identity-art img {
+    width: 44px;
+    height: 44px;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-home-overview.is-simple .preschool-home-companion-tile strong,
+body.variant-preschool .preschool-home-overview.is-simple .preschool-home-companion-tile strong {
+    font-size: 12px;
+    line-height: 1.1;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-home-overview.is-simple .preschool-home-companion-tile small,
+body.variant-preschool .preschool-home-overview.is-simple .preschool-home-companion-tile small {
+    color: #5d6d5f;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-home-overview.is-simple .preschool-home-battlefield,
+body.variant-preschool .preschool-home-overview.is-simple .preschool-home-battlefield {
+    padding: 12px;
+    border: 1px solid rgba(49, 93, 43, .12);
+    border-radius: 16px;
+    color: #243528;
+    background: rgba(255, 255, 255, .86);
+    box-shadow: none;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-home-overview.is-simple .preschool-home-battlefield-head h2,
+body.variant-preschool .preschool-home-overview.is-simple .preschool-home-battlefield-head h2 {
+    color: #243528;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-home-overview.is-simple .preschool-home-battlefield-head p,
+body.variant-preschool[data-preschool-theme] .preschool-home-overview.is-simple .preschool-home-battlefield-head .pixel-panel-kicker,
+body.variant-preschool .preschool-home-overview.is-simple .preschool-home-battlefield-head p,
+body.variant-preschool .preschool-home-overview.is-simple .preschool-home-battlefield-head .pixel-panel-kicker {
+    color: #5d6d5f;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-home-overview.is-simple .preschool-home-task-overview,
+body.variant-preschool[data-preschool-theme] .preschool-home-overview.is-simple .preschool-home-battlefield-foot,
+body.variant-preschool .preschool-home-overview.is-simple .preschool-home-task-overview,
+body.variant-preschool .preschool-home-overview.is-simple .preschool-home-battlefield-foot {
+    display: none;
+}
+
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-home-lanes,
+body.variant-preschool .is-simple .preschool-home-lanes {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-home-lane,
+body.variant-preschool .is-simple .preschool-home-lane {
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: 0;
+    padding: 10px 8px;
+    border: 1px solid rgba(49, 93, 43, .12);
+    border-radius: 14px;
+    color: #243528;
+    background: #fff;
+    box-shadow: none;
+}
+
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-home-lane.is-done,
+body.variant-preschool .is-simple .preschool-home-lane.is-done {
+    border-color: #b7d97a;
+    background: #eef8df;
+}
+
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-home-lane.is-now,
+body.variant-preschool .is-simple .preschool-home-lane.is-now {
+    border-color: #e0b12a;
+    background: #fff8d6;
+    box-shadow: 0 3px 0 #e0b12a;
+}
+
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-home-lane-main,
+body.variant-preschool .is-simple .preschool-home-lane-main {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    justify-items: center;
+    min-height: 0;
+    gap: 4px;
+    text-align: center;
+}
+
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-home-lane-characters,
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-home-lane-plant,
+body.variant-preschool .is-simple .preschool-home-lane-characters,
+body.variant-preschool .is-simple .preschool-home-lane-plant {
+    width: 48px;
+    height: 48px;
+}
+
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-home-lane-plant img,
+body.variant-preschool .is-simple .preschool-home-lane-plant img {
+    width: 40px;
+    height: 40px;
+}
+
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-home-lane-copy,
+body.variant-preschool .is-simple .preschool-home-lane-copy {
+    justify-items: center;
+}
+
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-home-lane-copy small,
+body.variant-preschool .is-simple .preschool-home-lane-copy small {
+    color: #5d6d5f;
+}
+
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-home-lane-copy strong,
+body.variant-preschool .is-simple .preschool-home-lane-copy strong {
+    color: #243528;
+    font-size: 13px;
+}
+
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-home-lane-main .preschool-home-lane-status,
+body.variant-preschool .is-simple .preschool-home-lane-main .preschool-home-lane-status {
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: center;
+    color: #6b8a3a;
+    background: transparent;
+    border: 0;
+}
+
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-home-lane-practice,
+body.variant-preschool .is-simple .preschool-home-lane-practice {
+    min-height: 36px;
+    padding: 0 10px;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-home-overview.is-simple .preschool-home-exits,
+body.variant-preschool .preschool-home-overview.is-simple .preschool-home-exits {
+    margin-top: 0;
+}
+
+@media (min-width: 1181px) {
+    body.variant-preschool[data-preschool-theme] .is-simple .preschool-home-lanes,
+    body.variant-preschool .is-simple .preschool-home-lanes {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 820px) {
+    body.variant-preschool .preschool-home-top {
+        grid-template-columns: minmax(0, 1fr) 72px;
+    }
+
+    body.variant-preschool[data-preschool-theme] .preschool-home-overview.is-simple .preschool-home-companion-tile,
+    body.variant-preschool .preschool-home-overview.is-simple .preschool-home-companion-tile {
+        width: 72px;
+        height: 72px;
+    }
+}
+
+@media (max-width: 760px) {
+    body.variant-preschool[data-preschool-theme] .is-simple .preschool-home-lanes,
+    body.variant-preschool .is-simple .preschool-home-lanes {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Voxel home: keep the fixed sidebar off the cards, and use the generated block-world scene. */
+@media (min-width: 761px) {
+    body.variant-preschool[data-preschool-theme='voxel-adventure']:not(:has(.voxel-workshop)) {
+        --sidebar-width: 236px;
+    }
+
+    body.variant-preschool[data-preschool-theme='voxel-adventure']:not(:has(.voxel-workshop)) .sidebar {
+        width: var(--sidebar-width);
+        max-width: var(--sidebar-width);
+    }
+
+    body.variant-preschool[data-preschool-theme='voxel-adventure']:not(:has(.voxel-workshop)) .main-content {
+        width: calc(100% - var(--sidebar-width)) !important;
+        margin-left: var(--sidebar-width) !important;
+        min-width: 0;
+    }
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-overview.is-simple {
+    border-color: #9c733d;
+    color: #1b2048;
+    background:
+        linear-gradient(180deg, rgba(231, 244, 255, .62), rgba(231, 244, 255, .28)),
+        url("../../assets/generated/preschool-theme-assets/voxel-v2/reference/voxel-page-bg.webp") center top / cover !important;
+}
+
+body.variant-preschool[data-preschool-theme='voxel-adventure'] .preschool-home-hero-card {
+    border-color: #9c733d;
+    color: #fff9dc;
+    background:
+        linear-gradient(90deg, rgba(28, 40, 105, .74) 0%, rgba(28, 40, 105, .32) 58%, rgba(28, 40, 105, .08) 100%),
+        url("../../assets/generated/preschool-theme-assets/voxel-v2/reference/voxel-page-bg.webp") center / cover !important;
+}
+
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-overview.is-simple {
+    border-color: #dc9e29;
+    color: #4a3443;
+    background:
+        linear-gradient(180deg, rgba(255, 249, 234, .62), rgba(255, 249, 234, .28)),
+        url("../../assets/generated/preschool-theme-assets/platform-v2/reference/platform-page-bg.webp") center top / cover !important;
+}
+
+body.variant-preschool[data-preschool-theme='platform-quest'] .preschool-home-hero-card {
+    border-color: #dc9e29;
+    color: #fff9d5;
+    background:
+        linear-gradient(90deg, rgba(185, 38, 48, .74) 0%, rgba(207, 52, 48, .32) 58%, rgba(207, 52, 48, .08) 100%),
+        url("../../assets/generated/preschool-theme-assets/platform-v2/reference/platform-page-bg.webp") center / cover !important;
+}
+
+@media (max-width: 520px) {
+    body.variant-preschool .preschool-home-top {
+        grid-template-columns: 1fr;
+    }
+
+    body.variant-preschool[data-preschool-theme] .preschool-home-overview.is-simple .preschool-home-companion-tile,
+    body.variant-preschool .preschool-home-overview.is-simple .preschool-home-companion-tile {
+        width: 88px;
+        justify-self: end;
+    }
+
+    body.variant-preschool[data-preschool-theme] .is-simple .preschool-home-lanes,
+    body.variant-preschool .is-simple .preschool-home-lanes {
+        grid-template-columns: 1fr;
+    }
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-plan-card.is-simple,
+body.variant-preschool .preschool-plan-card.is-simple {
+    margin-top: 14px;
+    padding: 14px;
+    border: 1px solid rgba(49, 93, 43, .12);
+    border-radius: 16px;
+    color: #243528;
+    background: rgba(255, 255, 255, .86);
+    box-shadow: none;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-plan-card.is-simple .preschool-section-head h2,
+body.variant-preschool .preschool-plan-card.is-simple .preschool-section-head h2 {
+    color: #243528;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-plan-card.is-simple .preschool-section-head p,
+body.variant-preschool .preschool-plan-card.is-simple .preschool-section-head p {
+    color: #5d6d5f;
+}
+
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-plan-list,
+body.variant-preschool .is-simple .preschool-plan-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+}
+
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-plan-row,
+body.variant-preschool .is-simple .preschool-plan-row {
+    display: grid;
+    grid-template-columns: 46px minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1px solid rgba(49, 93, 43, .12);
+    border-radius: 12px;
+    color: #243528;
+    background: #fff;
+}
+
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-plan-row.is-done,
+body.variant-preschool .is-simple .preschool-plan-row.is-done {
+    border-color: #b7d97a;
+    background: #eef8df;
+}
+
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-plan-row-art,
+body.variant-preschool .is-simple .preschool-plan-row-art {
+    display: grid;
+    width: 46px;
+    height: 46px;
+    place-items: center;
+    border: 1px solid rgba(49, 93, 43, .1);
+    border-radius: 10px;
+    background: rgba(255, 251, 224, .8);
+}
+
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-plan-row-art img,
+body.variant-preschool .is-simple .preschool-plan-row-art img {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+}
+
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-plan-row-copy strong,
+body.variant-preschool .is-simple .preschool-plan-row-copy strong {
+    display: block;
+    overflow: hidden;
+    color: #243528;
+    font-size: 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-plan-row-copy small,
+body.variant-preschool .is-simple .preschool-plan-row-copy small {
+    color: #5d6d5f;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-plan-row-status,
+body.variant-preschool .is-simple .preschool-plan-row-status {
+    display: inline-flex;
+    min-height: 26px;
+    align-items: center;
+    gap: 4px;
+    padding: 0 10px;
+    border: 1px solid rgba(49, 93, 43, .16);
+    border-radius: 999px;
+    color: #5d6d5f;
+    background: #f6faef;
+    font-size: 11px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-plan-row-status.is-done,
+body.variant-preschool .is-simple .preschool-plan-row-status.is-done {
+    border-color: #a1d283;
+    color: #266d3c;
+    background: #e1f4d6;
+}
+
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-plan-row-status svg,
+body.variant-preschool .is-simple .preschool-plan-row-status svg {
+    width: 13px;
+    height: 13px;
+}
+
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-plan-manage,
+body.variant-preschool .is-simple .preschool-plan-manage {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+@media (max-width: 620px) {
+    body.variant-preschool[data-preschool-theme] .is-simple .preschool-plan-row,
+    body.variant-preschool .is-simple .preschool-plan-row {
+        grid-template-columns: 40px minmax(0, 1fr) auto;
+    }
+
+    body.variant-preschool[data-preschool-theme] .is-simple .preschool-plan-row-art,
+    body.variant-preschool .is-simple .preschool-plan-row-art {
+        width: 40px;
+        height: 40px;
+    }
+
+    body.variant-preschool[data-preschool-theme] .is-simple .preschool-plan-row .preschool-plan-manage,
+    body.variant-preschool .is-simple .preschool-plan-row .preschool-plan-manage {
+        grid-column: 1 / -1;
+        padding-top: 6px;
+        border-top: 1px dashed rgba(49, 93, 43, .14);
+    }
+}
+
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-plan-manage .row-action,
+body.variant-preschool .is-simple .preschool-plan-manage .row-action {
+    min-height: 28px;
+    padding: 0 8px;
+    border: 1px solid rgba(49, 93, 43, .16);
+    border-radius: 8px;
+    color: #5d6d5f;
+    background: #fff;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-plan-manage .row-action.danger,
+body.variant-preschool .is-simple .preschool-plan-manage .row-action.danger {
+    color: #8a351e;
+}
+
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-home-lane-check,
+body.variant-preschool .is-simple .preschool-home-lane-check {
+    display: inline-flex;
+    min-height: 28px;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    margin-top: 4px;
+    padding: 0 10px;
+    border: 1px solid rgba(49, 93, 43, .16);
+    border-radius: 999px;
+    color: #266d3c;
+    background: #f6faef;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-growth-simple,
+body.variant-preschool .preschool-growth-simple {
+    margin-top: 14px;
+    padding: 16px;
+    border: 1px solid rgba(49, 93, 43, .12);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, .9);
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-growth-simple-stats,
+body.variant-preschool .preschool-growth-simple-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-growth-simple-stats span,
+body.variant-preschool .preschool-growth-simple-stats span {
+    display: grid;
+    gap: 2px;
+    padding: 10px 8px;
+    border-radius: 12px;
+    background: #f6faef;
+    text-align: center;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-growth-simple-stats small,
+body.variant-preschool .preschool-growth-simple-stats small {
+    color: #5d6d5f;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-growth-simple-stats b,
+body.variant-preschool .preschool-growth-simple-stats b {
+    color: #243528;
+    font-size: 18px;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-growth-simple-next,
+body.variant-preschool .preschool-growth-simple-next {
+    margin: 10px 0;
+    color: #5d6d5f;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-growth-more,
+body.variant-preschool .preschool-growth-more {
+    margin-top: 12px;
+    padding: 12px 14px;
+    border: 1px solid rgba(49, 93, 43, .12);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, .86);
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-growth-more summary,
+body.variant-preschool .preschool-growth-more summary {
+    cursor: pointer;
+    color: #243528;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-timed-chips,
+body.variant-preschool .preschool-timed-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-timed-chip,
+body.variant-preschool .preschool-timed-chip {
+    display: inline-flex;
+    min-height: 36px;
+    align-items: center;
+    padding: 0 12px;
+    border: 1px solid rgba(49, 93, 43, .16);
+    border-radius: 999px;
+    color: #243528;
+    background: #fff;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-timed-chip input,
+body.variant-preschool .preschool-timed-chip input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+body.variant-preschool[data-preschool-theme] .preschool-timed-chip:has(input:checked),
+body.variant-preschool .preschool-timed-chip:has(input:checked) {
+    border-color: #2d8748;
+    color: #1f6b36;
+    background: #e1f4d6;
+}

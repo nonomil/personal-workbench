@@ -86,8 +86,15 @@
 - 断连保护:`growth.streakRepair` 记录补签卡用量(`cardsUsedByMonth`,按 `YYYY-MM` 每月最多 2 张,跨月自动按月键重置)与已补日期(`repairedDates`)。`repairStreak` 只能把"昨天"补进 `checkinDates` 以恢复连续性,**不**发放当日 +10 阳光、不进 `awardedIds` 结算路径;昨天无断档或月度用尽时拒绝。
 - 植物阶段由累计阳光决定；浇水每天一次，消耗 5 阳光。
 - 独角兽 XP 与阳光同步增长，100 XP 升一级；等级和连续天数可解锁造型。
-- 最近一次打卡不是今天时，成长地图显示僵尸入侵提示；完成今天第一项行动后驱散。
+- 最近一次点亮不是今天时，成长地图显示僵尸入侵提示；完成今天第一项行动后驱散。
 - 浏览器支持 `speechSynthesis` 且用户打开语音开关时，完成动作播放中文夸奖；语音不是业务结算依据。
+
+## 点亮日 vs 完美日（2026-08-15，D-011）
+
+- **点亮日**是“当天第一次有效行动已经自动沉淀”的日期口径，不是额外的手动按钮。`prj/child-growth.js` 的 `recordAction` 在有效事件首次发生且当天不在 `growth.checkinDates` 时写入本地 `YYYY-MM-DD` 日期，并追加 `daily-checkin:{date}` 的 +10 阳光事件；`checkinDates` 字段名保持不变。连续行动 `calculateStreak`、幼儿日历的点亮天数和断连提示都使用这层事实。
+- **完美日**是“当天所有有日期的计划项都完成”的严格口径。`prj/preschool-achievements.js` 的 `countFullPlanDays` 先按 `dailyPlans[].date` 聚合，只有 `total > 0` 且 `done === total` 的日期计 1 天；没有计划记录时才回退到合法的 `checkinDates`，以兼容旧快照和测试夹具。地图徽章的 `stats.adventure.days`、徽章描述中的“完美日”使用此口径，不把一次点亮日冒充完美日。
+- 补签只用于连续性：`streakRepair.repairedDates` 可以让缺口在展示上恢复为点亮，但 `repairStreak` 不发放当日 +10，也不进入 `awardedIds` 结算路径。
+- **`totalSunlightEarned` 总账**只统计学习 `recordAction`（包括其当日首次行动 +10）、已有连续奖励 `claimStreakReward` 和游戏 `workbench-bridge.js` 的 `awardSunlight` 入账；兑换奖励只消耗 `sunlight`，不减少总账。方向 A 裁决保持向日葵旁路为花园内资源循环：`prj/preschool-garden.js` 的向日葵主动技能与防守 tick 各自只增加 `growth.sunlight` 和 `garden.growthPoints`，不写 `totalSunlightEarned`、`unicorn.xp` 或 `awardedIds`。学习路径不增加每日阳光总上限。
 
 ## 幼儿版花园与收藏
 
@@ -111,7 +118,7 @@
 - `growth.achievements` 由 `preschool-achievements.js` 归一化:`unlocked`(徽章 id 列表,19 枚目录派生,总数 `BADGE_COUNT = BADGE_ORDER.length`,不硬编码)、`history`(解锁时间记录)、`seen`(已看过弹层的徽章,用于"NEW"角标)、`lastShown`。三处展示(徽章收集箱 / 成长卡 / 周报)总数口径一致。
 - `growth.worldGames` 由 `games/shared/workbench-bridge.js` 管理,与三世界游戏页共用同一账本:
   - `garden-defense`:`unlockedStage / clearedStages / stars{stageId→1-3} / bestWave / totalWins / totalDefeated`;
-  - `voxel-adventure`:`rank / crystalsTotal / blocksBuilt / questsDone[] / unlockedLevel / clearedLevels[] / inventory{方块kind→数量}`,方块工坊(小卖部/合成/家长锁)的库存也写在这里;
+  - `voxel-adventure`:`rank / crystalsTotal / blocksBuilt / questsDone[] / unlockedLevel / clearedLevels[] / inventory{方块kind→数量} / lastCelebratedRank`(升段仪式去重) / `homeSnapshot{date,blocks,grid[]}`(最新家园快照,`grid` 为单字符行如 `g/d/s/.` ,progress 内部字段,不是新 localStorage key),方块工坊库存也写在这里;
   - `platform-quest`:`unlockedLevel / clearedLevels / stars{levelId→1-3} / coinsTotal / bestTime{levelId→秒}`;
   - `meta`:游玩日期戳、周目标、里程碑;游戏阳光每日上限 80、单事件上限 40,由 bridge 幂等去重。
 - `courseProgress` 除 `completedLessonIds` 外,识字/英语各有按字/词的掌握状态表(`charStates` / `wordStates`),由 `child-courses.js` 维护,复习队列(1/3/7/14 天)从这些状态派生。

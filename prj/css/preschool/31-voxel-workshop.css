@@ -20,13 +20,16 @@ body.variant-preschool[data-preschool-theme='voxel-adventure']:has(.voxel-worksh
     display: none !important;
 }
 
-body.variant-preschool[data-preschool-theme='voxel-adventure'] .main-content {
+/* Only the standalone workshop hides the workbench chrome.
+   Home and other pages must keep the sidebar offset or the fixed nav covers the cards. */
+body.variant-preschool[data-preschool-theme='voxel-adventure']:has(.voxel-workshop) .main-content {
+    width: 100%;
     margin: 0;
     padding: 0;
     min-height: 100vh;
 }
 
-body.variant-preschool[data-preschool-theme='voxel-adventure'] .page-content {
+body.variant-preschool[data-preschool-theme='voxel-adventure']:has(.voxel-workshop) .page-content {
     padding: 0;
     max-width: none;
 }

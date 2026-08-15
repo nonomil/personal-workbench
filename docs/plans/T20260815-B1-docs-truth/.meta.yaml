@@ -1,6 +1,6 @@
 task_id: "T20260815-B1"
 title: "文档回真：卡片墙状态 + 刷新测试断言 + 三处课程合同对数"
-status: "done"
+status: "review"
 priority: "P0"
 phase: "single"
 assignee: ""
@@ -33,7 +33,7 @@ acceptance:
   - "preschool-workbench-refresh 测试断言当前卡片墙结构且通过"
   - "grep 不再出现"每天三项核心"类表述；任务数与 config.js 实况一致"
   - "数据与奖励合同数值逐项对照 storage.js / workbench-bridge.js 改齐或标注裁决"
-  - "识字目标改为"已上 240 / 主线 1500"口径"
+  - "识字目标改为运行库 1500 / 主线 1500 口径"
   - "npm test 退出码 0，零产品代码改动"
 tags:
   - preschool

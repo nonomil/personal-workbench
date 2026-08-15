@@ -1,23 +1,127 @@
 /**
- * 横版闯关 · 10 关成长表（参考方案：1–2 关短、7–8 关瘦身、检查点）
+ * 横版闯关 · 14 关
+ * 环境抽自 refs/mahmodnasser-mario：格子铺台、高低错落、台阶、地面留坑。
+ * 参考关宽 200 格 × 32 = 6400px；本关 TILE=40，第 1 关同样 160 格。
  */
 (function (global) {
     'use strict';
 
-    function L(id, title, width, platforms, coins, enemies, flagX, reward, parTime, blocks, checkpoints) {
+    const T = 40;
+    const GY = 400;
+
+    function ay(tilesAbove) {
+        return GY - tilesAbove * T;
+    }
+
+    function row(tileX, tilesAbove, n, type) {
+        return {
+            x: tileX * T,
+            y: ay(tilesAbove),
+            w: n * T,
+            h: 20,
+            type: type || 'grass'
+        };
+    }
+
+    function stairs(tileX, steps, type) {
+        const out = [];
+        const kind = type || 'brick';
+        for (let i = 0; i < steps; i += 1) {
+            for (let j = 0; j <= i; j += 1) {
+                out.push({
+                    x: (tileX + i) * T,
+                    y: ay(j + 1),
+                    w: T,
+                    h: T,
+                    type: kind,
+                    breakable: false,
+                    stair: true
+                });
+            }
+        }
+        return out;
+    }
+
+    function groundsFromPits(width, pits) {
+        const cuts = (pits || []).slice().sort(function (a, b) { return a[0] - b[0]; });
+        const segs = [];
+        let x = 0;
+        cuts.forEach(function (p) {
+            const px = Number(p[0]) || 0;
+            const pw = Number(p[1]) || 0;
+            if (px > x) segs.push({ x: x, w: px - x });
+            x = Math.max(x, px + pw);
+        });
+        if (x < width) segs.push({ x: x, w: width - x });
+        return segs;
+    }
+
+    function blockAt(tileX, tilesAbove, type, item) {
+        return [tileX * T, ay(tilesAbove), type, item];
+    }
+
+    function coinAt(tileX, tilesAbove) {
+        return [tileX * T + 8, ay(tilesAbove) - 36];
+    }
+
+    function enemyOn(tileX, dir, kind) {
+        return [tileX * T, GY - 36, dir || 1, undefined, undefined, kind];
+    }
+
+    function pipeAt(tileX, h) {
+        const hh = h || 60;
+        return { x: tileX * T, y: GY - hh, w: 48, h: hh };
+    }
+
+    function plantOn(tileX) {
+        return [tileX * T + 8, GY - 88, 1, undefined, undefined, 'plant'];
+    }
+
+    function underMap(width, platforms, coins, enemies, blocks, pipeTile) {
+        const w = width || 2000;
+        const pt = pipeTile != null ? pipeTile : Math.max(2, Math.floor(w / T) - 3);
+        return {
+            width: w,
+            groundY: GY,
+            grounds: [{ x: 0, w: w }],
+            platforms: platforms || [],
+            coins: (coins || []).map(function (c) { return { x: c[0], y: c[1], taken: false }; }),
+            enemies: (enemies || []).map(function (e) {
+                return { x: e[0], y: e[1], w: 36, h: 28, dir: e[2] || 1, minX: e[3], maxX: e[4], kind: e[5] || 'shroom' };
+            }),
+            blocks: (blocks || []).map(function (b) {
+                return {
+                    x: b[0], y: b[1], w: T, h: T,
+                    type: b[2] || 'question',
+                    item: b[3] || 'coin',
+                    hit: false,
+                    broken: false
+                };
+            }),
+            pipe: { x: Math.min(w - 80, pt * T), y: GY - 60, w: 48, h: 60, exit: true },
+            pipes: [{ x: Math.min(w - 80, pt * T), y: GY - 60, w: 48, h: 60, exit: true }],
+            sky: 'sky-night'
+        };
+    }
+
+    function L(id, title, width, platforms, coins, enemies, flagX, reward, parTime, blocks, checkpoints, pits, extras) {
+        extras = extras || {};
+        const pipeTile = extras.pipeTile != null ? extras.pipeTile : 18;
+        const mainPipe = { x: Math.min(width - 80, pipeTile * T), y: GY - 60, w: 48, h: 60 };
         return {
             id: id,
             title: title,
             width: width,
-            groundY: 400,
+            groundY: GY,
+            grounds: groundsFromPits(width, pits),
             platforms: platforms,
             coins: coins.map(function (c) { return { x: c[0], y: c[1], taken: false }; }),
             enemies: enemies.map(function (e) {
-                return { x: e[0], y: e[1], w: 36, h: 28, dir: e[2] || 1, minX: e[3], maxX: e[4] };
+                return { x: e[0], y: e[1], w: 36, h: 28, dir: e[2] || 1, minX: e[3], maxX: e[4], kind: e[5] || 'shroom' };
             }),
             blocks: (blocks || []).map(function (b) {
                 return {
-                    x: b[0], y: b[1], w: 40, h: 40,
+                    x: b[0], y: b[1], w: T, h: T,
                     type: b[2] || 'question',
                     item: b[3] || 'coin',
                     hit: false,
@@ -27,131 +131,313 @@
             checkpoints: (checkpoints || []).map(function (c) {
                 return { x: c[0], y: c[1], w: c[2] || 44, h: c[3] || 44, saved: false };
             }),
-            flag: { x: flagX, y: 280, w: 44, h: 120 },
-            pipe: { x: Math.floor(width * 0.42), y: 340, w: 48, h: 60 },
+            flag: { x: flagX, y: GY - 120, w: 44, h: 120 },
+            pipe: mainPipe,
+            pipes: [mainPipe].concat(extras.pipes || []),
+            under: extras.under || null,
             rewardSun: reward,
             parTime: parTime || 90
         };
     }
 
-    function plat(step, n, x0, y0, w, gap, rise) {
-        const out = [];
-        for (let i = 0; i < n; i += 1) {
-            out.push([x0 + i * (w + gap), y0 - i * (rise || 0) * (i % 2 === 0 ? 1 : -0.3), w, 20]);
-        }
-        return out;
-    }
-
-    function blockRow(x, y, n, type, item) {
-        const gap = 44;
-        const out = [];
-        for (let i = 0; i < n; i += 1) {
-            out.push([x + i * gap, y, type, item || 'coin']);
-        }
-        return out;
-    }
-
     const LEVELS = [
-        L(1, '青青草地', 2400,
+        L(1, '青青草地', 6400,
             [
-                [180, 320, 110, 20], [360, 280, 100, 20], [540, 300, 120, 20], [720, 260, 100, 20],
-                [920, 300, 120, 20], [1120, 270, 100, 20], [1320, 240, 110, 20], [1520, 280, 120, 20],
-                [1720, 250, 100, 20], [1920, 290, 120, 20], [2120, 260, 100, 20]
-            ],
+                row(20, 3, 3), row(30, 3, 3), row(40, 5, 5),
+                row(50, 3, 8), row(65, 5, 4), row(75, 6, 3),
+                row(90, 3, 10), row(145, 3, 12)
+            ].concat(stairs(110, 6), stairs(130, 5)),
             [
-                [220, 280], [400, 240], [580, 260], [760, 220], [960, 260], [1160, 230],
-                [1360, 200], [1560, 240], [1760, 210], [1960, 250], [2160, 220]
+                coinAt(20, 3), coinAt(22, 3), coinAt(40, 5), coinAt(42, 5),
+                coinAt(51, 3), coinAt(65, 5), coinAt(75, 6), coinAt(91, 3),
+                coinAt(111, 2), coinAt(132, 3), coinAt(146, 3)
             ],
-            [[520, 372, 1, 460, 620], [1280, 372, -1, 1200, 1380], [1880, 372, 1, 1800, 1980]],
-            2280, 12, 100,
-            blockRow(820, 200, 4, 'brick', 'coin').concat([
-                [300, 280, 'question', 'coin'], [500, 260, 'question', 'coin'],
-                [620, 240, 'question', 'mushroom'], [1180, 220, 'question', 'coin'],
-                [1500, 240, 'question', 'coin'], [2050, 250, 'question', 'coin']
-            ], blockRow(1720, 210, 3, 'brick', 'coin'))),
-        L(2, '砖块台阶', 1500,
-            [[200, 330, 90, 20], [340, 290, 90, 20], [480, 250, 90, 20], [640, 290, 110, 20], [860, 250, 100, 20], [1080, 300, 120, 20], [1240, 270, 100, 20]],
-            [[230, 290], [370, 250], [510, 210], [680, 250], [900, 210], [1120, 260], [1280, 230]],
-            [[520, 372, 1, 480, 620], [980, 372, -1, 900, 1080]],
-            1380, 15, 85,
-            blockRow(560, 180, 4, 'brick', 'coin').concat([
-                [380, 250, 'brick', 'coin'], [720, 210, 'question', 'mushroom'], [980, 250, 'brick', 'coin']
-            ])),
-        L(3, '水管山谷', 1600,
-            [[220, 310, 100, 20], [400, 270, 90, 20], [580, 320, 100, 20], [760, 240, 100, 20], [960, 280, 120, 20], [1180, 240, 100, 20], [1320, 300, 110, 20]],
-            [[250, 270], [430, 230], [620, 280], [800, 200], [1000, 240], [1220, 200], [1360, 260]],
-            [[500, 372, 1, 450, 600], [900, 372, -1, 840, 1000], [1200, 372, 1, 1140, 1280]],
-            1480, 18, 95,
-            blockRow(840, 160, 3, 'brick', 'coin').concat([
-                [620, 280, 'question', 'coin'], [980, 200, 'question', 'star']
-            ])),
-        L(4, '高台冲刺', 1650,
-            [[200, 340, 80, 20], [320, 300, 80, 20], [440, 260, 80, 20], [560, 220, 80, 20], [720, 260, 100, 20], [900, 300, 100, 20], [1100, 240, 100, 20], [1300, 280, 110, 20]],
-            [[230, 300], [350, 260], [470, 220], [590, 180], [760, 220], [940, 260], [1140, 200], [1340, 240]],
-            [[600, 372, 1, 540, 720], [1000, 372, -1, 920, 1120]],
-            1530, 22, 100,
-            blockRow(640, 180, 5, 'brick', 'coin').concat([
-                [480, 220, 'question', 'coin'], [880, 260, 'question', 'mushroom'], [1120, 200, 'brick', 'coin']
-            ])),
-        L(5, '星光中场', 1750,
-            [[180, 320, 100, 20], [340, 280, 90, 20], [500, 240, 90, 20], [660, 280, 100, 20], [840, 220, 100, 20], [1040, 260, 110, 20], [1240, 220, 100, 20], [1440, 280, 120, 20]],
-            [[210, 280], [370, 240], [530, 200], [700, 240], [880, 180], [1080, 220], [1280, 180], [1480, 240]],
-            [[450, 372, 1, 400, 560], [800, 372, -1, 740, 920], [1150, 372, 1, 1080, 1260]],
-            1630, 26, 105,
-            [[620, 200, 'question', 'star'], [1020, 220, 'question', 'coin']]),
-        L(6, '云端跳台', 1800,
-            [[160, 340, 90, 20], [300, 300, 90, 20], [440, 260, 90, 20], [580, 220, 90, 20], [740, 260, 100, 20], [900, 200, 100, 20], [1080, 240, 100, 20], [1260, 200, 100, 20], [1440, 260, 110, 20]],
-            [[190, 300], [330, 260], [470, 220], [610, 180], [780, 220], [940, 160], [1120, 200], [1300, 160], [1480, 220]],
-            [[520, 372, 1, 460, 640], [960, 372, -1, 880, 1080], [1320, 372, 1, 1240, 1440]],
-            1680, 28, 110,
-            [[700, 160, 'question', 'mushroom'], [1180, 160, 'question', 'coin']],
-            [[920, 360]]),
-        L(7, '峡谷风', 1750,
-            [[200, 330, 80, 20], [340, 290, 80, 20], [480, 250, 80, 20],
-                { x: 620, y: 250, w: 90, h: 20, mv: { axis: 'y', range: 36, speed: 1.1, phase: 0 } },
-                [780, 230, 90, 20], [940, 270, 100, 20],
-                { x: 1080, y: 230, w: 100, h: 20, mv: { axis: 'x', range: 40, speed: 0.9, phase: 1.5 } },
-                [1300, 270, 100, 20], [1480, 230, 100, 20]],
-            [[230, 290], [370, 250], [510, 210], [660, 250], [820, 190], [980, 230], [1160, 190], [1340, 230], [1520, 190]],
-            [[400, 372, 1, 340, 520], [860, 372, -1, 780, 980], [1280, 372, 1, 1180, 1400]],
-            1620, 30, 110,
-            [[760, 190, 'question', 'coin'], [1100, 190, 'question', 'mushroom']],
-            [[880, 360]]),
-        L(8, '密林冲刺', 1800,
-            [[180, 320, 100, 20], [320, 280, 90, 20], [460, 240, 90, 20],
-                { x: 600, y: 260, w: 90, h: 20, mv: { axis: 'y', range: 44, speed: 1.0, phase: 0.8 } },
-                [760, 220, 100, 20], [920, 260, 100, 20], [1100, 200, 100, 20],
-                { x: 1260, y: 240, w: 110, h: 20, mv: { axis: 'x', range: 36, speed: 1.2, phase: 0 } },
-                [1460, 200, 100, 20], [1640, 260, 110, 20]],
-            [[210, 280], [350, 240], [490, 200], [640, 240], [800, 180], [960, 220], [1140, 160], [1320, 200], [1500, 160], [1680, 220]],
-            [[500, 372, 1, 440, 620], [900, 372, -1, 820, 1040], [1300, 372, 1, 1200, 1440]],
-            1680, 32, 115,
-            [[540, 240, 'question', 'coin'], [980, 180, 'question', 'star']],
-            [[960, 360]]),
-        L(9, '夜路守卫', 1500,
-            [[200, 340, 90, 20], [360, 300, 90, 20],
-                { x: 520, y: 240, w: 90, h: 20, mv: { axis: 'y', range: 40, speed: 1.15, phase: 0 } },
-                [680, 220, 90, 20], [860, 260, 100, 20],
-                { x: 1020, y: 200, w: 100, h: 20, mv: { axis: 'x', range: 44, speed: 1.0, phase: 2.2 } },
-                [1220, 240, 100, 20]],
-            [[230, 300], [390, 260], [550, 220], [710, 180], [900, 220], [1080, 160], [1260, 200]],
-            [[480, 372, 1, 400, 600], [880, 372, -1, 780, 1020]],
-            1380, 36, 85,
-            [[640, 180, 'question', 'mushroom'], [980, 160, 'question', 'coin']],
-            [[760, 360]]),
-        L(10, '彩虹终点', 1500,
-            [[160, 330, 90, 20], [300, 290, 90, 20],
-                { x: 440, y: 230, w: 90, h: 20, mv: { axis: 'y', range: 42, speed: 1.2, phase: 0.5 } },
-                [580, 210, 90, 20], [740, 250, 100, 20],
-                { x: 880, y: 190, w: 100, h: 20, mv: { axis: 'x', range: 50, speed: 1.1, phase: 0 } },
-                [1080, 230, 100, 20], [1260, 170, 100, 20]],
-            [[190, 290], [330, 250], [470, 210], [610, 170], [780, 210], [940, 150], [1120, 190], [1300, 130]],
-            [[420, 372, 1, 360, 560], [820, 372, -1, 740, 960]],
-            1380, 45, 90,
-            [[520, 170, 'question', 'star'], [860, 150, 'question', 'coin'], [1080, 190, 'question', 'mushroom']])
+            [enemyOn(24), enemyOn(35, -1), enemyOn(52), enemyOn(72), enemyOn(93), enemyOn(118)],
+            155 * T, 12, 180,
+            [
+                blockAt(16, 4, 'question', 'coin'),
+                blockAt(21, 4, 'question', 'mushroom'),
+                blockAt(23, 4, 'question', 'coin'),
+                blockAt(25, 7, 'question', 'coin'),
+                blockAt(31, 4, 'question', 'mushroom'),
+                blockAt(45, 6, 'question', 'coin'),
+                blockAt(46, 6, 'question', 'coin'),
+                blockAt(47, 6, 'question', 'coin'),
+                blockAt(70, 4, 'question', 'mushroom'),
+                blockAt(80, 7, 'question', 'ball')
+            ],
+            [[32 * T, GY - 44], [112 * T, GY - 44]],
+            [[26 * T, 2 * T], [58 * T, 2 * T], [100 * T, 2 * T]],
+            {
+                pipeTile: 12,
+                under: underMap(2000, [
+                    row(6, 3, 4), row(16, 5, 3), row(28, 3, 6)
+                ], [
+                    coinAt(6, 3), coinAt(8, 3), coinAt(16, 5), coinAt(28, 3), coinAt(30, 3)
+                ], [
+                    enemyOn(20), enemyOn(34, -1, 'beetle')
+                ], [
+                    blockAt(18, 4, 'question', 'ball'),
+                    blockAt(29, 4, 'question', 'coin')
+                ], 42)
+            }
+        ),
+        L(2, '砖块台阶', 4800,
+            [
+                row(8, 3, 2), row(14, 4, 3), row(22, 5, 3),
+                row(36, 3, 6), row(52, 6, 3), row(70, 4, 4),
+                row(88, 3, 8)
+            ].concat(stairs(28, 4), stairs(100, 6)),
+            [coinAt(8, 3), coinAt(14, 4), coinAt(22, 5), coinAt(36, 3), coinAt(52, 6), coinAt(70, 4), coinAt(101, 3)],
+            [enemyOn(12), enemyOn(40, -1, 'beetle'), enemyOn(74), enemyOn(92, 1, 'leaf')],
+            112 * T, 15, 150,
+            [
+                blockAt(15, 5, 'brick', 'coin'),
+                blockAt(23, 6, 'question', 'mushroom'),
+                blockAt(38, 4, 'question', 'ball'),
+                blockAt(71, 5, 'brick', 'coin')
+            ],
+            [[40 * T, GY - 44]],
+            [[20 * T, 2 * T], [60 * T, 2 * T]],
+            {
+                pipeTile: 18,
+                under: underMap(1800, [
+                    row(8, 4, 5), row(20, 3, 4)
+                ], [
+                    coinAt(8, 4), coinAt(10, 4), coinAt(20, 3), coinAt(22, 3)
+                ], [
+                    enemyOn(14, 1, 'beetle')
+                ], [
+                    blockAt(22, 4, 'question', 'ball')
+                ], 38)
+            }
+        ),
+        L(3, '水管山谷', 5200,
+            [
+                row(10, 3, 4), row(28, 5, 3), row(42, 3, 5),
+                row(60, 6, 3), row(78, 4, 6), row(100, 3, 8)
+            ].concat(stairs(88, 5)),
+            [coinAt(10, 3), coinAt(28, 5), coinAt(42, 3), coinAt(60, 6), coinAt(78, 4), coinAt(89, 3), coinAt(101, 3)],
+            [enemyOn(16, 1, 'leaf'), enemyOn(46, -1, 'beetle'), enemyOn(80), enemyOn(104, 1, 'leaf')],
+            122 * T, 18, 160,
+            [
+                blockAt(12, 4, 'question', 'coin'),
+                blockAt(30, 6, 'question', 'star'),
+                blockAt(44, 4, 'question', 'ball')
+            ],
+            [[48 * T, GY - 44]],
+            [[22 * T, 2 * T], [68 * T, 2 * T]],
+            {
+                pipeTile: 32,
+                under: underMap(2200, [
+                    row(10, 4, 6), row(24, 3, 5), row(40, 5, 4)
+                ], [
+                    coinAt(10, 4), coinAt(12, 4), coinAt(24, 3), coinAt(40, 5)
+                ], [
+                    enemyOn(18, 1, 'leaf'), enemyOn(36, -1, 'beetle')
+                ], [
+                    blockAt(26, 4, 'question', 'mushroom')
+                ], 48)
+            }
+        ),
+        L(4, '高台冲刺', 5600,
+            [
+                row(6, 2, 2), row(12, 3, 2), row(18, 4, 2), row(24, 5, 2),
+                row(36, 3, 5), row(54, 6, 4), row(72, 4, 3), row(90, 3, 10)
+            ].concat(stairs(108, 7)),
+            [coinAt(6, 2), coinAt(12, 3), coinAt(18, 4), coinAt(24, 5), coinAt(36, 3), coinAt(54, 6), coinAt(90, 3)],
+            [enemyOn(40, 1, 'beetle'), enemyOn(76, -1, 'leaf'), enemyOn(96)],
+            128 * T, 22, 170,
+            [
+                blockAt(19, 5, 'question', 'coin'),
+                blockAt(38, 4, 'question', 'mushroom'),
+                blockAt(56, 7, 'brick', 'coin')
+            ],
+            [[48 * T, GY - 44]],
+            [[30 * T, 2 * T], [64 * T, 2 * T], [102 * T, 2 * T]]
+        ),
+        L(5, '星光中场', 5200,
+            [
+                row(8, 3, 3), row(20, 5, 3), row(34, 3, 6),
+                row(52, 6, 3), row(68, 4, 5), row(92, 3, 8)
+            ].concat(stairs(80, 5)),
+            [coinAt(8, 3), coinAt(20, 5), coinAt(34, 3), coinAt(52, 6), coinAt(68, 4), coinAt(81, 3), coinAt(93, 3)],
+            [enemyOn(14, 1, 'leaf'), enemyOn(38, -1, 'beetle'), enemyOn(70), enemyOn(96, 1, 'leaf')],
+            118 * T, 26, 160,
+            [blockAt(22, 6, 'question', 'star'), blockAt(36, 4, 'question', 'coin')],
+            [[50 * T, GY - 44]],
+            [[16 * T, 2 * T], [58 * T, 2 * T]]
+        ),
+        L(6, '云端跳台', 5600,
+            [
+                row(8, 3, 2), row(16, 5, 2), row(24, 6, 2), row(32, 7, 2),
+                row(48, 4, 4), row(66, 6, 3), row(84, 3, 6), row(110, 4, 8)
+            ].concat(stairs(98, 5)),
+            [coinAt(8, 3), coinAt(16, 5), coinAt(24, 6), coinAt(32, 7), coinAt(48, 4), coinAt(66, 6), coinAt(110, 4)],
+            [enemyOn(50, 1, 'beetle'), enemyOn(86, -1, 'leaf'), enemyOn(114)],
+            128 * T, 28, 175,
+            [blockAt(26, 7, 'question', 'mushroom'), blockAt(68, 7, 'question', 'coin')],
+            [[52 * T, GY - 44]],
+            [[20 * T, 2 * T], [56 * T, 2 * T], [92 * T, 2 * T]]
+        ),
+        L(7, '峡谷风', 5400,
+            [
+                row(8, 3, 3), row(18, 4, 3),
+                { x: 28 * T, y: ay(5), w: 3 * T, h: 20, mv: { axis: 'y', range: 36, speed: 1.1, phase: 0 } },
+                row(42, 3, 5),
+                { x: 60 * T, y: ay(5), w: 3 * T, h: 20, mv: { axis: 'x', range: 40, speed: 0.9, phase: 1.5 } },
+                row(78, 4, 4), row(104, 3, 8)
+            ].concat(stairs(90, 5)),
+            [coinAt(8, 3), coinAt(18, 4), coinAt(42, 3), coinAt(78, 4), coinAt(91, 3), coinAt(105, 3)],
+            [enemyOn(12, 1, 'leaf'), enemyOn(46, -1), enemyOn(80, 1, 'beetle'), enemyOn(108)],
+            124 * T, 30, 170,
+            [blockAt(20, 5, 'question', 'coin'), blockAt(44, 4, 'question', 'mushroom')],
+            [[50 * T, GY - 44]],
+            [[24 * T, 2 * T], [68 * T, 2 * T]]
+        ),
+        L(8, '密林冲刺', 5600,
+            [
+                row(6, 3, 3), row(16, 5, 3),
+                { x: 26 * T, y: ay(4), w: 3 * T, h: 20, mv: { axis: 'y', range: 44, speed: 1.0, phase: 0.8 } },
+                row(40, 3, 6), row(62, 6, 3),
+                { x: 78 * T, y: ay(5), w: 3 * T, h: 20, mv: { axis: 'x', range: 36, speed: 1.2, phase: 0 } },
+                row(100, 3, 10)
+            ].concat(stairs(88, 6)),
+            [coinAt(6, 3), coinAt(16, 5), coinAt(40, 3), coinAt(62, 6), coinAt(89, 3), coinAt(101, 3)],
+            [enemyOn(10, 1, 'beetle'), enemyOn(44, -1, 'leaf'), enemyOn(66), enemyOn(104, 1, 'beetle')],
+            128 * T, 32, 175,
+            [blockAt(18, 6, 'question', 'coin'), blockAt(42, 4, 'question', 'star')],
+            [[48 * T, GY - 44]],
+            [[22 * T, 2 * T], [54 * T, 2 * T], [94 * T, 2 * T]]
+        ),
+        L(9, '夜路守卫', 5000,
+            [
+                row(8, 3, 3),
+                { x: 20 * T, y: ay(5), w: 3 * T, h: 20, mv: { axis: 'y', range: 40, speed: 1.15, phase: 0 } },
+                row(34, 4, 4), row(52, 6, 3), row(70, 3, 6), row(100, 4, 6)
+            ].concat(stairs(84, 5)),
+            [coinAt(8, 3), coinAt(34, 4), coinAt(52, 6), coinAt(70, 3), coinAt(85, 3), coinAt(101, 4)],
+            [enemyOn(12, 1, 'leaf'), enemyOn(38, -1, 'beetle'), enemyOn(74), enemyOn(104, 1, 'leaf')],
+            116 * T, 36, 155,
+            [blockAt(36, 5, 'question', 'mushroom'), blockAt(54, 7, 'question', 'coin')],
+            [[44 * T, GY - 44]],
+            [[16 * T, 2 * T], [60 * T, 2 * T]]
+        ),
+        L(10, '彩虹终点', 5200,
+            [
+                row(8, 3, 3),
+                { x: 18 * T, y: ay(5), w: 3 * T, h: 20, mv: { axis: 'y', range: 42, speed: 1.2, phase: 0.5 } },
+                row(32, 6, 3), row(48, 4, 4),
+                { x: 64 * T, y: ay(6), w: 3 * T, h: 20, mv: { axis: 'x', range: 50, speed: 1.1, phase: 0 } },
+                row(82, 3, 6), row(110, 5, 8)
+            ].concat(stairs(96, 6)),
+            [coinAt(8, 3), coinAt(32, 6), coinAt(48, 4), coinAt(82, 3), coinAt(97, 3), coinAt(111, 5)],
+            [enemyOn(12, 1, 'beetle'), enemyOn(50, -1, 'leaf'), enemyOn(86)],
+            122 * T, 45, 165,
+            [
+                blockAt(34, 7, 'question', 'star'),
+                blockAt(50, 5, 'question', 'coin'),
+                blockAt(84, 4, 'question', 'mushroom')
+            ],
+            [[54 * T, GY - 44]],
+            [[14 * T, 2 * T], [58 * T, 2 * T], [90 * T, 2 * T]]
+        ),
+        L(11, '硬壳山谷', 5400,
+            [
+                row(8, 3, 4), row(22, 5, 3), row(40, 3, 6),
+                row(70, 4, 4), row(96, 3, 8)
+            ].concat(stairs(54, 5), stairs(112, 6)),
+            [coinAt(8, 3), coinAt(22, 5), coinAt(40, 3), coinAt(55, 3), coinAt(70, 4), coinAt(97, 3), coinAt(113, 3)],
+            [
+                enemyOn(14, 1, 'beetle'), enemyOn(30, -1, 'beetle'), enemyOn(46),
+                plantOn(64), enemyOn(84, 1, 'beetle'), enemyOn(108, -1, 'leaf')
+            ],
+            126 * T, 40, 170,
+            [
+                blockAt(24, 6, 'question', 'ball'),
+                blockAt(42, 4, 'question', 'mushroom'),
+                blockAt(72, 5, 'brick', 'coin')
+            ],
+            [[50 * T, GY - 44]],
+            [[18 * T, 2 * T], [78 * T, 2 * T]],
+            { pipeTile: 10, pipes: [pipeAt(64), pipeAt(88)] }
+        ),
+        L(12, '水管花园', 5600,
+            [
+                row(8, 3, 3), row(28, 5, 4), row(48, 3, 5),
+                row(72, 6, 3), row(100, 3, 8)
+            ].concat(stairs(86, 5)),
+            [coinAt(8, 3), coinAt(28, 5), coinAt(48, 3), coinAt(72, 6), coinAt(87, 3), coinAt(101, 3)],
+            [
+                plantOn(24), plantOn(40), enemyOn(16, 1, 'leaf'),
+                enemyOn(54, -1, 'beetle'), plantOn(68), enemyOn(92), enemyOn(110, 1, 'beetle')
+            ],
+            128 * T, 42, 175,
+            [
+                blockAt(30, 6, 'question', 'ball'),
+                blockAt(50, 4, 'question', 'star'),
+                blockAt(74, 7, 'question', 'mushroom')
+            ],
+            [[56 * T, GY - 44]],
+            [[20 * T, 2 * T], [60 * T, 2 * T], [94 * T, 2 * T]],
+            {
+                pipeTile: 12,
+                pipes: [pipeAt(24), pipeAt(40), pipeAt(68), pipeAt(82)],
+                under: underMap(2000, [
+                    row(8, 4, 5), row(22, 3, 6)
+                ], [
+                    coinAt(8, 4), coinAt(10, 4), coinAt(22, 3), coinAt(24, 3)
+                ], [
+                    plantOn(16), enemyOn(30, 1, 'beetle')
+                ], [
+                    blockAt(20, 4, 'question', 'ball')
+                ], 42)
+            }
+        ),
+        L(13, '夜空飞叶', 5400,
+            [
+                row(8, 4, 3), row(22, 6, 3),
+                { x: 36 * T, y: ay(5), w: 3 * T, h: 20, mv: { axis: 'y', range: 40, speed: 1.1, phase: 0 } },
+                row(52, 3, 6), row(78, 5, 4), row(104, 3, 8)
+            ].concat(stairs(90, 5)),
+            [coinAt(8, 4), coinAt(22, 6), coinAt(52, 3), coinAt(78, 5), coinAt(91, 3), coinAt(105, 3)],
+            [
+                enemyOn(14, 1, 'bat'), enemyOn(28, -1, 'leaf'), enemyOn(44, 1, 'bat'),
+                enemyOn(60, -1, 'beetle'), plantOn(72), enemyOn(98, 1, 'bat'), enemyOn(112, -1, 'leaf')
+            ],
+            124 * T, 44, 170,
+            [
+                blockAt(24, 7, 'question', 'ball'),
+                blockAt(54, 4, 'question', 'mushroom')
+            ],
+            [[64 * T, GY - 44]],
+            [[18 * T, 2 * T], [68 * T, 2 * T]],
+            { pipeTile: 10, pipes: [pipeAt(72)] }
+        ),
+        L(14, '星桥冲刺', 5800,
+            [
+                row(8, 3, 3),
+                { x: 20 * T, y: ay(5), w: 3 * T, h: 20, mv: { axis: 'y', range: 44, speed: 1.2, phase: 0.4 } },
+                row(36, 6, 3), row(54, 4, 5),
+                { x: 74 * T, y: ay(6), w: 3 * T, h: 20, mv: { axis: 'x', range: 48, speed: 1.1, phase: 0 } },
+                row(96, 3, 6), row(122, 5, 8)
+            ].concat(stairs(108, 6)),
+            [coinAt(8, 3), coinAt(36, 6), coinAt(54, 4), coinAt(96, 3), coinAt(109, 3), coinAt(123, 5)],
+            [
+                enemyOn(14, 1, 'beetle'), enemyOn(42, -1, 'bat'), plantOn(32),
+                enemyOn(62, 1, 'leaf'), enemyOn(88, -1, 'beetle'), enemyOn(118, 1, 'bat')
+            ],
+            136 * T, 48, 180,
+            [
+                blockAt(38, 7, 'question', 'star'),
+                blockAt(56, 5, 'question', 'ball'),
+                blockAt(98, 4, 'question', 'mushroom')
+            ],
+            [[70 * T, GY - 44]],
+            [[16 * T, 2 * T], [48 * T, 2 * T], [84 * T, 2 * T]],
+            { pipeTile: 10, pipes: [pipeAt(32), pipeAt(80)] }
+        )
     ];
-
-    void plat;
 
     global.PlatformLevels = {
         list: LEVELS,

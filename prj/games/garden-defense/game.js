@@ -8,17 +8,22 @@
      * 角色用 preschool-pixel/pvz，草坪用 pvz-garden-lawn-bg.webp。
      */
     const bridge = window.WorkbenchGameBridge;
+    const sfx = window.WorkbenchGameSfx;
     const garden = window.PersonalWorkbenchPreschoolGarden;
     const stagesApi = window.GardenDefenseStages;
     const GAME_ID = 'garden-defense';
-    const TICK_MS = 880;
-    const WALK_LURCH = 0.2;
-    const FIRST_WAVE_MS = 4200;
-    const NEXT_WAVE_MS = 2800;
+    const TICK_MS = 1200;
+    const WALK_LURCH = 1;
+    const FIRST_WAVE_MS = 8000;
+    const NEXT_WAVE_MS = 5200;
+    const BOARD_COLUMNS = 8;
     let plantsLost = 0;
+    let breachedMid = false;
     let lastPlantCount = 0;
     let plantedAt = 0;
     let wavePauseUntil = 0;
+    let spawnedThisStage = 0;
+    let lastSpawnAt = 0;
 
     const canvas = document.getElementById('world-canvas');
     const ctx = canvas.getContext('2d');
@@ -41,6 +46,7 @@
         'plant-wallnut': LOCAL + 'plants/plant-wallnut.png?v=20260815-ref-v1',
         'plant-snowpea': LOCAL + 'plants/plant-snowpea.png?v=20260815-ref-v1',
         'plant-cherrybomb': LOCAL + 'plants/plant-cherrybomb.webp?v=20260815-ref-v1',
+        'plant-potatomine': LOCAL + 'plants/plant-potatomine.png?v=20260815-s2-v1',
         'zombie-basic': LOCAL + 'zombies/zombie-basic.webp?v=20260815-ref-v1',
         'zombie-conehead': LOCAL + 'zombies/zombie-conehead.webp?v=20260815-ref-v1',
         'zombie-buckethead': LOCAL + 'zombies/zombie-buckethead.webp?v=20260815-ref-v1',
@@ -84,6 +90,7 @@
         seeds: document.getElementById('seed-tray'),
         progressTip: document.getElementById('progress-tip'),
         toast: document.getElementById('toast'),
+        showcase: document.getElementById('zombie-showcase'),
         stageCount: document.getElementById('stage-count'),
         back: document.getElementById('back-link'),
         modBadge: document.getElementById('mod-badge'),
@@ -188,6 +195,17 @@
                 ? '下一个目标：' + next.title + ' · ' + milestoneGapText(next, meta)
                 : '所有里程碑都点亮啦，{who}是最棒的花园守护者！'
         };
+    }
+
+    function computeGardenStars(data) {
+        const d = data || {};
+        let star = 1;
+        if (!d.breachedMid) star += 1;
+        const elapsed = Number(d.elapsed) || 0;
+        const par = Number(d.parSec) || 90;
+        const sun = Number(d.remainingSun) || 0;
+        if (elapsed <= par && sun >= 25) star += 1;
+        return Math.min(3, star);
     }
 
     // ===== G3：星芒文案池（开局按档位 3 条 / 通关 4 条 / 失败打气 5 条含策略提示）=====
@@ -327,7 +345,37 @@
             els.map.appendChild(btn);
         });
         els.progressTip.textContent = progress.clearedStages.length + ' / ' + stagesApi.count;
+        renderAlmanac();
         refreshWallet();
+    }
+
+    const ALMANAC = [
+        { roster: 'walker', title: '普通', src: LOCAL + 'zombies/zombie-basic.webp?v=20260815-ref-v1' },
+        { roster: 'flag', title: '旗帜', src: LOCAL + 'zombies/zombie-flag.webp?v=20260815-ref-v1' },
+        { roster: 'cone', title: '路障', src: LOCAL + 'zombies/zombie-conehead.webp?v=20260815-ref-v1' },
+        { roster: 'bucket', title: '铁桶', src: LOCAL + 'zombies/zombie-buckethead.webp?v=20260815-ref-v1' },
+        { roster: 'football', title: '橄榄球', src: LOCAL + 'zombies/zombie-football.webp?v=20260815-ref-v1' }
+    ];
+
+    function seenRoster() {
+        const seen = new Set();
+        stagesApi.list.forEach(function (stage) {
+            if (stage.id <= progress.unlockedStage) {
+                (stage.roster || []).forEach(function (key) { seen.add(key); });
+            }
+        });
+        return seen;
+    }
+
+    function renderAlmanac() {
+        if (!els.showcase) return;
+        const seen = seenRoster();
+        els.showcase.innerHTML = ALMANAC.map(function (item) {
+            const ok = seen.has(item.roster);
+            return '<figure class="' + (ok ? '' : 'is-locked') + '">' +
+                '<img src="' + item.src + '" alt="' + (ok ? item.title : '未遇见') + '">' +
+                '<figcaption>' + (ok ? item.title : '未遇见') + '</figcaption></figure>';
+        }).join('');
     }
 
     function showMap() {
@@ -343,6 +391,16 @@
         els.panelPlay.classList.remove('is-hidden');
     }
 
+    function stageGoal() {
+        if (!currentStage) return 6;
+        return Math.max(1, Number(currentStage.zombieGoal) || Number(currentStage.waves) || 6);
+    }
+
+    function stageGapMs() {
+        if (!currentStage) return 9000;
+        return Math.max(4000, Number(currentStage.spawnGapMs) || 9000);
+    }
+
     function enterStage(id) {
         currentStage = stagesApi.get(id);
         settled = false;
@@ -353,7 +411,10 @@
         autoWaveTried = false;
         plantedAt = 0;
         wavePauseUntil = 0;
+        spawnedThisStage = 0;
+        lastSpawnAt = 0;
         plantsLost = 0;
+        breachedMid = false;
         lastPlantCount = 0;
         const state = growthState();
         let g = state.growth;
@@ -377,9 +438,9 @@
 
         els.stageTitle.textContent = '第 ' + currentStage.id + ' 关';
         els.stageBlurb.textContent = currentStage.blurb || '';
-        els.killNeed.textContent = String(currentStage.waves || 1);
+        els.killNeed.textContent = String(stageGoal());
         els.killCount.textContent = '0';
-        els.tip.textContent = '选种子点草坪种下。豌豆会自己发射，点掉下来的阳光。';
+        els.tip.textContent = '选种子点草坪种下。僵尸会一只一只陆续走来，打完这一关全部才算过关。';
         hideSettle();
         speedAcc = {};
         showPlay();
@@ -387,7 +448,6 @@
         renderHud();
         renderModBadge();
         companionSay(companionLine('welcome', USE_PLAY_MODS ? playMods : null, petLevelNow()));
-        spawnWave();
     }
 
     function renderSeeds() {
@@ -405,7 +465,7 @@
             btn.disabled = !ok;
             const img = images[plant.id];
             btn.innerHTML = (img ? `<img src="${img.src}" alt="">` : '') +
-                `<span>${plant.title}</span><b>${cost}</b><small>${plant.skillTitle || ''}</small>`;
+                `<span>${ok ? plant.title : '未出现'}</span><b>${ok ? cost : '??'}</b><small>${ok ? (plant.skillTitle || '') : '通关后解锁'}</small>`;
             btn.addEventListener('click', function () {
                 if (!ok) return;
                 const r = garden.selectPlant(g, plant.id);
@@ -431,8 +491,8 @@
         const g = growthState().growth;
         const defense = g.garden.defense || {};
         els.energy.textContent = String(g.garden.defenseEnergy || 0);
-        els.killCount.textContent = String(defense.wave || 0);
-        if (currentStage) els.killNeed.textContent = String(currentStage.waves || 1);
+        els.killCount.textContent = String(defense.defeated || 0);
+        if (currentStage) els.killNeed.textContent = String(stageGoal());
         els.status.textContent = statusLabel(defense);
         refreshWallet();
     }
@@ -476,6 +536,7 @@
         els.settleGoal.textContent = lines.nextGoal.replace(/\{who\}/g, petLevelNow() >= 3 ? '小园长' : '小朋友');
         if (els.settleRetry) els.settleRetry.textContent = o.won ? '再玩一次' : '重开本关';
         els.settleLayer.classList.remove('is-hidden');
+        if (o.won && sfx && sfx.clear) sfx.clear();
     }
 
     function hideSettle() {
@@ -499,11 +560,12 @@
         els.celebrateTitle.textContent = card.title;
         els.celebrateSub.textContent = card.claimed ? ('奖励阳光 +' + card.sun + ' · 星芒为你欢呼！') : '今日阳光已达上限，成就已点亮！';
         els.celebrateLayer.classList.remove('is-hidden');
+        if (sfx && sfx.celebrate) sfx.celebrate();
     }
 
     function boardMetrics() {
         const lanes = 5;
-        const columns = 6;
+        const columns = BOARD_COLUMNS;
         // 对齐 lawn-day.png 拉到 1080x540 后的草地：天空约上 37%，左右是房子和石路
         const left = Math.round(VIEW_W * 0.125);
         const top = Math.round(VIEW_H * 0.375);
@@ -512,10 +574,10 @@
         const width = right - left;
         const height = bottom - top;
         const laneH = height / lanes;
-        const plantH = Math.round(laneH * 1.62);
-        const plantW = Math.round(plantH * 0.9);
-        const zombieH = Math.round(laneH * 2.72);
-        const zombieW = Math.round(zombieH * 0.88);
+        const plantH = Math.round(laneH * 1.08);
+        const plantW = Math.round(plantH * 0.82);
+        const zombieH = Math.round(laneH * 2.28);
+        const zombieW = Math.round(zombieH * 0.8);
         return {
             lanes: lanes,
             columns: columns,
@@ -608,7 +670,7 @@
     }
 
     function zombieDisplayColumn(defense, zombie, frac) {
-        const rules = (garden.ZOMBIE_RULES || {})[zombie.kind] || { moveEvery: 18 };
+        const rules = (garden.ZOMBIE_RULES || {})[zombie.kind] || { moveEvery: 32 };
         const every = Math.max(1, Number(rules.moveEvery) || 10);
         if (zombie.slowTicks > 0 || zombieIsBlocked(defense, zombie)) return Number(zombie.column);
         const clock = Number(zombie.moveClock) || 0;
@@ -675,6 +737,23 @@
         }
     }
 
+    function drawPeaToken(x, y, icy) {
+        const r = 10;
+        ctx.save();
+        ctx.beginPath();
+        ctx.fillStyle = icy ? '#7fd6ee' : '#8ecf3a';
+        ctx.strokeStyle = icy ? '#2a6f84' : '#3d7a1c';
+        ctx.lineWidth = 1.15;
+        ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.fillStyle = icy ? 'rgba(255,255,255,.55)' : 'rgba(255,255,235,.5)';
+        ctx.ellipse(x - r * 0.28, y - r * 0.32, r * 0.32, r * 0.22, -0.45, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+    }
+
     function drawSprite(key, boxX, boxY, boxW, boxH) {
         const img = images[key];
         if (!img) {
@@ -694,18 +773,18 @@
 
     function drawZombieActor(zombie, box, ts, frac, moving, eating, icy) {
         const seed = idHash(zombie.id);
-        const speed = icy ? 0.55 : (eating ? 4.2 : (moving ? 1.05 : 0.4));
+        const speed = icy ? 0.28 : (eating ? 2.1 : (moving ? 0.52 : 0.18));
         const phase = ((ts || 0) / 1000) * speed + seed * 6.28;
-        const lurch = moving ? lurchAmount(frac) : 0;
         ctx.save();
-        ctx.fillStyle = 'rgba(0,0,0,.18)';
+        ctx.fillStyle = 'rgba(0,0,0,.16)';
         ctx.beginPath();
-        ctx.ellipse(box.x + box.w * 0.5, box.y + box.h - 2, box.w * 0.22, 5, 0, 0, Math.PI * 2);
+        ctx.ellipse(box.x + box.w * 0.5, box.y + box.h - 2, box.w * 0.2, 4, 0, 0, Math.PI * 2);
         ctx.fill();
         ctx.translate(box.x + box.w * 0.5, box.y + box.h);
         if (icy) ctx.filter = 'hue-rotate(155deg) saturate(0.75)';
-        if (eating) ctx.translate(Math.sin(phase) * -2.4, 0);
-        else if (moving) ctx.translate(0, Math.sin(lurch * Math.PI) * -3);
+        if (eating) ctx.translate(Math.sin(phase) * -1.4, 0);
+        else if (moving) ctx.translate(Math.sin(phase) * 1.1, Math.abs(Math.sin(phase * 2)) * -1.6);
+        else ctx.translate(0, Math.sin(phase) * -0.5);
         const key = images[zombie.kind] ? zombie.kind : 'zombie-basic';
         drawSprite(key, -box.w / 2, -box.h, box.w, box.h);
         ctx.restore();
@@ -788,10 +867,7 @@
             const box = entityBox(pea.lane, (col + 0.5) / m.columns, m, 0, 0.45);
             const px = box.x + box.w * 0.72;
             const py = box.y + box.h * 0.42;
-            ctx.beginPath();
-            ctx.fillStyle = pea.slowTicks ? '#7ad7ff' : '#9ae24f';
-            ctx.arc(px, py, 11, 0, Math.PI * 2);
-            ctx.fill();
+            drawPeaToken(px, py, Boolean(pea.slowTicks));
         });
 
         skySuns.forEach(drawSunToken);
@@ -833,7 +909,14 @@
         const g = growthState().growth;
         const status = (g.garden.defense || {}).status;
         if (status === 'lost') return;
-        const r = garden.spawnDefenseWave(g, bridge.today(), { stageId: currentStage && currentStage.id });
+        if (spawnedThisStage >= stageGoal()) {
+            toast('这一关的僵尸已经全部上路了');
+            return;
+        }
+        const r = garden.spawnDefenseWave(g, bridge.today(), {
+            stageId: currentStage && currentStage.id,
+            roster: currentStage && currentStage.roster
+        });
         if (r.ok && USE_PLAY_MODS && applyPlayMods({ rewardSun: 0, zombies: [] }, playMods).extraMob) {
             // 困难档：每波额外 +1 普通僵尸（应用层直接补位，不动规则层）
             const defense = r.growth.garden.defense;
@@ -844,16 +927,19 @@
                 id: 'zombie-extra-' + extraSeq + '-' + bridge.today(),
                 kind: 'zombie-basic',
                 lane: lane === undefined ? 2 : lane,
-                column: 5,
-                health: 3,
-                maxHealth: 3,
+                column: BOARD_COLUMNS - 1,
+                health: 10,
+                maxHealth: 10,
                 slowTicks: 0,
                 moveClock: 0
             });
         }
         commitGrowth(r.growth);
         if (r.ok) {
-            els.tip.textContent = '僵尸来了！同路的豌豆会自己发射。';
+            spawnedThisStage += (r.spawned || []).length;
+            if (USE_PLAY_MODS && applyPlayMods({ rewardSun: 0, zombies: [] }, playMods).extraMob) spawnedThisStage += 1;
+            lastSpawnAt = performance.now();
+            els.tip.textContent = '僵尸陆续来了！同路的豌豆会自己发射。打完这一关全部才算过关。';
             toast('僵尸出现！');
         } else {
             els.tip.textContent = r.reason || '暂时不能来一波';
@@ -868,6 +954,9 @@
         const alive = (defense.plants || []).length;
         if (lastPlantCount && alive < lastPlantCount) plantsLost += lastPlantCount - alive;
         lastPlantCount = alive;
+        if ((defense.zombies || []).some(function (z) { return z && z.health > 0 && Number(z.column) < 4; })) {
+            breachedMid = true;
+        }
         if (defense.status === 'lost') {
             settled = true;
             toast('僵尸进家了');
@@ -885,26 +974,26 @@
             });
             return;
         }
-        if (defense.status !== 'won') return;
+        if (spawnedThisStage < stageGoal()) return;
+        if ((defense.zombies || []).length) return;
+        if (spawnedThisStage <= 0) return;
         skySuns = [];
-        if (defense.wave >= (currentStage.waves || 1)) {
-            onStageClear();
-            return;
-        }
-        wavePauseUntil = performance.now() + NEXT_WAVE_MS;
-        toast('清掉了！下一波马上到，抓紧补种。');
-        els.tip.textContent = '下一波马上到，抓紧补种。';
-        renderHud();
+        defense.status = 'won';
+        commitGrowth(g);
+        onStageClear();
     }
 
     function onStageClear() {
         if (settled || !currentStage) return;
         settled = true;
-        let star = 1;
-        if (plantsLost === 0) star += 1;
         const elapsed = (performance.now() - enterAt) / 1000;
-        if (elapsed <= (currentStage.parSec || 90)) star += 1;
-        star = Math.min(3, star);
+        const remainingSun = Number((growthState().growth || {}).sunlight) || 0;
+        const star = computeGardenStars({
+            breachedMid: breachedMid,
+            elapsed: elapsed,
+            parSec: currentStage.parSec || 90,
+            remainingSun: remainingSun
+        });
         progress.stars[currentStage.id] = Math.max(Number(progress.stars[currentStage.id] || 0), star);
         if (progress.clearedStages.indexOf(currentStage.id) === -1) progress.clearedStages.push(currentStage.id);
         progress.totalWins = (progress.totalWins || 0) + 1;
@@ -958,9 +1047,12 @@
         if (els.panelPlay.classList.contains('is-hidden')) return;
         const g = growthState().growth;
         const defense = g.garden.defense || {};
-        if (defense.wave > 0) return;
+        if (defense.status === 'lost' || defense.status === 'won') return;
         if (!(defense.plants || []).length || !plantedAt) return;
-        if (ts - plantedAt < FIRST_WAVE_MS) return;
+        if (spawnedThisStage >= stageGoal()) return;
+        const gap = spawnedThisStage === 0 ? FIRST_WAVE_MS : stageGapMs();
+        const from = spawnedThisStage === 0 ? plantedAt : lastSpawnAt;
+        if (ts - from < gap) return;
         autoWaveTried = true;
         spawnWave();
     }

@@ -103,9 +103,9 @@ test('keeps adult, child and preschool entry points isolated', () => {
   assert.match(rootHtml, /儿童学习工作台/);
   assert.match(rootHtml, /<span>03 WORLDS<\/span>[\s\S]*<span>02 WORKBENCHES<\/span>[\s\S]*<span>LOCAL FIRST<\/span>/);
   assert.match(rootHtml, /幼儿游戏世界/);
-  assert.match(rootHtml, /花园保卫战/);
-  assert.match(rootHtml, /方块世界探险/);
-  assert.match(rootHtml, /横版闯关/);
+  assert.match(rootHtml, /植物僵尸工作台/);
+  assert.match(rootHtml, /我的世界工作台/);
+  assert.match(rootHtml, /马里奥工作台/);
   assert.match(rootHtml, /data-workbench-theme="garden-defense"/);
   assert.match(rootHtml, /data-workbench-theme="voxel-adventure"/);
   assert.match(rootHtml, /data-workbench-theme="platform-quest"/);

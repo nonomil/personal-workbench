@@ -86,6 +86,6 @@ test('maps preschool courses to mistake subjects and app records wrong answers',
     assert.match(app, /recordPreschoolLessonMistake/);
     assert.match(app, /recordLessonMistake/);
     assert.match(app, /subjectForCourse/);
-    assert.match(html, /storage\.js\?v=20260814-lesson-mistakes-v1/);
-    assert.match(html, /app\.js\?v=20260815-flashcards-v1/);
+    assert.match(html, /storage\.js\?v=20260815-summer-timed-v1/);
+    assert.match(html, /app\.js\?v=20260815-english-auto-v1/);
 });

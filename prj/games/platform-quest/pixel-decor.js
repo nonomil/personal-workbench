@@ -225,6 +225,29 @@
         '..kkkkkkkkkk..'
     ];
 
+    const BALL_PAL = { '.': null, k: C.ink, y: C.goldHi, o: '#ff9a2a', d: C.goldLo, w: C.cream };
+
+    const BALL_FRAMES = [
+        [
+            '..kkoookk..',
+            '.kyooooyyk.',
+            'kyowooooydk',
+            'kyooooooody',
+            'koooooooook',
+            '.kdooooook.',
+            '..kkddddk..'
+        ],
+        [
+            '..kkoookk..',
+            '.kwoooooyk.',
+            'kyooooooody',
+            'kyowooooody',
+            'koooooooook',
+            '.kyooooook.',
+            '..kkddddk..'
+        ]
+    ];
+
     function bake(w, h, frames, drawFn) {
         const sheet = createCanvas(w * frames, h);
         const sctx = sheet.getContext('2d');
@@ -241,7 +264,8 @@
         question: bake(20, 20, 2, function (c, f) { drawQuestionArt(c, f === 1); }),
         coin: bake(12, 12, 4, function (c, f) { stamp(c, COIN_FRAMES[f], COIN_PAL); }),
         star: bake(16, 13, 2, function (c, f) { stamp(c, STAR_FRAMES[f], STAR_PAL); }),
-        shroom: bake(14, 14, 1, function (c) { stamp(c, SHROOM_MAP, SHROOM_PAL); })
+        shroom: bake(14, 14, 1, function (c) { stamp(c, SHROOM_MAP, SHROOM_PAL); }),
+        ball: bake(11, 7, 2, function (c, f) { stamp(c, BALL_FRAMES[f], BALL_PAL); })
     };
 
     const META = {
@@ -249,7 +273,8 @@
         question: { w: 20, h: 20, frames: 2 },
         coin: { w: 12, h: 12, frames: 4 },
         star: { w: 16, h: 13, frames: 2 },
-        shroom: { w: 14, h: 14, frames: 1 }
+        shroom: { w: 14, h: 14, frames: 1 },
+        ball: { w: 11, h: 7, frames: 2 }
     };
 
     function drawSheet(ctx, name, x, y, size, frame) {
@@ -355,6 +380,7 @@
         drawCoin: function (ctx, x, y, size, frame) { return drawSheet(ctx, 'coin', x, y, size, frame); },
         drawStar: function (ctx, x, y, size, frame) { return drawSheet(ctx, 'star', x, y, size, frame); },
         drawShroom: function (ctx, x, y, size) { return drawSheet(ctx, 'shroom', x, y, size, 0); },
+        drawBall: function (ctx, x, y, size, frame) { return drawSheet(ctx, 'ball', x, y, size, frame); },
         platformSlice: platformSlice,
         pipe: pipe,
         flag: flag,

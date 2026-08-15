@@ -16,7 +16,13 @@
         { id: 'q9', title: '草海工程', desc: '累计放置 30 草方块', type: 'build_total_block', block: 'grass', need: 30, reward: 20, rank: 4 },
         { id: 'q10', title: '晶体富翁', desc: '累计收集 25 晶体', type: 'collect_total', need: 25, reward: 22, rank: 5 },
         { id: 'q11', title: '要塞轮廓', desc: '世界中同时有 40 个方块', type: 'blocks_alive', need: 40, reward: 24, rank: 5 },
-        { id: 'q12', title: '建造传说', desc: '累计建造 80 次', type: 'build_total', need: 80, reward: 30, rank: 5 }
+        { id: 'q12', title: '建造传说', desc: '累计建造 80 次', type: 'build_total', need: 80, reward: 30, rank: 5 },
+        { id: 'q13', title: '小屋蓝图', desc: '按半透明小屋轮廓放对 80%', type: 'blueprint', blueprint: 'hut', need: 80, reward: 25, rank: 5 },
+        { id: 'q14', title: '瞭望塔蓝图', desc: '按石头塔轮廓放对 80%', type: 'blueprint', blueprint: 'tower', need: 80, reward: 26, rank: 5 },
+        { id: 'q15', title: '花坛蓝图', desc: '按花坛轮廓放对 80%', type: 'blueprint', blueprint: 'garden', need: 80, reward: 26, rank: 5 },
+        { id: 'q16', title: '矿脉采集', desc: '本局再收集 12 晶体', type: 'collect', need: 12, reward: 28, rank: 5 },
+        { id: 'q17', title: '六十块家园', desc: '世界中同时有 60 个方块', type: 'blocks_alive', need: 60, reward: 30, rank: 5 },
+        { id: 'q18', title: '七日工匠', desc: '累计建造 120 次', type: 'build_total', need: 120, reward: 35, rank: 5 }
     ];
 
     const RANKS = [
@@ -35,7 +41,10 @@
         { key: 'daily-mix', title: '今日：扩建', desc: '今天建造合计 15 次', type: 'build_any', need: 15, reward: 18 },
         { key: 'daily-alive', title: '今日：热闹基地', desc: '世界里同时有 30 个方块', type: 'blocks_alive', need: 30, reward: 20 },
         { key: 'daily-crystal2', title: '今日：深挖', desc: '今天收集 10 晶体', type: 'collect', need: 10, reward: 22 },
-        { key: 'daily-master', title: '今日：大师课', desc: '今天建造 20 次', type: 'build_any', need: 20, reward: 24 }
+        { key: 'daily-master', title: '今日：大师课', desc: '今天建造 20 次', type: 'build_any', need: 20, reward: 24 },
+        { key: 'daily-hut', title: '今日：小屋课', desc: '按小屋蓝图放到 80%', type: 'blueprint', blueprint: 'hut', need: 80, reward: 22 },
+        { key: 'daily-tower', title: '今日：砌塔', desc: '按瞭望塔蓝图放到 80%', type: 'blueprint', blueprint: 'tower', need: 80, reward: 22 },
+        { key: 'daily-vein', title: '今日：矿脉', desc: '今天收集 12 晶体', type: 'collect', need: 12, reward: 24 }
     ];
 
     function localDate(d) {

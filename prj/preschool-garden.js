@@ -6,15 +6,16 @@
         { id: 'plant-peashooter', title: '豌豆射手', description: '发射小豌豆，守护学习花园。', icon: 'target', unlockAt: 20, tone: 'lime', skill: 'pea', skillTitle: '发射豌豆', skillDescription: '消耗 1 点能量，造成 1 点伤害。', energyCost: 1, damage: 1 },
         { id: 'plant-wallnut', title: '坚果墙', description: '挡住僵尸，给小伙伴争取时间。', icon: 'shield-check', unlockAt: 60, tone: 'orange', skill: 'block', skillTitle: '坚果挡住', skillDescription: '不攻击，只把僵尸挡住 2 回合。', energyCost: 0, damage: 0 },
         { id: 'plant-snowpea', title: '寒冰射手', description: '冰冰豌豆，让僵尸慢一点。', icon: 'snowflake', unlockAt: 120, tone: 'blue', skill: 'ice-pea', skillTitle: '发射冰豌豆', skillDescription: '消耗 1 点能量，造成伤害并冰冻 2 回合。', energyCost: 1, damage: 1 },
-        { id: 'plant-cherrybomb', title: '樱桃炸弹', description: '完成大目标，解锁超级植物。', icon: 'flame', unlockAt: 220, tone: 'pink', skill: 'blast', skillTitle: '樱桃爆炸', skillDescription: '消耗 2 点能量，造成 3 点范围伤害。', energyCost: 2, damage: 3 }
+        { id: 'plant-cherrybomb', title: '樱桃炸弹', description: '完成大目标，解锁超级植物。', icon: 'flame', unlockAt: 220, tone: 'pink', skill: 'blast', skillTitle: '樱桃爆炸', skillDescription: '消耗 2 点能量，造成 3 点范围伤害。', energyCost: 2, damage: 3 },
+        { id: 'plant-potatomine', title: '土豆地雷', description: '埋下后武装，挡住近路的最后防线。', icon: 'bomb', unlockAt: 800, tone: 'brown', skill: 'mine', skillTitle: '土豆埋伏', skillDescription: '埋下约 3 秒后武装，踩到的一只僵尸会被清掉。', energyCost: 0, damage: 8 }
     ]);
 
     const ZOMBIE_CATALOG = Object.freeze([
-        { id: 'zombie-basic', title: '普通僵尸', description: '慢慢走来的基础僵尸。', asset: 'zombie-basic', baseHealth: 3, tone: 'green' },
-        { id: 'zombie-conehead', title: '路障僵尸', description: '戴着路障，生命更厚。', asset: 'zombie-conehead', baseHealth: 4, tone: 'orange' },
-        { id: 'zombie-buckethead', title: '铁桶僵尸', description: '顶着铁桶，特别耐打。', asset: 'zombie-buckethead', baseHealth: 5, tone: 'slate' },
-        { id: 'zombie-flag', title: '旗帜僵尸', description: '举着旗子，提醒新一波来啦。', asset: 'zombie-flag', baseHealth: 4, tone: 'red' },
-        { id: 'zombie-football', title: '橄榄球僵尸', description: '速度很快，要专心完成任务。', asset: 'zombie-football', baseHealth: 6, tone: 'red' }
+        { id: 'zombie-basic', title: '普通僵尸', description: '慢慢走来的基础僵尸。', asset: 'zombie-basic', baseHealth: 10, tone: 'green' },
+        { id: 'zombie-conehead', title: '路障僵尸', description: '戴着路障，生命更厚。', asset: 'zombie-conehead', baseHealth: 20, tone: 'orange' },
+        { id: 'zombie-buckethead', title: '铁桶僵尸', description: '顶着铁桶，特别耐打。', asset: 'zombie-buckethead', baseHealth: 32, tone: 'slate' },
+        { id: 'zombie-flag', title: '旗帜僵尸', description: '举着旗子，提醒新一波来啦。', asset: 'zombie-flag', baseHealth: 14, tone: 'red' },
+        { id: 'zombie-football', title: '橄榄球僵尸', description: '速度很快，要专心完成任务。', asset: 'zombie-football', baseHealth: 24, tone: 'red' }
     ]);
 
     const DEFENSE_PLANT_RULES = Object.freeze({
@@ -22,27 +23,48 @@
         'plant-peashooter': { cost: 40, maxHealth: 3, cooldown: 1, damage: 1 },
         'plant-wallnut': { cost: 30, maxHealth: 8, cooldown: 0, damage: 0 },
         'plant-snowpea': { cost: 50, maxHealth: 3, cooldown: 1, damage: 1, slowTicks: 2 },
-        'plant-cherrybomb': { cost: 75, maxHealth: 1, cooldown: 0, damage: 3 }
+        'plant-cherrybomb': { cost: 75, maxHealth: 1, cooldown: 0, damage: 3 },
+        'plant-potatomine': { cost: 20, maxHealth: 2, cooldown: 0, damage: 8, armTicks: 3 }
     });
 
     const DEFENSE_ZOMBIE_RULES = Object.freeze({
-        'zombie-basic': { maxHealth: 3, moveEvery: 18 },
-        'zombie-conehead': { maxHealth: 5, moveEvery: 17 },
-        'zombie-buckethead': { maxHealth: 8, moveEvery: 22 },
-        'zombie-flag': { maxHealth: 4, moveEvery: 16 },
-        'zombie-football': { maxHealth: 9, moveEvery: 15 }
+        'zombie-basic': { maxHealth: 10, moveEvery: 36 },
+        'zombie-conehead': { maxHealth: 20, moveEvery: 34 },
+        'zombie-buckethead': { maxHealth: 32, moveEvery: 42 },
+        'zombie-flag': { maxHealth: 14, moveEvery: 32 },
+        'zombie-football': { maxHealth: 24, moveEvery: 30 }
     });
 
-    function wavePlan(stageId, wave) {
+    const ROSTER_KIND = Object.freeze({
+        walker: 'zombie-basic',
+        cone: 'zombie-conehead',
+        bucket: 'zombie-buckethead',
+        flag: 'zombie-flag',
+        football: 'zombie-football'
+    });
+
+    function kindsFromRoster(roster) {
+        if (!Array.isArray(roster) || !roster.length) return null;
+        const kinds = roster.map(function (name) {
+            return ROSTER_KIND[name] || (String(name).indexOf('zombie-') === 0 ? name : '');
+        }).filter(Boolean);
+        return kinds.length ? kinds : null;
+    }
+
+    function wavePlan(stageId, wave, roster) {
+        const fromRoster = kindsFromRoster(roster);
+        if (fromRoster) {
+            return { count: 1, maxAlive: 6, kinds: fromRoster };
+        }
         const id = Math.max(1, Math.min(12, Number(stageId) || 1));
         const w = Math.max(1, Number(wave) || 1);
-        if (id <= 3) return { count: 1, maxAlive: 1, kinds: ['zombie-basic'] };
-        if (id <= 6) return { count: w === 1 ? 1 : 2, maxAlive: 2, kinds: ['zombie-basic', 'zombie-conehead'] };
-        if (id <= 9) return { count: 2, maxAlive: 2, kinds: ['zombie-basic', 'zombie-conehead', 'zombie-buckethead'] };
+        if (id <= 3) return { count: 1, maxAlive: 5, kinds: ['zombie-basic'] };
+        if (id <= 6) return { count: 1, maxAlive: 5, kinds: ['zombie-basic', 'zombie-conehead'] };
+        if (id <= 9) return { count: 1, maxAlive: 6, kinds: ['zombie-basic', 'zombie-conehead', 'zombie-buckethead'] };
         const kinds = id >= 12 && w >= 2
             ? ['zombie-flag', 'zombie-buckethead', 'zombie-football']
             : ['zombie-flag', 'zombie-basic', 'zombie-conehead', 'zombie-buckethead'];
-        return { count: 2, maxAlive: 2, kinds: kinds };
+        return { count: 1, maxAlive: 6, kinds: kinds };
     }
 
     const LEGACY_PLANT_IDS = Object.freeze({
@@ -64,6 +86,8 @@
     ]);
 
     const ACTION_EVENTS = Object.freeze(['checkin-complete', 'lesson-complete', 'task-complete', 'reading-complete', 'reward-claimed']);
+    const BOARD_LANES = 5;
+    const BOARD_COLUMNS = 8;
 
     function asArray(value) {
         return Array.isArray(value) ? value : [];
@@ -81,7 +105,7 @@
     function createDefaultDefense() {
         return {
             version: 1,
-            board: { lanes: 5, columns: 6 },
+            board: { lanes: BOARD_LANES, columns: BOARD_COLUMNS },
             selectedPlantId: 'plant-sunflower',
             plants: [],
             zombies: [],
@@ -101,8 +125,8 @@
         const boardSource = source.board && typeof source.board === 'object' ? source.board : {};
         const defense = Object.assign({}, defaults, source, {
             board: {
-                lanes: 5,
-                columns: 6,
+                lanes: BOARD_LANES,
+                columns: BOARD_COLUMNS,
                 ...boardSource
             },
             plants: asArray(source.plants).map(function (item, index) {
@@ -113,7 +137,7 @@
                     id: String(plant.id || `plant-${index + 1}`),
                     plantId: String(plant.plantId || 'plant-sunflower'),
                     lane: Math.max(0, Math.min(4, Math.floor(Number(plant.lane) || 0))),
-                    column: Math.max(0, Math.min(5, Math.floor(Number(plant.column) || 0))),
+                    column: Math.max(0, Math.min(BOARD_COLUMNS - 1, Math.floor(Number(plant.column) || 0))),
                     health: clampHealth(plant.health, maxHealth),
                     maxHealth: maxHealth,
                     age: Math.max(0, Number(plant.age) || 0)
@@ -131,7 +155,7 @@
                     id: String(zombie.id || `zombie-${index + 1}`),
                     kind: Object.prototype.hasOwnProperty.call(DEFENSE_ZOMBIE_RULES, zombie.kind) ? zombie.kind : 'zombie-basic',
                     lane: Math.max(0, Math.min(4, Number.isFinite(Number(zombie.lane)) ? Math.floor(Number(zombie.lane)) : 0)),
-                    column: Math.max(0, Math.min(5, Number.isFinite(Number(zombie.column)) ? Math.floor(Number(zombie.column)) : 5)),
+                    column: Math.max(0, Math.min(BOARD_COLUMNS - 1, Number.isFinite(Number(zombie.column)) ? Math.floor(Number(zombie.column)) : BOARD_COLUMNS - 1)),
                     health: clampHealth(zombie.health, maxHealth),
                     maxHealth: maxHealth,
                     slowTicks: Math.max(0, Number(zombie.slowTicks) || 0),
@@ -143,11 +167,11 @@
                 return {
                     id: String(projectile.id || `pea-${index + 1}`),
                     lane: Math.max(0, Math.min(4, Math.floor(Number(projectile.lane) || 0))),
-                    column: Math.max(0, Math.min(6, Number(projectile.column) || 0)),
+                    column: Math.max(0, Math.min(BOARD_COLUMNS, Number(projectile.column) || 0)),
                     damage: Math.max(1, Number(projectile.damage) || 1),
                     slowTicks: Math.max(0, Number(projectile.slowTicks) || 0)
                 };
-            }).filter(item => item.column <= 6),
+            }).filter(item => item.column <= BOARD_COLUMNS),
             selectedPlantId: String(source.selectedPlantId || activePlantId || 'plant-sunflower'),
             wave: Math.max(0, Number(source.wave) || 0),
             nextEntityId: Math.max(1, Number(source.nextEntityId) || 1),
@@ -156,8 +180,8 @@
             status: ['ready', 'playing', 'won', 'lost'].includes(source.status) ? source.status : 'ready',
             startedAt: String(source.startedAt || '')
         });
-        defense.board.lanes = 5;
-        defense.board.columns = 6;
+        defense.board.lanes = BOARD_LANES;
+        defense.board.columns = BOARD_COLUMNS;
         if (!Object.prototype.hasOwnProperty.call(DEFENSE_PLANT_RULES, defense.selectedPlantId)) defense.selectedPlantId = activePlantId || 'plant-sunflower';
         return defense;
     }
@@ -179,6 +203,7 @@
             lastSkillDate: '',
             feedbackPreferences: { musicEnabled: false, motionEnabled: true },
             mathPracticeBand: 'mix100',
+            practiceLevels: createDefaultPracticeLevels(),
             invader: { active: false, kind: 'zombie-basic', defeated: 0, health: 3, maxHealth: 3, wave: 0, lastSpawnDate: '', blockedTurns: 0, slowedTurns: 0, lastEffect: '' },
             defense: createDefaultDefense()
         };
@@ -208,6 +233,7 @@
         garden.feedbackPreferences.musicEnabled = Boolean(garden.feedbackPreferences.musicEnabled);
         garden.feedbackPreferences.motionEnabled = garden.feedbackPreferences.motionEnabled !== false;
         garden.mathPracticeBand = normalizeMathPracticeBand(gardenSource.mathPracticeBand);
+        garden.practiceLevels = normalizePracticeLevels(gardenSource.practiceLevels);
         garden.invader.health = Math.max(0, Math.min(9, Number(garden.invader.health) || 3));
         garden.invader.maxHealth = Math.max(1, Math.min(9, Number(garden.invader.maxHealth) || 3));
         garden.invader.wave = Math.max(0, Number(garden.invader.wave) || 0);
@@ -428,6 +454,40 @@
         };
     }
 
+    function createDefaultPracticeLevels() {
+        return { literacy: 'L1', english: 'L1', pinyin: 'L1', poetry: 'L1', phonics: 'L1', math: 'L1', motion: 'L1' };
+    }
+
+    function normalizePracticeLevel(value) {
+        const raw = String(value || '').trim().toUpperCase();
+        return raw === 'L1' || raw === 'L2' || raw === 'L3' || raw === 'L4' || raw === 'L5' ? raw : 'L1';
+    }
+
+    function normalizePracticeLevels(value) {
+        const defaults = createDefaultPracticeLevels();
+        const source = value && typeof value === 'object' ? value : {};
+        const next = {};
+        Object.keys(defaults).forEach(function (track) {
+            next[track] = normalizePracticeLevel(source[track]);
+        });
+        return next;
+    }
+
+    function setPracticeLevel(input, track, level) {
+        const growth = normalize(input);
+        const defaults = createDefaultPracticeLevels();
+        const key = String(track || '');
+        const raw = String(level || '').trim().toUpperCase();
+        if (!Object.prototype.hasOwnProperty.call(defaults, key)) {
+            return { ok: false, growth: growth, reason: '这个科目没有级别' };
+        }
+        if (raw !== 'L1' && raw !== 'L2' && raw !== 'L3' && raw !== 'L4' && raw !== 'L5') {
+            return { ok: false, growth: growth, reason: '级别不存在' };
+        }
+        growth.garden.practiceLevels[key] = raw;
+        return { ok: true, growth: growth };
+    }
+
     function normalizeMathPracticeBand(value) {
         if (global.PersonalWorkbenchPreschoolMathBank && typeof global.PersonalWorkbenchPreschoolMathBank.normalizePracticeBand === 'function') {
             return global.PersonalWorkbenchPreschoolMathBank.normalizePracticeBand(value);
@@ -485,17 +545,17 @@
         const hasPoint = point && Number.isFinite(Number(point.x));
         const plantX = hasPoint ? Math.max(0, Math.min(1, Number(point.x))) : null;
         const combatColumn = hasPoint
-            ? Math.max(0, Math.min(5, Math.round(plantX * 5)))
+            ? Math.max(0, Math.min(BOARD_COLUMNS - 1, Math.round(plantX * (BOARD_COLUMNS - 1))))
             : columnNumber;
-        if (!Number.isInteger(laneNumber) || laneNumber < 0 || laneNumber >= 5 || !Number.isInteger(combatColumn) || combatColumn < 0 || combatColumn >= 6) {
+        if (!Number.isInteger(laneNumber) || laneNumber < 0 || laneNumber >= BOARD_LANES || !Number.isInteger(combatColumn) || combatColumn < 0 || combatColumn >= BOARD_COLUMNS) {
             return { ok: false, growth: growth, reason: '这个位置不在花园里' };
         }
         if (!rule || !growth.garden.unlockedPlantIds.includes(plantId)) return { ok: false, growth: growth, reason: '这个植物伙伴还没有出现' };
         const occupied = defense.plants.some(function (item) {
             if (item.lane !== laneNumber) return false;
             if (hasPoint) {
-                const otherX = Number.isFinite(item.x) ? item.x : ((item.column + 0.5) / 6);
-                return Math.abs(otherX - plantX) < 0.12;
+                const otherX = Number.isFinite(item.x) ? item.x : ((item.column + 0.5) / BOARD_COLUMNS);
+                return Math.abs(otherX - plantX) < (0.45 / BOARD_COLUMNS);
             }
             return item.column === combatColumn;
         });
@@ -522,7 +582,7 @@
         const defense = growth.garden.defense;
         const options = opts && typeof opts === 'object' ? opts : {};
         const wave = defense.wave + 1;
-        const plan = wavePlan(options.stageId, wave);
+        const plan = wavePlan(options.stageId, wave, options.roster);
         if (defense.zombies.length >= plan.maxAlive) {
             return { ok: false, growth: growth, spawned: [], reason: '这一波僵尸还在路上' };
         }
@@ -536,7 +596,7 @@
                 id: defenseEntityId(defense, 'zombie'),
                 kind: kind,
                 lane: lanes[index],
-                column: 5,
+                column: BOARD_COLUMNS - 1,
                 health: rule.maxHealth,
                 maxHealth: rule.maxHealth,
                 slowTicks: 0,
@@ -576,6 +636,18 @@
             plant.health = 0;
         });
 
+        defense.plants.filter(function (item) {
+            return item.plantId === 'plant-potatomine' && item.health > 0 && item.age >= 3;
+        }).forEach(function (plant) {
+            const target = defense.zombies.find(function (zombie) {
+                return zombie.health > 0 && zombie.lane === plant.lane && zombie.column === plant.column;
+            });
+            if (target) {
+                target.health = 0;
+                plant.health = 0;
+            }
+        });
+
         const nextProjectiles = [];
         defense.projectiles.forEach(function (projectile) {
             projectile.column += 1;
@@ -583,7 +655,7 @@
             if (target) {
                 target.health = Math.max(0, target.health - projectile.damage);
                 target.slowTicks = Math.max(target.slowTicks, projectile.slowTicks);
-            } else if (projectile.column <= 6) {
+            } else if (projectile.column <= BOARD_COLUMNS) {
                 nextProjectiles.push(projectile);
             }
         });
@@ -633,7 +705,6 @@
         }
         defense.zombies = defense.zombies.filter(item => item.health > 0 && item.column >= 0);
         defense.plants = defense.plants.filter(item => item.health > 0);
-        if (defense.status !== 'lost' && !defense.zombies.length && defense.wave > 0) defense.status = 'won';
         return growth;
     }
 
@@ -686,6 +757,7 @@
         getDefenseView: getDefenseView,
         setFeedbackPreference: setFeedbackPreference,
         setMathPracticeBand: setMathPracticeBand,
+        setPracticeLevel: setPracticeLevel,
         selectPlant: selectPlant,
         startDefenseGame: startDefenseGame,
         placeDefensePlant: placeDefensePlant,

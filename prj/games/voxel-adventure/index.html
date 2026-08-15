@@ -7,7 +7,7 @@
     <title>方块世界</title>
     <link rel="stylesheet" href="../shared/growth-hud.css">
     <link rel="stylesheet" href="../../css/preschool/31-voxel-workshop.css?v=20260814-game-v1">
-    <link rel="stylesheet" href="./game.css?v=20260814-side-v3">
+    <link rel="stylesheet" href="./game.css?v=20260815-s1">
 </head>
 <body data-world-game="voxel-adventure" class="mc-world">
     <header class="world-bar mc-top">
@@ -46,6 +46,7 @@
                         <button type="button" data-hold="jump" aria-label="跳">▲</button>
                     </div>
                     <button type="button" class="mc-refresh" id="hud-refresh">重开</button>
+                    <button type="button" class="mc-refresh" id="home-shot-btn">拍照</button>
                     <p class="hint mc-hint" id="message-tip">点击挖矿 | 右键/长按放置 | 走到出口</p>
                     <div class="mc-stats">
                         <span>背包物品 <b id="bag-count">0</b></span>
@@ -53,18 +54,49 @@
                     </div>
                 </div>
             </div>
-            <div class="hotbar" id="hotbar" aria-label="工具和背包"></div>
+            <div class="hotbar-row">
+                <div class="hotbar" id="hotbar" aria-label="工具和背包"></div>
+                <div class="companion-hud" id="companion-hud" aria-live="polite">
+                    <img src="../../assets/generated/preschool-theme-assets/voxel-v1/published/voxel-companion.png" alt="星芒" onerror="this.replaceWith(Object.assign(document.createElement('b'),{textContent:'🦄'}))">
+                    <span class="companion-say" id="companion-say"></span>
+                </div>
+            </div>
             <p class="mc-footer">方块世界 — WASD 移动 | 空格跳跃 | 鼠标左键挖矿 | 右键/长按放置 | 走到出口</p>
         </section>
     </main>
     <div class="toast-game" id="toast"></div>
+    <div class="settle-layer is-hidden" id="settle-layer" role="dialog" aria-label="任务结算">
+        <div class="settle-card">
+            <h3 id="settle-title">任务完成</h3>
+            <p class="settle-gain" id="settle-gain"></p>
+            <p class="settle-companion" id="settle-companion"></p>
+            <div class="settle-progress">
+                <p id="settle-progress-label"></p>
+                <div class="settle-bar"><span id="settle-bar-fill"></span></div>
+            </div>
+            <p class="settle-goal" id="settle-goal"></p>
+            <div class="settle-actions">
+                <button type="button" id="settle-close-btn">继续探险</button>
+            </div>
+        </div>
+    </div>
+    <div class="celebrate-layer is-hidden" id="celebrate-layer" role="dialog" aria-label="升段仪式">
+        <div class="celebrate-card">
+            <img src="../../assets/generated/preschool-theme-assets/voxel-v1/published/voxel-companion.png" alt="星芒升段" onerror="this.replaceWith(Object.assign(document.createElement('b'),{textContent:'🦄'}))">
+            <p class="celebrate-kicker">段位提升</p>
+            <h3 id="celebrate-title"></h3>
+            <p class="celebrate-sub" id="celebrate-sub"></p>
+            <button type="button" id="celebrate-close-btn">收下</button>
+        </div>
+    </div>
     <div class="vw-overlay is-hidden" id="workshop-overlay" aria-label="方块工坊"></div>
-    <script src="../shared/workbench-bridge.js?v=20260814-playmods-v1"></script>
-    <script src="./data/quests.js?v=20260814-mc-v1"></script>
+    <script src="../shared/workbench-bridge.js?v=20260815-sfx-v1"></script>
+    <script src="../shared/game-sfx.js?v=20260815-sfx-v1"></script>
+    <script src="./data/quests.js?v=20260815-s2-v1"></script>
     <script src="./data/levels.js?v=20260814-mob-v2"></script>
-    <script src="./data/world.js?v=20260814-tools-v1"></script>
+    <script src="./data/world.js?v=20260815-s2-v2"></script>
     <script src="./pixel-tiles.js?v=20260814-art-v2"></script>
     <script src="./workshop.js?v=20260814-game-v1"></script>
-    <script src="./game.js?v=20260815-assets-v1"></script>
+    <script src="./game.js?v=20260815-s2-v2"></script>
 </body>
 </html>

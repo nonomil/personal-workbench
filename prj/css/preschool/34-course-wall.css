@@ -31,6 +31,7 @@
 .preschool-course-wall-card:hover,
 .preschool-course-wall-card:focus-visible { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(31, 73, 42, 0.16); }
 .preschool-course-wall-card strong { font-size: 1.22rem; color: #23422c; }
+.preschool-course-wall-level { font-size: 0.78rem; font-weight: 800; color: #6b7f5e; }
 .preschool-course-wall-art { width: 76px; height: 76px; display: grid; place-items: center; }
 .preschool-course-wall-art img, .preschool-course-wall-art svg { width: 100%; height: 100%; object-fit: contain; }
 .preschool-course-wall-dots { display: inline-flex; gap: 6px; }

@@ -44,9 +44,9 @@
         GARDEN_BRONZE: { id: 'GARDEN_BRONZE', name: '花园新秀', description: '已学汉字达到10个', category: 'garden', tier: 'bronze', color: '#CD7F32', mark: 'flower', conditionLabel: '已学汉字 10 个', need: 10, check: function (stats) { return Number(stats.garden && stats.garden.flowers) >= 10; } },
         GARDEN_SILVER: { id: 'GARDEN_SILVER', name: '花园园丁', description: '已学汉字达到50个', category: 'garden', tier: 'silver', color: '#C0C0C0', mark: 'flower-star', conditionLabel: '已学汉字 50 个', need: 50, check: function (stats) { return Number(stats.garden && stats.garden.flowers) >= 50; } },
         GARDEN_GOLD: { id: 'GARDEN_GOLD', name: '花园大师', description: '已学汉字达到100个', category: 'garden', tier: 'gold', color: '#FFD700', mark: 'flower-glow', conditionLabel: '已学汉字 100 个', need: 100, check: function (stats) { return Number(stats.garden && stats.garden.flowers) >= 100; } },
-        MAP_BRONZE: { id: 'MAP_BRONZE', name: '小探险家', description: '今日任务全部完成达到3天', category: 'map', tier: 'bronze', color: '#CD7F32', mark: 'flag', conditionLabel: '全日打卡 3 天', need: 3, check: function (stats) { return Number(stats.adventure && stats.adventure.days) >= 3; } },
-        MAP_SILVER: { id: 'MAP_SILVER', name: '探险先锋', description: '今日任务全部完成达到15天', category: 'map', tier: 'silver', color: '#C0C0C0', mark: 'flag-path', conditionLabel: '全日打卡 15 天', need: 15, check: function (stats) { return Number(stats.adventure && stats.adventure.days) >= 15; } },
-        MAP_GOLD: { id: 'MAP_GOLD', name: '大冒险家', description: '今日任务全部完成达到30天', category: 'map', tier: 'gold', color: '#FFD700', mark: 'flag-crown', conditionLabel: '全日打卡 30 天', need: 30, check: function (stats) { return Number(stats.adventure && stats.adventure.days) >= 30; } },
+        MAP_BRONZE: { id: 'MAP_BRONZE', name: '小探险家', description: '今日任务全部完成达到3天', category: 'map', tier: 'bronze', color: '#CD7F32', mark: 'flag', conditionLabel: '完美日 3 天', need: 3, check: function (stats) { return Number(stats.adventure && stats.adventure.days) >= 3; } },
+        MAP_SILVER: { id: 'MAP_SILVER', name: '探险先锋', description: '今日任务全部完成达到15天', category: 'map', tier: 'silver', color: '#C0C0C0', mark: 'flag-path', conditionLabel: '完美日 15 天', need: 15, check: function (stats) { return Number(stats.adventure && stats.adventure.days) >= 15; } },
+        MAP_GOLD: { id: 'MAP_GOLD', name: '大冒险家', description: '今日任务全部完成达到30天', category: 'map', tier: 'gold', color: '#FFD700', mark: 'flag-crown', conditionLabel: '完美日 30 天', need: 30, check: function (stats) { return Number(stats.adventure && stats.adventure.days) >= 30; } },
         BUILDER_BRONZE: { id: 'BUILDER_BRONZE', name: '小镇居民', description: '英语或拼读课达到10节', category: 'builder', tier: 'bronze', color: '#CD7F32', mark: 'house', conditionLabel: '已完成 10 节英语课', need: 10, check: function (stats) { return Number(stats.builder && stats.builder.bricks) >= 10; } },
         BUILDER_SILVER: { id: 'BUILDER_SILVER', name: '小镇工匠', description: '英语或拼读课达到50节', category: 'builder', tier: 'silver', color: '#C0C0C0', mark: 'house-brick', conditionLabel: '已完成 50 节英语课', need: 50, check: function (stats) { return Number(stats.builder && stats.builder.bricks) >= 50; } },
         BUILDER_GOLD: { id: 'BUILDER_GOLD', name: '镇长', description: '英语或拼读课达到100节', category: 'builder', tier: 'gold', color: '#FFD700', mark: 'castle', conditionLabel: '已完成 100 节英语课', need: 100, check: function (stats) { return Number(stats.builder && stats.builder.bricks) >= 100; } },
@@ -279,7 +279,7 @@
         const have = badgeHave(def, stats);
         const need = Number(def.need) || 0;
         if (def.category === 'garden') return `已学汉字 ${have}/${need}`;
-        if (def.category === 'map') return `全日打卡 ${have}/${need} 天`;
+        if (def.category === 'map') return `完美日 ${have}/${need} 天`;
         return `英语课 ${have}/${need} 节`;
     }
 
@@ -415,7 +415,7 @@
             ? items.map(function (def) {
                 return `<span class="preschool-parent-badge" title="${escapeHtml(def.description)}">${renderBadgeArt(def, true)}<em>${escapeHtml(def.name)}</em><small>${escapeHtml(badgeStageLabel(def))}</small></span>`;
             }).join('')
-            : '<span class="preschool-weekly-empty">还没有成长徽章，识字、打卡和英语会慢慢点亮。</span>';
+            : '<span class="preschool-weekly-empty">还没有成长徽章，识字、行动和英语会慢慢点亮。</span>';
         return `<section class="preschool-parent-badge-wall" aria-label="徽章墙"><strong>🏅 徽章墙</strong><small>${items.length}/${BADGE_COUNT} 已获得</small><div class="preschool-badge-meter is-overall" role="progressbar" aria-label="徽章墙进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${overall}"><i style="width:${overall}%"></i></div><div class="preschool-parent-badge-list">${cards}</div></section>`;
     }
 
