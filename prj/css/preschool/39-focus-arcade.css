@@ -1,0 +1,397 @@
+/* Vanilla remake of chicogong/brain-planet GameContainer + boards. MIT: Aimake (Chico Gong). */
+
+body.is-focus-arcade .page-content {
+    background-color: #f6f8fd;
+    background-image:
+        radial-gradient(at 80% 0%, hsla(289, 100%, 75%, 0.15) 0px, transparent 50%),
+        radial-gradient(at 0% 50%, hsla(340, 100%, 76%, 0.12) 0px, transparent 50%),
+        radial-gradient(at 80% 100%, hsla(240, 100%, 75%, 0.15) 0px, transparent 50%),
+        radial-gradient(at 0% 0%, hsla(200, 100%, 75%, 0.12) 0px, transparent 50%);
+}
+
+.focus-arcade {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min(100%, 42rem);
+    margin: 0 auto;
+    padding: 8px 0 24px;
+    font-family: ui-rounded, "Nunito", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+.focus-arcade-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.focus-arcade-bar h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #1f2937;
+}
+
+.focus-arcade-icon-btn {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 999px;
+    background: #fff;
+    color: #4b5563;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+}
+
+.focus-arcade-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 400px;
+    padding: 28px 22px 32px;
+    border: 1px solid #f3f4f6;
+    border-radius: 24px;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.focus-arcade-idle,
+.focus-arcade-won,
+.play-level-pick {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.focus-arcade-emoji {
+    margin-bottom: 20px;
+    font-size: 4rem;
+    line-height: 1;
+}
+
+.focus-arcade-idle h2,
+.focus-arcade-won h2 {
+    margin: 0 0 12px;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #1f2937;
+}
+
+.focus-arcade-idle p,
+.focus-arcade-won p {
+    max-width: 24rem;
+    margin: 0 0 20px;
+    color: #6b7280;
+    line-height: 1.5;
+}
+
+.focus-arcade-pills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.focus-arcade-pill {
+    min-height: 40px;
+    padding: 8px 16px;
+    border: 0;
+    border-radius: 999px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.focus-arcade-start,
+.focus-arcade-again,
+.focus-arcade-next,
+.focus-arcade-finish {
+    min-height: 56px;
+    margin-top: 28px;
+    padding: 14px 48px;
+    border: 0;
+    border-radius: 999px;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 10px 18px rgba(99, 102, 241, 0.28);
+}
+
+.focus-arcade-won .focus-arcade-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: min(100%, 22rem);
+    margin-top: 16px;
+}
+
+.focus-arcade-won .focus-arcade-actions button {
+    width: 100%;
+    margin-top: 0;
+    border-radius: 16px;
+}
+
+.focus-arcade-stat-row {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.focus-arcade-stat {
+    flex: 1 1 0;
+    max-width: 150px;
+    padding: 12px 20px;
+    border: 1px solid #f3f4f6;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    text-align: center;
+}
+
+.focus-arcade-stat small {
+    display: block;
+    margin-bottom: 4px;
+    color: #9ca3af;
+    font-size: 0.8rem;
+    font-weight: 800;
+}
+
+.focus-arcade-stat strong {
+    font-size: 1.85rem;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.focus-arcade.theme-indigo { --fa: #6366f1; --fa-soft: #eef2ff; --fa-ink: #4f46e5; --fa-pill: #e0e7ff; }
+.focus-arcade.theme-orange { --fa: #f97316; --fa-soft: #fff7ed; --fa-ink: #ea580c; --fa-pill: #ffedd5; }
+.focus-arcade.theme-green { --fa: #22c55e; --fa-soft: #f0fdf4; --fa-ink: #15803d; --fa-pill: #dcfce7; }
+.focus-arcade.theme-purple { --fa: #a855f7; --fa-soft: #faf5ff; --fa-ink: #7e22ce; --fa-pill: #f3e8ff; }
+.focus-arcade.theme-teal { --fa: #14b8a6; --fa-soft: #f0fdfa; --fa-ink: #0f766e; --fa-pill: #ccfbf1; }
+
+.focus-arcade-pill { background: var(--fa-pill); color: var(--fa-ink); }
+.focus-arcade-pill.is-on { background: var(--fa); color: #fff; box-shadow: 0 4px 10px color-mix(in srgb, var(--fa) 35%, transparent); }
+.focus-arcade-start,
+.focus-arcade-again,
+.focus-arcade-next,
+.focus-arcade-finish { background: var(--fa); box-shadow: 0 10px 18px color-mix(in srgb, var(--fa) 32%, transparent); }
+.focus-arcade-stat.is-theme { background: var(--fa-soft); color: var(--fa-ink); border-color: transparent; }
+
+.focus-arcade-grid {
+    display: grid;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    gap: 8px;
+}
+
+.focus-arcade-grid.is-square { aspect-ratio: 1; }
+
+.focus-arcade-cell {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    min-height: 56px;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    background: #fff;
+    color: #1f2937;
+    font-size: 1.6rem;
+    font-weight: 900;
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
+    cursor: pointer;
+}
+
+.focus-arcade-cell.is-done {
+    background: var(--fa-soft);
+    color: color-mix(in srgb, var(--fa-ink) 45%, #fff);
+    box-shadow: inset 0 1px 4px rgba(15, 23, 42, 0.06);
+}
+
+.focus-arcade-cell.is-wrong {
+    background: #ef4444;
+    color: #fff;
+    animation: focus-arcade-wiggle 0.35s ease;
+}
+
+.focus-arcade-flip {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    perspective: 1000px;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    padding: 0;
+}
+
+.focus-arcade-flip-inner,
+.play-flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.focus-arcade-flip.is-open .focus-arcade-flip-inner,
+.focus-arcade-flip.is-matched .focus-arcade-flip-inner {
+    transform: rotateY(180deg);
+}
+
+.focus-arcade-flip-back,
+.focus-arcade-flip-face {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 16px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.focus-arcade-flip-back {
+    border: 4px solid #fff;
+    background: linear-gradient(135deg, #fb923c, #ec4899);
+    box-shadow: 0 6px 12px rgba(236, 72, 153, 0.22);
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.6rem;
+    font-weight: 900;
+}
+
+.focus-arcade-flip-face {
+    border: 2px solid #f3f4f6;
+    background: #fff;
+    font-size: 2.4rem;
+    transform: rotateY(180deg);
+}
+
+.focus-arcade-flip.is-matched .focus-arcade-flip-face {
+    border-color: #4ade80;
+    opacity: 0.7;
+}
+
+.focus-arcade-sudoku {
+    display: grid;
+    width: min(100%, 320px);
+    margin: 0 auto 24px;
+    padding: 6px;
+    gap: 4px;
+    border-radius: 16px;
+    background: #bbf7d0;
+    box-shadow: inset 0 1px 6px rgba(22, 101, 52, 0.12);
+}
+
+.focus-arcade-sudoku-cell {
+    display: grid;
+    place-items: center;
+    min-height: 52px;
+    border: 0;
+    border-radius: 8px;
+    background: #fff;
+    color: #374151;
+    font-size: 1.7rem;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.focus-arcade-sudoku-cell.is-given {
+    background: #f0fdf4;
+    color: #166534;
+    cursor: default;
+}
+
+.focus-arcade-sudoku-cell.is-selected {
+    outline: 4px solid #4ade80;
+    z-index: 1;
+    transform: scale(1.05);
+}
+
+.focus-arcade-sudoku-cell.is-wrong { background: #fee2e2; color: #ef4444; }
+
+.focus-arcade-pad {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    width: min(100%, 320px);
+}
+
+.focus-arcade-pad button {
+    flex: 1;
+    min-height: 56px;
+    border: 1px solid #bbf7d0;
+    border-radius: 12px;
+    background: #f0fdf4;
+    color: #15803d;
+    font-size: 1.4rem;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.focus-arcade-simon {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    width: min(100%, 320px);
+    margin: 12px auto 0;
+}
+
+.focus-arcade-simon-pad {
+    width: 100%;
+    aspect-ratio: 1;
+    border: 0;
+    border-radius: 999px;
+    opacity: 0.82;
+    box-shadow: 0 10px 18px rgba(15, 23, 42, 0.12);
+    cursor: pointer;
+}
+
+.focus-arcade-simon-pad.is-red { background: #ef4444; }
+.focus-arcade-simon-pad.is-blue { background: #3b82f6; }
+.focus-arcade-simon-pad.is-green { background: #22c55e; }
+.focus-arcade-simon-pad.is-yellow { background: #eab308; }
+.focus-arcade-simon-pad.is-lit {
+    opacity: 1;
+    transform: scale(1.06);
+    box-shadow: 0 0 0 6px #fff, 0 0 28px rgba(255, 255, 255, 0.8);
+}
+
+.focus-arcade-search-target {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.focus-arcade-search-target span {
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    background: var(--fa-soft);
+    font-size: 2.2rem;
+}
+
+@keyframes focus-arcade-wiggle {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+@media (max-width: 720px) {
+    .focus-arcade-card { padding: 20px 14px 24px; }
+    .focus-arcade-cell { min-height: 44px; font-size: 1.2rem; }
+    .focus-arcade-sudoku-cell { min-height: 40px; font-size: 1.3rem; }
+}

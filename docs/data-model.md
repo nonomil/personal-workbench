@@ -122,6 +122,7 @@
   - `platform-quest`:`unlockedLevel / clearedLevels / stars{levelId→1-3} / coinsTotal / bestTime{levelId→秒}`;
   - `meta`:游玩日期戳、周目标、里程碑;游戏阳光每日上限 80、单事件上限 40,由 bridge 幂等去重。
 - `courseProgress` 除 `completedLessonIds` 外,识字/英语各有按字/词的掌握状态表(`charStates` / `wordStates`),由 `child-courses.js` 维护,复习队列(1/3/7/14 天)从这些状态派生。
+- `mistakes` 错题本沿用现有字段（`date` / `status` / `sourceKey` / `lessonId`）。今日卡“复习”队列由 `date` 与当天日期派生：未 `mastered` 且恰好第 1/3/7 天入队；练对标 `mastered` 出队。不新增 storage 字段，也不换主 key。
 
 ## 约束
 

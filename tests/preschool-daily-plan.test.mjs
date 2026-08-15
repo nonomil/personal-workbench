@@ -73,6 +73,29 @@ test('provides a stable plan reward id without coupling it to the UI', () => {
   assert.equal(storage.getPreschoolPlanRewardId({ id: '', date: '2026-08-06' }), '');
 });
 
+test('six core daily plans map to real practice lessons', () => {
+  const today = storage.localDate();
+  const plans = storage.repository.load().dailyPlans.filter((item) => item.date === today);
+  const mapped = {
+    'preschool-plan-story': 'preschool-chinese-1',
+    'preschool-plan-count': 'preschool-poetry-1',
+    'preschool-plan-hello': 'preschool-math-1',
+    'preschool-plan-draw': 'preschool-english-words-1',
+    'preschool-plan-move': 'preschool-exercise-1',
+    'preschool-plan-tidy': 'preschool-focus-1'
+  };
+  Object.keys(mapped).forEach((id) => {
+    const plan = plans.find((item) => item.id === id);
+    assert.ok(plan, id);
+    assert.equal(plan.practiceLessonId, mapped[id]);
+  });
+  const app = fs.readFileSync(path.join(fileURLToPath(new URL('..', import.meta.url)), 'prj', 'app.js'), 'utf8');
+  assert.match(app, /preschool-home-lane-practice/);
+  assert.match(app, /data-action="open-plan-practice"/);
+  assert.match(app, /今天复习/);
+  assert.match(app, /open-review-practice/);
+});
+
 test('keeps the 60-day phonics pack as runtime content and reference bank separate', () => {
   const root = path.join(fileURLToPath(new URL('..', import.meta.url)), 'prj');
   const lessons = JSON.parse(fs.readFileSync(path.join(root, 'data', 'preschool', 'english', 'phonics', 'lessons.json'), 'utf8'));

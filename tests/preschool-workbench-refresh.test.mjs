@@ -78,7 +78,13 @@ test('exposes a sibling practice action for mapped preschool plans without nesti
   const homeEnd = app.indexOf('function renderPreschoolHomeOverview', homeStart);
   const homeTemplate = app.slice(homeStart, homeEnd);
   assert.match(homeTemplate, /open-plan-course/);
+  assert.match(homeTemplate, /preschoolHomeLanePracticeButton/);
+  assert.match(homeTemplate, /preschool-home-review/);
+  assert.match(homeTemplate, /open-review-practice/);
+  assert.match(homeTemplate, /今天复习/);
   assert.match(homeTemplate, /preschool-home-lane-main/);
+  assert.match(app, /class="preschool-home-lane-practice"/);
+  assert.match(app, /data-action="open-plan-practice"/);
   assert.match(homeTemplate, /preschool-home-lane-check/);
   assert.match(app, /ui\.lessonSession = \{ id: match\.lesson\.id, courseId: match\.course\.id, selectedIndex: null, correct: false, planId:/);
 });
@@ -113,10 +119,10 @@ test('keeps preschool plans in one editable list instead of a fixed core and col
 
 test('bumps preschool runtime assets when the editable plan interaction changes', () => {
   const html = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
-  assert.match(html, /preschool-workbench\.css\?v=20260815-home-course-v1/);
-  assert.match(html, /config\.js\?v=20260815-home-course-v1/);
-  assert.match(html, /storage\.js\?v=20260815-summer-timed-v1/);
-  assert.match(html, /app\.js\?v=20260815-english-auto-v1/);
+  assert.match(html, /preschool-workbench\.css\?v=20260815-b2-review-v1/);
+  assert.match(html, /config\.js\?v=20260815-focus-arcade-v1/);
+  assert.match(html, /storage\.js\?v=20260815-b2-review-v1/);
+  assert.match(html, /app\.js\?v=20260815-b2-review-v1/);
   assert.match(html, /workbench-bridge\.js\?v=20260815-voxel-home-v1/);
 });
 
@@ -280,7 +286,7 @@ test('keeps preschool course content spacious and supports a focused learning la
   const workbenchCss = fs.readFileSync(path.join(root, 'css', 'preschool-workbench.css'), 'utf8');
   assert.match(app, /renderPreschoolCourseWallCard/);
   assert.match(app, /renderPreschoolCoursesTodayCard/);
-  assert.match(workbenchCss, /34-course-wall\.css\?v=20260815-course-wall-v1/);
+  assert.match(workbenchCss, /34-course-wall\.css\?v=20260815-focus-wall-v1/);
   assert.match(app, /preschool-course-wall/);
   assert.match(app, /preschool-course-today/);
   assert.match(app, /preschool-course-layout/);
@@ -544,6 +550,7 @@ test('organizes the preschool home tasks as a responsive reference task wall', (
   assert.match(styles, /preschool-home-lane-main\s*\{[\s\S]*grid-template-rows:\s*auto auto/);
   assert.match(styles, /preschool-home-lane-status\s*\{[\s\S]*grid-column:\s*3/);
   assert.match(styles, /preschool-home-lane-practice\s*\{[\s\S]*grid-column:\s*1 \/ -1/);
+  assert.match(styles, /preschool-home-review\s*\{/);
 });
 
 test('translates the reference dashboard rhythm into existing preschool state', () => {
@@ -610,7 +617,7 @@ test('puts a single real-work workflow card above preschool home check-in lanes'
   assert.doesNotMatch(heroRender, /再完成\s*\d+\s*项打卡/);
   assert.match(app, /item\.done && item\.completionSource === 'practice'/);
   assert.match(styles, /preschool-home-hero/);
-  assert.match(html, /app\.js\?v=20260815-english-auto-v1/);
+  assert.match(html, /app\.js\?v=20260815-b2-review-v1/);
   assert.doesNotMatch(app, /首页只负责打卡/);
 });
 
@@ -799,8 +806,8 @@ test('defines answerable activities for every preschool lesson', () => {
   const config = fs.readFileSync(path.join(root, 'config.js'), 'utf8');
   const preschoolCourses = config.split("id: 'preschool-literacy'")[1].split("actions: { 'add-plan'")[0];
   const activities = preschoolCourses.match(/activity:\s*\{/g) || [];
-  assert.equal(activities.length, 27);
-  assert.equal((preschoolCourses.match(/optionIcons:\s*\[/g) || []).length, 27);
+  assert.equal(activities.length, 29);
+  assert.equal((preschoolCourses.match(/optionIcons:\s*\[/g) || []).length, 29);
   assert.match(preschoolCourses, /prompt: '/);
   assert.match(preschoolCourses, /options: \[/);
   assert.match(preschoolCourses, /answer: \d/);
@@ -822,7 +829,7 @@ test('keeps preschool option art aligned with its answer choices', () => {
       optionIcons: optionIcons ? (optionIcons[1].match(/'[^']*'/g) || []) : []
     };
   });
-  assert.equal(activities.length, 27);
+  assert.equal(activities.length, 29);
   for (const activity of activities) {
     assert.equal(activity.optionIcons.length, activity.options.length);
     for (const item of activity.optionIcons) {
@@ -963,7 +970,11 @@ test('restores the summer learning lane without loading the full library into th
   assert.match(app, /action === 'summer-library-step'/);
   assert.match(app, /target\.dataset\.action === 'summer-library-item'/);
   assert.match(preschoolIndex, /preschool-summer-learning-data\.js/);
-  assert.match(preschoolIndex, /data-course-id="preschool-summer"/);
+  assert.match(preschoolIndex, /data-action="open-course-wall"/);
+  assert.match(preschoolIndex, /sidebar-section-toggle-meta">卡片墙/);
+  assert.doesNotMatch(preschoolIndex, /data-course-id="preschool-summer"/);
+  assert.match(app, /action === 'open-course-wall'/);
+  assert.match(app, /setPage\('courses'\)/);
   assert.match(compatibilityStyles, /21-summer-library\.css/);
   assert.match(styles, /preschool-course-resource-list/);
   assert.match(styles, /preschool-summer-library-categories/);
@@ -1068,7 +1079,25 @@ test('turns flashcard subjects into a flip-card page with known/unknown marking'
   assert.match(styles, /preschool-flashcard-mark\.is-known/);
   assert.match(styles, /preschool-flashcard-mark\.is-nav/);
   assert.match(styles, /preschool-flashcard-complete-lessons/);
-  assert.match(styles, /preschool-focus-today/);
+  assert.match(app, /preschool-focus-game-wall/);
+  assert.match(app, /PRESCHOOL_FOCUS_GAME_ASSETS/);
+  assert.match(app, /focus-schulte\.png/);
+  assert.match(app, /function isFocusInlineSession\(\)/);
+  assert.match(app, /preschool-focus-play-host/);
+  assert.match(app, /if \(isFocusInlineSession\(\)\)/);
+  assert.doesNotMatch(app, /isFocusInlineSession\(\)[\s\S]{0,80}showModal/);
+  assert.match(app, /data-action="focus-pick-level"/);
+  assert.match(app, /data-action="focus-start-level"/);
+  assert.match(app, /play-level-pick/);
+  assert.match(app, /focus-arcade-idle/);
+  assert.match(app, /开始挑战/);
+  assert.match(app, /play-win-banner/);
+  assert.match(styles, /preschool-focus-game-card/);
+  assert.match(styles, /preschool-focus-play-host/);
+  assert.match(styles, /play-flip-inner/);
+  assert.match(styles, /play-win-banner/);
+  assert.match(styles, /focus-arcade-card/);
+  assert.match(styles, /play-level-card|focus-arcade-pill/);
   assert.match(styles, /preschool-summer-task/);
   assert.match(styles, /preschool-poem-today/);
   assert.match(styles, /preschool-poem-lines/);
@@ -1117,8 +1146,8 @@ test('adds a today preview on the course wall and splits classic into a child me
   assert.match(app, /更多练习/);
   assert.match(app, /更多资料/);
   assert.doesNotMatch(app, /浏览完整资料库/);
-  assert.match(html, /preschool-workbench\.css\?v=20260815-home-course-v1/);
-  assert.match(html, /app\.js\?v=20260815-english-auto-v1/);
+  assert.match(html, /preschool-workbench\.css\?v=20260815-b2-review-v1/);
+  assert.match(html, /app\.js\?v=20260815-b2-review-v1/);
   assert.match(html, /preschool-card-art\.js\?v=20260815-english-auto-v1/);
   assert.match(workbenchCss, /36-course-menu\.css\?v=20260815-menu-cards-v2/);
   assert.match(styles, /preschool-course-menu/);

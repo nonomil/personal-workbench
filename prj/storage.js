@@ -636,6 +636,33 @@
         return { mistakes: list, changed: true, item: item };
     }
 
+    function dayDiff(from, to) {
+        const start = new Date(String(from || '') + 'T12:00:00');
+        const end = new Date(String(to || '') + 'T12:00:00');
+        if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) return NaN;
+        return Math.round((end.getTime() - start.getTime()) / 86400000);
+    }
+
+    function buildMistakeReviewQueue(mistakes, today) {
+        const stamp = String(today || localDate());
+        return (Array.isArray(mistakes) ? mistakes : []).filter(function (item) {
+            if (!item || item.status === 'mastered') return false;
+            const elapsed = dayDiff(item.date, stamp);
+            return elapsed === 1 || elapsed === 3 || elapsed === 7;
+        });
+    }
+
+    function markMistakeReviewed(mistakes, sourceKey, known) {
+        const list = Array.isArray(mistakes) ? mistakes.slice() : [];
+        const key = String(sourceKey || '');
+        if (!key) return list;
+        list.forEach(function (item) {
+            if (!item || item.sourceKey !== key) return;
+            item.status = known ? 'mastered' : 'todo';
+        });
+        return list;
+    }
+
     global.PersonalWorkbenchStorage = {
         STORAGE_KEY: STORAGE_KEY,
         SCHEMA_VERSION: SCHEMA_VERSION,
@@ -648,6 +675,8 @@
         getPreschoolPlanRewardId: getPreschoolPlanRewardId,
         subjectForCourse: subjectForCourse,
         recordLessonMistake: recordLessonMistake,
+        buildMistakeReviewQueue: buildMistakeReviewQueue,
+        markMistakeReviewed: markMistakeReviewed,
         repository: repository
     };
 })(typeof window !== 'undefined' ? window : globalThis);

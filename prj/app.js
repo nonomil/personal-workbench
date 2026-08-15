@@ -72,6 +72,8 @@
     const STATUS_LABELS = { todo: '待开始', doing: '进行中', done: '已完成' };
     const ui = { page: getPageFromHash(), courseId: getCourseIdFromHash(), courseNavExpanded: getPageFromHash() === 'courses', taskFilter: 'all', dialogType: '', dialogId: '', dialogArea: '', dialogDate: '', lessonSession: null, courseCards: null, courseClassic: getCourseTabFromHash() === 'menu', courseTab: getCourseTabFromHash(), mediaBvid: '', summerLibraryCategory: 'daily', summerLibraryItem: 0, battleEffect: null, growthWorld: '', badgeBoxOpen: false, badgeFilter: 'all' };
     let lessonMotionTimerId = 0;
+    let lessonSimonTimerId = 0;
+    let focusPlayClockId = 0;
     const isPreschool = workbenchConfig.variant === 'preschool';
     const isChild = workbenchConfig.variant === 'child' || isPreschool;
     const isAdult = workbenchConfig.variant === 'adult';
@@ -89,6 +91,13 @@
     const PIXEL_REFRESH_ASSET_BASE = '../assets/generated/preschool-pixel/refresh-20260731/published/';
     // 花园角色优先用已验收的 preschool-pvz-2d（比 world-rebuild 更接近塔防原版观感）
     const PRESCHOOL_PVZ_ASSET_BASE = '../assets/generated/preschool-pixel/pvz/';
+    const PRESCHOOL_FOCUS_GAME_ASSETS = {
+        'focus-schulte': '../assets/generated/preschool-focus-games/published/focus-schulte.png',
+        'focus-sudoku': '../assets/generated/preschool-focus-games/published/focus-sudoku.png',
+        'focus-memory': '../assets/generated/preschool-focus-games/published/focus-memory.png',
+        'focus-simon': '../assets/generated/preschool-focus-games/published/focus-simon.png',
+        'focus-search': '../assets/generated/preschool-focus-games/published/focus-search.png'
+    };
     const PRESCHOOL_PVZ_ASSETS = {
         'sun-token': '../assets/generated/preschool-pvz-2d/published/pvz-sun-token.png',
         'treasure-chest': '../assets/generated/preschool-pixel/refresh-20260731/published/treasure-chest.png',
@@ -338,7 +347,7 @@
                 foeReady: '来一波怪物',
                 exitGame: '去方块游戏',
                 navGameLabel: '方块世界',
-                worldGameHref: '../games/voxel-adventure/index.html',
+                worldGameHref: '../games/voxel-craft/index.html',
                 lanePlants: ['voxel-block-tree', 'voxel-purple-crystal', 'voxel-grass-block'],
                 laneFoes: ['voxel-companion', 'voxel-companion', 'voxel-companion']
             };
@@ -423,8 +432,8 @@
 
     const PRESCHOOL_WORLD_GAME_LINKS = {
         'garden-defense': { href: '../games/garden-defense/index.html', label: '花园保卫', unit: '关', total: 12 },
-        'voxel-adventure': { href: '../games/voxel-adventure/index.html', label: '方块世界', unit: '任务', total: 12 },
-        'platform-quest': { href: '../games/platform-quest/index.html', label: '横版闯关', unit: '关', total: 10 }
+        'voxel-adventure': { href: '../games/voxel-craft/index.html', label: '方块世界', unit: '任务', total: 18 },
+        'platform-quest': { href: '../games/platform-quest/index.html', label: '横版闯关', unit: '关', total: 16 }
     };
     const DAILY_GAME_SUN_CAP = 80;
 
@@ -781,6 +790,7 @@
     }
 
     function preschoolAssetSrc(name) {
+        if (isPreschool && PRESCHOOL_FOCUS_GAME_ASSETS[name]) return PRESCHOOL_FOCUS_GAME_ASSETS[name];
         const resolvedName = isPreschool ? getPreschoolThemeAssetName(name) : name;
         const themePack = isPreschool ? PRESCHOOL_THEME_ASSET_FILES[getPreschoolThemeId()] : null;
         if (themePack && themePack[resolvedName]) return themePack[resolvedName];
@@ -980,6 +990,12 @@
                 preschoolBattleEffectTimer = 0;
             }
         }
+        if (ui.lessonSession && ui.lessonSession.courseId === 'preschool-focus' && (ui.page !== 'courses' || ui.courseId !== 'preschool-focus')) {
+            clearLessonMotionTimer();
+            clearLessonSimonTimer();
+            clearFocusPlayClock();
+            ui.lessonSession = null;
+        }
         if (ui.page === 'courses') ui.courseNavExpanded = true;
         const tabQuery = ui.page === 'courses' && ui.courseId && ui.courseTab && ui.courseTab !== 'today' ? `&tab=${encodeURIComponent(ui.courseTab)}` : '';
         const hash = ui.page === 'courses' && ui.courseId ? `#courses?course=${encodeURIComponent(ui.courseId)}${tabQuery}` : `#${ui.page}`;
@@ -1002,6 +1018,7 @@
     }
 
     function render() {
+        ui._inRender = true;
         const meta = PAGE_META[ui.page];
         const derived = getDerived();
         if (isPreschool) {
@@ -1009,6 +1026,7 @@
             syncPreschoolGameNavLabels();
             syncPreschoolCopyLabels();
             document.body.classList.toggle('preschool-no-motion', !getPreschoolFeedbackPreference('motionEnabled', true));
+            document.body.classList.toggle('is-focus-arcade', isFocusInlineSession());
         }
         updateModeStatus();
         document.querySelectorAll('.nav-item').forEach(function (item) {
@@ -1049,14 +1067,16 @@
         }
         applyLanguagePreference();
         global.lucide.createIcons({ root: pageContent });
+        ui._inRender = false;
     }
 
     function setCourseNavExpanded(expanded) {
-        const toggle = document.querySelector('[data-action="toggle-course-nav"]');
+        const toggle = document.querySelector('[data-action="open-course-wall"], [data-action="toggle-course-nav"]');
         const nav = document.getElementById('preschool-course-nav');
         if (!toggle || !nav) return;
         const isExpanded = Boolean(expanded);
         toggle.classList.toggle('is-collapsed', !isExpanded);
+        toggle.classList.toggle('is-active', ui.page === 'courses');
         toggle.setAttribute('aria-expanded', String(isExpanded));
         nav.classList.toggle('is-collapsed', !isExpanded);
     }
@@ -1216,12 +1236,14 @@
             const plantAsset = lanePlants[index % lanePlants.length];
             const isNow = !done && item.id === nextOpenId;
             const courseId = getPreschoolPlanCourseId(item);
-            return `<article class="preschool-home-lane ${done ? 'is-done' : ''} ${item.required === true ? 'is-required' : 'is-optional'} main-only${isNow ? ' is-now' : ''}">
+            const practiceBtn = preschoolHomeLanePracticeButton(item);
+            return `<article class="preschool-home-lane ${done ? 'is-done' : ''} ${item.required === true ? 'is-required' : 'is-optional'}${practiceBtn ? '' : ' main-only'}${isNow ? ' is-now' : ''}">
                 <button class="preschool-home-lane-main" type="button" data-action="${courseId ? 'open-plan-course' : 'toggle-plan'}" data-id="${escapeHtml(item.id)}" data-date="${escapeHtml(item.date)}" ${courseId ? `data-course-id="${escapeHtml(courseId)}"` : ''} aria-label="${courseId ? '去学习' : (done ? '取消完成' : '完成')}${escapeHtml(item.title)}">
                     <span class="preschool-home-lane-characters"><span class="preschool-home-lane-plant">${preschoolAsset(plantAsset, '伙伴')}</span></span>
                     <span class="preschool-home-lane-copy"><small>${item.hint || (item.required === true ? '必做' : '选做')}</small><strong>${escapeHtml(item.title)}</strong></span>
                     <span class="preschool-home-lane-status">${courseId ? '去学习' : (done ? `${icon('check')} 已点亮` : `${preschoolAsset('sun-token', playbook.currency)} +10`)}</span>
                 </button>
+                ${practiceBtn}
                 <button class="preschool-home-lane-check" type="button" data-action="toggle-plan" data-id="${escapeHtml(item.id)}" data-date="${escapeHtml(item.date)}" aria-label="${done ? '取消点亮' : '点亮'}${escapeHtml(item.title)}">${done ? `${icon('check')} 已点亮` : `${preschoolAsset('sun-token', playbook.currency)} 点亮`}</button>
             </article>`;
         }).join('')}</div>`;
@@ -1776,7 +1798,7 @@
 
     function isPlayLesson(match) {
         const mode = match && match.lesson && match.lesson.activity && match.lesson.activity.mode;
-        return mode === 'play-memory' || mode === 'play-odd' || mode === 'play-order' || mode === 'pinyin-match';
+        return mode === 'play-memory' || mode === 'play-odd' || mode === 'play-order' || mode === 'play-schulte' || mode === 'play-sudoku' || mode === 'play-simon' || mode === 'play-search' || mode === 'pinyin-match';
     }
 
     function isMotionTimerLesson(match) {
@@ -1786,6 +1808,195 @@
 
     function isReplayableLesson(match) {
         return isLiteracyLesson(match) || isEnglishSpeakLesson(match) || isBankQuizLesson(match) || isPlayLesson(match) || isMotionTimerLesson(match);
+    }
+
+    function isFocusInlineSession() {
+        return !!(isPreschool && ui.lessonSession && ui.lessonSession.courseId === 'preschool-focus');
+    }
+
+    function getFocusPlayStages(match) {
+        const engine = getPlayGamesEngine();
+        const mode = match && match.lesson && match.lesson.activity && match.lesson.activity.mode;
+        return engine && typeof engine.getFocusStages === 'function' ? engine.getFocusStages(mode) : [];
+    }
+
+    function playSessionSalt(extra) {
+        const level = Number(ui.lessonSession && ui.lessonSession.focusLevel) || 0;
+        return storage.localDate().length + (Number(extra) || 0) + level * 17;
+    }
+
+    function getFocusArcadeMeta(match) {
+        const mode = match && match.lesson && match.lesson.activity && match.lesson.activity.mode;
+        const table = {
+            'play-schulte': { emoji: '👁️', theme: 'indigo', title: '舒尔特方格', blurb: '按顺序点击数字。这是一个视觉扫描小游戏。', win: '太棒啦！' },
+            'play-sudoku': { emoji: '🧩', theme: 'green', title: '数独', blurb: '填满数字，保证每行每列不重复。', win: '逻辑满分！' },
+            'play-memory': { emoji: '🦊', theme: 'orange', title: '记忆翻牌', blurb: '翻开两张相同的卡片即可消除。', win: '记忆力大师！' },
+            'play-simon': { emoji: '🎵', theme: 'purple', title: '听音辨位', blurb: '看按钮闪烁的顺序，再按同样顺序点回去。', win: '顺序记住啦！' },
+            'play-search': { emoji: '🔍', theme: 'teal', title: '视觉搜索', blurb: '只点目标图案，把它们都找出来。', win: '火眼金睛！' }
+        };
+        return table[mode] || { emoji: '✨', theme: 'indigo', title: '专注力', blurb: '', win: '过关啦！' };
+    }
+
+    function clearFocusPlayClock() {
+        if (focusPlayClockId) {
+            clearInterval(focusPlayClockId);
+            focusPlayClockId = 0;
+        }
+    }
+
+    function startFocusPlayClock() {
+        clearFocusPlayClock();
+        focusPlayClockId = setInterval(function () {
+            const el = document.querySelector('[data-focus-clock]');
+            const play = ui.lessonSession && ui.lessonSession.play;
+            if (!el || !play || !play.startedAt || play.complete || (play.run && play.run.complete)) return;
+            el.textContent = ((Date.now() - play.startedAt) / 1000).toFixed(1) + 's';
+        }, 100);
+    }
+
+    function selectFocusPlayLevel(level) {
+        const match = findPreschoolLesson(ui.lessonSession && ui.lessonSession.id);
+        if (!match || !ui.lessonSession) return false;
+        const stages = getFocusPlayStages(match);
+        if (!stages.length) return false;
+        ui.lessonSession.focusPhase = 'pick';
+        ui.lessonSession.focusLevel = Math.max(0, Math.min(stages.length - 1, Number(level) || 0));
+        ui.lessonSession.play = null;
+        render();
+        return true;
+    }
+
+    function startFocusPlayLevel(level) {
+        const match = findPreschoolLesson(ui.lessonSession && ui.lessonSession.id);
+        if (!match || !ui.lessonSession) return false;
+        const stages = getFocusPlayStages(match);
+        if (!stages.length) return false;
+        const index = Math.max(0, Math.min(stages.length - 1, Number(level) || 0));
+        ui.lessonSession.focusPhase = 'play';
+        ui.lessonSession.focusLevel = index;
+        ui.lessonSession.selectedIndex = null;
+        ui.lessonSession.correct = false;
+        ui.lessonSession.play = buildPlaySession(match, stages[index]);
+        if (ui.lessonSession.play) ui.lessonSession.play.startedAt = Date.now();
+        clearLessonSimonTimer();
+        render();
+        startFocusPlayClock();
+        if (ui.lessonSession.play && ui.lessonSession.play.kind === 'simon') startLessonSimonShow();
+        return true;
+    }
+
+    function startFocusPlayFromIdle() {
+        return startFocusPlayLevel(ui.lessonSession && ui.lessonSession.focusLevel);
+    }
+
+    function refreshFocusArcade() {
+        if (ui.lessonSession && ui.lessonSession.focusPhase === 'play') return replayFocusPlayLevel();
+        return startFocusPlayFromIdle();
+    }
+
+    function replayFocusPlayLevel() {
+        return startFocusPlayLevel(ui.lessonSession && ui.lessonSession.focusLevel);
+    }
+
+    function nextFocusPlayLevel() {
+        const match = findPreschoolLesson(ui.lessonSession && ui.lessonSession.id);
+        const stages = getFocusPlayStages(match);
+        const current = Number(ui.lessonSession && ui.lessonSession.focusLevel) || 0;
+        if (current >= stages.length - 1) return startFocusPlayLevel(current);
+        return startFocusPlayLevel(current + 1);
+    }
+
+    function backFocusPlayMap() {
+        if (!ui.lessonSession || !isFocusInlineSession()) return false;
+        clearLessonSimonTimer();
+        clearFocusPlayClock();
+        ui.lessonSession.focusPhase = 'pick';
+        ui.lessonSession.play = null;
+        ui.lessonSession.correct = false;
+        render();
+        return true;
+    }
+
+    function renderFocusArcadeIdle(match, meta) {
+        const stages = getFocusPlayStages(match);
+        const selected = Number(ui.lessonSession.focusLevel) || 0;
+        const pills = stages.map(function (stage, index) {
+            return `<button class="focus-arcade-pill ${index === selected ? 'is-on' : ''}" type="button" data-action="focus-pick-level" data-level="${index}">${escapeHtml(stage.hint)}</button>`;
+        }).join('');
+        return `<div class="play-level-pick focus-arcade-idle"><div class="focus-arcade-emoji" aria-hidden="true">${meta.emoji}</div><h2>${escapeHtml(meta.title)}</h2><p>${escapeHtml(meta.blurb)}</p><div class="focus-arcade-pills">${pills}</div><button class="focus-arcade-start" type="button" data-action="focus-start-level">开始挑战</button></div>`;
+    }
+
+    function renderFocusArcadeWon(match, meta, play) {
+        const stages = getFocusPlayStages(match);
+        const level = Number(ui.lessonSession.focusLevel) || 0;
+        const hasNext = level < stages.length - 1;
+        const elapsed = play && play.startedAt ? ((Date.now() - play.startedAt) / 1000).toFixed(1) : '';
+        const extra = play && play.kind === 'schulte' && elapsed
+            ? `<p>最终用时: <strong>${elapsed} 秒</strong></p>`
+            : '';
+        return `<div class="play-win-banner focus-arcade-won" role="status"><div class="focus-arcade-emoji" aria-hidden="true">🏆</div><h2>${escapeHtml(meta.win)}</h2>${extra}<div class="focus-arcade-actions play-win-actions">${hasNext ? `<button class="focus-arcade-next" type="button" data-action="focus-next-level">下一关</button>` : ''}<button class="focus-arcade-again" type="button" data-action="focus-replay">再来一次</button><button class="focus-arcade-finish" type="button" data-action="lesson-finish">完成点亮</button></div></div>`;
+    }
+
+    function renderFocusArcadePlaying(match, meta, play) {
+        if (play.kind === 'memory' && play.board) {
+            const cards = play.board.cards || [];
+            const cols = cards.length > 16 ? 5 : (cards.length === 12 ? 3 : 4);
+            const tiles = cards.map(function (card, index) {
+                const open = card.matched || (play.board.selected || []).indexOf(index) >= 0;
+                return `<button class="focus-arcade-flip play-flip-card ${card.matched ? 'is-matched' : ''} ${open ? 'is-open' : ''}" type="button" data-action="play-flip" data-index="${index}" ${card.matched ? 'disabled' : ''}><span class="focus-arcade-flip-inner play-flip-inner"><span class="focus-arcade-flip-back" aria-hidden="true">?</span><span class="focus-arcade-flip-face">${open ? escapeHtml(card.face) : ''}</span></span></button>`;
+            }).join('');
+            const matched = play.board.matchedCount || 0;
+            return `<div class="focus-arcade-play"><div class="focus-arcade-stat-row"><div class="focus-arcade-stat">步数: <span>${(play.board.selected || []).length}</span></div><div class="focus-arcade-stat is-theme">配对: ${matched}</div></div><div class="focus-arcade-grid" style="--play-cols:${cols}; grid-template-columns:repeat(${cols}, minmax(0,1fr)); max-width:${cols > 4 ? 450 : 350}px">${tiles}</div></div>`;
+        }
+        if (play.kind === 'schulte' && play.run) {
+            const size = play.run.size || 5;
+            const tiles = (play.run.cells || []).map(function (value, index) {
+                const done = (play.run.done || []).indexOf(value) >= 0;
+                return `<button class="focus-arcade-cell ${done ? 'is-done' : ''} ${play.run.wrong && !done ? 'is-wrong' : ''}" type="button" data-action="play-schulte" data-index="${index}" ${done || play.run.complete ? 'disabled' : ''}>${value}</button>`;
+            }).join('');
+            const elapsed = play.startedAt ? ((Date.now() - play.startedAt) / 1000).toFixed(1) + 's' : '0.0s';
+            return `<div class="focus-arcade-play"><div class="focus-arcade-stat-row"><div class="focus-arcade-stat"><small>下一个数字</small><strong>${play.run.next}</strong></div><div class="focus-arcade-stat"><small>用时</small><strong data-focus-clock>${elapsed}</strong></div></div><div class="focus-arcade-grid is-square" style="grid-template-columns:repeat(${size}, minmax(0,1fr))">${tiles}</div></div>`;
+        }
+        if (play.kind === 'sudoku' && play.run) {
+            const size = play.run.size || 6;
+            const cells = (play.run.values || []).map(function (value, index) {
+                const given = !!(play.run.given && play.run.given[index]);
+                const selected = play.run.selected === index;
+                return `<button class="focus-arcade-sudoku-cell ${given ? 'is-given' : ''} ${selected ? 'is-selected' : ''} ${play.run.wrong && selected ? 'is-wrong' : ''}" type="button" data-action="play-sudoku-cell" data-index="${index}" ${given || play.run.complete ? 'disabled' : ''}>${value || ''}</button>`;
+            }).join('');
+            const digits = [];
+            for (let digit = 1; digit <= size; digit += 1) digits.push(digit);
+            const pad = digits.map(function (digit) {
+                return `<button type="button" data-action="play-sudoku-num" data-value="${digit}" ${play.run.selected < 0 || play.run.complete ? 'disabled' : ''}>${digit}</button>`;
+            }).join('');
+            return `<div class="focus-arcade-play"><div class="focus-arcade-sudoku" style="grid-template-columns:repeat(${size}, minmax(0,1fr)); max-width:${size === 4 ? 280 : 360}px">${cells}</div><div class="focus-arcade-pad" style="max-width:${size === 4 ? 280 : 360}px">${pad}</div></div>`;
+        }
+        if (play.kind === 'simon' && play.run) {
+            const lit = play.run.phase === 'show' ? play.run.sequence[play.run.showIndex] : -1;
+            const pads = (play.run.colors || ['red', 'blue', 'green', 'yellow']).map(function (color, index) {
+                const label = (play.run.labels && play.run.labels[index]) || color;
+                return `<button class="focus-arcade-simon-pad is-${escapeHtml(color || '')} ${lit === index ? 'is-lit' : ''}" type="button" data-action="play-simon" data-index="${index}" aria-label="${escapeHtml(label)}" ${play.run.phase !== 'input' || play.run.complete ? 'disabled' : ''}></button>`;
+            }).join('');
+            const tip = play.run.phase === 'show' ? '听仔细！看仔细！' : (play.run.wrong ? '哎呀，点错了！' : '轮到你了！');
+            return `<div class="focus-arcade-play"><p class="focus-arcade-idle" style="padding:0 0 8px"><strong>${escapeHtml(tip)}</strong></p><div class="focus-arcade-simon">${pads}</div><p>当前记忆长度: ${play.run.sequence.length}</p></div>`;
+        }
+        if (play.kind === 'search' && play.run) {
+            const size = play.run.size || 6;
+            const tiles = (play.run.cells || []).map(function (cell, index) {
+                return `<button class="focus-arcade-cell ${cell.found ? 'is-done' : ''} ${play.run.wrong && !cell.found ? 'is-wrong' : ''}" type="button" data-action="play-search" data-index="${index}" ${cell.found || play.run.complete ? 'disabled' : ''}>${escapeHtml(cell.face)}</button>`;
+            }).join('');
+            return `<div class="focus-arcade-play"><div class="focus-arcade-search-target"><span>${escapeHtml(play.run.target)}</span><strong>${play.run.found}/${play.run.total}</strong></div><div class="focus-arcade-grid is-square" style="grid-template-columns:repeat(${size}, minmax(0,1fr))">${tiles}</div></div>`;
+        }
+        return renderPlayLessonBody('', play);
+    }
+
+    function renderFocusPlayInner() {
+        const match = findPreschoolLesson(ui.lessonSession && ui.lessonSession.id);
+        if (!match) return '<p class="lesson-dialog-feedback is-error">这节练习暂时不可用。</p>';
+        const meta = getFocusArcadeMeta(match);
+        if (ui.lessonSession.focusPhase !== 'play' || !ui.lessonSession.play) return renderFocusArcadeIdle(match, meta);
+        if (isPlayComplete(ui.lessonSession.play)) return renderFocusArcadeWon(match, meta, ui.lessonSession.play);
+        return renderFocusArcadePlaying(match, meta, ui.lessonSession.play);
     }
 
     function buildBankQuizSession(match) {
@@ -1850,19 +2061,37 @@
         return { mode: 'english-speak', phase: 'speak', batch: batch, day: daily.day, match: null, spell: null, complete: false, bankKind: isMc ? 'minecraft' : 'english' };
     }
 
-    function buildPlaySession(match) {
+    function buildPlaySession(match, stage) {
         const engine = getPlayGamesEngine();
         const activity = match && match.lesson && match.lesson.activity ? match.lesson.activity : {};
+        const size = stage && stage.size != null ? Number(stage.size) : activity.size;
+        const clues = stage && stage.clues != null ? Number(stage.clues) : activity.clues;
+        const targets = stage && stage.targets != null ? Number(stage.targets) : activity.targets;
         if (!engine) return null;
         if (activity.mode === 'play-memory') {
-            return { kind: 'memory', board: engine.buildMemoryBoard(activity.size || 4, 5), complete: false };
+            return { kind: 'memory', board: engine.buildMemoryBoard(size || 8, playSessionSalt(5)), complete: false };
         }
         if (activity.mode === 'play-odd') {
-            const run = engine.buildOddRounds(activity.size || 3, 7);
+            const run = engine.buildOddRounds(size || 3, 7);
             return { kind: 'odd', run: run, roundIndex: 0, roundCorrect: false, complete: false };
         }
         if (activity.mode === 'play-order') {
-            return { kind: 'order', run: engine.buildOrderRound(activity.size || 5, 4), complete: false };
+            return { kind: 'order', run: engine.buildOrderRound(size || 5, 4), complete: false };
+        }
+        if (activity.mode === 'play-schulte') {
+            return { kind: 'schulte', run: engine.buildSchulteGrid(size || 5, playSessionSalt(11)), complete: false };
+        }
+        if (activity.mode === 'play-sudoku') {
+            const run = typeof engine.buildSudoku === 'function'
+                ? engine.buildSudoku(size || 6, playSessionSalt(8), clues || 16)
+                : engine.buildSudoku6(playSessionSalt(8), clues || 16);
+            return { kind: 'sudoku', run: run, complete: false };
+        }
+        if (activity.mode === 'play-simon') {
+            return { kind: 'simon', run: engine.buildSimonRound(size || 6, playSessionSalt(3)), complete: false };
+        }
+        if (activity.mode === 'play-search') {
+            return { kind: 'search', run: engine.buildSearchGrid(size || 6, targets || 8, playSessionSalt(5)), complete: false };
         }
         if (activity.mode === 'pinyin-match') {
             const pinyin = getPinyinEngine();
@@ -1945,6 +2174,30 @@
         lessonMotionTimerId = setInterval(tickLessonMotionTimer, 1000);
     }
 
+    function clearLessonSimonTimer() {
+        if (lessonSimonTimerId) {
+            clearInterval(lessonSimonTimerId);
+            lessonSimonTimerId = 0;
+        }
+    }
+
+    function startLessonSimonShow() {
+        const engine = getPlayGamesEngine();
+        const play = ui.lessonSession && ui.lessonSession.play;
+        if (!engine || !play || play.kind !== 'simon' || !play.run) return;
+        clearLessonSimonTimer();
+        lessonSimonTimerId = setInterval(function () {
+            const current = ui.lessonSession && ui.lessonSession.play;
+            if (!current || current.kind !== 'simon' || !current.run || current.run.phase !== 'show') {
+                clearLessonSimonTimer();
+                return;
+            }
+            current.run = engine.advanceSimonShow(current.run);
+            if (current.run.phase !== 'show') clearLessonSimonTimer();
+            renderLessonDialog();
+        }, 700);
+    }
+
     function completeMotionTimer() {
         const timer = ui.lessonSession && ui.lessonSession.timer;
         if (!timer) return false;
@@ -1989,6 +2242,40 @@
         return findPreschoolLesson(plan.practiceLessonId);
     }
 
+    function preschoolHomeLanePracticeButton(item) {
+        if (!item || item.done || !item.practiceLessonId) return '';
+        return `<button class="preschool-home-lane-practice" type="button" data-action="open-plan-practice" data-id="${escapeHtml(item.id)}" data-date="${escapeHtml(item.date)}" aria-label="去练习${escapeHtml(item.title)}">${icon('play')}<span>去练习</span></button>`;
+    }
+
+    function getDueMistakeReviews() {
+        if (!storage || typeof storage.buildMistakeReviewQueue !== 'function') return [];
+        return storage.buildMistakeReviewQueue(state.mistakes, storage.localDate());
+    }
+
+    function resolveReviewOutcome(known) {
+        const key = ui.reviewSourceKey;
+        if (!key || !storage || typeof storage.markMistakeReviewed !== 'function') return;
+        commit(function (next) {
+            next.mistakes = storage.markMistakeReviewed(next.mistakes, key, !!known);
+        }, '');
+        if (known) ui.reviewSourceKey = '';
+    }
+
+    function openReviewPractice() {
+        const due = getDueMistakeReviews();
+        if (!due.length) {
+            showToast('今天没有要复习的题。');
+            return;
+        }
+        const first = due[0];
+        if (!first.lessonId) {
+            setPage('mistakes');
+            return;
+        }
+        ui.reviewSourceKey = first.sourceKey || '';
+        openLessonDialog(first.lessonId);
+    }
+
     function getLessonActivity(lesson) {
         const source = lesson && lesson.activity && typeof lesson.activity === 'object' ? lesson.activity : {};
         const options = Array.isArray(source.options) && source.options.length ? source.options : ['我准备好了'];
@@ -2005,13 +2292,60 @@
         };
     }
 
+    function isPlayComplete(play) {
+        if (!play) return false;
+        if (play.complete) return true;
+        if (play.board && play.board.complete) return true;
+        if (play.run && play.run.complete) return true;
+        return false;
+    }
+
+    function renderPlayHud(play, title, feedbackHtml) {
+        if (!isFocusInlineSession() || !ui.lessonSession || ui.lessonSession.focusPhase !== 'play') {
+            return `<h3 class="lesson-dialog-prompt">${escapeHtml(title)}</h3><p class="lesson-dialog-feedback">${feedbackHtml}</p>`;
+        }
+        const match = findPreschoolLesson(ui.lessonSession.id);
+        const stages = getFocusPlayStages(match);
+        const level = Number(ui.lessonSession.focusLevel) || 0;
+        const hint = stages[level] ? stages[level].hint : '';
+        return `<div class="play-arcade-hud"><span>第 ${level + 1} 关</span>${hint ? `<small>${escapeHtml(hint)}</small>` : ''}</div><h3 class="lesson-dialog-prompt">${escapeHtml(title)}</h3><p class="lesson-dialog-feedback">${feedbackHtml}</p>`;
+    }
+
+    function renderPlayActions(play, extraAction) {
+        const done = isPlayComplete(play);
+        if (isFocusInlineSession() && ui.lessonSession && ui.lessonSession.focusPhase === 'play') {
+            if (!done) return '';
+            const match = findPreschoolLesson(ui.lessonSession.id);
+            const stages = getFocusPlayStages(match);
+            const level = Number(ui.lessonSession.focusLevel) || 0;
+            const hasNext = level < stages.length - 1;
+            return `<div class="play-win-banner" role="status"><p class="play-win-stars" aria-hidden="true">⭐⭐⭐</p><strong>过关啦！</strong><div class="play-win-actions">${hasNext ? `<button class="btn-primary" type="button" data-action="focus-next-level">${icon('sparkles')}下一关</button>` : ''}<button class="btn-secondary" type="button" data-action="focus-replay">${icon('rotate-ccw')}再玩</button><button class="btn-primary" type="button" data-action="lesson-finish">${icon('sparkles')}完成点亮</button></div></div>`;
+        }
+        const action = extraAction || 'lesson-finish';
+        return `<div class="lesson-dialog-actions"><button class="btn-secondary lesson-quit" type="button" data-action="close-lesson" aria-label="先放一放" title="先放一放">${icon('x')}</button><button class="btn-primary" type="button" data-action="${action}" ${done ? '' : 'disabled'}>${icon(done ? 'sparkles' : 'lock-keyhole')}${done ? '完成' : '继续'}</button></div>`;
+    }
+
+    function sudokuBoxClass(index, size) {
+        const edge = Number(size) || 6;
+        const row = Math.floor(index / edge);
+        const col = index % edge;
+        const boxW = edge === 4 ? 2 : 3;
+        const classes = [];
+        if (col % boxW === 0) classes.push('is-box-left');
+        if ((col + 1) % boxW === 0) classes.push('is-box-right');
+        if (row % 2 === 0) classes.push('is-box-top');
+        if ((row + 1) % 2 === 0) classes.push('is-box-bottom');
+        return classes.join(' ');
+    }
+
     function renderPlayMatchBody(progressHead, prompt, board, hint, nextLabel) {
         const cards = (board.cards || []).map(function (card, index) {
             const open = card.matched || (board.selected || []).indexOf(index) >= 0;
-            return `<button class="play-match-card ${card.matched ? 'is-matched' : ''} ${open ? 'is-open' : ''}" type="button" data-action="play-flip" data-index="${index}" ${card.matched ? 'disabled' : ''}><span>${open ? escapeHtml(card.face) : '?'}</span></button>`;
+            return `<button class="play-match-card play-flip-card ${card.matched ? 'is-matched' : ''} ${open ? 'is-open' : ''}" type="button" data-action="play-flip" data-index="${index}" ${card.matched ? 'disabled' : ''}><span class="play-flip-inner"><span class="play-flip-back" aria-hidden="true"></span><span class="play-flip-face">${open ? escapeHtml(card.face) : ''}</span></span></button>`;
         }).join('');
-        const canGo = !!board.complete;
-        return `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">${escapeHtml(prompt)}</h3><p class="lesson-dialog-feedback">${escapeHtml(hint || '')}</p><div class="play-match-grid">${cards}</div><div class="lesson-dialog-actions"><button class="btn-secondary lesson-quit" type="button" data-action="close-lesson" aria-label="先放一放" title="先放一放">${icon('x')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${canGo ? '' : 'disabled'}>${icon(canGo ? 'sparkles' : 'lock-keyhole')}完成</button></div></div>`;
+        const cols = (board.cards || []).length > 16 ? 5 : 4;
+        const play = { board: board, complete: !!board.complete, kind: 'memory' };
+        return `<div class="lesson-dialog-body play-arcade-body">${progressHead}${renderPlayHud(play, prompt, escapeHtml(hint || (board.complete ? '全配上啦！' : '翻开两张一样的')))}<div class="play-match-grid" style="--play-cols:${cols}">${cards}</div>${renderPlayActions(play)}</div>`;
     }
 
     function renderPlaySpellBody(progressHead, spell) {
@@ -2046,6 +2380,57 @@
             }).join('');
             return `<div class="lesson-dialog-body">${progressHead}<h3 class="lesson-dialog-prompt">按从小到大点数字</h3><p class="literacy-word">${escapeHtml(used.join(' ') || '先点 1')}</p><p class="lesson-dialog-feedback">${play.run.wrong ? '再试一次！' : '从小到大点'}</p><div class="play-spell-row">${tiles}</div><div class="lesson-dialog-actions"><button class="btn-secondary lesson-quit" type="button" data-action="close-lesson" aria-label="先放一放" title="先放一放">${icon('x')}</button><button class="btn-primary" type="button" data-action="lesson-finish" ${play.run.complete ? '' : 'disabled'}>${icon(play.run.complete ? 'sparkles' : 'lock-keyhole')}${play.run.complete ? '完成' : '继续'}</button></div></div>`;
         }
+        if (play.kind === 'schulte' && play.run) {
+            const size = play.run.size || 5;
+            const last = size * size;
+            const tiles = (play.run.cells || []).map(function (value, index) {
+                const done = (play.run.done || []).indexOf(value) >= 0;
+                const hue = ((value - 1) * 37) % 360;
+                return `<button class="play-schulte-cell ${done ? 'is-done' : ''} ${play.run.wrong && !done ? 'is-wrong' : ''}" type="button" data-action="play-schulte" data-index="${index}" style="--tile-hue:${hue}" ${done || play.run.complete ? 'disabled' : ''}>${value}</button>`;
+            }).join('');
+            const feedback = play.run.complete
+                ? '全点完啦！'
+                : (play.run.wrong
+                    ? '不是这个，继续找 <span class="play-next-badge">' + play.run.next + '</span>'
+                    : '下一个：<span class="play-next-badge">' + play.run.next + '</span>');
+            return `<div class="lesson-dialog-body play-arcade-body">${progressHead}${renderPlayHud(play, '从 1 点到 ' + last, feedback)}<div class="play-schulte-grid" style="--play-cols:${size}">${tiles}</div>${renderPlayActions(play)}</div>`;
+        }
+        if (play.kind === 'sudoku' && play.run) {
+            const size = play.run.size || 6;
+            const cells = (play.run.values || []).map(function (value, index) {
+                const given = !!(play.run.given && play.run.given[index]);
+                const selected = play.run.selected === index;
+                const digitClass = value ? ' is-d' + value : '';
+                return `<button class="play-sudoku-cell ${given ? 'is-given' : ''} ${selected ? 'is-selected' : ''}${digitClass} ${sudokuBoxClass(index, size)}" type="button" data-action="play-sudoku-cell" data-index="${index}" ${given || play.run.complete ? 'disabled' : ''}>${value || ''}</button>`;
+            }).join('');
+            const digits = [];
+            for (let digit = 1; digit <= size; digit += 1) digits.push(digit);
+            const pad = digits.map(function (digit) {
+                return `<button class="play-sudoku-num is-d${digit}" type="button" data-action="play-sudoku-num" data-value="${digit}" ${play.run.selected < 0 || play.run.complete ? 'disabled' : ''}>${digit}</button>`;
+            }).join('');
+            const title = size === 4 ? '四宫数独' : '六宫数独';
+            const feedback = play.run.complete ? '填完啦！' : (play.run.wrong ? '这个数放这里不对' : '先点空格，再点 1 到 ' + size);
+            return `<div class="lesson-dialog-body play-arcade-body">${progressHead}${renderPlayHud(play, title, escapeHtml(feedback))}<div class="play-sudoku-grid is-size-${size}" style="--play-cols:${size}">${cells}</div><div class="play-sudoku-pad" style="--play-cols:${size}">${pad}</div>${renderPlayActions(play)}</div>`;
+        }
+        if (play.kind === 'simon' && play.run) {
+            const lit = play.run.phase === 'show' ? play.run.sequence[play.run.showIndex] : -1;
+            const tiles = (play.run.colors || []).map(function (color, index) {
+                const label = (play.run.labels && play.run.labels[index]) || color;
+                return `<button class="play-simon-cell is-${escapeHtml(color || '')} ${lit === index ? 'is-lit' : ''}" type="button" data-action="play-simon" data-index="${index}" aria-label="${escapeHtml(label)}" ${play.run.phase !== 'input' || play.run.complete ? 'disabled' : ''}></button>`;
+            }).join('');
+            const feedback = play.run.complete
+                ? '顺序全对啦！'
+                : (play.run.phase === 'show' ? '先看亮灯' : (play.run.wrong ? '错了，从第一个重新点' : '按刚才的顺序点 · 已点 ' + play.run.inputIndex + '/' + play.run.sequence.length));
+            return `<div class="lesson-dialog-body play-arcade-body">${progressHead}${renderPlayHud(play, '记住颜色顺序', escapeHtml(feedback))}<div class="play-simon-grid">${tiles}</div>${renderPlayActions(play)}</div>`;
+        }
+        if (play.kind === 'search' && play.run) {
+            const size = play.run.size || 6;
+            const tiles = (play.run.cells || []).map(function (cell, index) {
+                return `<button class="play-search-cell ${cell.found ? 'is-found' : ''} ${play.run.wrong && !cell.found ? 'is-wrong' : ''}" type="button" data-action="play-search" data-index="${index}" ${cell.found || play.run.complete ? 'disabled' : ''}>${escapeHtml(cell.face)}</button>`;
+            }).join('');
+            const feedback = play.run.complete ? '全找到啦！' : (play.run.wrong ? '这个不是目标' : '只点和上面一样的图案');
+            return `<div class="lesson-dialog-body play-arcade-body">${progressHead}${renderPlayHud(play, '找出它们', escapeHtml(feedback))}<div class="play-search-target-row"><span class="play-search-target"><span class="play-search-target-face">${escapeHtml(play.run.target)}</span><small>要找的</small></span><span class="play-search-count">${play.run.found}/${play.run.total}</span></div><div class="play-search-grid" style="--play-cols:${size}">${tiles}</div>${renderPlayActions(play)}</div>`;
+        }
         return `<div class="lesson-dialog-body">${progressHead}<p class="lesson-dialog-feedback">这节小游戏暂时不可用。</p></div>`;
     }
 
@@ -2072,6 +2457,17 @@
     }
 
     function renderLessonDialog() {
+        if (isFocusInlineSession()) {
+            if (lessonDialog && typeof lessonDialog.close === 'function' && lessonDialog.open) lessonDialog.close();
+            const host = document.getElementById('preschool-focus-play-host');
+            if (host) {
+                host.innerHTML = renderFocusPlayInner();
+                if (global.lucide && typeof global.lucide.createIcons === 'function') global.lucide.createIcons({ root: host });
+                return;
+            }
+            if (!ui._inRender) render();
+            return;
+        }
         if (!lessonDialogContent || !ui.lessonSession) return;
         const match = findPreschoolLesson(ui.lessonSession.id);
         if (!match) {
@@ -2413,12 +2809,29 @@
         if (isLiteracyLesson(match)) ui.lessonSession.literacy = buildLiteracySession(match);
         if (isEnglishSpeakLesson(match)) ui.lessonSession.english = buildEnglishSession(match);
         if (isBankQuizLesson(match)) ui.lessonSession.bankQuiz = buildBankQuizSession(match);
-        if (isPlayLesson(match)) ui.lessonSession.play = buildPlaySession(match);
+        if (isPlayLesson(match)) {
+            if (match.course && match.course.id === 'preschool-focus') {
+                ui.lessonSession.focusPhase = 'pick';
+                ui.lessonSession.focusLevel = 0;
+                ui.lessonSession.play = null;
+            } else {
+                ui.lessonSession.play = buildPlaySession(match);
+            }
+        }
         if (isMotionTimerLesson(match)) {
             ui.lessonSession.timer = buildMotionTimerSession(match);
             startLessonMotionTimer();
         }
+        if (isFocusInlineSession()) {
+            if (typeof lessonDialog.close === 'function' && lessonDialog.open) lessonDialog.close();
+            else lessonDialog.removeAttribute('open');
+            if (ui.page !== 'courses' || ui.courseId !== 'preschool-focus') setPage('courses', true, 'preschool-focus');
+            else render();
+            if (ui.lessonSession.play && ui.lessonSession.play.kind === 'simon') startLessonSimonShow();
+            return true;
+        }
         renderLessonDialog();
+        if (ui.lessonSession.play && ui.lessonSession.play.kind === 'simon') startLessonSimonShow();
         if (typeof lessonDialog.showModal === 'function' && !lessonDialog.open) lessonDialog.showModal();
         else lessonDialog.setAttribute('open', '');
         speakBankQuizRound();
@@ -2494,6 +2907,63 @@
         return play.roundCorrect;
     }
 
+    function tapPlaySchulte(index) {
+        const engine = getPlayGamesEngine();
+        const play = ui.lessonSession && ui.lessonSession.play;
+        if (!engine || !play || play.kind !== 'schulte' || !play.run) return false;
+        play.run = engine.tapSchulte(play.run, index);
+        play.complete = !!play.run.complete;
+        ui.lessonSession.correct = play.complete;
+        renderLessonDialog();
+        if (play.complete) speakPraise('全点完啦');
+        return true;
+    }
+
+    function tapPlaySudokuCell(index) {
+        const engine = getPlayGamesEngine();
+        const play = ui.lessonSession && ui.lessonSession.play;
+        if (!engine || !play || play.kind !== 'sudoku' || !play.run) return false;
+        play.run = engine.selectSudoku(play.run, index);
+        renderLessonDialog();
+        return true;
+    }
+
+    function tapPlaySudokuNum(value) {
+        const engine = getPlayGamesEngine();
+        const play = ui.lessonSession && ui.lessonSession.play;
+        if (!engine || !play || play.kind !== 'sudoku' || !play.run) return false;
+        play.run = engine.placeSudoku(play.run, value);
+        play.complete = !!play.run.complete;
+        ui.lessonSession.correct = play.complete;
+        renderLessonDialog();
+        if (play.complete) speakPraise('数独填完啦');
+        return true;
+    }
+
+    function tapPlaySimon(index) {
+        const engine = getPlayGamesEngine();
+        const play = ui.lessonSession && ui.lessonSession.play;
+        if (!engine || !play || play.kind !== 'simon' || !play.run || play.run.phase !== 'input') return false;
+        play.run = engine.tapSimon(play.run, index);
+        play.complete = !!play.run.complete;
+        ui.lessonSession.correct = play.complete;
+        renderLessonDialog();
+        if (play.complete) speakPraise('顺序记住啦');
+        return true;
+    }
+
+    function tapPlaySearch(index) {
+        const engine = getPlayGamesEngine();
+        const play = ui.lessonSession && ui.lessonSession.play;
+        if (!engine || !play || play.kind !== 'search' || !play.run) return false;
+        play.run = engine.tapSearch(play.run, index);
+        play.complete = !!play.run.complete;
+        ui.lessonSession.correct = play.complete;
+        renderLessonDialog();
+        if (play.complete) speakPraise('全找到啦');
+        return true;
+    }
+
     function advancePlayOdd() {
         const play = ui.lessonSession && ui.lessonSession.play;
         if (!play || !play.roundCorrect || !play.run) return false;
@@ -2531,6 +3001,7 @@
         if (!item) return false;
         const isMc = session.bankKind === 'minecraft' || (ui.lessonSession && ui.lessonSession.courseId === 'preschool-minecraft');
         item.mark = known ? 'known' : 'unknown';
+        resolveReviewOutcome(!!known);
         if (!known) {
             recordPreschoolLessonMistake({
                 subject: storage.subjectForCourse(isMc ? 'preschool-minecraft' : 'preschool-english'),
@@ -2563,6 +3034,7 @@
         const item = session.batch.find(function (entry) { return entry.char === char; });
         if (!item) return false;
         item.mark = known ? 'known' : 'unknown';
+        resolveReviewOutcome(!!known);
         session.char = char;
         commit(function (next) {
             const current = next.courseProgress && next.courseProgress.literacy
@@ -2935,17 +3407,26 @@
         }
         const id = ui.lessonSession.id;
         const ok = completeCourseLesson(id, ui.lessonSession.planId, ui.lessonSession.planDate);
-        if (ok) closeLessonDialog();
+        if (ok) {
+            resolveReviewOutcome(true);
+            closeLessonDialog();
+        }
         return ok;
     }
 
     function closeLessonDialog() {
+        const wasInline = isFocusInlineSession();
         clearLessonMotionTimer();
-        if (!lessonDialog) return;
-        if (typeof lessonDialog.close === 'function' && lessonDialog.open) lessonDialog.close();
-        else lessonDialog.removeAttribute('open');
+        clearLessonSimonTimer();
+        clearFocusPlayClock();
+        if (lessonDialog) {
+            if (typeof lessonDialog.close === 'function' && lessonDialog.open) lessonDialog.close();
+            else lessonDialog.removeAttribute('open');
+        }
         ui.lessonSession = null;
+        ui.reviewSourceKey = '';
         if (lessonDialogContent) lessonDialogContent.innerHTML = '';
+        if (wasInline && !ui._inRender) render();
     }
 
     function getNextPreschoolLesson() {
@@ -3322,7 +3803,9 @@
     }
 
     function renderPreschoolCourseWallExtras(courses) {
-        const cards = (Array.isArray(courses) ? courses : []).map(function (course) { return renderPreschoolCourseMediaWallCard(course); }).join('');
+        const cards = (Array.isArray(courses) ? courses : [])
+            .filter(function (course) { return course && course.id !== 'preschool-focus'; })
+            .map(function (course) { return renderPreschoolCourseMediaWallCard(course); }).join('');
         return `<section class="preschool-course-wall-extras" aria-label="动画和资料"><h2 class="preschool-course-wall-extras-title">动画和资料</h2><div class="preschool-course-wall">${cards}</div></section>`;
     }
 
@@ -3489,11 +3972,7 @@
             const poem = derivePreschoolPoetryTodayPoem(course);
             return poem && poem.title ? '今日一首 · ' + poem.title : '今日一首';
         }
-        if (course.id === 'preschool-focus') {
-            const lessons = Array.isArray(course.lessons) ? course.lessons : [];
-            const lesson = lessons.length ? lessons[preschoolDayIndex(lessons.length)] : null;
-            return lesson && lesson.title ? '今日训练 · ' + lesson.title : '今日训练';
-        }
+        if (course.id === 'preschool-focus') return '点一张卡开始玩';
         if (course.id === 'preschool-exercise') return '跟做今天的动作';
         if (course.id === 'preschool-summer') return '今天看五样';
         return '';
@@ -3752,13 +4231,47 @@
         return `<div class="preschool-flashcard-page tone-${escapeHtml(course.tone || 'blue')}"><div class="preschool-flashcard-top"><button class="workbench-text-button" type="button" data-action="navigate" data-page="courses">${icon('arrow-left')}<span>卡片墙</span></button><strong>${escapeHtml(getPreschoolCourseShortTitle(course))}</strong><span></span></div><section class="preschool-flashcard-complete"><span class="preschool-flashcard-complete-art" aria-hidden="true">${preschoolAsset('star-companion', '运动')}</span>${body}<div class="preschool-flashcard-foot"><button class="workbench-text-button" type="button" data-action="flashcard-classic">更多练习</button></div></section></div>`;
     }
 
+    function getPreschoolFocusGameArtName(lesson) {
+        const byId = {
+            'preschool-focus-1': 'focus-schulte',
+            'preschool-focus-2': 'focus-sudoku',
+            'preschool-focus-3': 'focus-memory',
+            'preschool-focus-4': 'focus-simon',
+            'preschool-focus-5': 'focus-search'
+        };
+        const byMode = {
+            'play-schulte': 'focus-schulte',
+            'play-sudoku': 'focus-sudoku',
+            'play-memory': 'focus-memory',
+            'play-simon': 'focus-simon',
+            'play-search': 'focus-search'
+        };
+        return (lesson && byId[lesson.id]) || (lesson && lesson.activity && byMode[lesson.activity.mode]) || '';
+    }
+
+    function renderPreschoolFocusGameArt(lesson) {
+        const name = getPreschoolFocusGameArtName(lesson);
+        return name ? preschoolAsset(name, lesson && lesson.title) : getPreschoolLessonRouteArt({ id: 'preschool-focus', icon: 'target' }, lesson, 0);
+    }
+
     function renderPreschoolFocusToday(course) {
-        const lessons = Array.isArray(course.lessons) ? course.lessons : [];
+        if (isFocusInlineSession()) {
+            const match = findPreschoolLesson(ui.lessonSession.id);
+            const title = match && match.lesson ? match.lesson.title : '专注力训练';
+            const meta = getFocusArcadeMeta(match);
+            const playing = ui.lessonSession.focusPhase === 'play';
+            const backAction = playing ? 'focus-pick-map' : 'close-lesson';
+            return `<div class="focus-arcade theme-${escapeHtml(meta.theme)} preschool-focus-play-page"><div class="focus-arcade-bar"><button class="focus-arcade-icon-btn" type="button" data-action="${backAction}" aria-label="返回">${icon('arrow-left')}</button><h1>${escapeHtml(meta.title || title)}</h1><button class="focus-arcade-icon-btn" type="button" data-action="focus-refresh" aria-label="重新开始">${icon('rotate-ccw')}</button></div><div id="preschool-focus-play-host" class="focus-arcade-card preschool-focus-play-host ${playing ? 'is-playing' : 'is-picking'}">${renderFocusPlayInner()}</div></div>`;
+        }
+        const lessons = (Array.isArray(course.lessons) ? course.lessons : []).filter(isPreschoolMenuCoreLesson);
         if (!lessons.length) return '';
-        const todayIndex = preschoolDayIndex(lessons.length);
-        const lesson = lessons[todayIndex];
-        const art = getPreschoolLessonRouteArt(course, lesson, todayIndex);
-        return `<div class="preschool-flashcard-page tone-${escapeHtml(course.tone || 'gold')}"><div class="preschool-flashcard-top"><button class="workbench-text-button" type="button" data-action="navigate" data-page="overview">${icon('arrow-left')}<span>回首页</span></button><strong>${escapeHtml(getPreschoolCourseShortTitle(course))}</strong><span></span></div><section class="preschool-focus-today"><span class="preschool-focus-today-art" aria-hidden="true">${art}</span><small>今日训练</small><h2>${escapeHtml(lesson.title)}</h2><p>${escapeHtml(lesson.meta || '')}${lesson.minutes ? ` · ${lesson.minutes} 分钟` : ''}</p>${lesson.tip ? `<p class="preschool-focus-today-tip">${escapeHtml(lesson.tip)}</p>` : ''}<button class="btn-primary preschool-focus-today-start" type="button" data-action="open-lesson" data-id="${escapeHtml(lesson.id)}">${icon('play')}<span>开始训练</span></button><p class="preschool-focus-today-tip">做完回首页点亮，得 10 阳光。</p></section><div class="preschool-flashcard-foot"><button class="workbench-text-button" type="button" data-action="flashcard-classic">更多练习</button></div></div>`;
+        const completedIds = state.courseProgress && Array.isArray(state.courseProgress.completedLessonIds) ? state.courseProgress.completedLessonIds : [];
+        const cards = lessons.map(function (lesson) {
+            const done = completedIds.indexOf(lesson.id) >= 0;
+            const preview = [lesson.meta, lesson.minutes ? lesson.minutes + ' 分钟' : ''].filter(Boolean).join(' · ');
+            return `<button class="preschool-course-wall-card preschool-focus-game-card tone-${escapeHtml(course.tone || 'gold')}${done ? ' is-done' : ''}" type="button" data-action="open-lesson" data-id="${escapeHtml(lesson.id)}" aria-label="打开${escapeHtml(lesson.title)}"><span class="preschool-course-wall-art" aria-hidden="true">${renderPreschoolFocusGameArt(lesson)}</span><strong>${escapeHtml(lesson.title)}</strong>${preview ? `<small class="preschool-course-wall-preview">${escapeHtml(preview)}</small>` : ''}<span class="preschool-course-wall-state${done ? ' is-complete' : ''}">${done ? '再玩' : '开始'}</span></button>`;
+        }).join('');
+        return `<div class="preschool-flashcard-page tone-${escapeHtml(course.tone || 'gold')}"><div class="preschool-flashcard-top"><button class="workbench-text-button" type="button" data-action="navigate" data-page="courses">${icon('arrow-left')}<span>卡片墙</span></button><strong>专注力训练</strong><span></span></div><div class="preschool-course-wall preschool-focus-game-wall" aria-label="专注力游戏">${cards}</div></div>`;
     }
 
     function renderPreschoolSummerToday(course) {
@@ -3843,6 +4356,7 @@
             commitPreschoolSubjectMark(trackName, [item.key], known);
         }
         session.marks[item.key] = known ? 'known' : 'unknown';
+        resolveReviewOutcome(!!known);
         session.index += 1;
         render();
     }
@@ -3891,6 +4405,7 @@
         if (course.id === 'preschool-math') return preschoolCardArt({ kind: 'math', text: sample || '1+1', main: sample || '1+1', answer: 2 });
         if (course.id === 'preschool-pinyin') return preschoolCardArt({ kind: 'pinyin', text: sample || 'b', pinyinKind: 'initial' });
         if (course.id === 'preschool-phonics') return preschoolCardArt({ kind: 'phonics', text: sample || 'm' });
+        if (course.id === 'preschool-focus') return renderPreschoolFocusGameArt(lesson);
         const iconName = (course && course.icon) || 'book-open';
         const assetName = preschoolAssetForIcon(iconName);
         return assetName ? preschoolAsset(assetName, lesson && lesson.title) : icon(iconName);
@@ -3924,6 +4439,9 @@
         const activeCourse = getPreschoolCourseById(ui.courseId);
         if (!activeCourse) {
             return `${renderPreschoolIntro(PAGE_META.courses, '', '', `<span class="tag lime">${courses.length} 个专区</span>`)}${renderPreschoolCoursesTodayCard()}<div class="preschool-course-wall" aria-label="学科卡片墙">${courses.map(function (course) { return renderPreschoolCourseWallCard(course); }).join('')}</div>${renderPreschoolCourseWallExtras(courses)}`;
+        }
+        if (activeCourse.id === 'preschool-focus') {
+            return `${renderPreschoolIntro(PAGE_META.courses, '', '', `<span class="tag lime">${escapeHtml(activeCourse.title)}</span>`)}<div class="preschool-course-layout is-focused"><div class="preschool-course-content">${renderPreschoolFocusToday(activeCourse)}</div></div>`;
         }
         const tabs = renderPreschoolCourseTabs(activeCourse);
         let pane = '';
@@ -4138,23 +4656,30 @@
         const invader = defense && defense.invader ? defense.invader : { active: false };
         const nextOpen = plans.find(function (item) { return !item.done; });
         const nextOpenId = nextOpen ? nextOpen.id : '';
+        const reviewDue = getDueMistakeReviews();
+        const reviewBanner = reviewDue.length
+            ? `<button class="preschool-home-review" type="button" data-action="open-review-practice"><small>错题回流</small><strong>今天复习 ${reviewDue.length} 题</strong><span>${icon('rotate-ccw')}去练习</span></button>`
+            : '';
         const lanes = plans.map(function (item, index) {
             const done = Boolean(item.done);
             const plantAsset = lanePlants[index % lanePlants.length];
             const isNow = !done && item.id === nextOpenId;
             const courseId = getPreschoolPlanCourseId(item);
-            return `<article class="preschool-home-lane ${done ? 'is-done' : ''} ${item.required === true ? 'is-required' : 'is-optional'} main-only${isNow ? ' is-now' : ''}">
+            const practiceBtn = preschoolHomeLanePracticeButton(item);
+            return `<article class="preschool-home-lane ${done ? 'is-done' : ''} ${item.required === true ? 'is-required' : 'is-optional'}${practiceBtn ? '' : ' main-only'}${isNow ? ' is-now' : ''}">
                 <button class="preschool-home-lane-main" type="button" data-action="${courseId ? 'open-plan-course' : 'toggle-plan'}" data-id="${escapeHtml(item.id)}" data-date="${escapeHtml(item.date)}" ${courseId ? `data-course-id="${escapeHtml(courseId)}"` : ''} aria-label="${courseId ? '去学习' : (done ? '取消完成' : '完成')}${escapeHtml(item.title)}">
                     <span class="preschool-home-lane-characters"><span class="preschool-home-lane-plant">${preschoolAsset(plantAsset, '伙伴')}</span></span>
                     <span class="preschool-home-lane-copy"><small>${item.hint || (item.required === true ? '必做' : '选做')}</small><strong>${escapeHtml(item.title)}</strong></span>
                     <span class="preschool-home-lane-status">${courseId ? '去学习' : (done ? `${icon('check')} 已点亮` : `${preschoolAsset('sun-token', playbook.currency)} +10`)}</span>
                 </button>
+                ${practiceBtn}
                 <button class="preschool-home-lane-check" type="button" data-action="toggle-plan" data-id="${escapeHtml(item.id)}" data-date="${escapeHtml(item.date)}" aria-label="${done ? '取消点亮' : '点亮'}${escapeHtml(item.title)}">${done ? `${icon('check')} 已点亮` : `${preschoolAsset('sun-token', playbook.currency)} 点亮`}</button>
             </article>`;
         }).join('');
         return `<section class="preschool-home-battlefield" data-defense-state="${invader.active ? 'active' : 'ready'}" aria-label="今天的任务">
             <div class="preschool-home-battlefield-head"><div><span class="pixel-panel-kicker">${escapeHtml(playbook.homeKicker)}</span><h2>今天的任务</h2><p>点开去学习，回来再点亮</p></div><strong>${completed}/${plans.length || 0}</strong><button class="preschool-home-battlefield-add" type="button" data-action="navigate" data-page="plans" aria-label="打开任务清单">${icon('plus')}<span>管理任务</span></button></div>
             <div class="preschool-home-task-overview" aria-label="今日任务概览"><span class="preschool-home-task-stat is-required"><small>必做任务</small><b>${requiredPlans.filter(item => item.done).length}/${requiredPlans.length}</b></span><span class="preschool-home-task-stat is-optional"><small>选做挑战</small><b>${optionalPlans.filter(item => item.done).length}/${optionalPlans.length}</b></span><span class="preschool-home-task-stat is-time"><small>计划用时</small><b>${plannedMinutes} 分钟</b></span></div>
+            ${reviewBanner}
             <div class="preschool-home-lanes">${lanes}</div>
             <div class="preschool-home-battlefield-foot"><span>${icon(invader.active ? 'alert-triangle' : 'shield-check')} ${invader.active ? `${escapeHtml(preschoolInvaderProfile(invader).title)}${escapeHtml(playbook.homeFootActive)}` : escapeHtml(playbook.homeFootReady)}</span><small>${escapeHtml(playbook.homeFootNote)}</small></div>
         </section>`;
@@ -5926,9 +6451,16 @@
             if (!openPreschoolWorldGame(forcedTheme || undefined)) setPage('battle');
             return;
         }
-        if (action === 'toggle-course-nav') {
-            ui.courseNavExpanded = !ui.courseNavExpanded;
-            setCourseNavExpanded(ui.courseNavExpanded);
+        if (action === 'open-course-wall' || action === 'toggle-course-nav') {
+            const onWall = ui.page === 'courses' && !ui.courseId;
+            if (onWall) {
+                ui.courseNavExpanded = !ui.courseNavExpanded;
+                setCourseNavExpanded(ui.courseNavExpanded);
+                return;
+            }
+            ui.courseNavExpanded = true;
+            setPage('courses');
+            return;
         }
         if (action === 'open-sidebar') openSidebar();
         if (action === 'close-sidebar') closeSidebar();
@@ -6089,6 +6621,7 @@
             }
         }
         if (action === 'open-plan-practice') openPreschoolPlanPractice(target.dataset.id, target.dataset.date);
+        if (action === 'open-review-practice') openReviewPractice();
         if (action === 'speak-resource') speakResource(target.dataset.text);
         if (action === 'open-resource') openExternalResource(target.dataset.url);
         if (action === 'summer-library-category') { ui.summerLibraryCategory = getSummerLibraryCategory(target.dataset.category).id; ui.summerLibraryItem = 0; render(); }
@@ -6102,6 +6635,17 @@
         if (action === 'play-order') tapPlayOrder(target.dataset.value);
         if (action === 'play-odd') tapPlayOdd(target.dataset.index);
         if (action === 'play-odd-next') advancePlayOdd();
+        if (action === 'play-schulte') tapPlaySchulte(target.dataset.index);
+        if (action === 'play-sudoku-cell') tapPlaySudokuCell(target.dataset.index);
+        if (action === 'play-sudoku-num') tapPlaySudokuNum(target.dataset.value);
+        if (action === 'play-simon') tapPlaySimon(target.dataset.index);
+        if (action === 'play-search') tapPlaySearch(target.dataset.index);
+        if (action === 'focus-pick-level') selectFocusPlayLevel(target.dataset.level);
+        if (action === 'focus-start-level') startFocusPlayFromIdle();
+        if (action === 'focus-refresh') refreshFocusArcade();
+        if (action === 'focus-next-level') nextFocusPlayLevel();
+        if (action === 'focus-replay') replayFocusPlayLevel();
+        if (action === 'focus-pick-map') backFocusPlayMap();
         if (action === 'motion-done') completeMotionTimer();
         if (action === 'literacy-mark') markLiteracyFlash(target.dataset.char, target.dataset.known === '1');
         if (action === 'literacy-teach-start') startLiteracyTeach();
@@ -6263,7 +6807,7 @@
     entryDialog.addEventListener('click', function (event) { if (event.target === entryDialog) closeDialog(); });
     if (lessonDialog) {
         lessonDialog.addEventListener('click', function (event) { if (event.target === lessonDialog) closeLessonDialog(); });
-        lessonDialog.addEventListener('close', function () { clearLessonMotionTimer(); ui.lessonSession = null; if (lessonDialogContent) lessonDialogContent.innerHTML = ''; });
+        lessonDialog.addEventListener('close', function () { clearLessonMotionTimer(); clearLessonSimonTimer(); ui.lessonSession = null; if (lessonDialogContent) lessonDialogContent.innerHTML = ''; });
     }
 
     if (!location.hash) history.replaceState(null, '', '#overview');

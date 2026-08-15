@@ -203,6 +203,34 @@ body.variant-preschool .preschool-home-overview.is-simple .preschool-home-battle
     display: none;
 }
 
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-home-review,
+body.variant-preschool .is-simple .preschool-home-review {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    margin: 0 0 10px;
+    padding: 10px 12px;
+    border: 1px solid rgba(180, 110, 40, .28);
+    border-radius: 14px;
+    color: #5c4213;
+    background: #fff4d6;
+    text-align: left;
+}
+
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-home-review small,
+body.variant-preschool .is-simple .preschool-home-review small {
+    display: block;
+    font-size: 11px;
+}
+
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-home-review strong,
+body.variant-preschool .is-simple .preschool-home-review strong {
+    display: block;
+    font-size: 16px;
+}
+
 body.variant-preschool[data-preschool-theme] .is-simple .preschool-home-lanes,
 body.variant-preschool .is-simple .preschool-home-lanes {
     grid-template-columns: repeat(3, minmax(0, 1fr));

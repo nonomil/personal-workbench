@@ -86,6 +86,31 @@ test('maps preschool courses to mistake subjects and app records wrong answers',
     assert.match(app, /recordPreschoolLessonMistake/);
     assert.match(app, /recordLessonMistake/);
     assert.match(app, /subjectForCourse/);
-    assert.match(html, /storage\.js\?v=20260815-summer-timed-v1/);
-    assert.match(html, /app\.js\?v=20260815-english-auto-v1/);
+    assert.match(html, /storage\.js\?v=20260815-b2-review-v1/);
+    assert.match(html, /app\.js\?v=20260815-b2-review-v1/);
+});
+
+test('mistake review queue only returns day 1/3/7 items and drops mastered ones', () => {
+    const mistakes = [
+        { id: 'a', date: '2026-08-14', status: 'todo', sourceKey: 'math:1', lessonId: 'preschool-math-1' },
+        { id: 'b', date: '2026-08-12', status: 'todo', sourceKey: 'en:1', lessonId: 'preschool-english-words-1' },
+        { id: 'c', date: '2026-08-08', status: 'todo', sourceKey: 'zh:1', lessonId: 'preschool-chinese-1' },
+        { id: 'd', date: '2026-08-10', status: 'todo', sourceKey: 'skip:1', lessonId: 'preschool-poetry-1' },
+        { id: 'e', date: '2026-08-14', status: 'mastered', sourceKey: 'done:1', lessonId: 'preschool-math-1' }
+    ];
+    const due = storage.buildMistakeReviewQueue(mistakes, '2026-08-15');
+    assert.deepEqual(due.map((item) => item.id), ['a', 'b', 'c']);
+    const empty = storage.buildMistakeReviewQueue(mistakes, '2026-08-16');
+    assert.deepEqual(empty.map((item) => item.id), []);
+});
+
+test('reviewing a due mistake correctly removes it and a miss keeps it queued', () => {
+    const start = [{ id: 'a', date: '2026-08-14', status: 'todo', sourceKey: 'math:1', lessonId: 'preschool-math-1' }];
+    const missed = storage.markMistakeReviewed(start, 'math:1', false);
+    assert.equal(missed[0].status, 'todo');
+    assert.equal(storage.buildMistakeReviewQueue(missed, '2026-08-15').length, 1);
+    const done = storage.markMistakeReviewed(missed, 'math:1', true);
+    assert.equal(done[0].status, 'mastered');
+    assert.equal(storage.buildMistakeReviewQueue(done, '2026-08-15').length, 0);
+    assert.equal(storage.buildMistakeReviewQueue(done, '2026-08-17').length, 0);
 });
