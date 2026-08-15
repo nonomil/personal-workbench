@@ -4574,7 +4574,88 @@
                 return `<span class="${due.has(item.text) ? 'is-review' : 'is-known'}">${escapeHtml(item.text)}</span>`;
             }).join('')
             : '<small>点会了，就会进这里</small>';
-        return { bank: bank, todayChips: todayChips, known: known, library: library };
+        return { bank: bank, batch: batch, dueCount: due.size, todayChips: todayChips, known: known, library: library };
+    }
+
+    function getEnglishDashboardView(course) {
+        if (!course || course.id !== 'preschool-english') return null;
+        const engine = getEnglishVocabEngine();
+        if (!engine) return null;
+        const bank = getEnglishDailyLoopBank(engine);
+        const progress = state.courseProgress && state.courseProgress.english ? state.courseProgress.english : engine.createDefaultProgress();
+        const today = storage.localDate();
+        const summary = typeof engine.summarizeEnglishDashboard === 'function'
+            ? engine.summarizeEnglishDashboard(progress, bank, today)
+            : { bankSize: bank.length, known: 0, practicing: 0, unseen: bank.length, reviewing: 0, thisWeekNew: 0, currentStreak: 0, currentStage: { level: 'L1', label: '起步', total: 0, ready: 0, percent: 0 }, rates: {} };
+        const daily = getEnglishDailyLoopView(course) || { batch: [], known: [], dueCount: 0 };
+        const batch = Array.isArray(daily.batch) ? daily.batch : [];
+        const featured = batch[0] || bank[0] || { text: 'hello', zh: '你好', phrase: 'Hello!', phraseZh: '你好！' };
+        const mistakes = typeof engine.englishMistakeCards === 'function'
+            ? engine.englishMistakeCards(state.mistakes, bank, today)
+            : [];
+        const stage = summary.currentStage || { level: 'L1', label: '起步', total: 0, ready: 0, percent: 0 };
+        const media = resolvePreschoolCardMedia(featured);
+        return {
+            engine: engine,
+            bank: bank,
+            batch: batch,
+            summary: summary,
+            stage: stage,
+            featured: featured,
+            featuredMedia: media.markup || `<span class="english-dashboard-fallback-art" aria-hidden="true">${icon('languages')}</span>`,
+            mistakes: mistakes,
+            dueCount: Number(daily.dueCount) || summary.reviewing || 0,
+            lessonId: 'preschool-english-words-1'
+        };
+    }
+
+    function renderPreschoolEnglishDashboard(course) {
+        const view = getEnglishDashboardView(course);
+        if (!view) return '';
+        const summary = view.summary;
+        const stage = view.stage;
+        const featured = view.featured;
+        const batch = view.batch;
+        const lessonId = view.lessonId;
+        const wordCards = batch.map(function (item, index) {
+            const cardMedia = resolvePreschoolCardMedia(item);
+            const visual = cardMedia.markup || `<span class="english-dashboard-fallback-art" aria-hidden="true">${icon('languages')}</span>`;
+            return `<span class="english-dashboard-word-card"><span class="english-dashboard-word-art">${visual}</span><span class="english-dashboard-word-copy"><strong>${escapeHtml(item.text || '')}</strong><small>${escapeHtml(item.zh || '')}</small></span>${item.review ? `<i class="english-dashboard-review-dot" title="待复习">${index + 1}</i>` : ''}</span>`;
+        }).join('');
+        const stagePercent = Math.max(0, Math.min(100, Number(stage.percent) || 0));
+        const abilityTags = [['volume-2', '听音'], ['book-check', '认读'], ['pencil', '拼写']].map(function (entry) {
+            return `<span class="english-dashboard-ability">${icon(entry[0])}<b>${entry[1]}</b></span>`;
+        }).join('');
+        return `<section class="english-dashboard" aria-labelledby="english-dashboard-title">
+            <div class="english-dashboard-hero">
+                <div class="english-dashboard-hero-copy">
+                    <span class="eyebrow">LEARN / ENGLISH WORDS</span>
+                    <div class="english-dashboard-title-row"><h1 id="english-dashboard-title">英语词汇启蒙</h1><span class="english-dashboard-stage">当前阶段 · ${escapeHtml(stage.level)} ${escapeHtml(stage.label)}</span></div>
+                    <p>每天 3 个词，先听音、再认读，最后用小游戏把它记牢。</p>
+                    <div class="english-dashboard-hero-actions"><button class="btn-primary english-dashboard-primary" type="button" data-action="open-lesson" data-id="${escapeHtml(lessonId)}">${icon('play')}<span>开始今日测评</span></button><span class="english-dashboard-hero-note">${escapeHtml(featured.theme || '生活主题')} · ${escapeHtml(featured.text || '')}</span></div>
+                </div>
+                <div class="english-dashboard-hero-visual" aria-label="今日单词 ${escapeHtml(featured.text || '')}"><span>今日预览</span><div class="english-dashboard-hero-art">${view.featuredMedia}</div><strong>${escapeHtml(featured.text || '')}</strong><small>${escapeHtml(featured.zh || '')}</small></div>
+            </div>
+            <div class="english-dashboard-stats" aria-label="英语词汇成长摘要">
+                <div class="english-dashboard-stat is-primary"><span>${icon('sparkles')}</span><small>已会</small><strong>${summary.known}</strong><em>/ ${summary.bankSize}</em></div>
+                <div class="english-dashboard-stat"><span>${icon('calendar-clock')}</span><small>今日 3 词</small><strong>${batch.length || 0}</strong><em>个</em></div>
+                <div class="english-dashboard-stat"><span>${icon('rotate-ccw')}</span><small>待复习</small><strong>${summary.reviewing}</strong><em>个</em></div>
+                <div class="english-dashboard-stat"><span>${icon('flame')}</span><small>连续学习</small><strong>${summary.currentStreak}</strong><em>天</em></div>
+            </div>
+            <div class="english-dashboard-main-grid">
+                <section class="english-dashboard-practice-card" aria-label="今日测评预览">
+                    <div class="english-dashboard-section-head"><div><span class="eyebrow">TODAY / 3 WORDS</span><h2>今天学什么</h2></div><span class="english-dashboard-section-meta">${escapeHtml(featured.theme || '生活词')} · ${summary.thisWeekNew} 个本周新增</span></div>
+                    <div class="english-dashboard-word-list">${wordCards || '<span class="english-dashboard-empty">今日词卡准备中</span>'}</div>
+                    <div class="english-dashboard-practice-foot"><div class="english-dashboard-ability-list" aria-label="今日练习能力">${abilityTags}</div><button class="workbench-text-button" type="button" data-action="open-lesson" data-id="${escapeHtml(lessonId)}">进入测评${icon('arrow-up-right')}</button></div>
+                </section>
+                <aside class="english-dashboard-tools" aria-label="英语学习工具">
+                    <button class="english-dashboard-tool is-wrongbook" type="button" data-action="open-english-wrongbook"><span class="english-dashboard-tool-icon">${icon('rotate-ccw')}</span><span><strong>错词本</strong><small>${view.mistakes.length ? view.mistakes.length + ' 个词需要再看' : '还没有错词，继续保持'}</small></span>${icon('arrow-up-right')}</button>
+                    <button class="english-dashboard-tool is-archive" type="button" data-action="open-english-archive"><span class="english-dashboard-tool-icon">${icon('chart-column')}</span><span><strong>词汇档案</strong><small>查看 L1 / L2 阶段与成长曲线</small></span>${icon('arrow-up-right')}</button>
+                    <button class="english-dashboard-tool is-boss" type="button" data-action="open-wordboss"><span class="english-dashboard-tool-icon">${icon('crown')}</span><span><strong>单词 BOSS</strong><small>完成今日学习后再来挑战</small></span>${icon('arrow-up-right')}</button>
+                </aside>
+            </div>
+            <div class="english-dashboard-stage-progress"><div><span>当前阶段进度</span><strong>${escapeHtml(stage.level)} · ${escapeHtml(stage.label)} · ${stage.ready}/${stage.total || 0}</strong></div><span class="english-dashboard-progress-track" role="progressbar" aria-label="${escapeHtml(stage.label)}阶段掌握度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${stagePercent}"><i style="width:${stagePercent}%"></i></span></div>
+        </section>`;
     }
 
     function renderPreschoolEnglishTodayChips(course) {
@@ -4587,7 +4668,7 @@
         const view = getEnglishDailyLoopView(course);
         if (!view) return '';
         const more = renderPreschoolEnglishMoreLessons(course);
-        return `<details class="preschool-english-daily english-more-panel" aria-label="英语其他"><summary>我的词库 ${view.known.length}/${view.bank.length} · 错词本 · 更多</summary><div class="english-more-tools"><button class="workbench-text-button" type="button" data-action="open-english-wrongbook">错词本</button><button class="workbench-text-button" type="button" data-action="open-english-archive">词汇档案</button><button class="workbench-text-button" type="button" data-action="open-wordboss">单词BOSS</button></div><div class="preschool-literacy-mastery" aria-label="我的词库">${view.library}</div>${more}</details>`;
+        return `<details class="preschool-english-daily english-more-panel" aria-label="英语其他"><summary>更多英语学习 · 我的词库 ${view.known.length}/${view.bank.length}</summary><div class="english-more-tools"><button class="workbench-text-button" type="button" data-action="open-wordboss">单词 BOSS</button></div><div class="preschool-literacy-mastery" aria-label="我的词库">${view.library}</div>${more}</details>`;
     }
 
     function renderPreschoolEnglishMoreLessons(course) {
@@ -5123,7 +5204,7 @@
         if (course.id === 'preschool-english') {
             if (ui.englishView === 'wrongbook') return renderEnglishWrongbookPage(course);
             if (ui.englishView === 'archive') return renderEnglishArchivePage(course);
-            return renderPreschoolCourseFlashcards(course) + renderPreschoolEnglishExtras(course);
+            return renderPreschoolEnglishDashboard(course) + renderPreschoolCourseFlashcards(course) + renderPreschoolEnglishExtras(course);
         }
         if (PRESCHOOL_FLASHCARD_COURSES.has(course.id)) return renderPreschoolCourseFlashcards(course);
         if (course.id === 'preschool-poetry') return renderPreschoolPoetryToday(course);
@@ -5279,7 +5360,7 @@
         } else {
             pane = renderPreschoolCourseMenu(activeCourse);
         }
-        const hideIntro = activeCourse.id === 'preschool-literacy' && ui.courseTab !== 'media' && ui.courseTab !== 'menu' && !ui.courseClassic;
+        const hideIntro = (activeCourse.id === 'preschool-literacy' || activeCourse.id === 'preschool-english') && ui.courseTab !== 'media' && ui.courseTab !== 'menu' && !ui.courseClassic;
         const intro = hideIntro ? '' : renderPreschoolIntro(PAGE_META.courses, '', '', `<span class="tag lime">${escapeHtml(activeCourse.title)}</span>`);
         return `${intro}${tabs}<div class="preschool-course-layout is-focused"><div class="preschool-course-content">${pane}</div></div>`;
     }

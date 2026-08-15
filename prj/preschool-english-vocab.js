@@ -447,6 +447,117 @@
         return { known: known, practicing: practicing, reviewing: reviewing, bankSize: items.length, rates: rates, curve: curve };
     }
 
+    function shiftDate(date, days) {
+        const stamp = new Date(String(date || '') + 'T12:00:00');
+        if (Number.isNaN(stamp.getTime())) return '';
+        stamp.setDate(stamp.getDate() + (Number(days) || 0));
+        return stamp.getFullYear() + '-' + String(stamp.getMonth() + 1).padStart(2, '0') + '-' + String(stamp.getDate()).padStart(2, '0');
+    }
+
+    function englishStageLabel(level) {
+        const definitions = global.PersonalWorkbenchPreschoolLevels;
+        const bands = definitions && Array.isArray(definitions.bands) ? definitions.bands : [];
+        const match = bands.find(function (item) { return item && item.id === level; });
+        return match && match.title ? String(match.title) : ({ L1: '起步', L2: '扩展', L3: '巩固', L4: '挑战', L5: '综合' }[level] || level);
+    }
+
+    function buildEnglishStageProgress(items, progress) {
+        const helper = global.PersonalWorkbenchBankLevels;
+        if (helper && typeof helper.buildTrackProgress === 'function') {
+            return helper.buildTrackProgress(items, progress, function (item) {
+                return String(item && item.text || '').toLowerCase();
+            });
+        }
+        const mastery = progress && progress.mastery && typeof progress.mastery === 'object' ? progress.mastery : {};
+        const levels = ['L1', 'L2', 'L3', 'L4', 'L5'];
+        const bands = levels.map(function (level) {
+            const pool = items.filter(function (item) { return String(item.level || 'L1').toUpperCase() === level; });
+            const ready = pool.filter(function (item) {
+                const entry = mastery[String(item.text || '').toLowerCase()];
+                return entry && (entry.state === 'ready' || entry.state === 'maintenance');
+            }).length;
+            return { level: level, total: pool.length, ready: ready, percent: pool.length ? Math.round(ready / pool.length * 100) : 0 };
+        });
+        let maxUnlocked = 'L1';
+        for (let index = 1; index < bands.length; index += 1) {
+            const previous = bands[index - 1];
+            if (previous.total && previous.ready / previous.total >= 0.8) maxUnlocked = bands[index].level;
+            else break;
+        }
+        return { bands: bands, maxUnlocked: maxUnlocked };
+    }
+
+    function summarizeEnglishDashboard(progress, bank, today) {
+        const source = progress && progress.mastery && typeof progress.mastery === 'object' ? progress.mastery : {};
+        const items = [];
+        const seen = {};
+        (Array.isArray(bank) ? bank : []).forEach(function (item) {
+            const key = String(item && item.text || '').trim().toLowerCase();
+            if (!key || seen[key]) return;
+            seen[key] = true;
+            items.push(Object.assign({}, item, { text: key }));
+        });
+        const stamp = String(today || '').slice(0, 10);
+        const dueDate = stamp && shiftDate(stamp, -6);
+        let known = 0;
+        let practicing = 0;
+        let reviewing = 0;
+        let thisWeekNew = 0;
+        const studyDates = {};
+        const rates = emptyQuizBuckets();
+        items.forEach(function (item) {
+            const entry = source[item.text] || {};
+            const state = STATES.indexOf(entry.state) >= 0 ? entry.state : '';
+            if (state === 'ready' || state === 'maintenance') known += 1;
+            else if (state === 'introduced' || state === 'practicing') practicing += 1;
+            if (stamp && entry.nextReview && String(entry.nextReview).slice(0, 10) <= stamp && state !== 'introduced') reviewing += 1;
+            const masteredAt = String(entry.masteredAt || '').slice(0, 10);
+            if (masteredAt && dueDate && masteredAt >= dueDate && masteredAt <= stamp) thisWeekNew += 1;
+            const dates = Array.isArray(entry.dates) ? entry.dates : [];
+            dates.forEach(function (date) {
+                const dateKey = String(date || '').slice(0, 10);
+                if (dateKey) studyDates[dateKey] = true;
+            });
+            if (!dates.length && masteredAt) studyDates[masteredAt] = true;
+            const quiz = normalizeQuizBuckets(entry.quiz);
+            ['listen', 'read', 'spell'].forEach(function (type) {
+                rates[type].attempts += quiz[type].attempts;
+                rates[type].correct += quiz[type].correct;
+            });
+        });
+        let currentStreak = 0;
+        if (stamp) {
+            let cursor = stamp;
+            while (cursor && studyDates[cursor]) {
+                currentStreak += 1;
+                cursor = shiftDate(cursor, -1);
+            }
+        }
+        const stageTrack = buildEnglishStageProgress(items, progress);
+        const stageLevel = stageTrack && stageTrack.maxUnlocked ? stageTrack.maxUnlocked : 'L1';
+        const stageBand = (stageTrack && Array.isArray(stageTrack.bands) ? stageTrack.bands : []).find(function (item) {
+            return item && item.level === stageLevel;
+        }) || { level: stageLevel, total: 0, ready: 0, percent: 0 };
+        return {
+            bankSize: items.length,
+            known: known,
+            practicing: practicing,
+            unseen: Math.max(0, items.length - known - practicing),
+            reviewing: reviewing,
+            thisWeekNew: thisWeekNew,
+            currentStreak: currentStreak,
+            studyDays: Object.keys(studyDates).length,
+            currentStage: {
+                level: stageLevel,
+                label: englishStageLabel(stageLevel),
+                total: Number(stageBand.total) || 0,
+                ready: Number(stageBand.ready) || 0,
+                percent: Number(stageBand.percent) || 0
+            },
+            rates: rates
+        };
+    }
+
     function renderEnglishArchive(curve) {
         const list = Array.isArray(curve) ? curve : [];
         const maxY = 300;
@@ -501,6 +612,7 @@
         buildEnglishWrongbookDrill: buildEnglishWrongbookDrill,
         applyEnglishWrongbookResult: applyEnglishWrongbookResult,
         summarizeEnglishArchive: summarizeEnglishArchive,
+        summarizeEnglishDashboard: summarizeEnglishDashboard,
         renderEnglishArchive: renderEnglishArchive,
         getRuntimeBank: getRuntimeBank,
         getDailyLoopBank: getDailyLoopBank,
