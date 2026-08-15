@@ -1,0 +1,325 @@
+﻿id,word,zh,theme,level,phrase,phraseZh,category,group,image,audio,art,hasImage,hasAudio
+mc-cave,cave,洞穴,地点,MC-D1,We enter the cave with bright torches.,我们举着亮火把走进cave。,place,在cave旁边,图片/cave.png,音频/cave.mp3,none,yes,yes
+mc-birch,birch,白桦,方块,MC-D1,We make a small path with the birch.,我们用birch铺出一条小路。,block,放好birch,图片/birch.png,音频/birch.mp3,none,yes,yes
+mc-dirt,dirt,泥土,方块,MC-D1,We choose the dirt for the garden wall.,花园围墙我们选用dirt。,block,放好dirt,图片/dirt.png,,none,yes,no
+mc-log,log,原木,方块,MC-D1,I stack the log to make a small wall.,我把log叠成一堵小墙。,block,放好log,图片/log.png,,none,yes,no
+mc-axe,axe,斧,工具,MC-D1,I lend the axe to my teammate.,我把axe借给队友。,tool,用一把axe,图片/axe.png,,none,yes,no
+mc-hoe,hoe,锄,工具,MC-D1,I lend the hoe to my teammate.,我把hoe借给队友。,tool,用一把hoe,图片/hoe.png,,none,yes,no
+mc-blaze,blaze,烈焰人,生物,MC-D1,I spot a blaze near the village.,我在村子附近看见blaze。,mob,看见blaze,图片/blaze.png,音频/blaze.mp3,none,yes,yes
+mc-slime,slime,史莱姆,生物,MC-D1,I leave food for the slime.,我给slime留一点食物。,mob,看见slime,图片/slime.png,音频/slime.mp3,none,yes,yes
+mc-squid,squid,鱿鱼,生物,MC-D1,I spot a squid near the village.,我在村子附近看见squid。,mob,看见squid,图片/squid.png,音频/squid.mp3,none,yes,yes
+mc-witch,witch,女巫,生物,MC-D1,The witch visits our camp at dawn.,天亮时witch来到我们的营地。,mob,看见witch,图片/witch.png,音频/witch.mp3,none,yes,yes
+mc-swamp,swamp,沼泽,生物群系,MC-D1,We build a lookout in the swamp.,我们在swamp里建了一个瞭望台。,biome,去探索swamp,图片/swamp.png,,none,yes,no
+mc-taiga,taiga,针叶林,生物群系,MC-D1,We explore the taiga after breakfast.,吃完早饭我们去探索taiga。,biome,去探索taiga,图片/taiga.png,,none,yes,no
+mc-cod,cod,鳕鱼,食物,MC-D1,I share the cod with my teammate.,我和队友一起用cod。,food,吃cod,图片/cod.png,,none,yes,no
+mc-melon,melon,西瓜,食物,MC-D1,We save the melon for the long walk.,我们把melon留给走远路的时候。,food,吃melon,图片/melon.png,,none,yes,no
+mc-allay,allay,悦灵,物品,MC-D1,I use the allay during our mission.,任务里我用到了allay。,item,用一用allay,图片/allay.png,音频/allay.mp3,none,yes,yes
+mc-anvil,anvil,铁砧,物品,MC-D1,We keep the anvil in a quiet corner.,我们把anvil放在安静的角落。,item,用一用anvil,图片/anvil.png,,none,yes,no
+mc-arrow,arrow,箭,物品,MC-D1,I check the arrow before leaving camp.,离开营地前我先检查arrow。,item,用一用arrow,图片/arrow.png,,none,yes,no
+mc-bat,bat,蝙蝠,物品,MC-D1,The bat stays safe in my backpack.,bat安全地待在我的背包里。,item,用一用bat,图片/bat.png,音频/bat.mp3,none,yes,yes
+mc-breed,breed,繁殖,物品,MC-D1,The breed stays safe in my backpack.,breed安全地待在我的背包里。,item,用一用breed,图片/breed.png,音频/breed.mp3,none,yes,yes
+mc-chunk,chunk,区块,物品,MC-D1,My teammate passes me the chunk.,队友把chunk递给我。,item,用一用chunk,图片/chunk.png,,none,yes,no
+mc-drops,drops,掉落物,物品,MC-D1,My teammate passes me the drops.,队友把drops递给我。,item,用一用drops,图片/drops.png,音频/drops.mp3,none,yes,yes
+mc-dust,dust,粉末,物品,MC-D1,We keep the dust in a quiet corner.,我们把dust放在安静的角落。,item,用一用dust,图片/dust.png,音频/dust.mp3,none,yes,yes
+mc-flame,flame,火矢,物品,MC-D1,I place the flame in my adventure chest.,我把flame放进冒险箱子。,item,用一用flame,图片/flame.png,音频/flame.mp3,none,yes,yes
+mc-flint,flint,燧石,物品,MC-D1,I check the flint beside the campfire.,我在篝火旁检查flint。,item,用一用flint,图片/flint.png,,none,yes,no
+mc-ghast,ghast,恶魂,物品,MC-D1,The ghast is ready for our next adventure.,ghast已经准备好下一次冒险。,item,用一用ghast,图片/ghast.png,音频/ghast.mp3,none,yes,yes
+mc-grove,grove,树林,物品,MC-D1,I place the grove in my adventure chest.,我把grove放进冒险箱子。,item,用一用grove,图片/grove.png,,none,yes,no
+mc-husk,husk,尸壳,物品,MC-D1,We prepare the husk before sunset.,日落前我们把husk准备好。,item,用一用husk,图片/husk.png,音频/husk.mp3,none,yes,yes
+mc-igloo,igloo,冰屋,物品,MC-D1,We keep the igloo in a quiet corner.,我们把igloo放在安静的角落。,item,用一用igloo,图片/igloo.png,音频/igloo.mp3,none,yes,yes
+mc-ingot,ingot,锭,物品,MC-D1,I return the ingot after the mission.,任务结束后我把ingot还回去。,item,用一用ingot,图片/ingot.png,音频/ingot.mp3,none,yes,yes
+mc-lever,lever,拉杆,物品,MC-D1,We share the lever when the team needs it.,队友需要时我们一起用lever。,item,用一用lever,图片/lever.png,音频/lever.mp3,none,yes,yes
+mc-llama,llama,羊驼,物品,MC-D1,I show the llama to my teammate at camp.,我在营地把llama给队友看。,item,用一用llama,图片/llama.png,音频/llama.mp3,none,yes,yes
+mc-loom,loom,织布机,物品,MC-D1,The loom stays safe in my backpack.,loom安全地待在我的背包里。,item,用一用loom,图片/loom.png,,none,yes,no
+mc-loot,loot,战利品,物品,MC-D1,I find the loot beside the crafting table.,我在工作台旁边找到loot。,item,用一用loot,图片/loot.png,音频/loot.mp3,none,yes,yes
+mc-lure,lure,诱钓,物品,MC-D1,I return the lure after the mission.,任务结束后我把lure还回去。,item,用一用lure,图片/lure.png,音频/lure.mp3,none,yes,yes
+mc-mace,mace,狼牙棒,物品,MC-D1,I check the mace beside the campfire.,我在篝火旁检查mace。,item,用一用mace,图片/mace.png,,none,yes,no
+mc-mob,mob,生物,物品,MC-D1,I find the mob beside the crafting table.,我在工作台旁边找到mob。,item,用一用mob,图片/mob.png,,none,yes,no
+mc-mule,mule,骡子,物品,MC-D1,I check the mule before leaving camp.,离开营地前我先检查mule。,item,用一用mule,图片/mule.png,音频/mule.mp3,none,yes,yes
+mc-ore,ore,矿石,物品,MC-D1,The ore stays safe in my backpack.,ore安全地待在我的背包里。,item,用一用ore,图片/ore.png,音频/ore.mp3,none,yes,yes
+mc-plank,plank,木板,物品,MC-D1,I show the plank to my teammate at camp.,我在营地把plank给队友看。,item,用一用plank,图片/plank.png,音频/plank.mp3,none,yes,yes
+mc-power,power,力量,物品,MC-D1,We share the power when the team needs it.,队友需要时我们一起用power。,item,用一用power,图片/power.png,音频/power.mp3,none,yes,yes
+mc-punch,punch,冲击,物品,MC-D1,We share the punch when the team needs it.,队友需要时我们一起用punch。,item,用一用punch,图片/punch.png,音频/punch.mp3,none,yes,yes
+mc-raid,raid,袭击,物品,MC-D1,I find the raid beside the crafting table.,我在工作台旁边找到raid。,item,用一用raid,图片/raid.png,音频/raid.mp3,none,yes,yes
+mc-rail,rail,铁轨,物品,MC-D1,The rail stays safe in my backpack.,rail安全地待在我的背包里。,item,用一用rail,图片/rail.png,音频/rail.mp3,none,yes,yes
+mc-realm,realm,领域服务器,物品,MC-D1,The realm stays safe in my backpack.,realm安全地待在我的背包里。,item,用一用realm,图片/realm.png,音频/realm.mp3,none,yes,yes
+mc-sculk,sculk,幽匿块,物品,MC-D1,I use the sculk during our mission.,任务里我用到了sculk。,item,用一用sculk,图片/sculk.png,,none,yes,no
+mc-scute,scute,鳞甲,物品,MC-D1,We prepare the scute before sunset.,日落前我们把scute准备好。,item,用一用scute,图片/scute.png,,none,yes,no
+mc-slab,slab,台阶,物品,MC-D1,We keep the slab in a quiet corner.,我们把slab放在安静的角落。,item,用一用slab,图片/slab.png,音频/slab.mp3,none,yes,yes
+mc-smite,smite,亡灵杀手,物品,MC-D1,I use the smite during our mission.,任务里我用到了smite。,item,用一用smite,图片/smite.png,音频/smite.mp3,none,yes,yes
+mc-stray,stray,流浪者,物品,MC-D1,We prepare the stray before sunset.,日落前我们把stray准备好。,item,用一用stray,图片/stray.png,音频/stray.mp3,none,yes,yes
+mc-tame,tame,驯服,物品,MC-D1,I pick up the tame near the path.,我在小路边捡起tame。,item,用一用tame,图片/tame.png,音频/tame.mp3,none,yes,yes
+mc-tick,tick,游戏刻,物品,MC-D1,I place the tick in my adventure chest.,我把tick放进冒险箱子。,item,用一用tick,图片/tick.png,音频/tick.mp3,none,yes,yes
+mc-tnt,tnt,TNT 炸药,物品,MC-D1,I return the tnt after the mission.,任务结束后我把tnt还回去。,item,用一用tnt,图片/tnt.png,,none,yes,no
+mc-torch,torch,火把,物品,MC-D1,The torch stays safe in my backpack.,torch安全地待在我的背包里。,item,用一用torch,图片/torch.png,,none,yes,no
+mc-tuff,tuff,凝灰岩,物品,MC-D1,We share the tuff when the team needs it.,队友需要时我们一起用tuff。,item,用一用tuff,图片/tuff.png,,none,yes,no
+mc-vault,vault,金库,物品,MC-D1,I check the vault beside the campfire.,我在篝火旁检查vault。,item,用一用vault,图片/vault.png,音频/vault.mp3,none,yes,yes
+mc-vex,vex,恼鬼,物品,MC-D1,We share the vex when the team needs it.,队友需要时我们一起用vex。,item,用一用vex,图片/vex.png,音频/vex.mp3,none,yes,yes
+mc-wool,wool,羊毛,物品,MC-D1,The wool helps us finish the small task.,wool帮我们做完这件小事。,item,用一用wool,图片/wool.png,音频/wool.mp3,none,yes,yes
+mc-dye,dye,染料,颜色,MC-D1,We choose dye wool for the cozy room.,我们选dye羊毛布置温暖的房间。,color,dye羊毛,图片/dye.png,音频/dye.mp3,none,yes,yes
+mc-daisy,daisy,雏菊,植物,MC-D1,I plant the daisy near the village well.,我在村子水井旁种下daisy。,plant,种下daisy,图片/daisy.png,音频/daisy.mp3,none,yes,yes
+mc-tulip,tulip,郁金香,植物,MC-D1,I plant the tulip near the village well.,我在村子水井旁种下tulip。,plant,种下tulip,图片/tulip.png,音频/tulip.mp3,none,yes,yes
+mc-bullseye,bullseye,正中靶心,成就,MC-D2,Our team earns bullseye today.,今天我们队得到了bullseye。,advancement,完成bullseye,图片/bullseye.png,,none,yes,no
+mc-acacia,acacia,金合欢,方块,MC-D2,I stack the acacia to make a small wall.,我把acacia叠成一堵小墙。,block,放好acacia,图片/acacia.png,音频/acacia.mp3,none,yes,yes
+mc-actinium,actinium,锕,方块,MC-D2,The actinium keeps our little house strong.,actinium让小屋更结实。,block,放好actinium,图片/actinium.png,,none,yes,no
+mc-aluminum,aluminum,铝,方块,MC-D2,A torch shines on the aluminum at night.,夜里火把照亮了aluminum。,block,放好aluminum,图片/aluminum.png,,none,yes,no
+mc-antimony,antimony,n.法律的自相矛盾,方块,MC-D2,I place the antimony beside the doorway.,我把antimony放在门口。,block,放好antimony,图片/antimony.png,,none,yes,no
+mc-arena,arena,竞技场,方块,MC-D2,I count the arena before we start building.,开工前我先数一数arena。,block,放好arena,图片/arena.png,,none,yes,no
+mc-argon,argon,氩,方块,MC-D2,The builder stores the argon in a chest.,建造的人把argon放进箱子。,block,放好argon,图片/argon.png,,none,yes,no
+mc-arsenic,arsenic,砷剂,方块,MC-D2,I count the arsenic before we start building.,开工前我先数一数arsenic。,block,放好arsenic,图片/arsenic.png,,none,yes,no
+mc-astatine,astatine,砹,方块,MC-D2,I place the astatine beside the doorway.,我把astatine放在门口。,block,放好astatine,图片/astatine.png,,none,yes,no
+mc-barium,barium,钡,方块,MC-D2,I collect the barium before sunset.,日落前我把barium收好。,block,放好barium,图片/barium.png,,none,yes,no
+mc-basalt,basalt,玄武岩,方块,MC-D2,I replace the broken basalt near camp.,我在营地旁换掉坏掉的basalt。,block,放好basalt,图片/basalt.png,,none,yes,no
+mc-bismuth,bismuth,铋,方块,MC-D2,The bismuth gives our base a new shape.,bismuth让基地有了新样子。,block,放好bismuth,图片/bismuth.png,,none,yes,no
+mc-bohrium,bohrium,Bh元素,方块,MC-D2,The bohrium gives our base a new shape.,bohrium让基地有了新样子。,block,放好bohrium,图片/bohrium.png,,none,yes,no
+mc-boron,boron,硼,方块,MC-D2,I stack the boron to make a small wall.,我把boron叠成一堵小墙。,block,放好boron,图片/boron.png,,none,yes,no
+mc-brick,brick,红砖,方块,MC-D2,I replace the broken brick near camp.,我在营地旁换掉坏掉的brick。,block,放好brick,图片/brick.png,,none,yes,no
+mc-bricks,bricks,砖块,方块,MC-D2,A torch shines on the bricks at night.,夜里火把照亮了bricks。,block,放好bricks,图片/bricks.png,,none,yes,no
+mc-bromine,bromine,溴,方块,MC-D2,Rain falls softly on the bromine.,雨轻轻落在bromine上。,block,放好bromine,图片/bromine.png,,none,yes,no
+mc-cadmium,cadmium,镉,方块,MC-D2,I stack the cadmium to make a small wall.,我把cadmium叠成一堵小墙。,block,放好cadmium,图片/cadmium.png,,none,yes,no
+mc-calcium,calcium,钙,方块,MC-D2,I stack the calcium to make a small wall.,我把calcium叠成一堵小墙。,block,放好calcium,图片/calcium.png,,none,yes,no
+mc-carbon,carbon,碳色,方块,MC-D2,I count the carbon before we start building.,开工前我先数一数carbon。,block,放好carbon,图片/carbon.png,,none,yes,no
+mc-cerium,cerium,铈,方块,MC-D2,We choose the cerium for the garden wall.,花园围墙我们选用cerium。,block,放好cerium,图片/cerium.png,,none,yes,no
+mc-cesium,cesium,铯,方块,MC-D2,A torch shines on the cesium at night.,夜里火把照亮了cesium。,block,放好cesium,图片/cesium.png,,none,yes,no
+mc-chain,chain,锁链,方块,MC-D2,We build a safe step with the chain.,我们用chain搭出安全的台阶。,block,放好chain,图片/chain.png,音频/chain.mp3,none,yes,yes
+mc-chlorine,chlorine,氯,方块,MC-D2,We make a small path with the chlorine.,我们用chlorine铺出一条小路。,block,放好chlorine,图片/chlorine.png,,none,yes,no
+mc-chromium,chromium,铬,方块,MC-D2,I stack the chromium to make a small wall.,我把chromium叠成一堵小墙。,block,放好chromium,图片/chromium.png,,none,yes,no
+mc-clay,clay,黏土块,方块,MC-D2,We build a safe step with the clay.,我们用clay搭出安全的台阶。,block,放好clay,图片/clay.png,,none,yes,no
+mc-cobalt,cobalt,钴蓝色,方块,MC-D2,We use the cobalt to mark the path home.,我们用cobalt标出回家的路。,block,放好cobalt,图片/cobalt.png,,none,yes,no
+mc-cobweb,cobweb,蜘蛛网,方块,MC-D2,The cobweb keeps our little house strong.,cobweb让小屋更结实。,block,放好cobweb,图片/cobweb.png,,none,yes,no
+mc-conduit,conduit,潮涌核心,方块,MC-D2,The conduit keeps our little house strong.,conduit让小屋更结实。,block,放好conduit,图片/conduit.png,,none,yes,no
+mc-curium,curium,锔,方块,MC-D2,The builder stores the curium in a chest.,建造的人把curium放进箱子。,block,放好curium,图片/curium.png,,none,yes,no
+mc-deny,deny,"v.驳回 ,不予受理,拒绝,不受理 ,抵赖,否定,否认,否认",方块,MC-D2,A torch shines on the deny at night.,夜里火把照亮了deny。,block,放好deny,图片/deny.png,,none,yes,no
+mc-dubnium,dubnium,Db元素,方块,MC-D2,Rain falls softly on the dubnium.,雨轻轻落在dubnium上。,block,放好dubnium,图片/dubnium.png,,none,yes,no
+mc-erbium,erbium,铒,方块,MC-D2,We make a small path with the erbium.,我们用erbium铺出一条小路。,block,放好erbium,图片/erbium.png,,none,yes,no
+mc-europium,europium,铕,方块,MC-D2,I collect the europium before sunset.,日落前我把europium收好。,block,放好europium,图片/europium.png,,none,yes,no
+mc-farmland,farmland,耕地,方块,MC-D2,I count the farmland before we start building.,开工前我先数一数farmland。,block,放好farmland,图片/farmland.png,,none,yes,no
+mc-fermium,fermium,镄,方块,MC-D2,I place the fermium beside the doorway.,我把fermium放在门口。,block,放好fermium,图片/fermium.png,,none,yes,no
+mc-fluorine,fluorine,氟,方块,MC-D2,I collect the fluorine before sunset.,日落前我把fluorine收好。,block,放好fluorine,图片/fluorine.png,,none,yes,no
+mc-francium,francium,钫,方块,MC-D2,I replace the broken francium near camp.,我在营地旁换掉坏掉的francium。,block,放好francium,图片/francium.png,,none,yes,no
+mc-gallium,gallium,镓,方块,MC-D2,We choose the gallium for the garden wall.,花园围墙我们选用gallium。,block,放好gallium,图片/gallium.png,,none,yes,no
+mc-gravel,gravel,沙砾,方块,MC-D2,We build a safe step with the gravel.,我们用gravel搭出安全的台阶。,block,放好gravel,图片/gravel.png,,none,yes,no
+mc-hafnium,hafnium,铪,方块,MC-D2,Rain falls softly on the hafnium.,雨轻轻落在hafnium上。,block,放好hafnium,图片/hafnium.png,,none,yes,no
+mc-hassium,hassium,钅罕,方块,MC-D2,We make a small path with the hassium.,我们用hassium铺出一条小路。,block,放好hassium,图片/hassium.png,,none,yes,no
+mc-helium,helium,氦,方块,MC-D2,Rain falls softly on the helium.,雨轻轻落在helium上。,block,放好helium,图片/helium.png,,none,yes,no
+mc-holmium,holmium,钬,方块,MC-D2,We choose the holmium for the garden wall.,花园围墙我们选用holmium。,block,放好holmium,图片/holmium.png,,none,yes,no
+mc-hydrogen,hydrogen,氢,方块,MC-D2,I collect the hydrogen before sunset.,日落前我把hydrogen收好。,block,放好hydrogen,图片/hydrogen.png,,none,yes,no
+mc-indium,indium,铟,方块,MC-D2,Rain falls softly on the indium.,雨轻轻落在indium上。,block,放好indium,图片/indium.png,,none,yes,no
+mc-iodine,iodine,碘酒,方块,MC-D2,A torch shines on the iodine at night.,夜里火把照亮了iodine。,block,放好iodine,图片/iodine.png,,none,yes,no
+mc-iridium,iridium,铱,方块,MC-D2,We use the iridium to mark the path home.,我们用iridium标出回家的路。,block,放好iridium,图片/iridium.png,,none,yes,no
+mc-kelp,kelp,巨藻,方块,MC-D2,The kelp gives our base a new shape.,kelp让基地有了新样子。,block,放好kelp,图片/kelp.png,,none,yes,no
+mc-krypton,krypton,氪,方块,MC-D2,I count the krypton before we start building.,开工前我先数一数krypton。,block,放好krypton,图片/krypton.png,,none,yes,no
+mc-lithium,lithium,锂,方块,MC-D2,I collect the lithium before sunset.,日落前我把lithium收好。,block,放好lithium,图片/lithium.png,,none,yes,no
+mc-lutetium,lutetium,镥,方块,MC-D2,We build a safe step with the lutetium.,我们用lutetium搭出安全的台阶。,block,放好lutetium,图片/lutetium.png,,none,yes,no
+mc-marble,marble,大理石,方块,MC-D2,We use the marble to mark the path home.,我们用marble标出回家的路。,block,放好marble,图片/marble.png,,none,yes,no
+mc-mercury,mercury,水星,方块,MC-D2,I replace the broken mercury near camp.,我在营地旁换掉坏掉的mercury。,block,放好mercury,图片/mercury.png,,none,yes,no
+mc-mycelium,mycelium,菌丝体,方块,MC-D2,We build a safe step with the mycelium.,我们用mycelium搭出安全的台阶。,block,放好mycelium,图片/mycelium.png,,none,yes,no
+mc-neon,neon,氖,方块,MC-D2,I stack the neon to make a small wall.,我把neon叠成一堵小墙。,block,放好neon,图片/neon.png,,none,yes,no
+mc-nickel,nickel,镍,方块,MC-D2,A torch shines on the nickel at night.,夜里火把照亮了nickel。,block,放好nickel,图片/nickel.png,,none,yes,no
+mc-nihonium,nihonium,Nh元素,方块,MC-D2,We use the nihonium to mark the path home.,我们用nihonium标出回家的路。,block,放好nihonium,图片/nihonium.png,,none,yes,no
+mc-niobium,niobium,铌,方块,MC-D2,I count the niobium before we start building.,开工前我先数一数niobium。,block,放好niobium,图片/niobium.png,,none,yes,no
+mc-nitrogen,nitrogen,氮,方块,MC-D2,The nitrogen gives our base a new shape.,nitrogen让基地有了新样子。,block,放好nitrogen,图片/nitrogen.png,,none,yes,no
+mc-nobelium,nobelium,锘,方块,MC-D2,We build a safe step with the nobelium.,我们用nobelium搭出安全的台阶。,block,放好nobelium,图片/nobelium.png,,none,yes,no
+mc-osmium,osmium,锇,方块,MC-D2,I stack the osmium to make a small wall.,我把osmium叠成一堵小墙。,block,放好osmium,图片/osmium.png,,none,yes,no
+mc-oxygen,oxygen,氧气,方块,MC-D2,We make a small path with the oxygen.,我们用oxygen铺出一条小路。,block,放好oxygen,图片/oxygen.png,,none,yes,no
+mc-planks,planks,木板,方块,MC-D2,I replace the broken planks near camp.,我在营地旁换掉坏掉的planks。,block,放好planks,图片/planks.png,,none,yes,no
+mc-platinum,platinum,铂,方块,MC-D2,We make a small path with the platinum.,我们用platinum铺出一条小路。,block,放好platinum,图片/platinum.png,,none,yes,no
+mc-podzol,podzol,灰化土,方块,MC-D2,We make a small path with the podzol.,我们用podzol铺出一条小路。,block,放好podzol,图片/podzol.png,,none,yes,no
+mc-polonium,polonium,钋,方块,MC-D2,We build a safe step with the polonium.,我们用polonium搭出安全的台阶。,block,放好polonium,图片/polonium.png,,none,yes,no
+mc-purpur,purpur,紫珀,方块,MC-D2,We make a small path with the purpur.,我们用purpur铺出一条小路。,block,放好purpur,图片/purpur.png,,none,yes,no
+mc-radium,radium,镭,方块,MC-D2,Rain falls softly on the radium.,雨轻轻落在radium上。,block,放好radium,图片/radium.png,,none,yes,no
+mc-radon,radon,氡,方块,MC-D2,Rain falls softly on the radon.,雨轻轻落在radon上。,block,放好radon,图片/radon.png,,none,yes,no
+mc-rhenium,rhenium,铼,方块,MC-D2,We make a small path with the rhenium.,我们用rhenium铺出一条小路。,block,放好rhenium,图片/rhenium.png,,none,yes,no
+mc-rhodium,rhodium,铑,方块,MC-D2,I stack the rhodium to make a small wall.,我把rhodium叠成一堵小墙。,block,放好rhodium,图片/rhodium.png,,none,yes,no
+mc-rubidium,rubidium,铷,方块,MC-D2,We choose the rubidium for the garden wall.,花园围墙我们选用rubidium。,block,放好rubidium,图片/rubidium.png,,none,yes,no
+mc-samarium,samarium,钐,方块,MC-D2,The builder stores the samarium in a chest.,建造的人把samarium放进箱子。,block,放好samarium,图片/samarium.png,,none,yes,no
+mc-scandium,scandium,钪,方块,MC-D2,I stack the scandium to make a small wall.,我把scandium叠成一堵小墙。,block,放好scandium,图片/scandium.png,,none,yes,no
+mc-selenium,selenium,硒,方块,MC-D2,A torch shines on the selenium at night.,夜里火把照亮了selenium。,block,放好selenium,图片/selenium.png,,none,yes,no
+mc-silicon,silicon,硅,方块,MC-D2,I place the silicon beside the doorway.,我把silicon放在门口。,block,放好silicon,图片/silicon.png,,none,yes,no
+mc-sodium,sodium,钠,方块,MC-D2,The builder stores the sodium in a chest.,建造的人把sodium放进箱子。,block,放好sodium,图片/sodium.png,,none,yes,no
+mc-spruce,spruce,云杉,方块,MC-D2,I stack the spruce to make a small wall.,我把spruce叠成一堵小墙。,block,放好spruce,图片/spruce.png,音频/spruce.mp3,none,yes,yes
+mc-sulfur,sulfur,硫磺,方块,MC-D2,I count the sulfur before we start building.,开工前我先数一数sulfur。,block,放好sulfur,图片/sulfur.png,,none,yes,no
+mc-tantalum,tantalum,钽,方块,MC-D2,I collect the tantalum before sunset.,日落前我把tantalum收好。,block,放好tantalum,图片/tantalum.png,,none,yes,no
+mc-terbium,terbium,铽,方块,MC-D2,Rain falls softly on the terbium.,雨轻轻落在terbium上。,block,放好terbium,图片/terbium.png,,none,yes,no
+mc-thallium,thallium,铊,方块,MC-D2,We make a small path with the thallium.,我们用thallium铺出一条小路。,block,放好thallium,图片/thallium.png,,none,yes,no
+mc-thorium,thorium,瑟银,方块,MC-D2,The thorium keeps our little house strong.,thorium让小屋更结实。,block,放好thorium,图片/thorium.png,,none,yes,no
+mc-thulium,thulium,铥,方块,MC-D2,A torch shines on the thulium at night.,夜里火把照亮了thulium。,block,放好thulium,图片/thulium.png,,none,yes,no
+mc-tin,tin,听,方块,MC-D2,We choose the tin for the garden wall.,花园围墙我们选用tin。,block,放好tin,图片/tin.png,,none,yes,no
+mc-titanium,titanium,钛,方块,MC-D2,I replace the broken titanium near camp.,我在营地旁换掉坏掉的titanium。,block,放好titanium,图片/titanium.png,,none,yes,no
+mc-tripwire,tripwire,绊线钩,方块,MC-D2,A torch shines on the tripwire at night.,夜里火把照亮了tripwire。,block,放好tripwire,图片/tripwire.png,,none,yes,no
+mc-tungsten,tungsten,钨,方块,MC-D2,We make a small path with the tungsten.,我们用tungsten铺出一条小路。,block,放好tungsten,图片/tungsten.png,,none,yes,no
+mc-uranium,uranium,铀,方块,MC-D2,We use the uranium to mark the path home.,我们用uranium标出回家的路。,block,放好uranium,图片/uranium.png,,none,yes,no
+mc-vanadium,vanadium,钒,方块,MC-D2,I count the vanadium before we start building.,开工前我先数一数vanadium。,block,放好vanadium,图片/vanadium.png,,none,yes,no
+mc-xenon,xenon,氙气灯,方块,MC-D2,We make a small path with the xenon.,我们用xenon铺出一条小路。,block,放好xenon,图片/xenon.png,,none,yes,no
+mc-yttrium,yttrium,钇,方块,MC-D2,We make a small path with the yttrium.,我们用yttrium铺出一条小路。,block,放好yttrium,图片/yttrium.png,,none,yes,no
+mc-zinc,zinc,锌,方块,MC-D2,The zinc gives our base a new shape.,zinc让基地有了新样子。,block,放好zinc,图片/zinc.png,,none,yes,no
+mc-pickaxe,pickaxe,镐,工具,MC-D2,The pickaxe helps us reach the high ledge.,pickaxe帮我们爬上高台。,tool,用一把pickaxe,图片/pickaxe.png,音频/pickaxe.mp3,none,yes,yes
+mc-shears,shears,剪刀,工具,MC-D2,I use the shears to gather materials.,我用shears去收集材料。,tool,用一把shears,图片/shears.png,,none,yes,no
+mc-shovel,shovel,锹,工具,MC-D2,I use the shovel to gather materials.,我用shovel去收集材料。,tool,用一把shovel,图片/shovel.png,音频/shovel.mp3,none,yes,yes
+mc-temple,temple,神殿,建筑,MC-D2,We discover the temple beyond the river.,我们在河对岸发现了temple。,structure,找到一个temple,图片/temple.png,音频/temple.mp3,none,yes,yes
+mc-axolotl,axolotl,美西螈,生物,MC-D2,The axolotl hides behind a tree.,axolotl躲在树后面。,mob,看见axolotl,图片/axolotl.png,音频/axolotl.mp3,none,yes,yes
+mc-beehive,beehive,蜂箱,生物,MC-D2,We draw the beehive in our adventure book.,我们把beehive画进冒险本。,mob,看见beehive,图片/beehive.png,,none,yes,no
+mc-beetroot,beetroot,甜菜根,生物,MC-D2,The beetroot follows us along the path.,beetroot跟着我们走在路上。,mob,看见beetroot,图片/beetroot.png,,none,yes,no
+mc-creeper,creeper,苦力怕,生物,MC-D2,We hear a creeper behind the trees.,树后面传来creeper的声音。,mob,看见creeper,图片/creeper.png,音频/creeper.mp3,none,yes,yes
+mc-enderman,enderman,末影人,生物,MC-D2,I spot a enderman near the village.,我在村子附近看见enderman。,mob,看见enderman,图片/enderman.png,音频/enderman.mp3,none,yes,yes
+mc-guardian,guardian,守卫者,生物,MC-D2,Our map marks a guardian nearby.,地图上标着附近有guardian。,mob,看见guardian,图片/guardian.png,音频/guardian.mp3,none,yes,yes
+mc-hoglin,hoglin,疣猪兽,生物,MC-D2,A hoglin rests beside the river.,一只hoglin在河边休息。,mob,看见hoglin,图片/hoglin.png,音频/hoglin.mp3,none,yes,yes
+mc-phantom,phantom,幻翼,生物,MC-D2,A phantom rests beside the river.,一只phantom在河边休息。,mob,看见phantom,图片/phantom.png,音频/phantom.mp3,none,yes,yes
+mc-piglin,piglin,猪灵,生物,MC-D2,The piglin visits our camp at dawn.,天亮时piglin来到我们的营地。,mob,看见piglin,图片/piglin.png,音频/piglin.mp3,none,yes,yes
+mc-skeleton,skeleton,骷髅,生物,MC-D2,A skeleton crosses the bridge slowly.,一只skeleton慢慢走过桥。,mob,看见skeleton,图片/skeleton.png,,none,yes,no
+mc-spawner,spawner,刷怪笼,生物,MC-D2,The spawner follows us along the path.,spawner跟着我们走在路上。,mob,看见spawner,图片/spawner.png,,none,yes,no
+mc-strider,strider,炽足兽,生物,MC-D2,Our map marks a strider nearby.,地图上标着附近有strider。,mob,看见strider,图片/strider.png,音频/strider.mp3,none,yes,yes
+mc-villager,villager,村民,生物,MC-D2,I spot a villager near the village.,我在村子附近看见villager。,mob,看见villager,图片/villager.png,音频/villager.mp3,none,yes,yes
+mc-wither,wither,凋灵,生物,MC-D2,The wither hides behind a tree.,wither躲在树后面。,mob,看见wither,图片/wither.png,音频/wither.mp3,none,yes,yes
+mc-zombie,zombie,僵尸,生物,MC-D2,We draw the zombie in our adventure book.,我们把zombie画进冒险本。,mob,看见zombie,图片/zombie.png,音频/zombie.mp3,none,yes,yes
+mc-biomes,biomes,生物群系,生物群系,MC-D2,The biomes is full of new plants to discover.,biomes里有很多新植物可以看。,biome,去探索biomes,图片/biomes.png,,none,yes,no
+mc-nether,nether,下界,生物群系,MC-D2,Our camp sits at the edge of the nether.,我们的营地在nether边上。,biome,去探索nether,图片/nether.png,,none,yes,no
+mc-plains,plains,平原,生物群系,MC-D2,We mark the plains on our map.,我们在地图上标出plains。,biome,去探索plains,图片/plains.png,,none,yes,no
+mc-savanna,savanna,热带草原,生物群系,MC-D2,We listen for new sounds in the savanna.,我们在savanna里听有没有新声音。,biome,去探索savanna,图片/savanna.png,,none,yes,no
+mc-berries,berries,浆果,食物,MC-D2,The berries fills my hunger bar.,berries让我填饱肚子。,food,吃berries,图片/berries.png,,none,yes,no
+mc-carrots,carrots,胡萝卜,食物,MC-D2,I put the carrots in the camp chest.,我把carrots放进营地箱子。,food,吃carrots,图片/carrots.png,,none,yes,no
+mc-mutton,mutton,羊肉,食物,MC-D2,I eat the mutton beside the warm fire.,我在暖和的火堆旁吃mutton。,food,吃mutton,图片/mutton.png,,none,yes,no
+mc-porkchop,porkchop,猪排,食物,MC-D2,I share the porkchop with my teammate.,我和队友一起用porkchop。,food,吃porkchop,图片/porkchop.png,,none,yes,no
+mc-potatoes,potatoes,土豆,食物,MC-D2,We make a picnic with the potatoes.,我们用potatoes做一次野餐。,food,吃potatoes,图片/potatoes.png,,none,yes,no
+mc-salmon,salmon,鲑鱼,食物,MC-D2,The salmon fills my hunger bar.,salmon让我填饱肚子。,food,吃salmon,图片/salmon.png,,none,yes,no
+mc-crossbow,crossbow,弩,武器,MC-D2,I hold the crossbow when night falls.,天黑时我拿着crossbow。,weapon,用一把crossbow,图片/crossbow.png,,none,yes,no
+mc-shield,shield,盾牌,武器,MC-D2,We choose the shield for a careful rescue.,这次小心救援我们选了shield。,weapon,用一把shield,图片/shield.png,,none,yes,no
+mc-sword,sword,剑,武器,MC-D2,The sword protects our team on the trail.,sword在路上保护着我们。,weapon,用一把sword,图片/sword.png,音频/sword.mp3,none,yes,yes
+mc-trident,trident,三叉戟,武器,MC-D2,The trident stays in its display frame.,trident待在展示框里。,weapon,用一把trident,图片/trident.png,,none,yes,no
+mc-alex,alex,Alex（角色）,物品,MC-D2,I use the alex during our mission.,任务里我用到了alex。,item,用一用alex,图片/alex.png,,none,yes,no
+mc-altitude,altitude,海拔,物品,MC-D2,We prepare the altitude before sunset.,日落前我们把altitude准备好。,item,用一用altitude,图片/altitude.png,,none,yes,no
+mc-ambience,ambience,环境音,物品,MC-D2,We keep the ambience in a quiet corner.,我们把ambience放在安静的角落。,item,用一用ambience,图片/ambience.png,,none,yes,no
+mc-amethyst,amethyst,紫水晶,物品,MC-D2,My teammate passes me the amethyst.,队友把amethyst递给我。,item,用一用amethyst,图片/amethyst.png,音频/amethyst.mp3,none,yes,yes
+mc-ammonia,ammonia,氨,物品,MC-D2,I return the ammonia after the mission.,任务结束后我把ammonia还回去。,item,用一用ammonia,图片/ammonia.png,,none,yes,no
+mc-andesite,andesite,安山岩,物品,MC-D2,We prepare the andesite before sunset.,日落前我们把andesite准备好。,item,用一用andesite,图片/andesite.png,,none,yes,no
+mc-badlands,badlands,恶地,物品,MC-D2,The badlands helps us finish the small task.,badlands帮我们做完这件小事。,item,用一用badlands,图片/badlands.png,,none,yes,no
+mc-banner,banner,旗帜,物品,MC-D2,I use the banner during our mission.,任务里我用到了banner。,item,用一用banner,图片/banner.png,音频/banner.mp3,none,yes,yes
+mc-barrel,barrel,木桶,物品,MC-D2,We prepare the barrel before sunset.,日落前我们把barrel准备好。,item,用一用barrel,图片/barrel.png,音频/barrel.mp3,none,yes,yes
+mc-beacon,beacon,信标,物品,MC-D2,I place the beacon in my adventure chest.,我把beacon放进冒险箱子。,item,用一用beacon,图片/beacon.png,,none,yes,no
+mc-bedrock,bedrock,基岩,物品,MC-D2,My teammate passes me the bedrock.,队友把bedrock递给我。,item,用一用bedrock,图片/bedrock.png,,none,yes,no
+mc-bogged,bogged,泥沼骷髅,物品,MC-D2,I place the bogged in my adventure chest.,我把bogged放进冒险箱子。,item,用一用bogged,图片/bogged.png,音频/bogged.mp3,none,yes,yes
+mc-breach,breach,破甲,物品,MC-D2,The breach stays safe in my backpack.,breach安全地待在我的背包里。,item,用一用breach,图片/breach.png,音频/breach.mp3,none,yes,yes
+mc-breeze,breeze,风弹怪,物品,MC-D2,We keep the breeze in a quiet corner.,我们把breeze放在安静的角落。,item,用一用breeze,图片/breeze.png,音频/breeze.mp3,none,yes,yes
+mc-brewing,brewing,酿造,物品,MC-D2,We share the brewing when the team needs it.,队友需要时我们一起用brewing。,item,用一用brewing,图片/brewing.png,音频/brewing.mp3,none,yes,yes
+mc-bundle,bundle,收纳袋,物品,MC-D2,The bundle is ready for our next adventure.,bundle已经准备好下一次冒险。,item,用一用bundle,图片/bundle.png,,none,yes,no
+mc-calcite,calcite,方解石,物品,MC-D2,I place the calcite in my adventure chest.,我把calcite放进冒险箱子。,item,用一用calcite,图片/calcite.png,,none,yes,no
+mc-campfire,campfire,营火,物品,MC-D2,I place the campfire in my adventure chest.,我把campfire放进冒险箱子。,item,用一用campfire,图片/campfire.png,,none,yes,no
+mc-cane,cane,甘蔗,物品,MC-D2,We share the cane when the team needs it.,队友需要时我们一起用cane。,item,用一用cane,图片/cane.png,,none,yes,no
+mc-cauldron,cauldron,炼药锅,物品,MC-D2,I show the cauldron to my teammate at camp.,我在营地把cauldron给队友看。,item,用一用cauldron,图片/cauldron.png,,none,yes,no
+mc-charcoal,charcoal,木炭,物品,MC-D2,I find the charcoal beside the crafting table.,我在工作台旁边找到charcoal。,item,用一用charcoal,图片/charcoal.png,,none,yes,no
+mc-chorus,chorus,紫颂果,物品,MC-D2,I use the chorus during our mission.,任务里我用到了chorus。,item,用一用chorus,图片/chorus.png,,none,yes,no
+mc-command,command,命令,物品,MC-D2,We share the command when the team needs it.,队友需要时我们一起用command。,item,用一用command,图片/command.png,音频/command.mp3,none,yes,yes
+mc-compass,compass,指南针,物品,MC-D2,The compass is ready for our next adventure.,compass已经准备好下一次冒险。,item,用一用compass,图片/compass.png,音频/compass.mp3,none,yes,yes
+mc-compound,compound,化合物,物品,MC-D2,The compound stays safe in my backpack.,compound安全地待在我的背包里。,item,用一用compound,图片/compound.png,,none,yes,no
+mc-concrete,concrete,混凝土,物品,MC-D2,I check the concrete beside the campfire.,我在篝火旁检查concrete。,item,用一用concrete,图片/concrete.png,音频/concrete.mp3,none,yes,yes
+mc-copper,copper,铜,物品,MC-D2,The copper is ready for our next adventure.,copper已经准备好下一次冒险。,item,用一用copper,图片/copper.png,,none,yes,no
+mc-crafting,crafting,合成,物品,MC-D2,The crafting is ready for our next adventure.,crafting已经准备好下一次冒险。,item,用一用crafting,图片/crafting.png,音频/crafting.mp3,none,yes,yes
+mc-crawling,crawling,爬行,物品,MC-D2,The crawling stays safe in my backpack.,crawling安全地待在我的背包里。,item,用一用crawling,图片/crawling.png,,none,yes,no
+mc-creaking,creaking,嘎吱怪,物品,MC-D2,I check the creaking before leaving camp.,离开营地前我先检查creaking。,item,用一用creaking,图片/creaking.png,音频/creaking.mp3,none,yes,yes
+mc-crit,crit,暴击,物品,MC-D2,The crit helps us finish the small task.,crit帮我们做完这件小事。,item,用一用crit,图片/crit.png,,none,yes,no
+mc-datapack,datapack,数据包,物品,MC-D2,I check the datapack beside the campfire.,我在篝火旁检查datapack。,item,用一用datapack,图片/datapack.png,音频/datapack.mp3,none,yes,yes
+mc-debug,debug,调试,物品,MC-D2,I show the debug to my teammate at camp.,我在营地把debug给队友看。,item,用一用debug,图片/debug.png,,none,yes,no
+mc-default,default,默认,物品,MC-D2,I place the default in my adventure chest.,我把default放进冒险箱子。,item,用一用default,图片/default.png,,none,yes,no
+mc-density,density,密集,物品,MC-D2,The density stays safe in my backpack.,density安全地待在我的背包里。,item,用一用density,图片/density.png,音频/density.mp3,none,yes,yes
+mc-diamonds,diamonds,钻石,物品,MC-D2,I place the diamonds in my adventure chest.,我把diamonds放进冒险箱子。,item,用一用diamonds,图片/diamonds.png,,none,yes,no
+mc-diorite,diorite,闪长岩,物品,MC-D2,I pick up the diorite near the path.,我在小路边捡起diorite。,item,用一用diorite,图片/diorite.png,,none,yes,no
+mc-donkey,donkey,驴,物品,MC-D2,I find the donkey beside the crafting table.,我在工作台旁边找到donkey。,item,用一用donkey,图片/donkey.png,音频/donkey.mp3,none,yes,yes
+mc-dropper,dropper,投掷器,物品,MC-D2,I check the dropper before leaving camp.,离开营地前我先检查dropper。,item,用一用dropper,图片/dropper.png,,none,yes,no
+mc-drowned,drowned,溺尸,物品,MC-D2,I use the drowned during our mission.,任务里我用到了drowned。,item,用一用drowned,图片/drowned.png,音频/drowned.mp3,none,yes,yes
+mc-dungeon,dungeon,地牢,物品,MC-D2,I pick up the dungeon near the path.,我在小路边捡起dungeon。,item,用一用dungeon,图片/dungeon.png,音频/dungeon.mp3,none,yes,yes
+mc-elytra,elytra,鞘翅,物品,MC-D2,I pick up the elytra near the path.,我在小路边捡起elytra。,item,用一用elytra,图片/elytra.png,,none,yes,no
+mc-emerald,emerald,绿宝石,物品,MC-D2,I find the emerald beside the crafting table.,我在工作台旁边找到emerald。,item,用一用emerald,图片/emerald.png,,none,yes,no
+mc-emote,emote,表情动作,物品,MC-D2,We keep the emote in a quiet corner.,我们把emote放在安静的角落。,item,用一用emote,图片/emote.png,,none,yes,no
+mc-entities,entities,实体,物品,MC-D2,I use the entities during our mission.,任务里我用到了entities。,item,用一用entities,图片/entities.png,,none,yes,no
+mc-evoker,evoker,唤魔者,物品,MC-D2,We keep the evoker in a quiet corner.,我们把evoker放在安静的角落。,item,用一用evoker,图片/evoker.png,,none,yes,no
+mc-feather,feather,羽毛,物品,MC-D2,I check the feather beside the campfire.,我在篝火旁检查feather。,item,用一用feather,图片/feather.png,,none,yes,no
+mc-fluids,fluids,流体,物品,MC-D2,We prepare the fluids before sunset.,日落前我们把fluids准备好。,item,用一用fluids,图片/fluids.png,,none,yes,no
+mc-fog,fog,雾,物品,MC-D2,I show the fog to my teammate at camp.,我在营地把fog给队友看。,item,用一用fog,图片/fog.png,,none,yes,no
+mc-fortune,fortune,时运,物品,MC-D2,I place the fortune in my adventure chest.,我把fortune放进冒险箱子。,item,用一用fortune,图片/fortune.png,音频/fortune.mp3,none,yes,yes
+mc-fossil,fossil,化石,物品,MC-D2,We share the fossil when the team needs it.,队友需要时我们一起用fossil。,item,用一用fossil,图片/fossil.png,音频/fossil.mp3,none,yes,yes
+mc-furnace,furnace,熔炉,物品,MC-D2,I use the furnace during our mission.,任务里我用到了furnace。,item,用一用furnace,图片/furnace.png,,none,yes,no
+mc-garbage,garbage,垃圾,物品,MC-D2,I show the garbage to my teammate at camp.,我在营地把garbage给队友看。,item,用一用garbage,图片/garbage.png,,none,yes,no
+mc-granite,granite,花岗岩,物品,MC-D2,My teammate passes me the granite.,队友把granite递给我。,item,用一用granite,图片/granite.png,,none,yes,no
+mc-helmet,helmet,头盔,物品,MC-D2,I check the helmet before leaving camp.,离开营地前我先检查helmet。,item,用一用helmet,图片/helmet.png,,none,yes,no
+mc-hopper,hopper,漏斗,物品,MC-D2,I check the hopper before leaving camp.,离开营地前我先检查hopper。,item,用一用hopper,图片/hopper.png,音频/hopper.mp3,none,yes,yes
+mc-hostile,hostile,敌对的,物品,MC-D2,I find the hostile beside the crafting table.,我在工作台旁边找到hostile。,item,用一用hostile,图片/hostile.png,音频/hostile.mp3,none,yes,yes
+mc-illager,illager,灾厄村民,物品,MC-D2,I check the illager beside the campfire.,我在篝火旁检查illager。,item,用一用illager,图片/illager.png,音频/illager.mp3,none,yes,yes
+mc-impaling,impaling,穿刺,物品,MC-D2,I use the impaling during our mission.,任务里我用到了impaling。,item,用一用impaling,图片/impaling.png,音频/impaling.mp3,none,yes,yes
+mc-infinity,infinity,无限,物品,MC-D2,I check the infinity beside the campfire.,我在篝火旁检查infinity。,item,用一用infinity,图片/infinity.png,音频/infinity.mp3,none,yes,yes
+mc-item,item,項目,物品,MC-D2,I find the item beside the crafting table.,我在工作台旁边找到item。,item,用一用item,图片/item.png,,none,yes,no
+mc-jukebox,jukebox,唱片机,物品,MC-D2,The jukebox is ready for our next adventure.,jukebox已经准备好下一次冒险。,item,用一用jukebox,图片/jukebox.png,,none,yes,no
+mc-ladder,ladder,梯子,物品,MC-D2,I find the ladder beside the crafting table.,我在工作台旁边找到ladder。,item,用一用ladder,图片/ladder.png,音频/ladder.mp3,none,yes,yes
+mc-lantern,lantern,灯笼,物品,MC-D2,I use the lantern during our mission.,任务里我用到了lantern。,item,用一用lantern,图片/lantern.png,,none,yes,no
+mc-leather,leather,皮革,物品,MC-D2,I use the leather during our mission.,任务里我用到了leather。,item,用一用leather,图片/leather.png,,none,yes,no
+mc-lectern,lectern,讲台,物品,MC-D2,The lectern helps us finish the small task.,lectern帮我们做完这件小事。,item,用一用lectern,图片/lectern.png,,none,yes,no
+mc-looting,looting,抢夺,物品,MC-D2,The looting helps us finish the small task.,looting帮我们做完这件小事。,item,用一用looting,图片/looting.png,音频/looting.mp3,none,yes,yes
+mc-loyalty,loyalty,忠诚,物品,MC-D2,We share the loyalty when the team needs it.,队友需要时我们一起用loyalty。,item,用一用loyalty,图片/loyalty.png,音频/loyalty.mp3,none,yes,yes
+mc-meadow,meadow,草甸,物品,MC-D2,We keep the meadow in a quiet corner.,我们把meadow放在安静的角落。,item,用一用meadow,图片/meadow.png,,none,yes,no
+mc-mending,mending,经验修补,物品,MC-D2,I pick up the mending near the path.,我在小路边捡起mending。,item,用一用mending,图片/mending.png,音频/mending.mp3,none,yes,yes
+mc-minecart,minecart,矿车,物品,MC-D2,We keep the minecart in a quiet corner.,我们把minecart放在安静的角落。,item,用一用minecart,图片/minecart.png,,none,yes,no
+mc-neutral,neutral,中立的,物品,MC-D2,My teammate passes me the neutral.,队友把neutral递给我。,item,用一用neutral,图片/neutral.png,音频/neutral.mp3,none,yes,yes
+mc-nugget,nugget,粒,物品,MC-D2,I find the nugget beside the crafting table.,我在工作台旁边找到nugget。,item,用一用nugget,图片/nugget.png,音频/nugget.mp3,none,yes,yes
+mc-observer,observer,侦测器,物品,MC-D2,We prepare the observer before sunset.,日落前我们把observer准备好。,item,用一用observer,图片/observer.png,,none,yes,no
+mc-obsidian,obsidian,黑曜石,物品,MC-D2,I place the obsidian in my adventure chest.,我把obsidian放进冒险箱子。,item,用一用obsidian,图片/obsidian.png,,none,yes,no
+mc-ocelot,ocelot,豹猫,物品,MC-D2,I place the ocelot in my adventure chest.,我把ocelot放进冒险箱子。,item,用一用ocelot,图片/ocelot.png,音频/ocelot.mp3,none,yes,yes
+mc-operator,operator,管理员,物品,MC-D2,I show the operator to my teammate at camp.,我在营地把operator给队友看。,item,用一用operator,图片/operator.png,音频/operator.mp3,none,yes,yes
+mc-passive,passive,被动的,物品,MC-D2,My teammate passes me the passive.,队友把passive递给我。,item,用一用passive,图片/passive.png,音频/passive.mp3,none,yes,yes
+mc-peaceful,peaceful,和平模式,物品,MC-D2,I find the peaceful beside the crafting table.,我在工作台旁边找到peaceful。,item,用一用peaceful,图片/peaceful.png,音频/peaceful.mp3,none,yes,yes
+mc-piercing,piercing,穿透,物品,MC-D2,I place the piercing in my adventure chest.,我把piercing放进冒险箱子。,item,用一用piercing,图片/piercing.png,音频/piercing.mp3,none,yes,yes
+mc-pillager,pillager,掠夺者,物品,MC-D2,I use the pillager during our mission.,任务里我用到了pillager。,item,用一用pillager,图片/pillager.png,音频/pillager.mp3,none,yes,yes
+mc-piston,piston,活塞,物品,MC-D2,I check the piston before leaving camp.,离开营地前我先检查piston。,item,用一用piston,图片/piston.png,,none,yes,no
+mc-potion,potion,药水,物品,MC-D2,I find the potion beside the crafting table.,我在工作台旁边找到potion。,item,用一用potion,图片/potion.png,音频/potion.mp3,none,yes,yes
+mc-pumpkin,pumpkin,南瓜,物品,MC-D2,I use the pumpkin during our mission.,任务里我用到了pumpkin。,item,用一用pumpkin,图片/pumpkin.png,,none,yes,no
+mc-quartz,quartz,石英,物品,MC-D2,The quartz is ready for our next adventure.,quartz已经准备好下一次冒险。,item,用一用quartz,图片/quartz.png,音频/quartz.mp3,none,yes,yes
+mc-quiver,quiver,箭袋,物品,MC-D2,The quiver helps us finish the small task.,quiver帮我们做完这件小事。,item,用一用quiver,图片/quiver.png,,none,yes,no
+mc-ravager,ravager,劫掠兽,物品,MC-D2,We prepare the ravager before sunset.,日落前我们把ravager准备好。,item,用一用ravager,图片/ravager.png,音频/ravager.mp3,none,yes,yes
+mc-repeater,repeater,中继器,物品,MC-D2,We share the repeater when the team needs it.,队友需要时我们一起用repeater。,item,用一用repeater,图片/repeater.png,音频/repeater.mp3,none,yes,yes
+mc-riding,riding,骑乘,物品,MC-D2,We keep the riding in a quiet corner.,我们把riding放在安静的角落。,item,用一用riding,图片/riding.png,,none,yes,no
+mc-riptide,riptide,激流,物品,MC-D2,We share the riptide when the team needs it.,队友需要时我们一起用riptide。,item,用一用riptide,图片/riptide.png,音频/riptide.mp3,none,yes,yes
+mc-saddle,saddle,马鞍,物品,MC-D2,My teammate passes me the saddle.,队友把saddle递给我。,item,用一用saddle,图片/saddle.png,,none,yes,no
+mc-shulker,shulker,潜影贝,物品,MC-D2,The shulker helps us finish the small task.,shulker帮我们做完这件小事。,item,用一用shulker,图片/shulker.png,音频/shulker.mp3,none,yes,yes
+mc-slate,slate,板岩,物品,MC-D2,My teammate passes me the slate.,队友把slate递给我。,item,用一用slate,图片/slate.png,,none,yes,no
+mc-smelting,smelting,熔炼,物品,MC-D2,I return the smelting after the mission.,任务结束后我把smelting还回去。,item,用一用smelting,图片/smelting.png,音频/smelting.mp3,none,yes,yes
+mc-smoker,smoker,烟熏炉,物品,MC-D2,I pick up the smoker near the path.,我在小路边捡起smoker。,item,用一用smoker,图片/smoker.png,,none,yes,no
+mc-sneak,sneak,潜行,物品,MC-D2,I return the sneak after the mission.,任务结束后我把sneak还回去。,item,用一用sneak,图片/sneak.png,,none,yes,no
+mc-sniffer,sniffer,嗅探兽,物品,MC-D2,My teammate passes me the sniffer.,队友把sniffer递给我。,item,用一用sniffer,图片/sniffer.png,音频/sniffer.mp3,none,yes,yes
+mc-snowball,snowball,雪球,物品,MC-D2,The snowball stays safe in my backpack.,snowball安全地待在我的背包里。,item,用一用snowball,图片/snowball.png,,none,yes,no
+mc-snowfall,snowfall,降雪,物品,MC-D2,We prepare the snowfall before sunset.,日落前我们把snowfall准备好。,item,用一用snowfall,图片/snowfall.png,,none,yes,no
+mc-sponge,sponge,海绵,物品,MC-D2,We keep the sponge in a quiet corner.,我们把sponge放在安静的角落。,item,用一用sponge,图片/sponge.png,,none,yes,no
+mc-sprint,sprint,疾跑,物品,MC-D2,I pick up the sprint near the path.,我在小路边捡起sprint。,item,用一用sprint,图片/sprint.png,,none,yes,no
+mc-spyglass,spyglass,望远镜,物品,MC-D2,We prepare the spyglass before sunset.,日落前我们把spyglass准备好。,item,用一用spyglass,图片/spyglass.png,,none,yes,no
+mc-stars,stars,星星,物品,MC-D2,We share the stars when the team needs it.,队友需要时我们一起用stars。,item,用一用stars,图片/stars.png,,none,yes,no
+mc-tadpole,tadpole,蝌蚪,物品,MC-D2,We prepare the tadpole before sunset.,日落前我们把tadpole准备好。,item,用一用tadpole,图片/tadpole.png,音频/tadpole.mp3,none,yes,yes
+mc-thorns,thorns,荆棘,物品,MC-D2,I check the thorns beside the campfire.,我在篝火旁检查thorns。,item,用一用thorns,图片/thorns.png,音频/thorns.mp3,none,yes,yes
+mc-trapdoor,trapdoor,活板门,物品,MC-D2,I use the trapdoor during our mission.,任务里我用到了trapdoor。,item,用一用trapdoor,图片/trapdoor.png,音频/trapdoor.mp3,none,yes,yes
+mc-tundra,tundra,冻原,物品,MC-D2,I check the tundra before leaving camp.,离开营地前我先检查tundra。,item,用一用tundra,图片/tundra.png,音频/tundra.mp3,none,yes,yes
+mc-warden,warden,监守者,物品,MC-D2,We share the warden when the team needs it.,队友需要时我们一起用warden。,item,用一用warden,图片/warden.png,,none,yes,no
+mc-zoglin,zoglin,僵尸疣猪兽,物品,MC-D2,I return the zoglin after the mission.,任务结束后我把zoglin还回去。,item,用一用zoglin,图片/zoglin.png,音频/zoglin.mp3,none,yes,yes
+mc-darkness,darkness,黑暗,效果,MC-D2,The darkness fades after a short time.,过一会儿darkness就消失了。,effect,获得darkness效果,图片/darkness.png,,none,yes,no
+mc-glowing,glowing,发光,效果,MC-D2,I check the glowing before entering the cave.,进洞前我先检查glowing。,effect,获得glowing效果,图片/glowing.png,,none,yes,no
+mc-haste,haste,急迫,效果,MC-D2,The potion gives me haste.,这瓶药水给了我haste。,effect,获得haste效果,图片/haste.png,,none,yes,no
+mc-infested,infested,出没,效果,MC-D2,A glowing icon shows the infested.,发光的图标标出了infested。,effect,获得infested效果,图片/infested.png,,none,yes,no
+mc-nausea,nausea,反胃,效果,MC-D2,The nausea fades after a short time.,过一会儿nausea就消失了。,effect,获得nausea效果,图片/nausea.png,,none,yes,no
+mc-oozing,oozing,渗浆,效果,MC-D2,I notice the oozing during the challenge.,挑战时我注意到oozing。,effect,获得oozing效果,图片/oozing.png,,none,yes,no
+mc-slowness,slowness,缓慢,效果,MC-D2,I notice the slowness during the challenge.,挑战时我注意到slowness。,effect,获得slowness效果,图片/slowness.png,,none,yes,no
+mc-speedrun,speedrun,速通,效果,MC-D2,A glowing icon shows the speedrun.,发光的图标标出了speedrun。,effect,获得speedrun效果,图片/speedrun.png,音频/speedrun.mp3,none,yes,yes
+mc-strength,strength,力量,效果,MC-D2,The potion gives me strength.,这瓶药水给了我strength。,effect,获得strength效果,图片/strength.png,,none,yes,no
+mc-weakness,weakness,虚弱,效果,MC-D2,The weakness helps me cross the cave.,weakness帮我穿过山洞。,effect,获得weakness效果,图片/weakness.png,,none,yes,no
+mc-weaving,weaving,编织,效果,MC-D2,The weaving fades after a short time.,过一会儿weaving就消失了。,effect,获得weaving效果,图片/weaving.png,,none,yes,no
+mc-bleach,bleach,漂白剂,颜色,MC-D2,A bleach path leads to the garden.,一条bleach小路通向花园。,color,bleach羊毛,图片/bleach.png,,none,yes,no
+mc-redstone,redstone,红石,颜色,MC-D2,The redstone torch glows beside the door.,redstone火把在门边发着光。,color,redstone羊毛,图片/redstone.png,,none,yes,no
+mc-allium,allium,绒球葱,植物,MC-D2,Rain helps the allium grow.,雨水帮助allium长大。,plant,种下allium,图片/allium.png,,none,yes,no
+mc-azalea,azalea,杜鹃花,植物,MC-D2,I check the azalea before leaving camp.,离开营地前我先检查azalea。,plant,种下azalea,图片/azalea.png,,none,yes,no
+mc-cactus,cactus,仙人掌,植物,MC-D2,I plant the cactus beside the farm.,我在农场边种下cactus。,plant,种下cactus,图片/cactus.png,,none,yes,no
+mc-cocoa,cocoa,可可,植物,MC-D2,A path winds around the cocoa.,小路绕着cocoa弯过去。,plant,种下cocoa,图片/cocoa.png,,none,yes,no
+mc-fern,fern,蕨类植物,植物,MC-D2,I plant the fern beside the farm.,我在农场边种下fern。,plant,种下fern,图片/fern.png,,none,yes,no
+mc-leaves,leaves,树叶,植物,MC-D2,I plant the leaves near the village well.,我在村子水井旁种下leaves。,plant,种下leaves,图片/leaves.png,音频/leaves.mp3,none,yes,yes
+mc-lilac,lilac,丁香,植物,MC-D2,A path winds around the lilac.,小路绕着lilac弯过去。,plant,种下lilac,图片/lilac.png,,none,yes,no
+mc-moss,moss,苔藓,植物,MC-D2,I water the moss in the morning.,早上我给moss浇水。,plant,种下moss,图片/moss.png,,none,yes,no
+mc-orchid,orchid,兰花,植物,MC-D2,I plant the orchid beside the farm.,我在农场边种下orchid。,plant,种下orchid,图片/orchid.png,音频/orchid.mp3,none,yes,yes
+mc-peony,peony,牡丹,植物,MC-D2,The peony makes the garden feel cheerful.,peony让花园看起来很开心。,plant,种下peony,图片/peony.png,,none,yes,no
+mc-poppy,poppy,虞美人,植物,MC-D2,I plant the poppy near the village well.,我在村子水井旁种下poppy。,plant,种下poppy,图片/poppy.png,,none,yes,no
+mc-sapling,sapling,树苗,植物,MC-D2,I water the sapling in the morning.,早上我给sapling浇水。,plant,种下sapling,图片/sapling.png,音频/sapling.mp3,none,yes,yes
+mc-seagrass,seagrass,海草方块,植物,MC-D2,A path winds around the seagrass.,小路绕着seagrass弯过去。,plant,种下seagrass,图片/seagrass.png,,none,yes,no
+mc-seeds,seeds,种子,植物,MC-D2,Rain helps the seeds grow.,雨水帮助seeds长大。,plant,种下seeds,图片/seeds.png,,none,yes,no
+mc-vines,vines,攀緣植物,植物,MC-D2,The vines gives our garden a bright color.,vines让花园更鲜艳。,plant,种下vines,图片/vines.png,,none,yes,no

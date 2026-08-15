@@ -1,0 +1,6 @@
+First-person voxel adventure HUD mockup, sunny blocky grassland.
+Top-left: one compact dark oak pixel panel containing a small square minimap, three thin status bars, and a coin icon. Square corners, wood border, no rounded glass.
+Bottom-center: 6-slot hotbar, selected slot has a yellow pixel border, tools look like sword axe pickaxe shovel and a dirt block.
+No vocabulary study list, no Listening card, no white flashcard, no school worksheet, no floating paper.
+No text, no letters, no numbers, no Chinese characters, no fake writing, no logos, no watermark.
+Pixelated Minecraft-like children's game HUD, diegetic, uncluttered, the 3D world stays the hero.

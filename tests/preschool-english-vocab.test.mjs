@@ -56,7 +56,10 @@ test('speak batch serves five daily word-in-sentence cards and never deducts sun
 test('speak batch puts due review words first using 1/3/7/14 without SM-2', () => {
     const rules = { reviewIntervalsDays: [1, 3, 7, 14] };
     const bank = vocab.parseBank(readBank());
-    let progress = vocab.markKnown(vocab.createDefaultProgress(), 'panda', true, '2026-08-14', rules);
+    let progress = vocab.recordQuizAnswer(vocab.createDefaultProgress(), 'panda', { type: 'listen', correct: true, date: '2026-08-14', rules: rules });
+    progress = vocab.recordQuizAnswer(progress, 'panda', { type: 'read', correct: true, date: '2026-08-14', rules: rules });
+    progress = vocab.recordQuizAnswer(progress, 'panda', { type: 'spell', correct: true, date: '2026-08-14', rules: rules });
+    assert.equal(progress.mastery.panda.state, 'ready');
     assert.equal(progress.mastery.panda.nextReview, '2026-08-17');
     const sameDay = vocab.buildSpeakBatch(bank, progress, rules, '2026-08-14', '', 5);
     assert.equal(sameDay.some(item => item.text === 'panda' && item.review), false);

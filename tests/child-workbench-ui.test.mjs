@@ -34,3 +34,27 @@ test('儿童版样式提供桌面两列、移动单列和减少动效规则', ()
     assert.match(childCss, /@media \(max-width: 980px\)/);
     assert.match(childCss, /prefers-reduced-motion/);
 });
+
+test('儿童今日页不再把先打卡当主路径', () => {
+    const config = fs.readFileSync(path.join(root, 'config.js'), 'utf8');
+    const childHome = fs.readFileSync(path.join(root, '儿童学习工作台', 'index.html'), 'utf8');
+    assert.doesNotMatch(config, /先打卡/);
+    assert.match(config, /childPages[\s\S]*overview: \{[^}]*TODAY \/ LEARN/);
+    assert.match(config, /plans: \{ title: '今日学习'/);
+    assert.doesNotMatch(childHome, /今日打卡/);
+    const start = app.indexOf('function renderChildPlanRows(');
+    assert.ok(start >= 0);
+    const rows = app.slice(start, app.indexOf('\n    function ', start + 10));
+    assert.match(rows, /practiceLessonId|category === '学习'/);
+    assert.match(rows, /data-action="navigate" data-page="courses"|open-plan-practice/);
+    assert.match(rows, /做完再点|去学习/);
+});
+
+test('儿童版采用晴空书桌纸感柔光配色', () => {
+    assert.match(childCss, /--bg: #eef3f5/);
+    assert.match(childCss, /--orange: #5b9bd5/);
+    assert.match(childCss, /--gold: #d4b96a/);
+    assert.match(childCss, /0 1px 2px rgba\(60, 90, 112, 0\.06\)/);
+    assert.doesNotMatch(childCss, /#ff7d5d|#79c96b/);
+    assert.match(fs.readFileSync(path.join(root, '儿童学习工作台', 'index.html'), 'utf8'), /child-workbench\.css\?v=20260815-true-wb-v1/);
+});

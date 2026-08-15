@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#2d8748">
     <title>花园保卫</title>
     <link rel="stylesheet" href="../shared/growth-hud.css">
-    <link rel="stylesheet" href="./game.css?v=20260815-pagebg-v1">
+    <link rel="stylesheet" href="./game.css?v=20260815-wide-v1">
 </head>
 <body data-world-game="garden-defense">
     <header class="world-bar">
@@ -24,9 +24,9 @@
     </header>
     <main class="world-shell">
         <section class="world-panel" id="panel-map">
-            <h2 class="panel-title">选关 · <span id="stage-count">12</span></h2>
+            <h2 class="panel-title">选关 · <span id="stage-count">18</span></h2>
             <div class="zombie-showcase" id="zombie-showcase" aria-label="僵尸图鉴"></div>
-            <div class="stage-map" id="stage-map" aria-label="12 个花园关卡"></div>
+            <div class="stage-map" id="stage-map" aria-label="18 个花园关卡"></div>
             <p class="tip" id="progress-tip">加载中…</p>
         </section>
         <section class="world-panel is-hidden" id="panel-play">
@@ -40,7 +40,7 @@
             </div>
             <div class="seed-tray" id="seed-tray" aria-label="植物种子"></div>
             <div class="board-wrap">
-                <canvas id="world-canvas" width="1080" height="540" aria-label="花园战场"></canvas>
+                <canvas id="world-canvas" width="1280" height="540" aria-label="花园战场"></canvas>
                 <div class="companion-hud" id="companion-hud" aria-live="polite">
                     <span class="companion-say" id="companion-say"></span>
                     <img src="../../assets/generated/preschool-pixel/published/star-companion.png?v=20260815-s1" alt="星芒" onerror="this.replaceWith(Object.assign(document.createElement('b'),{textContent:'🦄'}))">
@@ -82,8 +82,8 @@
     <div class="toast-game" id="toast" role="status"></div>
     <script src="../shared/workbench-bridge.js?v=20260815-sfx-v1"></script>
     <script src="../shared/game-sfx.js?v=20260815-sfx-v1"></script>
-    <script src="../../preschool-garden.js?v=20260815-s2-v1"></script>
-    <script src="./data/stages.js?v=20260815-s2-v1"></script>
-    <script src="./game.js?v=20260815-hud-v1"></script>
+    <script src="../../preschool-garden.js?v=20260815-wide-v1"></script>
+    <script src="./data/stages.js?v=20260815-wide-v1"></script>
+    <script src="./game.js?v=20260815-wide-v1"></script>
 </body>
 </html>

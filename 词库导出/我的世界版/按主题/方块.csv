@@ -1,0 +1,97 @@
+﻿id,word,zh,theme,level,phrase,phraseZh,category,group,image,audio,art,hasImage,hasAudio
+mc-birch,birch,白桦,方块,MC-D1,We make a small path with the birch.,我们用birch铺出一条小路。,block,放好birch,图片/birch.png,音频/birch.mp3,none,yes,yes
+mc-dirt,dirt,泥土,方块,MC-D1,We choose the dirt for the garden wall.,花园围墙我们选用dirt。,block,放好dirt,图片/dirt.png,,none,yes,no
+mc-log,log,原木,方块,MC-D1,I stack the log to make a small wall.,我把log叠成一堵小墙。,block,放好log,图片/log.png,,none,yes,no
+mc-acacia,acacia,金合欢,方块,MC-D2,I stack the acacia to make a small wall.,我把acacia叠成一堵小墙。,block,放好acacia,图片/acacia.png,音频/acacia.mp3,none,yes,yes
+mc-actinium,actinium,锕,方块,MC-D2,The actinium keeps our little house strong.,actinium让小屋更结实。,block,放好actinium,图片/actinium.png,,none,yes,no
+mc-aluminum,aluminum,铝,方块,MC-D2,A torch shines on the aluminum at night.,夜里火把照亮了aluminum。,block,放好aluminum,图片/aluminum.png,,none,yes,no
+mc-antimony,antimony,n.法律的自相矛盾,方块,MC-D2,I place the antimony beside the doorway.,我把antimony放在门口。,block,放好antimony,图片/antimony.png,,none,yes,no
+mc-arena,arena,竞技场,方块,MC-D2,I count the arena before we start building.,开工前我先数一数arena。,block,放好arena,图片/arena.png,,none,yes,no
+mc-argon,argon,氩,方块,MC-D2,The builder stores the argon in a chest.,建造的人把argon放进箱子。,block,放好argon,图片/argon.png,,none,yes,no
+mc-arsenic,arsenic,砷剂,方块,MC-D2,I count the arsenic before we start building.,开工前我先数一数arsenic。,block,放好arsenic,图片/arsenic.png,,none,yes,no
+mc-astatine,astatine,砹,方块,MC-D2,I place the astatine beside the doorway.,我把astatine放在门口。,block,放好astatine,图片/astatine.png,,none,yes,no
+mc-barium,barium,钡,方块,MC-D2,I collect the barium before sunset.,日落前我把barium收好。,block,放好barium,图片/barium.png,,none,yes,no
+mc-basalt,basalt,玄武岩,方块,MC-D2,I replace the broken basalt near camp.,我在营地旁换掉坏掉的basalt。,block,放好basalt,图片/basalt.png,,none,yes,no
+mc-bismuth,bismuth,铋,方块,MC-D2,The bismuth gives our base a new shape.,bismuth让基地有了新样子。,block,放好bismuth,图片/bismuth.png,,none,yes,no
+mc-bohrium,bohrium,Bh元素,方块,MC-D2,The bohrium gives our base a new shape.,bohrium让基地有了新样子。,block,放好bohrium,图片/bohrium.png,,none,yes,no
+mc-boron,boron,硼,方块,MC-D2,I stack the boron to make a small wall.,我把boron叠成一堵小墙。,block,放好boron,图片/boron.png,,none,yes,no
+mc-brick,brick,红砖,方块,MC-D2,I replace the broken brick near camp.,我在营地旁换掉坏掉的brick。,block,放好brick,图片/brick.png,,none,yes,no
+mc-bricks,bricks,砖块,方块,MC-D2,A torch shines on the bricks at night.,夜里火把照亮了bricks。,block,放好bricks,图片/bricks.png,,none,yes,no
+mc-bromine,bromine,溴,方块,MC-D2,Rain falls softly on the bromine.,雨轻轻落在bromine上。,block,放好bromine,图片/bromine.png,,none,yes,no
+mc-cadmium,cadmium,镉,方块,MC-D2,I stack the cadmium to make a small wall.,我把cadmium叠成一堵小墙。,block,放好cadmium,图片/cadmium.png,,none,yes,no
+mc-calcium,calcium,钙,方块,MC-D2,I stack the calcium to make a small wall.,我把calcium叠成一堵小墙。,block,放好calcium,图片/calcium.png,,none,yes,no
+mc-carbon,carbon,碳色,方块,MC-D2,I count the carbon before we start building.,开工前我先数一数carbon。,block,放好carbon,图片/carbon.png,,none,yes,no
+mc-cerium,cerium,铈,方块,MC-D2,We choose the cerium for the garden wall.,花园围墙我们选用cerium。,block,放好cerium,图片/cerium.png,,none,yes,no
+mc-cesium,cesium,铯,方块,MC-D2,A torch shines on the cesium at night.,夜里火把照亮了cesium。,block,放好cesium,图片/cesium.png,,none,yes,no
+mc-chain,chain,锁链,方块,MC-D2,We build a safe step with the chain.,我们用chain搭出安全的台阶。,block,放好chain,图片/chain.png,音频/chain.mp3,none,yes,yes
+mc-chlorine,chlorine,氯,方块,MC-D2,We make a small path with the chlorine.,我们用chlorine铺出一条小路。,block,放好chlorine,图片/chlorine.png,,none,yes,no
+mc-chromium,chromium,铬,方块,MC-D2,I stack the chromium to make a small wall.,我把chromium叠成一堵小墙。,block,放好chromium,图片/chromium.png,,none,yes,no
+mc-clay,clay,黏土块,方块,MC-D2,We build a safe step with the clay.,我们用clay搭出安全的台阶。,block,放好clay,图片/clay.png,,none,yes,no
+mc-cobalt,cobalt,钴蓝色,方块,MC-D2,We use the cobalt to mark the path home.,我们用cobalt标出回家的路。,block,放好cobalt,图片/cobalt.png,,none,yes,no
+mc-cobweb,cobweb,蜘蛛网,方块,MC-D2,The cobweb keeps our little house strong.,cobweb让小屋更结实。,block,放好cobweb,图片/cobweb.png,,none,yes,no
+mc-conduit,conduit,潮涌核心,方块,MC-D2,The conduit keeps our little house strong.,conduit让小屋更结实。,block,放好conduit,图片/conduit.png,,none,yes,no
+mc-curium,curium,锔,方块,MC-D2,The builder stores the curium in a chest.,建造的人把curium放进箱子。,block,放好curium,图片/curium.png,,none,yes,no
+mc-deny,deny,"v.驳回 ,不予受理,拒绝,不受理 ,抵赖,否定,否认,否认",方块,MC-D2,A torch shines on the deny at night.,夜里火把照亮了deny。,block,放好deny,图片/deny.png,,none,yes,no
+mc-dubnium,dubnium,Db元素,方块,MC-D2,Rain falls softly on the dubnium.,雨轻轻落在dubnium上。,block,放好dubnium,图片/dubnium.png,,none,yes,no
+mc-erbium,erbium,铒,方块,MC-D2,We make a small path with the erbium.,我们用erbium铺出一条小路。,block,放好erbium,图片/erbium.png,,none,yes,no
+mc-europium,europium,铕,方块,MC-D2,I collect the europium before sunset.,日落前我把europium收好。,block,放好europium,图片/europium.png,,none,yes,no
+mc-farmland,farmland,耕地,方块,MC-D2,I count the farmland before we start building.,开工前我先数一数farmland。,block,放好farmland,图片/farmland.png,,none,yes,no
+mc-fermium,fermium,镄,方块,MC-D2,I place the fermium beside the doorway.,我把fermium放在门口。,block,放好fermium,图片/fermium.png,,none,yes,no
+mc-fluorine,fluorine,氟,方块,MC-D2,I collect the fluorine before sunset.,日落前我把fluorine收好。,block,放好fluorine,图片/fluorine.png,,none,yes,no
+mc-francium,francium,钫,方块,MC-D2,I replace the broken francium near camp.,我在营地旁换掉坏掉的francium。,block,放好francium,图片/francium.png,,none,yes,no
+mc-gallium,gallium,镓,方块,MC-D2,We choose the gallium for the garden wall.,花园围墙我们选用gallium。,block,放好gallium,图片/gallium.png,,none,yes,no
+mc-gravel,gravel,沙砾,方块,MC-D2,We build a safe step with the gravel.,我们用gravel搭出安全的台阶。,block,放好gravel,图片/gravel.png,,none,yes,no
+mc-hafnium,hafnium,铪,方块,MC-D2,Rain falls softly on the hafnium.,雨轻轻落在hafnium上。,block,放好hafnium,图片/hafnium.png,,none,yes,no
+mc-hassium,hassium,钅罕,方块,MC-D2,We make a small path with the hassium.,我们用hassium铺出一条小路。,block,放好hassium,图片/hassium.png,,none,yes,no
+mc-helium,helium,氦,方块,MC-D2,Rain falls softly on the helium.,雨轻轻落在helium上。,block,放好helium,图片/helium.png,,none,yes,no
+mc-holmium,holmium,钬,方块,MC-D2,We choose the holmium for the garden wall.,花园围墙我们选用holmium。,block,放好holmium,图片/holmium.png,,none,yes,no
+mc-hydrogen,hydrogen,氢,方块,MC-D2,I collect the hydrogen before sunset.,日落前我把hydrogen收好。,block,放好hydrogen,图片/hydrogen.png,,none,yes,no
+mc-indium,indium,铟,方块,MC-D2,Rain falls softly on the indium.,雨轻轻落在indium上。,block,放好indium,图片/indium.png,,none,yes,no
+mc-iodine,iodine,碘酒,方块,MC-D2,A torch shines on the iodine at night.,夜里火把照亮了iodine。,block,放好iodine,图片/iodine.png,,none,yes,no
+mc-iridium,iridium,铱,方块,MC-D2,We use the iridium to mark the path home.,我们用iridium标出回家的路。,block,放好iridium,图片/iridium.png,,none,yes,no
+mc-kelp,kelp,巨藻,方块,MC-D2,The kelp gives our base a new shape.,kelp让基地有了新样子。,block,放好kelp,图片/kelp.png,,none,yes,no
+mc-krypton,krypton,氪,方块,MC-D2,I count the krypton before we start building.,开工前我先数一数krypton。,block,放好krypton,图片/krypton.png,,none,yes,no
+mc-lithium,lithium,锂,方块,MC-D2,I collect the lithium before sunset.,日落前我把lithium收好。,block,放好lithium,图片/lithium.png,,none,yes,no
+mc-lutetium,lutetium,镥,方块,MC-D2,We build a safe step with the lutetium.,我们用lutetium搭出安全的台阶。,block,放好lutetium,图片/lutetium.png,,none,yes,no
+mc-marble,marble,大理石,方块,MC-D2,We use the marble to mark the path home.,我们用marble标出回家的路。,block,放好marble,图片/marble.png,,none,yes,no
+mc-mercury,mercury,水星,方块,MC-D2,I replace the broken mercury near camp.,我在营地旁换掉坏掉的mercury。,block,放好mercury,图片/mercury.png,,none,yes,no
+mc-mycelium,mycelium,菌丝体,方块,MC-D2,We build a safe step with the mycelium.,我们用mycelium搭出安全的台阶。,block,放好mycelium,图片/mycelium.png,,none,yes,no
+mc-neon,neon,氖,方块,MC-D2,I stack the neon to make a small wall.,我把neon叠成一堵小墙。,block,放好neon,图片/neon.png,,none,yes,no
+mc-nickel,nickel,镍,方块,MC-D2,A torch shines on the nickel at night.,夜里火把照亮了nickel。,block,放好nickel,图片/nickel.png,,none,yes,no
+mc-nihonium,nihonium,Nh元素,方块,MC-D2,We use the nihonium to mark the path home.,我们用nihonium标出回家的路。,block,放好nihonium,图片/nihonium.png,,none,yes,no
+mc-niobium,niobium,铌,方块,MC-D2,I count the niobium before we start building.,开工前我先数一数niobium。,block,放好niobium,图片/niobium.png,,none,yes,no
+mc-nitrogen,nitrogen,氮,方块,MC-D2,The nitrogen gives our base a new shape.,nitrogen让基地有了新样子。,block,放好nitrogen,图片/nitrogen.png,,none,yes,no
+mc-nobelium,nobelium,锘,方块,MC-D2,We build a safe step with the nobelium.,我们用nobelium搭出安全的台阶。,block,放好nobelium,图片/nobelium.png,,none,yes,no
+mc-osmium,osmium,锇,方块,MC-D2,I stack the osmium to make a small wall.,我把osmium叠成一堵小墙。,block,放好osmium,图片/osmium.png,,none,yes,no
+mc-oxygen,oxygen,氧气,方块,MC-D2,We make a small path with the oxygen.,我们用oxygen铺出一条小路。,block,放好oxygen,图片/oxygen.png,,none,yes,no
+mc-planks,planks,木板,方块,MC-D2,I replace the broken planks near camp.,我在营地旁换掉坏掉的planks。,block,放好planks,图片/planks.png,,none,yes,no
+mc-platinum,platinum,铂,方块,MC-D2,We make a small path with the platinum.,我们用platinum铺出一条小路。,block,放好platinum,图片/platinum.png,,none,yes,no
+mc-podzol,podzol,灰化土,方块,MC-D2,We make a small path with the podzol.,我们用podzol铺出一条小路。,block,放好podzol,图片/podzol.png,,none,yes,no
+mc-polonium,polonium,钋,方块,MC-D2,We build a safe step with the polonium.,我们用polonium搭出安全的台阶。,block,放好polonium,图片/polonium.png,,none,yes,no
+mc-purpur,purpur,紫珀,方块,MC-D2,We make a small path with the purpur.,我们用purpur铺出一条小路。,block,放好purpur,图片/purpur.png,,none,yes,no
+mc-radium,radium,镭,方块,MC-D2,Rain falls softly on the radium.,雨轻轻落在radium上。,block,放好radium,图片/radium.png,,none,yes,no
+mc-radon,radon,氡,方块,MC-D2,Rain falls softly on the radon.,雨轻轻落在radon上。,block,放好radon,图片/radon.png,,none,yes,no
+mc-rhenium,rhenium,铼,方块,MC-D2,We make a small path with the rhenium.,我们用rhenium铺出一条小路。,block,放好rhenium,图片/rhenium.png,,none,yes,no
+mc-rhodium,rhodium,铑,方块,MC-D2,I stack the rhodium to make a small wall.,我把rhodium叠成一堵小墙。,block,放好rhodium,图片/rhodium.png,,none,yes,no
+mc-rubidium,rubidium,铷,方块,MC-D2,We choose the rubidium for the garden wall.,花园围墙我们选用rubidium。,block,放好rubidium,图片/rubidium.png,,none,yes,no
+mc-samarium,samarium,钐,方块,MC-D2,The builder stores the samarium in a chest.,建造的人把samarium放进箱子。,block,放好samarium,图片/samarium.png,,none,yes,no
+mc-scandium,scandium,钪,方块,MC-D2,I stack the scandium to make a small wall.,我把scandium叠成一堵小墙。,block,放好scandium,图片/scandium.png,,none,yes,no
+mc-selenium,selenium,硒,方块,MC-D2,A torch shines on the selenium at night.,夜里火把照亮了selenium。,block,放好selenium,图片/selenium.png,,none,yes,no
+mc-silicon,silicon,硅,方块,MC-D2,I place the silicon beside the doorway.,我把silicon放在门口。,block,放好silicon,图片/silicon.png,,none,yes,no
+mc-sodium,sodium,钠,方块,MC-D2,The builder stores the sodium in a chest.,建造的人把sodium放进箱子。,block,放好sodium,图片/sodium.png,,none,yes,no
+mc-spruce,spruce,云杉,方块,MC-D2,I stack the spruce to make a small wall.,我把spruce叠成一堵小墙。,block,放好spruce,图片/spruce.png,音频/spruce.mp3,none,yes,yes
+mc-sulfur,sulfur,硫磺,方块,MC-D2,I count the sulfur before we start building.,开工前我先数一数sulfur。,block,放好sulfur,图片/sulfur.png,,none,yes,no
+mc-tantalum,tantalum,钽,方块,MC-D2,I collect the tantalum before sunset.,日落前我把tantalum收好。,block,放好tantalum,图片/tantalum.png,,none,yes,no
+mc-terbium,terbium,铽,方块,MC-D2,Rain falls softly on the terbium.,雨轻轻落在terbium上。,block,放好terbium,图片/terbium.png,,none,yes,no
+mc-thallium,thallium,铊,方块,MC-D2,We make a small path with the thallium.,我们用thallium铺出一条小路。,block,放好thallium,图片/thallium.png,,none,yes,no
+mc-thorium,thorium,瑟银,方块,MC-D2,The thorium keeps our little house strong.,thorium让小屋更结实。,block,放好thorium,图片/thorium.png,,none,yes,no
+mc-thulium,thulium,铥,方块,MC-D2,A torch shines on the thulium at night.,夜里火把照亮了thulium。,block,放好thulium,图片/thulium.png,,none,yes,no
+mc-tin,tin,听,方块,MC-D2,We choose the tin for the garden wall.,花园围墙我们选用tin。,block,放好tin,图片/tin.png,,none,yes,no
+mc-titanium,titanium,钛,方块,MC-D2,I replace the broken titanium near camp.,我在营地旁换掉坏掉的titanium。,block,放好titanium,图片/titanium.png,,none,yes,no
+mc-tripwire,tripwire,绊线钩,方块,MC-D2,A torch shines on the tripwire at night.,夜里火把照亮了tripwire。,block,放好tripwire,图片/tripwire.png,,none,yes,no
+mc-tungsten,tungsten,钨,方块,MC-D2,We make a small path with the tungsten.,我们用tungsten铺出一条小路。,block,放好tungsten,图片/tungsten.png,,none,yes,no
+mc-uranium,uranium,铀,方块,MC-D2,We use the uranium to mark the path home.,我们用uranium标出回家的路。,block,放好uranium,图片/uranium.png,,none,yes,no
+mc-vanadium,vanadium,钒,方块,MC-D2,I count the vanadium before we start building.,开工前我先数一数vanadium。,block,放好vanadium,图片/vanadium.png,,none,yes,no
+mc-xenon,xenon,氙气灯,方块,MC-D2,We make a small path with the xenon.,我们用xenon铺出一条小路。,block,放好xenon,图片/xenon.png,,none,yes,no
+mc-yttrium,yttrium,钇,方块,MC-D2,We make a small path with the yttrium.,我们用yttrium铺出一条小路。,block,放好yttrium,图片/yttrium.png,,none,yes,no
+mc-zinc,zinc,锌,方块,MC-D2,The zinc gives our base a new shape.,zinc让基地有了新样子。,block,放好zinc,图片/zinc.png,,none,yes,no

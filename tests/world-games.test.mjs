@@ -102,13 +102,36 @@ test('preschool workbench routes all three themes to independent world games', (
 
   assert.match(app, /function getPreschoolThemePlaybook\(\)/);
   assert.match(app, /worldGameHref:\s*'\.\.\/games\/garden-defense\/index\.html'/);
-  assert.match(app, /worldGameHref:\s*'\.\.\/games\/voxel-adventure\/index\.html'/);
+  assert.match(app, /worldGameHref:\s*'\.\.\/games\/voxel-craft\/index\.html'/);
   assert.match(app, /worldGameHref:\s*'\.\.\/games\/platform-quest\/index\.html'/);
   assert.match(app, /open-world-game/);
   assert.match(app, /function openPreschoolWorldGame\(/);
   assert.match(app, /navGameLabel/);
   assert.doesNotMatch(app, /voxel-adventure[\s\S]{0,120}exitGame: '去花园游戏'/);
   assert.match(prepare, /'games'/);
+  const battleStart = app.indexOf('function renderPreschoolBattle()');
+  const battleEnd = app.indexOf('function renderPreschoolDefenseGame()', battleStart);
+  assert.ok(battleStart >= 0 && battleEnd > battleStart, 'battle renderer missing');
+  const battleBody = app.slice(battleStart, battleEnd);
+  assert.match(battleBody, /renderPreschoolWorldGameLaunch|open-world-game/);
+  assert.doesNotMatch(battleBody, /renderPixelMap\(/, 'workbench battle must launch garden-defense, not the in-page 5x6 board');
+  assert.match(app, /'garden-defense': \{ href: '[^']+', label: '花园保卫', unit: '关', total: 18 \}/);
+});
+
+test('garden-defense lawn is wider and ships 18 stages', () => {
+  const gardenJs = fs.readFileSync(path.join(root, 'games', 'garden-defense', 'game.js'), 'utf8');
+  const gardenRules = fs.readFileSync(path.join(root, 'preschool-garden.js'), 'utf8');
+  const stages = fs.readFileSync(path.join(root, 'games', 'garden-defense', 'data', 'stages.js'), 'utf8');
+  const html = fs.readFileSync(path.join(root, 'games', 'garden-defense', 'index.html'), 'utf8');
+  const bridge = fs.readFileSync(path.join(root, 'games', 'shared', 'workbench-bridge.js'), 'utf8');
+  assert.match(gardenJs, /BOARD_COLUMNS = 10/);
+  assert.match(gardenRules, /BOARD_COLUMNS = 10/);
+  assert.equal((stages.match(/\bS\(\d+/g) || []).length >= 18, true, 'garden should have 18 stages');
+  assert.match(stages, /S\(13,/);
+  assert.match(stages, /S\(18,/);
+  assert.match(html, /选关 · <span id="stage-count">18<\/span>/);
+  assert.match(bridge, /'garden-defense': \{ label: '花园保卫', unit: '关', done: gardenClears\(wg\), total: 18 \}/);
+  assert.match(bridge, /ms-garden-18/);
 });
 
 test('launcher uses the three themed workbench product names', () => {
@@ -701,4 +724,45 @@ test('platform companion pools hint on fail and throttle cheers to once per 5s',
   assert.equal(allowed(-1, 1000), true);
   assert.equal(allowed(1000, 3000), false);
   assert.equal(allowed(1000, 6000), true);
+});
+
+test('blocklegend records play, keeps triple-day as >=3 worlds, and appears in weekly report', () => {
+  const src = fs.readFileSync(path.join(root, 'games', 'shared', 'workbench-bridge.js'), 'utf8');
+  assert.match(src, /'blocklegend'/);
+  assert.match(src, /function worldsPlayedToday/);
+  assert.match(src, /worldsPlayedToday\([^\)]*\)\s*>=\s*3/);
+
+  const play = loadBridge();
+  const rec = play.recordPlaySession('blocklegend', { date: '2026-08-15' });
+  assert.equal(rec.ok, true);
+  const state = play.readState();
+  assert.equal(state.growth.worldGames.meta.playByDay['2026-08-15'].blocklegend, true);
+
+  const threeClassic = loadBridge();
+  threeClassic.recordPlaySession('garden-defense', { date: '2026-08-15' });
+  threeClassic.recordPlaySession('voxel-adventure', { date: '2026-08-15' });
+  threeClassic.recordPlaySession('platform-quest', { date: '2026-08-15' });
+  const dayClassic = threeClassic.getWeeklyReport('2026-08-15').days.find((d) => d.date === '2026-08-15');
+  assert.equal(dayClassic.isTriple, true);
+  assert.equal(threeClassic.getMetaSummary().badges.some((b) => b.id === 'ms-triple-day' && b.unlocked), true);
+
+  const twoWorlds = loadBridge();
+  twoWorlds.recordPlaySession('garden-defense', { date: '2026-08-15' });
+  twoWorlds.recordPlaySession('voxel-adventure', { date: '2026-08-15' });
+  const dayTwo = twoWorlds.getWeeklyReport('2026-08-15').days.find((d) => d.date === '2026-08-15');
+  assert.equal(dayTwo.isTriple, false);
+  assert.equal(twoWorlds.getMetaSummary().badges.some((b) => b.id === 'ms-triple-day' && b.unlocked), false);
+
+  const mixed = loadBridge();
+  mixed.recordPlaySession('garden-defense', { date: '2026-08-15' });
+  mixed.recordPlaySession('voxel-adventure', { date: '2026-08-15' });
+  mixed.recordPlaySession('blocklegend', { date: '2026-08-15' });
+  const dayMixed = mixed.getWeeklyReport('2026-08-15').days.find((d) => d.date === '2026-08-15');
+  assert.equal(dayMixed.isTriple, true);
+
+  const row = play.getWeeklyReport('2026-08-15').worlds.find((w) => w.id === 'blocklegend');
+  assert.ok(row);
+  assert.equal(row.label, '方块传奇');
+  assert.equal(row.unit, '关');
+  assert.equal(row.total, 6);
 });

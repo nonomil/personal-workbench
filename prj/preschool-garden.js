@@ -87,7 +87,7 @@
 
     const ACTION_EVENTS = Object.freeze(['checkin-complete', 'lesson-complete', 'task-complete', 'reading-complete', 'reward-claimed']);
     const BOARD_LANES = 5;
-    const BOARD_COLUMNS = 8;
+    const BOARD_COLUMNS = 10;
 
     function asArray(value) {
         return Array.isArray(value) ? value : [];
@@ -492,7 +492,7 @@
         if (global.PersonalWorkbenchPreschoolMathBank && typeof global.PersonalWorkbenchPreschoolMathBank.normalizePracticeBand === 'function') {
             return global.PersonalWorkbenchPreschoolMathBank.normalizePracticeBand(value);
         }
-        if (value === 'within10' || value === 'within20' || value === 'within50' || value === 'addsub100' || value === 'mix100') return value;
+        if (value === 'within10' || value === 'within20' || value === 'within50' || value === 'addsub100' || value === 'addsub100big' || value === 'mul20' || value === 'mul40' || value === 'mul60' || value === 'mul80' || value === 'mul100' || value === 'divSimple' || value === 'koujue' || value === 'mix100' || value === 'mixMulDiv' || value === 'mixKoujue') return value;
         if (value === 'within100') return 'mix100';
         return 'mix100';
     }

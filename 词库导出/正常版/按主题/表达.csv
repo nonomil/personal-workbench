@@ -1,0 +1,23 @@
+﻿id,word,zh,theme,level,phrase,phraseZh,category,group,image,audio,art,hasImage,hasAudio
+english-word-26,bye,再见,表达,L1,"Bye, see you.",再见，回头见。,,,,,emoji:👋,no,no
+english-word-179,goodbye,再见,表达,L1,"Goodbye, see you.",再见，回头见。,,,,,emoji:👋,no,no
+english-word-65,he,他,表达,L1,He is a boy.,他是一个男孩。,,,,,emoji:👨,no,no
+english-word-25,hello,你好,表达,L1,"Hello, I am here.",你好，我在这里。,,,,音频/hello.mp3,emoji:👋,no,yes
+english-word-170,here,这里,表达,L1,We are here!,我们到了！,,,,,emoji:📍,no,no
+english-word-68,hi,嗨,表达,L1,"Hi, how are you?",嗨，你好吗？,,,,,emoji:👋,no,no
+english-word-67,it,它,表达,L1,It's time for breakfast.,该吃早餐啦。,,,,,emoji:🐱,no,no
+english-word-27,like,喜欢,表达,L1,Yummy! I like it!,真好吃！我喜欢！,,,,,emoji:❤️,no,no
+english-word-63,me,我,表达,L1,Let me tell you a story.,我给你讲个故事吧。,,,,,emoji:😊,no,no
+english-word-69,nice,好,表达,L1,Have a nice day!,祝你今天愉快！,,,,,emoji:😊,no,no
+english-word-149,no,不,表达,L1,"It's okay, no problem.",没关系，没问题。,,,图片/no.png,,emoji:🚫,yes,no
+english-word-71,okay,好的,表达,L1,Are you okay?,你还好吗？,,,,,emoji:👌,no,no
+english-word-72,please,请,表达,L1,"Wash your face, please.",请洗脸。,,,,,emoji:🙏,no,no
+english-word-28,see,看见,表达,L1,I see a cat.,我看见一只猫。,,,,,emoji:👀,no,no
+english-word-66,she,她,表达,L1,She is a girl.,她是一个女孩。,,,,,emoji:👧,no,no
+english-word-70,sorry,对不起,表达,L1,I'm sorry.,对不起。,,,,,emoji:🙏,no,no
+english-word-36,thank,谢谢,表达,L1,Thank you!,谢谢你！,,,,,emoji:🙏,no,no
+english-word-175,they,他们,表达,L1,They are friends.,他们是朋友。,,,图片/they.png,,emoji:👫,yes,no
+english-word-174,we,我们,表达,L1,Where are we going today?,我们今天去哪儿？,,,,,emoji:👪,no,no
+english-word-180,where,哪里,表达,L1,Where are we going today?,我们今天去哪儿？,,,,,emoji:📍,no,no
+english-word-162,yes,是,表达,L1,"Yes, I like it.",是的，我喜欢。,,,,,emoji:✅,no,no
+english-word-64,you,你,表达,L1,Did you sleep well?,你睡得好吗？,,,图片/you.png,,emoji:👤,yes,no

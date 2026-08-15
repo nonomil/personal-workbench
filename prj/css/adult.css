@@ -1,4 +1,51 @@
 /* Adult Life OS extensions: compact editorial blocks that keep the existing dark workbench language. */
+/* 原木书房（纸感柔光）：墨绿 #3f5448 主 + 黄铜 #b9893a 点缀，翻转为浅色纸感主题 */
+body.variant-adult {
+    color-scheme: light;
+    --bg: #f6f4ef;
+    --sidebar: #fffefb;
+    --surface: #fffefb;
+    --surface-2: #f4f0e8;
+    --surface-3: #ece7db;
+    --line: #e2dccb;
+    --line-soft: #eae5d8;
+    --text: #333640;
+    --muted: #7d7568;
+    --muted-2: #a9a396;
+    --orange: #b9893a;
+    --orange-soft: #d0a55f;
+    --lime: #3f5448;
+    --blue: #6e8ba0;
+    --gold: #b9893a;
+    --danger: #c4726a;
+    --success: #6fa893;
+    --shadow: 0 1px 2px rgba(90, 80, 60, 0.05), 0 12px 30px rgba(90, 80, 60, 0.08);
+}
+
+/* base.css 按暗色假设写的组件，在浅色纸感下重新校准 */
+body.variant-adult .topbar { border-bottom: 1px solid var(--line); background: rgba(246, 244, 239, 0.96); }
+body.variant-adult .nav-item:hover { border-color: var(--line-soft); color: var(--text); background: rgba(63, 84, 72, 0.05); }
+body.variant-adult .nav-item.is-active { border-color: rgba(185, 137, 58, 0.3); color: var(--text); background: rgba(185, 137, 58, 0.1); }
+body.variant-adult .nav-item.is-active::before { background: var(--orange); }
+body.variant-adult .nav-item.is-active svg { color: var(--orange); }
+body.variant-adult .nav-item.is-active kbd { color: var(--orange-soft); }
+body.variant-adult .brand-mark { border-color: rgba(185, 137, 58, 0.35); color: #8a6427; background: rgba(185, 137, 58, 0.1); }
+body.variant-adult .status-dot { background: var(--success); box-shadow: 0 0 0 4px rgba(111, 168, 147, 0.18); }
+body.variant-adult .avatar { border-color: rgba(185, 137, 58, 0.35); color: var(--bg); background: var(--lime); }
+body.variant-adult .btn-primary { border-color: #3f5448; color: #ffffff; background: #3f5448; }
+body.variant-adult .btn-primary:hover { border-color: #476352; background: #476352; }
+body.variant-adult .topbar-focus-button:hover { border-color: rgba(185, 137, 58, 0.5); color: var(--text); background: var(--surface-2); }
+body.variant-adult .topbar-workbench-menu { border: 1px solid var(--line); box-shadow: 0 1px 2px rgba(90, 80, 60, 0.06), 0 18px 40px rgba(90, 80, 60, 0.18); }
+body.variant-adult .plan-row { background: rgba(255, 255, 255, 0.6); }
+body.variant-adult .subnav-tab.is-active { border-color: rgba(185, 137, 58, 0.45); color: #8a6427; }
+body.variant-adult .list-card-mark.lime { color: var(--lime); background: rgba(63, 84, 72, 0.08); }
+body.variant-adult .tag.lime { border-color: rgba(63, 84, 72, 0.35); color: var(--lime); background: rgba(63, 84, 72, 0.06); }
+body.variant-adult .tag.orange { border-color: rgba(185, 137, 58, 0.35); color: #8a6427; background: rgba(185, 137, 58, 0.08); }
+body.variant-adult .compact-row-icon { border-color: rgba(110, 139, 160, 0.3); background: rgba(110, 139, 160, 0.08); }
+
+/* 径向光晕 hero：暖金光晕从右上角落下（纸感柔光语言） */
+body.variant-adult .focus-card { background: radial-gradient(circle at top right, rgba(245, 230, 184, 0.5), transparent 45%), var(--surface); }
+
 body.variant-adult .adult-command-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-bottom: 14px; }
 body.variant-adult .milestone-list, body.variant-adult .habit-list, body.variant-adult .archive-list, body.variant-adult .life-entry-list { display: grid; gap: 0; }
 body.variant-adult .milestone-row, body.variant-adult .habit-row, body.variant-adult .archive-row, body.variant-adult .life-entry-row { display: flex; min-width: 0; align-items: center; gap: 11px; padding: 11px 0; border-bottom: 1px solid var(--line-soft); }
@@ -9,7 +56,11 @@ body.variant-adult .milestone-copy strong, body.variant-adult .milestone-copy sm
 body.variant-adult .milestone-copy strong, body.variant-adult .habit-copy strong, body.variant-adult .archive-row strong, body.variant-adult .life-entry-row strong { color: var(--text); font-size: 12px; font-weight: 650; }
 body.variant-adult .milestone-copy small, body.variant-adult .habit-copy small, body.variant-adult .archive-row small, body.variant-adult .life-entry-row small { margin-top: 3px; color: var(--muted-2); font-size: 10px; }
 body.variant-adult .milestone-copy small .tag { margin-right: 4px; }
+body.variant-adult .adult-next-step .adult-next-copy { display: grid; gap: 6px; margin: 0 0 14px; }
+body.variant-adult .adult-next-step .adult-next-copy strong { font-size: 18px; }
+body.variant-adult .adult-next-step .adult-next-copy small { color: var(--muted); }
 body.variant-adult .habit-check { display: grid; width: 23px; height: 23px; flex: 0 0 23px; place-items: center; padding: 0; border: 1px solid var(--muted-2); border-radius: 6px; color: var(--bg); background: transparent; }
+body.variant-adult .habit-check.is-memo { border-color: transparent; color: var(--lime); background: transparent; }
 body.variant-adult .habit-check:hover { border-color: var(--lime); }
 body.variant-adult .habit-row.is-checked .habit-check { border-color: var(--lime); background: var(--lime); }
 body.variant-adult .habit-row.is-checked .habit-copy strong { color: var(--muted-2); text-decoration: line-through; }
@@ -20,10 +71,10 @@ body.variant-adult .life-area-head { display: flex; min-width: 0; align-items: c
 body.variant-adult .life-area-head > div { min-width: 0; flex: 1; }
 body.variant-adult .life-area-head h2 { margin: 0; font-size: 14px; font-weight: 680; }
 body.variant-adult .life-area-head p { margin: 3px 0 0; color: var(--muted-2); font-size: 10px; }
-body.variant-adult .life-area-card.tone-orange { border-top: 2px solid rgba(255, 118, 75, 0.6); }
-body.variant-adult .life-area-card.tone-lime { border-top: 2px solid rgba(201, 233, 87, 0.55); }
-body.variant-adult .life-area-card.tone-gold { border-top: 2px solid rgba(230, 189, 100, 0.6); }
-body.variant-adult .life-area-card.tone-blue { border-top: 2px solid rgba(132, 189, 215, 0.6); }
+body.variant-adult .life-area-card.tone-orange { border-top: 2px solid rgba(185, 137, 58, 0.55); }
+body.variant-adult .life-area-card.tone-lime { border-top: 2px solid rgba(111, 168, 147, 0.55); }
+body.variant-adult .life-area-card.tone-gold { border-top: 2px solid rgba(212, 185, 106, 0.55); }
+body.variant-adult .life-area-card.tone-blue { border-top: 2px solid rgba(110, 139, 160, 0.55); }
 body.variant-adult .life-entry-row .row-actions { opacity: 0; }
 body.variant-adult .life-entry-row:hover .row-actions, body.variant-adult .life-entry-row:focus-within .row-actions { opacity: 1; }
 body.variant-adult .life-entry-row.is-done strong { color: var(--muted-2); text-decoration: line-through; }
@@ -37,7 +88,7 @@ body.variant-adult .settings-card { min-width: 0; }
 body.variant-adult .language-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
 body.variant-adult .language-option { position: relative; display: grid; min-height: 78px; gap: 4px; padding: 13px; border: 1px solid var(--line-soft); border-radius: 8px; color: var(--muted); background: var(--surface-2); text-align: left; }
 body.variant-adult .language-option:hover, body.variant-adult .language-option.is-active { border-color: var(--lime); color: var(--text); }
-body.variant-adult .language-option.is-active { background: rgba(201, 233, 87, 0.08); }
+body.variant-adult .language-option.is-active { background: rgba(63, 84, 72, 0.07); }
 body.variant-adult .language-option strong { font-size: 12px; }
 body.variant-adult .language-option small { color: var(--muted-2); font-size: 10px; }
 body.variant-adult .language-option svg { position: absolute; top: 12px; right: 12px; width: 15px; height: 15px; color: var(--lime); }

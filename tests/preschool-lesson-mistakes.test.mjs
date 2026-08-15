@@ -86,8 +86,8 @@ test('maps preschool courses to mistake subjects and app records wrong answers',
     assert.match(app, /recordPreschoolLessonMistake/);
     assert.match(app, /recordLessonMistake/);
     assert.match(app, /subjectForCourse/);
-    assert.match(html, /storage\.js\?v=20260815-b2-review-v1/);
-    assert.match(html, /app\.js\?v=20260815-b2-review-v1/);
+    assert.match(html, /storage\.js\?v=20260816-english-uplift-v2/);
+    assert.match(html, /app\.js\?v=20260816-literacy-ui-v1/);
 });
 
 test('mistake review queue only returns day 1/3/7 items and drops mastered ones', () => {

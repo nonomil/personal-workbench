@@ -213,4 +213,48 @@ test('keeps the adult dashboard and workbench switcher inside a phone viewport',
   assert.match(adultStyles, /body\.variant-adult \.topbar-workbench-menu \{[^}]*max-width:\s*calc\(100vw - 28px\)/);
 });
 
+test('applies the woody study paper-glow palette to the adult workbench', () => {
+  const root = path.join(fileURLToPath(new URL('..', import.meta.url)), 'prj');
+  const adultStyles = fs.readFileSync(path.join(root, 'css', 'adult.css'), 'utf8');
+  assert.match(adultStyles, /body\.variant-adult \{[^}]*--orange: #b9893a/s);
+  assert.match(adultStyles, /body\.variant-adult \{[^}]*--lime: #3f5448/s);
+  assert.match(adultStyles, /body\.variant-adult \{[^}]*color-scheme: light/s);
+  assert.match(adultStyles, /0 1px 2px rgba\(90, 80, 60, 0\.05\)/);
+  assert.match(adultStyles, /body\.variant-adult \.btn-primary \{[^}]*background: #3f5448/);
+  assert.match(adultStyles, /rgba\(245, 230, 184, 0\.5\)/);
+  assert.match(fs.readFileSync(path.join(root, '成人成长工作台', 'index.html'), 'utf8'), /adult-workbench\.css\?v=20260815-true-wb-v1/);
+});
+
+function sliceFn(src, name) {
+  const start = src.indexOf('function ' + name + '(');
+  assert.ok(start >= 0, name + ' missing');
+  const next = src.indexOf('\n    function ', start + 10);
+  return src.slice(start, next === -1 ? start + 5000 : next);
+}
+
+test('adult workbench drops habit check-in from the home and life path', () => {
+  const root = path.join(fileURLToPath(new URL('..', import.meta.url)), 'prj');
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const overview = sliceFn(app, 'renderAdultOverview');
+  const life = sliceFn(app, 'renderLife');
+  const habits = sliceFn(app, 'renderHabitRows');
+  const derived = sliceFn(app, 'getDerived');
+  assert.doesNotMatch(overview, /toggle-habit/);
+  assert.match(overview, /adult-next-step|下一步/);
+  assert.doesNotMatch(life, /习惯打卡/);
+  assert.match(life, /习惯备忘/);
+  assert.doesNotMatch(habits, /toggle-habit/);
+  assert.doesNotMatch(derived, /habit\.checkedDates/);
+});
+
+test('workbench can build a local weekly memo without fetching', () => {
+  const root = path.join(fileURLToPath(new URL('..', import.meta.url)), 'prj');
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  assert.match(app, /function buildWorkbenchWeekMemo\(/);
+  const memo = sliceFn(app, 'buildWorkbenchWeekMemo');
+  assert.doesNotMatch(memo, /fetch\s*\(/);
+  assert.match(memo, /checkinDates|dailyPlans|mistakes/);
+  assert.match(app, /data-action="export-week-memo"/);
+});
+
 console.log(`workbench contract: ${storage.STORAGE_KEY}`);

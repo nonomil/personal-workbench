@@ -30,6 +30,7 @@
     "totalSunlightEarned": 0,
     "awardedIds": [],
     "claimedRewardIds": [],
+    "pendingRewardIds": [],
     "checkinDates": [],
     "claimedStreakRewardIds": [],
     "voiceEnabled": false,
@@ -58,8 +59,9 @@
   },
   "courseProgress": {
     "completedLessonIds": [],
-    "literacy": { "charStates": {}, "knownCount": 0 },
-    "english": { "wordStates": {}, "knownCount": 0 }
+    "literacy": { "mastery": {} },
+    "english": { "mastery": {} },
+    "minecraft": { "mastery": {} }
   },
   "adult": {
     "language": "zh-CN",
@@ -121,8 +123,9 @@
   - `voxel-adventure`:`rank / crystalsTotal / blocksBuilt / questsDone[] / unlockedLevel / clearedLevels[] / inventory{方块kind→数量} / lastCelebratedRank`(升段仪式去重) / `homeSnapshot{date,blocks,grid[]}`(最新家园快照,`grid` 为单字符行如 `g/d/s/.` ,progress 内部字段,不是新 localStorage key),方块工坊库存也写在这里;
   - `platform-quest`:`unlockedLevel / clearedLevels / stars{levelId→1-3} / coinsTotal / bestTime{levelId→秒}`;
   - `meta`:游玩日期戳、周目标、里程碑;游戏阳光每日上限 80、单事件上限 40,由 bridge 幂等去重。
-- `courseProgress` 除 `completedLessonIds` 外,识字/英语各有按字/词的掌握状态表(`charStates` / `wordStates`),由 `child-courses.js` 维护,复习队列(1/3/7/14 天)从这些状态派生。
-- `mistakes` 错题本沿用现有字段（`date` / `status` / `sourceKey` / `lessonId`）。今日卡“复习”队列由 `date` 与当天日期派生：未 `mastered` 且恰好第 1/3/7 天入队；练对标 `mastered` 出队。不新增 storage 字段，也不换主 key。
+- `courseProgress` 除 `completedLessonIds` 外，各科掌握状态表实名为 `courseProgress.<subject>.mastery`（`child-courses.js` 的 `normalize`：literacy / english / pinyin / poetry / math / motion / phonics / minecraft）。每项含 `state`（introduced/practicing/ready/maintenance）、`dates`、`attempts`、`correct`、`nextReview`。英语/MC 条目另含可选 `quiz: { listen, read, spell }` 分桶（各 `attempts`/`correct`）与可选 `masteredAt`（首次 ready 的本地日期，供词汇档案曲线；老快照缺省为空）。`normalize` 与 `cloneProgress` 必须保留这些条目内键，不新开顶层 key。自评「会了」与游戏 `recordWordAnswer` 仍走 `markKnown`，一次正确即 `ready`（兼容 B3 我的词库与方块传奇回流）。客观题走 `recordQuizAnswer`：累计答对 ≥3 且覆盖 ≥2 类题型才升 `ready`。复习队列(1/3/7/14 天)从 `nextReview` 派生。blocklegend 答词经 bridge `recordWordAnswer` 回流 `minecraft.mastery`，不发阳光、不改 `growth.worldGames`。
+- `mistakes` 错题本沿用现有字段（`date` / `status` / `sourceKey` / `lessonId`），并增量 `errorType`（`listen|read|spell`，老条目默认 `read`）与 `correctStreak`（专项复习连对计数，默认 0）。今日卡“复习”队列由 `date` 与当天日期派生：未 `mastered` 且恰好第 1/3/7 天入队；练对标 `mastered` 出队。不换主 key，不新增顶层 storage 字段。
+- `growth.pendingRewardIds` 是幼儿版阳光商城的待家长确认列表（字符串 id）。孩子点「兑换」只写入这里，不扣阳光、不进 `claimedRewardIds`；家长长按确认后才扣阳光并核销。老快照缺该字段时归一化为 `[]`。`claimedRewardIds` 语义不变，仍表示已核销。
 
 ## 约束
 

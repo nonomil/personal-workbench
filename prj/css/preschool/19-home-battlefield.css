@@ -226,7 +226,20 @@ body.variant-preschool .preschool-home-lane-status {
     white-space: nowrap;
 }
 
-body.variant-preschool .preschool-home-lane-status img { width: 22px; height: 22px; object-fit: contain; }
+body.variant-preschool .preschool-home-lane-status img,
+body.variant-preschool .preschool-home-lane-status .preschool-generated-art,
+body.variant-preschool .preschool-home-lane-status svg { width: 22px; height: 22px; object-fit: contain; }
+body.variant-preschool .preschool-home-lane-check img,
+body.variant-preschool .preschool-home-lane-check .preschool-generated-art,
+body.variant-preschool .preschool-home-lane-check svg {
+    display: block;
+    flex: 0 0 18px;
+    width: 18px;
+    height: 18px;
+    max-width: 18px;
+    max-height: 18px;
+    object-fit: contain;
+}
 body.variant-preschool .preschool-home-lane.is-done .preschool-home-lane-status { color: #e7ffd7; border-color: #9de37c; background: rgba(26, 102, 49, .68); }
 
 body.variant-preschool .preschool-home-battlefield-foot {

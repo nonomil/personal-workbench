@@ -41,6 +41,27 @@
         return { mastery: {} };
     }
 
+    function emptyQuizBuckets() {
+        return {
+            listen: { attempts: 0, correct: 0 },
+            read: { attempts: 0, correct: 0 },
+            spell: { attempts: 0, correct: 0 }
+        };
+    }
+
+    function normalizeQuizBuckets(source) {
+        const quiz = source && typeof source === 'object' ? source : {};
+        const next = emptyQuizBuckets();
+        ['listen', 'read', 'spell'].forEach(function (type) {
+            const bucket = quiz[type] && typeof quiz[type] === 'object' ? quiz[type] : {};
+            next[type] = {
+                attempts: Math.max(0, Number(bucket.attempts) || 0),
+                correct: Math.max(0, Number(bucket.correct) || 0)
+            };
+        });
+        return next;
+    }
+
     function cloneProgress(progress) {
         const source = progress && progress.mastery && typeof progress.mastery === 'object' ? progress.mastery : {};
         const next = { mastery: {} };
@@ -52,7 +73,9 @@
                 attempts: Math.max(0, Number(item.attempts) || 0),
                 correct: Math.max(0, Number(item.correct) || 0),
                 nextReview: String(item.nextReview || ''),
-                sunlightDelta: 0
+                sunlightDelta: 0,
+                masteredAt: String(item.masteredAt || ''),
+                quiz: normalizeQuizBuckets(item.quiz)
             };
         });
         return next;
@@ -155,32 +178,299 @@
         });
     }
 
-    function markKnown(progress, word, known, date, rules) {
-        const next = cloneProgress(progress);
-        const key = String(word || '').toLowerCase();
-        if (!key) return next;
-        const current = next.mastery[key] || {
+    function blankMastery() {
+        return {
             state: 'introduced',
             dates: [],
             attempts: 0,
             correct: 0,
             nextReview: '',
-            sunlightDelta: 0
+            sunlightDelta: 0,
+            masteredAt: '',
+            quiz: emptyQuizBuckets()
         };
+    }
+
+    function quizCoveredTypes(quiz) {
+        const buckets = normalizeQuizBuckets(quiz);
+        return ['listen', 'read', 'spell'].filter(function (type) {
+            return buckets[type].correct > 0;
+        });
+    }
+
+    function quizCorrectTotal(quiz) {
+        const buckets = normalizeQuizBuckets(quiz);
+        return buckets.listen.correct + buckets.read.correct + buckets.spell.correct;
+    }
+
+    function readyFromQuiz(item) {
+        return quizCorrectTotal(item && item.quiz) >= 3 && quizCoveredTypes(item && item.quiz).length >= 2;
+    }
+
+    function applyMasteryStamp(current, known, date, rules, mode) {
         const stamp = String(date || '');
         current.attempts += 1;
         if (known) current.correct += 1;
         if (stamp && current.dates.indexOf(stamp) === -1) current.dates.push(stamp);
-        current.state = known ? (current.state === 'maintenance' ? 'maintenance' : 'ready') : 'practicing';
+        if (current.state === 'maintenance') {
+            current.state = 'maintenance';
+        } else if (mode === 'self' && known) {
+            current.state = 'ready';
+        } else if (current.state === 'ready' || readyFromQuiz(current)) {
+            current.state = 'ready';
+        } else {
+            current.state = 'practicing';
+        }
         current.nextReview = addDays(stamp, intervalDays(current.state, rules));
         current.sunlightDelta = 0;
-        next.mastery[key] = current;
+        if (current.state === 'ready' && !current.masteredAt) current.masteredAt = stamp;
+        return current;
+    }
+
+    function markKnown(progress, word, known, date, rules) {
+        const next = cloneProgress(progress);
+        const key = String(word || '').toLowerCase();
+        if (!key) return next;
+        const current = next.mastery[key] || blankMastery();
+        next.mastery[key] = applyMasteryStamp(current, known, date, rules, 'self');
         return next;
+    }
+
+    function quizErrorType(type) {
+        if (type === 'listen-pick-image' || type === 'listen') return 'listen';
+        if (type === 'see-image-pick-word' || type === 'read') return 'read';
+        if (type === 'spell') return 'spell';
+        return 'read';
+    }
+
+    function recordQuizAnswer(progress, word, input) {
+        const source = input && typeof input === 'object' ? input : {};
+        const next = cloneProgress(progress);
+        const key = String(word || '').toLowerCase();
+        if (!key) return next;
+        const type = quizErrorType(source.type);
+        const current = next.mastery[key] || blankMastery();
+        current.quiz = normalizeQuizBuckets(current.quiz);
+        current.quiz[type].attempts += 1;
+        if (source.correct) current.quiz[type].correct += 1;
+        next.mastery[key] = applyMasteryStamp(current, !!source.correct, source.date, source.rules, 'quiz');
+        return next;
+    }
+
+    function itemImage(item) {
+        const source = item && typeof item === 'object' ? item : {};
+        const media = source.media && typeof source.media === 'object' ? source.media : {};
+        return String(media.image || source.image || '').trim();
+    }
+
+    function shuffleCopy(list) {
+        const next = (Array.isArray(list) ? list : []).slice();
+        for (let index = next.length - 1; index > 0; index -= 1) {
+            const swap = Math.floor(Math.random() * (index + 1));
+            const hold = next[index];
+            next[index] = next[swap];
+            next[swap] = hold;
+        }
+        return next;
+    }
+
+    function pickDistractors(target, bank, blocked, need, requireImage) {
+        const used = {};
+        used[String(target && target.text || '').toLowerCase()] = true;
+        (Array.isArray(blocked) ? blocked : []).forEach(function (word) {
+            used[String(word || '').toLowerCase()] = true;
+        });
+        const sameTheme = [];
+        const sameLevel = [];
+        const rest = [];
+        (Array.isArray(bank) ? bank : []).forEach(function (item) {
+            const text = String(item && item.text || '').toLowerCase();
+            if (!text || used[text]) return;
+            if (requireImage && !itemImage(item)) return;
+            if (item.level === target.level && item.theme === target.theme) sameTheme.push(item);
+            else if (item.level === target.level) sameLevel.push(item);
+            else rest.push(item);
+        });
+        return shuffleCopy(sameTheme).concat(shuffleCopy(sameLevel), shuffleCopy(rest)).slice(0, need);
+    }
+
+    function makeQuestion(type, target, distractors) {
+        const options = shuffleCopy([target].concat(distractors)).map(function (item) {
+            return {
+                text: String(item.text || ''),
+                zh: String(item.zh || ''),
+                image: itemImage(item),
+                art: String((item.media && item.media.art) || item.art || '')
+            };
+        });
+        const answerIndex = options.findIndex(function (option) {
+            return option.text === target.text;
+        });
+        return {
+            type: type,
+            word: String(target.text || ''),
+            zh: String(target.zh || ''),
+            image: itemImage(target),
+            audio: String((target.media && target.media.audio) || target.audio || ''),
+            options: options,
+            answerIndex: answerIndex
+        };
+    }
+
+    function buildQuizQuestions(batch, bank) {
+        const items = Array.isArray(batch) ? batch : [];
+        const pool = Array.isArray(bank) && bank.length ? bank : items;
+        const blocked = items.map(function (item) { return item && item.text; });
+        const questions = [];
+        items.forEach(function (target) {
+            if (!target || !target.text) return;
+            if (itemImage(target)) {
+                const listenPool = pickDistractors(target, pool, blocked, 3, true);
+                if (listenPool.length >= 3) questions.push(makeQuestion('listen-pick-image', target, listenPool));
+                const readPool = pickDistractors(target, pool, blocked, 3, false);
+                if (readPool.length >= 3) questions.push(makeQuestion('see-image-pick-word', target, readPool));
+            }
+        });
+        return questions;
+    }
+
+    function isEnglishMistake(item) {
+        if (!item) return false;
+        if (String(item.subject || '') === '英语') return true;
+        return /^(english|minecraft):/.test(String(item.sourceKey || ''));
+    }
+
+    function extractMistakeWord(item) {
+        const key = String(item && item.sourceKey || '');
+        const fromKey = key.replace(/^(english|minecraft):/i, '').trim().toLowerCase();
+        if (fromKey) return fromKey;
+        const question = String(item && item.question || '');
+        const head = question.split('·')[0] || question.split(' ')[0] || '';
+        return head.trim().toLowerCase();
+    }
+
+    function errorTypeLabel(type) {
+        if (type === 'listen') return '听力误判';
+        if (type === 'spell') return '拼写错误';
+        return '认读混淆';
+    }
+
+    function englishMistakeCards(mistakes, bank, today) {
+        const byText = {};
+        (Array.isArray(bank) ? bank : []).forEach(function (item) {
+            if (item && item.text) byText[String(item.text).toLowerCase()] = item;
+        });
+        const stamp = String(today || '');
+        return (Array.isArray(mistakes) ? mistakes : []).filter(isEnglishMistake).map(function (item) {
+            const word = extractMistakeWord(item);
+            const found = byText[word] || {};
+            const errorType = quizErrorType(item.errorType || 'read');
+            const elapsed = (function () {
+                const start = new Date(String(item.date || '') + 'T12:00:00');
+                const end = new Date(stamp + 'T12:00:00');
+                if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) return NaN;
+                return Math.round((end.getTime() - start.getTime()) / 86400000);
+            }());
+            return {
+                word: word,
+                zh: String(found.zh || item.correctAnswer || ''),
+                image: itemImage(found),
+                errorType: errorType,
+                label: errorTypeLabel(errorType),
+                attempts: Math.max(1, Number(item.attempts) || 1),
+                status: item.status === 'mastered' ? 'mastered' : 'todo',
+                sourceKey: String(item.sourceKey || ('english:' + word)),
+                due: item.status !== 'mastered' && (elapsed === 1 || elapsed === 3 || elapsed === 7 || elapsed === 14),
+                question: String(item.question || word)
+            };
+        }).filter(function (item) {
+            return item.word && item.status !== 'mastered';
+        });
+    }
+
+    function buildEnglishWrongbookDrill(mistakes, bank) {
+        const cards = englishMistakeCards(mistakes, bank, '');
+        const wanted = {};
+        cards.forEach(function (card) { wanted[card.word] = true; });
+        const batch = (Array.isArray(bank) ? bank : []).filter(function (item) { return item && wanted[item.text]; });
+        return { questions: buildQuizQuestions(batch, bank), cards: cards };
+    }
+
+    function applyEnglishWrongbookResult(mistakes, sourceKey, known) {
+        const key = String(sourceKey || '');
+        return (Array.isArray(mistakes) ? mistakes : []).map(function (item) {
+            if (!item || item.sourceKey !== key) return item;
+            const next = Object.assign({}, item);
+            if (known) {
+                next.correctStreak = (Number(next.correctStreak) || 0) + 1;
+                if (next.correctStreak >= 3) next.status = 'mastered';
+            } else {
+                next.correctStreak = 0;
+                next.status = 'todo';
+            }
+            return next;
+        });
+    }
+
+    function summarizeEnglishArchive(progress, bank, today) {
+        const mastery = progress && progress.mastery && typeof progress.mastery === 'object' ? progress.mastery : {};
+        const items = Array.isArray(bank) ? bank : [];
+        const stamp = String(today || '');
+        let known = 0;
+        let practicing = 0;
+        let reviewing = 0;
+        const rates = {
+            listen: { attempts: 0, correct: 0 },
+            read: { attempts: 0, correct: 0 },
+            spell: { attempts: 0, correct: 0 }
+        };
+        const dated = [];
+        Object.keys(mastery).forEach(function (word) {
+            const item = mastery[word] || {};
+            if (item.state === 'ready' || item.state === 'maintenance') known += 1;
+            else if (item.state === 'practicing' || item.state === 'introduced') practicing += 1;
+            if (item.nextReview && stamp && String(item.nextReview) <= stamp && item.state !== 'introduced') reviewing += 1;
+            const quiz = normalizeQuizBuckets(item.quiz);
+            ['listen', 'read', 'spell'].forEach(function (type) {
+                rates[type].attempts += quiz[type].attempts;
+                rates[type].correct += quiz[type].correct;
+            });
+            if (item.masteredAt) dated.push({ date: String(item.masteredAt), word: word });
+        });
+        dated.sort(function (a, b) { return a.date.localeCompare(b.date); });
+        const curve = [];
+        dated.forEach(function (entry) {
+            const last = curve[curve.length - 1];
+            if (last && last.date === entry.date) last.count += 1;
+            else curve.push({ date: entry.date, count: (last ? last.count : 0) + 1 });
+        });
+        return { known: known, practicing: practicing, reviewing: reviewing, bankSize: items.length, rates: rates, curve: curve };
+    }
+
+    function renderEnglishArchive(curve) {
+        const list = Array.isArray(curve) ? curve : [];
+        const maxY = 300;
+        const points = list.map(function (entry, index) {
+            const x = 36 + (list.length <= 1 ? 240 : (index / (list.length - 1)) * 240);
+            const y = 168 - Math.max(0, Math.min(maxY, Number(entry.count) || 0)) / maxY * 140;
+            return x.toFixed(1) + ',' + y.toFixed(1);
+        }).join(' ');
+        const line80 = (168 - 80 / maxY * 140).toFixed(1);
+        const line300 = (168 - 300 / maxY * 140).toFixed(1);
+        const poly = points ? '<polyline points="' + points + '"></polyline>' : '';
+        return '<svg class="english-archive-svg literacy-archive-svg" viewBox="0 0 320 190" role="img" aria-label="词汇成长曲线"><line x1="28" y1="' + line80 + '" x2="300" y2="' + line80 + '" stroke="#8a6b1f" stroke-dasharray="4 4"></line><line x1="28" y1="' + line300 + '" x2="300" y2="' + line300 + '" stroke="#2d8748" stroke-dasharray="4 4"></line><text x="302" y="' + (Number(line80) + 4) + '" font-size="10" fill="#8a6b1f">80</text><text x="302" y="' + (Number(line300) + 4) + '" font-size="10" fill="#2d8748">300</text>' + poly + '</svg>';
     }
 
     function getRuntimeBank() {
         const data = global.PersonalWorkbenchEnglishVocabData;
         return parseBank(data && data.bank);
+    }
+
+    function getDailyLoopBank() {
+        const data = global.PersonalWorkbenchEnglishDailyData;
+        const runtime = getRuntimeBank();
+        if (data && typeof data.getDailyLoopBank === 'function') return data.getDailyLoopBank(runtime);
+        return runtime;
     }
 
     function getRuntimeMinecraftBank() {
@@ -203,7 +493,17 @@
         buildSpeakBatch: buildSpeakBatch,
         toMatchPairs: toMatchPairs,
         markKnown: markKnown,
+        cloneProgress: cloneProgress,
+        buildQuizQuestions: buildQuizQuestions,
+        recordQuizAnswer: recordQuizAnswer,
+        quizErrorType: quizErrorType,
+        englishMistakeCards: englishMistakeCards,
+        buildEnglishWrongbookDrill: buildEnglishWrongbookDrill,
+        applyEnglishWrongbookResult: applyEnglishWrongbookResult,
+        summarizeEnglishArchive: summarizeEnglishArchive,
+        renderEnglishArchive: renderEnglishArchive,
         getRuntimeBank: getRuntimeBank,
+        getDailyLoopBank: getDailyLoopBank,
         getRuntimeMinecraftBank: getRuntimeMinecraftBank,
         getRuntimeRules: getRuntimeRules
     };

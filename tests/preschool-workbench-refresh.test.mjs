@@ -86,6 +86,9 @@ test('exposes a sibling practice action for mapped preschool plans without nesti
   assert.match(app, /class="preschool-home-lane-practice"/);
   assert.match(app, /data-action="open-plan-practice"/);
   assert.match(homeTemplate, /preschool-home-lane-check/);
+  const homeSimple = fs.readFileSync(path.join(root, 'css', 'preschool', '37-home-simple.css'), 'utf8');
+  assert.match(homeSimple, /\.preschool-home-lane-check \.preschool-generated-art/);
+  assert.match(homeSimple, /width:\s*18px/);
   assert.match(app, /ui\.lessonSession = \{ id: match\.lesson\.id, courseId: match\.course\.id, selectedIndex: null, correct: false, planId:/);
 });
 
@@ -119,11 +122,11 @@ test('keeps preschool plans in one editable list instead of a fixed core and col
 
 test('bumps preschool runtime assets when the editable plan interaction changes', () => {
   const html = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
-  assert.match(html, /preschool-workbench\.css\?v=20260815-b2-review-v1/);
-  assert.match(html, /config\.js\?v=20260815-focus-arcade-v1/);
-  assert.match(html, /storage\.js\?v=20260815-b2-review-v1/);
-  assert.match(html, /app\.js\?v=20260815-b2-review-v1/);
-  assert.match(html, /workbench-bridge\.js\?v=20260815-voxel-home-v1/);
+  assert.match(html, /preschool-workbench\.css\?v=20260816-english-uplift-v2/);
+  assert.match(html, /config\.js\?v=20260816-literacy-uplift-v1/);
+  assert.match(html, /storage\.js\?v=20260816-english-uplift-v2/);
+  assert.match(html, /app\.js\?v=20260816-literacy-ui-v1/);
+  assert.match(html, /workbench-bridge\.js\?v=20260815-blocklegend-v1/);
 });
 
 test('updates from the visible preschool snapshot when persistence is one revision behind', () => {
@@ -286,7 +289,7 @@ test('keeps preschool course content spacious and supports a focused learning la
   const workbenchCss = fs.readFileSync(path.join(root, 'css', 'preschool-workbench.css'), 'utf8');
   assert.match(app, /renderPreschoolCourseWallCard/);
   assert.match(app, /renderPreschoolCoursesTodayCard/);
-  assert.match(workbenchCss, /34-course-wall\.css\?v=20260815-focus-wall-v1/);
+  assert.match(workbenchCss, /34-course-wall\.css\?v=20260815-b3-adventure-v1/);
   assert.match(app, /preschool-course-wall/);
   assert.match(app, /preschool-course-today/);
   assert.match(app, /preschool-course-layout/);
@@ -336,11 +339,8 @@ test('keeps the refreshed reward tiers and five-lane defense contract in the pre
   assert.match(app, /preschool-pea-fired/);
   assert.match(app, /renderPixelStats/);
   assert.match(app, /pixel-stat-card/);
-  assert.match(app, /renderPixelMap\(growth, plans, true\)/);
+  assert.match(app, /function renderPreschoolWorldGameLaunch\(/);
   assert.match(app, /function renderPreschoolBattle\(\)/);
-  assert.match(app, /pixel-battle-layout/);
-  assert.match(app, /pixel-rulebook/);
-  assert.match(app, /pixel-battle-plant-grid/);
   assert.match(app, /function renderPreschoolBattleRewards\(growth, defense\)/);
   assert.match(app, /pixel-battle-reward-panel/);
   assert.match(app, /function renderPreschoolDailyChallenge\(plans, defense\)/);
@@ -617,7 +617,7 @@ test('puts a single real-work workflow card above preschool home check-in lanes'
   assert.doesNotMatch(heroRender, /再完成\s*\d+\s*项打卡/);
   assert.match(app, /item\.done && item\.completionSource === 'practice'/);
   assert.match(styles, /preschool-home-hero/);
-  assert.match(html, /app\.js\?v=20260815-b2-review-v1/);
+  assert.match(html, /app\.js\?v=20260816-literacy-ui-v1/);
   assert.doesNotMatch(app, /首页只负责打卡/);
 });
 
@@ -806,8 +806,8 @@ test('defines answerable activities for every preschool lesson', () => {
   const config = fs.readFileSync(path.join(root, 'config.js'), 'utf8');
   const preschoolCourses = config.split("id: 'preschool-literacy'")[1].split("actions: { 'add-plan'")[0];
   const activities = preschoolCourses.match(/activity:\s*\{/g) || [];
-  assert.equal(activities.length, 29);
-  assert.equal((preschoolCourses.match(/optionIcons:\s*\[/g) || []).length, 29);
+  assert.equal(activities.length, 31);
+  assert.equal((preschoolCourses.match(/optionIcons:\s*\[/g) || []).length, 31);
   assert.match(preschoolCourses, /prompt: '/);
   assert.match(preschoolCourses, /options: \[/);
   assert.match(preschoolCourses, /answer: \d/);
@@ -829,7 +829,7 @@ test('keeps preschool option art aligned with its answer choices', () => {
       optionIcons: optionIcons ? (optionIcons[1].match(/'[^']*'/g) || []) : []
     };
   });
-  assert.equal(activities.length, 29);
+  assert.equal(activities.length, 31);
   for (const activity of activities) {
     assert.equal(activity.optionIcons.length, activity.options.length);
     for (const item of activity.optionIcons) {
@@ -1070,7 +1070,7 @@ test('turns flashcard subjects into a flip-card page with known/unknown marking'
   const html = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
   assert.match(html, /preschool-poetry-data\.js\?v=20260815-poem-meaning-v1/);
   assert.match(html, /preschool-poetry\.js\?v=20260815-poem-meaning-v1/);
-  assert.match(workbenchCss, /35-course-flashcards\.css\?v=20260815-vocab-a1-v1/);
+  assert.match(workbenchCss, /35-course-flashcards\.css\?v=20260815-b3-s4-v1/);
   assert.match(styles, /preschool-card-art/);
   assert.match(styles, /preschool-flashcard-cover/);
   assert.match(app, /data-action="flashcard-reveal"/);
@@ -1086,18 +1086,22 @@ test('turns flashcard subjects into a flip-card page with known/unknown marking'
   assert.match(app, /preschool-focus-play-host/);
   assert.match(app, /if \(isFocusInlineSession\(\)\)/);
   assert.doesNotMatch(app, /isFocusInlineSession\(\)[\s\S]{0,80}showModal/);
-  assert.match(app, /data-action="focus-pick-level"/);
-  assert.match(app, /data-action="focus-start-level"/);
+  assert.match(app, /data-action="focus-start-level" data-level=/);
   assert.match(app, /play-level-pick/);
   assert.match(app, /focus-arcade-idle/);
-  assert.match(app, /开始挑战/);
+  assert.match(app, /focus-arcade-hero/);
   assert.match(app, /play-win-banner/);
+  assert.match(app, /data-focus-skin/);
+  assert.match(app, /focus-arcade-row/);
   assert.match(styles, /preschool-focus-game-card/);
   assert.match(styles, /preschool-focus-play-host/);
   assert.match(styles, /play-flip-inner/);
   assert.match(styles, /play-win-banner/);
   assert.match(styles, /focus-arcade-card/);
-  assert.match(styles, /play-level-card|focus-arcade-pill/);
+  assert.match(styles, /play-level-card|focus-arcade-row/);
+  assert.match(styles, /--fg-deep/);
+  assert.match(styles, /focus-arcade-hero/);
+  assert.doesNotMatch(styles, /is-focus-arcade \.sidebar[\s\S]{0,40}display:\s*none/);
   assert.match(styles, /preschool-summer-task/);
   assert.match(styles, /preschool-poem-today/);
   assert.match(styles, /preschool-poem-lines/);
@@ -1146,8 +1150,8 @@ test('adds a today preview on the course wall and splits classic into a child me
   assert.match(app, /更多练习/);
   assert.match(app, /更多资料/);
   assert.doesNotMatch(app, /浏览完整资料库/);
-  assert.match(html, /preschool-workbench\.css\?v=20260815-b2-review-v1/);
-  assert.match(html, /app\.js\?v=20260815-b2-review-v1/);
+  assert.match(html, /preschool-workbench\.css\?v=20260816-english-uplift-v2/);
+  assert.match(html, /app\.js\?v=20260816-literacy-ui-v1/);
   assert.match(html, /preschool-card-art\.js\?v=20260815-english-auto-v1/);
   assert.match(workbenchCss, /36-course-menu\.css\?v=20260815-menu-cards-v2/);
   assert.match(styles, /preschool-course-menu/);

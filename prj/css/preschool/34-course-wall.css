@@ -14,6 +14,52 @@
 .preschool-course-today-copy small { font-size: 0.82rem; color: #8a6b1f; font-weight: 700; }
 .preschool-course-today-copy strong { font-size: 1.18rem; color: #4a3a10; line-height: 1.3; overflow-wrap: anywhere; }
 .preschool-course-today-cta { flex: 0 0 auto; min-height: 48px; padding: 0 20px; border-radius: 16px; font-size: 1rem; }
+.preschool-course-today-split {
+    flex: 1 1 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 12px;
+    margin-top: 4px;
+}
+.preschool-course-today-required,
+.preschool-course-today-adventure {
+    min-width: 0;
+    padding: 10px 12px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, .55);
+}
+.preschool-course-today-required small,
+.preschool-course-today-adventure small {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: #8a6b1f;
+}
+.preschool-course-today-required ul {
+    margin: 6px 0 0;
+    padding-left: 1.1em;
+}
+.preschool-course-today-required li.is-done { text-decoration: line-through; color: #7a8a6e; }
+.preschool-course-today-adventure p { margin: 6px 0; font-size: 0.9rem; color: #8a6b1f; }
+.preschool-course-today-worlds { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.preschool-course-today-world {
+    min-height: 36px;
+    padding: 0 10px;
+    border: 1px solid rgba(138, 107, 31, .28);
+    border-radius: 999px;
+    background: #fff8df;
+    color: #4a3a10;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 800;
+    cursor: pointer;
+}
+.preschool-course-today-adventure.is-locked .preschool-course-today-world,
+.preschool-course-today-world:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+    background: #f3efe2;
+}
 
 .preschool-course-wall {
     display: grid;
@@ -49,8 +95,22 @@
 .preschool-course-wall-card.tone-gold { background: #fff7dc; border-color: rgba(224, 172, 62, 0.45); }
 .preschool-course-wall-card.tone-green { background: #eaf7ea; border-color: rgba(63, 162, 92, 0.4); }
 
+.preschool-focus-game-wall { margin-top: 4px; }
+.preschool-focus-game-card { min-height: 220px; padding: 16px 12px 14px; }
+.preschool-focus-game-card .preschool-course-wall-art { width: 118px; height: 118px; }
+.preschool-focus-game-card .preschool-course-wall-art img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 6px 14px rgba(31, 73, 42, 0.12);
+}
+
 @media (max-width: 760px) {
     .preschool-course-wall { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
     .preschool-course-today { flex-wrap: wrap; }
+    .preschool-course-today-split { grid-template-columns: 1fr; }
     .preschool-course-today-cta { flex: 1 1 100%; }
+    .preschool-focus-game-card { min-height: 196px; }
+    .preschool-focus-game-card .preschool-course-wall-art { width: 96px; height: 96px; }
 }

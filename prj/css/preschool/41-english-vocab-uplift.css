@@ -1,0 +1,192 @@
+/* 41 · 英语认单词客观题：听音选图 / 看图选词 */
+
+.english-quiz {
+    display: grid;
+    gap: 14px;
+    justify-items: center;
+}
+
+.english-quiz-prompt {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #23422c;
+    text-align: center;
+}
+
+.english-quiz-stem {
+    width: min(100%, 360px);
+    min-height: 168px;
+    border-radius: 26px;
+    padding: 22px 20px;
+    background: #ffffff;
+    border: 2px solid rgba(63, 162, 92, 0.25);
+    box-shadow: 0 12px 28px rgba(31, 73, 42, 0.1);
+    display: grid;
+    place-items: center;
+    gap: 10px;
+}
+
+.english-quiz-stem .preschool-card-art,
+.english-quiz-stem .preschool-card-photo {
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
+}
+
+.english-quiz-listen {
+    min-width: 160px;
+    min-height: 64px;
+    padding: 0 22px;
+    border-radius: 999px;
+    border: 2px solid #2d8748;
+    background: #eefae4;
+    color: #2d8748;
+    font-size: 1.05rem;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.english-quiz-listen:hover,
+.english-quiz-listen:focus-visible {
+    background: #dff6d2;
+}
+
+.english-quiz-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.english-quiz-option {
+    min-height: 72px;
+    border-radius: 22px;
+    border: 2px solid rgba(35, 66, 44, 0.16);
+    background: #ffffff;
+    color: #23422c;
+    font-size: 1.15rem;
+    font-weight: 800;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    gap: 6px;
+    padding: 12px;
+}
+
+.english-quiz-option .preschool-card-art,
+.english-quiz-option .preschool-card-photo {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+}
+
+.english-quiz-option.is-selected {
+    border-color: #2d8748;
+    color: #2d8748;
+    box-shadow: 0 0 0 3px rgba(45, 135, 72, 0.18);
+}
+
+.english-quiz-option.is-correct {
+    border-color: #2d8748;
+    background: #eefae4;
+    color: #1f6b38;
+}
+
+.english-quiz-option.is-wrong {
+    border-color: #c9842a;
+    background: #fff6e4;
+    color: #8a6b1f;
+}
+
+.english-quiz-option:disabled {
+    cursor: default;
+}
+
+.english-quiz-feedback {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #5c7350;
+    text-align: center;
+}
+
+.english-quiz-feedback.is-ok { color: #2d8748; }
+.english-quiz-feedback.is-miss { color: #8a6b1f; }
+
+.english-more-panel {
+    margin-top: 16px;
+    padding: 10px 14px 12px;
+    border-radius: 22px;
+    background: #fffdf8;
+    border: 2px solid rgba(63, 162, 92, 0.18);
+}
+.english-more-panel > summary {
+    list-style: none;
+    cursor: pointer;
+    font-weight: 800;
+    color: #23422c;
+}
+.english-more-panel > summary::-webkit-details-marker { display: none; }
+.english-more-panel > summary::after {
+    content: '展开';
+    float: right;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #6b7f5e;
+}
+.english-more-panel[open] > summary::after { content: '收起'; }
+.english-more-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 10px 0 8px;
+}
+.english-more-lessons { margin-top: 10px; }
+.english-wrong-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+}
+.english-wrong-card {
+    display: grid;
+    grid-template-columns: 64px 1fr auto;
+    gap: 10px;
+    align-items: center;
+    padding: 12px;
+    border-radius: 22px;
+    background: #ffffff;
+    border: 2px solid rgba(63, 162, 92, 0.22);
+}
+.english-wrong-card.is-due { background: #fff6e4; border-color: #e0ac3e; }
+.english-wrong-art .preschool-card-art,
+.english-wrong-art .preschool-card-photo { width: 56px; height: 56px; object-fit: contain; }
+.english-wrong-tag {
+    border-radius: 999px;
+    padding: 2px 8px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    background: #ffe7b8;
+    color: #8a6b1f;
+}
+.english-wrong-tag.is-listen { background: #fff3bf; }
+.english-wrong-tag.is-read { background: #f3e2c8; }
+.english-wrong-tag.is-spell { background: #ffd7b8; }
+.english-rate-row { display: grid; gap: 8px; margin-top: 12px; }
+.english-rate-bar {
+    display: grid;
+    grid-template-columns: 48px 1fr 40px;
+    gap: 8px;
+    align-items: center;
+    background: #f7faf3;
+    border-radius: 999px;
+    padding: 6px 10px;
+    position: relative;
+}
+.english-rate-bar i {
+    display: block;
+    height: 8px;
+    border-radius: 999px;
+    background: #2d8748;
+}
+.english-archive-page .literacy-uplift-kpis { grid-template-columns: repeat(4, minmax(0, 1fr)); }

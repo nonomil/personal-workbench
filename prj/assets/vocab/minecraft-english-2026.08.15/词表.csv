@@ -1,0 +1,325 @@
+﻿id,word,translation,category,curriculumLevel,example,exampleZh,image,audio
+mc-cave,cave,洞穴,place,MC-D1,We enter the cave with bright torches.,我们举着亮火把走进cave。,media/semantic/cave.png,media/audio/cave.mp3
+mc-birch,birch,白桦,block,MC-D1,We make a small path with the birch.,我们用birch铺出一条小路。,media/semantic/birch.png,media/audio/birch.mp3
+mc-dirt,dirt,泥土,block,MC-D1,We choose the dirt for the garden wall.,花园围墙我们选用dirt。,media/semantic/dirt.png,
+mc-log,log,原木,block,MC-D1,I stack the log to make a small wall.,我把log叠成一堵小墙。,media/semantic/log.png,
+mc-axe,axe,斧,tool,MC-D1,I lend the axe to my teammate.,我把axe借给队友。,media/semantic/axe.png,
+mc-hoe,hoe,锄,tool,MC-D1,I lend the hoe to my teammate.,我把hoe借给队友。,media/semantic/hoe.png,
+mc-blaze,blaze,烈焰人,mob,MC-D1,I spot a blaze near the village.,我在村子附近看见blaze。,media/semantic/blaze.png,media/audio/blaze.mp3
+mc-slime,slime,史莱姆,mob,MC-D1,I leave food for the slime.,我给slime留一点食物。,media/semantic/slime.png,media/audio/slime.mp3
+mc-squid,squid,鱿鱼,mob,MC-D1,I spot a squid near the village.,我在村子附近看见squid。,media/semantic/squid.png,media/audio/squid.mp3
+mc-witch,witch,女巫,mob,MC-D1,The witch visits our camp at dawn.,天亮时witch来到我们的营地。,media/semantic/witch.png,media/audio/witch.mp3
+mc-swamp,swamp,沼泽,biome,MC-D1,We build a lookout in the swamp.,我们在swamp里建了一个瞭望台。,media/semantic/swamp.png,
+mc-taiga,taiga,针叶林,biome,MC-D1,We explore the taiga after breakfast.,吃完早饭我们去探索taiga。,media/semantic/taiga.png,
+mc-cod,cod,鳕鱼,food,MC-D1,I share the cod with my teammate.,我和队友一起用cod。,media/semantic/cod.png,
+mc-melon,melon,西瓜,food,MC-D1,We save the melon for the long walk.,我们把melon留给走远路的时候。,media/semantic/melon.png,
+mc-allay,allay,悦灵,item,MC-D1,I use the allay during our mission.,任务里我用到了allay。,media/semantic/allay.png,media/audio/allay.mp3
+mc-anvil,anvil,铁砧,item,MC-D1,We keep the anvil in a quiet corner.,我们把anvil放在安静的角落。,media/semantic/anvil.png,
+mc-arrow,arrow,箭,item,MC-D1,I check the arrow before leaving camp.,离开营地前我先检查arrow。,media/semantic/arrow.png,
+mc-bat,bat,蝙蝠,item,MC-D1,The bat stays safe in my backpack.,bat安全地待在我的背包里。,media/semantic/bat.png,media/audio/bat.mp3
+mc-breed,breed,繁殖,item,MC-D1,The breed stays safe in my backpack.,breed安全地待在我的背包里。,media/semantic/breed.png,media/audio/breed.mp3
+mc-chunk,chunk,区块,item,MC-D1,My teammate passes me the chunk.,队友把chunk递给我。,media/semantic/chunk.png,
+mc-drops,drops,掉落物,item,MC-D1,My teammate passes me the drops.,队友把drops递给我。,media/semantic/drops.png,media/audio/drops.mp3
+mc-dust,dust,粉末,item,MC-D1,We keep the dust in a quiet corner.,我们把dust放在安静的角落。,media/semantic/dust.png,media/audio/dust.mp3
+mc-flame,flame,火矢,item,MC-D1,I place the flame in my adventure chest.,我把flame放进冒险箱子。,media/semantic/flame.png,media/audio/flame.mp3
+mc-flint,flint,燧石,item,MC-D1,I check the flint beside the campfire.,我在篝火旁检查flint。,media/semantic/flint.png,
+mc-ghast,ghast,恶魂,item,MC-D1,The ghast is ready for our next adventure.,ghast已经准备好下一次冒险。,media/semantic/ghast.png,media/audio/ghast.mp3
+mc-grove,grove,树林,item,MC-D1,I place the grove in my adventure chest.,我把grove放进冒险箱子。,media/semantic/grove.png,
+mc-husk,husk,尸壳,item,MC-D1,We prepare the husk before sunset.,日落前我们把husk准备好。,media/semantic/husk.png,media/audio/husk.mp3
+mc-igloo,igloo,冰屋,item,MC-D1,We keep the igloo in a quiet corner.,我们把igloo放在安静的角落。,media/semantic/igloo.png,media/audio/igloo.mp3
+mc-ingot,ingot,锭,item,MC-D1,I return the ingot after the mission.,任务结束后我把ingot还回去。,media/semantic/ingot.png,media/audio/ingot.mp3
+mc-lever,lever,拉杆,item,MC-D1,We share the lever when the team needs it.,队友需要时我们一起用lever。,media/semantic/lever.png,media/audio/lever.mp3
+mc-llama,llama,羊驼,item,MC-D1,I show the llama to my teammate at camp.,我在营地把llama给队友看。,media/semantic/llama.png,media/audio/llama.mp3
+mc-loom,loom,织布机,item,MC-D1,The loom stays safe in my backpack.,loom安全地待在我的背包里。,media/semantic/loom.png,
+mc-loot,loot,战利品,item,MC-D1,I find the loot beside the crafting table.,我在工作台旁边找到loot。,media/semantic/loot.png,media/audio/loot.mp3
+mc-lure,lure,诱钓,item,MC-D1,I return the lure after the mission.,任务结束后我把lure还回去。,media/semantic/lure.png,media/audio/lure.mp3
+mc-mace,mace,狼牙棒,item,MC-D1,I check the mace beside the campfire.,我在篝火旁检查mace。,media/semantic/mace.png,
+mc-mob,mob,生物,item,MC-D1,I find the mob beside the crafting table.,我在工作台旁边找到mob。,media/semantic/mob.png,
+mc-mule,mule,骡子,item,MC-D1,I check the mule before leaving camp.,离开营地前我先检查mule。,media/semantic/mule.png,media/audio/mule.mp3
+mc-ore,ore,矿石,item,MC-D1,The ore stays safe in my backpack.,ore安全地待在我的背包里。,media/semantic/ore.png,media/audio/ore.mp3
+mc-plank,plank,木板,item,MC-D1,I show the plank to my teammate at camp.,我在营地把plank给队友看。,media/semantic/plank.png,media/audio/plank.mp3
+mc-power,power,力量,item,MC-D1,We share the power when the team needs it.,队友需要时我们一起用power。,media/semantic/power.png,media/audio/power.mp3
+mc-punch,punch,冲击,item,MC-D1,We share the punch when the team needs it.,队友需要时我们一起用punch。,media/semantic/punch.png,media/audio/punch.mp3
+mc-raid,raid,袭击,item,MC-D1,I find the raid beside the crafting table.,我在工作台旁边找到raid。,media/semantic/raid.png,media/audio/raid.mp3
+mc-rail,rail,铁轨,item,MC-D1,The rail stays safe in my backpack.,rail安全地待在我的背包里。,media/semantic/rail.png,media/audio/rail.mp3
+mc-realm,realm,领域服务器,item,MC-D1,The realm stays safe in my backpack.,realm安全地待在我的背包里。,media/semantic/realm.png,media/audio/realm.mp3
+mc-sculk,sculk,幽匿块,item,MC-D1,I use the sculk during our mission.,任务里我用到了sculk。,media/semantic/sculk.png,
+mc-scute,scute,鳞甲,item,MC-D1,We prepare the scute before sunset.,日落前我们把scute准备好。,media/semantic/scute.png,
+mc-slab,slab,台阶,item,MC-D1,We keep the slab in a quiet corner.,我们把slab放在安静的角落。,media/semantic/slab.png,media/audio/slab.mp3
+mc-smite,smite,亡灵杀手,item,MC-D1,I use the smite during our mission.,任务里我用到了smite。,media/semantic/smite.png,media/audio/smite.mp3
+mc-stray,stray,流浪者,item,MC-D1,We prepare the stray before sunset.,日落前我们把stray准备好。,media/semantic/stray.png,media/audio/stray.mp3
+mc-tame,tame,驯服,item,MC-D1,I pick up the tame near the path.,我在小路边捡起tame。,media/semantic/tame.png,media/audio/tame.mp3
+mc-tick,tick,游戏刻,item,MC-D1,I place the tick in my adventure chest.,我把tick放进冒险箱子。,media/semantic/tick.png,media/audio/tick.mp3
+mc-tnt,tnt,TNT 炸药,item,MC-D1,I return the tnt after the mission.,任务结束后我把tnt还回去。,media/semantic/tnt.png,
+mc-torch,torch,火把,item,MC-D1,The torch stays safe in my backpack.,torch安全地待在我的背包里。,media/semantic/torch.png,
+mc-tuff,tuff,凝灰岩,item,MC-D1,We share the tuff when the team needs it.,队友需要时我们一起用tuff。,media/semantic/tuff.png,
+mc-vault,vault,金库,item,MC-D1,I check the vault beside the campfire.,我在篝火旁检查vault。,media/semantic/vault.png,media/audio/vault.mp3
+mc-vex,vex,恼鬼,item,MC-D1,We share the vex when the team needs it.,队友需要时我们一起用vex。,media/semantic/vex.png,media/audio/vex.mp3
+mc-wool,wool,羊毛,item,MC-D1,The wool helps us finish the small task.,wool帮我们做完这件小事。,media/semantic/wool.png,media/audio/wool.mp3
+mc-dye,dye,染料,color,MC-D1,We choose dye wool for the cozy room.,我们选dye羊毛布置温暖的房间。,media/semantic/dye.png,media/audio/dye.mp3
+mc-daisy,daisy,雏菊,plant,MC-D1,I plant the daisy near the village well.,我在村子水井旁种下daisy。,media/semantic/daisy.png,media/audio/daisy.mp3
+mc-tulip,tulip,郁金香,plant,MC-D1,I plant the tulip near the village well.,我在村子水井旁种下tulip。,media/semantic/tulip.png,media/audio/tulip.mp3
+mc-bullseye,bullseye,正中靶心,advancement,MC-D2,Our team earns bullseye today.,今天我们队得到了bullseye。,media/semantic/bullseye.png,
+mc-acacia,acacia,金合欢,block,MC-D2,I stack the acacia to make a small wall.,我把acacia叠成一堵小墙。,media/semantic/acacia.png,media/audio/acacia.mp3
+mc-actinium,actinium,锕,block,MC-D2,The actinium keeps our little house strong.,actinium让小屋更结实。,media/semantic/actinium.png,
+mc-aluminum,aluminum,铝,block,MC-D2,A torch shines on the aluminum at night.,夜里火把照亮了aluminum。,media/semantic/aluminum.png,
+mc-antimony,antimony,n.法律的自相矛盾,block,MC-D2,I place the antimony beside the doorway.,我把antimony放在门口。,media/semantic/antimony.png,
+mc-arena,arena,竞技场,block,MC-D2,I count the arena before we start building.,开工前我先数一数arena。,media/semantic/arena.png,
+mc-argon,argon,氩,block,MC-D2,The builder stores the argon in a chest.,建造的人把argon放进箱子。,media/semantic/argon.png,
+mc-arsenic,arsenic,砷剂,block,MC-D2,I count the arsenic before we start building.,开工前我先数一数arsenic。,media/semantic/arsenic.png,
+mc-astatine,astatine,砹,block,MC-D2,I place the astatine beside the doorway.,我把astatine放在门口。,media/semantic/astatine.png,
+mc-barium,barium,钡,block,MC-D2,I collect the barium before sunset.,日落前我把barium收好。,media/semantic/barium.png,
+mc-basalt,basalt,玄武岩,block,MC-D2,I replace the broken basalt near camp.,我在营地旁换掉坏掉的basalt。,media/semantic/basalt.png,
+mc-bismuth,bismuth,铋,block,MC-D2,The bismuth gives our base a new shape.,bismuth让基地有了新样子。,media/semantic/bismuth.png,
+mc-bohrium,bohrium,Bh元素,block,MC-D2,The bohrium gives our base a new shape.,bohrium让基地有了新样子。,media/semantic/bohrium.png,
+mc-boron,boron,硼,block,MC-D2,I stack the boron to make a small wall.,我把boron叠成一堵小墙。,media/semantic/boron.png,
+mc-brick,brick,红砖,block,MC-D2,I replace the broken brick near camp.,我在营地旁换掉坏掉的brick。,media/semantic/brick.png,
+mc-bricks,bricks,砖块,block,MC-D2,A torch shines on the bricks at night.,夜里火把照亮了bricks。,media/semantic/bricks.png,
+mc-bromine,bromine,溴,block,MC-D2,Rain falls softly on the bromine.,雨轻轻落在bromine上。,media/semantic/bromine.png,
+mc-cadmium,cadmium,镉,block,MC-D2,I stack the cadmium to make a small wall.,我把cadmium叠成一堵小墙。,media/semantic/cadmium.png,
+mc-calcium,calcium,钙,block,MC-D2,I stack the calcium to make a small wall.,我把calcium叠成一堵小墙。,media/semantic/calcium.png,
+mc-carbon,carbon,碳色,block,MC-D2,I count the carbon before we start building.,开工前我先数一数carbon。,media/semantic/carbon.png,
+mc-cerium,cerium,铈,block,MC-D2,We choose the cerium for the garden wall.,花园围墙我们选用cerium。,media/semantic/cerium.png,
+mc-cesium,cesium,铯,block,MC-D2,A torch shines on the cesium at night.,夜里火把照亮了cesium。,media/semantic/cesium.png,
+mc-chain,chain,锁链,block,MC-D2,We build a safe step with the chain.,我们用chain搭出安全的台阶。,media/semantic/chain.png,media/audio/chain.mp3
+mc-chlorine,chlorine,氯,block,MC-D2,We make a small path with the chlorine.,我们用chlorine铺出一条小路。,media/semantic/chlorine.png,
+mc-chromium,chromium,铬,block,MC-D2,I stack the chromium to make a small wall.,我把chromium叠成一堵小墙。,media/semantic/chromium.png,
+mc-clay,clay,黏土块,block,MC-D2,We build a safe step with the clay.,我们用clay搭出安全的台阶。,media/semantic/clay.png,
+mc-cobalt,cobalt,钴蓝色,block,MC-D2,We use the cobalt to mark the path home.,我们用cobalt标出回家的路。,media/semantic/cobalt.png,
+mc-cobweb,cobweb,蜘蛛网,block,MC-D2,The cobweb keeps our little house strong.,cobweb让小屋更结实。,media/semantic/cobweb.png,
+mc-conduit,conduit,潮涌核心,block,MC-D2,The conduit keeps our little house strong.,conduit让小屋更结实。,media/semantic/conduit.png,
+mc-curium,curium,锔,block,MC-D2,The builder stores the curium in a chest.,建造的人把curium放进箱子。,media/semantic/curium.png,
+mc-deny,deny,"v.驳回 ,不予受理,拒绝,不受理 ,抵赖,否定,否认,否认",block,MC-D2,A torch shines on the deny at night.,夜里火把照亮了deny。,media/semantic/deny.png,
+mc-dubnium,dubnium,Db元素,block,MC-D2,Rain falls softly on the dubnium.,雨轻轻落在dubnium上。,media/semantic/dubnium.png,
+mc-erbium,erbium,铒,block,MC-D2,We make a small path with the erbium.,我们用erbium铺出一条小路。,media/semantic/erbium.png,
+mc-europium,europium,铕,block,MC-D2,I collect the europium before sunset.,日落前我把europium收好。,media/semantic/europium.png,
+mc-farmland,farmland,耕地,block,MC-D2,I count the farmland before we start building.,开工前我先数一数farmland。,media/semantic/farmland.png,
+mc-fermium,fermium,镄,block,MC-D2,I place the fermium beside the doorway.,我把fermium放在门口。,media/semantic/fermium.png,
+mc-fluorine,fluorine,氟,block,MC-D2,I collect the fluorine before sunset.,日落前我把fluorine收好。,media/semantic/fluorine.png,
+mc-francium,francium,钫,block,MC-D2,I replace the broken francium near camp.,我在营地旁换掉坏掉的francium。,media/semantic/francium.png,
+mc-gallium,gallium,镓,block,MC-D2,We choose the gallium for the garden wall.,花园围墙我们选用gallium。,media/semantic/gallium.png,
+mc-gravel,gravel,沙砾,block,MC-D2,We build a safe step with the gravel.,我们用gravel搭出安全的台阶。,media/semantic/gravel.png,
+mc-hafnium,hafnium,铪,block,MC-D2,Rain falls softly on the hafnium.,雨轻轻落在hafnium上。,media/semantic/hafnium.png,
+mc-hassium,hassium,钅罕,block,MC-D2,We make a small path with the hassium.,我们用hassium铺出一条小路。,media/semantic/hassium.png,
+mc-helium,helium,氦,block,MC-D2,Rain falls softly on the helium.,雨轻轻落在helium上。,media/semantic/helium.png,
+mc-holmium,holmium,钬,block,MC-D2,We choose the holmium for the garden wall.,花园围墙我们选用holmium。,media/semantic/holmium.png,
+mc-hydrogen,hydrogen,氢,block,MC-D2,I collect the hydrogen before sunset.,日落前我把hydrogen收好。,media/semantic/hydrogen.png,
+mc-indium,indium,铟,block,MC-D2,Rain falls softly on the indium.,雨轻轻落在indium上。,media/semantic/indium.png,
+mc-iodine,iodine,碘酒,block,MC-D2,A torch shines on the iodine at night.,夜里火把照亮了iodine。,media/semantic/iodine.png,
+mc-iridium,iridium,铱,block,MC-D2,We use the iridium to mark the path home.,我们用iridium标出回家的路。,media/semantic/iridium.png,
+mc-kelp,kelp,巨藻,block,MC-D2,The kelp gives our base a new shape.,kelp让基地有了新样子。,media/semantic/kelp.png,
+mc-krypton,krypton,氪,block,MC-D2,I count the krypton before we start building.,开工前我先数一数krypton。,media/semantic/krypton.png,
+mc-lithium,lithium,锂,block,MC-D2,I collect the lithium before sunset.,日落前我把lithium收好。,media/semantic/lithium.png,
+mc-lutetium,lutetium,镥,block,MC-D2,We build a safe step with the lutetium.,我们用lutetium搭出安全的台阶。,media/semantic/lutetium.png,
+mc-marble,marble,大理石,block,MC-D2,We use the marble to mark the path home.,我们用marble标出回家的路。,media/semantic/marble.png,
+mc-mercury,mercury,水星,block,MC-D2,I replace the broken mercury near camp.,我在营地旁换掉坏掉的mercury。,media/semantic/mercury.png,
+mc-mycelium,mycelium,菌丝体,block,MC-D2,We build a safe step with the mycelium.,我们用mycelium搭出安全的台阶。,media/semantic/mycelium.png,
+mc-neon,neon,氖,block,MC-D2,I stack the neon to make a small wall.,我把neon叠成一堵小墙。,media/semantic/neon.png,
+mc-nickel,nickel,镍,block,MC-D2,A torch shines on the nickel at night.,夜里火把照亮了nickel。,media/semantic/nickel.png,
+mc-nihonium,nihonium,Nh元素,block,MC-D2,We use the nihonium to mark the path home.,我们用nihonium标出回家的路。,media/semantic/nihonium.png,
+mc-niobium,niobium,铌,block,MC-D2,I count the niobium before we start building.,开工前我先数一数niobium。,media/semantic/niobium.png,
+mc-nitrogen,nitrogen,氮,block,MC-D2,The nitrogen gives our base a new shape.,nitrogen让基地有了新样子。,media/semantic/nitrogen.png,
+mc-nobelium,nobelium,锘,block,MC-D2,We build a safe step with the nobelium.,我们用nobelium搭出安全的台阶。,media/semantic/nobelium.png,
+mc-osmium,osmium,锇,block,MC-D2,I stack the osmium to make a small wall.,我把osmium叠成一堵小墙。,media/semantic/osmium.png,
+mc-oxygen,oxygen,氧气,block,MC-D2,We make a small path with the oxygen.,我们用oxygen铺出一条小路。,media/semantic/oxygen.png,
+mc-planks,planks,木板,block,MC-D2,I replace the broken planks near camp.,我在营地旁换掉坏掉的planks。,media/semantic/planks.png,
+mc-platinum,platinum,铂,block,MC-D2,We make a small path with the platinum.,我们用platinum铺出一条小路。,media/semantic/platinum.png,
+mc-podzol,podzol,灰化土,block,MC-D2,We make a small path with the podzol.,我们用podzol铺出一条小路。,media/semantic/podzol.png,
+mc-polonium,polonium,钋,block,MC-D2,We build a safe step with the polonium.,我们用polonium搭出安全的台阶。,media/semantic/polonium.png,
+mc-purpur,purpur,紫珀,block,MC-D2,We make a small path with the purpur.,我们用purpur铺出一条小路。,media/semantic/purpur.png,
+mc-radium,radium,镭,block,MC-D2,Rain falls softly on the radium.,雨轻轻落在radium上。,media/semantic/radium.png,
+mc-radon,radon,氡,block,MC-D2,Rain falls softly on the radon.,雨轻轻落在radon上。,media/semantic/radon.png,
+mc-rhenium,rhenium,铼,block,MC-D2,We make a small path with the rhenium.,我们用rhenium铺出一条小路。,media/semantic/rhenium.png,
+mc-rhodium,rhodium,铑,block,MC-D2,I stack the rhodium to make a small wall.,我把rhodium叠成一堵小墙。,media/semantic/rhodium.png,
+mc-rubidium,rubidium,铷,block,MC-D2,We choose the rubidium for the garden wall.,花园围墙我们选用rubidium。,media/semantic/rubidium.png,
+mc-samarium,samarium,钐,block,MC-D2,The builder stores the samarium in a chest.,建造的人把samarium放进箱子。,media/semantic/samarium.png,
+mc-scandium,scandium,钪,block,MC-D2,I stack the scandium to make a small wall.,我把scandium叠成一堵小墙。,media/semantic/scandium.png,
+mc-selenium,selenium,硒,block,MC-D2,A torch shines on the selenium at night.,夜里火把照亮了selenium。,media/semantic/selenium.png,
+mc-silicon,silicon,硅,block,MC-D2,I place the silicon beside the doorway.,我把silicon放在门口。,media/semantic/silicon.png,
+mc-sodium,sodium,钠,block,MC-D2,The builder stores the sodium in a chest.,建造的人把sodium放进箱子。,media/semantic/sodium.png,
+mc-spruce,spruce,云杉,block,MC-D2,I stack the spruce to make a small wall.,我把spruce叠成一堵小墙。,media/semantic/spruce.png,media/audio/spruce.mp3
+mc-sulfur,sulfur,硫磺,block,MC-D2,I count the sulfur before we start building.,开工前我先数一数sulfur。,media/semantic/sulfur.png,
+mc-tantalum,tantalum,钽,block,MC-D2,I collect the tantalum before sunset.,日落前我把tantalum收好。,media/semantic/tantalum.png,
+mc-terbium,terbium,铽,block,MC-D2,Rain falls softly on the terbium.,雨轻轻落在terbium上。,media/semantic/terbium.png,
+mc-thallium,thallium,铊,block,MC-D2,We make a small path with the thallium.,我们用thallium铺出一条小路。,media/semantic/thallium.png,
+mc-thorium,thorium,瑟银,block,MC-D2,The thorium keeps our little house strong.,thorium让小屋更结实。,media/semantic/thorium.png,
+mc-thulium,thulium,铥,block,MC-D2,A torch shines on the thulium at night.,夜里火把照亮了thulium。,media/semantic/thulium.png,
+mc-tin,tin,听,block,MC-D2,We choose the tin for the garden wall.,花园围墙我们选用tin。,media/semantic/tin.png,
+mc-titanium,titanium,钛,block,MC-D2,I replace the broken titanium near camp.,我在营地旁换掉坏掉的titanium。,media/semantic/titanium.png,
+mc-tripwire,tripwire,绊线钩,block,MC-D2,A torch shines on the tripwire at night.,夜里火把照亮了tripwire。,media/semantic/tripwire.png,
+mc-tungsten,tungsten,钨,block,MC-D2,We make a small path with the tungsten.,我们用tungsten铺出一条小路。,media/semantic/tungsten.png,
+mc-uranium,uranium,铀,block,MC-D2,We use the uranium to mark the path home.,我们用uranium标出回家的路。,media/semantic/uranium.png,
+mc-vanadium,vanadium,钒,block,MC-D2,I count the vanadium before we start building.,开工前我先数一数vanadium。,media/semantic/vanadium.png,
+mc-xenon,xenon,氙气灯,block,MC-D2,We make a small path with the xenon.,我们用xenon铺出一条小路。,media/semantic/xenon.png,
+mc-yttrium,yttrium,钇,block,MC-D2,We make a small path with the yttrium.,我们用yttrium铺出一条小路。,media/semantic/yttrium.png,
+mc-zinc,zinc,锌,block,MC-D2,The zinc gives our base a new shape.,zinc让基地有了新样子。,media/semantic/zinc.png,
+mc-pickaxe,pickaxe,镐,tool,MC-D2,The pickaxe helps us reach the high ledge.,pickaxe帮我们爬上高台。,media/semantic/pickaxe.png,media/audio/pickaxe.mp3
+mc-shears,shears,剪刀,tool,MC-D2,I use the shears to gather materials.,我用shears去收集材料。,media/semantic/shears.png,
+mc-shovel,shovel,锹,tool,MC-D2,I use the shovel to gather materials.,我用shovel去收集材料。,media/semantic/shovel.png,media/audio/shovel.mp3
+mc-temple,temple,神殿,structure,MC-D2,We discover the temple beyond the river.,我们在河对岸发现了temple。,media/semantic/temple.png,media/audio/temple.mp3
+mc-axolotl,axolotl,美西螈,mob,MC-D2,The axolotl hides behind a tree.,axolotl躲在树后面。,media/semantic/axolotl.png,media/audio/axolotl.mp3
+mc-beehive,beehive,蜂箱,mob,MC-D2,We draw the beehive in our adventure book.,我们把beehive画进冒险本。,media/semantic/beehive.png,
+mc-beetroot,beetroot,甜菜根,mob,MC-D2,The beetroot follows us along the path.,beetroot跟着我们走在路上。,media/semantic/beetroot.png,
+mc-creeper,creeper,苦力怕,mob,MC-D2,We hear a creeper behind the trees.,树后面传来creeper的声音。,media/semantic/creeper.png,media/audio/creeper.mp3
+mc-enderman,enderman,末影人,mob,MC-D2,I spot a enderman near the village.,我在村子附近看见enderman。,media/semantic/enderman.png,media/audio/enderman.mp3
+mc-guardian,guardian,守卫者,mob,MC-D2,Our map marks a guardian nearby.,地图上标着附近有guardian。,media/semantic/guardian.png,media/audio/guardian.mp3
+mc-hoglin,hoglin,疣猪兽,mob,MC-D2,A hoglin rests beside the river.,一只hoglin在河边休息。,media/semantic/hoglin.png,media/audio/hoglin.mp3
+mc-phantom,phantom,幻翼,mob,MC-D2,A phantom rests beside the river.,一只phantom在河边休息。,media/semantic/phantom.png,media/audio/phantom.mp3
+mc-piglin,piglin,猪灵,mob,MC-D2,The piglin visits our camp at dawn.,天亮时piglin来到我们的营地。,media/semantic/piglin.png,media/audio/piglin.mp3
+mc-skeleton,skeleton,骷髅,mob,MC-D2,A skeleton crosses the bridge slowly.,一只skeleton慢慢走过桥。,media/semantic/skeleton.png,
+mc-spawner,spawner,刷怪笼,mob,MC-D2,The spawner follows us along the path.,spawner跟着我们走在路上。,media/semantic/spawner.png,
+mc-strider,strider,炽足兽,mob,MC-D2,Our map marks a strider nearby.,地图上标着附近有strider。,media/semantic/strider.png,media/audio/strider.mp3
+mc-villager,villager,村民,mob,MC-D2,I spot a villager near the village.,我在村子附近看见villager。,media/semantic/villager.png,media/audio/villager.mp3
+mc-wither,wither,凋灵,mob,MC-D2,The wither hides behind a tree.,wither躲在树后面。,media/semantic/wither.png,media/audio/wither.mp3
+mc-zombie,zombie,僵尸,mob,MC-D2,We draw the zombie in our adventure book.,我们把zombie画进冒险本。,media/semantic/zombie.png,media/audio/zombie.mp3
+mc-biomes,biomes,生物群系,biome,MC-D2,The biomes is full of new plants to discover.,biomes里有很多新植物可以看。,media/semantic/biomes.png,
+mc-nether,nether,下界,biome,MC-D2,Our camp sits at the edge of the nether.,我们的营地在nether边上。,media/semantic/nether.png,
+mc-plains,plains,平原,biome,MC-D2,We mark the plains on our map.,我们在地图上标出plains。,media/semantic/plains.png,
+mc-savanna,savanna,热带草原,biome,MC-D2,We listen for new sounds in the savanna.,我们在savanna里听有没有新声音。,media/semantic/savanna.png,
+mc-berries,berries,浆果,food,MC-D2,The berries fills my hunger bar.,berries让我填饱肚子。,media/semantic/berries.png,
+mc-carrots,carrots,胡萝卜,food,MC-D2,I put the carrots in the camp chest.,我把carrots放进营地箱子。,media/semantic/carrots.png,
+mc-mutton,mutton,羊肉,food,MC-D2,I eat the mutton beside the warm fire.,我在暖和的火堆旁吃mutton。,media/semantic/mutton.png,
+mc-porkchop,porkchop,猪排,food,MC-D2,I share the porkchop with my teammate.,我和队友一起用porkchop。,media/semantic/porkchop.png,
+mc-potatoes,potatoes,土豆,food,MC-D2,We make a picnic with the potatoes.,我们用potatoes做一次野餐。,media/semantic/potatoes.png,
+mc-salmon,salmon,鲑鱼,food,MC-D2,The salmon fills my hunger bar.,salmon让我填饱肚子。,media/semantic/salmon.png,
+mc-crossbow,crossbow,弩,weapon,MC-D2,I hold the crossbow when night falls.,天黑时我拿着crossbow。,media/semantic/crossbow.png,
+mc-shield,shield,盾牌,weapon,MC-D2,We choose the shield for a careful rescue.,这次小心救援我们选了shield。,media/semantic/shield.png,
+mc-sword,sword,剑,weapon,MC-D2,The sword protects our team on the trail.,sword在路上保护着我们。,media/semantic/sword.png,media/audio/sword.mp3
+mc-trident,trident,三叉戟,weapon,MC-D2,The trident stays in its display frame.,trident待在展示框里。,media/semantic/trident.png,
+mc-alex,alex,Alex（角色）,item,MC-D2,I use the alex during our mission.,任务里我用到了alex。,media/semantic/alex.png,
+mc-altitude,altitude,海拔,item,MC-D2,We prepare the altitude before sunset.,日落前我们把altitude准备好。,media/semantic/altitude.png,
+mc-ambience,ambience,环境音,item,MC-D2,We keep the ambience in a quiet corner.,我们把ambience放在安静的角落。,media/semantic/ambience.png,
+mc-amethyst,amethyst,紫水晶,item,MC-D2,My teammate passes me the amethyst.,队友把amethyst递给我。,media/semantic/amethyst.png,media/audio/amethyst.mp3
+mc-ammonia,ammonia,氨,item,MC-D2,I return the ammonia after the mission.,任务结束后我把ammonia还回去。,media/semantic/ammonia.png,
+mc-andesite,andesite,安山岩,item,MC-D2,We prepare the andesite before sunset.,日落前我们把andesite准备好。,media/semantic/andesite.png,
+mc-badlands,badlands,恶地,item,MC-D2,The badlands helps us finish the small task.,badlands帮我们做完这件小事。,media/semantic/badlands.png,
+mc-banner,banner,旗帜,item,MC-D2,I use the banner during our mission.,任务里我用到了banner。,media/semantic/banner.png,media/audio/banner.mp3
+mc-barrel,barrel,木桶,item,MC-D2,We prepare the barrel before sunset.,日落前我们把barrel准备好。,media/semantic/barrel.png,media/audio/barrel.mp3
+mc-beacon,beacon,信标,item,MC-D2,I place the beacon in my adventure chest.,我把beacon放进冒险箱子。,media/semantic/beacon.png,
+mc-bedrock,bedrock,基岩,item,MC-D2,My teammate passes me the bedrock.,队友把bedrock递给我。,media/semantic/bedrock.png,
+mc-bogged,bogged,泥沼骷髅,item,MC-D2,I place the bogged in my adventure chest.,我把bogged放进冒险箱子。,media/semantic/bogged.png,media/audio/bogged.mp3
+mc-breach,breach,破甲,item,MC-D2,The breach stays safe in my backpack.,breach安全地待在我的背包里。,media/semantic/breach.png,media/audio/breach.mp3
+mc-breeze,breeze,风弹怪,item,MC-D2,We keep the breeze in a quiet corner.,我们把breeze放在安静的角落。,media/semantic/breeze.png,media/audio/breeze.mp3
+mc-brewing,brewing,酿造,item,MC-D2,We share the brewing when the team needs it.,队友需要时我们一起用brewing。,media/semantic/brewing.png,media/audio/brewing.mp3
+mc-bundle,bundle,收纳袋,item,MC-D2,The bundle is ready for our next adventure.,bundle已经准备好下一次冒险。,media/semantic/bundle.png,
+mc-calcite,calcite,方解石,item,MC-D2,I place the calcite in my adventure chest.,我把calcite放进冒险箱子。,media/semantic/calcite.png,
+mc-campfire,campfire,营火,item,MC-D2,I place the campfire in my adventure chest.,我把campfire放进冒险箱子。,media/semantic/campfire.png,
+mc-cane,cane,甘蔗,item,MC-D2,We share the cane when the team needs it.,队友需要时我们一起用cane。,media/semantic/cane.png,
+mc-cauldron,cauldron,炼药锅,item,MC-D2,I show the cauldron to my teammate at camp.,我在营地把cauldron给队友看。,media/semantic/cauldron.png,
+mc-charcoal,charcoal,木炭,item,MC-D2,I find the charcoal beside the crafting table.,我在工作台旁边找到charcoal。,media/semantic/charcoal.png,
+mc-chorus,chorus,紫颂果,item,MC-D2,I use the chorus during our mission.,任务里我用到了chorus。,media/semantic/chorus.png,
+mc-command,command,命令,item,MC-D2,We share the command when the team needs it.,队友需要时我们一起用command。,media/semantic/command.png,media/audio/command.mp3
+mc-compass,compass,指南针,item,MC-D2,The compass is ready for our next adventure.,compass已经准备好下一次冒险。,media/semantic/compass.png,media/audio/compass.mp3
+mc-compound,compound,化合物,item,MC-D2,The compound stays safe in my backpack.,compound安全地待在我的背包里。,media/semantic/compound.png,
+mc-concrete,concrete,混凝土,item,MC-D2,I check the concrete beside the campfire.,我在篝火旁检查concrete。,media/semantic/concrete.png,media/audio/concrete.mp3
+mc-copper,copper,铜,item,MC-D2,The copper is ready for our next adventure.,copper已经准备好下一次冒险。,media/semantic/copper.png,
+mc-crafting,crafting,合成,item,MC-D2,The crafting is ready for our next adventure.,crafting已经准备好下一次冒险。,media/semantic/crafting.png,media/audio/crafting.mp3
+mc-crawling,crawling,爬行,item,MC-D2,The crawling stays safe in my backpack.,crawling安全地待在我的背包里。,media/semantic/crawling.png,
+mc-creaking,creaking,嘎吱怪,item,MC-D2,I check the creaking before leaving camp.,离开营地前我先检查creaking。,media/semantic/creaking.png,media/audio/creaking.mp3
+mc-crit,crit,暴击,item,MC-D2,The crit helps us finish the small task.,crit帮我们做完这件小事。,media/semantic/crit.png,
+mc-datapack,datapack,数据包,item,MC-D2,I check the datapack beside the campfire.,我在篝火旁检查datapack。,media/semantic/datapack.png,media/audio/datapack.mp3
+mc-debug,debug,调试,item,MC-D2,I show the debug to my teammate at camp.,我在营地把debug给队友看。,media/semantic/debug.png,
+mc-default,default,默认,item,MC-D2,I place the default in my adventure chest.,我把default放进冒险箱子。,media/semantic/default.png,
+mc-density,density,密集,item,MC-D2,The density stays safe in my backpack.,density安全地待在我的背包里。,media/semantic/density.png,media/audio/density.mp3
+mc-diamonds,diamonds,钻石,item,MC-D2,I place the diamonds in my adventure chest.,我把diamonds放进冒险箱子。,media/semantic/diamonds.png,
+mc-diorite,diorite,闪长岩,item,MC-D2,I pick up the diorite near the path.,我在小路边捡起diorite。,media/semantic/diorite.png,
+mc-donkey,donkey,驴,item,MC-D2,I find the donkey beside the crafting table.,我在工作台旁边找到donkey。,media/semantic/donkey.png,media/audio/donkey.mp3
+mc-dropper,dropper,投掷器,item,MC-D2,I check the dropper before leaving camp.,离开营地前我先检查dropper。,media/semantic/dropper.png,
+mc-drowned,drowned,溺尸,item,MC-D2,I use the drowned during our mission.,任务里我用到了drowned。,media/semantic/drowned.png,media/audio/drowned.mp3
+mc-dungeon,dungeon,地牢,item,MC-D2,I pick up the dungeon near the path.,我在小路边捡起dungeon。,media/semantic/dungeon.png,media/audio/dungeon.mp3
+mc-elytra,elytra,鞘翅,item,MC-D2,I pick up the elytra near the path.,我在小路边捡起elytra。,media/semantic/elytra.png,
+mc-emerald,emerald,绿宝石,item,MC-D2,I find the emerald beside the crafting table.,我在工作台旁边找到emerald。,media/semantic/emerald.png,
+mc-emote,emote,表情动作,item,MC-D2,We keep the emote in a quiet corner.,我们把emote放在安静的角落。,media/semantic/emote.png,
+mc-entities,entities,实体,item,MC-D2,I use the entities during our mission.,任务里我用到了entities。,media/semantic/entities.png,
+mc-evoker,evoker,唤魔者,item,MC-D2,We keep the evoker in a quiet corner.,我们把evoker放在安静的角落。,media/semantic/evoker.png,
+mc-feather,feather,羽毛,item,MC-D2,I check the feather beside the campfire.,我在篝火旁检查feather。,media/semantic/feather.png,
+mc-fluids,fluids,流体,item,MC-D2,We prepare the fluids before sunset.,日落前我们把fluids准备好。,media/semantic/fluids.png,
+mc-fog,fog,雾,item,MC-D2,I show the fog to my teammate at camp.,我在营地把fog给队友看。,media/semantic/fog.png,
+mc-fortune,fortune,时运,item,MC-D2,I place the fortune in my adventure chest.,我把fortune放进冒险箱子。,media/semantic/fortune.png,media/audio/fortune.mp3
+mc-fossil,fossil,化石,item,MC-D2,We share the fossil when the team needs it.,队友需要时我们一起用fossil。,media/semantic/fossil.png,media/audio/fossil.mp3
+mc-furnace,furnace,熔炉,item,MC-D2,I use the furnace during our mission.,任务里我用到了furnace。,media/semantic/furnace.png,
+mc-garbage,garbage,垃圾,item,MC-D2,I show the garbage to my teammate at camp.,我在营地把garbage给队友看。,media/semantic/garbage.png,
+mc-granite,granite,花岗岩,item,MC-D2,My teammate passes me the granite.,队友把granite递给我。,media/semantic/granite.png,
+mc-helmet,helmet,头盔,item,MC-D2,I check the helmet before leaving camp.,离开营地前我先检查helmet。,media/semantic/helmet.png,
+mc-hopper,hopper,漏斗,item,MC-D2,I check the hopper before leaving camp.,离开营地前我先检查hopper。,media/semantic/hopper.png,media/audio/hopper.mp3
+mc-hostile,hostile,敌对的,item,MC-D2,I find the hostile beside the crafting table.,我在工作台旁边找到hostile。,media/semantic/hostile.png,media/audio/hostile.mp3
+mc-illager,illager,灾厄村民,item,MC-D2,I check the illager beside the campfire.,我在篝火旁检查illager。,media/semantic/illager.png,media/audio/illager.mp3
+mc-impaling,impaling,穿刺,item,MC-D2,I use the impaling during our mission.,任务里我用到了impaling。,media/semantic/impaling.png,media/audio/impaling.mp3
+mc-infinity,infinity,无限,item,MC-D2,I check the infinity beside the campfire.,我在篝火旁检查infinity。,media/semantic/infinity.png,media/audio/infinity.mp3
+mc-item,item,項目,item,MC-D2,I find the item beside the crafting table.,我在工作台旁边找到item。,media/semantic/item.png,
+mc-jukebox,jukebox,唱片机,item,MC-D2,The jukebox is ready for our next adventure.,jukebox已经准备好下一次冒险。,media/semantic/jukebox.png,
+mc-ladder,ladder,梯子,item,MC-D2,I find the ladder beside the crafting table.,我在工作台旁边找到ladder。,media/semantic/ladder.png,media/audio/ladder.mp3
+mc-lantern,lantern,灯笼,item,MC-D2,I use the lantern during our mission.,任务里我用到了lantern。,media/semantic/lantern.png,
+mc-leather,leather,皮革,item,MC-D2,I use the leather during our mission.,任务里我用到了leather。,media/semantic/leather.png,
+mc-lectern,lectern,讲台,item,MC-D2,The lectern helps us finish the small task.,lectern帮我们做完这件小事。,media/semantic/lectern.png,
+mc-looting,looting,抢夺,item,MC-D2,The looting helps us finish the small task.,looting帮我们做完这件小事。,media/semantic/looting.png,media/audio/looting.mp3
+mc-loyalty,loyalty,忠诚,item,MC-D2,We share the loyalty when the team needs it.,队友需要时我们一起用loyalty。,media/semantic/loyalty.png,media/audio/loyalty.mp3
+mc-meadow,meadow,草甸,item,MC-D2,We keep the meadow in a quiet corner.,我们把meadow放在安静的角落。,media/semantic/meadow.png,
+mc-mending,mending,经验修补,item,MC-D2,I pick up the mending near the path.,我在小路边捡起mending。,media/semantic/mending.png,media/audio/mending.mp3
+mc-minecart,minecart,矿车,item,MC-D2,We keep the minecart in a quiet corner.,我们把minecart放在安静的角落。,media/semantic/minecart.png,
+mc-neutral,neutral,中立的,item,MC-D2,My teammate passes me the neutral.,队友把neutral递给我。,media/semantic/neutral.png,media/audio/neutral.mp3
+mc-nugget,nugget,粒,item,MC-D2,I find the nugget beside the crafting table.,我在工作台旁边找到nugget。,media/semantic/nugget.png,media/audio/nugget.mp3
+mc-observer,observer,侦测器,item,MC-D2,We prepare the observer before sunset.,日落前我们把observer准备好。,media/semantic/observer.png,
+mc-obsidian,obsidian,黑曜石,item,MC-D2,I place the obsidian in my adventure chest.,我把obsidian放进冒险箱子。,media/semantic/obsidian.png,
+mc-ocelot,ocelot,豹猫,item,MC-D2,I place the ocelot in my adventure chest.,我把ocelot放进冒险箱子。,media/semantic/ocelot.png,media/audio/ocelot.mp3
+mc-operator,operator,管理员,item,MC-D2,I show the operator to my teammate at camp.,我在营地把operator给队友看。,media/semantic/operator.png,media/audio/operator.mp3
+mc-passive,passive,被动的,item,MC-D2,My teammate passes me the passive.,队友把passive递给我。,media/semantic/passive.png,media/audio/passive.mp3
+mc-peaceful,peaceful,和平模式,item,MC-D2,I find the peaceful beside the crafting table.,我在工作台旁边找到peaceful。,media/semantic/peaceful.png,media/audio/peaceful.mp3
+mc-piercing,piercing,穿透,item,MC-D2,I place the piercing in my adventure chest.,我把piercing放进冒险箱子。,media/semantic/piercing.png,media/audio/piercing.mp3
+mc-pillager,pillager,掠夺者,item,MC-D2,I use the pillager during our mission.,任务里我用到了pillager。,media/semantic/pillager.png,media/audio/pillager.mp3
+mc-piston,piston,活塞,item,MC-D2,I check the piston before leaving camp.,离开营地前我先检查piston。,media/semantic/piston.png,
+mc-potion,potion,药水,item,MC-D2,I find the potion beside the crafting table.,我在工作台旁边找到potion。,media/semantic/potion.png,media/audio/potion.mp3
+mc-pumpkin,pumpkin,南瓜,item,MC-D2,I use the pumpkin during our mission.,任务里我用到了pumpkin。,media/semantic/pumpkin.png,
+mc-quartz,quartz,石英,item,MC-D2,The quartz is ready for our next adventure.,quartz已经准备好下一次冒险。,media/semantic/quartz.png,media/audio/quartz.mp3
+mc-quiver,quiver,箭袋,item,MC-D2,The quiver helps us finish the small task.,quiver帮我们做完这件小事。,media/semantic/quiver.png,
+mc-ravager,ravager,劫掠兽,item,MC-D2,We prepare the ravager before sunset.,日落前我们把ravager准备好。,media/semantic/ravager.png,media/audio/ravager.mp3
+mc-repeater,repeater,中继器,item,MC-D2,We share the repeater when the team needs it.,队友需要时我们一起用repeater。,media/semantic/repeater.png,media/audio/repeater.mp3
+mc-riding,riding,骑乘,item,MC-D2,We keep the riding in a quiet corner.,我们把riding放在安静的角落。,media/semantic/riding.png,
+mc-riptide,riptide,激流,item,MC-D2,We share the riptide when the team needs it.,队友需要时我们一起用riptide。,media/semantic/riptide.png,media/audio/riptide.mp3
+mc-saddle,saddle,马鞍,item,MC-D2,My teammate passes me the saddle.,队友把saddle递给我。,media/semantic/saddle.png,
+mc-shulker,shulker,潜影贝,item,MC-D2,The shulker helps us finish the small task.,shulker帮我们做完这件小事。,media/semantic/shulker.png,media/audio/shulker.mp3
+mc-slate,slate,板岩,item,MC-D2,My teammate passes me the slate.,队友把slate递给我。,media/semantic/slate.png,
+mc-smelting,smelting,熔炼,item,MC-D2,I return the smelting after the mission.,任务结束后我把smelting还回去。,media/semantic/smelting.png,media/audio/smelting.mp3
+mc-smoker,smoker,烟熏炉,item,MC-D2,I pick up the smoker near the path.,我在小路边捡起smoker。,media/semantic/smoker.png,
+mc-sneak,sneak,潜行,item,MC-D2,I return the sneak after the mission.,任务结束后我把sneak还回去。,media/semantic/sneak.png,
+mc-sniffer,sniffer,嗅探兽,item,MC-D2,My teammate passes me the sniffer.,队友把sniffer递给我。,media/semantic/sniffer.png,media/audio/sniffer.mp3
+mc-snowball,snowball,雪球,item,MC-D2,The snowball stays safe in my backpack.,snowball安全地待在我的背包里。,media/semantic/snowball.png,
+mc-snowfall,snowfall,降雪,item,MC-D2,We prepare the snowfall before sunset.,日落前我们把snowfall准备好。,media/semantic/snowfall.png,
+mc-sponge,sponge,海绵,item,MC-D2,We keep the sponge in a quiet corner.,我们把sponge放在安静的角落。,media/semantic/sponge.png,
+mc-sprint,sprint,疾跑,item,MC-D2,I pick up the sprint near the path.,我在小路边捡起sprint。,media/semantic/sprint.png,
+mc-spyglass,spyglass,望远镜,item,MC-D2,We prepare the spyglass before sunset.,日落前我们把spyglass准备好。,media/semantic/spyglass.png,
+mc-stars,stars,星星,item,MC-D2,We share the stars when the team needs it.,队友需要时我们一起用stars。,media/semantic/stars.png,
+mc-tadpole,tadpole,蝌蚪,item,MC-D2,We prepare the tadpole before sunset.,日落前我们把tadpole准备好。,media/semantic/tadpole.png,media/audio/tadpole.mp3
+mc-thorns,thorns,荆棘,item,MC-D2,I check the thorns beside the campfire.,我在篝火旁检查thorns。,media/semantic/thorns.png,media/audio/thorns.mp3
+mc-trapdoor,trapdoor,活板门,item,MC-D2,I use the trapdoor during our mission.,任务里我用到了trapdoor。,media/semantic/trapdoor.png,media/audio/trapdoor.mp3
+mc-tundra,tundra,冻原,item,MC-D2,I check the tundra before leaving camp.,离开营地前我先检查tundra。,media/semantic/tundra.png,media/audio/tundra.mp3
+mc-warden,warden,监守者,item,MC-D2,We share the warden when the team needs it.,队友需要时我们一起用warden。,media/semantic/warden.png,
+mc-zoglin,zoglin,僵尸疣猪兽,item,MC-D2,I return the zoglin after the mission.,任务结束后我把zoglin还回去。,media/semantic/zoglin.png,media/audio/zoglin.mp3
+mc-darkness,darkness,黑暗,effect,MC-D2,The darkness fades after a short time.,过一会儿darkness就消失了。,media/semantic/darkness.png,
+mc-glowing,glowing,发光,effect,MC-D2,I check the glowing before entering the cave.,进洞前我先检查glowing。,media/semantic/glowing.png,
+mc-haste,haste,急迫,effect,MC-D2,The potion gives me haste.,这瓶药水给了我haste。,media/semantic/haste.png,
+mc-infested,infested,出没,effect,MC-D2,A glowing icon shows the infested.,发光的图标标出了infested。,media/semantic/infested.png,
+mc-nausea,nausea,反胃,effect,MC-D2,The nausea fades after a short time.,过一会儿nausea就消失了。,media/semantic/nausea.png,
+mc-oozing,oozing,渗浆,effect,MC-D2,I notice the oozing during the challenge.,挑战时我注意到oozing。,media/semantic/oozing.png,
+mc-slowness,slowness,缓慢,effect,MC-D2,I notice the slowness during the challenge.,挑战时我注意到slowness。,media/semantic/slowness.png,
+mc-speedrun,speedrun,速通,effect,MC-D2,A glowing icon shows the speedrun.,发光的图标标出了speedrun。,media/semantic/speedrun.png,media/audio/speedrun.mp3
+mc-strength,strength,力量,effect,MC-D2,The potion gives me strength.,这瓶药水给了我strength。,media/semantic/strength.png,
+mc-weakness,weakness,虚弱,effect,MC-D2,The weakness helps me cross the cave.,weakness帮我穿过山洞。,media/semantic/weakness.png,
+mc-weaving,weaving,编织,effect,MC-D2,The weaving fades after a short time.,过一会儿weaving就消失了。,media/semantic/weaving.png,
+mc-bleach,bleach,漂白剂,color,MC-D2,A bleach path leads to the garden.,一条bleach小路通向花园。,media/semantic/bleach.png,
+mc-redstone,redstone,红石,color,MC-D2,The redstone torch glows beside the door.,redstone火把在门边发着光。,media/semantic/redstone.png,
+mc-allium,allium,绒球葱,plant,MC-D2,Rain helps the allium grow.,雨水帮助allium长大。,media/semantic/allium.png,
+mc-azalea,azalea,杜鹃花,plant,MC-D2,I check the azalea before leaving camp.,离开营地前我先检查azalea。,media/semantic/azalea.png,
+mc-cactus,cactus,仙人掌,plant,MC-D2,I plant the cactus beside the farm.,我在农场边种下cactus。,media/semantic/cactus.png,
+mc-cocoa,cocoa,可可,plant,MC-D2,A path winds around the cocoa.,小路绕着cocoa弯过去。,media/semantic/cocoa.png,
+mc-fern,fern,蕨类植物,plant,MC-D2,I plant the fern beside the farm.,我在农场边种下fern。,media/semantic/fern.png,
+mc-leaves,leaves,树叶,plant,MC-D2,I plant the leaves near the village well.,我在村子水井旁种下leaves。,media/semantic/leaves.png,media/audio/leaves.mp3
+mc-lilac,lilac,丁香,plant,MC-D2,A path winds around the lilac.,小路绕着lilac弯过去。,media/semantic/lilac.png,
+mc-moss,moss,苔藓,plant,MC-D2,I water the moss in the morning.,早上我给moss浇水。,media/semantic/moss.png,
+mc-orchid,orchid,兰花,plant,MC-D2,I plant the orchid beside the farm.,我在农场边种下orchid。,media/semantic/orchid.png,media/audio/orchid.mp3
+mc-peony,peony,牡丹,plant,MC-D2,The peony makes the garden feel cheerful.,peony让花园看起来很开心。,media/semantic/peony.png,
+mc-poppy,poppy,虞美人,plant,MC-D2,I plant the poppy near the village well.,我在村子水井旁种下poppy。,media/semantic/poppy.png,
+mc-sapling,sapling,树苗,plant,MC-D2,I water the sapling in the morning.,早上我给sapling浇水。,media/semantic/sapling.png,media/audio/sapling.mp3
+mc-seagrass,seagrass,海草方块,plant,MC-D2,A path winds around the seagrass.,小路绕着seagrass弯过去。,media/semantic/seagrass.png,
+mc-seeds,seeds,种子,plant,MC-D2,Rain helps the seeds grow.,雨水帮助seeds长大。,media/semantic/seeds.png,
+mc-vines,vines,攀緣植物,plant,MC-D2,The vines gives our garden a bright color.,vines让花园更鲜艳。,media/semantic/vines.png,

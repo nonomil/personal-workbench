@@ -1,0 +1,5 @@
+﻿id,word,zh,theme,level,phrase,phraseZh,category,group,image,audio,art,hasImage,hasAudio
+mc-crossbow,crossbow,弩,武器,MC-D2,I hold the crossbow when night falls.,天黑时我拿着crossbow。,weapon,用一把crossbow,图片/crossbow.png,,none,yes,no
+mc-shield,shield,盾牌,武器,MC-D2,We choose the shield for a careful rescue.,这次小心救援我们选了shield。,weapon,用一把shield,图片/shield.png,,none,yes,no
+mc-sword,sword,剑,武器,MC-D2,The sword protects our team on the trail.,sword在路上保护着我们。,weapon,用一把sword,图片/sword.png,音频/sword.mp3,none,yes,yes
+mc-trident,trident,三叉戟,武器,MC-D2,The trident stays in its display frame.,trident待在展示框里。,weapon,用一把trident,图片/trident.png,,none,yes,no

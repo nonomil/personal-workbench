@@ -1,0 +1,598 @@
+﻿id,word,zh,theme,level,phrase,phraseZh,category,group,image,audio,art,hasImage,hasAudio
+english-word-74,black,黑色,颜色,L1,The cat is black.,这只猫是黑色的。,,,图片/black.png,音频/black.mp3,emoji:⬛,yes,yes
+english-word-02,blue,蓝色,颜色,L1,The sky is blue.,天空是蓝色的。,,,图片/blue.png,音频/blue.mp3,emoji:🔵,yes,yes
+english-word-03,green,绿色,颜色,L1,A green leaf is here.,这里有一片绿叶。,,,图片/green.png,音频/green.mp3,emoji:🟢,yes,yes
+english-word-124,pink,粉色,颜色,L1,The flower is pink.,这朵花是粉色的。,,,,,emoji:🌸,no,no
+english-word-125,purple,紫色,颜色,L1,The grape is purple.,葡萄是紫色的。,,,图片/purple.png,,emoji:💜,yes,no
+english-word-01,red,红色,颜色,L1,It's red.,它是红色的。,,,图片/red.png,音频/red.mp3,emoji:🟥,yes,yes
+english-word-73,white,白色,颜色,L1,The cloud is white.,云是白色的。,,,图片/white.png,音频/white.mp3,emoji:⚪,yes,yes
+english-word-04,yellow,黄色,颜色,L1,The sun looks yellow.,太阳看起来是黄色的。,,,图片/yellow.png,音频/yellow.mp3,emoji:💛,yes,yes
+english-word-45,bear,熊,动物,L1,The bear is big.,熊很大。,,,,,emoji:🐻,no,no
+english-word-83,bee,蜜蜂,动物,L1,A bee is on the flower.,花上有一只蜜蜂。,,,图片/bee.png,音频/bee.mp3,emoji:🐝,yes,yes
+english-word-08,bird,鸟,动物,L1,A bird can fly.,小鸟会飞。,,,,,emoji:🐦,no,no
+english-word-86,butterfly,蝴蝶,动物,L1,The butterfly is pretty.,这只蝴蝶很漂亮。,,,,,emoji:🦋,no,no
+english-word-05,cat,猫,动物,L1,I have a black cat.,我有一只黑猫。,,,图片/cat.png,音频/cat.mp3,emoji:🐱,yes,yes
+english-word-90,chicken,鸡,动物,L1,The chicken is small.,这只鸡小小的。,,,图片/chicken.png,音频/chicken.mp3,emoji:🐔,yes,yes
+english-word-94,cow,奶牛,动物,L1,The cow is big.,这头奶牛很大。,,,图片/cow.png,音频/cow.mp3,emoji:🐮,yes,yes
+english-word-06,dog,狗,动物,L1,The dog can run.,小狗会跑。,,,图片/dog.png,,emoji:🐶,yes,no
+english-word-43,duck,鸭子,动物,L1,The duck can swim.,鸭子会游泳。,,,,,emoji:🦆,no,no
+english-word-101,elephant,大象,动物,L1,The elephant is huge.,大象非常大。,,,,,emoji:🐘,no,no
+english-word-07,fish,鱼,动物,L1,I see a little fish.,我看见一条小鱼。,,,图片/fish.png,,emoji:🐟,yes,no
+english-word-182,fox,狐狸,动物,L1,The fox is orange.,狐狸是橙色的。,,,图片/fox.png,音频/fox.mp3,emoji:🦊,yes,yes
+english-word-104,frog,青蛙,动物,L1,The frog can jump.,青蛙会跳。,,,图片/frog.png,音频/frog.mp3,emoji:🐸,yes,yes
+english-word-105,giraffe,长颈鹿,动物,L1,The giraffe is tall.,长颈鹿很高。,,,,,emoji:🦒,no,no
+english-word-112,horse,马,动物,L1,The horse can run.,马会跑。,,,图片/horse.png,音频/horse.mp3,emoji:🐴,yes,yes
+english-word-114,lion,狮子,动物,L1,The lion is strong.,狮子很强壮。,,,图片/lion.png,,emoji:🦁,yes,no
+english-word-46,monkey,猴子,动物,L1,The monkey can climb.,猴子会爬。,,,,,emoji:🐵,no,no
+english-word-181,mouse,老鼠,动物,L1,The mouse is small.,老鼠小小的。,,,,,emoji:🐭,no,no
+english-word-121,panda,熊猫,动物,L1,The panda is black and white.,熊猫是黑白的。,,,图片/panda.png,音频/panda.mp3,emoji:🐼,yes,yes
+english-word-44,pig,猪,动物,L1,The pig is pink.,小猪是粉色的。,,,图片/pig.png,音频/pig.mp3,emoji:🐷,yes,yes
+english-word-47,rabbit,兔子,动物,L1,The rabbit is white.,兔子是白色的。,,,图片/rabbit.png,,emoji:🐰,yes,no
+english-word-129,sheep,羊,动物,L1,The sheep is white.,这只羊是白色的。,,,图片/sheep.png,音频/sheep.mp3,emoji:🐑,yes,yes
+english-word-138,tiger,老虎,动物,L1,The tiger is orange.,老虎是橙色的。,,,,,emoji:🐯,no,no
+english-word-78,ear,耳朵,身体,L1,Touch your ear.,摸摸你的耳朵。,,,,,emoji:👂,no,no
+english-word-17,eye,眼睛,身体,L1,Close one eye.,闭上眼睛。,,,图片/eye.png,,emoji:👁,yes,no
+english-word-146,face,脸,身体,L1,"Wash your face, please.",请洗脸。,,,,,emoji:😊,no,no
+english-word-79,foot,脚,身体,L1,Stamp your foot.,跺一跺脚。,,,,,emoji:🦶,no,no
+english-word-109,hair,头发,身体,L1,Touch your hair.,摸摸你的头发。,,,,,emoji:💇,no,no
+english-word-16,hand,手,身体,L1,Hold my hand.,拉着我的手。,,,,,emoji:✋,no,no
+english-word-111,head,头,身体,L1,Touch your head.,摸摸你的头。,,,,,emoji:🧑,no,no
+english-word-116,mouth,嘴巴,身体,L1,Open your mouth.,张开你的嘴巴。,,,,,emoji:👄,no,no
+english-word-119,nose,鼻子,身体,L1,Touch your nose.,摸摸你的鼻子。,,,图片/nose.png,,emoji:👃,yes,no
+english-word-576,aunt,阿姨,家人,L1,This is my aunt.,这是我的阿姨。,,,,,emoji:👩,no,no
+english-word-578,cousin,表亲,家人,L1,He is my cousin.,他是我的表亲。,,,,,emoji:🧒,no,no
+english-word-468,grandfather,爷爷,家人,L1,I love my grandfather.,我爱我的爷爷。,,,,,emoji:👴,no,no
+english-word-469,grandmother,奶奶,家人,L1,I love my grandmother.,我爱我的奶奶。,,,,,emoji:👵,no,no
+english-word-579,uncle,叔叔,家人,L1,This is my uncle.,这是我的叔叔。,,,,,emoji:👨,no,no
+english-word-09,apple,苹果,食物,L1,I like this apple.,我喜欢这个苹果。,,,图片/apple.png,音频/apple.mp3,emoji:🍎,yes,yes
+english-word-10,banana,香蕉,食物,L1,A banana is yellow.,香蕉是黄色的。,,,图片/banana.png,,emoji:🍌,yes,no
+english-word-48,bread,面包,食物,L1,I like bread.,我喜欢面包。,,,图片/bread.png,,emoji:🍞,yes,no
+english-word-50,cake,蛋糕,食物,L1,I love cake.,我喜欢蛋糕。,,,图片/cake.png,,emoji:🎂,yes,no
+english-word-87,candy,糖果,食物,L1,I like candy.,我喜欢糖果。,,,,,emoji:🍬,no,no
+english-word-89,cherry,樱桃,食物,L1,I eat a cherry.,我吃一颗樱桃。,,,图片/cherry.png,,emoji:🍒,yes,no
+english-word-93,cookie,饼干,食物,L1,I eat a cookie.,我吃一块饼干。,,,图片/cookie.png,,emoji:🍪,yes,no
+english-word-52,egg,鸡蛋,食物,L1,I eat an egg.,我吃一个鸡蛋。,,,图片/egg.png,,emoji:🥚,yes,no
+english-word-108,grape,葡萄,食物,L1,I eat a grape.,我吃一颗葡萄。,,,图片/grape.png,,emoji:🍇,yes,no
+english-word-343,ice cream,冰淇淋,食物,L1,Ice cream is a useful word.,我看见冰淇淋。,,,,,emoji:🍦,no,no
+english-word-51,juice,果汁,食物,L1,I drink juice.,我喝果汁。,,,,,emoji:🧃,no,no
+english-word-80,milk,牛奶,食物,L1,Do you want some milk?,你想喝点牛奶吗？,,,图片/milk.png,,emoji:🥛,yes,no
+english-word-118,noodles,面条,食物,L1,I eat noodles.,我吃面条。,,,图片/noodles.png,,emoji:🍜,yes,no
+english-word-120,orange,橙子,食物,L1,I eat an orange.,我吃一个橘子。,,,图片/orange.png,,emoji:🍊,yes,no
+english-word-122,peach,桃子,食物,L1,This peach is sweet.,这个桃子很甜。,,,图片/peach.png,,emoji:🍑,yes,no
+english-word-123,pear,梨,食物,L1,I eat a pear.,我吃一个梨。,,,图片/pear.png,,emoji:🍐,yes,no
+english-word-49,rice,米饭,食物,L1,I eat rice.,我吃米饭。,,,图片/rice.png,,emoji:🍚,yes,no
+english-word-135,strawberry,草莓,食物,L1,I eat a strawberry.,我吃一颗草莓。,,,图片/strawberry.png,,emoji:🍓,yes,no
+english-word-156,tea,茶,食物,L1,Mom drinks tea.,妈妈喝茶。,,,,,emoji:🍵,no,no
+english-word-160,vegetable,蔬菜,食物,L1,Eat a vegetable.,吃一点蔬菜。,,,,,emoji:🥬,no,no
+english-word-161,water,水,食物,L1,Drink some water.,喝点水。,,,,音频/water.mp3,emoji:💧,no,yes
+english-word-141,watermelon,西瓜,食物,L1,The watermelon is sweet.,西瓜很甜。,,,图片/watermelon.png,,emoji:🍉,yes,no
+english-word-92,cloud,云,自然,L1,A white cloud is in the sky.,天上有一朵白云。,,,图片/cloud.png,,emoji:☁️,yes,no
+english-word-14,moon,月亮,自然,L1,I see the moon.,我看见月亮。,,,,,emoji:🌙,no,no
+english-word-127,rain,雨,自然,L1,The rain is falling.,下雨了。,,,图片/rain.png,,emoji:🌧️,yes,no
+english-word-134,snow,雪,自然,L1,The snow is white.,雪是白色的。,,,图片/snow.png,,emoji:❄,yes,no
+english-word-15,star,星星,自然,L1,A star is bright.,星星亮晶晶。,,,,,emoji:⭐,no,no
+english-word-13,sun,太阳,自然,L1,The sun is big.,太阳很大。,,,,音频/sun.mp3,emoji:☀,no,yes
+english-word-142,wind,风,自然,L1,The wind is soft.,风轻轻的。,,,,,emoji:💨,no,no
+english-word-81,bag,书包,物品,L1,This is my bag.,这是我的书包。,,,图片/bag.png,音频/bag.mp3,emoji:🎒,yes,yes
+english-word-12,ball,球,物品,L1,Do you want to play ball?,你想玩球吗？,,,,,emoji:⚽,no,no
+english-word-82,bed,床,物品,L1,It's time to go to bed.,该睡觉啦。,,,图片/bed.png,音频/bed.mp3,emoji:🛏️,yes,yes
+english-word-184,bike,自行车,物品,L1,I ride a bike.,我骑自行车。,,,,,emoji:🚲,no,no
+english-word-84,blocks,积木,物品,L1,I play with blocks.,我玩积木。,,,,,emoji:🧱,no,no
+english-word-11,book,书,物品,L1,I read a book.,我在看书。,,,图片/book.png,,emoji:📖,yes,no
+english-word-143,box,盒子,物品,L1,Open the box.,打开盒子。,,,,,emoji:📦,no,no
+english-word-85,bubble,泡泡,物品,L1,Look at the bubble.,看这个泡泡。,,,,,emoji:🫧,no,no
+english-word-183,bus,公交车,物品,L1,The bus is yellow.,公交车是黄色的。,,,图片/bus.png,,emoji:🚌,yes,no
+english-word-88,car,小汽车,物品,L1,The car is red.,这辆小汽车是红色的。,,,图片/car.png,,emoji:🚗,yes,no
+english-word-57,chair,椅子,物品,L1,I sit on the chair.,我坐在椅子上。,,,图片/chair.png,,emoji:🪑,yes,no
+english-word-91,clock,时钟,物品,L1,Look at the clock.,看看时钟。,,,图片/clock.png,,emoji:🕐,yes,no
+english-word-56,desk,书桌,物品,L1,I sit at the desk.,我坐在书桌前。,,,,,emoji:💺,no,no
+english-word-97,doll,娃娃,物品,L1,This doll is cute.,这个娃娃很可爱。,,,图片/doll.png,,emoji:🪆,yes,no
+english-word-144,door,门,物品,L1,Please close the door.,请把门关上。,,,图片/door.png,音频/door.mp3,emoji:🚪,yes,yes
+english-word-145,dress,连衣裙,物品,L1,She has a blue dress.,她有一条蓝裙子。,,,图片/dress.png,,emoji:👗,yes,no
+english-word-110,hat,帽子,物品,L1,I wear a hat.,我戴一顶帽子。,,,,,emoji:🎩,no,no
+english-word-113,kite,风筝,物品,L1,I fly a kite.,我放风筝。,,,,,emoji:🪁,no,no
+english-word-148,light,灯,物品,L1,"Turn off the light, please.",请关灯。,,,图片/light.png,音频/light.mp3,emoji:🔆,yes,yes
+english-word-53,pen,笔,物品,L1,I write with a pen.,我用笔写字。,,,,,emoji:🖊,no,no
+english-word-54,pencil,铅笔,物品,L1,I draw with a pencil.,我用铅笔画画。,,,,,emoji:✏️,no,no
+english-word-150,plane,飞机,物品,L1,The plane is in the sky.,飞机在天上。,,,,,emoji:✈️,no,no
+english-word-126,puzzle,拼图,物品,L1,I do a puzzle.,我玩拼图。,,,,,emoji:🧩,no,no
+english-word-55,ruler,尺子,物品,L1,This is my ruler.,这是我的尺子。,,,,,emoji:📏,no,no
+english-word-151,schoolbag,书包,物品,L1,My schoolbag is heavy.,我的书包有点重。,,,,,emoji:🎒,no,no
+english-word-152,shirt,衬衫,物品,L1,This shirt is blue.,这件衬衫是蓝色的。,,,,,emoji:👕,no,no
+english-word-130,shoe,鞋子,物品,L1,Put on your shoe.,穿上你的鞋子。,,,,,emoji:👟,no,no
+english-word-153,shorts,短裤,物品,L1,I wear shorts today.,我今天穿短裤。,,,,,emoji:🩳,no,no
+english-word-154,skirt,裙子,物品,L1,The skirt is pink.,这条短裙是粉色的。,,,,,emoji:🥿,no,no
+english-word-155,socks,袜子,物品,L1,Put on your socks.,穿上你的袜子。,,,,,emoji:🧦,no,no
+english-word-136,table,桌子,物品,L1,The book is on the table.,书在桌子上。,,,图片/table.png,,emoji:🪑,yes,no
+english-word-139,toy,玩具,物品,L1,This toy is fun.,这个玩具很好玩。,,,,,emoji:🧸,no,no
+english-word-159,train,火车,物品,L1,The train is long.,火车很长。,,,图片/train.png,,emoji:🚆,yes,no
+english-word-30,big,大,描述,L1,A big dog runs.,一只大狗在跑。,,,,,emoji:🐘,no,no
+english-word-165,down,向下,描述,L1,"Sit down, please.",请坐下。,,,,,emoji:⬇️,no,no
+english-word-100,eight,八,描述,L1,I see eight stars.,我看见八颗星星。,,,图片/eight.png,,emoji:8️⃣,yes,no
+english-word-102,five,五,描述,L1,I am five years old.,我五岁了。,,,,,emoji:5️⃣,no,no
+english-word-103,four,四,描述,L1,I see four birds.,我看见四只鸟。,,,,,emoji:4️⃣,no,no
+english-word-172,funny,有趣,描述,L1,The monkey is funny.,猴子很有趣。,,,,,emoji:🐵,no,no
+english-word-178,happy,开心,描述,L1,I am happy.,我很高兴。,,,,,emoji:😄,no,no
+english-word-147,hungry,饿,描述,L1,Are you hungry?,你饿了吗？,,,,,emoji:🍽,no,no
+english-word-166,little,小的,描述,L1,I see a little cat.,我看见一只小猫。,,,,,emoji:🐣,no,no
+english-word-60,long,长,描述,L1,The road is long.,这条路很长。,,,,,emoji:🐍,no,no
+english-word-61,new,新,描述,L1,I have a new bag.,我有一个新书包。,,,图片/new.png,,emoji:✨,yes,no
+english-word-117,nine,九,描述,L1,I count to nine.,我数到九。,,,,,emoji:9️⃣,no,no
+english-word-62,old,旧,描述,L1,How old are you?,你几岁啦？,,,,,emoji:👴,no,no
+english-word-75,one,一,描述,L1,I have one book.,我有一本书。,,,,,emoji:1️⃣,no,no
+english-word-128,seven,七,描述,L1,I see seven ducks.,我看见七只鸭子。,,,,,emoji:7️⃣,no,no
+english-word-59,short,矮,描述,L1,The cat is short.,这只猫很矮。,,,,,emoji:🐖,no,no
+english-word-132,six,六,描述,L1,I have six crayons.,我有六支蜡笔。,,,,,emoji:6️⃣,no,no
+english-word-29,small,小,描述,L1,A small bird sings.,一只小鸟在唱歌。,,,,,emoji:🐭,no,no
+english-word-58,tall,高,描述,L1,The tree is tall.,这棵树很高。,,,,,emoji:🦒,no,no
+english-word-137,ten,十,描述,L1,I count to ten.,我数到十。,,,,,emoji:🔟,no,no
+english-word-158,thirsty,渴,描述,L1,I am thirsty.,我渴了。,,,,,emoji:🥤,no,no
+english-word-77,three,三,描述,L1,I have three apples.,我有三个苹果。,,,图片/three.png,,emoji:🌟,yes,no
+english-word-76,two,二,描述,L1,I see two birds.,我看见两只鸟。,,,,,emoji:2️⃣,no,no
+english-word-164,up,向上,描述,L1,Good morning! Time to get up!,早上好！该起床啦！,,,,,emoji:⬆️,no,no
+english-word-171,away,离开,动作,L1,The bird flies away.,小鸟飞走了。,,,,,none,no,no
+english-word-32,come,来,动作,L1,May I come in?,我可以进来吗？,,,,,emoji:🚶,no,no
+english-word-96,dance,跳舞,动作,L1,I like to dance.,我喜欢跳舞。,,,图片/dance.png,,emoji:💃,yes,no
+english-word-35,draw,画,动作,L1,I draw a sun.,我画一个太阳。,,,,,emoji:🖍️,no,no
+english-word-98,drink,喝,动作,L1,Drink some water.,喝点水。,,,,,emoji:🥤,no,no
+english-word-99,eat,吃,动作,L1,"Eat your vegetables, please.",请吃蔬菜。,,,,,emoji:🍽️,no,no
+english-word-169,find,找到,动作,L1,Find the red ball.,找到红球。,,,,,emoji:🔍,no,no
+english-word-31,go,走,动作,L1,Let's go to school!,我们去上学吧！,,,,,emoji:🚶,no,no
+english-word-167,help,帮助,动作,L1,"Help me, please.",请帮帮我。,,,,,emoji:🤝,no,no
+english-word-19,jump,跳,动作,L1,Jump up high.,跳得高高的。,,,,,emoji:🦘,no,no
+english-word-163,look,看,动作,L1,Look at me!,看我！,,,,音频/look.mp3,emoji:👀,no,yes
+english-word-168,make,做,动作,L1,You make me happy.,你让我很开心。,,,,,emoji:🛠️,no,no
+english-word-22,play,玩,动作,L1,Let's play together!,我们一起玩吧！,,,,音频/play.mp3,emoji:🎮,no,yes
+english-word-33,read,读,动作,L1,I read a book.,我读一本书。,,,,,emoji:📖,no,no
+english-word-18,run,跑,动作,L1,I can run fast.,我跑得很快。,,,图片/run.png,音频/run.mp3,emoji:🏃,yes,yes
+english-word-173,said,说,动作,L1,Mom said hello.,妈妈说了你好。,,,,,emoji:💬,no,no
+english-word-131,sing,唱歌,动作,L1,I like to sing.,我喜欢唱歌。,,,,,emoji:🎤,no,no
+english-word-20,sit,坐,动作,L1,Please sit down.,请坐下。,,,图片/sit.png,,emoji:🪑,yes,no
+english-word-133,sleep,睡觉,动作,L1,Did you sleep well?,你睡得好吗？,,,图片/sleep.png,,emoji:😴,yes,no
+english-word-21,stand,站,动作,L1,Stand up tall.,站直一点。,,,,,emoji:🧍,no,no
+english-word-140,walk,走,动作,L1,I walk to school.,我走到学校。,,,,,emoji:🚶,no,no
+english-word-34,write,写,动作,L1,I write my name.,我写我的名字。,,,图片/write.png,,emoji:✍️,yes,no
+english-word-566,after school,放学后,学校,L1,I play after school.,放学后我去玩。,,,,,emoji:🏫,no,no
+english-word-543,april,四月,学校,L1,My birthday is in April.,我的生日在四月。,,,,,emoji:📅,no,no
+english-word-544,august,八月,学校,L1,My birthday is in August.,我的生日在八月。,,,,,emoji:📅,no,no
+english-word-520,bad,不好,学校,L1,Bad weather.,坏天气,,,,,emoji:😟,no,no
+english-word-572,be back,回来,学校,L1,I will be back soon.,我很快回来。,,,,,emoji:👋,no,no
+english-word-577,beautiful,美丽的,学校,L1,What a beautiful day!,多么美好的一天！,,,,,emoji:🌼,no,no
+english-word-464,behind,在后面,学校,L1,The cat is behind the box.,猫在盒子后面。,,,,,emoji:🙈,no,no
+english-word-554,birthday,生日,学校,L1,Happy birthday!,生日快乐！,,,,,emoji:🎂,no,no
+english-word-521,bite,咬,学校,L1,Do not bite the apple.,不要咬苹果。,,,,,emoji:😬,no,no
+english-word-463,blackboard,黑板,学校,L1,Write on the blackboard.,写在黑板上,,,,,emoji:⬛,no,no
+english-word-518,body,身体,学校,L1,Healthy body.,健康的身体,,,,,emoji:🧍,no,no
+english-word-478,bookshop,书店,学校,L1,We go to the bookshop.,我们去书店。,,,,,emoji:📚,no,no
+english-word-470,boy,男孩,学校,L1,Good boy / good girl!,好孩子！,,,,,emoji:👦,no,no
+english-word-538,cap,帽子,学校,L1,Wear a cap.,戴鸭舌帽,,,,,emoji:🧢,no,no
+english-word-487,card,卡片,学校,L1,This is my card.,这是我的卡片。,,,,,emoji:🃏,no,no
+english-word-591,children,孩子们,学校,L1,The children are playing.,孩子们在玩。,,,,,emoji:🧒,no,no
+english-word-483,christmas,圣诞节,学校,L1,Merry Christmas!,圣诞快乐！,,,,,emoji:🎄,no,no
+english-word-484,christmas tree,圣诞树,学校,L1,I see a Christmas tree.,我看见一棵圣诞树。,,,,,emoji:🎄,no,no
+english-word-515,class,班级,学校,L1,Our class is fun.,我们班很好玩。,,,,,emoji:🏫,no,no
+english-word-471,classmate,同班同学,学校,L1,My classmate.,我的同学,,,,,emoji:👫,no,no
+english-word-558,classroom,教室,学校,L1,Bright classroom.,明亮的教室,,,,,emoji:🏫,no,no
+english-word-584,cleaning the room,正在打扫房间,学校,L1,I am cleaning the room.,我在打扫房间。,,,,,emoji:🧹,no,no
+english-word-494,cloudy,多云,学校,L1,Cloudy weather.,多云的天气,,,,,emoji:☁️,no,no
+english-word-531,cola,可乐,学校,L1,I drink cola.,我喝可乐。,,,,,emoji:🥤,no,no
+english-word-462,colour,颜色,学校,L1,What colour is it?,这是什么颜色？,,,,,emoji:🎨,no,no
+english-word-557,computer class,计算机课,学校,L1,I have computer class.,我有电脑课。,,,,,emoji:💻,no,no
+english-word-585,cooking dinner,正在做饭,学校,L1,Mom is cooking dinner.,妈妈在做晚饭。,,,,,emoji:🍳,no,no
+english-word-545,december,十二月,学校,L1,My birthday is in December.,我的生日在十二月。,,,,,emoji:📅,no,no
+english-word-555,delicious,好吃,学校,L1,The cake is delicious.,蛋糕很好吃。,,,,,none,no,no
+english-word-595,dining room,餐厅,学校,L1,We eat in the dining room.,我们在餐厅吃饭。,,,,,emoji:🍽️,no,no
+english-word-567,draw pictures,画画,学校,L1,I like to draw pictures.,我喜欢画画。,,,,,emoji:🖍️,no,no
+english-word-508,eat breakfast,吃早饭,学校,L1,I eat breakfast.,我吃早饭。,,,,,emoji:🍳,no,no
+english-word-509,eat dinner,吃晚饭,学校,L1,I eat dinner.,我吃晚饭。,,,,,emoji:🍽️,no,no
+english-word-510,eat lunch,吃午饭,学校,L1,I eat lunch.,我吃午饭。,,,,,emoji:🍱,no,no
+english-word-504,eleven,十一,学校,L1,Eleven people.,十一个人,,,图片/eleven.png,,emoji:1️⃣,yes,no
+english-word-512,every day,每天,学校,L1,I brush my teeth every day.,我每天刷牙。,,,,,emoji:📅,no,no
+english-word-592,everyone,每人,学校,L1,Everyone is happy.,大家都开心。,,,,,emoji:👨‍👩‍👧‍👦,no,no
+english-word-485,father christmas,圣诞老人,学校,L1,Father Christmas is coming.,圣诞老人来了。,,,,,emoji:🎅,no,no
+english-word-502,favourite,特别喜爱的,学校,L1,Red is my favourite.,红色是我最喜欢的。,,,,,emoji:⭐,no,no
+english-word-546,february,二月,学校,L1,My birthday is in February.,我的生日在二月。,,,,,emoji:📅,no,no
+english-word-586,feeding the fish,正在喂鱼,学校,L1,I am feeding the fish.,我在喂鱼。,,,,,emoji:🐠,no,no
+english-word-519,feet,脚,学校,L1,I have two feet.,我有两只脚。,,,,,emoji:🦶,no,no
+english-word-559,floor,地板,学校,L1,Sit on the floor.,坐在地板上。,,,,,emoji:🪵,no,no
+english-word-490,fly a kite,放风筝,学校,L1,I fly a kite.,我放风筝。,,,,,emoji:🪁,no,no
+english-word-597,for rent,供出租,学校,L1,This house is for rent.,这房子在出租。,,,,,emoji:🏠,no,no
+english-word-472,girl,女孩,学校,L1,Good boy / good girl!,好孩子！,,,,,emoji:👧,no,no
+english-word-511,go to bed,上床睡觉,学校,L1,It's time to go to bed.,该睡觉啦。,,,,,emoji:🛏️,no,no
+english-word-516,grade,年级,学校,L1,I am in this grade.,我在这个年级。,,,,,emoji:🎒,no,no
+english-word-482,grass,草坪,学校,L1,Green grass.,绿绿的草,,,图片/grass.png,,emoji:🌿,yes,no
+english-word-476,handsome,英俊的,学校,L1,He is handsome.,他很帅。,,,,,emoji:😎,no,no
+english-word-479,hospital,医院,学校,L1,Go to the hospital when sick.,生病了去医院,,,图片/hospital.png,,emoji:🏥,yes,no
+english-word-517,how old,多大年龄,学校,L1,How old are you?,你几岁啦？,,,,,emoji:🎂,no,no
+english-word-526,ice-cream,冰淇淋,学校,L1,Ice-cream is a useful word.,我看见冰淇淋。,,,,,emoji:🍦,no,no
+english-word-593,in one hour,一小时之后,学校,L1,In one hour is a useful word.,我看见一小时之后。,,,,,emoji:⏰,no,no
+english-word-547,january,一月,学校,L1,My birthday is in January.,我的生日在一月。,,,,,emoji:📅,no,no
+english-word-548,july,七月,学校,L1,My birthday is in July.,我的生日在七月。,,,,,emoji:📅,no,no
+english-word-549,june,六月,学校,L1,My birthday is in June.,我的生日在六月。,,,,,emoji:📅,no,no
+english-word-522,kick,踢,学校,L1,Kick the ball.,踢球。,,,,,emoji:⚽,no,no
+english-word-499,let's,我们一起,学校,L1,Let's brush our teeth.,我们一起刷牙吧。,,,,,emoji:🤝,no,no
+english-word-560,library,图书馆,学校,L1,Read books in the library.,去图书馆看书,,,,,emoji:📚,no,no
+english-word-587,listening to music,听音乐,学校,L1,I am listening to music.,我在听音乐。,,,,,emoji:🎧,no,no
+english-word-536,look for,寻找,学校,L1,I look for my bag.,我在找书包。,,,,,emoji:🔍,no,no
+english-word-539,look forward to,盼望，期待,学校,L1,I look forward to playtime.,我盼着课间。,,,,,emoji:✨,no,no
+english-word-581,lost,丢了,学校,L1,I lost my hat.,我把帽子弄丢了。,,,,,emoji:😢,no,no
+english-word-491,make a model plane,做飞机模型,学校,L1,I make a model plane.,我做飞机模型。,,,,,emoji:✈️,no,no
+english-word-492,make a snowman,堆雪人,学校,L1,We make a snowman.,我们堆雪人。,,,,,emoji:⛄,no,no
+english-word-473,man,男人,学校,L1,The man is tall.,那个男人很高。,,,,,emoji:👨,no,no
+english-word-550,march,三月,学校,L1,My birthday is in March.,我的生日在三月。,,,,,emoji:📅,no,no
+english-word-527,meat,肉,学校,L1,I do not eat meat.,我不吃肉。,,,,,emoji:🥩,no,no
+english-word-489,merry,开心,学校,L1,Merry Christmas!,圣诞快乐！,,,,,emoji:😄,no,no
+english-word-475,name,名字,学校,L1,What's your name?,你叫什么名字？,,,,,emoji:🏷️,no,no
+english-word-465,near,距离近,学校,L1,Near at hand.,近在眼前,,,,,emoji:🏠,no,no
+english-word-486,new year,新年,学校,L1,Happy New Year!,新年快乐！,,,,,emoji:🎆,no,no
+english-word-551,november,十一月,学校,L1,My birthday is in November.,我的生日在十一月。,,,,,emoji:📅,no,no
+english-word-552,october,十月,学校,L1,My birthday is in October.,我的生日在十月。,,,,,emoji:📅,no,no
+english-word-580,ok,好的,学校,L1,"OK, I can help.",好的，我可以帮忙。,,,,,emoji:👌,no,no
+english-word-556,party,派对,学校,L1,We have a party.,我们开派对。,,,,,emoji:🎉,no,no
+english-word-533,pet,宠物,学校,L1,My pet.,我的宠物,,,,,emoji:🐾,no,no
+english-word-568,play chess,下棋,学校,L1,Dad can play chess.,爸爸会下棋。,,,,,emoji:♟️,no,no
+english-word-569,play sports,做体育运动,学校,L1,I play sports.,我做运动。,,,,,emoji:🏅,no,no
+english-word-594,play with,一起玩,学校,L1,Come play with me.,来和我玩。,,,,,emoji:🧸,no,no
+english-word-561,playground,操场,学校,L1,Play on the playground.,在操场上玩,,,,,emoji:🛝,no,no
+english-word-506,playtime,课间休息,学校,L1,It is playtime now.,现在是课间休息。,,,,,emoji:🛝,no,no
+english-word-528,potato,土豆,学校,L1,Potato is round.,土豆是圆的,,,图片/potato.png,,emoji:🥔,yes,no
+english-word-488,present,礼物,学校,L1,This present is for you.,这个礼物给你。,,,,,emoji:🎁,no,no
+english-word-495,rainy,下雨,学校,L1,Rainy weather.,下雨的天气,,,图片/rainy.png,,emoji:🌧️,yes,no
+english-word-570,read books,看书,学校,L1,I read books.,我看书。,,,,,emoji:📖,no,no
+english-word-573,really,真的,学校,L1,Is it really true?,这是真的吗？,,,,,emoji:😮,no,no
+english-word-493,ride a bike,骑自行车,学校,L1,I ride a bike.,我骑自行车。,,,,,emoji:🚲,no,no
+english-word-565,room,房间,学校,L1,My room.,我的房间,,,,,emoji:🚪,no,no
+english-word-503,season,季节,学校,L1,Four seasons.,四个季节,,,,,emoji:🍂,no,no
+english-word-562,second,第二,学校,L1,I am in second place.,我是第二名。,,,图片/second.png,,emoji:🥈,yes,no
+english-word-553,september,九月,学校,L1,My birthday is in September.,我的生日在九月。,,,,,emoji:📅,no,no
+english-word-532,shopping list,购物单,学校,L1,This is my shopping list.,这是购物单。,,,,,emoji:🛒,no,no
+english-word-540,should,应该,学校,L1,We should wash hands.,我们应该洗手。,,,,,emoji:👉,no,no
+english-word-571,sing songs,唱歌,学校,L1,We sing songs.,我们唱歌。,,,,,emoji:🎤,no,no
+english-word-534,snake,蛇,学校,L1,Long snake.,长长的蛇,,,,,emoji:🐍,no,no
+english-word-496,snowy,下雪,学校,L1,Snowy weather.,下雪的天气,,,图片/snowy.png,,emoji:❄️,yes,no
+english-word-596,study,书房,学校,L1,I study at home.,我在家学习。,,,,,emoji:📚,no,no
+english-word-523,summary,总结，摘要,学校,L1,This is a short summary.,这是一小段总结。,,,,,emoji:📝,no,no
+english-word-497,sunny,晴天,学校,L1,It's sunny today.,今天天气晴朗。,,,,,emoji:☀️,no,no
+english-word-480,supermarket,超市,学校,L1,Go to the supermarket.,逛超市,,,,,emoji:🛒,no,no
+english-word-467,t-shirt,T恤,学校,L1,A t-shirt.,一件T恤,,,,,emoji:👕,no,no
+english-word-537,tail,尾巴,学校,L1,The dog has a tail.,狗有尾巴。,,,,,emoji:🐕,no,no
+english-word-466,thanks,感谢,学校,L1,Thanks for your help.,谢谢你帮忙。,,,,,emoji:🙏,no,no
+english-word-524,the matter,怎么了,学校,L1,What is the matter?,怎么了？,,,,,emoji:❓,no,no
+english-word-477,thin,瘦的,学校,L1,The cat is thin.,这只猫很瘦。,,,,,emoji:📏,no,no
+english-word-563,third,第三,学校,L1,This is the third book.,这是第三本书。,,,,,emoji:🥉,no,no
+english-word-507,time,时间,学校,L1,Good morning! Time to get up!,早上好！该起床啦！,,,,,emoji:⏰,no,no
+english-word-564,toilet,厕所,学校,L1,Use the toilet.,上厕所,,,,,emoji:🚽,no,no
+english-word-529,tomato,番茄,学校,L1,Tomato is red.,番茄是红色的,,,图片/tomato.png,,emoji:🍅,yes,no
+english-word-574,tomorrow,明天,学校,L1,See you tomorrow.,明天见,,,,,emoji:📆,no,no
+english-word-525,tongue,舌头,学校,L1,Stick out tongue.,伸舌头,,,图片/tongue.png,,emoji:👅,yes,no
+english-word-535,turtle,乌龟,学校,L1,Slow turtle.,慢吞吞的乌龟,,,图片/turtle.png,音频/turtle.mp3,emoji:🐢,yes,yes
+english-word-505,twelve,十二,学校,L1,Twelve months.,十二个月,,,,,emoji:🕛,no,no
+english-word-530,vegetables,蔬菜,学校,L1,"Eat your vegetables, please.",请吃蔬菜。,,,,,emoji:🥬,no,no
+english-word-575,wake up,起床,学校,L1,I wake up in the morning.,我早上起床。,,,,,emoji:⏰,no,no
+english-word-588,walking the dog,正在遛狗,学校,L1,I am walking the dog.,我在遛狗。,,,,,emoji:🐕,no,no
+english-word-589,watching tv,正在看电视,学校,L1,I am watching TV.,我在看电视。,,,,,emoji:📺,no,no
+english-word-582,water bottle,水壶,学校,L1,Drink from a water bottle.,用水壶喝水,,,,,emoji:🍼,no,no
+english-word-590,watering the plants,正在给植物浇水,学校,L1,I am watering the plants.,我在浇花。,,,,,emoji:🪴,no,no
+english-word-541,wear,戴,学校,L1,Wear is a useful word.,我看见戴。,,,,,emoji:👕,no,no
+english-word-500,weather,天气,学校,L1,How's the weather today.,今天天气如何,,,图片/weather.png,,emoji:🌈,yes,no
+english-word-542,week,周,学校,L1,Week is a useful word.,我看见周。,,,,,emoji:📅,no,no
+english-word-583,welcome,欢迎,学校,L1,You're welcome.,不客气。,,,,,emoji:🤗,no,no
+english-word-498,windy,有风,学校,L1,It's windy.,刮风了。,,,图片/windy.png,,emoji:🌬️,yes,no
+english-word-474,woman,女人,学校,L1,The woman is kind.,那位阿姨很好。,,,,,emoji:👩,no,no
+english-word-501,wow,哇,学校,L1,"Wow, a big rainbow!",哇，好大的彩虹！,,,,,emoji:🤩,no,no
+english-word-513,year,年,学校,L1,This is a new year.,这是新的一年。,,,,,emoji:📆,no,no
+english-word-481,zoo,动物园,学校,L1,See animals at the zoo.,看动物,,,,,emoji:🦁,no,no
+english-word-413,afternoon,下午,生活,L1,Good afternoon.,下午好,,,,,emoji:🌅,no,no
+english-word-514,age,年龄,生活,L1,What is your age?,你几岁了？,,,,,emoji:🧒,no,no
+english-word-346,animal,动物,生活,L1,Many animals.,各种动物,,,图片/animal.png,,emoji:🐎,yes,no
+english-word-388,arm,手臂,生活,L1,Raise your arm.,举起手臂,,,,,emoji:💪,no,no
+english-word-394,art,美术,生活,L1,You are so smart!,你真聪明！,,,,,emoji:🎨,no,no
+english-word-435,autumn,秋天,生活,L1,Autumn leaves.,秋天的叶子,,,,,emoji:🍁,no,no
+english-word-42,baby,宝宝,生活,L1,The baby is cute.,宝宝很可爱。,,,图片/baby.png,,emoji:👶,yes,no
+english-word-363,basketball,篮球,生活,L1,I play basketball.,我打篮球。,,,,,emoji:🏀,no,no
+english-word-369,bathroom,卫生间,生活,L1,Wash hands in the bathroom.,在卫生间洗手。,,,,,emoji:🛁,no,no
+english-word-368,bedroom,卧室,生活,L1,This is my bedroom.,这是我的卧室。,,,,,emoji:🛏️,no,no
+english-word-426,boat,小船,生活,L1,Sail the boat.,开船,,,图片/boat.png,音频/boat.mp3,emoji:⛵,yes,yes
+english-word-417,breakfast,早餐,生活,L1,It's time for breakfast.,该吃早餐啦。,,,,,emoji:🥐,no,no
+english-word-39,brother,哥哥,生活,L1,I have a brother.,我有一个哥哥。,,,,,emoji:👦,no,no
+english-word-461,can't,不能,生活,L1,Can't is a useful word.,我看见不能。,,,,,emoji:🙅,no,no
+english-word-386,cheap,便宜的,生活,L1,This book is cheap.,这本书很便宜。,,,,,emoji:💰,no,no
+english-word-391,chinese,中文,生活,L1,Speak Chinese.,说中文,,,图片/chinese.png,,emoji:🀄,yes,no
+english-word-442,coat,外套,生活,L1,Put on your coat.,穿上外套。,,,,,emoji:🧥,no,no
+english-word-376,coffee,咖啡,生活,L1,Dad drinks coffee.,爸爸喝咖啡。,,,,,emoji:☕,no,no
+english-word-437,cool,凉爽的,生活,L1,Cool weather.,凉爽的天气,,,,,emoji:😎,no,no
+english-word-454,cough,咳嗽,生活,L1,I have a cough.,我咳嗽了。,,,,,emoji:🤧,no,no
+english-word-344,cute,可爱的,生活,L1,Cute kitten.,可爱的小猫,,,,,emoji:🥰,no,no
+english-word-95,dad,爸爸,生活,L1,My dad is here.,我的爸爸在这里。,,,,,emoji:👨,no,no
+english-word-451,dear,亲爱的,生活,L1,"Dear mom, I love you.",亲爱的妈妈，我爱你。,,,,,emoji:💌,no,no
+english-word-432,difficult,困难的,生活,L1,This is difficult.,这个有点难。,,,,,emoji:🧩,no,no
+english-word-416,dinner,晚餐,生活,L1,This is a dinner.,这是晚餐。,,,,,emoji:🍽️,no,no
+english-word-431,easy,容易的,生活,L1,Easy blocks.,简单的积木,,,,,emoji:😊,no,no
+english-word-358,eighteen,十八,生活,L1,Eighteen apples.,十八个苹果,,,,,emoji:1️⃣,no,no
+english-word-392,english,英语,生活,L1,Learn English.,学英语,,,图片/english.png,,emoji:🔤,yes,no
+english-word-414,evening,傍晚,生活,L1,Good evening.,晚上好,,,,,emoji:🌆,no,no
+english-word-387,expensive,贵的,生活,L1,This is an expensive.,这是贵的。,,,,,emoji:💎,no,no
+english-word-24,family,家人,生活,L1,I love my family.,我爱我的家人。,,,,,emoji:👨‍👩‍👧,no,no
+english-word-381,fan,扇子,生活,L1,This is a fan.,这是扇子。,,,,,emoji:🪭,no,no
+english-word-345,fat,胖的,生活,L1,This is a fat.,这是胖的。,,,,,emoji:🍩,no,no
+english-word-37,father,爸爸,生活,L1,My father is tall.,我的爸爸很高。,,,,,emoji:👨,no,no
+english-word-453,fever,发烧,生活,L1,This is a fever.,这是发烧。,,,,,emoji:🤒,no,no
+english-word-355,fifteen,十五,生活,L1,Fifteen years old.,十五岁生日,,,,,emoji:1️⃣,no,no
+english-word-384,fifty,五十,生活,L1,This is a fifty.,这是五十。,,,,,emoji:5️⃣,no,no
+english-word-457,fine,好的,生活,L1,This is a fine.,这是好的。,,,,,emoji:👍,no,no
+english-word-424,flower,花,生活,L1,Beautiful flower.,美丽的花,,,图片/flower.png,音频/flower.mp3,emoji:🌸,yes,yes
+english-word-438,fly kites,放风筝,生活,L1,I fly kites.,我放风筝。,,,,,emoji:🪁,no,no
+english-word-364,football,足球,生活,L1,This is a football.,这是足球。,,,,,emoji:⚽,no,no
+english-word-383,forty,四十,生活,L1,This is a forty.,这是四十。,,,,,emoji:4️⃣,no,no
+english-word-354,fourteen,十四,生活,L1,Fourteen friends.,十四个朋友,,,,,emoji:1️⃣,no,no
+english-word-404,friday,星期五,生活,L1,This is a friday.,这是星期五。,,,,,emoji:📅,no,no
+english-word-373,fridge,冰箱,生活,L1,This is a fridge.,这是冰箱。,,,,,emoji:🧊,no,no
+english-word-41,friend,朋友,生活,L1,You are my friend.,你是我的朋友。,,,,音频/friend.mp3,emoji:🤗,no,yes
+english-word-349,fruit,水果,生活,L1,This is a fruit.,这是水果。,,,,,emoji:🍎,no,no
+english-word-407,get up,起床,生活,L1,Good morning! Time to get up!,早上好！该起床啦！,,,,,emoji:⏰,no,no
+english-word-378,glass,玻璃杯,生活,L1,This is a glass.,这是玻璃杯。,,,图片/glass.png,,emoji:🥛,yes,no
+english-word-446,gloves,手套,生活,L1,Put on gloves.,戴上手套,,,,,emoji:🧤,no,no
+english-word-421,go home,回家,生活,L1,Let's go home.,我们回家吧。,,,,,emoji:🏠,no,no
+english-word-440,go skating,去溜冰,生活,L1,I go skating.,我去溜冰。,,,,,emoji:⛸️,no,no
+english-word-439,go swimming,去游泳,生活,L1,I go swimming.,我去游泳。,,,,,emoji:🏊,no,no
+english-word-408,go to school,去上学,生活,L1,Let's go to school!,我们去上学吧！,,,,,emoji:🏫,no,no
+english-word-106,grandma,奶奶,生活,L1,My grandma is kind.,我的奶奶很温柔。,,,,,emoji:👵,no,no
+english-word-107,grandpa,爷爷,生活,L1,My grandpa reads a book.,我的爷爷在看书。,,,,,emoji:👴,no,no
+english-word-351,great,好极了,生活,L1,Great job!,做得真棒！,,,,,emoji:🌟,no,no
+english-word-374,hamburger,汉堡包,生活,L1,This is a hamburger.,这是汉堡包。,,,,,emoji:🍔,no,no
+english-word-410,have lessons,上课,生活,L1,I have lessons.,我上课。,,,,,emoji:📘,no,no
+english-word-455,headache,头疼,生活,L1,Headache is a useful word.,我看见头疼。,,,,,emoji:🤕,no,no
+english-word-459,hear,听到,生活,L1,Hear music.,听见音乐,,,,,emoji:👂,no,no
+english-word-429,hill,小山,生活,L1,Green hill.,绿色的小山,,,图片/hill.png,音频/hill.mp3,emoji:⛰️,yes,yes
+english-word-23,home,家,生活,L1,Let's go home.,我们回家吧。,,,,,emoji:🏠,no,no
+english-word-419,homework,家庭作业,生活,L1,Do homework.,做家庭作业,,,,,emoji:📝,no,no
+english-word-450,ill,生病的,生活,L1,Ill is a useful word.,我看见生病的。,,,,,emoji:🤒,no,no
+english-word-444,jacket,夹克,生活,L1,A jacket.,一件夹克,,,,,emoji:🧥,no,no
+english-word-370,kitchen,厨房,生活,L1,This is a kitchen.,这是厨房。,,,,,emoji:🍳,no,no
+english-word-428,lake,湖,生活,L1,Beautiful lake.,美丽的湖,,,,,emoji:🏞️,no,no
+english-word-389,leg,腿,生活,L1,Lift leg.,抬起腿,,,,,emoji:🦵,no,no
+english-word-398,lesson,课,生活,L1,Have a lesson.,上课,,,,,emoji:📘,no,no
+english-word-371,living room,客厅,生活,L1,I living room.,我客厅。,,,,,emoji:🛋️,no,no
+english-word-418,lunch,午餐,生活,L1,Eat lunch.,吃午餐,,,,,emoji:🍱,no,no
+english-word-347,mango,芒果,生活,L1,Mango is tasty.,芒果很好吃,,,图片/mango.png,,emoji:🥭,yes,no
+english-word-411,match,比赛,生活,L1,This is a match.,这是比赛。,,,,,emoji:⚽,no,no
+english-word-393,maths,数学,生活,L1,This is a maths.,这是数学。,,,,,emoji:🔢,no,no
+english-word-452,matter,事情,生活,L1,This is a matter.,这是事情。,,,,,emoji:❓,no,no
+english-word-115,mom,妈妈,生活,L1,My mom is here.,我的妈妈在这里。,,,,,emoji:👩,no,no
+english-word-400,monday,星期一,生活,L1,This is a monday.,这是星期一。,,,,,emoji:📅,no,no
+english-word-412,morning,早上,生活,L1,Good morning! Time to get up!,早上好！该起床啦！,,,,,emoji:🌅,no,no
+english-word-38,mother,妈妈,生活,L1,My mother is kind.,我的妈妈很温柔。,,,,,emoji:👩,no,no
+english-word-395,music,音乐,生活,L1,Listen to music.,听音乐,,,图片/music.png,,emoji:🎵,yes,no
+english-word-415,night,夜晚,生活,L1,"Good night, sweetie.",晚安，宝贝。,,,,,emoji:🌙,no,no
+english-word-359,nineteen,十九,生活,L1,Nineteen books.,十九本书,,,,,emoji:1️⃣,no,no
+english-word-423,park,公园,生活,L1,Play in the park.,在公园玩,,,,,emoji:🏞️,no,no
+english-word-396,pe,体育,生活,L1,This is a pe.,这是体育。,,,,,emoji:🏃,no,no
+english-word-441,picnic,野餐,生活,L1,This is a picnic.,这是野餐。,,,,,emoji:🧺,no,no
+english-word-430,picture,图画,生活,L1,This is a picture.,这是图画。,,,,,emoji:🖼️,no,no
+english-word-348,pineapple,菠萝,生活,L1,Pineapple is sweet.,菠萝很甜,,,图片/pineapple.png,,emoji:🍍,yes,no
+english-word-409,play football,踢足球,生活,L1,I play football.,我踢足球。,,,,,emoji:⚽,no,no
+english-word-427,river,河,生活,L1,Long river.,长长的河,,,图片/river.png,,emoji:🌊,yes,no
+english-word-448,sad,难过,生活,L1,I am sad.,我很难过。,,,,,emoji:😢,no,no
+english-word-350,salad,沙拉,生活,L1,This is a salad.,这是沙拉。,,,,,emoji:🥗,no,no
+english-word-375,sandwich,三明治,生活,L1,Sandwich for lunch.,午餐吃三明治,,,图片/sandwich.png,,emoji:🥪,yes,no
+english-word-405,saturday,星期六,生活,L1,This is a saturday.,这是星期六。,,,,,emoji:📅,no,no
+english-word-176,school,学校,生活,L1,Let's go to school!,我们去上学吧！,,,,,emoji:🏫,no,no
+english-word-397,science,科学,生活,L1,Do science experiment.,做科学实验,,,图片/science.png,,emoji:🔬,yes,no
+english-word-357,seventeen,十七,生活,L1,Seventeen friends.,十七个朋友,,,,,emoji:1️⃣,no,no
+english-word-379,shoes,鞋子,生活,L1,Put on your shoes.,穿上你的鞋子。,,,,,emoji:👟,no,no
+english-word-40,sister,姐姐,生活,L1,I have a sister.,我有一个姐姐。,,,,,emoji:👧,no,no
+english-word-356,sixteen,十六,生活,L1,Sixteen stars.,十六个星星,,,图片/sixteen.png,,emoji:1️⃣,yes,no
+english-word-365,skate,溜冰,生活,L1,This is a skate.,这是溜冰。,,,,,emoji:⛸️,no,no
+english-word-377,snack,点心,生活,L1,Eat a snack.,吃点心,,,,,emoji:🍪,no,no
+english-word-372,sofa,沙发,生活,L1,Sit on sofa.,坐在沙发上,,,,,emoji:🛋️,no,no
+english-word-460,speak,说话,生活,L1,This is a speak.,这是说话。,,,,,emoji:🗣️,no,no
+english-word-433,spring,春天,生活,L1,Spring has come.,春天来了,,,图片/spring.png,,emoji:🌷,yes,no
+english-word-361,sticker,贴纸,生活,L1,Peel and stick the sticker on your notebook.,把贴纸从底纸上撕下来贴到你的笔记本上,,,,,emoji:⭐,no,no
+english-word-456,stomach ache,肚子疼,生活,L1,I stomach ache.,我肚子疼。,,,,,emoji:🤢,no,no
+english-word-177,student,学生,生活,L1,I am a student.,我是学生。,,,,,emoji:🧑‍🎓,no,no
+english-word-390,subject,科目,生活,L1,This is a subject.,这是科目。,,,,,emoji:📚,no,no
+english-word-434,summer,夏天,生活,L1,Summer is hot.,夏天很热,,,,,emoji:🌻,no,no
+english-word-406,sunday,星期日,生活,L1,This is a sunday.,这是星期日。,,,,,emoji:📅,no,no
+english-word-362,sure,当然,生活,L1,This is a sure.,这是当然。,,,,,emoji:👌,no,no
+english-word-443,sweater,毛衣,生活,L1,Warm sweater.,温暖的毛衣,,,,,emoji:🧶,no,no
+english-word-366,swim,游泳,生活,L1,Go swimming.,去游泳,,,图片/swim.png,,emoji:🏊,yes,no
+english-word-367,table tennis,乒乓球,生活,L1,I table tennis.,我乒乓球。,,,,,emoji:🏓,no,no
+english-word-458,take care,保重,生活,L1,I take care.,我保重。,,,,,emoji:💝,no,no
+english-word-157,teacher,老师,生活,L1,My teacher is kind.,我的老师很温柔。,,,图片/teacher.png,,emoji:👩‍🏫,yes,no
+english-word-353,thirteen,十三,生活,L1,Thirteen balloons.,十三只气球,,,,,emoji:1️⃣,no,no
+english-word-382,thirty,三十,生活,L1,This is a thirty.,这是三十。,,,,,emoji:3️⃣,no,no
+english-word-403,thursday,星期四,生活,L1,This is a thursday.,这是星期四。,,,,,emoji:📅,no,no
+english-word-399,timetable,课程表,生活,L1,This is a timetable.,这是课程表。,,,,,emoji:📅,no,no
+english-word-449,tired,累的,生活,L1,Tired after running.,跑完步很累,,,,,emoji:😴,no,no
+english-word-425,tree,树,生活,L1,Big tree.,大树,,,,音频/tree.mp3,emoji:🌳,no,yes
+english-word-445,trousers,裤子,生活,L1,This is a trousers.,这是裤子。,,,,,emoji:👖,no,no
+english-word-401,tuesday,星期二,生活,L1,This is a tuesday.,这是星期二。,,,,,emoji:📅,no,no
+english-word-360,twenty,二十,生活,L1,Twenty students.,二十个学生,,,图片/twenty.png,,emoji:2⃣0⃣,yes,no
+english-word-380,umbrella,雨伞,生活,L1,Take an umbrella.,带把雨伞,,,,,emoji:☂️,no,no
+english-word-422,usually,通常,生活,L1,This is an usually.,这是通常。,,,,,emoji:🔁,no,no
+english-word-420,watch tv,看电视,生活,L1,I watch tv.,我看电视。,,,,,emoji:📺,no,no
+english-word-402,wednesday,星期三,生活,L1,Wednesday is a useful word.,我看见星期三。,,,,,emoji:📅,no,no
+english-word-447,whose,谁的,生活,L1,Whose is a useful word.,我看见谁的。,,,,,emoji:🤷,no,no
+english-word-436,winter,冬天,生活,L1,Winter is cold.,冬天很冷,,,,,emoji:⛄,no,no
+english-word-352,wonderful,精彩的,生活,L1,This is a wonderful.,这是精彩的。,,,,,emoji:🌈,no,no
+english-word-385,yuan,元,生活,L1,This is a yuan.,这是元。,,,,,emoji:💴,no,no
+english-word-26,bye,再见,表达,L1,"Bye, see you.",再见，回头见。,,,,,emoji:👋,no,no
+english-word-179,goodbye,再见,表达,L1,"Goodbye, see you.",再见，回头见。,,,,,emoji:👋,no,no
+english-word-65,he,他,表达,L1,He is a boy.,他是一个男孩。,,,,,emoji:👨,no,no
+english-word-25,hello,你好,表达,L1,"Hello, I am here.",你好，我在这里。,,,,音频/hello.mp3,emoji:👋,no,yes
+english-word-170,here,这里,表达,L1,We are here!,我们到了！,,,,,emoji:📍,no,no
+english-word-68,hi,嗨,表达,L1,"Hi, how are you?",嗨，你好吗？,,,,,emoji:👋,no,no
+english-word-67,it,它,表达,L1,It's time for breakfast.,该吃早餐啦。,,,,,emoji:🐱,no,no
+english-word-27,like,喜欢,表达,L1,Yummy! I like it!,真好吃！我喜欢！,,,,,emoji:❤️,no,no
+english-word-63,me,我,表达,L1,Let me tell you a story.,我给你讲个故事吧。,,,,,emoji:😊,no,no
+english-word-69,nice,好,表达,L1,Have a nice day!,祝你今天愉快！,,,,,emoji:😊,no,no
+english-word-149,no,不,表达,L1,"It's okay, no problem.",没关系，没问题。,,,图片/no.png,,emoji:🚫,yes,no
+english-word-71,okay,好的,表达,L1,Are you okay?,你还好吗？,,,,,emoji:👌,no,no
+english-word-72,please,请,表达,L1,"Wash your face, please.",请洗脸。,,,,,emoji:🙏,no,no
+english-word-28,see,看见,表达,L1,I see a cat.,我看见一只猫。,,,,,emoji:👀,no,no
+english-word-66,she,她,表达,L1,She is a girl.,她是一个女孩。,,,,,emoji:👧,no,no
+english-word-70,sorry,对不起,表达,L1,I'm sorry.,对不起。,,,,,emoji:🙏,no,no
+english-word-36,thank,谢谢,表达,L1,Thank you!,谢谢你！,,,,,emoji:🙏,no,no
+english-word-175,they,他们,表达,L1,They are friends.,他们是朋友。,,,图片/they.png,,emoji:👫,yes,no
+english-word-174,we,我们,表达,L1,Where are we going today?,我们今天去哪儿？,,,,,emoji:👪,no,no
+english-word-180,where,哪里,表达,L1,Where are we going today?,我们今天去哪儿？,,,,,emoji:📍,no,no
+english-word-162,yes,是,表达,L1,"Yes, I like it.",是的，我喜欢。,,,,,emoji:✅,no,no
+english-word-64,you,你,表达,L1,Did you sleep well?,你睡得好吗？,,,图片/you.png,,emoji:👤,yes,no
+english-word-185,a,一个,高频词,L1,What a beautiful day!,多么美好的一天！,,,,,emoji:🅰️,no,no
+english-word-312,about,关于,高频词,L1,I know about.,我认识关于。,,,,,none,no,no
+english-word-236,after,之后,高频词,L1,I know after.,我认识之后。,,,,,none,no,no
+english-word-237,again,再一次,高频词,L1,"Try again, you'll get it.",再试一次，你能做到的。,,,,,none,no,no
+english-word-196,all,全部,高频词,L1,I know all.,我认识全部。,,,,,none,no,no
+english-word-274,always,总是,高频词,L1,I know always.,我认识总是。,,,,,none,no,no
+english-word-197,am,是,高频词,L1,I am full.,我吃饱了。,,,,,emoji:😊,no,no
+english-word-238,an,一个,高频词,L1,I know an.,我认识一个。,,,,,none,no,no
+english-word-186,and,和,高频词,L1,I know and.,我认识和。,,,,,emoji:➕,no,no
+english-word-239,any,任何,高频词,L1,I know any.,我认识任何。,,,,,none,no,no
+english-word-198,are,是,高频词,L1,Are you hungry?,你饿了吗？,,,,,emoji:✅,no,no
+english-word-275,around,周围,高频词,L1,I know around.,我认识周围。,,,,,none,no,no
+english-word-240,as,作为,高频词,L1,I know as.,我认识作为。,,,,,none,no,no
+english-word-241,ask,问,高频词,L1,I know ask.,我认识问。,,,,,emoji:❔,no,no
+english-word-199,at,在,高频词,L1,Look at me!,看我！,,,,,none,no,no
+english-word-200,ate,吃了,高频词,L1,I know ate.,我认识吃了。,,,,,emoji:🍽️,no,no
+english-word-201,be,是,高频词,L1,Be careful!,小心！,,,,,none,no,no
+english-word-276,because,因为,高频词,L1,I know because.,我认识因为。,,,,,none,no,no
+english-word-277,been,已经,高频词,L1,I know been.,我认识已经。,,,,,none,no,no
+english-word-278,before,之前,高频词,L1,Wash your hands before eating.,吃饭前要洗手。,,,,,none,no,no
+english-word-279,best,最好,高频词,L1,I know best.,我认识最好。,,,,,none,no,no
+english-word-313,better,更好,高频词,L1,I know better.,我认识更好。,,,,,none,no,no
+english-word-280,both,两个,高频词,L1,I know both.,我认识两个。,,,,,none,no,no
+english-word-314,bring,带来,高频词,L1,I know bring.,我认识带来。,,,,,none,no,no
+english-word-202,brown,棕色,高频词,L1,I know brown.,我认识棕色。,,,,,emoji:🤎,no,no
+english-word-203,but,但是,高频词,L1,I know but.,我认识但是。,,,,,none,no,no
+english-word-281,buy,买,高频词,L1,I know buy.,我认识买。,,,,,emoji:🛒,no,no
+english-word-242,by,在旁边,高频词,L1,I know by.,我认识在旁边。,,,,,none,no,no
+english-word-282,call,叫,高频词,L1,I know call.,我认识叫。,,,,,emoji:📞,no,no
+english-word-204,came,来了,高频词,L1,I know came.,我认识来了。,,,,,none,no,no
+english-word-187,can,能,高频词,L1,You can do it!,你一定能行！,,,,,emoji:💪,no,no
+english-word-315,carry,搬,高频词,L1,I know carry.,我认识搬。,,,,,none,no,no
+english-word-316,clean,干净,高频词,L1,Clean up your toys.,收拾好你的玩具。,,,图片/clean.png,,emoji:🧼,yes,no
+english-word-283,cold,冷,高频词,L1,It's very cold.,天气很冷。,,,,,emoji:🥶,no,no
+english-word-243,could,能够,高频词,L1,I know could.,我认识能够。,,,,,none,no,no
+english-word-317,cut,切,高频词,L1,I know cut.,我认识切。,,,,,emoji:✂️,no,no
+english-word-205,did,做了,高频词,L1,Did you sleep well?,你睡得好吗？,,,,,none,no,no
+english-word-206,do,做,高频词,L1,Do you want some milk?,你想喝点牛奶吗？,,,,,emoji:🙌,no,no
+english-word-284,does,做,高频词,L1,I know does.,我认识做。,,,,,none,no,no
+english-word-318,done,做完,高频词,L1,Well done!,做得好！,,,,,none,no,no
+english-word-244,every,每个,高频词,L1,I know every.,我认识每个。,,,,,none,no,no
+english-word-319,fall,落下,高频词,L1,I know fall.,我认识落下。,,,,,emoji:🍂,no,no
+english-word-320,far,远,高频词,L1,I know far.,我认识远。,,,,,none,no,no
+english-word-285,fast,快,高频词,L1,I know fast.,我认识快。,,,,,emoji:⚡,no,no
+english-word-286,first,第一,高频词,L1,I know first.,我认识第一。,,,图片/first.png,,none,yes,no
+english-word-245,fly,飞,高频词,L1,I know fly.,我认识飞。,,,,,emoji:🕊️,no,no
+english-word-188,for,为了,高频词,L1,It's time for breakfast.,该吃早餐啦。,,,,,none,no,no
+english-word-287,found,找到了,高频词,L1,I know found.,我认识找到了。,,,,,none,no,no
+english-word-246,from,从,高频词,L1,I know from.,我认识从。,,,,,none,no,no
+english-word-321,full,满,高频词,L1,I am full.,我吃饱了。,,,,,none,no,no
+english-word-288,gave,给了,高频词,L1,I know gave.,我认识给了。,,,,,none,no,no
+english-word-207,get,得到,高频词,L1,Good morning! Time to get up!,早上好！该起床啦！,,,,,none,no,no
+english-word-247,give,给,高频词,L1,Give me a hug.,抱抱我。,,,,,none,no,no
+english-word-289,goes,去,高频词,L1,I know goes.,我认识去。,,,,,none,no,no
+english-word-248,going,正在去,高频词,L1,Where are we going today?,我们今天去哪儿？,,,,,none,no,no
+english-word-208,good,好,高频词,L1,Good morning! Time to get up!,早上好！该起床啦！,,,,,emoji:👍,no,no
+english-word-322,got,得到了,高频词,L1,I know got.,我认识得到了。,,,,,none,no,no
+english-word-323,grow,生长,高频词,L1,I know grow.,我认识生长。,,,,,emoji:🌱,no,no
+english-word-249,had,有过,高频词,L1,I know had.,我认识有过。,,,,,none,no,no
+english-word-250,has,有,高频词,L1,I know has.,我认识有。,,,,,none,no,no
+english-word-209,have,有,高频词,L1,Have a nice day!,祝你今天愉快！,,,,,none,no,no
+english-word-251,her,她的,高频词,L1,I know her.,我认识她的。,,,,,none,no,no
+english-word-252,him,他,高频词,L1,I know him.,我认识他。,,,,,none,no,no
+english-word-253,his,他的,高频词,L1,I know his.,我认识他的。,,,,,none,no,no
+english-word-324,hold,拿着,高频词,L1,Hold my hand.,拉着我的手。,,,,,emoji:🤲,no,no
+english-word-325,hot,热,高频词,L1,It's very hot.,天气很热。,,,,,emoji:🥵,no,no
+english-word-254,how,怎样,高频词,L1,How old are you?,你几岁啦？,,,图片/how.png,,emoji:❓,yes,no
+english-word-326,hurt,疼,高频词,L1,I know hurt.,我认识疼。,,,,,emoji:🩹,no,no
+english-word-189,i,我,高频词,L1,Yummy! I like it!,真好吃！我喜欢！,,,,,emoji:😊,no,no
+english-word-327,if,如果,高频词,L1,I know if.,我认识如果。,,,,,none,no,no
+english-word-190,in,在里面,高频词,L1,May I come in?,我可以进来吗？,,,,,none,no,no
+english-word-210,into,进入,高频词,L1,I know into.,我认识进入。,,,,,none,no,no
+english-word-191,is,是,高频词,L1,My name is ...,我叫……,,,,,emoji:✅,no,no
+english-word-290,its,它的,高频词,L1,I know its.,我认识它的。,,,,,none,no,no
+english-word-255,just,只是,高频词,L1,I know just.,我认识只是。,,,,,none,no,no
+english-word-328,keep,保持,高频词,L1,Keep going!,继续加油！,,,,,none,no,no
+english-word-329,kind,善良,高频词,L1,I know kind.,我认识善良。,,,图片/kind.png,,none,yes,no
+english-word-256,know,知道,高频词,L1,I don't know.,我不知道。,,,,,none,no,no
+english-word-330,laugh,笑,高频词,L1,I know laugh.,我认识笑。,,,,,emoji:😂,no,no
+english-word-257,let,让,高频词,L1,Let's brush our teeth.,我们一起刷牙吧。,,,,,none,no,no
+english-word-258,live,住,高频词,L1,I know live.,我认识住。,,,,,none,no,no
+english-word-291,made,做了,高频词,L1,I know made.,我认识做了。,,,,,none,no,no
+english-word-292,many,许多,高频词,L1,I know many.,我认识许多。,,,,,emoji:⭐,no,no
+english-word-259,may,可以,高频词,L1,May I come in?,我可以进来吗？,,,,,none,no,no
+english-word-331,much,许多,高频词,L1,I know much.,我认识许多。,,,,,none,no,no
+english-word-211,must,必须,高频词,L1,I know must.,我认识必须。,,,,,none,no,no
+english-word-192,my,我的,高频词,L1,Hold my hand.,拉着我的手。,,,,,none,no,no
+english-word-332,myself,我自己,高频词,L1,I know myself.,我认识我自己。,,,,,none,no,no
+english-word-333,never,从不,高频词,L1,I know never.,我认识从不。,,,,,none,no,no
+english-word-193,not,不,高频词,L1,I know not.,我认识不。,,,,,emoji:🚫,no,no
+english-word-212,now,现在,高频词,L1,I know now.,我认识现在。,,,,,none,no,no
+english-word-260,of,的,高频词,L1,I am proud of you.,我为你骄傲。,,,,,none,no,no
+english-word-293,off,离开,高频词,L1,"Turn off the light, please.",请关灯。,,,,,none,no,no
+english-word-213,on,在上面,高频词,L1,Put on your shoes.,穿上你的鞋子。,,,,,none,no,no
+english-word-261,once,一次,高频词,L1,I know once.,我认识一次。,,,,,none,no,no
+english-word-334,only,只有,高频词,L1,I know only.,我认识只有。,,,,,none,no,no
+english-word-262,open,打开,高频词,L1,I know open.,我认识打开。,,,,,emoji:📬,no,no
+english-word-294,or,或者,高频词,L1,Do you want red or blue?,你要红色还是蓝色？,,,,,emoji:🔀,no,no
+english-word-214,our,我们的,高频词,L1,Let's brush our teeth.,我们一起刷牙吧。,,,,,none,no,no
+english-word-215,out,出去,高频词,L1,I know out.,我认识出去。,,,,,none,no,no
+english-word-263,over,在上面,高频词,L1,I know over.,我认识在上面。,,,,,none,no,no
+english-word-335,own,自己的,高频词,L1,I know own.,我认识自己的。,,,,,none,no,no
+english-word-336,pick,挑选,高频词,L1,I know pick.,我认识挑选。,,,,,emoji:🌼,no,no
+english-word-216,pretty,漂亮,高频词,L1,I know pretty.,我认识漂亮。,,,,,emoji:💅,no,no
+english-word-295,pull,拉,高频词,L1,I know pull.,我认识拉。,,,,,emoji:🪢,no,no
+english-word-264,put,放,高频词,L1,Put on your shoes.,穿上你的鞋子。,,,,,emoji:📥,no,no
+english-word-217,ran,跑了,高频词,L1,I know ran.,我认识跑了。,,,,,emoji:🏃,no,no
+english-word-218,ride,骑,高频词,L1,I know ride.,我认识骑。,,,,,emoji:🚲,no,no
+english-word-296,right,对,高频词,L1,I know right.,我认识对。,,,,,none,no,no
+english-word-265,round,圆的,高频词,L1,I know round.,我认识圆的。,,,,,emoji:🔵,no,no
+english-word-219,saw,看见了,高频词,L1,I know saw.,我认识看见了。,,,,,emoji:👀,no,no
+english-word-220,say,说,高频词,L1,I know say.,我认识说。,,,,,emoji:💬,no,no
+english-word-337,show,展示,高频词,L1,I know show.,我认识展示。,,,,,emoji:👉,no,no
+english-word-221,so,所以,高频词,L1,That was so fun!,太好玩了！,,,,,none,no,no
+english-word-266,some,一些,高频词,L1,Do you want some milk?,你想喝点牛奶吗？,,,,,none,no,no
+english-word-222,soon,很快,高频词,L1,I know soon.,我认识很快。,,,,,none,no,no
+english-word-338,start,开始,高频词,L1,I know start.,我认识开始。,,,,,emoji:🚦,no,no
+english-word-267,stop,停,高频词,L1,I know stop.,我认识停。,,,,,emoji:🛑,no,no
+english-word-268,take,拿,高频词,L1,Take a bath.,洗个澡。,,,,,emoji:👜,no,no
+english-word-297,tell,告诉,高频词,L1,Let me tell you a story.,我给你讲个故事吧。,,,,,none,no,no
+english-word-223,that,那个,高频词,L1,That was so fun!,太好玩了！,,,,,none,no,no
+english-word-194,the,这,高频词,L1,"Turn off the light, please.",请关灯。,,,,,emoji:👉,no,no
+english-word-298,their,他们的,高频词,L1,I know their.,我认识他们的。,,,,,none,no,no
+english-word-269,them,他们,高频词,L1,I know them.,我认识他们。,,,,,none,no,no
+english-word-270,then,然后,高频词,L1,I know then.,我认识然后。,,,,,none,no,no
+english-word-224,there,那里,高频词,L1,I know there.,我认识那里。,,,,,none,no,no
+english-word-299,these,这些,高频词,L1,I know these.,我认识这些。,,,,,none,no,no
+english-word-271,think,想,高频词,L1,I know think.,我认识想。,,,,,emoji:💭,no,no
+english-word-225,this,这个,高频词,L1,What color is this?,这是什么颜色？,,,,,none,no,no
+english-word-300,those,那些,高频词,L1,I know those.,我认识那些。,,,,,none,no,no
+english-word-195,to,到,高频词,L1,Good morning! Time to get up!,早上好！该起床啦！,,,,,none,no,no
+english-word-339,today,今天,高频词,L1,Where are we going today?,我们今天去哪儿？,,,,,emoji:📆,no,no
+english-word-340,together,一起,高频词,L1,Let's play together!,我们一起玩吧！,,,,,emoji:🤝,no,no
+english-word-226,too,也,高频词,L1,I know too.,我认识也。,,,,,none,no,no
+english-word-341,try,尝试,高频词,L1,"Try again, you'll get it.",再试一次，你能做到的。,,,,,emoji:💪,no,no
+english-word-227,under,在下面,高频词,L1,I know under.,我认识在下面。,,,,,emoji:⬇️,no,no
+english-word-301,upon,在之上,高频词,L1,I know upon.,我认识在之上。,,,,,none,no,no
+english-word-302,us,我们,高频词,L1,I know us.,我认识我们。,,,,,none,no,no
+english-word-303,use,用,高频词,L1,I know use.,我认识用。,,,,,none,no,no
+english-word-304,very,非常,高频词,L1,It's very cold.,天气很冷。,,,,,none,no,no
+english-word-228,want,想要,高频词,L1,Do you want some milk?,你想喝点牛奶吗？,,,,,emoji:🙋,no,no
+english-word-342,warm,暖和,高频词,L1,I know warm.,我认识暖和。,,,,,emoji:🧣,no,no
+english-word-229,was,是,高频词,L1,That was so fun!,太好玩了！,,,,,none,no,no
+english-word-305,wash,洗,高频词,L1,"Wash your face, please.",请洗脸。,,,,,emoji:🧼,no,no
+english-word-230,well,好,高频词,L1,Did you sleep well?,你睡得好吗？,,,,,none,no,no
+english-word-231,went,去了,高频词,L1,I know went.,我认识去了。,,,,,none,no,no
+english-word-272,were,是,高频词,L1,I know were.,我认识是。,,,,,none,no,no
+english-word-232,what,什么,高频词,L1,What a beautiful day!,多么美好的一天！,,,,,emoji:❓,no,no
+english-word-273,when,什么时候,高频词,L1,I know when.,我认识什么时候。,,,,,emoji:⏰,no,no
+english-word-306,which,哪一个,高频词,L1,I know which.,我认识哪一个。,,,,,none,no,no
+english-word-233,who,谁,高频词,L1,I know who.,我认识谁。,,,,,emoji:👤,no,no
+english-word-307,why,为什么,高频词,L1,I know why.,我认识为什么。,,,,,emoji:🤔,no,no
+english-word-234,will,将,高频词,L1,I know will.,我认识将。,,,,,none,no,no
+english-word-308,wish,希望,高频词,L1,I know wish.,我认识希望。,,,,,emoji:🌠,no,no
+english-word-235,with,和,高频词,L1,I know with.,我认识和。,,,,,none,no,no
+english-word-309,work,工作,高频词,L1,I know work.,我认识工作。,,,,,emoji:💼,no,no
+english-word-310,would,会,高频词,L1,I know would.,我认识会。,,,,,none,no,no
+english-word-311,your,你的,高频词,L1,"Wash your face, please.",请洗脸。,,,,,none,no,no

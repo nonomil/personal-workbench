@@ -1,0 +1,633 @@
+/* 识字专区：对照 DS 认字参考图的柔光黏土风（无小书虫/毛毛虫） */
+body.variant-preschool .literacy-uplift {
+    --lit-ink: #2a3d2c;
+    --lit-muted: #6b7f5e;
+    --lit-cream: #f6f3e8;
+    --lit-paper: #fffdf8;
+    --lit-green: #3d9a4a;
+    --lit-green-soft: #e7f6e4;
+    --lit-yellow: #f4c84a;
+    --lit-yellow-soft: #fff4c8;
+    --lit-blue: #5aa0d6;
+    --lit-blue-soft: #e4f2fc;
+    --lit-orange: #ef8f3a;
+    --lit-shadow: 0 14px 32px rgba(74, 96, 68, .12);
+    --lit-inset: inset 0 1px 0 rgba(255, 255, 255, .85);
+    display: grid;
+    gap: 10px;
+    margin: 16px 0 0;
+    padding: 12px 14px 14px;
+    border-radius: 24px;
+    background: var(--lit-paper);
+    box-shadow: var(--lit-shadow), var(--lit-inset);
+}
+
+body.variant-preschool .literacy-uplift.is-compact > summary {
+    list-style: none;
+    cursor: pointer;
+}
+
+body.variant-preschool .literacy-uplift.is-compact > summary::-webkit-details-marker { display: none; }
+
+body.variant-preschool .literacy-uplift.is-compact > summary::after {
+    content: '收起';
+    display: block;
+    margin-top: 6px;
+    color: var(--lit-muted);
+    font-size: .75rem;
+    font-weight: 700;
+    text-align: right;
+}
+
+body.variant-preschool .literacy-uplift.is-compact:not([open]) > summary::after { content: '展开测评 / 错字本 / 档案'; }
+
+body.variant-preschool .literacy-uplift-hero {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 14px;
+    align-items: center;
+    padding: 16px 18px;
+    border-radius: 28px;
+    background:
+        radial-gradient(120px 80px at 12% 20%, rgba(122, 196, 110, .22), transparent 70%),
+        radial-gradient(140px 90px at 92% 80%, rgba(244, 200, 74, .2), transparent 72%),
+        var(--lit-paper);
+    box-shadow: var(--lit-shadow), var(--lit-inset);
+}
+
+body.variant-preschool .literacy-uplift-mascot {
+    width: 72px;
+    height: 72px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #fff7d2, #e8f8df);
+    box-shadow: 0 8px 18px rgba(74, 96, 68, .12);
+}
+
+body.variant-preschool .literacy-uplift-mascot img,
+body.variant-preschool .literacy-uplift-mascot svg {
+    width: 48px;
+    height: 48px;
+}
+
+body.variant-preschool .literacy-uplift-hello {
+    min-width: 0;
+}
+
+body.variant-preschool .literacy-uplift-hello strong {
+    display: block;
+    color: var(--lit-green);
+    font-size: 1.35rem;
+    line-height: 1.2;
+}
+
+body.variant-preschool .literacy-uplift-hello small {
+    color: var(--lit-muted);
+    font-size: .92rem;
+}
+
+body.variant-preschool .literacy-stage-badge {
+    display: grid;
+    justify-items: center;
+    gap: 4px;
+    min-width: 86px;
+    padding: 8px 10px 10px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 35%, #fff8d0, #d8efc4 70%, #b7d98a);
+    box-shadow: 0 8px 16px rgba(61, 154, 74, .18);
+    color: #2f6b36;
+    font-size: .72rem;
+    font-weight: 800;
+    text-align: center;
+}
+
+body.variant-preschool .literacy-stage-badge b {
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--lit-green);
+}
+
+body.variant-preschool .literacy-stage-badge b svg { width: 16px; height: 16px; }
+
+body.variant-preschool .literacy-uplift-kpis,
+body.variant-preschool .literacy-uplift-cards,
+body.variant-preschool .literacy-week-streak {
+    display: grid;
+    gap: 10px;
+}
+
+body.variant-preschool .literacy-uplift-kpis {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+body.variant-preschool .literacy-uplift-kpis span {
+    padding: 4px 2px;
+    text-align: center;
+}
+
+body.variant-preschool .literacy-uplift-kpis small {
+    display: block;
+    color: var(--lit-muted);
+    font-size: .75rem;
+    font-weight: 700;
+}
+
+body.variant-preschool .literacy-uplift-kpis b {
+    display: block;
+    margin-top: 4px;
+    color: var(--lit-ink);
+    font-size: 1.25rem;
+    line-height: 1.2;
+}
+
+body.variant-preschool .literacy-uplift-kpis span:nth-child(2) b { color: var(--lit-orange); }
+body.variant-preschool .literacy-uplift-kpis span:nth-child(3) b { color: var(--lit-green); font-size: 1.05rem; }
+
+body.variant-preschool .literacy-uplift-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+body.variant-preschool .literacy-uplift-card {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 48px;
+    padding: 8px 10px;
+    border: 0;
+    border-radius: 16px;
+    cursor: pointer;
+    text-align: left;
+}
+
+body.variant-preschool .literacy-uplift-card:hover,
+body.variant-preschool .literacy-uplift-card:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 34px rgba(74, 96, 68, .16), var(--lit-inset);
+}
+
+body.variant-preschool .literacy-uplift-card[data-asset="assess"] { background: linear-gradient(180deg, #eefae8, #d8f0cf); }
+body.variant-preschool .literacy-uplift-card[data-asset="mistakes"] { background: linear-gradient(180deg, #fff8d8, #ffe9a8); }
+body.variant-preschool .literacy-uplift-card[data-asset="archive"] { background: linear-gradient(180deg, #eaf5ff, #d3e9fb); }
+
+body.variant-preschool .literacy-uplift-card-icon {
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, .72);
+    color: var(--lit-ink);
+}
+
+body.variant-preschool .literacy-uplift-card-icon svg { width: 16px; height: 16px; }
+body.variant-preschool .literacy-uplift-card[data-asset="assess"] .literacy-uplift-card-icon { color: var(--lit-green); }
+body.variant-preschool .literacy-uplift-card[data-asset="mistakes"] .literacy-uplift-card-icon { color: var(--lit-orange); }
+body.variant-preschool .literacy-uplift-card[data-asset="archive"] .literacy-uplift-card-icon { color: var(--lit-blue); }
+
+body.variant-preschool .literacy-uplift-card strong {
+    color: var(--lit-ink);
+    font-size: .92rem;
+}
+
+body.variant-preschool .literacy-uplift-card small {
+    color: var(--lit-muted);
+    font-size: .78rem;
+    line-height: 1.4;
+}
+
+body.variant-preschool .literacy-uplift-go {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    color: #fff;
+    background: var(--lit-green);
+}
+
+body.variant-preschool .literacy-uplift-card[data-asset="mistakes"] .literacy-uplift-go { background: var(--lit-orange); }
+body.variant-preschool .literacy-uplift-card[data-asset="archive"] .literacy-uplift-go { background: var(--lit-blue); }
+body.variant-preschool .literacy-uplift-go svg { width: 16px; height: 16px; }
+
+body.variant-preschool .literacy-week-streak {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    padding: 4px 0 18px;
+}
+
+body.variant-preschool .literacy-week-streak > small {
+    color: var(--lit-muted);
+    font-size: .78rem;
+}
+
+body.variant-preschool .literacy-week-streak > strong {
+    display: block;
+    color: var(--lit-ink);
+    font-size: 1.05rem;
+}
+
+body.variant-preschool .literacy-week-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+body.variant-preschool .literacy-week-dots i {
+    position: relative;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #e4ecd8;
+    box-shadow: inset 0 0 0 2px #d3deC4;
+}
+
+body.variant-preschool .literacy-week-dots i small {
+    position: absolute;
+    left: 50%;
+    top: 24px;
+    transform: translateX(-50%);
+    color: var(--lit-muted);
+    font-size: 10px;
+    font-weight: 700;
+}
+
+body.variant-preschool .literacy-week-dots i.is-on {
+    background: var(--lit-green);
+    box-shadow: none;
+}
+
+body.variant-preschool .literacy-week-dots i.is-on::after {
+    content: '';
+    position: absolute;
+    inset: 6px 7px 8px 7px;
+    border: 2px solid #fff;
+    border-top: 0;
+    border-right: 0;
+    transform: rotate(-45deg);
+}
+
+body.variant-preschool .literacy-week-gift {
+    color: var(--lit-orange);
+    font-size: .78rem;
+    font-weight: 800;
+    text-align: right;
+}
+
+body.variant-preschool .preschool-flashcard-page.is-literacy {
+    padding: 16px 16px 18px;
+    border-radius: 28px;
+    background: var(--lit-paper, #fffdf8);
+    box-shadow: 0 14px 32px rgba(74, 96, 68, .1);
+}
+
+body.variant-preschool .preschool-flashcard-page.is-literacy .preschool-flashcard-top {
+    display: none;
+}
+
+body.variant-preschool .preschool-flashcard-page.is-literacy .preschool-flashcard-count {
+    margin-top: 4px;
+    font-weight: 800;
+}
+
+body.variant-preschool .preschool-flashcard-page.is-literacy .preschool-flashcard-foot {
+    display: none;
+}
+
+body.variant-preschool .preschool-flashcard-page.is-literacy .preschool-flashcard-main > strong {
+    display: none;
+}
+
+body.variant-preschool .preschool-flashcard-page.is-literacy .literacy-tianzige-lg {
+    width: 148px;
+    height: 148px;
+    font-size: 86px;
+}
+
+body.variant-preschool .literacy-tianzige,
+body.variant-preschool .literacy-tianzige-lg {
+    width: 84px;
+    height: 84px;
+    display: grid;
+    place-items: center;
+    font-size: 46px;
+    font-weight: 800;
+    color: #243428;
+    background:
+        linear-gradient(#e3b4b4, #e3b4b4) center/1px 100% no-repeat,
+        linear-gradient(#e3b4b4, #e3b4b4) center/100% 1px no-repeat,
+        repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(227, 180, 180, .18) 20px, rgba(227, 180, 180, .18) 21px),
+        #fff;
+    border: 2px solid #d7c3b4;
+    border-radius: 10px;
+    box-shadow: inset 0 0 0 1px #f3e7dc;
+}
+
+body.variant-preschool .literacy-mistake-board {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding: 16px;
+    border-radius: 28px;
+    background: #fffdf8;
+    box-shadow: 0 14px 32px rgba(74, 96, 68, .1);
+}
+
+body.variant-preschool .literacy-mistake-board h2 {
+    margin: 0;
+    color: #2f8a44;
+    font-size: 1.4rem;
+}
+
+body.variant-preschool .literacy-mistake-board > p {
+    margin: 0;
+    color: #6b7f5e;
+}
+
+body.variant-preschool .literacy-mistake-meta {
+    color: #ef8f3a;
+    font-size: .9rem;
+    font-weight: 800;
+}
+
+body.variant-preschool .literacy-mistake-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+}
+
+body.variant-preschool .literacy-mistake-card {
+    display: grid;
+    justify-items: center;
+    gap: 6px;
+    padding: 12px 10px 14px;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 10px 20px rgba(74, 96, 68, .08);
+}
+
+body.variant-preschool .literacy-mistake-card small {
+    color: #3d9a4a;
+    font-size: .95rem;
+    font-weight: 800;
+}
+
+body.variant-preschool .literacy-mistake-miss {
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: #ffe0b8;
+    color: #c26412;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+body.variant-preschool .literacy-mistake-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+body.variant-preschool .literacy-mistake-toolbar [data-action="open-literacy-drill"] {
+    background: #ef8f3a;
+    border-color: #ef8f3a;
+    color: #fff;
+}
+
+body.variant-preschool .literacy-mistake-toolbar [data-action="print-literacy-cards"] {
+    background: #3d9a4a;
+    border-color: #3d9a4a;
+    color: #fff;
+}
+
+body.variant-preschool .literacy-archive-page {
+    display: grid;
+    gap: 14px;
+}
+
+body.variant-preschool .literacy-archive {
+    display: grid;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 28px;
+    background: #fffdf8;
+    box-shadow: 0 14px 32px rgba(74, 96, 68, .1);
+}
+
+body.variant-preschool .literacy-archive-kpis {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+body.variant-preschool .literacy-archive-kpis span {
+    display: grid;
+    gap: 4px;
+    padding: 12px;
+    border-radius: 18px;
+    background: #f4faf0;
+    text-align: center;
+}
+
+body.variant-preschool .literacy-archive-kpis small {
+    color: #6b7f5e;
+    font-size: .75rem;
+}
+
+body.variant-preschool .literacy-archive-kpis b {
+    color: #2a3d2c;
+    font-size: 1.25rem;
+}
+
+body.variant-preschool .literacy-archive-empty {
+    margin: 0;
+    padding: 28px 16px;
+    border-radius: 24px;
+    background: #f4faf0;
+    color: #6b7f5e;
+    text-align: center;
+}
+
+body.variant-preschool .literacy-archive-svg {
+    width: 100%;
+    height: auto;
+    background: linear-gradient(180deg, #f8fcf3, #eef6e6);
+    border-radius: 18px;
+}
+
+body.variant-preschool .literacy-archive-svg polyline {
+    fill: none;
+    stroke: #3d9a4a;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+body.variant-preschool .literacy-archive-fill { fill: rgba(61, 154, 74, .16); }
+body.variant-preschool .literacy-archive-svg circle { fill: #f4c84a; stroke: #fff; stroke-width: 2; }
+body.variant-preschool .literacy-archive-ref { stroke: #b7c9a4; stroke-dasharray: 5 5; }
+body.variant-preschool .literacy-archive-svg text { fill: #6b7f5e; font-size: 10px; }
+
+body.variant-preschool .literacy-assess-play .literacy-assess-bar {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 10px;
+    align-items: center;
+    margin: 4px 0 12px;
+    color: #3d9a4a;
+    font-weight: 850;
+}
+
+body.variant-preschool .literacy-assess-track {
+    display: block;
+    height: 10px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: #e3efd8;
+}
+
+body.variant-preschool .literacy-assess-track i {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #7bc86a, #3d9a4a);
+}
+
+body.variant-preschool .literacy-assess-hint {
+    margin: 0 0 12px;
+    color: #d4a017;
+    font-size: 1.05rem;
+    font-weight: 850;
+    text-align: center;
+}
+
+body.variant-preschool .literacy-assess-play .literacy-assess-cue {
+    position: relative;
+    min-height: 180px;
+    padding: 28px 20px 22px;
+    border: 0;
+    border-radius: 28px;
+    background: #fff;
+    box-shadow: 0 16px 32px rgba(74, 96, 68, .12);
+}
+
+body.variant-preschool .literacy-assess-play .literacy-assess-speak {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    color: #fff;
+    background: #3d9a4a;
+    cursor: pointer;
+}
+
+body.variant-preschool .literacy-assess-play .literacy-assess-speak svg { width: 20px; height: 20px; }
+
+body.variant-preschool .literacy-assess-play .literacy-find-option {
+    justify-content: center;
+    min-height: 64px;
+    border-radius: 18px;
+    background: #fff;
+}
+
+body.variant-preschool .literacy-assess-play .literacy-find-option[aria-pressed="true"] {
+    border-color: #3d9a4a;
+    color: #2f8a44;
+    background: #eefae8;
+}
+
+body.variant-preschool .literacy-assess-result {
+    text-align: center;
+}
+
+@media (max-width: 720px) {
+    body.variant-preschool .literacy-uplift-hero {
+        grid-template-columns: auto 1fr;
+    }
+    body.variant-preschool .literacy-stage-badge { grid-column: 1 / -1; width: max-content; border-radius: 999px; }
+    body.variant-preschool .literacy-week-streak {
+        grid-template-columns: 1fr auto;
+        padding-bottom: 18px;
+    }
+    body.variant-preschool .literacy-week-dots { width: 100%; justify-content: space-between; }
+    body.variant-preschool .literacy-week-gift { text-align: left; }
+    body.variant-preschool .literacy-mistake-grid,
+    body.variant-preschool .literacy-archive-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 420px) {
+    body.variant-preschool .literacy-uplift-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    body.variant-preschool .literacy-uplift-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    body.variant-preschool .literacy-uplift-card { min-height: 44px; padding: 6px 4px; }
+    body.variant-preschool .literacy-uplift-card strong { font-size: .78rem; }
+}
+
+@media print {
+    body * { visibility: hidden; }
+    #literacy-print-host,
+    #literacy-print-host * { visibility: visible; }
+    #literacy-print-host {
+        position: absolute;
+        inset: 0;
+        background: #fff;
+    }
+    .literacy-print-sheet {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+    .literacy-print-head {
+        grid-column: 1 / -1;
+        color: #2f8a44;
+        font-size: 18px;
+        font-weight: 800;
+    }
+    .print-card {
+        break-inside: avoid;
+        border: 1px dashed #7aa35a;
+        border-radius: 12px;
+        padding: 10px;
+        min-height: 118mm;
+    }
+    .print-card .literacy-tianzige {
+        width: 72px;
+        height: 72px;
+        font-size: 40px;
+    }
+    .print-pinyin { color: #2f8a44; font-weight: 800; }
+    .print-practice {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 4px;
+        margin-top: 8px;
+    }
+    .print-practice span {
+        height: 28px;
+        border: 1px solid #c9b8a8;
+        background:
+            linear-gradient(#e3b4b4, #e3b4b4) center/1px 100% no-repeat,
+            linear-gradient(#e3b4b4, #e3b4b4) center/100% 1px no-repeat;
+    }
+    .literacy-certificate {
+        min-height: 80vh;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        border: 10px solid #e8c56b;
+        border-radius: 18px;
+        padding: 32px;
+    }
+    .literacy-certificate strong { font-size: 72px; color: #2f8a44; }
+    .literacy-certificate em { font-style: normal; color: #6b7f5e; font-size: 22px; }
+}

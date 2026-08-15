@@ -163,7 +163,7 @@ body.is-fullscreen .world-bar {
     display: flex;
     gap: 6px;
     overflow-x: auto;
-    max-width: min(860px, 88vw);
+    max-width: min(1100px, 94vw);
     margin: 0 auto 8px;
     padding: 8px 10px 10px;
     background: linear-gradient(180deg, #f6e7b4, #e0c57a 70%, #c9a85a);
@@ -240,7 +240,7 @@ body.is-fullscreen .world-bar {
 
 .board-wrap {
     position: relative;
-    max-width: min(860px, 88vw);
+    max-width: min(1100px, 94vw);
     margin: 0 auto;
     border-radius: 18px;
     overflow: hidden;

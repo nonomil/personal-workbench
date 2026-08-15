@@ -1,0 +1,18 @@
+id: T20260816-blocklegend-mc-polish
+title: 方块传奇画面对齐成熟体素项目（图集/AO/裂纹/流式区块）
+status: review
+priority: P1
+created: 2026-08-16
+source: docs/01-方案/工作台小游戏设计/05-方块传奇/
+depends:
+  - T20260815-blocklegend-3d
+  - T20260815-blocklegend-sim
+refs:
+  - tmp/voxel-refs/Fable5-mc (textures.js, mesher.js)
+  - tmp/voxel-refs/dgreenheck-minecraft-threejs-clone (world.js)
+  - https://threejs.org/manual/en/voxel-geometry.html
+slices: [S1-atlas, S2-ao, S3-crack, S4-stream, S5-wrap]
+constraints:
+  - no CDN / no Mojang textures / procedural canvas only
+  - no new localStorage keys, no voxel-craft changes
+  - per-chunk 1 draw call, pixelRatio <= 1.5, no shadows

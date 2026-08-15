@@ -1,0 +1,23 @@
+﻿id,word,zh,theme,level,phrase,phraseZh,category,group,image,audio,art,hasImage,hasAudio
+english-word-09,apple,苹果,食物,L1,I like this apple.,我喜欢这个苹果。,,,图片/apple.png,音频/apple.mp3,emoji:🍎,yes,yes
+english-word-10,banana,香蕉,食物,L1,A banana is yellow.,香蕉是黄色的。,,,图片/banana.png,,emoji:🍌,yes,no
+english-word-48,bread,面包,食物,L1,I like bread.,我喜欢面包。,,,图片/bread.png,,emoji:🍞,yes,no
+english-word-50,cake,蛋糕,食物,L1,I love cake.,我喜欢蛋糕。,,,图片/cake.png,,emoji:🎂,yes,no
+english-word-87,candy,糖果,食物,L1,I like candy.,我喜欢糖果。,,,,,emoji:🍬,no,no
+english-word-89,cherry,樱桃,食物,L1,I eat a cherry.,我吃一颗樱桃。,,,图片/cherry.png,,emoji:🍒,yes,no
+english-word-93,cookie,饼干,食物,L1,I eat a cookie.,我吃一块饼干。,,,图片/cookie.png,,emoji:🍪,yes,no
+english-word-52,egg,鸡蛋,食物,L1,I eat an egg.,我吃一个鸡蛋。,,,图片/egg.png,,emoji:🥚,yes,no
+english-word-108,grape,葡萄,食物,L1,I eat a grape.,我吃一颗葡萄。,,,图片/grape.png,,emoji:🍇,yes,no
+english-word-343,ice cream,冰淇淋,食物,L1,Ice cream is a useful word.,我看见冰淇淋。,,,,,emoji:🍦,no,no
+english-word-51,juice,果汁,食物,L1,I drink juice.,我喝果汁。,,,,,emoji:🧃,no,no
+english-word-80,milk,牛奶,食物,L1,Do you want some milk?,你想喝点牛奶吗？,,,图片/milk.png,,emoji:🥛,yes,no
+english-word-118,noodles,面条,食物,L1,I eat noodles.,我吃面条。,,,图片/noodles.png,,emoji:🍜,yes,no
+english-word-120,orange,橙子,食物,L1,I eat an orange.,我吃一个橘子。,,,图片/orange.png,,emoji:🍊,yes,no
+english-word-122,peach,桃子,食物,L1,This peach is sweet.,这个桃子很甜。,,,图片/peach.png,,emoji:🍑,yes,no
+english-word-123,pear,梨,食物,L1,I eat a pear.,我吃一个梨。,,,图片/pear.png,,emoji:🍐,yes,no
+english-word-49,rice,米饭,食物,L1,I eat rice.,我吃米饭。,,,图片/rice.png,,emoji:🍚,yes,no
+english-word-135,strawberry,草莓,食物,L1,I eat a strawberry.,我吃一颗草莓。,,,图片/strawberry.png,,emoji:🍓,yes,no
+english-word-156,tea,茶,食物,L1,Mom drinks tea.,妈妈喝茶。,,,,,emoji:🍵,no,no
+english-word-160,vegetable,蔬菜,食物,L1,Eat a vegetable.,吃一点蔬菜。,,,,,emoji:🥬,no,no
+english-word-161,water,水,食物,L1,Drink some water.,喝点水。,,,,音频/water.mp3,emoji:💧,no,yes
+english-word-141,watermelon,西瓜,食物,L1,The watermelon is sweet.,西瓜很甜。,,,图片/watermelon.png,,emoji:🍉,yes,no

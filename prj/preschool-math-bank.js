@@ -2,13 +2,26 @@
     'use strict';
 
     var PRACTICE_BANDS = [
-        { id: 'within10', title: '10 以内', summary: '10 以内加减' },
-        { id: 'within20', title: '20 以内', summary: '20 以内加减' },
-        { id: 'within50', title: '50 以内', summary: '50 以内加减' },
-        { id: 'addsub100', title: '100 以内', summary: '100 以内加减' },
-        { id: 'mix100', title: '100 以内 + 乘法', summary: '100 以内加减 + 20 以内乘法' }
+        { id: 'within10', group: '加减', title: '10 以内', summary: '10 以内加减' },
+        { id: 'within20', group: '加减', title: '20 以内', summary: '20 以内加减' },
+        { id: 'within50', group: '加减', title: '50 以内', summary: '50 以内加减' },
+        { id: 'addsub100', group: '加减', title: '100 以内', summary: '100 以内加减' },
+        { id: 'addsub100big', group: '加减', title: '100 以内较大数', summary: '两边都是两位数的加减' },
+        { id: 'mul20', group: '乘法', title: '乘法 20 以内', summary: '积不超过 20' },
+        { id: 'mul40', group: '乘法', title: '乘法 40 以内', summary: '积不超过 40' },
+        { id: 'mul60', group: '乘法', title: '乘法 60 以内', summary: '积不超过 60' },
+        { id: 'mul80', group: '乘法', title: '乘法 80 以内', summary: '积不超过 80' },
+        { id: 'mul100', group: '乘法', title: '乘法 100 以内', summary: '积不超过 100' },
+        { id: 'divSimple', group: '除法口诀', title: '简单除法', summary: '整除，商是 1 到 10' },
+        { id: 'koujue', group: '除法口诀', title: '乘法口诀', summary: '二到九的口诀' },
+        { id: 'mix100', group: '混合', title: '加减 + 小乘法', summary: '100 以内加减 + 20 以内乘法' },
+        { id: 'mixMulDiv', group: '混合', title: '乘除一起练', summary: '100 以内乘法 + 简单除法' },
+        { id: 'mixKoujue', group: '混合', title: '口诀 + 除法', summary: '乘法口诀和对应的除法' }
     ];
     var DEFAULT_PRACTICE_BAND = 'mix100';
+    var BAND_IDS = {};
+    PRACTICE_BANDS.forEach(function (item) { BAND_IDS[item.id] = true; });
+    var CN_NUM = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
 
     function parseBank(raw) {
         return (Array.isArray(raw) ? raw : []).map(function (row) {
@@ -40,6 +53,33 @@
         if (!list.length) return list;
         const shift = Math.abs(Number(salt) || 0) % list.length;
         return list.slice(shift).concat(list.slice(0, shift));
+    }
+
+    function gcd(a, b) {
+        let x = Math.abs(Number(a) || 0);
+        let y = Math.abs(Number(b) || 0);
+        while (y) {
+            const next = x % y;
+            x = y;
+            y = next;
+        }
+        return x || 1;
+    }
+
+    function spread(items, salt) {
+        const list = (Array.isArray(items) ? items : []).slice();
+        const n = list.length;
+        if (n <= 1) return list;
+        let step = 7 + (Math.abs(Number(salt) || 0) % (n - 1));
+        while (gcd(step, n) !== 1) step += 1;
+        const out = [];
+        let idx = Math.abs(Number(salt) || 0) % n;
+        let i;
+        for (i = 0; i < n; i += 1) {
+            out.push(list[idx]);
+            idx = (idx + step) % n;
+        }
+        return out;
     }
 
     function choiceOptions(value, salt) {
@@ -74,25 +114,57 @@
 
     function normalizePracticeBand(id) {
         const value = String(id || '');
-        if (value === 'within10' || value === 'within20' || value === 'within50' || value === 'addsub100' || value === 'mix100') return value;
+        if (BAND_IDS[value]) return value;
         if (value === 'within100') return 'mix100';
         return DEFAULT_PRACTICE_BAND;
     }
 
     function listPracticeBands() {
         return PRACTICE_BANDS.map(function (item) {
-            return { id: item.id, title: item.title, summary: item.summary };
+            return { id: item.id, title: item.title, summary: item.summary, group: item.group };
         });
     }
 
     function opMark(op) {
-        return op === '*' ? '×' : op;
+        if (op === '*') return '×';
+        if (op === '/') return '÷';
+        return op;
     }
 
-    function makeArithmetic(left, right, op, level) {
-        const answer = op === '+' ? left + right : op === '-' ? left - right : left * right;
-        const skillId = op === '+' ? 'addition' : op === '-' ? 'take-away' : 'multiply';
-        return {
+    function numberToChinese(n) {
+        const value = Math.max(0, Math.round(Number(n) || 0));
+        if (value <= 10) return CN_NUM[value];
+        const tens = Math.floor(value / 10);
+        const ones = value % 10;
+        const head = tens === 1 ? '十' : CN_NUM[tens] + '十';
+        return ones ? head + CN_NUM[ones] : head;
+    }
+
+    function koujueSpeak(a, b, product) {
+        const left = CN_NUM[a] || String(a);
+        const right = CN_NUM[b] || String(b);
+        if (product < 10) return left + right + '得' + (CN_NUM[product] || String(product));
+        if (product === 10) return left + right + '一十';
+        return left + right + numberToChinese(product);
+    }
+
+    function makeArithmetic(left, right, op, level, extra) {
+        let answer = 0;
+        let skillId = 'addition';
+        if (op === '+') {
+            answer = left + right;
+            skillId = 'addition';
+        } else if (op === '-') {
+            answer = left - right;
+            skillId = 'take-away';
+        } else if (op === '*') {
+            answer = left * right;
+            skillId = 'multiply';
+        } else {
+            answer = right ? left / right : 0;
+            skillId = 'divide';
+        }
+        return Object.assign({
             id: 'math-' + skillId + '-' + left + '-' + right,
             skillId: skillId,
             level: level,
@@ -101,7 +173,7 @@
             right: right,
             op: op,
             answer: answer
-        };
+        }, extra || {});
     }
 
     function pushUnique(list, seen, item) {
@@ -126,15 +198,78 @@
         return items;
     }
 
-    function generateMultiplyWithin20() {
+    function generateAddSubBig(max) {
+        const items = [];
+        const seen = {};
+        let a;
+        let b;
+        for (a = 10; a <= max; a += 1) {
+            for (b = 10; b <= max - a; b += 1) {
+                pushUnique(items, seen, makeArithmetic(a, b, '+', 'L4'));
+            }
+            for (b = 10; b <= a; b += 1) {
+                pushUnique(items, seen, makeArithmetic(a, b, '-', 'L4'));
+            }
+        }
+        return items;
+    }
+
+    function generateMultiply(maxProduct) {
         const items = [];
         const seen = {};
         let a;
         let b;
         for (a = 2; a <= 10; a += 1) {
             for (b = 1; b <= 10; b += 1) {
-                if (a * b > 20) continue;
+                if (a * b > maxProduct) continue;
                 pushUnique(items, seen, makeArithmetic(a, b, '*', 'L5'));
+            }
+        }
+        return items;
+    }
+
+    function generateKoujue() {
+        const items = [];
+        const seen = {};
+        let a;
+        let b;
+        for (a = 2; a <= 9; a += 1) {
+            for (b = 2; b <= 9; b += 1) {
+                const product = a * b;
+                pushUnique(items, seen, makeArithmetic(a, b, '*', 'L5', {
+                    koujue: koujueSpeak(a, b, product)
+                }));
+            }
+        }
+        return items;
+    }
+
+    function generateDivide(maxProduct) {
+        const items = [];
+        const seen = {};
+        let a;
+        let b;
+        for (a = 2; a <= 10; a += 1) {
+            for (b = 1; b <= 10; b += 1) {
+                const product = a * b;
+                if (product > maxProduct) continue;
+                pushUnique(items, seen, makeArithmetic(product, a, '/', 'L5'));
+            }
+        }
+        return items;
+    }
+
+    function generateKoujueDivide() {
+        const items = [];
+        const seen = {};
+        let a;
+        let b;
+        for (a = 2; a <= 9; a += 1) {
+            for (b = 2; b <= 9; b += 1) {
+                const product = a * b;
+                pushUnique(items, seen, makeArithmetic(product, a, '/', 'L5', {
+                    koujue: koujueSpeak(a, b, product)
+                }));
             }
         }
         return items;
@@ -146,20 +281,32 @@
         if (id === 'within20') return generateAddSub(20, 'L3', 'L4');
         if (id === 'within50') return generateAddSub(50, 'L3', 'L4');
         if (id === 'addsub100') return generateAddSub(100, 'L3', 'L4');
-        return generateAddSub(100, 'L3', 'L4').concat(generateMultiplyWithin20());
+        if (id === 'addsub100big') return generateAddSubBig(100);
+        if (id === 'mul20') return generateMultiply(20);
+        if (id === 'mul40') return generateMultiply(40);
+        if (id === 'mul60') return generateMultiply(60);
+        if (id === 'mul80') return generateMultiply(80);
+        if (id === 'mul100') return generateMultiply(100);
+        if (id === 'divSimple') return generateDivide(100);
+        if (id === 'koujue') return generateKoujue();
+        if (id === 'mixMulDiv') return generateMultiply(100).concat(generateDivide(100));
+        if (id === 'mixKoujue') return generateKoujue().concat(generateKoujueDivide());
+        return generateAddSub(100, 'L3', 'L4').concat(generateMultiply(20));
     }
 
     function mixPracticePool(pool, salt) {
-        const adds = rotate(pool.filter(function (item) { return item.op === '+'; }), salt);
-        const subs = rotate(pool.filter(function (item) { return item.op === '-'; }), salt + 1);
-        const muls = rotate(pool.filter(function (item) { return item.op === '*'; }), salt + 2);
+        const adds = spread(pool.filter(function (item) { return item.op === '+'; }), salt);
+        const subs = spread(pool.filter(function (item) { return item.op === '-'; }), salt + 1);
+        const muls = spread(pool.filter(function (item) { return item.op === '*'; }), salt + 2);
+        const divs = spread(pool.filter(function (item) { return item.op === '/'; }), salt + 3);
         const mixed = [];
-        const max = Math.max(adds.length, subs.length, muls.length);
+        const max = Math.max(adds.length, subs.length, muls.length, divs.length);
         let index;
         for (index = 0; index < max; index += 1) {
             if (adds[index]) mixed.push(adds[index]);
             if (subs[index]) mixed.push(subs[index]);
             if (muls[index]) mixed.push(muls[index]);
+            if (divs[index]) mixed.push(divs[index]);
         }
         return mixed;
     }
@@ -168,13 +315,14 @@
         const value = Math.max(0, Math.round(item.answer));
         const options = choiceOptions(value, index + 5);
         const expression = item.left + ' ' + opMark(item.op) + ' ' + item.right + ' = ?';
+        const hint = item.koujue ? '（' + item.koujue + '）' : '';
         return {
             id: item.id,
             level: item.level,
             skillId: item.skillId,
-            prompt: '算一算',
-            tokens: expression,
-            speak: expression.replace('×', '乘'),
+            prompt: item.koujue ? '口诀算一算' : '算一算',
+            tokens: expression + hint,
+            speak: item.koujue || expression.replace('×', '乘').replace('÷', '除以'),
             answerValue: value,
             options: options,
             answer: Math.max(0, options.indexOf(String(value)))
@@ -240,7 +388,7 @@
         const settings = options && typeof options === 'object' ? options : {};
         const level = String(settings.level || 'L3');
         const pool = levelPool(bank, level).filter(function (item) {
-            return item.op === '+' || item.op === '-' || item.op === '*';
+            return item.op === '+' || item.op === '-' || item.op === '*' || item.op === '/';
         });
         const size = Math.max(1, Math.min(pool.length, Number(settings.size) || 5));
         return {

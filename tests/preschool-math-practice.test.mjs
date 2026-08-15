@@ -14,15 +14,23 @@ await import('../prj/preschool-garden.js');
 const mathBank = globalThis.PersonalWorkbenchPreschoolMathBank;
 const gardenEngine = globalThis.PersonalWorkbenchPreschoolGarden;
 
-test('practice bands are five grade-label-free steps and default to mix100', () => {
+test('practice bands cover add/sub, multiply, divide, koujue and mix without grade labels', () => {
     const bands = mathBank.listPracticeBands();
-    assert.deepEqual(bands.map(item => item.id), ['within10', 'within20', 'within50', 'addsub100', 'mix100']);
+    assert.deepEqual(bands.map(item => item.id), [
+        'within10', 'within20', 'within50', 'addsub100', 'addsub100big',
+        'mul20', 'mul40', 'mul60', 'mul80', 'mul100',
+        'divSimple', 'koujue',
+        'mix100', 'mixMulDiv', 'mixKoujue'
+    ]);
     assert.equal(mathBank.DEFAULT_PRACTICE_BAND, 'mix100');
     assert.equal(mathBank.normalizePracticeBand(''), 'mix100');
     assert.equal(mathBank.normalizePracticeBand('within20'), 'within20');
+    assert.equal(mathBank.normalizePracticeBand('mul40'), 'mul40');
+    assert.equal(mathBank.normalizePracticeBand('koujue'), 'koujue');
     assert.equal(mathBank.normalizePracticeBand('within100'), 'mix100');
     assert.equal(mathBank.normalizePracticeBand('grade-2'), 'mix100');
     for (const band of bands) {
+        assert.ok(band.group);
         assert.doesNotMatch(band.title, /一年级|二年级|年级/);
         assert.doesNotMatch(band.summary, /一年级|二年级|年级/);
     }
@@ -51,6 +59,43 @@ test('mix100 pool is large and mixes 100-range add/sub with multiply to 20', () 
             assert.ok(item.left <= 100 && item.right <= 100 && item.answer <= 100);
         }
     }
+});
+
+test('addsub100big uses two-digit add/sub and multiply bands stay under product caps', () => {
+    const big = mathBank.buildPracticePool('addsub100big');
+    assert.ok(big.length >= 200);
+    assert.ok(big.every(item => item.op === '+' || item.op === '-'));
+    assert.ok(big.every(item => item.left >= 10 && item.right >= 10 && item.answer <= 100));
+    const mul20 = mathBank.buildPracticePool('mul20');
+    const mul40 = mathBank.buildPracticePool('mul40');
+    const mul100 = mathBank.buildPracticePool('mul100');
+    assert.ok(mul20.length >= 20);
+    assert.ok(mul40.length > mul20.length);
+    assert.ok(mul100.length > mul40.length);
+    assert.ok(mul20.every(item => item.op === '*' && item.answer <= 20));
+    assert.ok(mul40.every(item => item.op === '*' && item.answer <= 40));
+    assert.ok(mul100.every(item => item.op === '*' && item.left * item.right === item.answer && item.answer <= 100));
+});
+
+test('simple divide and koujue pools stay exact and speak the table', () => {
+    const divs = mathBank.buildPracticePool('divSimple');
+    assert.ok(divs.length >= 40);
+    assert.ok(divs.every(item => item.op === '/' && item.right >= 1 && item.right <= 10));
+    assert.ok(divs.every(item => item.left === item.right * item.answer && item.answer >= 1 && item.answer <= 10));
+    const koujue = mathBank.buildPracticePool('koujue');
+    assert.equal(koujue.length, 64);
+    assert.ok(koujue.every(item => item.op === '*' && item.left >= 2 && item.left <= 9 && item.right >= 2 && item.right <= 9));
+    assert.ok(koujue.every(item => item.koujue));
+    assert.ok(koujue.some(item => item.koujue === '二五一十'));
+    assert.ok(koujue.some(item => item.koujue === '三四十二'));
+    const mixMulDiv = mathBank.buildPracticePool('mixMulDiv');
+    assert.ok(mixMulDiv.some(item => item.op === '*'));
+    assert.ok(mixMulDiv.some(item => item.op === '/'));
+    const mixKoujue = mathBank.buildPracticePool('mixKoujue');
+    assert.ok(mixKoujue.some(item => item.op === '*' && item.koujue));
+    assert.ok(mixKoujue.some(item => item.op === '/' && item.koujue));
+    const quiz = mathBank.buildPracticeQuiz('koujue', { size: 8 });
+    assert.ok(quiz.rounds.some(round => /口诀|×/.test(round.tokens + round.prompt)));
 });
 
 test('five practice pools stay inside their range and grow by band', () => {
@@ -107,6 +152,10 @@ test('garden stores math practice band on existing growth without a new storage 
     const next = gardenEngine.setMathPracticeBand(growth, 'within20');
     assert.equal(next.ok, true);
     assert.equal(next.growth.garden.mathPracticeBand, 'within20');
+    const koujue = gardenEngine.setMathPracticeBand(growth, 'koujue');
+    assert.equal(koujue.growth.garden.mathPracticeBand, 'koujue');
+    const mul = gardenEngine.setMathPracticeBand(growth, 'mul80');
+    assert.equal(mul.growth.garden.mathPracticeBand, 'mul80');
     const legacy = gardenEngine.normalize({ garden: { mathPracticeBand: 'within100' } });
     assert.equal(legacy.garden.mathPracticeBand, 'mix100');
     const fallback = gardenEngine.normalize({ garden: { mathPracticeBand: '一年级' } });
@@ -122,11 +171,15 @@ test('settings and math lessons read the selected practice band', () => {
     assert.match(app, /getMathPracticeBand/);
     assert.match(app, /setMathPracticeBand/);
     assert.match(app, /band:\s*getMathPracticeBand\(\)/);
+    assert.match(app, /math-band-group/);
+    assert.match(app, /加减、乘法、除法和口诀可以分开练/);
     assert.doesNotMatch(app, /一年级|二年级/);
-    assert.match(config, /口算级别在设置里选|100 以内/);
-    assert.match(html, /preschool-math-bank\.js\?v=20260814-math-bands-v2/);
+    assert.match(config, /口算级别在设置里选/);
+    assert.match(config, /乘法口诀/);
+    assert.match(config, /简单除法/);
+    assert.match(html, /preschool-math-bank\.js\?v=20260815-math-bands-v3/);
     assert.match(html, /preschool-garden\.js\?v=20260815-s2-v1/);
-    assert.match(html, /app\.js\?v=20260815-b2-review-v1/);
+    assert.match(html, /app\.js\?v=20260816-literacy-ui-v1/);
 });
 
 test('garden stores per-subject practice levels without grade labels or a new storage key', () => {

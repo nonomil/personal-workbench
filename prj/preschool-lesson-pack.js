@@ -7,6 +7,42 @@
         return Array.isArray(value) ? value : [];
     }
 
+    function attachGuide(lesson, source) {
+        const row = source && typeof source === 'object' ? source : {};
+        const steps = row.fourSteps && typeof row.fourSteps === 'object' ? row.fourSteps : {};
+        lesson.fourSteps = {
+            warmup: String(steps.warmup || ''),
+            teach: String(steps.teach || ''),
+            practice: String(steps.practice || ''),
+            apply: String(steps.apply || '')
+        };
+        lesson.evidence = asArray(row.evidence).map(function (item) { return String(item || '').trim(); }).filter(Boolean);
+        return lesson;
+    }
+
+    function resolveFourSteps(lesson) {
+        const source = lesson && lesson.fourSteps && typeof lesson.fourSteps === 'object' ? lesson.fourSteps : {};
+        const fallback = {
+            warmup: '先看一看',
+            teach: '听一听、认一认',
+            practice: String((lesson && lesson.tip) || '练一练'),
+            apply: '用一用'
+        };
+        return {
+            warmup: String(source.warmup || fallback.warmup),
+            teach: String(source.teach || fallback.teach),
+            practice: String(source.practice || fallback.practice),
+            apply: String(source.apply || fallback.apply),
+            fromData: Boolean(source.warmup || source.teach || source.practice || source.apply),
+            evidence: asArray(lesson && lesson.evidence).map(function (item) { return String(item || '').trim(); }).filter(Boolean)
+        };
+    }
+
+    function isPictureMatchType(type) {
+        const name = String(type || '');
+        return name === 'image-character-match' || name === 'character-picture-match' || /character-match$/.test(name);
+    }
+
     function choiceLesson(row, extras) {
         const source = row && typeof row === 'object' ? row : {};
         const options = asArray(source.options).map(function (item) { return String(item); }).filter(Boolean);
@@ -14,14 +50,16 @@
         const answer = typeof source.answer === 'number'
             ? Math.max(0, Math.min(options.length - 1, source.answer))
             : 0;
-        return Object.assign({
+        const pictureMatch = isPictureMatchType(source.activityType);
+        return attachGuide(Object.assign({
             id: String(source.id || ''),
             title: String(source.title || ''),
             minutes: Number(source.minutes) || 8,
             meta: source.day ? ('第 ' + source.day + ' 天') : '课程包',
             tip: String(source.tip || '先看清楚，再选一个答案。'),
             activity: {
-                mode: 'choice',
+                mode: pictureMatch ? 'picture-match' : 'choice',
+                activityType: String(source.activityType || ''),
                 prompt: String(source.prompt || source.title || '选一个答案'),
                 hint: String(source.tip || '慢慢看。'),
                 options: options,
@@ -29,7 +67,7 @@
                 optionIcons: options.map(function (_item, index) { return ICONS[index % ICONS.length]; }),
                 success: String(source.success || '答对啦！')
             }
-        }, extras || {});
+        }, extras || {}), source);
     }
 
     function timerLesson(id, title, prompt, durationSec, safety, extras) {
@@ -56,11 +94,61 @@
     function packData() {
         return global.PersonalWorkbenchLessonPackData && typeof global.PersonalWorkbenchLessonPackData === 'object'
             ? global.PersonalWorkbenchLessonPackData
-            : { hanzi: [], math: [], english: [], focusDays: [], moveDays: [], motionBank: [] };
+            : { hanzi: [], math: [], english: [], poetry: [], phonics: [], focusDays: [], moveDays: [], motionBank: [] };
     }
 
     function choiceLessons(rows) {
         return asArray(rows).map(function (row) { return choiceLesson(row); }).filter(Boolean);
+    }
+
+    function phonicsLesson(row) {
+        const source = row && typeof row === 'object' ? row : {};
+        const examples = asArray(source.examples).map(function (item) { return String(item || '').trim(); }).filter(Boolean);
+        const letters = examples.filter(function (item) { return /^[a-z]$/i.test(item); });
+        const words = examples.filter(function (item) { return /^[a-z]{2,}$/i.test(item); });
+        const extras = {
+            id: String(source.id || ''),
+            title: String(source.title || ''),
+            minutes: Number(source.minutes) || 8,
+            meta: source.day ? ('第 ' + source.day + ' 天') : '拼读',
+            tip: String(source.tip || source.prompt || '先听，再选。')
+        };
+        if (words.length) {
+            return attachGuide(Object.assign({}, extras, {
+                activity: {
+                    mode: 'phonics-cvc',
+                    preferred: words[0].toLowerCase(),
+                    size: Math.min(10, Math.max(3, words.length)),
+                    prompt: String(source.prompt || '听一听，哪个词？'),
+                    hint: extras.tip,
+                    options: ['听一听', '选一个词', '下一题'],
+                    answer: 0,
+                    optionIcons: ['volume-2', 'target', 'sparkles'],
+                    success: String(source.success || '拼对啦！')
+                }
+            }), source);
+        }
+        if (letters.length) {
+            return attachGuide(Object.assign({}, extras, {
+                activity: {
+                    mode: 'phonics-letter',
+                    preferred: letters[0].toLowerCase(),
+                    groups: 'alpha',
+                    size: Math.min(8, Math.max(3, letters.length)),
+                    prompt: String(source.prompt || '听一听，哪个字母？'),
+                    hint: extras.tip,
+                    options: ['听一听', '选字母', '下一题'],
+                    answer: 0,
+                    optionIcons: ['languages', 'target', 'sparkles'],
+                    success: String(source.success || '字母听出来啦！')
+                }
+            }), source);
+        }
+        return null;
+    }
+
+    function phonicsLessons(rows) {
+        return asArray(rows).map(function (row) { return phonicsLesson(row); }).filter(Boolean);
     }
 
     function preferredMotion(bank) {
@@ -139,24 +227,30 @@
         attachCourse('preschool-literacy', choiceLessons(data.hanzi), false);
         attachCourse('preschool-math', choiceLessons(data.math), false);
         attachCourse('preschool-english', choiceLessons(data.english), false);
+        attachCourse('preschool-poetry', choiceLessons(data.poetry), false);
+        attachCourse('preschool-phonics', phonicsLessons(data.phonics), false);
         attachCourse('preschool-focus', asArray(data.focusDays).map(function (row) {
-            return timerLesson(row.id, row.title, row.prompt, 45, ['成人在旁', '慢慢看'], { meta: row.day ? ('第 ' + row.day + ' 天') : '专注' });
+            return timerLesson(row.id, row.title, row.prompt, 45, ['成人在旁', '慢慢看'], { meta: row.day ? ('第 ' + row.day + ' 天') : '专注', fourSteps: row.fourSteps, evidence: row.evidence });
         }), false);
         attachCourse('preschool-exercise', exerciseSeedLessons().concat(asArray(data.moveDays).map(function (row) {
-            return timerLesson(row.id, row.title, row.prompt, 45, ['成人在旁', '地面清空'], { meta: row.day ? ('第 ' + row.day + ' 天') : '运动' });
+            return timerLesson(row.id, row.title, row.prompt, 45, ['成人在旁', '地面清空'], { meta: row.day ? ('第 ' + row.day + ' 天') : '运动', fourSteps: row.fourSteps, evidence: row.evidence });
         })), true);
         const preschoolCourses = (global.PersonalWorkbenchConfig.variants && global.PersonalWorkbenchConfig.variants.preschool && global.PersonalWorkbenchConfig.variants.preschool.childCourses) || global.PersonalWorkbenchConfig.childCourses || [];
         const literacy = preschoolCourses.find(function (item) { return item.id === 'preschool-literacy'; });
         const math = preschoolCourses.find(function (item) { return item.id === 'preschool-math'; });
         const english = preschoolCourses.find(function (item) { return item.id === 'preschool-english'; });
+        const poetry = preschoolCourses.find(function (item) { return item.id === 'preschool-poetry'; });
+        const phonics = preschoolCourses.find(function (item) { return item.id === 'preschool-phonics'; });
         const focus = preschoolCourses.find(function (item) { return item.id === 'preschool-focus'; });
         const exercise = preschoolCourses.find(function (item) { return item.id === 'preschool-exercise'; });
         if (literacy) literacy.note = '今日闪卡还在，60 日识字课也接到同一条路线。';
         if (math) math.note = '三关题库还在，60 日点数课也接到同一条路线。';
         if (english) english.note = '听词和拼读还在，60 日英语课也接到同一条路线。';
+        if (poetry) poetry.note = '诗库连句还在，60 日古诗课也接到同一条路线。';
+        if (phonics) phonics.note = '字母和短词还在，60 日拼读课也接到同一条路线。';
         if (focus) {
             focus.badge = (focus.lessons && focus.lessons.length || 0) + ' 关';
-            focus.note = '记忆翻牌、找不同、数字排队还在，后面的专注课用倒计时认真做。';
+            focus.note = '舒尔特、数独、记忆翻牌、顺序记忆和视觉搜索还在，后面的专注课用倒计时认真做。';
         }
         if (exercise) {
             exercise.badge = (exercise.lessons && exercise.lessons.length || 0) + ' 关';
@@ -169,6 +263,9 @@
 
     global.PersonalWorkbenchLessonPack = {
         choiceLessons: choiceLessons,
+        phonicsLessons: phonicsLessons,
+        isPictureMatchType: isPictureMatchType,
+        resolveFourSteps: resolveFourSteps,
         timerLesson: timerLesson,
         exerciseSeedLessons: exerciseSeedLessons,
         getMotionBank: getMotionBank,

@@ -83,6 +83,8 @@ body.variant-preschool .pixel-feedback-options { display: grid; grid-template-co
 body.variant-preschool .pixel-feedback-option { position: relative; display: grid; min-width: 0; min-height: 92px; align-content: center; gap: 2px; padding: 10px 10px 10px 42px; border: 3px solid #c49c5c; color: var(--pixel-ink); background: var(--pixel-paper-light); box-shadow: 3px 3px 0 rgba(112, 65, 40, .22); cursor: pointer; }
 body.variant-preschool .pixel-feedback-option:has(input:checked),
 body.variant-preschool .pixel-feedback-option.is-active { border-color: #4f7d34; background: #edf0b8; }
+body.variant-preschool .math-band-settings .math-band-group { display: grid; gap: 8px; margin-top: 12px; }
+body.variant-preschool .math-band-settings .math-band-group h3 { margin: 0; font-size: 0.85rem; color: #5c7350; }
 body.variant-preschool .math-band-settings .pixel-feedback-options { grid-template-columns: repeat(auto-fit, minmax(132px, 1fr)); }
 body.variant-preschool .math-band-settings .pixel-feedback-option { padding: 12px 12px 12px 14px; text-align: left; }
 body.variant-preschool .pixel-feedback-option input { position: absolute; top: 50%; left: 12px; width: 22px; height: 22px; margin: 0; accent-color: #4b923f; transform: translateY(-50%); }
@@ -156,3 +158,17 @@ body.variant-preschool.preschool-no-motion *::after { animation-duration: 0.01ms
     body.variant-adult .language-options { grid-template-columns: 1fr; }
     body.variant-adult .year-progress-meta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+body.variant-preschool .preschool-world-launch {
+    display: grid;
+    gap: 12px;
+    max-width: 520px;
+    margin: 12px 0 24px;
+    padding: 22px 20px;
+    border: 3px solid var(--pixel-wood, #8f4c29);
+    background: #fffdf6;
+    box-shadow: 4px 4px 0 rgba(59, 36, 29, .2);
+}
+body.variant-preschool .preschool-world-launch h2 { margin: 0; font-size: 28px; }
+body.variant-preschool .preschool-world-launch p { margin: 0; color: #5f6f55; }
+body.variant-preschool .preschool-world-launch .workbench-action-button { justify-self: start; }

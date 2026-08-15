@@ -16,9 +16,9 @@
     };
 
     const childPages = {
-        overview: { title: '今天', eyebrow: 'TODAY / CHECK-IN', heading: '今天，完成三件小事', description: '先打卡，再玩耍；每一步都算数。' },
+        overview: { title: '今天', eyebrow: 'TODAY / LEARN', heading: '今天，完成三件小事', description: '先做今天的学习，完成了会自动留下记录。' },
         growth: { title: '成长地图', eyebrow: 'GROW / ADVENTURE', heading: '让阳光、植物和星芒一起长大', description: '完成真实行动，照顾自己的小花园，也为星芒解锁新造型。' },
-        plans: { title: '今日打卡', eyebrow: 'TODAY / CHECK-IN', heading: '今天的成长清单', description: '把学习、运动和自己的小习惯排成一条清楚的路线。' },
+        plans: { title: '今日学习', eyebrow: 'TODAY / LEARN', heading: '今天的成长清单', description: '把学习、运动和自己的小习惯排成一条清楚的路线。' },
         tasks: { title: '学习任务', eyebrow: 'LEARN / MISSIONS', heading: '把学习任务变成小关卡', description: '拖动进度，记录已经走到哪一步。' },
         mistakes: { title: '错题本', eyebrow: 'LEARN / REVIEW', heading: '把卡住的题变成下一次会做', description: '记录错因和正确思路，复习时只看最需要的几道。' },
         courses: { title: '语数英课程', eyebrow: 'LEARN / COURSES', heading: '每天推进一小节，三门课都看得见', description: '语文、数学、英语各自有小课节，完成一节就留下一个成长脚印。' },
@@ -137,7 +137,7 @@
                 { id: 'math', title: '数学', description: '口算、图形和生活中的数字', icon: 'calculator', tone: 'blue', lessons: [{ id: 'course-math-1', title: '完成两位数口算', minutes: 15 }, { id: 'course-math-2', title: '找出身边的三种图形', minutes: 10 }, { id: 'course-math-3', title: '用数字记录一次购物', minutes: 15 }] },
                 { id: 'english', title: '英语', description: '词卡、句子和听说输入', icon: 'languages', tone: 'lime', lessons: [{ id: 'course-english-1', title: '复习 20 张词卡', minutes: 20 }, { id: 'course-english-2', title: '读出五个完整句子', minutes: 15 }, { id: 'course-english-3', title: '写下三个今天会用的词', minutes: 10 }] }
             ],
-            actions: { 'add-plan': '添加打卡项', 'add-task': '添加学习任务', 'add-mistake': '记录错题', 'add-reading': '记录阅读', 'add-goal': '添加成长目标', 'add-family': '分享今日成长', 'add-review': '写成长日记' }
+            actions: { 'add-plan': '添加今日学习', 'add-task': '添加学习任务', 'add-mistake': '记录错题', 'add-reading': '记录阅读', 'add-goal': '添加成长目标', 'add-family': '分享今日成长', 'add-review': '写成长日记' }
         },
         preschool: {
             id: 'preschool',
@@ -198,28 +198,30 @@
                     tone: 'orange',
                     badge: '1500 字生活字库',
                     note: '不配图也能认。会的点会了，不会的一张张看组词。默认从 L1 起步，逐步解锁 L2-L5。',
-                    highlights: ['今日闪卡', '组词解词', '找字闯关'],
+                    highlights: ['今日闪卡', '组词解词', '图配字', '识字量'],
                     samples: ['山 shān', '水 shuǐ', '猫 māo'],
                     lessons: [
                         { id: 'preschool-chinese-1', title: '今日闪卡', minutes: 6, meta: 'L1 · 8 张 · 会了就跳过', tip: '先点会了或不会，不会的字再看组词。', activity: { mode: 'literacy-flash', level: 'L1', char: '山', size: 8, prompt: '这些字，哪些会了？', hint: '会的点会了，不会的点不会。', options: ['会了', '不会', '先听一听'], answer: 0, optionIcons: ['check', 'rotate-ccw', 'volume-2'], success: '今天的字卡看完啦！' } },
                         { id: 'preschool-literacy-2', title: '组词开花 · 山', minutes: 6, meta: 'L1 · 大山 / 上山', tip: '选出带“山”的词，选错只提示。', activity: { mode: 'literacy-bloom', level: 'L1', char: '山', prompt: '哪些词里有“山”？', hint: '想想大山和上山。', options: ['大山', '上山', '喝水'], answer: 0, optionIcons: ['trees', 'sprout', 'droplets'], success: '组词开花啦！' } },
-                        { id: 'preschool-literacy-3', title: '找字闯关', minutes: 5, meta: 'L1 · 5 关 · 每关十几秒', tip: '听一听，点出正确的字，选错只提示。', activity: { mode: 'literacy-find', level: 'L1', char: '山', rounds: 5, prompt: '听一听，点出这个字。', hint: '先听发音，再点字。', options: ['山', '水', '火', '木'], answer: 0, optionIcons: ['trees', 'droplets', 'flame', 'sprout'], success: '闯关完成啦！' } }
+                        { id: 'preschool-literacy-3', title: '找字闯关', minutes: 5, meta: 'L1 · 5 关 · 每关十几秒', tip: '听一听，点出正确的字，选错只提示。', activity: { mode: 'literacy-find', level: 'L1', char: '山', rounds: 5, prompt: '听一听，点出这个字。', hint: '先听发音，再点字。', options: ['山', '水', '火', '木'], answer: 0, optionIcons: ['trees', 'droplets', 'flame', 'sprout'], success: '闯关完成啦！' } },
+                        { id: 'preschool-chinese-assess', title: '识字量测一测', minutes: 8, meta: '25 题 · 测识字量', tip: '看字选拼音，测一测大概认识多少字。', activity: { mode: 'literacy-assess', level: 'L1', size: 25, prompt: '这个字读什么？', hint: '先看大字，再选拼音。', options: ['看字', '选音', '下一题', '看结果'], answer: 0, optionIcons: ['book-open', 'volume-2', 'arrow-right', 'sparkles'], success: '测完啦！' } }
                     ]
                 },
                 {
                     id: 'preschool-pinyin',
                     title: '拼音专区',
-                    description: '按汉语拼音方案听选声母、韵母和整体认读音节。',
+                    description: '按汉语拼音方案听选声母、韵母、整体认读，再听例字选声调。',
                     icon: 'languages',
                     tone: 'blue',
                     badge: '63 项拼音',
-                    note: '三课分别搬入 23 声母、24 韵母、16 整体认读，不抄开源口诀。',
-                    highlights: ['23 个声母', '24 个韵母', '16 个整体认读'],
-                    samples: ['b p m f', 'a o e i', 'zhi chi shi'],
+                    note: '四课分别练声母、韵母、整体认读和声调，不抄开源口诀。',
+                    highlights: ['23 个声母', '24 个韵母', '16 个整体认读', '听音选调'],
+                    samples: ['b p m f', 'a o e i', 'zhi chi shi', '妈 一声'],
                     lessons: [
                         { id: 'preschool-pinyin-1', title: '声母跟读', minutes: 10, meta: 'L1 · 23 个声母', tip: '先听字音，再选出声母。', activity: { mode: 'pinyin-initial', level: 'L1', kind: 'initial', preferred: 'b', size: 10, prompt: '听一听，哪个声母？', hint: '先听字，再找声母。', options: ['b', 'p', 'm'], answer: 0, optionIcons: ['languages', 'book-open', 'sparkles'], success: '声母找对啦！' } },
                         { id: 'preschool-pinyin-2', title: '韵母对对碰', minutes: 8, meta: 'L3 · 24 个韵母配对', tip: '把韵母和例字翻牌配对。', activity: { mode: 'pinyin-match', level: 'L3', kind: 'final', size: 6, prompt: '把韵母和例字配成一对。', hint: '先点韵母，再点对应的字。', options: ['a', 'o', 'e'], answer: 0, optionIcons: ['languages', 'target', 'sparkle'], success: '韵母配上啦！' } },
-                        { id: 'preschool-pinyin-3', title: '整体认读', minutes: 10, meta: 'L5 · 16 个整体认读音节', tip: '听音节，选出整体认读。', activity: { mode: 'pinyin-initial', level: 'L5', kind: 'whole', preferred: 'zhi', size: 8, prompt: '听一听，哪个整体认读音节？', hint: '先听清楚，再开口。', options: ['zhi', 'chi', 'shi'], answer: 0, optionIcons: ['book-open', 'play', 'moon'], success: '整体认读找对啦！' } }
+                        { id: 'preschool-pinyin-3', title: '整体认读', minutes: 10, meta: 'L5 · 16 个整体认读音节', tip: '听音节，选出整体认读。', activity: { mode: 'pinyin-initial', level: 'L5', kind: 'whole', preferred: 'zhi', size: 8, prompt: '听一听，哪个整体认读音节？', hint: '先听清楚，再开口。', options: ['zhi', 'chi', 'shi'], answer: 0, optionIcons: ['book-open', 'play', 'moon'], success: '整体认读找对啦！' } },
+                        { id: 'preschool-pinyin-4', title: '听音选调', minutes: 8, meta: 'L2 · 听例字选声调', tip: '先听字，再选一声、二声、三声或四声。', activity: { mode: 'pinyin-tone', level: 'L2', preferred: '妈', size: 8, prompt: '听一听，第几声？', hint: '先听清楚，再选声调。', options: ['一声', '二声', '三声', '四声'], answer: 0, optionIcons: ['volume-2', 'languages', 'book-open', 'sparkles'], success: '声调听出来啦！' } }
                     ]
                 },
                 {
@@ -241,49 +243,51 @@
                 {
                     id: 'preschool-math',
                     title: '数学专区',
-                    description: '先数一数、比大小，口算级别在设置里选。当前默认是 100 以内加减，加上 20 以内简单乘法。',
+                    description: '先数一数、比大小，口算级别在设置里选。加减、乘法、除法和口诀都可以换。',
                     icon: 'calculator',
                     tone: 'blue',
                     badge: '五级题库',
                     note: '口算按设置出题，选错只提示，不扣阳光。',
-                    highlights: ['数一数', '比大小', '100 以内加减', '20 以内乘法'],
-                    samples: ['数太阳', '哪边多', '36 + 28', '4 × 5'],
+                    highlights: ['数一数', '比大小', '100 以内加减', '乘法口诀', '简单除法'],
+                    samples: ['数太阳', '36 + 28', '6 × 7', '42 ÷ 6'],
                     lessons: [
                         { id: 'preschool-math-1', title: '数学闯关一关', minutes: 10, meta: 'L1 · 题库数一数', tip: '数一数有几个太阳，选错只提示。', activity: { mode: 'math-bank', level: 'L1', size: 5, prompt: '数一数，有几个太阳？', hint: '一个一个数。', options: ['1', '2', '3'], answer: 0, optionIcons: ['calculator', 'plus', 'circle-check'], success: '第一关数对啦！' } },
                         { id: 'preschool-math-2', title: '比大小', minutes: 8, meta: 'L2 · 题库比多少', tip: '看哪边太阳更多，选那个数。', activity: { mode: 'math-bank', level: 'L2', size: 5, prompt: '哪边太阳更多？', hint: '先数左边，再数右边。', options: ['左边', '右边', '再数一次'], answer: 0, optionIcons: ['calculator', 'plus', 'circle-check'], success: '比出来啦！' } },
                         { id: 'preschool-math-3', title: '口算练习一', minutes: 10, meta: 'L3 · 设置出口算', tip: '按设置里的口算级别出题，选错只提示。', activity: { mode: 'math-bank', level: 'L3', size: 8, prompt: '算一算', hint: '用草稿或心算。', options: ['听一听', '选得数', '下一题'], answer: 0, optionIcons: ['calculator', 'plus', 'circle-check'], success: '口算过关啦！' } },
                         { id: 'preschool-math-4', title: '口算练习二', minutes: 10, meta: 'L4 · 设置出口算', tip: '还是当前口算级别，换一批题。', activity: { mode: 'math-bank', level: 'L4', size: 8, prompt: '算一算还剩多少？', hint: '用草稿或心算。', options: ['听一听', '选得数', '下一题'], answer: 0, optionIcons: ['calculator', 'plus', 'circle-check'], success: '又算对啦！' } },
-                        { id: 'preschool-math-5', title: '口算练习三', minutes: 10, meta: 'L5 · 设置出口算', tip: '加减和简单乘法会按设置混在一起。', activity: { mode: 'math-bank', level: 'L5', size: 8, prompt: '算一算', hint: '用草稿或心算。', options: ['听一听', '选得数', '下一题'], answer: 0, optionIcons: ['calculator', 'plus', 'circle-check'], success: '口算练完啦！' } }
+                        { id: 'preschool-math-5', title: '口算练习三', minutes: 10, meta: 'L5 · 设置出口算', tip: '加减、乘法、除法和口诀会按设置出题。', activity: { mode: 'math-bank', level: 'L5', size: 8, prompt: '算一算', hint: '用草稿或心算。', options: ['听一听', '选得数', '下一题'], answer: 0, optionIcons: ['calculator', 'plus', 'circle-check'], success: '口算练完啦！' } }
                     ]
                 },
                 {
                     id: 'preschool-focus',
                     title: '专注力训练',
-                    description: '找不同、迷宫、数数、规律、逻辑，练一题也算完成。',
+                    description: '舒尔特、数独、记忆和视觉搜索，认真做完一关也算完成。',
                     icon: 'sparkles',
                     tone: 'gold',
-                    badge: '3 个小游戏',
-                    note: '记忆翻牌、找不同、数字排队都是重做的关卡，没有倒计时，选错不扣阳光。',
-                    highlights: ['记忆翻牌', '找不同', '数字排队'],
-                    samples: ['🍎🌞', '哪一个不同', '1 2 3'],
+                    badge: '5 个小游戏',
+                    note: '选错只提示，不扣阳光。舒尔特要按 1 到 25 点，数独是 6 宫。',
+                    highlights: ['舒尔特方格', '六宫数独', '顺序记忆'],
+                    samples: ['1-25', '数独 6×6', '红黄蓝绿'],
                     lessons: [
-                        { id: 'preschool-focus-1', title: '专注力训练一题', minutes: 10, meta: '记忆翻牌 4 对', tip: '翻开两张一样的就可以收走。', activity: { mode: 'play-memory', size: 4, prompt: '找出两张一样的卡片。', hint: '先记住位置，再翻第二张。', options: ['○ △ ○', '○ ○ ○', '○ △ ○'], answer: 1, optionIcons: ['target', 'circle-check', 'sparkles'], success: '记性真好！' } },
-                        { id: 'preschool-focus-2', title: '找不同', minutes: 8, meta: '圈出不一样的那个', tip: '慢慢看，找出和其他不一样的。', activity: { mode: 'play-odd', size: 3, prompt: '哪一个和其他不一样？', hint: '先看相同的，再找那个不同的。', options: ['慢慢看', '马上乱点', '闭上眼'], answer: 0, optionIcons: ['target', 'play', 'circle-check'], success: '观察得真仔细！' } },
-                        { id: 'preschool-focus-3', title: '数字排队', minutes: 10, meta: '1 到 5 按顺序点', tip: '从小到大点数字。', activity: { mode: 'play-order', size: 5, prompt: '按从小到大点数字。', hint: '先找 1，再找 2。', options: ['○', '△', '□'], answer: 0, optionIcons: ['circle-check', 'sparkle', 'target'], success: '排队排好啦！' } }
+                        { id: 'preschool-focus-1', title: '舒尔特方格', minutes: 8, meta: '4 关 · 3×3 到 6×6', tip: '按数字顺序点，点错就停在当前数字再找。', activity: { mode: 'play-schulte', size: 5, prompt: '从 1 点到格子里的最后一个数。', hint: '先找 1，再找 2，不要跳。', options: ['按顺序点', '随便点', '只点最大的'], answer: 0, optionIcons: ['target', 'circle-check', 'sparkles'], success: '这一关数字都找到啦！' } },
+                        { id: 'preschool-focus-2', title: '六宫数独', minutes: 12, meta: '4 关 · 4 宫到 6 宫', tip: '每行、每列、每个小宫里的数字都不能重复。', activity: { mode: 'play-sudoku', size: 6, clues: 16, prompt: '把空格填对。', hint: '先点空格，再点数字。填错不会写上去。', options: ['先看行和列', '乱填', '只看一个格'], answer: 0, optionIcons: ['target', 'play', 'circle-check'], success: '这盘数独填完啦！' } },
+                        { id: 'preschool-focus-3', title: '记忆翻牌', minutes: 10, meta: '4 关 · 4 到 10 对', tip: '一次只翻两张，记住位置再配。', activity: { mode: 'play-memory', size: 8, prompt: '找出两张一样的卡片。', hint: '先记住位置，再翻第二张。', options: ['记住再翻', '连续乱翻', '只翻一张'], answer: 0, optionIcons: ['circle-check', 'sparkle', 'target'], success: '这一关全配上啦！' } },
+                        { id: 'preschool-focus-4', title: '顺序记忆', minutes: 8, meta: '4 关 · 4 到 10 步', tip: '先看亮灯顺序，再按同样顺序点回去。', activity: { mode: 'play-simon', size: 6, prompt: '按刚才的顺序点颜色。', hint: '看完再点，点错从这一串重来。', options: ['看完再点', '抢先乱点', '只记最后一个'], answer: 0, optionIcons: ['target', 'sparkles', 'circle-check'], success: '这一串顺序记住啦！' } },
+                        { id: 'preschool-focus-5', title: '视觉搜索', minutes: 8, meta: '4 关 · 找 5 到 12 个', tip: '只点目标图案，点错会提示，不扣阳光。', activity: { mode: 'play-search', size: 6, targets: 8, prompt: '把所有目标都找出来。', hint: '先看要找什么，再一格一格扫。', options: ['先看目标', '每个都点', '只看一行'], answer: 0, optionIcons: ['target', 'play', 'sparkles'], success: '目标都找到啦！' } }
                     ]
                 },
                 {
                     id: 'preschool-english',
                     title: '英语专区',
-                    description: '今日 5 词先听，再中英配对，再拼写。单词按主题顺序往下学。',
+                    description: '今日 3 词先听，再中英配对，再拼写。单词按主题顺序往下学。',
                     icon: 'languages',
                     tone: 'lime',
                     badge: '500 词口语',
                     note: '点完会了或不会后，会进入中英翻牌和字母拼词。不扣阳光。',
-                    highlights: ['今日 5 词', '中英配对', '字母拼词'],
+                    highlights: ['今日 3 词', '中英配对', '字母拼词'],
                     samples: ['hello', 'red', 'apple'],
                     lessons: [
-                        { id: 'preschool-english-words-1', title: '今日 5 词', minutes: 8, meta: 'L1 · 听词 → 配对 → 拼写', tip: '先听单词和句子，点完会了或不会，再去配对。', activity: { mode: 'english-speak', level: 'L1', prompt: '听句子，这些词你会了吗？', hint: '点听句子，再点会了或不会。', preferred: 'hello', size: 5, options: ['会了', '不会', '听句子'], answer: 0, optionIcons: ['check', 'rotate-ccw', 'volume-2'], success: '这些词会听啦！' } }
+                        { id: 'preschool-english-words-1', title: '今日 3 词', minutes: 8, meta: 'L1 · 听词 → 配对 → 拼写', tip: '先听单词和句子，点完会了或不会，再去配对。', activity: { mode: 'english-speak', level: 'L1', prompt: '听句子，这些词你会了吗？', hint: '点听句子，再点会了或不会。', preferred: 'hello', size: 3, options: ['会了', '不会', '听句子'], answer: 0, optionIcons: ['check', 'rotate-ccw', 'volume-2'], success: '这些词会听啦！' } }
                     ],
                     media: [
                         { type: 'bilibili', title: 'Minecraft 英语课 · 从零开始', note: '我的世界学英语 · 中英字幕慢速', bvid: 'BV1BwGKzbEF1', icon: 'gamepad-2', cover: '../assets/generated/preschool-media/published/minecraft-english.jpg' },
@@ -298,7 +302,7 @@
                     icon: 'gamepad-2',
                     tone: 'lime',
                     badge: '324 兴趣词',
-                    note: '独立词库，不和今日 5 词、复习池混在一起。',
+                    note: '独立词库，不和今日 3 词、复习池混在一起。',
                     highlights: ['入门 60 词', '进阶 264 词', '本地配图'],
                     samples: ['swamp', 'zombie', 'sword'],
                     lessons: [

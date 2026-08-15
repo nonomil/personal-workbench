@@ -2,9 +2,10 @@
 
 ## C1 新练习 mode：图配字 / 听音选调
 
+- 状态：已落地（真照片图配字仍等素材，当前用字卡图）
 - 输入：`prj/data/preschool/识字|拼音/lessons.json` 中被降级的 activityType；`openLessonDialog` 现有 mode 分支
-- 产出：`build_lesson_pack.py` 放行两类新 activityType；`app.js` 两个新弹窗模板；对应测试
-- 验收：新 mode 课时可玩、老 choice 课不受影响、`npm test` 绿
+- 产出：`preschool-lesson-pack.js` 把 `*-character-match` 编成 `picture-match`；`preschool-pinyin.js` 增加 `buildToneQuiz`；`app.js` 字卡选项 + 听调弹窗；`tests/preschool-picture-tone.test.mjs`
+- 验收：新 mode 课时可玩、老 choice 课不受影响、相关测试绿
 - 门控：B2 完成；图配字素材可用性先评估（升级触发 1）
 
 ## C2 古诗/拼音/拼读 60 日挂入

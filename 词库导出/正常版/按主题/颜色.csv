@@ -1,0 +1,9 @@
+﻿id,word,zh,theme,level,phrase,phraseZh,category,group,image,audio,art,hasImage,hasAudio
+english-word-74,black,黑色,颜色,L1,The cat is black.,这只猫是黑色的。,,,图片/black.png,音频/black.mp3,emoji:⬛,yes,yes
+english-word-02,blue,蓝色,颜色,L1,The sky is blue.,天空是蓝色的。,,,图片/blue.png,音频/blue.mp3,emoji:🔵,yes,yes
+english-word-03,green,绿色,颜色,L1,A green leaf is here.,这里有一片绿叶。,,,图片/green.png,音频/green.mp3,emoji:🟢,yes,yes
+english-word-124,pink,粉色,颜色,L1,The flower is pink.,这朵花是粉色的。,,,,,emoji:🌸,no,no
+english-word-125,purple,紫色,颜色,L1,The grape is purple.,葡萄是紫色的。,,,图片/purple.png,,emoji:💜,yes,no
+english-word-01,red,红色,颜色,L1,It's red.,它是红色的。,,,图片/red.png,音频/red.mp3,emoji:🟥,yes,yes
+english-word-73,white,白色,颜色,L1,The cloud is white.,云是白色的。,,,图片/white.png,音频/white.mp3,emoji:⚪,yes,yes
+english-word-04,yellow,黄色,颜色,L1,The sun looks yellow.,太阳看起来是黄色的。,,,图片/yellow.png,音频/yellow.mp3,emoji:💛,yes,yes

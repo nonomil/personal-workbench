@@ -398,3 +398,47 @@ body.variant-preschool .preschool-section .preschool-section-head p { margin: 4p
     body.variant-preschool .preschool-achievement-card { transition: none; }
     body.variant-preschool .preschool-achievement-card.is-unlocked:hover { transform: none; }
 }
+
+body.variant-preschool .preschool-learning-summary {
+    margin-top: 16px;
+    padding: 16px 18px;
+    border: 1px solid rgba(90, 120, 70, .18);
+    border-radius: 20px;
+    background: #f4f7ee;
+}
+body.variant-preschool .preschool-learning-summary-head h2 { margin: 4px 0 0; font-size: 20px; }
+body.variant-preschool .preschool-learning-summary-head p { margin: 6px 0 0; color: #5c7350; font-size: 12px; }
+body.variant-preschool .preschool-learning-summary-kpis {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 12px;
+}
+body.variant-preschool .preschool-learning-summary-kpis span {
+    display: grid;
+    gap: 2px;
+    padding: 8px;
+    border-radius: 12px;
+    background: #fffdf6;
+}
+body.variant-preschool .preschool-learning-summary-kpis b { font-size: 20px; }
+body.variant-preschool .preschool-learning-summary-kpis small { color: #5c7350; font-size: 11px; }
+body.variant-preschool .preschool-learning-summary-subjects {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 12px;
+}
+body.variant-preschool .preschool-learning-summary-subject {
+    display: grid;
+    gap: 2px;
+    padding: 8px 10px;
+    border-radius: 12px;
+    background: #fffdf6;
+}
+body.variant-preschool .preschool-learning-summary-rewards { margin: 12px 0 0; color: #4a5d40; font-size: 13px; line-height: 1.5; }
+body.variant-preschool .preschool-learning-summary-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+@media (max-width: 520px) {
+    body.variant-preschool .preschool-learning-summary-kpis,
+    body.variant-preschool .preschool-learning-summary-subjects { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

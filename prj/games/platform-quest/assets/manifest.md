@@ -1,7 +1,7 @@
 # platform-quest 本地资源（Paper-MC 像素家族）
 
 > 与 `voxel-adventure/assets` 同一批生成的 Paper-MC 贴图；地砖/装饰由代码绘制，
-> 见 `../voxel-adventure/pixel-tiles.js` 与 `./pixel-decor.js`。
+> 见 `../shared/pixel-tiles.js` 与 `./pixel-decor.js`。
 
 | 路径 | 用途 | 关卡映射 |
 |------|------|----------|

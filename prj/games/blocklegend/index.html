@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>方块传奇 · 学英语大冒险</title>
+    <link rel="stylesheet" href="./game.css?v=20260816-bl-ui3">
+</head>
+<body class="bl-body">
+    <main class="bl-stage">
+        <canvas id="world-canvas" aria-label="方块传奇世界"></canvas>
+        <div class="bl-crosshair" aria-hidden="true"></div>
+
+        <header class="bl-topbar">
+            <a class="bl-back" id="back-link" href="../../preschool-workbench/index.html">返回工作台</a>
+            <strong class="bl-title">方块传奇</strong>
+            <button type="button" class="bl-btn" id="help-btn" aria-label="Help">?</button>
+            <button type="button" class="bl-btn" id="fullscreen-btn">全屏</button>
+        </header>
+
+        <aside class="bl-rpg" aria-label="角色状态">
+            <canvas id="mini-map" width="112" height="112" aria-hidden="true"></canvas>
+            <p class="bl-chapter" id="chapter-label">第一层 · 初生神域 · Genesis</p>
+            <div class="bl-rpg-head">
+                <b>Lv.<span id="level-label">1</span></b>
+                <span>Explorer</span>
+            </div>
+            <div class="bl-bar bl-bar-hp"><i id="hp-fill"></i><em id="hp-num">10/10</em></div>
+            <div class="bl-bar bl-bar-mp"><i id="mp-fill"></i><em id="mp-num">combo 0</em></div>
+            <div class="bl-bar bl-bar-xp"><i id="xp-fill"></i><em id="xp-num">0/0</em></div>
+            <div class="bl-currencies">
+                <span>🪙 <b id="coin-label">0</b></span>
+                <span>⚔ <b id="atk-label">8</b></span>
+                <span>🛡 <b id="def-label">2</b></span>
+            </div>
+            <p class="bl-listen" id="listen-panel">
+                <span class="bl-listen-title">Listening</span>
+                <span class="bl-say" id="say-strip">Say:</span>
+            </p>
+            <p class="bl-vocab" aria-live="polite">
+                <span class="bl-vocab-line">词 <b id="stat-learned">0</b>/<span id="stat-unread">0</span> · <b id="stat-right">0</b>✓ <b id="stat-wrong">0</b>×</span>
+                <span id="stat-bank" hidden>0</span>
+                <span id="stat-total" hidden>0</span>
+            </p>
+        </aside>
+
+        <div class="bl-look-card is-hidden" id="look-card">
+            <p class="bl-look-en" id="look-en">dirt</p>
+            <p class="bl-look-zh" id="look-zh">泥土</p>
+            <p class="bl-look-meta" id="look-meta"></p>
+            <button type="button" class="bl-btn is-ghost" id="look-speak">听</button>
+        </div>
+
+        <div class="bl-hotbar" aria-hidden="true">
+            <div class="bl-slot is-on" data-key="1" data-tool="sword"><i class="bl-ico-sword"></i><em>1</em></div>
+            <div class="bl-slot" data-key="2" data-tool="axe"><i class="bl-ico-axe"></i><em>2</em></div>
+            <div class="bl-slot" data-key="3" data-tool="pickaxe"><i class="bl-ico-pick"></i><em>3</em></div>
+            <div class="bl-slot" data-key="4" data-tool="shovel"><i class="bl-ico-shovel"></i><em>4</em></div>
+            <div class="bl-slot" data-key="5" data-place="1"><i class="bl-ico-place"></i><em>5</em></div>
+            <div class="bl-slot is-lock"><i class="bl-ico-lock"></i><em>6</em></div>
+        </div>
+        <div class="bl-break is-hidden" id="break-bar"><i id="break-fill"></i></div>
+
+        <div class="bl-look-tip" id="look-tip">点击画面锁定鼠标视角 · 再按 Esc 释放</div>
+        <div class="bl-hurt" id="hurt-flash" aria-hidden="true"></div>
+        <div class="bl-boss-hud is-hidden" id="boss-hud">
+            <span>BOSS</span>
+            <b id="boss-hp">0/0</b>
+            <div class="bl-boss-bar"><i id="boss-fill"></i></div>
+        </div>
+        <p class="bl-hint">WASD · 1剑 2斧 3镐 4铲 5放 · 左键 · 右键魔法 · F 商店 · <b id="fps-label">--</b> fps</p>
+        <div class="bl-trade-tip is-hidden" id="trade-tip">Press F to trade</div>
+        <div class="bl-toast" id="toast"></div>
+
+        <div class="bl-layer bl-quiz-layer is-hidden" id="quiz-layer">
+            <div class="bl-card bl-quiz">
+                <p class="bl-quiz-kicker">暴击咒语</p>
+                <button type="button" class="bl-quiz-en" id="quiz-en">word</button>
+                <img class="bl-quiz-img is-hidden" id="quiz-img" alt="">
+                <p class="bl-quiz-zh" id="quiz-zh"></p>
+                <button type="button" class="bl-btn is-ghost" id="quiz-speak">听</button>
+                <div class="bl-quiz-choices" id="quiz-choices"></div>
+                <div class="bl-quiz-time"><i id="quiz-timer"></i></div>
+            </div>
+        </div>
+        <div class="bl-layer is-hidden" id="settle-layer">
+            <div class="bl-card">
+                <h2>通关啦</h2>
+                <p id="settle-gain"></p>
+                <p id="settle-progress"></p>
+                <p id="settle-next"></p>
+                <div class="bl-card-actions">
+                    <button type="button" class="bl-btn" id="unlock-btn">解锁下一关</button>
+                    <button type="button" class="bl-btn" id="replay-btn">再打本关</button>
+                </div>
+            </div>
+        </div>
+        <div class="bl-layer is-hidden" id="trade-layer">
+            <div class="bl-card">
+                <h2>Shop · 商城</h2>
+                <p id="trade-copy">Sell loot for coins.</p>
+                <div id="shop-list" class="bl-shop-list"></div>
+                <div class="bl-card-actions">
+                    <button type="button" class="bl-btn" id="trade-sell">Sell all</button>
+                    <button type="button" class="bl-btn" id="trade-close">Close</button>
+                </div>
+            </div>
+        </div>
+        <div class="bl-layer is-hidden" id="help-layer">
+            <div class="bl-card bl-help">
+                <h2>How to play</h2>
+                <ul>
+                    <li>W A S D — move</li>
+                    <li>Space — jump</li>
+                    <li>Mouse — look around (Esc to unlock)</li>
+                    <li>1 sword · 2 axe · 3 pickaxe · 4 shovel · 5 place block</li>
+                    <li>Look at a block or mob — its name appears under the crosshair</li>
+                    <li>Hold left click — hit mobs or mine the block you look at</li>
+                    <li>Hold left click — mine one block at a time (axe is fast on wood, shovel on dirt)</li>
+                    <li>Right click — homing magic bolt</li>
+                    <li>Answer the crit chant to deal a critical hit</li>
+                    <li>F — sell loot or buy Leather Cap / Cloth Robe / Iron Blade / HP Potion</li>
+                    <li>Break the blue boss shield by answering words</li>
+                </ul>
+                <button type="button" class="bl-btn" id="help-close">Close</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="../shared/workbench-bridge.js?v=20260815-word-backflow-v1"></script>
+    <script src="../shared/game-sfx.js?v=20260815-bl-s1"></script>
+    <script src="../../preschool-english-vocab.js?v=20260815-word-backflow-v1"></script>
+    <script src="../../child-courses.js?v=20260815-word-backflow-v1"></script>
+    <script src="./vendor/three.min.js?v=20260815-bl-s1"></script>
+    <script src="./data/shop.js?v=20260815-bl-look11"></script>
+    <script src="./data/tools.js?v=20260816-bl-map1"></script>
+    <script src="./engine.js?v=20260816-bl-map1"></script>
+    <script src="./data/combat.js?v=20260815-bl-s2"></script>
+    <script src="./data/words.js?v=20260816-bl-map1"></script>
+    <script src="./data/levels.js?v=20260816-bl-map1"></script>
+    <script src="./mobs.js?v=20260816-bl-look12"></script>
+    <script src="./game.js?v=20260816-bl-map1"></script>
+</body>
+</html>

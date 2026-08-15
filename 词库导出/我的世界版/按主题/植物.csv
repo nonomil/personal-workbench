@@ -1,0 +1,18 @@
+﻿id,word,zh,theme,level,phrase,phraseZh,category,group,image,audio,art,hasImage,hasAudio
+mc-daisy,daisy,雏菊,植物,MC-D1,I plant the daisy near the village well.,我在村子水井旁种下daisy。,plant,种下daisy,图片/daisy.png,音频/daisy.mp3,none,yes,yes
+mc-tulip,tulip,郁金香,植物,MC-D1,I plant the tulip near the village well.,我在村子水井旁种下tulip。,plant,种下tulip,图片/tulip.png,音频/tulip.mp3,none,yes,yes
+mc-allium,allium,绒球葱,植物,MC-D2,Rain helps the allium grow.,雨水帮助allium长大。,plant,种下allium,图片/allium.png,,none,yes,no
+mc-azalea,azalea,杜鹃花,植物,MC-D2,I check the azalea before leaving camp.,离开营地前我先检查azalea。,plant,种下azalea,图片/azalea.png,,none,yes,no
+mc-cactus,cactus,仙人掌,植物,MC-D2,I plant the cactus beside the farm.,我在农场边种下cactus。,plant,种下cactus,图片/cactus.png,,none,yes,no
+mc-cocoa,cocoa,可可,植物,MC-D2,A path winds around the cocoa.,小路绕着cocoa弯过去。,plant,种下cocoa,图片/cocoa.png,,none,yes,no
+mc-fern,fern,蕨类植物,植物,MC-D2,I plant the fern beside the farm.,我在农场边种下fern。,plant,种下fern,图片/fern.png,,none,yes,no
+mc-leaves,leaves,树叶,植物,MC-D2,I plant the leaves near the village well.,我在村子水井旁种下leaves。,plant,种下leaves,图片/leaves.png,音频/leaves.mp3,none,yes,yes
+mc-lilac,lilac,丁香,植物,MC-D2,A path winds around the lilac.,小路绕着lilac弯过去。,plant,种下lilac,图片/lilac.png,,none,yes,no
+mc-moss,moss,苔藓,植物,MC-D2,I water the moss in the morning.,早上我给moss浇水。,plant,种下moss,图片/moss.png,,none,yes,no
+mc-orchid,orchid,兰花,植物,MC-D2,I plant the orchid beside the farm.,我在农场边种下orchid。,plant,种下orchid,图片/orchid.png,音频/orchid.mp3,none,yes,yes
+mc-peony,peony,牡丹,植物,MC-D2,The peony makes the garden feel cheerful.,peony让花园看起来很开心。,plant,种下peony,图片/peony.png,,none,yes,no
+mc-poppy,poppy,虞美人,植物,MC-D2,I plant the poppy near the village well.,我在村子水井旁种下poppy。,plant,种下poppy,图片/poppy.png,,none,yes,no
+mc-sapling,sapling,树苗,植物,MC-D2,I water the sapling in the morning.,早上我给sapling浇水。,plant,种下sapling,图片/sapling.png,音频/sapling.mp3,none,yes,yes
+mc-seagrass,seagrass,海草方块,植物,MC-D2,A path winds around the seagrass.,小路绕着seagrass弯过去。,plant,种下seagrass,图片/seagrass.png,,none,yes,no
+mc-seeds,seeds,种子,植物,MC-D2,Rain helps the seeds grow.,雨水帮助seeds长大。,plant,种下seeds,图片/seeds.png,,none,yes,no
+mc-vines,vines,攀緣植物,植物,MC-D2,The vines gives our garden a bright color.,vines让花园更鲜艳。,plant,种下vines,图片/vines.png,,none,yes,no

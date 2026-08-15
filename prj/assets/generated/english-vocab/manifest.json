@@ -1,0 +1,281 @@
+{
+  "generatedAt": "2026-08-16",
+  "tool": "project-svg-builder",
+  "license": "project-original",
+  "vocab": [
+    {
+      "text": "me",
+      "file": "assets/img/vocab/me.svg"
+    },
+    {
+      "text": "we",
+      "file": "assets/img/vocab/we.svg"
+    },
+    {
+      "text": "my",
+      "file": "assets/img/vocab/my.svg"
+    },
+    {
+      "text": "go",
+      "file": "assets/img/vocab/go.svg"
+    },
+    {
+      "text": "see",
+      "file": "assets/img/vocab/see.svg"
+    },
+    {
+      "text": "look",
+      "file": "assets/img/vocab/look.svg"
+    },
+    {
+      "text": "play",
+      "file": "assets/img/vocab/play.svg"
+    },
+    {
+      "text": "jump",
+      "file": "assets/img/vocab/jump.svg"
+    },
+    {
+      "text": "come",
+      "file": "assets/img/vocab/come.svg"
+    },
+    {
+      "text": "help",
+      "file": "assets/img/vocab/help.svg"
+    },
+    {
+      "text": "big",
+      "file": "assets/img/vocab/big.svg"
+    },
+    {
+      "text": "little",
+      "file": "assets/img/vocab/little.svg"
+    },
+    {
+      "text": "up",
+      "file": "assets/img/vocab/up.svg"
+    },
+    {
+      "text": "down",
+      "file": "assets/img/vocab/down.svg"
+    },
+    {
+      "text": "one",
+      "file": "assets/img/vocab/one.svg"
+    },
+    {
+      "text": "two",
+      "file": "assets/img/vocab/two.svg"
+    },
+    {
+      "text": "can",
+      "file": "assets/img/vocab/can.svg"
+    },
+    {
+      "text": "eat",
+      "file": "assets/img/vocab/eat.svg"
+    },
+    {
+      "text": "please",
+      "file": "assets/img/vocab/please.svg"
+    },
+    {
+      "text": "yes",
+      "file": "assets/img/vocab/yes.svg"
+    },
+    {
+      "text": "good",
+      "file": "assets/img/vocab/good.svg"
+    },
+    {
+      "text": "thank",
+      "file": "assets/img/vocab/thank.svg"
+    },
+    {
+      "text": "walk",
+      "file": "assets/img/vocab/walk.svg"
+    },
+    {
+      "text": "stop",
+      "file": "assets/img/vocab/stop.svg"
+    },
+    {
+      "text": "hello",
+      "file": "assets/img/vocab/hello.svg"
+    },
+    {
+      "text": "goodbye",
+      "file": "assets/img/vocab/goodbye.svg"
+    },
+    {
+      "text": "mom",
+      "file": "assets/img/vocab/mom.svg"
+    },
+    {
+      "text": "dad",
+      "file": "assets/img/vocab/dad.svg"
+    },
+    {
+      "text": "boy",
+      "file": "assets/img/vocab/boy.svg"
+    },
+    {
+      "text": "girl",
+      "file": "assets/img/vocab/girl.svg"
+    },
+    {
+      "text": "friend",
+      "file": "assets/img/vocab/friend.svg"
+    },
+    {
+      "text": "family",
+      "file": "assets/img/vocab/family.svg"
+    },
+    {
+      "text": "drink",
+      "file": "assets/img/vocab/drink.svg"
+    },
+    {
+      "text": "water",
+      "file": "assets/img/vocab/water.svg"
+    },
+    {
+      "text": "juice",
+      "file": "assets/img/vocab/juice.svg"
+    },
+    {
+      "text": "sun",
+      "file": "assets/img/vocab/sun.svg"
+    },
+    {
+      "text": "moon",
+      "file": "assets/img/vocab/moon.svg"
+    },
+    {
+      "text": "tree",
+      "file": "assets/img/vocab/tree.svg"
+    },
+    {
+      "text": "school",
+      "file": "assets/img/vocab/school.svg"
+    },
+    {
+      "text": "home",
+      "file": "assets/img/vocab/home.svg"
+    },
+    {
+      "text": "ball",
+      "file": "assets/img/vocab/ball.svg"
+    },
+    {
+      "text": "bike",
+      "file": "assets/img/vocab/bike.svg"
+    },
+    {
+      "text": "hat",
+      "file": "assets/img/vocab/hat.svg"
+    },
+    {
+      "text": "shoe",
+      "file": "assets/img/vocab/shoe.svg"
+    },
+    {
+      "text": "hand",
+      "file": "assets/img/vocab/hand.svg"
+    },
+    {
+      "text": "ear",
+      "file": "assets/img/vocab/ear.svg"
+    },
+    {
+      "text": "mouth",
+      "file": "assets/img/vocab/mouth.svg"
+    },
+    {
+      "text": "happy",
+      "file": "assets/img/vocab/happy.svg"
+    },
+    {
+      "text": "hot",
+      "file": "assets/img/vocab/hot.svg"
+    },
+    {
+      "text": "cold",
+      "file": "assets/img/vocab/cold.svg"
+    },
+    {
+      "text": "morning",
+      "file": "assets/img/vocab/morning.svg"
+    },
+    {
+      "text": "bird",
+      "file": "assets/img/vocab/bird.svg"
+    }
+  ],
+  "wordboss": [
+    {
+      "id": "goblin-king",
+      "file": "assets/generated/wordboss/published/goblin-king.svg"
+    },
+    {
+      "id": "shadow-knight",
+      "file": "assets/generated/wordboss/published/shadow-knight.svg"
+    },
+    {
+      "id": "dragon-lord",
+      "file": "assets/generated/wordboss/published/dragon-lord.svg"
+    },
+    {
+      "id": "hero",
+      "file": "assets/generated/wordboss/published/hero.svg"
+    },
+    {
+      "id": "skill-fire",
+      "file": "assets/generated/wordboss/published/skill-fire.svg"
+    },
+    {
+      "id": "skill-zap",
+      "file": "assets/generated/wordboss/published/skill-zap.svg"
+    },
+    {
+      "id": "skill-ice",
+      "file": "assets/generated/wordboss/published/skill-ice.svg"
+    },
+    {
+      "id": "skill-heal",
+      "file": "assets/generated/wordboss/published/skill-heal.svg"
+    },
+    {
+      "id": "eq-wood",
+      "file": "assets/generated/wordboss/published/eq-wood.svg"
+    },
+    {
+      "id": "eq-dagger",
+      "file": "assets/generated/wordboss/published/eq-dagger.svg"
+    },
+    {
+      "id": "eq-iron",
+      "file": "assets/generated/wordboss/published/eq-iron.svg"
+    },
+    {
+      "id": "eq-axe",
+      "file": "assets/generated/wordboss/published/eq-axe.svg"
+    },
+    {
+      "id": "eq-bow",
+      "file": "assets/generated/wordboss/published/eq-bow.svg"
+    },
+    {
+      "id": "eq-hammer",
+      "file": "assets/generated/wordboss/published/eq-hammer.svg"
+    },
+    {
+      "id": "bg-grass",
+      "file": "assets/generated/wordboss/published/bg-grass.svg"
+    },
+    {
+      "id": "bg-castle",
+      "file": "assets/generated/wordboss/published/bg-castle.svg"
+    }
+  ]
+}

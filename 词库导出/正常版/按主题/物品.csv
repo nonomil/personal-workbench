@@ -1,0 +1,34 @@
+﻿id,word,zh,theme,level,phrase,phraseZh,category,group,image,audio,art,hasImage,hasAudio
+english-word-81,bag,书包,物品,L1,This is my bag.,这是我的书包。,,,图片/bag.png,音频/bag.mp3,emoji:🎒,yes,yes
+english-word-12,ball,球,物品,L1,Do you want to play ball?,你想玩球吗？,,,,,emoji:⚽,no,no
+english-word-82,bed,床,物品,L1,It's time to go to bed.,该睡觉啦。,,,图片/bed.png,音频/bed.mp3,emoji:🛏️,yes,yes
+english-word-184,bike,自行车,物品,L1,I ride a bike.,我骑自行车。,,,,,emoji:🚲,no,no
+english-word-84,blocks,积木,物品,L1,I play with blocks.,我玩积木。,,,,,emoji:🧱,no,no
+english-word-11,book,书,物品,L1,I read a book.,我在看书。,,,图片/book.png,,emoji:📖,yes,no
+english-word-143,box,盒子,物品,L1,Open the box.,打开盒子。,,,,,emoji:📦,no,no
+english-word-85,bubble,泡泡,物品,L1,Look at the bubble.,看这个泡泡。,,,,,emoji:🫧,no,no
+english-word-183,bus,公交车,物品,L1,The bus is yellow.,公交车是黄色的。,,,图片/bus.png,,emoji:🚌,yes,no
+english-word-88,car,小汽车,物品,L1,The car is red.,这辆小汽车是红色的。,,,图片/car.png,,emoji:🚗,yes,no
+english-word-57,chair,椅子,物品,L1,I sit on the chair.,我坐在椅子上。,,,图片/chair.png,,emoji:🪑,yes,no
+english-word-91,clock,时钟,物品,L1,Look at the clock.,看看时钟。,,,图片/clock.png,,emoji:🕐,yes,no
+english-word-56,desk,书桌,物品,L1,I sit at the desk.,我坐在书桌前。,,,,,emoji:💺,no,no
+english-word-97,doll,娃娃,物品,L1,This doll is cute.,这个娃娃很可爱。,,,图片/doll.png,,emoji:🪆,yes,no
+english-word-144,door,门,物品,L1,Please close the door.,请把门关上。,,,图片/door.png,音频/door.mp3,emoji:🚪,yes,yes
+english-word-145,dress,连衣裙,物品,L1,She has a blue dress.,她有一条蓝裙子。,,,图片/dress.png,,emoji:👗,yes,no
+english-word-110,hat,帽子,物品,L1,I wear a hat.,我戴一顶帽子。,,,,,emoji:🎩,no,no
+english-word-113,kite,风筝,物品,L1,I fly a kite.,我放风筝。,,,,,emoji:🪁,no,no
+english-word-148,light,灯,物品,L1,"Turn off the light, please.",请关灯。,,,图片/light.png,音频/light.mp3,emoji:🔆,yes,yes
+english-word-53,pen,笔,物品,L1,I write with a pen.,我用笔写字。,,,,,emoji:🖊,no,no
+english-word-54,pencil,铅笔,物品,L1,I draw with a pencil.,我用铅笔画画。,,,,,emoji:✏️,no,no
+english-word-150,plane,飞机,物品,L1,The plane is in the sky.,飞机在天上。,,,,,emoji:✈️,no,no
+english-word-126,puzzle,拼图,物品,L1,I do a puzzle.,我玩拼图。,,,,,emoji:🧩,no,no
+english-word-55,ruler,尺子,物品,L1,This is my ruler.,这是我的尺子。,,,,,emoji:📏,no,no
+english-word-151,schoolbag,书包,物品,L1,My schoolbag is heavy.,我的书包有点重。,,,,,emoji:🎒,no,no
+english-word-152,shirt,衬衫,物品,L1,This shirt is blue.,这件衬衫是蓝色的。,,,,,emoji:👕,no,no
+english-word-130,shoe,鞋子,物品,L1,Put on your shoe.,穿上你的鞋子。,,,,,emoji:👟,no,no
+english-word-153,shorts,短裤,物品,L1,I wear shorts today.,我今天穿短裤。,,,,,emoji:🩳,no,no
+english-word-154,skirt,裙子,物品,L1,The skirt is pink.,这条短裙是粉色的。,,,,,emoji:🥿,no,no
+english-word-155,socks,袜子,物品,L1,Put on your socks.,穿上你的袜子。,,,,,emoji:🧦,no,no
+english-word-136,table,桌子,物品,L1,The book is on the table.,书在桌子上。,,,图片/table.png,,emoji:🪑,yes,no
+english-word-139,toy,玩具,物品,L1,This toy is fun.,这个玩具很好玩。,,,,,emoji:🧸,no,no
+english-word-159,train,火车,物品,L1,The train is long.,火车很长。,,,图片/train.png,,emoji:🚆,yes,no

@@ -16,7 +16,7 @@
     const WALK_LURCH = 1;
     const FIRST_WAVE_MS = 8000;
     const NEXT_WAVE_MS = 5200;
-    const BOARD_COLUMNS = 8;
+    const BOARD_COLUMNS = 10;
     let plantsLost = 0;
     let breachedMid = false;
     let lastPlantCount = 0;
@@ -27,7 +27,7 @@
 
     const canvas = document.getElementById('world-canvas');
     const ctx = canvas.getContext('2d');
-    const VIEW_W = 1080;
+    const VIEW_W = 1280;
     const VIEW_H = 540;
     canvas.width = VIEW_W;
     canvas.height = VIEW_H;
@@ -954,7 +954,7 @@
         const alive = (defense.plants || []).length;
         if (lastPlantCount && alive < lastPlantCount) plantsLost += lastPlantCount - alive;
         lastPlantCount = alive;
-        if ((defense.zombies || []).some(function (z) { return z && z.health > 0 && Number(z.column) < 4; })) {
+        if ((defense.zombies || []).some(function (z) { return z && z.health > 0 && Number(z.column) < BOARD_COLUMNS / 2; })) {
             breachedMid = true;
         }
         if (defense.status === 'lost') {

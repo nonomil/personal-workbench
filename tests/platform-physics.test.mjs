@@ -205,6 +205,16 @@ test('beetle first stomp becomes a shell, second stomp kicks it', () => {
   assert.equal(applyStomp({ kind: 'shroom', state: 'walk' }, 0).state, 'gone');
 });
 
+test('walking pickup turns around when it hits a wall', () => {
+  const steerPickup = extractPlatformFn(platformGameSrc(), 'steerPickup');
+  const wall = { x: 200, y: 360, w: 40, h: 40 };
+  const hit = steerPickup({ x: 188, y: 368, w: 28, h: 28, vx: 46, vy: 0 }, [wall]);
+  assert.ok(hit.vx < 0, 'must bounce back from the side of a block');
+  const land = steerPickup({ x: 80, y: 384, w: 28, h: 28, vx: 46, vy: 40 }, [{ x: 0, y: 400, w: 800, h: 80 }]);
+  assert.equal(land.vy, 0);
+  assert.equal(land.y, 372);
+});
+
 test('pipe flower hides then pops on a timer', () => {
   const plantVisible = extractPlatformFn(platformGameSrc(), 'plantVisible');
   assert.equal(plantVisible(200, 1000, 1000, 0), false);
@@ -311,4 +321,98 @@ test('air grass platforms can be bumped and broken, moving pads stay', () => {
   assert.equal(isBumpBlock(moving), false);
   assert.equal(isBumpBlock({ x: 0, y: 400, w: 2400, h: 100 }), false);
   assert.equal(isBumpBlock({ type: 'brick', broken: false }), true);
+});
+
+test('stomped walker flattens then disappears after a short beat', () => {
+  const crushEnemy = extractPlatformFn(platformGameSrc(), 'crushEnemy');
+  const tickCrush = extractPlatformFn(platformGameSrc(), 'tickCrush');
+  const flat = crushEnemy({ x: 200, y: 372, w: 36, h: 28 });
+  assert.equal(flat.state, 'flat');
+  assert.equal(flat.h, 10);
+  assert.equal(flat.y, 390);
+  assert.ok(flat.life > 0.3);
+  const mid = tickCrush({ state: 'flat', life: 0.42 }, 0.1);
+  assert.equal(mid.gone, false);
+  const done = tickCrush({ state: 'flat', life: 0.05 }, 0.1);
+  assert.equal(done.gone, true);
+});
+
+test('touching the finish pole slides the player down before clear', () => {
+  const flagSlide = extractPlatformFn(platformGameSrc(), 'flagSlide');
+  const flag = { x: 6000, y: 280, w: 44, h: 120 };
+  const mid = flagSlide({ x: 5988, y: 300, w: 40, h: 52 }, flag, 0.05, 400);
+  assert.equal(mid.climbing, true);
+  assert.equal(mid.done, false);
+  assert.equal(mid.x, 5994);
+  assert.ok(mid.y > 300);
+  const land = flagSlide({ x: 5988, y: 347, w: 40, h: 52 }, flag, 0.05, 400);
+  assert.equal(land.done, true);
+  assert.equal(land.y, 348);
+});
+
+test('saved checkpoint flag rises once and then stays up', () => {
+  const checkpointRaise = extractPlatformFn(platformGameSrc(), 'checkpointRaise');
+  const first = checkpointRaise(0, 0.2);
+  assert.ok(first > 0 && first < 1);
+  assert.equal(checkpointRaise(0.95, 0.2), 1);
+  assert.equal(checkpointRaise(1, 0.2), 1);
+});
+
+test('clear fireworks burst from the pole and fade out', () => {
+  const spawnFireworks = extractPlatformFn(platformGameSrc(), 'spawnFireworks');
+  const burst = spawnFireworks(6000, 320);
+  assert.ok(burst.length >= 12);
+  assert.equal(burst[0].x, 6000);
+  assert.ok(burst[0].life > 0);
+});
+
+test('empty hearts refill to the preschool start count, not three', () => {
+  const src = platformGameSrc();
+  assert.doesNotMatch(src, /hearts = 3;/);
+  assert.match(src, /hearts = phy\.START_HEARTS/);
+});
+
+test('shell stands on the floor under its feet, not always world ground', () => {
+  const enemyStandY = extractPlatformFn(platformGameSrc(), 'enemyStandY');
+  const y = enemyStandY({ x: 400, w: 32, h: 22 }, [{ x: 360, y: 280, w: 80, h: 20 }], 400);
+  assert.equal(y, 258);
+  assert.equal(enemyStandY({ x: 20, w: 32, h: 22 }, [], 400), 378);
+});
+
+test('game loop keeps requesting frames even if a tick throws', () => {
+  const src = platformGameSrc();
+  const loop = src.match(/function loop\([\s\S]*?\n    \}\n/);
+  assert.ok(loop, 'loop missing');
+  assert.match(loop[0], /try\s*\{/);
+  assert.match(loop[0], /requestAnimationFrame\(loop\)/);
+  const afterCatch = loop[0].split(/catch\s*\(/)[1] || '';
+  assert.match(afterCatch, /requestAnimationFrame\(loop\)/, 'rAF must run after a thrown tick');
+});
+
+test('standing on the flag platform still counts as touching the pole', () => {
+  const touchingFlag = extractPlatformFn(platformGameSrc(), 'touchingFlag');
+  const flag = { x: 6200, y: 280, w: 44, h: 120 };
+  assert.equal(touchingFlag({ x: 6192, y: 228, w: 40, h: 52 }, flag), true);
+  assert.equal(touchingFlag({ x: 5000, y: 348, w: 40, h: 52 }, flag), false);
+  assert.equal(touchingFlag({ x: 6400, y: 223, w: 40, h: 52 }, flag), true, 'sprinting past the pole still clears');
+});
+
+test('P6 diet: walking to the flag stays under preschool time gates', async () => {
+  await import('../prj/games/platform-quest/data/levels.js');
+  const list = globalThis.PlatformLevels;
+  const walkSec = (id) => (list.get(id).flag.x - 48) / 240;
+  assert.ok(walkSec(1) <= 60, 'level 1 walk must stay under 60s');
+  assert.ok(walkSec(2) <= 60, 'level 2 walk must stay under 60s');
+  assert.ok(walkSec(9) <= 120, 'level 9 walk must stay under 120s');
+  assert.ok(walkSec(10) <= 120, 'level 10 walk must stay under 120s');
+});
+
+test('qa autoplay is opt-in and jumps before walls or pits', () => {
+  const src = platformGameSrc();
+  assert.match(src, /qaParams\.get\('qa'\) === 'run'/, 'autoplay only when ?qa=run');
+  assert.match(src, /function qaDrive\(/);
+  assert.match(src, /function qaAheadBlocked\(/);
+  assert.match(src, /function qaPitAhead\(/);
+  assert.match(src, /qaDrive\(now\)/);
+  assert.doesNotMatch(src, /qaAuto\s*=\s*true/, 'must not hard-enable autoplay');
 });

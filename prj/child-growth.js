@@ -59,6 +59,7 @@
             totalSunlightEarned: 0,
             awardedIds: [],
             claimedRewardIds: [],
+            pendingRewardIds: [],
             checkinDates: [],
             claimedStreakRewardIds: [],
             voiceEnabled: false,
@@ -124,6 +125,7 @@
             totalSunlightEarned: Math.max(Number(source.totalSunlightEarned) || 0, Number(source.sunlight) || 0),
             awardedIds: asArray(source.awardedIds).filter(item => typeof item === 'string'),
             claimedRewardIds: asArray(source.claimedRewardIds).filter(item => typeof item === 'string'),
+            pendingRewardIds: asArray(source.pendingRewardIds).filter(item => typeof item === 'string' && item),
             checkinDates: asArray(source.checkinDates).filter(item => /^\d{4}-\d{2}-\d{2}$/.test(String(item))).sort(),
             claimedStreakRewardIds: asArray(source.claimedStreakRewardIds).filter(item => typeof item === 'string'),
             voiceEnabled: Boolean(source.voiceEnabled),
@@ -275,6 +277,7 @@
             activeStyleId: growth.unicorn.activeStyleId,
             unlockedStyleIds: growth.unicorn.unlockedStyleIds,
             claimedRewardIds: growth.claimedRewardIds,
+            pendingRewardIds: growth.pendingRewardIds,
             plantStage: growth.plant.stage,
             plant: PLANT_STAGES[growth.plant.stage] || PLANT_STAGES[0],
             plantWaterCount: growth.plant.waterCount,
@@ -326,6 +329,39 @@
         return { ok: true, growth: growth };
     }
 
+    function requestPendingReward(input, reward) {
+        const growth = normalize(input);
+        const id = String(reward && reward.id || '');
+        const cost = Math.max(0, Number(reward && reward.cost) || 0);
+        if (!id) return { ok: false, growth: growth, reason: '奖励不存在' };
+        if (growth.claimedRewardIds.includes(id)) return { ok: false, growth: growth, reason: '这个奖励已经领取过了' };
+        if (growth.pendingRewardIds.includes(id)) return { ok: true, growth: growth };
+        if (growth.sunlight < cost) return { ok: false, growth: growth, reason: `还需要 ${cost - growth.sunlight} 阳光` };
+        growth.pendingRewardIds.push(id);
+        return { ok: true, growth: growth };
+    }
+
+    function confirmPendingReward(input, reward) {
+        const growth = normalize(input);
+        const id = String(reward && reward.id || '');
+        const cost = Math.max(0, Number(reward && reward.cost) || 0);
+        if (!id) return { ok: false, growth: growth, reason: '奖励不存在' };
+        if (growth.claimedRewardIds.includes(id)) return { ok: false, growth: growth, reason: '这个奖励已经领取过了' };
+        if (!growth.pendingRewardIds.includes(id)) return { ok: false, growth: growth, reason: '还没有待确认的兑换' };
+        if (growth.sunlight < cost) return { ok: false, growth: growth, reason: `还需要 ${cost - growth.sunlight} 阳光` };
+        growth.sunlight -= cost;
+        growth.claimedRewardIds.push(id);
+        growth.pendingRewardIds = growth.pendingRewardIds.filter(function (item) { return item !== id; });
+        return { ok: true, growth: growth };
+    }
+
+    function cancelPendingReward(input, rewardId) {
+        const growth = normalize(input);
+        const id = String(rewardId || '');
+        growth.pendingRewardIds = growth.pendingRewardIds.filter(function (item) { return item !== id; });
+        return { ok: true, growth: growth };
+    }
+
     function setVoiceEnabled(input, enabled) {
         const growth = normalize(input);
         growth.voiceEnabled = Boolean(enabled);
@@ -345,6 +381,9 @@
         STREAK_REPAIR_MONTHLY_CARDS: STREAK_REPAIR_MONTHLY_CARDS,
         selectStyle: selectStyle,
         waterPlant: waterPlant,
+        requestPendingReward: requestPendingReward,
+        confirmPendingReward: confirmPendingReward,
+        cancelPendingReward: cancelPendingReward,
         setVoiceEnabled: setVoiceEnabled,
         calculateStreak: calculateStreak
     };

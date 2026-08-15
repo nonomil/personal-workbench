@@ -9,6 +9,12 @@
 .preschool-flashcard-dots i.is-current { background: #ffffff; box-shadow: 0 0 0 2px #3fa25c; }
 .preschool-flashcard-count { margin: 0; font-size: 0.9rem; color: #5c7350; display: flex; align-items: center; gap: 8px; }
 .preschool-flashcard-review { font-style: normal; font-size: 0.75rem; font-weight: 700; color: #8a6b1f; background: rgba(224, 172, 62, 0.2); border-radius: 999px; padding: 2px 10px; }
+.preschool-english-daily,
+.preschool-english-today-chips { display: grid; gap: 8px; }
+.preschool-english-daily .preschool-literacy-mastery,
+.preschool-english-today-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.preschool-english-daily .preschool-literacy-mastery span.is-review,
+.preschool-english-today-chips span.is-review { color: #8a4b12; background: #ffe7b8; }
 .preschool-flashcard-levels,
 .preschool-practice-level-chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .preschool-flashcard-level,
@@ -103,18 +109,6 @@
     .preschool-flashcard-main > strong { font-size: 3.6rem; }
     .preschool-flashcard-top { flex-wrap: wrap; }
 }
-
-/* 专注力：今日单任务启动页 */
-.preschool-focus-today { display: grid; justify-items: center; gap: 10px; text-align: center; background: #ffffff; border-radius: 26px; padding: 34px 24px; border: 2px solid rgba(224, 172, 62, 0.45); box-shadow: 0 12px 28px rgba(31, 73, 42, 0.1); }
-.preschool-focus-today-art { width: 96px; height: 96px; display: grid; place-items: center; }
-.preschool-focus-today-art img, .preschool-focus-today-art svg { width: 100%; height: 100%; object-fit: contain; }
-.preschool-focus-today small { font-size: 0.82rem; color: #8a6b1f; font-weight: 700; letter-spacing: 0.08em; }
-.preschool-focus-today h2 { margin: 0; font-size: 1.6rem; color: #23422c; }
-.preschool-focus-today p { margin: 0; font-size: 0.95rem; color: #5c7350; }
-.preschool-focus-today-tip { background: #fffbec; border-radius: 12px; padding: 8px 14px; }
-.preschool-focus-today-start { display: inline-flex; align-items: center; gap: 8px; min-height: 56px; padding: 0 28px; border-radius: 18px; font-size: 1.15rem; margin-top: 6px; }
-.preschool-focus-today-start svg { width: 20px; height: 20px; }
-.preschool-focus-today-others { display: flex; gap: 4px 14px; flex-wrap: wrap; justify-content: center; align-items: center; font-size: 0.85rem; color: #5c7350; }
 
 /* 暑假：今日任务汇总 */
 .preschool-summer-today { display: grid; gap: 14px; }

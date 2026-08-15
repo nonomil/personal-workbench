@@ -1,0 +1,1012 @@
+{
+  "version": 2,
+  "generatedAt": "2026-08-15T15:50:54.785Z",
+  "buildIdentity": {
+    "batchId": "minecraft-english-2026.08.15",
+    "manifestHash": "ffe0c40033e7351b62c88269f209338ba6ae349875e52e5b6c40afe92a69ae8c",
+    "inputHash": "ffe0c40033e7351b62c88269f209338ba6ae349875e52e5b6c40afe92a69ae8c",
+    "builderVersion": "export-vocab-packages@1"
+  },
+  "catalog": "catalog.json",
+  "chapters": [
+    {
+      "id": "minecraft-english-2026.08.15-foundation",
+      "title": "入门",
+      "titleEn": "foundation",
+      "summary": "按 入门 认方块、生物和工具词。",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "word-racer",
+        "typingGame": "creeper-typing"
+      },
+      "cardCount": 60,
+      "groups": [
+        {
+          "id": "minecraft-english-2026.08.15-foundation-001",
+          "title": "入门 · 第 1 组",
+          "cardIds": [
+            "mc-cave",
+            "mc-birch",
+            "mc-dirt",
+            "mc-log",
+            "mc-axe",
+            "mc-hoe",
+            "mc-blaze",
+            "mc-slime",
+            "mc-squid",
+            "mc-witch"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "place",
+            "block",
+            "tool",
+            "mob"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-foundation-002",
+          "title": "入门 · 第 2 组",
+          "cardIds": [
+            "mc-swamp",
+            "mc-taiga",
+            "mc-cod",
+            "mc-melon",
+            "mc-allay",
+            "mc-anvil",
+            "mc-arrow",
+            "mc-bat",
+            "mc-breed",
+            "mc-chunk"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "biome",
+            "food",
+            "item"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-foundation-003",
+          "title": "入门 · 第 3 组",
+          "cardIds": [
+            "mc-drops",
+            "mc-dust",
+            "mc-flame",
+            "mc-flint",
+            "mc-ghast",
+            "mc-grove",
+            "mc-husk",
+            "mc-igloo",
+            "mc-ingot",
+            "mc-lever"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "item"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-foundation-004",
+          "title": "入门 · 第 4 组",
+          "cardIds": [
+            "mc-llama",
+            "mc-loom",
+            "mc-loot",
+            "mc-lure",
+            "mc-mace",
+            "mc-mob",
+            "mc-mule",
+            "mc-ore",
+            "mc-plank",
+            "mc-power"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "item"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-foundation-005",
+          "title": "入门 · 第 5 组",
+          "cardIds": [
+            "mc-punch",
+            "mc-raid",
+            "mc-rail",
+            "mc-realm",
+            "mc-sculk",
+            "mc-scute",
+            "mc-slab",
+            "mc-smite",
+            "mc-stray",
+            "mc-tame"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "item"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-foundation-006",
+          "title": "入门 · 第 6 组",
+          "cardIds": [
+            "mc-tick",
+            "mc-tnt",
+            "mc-torch",
+            "mc-tuff",
+            "mc-vault",
+            "mc-vex",
+            "mc-wool",
+            "mc-dye",
+            "mc-daisy",
+            "mc-tulip"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "item",
+            "color",
+            "plant"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "minecraft-english-2026.08.15-expanding",
+      "title": "进阶",
+      "titleEn": "expanding",
+      "summary": "按 进阶 认方块、生物和工具词。",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "word-racer",
+        "typingGame": "creeper-typing"
+      },
+      "cardCount": 264,
+      "groups": [
+        {
+          "id": "minecraft-english-2026.08.15-expanding-001",
+          "title": "进阶 · 第 1 组",
+          "cardIds": [
+            "mc-bullseye",
+            "mc-acacia",
+            "mc-actinium",
+            "mc-aluminum",
+            "mc-antimony",
+            "mc-arena",
+            "mc-argon",
+            "mc-arsenic",
+            "mc-astatine",
+            "mc-barium"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "advancement",
+            "block"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-expanding-002",
+          "title": "进阶 · 第 2 组",
+          "cardIds": [
+            "mc-basalt",
+            "mc-bismuth",
+            "mc-bohrium",
+            "mc-boron",
+            "mc-brick",
+            "mc-bricks",
+            "mc-bromine",
+            "mc-cadmium",
+            "mc-calcium",
+            "mc-carbon"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "block"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-expanding-003",
+          "title": "进阶 · 第 3 组",
+          "cardIds": [
+            "mc-cerium",
+            "mc-cesium",
+            "mc-chain",
+            "mc-chlorine",
+            "mc-chromium",
+            "mc-clay",
+            "mc-cobalt",
+            "mc-cobweb",
+            "mc-conduit",
+            "mc-curium"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "block"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-expanding-004",
+          "title": "进阶 · 第 4 组",
+          "cardIds": [
+            "mc-deny",
+            "mc-dubnium",
+            "mc-erbium",
+            "mc-europium",
+            "mc-farmland",
+            "mc-fermium",
+            "mc-fluorine",
+            "mc-francium",
+            "mc-gallium",
+            "mc-gravel"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "block"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-expanding-005",
+          "title": "进阶 · 第 5 组",
+          "cardIds": [
+            "mc-hafnium",
+            "mc-hassium",
+            "mc-helium",
+            "mc-holmium",
+            "mc-hydrogen",
+            "mc-indium",
+            "mc-iodine",
+            "mc-iridium",
+            "mc-kelp",
+            "mc-krypton"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "block"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-expanding-006",
+          "title": "进阶 · 第 6 组",
+          "cardIds": [
+            "mc-lithium",
+            "mc-lutetium",
+            "mc-marble",
+            "mc-mercury",
+            "mc-mycelium",
+            "mc-neon",
+            "mc-nickel",
+            "mc-nihonium",
+            "mc-niobium",
+            "mc-nitrogen"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "block"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-expanding-007",
+          "title": "进阶 · 第 7 组",
+          "cardIds": [
+            "mc-nobelium",
+            "mc-osmium",
+            "mc-oxygen",
+            "mc-planks",
+            "mc-platinum",
+            "mc-podzol",
+            "mc-polonium",
+            "mc-purpur",
+            "mc-radium",
+            "mc-radon"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "block"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-expanding-008",
+          "title": "进阶 · 第 8 组",
+          "cardIds": [
+            "mc-rhenium",
+            "mc-rhodium",
+            "mc-rubidium",
+            "mc-samarium",
+            "mc-scandium",
+            "mc-selenium",
+            "mc-silicon",
+            "mc-sodium",
+            "mc-spruce",
+            "mc-sulfur"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "block"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-expanding-009",
+          "title": "进阶 · 第 9 组",
+          "cardIds": [
+            "mc-tantalum",
+            "mc-terbium",
+            "mc-thallium",
+            "mc-thorium",
+            "mc-thulium",
+            "mc-tin",
+            "mc-titanium",
+            "mc-tripwire",
+            "mc-tungsten",
+            "mc-uranium"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "block"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-expanding-010",
+          "title": "进阶 · 第 10 组",
+          "cardIds": [
+            "mc-vanadium",
+            "mc-xenon",
+            "mc-yttrium",
+            "mc-zinc",
+            "mc-pickaxe",
+            "mc-shears",
+            "mc-shovel",
+            "mc-temple",
+            "mc-axolotl",
+            "mc-beehive"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "block",
+            "tool",
+            "structure",
+            "mob"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-expanding-011",
+          "title": "进阶 · 第 11 组",
+          "cardIds": [
+            "mc-beetroot",
+            "mc-creeper",
+            "mc-enderman",
+            "mc-guardian",
+            "mc-hoglin",
+            "mc-phantom",
+            "mc-piglin",
+            "mc-skeleton",
+            "mc-spawner",
+            "mc-strider"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "mob"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-expanding-012",
+          "title": "进阶 · 第 12 组",
+          "cardIds": [
+            "mc-villager",
+            "mc-wither",
+            "mc-zombie",
+            "mc-biomes",
+            "mc-nether",
+            "mc-plains",
+            "mc-savanna",
+            "mc-berries",
+            "mc-carrots",
+            "mc-mutton"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "mob",
+            "biome",
+            "food"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-expanding-013",
+          "title": "进阶 · 第 13 组",
+          "cardIds": [
+            "mc-porkchop",
+            "mc-potatoes",
+            "mc-salmon",
+            "mc-crossbow",
+            "mc-shield",
+            "mc-sword",
+            "mc-trident",
+            "mc-alex",
+            "mc-altitude",
+            "mc-ambience"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "food",
+            "weapon",
+            "item"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-expanding-014",
+          "title": "进阶 · 第 14 组",
+          "cardIds": [
+            "mc-amethyst",
+            "mc-ammonia",
+            "mc-andesite",
+            "mc-badlands",
+            "mc-banner",
+            "mc-barrel",
+            "mc-beacon",
+            "mc-bedrock",
+            "mc-bogged",
+            "mc-breach"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "item"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-expanding-015",
+          "title": "进阶 · 第 15 组",
+          "cardIds": [
+            "mc-breeze",
+            "mc-brewing",
+            "mc-bundle",
+            "mc-calcite",
+            "mc-campfire",
+            "mc-cane",
+            "mc-cauldron",
+            "mc-charcoal",
+            "mc-chorus",
+            "mc-command"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "item"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-expanding-016",
+          "title": "进阶 · 第 16 组",
+          "cardIds": [
+            "mc-compass",
+            "mc-compound",
+            "mc-concrete",
+            "mc-copper",
+            "mc-crafting",
+            "mc-crawling",
+            "mc-creaking",
+            "mc-crit",
+            "mc-datapack",
+            "mc-debug"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "item"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-expanding-017",
+          "title": "进阶 · 第 17 组",
+          "cardIds": [
+            "mc-default",
+            "mc-density",
+            "mc-diamonds",
+            "mc-diorite",
+            "mc-donkey",
+            "mc-dropper",
+            "mc-drowned",
+            "mc-dungeon",
+            "mc-elytra",
+            "mc-emerald"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "item"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-expanding-018",
+          "title": "进阶 · 第 18 组",
+          "cardIds": [
+            "mc-emote",
+            "mc-entities",
+            "mc-evoker",
+            "mc-feather",
+            "mc-fluids",
+            "mc-fog",
+            "mc-fortune",
+            "mc-fossil",
+            "mc-furnace",
+            "mc-garbage"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "item"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-expanding-019",
+          "title": "进阶 · 第 19 组",
+          "cardIds": [
+            "mc-granite",
+            "mc-helmet",
+            "mc-hopper",
+            "mc-hostile",
+            "mc-illager",
+            "mc-impaling",
+            "mc-infinity",
+            "mc-item",
+            "mc-jukebox",
+            "mc-ladder"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "item"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-expanding-020",
+          "title": "进阶 · 第 20 组",
+          "cardIds": [
+            "mc-lantern",
+            "mc-leather",
+            "mc-lectern",
+            "mc-looting",
+            "mc-loyalty",
+            "mc-meadow",
+            "mc-mending",
+            "mc-minecart",
+            "mc-neutral",
+            "mc-nugget"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "item"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-expanding-021",
+          "title": "进阶 · 第 21 组",
+          "cardIds": [
+            "mc-observer",
+            "mc-obsidian",
+            "mc-ocelot",
+            "mc-operator",
+            "mc-passive",
+            "mc-peaceful",
+            "mc-piercing",
+            "mc-pillager",
+            "mc-piston",
+            "mc-potion"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "item"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-expanding-022",
+          "title": "进阶 · 第 22 组",
+          "cardIds": [
+            "mc-pumpkin",
+            "mc-quartz",
+            "mc-quiver",
+            "mc-ravager",
+            "mc-repeater",
+            "mc-riding",
+            "mc-riptide",
+            "mc-saddle",
+            "mc-shulker",
+            "mc-slate"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "item"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-expanding-023",
+          "title": "进阶 · 第 23 组",
+          "cardIds": [
+            "mc-smelting",
+            "mc-smoker",
+            "mc-sneak",
+            "mc-sniffer",
+            "mc-snowball",
+            "mc-snowfall",
+            "mc-sponge",
+            "mc-sprint",
+            "mc-spyglass",
+            "mc-stars"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "item"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-expanding-024",
+          "title": "进阶 · 第 24 组",
+          "cardIds": [
+            "mc-tadpole",
+            "mc-thorns",
+            "mc-trapdoor",
+            "mc-tundra",
+            "mc-warden",
+            "mc-zoglin",
+            "mc-darkness",
+            "mc-glowing",
+            "mc-haste",
+            "mc-infested"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "item",
+            "effect"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-expanding-025",
+          "title": "进阶 · 第 25 组",
+          "cardIds": [
+            "mc-nausea",
+            "mc-oozing",
+            "mc-slowness",
+            "mc-speedrun",
+            "mc-strength",
+            "mc-weakness",
+            "mc-weaving",
+            "mc-bleach",
+            "mc-redstone",
+            "mc-allium"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "effect",
+            "color",
+            "plant"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-expanding-026",
+          "title": "进阶 · 第 26 组",
+          "cardIds": [
+            "mc-azalea",
+            "mc-cactus",
+            "mc-cocoa",
+            "mc-fern",
+            "mc-leaves",
+            "mc-lilac",
+            "mc-moss",
+            "mc-orchid",
+            "mc-peony",
+            "mc-poppy"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "plant"
+          ]
+        },
+        {
+          "id": "minecraft-english-2026.08.15-expanding-027",
+          "title": "进阶 · 第 27 组",
+          "cardIds": [
+            "mc-sapling",
+            "mc-seagrass",
+            "mc-seeds",
+            "mc-vines"
+          ],
+          "cardCount": 4,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "minecraft"
+          ],
+          "categories": [
+            "plant"
+          ]
+        }
+      ]
+    }
+  ]
+}

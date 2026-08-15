@@ -48,7 +48,34 @@
                 sunlightDelta: 0
             };
         });
-        return { mastery: cleaned };
+        const assessments = Array.isArray(literacy.assessments) ? literacy.assessments : [];
+        return {
+            mastery: cleaned,
+            assessments: assessments.filter(function (item) {
+                return item && typeof item === 'object';
+            }).map(function (item) {
+                return {
+                    date: String(item.date || ''),
+                    estimate: Math.max(0, Number(item.estimate) || 0),
+                    confidence: Math.max(0, Math.min(1, Number(item.confidence) || 0)),
+                    level: /^L[1-5]$/.test(String(item.level || '')) ? String(item.level) : 'L1',
+                    stage: String(item.stage || ''),
+                    wrong: Array.isArray(item.wrong) ? item.wrong.map(function (char) { return String(char || ''); }).filter(Boolean) : []
+                };
+            }).slice(-24)
+        };
+    }
+
+    function normalizeEnglishQuiz(source) {
+        const quiz = source && typeof source === 'object' ? source : {};
+        function bucket(name) {
+            const item = quiz[name] && typeof quiz[name] === 'object' ? quiz[name] : {};
+            return {
+                attempts: Math.max(0, Number(item.attempts) || 0),
+                correct: Math.max(0, Number(item.correct) || 0)
+            };
+        }
+        return { listen: bucket('listen'), read: bucket('read'), spell: bucket('spell') };
     }
 
     function normalizeEnglish(source) {
@@ -63,7 +90,9 @@
                 attempts: Math.max(0, Number(item.attempts) || 0),
                 correct: Math.max(0, Number(item.correct) || 0),
                 nextReview: String(item.nextReview || ''),
-                sunlightDelta: 0
+                sunlightDelta: 0,
+                masteredAt: String(item.masteredAt || ''),
+                quiz: normalizeEnglishQuiz(item.quiz)
             };
         });
         return { mastery: cleaned };
@@ -131,6 +160,70 @@
         return current;
     }
 
+    function countTrack(root) {
+        const mastery = root && root.mastery && typeof root.mastery === 'object' ? root.mastery : {};
+        let known = 0;
+        let unknown = 0;
+        Object.keys(mastery).forEach(function (key) {
+            const state = mastery[key] && mastery[key].state;
+            if (state === 'ready' || state === 'maintenance') known += 1;
+            else unknown += 1;
+        });
+        return { known: known, unknown: unknown, seen: known + unknown };
+    }
+
+    function rewardTitle(catalog, id) {
+        const found = (Array.isArray(catalog) ? catalog : []).find(function (item) { return item && item.id === id; });
+        return found && found.title ? String(found.title) : String(id || '');
+    }
+
+    function buildLearningSummary(input) {
+        const source = input && typeof input === 'object' ? input : {};
+        const progress = normalize(source.courseProgress);
+        const mistakes = Array.isArray(source.mistakes) ? source.mistakes : [];
+        const claimedIds = Array.isArray(source.claimedRewardIds) ? source.claimedRewardIds : [];
+        const pendingIds = Array.isArray(source.pendingRewardIds) ? source.pendingRewardIds : [];
+        const reviewQueue = Array.isArray(source.reviewQueue) ? source.reviewQueue : [];
+        const rewards = Array.isArray(source.rewards) ? source.rewards : [];
+        const openMistakes = mistakes.filter(function (item) { return item && item.status !== 'mastered'; });
+        const masteredMistakes = mistakes.filter(function (item) { return item && item.status === 'mastered'; });
+        return {
+            streak: Math.max(0, Math.round(Number(source.streak) || 0)),
+            subjects: [
+                { id: 'literacy', title: '识字' },
+                { id: 'english', title: '英语' },
+                { id: 'pinyin', title: '拼音' },
+                { id: 'poetry', title: '古诗' },
+                { id: 'math', title: '数学' },
+                { id: 'phonics', title: '拼读' }
+            ].map(function (row) {
+                const counts = countTrack(progress[row.id]);
+                return { id: row.id, title: row.title, known: counts.known, unknown: counts.unknown };
+            }),
+            mistakes: {
+                open: openMistakes.length,
+                mastered: masteredMistakes.length,
+                due: reviewQueue.length
+            },
+            rewards: {
+                claimed: claimedIds.map(function (id) { return { id: id, title: rewardTitle(rewards, id) }; }),
+                pending: pendingIds.map(function (id) { return { id: id, title: rewardTitle(rewards, id) }; })
+            },
+            literacyAssess: summarizeLiteracyAssess(progress.literacy)
+        };
+    }
+
+    function summarizeLiteracyAssess(literacy) {
+        const list = Array.isArray(literacy && literacy.assessments) ? literacy.assessments : [];
+        const latest = list.length ? list[list.length - 1] : null;
+        let best = null;
+        list.forEach(function (item) {
+            if (!item || Number(item.confidence) < 0.6) return;
+            if (!best || Number(item.estimate) > Number(best.estimate)) best = item;
+        });
+        return { latest: latest, best: best, history: list };
+    }
+
     function getCourseView(catalog, input) {
         const progress = normalize(input);
         const completed = new Set(progress.completedLessonIds);
@@ -150,6 +243,7 @@
         saveMinecraft: saveMinecraft,
         saveSubject: saveSubject,
         markSubjectReady: markSubjectReady,
-        getCourseView: getCourseView
+        getCourseView: getCourseView,
+        buildLearningSummary: buildLearningSummary
     };
 })(typeof window !== 'undefined' ? window : globalThis);

@@ -12,6 +12,10 @@
     const ctx = canvas.getContext('2d');
     const VIEW_W = 960;
     const VIEW_H = 480;
+    const qaParams = new URLSearchParams(location.search);
+    const qaEnabled = qaParams.has('qa');
+    const qaAuto = qaParams.get('qa') === 'run';
+    let qaJumpUntil = 0;
     // 与 refs/mahmodnasser-mario CONFIG.TILE_SIZE 一致：平台按 32 正方格铺，不整条碎
     const TILE_SIZE = 40;
     canvas.width = VIEW_W;
@@ -69,6 +73,8 @@
     let pops = [];
     let floats = [];
     let debris = [];
+    let fireworks = [];
+    let climbingFlag = false;
     let stompCombo = 0;
     let lastStompAt = -9999;
 
@@ -344,6 +350,19 @@
         return next;
     }
 
+    function touchingFlag(player, flag) {
+        if (!player || !flag) return false;
+        const zone = {
+            x: flag.x - 10,
+            y: flag.y - 48,
+            w: (flag.w || 44) + 20,
+            h: (flag.h || 120) + 48
+        };
+        const overlap = player.x < zone.x + zone.w && player.x + player.w > zone.x
+            && player.y < zone.y + zone.h && player.y + player.h > zone.y;
+        return overlap || player.x + player.w >= flag.x;
+    }
+
     function standingOnPipe(actor, pipe) {
         if (!actor || !pipe || !pipe.w) return false;
         const mid = actor.x + actor.w * 0.5;
@@ -372,6 +391,88 @@
         const span = hide + show;
         const t = (((now || 0) + (offset || 0)) % span + span) % span;
         return t >= hide;
+    }
+
+    function crushEnemy(enemy) {
+        if (!enemy) return { state: 'flat', life: 0, h: 10, y: 0, x: 0 };
+        const h = 10;
+        return {
+            state: 'flat',
+            life: 0.42,
+            h: h,
+            x: enemy.x,
+            y: (enemy.y || 0) + (enemy.h || 28) - h
+        };
+    }
+
+    function tickCrush(enemy, dt) {
+        if (!enemy) return { gone: true, life: 0 };
+        const next = { state: enemy.state || 'flat', life: (enemy.life || 0) - (dt || 0), gone: false };
+        if (next.life <= 0) next.gone = true;
+        return next;
+    }
+
+    function flagSlide(player, flag, dt, groundY) {
+        if (!player || !flag) return { climbing: false, done: false, x: 0, y: 0 };
+        const next = {
+            climbing: true,
+            done: false,
+            x: flag.x - 6,
+            y: (player.y || 0) + 240 * (dt || 0)
+        };
+        const land = (groundY || 400) - (player.h || 52);
+        if (next.y >= land) {
+            next.y = land;
+            next.done = true;
+        }
+        return next;
+    }
+
+    function checkpointRaise(raise, dt) {
+        const cur = Number(raise) || 0;
+        if (cur >= 1) return 1;
+        const next = cur + (dt || 0) * 2.6;
+        return next >= 1 ? 1 : next;
+    }
+
+    function enemyStandY(enemy, floors, groundY) {
+        const gy = groundY || 400;
+        const h = (enemy && enemy.h) || 22;
+        const mid = enemy ? (enemy.x || 0) + (enemy.w || 32) * 0.5 : 0;
+        const list = floors || [];
+        let best = gy;
+        for (let i = 0; i < list.length; i += 1) {
+            const g = list[i];
+            if (!g) continue;
+            if (mid >= g.x && mid <= g.x + g.w && g.y < best) best = g.y;
+        }
+        return best - h;
+    }
+
+    function spawnFireworks(x, y) {
+        const out = [];
+        const colors = ['#ffd02f', '#ff6b52', '#7ee07a', '#7ec8ff', '#ffe566'];
+        for (let i = 0; i < 16; i += 1) {
+            const a = (i / 16) * Math.PI * 2;
+            out.push({
+                x: x,
+                y: y,
+                vx: Math.cos(a) * 90,
+                vy: Math.sin(a) * 90 - 40,
+                life: 0.85,
+                color: colors[i % colors.length]
+            });
+        }
+        return out;
+    }
+
+    function flattenEnemy(enemy) {
+        const crushed = crushEnemy(enemy);
+        enemy.state = crushed.state;
+        enemy.life = crushed.life;
+        enemy.h = crushed.h;
+        enemy.y = crushed.y;
+        return crushed;
     }
 
     function enemyShouldReverse(enemy, obstacles, bounds) {
@@ -467,15 +568,32 @@
         };
     }
 
+    const LEVEL_WELCOME = {
+        4: '顶问号拿弹跳果，站水管按下钻能进地下。',
+        5: '站在管口等一等，花就不敢探头。',
+        8: '密林水管能进地下，先把花等回去。',
+        9: '飞叶低头再踩，硬壳虫缩了再踢。',
+        11: '踩硬壳虫会缩壳，再踩一下就能踢飞。',
+        12: '站在水管口等一等，花就不敢探头。',
+        13: '飞叶会上下飘，等它低头再踩。',
+        15: '砖城里先缩壳再踢，路会自己空出来。',
+        16: '最后一面旗，先跑稳再收星星。'
+    };
+
     const COMPANION_LINES = {
         welcome: [
             '先跑稳再跳，旗就在前面。',
             '踩怪要等落到它头上。',
-            '金币可以回头再捡，先别掉坑。'
+            '金币可以回头再捡，先别掉坑。',
+            '问号里的弹跳果，按奔跑再扔小球。'
         ],
         stomp: [
             '踩得好！',
             '这只怪落地了。'
+        ],
+        shell: [
+            '缩成壳了，再踩一下就能踢飞。',
+            '壳会往前滑，能把前面的怪撞开。'
         ],
         record: [
             '新纪录！跑得更快了。',
@@ -495,11 +613,16 @@
             '被撞到了，等怪走开再从它头上踩。',
             '靠近怪的时候先跳起来踩，不要平跑硬撞。',
             '闪几下再跑，等无敌过了再靠近。',
-            '怪是来回走的，等它转身再跳过去。'
+            '怪是来回走的，等它转身再跳过去。',
+            '等花缩回去再从水管边跑。',
+            '硬壳虫缩了再踩，不要平跑去撞壳。'
         ]
     };
 
     function companionLine(kind, pick) {
+        if (kind === 'welcome' && typeof LEVEL_WELCOME !== 'undefined' && typeof level !== 'undefined' && level && LEVEL_WELCOME[level.id]) {
+            return LEVEL_WELCOME[level.id];
+        }
         const pool = COMPANION_LINES[kind] || COMPANION_LINES.welcome || [];
         if (!pool.length) return '';
         const index = typeof pick === 'number' ? (Math.abs(Math.floor(pick)) % pool.length) : Math.floor(Math.random() * pool.length);
@@ -701,14 +824,19 @@
         1: '站在水管上按下钻，能进地下；顶碎砖块可接住再扔',
         2: '蘑菇不贴水管。问号里的弹跳果，按奔跑扔小球',
         3: '星星无敌时碰怪也会消失',
-        5: '从这里起空中只能再跳一次',
+        4: '问号里有弹跳果，水管能进地下',
+        5: '从这里起空中只能再跳一次；管口会冒花',
         6: '中间亮块是检查点，掉坑会回到那里',
         7: '检查点在中段，别跳过',
+        8: '密林里有地下房，站管口花就缩回去',
+        9: '夜里飞叶和硬壳虫一起走',
         10: '收齐金币并限时冲旗，拿满三星',
         11: '踩硬壳虫会缩成壳，再踩或碰到就能踢飞',
         12: '水管里会冒花，站在管口它就不敢出来',
         13: '飞叶会上下飘，小球或踩都能对付',
-        14: '最后一关，收齐再冲旗'
+        14: '飞叶和硬壳虫会一起出现，小球能同时对付',
+        15: '夜廊砖多，缩壳踢飞能清出一条路',
+        16: '最后一关，收齐再冲旗'
     };
 
     function updateCoinHud() {
@@ -885,7 +1013,9 @@
         player.x = 48; player.y = 320; player.vx = 0; player.vy = 0;
         player.onGround = false; player.facing = 1; player.pose = 'idle'; player.ride = null;
         coins = 0; won = false; awarding = false; cameraX = 0; cameraTarget = 0;
-        pops = []; floats = []; debris = [];
+        startTime = performance.now();
+        pops = []; floats = []; debris = []; fireworks = [];
+        climbingFlag = false;
         stompCombo = 0;
         lastStompAt = -9999;
         lastGroundedAt = -9999;
@@ -973,6 +1103,7 @@
         cameraX = 0;
         cameraTarget = 0;
         toast('钻进水管，到地下啦');
+        sayCompanion('地下有金币，走到另一头水管再下钻。');
     }
 
     function exitUnder() {
@@ -1040,6 +1171,32 @@
         return groundRects(level).concat(pipes).concat(platforms).concat(blocks);
     }
 
+    function qaAheadBlocked() {
+        const probe = { x: player.x + player.w + 4, y: player.y + 8, w: 12, h: player.h - 16 };
+        return solids().some(function (s) { return rectsOverlap(probe, s); });
+    }
+
+    function qaPitAhead() {
+        const probe = { x: player.x + player.w + 28, y: player.y + player.h + 4, w: 10, h: 24 };
+        return !solids().some(function (s) { return rectsOverlap(probe, s); });
+    }
+
+    function qaDrive(now) {
+        if (!qaAuto || !playing || won || climbingFlag) return;
+        input.right = true;
+        input.left = false;
+        input.run = true;
+        const needJump = player.onGround && (qaAheadBlocked() || qaPitAhead());
+        if (needJump) {
+            lastJumpPressedAt = now;
+            input.jumpHeld = true;
+            qaJumpUntil = now + 180;
+        } else if (qaJumpUntil && now >= qaJumpUntil) {
+            input.jumpHeld = false;
+            qaJumpUntil = 0;
+        }
+    }
+
     function enemyObstacles() {
         const platforms = ((level && level.platforms) || []).filter(function (p) { return !p.broken; });
         const blocks = ((level && level.blocks) || []).filter(function (b) { return !b.broken; });
@@ -1068,6 +1225,7 @@
             const zone = { x: cp.x, y: cp.y, w: cp.w, h: cp.h };
             if (!rectsOverlap(player, zone)) return;
             cp.saved = true;
+            cp.raise = 0;
             lastSafeX = cp.x + 8;
             lastSafeY = cp.y - player.h;
             if (lastSafeY > level.groundY - player.h) lastSafeY = level.groundY - player.h;
@@ -1234,6 +1392,26 @@
         return true;
     }
 
+    function steerPickup(pickup, walls) {
+        if (!pickup) return pickup;
+        const list = walls || [];
+        for (let i = 0; i < list.length; i += 1) {
+            const wall = list[i];
+            if (!wall) continue;
+            if (pickup.x >= wall.x + wall.w || pickup.x + pickup.w <= wall.x) continue;
+            if (pickup.y >= wall.y + wall.h || pickup.y + pickup.h <= wall.y) continue;
+            if ((pickup.vy || 0) >= 0 && pickup.y + pickup.h - wall.y <= 20) {
+                pickup.y = wall.y - pickup.h;
+                pickup.vy = 0;
+            } else {
+                pickup.vx = -(pickup.vx || 0);
+                if (pickup.x + pickup.w / 2 < wall.x + wall.w / 2) pickup.x = wall.x - pickup.w;
+                else pickup.x = wall.x + wall.w;
+            }
+        }
+        return pickup;
+    }
+
     function updatePickups(dt) {
         pickups.forEach(function (pickup) {
             if (pickup.taken) return;
@@ -1245,13 +1423,7 @@
             if (pickup.vy > phy.MAX_FALL) pickup.vy = phy.MAX_FALL;
             pickup.x += pickup.vx * dt;
             pickup.y += pickup.vy * dt;
-            solids().forEach(function (platform) {
-                if (!rectsOverlap(pickup, platform)) return;
-                if (pickup.vy >= 0 && pickup.y + pickup.h - platform.y < 16) {
-                    pickup.y = platform.y - pickup.h;
-                    pickup.vy = 0;
-                }
-            });
+            steerPickup(pickup, solids());
             if (rectsOverlap(player, pickup)) applyPickup(pickup);
         });
     }
@@ -1307,9 +1479,45 @@
         return base * (1 + Math.min(0.5, (id - 1) * 0.06)) * (USE_PLAY_MODS ? (playMods.enemySpeed || 1) : 1);
     }
 
+    function tickFireworks(dt) {
+        fireworks = fireworks.filter(function (f) {
+            f.life -= dt;
+            f.x += f.vx * dt;
+            f.y += f.vy * dt;
+            f.vy += 220 * dt;
+            return f.life > 0;
+        });
+    }
+
     function update(dt) {
+        tickFireworks(dt);
+        if (level && level.checkpoints) {
+            level.checkpoints.forEach(function (cp) {
+                if (cp.saved && (cp.raise || 0) < 1) cp.raise = checkpointRaise(cp.raise, dt);
+            });
+        }
         if (!playing || !level || won) return;
         const now = performance.now();
+        qaDrive(now);
+        if (climbingFlag) {
+            const slid = flagSlide(player, level.flag, dt, level.groundY);
+            player.x = slid.x;
+            player.y = slid.y;
+            player.vx = 0;
+            player.vy = 0;
+            player.onGround = slid.done;
+            updatePose(dt);
+            updateTimerHud();
+            updateStarGoalsHud();
+            const look = player.facing * (phy.CAMERA_LOOK || 80);
+            cameraTarget = Math.max(0, Math.min(level.width - VIEW_W, player.x - VIEW_W * 0.38 + look));
+            cameraX += (cameraTarget - cameraX) * Math.min(1, dt * (phy.CAMERA_LERP || 12));
+            if (slid.done) {
+                fireworks = fireworks.concat(spawnFireworks(level.flag.x, player.y));
+                onClear();
+            }
+            return;
+        }
         updateMovingPlatforms(now);
         const speed = input.run ? (phy.SPRINT_SPEED || 340) : phy.RUN_SPEED;
         if (input.left) { player.vx = -speed; player.facing = -1; }
@@ -1411,6 +1619,12 @@
         const walkBounds = { left: 0, right: level.width, floors: groundRects(level) };
         level.enemies.forEach(function (enemy) {
             if (enemy.x < -100) return;
+            if (enemy.state === 'flat') {
+                const crush = tickCrush(enemy, dt);
+                enemy.life = crush.life;
+                if (crush.gone) enemy.x = -9999;
+                return;
+            }
             if (enemy.kind === 'plant') {
                 const home = { x: enemy.pipeX != null ? enemy.pipeX : enemy.x - 8, y: (level.groundY || 400) - 60, w: 48, h: 60 };
                 enemy.visible = plantVisible(now, 1400, 1600, enemy.x * 3);
@@ -1424,7 +1638,7 @@
                 if (enemy.wakeAt && now >= enemy.wakeAt) {
                     enemy.state = 'walk';
                     enemy.h = 36;
-                    enemy.y = (level.groundY || 400) - enemy.h;
+                    enemy.y = enemyStandY(enemy, solids(), level.groundY);
                     enemy.slideVx = 0;
                 }
             } else if (enemy.kind === 'beetle' && enemy.state === 'slide') {
@@ -1438,7 +1652,7 @@
                     if (!rectsOverlap(enemy, other)) return;
                     const ox = other.x;
                     const oy = other.y;
-                    other.x = -9999;
+                    flattenEnemy(other);
                     sfx.stomp();
                     spawnFloat(ox, oy - 6, '撞!', '#ffd02f');
                 });
@@ -1459,15 +1673,16 @@
                 if (stomp.state === 'gone') {
                     const ex = enemy.x;
                     const ey = enemy.y;
-                    enemy.x = -9999;
+                    flattenEnemy(enemy);
                     spawnFloat(ex, ey - 6, stompCombo > 1 ? ('连踩 x' + stompCombo) : '踩!', '#7ee07a');
                 } else {
                     enemy.state = stomp.state;
                     enemy.slideVx = stomp.vx;
                     enemy.wakeAt = stomp.wakeIn ? now + stomp.wakeIn : 0;
                     enemy.h = 22;
-                    enemy.y = (level.groundY || 400) - enemy.h;
+                    enemy.y = enemyStandY(enemy, solids(), level.groundY);
                     spawnFloat(enemy.x, enemy.y - 6, stomp.state === 'slide' ? '踢!' : '缩!', '#7ee07a');
+                    if (stomp.state === 'shell') sayCompanionThrottled('shell', now);
                 }
                 sayCompanionThrottled('stomp', now);
                 return;
@@ -1483,9 +1698,11 @@
             }
             if (shielded) {
                 if (starActive) {
-                    enemy.x = -9999;
+                    const ex = enemy.x;
+                    const ey = enemy.y;
+                    flattenEnemy(enemy);
                     sfx.stomp();
-                    spawnFloat(enemy.x, enemy.y - 6, '砰!', '#ffe566');
+                    spawnFloat(ex, ey - 6, '砰!', '#ffe566');
                 }
                 return;
             }
@@ -1509,7 +1726,7 @@
             sfx.hurt();
             player.vy = -220;
             if (hearts <= 0) {
-                hearts = 3;
+                hearts = phy.START_HEARTS || 5;
                 updateHeartsHud();
                 respawnAtCheckpoint(now);
                 toast('没心了，回到刚才的地方');
@@ -1537,20 +1754,20 @@
         }).filter(function (shot) { return shot && !shot.dead; });
         shots.forEach(function (shot) {
             level.enemies.forEach(function (enemy) {
-                if (enemy.x < -100 || shot.dead) return;
+                if (enemy.x < -100 || shot.dead || enemy.state === 'flat') return;
                 if (!rectsOverlap(shot, enemy)) return;
                 if (enemy.kind === 'beetle') {
                     const kick = applyStomp({ kind: 'beetle', state: 'shell', x: enemy.x, w: enemy.w }, shot.x);
                     enemy.state = 'slide';
                     enemy.slideVx = kick.vx;
                     enemy.h = 22;
-                    enemy.y = (level.groundY || 400) - enemy.h;
+                    enemy.y = enemyStandY(enemy, solids(), level.groundY);
                     shot.dead = true;
                     sfx.stomp();
                     spawnFloat(shot.x, shot.y - 6, '踢!', '#ffd02f');
                     return;
                 }
-                enemy.x = -9999;
+                flattenEnemy(enemy);
                 shot.dead = true;
                 sfx.stomp();
                 spawnFloat(shot.x, shot.y - 6, '中!', '#ffd02f');
@@ -1584,7 +1801,10 @@
             return d.life > 0;
         });
 
-        if (rectsOverlap(player, level.flag)) onClear();
+        if (touchingFlag(player, level.flag)) {
+            climbingFlag = true;
+            sayCompanion('冲到旗杆了，顺着滑下去。');
+        }
         updatePose(dt);
         updateTimerHud();
         updateStarGoalsHud();
@@ -1816,14 +2036,15 @@
         pickups.forEach(function (pickup) {
             if (pickup.taken) return;
             if (!decor) return;
+            const bob = Math.sin(now / 140 + pickup.x / 18) * 2;
             if (pickup.kind === 'star') {
-                decor.drawStar(ctx, pickup.x, pickup.y, pickup.w + 4, Math.floor(now / 180) % 2);
+                decor.drawStar(ctx, pickup.x, pickup.y + bob, pickup.w + 4, Math.floor(now / 180) % 2);
             } else if (pickup.kind === 'mushroom') {
-                decor.drawShroom(ctx, pickup.x, pickup.y, pickup.w);
+                decor.drawShroom(ctx, pickup.x, pickup.y + bob, pickup.w);
             } else if (pickup.kind === 'cube') {
                 decor.drawBrick(ctx, pickup.x, pickup.y, pickup.w);
             } else if (pickup.kind === 'ball' && decor.drawBall) {
-                decor.drawBall(ctx, pickup.x, pickup.y, pickup.w, Math.floor(now / 120) % 2);
+                decor.drawBall(ctx, pickup.x, pickup.y + bob, pickup.w, Math.floor(now / 120) % 2);
             } else if (pickup.kind === 'ball') {
                 ctx.fillStyle = '#ffb020';
                 ctx.beginPath();
@@ -1836,7 +2057,7 @@
             ctx.fillRect(cp.x, cp.y, cp.w, cp.h);
             ctx.strokeStyle = 'rgba(62, 44, 65, .25)';
             ctx.strokeRect(cp.x + 0.5, cp.y + 0.5, cp.w - 1, cp.h - 1);
-            if (decor) decor.checkpoint(ctx, cp.x, cp.y, cp.w, cp.h, cp.saved);
+            if (decor) decor.checkpoint(ctx, cp.x, cp.y, cp.w, cp.h, cp.saved, cp.raise);
         });
         pops.forEach(function (pop) {
             ctx.globalAlpha = Math.max(0, pop.life / 0.45);
@@ -1859,6 +2080,15 @@
             ctx.globalAlpha = Math.max(0, d.life / 0.55);
             ctx.fillStyle = d.color;
             ctx.fillRect(d.x, d.y, d.w, d.h);
+            ctx.restore();
+        });
+        fireworks.forEach(function (f) {
+            ctx.save();
+            ctx.globalAlpha = Math.max(0, f.life / 0.85);
+            ctx.fillStyle = f.color;
+            ctx.beginPath();
+            ctx.arc(f.x, f.y, 3, 0, Math.PI * 2);
+            ctx.fill();
             ctx.restore();
         });
         allPipes().forEach(function (p) {
@@ -1885,6 +2115,7 @@
         level.enemies.forEach(function (enemy) {
             if (enemy.x < -100) return;
             if (enemy.kind === 'plant' && !enemy.visible) return;
+            if (enemy.state === 'flat') ctx.globalAlpha = Math.max(0.2, (enemy.life || 0) / 0.42);
             const walk = Math.floor(now / 160 + enemy.x / 24) % 3;
             const kind = enemy.kind || 'shroom';
             let frames;
@@ -1902,8 +2133,8 @@
                 frames = [images['enemy-shroom'], images['enemy-shroom-b'], images['enemy-shroom-c']];
             }
             const eImg = frames[walk] || frames[0] || images['enemy-shroom'] || images['enemy-slime'];
-            if (!eImg) return;
-            drawSprite(eImg, enemy.x, enemy.y, enemy.w, enemy.h, enemy.dir < 0);
+            if (eImg) drawSprite(eImg, enemy.x, enemy.y, enemy.w, enemy.h, enemy.dir < 0);
+            ctx.globalAlpha = 1;
         });
         if (decor) decor.flag(ctx, level.flag.x, level.flag.y, level.flag.w, level.flag.h, Math.floor(now / 400) % 2);
         const blink = (phy.isInvincible(performance.now(), lastHitAt, phy.INVINCIBLE_MS)
@@ -1965,8 +2196,18 @@
         const now = ts || 0;
         const dt = Math.min(0.033, (now - last) / 1000 || 0.016);
         last = now;
-        update(dt);
-        draw();
+        try {
+            update(dt);
+            draw();
+            if (canvas && canvas.dataset) {
+                canvas.dataset.px = String(Math.round(player.x));
+                canvas.dataset.py = String(Math.round(player.y));
+                canvas.dataset.scene = scene;
+            }
+        } catch (err) {
+            const status = document.getElementById('run-status');
+            if (status) status.textContent = '循环出错';
+        }
         requestAnimationFrame(loop);
     }
 
@@ -2047,6 +2288,32 @@
         }
     }
     bind();
+    if (qaEnabled) {
+        window.__pqQa = {
+            state: function () {
+                return {
+                    x: Math.round(player.x),
+                    y: Math.round(player.y),
+                    vx: Math.round(player.vx),
+                    vy: Math.round(player.vy),
+                    scene: scene,
+                    hearts: hearts,
+                    coins: coins,
+                    won: won,
+                    playing: playing,
+                    pose: player.pose
+                };
+            },
+            hold: function (name, on) {
+                if (name === 'jump') {
+                    input.jumpHeld = !!on;
+                    if (on) lastJumpPressedAt = performance.now();
+                    return;
+                }
+                if (Object.prototype.hasOwnProperty.call(input, name)) input[name] = !!on;
+            }
+        };
+    }
     loadAssets().then(function () {
         showMap();
         // ?level=N 直达关卡(验收后段关卡用;不写进度解锁)

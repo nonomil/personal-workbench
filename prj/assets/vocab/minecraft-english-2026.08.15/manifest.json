@@ -1,0 +1,38 @@
+{
+  "schema": "wordquest.vocab-release.v1",
+  "packageVersion": "2026.08.15",
+  "catalogSchema": "wordquest.vocab-runtime.v1",
+  "protocol": "wordquest.game.v2",
+  "generatedAt": "2026-08-15T15:50:54.785Z",
+  "buildIdentity": {
+    "batchId": "minecraft-english-2026.08.15",
+    "manifestHash": "ffe0c40033e7351b62c88269f209338ba6ae349875e52e5b6c40afe92a69ae8c",
+    "inputHash": "ffe0c40033e7351b62c88269f209338ba6ae349875e52e5b6c40afe92a69ae8c",
+    "builderVersion": "export-vocab-packages@1"
+  },
+  "catalogFile": "catalog.json",
+  "chaptersFile": "chapters.json",
+  "cardCount": 324,
+  "chapterCount": 2,
+  "groupCount": 33,
+  "mediaCounts": {
+    "semanticImage": 324,
+    "imageFallback": 0,
+    "audio": 110
+  },
+  "mediaFileCount": 434,
+  "packageContents": [
+    "README.md",
+    "manifest.json",
+    "catalog.json",
+    "chapters.json",
+    "词表.csv",
+    "media/"
+  ],
+  "sourceDatabaseIncluded": false,
+  "auditIncluded": false,
+  "sourceSnapshotsIncluded": false,
+  "consumerRule": "consume catalog.json; project CardSnapshot; do not read source SQLite",
+  "edition": "minecraft",
+  "title": "我的世界版 · 兴趣英语"
+}

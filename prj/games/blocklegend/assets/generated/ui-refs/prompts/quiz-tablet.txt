@@ -1,0 +1,9 @@
+First-person voxel sandbox game screenshot, sunny grassy hills, oak trees, blocky dirt and stone, children's adventure game.
+A dark oak wood inventory panel floats in the lower-center of the 3D view, like a Minecraft crafting UI, NOT a paper flashcard and NOT a white rounded card.
+The panel has a thick pixelated brown border, inner gold highlight line, square corners, wooden plank texture.
+Top of the panel is a blank wooden nameplate strip. Below it is one empty square item frame. Below that a 2x2 grid of four empty stone-and-wood item slots with beige interiors.
+A thin gold timer bar sits at the very bottom of the panel.
+White plus-shaped crosshair in the exact screen center. A 6-slot hotbar along the bottom edge, one slot highlighted yellow.
+No paper, no classroom, no glassmorphism, no rounded white cards, no logos, no watermark.
+No text, no letters, no numbers, no Chinese characters, no fake writing.
+Pixelated game HUD, diegetic, readable layout, 16-bit block world.

@@ -1,0 +1,20 @@
+﻿id,word,zh,theme,level,phrase,phraseZh,category,group,image,audio,art,hasImage,hasAudio
+mc-blaze,blaze,烈焰人,生物,MC-D1,I spot a blaze near the village.,我在村子附近看见blaze。,mob,看见blaze,图片/blaze.png,音频/blaze.mp3,none,yes,yes
+mc-slime,slime,史莱姆,生物,MC-D1,I leave food for the slime.,我给slime留一点食物。,mob,看见slime,图片/slime.png,音频/slime.mp3,none,yes,yes
+mc-squid,squid,鱿鱼,生物,MC-D1,I spot a squid near the village.,我在村子附近看见squid。,mob,看见squid,图片/squid.png,音频/squid.mp3,none,yes,yes
+mc-witch,witch,女巫,生物,MC-D1,The witch visits our camp at dawn.,天亮时witch来到我们的营地。,mob,看见witch,图片/witch.png,音频/witch.mp3,none,yes,yes
+mc-axolotl,axolotl,美西螈,生物,MC-D2,The axolotl hides behind a tree.,axolotl躲在树后面。,mob,看见axolotl,图片/axolotl.png,音频/axolotl.mp3,none,yes,yes
+mc-beehive,beehive,蜂箱,生物,MC-D2,We draw the beehive in our adventure book.,我们把beehive画进冒险本。,mob,看见beehive,图片/beehive.png,,none,yes,no
+mc-beetroot,beetroot,甜菜根,生物,MC-D2,The beetroot follows us along the path.,beetroot跟着我们走在路上。,mob,看见beetroot,图片/beetroot.png,,none,yes,no
+mc-creeper,creeper,苦力怕,生物,MC-D2,We hear a creeper behind the trees.,树后面传来creeper的声音。,mob,看见creeper,图片/creeper.png,音频/creeper.mp3,none,yes,yes
+mc-enderman,enderman,末影人,生物,MC-D2,I spot a enderman near the village.,我在村子附近看见enderman。,mob,看见enderman,图片/enderman.png,音频/enderman.mp3,none,yes,yes
+mc-guardian,guardian,守卫者,生物,MC-D2,Our map marks a guardian nearby.,地图上标着附近有guardian。,mob,看见guardian,图片/guardian.png,音频/guardian.mp3,none,yes,yes
+mc-hoglin,hoglin,疣猪兽,生物,MC-D2,A hoglin rests beside the river.,一只hoglin在河边休息。,mob,看见hoglin,图片/hoglin.png,音频/hoglin.mp3,none,yes,yes
+mc-phantom,phantom,幻翼,生物,MC-D2,A phantom rests beside the river.,一只phantom在河边休息。,mob,看见phantom,图片/phantom.png,音频/phantom.mp3,none,yes,yes
+mc-piglin,piglin,猪灵,生物,MC-D2,The piglin visits our camp at dawn.,天亮时piglin来到我们的营地。,mob,看见piglin,图片/piglin.png,音频/piglin.mp3,none,yes,yes
+mc-skeleton,skeleton,骷髅,生物,MC-D2,A skeleton crosses the bridge slowly.,一只skeleton慢慢走过桥。,mob,看见skeleton,图片/skeleton.png,,none,yes,no
+mc-spawner,spawner,刷怪笼,生物,MC-D2,The spawner follows us along the path.,spawner跟着我们走在路上。,mob,看见spawner,图片/spawner.png,,none,yes,no
+mc-strider,strider,炽足兽,生物,MC-D2,Our map marks a strider nearby.,地图上标着附近有strider。,mob,看见strider,图片/strider.png,音频/strider.mp3,none,yes,yes
+mc-villager,villager,村民,生物,MC-D2,I spot a villager near the village.,我在村子附近看见villager。,mob,看见villager,图片/villager.png,音频/villager.mp3,none,yes,yes
+mc-wither,wither,凋灵,生物,MC-D2,The wither hides behind a tree.,wither躲在树后面。,mob,看见wither,图片/wither.png,音频/wither.mp3,none,yes,yes
+mc-zombie,zombie,僵尸,生物,MC-D2,We draw the zombie in our adventure book.,我们把zombie画进冒险本。,mob,看见zombie,图片/zombie.png,音频/zombie.mp3,none,yes,yes

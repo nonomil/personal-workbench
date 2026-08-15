@@ -1,0 +1,23 @@
+﻿id,word,zh,theme,level,phrase,phraseZh,category,group,image,audio,art,hasImage,hasAudio
+english-word-171,away,离开,动作,L1,The bird flies away.,小鸟飞走了。,,,,,none,no,no
+english-word-32,come,来,动作,L1,May I come in?,我可以进来吗？,,,,,emoji:🚶,no,no
+english-word-96,dance,跳舞,动作,L1,I like to dance.,我喜欢跳舞。,,,图片/dance.png,,emoji:💃,yes,no
+english-word-35,draw,画,动作,L1,I draw a sun.,我画一个太阳。,,,,,emoji:🖍️,no,no
+english-word-98,drink,喝,动作,L1,Drink some water.,喝点水。,,,,,emoji:🥤,no,no
+english-word-99,eat,吃,动作,L1,"Eat your vegetables, please.",请吃蔬菜。,,,,,emoji:🍽️,no,no
+english-word-169,find,找到,动作,L1,Find the red ball.,找到红球。,,,,,emoji:🔍,no,no
+english-word-31,go,走,动作,L1,Let's go to school!,我们去上学吧！,,,,,emoji:🚶,no,no
+english-word-167,help,帮助,动作,L1,"Help me, please.",请帮帮我。,,,,,emoji:🤝,no,no
+english-word-19,jump,跳,动作,L1,Jump up high.,跳得高高的。,,,,,emoji:🦘,no,no
+english-word-163,look,看,动作,L1,Look at me!,看我！,,,,音频/look.mp3,emoji:👀,no,yes
+english-word-168,make,做,动作,L1,You make me happy.,你让我很开心。,,,,,emoji:🛠️,no,no
+english-word-22,play,玩,动作,L1,Let's play together!,我们一起玩吧！,,,,音频/play.mp3,emoji:🎮,no,yes
+english-word-33,read,读,动作,L1,I read a book.,我读一本书。,,,,,emoji:📖,no,no
+english-word-18,run,跑,动作,L1,I can run fast.,我跑得很快。,,,图片/run.png,音频/run.mp3,emoji:🏃,yes,yes
+english-word-173,said,说,动作,L1,Mom said hello.,妈妈说了你好。,,,,,emoji:💬,no,no
+english-word-131,sing,唱歌,动作,L1,I like to sing.,我喜欢唱歌。,,,,,emoji:🎤,no,no
+english-word-20,sit,坐,动作,L1,Please sit down.,请坐下。,,,图片/sit.png,,emoji:🪑,yes,no
+english-word-133,sleep,睡觉,动作,L1,Did you sleep well?,你睡得好吗？,,,图片/sleep.png,,emoji:😴,yes,no
+english-word-21,stand,站,动作,L1,Stand up tall.,站直一点。,,,,,emoji:🧍,no,no
+english-word-140,walk,走,动作,L1,I walk to school.,我走到学校。,,,,,emoji:🚶,no,no
+english-word-34,write,写,动作,L1,I write my name.,我写我的名字。,,,图片/write.png,,emoji:✍️,yes,no

@@ -1,0 +1,24 @@
+{
+  "generatedAt": "2026-08-15T15:50:54.785Z",
+  "packages": [
+    {
+      "folder": "core-english-2026.08.15",
+      "title": "正常版 · 生活英语",
+      "cards": 597,
+      "chapters": 13,
+      "groups": 66,
+      "images": 101,
+      "audio": 33
+    },
+    {
+      "folder": "minecraft-english-2026.08.15",
+      "title": "我的世界版 · 兴趣英语",
+      "cards": 324,
+      "chapters": 2,
+      "groups": 33,
+      "images": 324,
+      "audio": 110
+    }
+  ],
+  "referenceFormat": "wordquest-vocab-2026.08.15"
+}

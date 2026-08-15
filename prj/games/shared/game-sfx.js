@@ -77,6 +77,20 @@
         record: function () {
             tone(988, 0.08, 'square', 0.1);
             tone(1319, 0.12, 'square', 0.1, 1760, 0.07);
+        },
+        mine: function () {
+            tone(180, 0.05, 'square', 0.08, 90);
+        },
+        jump: function () {
+            tone(420, 0.08, 'square', 0.08, 620);
+        },
+        craft: function () {
+            tone(523, 0.07, 'square', 0.1);
+            tone(784, 0.1, 'square', 0.1, null, 0.06);
+        },
+        buy: function () {
+            tone(660, 0.06, 'square', 0.09);
+            tone(880, 0.08, 'square', 0.09, null, 0.05);
         }
     };
 }(typeof window !== 'undefined' ? window : globalThis));

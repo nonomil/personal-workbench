@@ -1,0 +1,9 @@
+﻿id,word,zh,theme,level,phrase,phraseZh,category,group,image,audio,art,hasImage,hasAudio
+mc-cod,cod,鳕鱼,食物,MC-D1,I share the cod with my teammate.,我和队友一起用cod。,food,吃cod,图片/cod.png,,none,yes,no
+mc-melon,melon,西瓜,食物,MC-D1,We save the melon for the long walk.,我们把melon留给走远路的时候。,food,吃melon,图片/melon.png,,none,yes,no
+mc-berries,berries,浆果,食物,MC-D2,The berries fills my hunger bar.,berries让我填饱肚子。,food,吃berries,图片/berries.png,,none,yes,no
+mc-carrots,carrots,胡萝卜,食物,MC-D2,I put the carrots in the camp chest.,我把carrots放进营地箱子。,food,吃carrots,图片/carrots.png,,none,yes,no
+mc-mutton,mutton,羊肉,食物,MC-D2,I eat the mutton beside the warm fire.,我在暖和的火堆旁吃mutton。,food,吃mutton,图片/mutton.png,,none,yes,no
+mc-porkchop,porkchop,猪排,食物,MC-D2,I share the porkchop with my teammate.,我和队友一起用porkchop。,food,吃porkchop,图片/porkchop.png,,none,yes,no
+mc-potatoes,potatoes,土豆,食物,MC-D2,We make a picnic with the potatoes.,我们用potatoes做一次野餐。,food,吃potatoes,图片/potatoes.png,,none,yes,no
+mc-salmon,salmon,鲑鱼,食物,MC-D2,The salmon fills my hunger bar.,salmon让我填饱肚子。,food,吃salmon,图片/salmon.png,,none,yes,no

@@ -102,6 +102,7 @@
                 totalSunlightEarned: 0,
                 awardedIds: [],
                 claimedRewardIds: [],
+                pendingRewardIds: [],
                 checkinDates: [],
                 claimedStreakRewardIds: [],
                 voiceEnabled: false,
@@ -357,6 +358,7 @@
                 totalSunlightEarned: clampNumber(source.totalSunlightEarned, 0, 100000, clampNumber(source.sunlight, 0, 100000, 0)),
                 awardedIds: asStringArray(source.awardedIds),
                 claimedRewardIds: asStringArray(source.claimedRewardIds),
+                pendingRewardIds: asStringArray(source.pendingRewardIds),
                 checkinDates: asStringArray(source.checkinDates),
                 claimedStreakRewardIds: asStringArray(source.claimedStreakRewardIds),
                 voiceEnabled: Boolean(source.voiceEnabled),
@@ -505,11 +507,13 @@
             return Object.assign({ id: createId('review'), date: localDate(), title: '未命名复盘', mood: 'steady', body: '', nextAction: '', createdAt: state.updatedAt }, item);
         });
         state.mistakes = state.mistakes.map(function (item) {
-            return Object.assign({ id: createId('mistake'), date: localDate(), subject: '其它', question: '未命名错题', mistakeReason: '', correctAnswer: '', reviewDate: localDate(), status: 'todo', createdAt: state.updatedAt, sourceKey: '', lessonId: '', attempts: 0 }, item, {
+            return Object.assign({ id: createId('mistake'), date: localDate(), subject: '其它', question: '未命名错题', mistakeReason: '', correctAnswer: '', reviewDate: localDate(), status: 'todo', createdAt: state.updatedAt, sourceKey: '', lessonId: '', attempts: 0, errorType: 'read', correctStreak: 0 }, item, {
                 status: item.status === 'mastered' ? 'mastered' : 'todo',
                 sourceKey: String(item.sourceKey || ''),
                 lessonId: String(item.lessonId || ''),
-                attempts: Math.max(0, Number(item.attempts) || 0)
+                attempts: Math.max(0, Number(item.attempts) || 0),
+                errorType: ['listen', 'read', 'spell'].indexOf(String(item.errorType || '')) >= 0 ? String(item.errorType) : 'read',
+                correctStreak: Math.max(0, Number(item.correctStreak) || 0)
             });
         });
         synchronizePreschoolTemplates(state);
@@ -616,6 +620,7 @@
             if (source.reviewDate) existing.reviewDate = String(source.reviewDate);
             if (source.lessonId) existing.lessonId = String(source.lessonId);
             existing.attempts = Math.max(1, Number(existing.attempts) || 1) + 1;
+            if (source.errorType) existing.errorType = String(source.errorType);
             return { mistakes: list, changed: true, item: existing };
         }
         const item = {
@@ -630,7 +635,9 @@
             sourceKey: sourceKey,
             lessonId: String(source.lessonId || ''),
             createdAt: String(source.createdAt || new Date().toISOString()),
-            attempts: 1
+            attempts: 1,
+            errorType: ['listen', 'read', 'spell'].indexOf(String(source.errorType || '')) >= 0 ? String(source.errorType) : 'read',
+            correctStreak: 0
         };
         list.unshift(item);
         return { mistakes: list, changed: true, item: item };

@@ -1,0 +1,4 @@
+﻿id,word,zh,theme,level,phrase,phraseZh,category,group,image,audio,art,hasImage,hasAudio
+mc-dye,dye,染料,颜色,MC-D1,We choose dye wool for the cozy room.,我们选dye羊毛布置温暖的房间。,color,dye羊毛,图片/dye.png,音频/dye.mp3,none,yes,yes
+mc-bleach,bleach,漂白剂,颜色,MC-D2,A bleach path leads to the garden.,一条bleach小路通向花园。,color,bleach羊毛,图片/bleach.png,,none,yes,no
+mc-redstone,redstone,红石,颜色,MC-D2,The redstone torch glows beside the door.,redstone火把在门边发着光。,color,redstone羊毛,图片/redstone.png,,none,yes,no

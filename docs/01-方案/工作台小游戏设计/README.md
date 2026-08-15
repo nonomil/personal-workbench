@@ -21,13 +21,15 @@
 │  └─ DS--植物大战僵尸--生图提示词.md  历史：v4 僵尸批次生图措辞来源
 ├─ 02-方块世界/（同上 5 份编号文档 + 3 份历史 DS 文档）
 ├─ 03-横版闯关/（同上 5 份编号文档 + 2 份历史文档）
+├─ 04-专注力小游戏/
+├─ 05-方块传奇/               3D 第一人称学英语（独立于 voxel-craft）
 ├─ 99-参考资料/               12岁小孩哥视频包（媒体 20MB，只在找灵感时看）
 └─ refs/                      外部克隆仓库（git ignore，只作代码对照）
 ```
 
 **推荐阅读路径**：`00-共同框架/00-三游戏优化总纲.md` → 目标游戏的 `00-README.md` → 按编号读该册 01–04。
 
-**执行入口**：各游戏一期切片已装配为任务包（供 CC 接手执行，按序不并行）——`docs/plans/T20260815-garden-optimize/`、`T20260815-voxel-optimize/`、`T20260815-platform-optimize/`。
+**执行入口**：三世界优化包见 `T20260815-garden-optimize/` 等；方块传奇首版 `T20260815-blocklegend-3d/`，本轮增量 `T20260815-blocklegend-sim/`。
 
 ## 三世界一览（2026-08-15 代码事实）
 
@@ -36,6 +38,7 @@
 | 花园保卫战 | `prj/games/garden-defense/` | 点种植物 + 来一波，自动塔防 | 12 关（`data/stages.js`），5 植物，波次 1–3 | 规划力 |
 | 方块世界 | `prj/games/voxel-adventure/` | 2D 挖放建造 + 任务 | 12 生涯任务 + 5 段位 + 7 个每日挑战（`data/quests.js`），2×2 合成 | 创造力 |
 | 横版闯关 | `prj/games/platform-quest/` | 跑跳吃金币冲旗 | 10 关（`data/levels.js`），检查点 + 问号块 | 执行力 |
+| 方块传奇 | `prj/games/blocklegend/` | 3D 第一人称打怪认词 + 有限砍挖 | 6 关，MC 324 词，薄商店/放置见分册 | 认词动力 |
 
 三者共用 `prj/games/shared/workbench-bridge.js`：一份账本（`petbank_huchuliang_preschool_workbench_state_v1`）、每日游戏阳光上限 80、冒险等级 7 级、里程碑徽章 11 枚、周目标与家长周报、识字量难度联动（playMods）。
 

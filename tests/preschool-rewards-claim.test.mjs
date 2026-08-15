@@ -46,7 +46,7 @@ function loadClaimRewardHarness(reward, initialGrowth) {
     `return (${claimSource});`
   )(
     true,
-    true,
+    false,
     () => [reward],
     commit,
     ensureGrowth,

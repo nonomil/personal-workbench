@@ -17,7 +17,8 @@
 
     const STORAGE_KEY = 'petbank_huchuliang_preschool_workbench_state_v1';
     const DAILY_GAME_SUN_CAP = 80;
-    const GAME_IDS = ['garden-defense', 'voxel-adventure', 'platform-quest'];
+    const GAME_IDS = ['garden-defense', 'voxel-adventure', 'platform-quest', 'blocklegend'];
+    const PLATFORM_LEVEL_TOTAL = 16;
 
     function countLiteracyKnown(state) {
         const mastery = state && state.courseProgress && state.courseProgress.literacy
@@ -55,11 +56,14 @@
     const MILESTONES = [
         { id: 'ms-garden-3', title: '三关守卫', desc: '花园通关 3 关', need: function (s) { return gardenClears(s) >= 3; }, points: 5, sun: 12 },
         { id: 'ms-garden-8', title: '八关防线', desc: '花园通关 8 关', need: function (s) { return gardenClears(s) >= 8; }, points: 10, sun: 20 },
-        { id: 'ms-garden-12', title: '终章守护', desc: '花园通关全部 12 关', need: function (s) { return gardenClears(s) >= 12; }, points: 15, sun: 30 },
+        { id: 'ms-garden-12', title: '终章守护', desc: '花园通关 12 关', need: function (s) { return gardenClears(s) >= 12; }, points: 15, sun: 30 },
+        { id: 'ms-garden-18', title: '夜战园丁', desc: '花园通关全部 18 关', need: function (s) { return gardenClears(s) >= 18; }, points: 18, sun: 36 },
         { id: 'ms-voxel-5', title: '矿工新手', desc: '方块完成 5 个任务', need: function (s) { return voxelQuests(s) >= 5; }, points: 5, sun: 12 },
         { id: 'ms-voxel-12', title: '方块大师徽章', desc: '方块完成 12 个任务', need: function (s) { return voxelQuests(s) >= 12; }, points: 12, sun: 25 },
         { id: 'ms-platform-3', title: '三旗冲线', desc: '横版通关 3 关', need: function (s) { return platformClears(s) >= 3; }, points: 5, sun: 12 },
         { id: 'ms-platform-10', title: '彩虹终点', desc: '横版通关 10 关', need: function (s) { return platformClears(s) >= 10; }, points: 15, sun: 30 },
+        { id: 'ms-platform-16', title: '终旗旅伴', desc: '横版通关全部 16 关', need: function (s) { return platformClears(s) >= 16; }, points: 18, sun: 36 },
+        { id: 'ms-platform-speed', title: '闪电探险家', desc: '横版 16 关全部拿到 3 星', need: function (s) { return platformThreeStars(s); }, points: 20, sun: 40 },
         { id: 'ms-play-7', title: '七日冒险', desc: '累计 7 天玩过任一世界', need: function (s) { return playDays(s) >= 7; }, points: 10, sun: 18 },
         { id: 'ms-play-30', title: '月度旅伴', desc: '累计 30 天玩过游戏', need: function (s) { return playDays(s) >= 30; }, points: 20, sun: 40 },
         { id: 'ms-stars-20', title: '二十星收藏', desc: '花园+横版星星合计 20', need: function (s) { return totalStars(s) >= 20; }, points: 12, sun: 22 },
@@ -122,6 +126,20 @@
         }
     }
 
+    /** 词卡答题回流：只写 courseProgress.minecraft.mastery，零阳光、零 worldGames 改动 */
+    function recordWordAnswer(word, correct) {
+        const engine = global.PersonalWorkbenchPreschoolEnglishVocab;
+        const courses = global.PersonalWorkbenchChildCourses;
+        if (!word || !engine || typeof engine.markKnown !== 'function'
+            || !courses || typeof courses.saveMinecraft !== 'function') return null;
+        const state = readState();
+        const current = (state.courseProgress && state.courseProgress.minecraft) || engine.createDefaultProgress();
+        const next = engine.markKnown(current, word, !!correct, today());
+        state.courseProgress = courses.saveMinecraft(state.courseProgress || {}, next);
+        if (!writeState(state)) return null;
+        return next.mastery[String(word).toLowerCase()] || null;
+    }
+
     function ensureWorldGames(growth) {
         if (!growth.worldGames || typeof growth.worldGames !== 'object') growth.worldGames = {};
         if (!growth.worldGames.meta || typeof growth.worldGames.meta !== 'object') {
@@ -160,6 +178,17 @@
         if (gameId === 'platform-quest') {
             return { unlockedLevel: 1, clearedLevels: [], stars: {}, coinsTotal: 0, bestTime: {} };
         }
+        if (gameId === 'blocklegend') {
+            return {
+                unlockedLevel: 1,
+                coined: 0,
+                learnedIds: [],
+                rightCount: 0,
+                wrongCount: 0,
+                clearedLevels: [],
+                bag: {}
+            };
+        }
         return {};
     }
 
@@ -190,6 +219,19 @@
         const p = wg['platform-quest'] || {};
         return Array.isArray(p.clearedLevels) ? p.clearedLevels.length : 0;
     }
+    function blocklegendClears(wg) {
+        const p = wg.blocklegend || {};
+        return Array.isArray(p.clearedLevels) ? p.clearedLevels.length : 0;
+    }
+    function platformThreeStars(wg) {
+        const p = wg['platform-quest'] || {};
+        const stars = p.stars || {};
+        let n = 0;
+        for (let i = 1; i <= PLATFORM_LEVEL_TOTAL; i += 1) {
+            if (Number(stars[i]) >= 3) n += 1;
+        }
+        return n >= PLATFORM_LEVEL_TOTAL;
+    }
     function playDays(wg) {
         const m = wg.meta || defaultMeta();
         return Array.isArray(m.playDates) ? m.playDates.length : 0;
@@ -202,11 +244,15 @@
         });
         return n;
     }
+    function worldsPlayedToday(dayMap) {
+        const day = dayMap || {};
+        return GAME_IDS.filter(function (id) { return day[id]; }).length;
+    }
+
     function hasTripleDay(wg) {
         const by = (wg.meta && wg.meta.playByDay) || {};
         return Object.keys(by).some(function (d) {
-            const day = by[d] || {};
-            return GAME_IDS.every(function (id) { return day[id]; });
+            return worldsPlayedToday(by[d] || {}) >= 3;
         });
     }
 
@@ -341,7 +387,7 @@
         const weekly = ensureWeekly(meta, date);
         if (weekly.playedDays.indexOf(date) === -1) weekly.playedDays.push(date);
 
-        const worldsToday = GAME_IDS.filter(function (id) { return dayMap[id]; }).length;
+        const worldsToday = worldsPlayedToday(dayMap);
         const isTriple = worldsToday >= 3;
         if (isTriple && weekly.tripleDays < 1) weekly.tripleDays = 1;
 
@@ -549,9 +595,10 @@
                 if (day.worlds.indexOf(id) !== -1) playDaysCount += 1;
             });
             const labels = {
-                'garden-defense': { label: '花园保卫', unit: '关', done: gardenClears(wg), total: 12 },
+                'garden-defense': { label: '花园保卫', unit: '关', done: gardenClears(wg), total: 18 },
                 'voxel-adventure': { label: '方块世界', unit: '关', done: voxelQuests(wg), total: (global.VoxelQuests && global.VoxelQuests.list ? global.VoxelQuests.list.length : 12) },
-                'platform-quest': { label: '横版闯关', unit: '关', done: platformClears(wg), total: 10 }
+                'platform-quest': { label: '横版闯关', unit: '关', done: platformClears(wg), total: PLATFORM_LEVEL_TOTAL },
+                'blocklegend': { label: '方块传奇', unit: '关', done: blocklegendClears(wg), total: 6 }
             };
             const L = labels[id];
             let fact = '';
@@ -586,6 +633,9 @@
         }
         if (summary.gardenClears < 3) tips.push('花园先通关 3 关，可点亮「三关守卫」徽章。');
         else if (summary.platformClears < 3) tips.push('横版再通 3 关，可点亮「三旗冲线」。');
+        else if (summary.platformClears < 10) tips.push('横版再通到 10 关，可点亮「彩虹终点」。');
+        else if (summary.platformClears < PLATFORM_LEVEL_TOTAL) tips.push('横版还有后半程，通完全部 ' + PLATFORM_LEVEL_TOTAL + ' 关可点亮「终旗旅伴」。');
+        else if (!platformThreeStars(wg)) tips.push('横版每关再冲 3 星，可点亮「闪电探险家」。');
         else if (summary.voxelQuests < 5) tips.push('方块完成 5 个任务，可点亮「矿工新手」。');
 
         return {
@@ -626,6 +676,8 @@
         STORAGE_KEY: STORAGE_KEY,
         DAILY_GAME_SUN_CAP: DAILY_GAME_SUN_CAP,
         GAME_IDS: GAME_IDS,
+        worldsPlayedToday: worldsPlayedToday,
+        PLATFORM_LEVEL_TOTAL: PLATFORM_LEVEL_TOTAL,
         ADVENTURE_RANKS: ADVENTURE_RANKS,
         MILESTONES: MILESTONES,
         today: today,
@@ -646,6 +698,7 @@
         adventureRankFromPoints: adventureRankFromPoints,
         countLiteracyKnown: countLiteracyKnown,
         playModsFromLiteracy: playModsFromLiteracy,
-        getPlayMods: getPlayMods
+        getPlayMods: getPlayMods,
+        recordWordAnswer: recordWordAnswer
     };
 }(typeof window !== 'undefined' ? window : globalThis));

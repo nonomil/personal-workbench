@@ -1,0 +1,12 @@
+﻿id,word,zh,theme,level,phrase,phraseZh,category,group,image,audio,art,hasImage,hasAudio
+mc-darkness,darkness,黑暗,效果,MC-D2,The darkness fades after a short time.,过一会儿darkness就消失了。,effect,获得darkness效果,图片/darkness.png,,none,yes,no
+mc-glowing,glowing,发光,效果,MC-D2,I check the glowing before entering the cave.,进洞前我先检查glowing。,effect,获得glowing效果,图片/glowing.png,,none,yes,no
+mc-haste,haste,急迫,效果,MC-D2,The potion gives me haste.,这瓶药水给了我haste。,effect,获得haste效果,图片/haste.png,,none,yes,no
+mc-infested,infested,出没,效果,MC-D2,A glowing icon shows the infested.,发光的图标标出了infested。,effect,获得infested效果,图片/infested.png,,none,yes,no
+mc-nausea,nausea,反胃,效果,MC-D2,The nausea fades after a short time.,过一会儿nausea就消失了。,effect,获得nausea效果,图片/nausea.png,,none,yes,no
+mc-oozing,oozing,渗浆,效果,MC-D2,I notice the oozing during the challenge.,挑战时我注意到oozing。,effect,获得oozing效果,图片/oozing.png,,none,yes,no
+mc-slowness,slowness,缓慢,效果,MC-D2,I notice the slowness during the challenge.,挑战时我注意到slowness。,effect,获得slowness效果,图片/slowness.png,,none,yes,no
+mc-speedrun,speedrun,速通,效果,MC-D2,A glowing icon shows the speedrun.,发光的图标标出了speedrun。,effect,获得speedrun效果,图片/speedrun.png,音频/speedrun.mp3,none,yes,yes
+mc-strength,strength,力量,效果,MC-D2,The potion gives me strength.,这瓶药水给了我strength。,effect,获得strength效果,图片/strength.png,,none,yes,no
+mc-weakness,weakness,虚弱,效果,MC-D2,The weakness helps me cross the cave.,weakness帮我穿过山洞。,effect,获得weakness效果,图片/weakness.png,,none,yes,no
+mc-weaving,weaving,编织,效果,MC-D2,The weaving fades after a short time.,过一会儿weaving就消失了。,effect,获得weaving效果,图片/weaving.png,,none,yes,no

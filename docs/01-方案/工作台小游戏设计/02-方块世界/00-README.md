@@ -1,6 +1,6 @@
 # 方块世界 · 分册导读
 
-- 游戏目录：`prj/games/voxel-adventure/`
+- 游戏目录：`prj/games/voxel-craft/`（2D 挖放，2026-08-16 起正式入口；旧 `voxel-adventure/` 冻结归档，暂不删）。3D 学英语战斗是另一款：[`../05-方块传奇/00-README.md`](../05-方块传奇/00-README.md)，目录 `prj/games/blocklegend/`。
 - 上游总纲：`../00-共同框架/00-三游戏优化总纲.md`
 - 能力叙事：**创造力**——一块一块搭出自己的家园
 
@@ -12,15 +12,18 @@
 | 02 | [美术与资产方案](02-美术与资产方案.md) | Paper-MC 像素家族、方块纹理、缺口清单 |
 | 03 | [成长陪伴与工作台结合](03-成长陪伴与工作台结合.md) | 家园展示、星芒出场、账本合同 |
 | 04 | [落地路线与验收](04-落地路线与验收.md) | 分期切片、测试合同、回滚 |
+| 05 | [2d-minecraft 风重做方案](05-2d-minecraft风重做方案.md) | 表现层贴图直取（zlib）+ 挖掘裂纹 + 热键栏 MC 风皮肤（已由 voxel-craft 一期落地） |
+| 06 | [Nick 工作台对齐二期方案](06-Nick工作台对齐二期方案.md) | 对照「12岁小孩哥」视频的缺口盘点 + 二期切片 S6–S11（家园曝光/奖励包/矿洞） |
 | 历史 | `02-方块世界-落地改造方案.md` | 身份纠偏（横版→挖放）的已执行方案 |
 | 历史 | `DS--我的世界--游戏设计.md` | CraftMine 3D 合入候选（已被总纲否决） |
 | 历史 | `DS--我的世界--生图.md` | 分批生图计划与色板（部分可复用） |
 | 历史 | `DS-Scratch-我的世界.md` | Paper-MC 成长体系设计（P0–P3 路线，本册主要继承源） |
 
-## 现状事实（2026-08-15）
+## 现状事实（2026-08-16，voxel-craft 二期 S6–S11 清理收口）
 
-- **玩法**：2D 网格点挖点放（身份纠偏已完成），2×2 合成台（`workshop.js`），无怪物致死压力。
-- **任务**：`data/quests.js` 12 个生涯任务（铺草/砌石/采晶体/基地规模）+ 5 个矿工段位（新手矿工→方块大师）+ 7 个按星期轮换的每日挑战。
-- **学习联动**：**三游戏中唯一已接 `getPlayMods()` 的**（`game.js` 第 29 行）。
-- **账本**：任务完成 `awardSunlight`（`quest-<id>` 生涯一次 / `daily-<日期>` 每日）；进度存 `growth.worldGames.voxel-adventure`（`rank/crystalsTotal/blocksBuilt/questsDone/unlockedTools/biome`）。
-- **主要缺口**：工具等级不构成挖矿门禁（`unlockedTools` 一开始就全解锁）；家园（建造成果）没有展示与保存价值；`biome` 字段恒为 `meadow` 未使用；周报里方块世界总数写 8 与 12 任务不一致（`workbench-bridge.js` `getWeeklyReport` 的 labels）。
+- **玩法**：`voxel-craft/` 2D 挖放。分块噪声地形、工具段位门禁、destroy_stage 裂纹、2×2/3×3 格子合成、熔炉、MC 物品栏、小卖部、家长锁、蓝图任务。rank4 可进矿洞（独立网格、背包共用）。无怪物致死压力。
+- **任务**：18 生涯任务 + 5 矿工段位 + 每日挑战；升段有仪式卡和材料奖励包。
+- **接口**：GAME_ID 保持 `'voxel-adventure'`，bridge/进度键不变。
+- **测试**：`tests/voxel-craft.test.mjs` + `tests/world-games.test.mjs` + `tests/world-games-growth.test.mjs` **47/47 退出码 0**。
+- **二期已落地**：首页家园卡、升段奖励包、挖/跳/合成/买音效、390px + 挖掘环、矿洞 biome、调试残留清理、矿洞照明与洞口指路。
+- **已拍板**：铁镐线已砍；MC 贴图留仓不对外发；旧 `voxel-adventure/` 冻结不删（测试合同仍指向它）。

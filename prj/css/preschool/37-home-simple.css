@@ -241,6 +241,7 @@ body.variant-preschool .is-simple .preschool-home-lane {
     display: grid;
     grid-template-columns: 1fr;
     min-height: 0;
+    overflow: hidden;
     padding: 10px 8px;
     border: 1px solid rgba(49, 93, 43, .12);
     border-radius: 14px;
@@ -310,6 +311,19 @@ body.variant-preschool .is-simple .preschool-home-lane-main .preschool-home-lane
     color: #6b8a3a;
     background: transparent;
     border: 0;
+}
+
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-home-lane-status .preschool-generated-art,
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-home-lane-status img,
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-home-lane-status svg,
+body.variant-preschool .is-simple .preschool-home-lane-status .preschool-generated-art,
+body.variant-preschool .is-simple .preschool-home-lane-status img,
+body.variant-preschool .is-simple .preschool-home-lane-status svg {
+    display: block;
+    flex: 0 0 16px;
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
 }
 
 body.variant-preschool[data-preschool-theme] .is-simple .preschool-home-lane-practice,
@@ -586,6 +600,21 @@ body.variant-preschool .is-simple .preschool-home-lane-check {
     background: #f6faef;
     font-size: 11px;
     font-weight: 800;
+}
+
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-home-lane-check .preschool-generated-art,
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-home-lane-check img,
+body.variant-preschool[data-preschool-theme] .is-simple .preschool-home-lane-check svg,
+body.variant-preschool .is-simple .preschool-home-lane-check .preschool-generated-art,
+body.variant-preschool .is-simple .preschool-home-lane-check img,
+body.variant-preschool .is-simple .preschool-home-lane-check svg {
+    display: block;
+    flex: 0 0 18px;
+    width: 18px !important;
+    height: 18px !important;
+    max-width: 18px;
+    max-height: 18px;
+    object-fit: contain;
 }
 
 body.variant-preschool[data-preschool-theme] .preschool-growth-simple,

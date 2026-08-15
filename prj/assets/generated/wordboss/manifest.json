@@ -1,0 +1,71 @@
+{
+  "generatedAt": "2026-08-16",
+  "tool": "project-svg-builder",
+  "license": "project-original",
+  "items": [
+    {
+      "id": "goblin-king",
+      "file": "assets/generated/wordboss/published/goblin-king.svg"
+    },
+    {
+      "id": "shadow-knight",
+      "file": "assets/generated/wordboss/published/shadow-knight.svg"
+    },
+    {
+      "id": "dragon-lord",
+      "file": "assets/generated/wordboss/published/dragon-lord.svg"
+    },
+    {
+      "id": "hero",
+      "file": "assets/generated/wordboss/published/hero.svg"
+    },
+    {
+      "id": "skill-fire",
+      "file": "assets/generated/wordboss/published/skill-fire.svg"
+    },
+    {
+      "id": "skill-zap",
+      "file": "assets/generated/wordboss/published/skill-zap.svg"
+    },
+    {
+      "id": "skill-ice",
+      "file": "assets/generated/wordboss/published/skill-ice.svg"
+    },
+    {
+      "id": "skill-heal",
+      "file": "assets/generated/wordboss/published/skill-heal.svg"
+    },
+    {
+      "id": "eq-wood",
+      "file": "assets/generated/wordboss/published/eq-wood.svg"
+    },
+    {
+      "id": "eq-dagger",
+      "file": "assets/generated/wordboss/published/eq-dagger.svg"
+    },
+    {
+      "id": "eq-iron",
+      "file": "assets/generated/wordboss/published/eq-iron.svg"
+    },
+    {
+      "id": "eq-axe",
+      "file": "assets/generated/wordboss/published/eq-axe.svg"
+    },
+    {
+      "id": "eq-bow",
+      "file": "assets/generated/wordboss/published/eq-bow.svg"
+    },
+    {
+      "id": "eq-hammer",
+      "file": "assets/generated/wordboss/published/eq-hammer.svg"
+    },
+    {
+      "id": "bg-grass",
+      "file": "assets/generated/wordboss/published/bg-grass.svg"
+    },
+    {
+      "id": "bg-castle",
+      "file": "assets/generated/wordboss/published/bg-castle.svg"
+    }
+  ]
+}

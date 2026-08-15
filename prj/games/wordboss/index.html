@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>单词BOSS</title>
+    <link rel="stylesheet" href="./game.css">
+</head>
+<body>
+    <main class="wb-app">
+        <header class="wb-top">
+            <a id="back" href="../../preschool-workbench/index.html#courses">返回英语</a>
+            <strong>拼对单词，放出技能</strong>
+        </header>
+        <section id="scene" class="wb-scene" aria-label="战场"></section>
+        <p id="status" class="wb-status"></p>
+        <p id="prompt" class="wb-prompt"></p>
+        <p id="typed" class="wb-typed">…</p>
+        <div id="tiles" class="wb-tiles" aria-label="字母"></div>
+        <div id="skills" class="wb-skills" aria-label="技能"></div>
+        <div id="shop" class="wb-shop" aria-label="装备店"></div>
+        <div class="wb-actions">
+            <button id="speak" type="button">听单词</button>
+            <button id="retry" type="button" hidden>再试一次</button>
+            <button id="next" type="button" hidden>下一关</button>
+        </div>
+    </main>
+    <script src="../shared/workbench-bridge.js"></script>
+    <script src="../../preschool-english-vocab-data.js"></script>
+    <script src="../../preschool-english-data.js"></script>
+    <script src="../../preschool-english-vocab.js"></script>
+    <script src="../../child-courses.js"></script>
+    <script src="./data/bosses.js"></script>
+    <script src="./data/skills.js"></script>
+    <script src="./engine.js"></script>
+    <script src="./game.js"></script>
+</body>
+</html>

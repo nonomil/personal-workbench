@@ -190,6 +190,30 @@
     const LONG_PRESS_MS = 420;
     const pixels = window.VoxelPixelTiles;
 
+    /* 2d-minecraft（zlib）16×16 贴图：kind/工具 → 文件；无贴图的 kind 走 pixel-tiles 回退 */
+    const MC_DIR = './assets/mc/';
+    const MC_TEXTURES = {
+        grass: 'blocks/grass-block.png',
+        dirt: 'blocks/dirt.png',
+        stone: 'blocks/stone.png',
+        wood: 'blocks/oak-log.png',
+        leaf: 'blocks/oak-leaves.png',
+        plank: 'blocks/oak-planks.png',
+        coal: 'blocks/coal-ore.png',
+        crystal: 'blocks/diamond-ore.png',
+        wood_pick: 'items/wooden-pickaxe.png',
+        stone_pick: 'items/stone-pickaxe.png',
+        stick: 'items/stick.png'
+    };
+    const MC_DESTROY_STAGES = [0, 2, 4, 6, 8, 9].map(function (n) {
+        return MC_DIR + 'blocks/destroy_stage_' + n + '.png';
+    });
+
+    function mcIcon(id) {
+        const file = MC_TEXTURES[id];
+        return file ? '<img class="hotbar-pixel mc-icon" src="' + MC_DIR + file + '" alt="">' : '';
+    }
+
     const canvas = document.getElementById('world-canvas');
     const ctx = canvas.getContext('2d');
     canvas.width = VIEW_W;
@@ -651,8 +675,9 @@
             const btn = document.createElement('button');
             btn.type = 'button';
             btn.className = 'hotbar-slot' + (tool === t.id ? ' is-tool-on' : '');
-            const icon = pixels && pixels.iconPreviewDataUrl ? pixels.iconPreviewDataUrl(t.id) : '';
-            btn.innerHTML = (icon ? '<img class="hotbar-pixel" src="' + icon + '" alt="">' : '') +
+            const icon = mcIcon(t.id) ||
+                (pixels && pixels.iconPreviewDataUrl ? '<img class="hotbar-pixel" src="' + pixels.iconPreviewDataUrl(t.id) + '" alt="">' : '');
+            btn.innerHTML = icon +
                 '<kbd>' + t.key + '</kbd><small>' + t.label + '</small>';
             btn.addEventListener('click', function () { tool = t.id; renderHotbar(); });
             bar.appendChild(btn);
@@ -663,9 +688,10 @@
             btn.type = 'button';
             btn.className = 'hotbar-slot' + (selectedKind === kind ? ' is-active' : '');
             btn.disabled = count <= 0;
-            const preview = pixels && pixels.tilePreviewDataUrl ? pixels.tilePreviewDataUrl(kind) : '';
+            const preview = mcIcon(kind) ||
+                (pixels && pixels.tilePreviewDataUrl ? '<img class="hotbar-pixel" src="' + pixels.tilePreviewDataUrl(kind) + '" alt="">' : '');
             const slotKey = String(tools.length + i + 1);
-            btn.innerHTML = (preview ? '<img class="hotbar-pixel" src="' + preview + '" alt="">' : '') +
+            btn.innerHTML = preview +
                 '<kbd>' + slotKey + '</kbd><b>' + count + '</b><small>' + labels[kind] + '</small>';
             btn.addEventListener('click', function () {
                 if (count <= 0) return;
@@ -1120,6 +1146,11 @@
     function drawBlock(tileX, tileY, kind) {
         const x = Math.round(tileX * TILE - cameraX);
         const y = Math.round(tileY * TILE - cameraY);
+        const tex = MC_TEXTURES[kind] ? images['tex_' + kind] : null;
+        if (tex) {
+            ctx.drawImage(tex, x, y, TILE, TILE);
+            return;
+        }
         // 地砖一律静止帧(水面不播动画)
         if (pixels && pixels.drawTile(ctx, kind, x, y, TILE, 0)) return;
         ctx.fillStyle = '#ccc';
@@ -1182,8 +1213,9 @@
             ctx.translate(dx + 48, dy + 34);
         }
         ctx.rotate(ang);
-        const pick = (tool === 'stone_pick' || tool === 'wood_pick') ? tool : 'wood_pick';
-        pixels.drawSprite(ctx, pick, -8, -28, 36, 36, 0);
+        const pickTex = images['tex_' + ((tool === 'stone_pick') ? 'stone_pick' : 'wood_pick')];
+        if (pickTex) ctx.drawImage(pickTex, -18, -30, 36, 36);
+        else if (pixels) pixels.drawSprite(ctx, 'wood_pick', -8, -28, 36, 36, 0);
         ctx.restore();
     }
 
@@ -1193,15 +1225,22 @@
             const x = Math.round(mineAct.cellX * TILE - cameraX);
             const y = Math.round(mineAct.cellY * TILE - cameraY);
             if (age >= MINE_WINDUP) {
-                ctx.strokeStyle = 'rgba(20,12,8,0.7)';
-                ctx.lineWidth = 2;
-                ctx.beginPath();
-                ctx.moveTo(x + 6, y + 5);
-                ctx.lineTo(x + 15, y + 16);
-                ctx.lineTo(x + 9, y + 27);
-                ctx.moveTo(x + 24, y + 7);
-                ctx.lineTo(x + 18, y + 20);
-                ctx.stroke();
+                // 挖掘裂纹：按进度叠 destroy_stage 贴图（2d-minecraft 的 0..9 取 6 帧）
+                const t = Math.min(1, (age - MINE_WINDUP) / Math.max(1, MINE_END - MINE_WINDUP));
+                const stage = images['destroy' + Math.min(MC_DESTROY_STAGES.length - 1, Math.floor(t * MC_DESTROY_STAGES.length))];
+                if (stage) {
+                    ctx.drawImage(stage, x, y, TILE, TILE);
+                } else {
+                    ctx.strokeStyle = 'rgba(20,12,8,0.7)';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.moveTo(x + 6, y + 5);
+                    ctx.lineTo(x + 15, y + 16);
+                    ctx.lineTo(x + 9, y + 27);
+                    ctx.moveTo(x + 24, y + 7);
+                    ctx.lineTo(x + 18, y + 20);
+                    ctx.stroke();
+                }
             }
         }
         chips = chips.filter(function (p) {
@@ -1536,7 +1575,11 @@
         loadImage('creeperIdle', './assets/enemies/green-boom.png'),
         loadImage('skyDay', './assets/bg/sky-day.png'),
         loadImage('skyDusk', './assets/bg/sky-dusk.png')
-    ]).then(function () {
+    ].concat(Object.keys(MC_TEXTURES).map(function (id) {
+        return loadImage('tex_' + id, MC_DIR + MC_TEXTURES[id]);
+    })).concat(MC_DESTROY_STAGES.map(function (src, i) {
+        return loadImage('destroy' + i, src);
+    }))).then(function () {
         try {
             renderHotbar();
             renderHud();

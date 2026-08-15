@@ -145,6 +145,10 @@
         return `<section class="preschool-pet-card${hungryClass}" aria-label="伙伴养成"><div class="preschool-pet-art" data-pet-stage="${card.pet.stage}"><img src="${escapeHtml(card.art)}" alt="" width="72" height="72"></div><div class="preschool-pet-copy"><span class="eyebrow">PET / FEED</span><h2>${escapeHtml(card.displayName)} · ${escapeHtml(card.stageName)}</h2><p>${escapeHtml(card.hungerLabel)} · 经验 ${card.pet.exp}/${card.pet.maxExp}</p><div class="preschool-pet-hunger" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(card.pet.hunger)}"><i style="width:${Math.round(card.pet.hunger)}%"></i></div></div><div class="preschool-pet-actions"><button class="workbench-action-button" type="button" data-action="feed-pet">喂食 · ${card.feedCost} 阳光</button><button class="workbench-text-button" type="button" data-action="pat-pet">摸摸</button></div></section>`;
     }
 
+    function renderFeedShortcut(label) {
+        return `<button class="workbench-action-button" type="button" data-action="feed-pet">${escapeHtml(label || '去喂星芒')}</button>`;
+    }
+
     function renderCapsule(growth, themeId, now) {
         const card = view(growth, themeId, now);
         return `<button class="preschool-home-pet-capsule${card.hungry ? ' is-hungry' : ''}" type="button" data-action="navigate" data-page="growth" aria-label="${escapeHtml(card.displayName)} ${escapeHtml(card.hungerLabel)}"><img src="${escapeHtml(card.art)}" alt="" width="44" height="44"><span><b>${escapeHtml(card.displayName)}</b><small>${escapeHtml(card.hungerLabel)}</small></span></button>`;
@@ -200,6 +204,7 @@
         view: view,
         artSrc: artSrc,
         renderCard: renderCard,
+        renderFeedShortcut: renderFeedShortcut,
         renderCapsule: renderCapsule,
         showEvolution: showEvolution
     };

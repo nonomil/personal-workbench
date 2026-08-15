@@ -376,6 +376,12 @@ body.variant-preschool .lesson-dialog-option.is-correct > svg { color: var(--wb-
 body.variant-preschool .lesson-dialog-option.is-wrong { border-color: rgba(228, 111, 79, .55); background: #fff0ed; }
 body.variant-preschool .lesson-dialog-option.is-wrong .lesson-dialog-option-index { color: #fff; background: #e47a59; }
 body.variant-preschool .lesson-dialog-option.is-wrong > svg { color: #e47a59; }
+body.variant-preschool .lesson-dialog-options:has(.picture-match-option) { grid-template-columns: repeat(auto-fit, minmax(132px, 1fr)); }
+body.variant-preschool .picture-match-option { flex-direction: column; min-height: 148px; padding: 14px 12px 12px; text-align: center; }
+body.variant-preschool .picture-match-option .preschool-card-art,
+body.variant-preschool .picture-match-option .preschool-card-photo { width: 72px; height: 72px; object-fit: contain; }
+body.variant-preschool .picture-match-option .lesson-dialog-option-art { width: 72px; height: 72px; }
+body.variant-preschool .picture-match-option strong { flex: 0 0 auto; font-size: 28px; }
 body.variant-preschool .lesson-dialog-feedback { min-height: 24px; margin: 17px 0 0; color: var(--wb-muted); font-size: 14px; line-height: 1.65; }
 body.variant-preschool .lesson-dialog-feedback.is-error { color: #b35b42; }
 body.variant-preschool .lesson-dialog-feedback.is-success { color: #2f8a50; font-weight: 850; }
@@ -706,6 +712,30 @@ body.variant-preschool .literacy-step.is-done:not(.is-active) {
     color: #287f7a;
     background: #e0f7f2;
 }
+body.variant-preschool .lesson-four-steps {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+    margin: 10px 0 0;
+    padding: 0;
+    list-style: none;
+}
+body.variant-preschool .lesson-four-steps li {
+    display: grid;
+    gap: 2px;
+    min-height: 52px;
+    padding: 6px 7px;
+    border-radius: 10px;
+    color: #6b4a2e;
+    background: #fff1d0;
+}
+body.variant-preschool .lesson-four-steps.is-from-data li { background: #e8f6d8; }
+body.variant-preschool .lesson-four-steps strong { font-size: 13px; font-weight: 950; }
+body.variant-preschool .lesson-four-steps small { color: #7a5a38; font-size: 11px; line-height: 1.3; font-weight: 700; }
+body.variant-preschool .lesson-four-steps-evidence { margin: 6px 0 0; color: #5c7350; font-size: 12px; font-weight: 750; }
+@media (max-width: 420px) {
+    body.variant-preschool .lesson-four-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 body.variant-preschool .literacy-card {
     display: grid;
     justify-items: center;
@@ -984,6 +1014,10 @@ body.variant-preschool .lesson-dialog-progress > div { font-size: 11px; opacity:
 body.variant-preschool .lesson-dialog-prompt { font-size: clamp(22px, 4.4vw, 34px); }
 body.variant-preschool .lesson-dialog-feedback { font-size: 15px; }
 body.variant-preschool .lesson-quit { min-width: 46px; padding: 10px 14px; font-size: 18px; }
+body.variant-preschool .literacy-assess-cue .literacy-char { font-size: clamp(64px, 16vw, 96px); line-height: 1; }
+body.variant-preschool .literacy-assess-result .literacy-char { font-size: clamp(48px, 12vw, 72px); }
+body.variant-preschool .literacy-assess-wrongs { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 8px; }
+body.variant-preschool .literacy-assess-wrong { min-width: 40px; padding: 6px 10px; border-radius: 12px; background: #fff4d6; font-size: 22px; font-weight: 800; }
 
 /* 断连保护:成长页"欢迎回来"补签行 */
 .streak-repair-row { display: flex; align-items: center; gap: 12px; margin: 8px 0 10px; padding: 10px 12px; border-radius: 14px; background: #fff4d6; border: 2px dashed rgba(224, 172, 62, .6); }

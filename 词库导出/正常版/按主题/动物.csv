@@ -1,0 +1,24 @@
+﻿id,word,zh,theme,level,phrase,phraseZh,category,group,image,audio,art,hasImage,hasAudio
+english-word-45,bear,熊,动物,L1,The bear is big.,熊很大。,,,,,emoji:🐻,no,no
+english-word-83,bee,蜜蜂,动物,L1,A bee is on the flower.,花上有一只蜜蜂。,,,图片/bee.png,音频/bee.mp3,emoji:🐝,yes,yes
+english-word-08,bird,鸟,动物,L1,A bird can fly.,小鸟会飞。,,,,,emoji:🐦,no,no
+english-word-86,butterfly,蝴蝶,动物,L1,The butterfly is pretty.,这只蝴蝶很漂亮。,,,,,emoji:🦋,no,no
+english-word-05,cat,猫,动物,L1,I have a black cat.,我有一只黑猫。,,,图片/cat.png,音频/cat.mp3,emoji:🐱,yes,yes
+english-word-90,chicken,鸡,动物,L1,The chicken is small.,这只鸡小小的。,,,图片/chicken.png,音频/chicken.mp3,emoji:🐔,yes,yes
+english-word-94,cow,奶牛,动物,L1,The cow is big.,这头奶牛很大。,,,图片/cow.png,音频/cow.mp3,emoji:🐮,yes,yes
+english-word-06,dog,狗,动物,L1,The dog can run.,小狗会跑。,,,图片/dog.png,,emoji:🐶,yes,no
+english-word-43,duck,鸭子,动物,L1,The duck can swim.,鸭子会游泳。,,,,,emoji:🦆,no,no
+english-word-101,elephant,大象,动物,L1,The elephant is huge.,大象非常大。,,,,,emoji:🐘,no,no
+english-word-07,fish,鱼,动物,L1,I see a little fish.,我看见一条小鱼。,,,图片/fish.png,,emoji:🐟,yes,no
+english-word-182,fox,狐狸,动物,L1,The fox is orange.,狐狸是橙色的。,,,图片/fox.png,音频/fox.mp3,emoji:🦊,yes,yes
+english-word-104,frog,青蛙,动物,L1,The frog can jump.,青蛙会跳。,,,图片/frog.png,音频/frog.mp3,emoji:🐸,yes,yes
+english-word-105,giraffe,长颈鹿,动物,L1,The giraffe is tall.,长颈鹿很高。,,,,,emoji:🦒,no,no
+english-word-112,horse,马,动物,L1,The horse can run.,马会跑。,,,图片/horse.png,音频/horse.mp3,emoji:🐴,yes,yes
+english-word-114,lion,狮子,动物,L1,The lion is strong.,狮子很强壮。,,,图片/lion.png,,emoji:🦁,yes,no
+english-word-46,monkey,猴子,动物,L1,The monkey can climb.,猴子会爬。,,,,,emoji:🐵,no,no
+english-word-181,mouse,老鼠,动物,L1,The mouse is small.,老鼠小小的。,,,,,emoji:🐭,no,no
+english-word-121,panda,熊猫,动物,L1,The panda is black and white.,熊猫是黑白的。,,,图片/panda.png,音频/panda.mp3,emoji:🐼,yes,yes
+english-word-44,pig,猪,动物,L1,The pig is pink.,小猪是粉色的。,,,图片/pig.png,音频/pig.mp3,emoji:🐷,yes,yes
+english-word-47,rabbit,兔子,动物,L1,The rabbit is white.,兔子是白色的。,,,图片/rabbit.png,,emoji:🐰,yes,no
+english-word-129,sheep,羊,动物,L1,The sheep is white.,这只羊是白色的。,,,图片/sheep.png,音频/sheep.mp3,emoji:🐑,yes,yes
+english-word-138,tiger,老虎,动物,L1,The tiger is orange.,老虎是橙色的。,,,,,emoji:🐯,no,no

@@ -101,6 +101,7 @@ test('config wires pinyin, poetry and letter quizzes instead of handwritten card
     const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
     const html = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
     assert.match(config, /mode: 'pinyin-initial'/);
+    assert.match(config, /mode: 'pinyin-tone'/);
     assert.match(config, /kind: 'final'/);
     assert.match(config, /kind: 'whole'/);
     assert.match(config, /mode: 'poetry-line'/);
@@ -109,6 +110,7 @@ test('config wires pinyin, poetry and letter quizzes instead of handwritten card
     assert.doesNotMatch(config, /广播/);
     assert.doesNotMatch(config, /山坡/);
     assert.match(app, /buildInitialQuiz/);
+    assert.match(app, /buildToneQuiz/);
     assert.match(app, /buildLineQuiz/);
     assert.match(app, /buildLetterQuiz/);
     assert.match(html, /preschool-pinyin\.js/);

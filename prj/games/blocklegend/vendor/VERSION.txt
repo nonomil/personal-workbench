@@ -1,0 +1,10 @@
+three.js r147 (0.147.0) UMD build
+来源: https://unpkg.com/three@0.147.0/build/three.min.js
+固定日期: 2026-08-15
+大小: 607784 bytes
+SHA-256: 见 test-report.md（执行时记录）
+
+为什么是 r147: r150 起 three.js 移除了 UMD/script 标签构建，
+本仓无构建工具且需支持 file:// 打开，只能用最后一批 UMD 版本。
+许可: MIT（文件头已内嵌完整许可声明，另见 LICENSE）
+SHA-256(three.min.js) = f34446bf875b5fb0dcd93819ffe1d9e182d46634ee855f5d904c6c4ac7dbc95

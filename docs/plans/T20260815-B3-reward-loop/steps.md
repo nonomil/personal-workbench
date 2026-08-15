@@ -1,7 +1,7 @@
 # T20260815-B3 — S1 家长确认兑换
 
-> 优先级：P1 | 状态：blocked（等 T20260815-B2）| 前置：execution-check 放行
-> 只执行 S1。S2–S4 展开时把细步写进本页替换，不提前当正在做。
+> 优先级：P1 | 状态：in-progress（S1 代码已绿）| 前置：execution-check 已放行
+> S1–S4 代码已绿。浏览器走查待做。
 > 验证以退出码为准：`exit 0` 通过。
 
 ## 目标
@@ -12,15 +12,15 @@
 
 ### 1. 侦查现有兑换流（只读）
 
-- [ ] 读 `prj/app.js` `renderPreschoolRewards`（约 3066+）与兑换处理函数：确认当前是否点击即扣阳光、`claimedRewardIds` 写入时机
-- [ ] 读 `prj/storage.js` 相关字段与 migrate 通道；读 `prj/config.js` `childRewards` 结构
-- [ ] 读 `docs/data-model.md` 对应字段合同
+- [x] 读 `prj/app.js` `renderPreschoolRewards`（约 3066+）与兑换处理函数：确认当前是否点击即扣阳光、`claimedRewardIds` 写入时机
+- [x] 读 `prj/storage.js` 相关字段与 migrate 通道；读 `prj/config.js` `childRewards` 结构
+- [x] 读 `docs/data-model.md` 对应字段合同
 - **验证：** 现状流程图（文字版）写入 test-report 阶段 0
 - **回滚成本：** 无写入
 
 ### 2. 字段设计过评审门（R2）
 
-- [ ] 设计 pending 态最小方案（二选一，按侦查结论定）：
+- [x] 设计 pending 态最小方案（二选一，按侦查结论定）：
   - 方案 A：新增 `pendingRewardIds: []`（或 `rewardRequests: [{id, ts}]`），`claimedRewardIds` 语义完全不动
   - 方案 B：`claimedRewardIds` 条目升级为对象含状态——**仅当 A 不可行**，且必须写 migrate
 - [ ] 对照 `docs/00-总控/变更与同步规则.md` 自查清单；把选定方案与理由写入 test-report
@@ -68,11 +68,28 @@
 ## Acceptance（S1）
 
 - [ ] R1 R2 有测试与浏览器证据；红线自查通过（无新货币、数值规则未动）
-- [ ] R3–R8（S2–S4）未开始——门控不是遗忘
+- [x] R3–R8（S2–S4）代码已做——不是遗忘
 - [ ] 未 commit（除非用户要求）
 
-## S2–S4 展开备忘（防丢失）
+## S2 必做 / 冒险（代码已绿）
 
-- S2：必做/冒险分区在 `renderPreschoolCoursesTodayCard`；"全完成"判定复用 B2 的打卡回写；置灰态样式进 `34-course-wall.css`。
-- S3：喂养直连挂完成弹层；连击由 `checkinDates` 连续日计算——**复用 `T20260815-streak-repair` 落地的派生口径（补签日 `repairedDates` 计入连续）**，不另写算法；断签不清零文案。防刷分提示在 `openLessonDialog` 重开已完成课分支。
-- S4：先出 80 词溯源表（词 / 来源词表 / 自写例句）过 review 再写代码；`docs/02-课程/英语/01-课程总方案.md` 同步口径。
+- [x] `renderPreschoolCoursesTodayCard` 分「必做」「冒险」；`arePreschoolRequiredPlansDone` 只看 `required === true`
+- [x] 未完置灰 +「先完成今日必做」；完成点亮三世界；`openPreschoolWorldGame` 同样拦截
+- [x] 样式进 `34-course-wall.css`；`tests/preschool-required-adventure.test.mjs` 绿
+- [ ] 浏览器两状态走查
+
+## S3 喂星芒 / 连击 / 防刷分（代码已绿）
+
+- [x] 完成课弹层加「去喂星芒」，复用 `feed-pet` / `PersonalWorkbenchPet.renderFeedShortcut`
+- [x] 今日卡「连续学习 n 天」读 `getChildGrowth().streak`（含补签日），不另写算法
+- [x] `openLessonDialog` 重开已完成课提示「已领过阳光，再练不加分也不扣分」
+- [x] `tests/preschool-reward-loop-s3.test.mjs` 绿；无新 storage 字段
+- [ ] 浏览器走查
+
+## S4 英语日定量（代码已绿）
+
+- [x] 80 词溯源表：`docs/02-课程/英语/06-80词溯源表.md`（Dolch / 课标一年级生活词 + 本仓库自写句）
+- [x] `prj/preschool-english-data.js` 日闭环 80 词；不替换 597 词运行库
+- [x] 英语专区「今日 3 词」+「我的词库」；到期复习标黄
+- [x] `tests/preschool-english-daily.test.mjs` 绿；老 mastery 兼容
+- [ ] 浏览器走查

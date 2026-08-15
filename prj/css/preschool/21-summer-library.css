@@ -18,7 +18,8 @@ body.variant-preschool .sidebar-section-toggle {
 }
 
 body.variant-preschool .sidebar-section-toggle:hover,
-body.variant-preschool .sidebar-section-toggle:focus-visible {
+body.variant-preschool .sidebar-section-toggle:focus-visible,
+body.variant-preschool .sidebar-section-toggle.is-active {
     border-color: rgba(255, 231, 148, .5);
     color: #fff;
     background: rgba(255, 255, 255, .12);

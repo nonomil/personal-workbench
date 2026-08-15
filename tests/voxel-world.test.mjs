@@ -1,5 +1,8 @@
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
 import test from 'node:test';
+import { fileURLToPath } from 'node:url';
 
 await import('../prj/games/voxel-adventure/data/world.js');
 await import('../prj/games/voxel-adventure/data/quests.js');
@@ -221,4 +224,24 @@ test('island gaps are void at the bottom and spawn is safe', () => {
     rows: 12,
     grid: Array.from({ length: 12 }, () => Array(16).fill('air'))
   }), true);
+});
+
+test('mc texture set from 2d-minecraft (zlib) backs the renderer and hotbar', () => {
+  const gameDir = path.join(fileURLToPath(new URL('../prj/games/voxel-adventure/', import.meta.url)));
+  const gameSrc = fs.readFileSync(path.join(gameDir, 'game.js'), 'utf8');
+  const cssSrc = fs.readFileSync(path.join(gameDir, 'game.css'), 'utf8');
+  ['blocks/grass-block.png', 'blocks/dirt.png', 'blocks/stone.png', 'blocks/oak-log.png',
+    'blocks/oak-leaves.png', 'blocks/oak-planks.png', 'blocks/coal-ore.png', 'blocks/diamond-ore.png',
+    'blocks/destroy_stage_0.png', 'blocks/destroy_stage_9.png',
+    'items/wooden-pickaxe.png', 'items/stone-pickaxe.png', 'ui/hotbar.png', 'ui/hotbar-selection.png'
+  ].forEach(function (rel) {
+    assert.equal(fs.existsSync(path.join(gameDir, 'assets', 'mc', rel)), true, rel + ' missing');
+  });
+  assert.equal(fs.existsSync(path.join(gameDir, 'assets', 'mc', 'README.md')), true);
+  assert.equal(fs.existsSync(path.join(gameDir, 'assets', 'mc', 'steve.png')), false); // Mojang IP 不入库
+  assert.match(gameSrc, /MC_TEXTURES/);
+  assert.match(gameSrc, /destroy_stage_/);
+  assert.match(gameSrc, /tex_' \+ kind/);
+  assert.match(cssSrc, /assets\/mc\/ui\/hotbar\.png/);
+  assert.match(cssSrc, /image-rendering: pixelated/);
 });

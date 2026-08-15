@@ -1,0 +1,10 @@
+﻿id,word,zh,theme,level,phrase,phraseZh,category,group,image,audio,art,hasImage,hasAudio
+english-word-78,ear,耳朵,身体,L1,Touch your ear.,摸摸你的耳朵。,,,,,emoji:👂,no,no
+english-word-17,eye,眼睛,身体,L1,Close one eye.,闭上眼睛。,,,图片/eye.png,,emoji:👁,yes,no
+english-word-146,face,脸,身体,L1,"Wash your face, please.",请洗脸。,,,,,emoji:😊,no,no
+english-word-79,foot,脚,身体,L1,Stamp your foot.,跺一跺脚。,,,,,emoji:🦶,no,no
+english-word-109,hair,头发,身体,L1,Touch your hair.,摸摸你的头发。,,,,,emoji:💇,no,no
+english-word-16,hand,手,身体,L1,Hold my hand.,拉着我的手。,,,,,emoji:✋,no,no
+english-word-111,head,头,身体,L1,Touch your head.,摸摸你的头。,,,,,emoji:🧑,no,no
+english-word-116,mouth,嘴巴,身体,L1,Open your mouth.,张开你的嘴巴。,,,,,emoji:👄,no,no
+english-word-119,nose,鼻子,身体,L1,Touch your nose.,摸摸你的鼻子。,,,图片/nose.png,,emoji:👃,yes,no

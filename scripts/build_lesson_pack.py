@@ -17,10 +17,21 @@ MOVE_HINTS = (
 )
 
 
+def compact_steps(lesson):
+    steps = lesson.get("fourSteps") or {}
+    return {
+        "warmup": str(steps.get("warmup") or ""),
+        "teach": str(steps.get("teach") or ""),
+        "practice": str(steps.get("practice") or ""),
+        "apply": str(steps.get("apply") or ""),
+    }
+
+
 def compact(lesson):
     activity = lesson.get("activity") or {}
     options = [str(item) for item in (activity.get("options") or []) if str(item).strip()]
     answer = activity.get("answer")
+    steps = compact_steps(lesson)
     return {
         "id": lesson["id"],
         "title": lesson["title"],
@@ -31,7 +42,9 @@ def compact(lesson):
         "options": options,
         "answer": answer if isinstance(answer, int) else None,
         "success": str(activity.get("success") or "完成一次尝试，花园收到一束阳光。"),
-        "tip": str((lesson.get("fourSteps") or {}).get("practice") or lesson.get("objective") or ""),
+        "tip": str(steps.get("practice") or lesson.get("objective") or ""),
+        "fourSteps": steps,
+        "evidence": [str(item) for item in (lesson.get("evidence") or []) if str(item).strip()],
         "reviewTags": list(lesson.get("reviewTags") or []),
     }
 
@@ -48,6 +61,27 @@ def is_focus(row):
 def load_lessons(folder):
     path = data / folder / "lessons.json"
     return [compact(item) for item in json.loads(path.read_text(encoding="utf-8"))]
+
+
+def compact_phonics(lesson):
+    examples = [str(item) for item in (lesson.get("examples") or []) if str(item).strip()]
+    return {
+        "id": lesson["id"],
+        "title": lesson["title"],
+        "day": int(lesson.get("day") or 0),
+        "minutes": int(lesson.get("durationMin") or 8),
+        "activityType": str(lesson.get("activityType") or ""),
+        "prompt": str(lesson.get("objective") or lesson.get("title") or ""),
+        "examples": examples,
+        "success": "拼对啦！",
+        "tip": str(lesson.get("objective") or "先听，再选。"),
+        "reviewTags": list(lesson.get("reviewPatterns") or []),
+    }
+
+
+def load_phonics():
+    path = data / "english" / "phonics" / "lessons.json"
+    return [compact_phonics(item) for item in json.loads(path.read_text(encoding="utf-8"))]
 
 
 def load_motion():
@@ -81,6 +115,8 @@ def load_motion():
 hanzi = load_lessons("识字")
 math = load_lessons("数学")
 english = load_lessons("英语")
+poetry = load_lessons("古诗")
+phonics = load_phonics()
 motion_days = load_lessons("运动与专注")
 motion_bank = load_motion()
 focus_days = [row for row in motion_days if is_focus(row)]
@@ -90,6 +126,8 @@ payload = {
     "hanzi": hanzi,
     "math": math,
     "english": english,
+    "poetry": poetry,
+    "phonics": phonics,
     "focusDays": focus_days,
     "moveDays": move_days,
     "motionBank": motion_bank,
@@ -108,6 +146,10 @@ print(
     len(hanzi),
     len(math),
     len(english),
+    "poetry",
+    len(poetry),
+    "phonics",
+    len(phonics),
     "focusDays",
     len(focus_days),
     "moveDays",

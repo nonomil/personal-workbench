@@ -1,0 +1,12 @@
+{
+  "pack": "preschool-focus-games",
+  "generated": "2026-08-15",
+  "size": "512x512",
+  "items": [
+    { "id": "focus-schulte", "path": "published/focus-schulte.png", "consumer": "preschool-focus-1", "w": 512, "h": 512 },
+    { "id": "focus-sudoku", "path": "published/focus-sudoku.png", "consumer": "preschool-focus-2", "w": 512, "h": 512 },
+    { "id": "focus-memory", "path": "published/focus-memory.png", "consumer": "preschool-focus-3", "w": 512, "h": 512 },
+    { "id": "focus-simon", "path": "published/focus-simon.png", "consumer": "preschool-focus-4", "w": 512, "h": 512 },
+    { "id": "focus-search", "path": "published/focus-search.png", "consumer": "preschool-focus-5", "w": 512, "h": 512 }
+  ]
+}

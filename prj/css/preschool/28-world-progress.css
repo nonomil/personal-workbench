@@ -524,3 +524,26 @@
         grid-template-columns: 1fr;
     }
 }
+
+.preschool-blocklegend-entry {
+    margin: 0 16px 16px;
+    padding: 16px 18px;
+    border: 3px solid rgba(176, 123, 46, .22);
+    border-radius: 22px;
+    background:
+        radial-gradient(circle at 88% 12%, rgba(255, 210, 74, .2), transparent 34%),
+        linear-gradient(180deg, #fffaf0, #f4ead6);
+}
+.preschool-blocklegend-entry h2 {
+    margin: 4px 0 6px;
+    font-size: clamp(18px, 2.4vw, 24px);
+}
+.preschool-blocklegend-entry p {
+    margin: 0 0 10px;
+    color: #6d5f49;
+    font-size: 13px;
+}
+.preschool-blocklegend-entry .preschool-world-progress-go.is-locked {
+    opacity: .55;
+    pointer-events: none;
+}

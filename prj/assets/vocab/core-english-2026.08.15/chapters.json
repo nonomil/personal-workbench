@@ -1,0 +1,2059 @@
+{
+  "version": 2,
+  "generatedAt": "2026-08-15T15:50:54.785Z",
+  "buildIdentity": {
+    "batchId": "core-english-2026.08.15",
+    "manifestHash": "35e8e88fe97d32981987a973a7a9d1262d13eb8d287dbb9519cb7698be53366d",
+    "inputHash": "35e8e88fe97d32981987a973a7a9d1262d13eb8d287dbb9519cb7698be53366d",
+    "builderVersion": "export-vocab-packages@1"
+  },
+  "catalog": "catalog.json",
+  "chapters": [
+    {
+      "id": "core-english-2026.08.15-word",
+      "title": "高频词",
+      "titleEn": "word",
+      "summary": "主题「高频词」：认词、听读和生活例句。",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "word-racer",
+        "typingGame": "creeper-typing"
+      },
+      "cardCount": 158,
+      "groups": [
+        {
+          "id": "core-english-2026.08.15-word-001",
+          "title": "高频词 · 第 1 组",
+          "cardIds": [
+            "english-word-185",
+            "english-word-312",
+            "english-word-236",
+            "english-word-237",
+            "english-word-196",
+            "english-word-274",
+            "english-word-197",
+            "english-word-238",
+            "english-word-186",
+            "english-word-239"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "高频词"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-002",
+          "title": "高频词 · 第 2 组",
+          "cardIds": [
+            "english-word-198",
+            "english-word-275",
+            "english-word-240",
+            "english-word-241",
+            "english-word-199",
+            "english-word-200",
+            "english-word-201",
+            "english-word-276",
+            "english-word-277",
+            "english-word-278"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "高频词"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-003",
+          "title": "高频词 · 第 3 组",
+          "cardIds": [
+            "english-word-279",
+            "english-word-313",
+            "english-word-280",
+            "english-word-314",
+            "english-word-202",
+            "english-word-203",
+            "english-word-281",
+            "english-word-242",
+            "english-word-282",
+            "english-word-204"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "高频词"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-004",
+          "title": "高频词 · 第 4 组",
+          "cardIds": [
+            "english-word-187",
+            "english-word-315",
+            "english-word-316",
+            "english-word-283",
+            "english-word-243",
+            "english-word-317",
+            "english-word-205",
+            "english-word-206",
+            "english-word-284",
+            "english-word-318"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "高频词"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-005",
+          "title": "高频词 · 第 5 组",
+          "cardIds": [
+            "english-word-244",
+            "english-word-319",
+            "english-word-320",
+            "english-word-285",
+            "english-word-286",
+            "english-word-245",
+            "english-word-188",
+            "english-word-287",
+            "english-word-246",
+            "english-word-321"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "高频词"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-006",
+          "title": "高频词 · 第 6 组",
+          "cardIds": [
+            "english-word-288",
+            "english-word-207",
+            "english-word-247",
+            "english-word-289",
+            "english-word-248",
+            "english-word-208",
+            "english-word-322",
+            "english-word-323",
+            "english-word-249",
+            "english-word-250"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "高频词"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-007",
+          "title": "高频词 · 第 7 组",
+          "cardIds": [
+            "english-word-209",
+            "english-word-251",
+            "english-word-252",
+            "english-word-253",
+            "english-word-324",
+            "english-word-325",
+            "english-word-254",
+            "english-word-326",
+            "english-word-189",
+            "english-word-327"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "高频词"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-008",
+          "title": "高频词 · 第 8 组",
+          "cardIds": [
+            "english-word-190",
+            "english-word-210",
+            "english-word-191",
+            "english-word-290",
+            "english-word-255",
+            "english-word-328",
+            "english-word-329",
+            "english-word-256",
+            "english-word-330",
+            "english-word-257"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "高频词"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-009",
+          "title": "高频词 · 第 9 组",
+          "cardIds": [
+            "english-word-258",
+            "english-word-291",
+            "english-word-292",
+            "english-word-259",
+            "english-word-331",
+            "english-word-211",
+            "english-word-192",
+            "english-word-332",
+            "english-word-333",
+            "english-word-193"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "高频词"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-010",
+          "title": "高频词 · 第 10 组",
+          "cardIds": [
+            "english-word-212",
+            "english-word-260",
+            "english-word-293",
+            "english-word-213",
+            "english-word-261",
+            "english-word-334",
+            "english-word-262",
+            "english-word-294",
+            "english-word-214",
+            "english-word-215"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "高频词"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-011",
+          "title": "高频词 · 第 11 组",
+          "cardIds": [
+            "english-word-263",
+            "english-word-335",
+            "english-word-336",
+            "english-word-216",
+            "english-word-295",
+            "english-word-264",
+            "english-word-217",
+            "english-word-218",
+            "english-word-296",
+            "english-word-265"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "高频词"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-012",
+          "title": "高频词 · 第 12 组",
+          "cardIds": [
+            "english-word-219",
+            "english-word-220",
+            "english-word-337",
+            "english-word-221",
+            "english-word-266",
+            "english-word-222",
+            "english-word-338",
+            "english-word-267",
+            "english-word-268",
+            "english-word-297"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "高频词"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-013",
+          "title": "高频词 · 第 13 组",
+          "cardIds": [
+            "english-word-223",
+            "english-word-194",
+            "english-word-298",
+            "english-word-269",
+            "english-word-270",
+            "english-word-224",
+            "english-word-299",
+            "english-word-271",
+            "english-word-225",
+            "english-word-300"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "高频词"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-014",
+          "title": "高频词 · 第 14 组",
+          "cardIds": [
+            "english-word-195",
+            "english-word-339",
+            "english-word-340",
+            "english-word-226",
+            "english-word-341",
+            "english-word-227",
+            "english-word-301",
+            "english-word-302",
+            "english-word-303",
+            "english-word-304"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "高频词"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-015",
+          "title": "高频词 · 第 15 组",
+          "cardIds": [
+            "english-word-228",
+            "english-word-342",
+            "english-word-229",
+            "english-word-305",
+            "english-word-230",
+            "english-word-231",
+            "english-word-272",
+            "english-word-232",
+            "english-word-273",
+            "english-word-306"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "高频词"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-016",
+          "title": "高频词 · 第 16 组",
+          "cardIds": [
+            "english-word-233",
+            "english-word-307",
+            "english-word-234",
+            "english-word-308",
+            "english-word-235",
+            "english-word-309",
+            "english-word-310",
+            "english-word-311"
+          ],
+          "cardCount": 8,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "高频词"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core-english-2026.08.15-word",
+      "title": "生活",
+      "titleEn": "word",
+      "summary": "主题「生活」：认词、听读和生活例句。",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "word-racer",
+        "typingGame": "creeper-typing"
+      },
+      "cardCount": 134,
+      "groups": [
+        {
+          "id": "core-english-2026.08.15-word-001",
+          "title": "生活 · 第 1 组",
+          "cardIds": [
+            "english-word-413",
+            "english-word-514",
+            "english-word-346",
+            "english-word-388",
+            "english-word-394",
+            "english-word-435",
+            "english-word-42",
+            "english-word-363",
+            "english-word-369",
+            "english-word-368"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "生活"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-002",
+          "title": "生活 · 第 2 组",
+          "cardIds": [
+            "english-word-426",
+            "english-word-417",
+            "english-word-39",
+            "english-word-461",
+            "english-word-386",
+            "english-word-391",
+            "english-word-442",
+            "english-word-376",
+            "english-word-437",
+            "english-word-454"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "生活"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-003",
+          "title": "生活 · 第 3 组",
+          "cardIds": [
+            "english-word-344",
+            "english-word-95",
+            "english-word-451",
+            "english-word-432",
+            "english-word-416",
+            "english-word-431",
+            "english-word-358",
+            "english-word-392",
+            "english-word-414",
+            "english-word-387"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "生活"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-004",
+          "title": "生活 · 第 4 组",
+          "cardIds": [
+            "english-word-24",
+            "english-word-381",
+            "english-word-345",
+            "english-word-37",
+            "english-word-453",
+            "english-word-355",
+            "english-word-384",
+            "english-word-457",
+            "english-word-424",
+            "english-word-438"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "生活"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-005",
+          "title": "生活 · 第 5 组",
+          "cardIds": [
+            "english-word-364",
+            "english-word-383",
+            "english-word-354",
+            "english-word-404",
+            "english-word-373",
+            "english-word-41",
+            "english-word-349",
+            "english-word-407",
+            "english-word-378",
+            "english-word-446"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "生活"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-006",
+          "title": "生活 · 第 6 组",
+          "cardIds": [
+            "english-word-421",
+            "english-word-440",
+            "english-word-439",
+            "english-word-408",
+            "english-word-106",
+            "english-word-107",
+            "english-word-351",
+            "english-word-374",
+            "english-word-410",
+            "english-word-455"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "生活"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-007",
+          "title": "生活 · 第 7 组",
+          "cardIds": [
+            "english-word-459",
+            "english-word-429",
+            "english-word-23",
+            "english-word-419",
+            "english-word-450",
+            "english-word-444",
+            "english-word-370",
+            "english-word-428",
+            "english-word-389",
+            "english-word-398"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "生活"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-008",
+          "title": "生活 · 第 8 组",
+          "cardIds": [
+            "english-word-371",
+            "english-word-418",
+            "english-word-347",
+            "english-word-411",
+            "english-word-393",
+            "english-word-452",
+            "english-word-115",
+            "english-word-400",
+            "english-word-412",
+            "english-word-38"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "生活"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-009",
+          "title": "生活 · 第 9 组",
+          "cardIds": [
+            "english-word-395",
+            "english-word-415",
+            "english-word-359",
+            "english-word-423",
+            "english-word-396",
+            "english-word-441",
+            "english-word-430",
+            "english-word-348",
+            "english-word-409",
+            "english-word-427"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "生活"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-010",
+          "title": "生活 · 第 10 组",
+          "cardIds": [
+            "english-word-448",
+            "english-word-350",
+            "english-word-375",
+            "english-word-405",
+            "english-word-176",
+            "english-word-397",
+            "english-word-357",
+            "english-word-379",
+            "english-word-40",
+            "english-word-356"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "生活"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-011",
+          "title": "生活 · 第 11 组",
+          "cardIds": [
+            "english-word-365",
+            "english-word-377",
+            "english-word-372",
+            "english-word-460",
+            "english-word-433",
+            "english-word-361",
+            "english-word-456",
+            "english-word-177",
+            "english-word-390",
+            "english-word-434"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "生活"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-012",
+          "title": "生活 · 第 12 组",
+          "cardIds": [
+            "english-word-406",
+            "english-word-362",
+            "english-word-443",
+            "english-word-366",
+            "english-word-367",
+            "english-word-458",
+            "english-word-157",
+            "english-word-353",
+            "english-word-382",
+            "english-word-403"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "生活"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-013",
+          "title": "生活 · 第 13 组",
+          "cardIds": [
+            "english-word-399",
+            "english-word-449",
+            "english-word-425",
+            "english-word-445",
+            "english-word-401",
+            "english-word-360",
+            "english-word-380",
+            "english-word-422",
+            "english-word-420",
+            "english-word-402"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "生活"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-014",
+          "title": "生活 · 第 14 组",
+          "cardIds": [
+            "english-word-447",
+            "english-word-436",
+            "english-word-352",
+            "english-word-385"
+          ],
+          "cardCount": 4,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "生活"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core-english-2026.08.15-word",
+      "title": "学校",
+      "titleEn": "word",
+      "summary": "主题「学校」：认词、听读和生活例句。",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "word-racer",
+        "typingGame": "creeper-typing"
+      },
+      "cardCount": 130,
+      "groups": [
+        {
+          "id": "core-english-2026.08.15-word-001",
+          "title": "学校 · 第 1 组",
+          "cardIds": [
+            "english-word-566",
+            "english-word-543",
+            "english-word-544",
+            "english-word-520",
+            "english-word-572",
+            "english-word-577",
+            "english-word-464",
+            "english-word-554",
+            "english-word-521",
+            "english-word-463"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "学校"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-002",
+          "title": "学校 · 第 2 组",
+          "cardIds": [
+            "english-word-518",
+            "english-word-478",
+            "english-word-470",
+            "english-word-538",
+            "english-word-487",
+            "english-word-591",
+            "english-word-483",
+            "english-word-484",
+            "english-word-515",
+            "english-word-471"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "学校"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-003",
+          "title": "学校 · 第 3 组",
+          "cardIds": [
+            "english-word-558",
+            "english-word-584",
+            "english-word-494",
+            "english-word-531",
+            "english-word-462",
+            "english-word-557",
+            "english-word-585",
+            "english-word-545",
+            "english-word-555",
+            "english-word-595"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "学校"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-004",
+          "title": "学校 · 第 4 组",
+          "cardIds": [
+            "english-word-567",
+            "english-word-508",
+            "english-word-509",
+            "english-word-510",
+            "english-word-504",
+            "english-word-512",
+            "english-word-592",
+            "english-word-485",
+            "english-word-502",
+            "english-word-546"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "学校"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-005",
+          "title": "学校 · 第 5 组",
+          "cardIds": [
+            "english-word-586",
+            "english-word-519",
+            "english-word-559",
+            "english-word-490",
+            "english-word-597",
+            "english-word-472",
+            "english-word-511",
+            "english-word-516",
+            "english-word-482",
+            "english-word-476"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "学校"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-006",
+          "title": "学校 · 第 6 组",
+          "cardIds": [
+            "english-word-479",
+            "english-word-517",
+            "english-word-526",
+            "english-word-593",
+            "english-word-547",
+            "english-word-548",
+            "english-word-549",
+            "english-word-522",
+            "english-word-499",
+            "english-word-560"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "学校"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-007",
+          "title": "学校 · 第 7 组",
+          "cardIds": [
+            "english-word-587",
+            "english-word-536",
+            "english-word-539",
+            "english-word-581",
+            "english-word-491",
+            "english-word-492",
+            "english-word-473",
+            "english-word-550",
+            "english-word-527",
+            "english-word-489"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "学校"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-008",
+          "title": "学校 · 第 8 组",
+          "cardIds": [
+            "english-word-475",
+            "english-word-465",
+            "english-word-486",
+            "english-word-551",
+            "english-word-552",
+            "english-word-580",
+            "english-word-556",
+            "english-word-533",
+            "english-word-568",
+            "english-word-569"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "学校"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-009",
+          "title": "学校 · 第 9 组",
+          "cardIds": [
+            "english-word-594",
+            "english-word-561",
+            "english-word-506",
+            "english-word-528",
+            "english-word-488",
+            "english-word-495",
+            "english-word-570",
+            "english-word-573",
+            "english-word-493",
+            "english-word-565"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "学校"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-010",
+          "title": "学校 · 第 10 组",
+          "cardIds": [
+            "english-word-503",
+            "english-word-562",
+            "english-word-553",
+            "english-word-532",
+            "english-word-540",
+            "english-word-571",
+            "english-word-534",
+            "english-word-496",
+            "english-word-596",
+            "english-word-523"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "学校"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-011",
+          "title": "学校 · 第 11 组",
+          "cardIds": [
+            "english-word-497",
+            "english-word-480",
+            "english-word-467",
+            "english-word-537",
+            "english-word-466",
+            "english-word-524",
+            "english-word-477",
+            "english-word-563",
+            "english-word-507",
+            "english-word-564"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "学校"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-012",
+          "title": "学校 · 第 12 组",
+          "cardIds": [
+            "english-word-529",
+            "english-word-574",
+            "english-word-525",
+            "english-word-535",
+            "english-word-505",
+            "english-word-530",
+            "english-word-575",
+            "english-word-588",
+            "english-word-589",
+            "english-word-582"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "学校"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-013",
+          "title": "学校 · 第 13 组",
+          "cardIds": [
+            "english-word-590",
+            "english-word-541",
+            "english-word-500",
+            "english-word-542",
+            "english-word-583",
+            "english-word-498",
+            "english-word-474",
+            "english-word-501",
+            "english-word-513",
+            "english-word-481"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "学校"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core-english-2026.08.15-word",
+      "title": "物品",
+      "titleEn": "word",
+      "summary": "主题「物品」：认词、听读和生活例句。",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "word-racer",
+        "typingGame": "creeper-typing"
+      },
+      "cardCount": 33,
+      "groups": [
+        {
+          "id": "core-english-2026.08.15-word-001",
+          "title": "物品 · 第 1 组",
+          "cardIds": [
+            "english-word-81",
+            "english-word-12",
+            "english-word-82",
+            "english-word-184",
+            "english-word-84",
+            "english-word-11",
+            "english-word-143",
+            "english-word-85",
+            "english-word-183",
+            "english-word-88"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "物品"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-002",
+          "title": "物品 · 第 2 组",
+          "cardIds": [
+            "english-word-57",
+            "english-word-91",
+            "english-word-56",
+            "english-word-97",
+            "english-word-144",
+            "english-word-145",
+            "english-word-110",
+            "english-word-113",
+            "english-word-148",
+            "english-word-53"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "物品"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-003",
+          "title": "物品 · 第 3 组",
+          "cardIds": [
+            "english-word-54",
+            "english-word-150",
+            "english-word-126",
+            "english-word-55",
+            "english-word-151",
+            "english-word-152",
+            "english-word-130",
+            "english-word-153",
+            "english-word-154",
+            "english-word-155"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "物品"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-004",
+          "title": "物品 · 第 4 组",
+          "cardIds": [
+            "english-word-136",
+            "english-word-139",
+            "english-word-159"
+          ],
+          "cardCount": 3,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "物品"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core-english-2026.08.15-word",
+      "title": "描述",
+      "titleEn": "word",
+      "summary": "主题「描述」：认词、听读和生活例句。",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "word-racer",
+        "typingGame": "creeper-typing"
+      },
+      "cardCount": 24,
+      "groups": [
+        {
+          "id": "core-english-2026.08.15-word-001",
+          "title": "描述 · 第 1 组",
+          "cardIds": [
+            "english-word-30",
+            "english-word-165",
+            "english-word-100",
+            "english-word-102",
+            "english-word-103",
+            "english-word-172",
+            "english-word-178",
+            "english-word-147",
+            "english-word-166",
+            "english-word-60"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "描述"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-002",
+          "title": "描述 · 第 2 组",
+          "cardIds": [
+            "english-word-61",
+            "english-word-117",
+            "english-word-62",
+            "english-word-75",
+            "english-word-128",
+            "english-word-59",
+            "english-word-132",
+            "english-word-29",
+            "english-word-58",
+            "english-word-137"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "描述"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-003",
+          "title": "描述 · 第 3 组",
+          "cardIds": [
+            "english-word-158",
+            "english-word-77",
+            "english-word-76",
+            "english-word-164"
+          ],
+          "cardCount": 4,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "描述"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core-english-2026.08.15-word",
+      "title": "动物",
+      "titleEn": "word",
+      "summary": "主题「动物」：认词、听读和生活例句。",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "word-racer",
+        "typingGame": "creeper-typing"
+      },
+      "cardCount": 23,
+      "groups": [
+        {
+          "id": "core-english-2026.08.15-word-001",
+          "title": "动物 · 第 1 组",
+          "cardIds": [
+            "english-word-45",
+            "english-word-83",
+            "english-word-08",
+            "english-word-86",
+            "english-word-05",
+            "english-word-90",
+            "english-word-94",
+            "english-word-06",
+            "english-word-43",
+            "english-word-101"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "动物"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-002",
+          "title": "动物 · 第 2 组",
+          "cardIds": [
+            "english-word-07",
+            "english-word-182",
+            "english-word-104",
+            "english-word-105",
+            "english-word-112",
+            "english-word-114",
+            "english-word-46",
+            "english-word-181",
+            "english-word-121",
+            "english-word-44"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "动物"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-003",
+          "title": "动物 · 第 3 组",
+          "cardIds": [
+            "english-word-47",
+            "english-word-129",
+            "english-word-138"
+          ],
+          "cardCount": 3,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "动物"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core-english-2026.08.15-word",
+      "title": "表达",
+      "titleEn": "word",
+      "summary": "主题「表达」：认词、听读和生活例句。",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "word-racer",
+        "typingGame": "creeper-typing"
+      },
+      "cardCount": 22,
+      "groups": [
+        {
+          "id": "core-english-2026.08.15-word-001",
+          "title": "表达 · 第 1 组",
+          "cardIds": [
+            "english-word-26",
+            "english-word-179",
+            "english-word-65",
+            "english-word-25",
+            "english-word-170",
+            "english-word-68",
+            "english-word-67",
+            "english-word-27",
+            "english-word-63",
+            "english-word-69"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "表达"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-002",
+          "title": "表达 · 第 2 组",
+          "cardIds": [
+            "english-word-149",
+            "english-word-71",
+            "english-word-72",
+            "english-word-28",
+            "english-word-66",
+            "english-word-70",
+            "english-word-36",
+            "english-word-175",
+            "english-word-174",
+            "english-word-180"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "表达"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-003",
+          "title": "表达 · 第 3 组",
+          "cardIds": [
+            "english-word-162",
+            "english-word-64"
+          ],
+          "cardCount": 2,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "表达"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core-english-2026.08.15-word",
+      "title": "动作",
+      "titleEn": "word",
+      "summary": "主题「动作」：认词、听读和生活例句。",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "word-racer",
+        "typingGame": "creeper-typing"
+      },
+      "cardCount": 22,
+      "groups": [
+        {
+          "id": "core-english-2026.08.15-word-001",
+          "title": "动作 · 第 1 组",
+          "cardIds": [
+            "english-word-171",
+            "english-word-32",
+            "english-word-96",
+            "english-word-35",
+            "english-word-98",
+            "english-word-99",
+            "english-word-169",
+            "english-word-31",
+            "english-word-167",
+            "english-word-19"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "动作"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-002",
+          "title": "动作 · 第 2 组",
+          "cardIds": [
+            "english-word-163",
+            "english-word-168",
+            "english-word-22",
+            "english-word-33",
+            "english-word-18",
+            "english-word-173",
+            "english-word-131",
+            "english-word-20",
+            "english-word-133",
+            "english-word-21"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "动作"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-003",
+          "title": "动作 · 第 3 组",
+          "cardIds": [
+            "english-word-140",
+            "english-word-34"
+          ],
+          "cardCount": 2,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "动作"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core-english-2026.08.15-word",
+      "title": "食物",
+      "titleEn": "word",
+      "summary": "主题「食物」：认词、听读和生活例句。",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "word-racer",
+        "typingGame": "creeper-typing"
+      },
+      "cardCount": 22,
+      "groups": [
+        {
+          "id": "core-english-2026.08.15-word-001",
+          "title": "食物 · 第 1 组",
+          "cardIds": [
+            "english-word-09",
+            "english-word-10",
+            "english-word-48",
+            "english-word-50",
+            "english-word-87",
+            "english-word-89",
+            "english-word-93",
+            "english-word-52",
+            "english-word-108",
+            "english-word-343"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "食物"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-002",
+          "title": "食物 · 第 2 组",
+          "cardIds": [
+            "english-word-51",
+            "english-word-80",
+            "english-word-118",
+            "english-word-120",
+            "english-word-122",
+            "english-word-123",
+            "english-word-49",
+            "english-word-135",
+            "english-word-156",
+            "english-word-160"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "食物"
+          ]
+        },
+        {
+          "id": "core-english-2026.08.15-word-003",
+          "title": "食物 · 第 3 组",
+          "cardIds": [
+            "english-word-161",
+            "english-word-141"
+          ],
+          "cardCount": 2,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "食物"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core-english-2026.08.15-word",
+      "title": "身体",
+      "titleEn": "word",
+      "summary": "主题「身体」：认词、听读和生活例句。",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "word-racer",
+        "typingGame": "creeper-typing"
+      },
+      "cardCount": 9,
+      "groups": [
+        {
+          "id": "core-english-2026.08.15-word-001",
+          "title": "身体 · 第 1 组",
+          "cardIds": [
+            "english-word-78",
+            "english-word-17",
+            "english-word-146",
+            "english-word-79",
+            "english-word-109",
+            "english-word-16",
+            "english-word-111",
+            "english-word-116",
+            "english-word-119"
+          ],
+          "cardCount": 9,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "身体"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core-english-2026.08.15-word",
+      "title": "颜色",
+      "titleEn": "word",
+      "summary": "主题「颜色」：认词、听读和生活例句。",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "word-racer",
+        "typingGame": "creeper-typing"
+      },
+      "cardCount": 8,
+      "groups": [
+        {
+          "id": "core-english-2026.08.15-word-001",
+          "title": "颜色 · 第 1 组",
+          "cardIds": [
+            "english-word-74",
+            "english-word-02",
+            "english-word-03",
+            "english-word-124",
+            "english-word-125",
+            "english-word-01",
+            "english-word-73",
+            "english-word-04"
+          ],
+          "cardCount": 8,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "颜色"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core-english-2026.08.15-word",
+      "title": "自然",
+      "titleEn": "word",
+      "summary": "主题「自然」：认词、听读和生活例句。",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "word-racer",
+        "typingGame": "creeper-typing"
+      },
+      "cardCount": 7,
+      "groups": [
+        {
+          "id": "core-english-2026.08.15-word-001",
+          "title": "自然 · 第 1 组",
+          "cardIds": [
+            "english-word-92",
+            "english-word-14",
+            "english-word-127",
+            "english-word-134",
+            "english-word-15",
+            "english-word-13",
+            "english-word-142"
+          ],
+          "cardCount": 7,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "自然"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core-english-2026.08.15-word",
+      "title": "家人",
+      "titleEn": "word",
+      "summary": "主题「家人」：认词、听读和生活例句。",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "word-racer",
+        "typingGame": "creeper-typing"
+      },
+      "cardCount": 5,
+      "groups": [
+        {
+          "id": "core-english-2026.08.15-word-001",
+          "title": "家人 · 第 1 组",
+          "cardIds": [
+            "english-word-576",
+            "english-word-578",
+            "english-word-468",
+            "english-word-469",
+            "english-word-579"
+          ],
+          "cardCount": 5,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-racer",
+            "typingGame": "creeper-typing"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "家人"
+          ]
+        }
+      ]
+    }
+  ]
+}

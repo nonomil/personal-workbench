@@ -143,14 +143,21 @@ body.mc-embed .mc-view #world-canvas {
     background: #4a4642;
     touch-action: none;
     cursor: crosshair;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
 }
 
+/* MC 风热键栏：2d-minecraft 的 hotbar.png 做底，槽位半透明深色 */
 .hotbar {
     display: flex;
     justify-content: center;
-    gap: 8px;
+    gap: 6px;
     margin-top: 12px;
     flex-wrap: wrap;
+    padding: 7px;
+    border-radius: 4px;
+    background: url('./assets/mc/ui/hotbar.png') center / 100% 100% no-repeat;
+    image-rendering: pixelated;
 }
 
 .hotbar-slot {
@@ -160,7 +167,9 @@ body.mc-embed .mc-view #world-canvas {
     flex-direction: column;
     gap: 2px;
     position: relative;
-    background: linear-gradient(180deg, #fff, #e8eeff);
+    border: 2px solid rgba(150, 150, 155, .85);
+    border-radius: 6px;
+    background: rgba(28, 28, 34, .78);
 }
 
 .hotbar-slot img,
@@ -181,7 +190,7 @@ body.mc-embed .mc-view #world-canvas {
 
 .hotbar-slot small {
     font-size: 10px;
-    color: var(--muted);
+    color: #e8e8ec;
 }
 
 .hotbar-slot b {
@@ -198,13 +207,13 @@ body.mc-embed .mc-view #world-canvas {
 }
 
 .hotbar-slot.is-tool-on {
-    border-color: #3d5ccc;
-    box-shadow: 0 0 0 2px rgba(61, 92, 204, .28);
+    border-color: #fff;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, .55);
 }
 
 .hotbar-slot.is-active {
-    border-color: #f0c14a;
-    box-shadow: 0 0 0 3px rgba(240, 193, 74, .4);
+    border-color: #fff;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, .75);
     transform: translateY(-2px);
 }
 

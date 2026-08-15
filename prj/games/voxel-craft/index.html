@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>方块世界 · 挖放乐园</title>
+    <link rel="stylesheet" href="./game.css?v=20260816-craft-v25">
+</head>
+<body class="vc-body">
+    <aside class="vc-side" id="vc-side" aria-label="方块世界工作台导航">
+        <div class="vc-side-brand">
+            <span class="vc-side-logo">⛏️</span>
+            <span><b>方块世界工作台</b><small>VOXEL CRAFT</small></span>
+        </div>
+        <div class="vc-side-label">探险路线</div>
+        <nav class="vc-side-nav" id="vc-side-nav"></nav>
+        <div class="vc-side-foot">本地模式 · 方块世界</div>
+    </aside>
+    <div class="vc-shell">
+    <header class="vc-topbar">
+        <a class="vc-back" id="back-link" href="../../preschool-workbench/index.html">返回工作台</a>
+        <strong class="vc-title">方块世界</strong>
+        <span class="vc-chip">⛏ <b id="rank-label">1 · 新手矿工</b></span>
+        <span class="vc-chip">🌿 <b id="biome-label">草原</b></span>
+        <span class="vc-chip">任务 <b id="quest-done">0</b>/<b id="quest-total">18</b></span>
+        <span class="vc-chip">☀ <b id="sun-label">0</b></span>
+        <span class="vc-top-actions">
+            <button type="button" class="vc-btn" id="bag-btn" title="背包 (E)">🎒</button>
+            <button type="button" class="vc-btn" id="home-shot-btn" title="拍下家园">📷</button>
+            <button type="button" class="vc-btn" id="reset-btn" title="重开世界">⭯</button>
+            <button type="button" class="vc-btn" id="fullscreen-btn">⛶</button>
+        </span>
+    </header>
+
+    <main class="vc-stage">
+        <div class="vc-view">
+            <canvas id="world-canvas" width="960" height="540" aria-label="方块世界"></canvas>
+            <div class="vc-mine-ring" id="mine-ring" hidden aria-hidden="true"></div>
+            <div class="vc-quest-hud">
+                <strong id="quest-title">加载中…</strong>
+                <div class="vc-quest-bar"><i id="quest-bar-fill"></i></div>
+                <small id="quest-desc"></small>
+            </div>
+            <div class="vc-hud">
+                <div class="vc-pad" id="move-pad">
+                    <button type="button" data-hold="left" aria-label="左">◀</button>
+                    <button type="button" data-hold="jump" aria-label="跳">▲</button>
+                    <button type="button" data-hold="right" aria-label="右">▶</button>
+                </div>
+                <p class="vc-hint">按住挖 · 右键/长按放 · A/D 走 · 空格跳</p>
+            </div>
+        </div>
+        <div class="vc-hotbar-row">
+            <div class="vc-hotbar" id="hotbar" aria-label="工具和背包"></div>
+        </div>
+    </main>
+
+    <div class="vc-toast" id="toast"></div>
+
+    <span id="companion-say" hidden></span>
+    <div class="vc-layer is-hidden" id="bag-layer" role="dialog" aria-label="背包与合成">
+        <div class="vc-mc-panel">
+            <div class="vc-mc-tabs" id="bag-tabs">
+                <button type="button" data-tab="craft" class="is-on" title="合成">🔨</button>
+                <button type="button" data-tab="book" title="配方书">📖</button>
+                <button type="button" data-tab="smelt" title="熔炉">🔥</button>
+                <button type="button" data-tab="shop" title="小卖部">☀</button>
+                <span class="vc-mc-spacer"></span>
+                <span class="vc-mc-sun" id="bag-sun">☀ 0</span>
+                <button type="button" class="vc-mc-lock" id="parent-lock-btn" title="家长锁">🔓</button>
+                <button type="button" class="vc-mc-lock" id="bag-close-btn" title="关闭 (E)">✕</button>
+            </div>
+            <div class="vc-mc-body" id="tab-craft">
+                <div class="vc-mc-craftrow">
+                    <div class="vc-craft-grid size2" id="craft-grid"></div>
+                    <span class="vc-craft-arrow">➜</span>
+                    <button type="button" class="vc-mc-slot vc-craft-out" id="craft-out" title="点一下拿走产物"></button>
+                    <small class="vc-craft-size" id="craft-size-label">2×2</small>
+                </div>
+                <div class="vc-mc-inv" id="bag-grid"></div>
+            </div>
+            <div class="vc-mc-body is-hidden" id="tab-book">
+                <div class="vc-mc-rows" id="recipe-grid"></div>
+            </div>
+            <div class="vc-mc-body is-hidden" id="tab-smelt">
+                <div class="vc-mc-rows" id="smelt-grid"></div>
+            </div>
+            <div class="vc-mc-body is-hidden" id="tab-shop">
+                <div class="vc-mc-rows" id="shop-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="vc-layer is-hidden" id="settle-layer" role="dialog" aria-label="任务结算">
+        <div class="vc-panel vc-settle">
+            <p class="vc-kicker">任务完成</p>
+            <h3 id="settle-title"></h3>
+            <p class="vc-gain" id="settle-gain"></p>
+            <p class="vc-line" id="settle-progress"></p>
+            <p class="vc-line" id="settle-next"></p>
+            <button type="button" class="vc-btn vc-primary" id="settle-close-btn">继续探险</button>
+        </div>
+    </div>
+
+    <div class="vc-layer is-hidden" id="rankup-layer" role="dialog" aria-label="升段仪式">
+        <div class="vc-panel vc-settle">
+            <img class="vc-rank-img" src="./assets/mc/items/stone-pickaxe.png" alt="新镐子" id="rankup-img">
+            <p class="vc-kicker">段位提升</p>
+            <h3 id="rankup-title"></h3>
+            <p class="vc-line" id="rankup-sub"></p>
+            <button type="button" class="vc-btn vc-primary" id="rankup-close-btn">收下</button>
+        </div>
+    </div>
+
+    <script src="../shared/workbench-bridge.js?v=20260815-sfx-v1"></script>
+    <script src="../shared/game-sfx.js?v=20260815-sfx-v1"></script>
+    <script src="./data/quests.js?v=20260815-craft-v22"></script>
+    <script src="./data/world.js?v=20260816-craft-v25"></script>
+    <script src="./engine.js?v=20260816-craft-v25"></script>
+    <script src="./game.js?v=20260816-craft-v25"></script>
+</div>
+</body>
+</html>

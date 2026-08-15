@@ -87,7 +87,23 @@
         return Math.max(1, Number(p.rank) || Math.min(5, 1 + Math.floor(n / 2)));
     }
 
+    /* MC 贴图优先（assets/mc，源自 cheyao/2d-minecraft，zlib）；无贴图的 kind 走原创像素图 */
+    const MC_TEX = {
+        grass: 'mc/blocks/grass-block.png',
+        dirt: 'mc/blocks/dirt.png',
+        stone: 'mc/blocks/stone.png',
+        wood: 'mc/blocks/oak-log.png',
+        leaf: 'mc/blocks/oak-leaves.png',
+        plank: 'mc/blocks/oak-planks.png',
+        coal: 'mc/blocks/coal-ore.png',
+        crystal: 'mc/blocks/diamond-ore.png',
+        wood_pick: 'mc/items/wooden-pickaxe.png',
+        stone_pick: 'mc/items/stone-pickaxe.png',
+        stick: 'mc/items/stick.png'
+    };
+
     function kindSrc(kind, size) {
+        if (MC_TEX[kind]) return './assets/' + MC_TEX[kind];
         const tiles = global.VoxelPixelTiles;
         if (!tiles) return '';
         if (tiles.kindIcon) return tiles.kindIcon(kind, size || 48);

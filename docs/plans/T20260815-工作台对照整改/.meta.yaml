@@ -1,0 +1,36 @@
+task_id: "T20260815-工作台对照整改"
+title: "对照《什么是真正的工作台》整改三套工作台（成人/儿童/幼儿），不改独立游戏"
+status: "review"
+priority: "P0"
+phase: "w1-w3-review"
+assignee: ""
+created: "2026-08-15"
+completed: ""
+depends_on: []
+estimated_hours: 8
+actual_hours: 0
+files:
+  - path: "prj/app.js"
+    change_type: "modify"
+  - path: "prj/config.js"
+    change_type: "modify"
+  - path: "prj/css/adult.css"
+    change_type: "modify"
+  - path: "prj/css/child.css"
+    change_type: "modify"
+  - path: "tests/workbench-contract.test.mjs"
+    change_type: "modify"
+  - path: "tests/child-workbench-ui.test.mjs"
+    change_type: "modify"
+acceptance:
+  - "W1：成人首页主路径不再是习惯打勾；主 CTA 指向真实下一步（写记录/阅读/复盘）"
+  - "W2：儿童今日页主路径不再是「先打卡再玩耍」；有练习/课程映射的项走去学习"
+  - "W3：幼儿/儿童设置页能一键导出本周结构化总结（本地 Markdown，不联网）"
+  - "红线：不改 games/ 下任何游戏；不新增激励货币；不新增 localStorage 主 key"
+tags:
+  - workbench
+  - adult
+  - child
+  - preschool
+  - true-workbench
+notes: "这才是对照文章的主包。前一包 T20260815-真正的工作台整改 把 A1 做成了 blocklegend 词学回流，偏题；该改动可保留但不算本包范围。"

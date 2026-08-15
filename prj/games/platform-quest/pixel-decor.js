@@ -2,7 +2,7 @@
     'use strict';
 
     /**
-     * 横版闯关 · Paper-MC 风原创像素装饰（与 voxel-adventure/pixel-tiles.js 同调色板）。
+     * 横版闯关 · Paper-MC 风原创像素装饰（与 shared/pixel-tiles.js 同调色板）。
      * 艺术像素 = 2 屏幕像素；所有 painter 直接画到主 ctx，整数对齐。
      */
     const P = 2;
@@ -360,16 +360,17 @@
         }
     }
 
-    function checkpoint(ctx, x, y, w, h, saved) {
+    function checkpoint(ctx, x, y, w, h, saved, raise) {
         // 小旗标记杆(放在检查点区左侧)
         const px0 = Math.round(x + w / 2 - 2);
+        const lift = saved ? Math.round((raise == null ? 1 : raise) * 18) : 0;
         fill(ctx, px0, y + h - 30, 3, 30, C.pole);
         fill(ctx, px0, y + h - 30, 1, 30, C.poleHi);
         const base = saved ? C.goldHi : '#7ec8ff';
         const edge = saved ? C.gold : '#3d7bdc';
-        fill(ctx, px0 + 3, y + h - 30, 14, 9, base);
-        fill(ctx, px0 + 3, y + h - 30, 14, 2, edge);
-        fill(ctx, px0 + 3, y + h - 23, 14, 2, edge);
+        fill(ctx, px0 + 3, y + h - 30 - lift, 14, 9, base);
+        fill(ctx, px0 + 3, y + h - 30 - lift, 14, 2, edge);
+        fill(ctx, px0 + 3, y + h - 23 - lift, 14, 2, edge);
     }
 
     window.PlatformPixelDecor = {

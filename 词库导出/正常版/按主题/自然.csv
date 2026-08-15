@@ -1,0 +1,8 @@
+﻿id,word,zh,theme,level,phrase,phraseZh,category,group,image,audio,art,hasImage,hasAudio
+english-word-92,cloud,云,自然,L1,A white cloud is in the sky.,天上有一朵白云。,,,图片/cloud.png,,emoji:☁️,yes,no
+english-word-14,moon,月亮,自然,L1,I see the moon.,我看见月亮。,,,,,emoji:🌙,no,no
+english-word-127,rain,雨,自然,L1,The rain is falling.,下雨了。,,,图片/rain.png,,emoji:🌧️,yes,no
+english-word-134,snow,雪,自然,L1,The snow is white.,雪是白色的。,,,图片/snow.png,,emoji:❄,yes,no
+english-word-15,star,星星,自然,L1,A star is bright.,星星亮晶晶。,,,,,emoji:⭐,no,no
+english-word-13,sun,太阳,自然,L1,The sun is big.,太阳很大。,,,,音频/sun.mp3,emoji:☀,no,yes
+english-word-142,wind,风,自然,L1,The wind is soft.,风轻轻的。,,,,,emoji:💨,no,no

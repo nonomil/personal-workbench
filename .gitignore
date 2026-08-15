@@ -14,6 +14,7 @@ tmp/
 _site*/
 *.log
 .worktrees/
+.zcode/
 
 # Local secrets and machine-specific configuration
 .env
@@ -45,6 +46,11 @@ prj/assets/vocab/wordquest-vocab-2026.08.15/
 
 # 本地分析草稿，不入库
 .tmp-analysis/
+.tmp/
+
+# 词库导出里的图/音频是 prj/assets 副本，词表文本可入库
+词库导出/**/图片/
+词库导出/**/音频/
 
 # 本地专用游戏素材(商标形象,仅本地自用,不入库不发布)
 prj/games/ref/

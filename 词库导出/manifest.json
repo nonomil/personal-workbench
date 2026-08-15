@@ -1,0 +1,21 @@
+{
+  "exportedAt": "2026-08-15",
+  "source": {
+    "core": "prj/data/preschool/英语/vocabulary-bank.json",
+    "minecraft": "prj/data/preschool/英语/minecraft-bank.json"
+  },
+  "正常版": {
+    "name": "正常版 · 生活英语",
+    "words": 597,
+    "images": 101,
+    "audio": 33,
+    "themes": 13
+  },
+  "我的世界版": {
+    "name": "我的世界版 · 兴趣英语",
+    "words": 324,
+    "images": 324,
+    "audio": 110,
+    "themes": 13
+  }
+}

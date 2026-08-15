@@ -1,0 +1,7 @@
+﻿id,word,zh,theme,level,phrase,phraseZh,category,group,image,audio,art,hasImage,hasAudio
+mc-swamp,swamp,沼泽,生物群系,MC-D1,We build a lookout in the swamp.,我们在swamp里建了一个瞭望台。,biome,去探索swamp,图片/swamp.png,,none,yes,no
+mc-taiga,taiga,针叶林,生物群系,MC-D1,We explore the taiga after breakfast.,吃完早饭我们去探索taiga。,biome,去探索taiga,图片/taiga.png,,none,yes,no
+mc-biomes,biomes,生物群系,生物群系,MC-D2,The biomes is full of new plants to discover.,biomes里有很多新植物可以看。,biome,去探索biomes,图片/biomes.png,,none,yes,no
+mc-nether,nether,下界,生物群系,MC-D2,Our camp sits at the edge of the nether.,我们的营地在nether边上。,biome,去探索nether,图片/nether.png,,none,yes,no
+mc-plains,plains,平原,生物群系,MC-D2,We mark the plains on our map.,我们在地图上标出plains。,biome,去探索plains,图片/plains.png,,none,yes,no
+mc-savanna,savanna,热带草原,生物群系,MC-D2,We listen for new sounds in the savanna.,我们在savanna里听有没有新声音。,biome,去探索savanna,图片/savanna.png,,none,yes,no

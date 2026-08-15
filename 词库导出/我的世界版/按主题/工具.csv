@@ -1,0 +1,6 @@
+﻿id,word,zh,theme,level,phrase,phraseZh,category,group,image,audio,art,hasImage,hasAudio
+mc-axe,axe,斧,工具,MC-D1,I lend the axe to my teammate.,我把axe借给队友。,tool,用一把axe,图片/axe.png,,none,yes,no
+mc-hoe,hoe,锄,工具,MC-D1,I lend the hoe to my teammate.,我把hoe借给队友。,tool,用一把hoe,图片/hoe.png,,none,yes,no
+mc-pickaxe,pickaxe,镐,工具,MC-D2,The pickaxe helps us reach the high ledge.,pickaxe帮我们爬上高台。,tool,用一把pickaxe,图片/pickaxe.png,音频/pickaxe.mp3,none,yes,yes
+mc-shears,shears,剪刀,工具,MC-D2,I use the shears to gather materials.,我用shears去收集材料。,tool,用一把shears,图片/shears.png,,none,yes,no
+mc-shovel,shovel,锹,工具,MC-D2,I use the shovel to gather materials.,我用shovel去收集材料。,tool,用一把shovel,图片/shovel.png,音频/shovel.mp3,none,yes,yes

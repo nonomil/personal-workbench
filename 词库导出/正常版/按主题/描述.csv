@@ -1,0 +1,25 @@
+﻿id,word,zh,theme,level,phrase,phraseZh,category,group,image,audio,art,hasImage,hasAudio
+english-word-30,big,大,描述,L1,A big dog runs.,一只大狗在跑。,,,,,emoji:🐘,no,no
+english-word-165,down,向下,描述,L1,"Sit down, please.",请坐下。,,,,,emoji:⬇️,no,no
+english-word-100,eight,八,描述,L1,I see eight stars.,我看见八颗星星。,,,图片/eight.png,,emoji:8️⃣,yes,no
+english-word-102,five,五,描述,L1,I am five years old.,我五岁了。,,,,,emoji:5️⃣,no,no
+english-word-103,four,四,描述,L1,I see four birds.,我看见四只鸟。,,,,,emoji:4️⃣,no,no
+english-word-172,funny,有趣,描述,L1,The monkey is funny.,猴子很有趣。,,,,,emoji:🐵,no,no
+english-word-178,happy,开心,描述,L1,I am happy.,我很高兴。,,,,,emoji:😄,no,no
+english-word-147,hungry,饿,描述,L1,Are you hungry?,你饿了吗？,,,,,emoji:🍽,no,no
+english-word-166,little,小的,描述,L1,I see a little cat.,我看见一只小猫。,,,,,emoji:🐣,no,no
+english-word-60,long,长,描述,L1,The road is long.,这条路很长。,,,,,emoji:🐍,no,no
+english-word-61,new,新,描述,L1,I have a new bag.,我有一个新书包。,,,图片/new.png,,emoji:✨,yes,no
+english-word-117,nine,九,描述,L1,I count to nine.,我数到九。,,,,,emoji:9️⃣,no,no
+english-word-62,old,旧,描述,L1,How old are you?,你几岁啦？,,,,,emoji:👴,no,no
+english-word-75,one,一,描述,L1,I have one book.,我有一本书。,,,,,emoji:1️⃣,no,no
+english-word-128,seven,七,描述,L1,I see seven ducks.,我看见七只鸭子。,,,,,emoji:7️⃣,no,no
+english-word-59,short,矮,描述,L1,The cat is short.,这只猫很矮。,,,,,emoji:🐖,no,no
+english-word-132,six,六,描述,L1,I have six crayons.,我有六支蜡笔。,,,,,emoji:6️⃣,no,no
+english-word-29,small,小,描述,L1,A small bird sings.,一只小鸟在唱歌。,,,,,emoji:🐭,no,no
+english-word-58,tall,高,描述,L1,The tree is tall.,这棵树很高。,,,,,emoji:🦒,no,no
+english-word-137,ten,十,描述,L1,I count to ten.,我数到十。,,,,,emoji:🔟,no,no
+english-word-158,thirsty,渴,描述,L1,I am thirsty.,我渴了。,,,,,emoji:🥤,no,no
+english-word-77,three,三,描述,L1,I have three apples.,我有三个苹果。,,,图片/three.png,,emoji:🌟,yes,no
+english-word-76,two,二,描述,L1,I see two birds.,我看见两只鸟。,,,,,emoji:2️⃣,no,no
+english-word-164,up,向上,描述,L1,Good morning! Time to get up!,早上好！该起床啦！,,,,,emoji:⬆️,no,no
