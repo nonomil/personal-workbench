@@ -1,947 +1,2063 @@
 [
   {
     "id": "pinyin-initial-b",
+    "kind": "pinyin",
     "text": "b",
-    "initial": "b",
-    "sample": "爸",
-    "pinyin": "bà",
-    "kind": "initial",
-    "group": "lips",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "爸",
+    "theme": "lips",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L1"
+    "source": "base-63",
+    "extra": {
+      "initial": "b",
+      "sample": "爸",
+      "pinyin": "bà",
+      "kind": "initial",
+      "group": "lips",
+      "homophones": [
+        "八",
+        "不",
+        "部",
+        "步",
+        "布",
+        "比",
+        "笔",
+        "彼",
+        "贝",
+        "备",
+        "本",
+        "北",
+        "白",
+        "包",
+        "半",
+        "百",
+        "冰",
+        "兵",
+        "爸"
+      ],
+      "nearPhones": [
+        "pi",
+        "ping"
+      ]
+    }
   },
   {
     "id": "pinyin-initial-p",
+    "kind": "pinyin",
     "text": "p",
-    "initial": "p",
-    "sample": "皮",
-    "pinyin": "pí",
-    "kind": "initial",
-    "group": "lips",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "皮",
+    "theme": "lips",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L1"
+    "source": "base-63",
+    "extra": {
+      "initial": "p",
+      "sample": "皮",
+      "pinyin": "pí",
+      "kind": "initial",
+      "group": "lips",
+      "homophones": [
+        "片",
+        "平",
+        "皮",
+        "朋"
+      ],
+      "nearPhones": [
+        "bing",
+        "bi"
+      ]
+    }
   },
   {
     "id": "pinyin-initial-m",
+    "kind": "pinyin",
     "text": "m",
-    "initial": "m",
-    "sample": "妈",
-    "pinyin": "mā",
-    "kind": "initial",
-    "group": "lips",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "妈",
+    "theme": "lips",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L1"
+    "source": "base-63",
+    "extra": {
+      "initial": "m",
+      "sample": "妈",
+      "pinyin": "mā",
+      "kind": "initial",
+      "group": "lips",
+      "homophones": [
+        "门",
+        "马",
+        "木",
+        "目",
+        "毛",
+        "们",
+        "母",
+        "米",
+        "妈",
+        "明",
+        "名"
+      ],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-initial-f",
+    "kind": "pinyin",
     "text": "f",
-    "initial": "f",
-    "sample": "飞",
-    "pinyin": "fēi",
-    "kind": "initial",
-    "group": "lips",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "飞",
+    "theme": "lips",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L1"
+    "source": "base-63",
+    "extra": {
+      "initial": "f",
+      "sample": "飞",
+      "pinyin": "fēi",
+      "kind": "initial",
+      "group": "lips",
+      "homophones": [
+        "飞",
+        "非",
+        "反",
+        "父",
+        "富",
+        "妇",
+        "分",
+        "风",
+        "丰",
+        "方",
+        "饭"
+      ],
+      "nearPhones": [
+        "hu"
+      ]
+    }
   },
   {
     "id": "pinyin-initial-d",
+    "kind": "pinyin",
     "text": "d",
-    "initial": "d",
-    "sample": "大",
-    "pinyin": "dà",
-    "kind": "initial",
-    "group": "tip",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "大",
+    "theme": "tip",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L1"
+    "source": "base-63",
+    "extra": {
+      "initial": "d",
+      "sample": "大",
+      "pinyin": "dà",
+      "kind": "initial",
+      "group": "tip",
+      "homophones": [
+        "刀",
+        "大",
+        "打",
+        "旦",
+        "电",
+        "店",
+        "冬",
+        "东",
+        "动",
+        "地",
+        "第",
+        "弟",
+        "当",
+        "多",
+        "灯",
+        "登"
+      ],
+      "nearPhones": [
+        "ta",
+        "tian",
+        "tong"
+      ]
+    }
   },
   {
     "id": "pinyin-initial-t",
+    "kind": "pinyin",
     "text": "t",
-    "initial": "t",
-    "sample": "土",
-    "pinyin": "tǔ",
-    "kind": "initial",
-    "group": "tip",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "土",
+    "theme": "tip",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L1"
+    "source": "base-63",
+    "extra": {
+      "initial": "t",
+      "sample": "土",
+      "pinyin": "tǔ",
+      "kind": "initial",
+      "group": "tip",
+      "homophones": [
+        "土",
+        "天",
+        "太",
+        "田",
+        "他",
+        "她",
+        "同",
+        "童",
+        "听"
+      ],
+      "nearPhones": [
+        "dian",
+        "da",
+        "dong"
+      ]
+    }
   },
   {
     "id": "pinyin-initial-n",
+    "kind": "pinyin",
     "text": "n",
-    "initial": "n",
-    "sample": "你",
-    "pinyin": "nǐ",
-    "kind": "initial",
-    "group": "tip",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "你",
+    "theme": "tip",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L1"
+    "source": "base-63",
+    "extra": {
+      "initial": "n",
+      "sample": "你",
+      "pinyin": "nǐ",
+      "kind": "initial",
+      "group": "tip",
+      "homophones": [
+        "女",
+        "内",
+        "牛",
+        "鸟",
+        "奶",
+        "年",
+        "你"
+      ],
+      "nearPhones": [
+        "liu",
+        "lai",
+        "li"
+      ]
+    }
   },
   {
     "id": "pinyin-initial-l",
+    "kind": "pinyin",
     "text": "l",
-    "initial": "l",
-    "sample": "乐",
-    "pinyin": "lè",
-    "kind": "initial",
-    "group": "tip",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "乐",
+    "theme": "tip",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L1"
+    "source": "base-63",
+    "extra": {
+      "initial": "l",
+      "sample": "乐",
+      "pinyin": "lè",
+      "kind": "initial",
+      "group": "tip",
+      "homophones": [
+        "了",
+        "力",
+        "立",
+        "利",
+        "例",
+        "历",
+        "六",
+        "老",
+        "来",
+        "里",
+        "礼",
+        "理"
+      ],
+      "nearPhones": [
+        "ni",
+        "ri",
+        "niu",
+        "nai"
+      ]
+    }
   },
   {
     "id": "pinyin-initial-g",
+    "kind": "pinyin",
     "text": "g",
-    "initial": "g",
-    "sample": "哥",
-    "pinyin": "gē",
-    "kind": "initial",
-    "group": "root",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "哥",
+    "theme": "root",
+    "level": "L2",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-63",
+    "extra": {
+      "initial": "g",
+      "sample": "哥",
+      "pinyin": "gē",
+      "kind": "initial",
+      "group": "root",
+      "homophones": [
+        "干",
+        "工",
+        "公",
+        "功",
+        "弓",
+        "个",
+        "各",
+        "广",
+        "古",
+        "骨",
+        "谷",
+        "瓜",
+        "共",
+        "过",
+        "光",
+        "关",
+        "官",
+        "观",
+        "果",
+        "国",
+        "狗"
+      ],
+      "nearPhones": [
+        "ke",
+        "kou"
+      ]
+    }
   },
   {
     "id": "pinyin-initial-k",
+    "kind": "pinyin",
     "text": "k",
-    "initial": "k",
-    "sample": "可",
-    "pinyin": "kě",
-    "kind": "initial",
-    "group": "root",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "可",
+    "theme": "root",
+    "level": "L2",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-63",
+    "extra": {
+      "initial": "k",
+      "sample": "可",
+      "pinyin": "kě",
+      "kind": "initial",
+      "group": "root",
+      "homophones": [
+        "口",
+        "开",
+        "可"
+      ],
+      "nearPhones": [
+        "gou",
+        "ge"
+      ]
+    }
   },
   {
     "id": "pinyin-initial-h",
+    "kind": "pinyin",
     "text": "h",
-    "initial": "h",
-    "sample": "火",
-    "pinyin": "huǒ",
-    "kind": "initial",
-    "group": "root",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "火",
+    "theme": "root",
+    "level": "L2",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-63",
+    "extra": {
+      "initial": "h",
+      "sample": "火",
+      "pinyin": "huǒ",
+      "kind": "initial",
+      "group": "root",
+      "homophones": [
+        "火",
+        "户",
+        "禾",
+        "合",
+        "和",
+        "河",
+        "何",
+        "回",
+        "后",
+        "厚",
+        "会",
+        "惠",
+        "好",
+        "红",
+        "花"
+      ],
+      "nearPhones": [
+        "fu"
+      ]
+    }
   },
   {
     "id": "pinyin-initial-j",
+    "kind": "pinyin",
     "text": "j",
-    "initial": "j",
-    "sample": "鸡",
-    "pinyin": "jī",
-    "kind": "initial",
-    "group": "palatal",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "鸡",
+    "theme": "palatal",
+    "level": "L2",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-63",
+    "extra": {
+      "initial": "j",
+      "sample": "鸡",
+      "pinyin": "jī",
+      "kind": "initial",
+      "group": "palatal",
+      "homophones": [
+        "几",
+        "己",
+        "九",
+        "酒",
+        "久",
+        "巾",
+        "今",
+        "金",
+        "见",
+        "建",
+        "叫",
+        "教",
+        "加",
+        "家",
+        "机",
+        "基",
+        "交",
+        "江",
+        "将",
+        "进",
+        "近",
+        "禁",
+        "间",
+        "坚"
+      ],
+      "nearPhones": [
+        "qi",
+        "xi",
+        "xin",
+        "qian",
+        "xian",
+        "xiao",
+        "xia",
+        "xiang"
+      ]
+    }
   },
   {
     "id": "pinyin-initial-q",
+    "kind": "pinyin",
     "text": "q",
-    "initial": "q",
-    "sample": "七",
-    "pinyin": "qī",
-    "kind": "initial",
-    "group": "palatal",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "七",
+    "theme": "palatal",
+    "level": "L2",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-63",
+    "extra": {
+      "initial": "q",
+      "sample": "七",
+      "pinyin": "qī",
+      "kind": "initial",
+      "group": "palatal",
+      "homophones": [
+        "七",
+        "期",
+        "妻",
+        "千",
+        "切",
+        "气",
+        "去",
+        "全",
+        "泉",
+        "权",
+        "青",
+        "轻",
+        "清"
+      ],
+      "nearPhones": [
+        "ji",
+        "xi",
+        "jian",
+        "xian",
+        "xing"
+      ]
+    }
   },
   {
     "id": "pinyin-initial-x",
+    "kind": "pinyin",
     "text": "x",
-    "initial": "x",
-    "sample": "西",
-    "pinyin": "xī",
-    "kind": "initial",
-    "group": "palatal",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "西",
+    "theme": "palatal",
+    "level": "L2",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-63",
+    "extra": {
+      "initial": "x",
+      "sample": "西",
+      "pinyin": "xī",
+      "kind": "initial",
+      "group": "palatal",
+      "homophones": [
+        "下",
+        "夏",
+        "小",
+        "习",
+        "席",
+        "心",
+        "新",
+        "辛",
+        "先",
+        "鲜",
+        "向",
+        "行",
+        "形"
+      ],
+      "nearPhones": [
+        "jia",
+        "jiao",
+        "ji",
+        "qi",
+        "jin",
+        "jian",
+        "qian",
+        "jiang",
+        "qing"
+      ]
+    }
   },
   {
     "id": "pinyin-initial-zh",
+    "kind": "pinyin",
     "text": "zh",
-    "initial": "zh",
-    "sample": "知",
-    "pinyin": "zhī",
-    "kind": "initial",
-    "group": "retroflex",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "知",
+    "theme": "retroflex",
+    "level": "L2",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-63",
+    "extra": {
+      "initial": "zh",
+      "sample": "知",
+      "pinyin": "zhī",
+      "kind": "initial",
+      "group": "retroflex",
+      "homophones": [
+        "止",
+        "纸",
+        "指",
+        "中",
+        "钟",
+        "终",
+        "爪",
+        "正",
+        "证",
+        "政",
+        "主",
+        "竹"
+      ],
+      "nearPhones": [
+        "zi",
+        "chi",
+        "chong",
+        "zao",
+        "chu"
+      ]
+    }
   },
   {
     "id": "pinyin-initial-ch",
+    "kind": "pinyin",
     "text": "ch",
-    "initial": "ch",
-    "sample": "吃",
-    "pinyin": "chī",
-    "kind": "initial",
-    "group": "retroflex",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "吃",
+    "theme": "retroflex",
+    "level": "L2",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-63",
+    "extra": {
+      "initial": "ch",
+      "sample": "吃",
+      "pinyin": "chī",
+      "kind": "initial",
+      "group": "retroflex",
+      "homophones": [
+        "厂",
+        "场",
+        "车",
+        "长",
+        "常",
+        "出",
+        "初",
+        "虫",
+        "崇",
+        "吃",
+        "床"
+      ],
+      "nearPhones": [
+        "ce",
+        "zhu",
+        "zhong",
+        "cong",
+        "zhi"
+      ]
+    }
   },
   {
     "id": "pinyin-initial-sh",
+    "kind": "pinyin",
     "text": "sh",
-    "initial": "sh",
-    "sample": "师",
-    "pinyin": "shī",
-    "kind": "initial",
-    "group": "retroflex",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "师",
+    "theme": "retroflex",
+    "level": "L2",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-63",
+    "extra": {
+      "initial": "sh",
+      "sample": "师",
+      "pinyin": "shī",
+      "kind": "initial",
+      "group": "retroflex",
+      "homophones": [
+        "十",
+        "石",
+        "时",
+        "拾",
+        "识",
+        "实",
+        "上",
+        "山",
+        "少",
+        "水",
+        "手",
+        "首",
+        "守",
+        "双",
+        "书",
+        "生",
+        "声",
+        "市",
+        "是",
+        "事",
+        "试",
+        "室",
+        "式"
+      ],
+      "nearPhones": [
+        "si",
+        "san"
+      ]
+    }
   },
   {
     "id": "pinyin-initial-r",
+    "kind": "pinyin",
     "text": "r",
-    "initial": "r",
-    "sample": "日",
-    "pinyin": "rì",
-    "kind": "initial",
-    "group": "retroflex",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "日",
+    "theme": "retroflex",
+    "level": "L2",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-63",
+    "extra": {
+      "initial": "r",
+      "sample": "日",
+      "pinyin": "rì",
+      "kind": "initial",
+      "group": "retroflex",
+      "homophones": [
+        "人",
+        "入",
+        "日",
+        "让",
+        "肉"
+      ],
+      "nearPhones": [
+        "li"
+      ]
+    }
   },
   {
     "id": "pinyin-initial-z",
+    "kind": "pinyin",
     "text": "z",
-    "initial": "z",
-    "sample": "字",
-    "pinyin": "zì",
-    "kind": "initial",
-    "group": "dental",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "字",
+    "theme": "dental",
+    "level": "L2",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-63",
+    "extra": {
+      "initial": "z",
+      "sample": "字",
+      "pinyin": "zì",
+      "kind": "initial",
+      "group": "dental",
+      "homophones": [
+        "子",
+        "止",
+        "纸",
+        "指",
+        "中",
+        "钟",
+        "终",
+        "爪",
+        "正",
+        "证",
+        "政",
+        "左",
+        "主",
+        "在",
+        "再",
+        "早",
+        "竹",
+        "自",
+        "字",
+        "走"
+      ],
+      "nearPhones": [
+        "zhi",
+        "zi",
+        "chi",
+        "chong",
+        "zao",
+        "chu",
+        "cai",
+        "zhao"
+      ]
+    }
   },
   {
     "id": "pinyin-initial-c",
+    "kind": "pinyin",
     "text": "c",
-    "initial": "c",
-    "sample": "草",
-    "pinyin": "cǎo",
-    "kind": "initial",
-    "group": "dental",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "草",
+    "theme": "dental",
+    "level": "L2",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-63",
+    "extra": {
+      "initial": "c",
+      "sample": "草",
+      "pinyin": "cǎo",
+      "kind": "initial",
+      "group": "dental",
+      "homophones": [
+        "厂",
+        "场",
+        "才",
+        "材",
+        "财",
+        "车",
+        "长",
+        "常",
+        "从",
+        "册",
+        "出",
+        "初",
+        "虫",
+        "崇",
+        "吃",
+        "床"
+      ],
+      "nearPhones": [
+        "zai",
+        "ce",
+        "chong",
+        "che",
+        "zhu",
+        "zhong",
+        "cong",
+        "zhi"
+      ]
+    }
   },
   {
     "id": "pinyin-initial-s",
+    "kind": "pinyin",
     "text": "s",
-    "initial": "s",
-    "sample": "丝",
-    "pinyin": "sī",
-    "kind": "initial",
-    "group": "dental",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "丝",
+    "theme": "dental",
+    "level": "L2",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-63",
+    "extra": {
+      "initial": "s",
+      "sample": "丝",
+      "pinyin": "sī",
+      "kind": "initial",
+      "group": "dental",
+      "homophones": [
+        "十",
+        "石",
+        "时",
+        "拾",
+        "识",
+        "实",
+        "三",
+        "上",
+        "山",
+        "少",
+        "水",
+        "手",
+        "首",
+        "守",
+        "双",
+        "书",
+        "四",
+        "寺",
+        "生",
+        "声",
+        "市",
+        "是",
+        "事",
+        "试",
+        "室",
+        "式"
+      ],
+      "nearPhones": [
+        "si",
+        "shan",
+        "san",
+        "shi"
+      ]
+    }
   },
   {
     "id": "pinyin-initial-y",
+    "kind": "pinyin",
     "text": "y",
-    "initial": "y",
-    "sample": "衣",
-    "pinyin": "yī",
-    "kind": "initial",
-    "group": "semi",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "衣",
+    "theme": "semi",
+    "level": "L2",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-63",
+    "extra": {
+      "initial": "y",
+      "sample": "衣",
+      "pinyin": "yī",
+      "kind": "initial",
+      "group": "semi",
+      "homophones": [
+        "一",
+        "衣",
+        "依",
+        "医",
+        "又",
+        "右",
+        "也",
+        "野",
+        "元",
+        "圆",
+        "原",
+        "园",
+        "云",
+        "友",
+        "有",
+        "牙",
+        "月",
+        "玉",
+        "遇",
+        "育",
+        "欲",
+        "用",
+        "页",
+        "夜",
+        "业",
+        "叶",
+        "爷",
+        "羊",
+        "阳",
+        "洋",
+        "扬",
+        "阴",
+        "因",
+        "音",
+        "羽",
+        "雨",
+        "与",
+        "语",
+        "远",
+        "鱼",
+        "余"
+      ],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-initial-w",
+    "kind": "pinyin",
     "text": "w",
-    "initial": "w",
-    "sample": "乌",
-    "pinyin": "wū",
-    "kind": "initial",
-    "group": "semi",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "乌",
+    "theme": "semi",
+    "level": "L2",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-63",
+    "extra": {
+      "initial": "w",
+      "sample": "乌",
+      "pinyin": "wū",
+      "kind": "initial",
+      "group": "semi",
+      "homophones": [
+        "王",
+        "亡",
+        "五",
+        "午",
+        "舞",
+        "武",
+        "文",
+        "闻",
+        "外",
+        "网",
+        "往",
+        "问",
+        "我",
+        "玩",
+        "完"
+      ],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-final-a",
+    "kind": "pinyin",
     "text": "a",
-    "initial": "",
-    "sample": "啊",
-    "pinyin": "ā",
-    "kind": "final",
-    "group": "simple",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "啊",
+    "theme": "simple",
+    "level": "L3",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L3"
+    "source": "base-63",
+    "extra": {
+      "initial": "a",
+      "sample": "啊",
+      "pinyin": "ā",
+      "kind": "final",
+      "group": "simple",
+      "homophones": [],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-final-o",
+    "kind": "pinyin",
     "text": "o",
-    "initial": "",
-    "sample": "哦",
-    "pinyin": "ó",
-    "kind": "final",
-    "group": "simple",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "哦",
+    "theme": "simple",
+    "level": "L3",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L3"
+    "source": "base-63",
+    "extra": {
+      "initial": "o",
+      "sample": "哦",
+      "pinyin": "ó",
+      "kind": "final",
+      "group": "simple",
+      "homophones": [],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-final-e",
+    "kind": "pinyin",
     "text": "e",
-    "initial": "",
-    "sample": "鹅",
-    "pinyin": "é",
-    "kind": "final",
-    "group": "simple",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "鹅",
+    "theme": "simple",
+    "level": "L3",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L3"
+    "source": "base-63",
+    "extra": {
+      "initial": "e",
+      "sample": "鹅",
+      "pinyin": "é",
+      "kind": "final",
+      "group": "simple",
+      "homophones": [
+        "二",
+        "儿",
+        "耳"
+      ],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-final-i",
+    "kind": "pinyin",
     "text": "i",
-    "initial": "",
-    "sample": "衣",
-    "pinyin": "yī",
-    "kind": "final",
-    "group": "simple",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "衣",
+    "theme": "simple",
+    "level": "L3",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L3"
+    "source": "base-63",
+    "extra": {
+      "initial": "i",
+      "sample": "衣",
+      "pinyin": "yī",
+      "kind": "final",
+      "group": "simple",
+      "homophones": [],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-final-u",
+    "kind": "pinyin",
     "text": "u",
-    "initial": "",
-    "sample": "乌",
-    "pinyin": "wū",
-    "kind": "final",
-    "group": "simple",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "乌",
+    "theme": "simple",
+    "level": "L3",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L3"
+    "source": "base-63",
+    "extra": {
+      "initial": "u",
+      "sample": "乌",
+      "pinyin": "wū",
+      "kind": "final",
+      "group": "simple",
+      "homophones": [],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-final-ü",
+    "kind": "pinyin",
     "text": "ü",
-    "initial": "",
-    "sample": "鱼",
-    "pinyin": "yú",
-    "kind": "final",
-    "group": "simple",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "鱼",
+    "theme": "simple",
+    "level": "L3",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L3"
+    "source": "base-63",
+    "extra": {
+      "initial": "ü",
+      "sample": "鱼",
+      "pinyin": "yú",
+      "kind": "final",
+      "group": "simple",
+      "homophones": [],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-final-ai",
+    "kind": "pinyin",
     "text": "ai",
-    "initial": "",
-    "sample": "爱",
-    "pinyin": "ài",
-    "kind": "final",
-    "group": "compound",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "爱",
+    "theme": "compound",
+    "level": "L3",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L3"
+    "source": "base-63",
+    "extra": {
+      "initial": "ai",
+      "sample": "爱",
+      "pinyin": "ài",
+      "kind": "final",
+      "group": "compound",
+      "homophones": [],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-final-ei",
+    "kind": "pinyin",
     "text": "ei",
-    "initial": "",
-    "sample": "诶",
-    "pinyin": "ēi",
-    "kind": "final",
-    "group": "compound",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "诶",
+    "theme": "compound",
+    "level": "L3",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L3"
+    "source": "base-63",
+    "extra": {
+      "initial": "ei",
+      "sample": "诶",
+      "pinyin": "ēi",
+      "kind": "final",
+      "group": "compound",
+      "homophones": [],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-final-ui",
+    "kind": "pinyin",
     "text": "ui",
-    "initial": "",
-    "sample": "喂",
-    "pinyin": "wèi",
-    "kind": "final",
-    "group": "compound",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "喂",
+    "theme": "compound",
+    "level": "L3",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L3"
+    "source": "base-63",
+    "extra": {
+      "initial": "ui",
+      "sample": "喂",
+      "pinyin": "wèi",
+      "kind": "final",
+      "group": "compound",
+      "homophones": [],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-final-ao",
+    "kind": "pinyin",
     "text": "ao",
-    "initial": "",
-    "sample": "袄",
-    "pinyin": "ǎo",
-    "kind": "final",
-    "group": "compound",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "袄",
+    "theme": "compound",
+    "level": "L3",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L3"
+    "source": "base-63",
+    "extra": {
+      "initial": "ao",
+      "sample": "袄",
+      "pinyin": "ǎo",
+      "kind": "final",
+      "group": "compound",
+      "homophones": [],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-final-ou",
+    "kind": "pinyin",
     "text": "ou",
-    "initial": "",
-    "sample": "欧",
-    "pinyin": "ōu",
-    "kind": "final",
-    "group": "compound",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "欧",
+    "theme": "compound",
+    "level": "L3",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L3"
+    "source": "base-63",
+    "extra": {
+      "initial": "ou",
+      "sample": "欧",
+      "pinyin": "ōu",
+      "kind": "final",
+      "group": "compound",
+      "homophones": [],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-final-iu",
+    "kind": "pinyin",
     "text": "iu",
-    "initial": "",
-    "sample": "优",
-    "pinyin": "yōu",
-    "kind": "final",
-    "group": "compound",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "优",
+    "theme": "compound",
+    "level": "L3",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L3"
+    "source": "base-63",
+    "extra": {
+      "initial": "iu",
+      "sample": "优",
+      "pinyin": "yōu",
+      "kind": "final",
+      "group": "compound",
+      "homophones": [],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-final-ie",
+    "kind": "pinyin",
     "text": "ie",
-    "initial": "",
-    "sample": "耶",
-    "pinyin": "yē",
-    "kind": "final",
-    "group": "compound",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "耶",
+    "theme": "compound",
+    "level": "L4",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-63",
+    "extra": {
+      "initial": "ie",
+      "sample": "耶",
+      "pinyin": "yē",
+      "kind": "final",
+      "group": "compound",
+      "homophones": [],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-final-üe",
+    "kind": "pinyin",
     "text": "üe",
-    "initial": "",
-    "sample": "月",
-    "pinyin": "yuè",
-    "kind": "final",
-    "group": "compound",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "月",
+    "theme": "compound",
+    "level": "L4",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-63",
+    "extra": {
+      "initial": "üe",
+      "sample": "月",
+      "pinyin": "yuè",
+      "kind": "final",
+      "group": "compound",
+      "homophones": [],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-final-er",
+    "kind": "pinyin",
     "text": "er",
-    "initial": "",
-    "sample": "耳",
-    "pinyin": "ěr",
-    "kind": "final",
-    "group": "special",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "耳",
+    "theme": "special",
+    "level": "L4",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-63",
+    "extra": {
+      "initial": "er",
+      "sample": "耳",
+      "pinyin": "ěr",
+      "kind": "final",
+      "group": "special",
+      "homophones": [
+        "二",
+        "儿",
+        "耳"
+      ],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-final-an",
+    "kind": "pinyin",
     "text": "an",
-    "initial": "",
-    "sample": "安",
-    "pinyin": "ān",
-    "kind": "final",
-    "group": "front-nasal",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "安",
+    "theme": "front-nasal",
+    "level": "L4",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-63",
+    "extra": {
+      "initial": "an",
+      "sample": "安",
+      "pinyin": "ān",
+      "kind": "final",
+      "group": "front-nasal",
+      "homophones": [],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-final-en",
+    "kind": "pinyin",
     "text": "en",
-    "initial": "",
-    "sample": "恩",
-    "pinyin": "ēn",
-    "kind": "final",
-    "group": "front-nasal",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "恩",
+    "theme": "front-nasal",
+    "level": "L4",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-63",
+    "extra": {
+      "initial": "en",
+      "sample": "恩",
+      "pinyin": "ēn",
+      "kind": "final",
+      "group": "front-nasal",
+      "homophones": [],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-final-in",
+    "kind": "pinyin",
     "text": "in",
-    "initial": "",
-    "sample": "因",
-    "pinyin": "yīn",
-    "kind": "final",
-    "group": "front-nasal",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "因",
+    "theme": "front-nasal",
+    "level": "L4",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-63",
+    "extra": {
+      "initial": "in",
+      "sample": "因",
+      "pinyin": "yīn",
+      "kind": "final",
+      "group": "front-nasal",
+      "homophones": [],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-final-un",
+    "kind": "pinyin",
     "text": "un",
-    "initial": "",
-    "sample": "温",
-    "pinyin": "wēn",
-    "kind": "final",
-    "group": "front-nasal",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "温",
+    "theme": "front-nasal",
+    "level": "L4",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-63",
+    "extra": {
+      "initial": "un",
+      "sample": "温",
+      "pinyin": "wēn",
+      "kind": "final",
+      "group": "front-nasal",
+      "homophones": [],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-final-ün",
+    "kind": "pinyin",
     "text": "ün",
-    "initial": "",
-    "sample": "云",
-    "pinyin": "yún",
-    "kind": "final",
-    "group": "front-nasal",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "云",
+    "theme": "front-nasal",
+    "level": "L4",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-63",
+    "extra": {
+      "initial": "ün",
+      "sample": "云",
+      "pinyin": "yún",
+      "kind": "final",
+      "group": "front-nasal",
+      "homophones": [],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-final-ang",
+    "kind": "pinyin",
     "text": "ang",
-    "initial": "",
-    "sample": "昂",
-    "pinyin": "áng",
-    "kind": "final",
-    "group": "back-nasal",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "昂",
+    "theme": "back-nasal",
+    "level": "L4",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-63",
+    "extra": {
+      "initial": "ang",
+      "sample": "昂",
+      "pinyin": "áng",
+      "kind": "final",
+      "group": "back-nasal",
+      "homophones": [],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-final-eng",
+    "kind": "pinyin",
     "text": "eng",
-    "initial": "",
-    "sample": "亨",
-    "pinyin": "hēng",
-    "kind": "final",
-    "group": "back-nasal",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "亨",
+    "theme": "back-nasal",
+    "level": "L4",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-63",
+    "extra": {
+      "initial": "eng",
+      "sample": "亨",
+      "pinyin": "hēng",
+      "kind": "final",
+      "group": "back-nasal",
+      "homophones": [],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-final-ing",
+    "kind": "pinyin",
     "text": "ing",
-    "initial": "",
-    "sample": "英",
-    "pinyin": "yīng",
-    "kind": "final",
-    "group": "back-nasal",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "英",
+    "theme": "back-nasal",
+    "level": "L4",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-63",
+    "extra": {
+      "initial": "ing",
+      "sample": "英",
+      "pinyin": "yīng",
+      "kind": "final",
+      "group": "back-nasal",
+      "homophones": [],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-final-ong",
+    "kind": "pinyin",
     "text": "ong",
-    "initial": "",
-    "sample": "翁",
-    "pinyin": "wēng",
-    "kind": "final",
-    "group": "back-nasal",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "翁",
+    "theme": "back-nasal",
+    "level": "L4",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-63",
+    "extra": {
+      "initial": "ong",
+      "sample": "翁",
+      "pinyin": "wēng",
+      "kind": "final",
+      "group": "back-nasal",
+      "homophones": [],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-whole-zhi",
+    "kind": "pinyin",
     "text": "zhi",
-    "initial": "",
-    "sample": "知",
-    "pinyin": "zhī",
-    "kind": "whole",
-    "group": "whole",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "知",
+    "theme": "whole",
+    "level": "L5",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-63",
+    "extra": {
+      "initial": "zhi",
+      "sample": "知",
+      "pinyin": "zhī",
+      "kind": "whole",
+      "group": "whole",
+      "homophones": [
+        "止",
+        "纸",
+        "指"
+      ],
+      "nearPhones": [
+        "zi",
+        "chi"
+      ]
+    }
   },
   {
     "id": "pinyin-whole-chi",
+    "kind": "pinyin",
     "text": "chi",
-    "initial": "",
-    "sample": "吃",
-    "pinyin": "chī",
-    "kind": "whole",
-    "group": "whole",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "吃",
+    "theme": "whole",
+    "level": "L5",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-63",
+    "extra": {
+      "initial": "chi",
+      "sample": "吃",
+      "pinyin": "chī",
+      "kind": "whole",
+      "group": "whole",
+      "homophones": [
+        "吃"
+      ],
+      "nearPhones": [
+        "zhi"
+      ]
+    }
   },
   {
     "id": "pinyin-whole-shi",
+    "kind": "pinyin",
     "text": "shi",
-    "initial": "",
-    "sample": "师",
-    "pinyin": "shī",
-    "kind": "whole",
-    "group": "whole",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "师",
+    "theme": "whole",
+    "level": "L5",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-63",
+    "extra": {
+      "initial": "shi",
+      "sample": "师",
+      "pinyin": "shī",
+      "kind": "whole",
+      "group": "whole",
+      "homophones": [
+        "十",
+        "石",
+        "时",
+        "拾",
+        "识",
+        "实",
+        "市",
+        "是",
+        "事",
+        "试",
+        "室",
+        "式"
+      ],
+      "nearPhones": [
+        "si"
+      ]
+    }
   },
   {
     "id": "pinyin-whole-ri",
+    "kind": "pinyin",
     "text": "ri",
-    "initial": "",
-    "sample": "日",
-    "pinyin": "rì",
-    "kind": "whole",
-    "group": "whole",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "日",
+    "theme": "whole",
+    "level": "L5",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-63",
+    "extra": {
+      "initial": "ri",
+      "sample": "日",
+      "pinyin": "rì",
+      "kind": "whole",
+      "group": "whole",
+      "homophones": [
+        "日"
+      ],
+      "nearPhones": [
+        "li"
+      ]
+    }
   },
   {
     "id": "pinyin-whole-zi",
+    "kind": "pinyin",
     "text": "zi",
-    "initial": "",
-    "sample": "字",
-    "pinyin": "zì",
-    "kind": "whole",
-    "group": "whole",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "字",
+    "theme": "whole",
+    "level": "L5",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-63",
+    "extra": {
+      "initial": "zi",
+      "sample": "字",
+      "pinyin": "zì",
+      "kind": "whole",
+      "group": "whole",
+      "homophones": [
+        "子",
+        "自",
+        "字"
+      ],
+      "nearPhones": [
+        "zhi"
+      ]
+    }
   },
   {
     "id": "pinyin-whole-ci",
+    "kind": "pinyin",
     "text": "ci",
-    "initial": "",
-    "sample": "次",
-    "pinyin": "cì",
-    "kind": "whole",
-    "group": "whole",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "次",
+    "theme": "whole",
+    "level": "L5",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-63",
+    "extra": {
+      "initial": "ci",
+      "sample": "次",
+      "pinyin": "cì",
+      "kind": "whole",
+      "group": "whole",
+      "homophones": [],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-whole-si",
+    "kind": "pinyin",
     "text": "si",
-    "initial": "",
-    "sample": "丝",
-    "pinyin": "sī",
-    "kind": "whole",
-    "group": "whole",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "丝",
+    "theme": "whole",
+    "level": "L5",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-63",
+    "extra": {
+      "initial": "si",
+      "sample": "丝",
+      "pinyin": "sī",
+      "kind": "whole",
+      "group": "whole",
+      "homophones": [
+        "四",
+        "寺"
+      ],
+      "nearPhones": [
+        "shi"
+      ]
+    }
   },
   {
     "id": "pinyin-whole-yi",
+    "kind": "pinyin",
     "text": "yi",
-    "initial": "",
-    "sample": "衣",
-    "pinyin": "yī",
-    "kind": "whole",
-    "group": "whole",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "衣",
+    "theme": "whole",
+    "level": "L5",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-63",
+    "extra": {
+      "initial": "yi",
+      "sample": "衣",
+      "pinyin": "yī",
+      "kind": "whole",
+      "group": "whole",
+      "homophones": [
+        "一",
+        "衣",
+        "依",
+        "医",
+        "阴",
+        "因",
+        "音"
+      ],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-whole-wu",
+    "kind": "pinyin",
     "text": "wu",
-    "initial": "",
-    "sample": "乌",
-    "pinyin": "wū",
-    "kind": "whole",
-    "group": "whole",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "乌",
+    "theme": "whole",
+    "level": "L5",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-63",
+    "extra": {
+      "initial": "wu",
+      "sample": "乌",
+      "pinyin": "wū",
+      "kind": "whole",
+      "group": "whole",
+      "homophones": [
+        "五",
+        "午",
+        "舞",
+        "武"
+      ],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-whole-yu",
+    "kind": "pinyin",
     "text": "yu",
-    "initial": "",
-    "sample": "鱼",
-    "pinyin": "yú",
-    "kind": "whole",
-    "group": "whole",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "鱼",
+    "theme": "whole",
+    "level": "L5",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-63",
+    "extra": {
+      "initial": "yu",
+      "sample": "鱼",
+      "pinyin": "yú",
+      "kind": "whole",
+      "group": "whole",
+      "homophones": [
+        "元",
+        "圆",
+        "原",
+        "园",
+        "云",
+        "月",
+        "玉",
+        "遇",
+        "育",
+        "欲",
+        "羽",
+        "雨",
+        "与",
+        "语",
+        "远",
+        "鱼",
+        "余"
+      ],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-whole-ye",
+    "kind": "pinyin",
     "text": "ye",
-    "initial": "",
-    "sample": "叶",
-    "pinyin": "yè",
-    "kind": "whole",
-    "group": "whole",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "叶",
+    "theme": "whole",
+    "level": "L5",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-63",
+    "extra": {
+      "initial": "ye",
+      "sample": "叶",
+      "pinyin": "yè",
+      "kind": "whole",
+      "group": "whole",
+      "homophones": [
+        "也",
+        "野",
+        "页",
+        "夜",
+        "业",
+        "叶",
+        "爷"
+      ],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-whole-yue",
+    "kind": "pinyin",
     "text": "yue",
-    "initial": "",
-    "sample": "月",
-    "pinyin": "yuè",
-    "kind": "whole",
-    "group": "whole",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "月",
+    "theme": "whole",
+    "level": "L5",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-63",
+    "extra": {
+      "initial": "yue",
+      "sample": "月",
+      "pinyin": "yuè",
+      "kind": "whole",
+      "group": "whole",
+      "homophones": [
+        "月",
+        "玉",
+        "遇",
+        "育",
+        "欲",
+        "羽",
+        "雨",
+        "与",
+        "语",
+        "鱼",
+        "余"
+      ],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-whole-yuan",
+    "kind": "pinyin",
     "text": "yuan",
-    "initial": "",
-    "sample": "元",
-    "pinyin": "yuán",
-    "kind": "whole",
-    "group": "whole",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "元",
+    "theme": "whole",
+    "level": "L5",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-63",
+    "extra": {
+      "initial": "yuan",
+      "sample": "元",
+      "pinyin": "yuán",
+      "kind": "whole",
+      "group": "whole",
+      "homophones": [
+        "元",
+        "圆",
+        "原",
+        "园",
+        "玉",
+        "遇",
+        "育",
+        "欲",
+        "羽",
+        "雨",
+        "与",
+        "语",
+        "远",
+        "鱼",
+        "余"
+      ],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-whole-yin",
+    "kind": "pinyin",
     "text": "yin",
-    "initial": "",
-    "sample": "因",
-    "pinyin": "yīn",
-    "kind": "whole",
-    "group": "whole",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "因",
+    "theme": "whole",
+    "level": "L5",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-63",
+    "extra": {
+      "initial": "yin",
+      "sample": "因",
+      "pinyin": "yīn",
+      "kind": "whole",
+      "group": "whole",
+      "homophones": [
+        "一",
+        "衣",
+        "依",
+        "医",
+        "阴",
+        "因",
+        "音"
+      ],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-whole-yun",
+    "kind": "pinyin",
     "text": "yun",
-    "initial": "",
-    "sample": "云",
-    "pinyin": "yún",
-    "kind": "whole",
-    "group": "whole",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "云",
+    "theme": "whole",
+    "level": "L5",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-63",
+    "extra": {
+      "initial": "yun",
+      "sample": "云",
+      "pinyin": "yún",
+      "kind": "whole",
+      "group": "whole",
+      "homophones": [
+        "云",
+        "玉",
+        "遇",
+        "育",
+        "欲",
+        "羽",
+        "雨",
+        "与",
+        "语",
+        "鱼",
+        "余"
+      ],
+      "nearPhones": []
+    }
   },
   {
     "id": "pinyin-whole-ying",
+    "kind": "pinyin",
     "text": "ying",
-    "initial": "",
-    "sample": "英",
-    "pinyin": "yīng",
-    "kind": "whole",
-    "group": "whole",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "zh": "英",
+    "theme": "whole",
+    "level": "L5",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-63",
+    "extra": {
+      "initial": "ying",
+      "sample": "英",
+      "pinyin": "yīng",
+      "kind": "whole",
+      "group": "whole",
+      "homophones": [
+        "一",
+        "衣",
+        "依",
+        "医",
+        "阴",
+        "因",
+        "音"
+      ],
+      "nearPhones": []
+    }
   }
 ]

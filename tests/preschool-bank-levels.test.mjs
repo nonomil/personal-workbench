@@ -36,6 +36,28 @@ function countLevels(items) {
     return counts;
 }
 
+test('english follows one theme sequence and does not offer child tracks', () => {
+    const english = vocab.parseBank(JSON.parse(fs.readFileSync(path.join(dataRoot, '英语', 'vocabulary-bank.json'), 'utf8')));
+    assert.equal(english.length, 597);
+    assert.deepEqual(english.slice(0, 5).map(item => item.text), ['black', 'blue', 'green', 'pink', 'purple']);
+    assert.equal(english[0].theme, '颜色');
+    assert.equal(english[english.length - 1].theme, '高频词');
+    const dayOne = vocab.dailyWindow(english, '2026-08-01', 5);
+    assert.deepEqual(dayOne.batch.map(item => item.text), ['black', 'blue', 'green', 'pink', 'purple']);
+    assert.equal(vocab.todayTheme(english, '2026-08-01', 5), '颜色');
+    assert.deepEqual(levels.getDefinitions('english'), []);
+    assert.equal(levels.labelFor('L1', 'literacy'), '起步');
+
+    const app = fs.readFileSync(path.join(repoRoot, 'prj', 'app.js'), 'utf8');
+    const html = fs.readFileSync(path.join(repoRoot, 'prj', 'preschool-workbench', 'index.html'), 'utf8');
+    assert.match(app, /今天学：/);
+    assert.match(app, /hideEnglishPracticeLevels/);
+    assert.doesNotMatch(app, /看图词/);
+    assert.match(html, /preschool-english-vocab-data\.js\?v=20260815-english-auto-v1/);
+    assert.match(html, /preschool-bank-levels\.js\?v=20260815-english-auto-v1/);
+    assert.match(html, /app\.js\?v=20260815-english-auto-v1/);
+});
+
 test('shared level bands define L1-L5 without grade labels', () => {
     const defs = globalThis.PersonalWorkbenchPreschoolLevels;
     assert.equal(Array.isArray(defs.bands), true);
@@ -47,14 +69,15 @@ test('shared level bands define L1-L5 without grade labels', () => {
 test('hanzi, english, pinyin and poetry banks all carry L1-L5 levels', () => {
     const hanzi = JSON.parse(fs.readFileSync(path.join(dataRoot, '识字', 'character-bank.json'), 'utf8'));
     for (const row of hanzi) {
-        assert.match(String(row[row.length - 1]), /^L[1-5]$/);
+        const level = Array.isArray(row) ? row[row.length - 1] : row.level;
+        assert.match(String(level), /^L[1-5]$/);
     }
     assert.equal(hanzi.length, 1500);
 
     const english = vocab.parseBank(JSON.parse(fs.readFileSync(path.join(dataRoot, '英语', 'vocabulary-bank.json'), 'utf8')));
     assert.ok(english.length >= 500);
     for (const item of english) {
-        assert.match(item.level, /^L[1-5]$/);
+        assert.match(item.level, /^L[1-3]$/);
     }
 
     const pinyinBank = pinyin.parseBank(JSON.parse(fs.readFileSync(path.join(dataRoot, '识字', 'pinyin-initial-bank.json'), 'utf8')));
@@ -88,6 +111,8 @@ test('engines filter pools by activity level while keeping full bank fallback', 
     const englishBank = vocab.getRuntimeBank();
     const l1Words = levels.levelPool(englishBank, 'L1');
     assert.ok(l1Words.length >= 80);
+    assert.equal(levels.levelPool(englishBank, 'L4').length, 0);
+    assert.equal(levels.levelPool(englishBank, 'L5').length, 0);
     const daily = vocab.dailyWindow(englishBank, '2026-08-01', 5, 'L1');
     assert.equal(daily.batch.length, 5);
     assert.ok(daily.batch.every(item => item.level === 'L1'));

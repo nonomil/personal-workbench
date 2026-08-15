@@ -34,8 +34,8 @@
         overview: { title: '首页', eyebrow: 'HOME / GARDEN', heading: '今天点亮六项', description: '选一张图，完成一小步。' },
         calendar: { title: '日历打卡', eyebrow: 'CHECK-IN / CALENDAR', heading: '每天走过的路，都有小绿点', description: '完成任务会留下打卡记录，回头看看自己的坚持。' },
         battle: { title: '花园保卫战', eyebrow: 'PLAY / DEFENSE', heading: '选择植物，守护花园', description: '完成任务获得阳光和豌豆能量，再进入小游戏守护五路花园。' },
-        growth: { title: '花园基地', eyebrow: 'GARDEN / GROW', heading: '我的小花园', description: '阳光、植物和星芒一起长大。' },
-        plans: { title: '学习任务', eyebrow: 'TODAY / QUESTS', heading: '今天做什么', description: '做完一项，就点亮一颗星。' },
+        growth: { title: '花园基地', eyebrow: 'GARDEN / GROW', heading: '我的小花园', description: '看阳光和伙伴，去保卫战或领奖励。' },
+        plans: { title: '任务清单', eyebrow: 'TODAY / LIST', heading: '任务清单', description: '在这里创建、改名或删除今天的任务。勾选完成请回首页。' },
         courses: { title: '课程资源', eyebrow: 'LEARN / LIBRARY', heading: '识字、拼音、古诗、数学都在这里', description: '把参考站里的学习分区整理成自己的资源卡和小题目。' },
         mistakes: { title: '改错本', eyebrow: 'TRY AGAIN', heading: '再试一次', description: '不会的题，和家长一起看看。' },
         rewards: { title: '奖励商城', eyebrow: 'SUN / SHOP', heading: '阳光换礼物', description: '攒阳光，选一个小期待。' },
@@ -49,8 +49,8 @@
     const preschoolThemes = {
         'garden-defense': {
             id: 'garden-defense',
-            name: '阳光花园工作台',
-            englishName: 'SUN GARDEN ADVENTURE',
+            name: '植物僵尸工作台',
+            englishName: 'PLANT ZOMBIE WORKBENCH',
             bannerKicker: 'SUN GARDEN / READY',
             bannerTitle: '今天的花园，等你来点亮',
             bannerDescription: '完成一小步，收集阳光，再去守护自己的花园。',
@@ -59,13 +59,13 @@
             assetMap: {
                 brand: 'sun-token', overview: 'sun-token', battle: 'plant-peashooter', calendar: 'plant-wallnut',
                 growth: 'plant-sunflower', plans: 'plant-wallnut', courses: 'storybook-token', mistakes: 'plant-wallnut',
-                rewards: 'sun-token', family: 'plant-sunflower', account: 'sun-token'
+                rewards: 'treasure-chest', family: 'plant-sunflower', account: 'settings-2'
             }
         },
         'voxel-adventure': {
             id: 'voxel-adventure',
-            name: '方块工作台',
-            englishName: 'BLOCK WORKSHOP',
+            name: '我的世界工作台',
+            englishName: 'MY WORLD WORKBENCH',
             bannerKicker: 'BLOCK BASE / READY',
             bannerTitle: '今天，搭好自己的第一块基地',
             bannerDescription: '完成任务收集晶体，把学习路线一步步铺出来。',
@@ -79,8 +79,8 @@
         },
         'platform-quest': {
             id: 'platform-quest',
-            name: '彩虹闯关工作台',
-            englishName: 'PLATFORM QUEST WORKBENCH',
+            name: '马里奥工作台',
+            englishName: 'MARIO WORKBENCH',
             bannerKicker: 'QUEST WORLD / READY',
             bannerTitle: '跳上今天的第一块平台',
             bannerDescription: '完成一项任务，收集金币，向终点旗子再走一步。',
@@ -167,12 +167,12 @@
             childCourses: [
                 {
                     id: 'preschool-summer',
-                    title: '暑假学习',
-                    description: '每天一张小学习单，晨读、识字、古诗、数学和复盘都能轻松完成。',
+                    title: '暑假资料',
+                    description: '今天看一看晨读、识字、古诗和复盘。这里是资料库，不打卡、不加阳光。',
                     icon: 'sun',
                     tone: 'orange',
                     badge: '今日精选 · 6 张 + 完整资料库',
-                    note: '参考“暑假每日学习打印版”：精选卡适合马上开始，完整资料库收纳 60 天晨读、45 天识字、60 首古诗和 8 周复盘。',
+                    note: '参考“暑假每日学习打印版”：精选卡适合马上打开看，完整资料库收纳 60 天晨读、45 天识字、60 首古诗和 8 周复盘。',
                     highlights: ['60 天晨读', '45 天识字', '60 首古诗 · 8 周复盘'],
                     samples: ['你好，暑假', '山 · 水 · 花 · 鸟', '鹅，鹅，鹅'],
                     resources: [
@@ -275,7 +275,7 @@
                 {
                     id: 'preschool-english',
                     title: '英语专区',
-                    description: '今日 5 词先听，再中英配对，再拼写。词库按 L1-L5 分级。',
+                    description: '今日 5 词先听，再中英配对，再拼写。单词按主题顺序往下学。',
                     icon: 'languages',
                     tone: 'lime',
                     badge: '500 词口语',
@@ -286,12 +286,23 @@
                         { id: 'preschool-english-words-1', title: '今日 5 词', minutes: 8, meta: 'L1 · 听词 → 配对 → 拼写', tip: '先听单词和句子，点完会了或不会，再去配对。', activity: { mode: 'english-speak', level: 'L1', prompt: '听句子，这些词你会了吗？', hint: '点听句子，再点会了或不会。', preferred: 'hello', size: 5, options: ['会了', '不会', '听句子'], answer: 0, optionIcons: ['check', 'rotate-ccw', 'volume-2'], success: '这些词会听啦！' } }
                     ],
                     media: [
-                        { type: 'bilibili', title: 'Super Simple Songs 官方儿歌', note: '3-8 岁英语儿歌启蒙 · 246 分钟', bvid: 'BV1wHVs6GEJW', icon: 'music-2' },
-                        { type: 'bilibili', title: 'SSS 自然拼读动画 · 全 71 集', note: '自然拼读启蒙 · 36 小时', bvid: 'BV142A4z2EEV', icon: 'sparkles' },
-                        { type: 'bilibili', title: 'English Singsing · 全 1073 集', note: '日常对话与故事 · 英语启蒙必看', bvid: 'BV1qbC6YtE91', icon: 'languages' },
-                        { type: 'bilibili', title: '小猪佩奇英文版', note: '英文原声 · 生活场景动画', bvid: 'BV1i6ggzwE2F', icon: 'play-circle' },
-                        { type: 'bilibili', title: 'Minecraft 英语课 · 从零开始', note: '我的世界学英语 · 中英字幕慢速', bvid: 'BV1BwGKzbEF1', icon: 'gamepad-2' },
-                        { type: 'link', title: '英语启蒙打印资料包', note: '识字卡 / 练习纸 / 音频 · 替换为你自己的分享链接', url: 'https://pan.baidu.com/s/your-share-code', code: 'xxxx', icon: 'cloud-download' }
+                        { type: 'bilibili', title: 'Minecraft 英语课 · 从零开始', note: '我的世界学英语 · 中英字幕慢速', bvid: 'BV1BwGKzbEF1', icon: 'gamepad-2', cover: '../assets/generated/preschool-media/published/minecraft-english.jpg' },
+                        { type: 'bilibili', title: 'Kids vs Phonics', note: '趣味自然拼读 · 全 60 集', bvid: 'BV1jg411M7hC', icon: 'sparkles', cover: '../assets/generated/preschool-media/published/kids-vs-phonics.jpg' },
+                        { type: 'link', title: '英语启蒙打印资料包', note: '识字卡 / 练习纸 / 音频 · 替换为你自己的分享链接', url: 'https://pan.baidu.com/s/your-share-code', code: 'xxxx', icon: 'cloud-download', cover: '../assets/generated/preschool-media/published/english-print-pack.png' }
+                    ]
+                },
+                {
+                    id: 'preschool-minecraft',
+                    title: 'Minecraft 英语',
+                    description: '我的世界兴趣词，不进每日必修。先认入门词，再认进阶词。',
+                    icon: 'gamepad-2',
+                    tone: 'lime',
+                    badge: '324 兴趣词',
+                    note: '独立词库，不和今日 5 词、复习池混在一起。',
+                    highlights: ['入门 60 词', '进阶 264 词', '本地配图'],
+                    samples: ['swamp', 'zombie', 'sword'],
+                    lessons: [
+                        { id: 'preschool-minecraft-words-1', title: '今日 Minecraft 词', minutes: 8, meta: '兴趣词 · 看图认词', tip: '先看图听单词，再点会了或还不会。', activity: { mode: 'english-speak', prompt: '这些我的世界单词你会了吗？', hint: '先看图，再听一听。', size: 5, options: ['会了', '不会', '听句子'], answer: 0, optionIcons: ['check', 'rotate-ccw', 'volume-2'], success: '又认识几个方块词啦！' } }
                     ]
                 },
                 {
@@ -400,9 +411,9 @@
         menu.className = 'topbar-workbench-menu';
         const activeTheme = (typeof document !== 'undefined' && document.body && document.body.dataset.preschoolTheme) || (selected.defaultTheme || 'garden-defense');
         const switchEntries = [
-            { variant: 'preschool', theme: 'garden-defense', name: (preschoolThemes['garden-defense'] || {}).name || '阳光花园工作台', summary: (preschoolThemes['garden-defense'] || {}).switchSummary || '幼儿主题 · 共享本地任务数据', icon: 'sprout', href: '../preschool-workbench/index.html?theme=garden-defense', current: selected.id === 'preschool' && activeTheme === 'garden-defense' },
-            { variant: 'preschool', theme: 'voxel-adventure', name: (preschoolThemes['voxel-adventure'] || {}).name || '方块探险工作台', summary: (preschoolThemes['voxel-adventure'] || {}).switchSummary || '幼儿主题 · 共享本地任务数据', icon: 'grid-2x2', href: '../preschool-workbench/index.html?theme=voxel-adventure', current: selected.id === 'preschool' && activeTheme === 'voxel-adventure' },
-            { variant: 'preschool', theme: 'platform-quest', name: (preschoolThemes['platform-quest'] || {}).name || '彩虹闯关工作台', summary: (preschoolThemes['platform-quest'] || {}).switchSummary || '幼儿主题 · 共享本地任务数据', icon: 'flag', href: '../preschool-workbench/index.html?theme=platform-quest', current: selected.id === 'preschool' && activeTheme === 'platform-quest' }
+            { variant: 'preschool', theme: 'garden-defense', name: (preschoolThemes['garden-defense'] || {}).name || '植物僵尸工作台', summary: (preschoolThemes['garden-defense'] || {}).switchSummary || '幼儿主题 · 共享本地任务数据', icon: 'sprout', href: '../preschool-workbench/index.html?theme=garden-defense', current: selected.id === 'preschool' && activeTheme === 'garden-defense' },
+            { variant: 'preschool', theme: 'voxel-adventure', name: (preschoolThemes['voxel-adventure'] || {}).name || '我的世界工作台', summary: (preschoolThemes['voxel-adventure'] || {}).switchSummary || '幼儿主题 · 共享本地任务数据', icon: 'grid-2x2', href: '../preschool-workbench/index.html?theme=voxel-adventure', current: selected.id === 'preschool' && activeTheme === 'voxel-adventure' },
+            { variant: 'preschool', theme: 'platform-quest', name: (preschoolThemes['platform-quest'] || {}).name || '马里奥工作台', summary: (preschoolThemes['platform-quest'] || {}).switchSummary || '幼儿主题 · 共享本地任务数据', icon: 'flag', href: '../preschool-workbench/index.html?theme=platform-quest', current: selected.id === 'preschool' && activeTheme === 'platform-quest' }
         ];
         ['adult', 'child'].forEach(function (id) {
             const item = variants[id];

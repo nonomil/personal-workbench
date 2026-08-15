@@ -5,7 +5,7 @@
     const variant = config.variant || 'adult';
     const STORAGE_KEY = config.current && config.current.storageKey ? config.current.storageKey : 'petbank_huchuliang_workbench_state_v1';
     const SCHEMA_VERSION = 6;
-    const PRESCHOOL_DAY_PLAN_VERSION = 3;
+    const PRESCHOOL_DAY_PLAN_VERSION = 4;
     const PRESCHOOL_THEME_IDS = ['garden-defense', 'voxel-adventure', 'platform-quest'];
     const PRESCHOOL_ENGLISH_WORD_LESSON_ID = 'preschool-english-words-1';
     const PRESCHOOL_DAILY_ITEMS = [
@@ -14,7 +14,10 @@
         { id: 'hello', title: '数学闯关一关', category: '数学', priority: 'high', minutes: 10, required: true, initialDone: false, initialProgress: 0, practiceLessonId: 'preschool-math-1' },
         { id: 'draw', title: '学习今日英语', category: '英语', priority: 'medium', minutes: 8, required: false, initialDone: false, initialProgress: 0, practiceLessonId: PRESCHOOL_ENGLISH_WORD_LESSON_ID },
         { id: 'move', title: '做一项运动', category: '运动', priority: 'low', minutes: 15, required: false, initialDone: false, initialProgress: 0, practiceLessonId: 'preschool-exercise-1' },
-        { id: 'tidy', title: '专注力训练一题', category: '专注', priority: 'medium', minutes: 10, required: false, initialDone: false, initialProgress: 0, practiceLessonId: 'preschool-focus-1' }
+        { id: 'tidy', title: '专注力训练一题', category: '专注', priority: 'medium', minutes: 10, required: false, initialDone: false, initialProgress: 0, practiceLessonId: 'preschool-focus-1' },
+        { id: 'picturebook', title: '绘本阅读', category: '阅读', priority: 'medium', minutes: 30, required: false, initialDone: false, initialProgress: 0, checkinMode: 'timed', hint: '8-10本 · 约30分钟' },
+        { id: 'cartoon', title: '动画时光', category: '英语', priority: 'medium', minutes: 20, required: false, initialDone: false, initialProgress: 0, checkinMode: 'timed', hint: '2-3集 · 约20分钟' },
+        { id: 'listen', title: '英语熏听', category: '英语', priority: 'low', minutes: 15, required: false, initialDone: false, initialProgress: 0, checkinMode: 'timed', hint: '早晚各一次 · 约15分钟' }
     ];
 
     function normalizePreschoolTheme(value) {
@@ -71,6 +74,9 @@
                 category: item.category,
                 required: item.required,
                 practiceLessonId: item.practiceLessonId || '',
+                checkinMode: item.checkinMode || '',
+                hint: item.hint || '',
+                estimateMinutes: item.minutes,
                 completionSource: done ? 'seed' : '',
                 completionRewardId: '',
                 done: done,
@@ -155,6 +161,9 @@
                 category: typeof item.category === 'string' && item.category.trim() ? item.category : template.category,
                 required: typeof item.required === 'boolean' ? item.required : template.required,
                 practiceLessonId: resolvePreschoolPracticeLessonId(item, template),
+                checkinMode: typeof item.checkinMode === 'string' && item.checkinMode ? item.checkinMode : (template.checkinMode || ''),
+                hint: typeof item.hint === 'string' && item.hint ? item.hint : (template.hint || ''),
+                estimateMinutes: Number(item.estimateMinutes) > 0 ? item.estimateMinutes : template.minutes,
                 completionSource: typeof item.completionSource === 'string' ? item.completionSource : '',
                 completionRewardId: typeof item.completionRewardId === 'string' ? item.completionRewardId : '',
                 order: Number(item.order) > 0 ? item.order : index + 1
@@ -421,7 +430,7 @@
                 const planId = `preschool-plan-${item.id}`;
                 const taskId = `preschool-task-${item.id}`;
                 if (!existingPlanIds.has(planId) && !state.dailyPlans.some(entry => entry.date === today && entry.title === item.title)) {
-                    state.dailyPlans.push({ id: planId, date: today, title: item.title, category: item.category, required: item.required, practiceLessonId: item.practiceLessonId || '', completionSource: '', completionRewardId: '', done: false, order: index + 1, createdAt: now, completedAt: null });
+                    state.dailyPlans.push({ id: planId, date: today, title: item.title, category: item.category, required: item.required, practiceLessonId: item.practiceLessonId || '', checkinMode: item.checkinMode || '', hint: item.hint || '', estimateMinutes: item.minutes, completionSource: '', completionRewardId: '', done: false, order: index + 1, createdAt: now, completedAt: null });
                 }
                 if (!existingTaskIds.has(taskId) && !state.tasks.some(entry => entry.title === item.title)) {
                     state.tasks.push(Object.assign({}, createPreschoolTasks(now, today).find(entry => entry.id === taskId), { status: 'todo', progress: 0, completedAt: null }));
@@ -579,6 +588,7 @@
             'preschool-math': '数学',
             'preschool-literacy': '识字',
             'preschool-english': '英语',
+            'preschool-minecraft': '英语',
             'preschool-phonics': '拼读',
             'preschool-pinyin': '拼音',
             'preschool-poetry': '古诗',

@@ -30,6 +30,7 @@ test('parses the character bank into unique life characters with child words', (
         assert.ok(item.theme);
         assert.ok(item.words.length >= 2, `${item.char} needs two child words`);
         assert.ok(item.words.every(word => word.includes(item.char)));
+        assert.ok(item.explain, `${item.char} needs explain`);
         assert.match(item.level, /^L[1-5]$/);
         assert.equal(banned.includes(item.char), false, `banned char leaked: ${item.char}`);
     }

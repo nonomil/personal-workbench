@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
@@ -37,14 +38,17 @@ ENGLISH_THEME_ORDER = [
     "颜色",
     "数字",
     "动物",
-    "家人",
     "身体",
+    "家人",
     "食物",
     "自然",
+    "物品",
+    "描述",
+    "动作",
     "学校",
     "生活",
+    "表达",
     "高频词",
-    "动作",
     "主题",
 ]
 
@@ -81,6 +85,11 @@ def assign_hanzi():
     path = prj / "识字" / "character-bank.json"
     bank = read_json(path)
     total = len(bank)
+    if bank and isinstance(bank[0], dict):
+        for index, item in enumerate(bank):
+            item["level"] = band_for_index(index, total)
+        write_json(path, bank)
+        return total
     leveled = [ensure_hanzi_level(row, band_for_index(index, total)) for index, row in enumerate(bank)]
     write_json(path, leveled)
     return total
@@ -98,12 +107,11 @@ def english_sort_key(item: dict):
 def assign_english():
     path = prj / "英语" / "vocabulary-bank.json"
     bank = read_json(path)
+    for item in bank:
+        item["level"] = "L1"
     ordered = sorted(bank, key=english_sort_key)
-    total = len(ordered)
-    for index, item in enumerate(ordered):
-        item["level"] = band_for_index(index, total)
     write_json(path, ordered)
-    return total
+    return len(ordered)
 
 
 def poem_level(item: dict) -> str:
@@ -205,7 +213,10 @@ def summarize():
     counts = {}
     hanzi = read_json(prj / "识字" / "character-bank.json")
     for row in hanzi:
-        level = str(row[-1]) if row else "L1"
+        if isinstance(row, dict):
+            level = str(row.get("level") or "L1")
+        else:
+            level = str(row[-1]) if row else "L1"
         counts.setdefault(("hanzi", level), 0)
         counts[("hanzi", level)] += 1
     english = read_json(prj / "英语" / "vocabulary-bank.json")
@@ -217,14 +228,24 @@ def summarize():
 
 
 if __name__ == "__main__":
-    result = {
-        "hanzi": assign_hanzi(),
-        "english": assign_english(),
-        "poetry": assign_poetry(),
-        "pinyin": assign_pinyin(),
-        "phonics_words": assign_phonics_words(),
-        "motion": assign_motion(),
-        "routes": assign_routes(),
-    }
+    only = ""
+    for arg in sys.argv[1:]:
+        if arg.startswith("--only="):
+            only = arg.split("=", 1)[1]
+    result = {}
+    if only in ("", "hanzi"):
+        result["hanzi"] = assign_hanzi()
+    if only in ("", "english"):
+        result["english"] = assign_english()
+    if only in ("", "poetry"):
+        result["poetry"] = assign_poetry()
+    if only in ("", "pinyin"):
+        result["pinyin"] = assign_pinyin()
+    if only in ("", "phonics"):
+        result["phonics_words"] = assign_phonics_words()
+    if only in ("", "motion"):
+        result["motion"] = assign_motion()
+    if only in ("", "routes"):
+        result["routes"] = assign_routes()
     result["distribution"] = {f"{subject}:{level}": count for (subject, level), count in summarize().items()}
     print(json.dumps(result, ensure_ascii=False, indent=2))

@@ -48,16 +48,17 @@
         return pool.length ? pool : (Array.isArray(bank) ? bank : []);
     }
 
-    function getDefinitions() {
+    function getDefinitions(track) {
+        if (track === 'english') return [];
         var data = global.PersonalWorkbenchPreschoolLevels;
         return data && Array.isArray(data.bands) ? data.bands.slice() : LEVELS.map(function (id, index) {
             return { id: id, title: '第' + (index + 1) + '级', summary: '' };
         });
     }
 
-    function labelFor(level) {
+    function labelFor(level, track) {
         var target = normalizeLevel(level);
-        var bands = getDefinitions();
+        var bands = getDefinitions(track);
         var match = bands.find(function (item) { return item.id === target; });
         return match ? match.title : target;
     }

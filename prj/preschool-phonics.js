@@ -6,13 +6,16 @@
     function parseBank(raw) {
         return (Array.isArray(raw) ? raw : []).map(function (row) {
             const source = row && typeof row === 'object' ? row : {};
+            const extra = source.extra && typeof source.extra === 'object' ? source.extra : {};
             return {
                 id: String(source.id || ''),
                 text: String(source.text || '').trim().toLowerCase(),
-                graphemes: Array.isArray(source.graphemes) ? source.graphemes.map(function (item) { return String(item || ''); }) : [],
-                phonemes: Array.isArray(source.phonemes) ? source.phonemes.map(function (item) { return String(item || ''); }) : [],
-                stageId: String(source.stageId || ''),
-                level: String(source.level || '')
+                graphemes: Array.isArray(extra.graphemes) ? extra.graphemes.map(function (item) { return String(item || ''); }) : (Array.isArray(source.graphemes) ? source.graphemes.map(function (item) { return String(item || ''); }) : []),
+                phonemes: Array.isArray(extra.phonemes) ? extra.phonemes.map(function (item) { return String(item || ''); }) : (Array.isArray(source.phonemes) ? source.phonemes.map(function (item) { return String(item || ''); }) : []),
+                stageId: String(extra.stageId || source.stageId || ''),
+                level: String(source.level || ''),
+                art: String((source.media && source.media.art) || source.art || '').trim(),
+                media: source.media && typeof source.media === 'object' ? source.media : {}
             };
         }).filter(function (item) {
             return item.text && item.stageId;
@@ -66,12 +69,16 @@
     function parseLetters(raw) {
         return (Array.isArray(raw) ? raw : []).map(function (row) {
             const source = row && typeof row === 'object' ? row : {};
+            const extra = source.extra && typeof source.extra === 'object' ? source.extra : {};
+            const letter = String(source.text || source.letter || extra.letter || '').trim().toLowerCase();
             return {
                 id: String(source.id || ''),
-                letter: String(source.letter || '').trim().toLowerCase(),
-                sound: String(source.sound || '').trim().toLowerCase(),
-                keyword: String(source.keyword || '').trim().toLowerCase(),
-                group: String(source.group || '').trim()
+                letter: letter,
+                sound: String(extra.sound || source.sound || '').trim().toLowerCase(),
+                keyword: String(extra.keyword || source.keyword || '').trim().toLowerCase(),
+                group: String(extra.group || source.group || '').trim(),
+                art: String((source.media && source.media.art) || source.art || '').trim(),
+                media: source.media && typeof source.media === 'object' ? source.media : {}
             };
         }).filter(function (item) {
             return item.letter && item.keyword;

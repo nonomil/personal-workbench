@@ -1,0 +1,6806 @@
+[
+  {
+    "id": "mc-cave",
+    "kind": "english",
+    "text": "cave",
+    "zh": "洞穴",
+    "theme": "地点",
+    "level": "MC-D1",
+    "phrase": "We enter the cave with bright torches.",
+    "phraseZh": "我们举着亮火把走进cave。",
+    "media": {
+      "image": "assets/img/vocab-mc/cave.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/cave.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "place",
+      "group": "在cave旁边",
+      "groupEn": "near the cave"
+    }
+  },
+  {
+    "id": "mc-birch",
+    "kind": "english",
+    "text": "birch",
+    "zh": "白桦",
+    "theme": "方块",
+    "level": "MC-D1",
+    "phrase": "We make a small path with the birch.",
+    "phraseZh": "我们用birch铺出一条小路。",
+    "media": {
+      "image": "assets/img/vocab-mc/birch.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/birch.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好birch",
+      "groupEn": "place birch"
+    }
+  },
+  {
+    "id": "mc-dirt",
+    "kind": "english",
+    "text": "dirt",
+    "zh": "泥土",
+    "theme": "方块",
+    "level": "MC-D1",
+    "phrase": "We choose the dirt for the garden wall.",
+    "phraseZh": "花园围墙我们选用dirt。",
+    "media": {
+      "image": "assets/img/vocab-mc/dirt.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好dirt",
+      "groupEn": "place dirt"
+    }
+  },
+  {
+    "id": "mc-log",
+    "kind": "english",
+    "text": "log",
+    "zh": "原木",
+    "theme": "方块",
+    "level": "MC-D1",
+    "phrase": "I stack the log to make a small wall.",
+    "phraseZh": "我把log叠成一堵小墙。",
+    "media": {
+      "image": "assets/img/vocab-mc/log.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好log",
+      "groupEn": "place log"
+    }
+  },
+  {
+    "id": "mc-axe",
+    "kind": "english",
+    "text": "axe",
+    "zh": "斧",
+    "theme": "工具",
+    "level": "MC-D1",
+    "phrase": "I lend the axe to my teammate.",
+    "phraseZh": "我把axe借给队友。",
+    "media": {
+      "image": "assets/img/vocab-mc/axe.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "tool",
+      "group": "用一把axe",
+      "groupEn": "use a axe"
+    }
+  },
+  {
+    "id": "mc-hoe",
+    "kind": "english",
+    "text": "hoe",
+    "zh": "锄",
+    "theme": "工具",
+    "level": "MC-D1",
+    "phrase": "I lend the hoe to my teammate.",
+    "phraseZh": "我把hoe借给队友。",
+    "media": {
+      "image": "assets/img/vocab-mc/hoe.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "tool",
+      "group": "用一把hoe",
+      "groupEn": "use a hoe"
+    }
+  },
+  {
+    "id": "mc-blaze",
+    "kind": "english",
+    "text": "blaze",
+    "zh": "烈焰人",
+    "theme": "生物",
+    "level": "MC-D1",
+    "phrase": "I spot a blaze near the village.",
+    "phraseZh": "我在村子附近看见blaze。",
+    "media": {
+      "image": "assets/img/vocab-mc/blaze.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/blaze.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "mob",
+      "group": "看见blaze",
+      "groupEn": "spot a blaze"
+    }
+  },
+  {
+    "id": "mc-slime",
+    "kind": "english",
+    "text": "slime",
+    "zh": "史莱姆",
+    "theme": "生物",
+    "level": "MC-D1",
+    "phrase": "I leave food for the slime.",
+    "phraseZh": "我给slime留一点食物。",
+    "media": {
+      "image": "assets/img/vocab-mc/slime.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/slime.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "mob",
+      "group": "看见slime",
+      "groupEn": "spot a slime"
+    }
+  },
+  {
+    "id": "mc-squid",
+    "kind": "english",
+    "text": "squid",
+    "zh": "鱿鱼",
+    "theme": "生物",
+    "level": "MC-D1",
+    "phrase": "I spot a squid near the village.",
+    "phraseZh": "我在村子附近看见squid。",
+    "media": {
+      "image": "assets/img/vocab-mc/squid.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/squid.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "mob",
+      "group": "看见squid",
+      "groupEn": "spot a squid"
+    }
+  },
+  {
+    "id": "mc-witch",
+    "kind": "english",
+    "text": "witch",
+    "zh": "女巫",
+    "theme": "生物",
+    "level": "MC-D1",
+    "phrase": "The witch visits our camp at dawn.",
+    "phraseZh": "天亮时witch来到我们的营地。",
+    "media": {
+      "image": "assets/img/vocab-mc/witch.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/witch.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "mob",
+      "group": "看见witch",
+      "groupEn": "spot a witch"
+    }
+  },
+  {
+    "id": "mc-swamp",
+    "kind": "english",
+    "text": "swamp",
+    "zh": "沼泽",
+    "theme": "生物群系",
+    "level": "MC-D1",
+    "phrase": "We build a lookout in the swamp.",
+    "phraseZh": "我们在swamp里建了一个瞭望台。",
+    "media": {
+      "image": "assets/img/vocab-mc/swamp.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "biome",
+      "group": "去探索swamp",
+      "groupEn": "explore the swamp"
+    }
+  },
+  {
+    "id": "mc-taiga",
+    "kind": "english",
+    "text": "taiga",
+    "zh": "针叶林",
+    "theme": "生物群系",
+    "level": "MC-D1",
+    "phrase": "We explore the taiga after breakfast.",
+    "phraseZh": "吃完早饭我们去探索taiga。",
+    "media": {
+      "image": "assets/img/vocab-mc/taiga.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "biome",
+      "group": "去探索taiga",
+      "groupEn": "explore the taiga"
+    }
+  },
+  {
+    "id": "mc-cod",
+    "kind": "english",
+    "text": "cod",
+    "zh": "鳕鱼",
+    "theme": "食物",
+    "level": "MC-D1",
+    "phrase": "I share the cod with my teammate.",
+    "phraseZh": "我和队友一起用cod。",
+    "media": {
+      "image": "assets/img/vocab-mc/cod.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "food",
+      "group": "吃cod",
+      "groupEn": "eat cod"
+    }
+  },
+  {
+    "id": "mc-melon",
+    "kind": "english",
+    "text": "melon",
+    "zh": "西瓜",
+    "theme": "食物",
+    "level": "MC-D1",
+    "phrase": "We save the melon for the long walk.",
+    "phraseZh": "我们把melon留给走远路的时候。",
+    "media": {
+      "image": "assets/img/vocab-mc/melon.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "food",
+      "group": "吃melon",
+      "groupEn": "eat melon"
+    }
+  },
+  {
+    "id": "mc-allay",
+    "kind": "english",
+    "text": "allay",
+    "zh": "悦灵",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "I use the allay during our mission.",
+    "phraseZh": "任务里我用到了allay。",
+    "media": {
+      "image": "assets/img/vocab-mc/allay.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/allay.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用allay",
+      "groupEn": "use the allay"
+    }
+  },
+  {
+    "id": "mc-anvil",
+    "kind": "english",
+    "text": "anvil",
+    "zh": "铁砧",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "We keep the anvil in a quiet corner.",
+    "phraseZh": "我们把anvil放在安静的角落。",
+    "media": {
+      "image": "assets/img/vocab-mc/anvil.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用anvil",
+      "groupEn": "use the anvil"
+    }
+  },
+  {
+    "id": "mc-arrow",
+    "kind": "english",
+    "text": "arrow",
+    "zh": "箭",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "I check the arrow before leaving camp.",
+    "phraseZh": "离开营地前我先检查arrow。",
+    "media": {
+      "image": "assets/img/vocab-mc/arrow.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用arrow",
+      "groupEn": "use the arrow"
+    }
+  },
+  {
+    "id": "mc-bat",
+    "kind": "english",
+    "text": "bat",
+    "zh": "蝙蝠",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "The bat stays safe in my backpack.",
+    "phraseZh": "bat安全地待在我的背包里。",
+    "media": {
+      "image": "assets/img/vocab-mc/bat.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/bat.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用bat",
+      "groupEn": "use the bat"
+    }
+  },
+  {
+    "id": "mc-breed",
+    "kind": "english",
+    "text": "breed",
+    "zh": "繁殖",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "The breed stays safe in my backpack.",
+    "phraseZh": "breed安全地待在我的背包里。",
+    "media": {
+      "image": "assets/img/vocab-mc/breed.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/breed.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用breed",
+      "groupEn": "use the breed"
+    }
+  },
+  {
+    "id": "mc-chunk",
+    "kind": "english",
+    "text": "chunk",
+    "zh": "区块",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "My teammate passes me the chunk.",
+    "phraseZh": "队友把chunk递给我。",
+    "media": {
+      "image": "assets/img/vocab-mc/chunk.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用chunk",
+      "groupEn": "use the chunk"
+    }
+  },
+  {
+    "id": "mc-drops",
+    "kind": "english",
+    "text": "drops",
+    "zh": "掉落物",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "My teammate passes me the drops.",
+    "phraseZh": "队友把drops递给我。",
+    "media": {
+      "image": "assets/img/vocab-mc/drops.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/drops.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用drops",
+      "groupEn": "use the drops"
+    }
+  },
+  {
+    "id": "mc-dust",
+    "kind": "english",
+    "text": "dust",
+    "zh": "粉末",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "We keep the dust in a quiet corner.",
+    "phraseZh": "我们把dust放在安静的角落。",
+    "media": {
+      "image": "assets/img/vocab-mc/dust.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/dust.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用dust",
+      "groupEn": "use the dust"
+    }
+  },
+  {
+    "id": "mc-flame",
+    "kind": "english",
+    "text": "flame",
+    "zh": "火矢",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "I place the flame in my adventure chest.",
+    "phraseZh": "我把flame放进冒险箱子。",
+    "media": {
+      "image": "assets/img/vocab-mc/flame.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/flame.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用flame",
+      "groupEn": "use the flame"
+    }
+  },
+  {
+    "id": "mc-flint",
+    "kind": "english",
+    "text": "flint",
+    "zh": "燧石",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "I check the flint beside the campfire.",
+    "phraseZh": "我在篝火旁检查flint。",
+    "media": {
+      "image": "assets/img/vocab-mc/flint.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用flint",
+      "groupEn": "use the flint"
+    }
+  },
+  {
+    "id": "mc-ghast",
+    "kind": "english",
+    "text": "ghast",
+    "zh": "恶魂",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "The ghast is ready for our next adventure.",
+    "phraseZh": "ghast已经准备好下一次冒险。",
+    "media": {
+      "image": "assets/img/vocab-mc/ghast.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/ghast.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用ghast",
+      "groupEn": "use the ghast"
+    }
+  },
+  {
+    "id": "mc-grove",
+    "kind": "english",
+    "text": "grove",
+    "zh": "树林",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "I place the grove in my adventure chest.",
+    "phraseZh": "我把grove放进冒险箱子。",
+    "media": {
+      "image": "assets/img/vocab-mc/grove.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用grove",
+      "groupEn": "use the grove"
+    }
+  },
+  {
+    "id": "mc-husk",
+    "kind": "english",
+    "text": "husk",
+    "zh": "尸壳",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "We prepare the husk before sunset.",
+    "phraseZh": "日落前我们把husk准备好。",
+    "media": {
+      "image": "assets/img/vocab-mc/husk.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/husk.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用husk",
+      "groupEn": "use the husk"
+    }
+  },
+  {
+    "id": "mc-igloo",
+    "kind": "english",
+    "text": "igloo",
+    "zh": "冰屋",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "We keep the igloo in a quiet corner.",
+    "phraseZh": "我们把igloo放在安静的角落。",
+    "media": {
+      "image": "assets/img/vocab-mc/igloo.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/igloo.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用igloo",
+      "groupEn": "use the igloo"
+    }
+  },
+  {
+    "id": "mc-ingot",
+    "kind": "english",
+    "text": "ingot",
+    "zh": "锭",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "I return the ingot after the mission.",
+    "phraseZh": "任务结束后我把ingot还回去。",
+    "media": {
+      "image": "assets/img/vocab-mc/ingot.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/ingot.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用ingot",
+      "groupEn": "use the ingot"
+    }
+  },
+  {
+    "id": "mc-lever",
+    "kind": "english",
+    "text": "lever",
+    "zh": "拉杆",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "We share the lever when the team needs it.",
+    "phraseZh": "队友需要时我们一起用lever。",
+    "media": {
+      "image": "assets/img/vocab-mc/lever.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/lever.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用lever",
+      "groupEn": "use the lever"
+    }
+  },
+  {
+    "id": "mc-llama",
+    "kind": "english",
+    "text": "llama",
+    "zh": "羊驼",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "I show the llama to my teammate at camp.",
+    "phraseZh": "我在营地把llama给队友看。",
+    "media": {
+      "image": "assets/img/vocab-mc/llama.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/llama.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用llama",
+      "groupEn": "use the llama"
+    }
+  },
+  {
+    "id": "mc-loom",
+    "kind": "english",
+    "text": "loom",
+    "zh": "织布机",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "The loom stays safe in my backpack.",
+    "phraseZh": "loom安全地待在我的背包里。",
+    "media": {
+      "image": "assets/img/vocab-mc/loom.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用loom",
+      "groupEn": "use the loom"
+    }
+  },
+  {
+    "id": "mc-loot",
+    "kind": "english",
+    "text": "loot",
+    "zh": "战利品",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "I find the loot beside the crafting table.",
+    "phraseZh": "我在工作台旁边找到loot。",
+    "media": {
+      "image": "assets/img/vocab-mc/loot.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/loot.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用loot",
+      "groupEn": "use the loot"
+    }
+  },
+  {
+    "id": "mc-lure",
+    "kind": "english",
+    "text": "lure",
+    "zh": "诱钓",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "I return the lure after the mission.",
+    "phraseZh": "任务结束后我把lure还回去。",
+    "media": {
+      "image": "assets/img/vocab-mc/lure.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/lure.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用lure",
+      "groupEn": "use the lure"
+    }
+  },
+  {
+    "id": "mc-mace",
+    "kind": "english",
+    "text": "mace",
+    "zh": "狼牙棒",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "I check the mace beside the campfire.",
+    "phraseZh": "我在篝火旁检查mace。",
+    "media": {
+      "image": "assets/img/vocab-mc/mace.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用mace",
+      "groupEn": "use the mace"
+    }
+  },
+  {
+    "id": "mc-mob",
+    "kind": "english",
+    "text": "mob",
+    "zh": "生物",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "I find the mob beside the crafting table.",
+    "phraseZh": "我在工作台旁边找到mob。",
+    "media": {
+      "image": "assets/img/vocab-mc/mob.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用mob",
+      "groupEn": "use the mob"
+    }
+  },
+  {
+    "id": "mc-mule",
+    "kind": "english",
+    "text": "mule",
+    "zh": "骡子",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "I check the mule before leaving camp.",
+    "phraseZh": "离开营地前我先检查mule。",
+    "media": {
+      "image": "assets/img/vocab-mc/mule.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/mule.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用mule",
+      "groupEn": "use the mule"
+    }
+  },
+  {
+    "id": "mc-ore",
+    "kind": "english",
+    "text": "ore",
+    "zh": "矿石",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "The ore stays safe in my backpack.",
+    "phraseZh": "ore安全地待在我的背包里。",
+    "media": {
+      "image": "assets/img/vocab-mc/ore.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/ore.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用ore",
+      "groupEn": "use the ore"
+    }
+  },
+  {
+    "id": "mc-plank",
+    "kind": "english",
+    "text": "plank",
+    "zh": "木板",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "I show the plank to my teammate at camp.",
+    "phraseZh": "我在营地把plank给队友看。",
+    "media": {
+      "image": "assets/img/vocab-mc/plank.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/plank.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用plank",
+      "groupEn": "use the plank"
+    }
+  },
+  {
+    "id": "mc-power",
+    "kind": "english",
+    "text": "power",
+    "zh": "力量",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "We share the power when the team needs it.",
+    "phraseZh": "队友需要时我们一起用power。",
+    "media": {
+      "image": "assets/img/vocab-mc/power.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/power.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用power",
+      "groupEn": "use the power"
+    }
+  },
+  {
+    "id": "mc-punch",
+    "kind": "english",
+    "text": "punch",
+    "zh": "冲击",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "We share the punch when the team needs it.",
+    "phraseZh": "队友需要时我们一起用punch。",
+    "media": {
+      "image": "assets/img/vocab-mc/punch.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/punch.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用punch",
+      "groupEn": "use the punch"
+    }
+  },
+  {
+    "id": "mc-raid",
+    "kind": "english",
+    "text": "raid",
+    "zh": "袭击",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "I find the raid beside the crafting table.",
+    "phraseZh": "我在工作台旁边找到raid。",
+    "media": {
+      "image": "assets/img/vocab-mc/raid.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/raid.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用raid",
+      "groupEn": "use the raid"
+    }
+  },
+  {
+    "id": "mc-rail",
+    "kind": "english",
+    "text": "rail",
+    "zh": "铁轨",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "The rail stays safe in my backpack.",
+    "phraseZh": "rail安全地待在我的背包里。",
+    "media": {
+      "image": "assets/img/vocab-mc/rail.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/rail.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用rail",
+      "groupEn": "use the rail"
+    }
+  },
+  {
+    "id": "mc-realm",
+    "kind": "english",
+    "text": "realm",
+    "zh": "领域服务器",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "The realm stays safe in my backpack.",
+    "phraseZh": "realm安全地待在我的背包里。",
+    "media": {
+      "image": "assets/img/vocab-mc/realm.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/realm.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用realm",
+      "groupEn": "use the realm"
+    }
+  },
+  {
+    "id": "mc-sculk",
+    "kind": "english",
+    "text": "sculk",
+    "zh": "幽匿块",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "I use the sculk during our mission.",
+    "phraseZh": "任务里我用到了sculk。",
+    "media": {
+      "image": "assets/img/vocab-mc/sculk.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用sculk",
+      "groupEn": "use the sculk"
+    }
+  },
+  {
+    "id": "mc-scute",
+    "kind": "english",
+    "text": "scute",
+    "zh": "鳞甲",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "We prepare the scute before sunset.",
+    "phraseZh": "日落前我们把scute准备好。",
+    "media": {
+      "image": "assets/img/vocab-mc/scute.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用scute",
+      "groupEn": "use the scute"
+    }
+  },
+  {
+    "id": "mc-slab",
+    "kind": "english",
+    "text": "slab",
+    "zh": "台阶",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "We keep the slab in a quiet corner.",
+    "phraseZh": "我们把slab放在安静的角落。",
+    "media": {
+      "image": "assets/img/vocab-mc/slab.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/slab.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用slab",
+      "groupEn": "use the slab"
+    }
+  },
+  {
+    "id": "mc-smite",
+    "kind": "english",
+    "text": "smite",
+    "zh": "亡灵杀手",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "I use the smite during our mission.",
+    "phraseZh": "任务里我用到了smite。",
+    "media": {
+      "image": "assets/img/vocab-mc/smite.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/smite.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用smite",
+      "groupEn": "use the smite"
+    }
+  },
+  {
+    "id": "mc-stray",
+    "kind": "english",
+    "text": "stray",
+    "zh": "流浪者",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "We prepare the stray before sunset.",
+    "phraseZh": "日落前我们把stray准备好。",
+    "media": {
+      "image": "assets/img/vocab-mc/stray.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/stray.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用stray",
+      "groupEn": "use the stray"
+    }
+  },
+  {
+    "id": "mc-tame",
+    "kind": "english",
+    "text": "tame",
+    "zh": "驯服",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "I pick up the tame near the path.",
+    "phraseZh": "我在小路边捡起tame。",
+    "media": {
+      "image": "assets/img/vocab-mc/tame.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/tame.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用tame",
+      "groupEn": "use the tame"
+    }
+  },
+  {
+    "id": "mc-tick",
+    "kind": "english",
+    "text": "tick",
+    "zh": "游戏刻",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "I place the tick in my adventure chest.",
+    "phraseZh": "我把tick放进冒险箱子。",
+    "media": {
+      "image": "assets/img/vocab-mc/tick.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/tick.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用tick",
+      "groupEn": "use the tick"
+    }
+  },
+  {
+    "id": "mc-tnt",
+    "kind": "english",
+    "text": "tnt",
+    "zh": "TNT 炸药",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "I return the tnt after the mission.",
+    "phraseZh": "任务结束后我把tnt还回去。",
+    "media": {
+      "image": "assets/img/vocab-mc/tnt.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用tnt",
+      "groupEn": "use the tnt"
+    }
+  },
+  {
+    "id": "mc-torch",
+    "kind": "english",
+    "text": "torch",
+    "zh": "火把",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "The torch stays safe in my backpack.",
+    "phraseZh": "torch安全地待在我的背包里。",
+    "media": {
+      "image": "assets/img/vocab-mc/torch.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用torch",
+      "groupEn": "use the torch"
+    }
+  },
+  {
+    "id": "mc-tuff",
+    "kind": "english",
+    "text": "tuff",
+    "zh": "凝灰岩",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "We share the tuff when the team needs it.",
+    "phraseZh": "队友需要时我们一起用tuff。",
+    "media": {
+      "image": "assets/img/vocab-mc/tuff.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用tuff",
+      "groupEn": "use the tuff"
+    }
+  },
+  {
+    "id": "mc-vault",
+    "kind": "english",
+    "text": "vault",
+    "zh": "金库",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "I check the vault beside the campfire.",
+    "phraseZh": "我在篝火旁检查vault。",
+    "media": {
+      "image": "assets/img/vocab-mc/vault.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/vault.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用vault",
+      "groupEn": "use the vault"
+    }
+  },
+  {
+    "id": "mc-vex",
+    "kind": "english",
+    "text": "vex",
+    "zh": "恼鬼",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "We share the vex when the team needs it.",
+    "phraseZh": "队友需要时我们一起用vex。",
+    "media": {
+      "image": "assets/img/vocab-mc/vex.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/vex.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用vex",
+      "groupEn": "use the vex"
+    }
+  },
+  {
+    "id": "mc-wool",
+    "kind": "english",
+    "text": "wool",
+    "zh": "羊毛",
+    "theme": "物品",
+    "level": "MC-D1",
+    "phrase": "The wool helps us finish the small task.",
+    "phraseZh": "wool帮我们做完这件小事。",
+    "media": {
+      "image": "assets/img/vocab-mc/wool.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/wool.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用wool",
+      "groupEn": "use the wool"
+    }
+  },
+  {
+    "id": "mc-dye",
+    "kind": "english",
+    "text": "dye",
+    "zh": "染料",
+    "theme": "颜色",
+    "level": "MC-D1",
+    "phrase": "We choose dye wool for the cozy room.",
+    "phraseZh": "我们选dye羊毛布置温暖的房间。",
+    "media": {
+      "image": "assets/img/vocab-mc/dye.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/dye.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "color",
+      "group": "dye羊毛",
+      "groupEn": "dye wool"
+    }
+  },
+  {
+    "id": "mc-daisy",
+    "kind": "english",
+    "text": "daisy",
+    "zh": "雏菊",
+    "theme": "植物",
+    "level": "MC-D1",
+    "phrase": "I plant the daisy near the village well.",
+    "phraseZh": "我在村子水井旁种下daisy。",
+    "media": {
+      "image": "assets/img/vocab-mc/daisy.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/daisy.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "plant",
+      "group": "种下daisy",
+      "groupEn": "grow daisy"
+    }
+  },
+  {
+    "id": "mc-tulip",
+    "kind": "english",
+    "text": "tulip",
+    "zh": "郁金香",
+    "theme": "植物",
+    "level": "MC-D1",
+    "phrase": "I plant the tulip near the village well.",
+    "phraseZh": "我在村子水井旁种下tulip。",
+    "media": {
+      "image": "assets/img/vocab-mc/tulip.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/tulip.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "plant",
+      "group": "种下tulip",
+      "groupEn": "grow tulip"
+    }
+  },
+  {
+    "id": "mc-bullseye",
+    "kind": "english",
+    "text": "bullseye",
+    "zh": "正中靶心",
+    "theme": "成就",
+    "level": "MC-D2",
+    "phrase": "Our team earns bullseye today.",
+    "phraseZh": "今天我们队得到了bullseye。",
+    "media": {
+      "image": "assets/img/vocab-mc/bullseye.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "advancement",
+      "group": "完成bullseye",
+      "groupEn": "complete bullseye"
+    }
+  },
+  {
+    "id": "mc-acacia",
+    "kind": "english",
+    "text": "acacia",
+    "zh": "金合欢",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I stack the acacia to make a small wall.",
+    "phraseZh": "我把acacia叠成一堵小墙。",
+    "media": {
+      "image": "assets/img/vocab-mc/acacia.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/acacia.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好acacia",
+      "groupEn": "place acacia"
+    }
+  },
+  {
+    "id": "mc-actinium",
+    "kind": "english",
+    "text": "actinium",
+    "zh": "锕",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "The actinium keeps our little house strong.",
+    "phraseZh": "actinium让小屋更结实。",
+    "media": {
+      "image": "assets/img/vocab-mc/actinium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好actinium",
+      "groupEn": "place actinium"
+    }
+  },
+  {
+    "id": "mc-aluminum",
+    "kind": "english",
+    "text": "aluminum",
+    "zh": "铝",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "A torch shines on the aluminum at night.",
+    "phraseZh": "夜里火把照亮了aluminum。",
+    "media": {
+      "image": "assets/img/vocab-mc/aluminum.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好aluminum",
+      "groupEn": "place aluminum"
+    }
+  },
+  {
+    "id": "mc-antimony",
+    "kind": "english",
+    "text": "antimony",
+    "zh": "n.法律的自相矛盾",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I place the antimony beside the doorway.",
+    "phraseZh": "我把antimony放在门口。",
+    "media": {
+      "image": "assets/img/vocab-mc/antimony.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好antimony",
+      "groupEn": "place antimony"
+    }
+  },
+  {
+    "id": "mc-arena",
+    "kind": "english",
+    "text": "arena",
+    "zh": "竞技场",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I count the arena before we start building.",
+    "phraseZh": "开工前我先数一数arena。",
+    "media": {
+      "image": "assets/img/vocab-mc/arena.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好arena",
+      "groupEn": "place arena"
+    }
+  },
+  {
+    "id": "mc-argon",
+    "kind": "english",
+    "text": "argon",
+    "zh": "氩",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "The builder stores the argon in a chest.",
+    "phraseZh": "建造的人把argon放进箱子。",
+    "media": {
+      "image": "assets/img/vocab-mc/argon.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好argon",
+      "groupEn": "place argon"
+    }
+  },
+  {
+    "id": "mc-arsenic",
+    "kind": "english",
+    "text": "arsenic",
+    "zh": "砷剂",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I count the arsenic before we start building.",
+    "phraseZh": "开工前我先数一数arsenic。",
+    "media": {
+      "image": "assets/img/vocab-mc/arsenic.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好arsenic",
+      "groupEn": "place arsenic"
+    }
+  },
+  {
+    "id": "mc-astatine",
+    "kind": "english",
+    "text": "astatine",
+    "zh": "砹",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I place the astatine beside the doorway.",
+    "phraseZh": "我把astatine放在门口。",
+    "media": {
+      "image": "assets/img/vocab-mc/astatine.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好astatine",
+      "groupEn": "place astatine"
+    }
+  },
+  {
+    "id": "mc-barium",
+    "kind": "english",
+    "text": "barium",
+    "zh": "钡",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I collect the barium before sunset.",
+    "phraseZh": "日落前我把barium收好。",
+    "media": {
+      "image": "assets/img/vocab-mc/barium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好barium",
+      "groupEn": "place barium"
+    }
+  },
+  {
+    "id": "mc-basalt",
+    "kind": "english",
+    "text": "basalt",
+    "zh": "玄武岩",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I replace the broken basalt near camp.",
+    "phraseZh": "我在营地旁换掉坏掉的basalt。",
+    "media": {
+      "image": "assets/img/vocab-mc/basalt.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好basalt",
+      "groupEn": "place basalt"
+    }
+  },
+  {
+    "id": "mc-bismuth",
+    "kind": "english",
+    "text": "bismuth",
+    "zh": "铋",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "The bismuth gives our base a new shape.",
+    "phraseZh": "bismuth让基地有了新样子。",
+    "media": {
+      "image": "assets/img/vocab-mc/bismuth.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好bismuth",
+      "groupEn": "place bismuth"
+    }
+  },
+  {
+    "id": "mc-bohrium",
+    "kind": "english",
+    "text": "bohrium",
+    "zh": "Bh元素",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "The bohrium gives our base a new shape.",
+    "phraseZh": "bohrium让基地有了新样子。",
+    "media": {
+      "image": "assets/img/vocab-mc/bohrium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好bohrium",
+      "groupEn": "place bohrium"
+    }
+  },
+  {
+    "id": "mc-boron",
+    "kind": "english",
+    "text": "boron",
+    "zh": "硼",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I stack the boron to make a small wall.",
+    "phraseZh": "我把boron叠成一堵小墙。",
+    "media": {
+      "image": "assets/img/vocab-mc/boron.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好boron",
+      "groupEn": "place boron"
+    }
+  },
+  {
+    "id": "mc-brick",
+    "kind": "english",
+    "text": "brick",
+    "zh": "红砖",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I replace the broken brick near camp.",
+    "phraseZh": "我在营地旁换掉坏掉的brick。",
+    "media": {
+      "image": "assets/img/vocab-mc/brick.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好brick",
+      "groupEn": "place brick"
+    }
+  },
+  {
+    "id": "mc-bricks",
+    "kind": "english",
+    "text": "bricks",
+    "zh": "砖块",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "A torch shines on the bricks at night.",
+    "phraseZh": "夜里火把照亮了bricks。",
+    "media": {
+      "image": "assets/img/vocab-mc/bricks.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好bricks",
+      "groupEn": "place bricks"
+    }
+  },
+  {
+    "id": "mc-bromine",
+    "kind": "english",
+    "text": "bromine",
+    "zh": "溴",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "Rain falls softly on the bromine.",
+    "phraseZh": "雨轻轻落在bromine上。",
+    "media": {
+      "image": "assets/img/vocab-mc/bromine.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好bromine",
+      "groupEn": "place bromine"
+    }
+  },
+  {
+    "id": "mc-cadmium",
+    "kind": "english",
+    "text": "cadmium",
+    "zh": "镉",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I stack the cadmium to make a small wall.",
+    "phraseZh": "我把cadmium叠成一堵小墙。",
+    "media": {
+      "image": "assets/img/vocab-mc/cadmium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好cadmium",
+      "groupEn": "place cadmium"
+    }
+  },
+  {
+    "id": "mc-calcium",
+    "kind": "english",
+    "text": "calcium",
+    "zh": "钙",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I stack the calcium to make a small wall.",
+    "phraseZh": "我把calcium叠成一堵小墙。",
+    "media": {
+      "image": "assets/img/vocab-mc/calcium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好calcium",
+      "groupEn": "place calcium"
+    }
+  },
+  {
+    "id": "mc-carbon",
+    "kind": "english",
+    "text": "carbon",
+    "zh": "碳色",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I count the carbon before we start building.",
+    "phraseZh": "开工前我先数一数carbon。",
+    "media": {
+      "image": "assets/img/vocab-mc/carbon.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好carbon",
+      "groupEn": "place carbon"
+    }
+  },
+  {
+    "id": "mc-cerium",
+    "kind": "english",
+    "text": "cerium",
+    "zh": "铈",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "We choose the cerium for the garden wall.",
+    "phraseZh": "花园围墙我们选用cerium。",
+    "media": {
+      "image": "assets/img/vocab-mc/cerium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好cerium",
+      "groupEn": "place cerium"
+    }
+  },
+  {
+    "id": "mc-cesium",
+    "kind": "english",
+    "text": "cesium",
+    "zh": "铯",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "A torch shines on the cesium at night.",
+    "phraseZh": "夜里火把照亮了cesium。",
+    "media": {
+      "image": "assets/img/vocab-mc/cesium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好cesium",
+      "groupEn": "place cesium"
+    }
+  },
+  {
+    "id": "mc-chain",
+    "kind": "english",
+    "text": "chain",
+    "zh": "锁链",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "We build a safe step with the chain.",
+    "phraseZh": "我们用chain搭出安全的台阶。",
+    "media": {
+      "image": "assets/img/vocab-mc/chain.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/chain.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好chain",
+      "groupEn": "place chain"
+    }
+  },
+  {
+    "id": "mc-chlorine",
+    "kind": "english",
+    "text": "chlorine",
+    "zh": "氯",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "We make a small path with the chlorine.",
+    "phraseZh": "我们用chlorine铺出一条小路。",
+    "media": {
+      "image": "assets/img/vocab-mc/chlorine.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好chlorine",
+      "groupEn": "place chlorine"
+    }
+  },
+  {
+    "id": "mc-chromium",
+    "kind": "english",
+    "text": "chromium",
+    "zh": "铬",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I stack the chromium to make a small wall.",
+    "phraseZh": "我把chromium叠成一堵小墙。",
+    "media": {
+      "image": "assets/img/vocab-mc/chromium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好chromium",
+      "groupEn": "place chromium"
+    }
+  },
+  {
+    "id": "mc-clay",
+    "kind": "english",
+    "text": "clay",
+    "zh": "黏土块",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "We build a safe step with the clay.",
+    "phraseZh": "我们用clay搭出安全的台阶。",
+    "media": {
+      "image": "assets/img/vocab-mc/clay.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好clay",
+      "groupEn": "place clay"
+    }
+  },
+  {
+    "id": "mc-cobalt",
+    "kind": "english",
+    "text": "cobalt",
+    "zh": "钴蓝色",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "We use the cobalt to mark the path home.",
+    "phraseZh": "我们用cobalt标出回家的路。",
+    "media": {
+      "image": "assets/img/vocab-mc/cobalt.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好cobalt",
+      "groupEn": "place cobalt"
+    }
+  },
+  {
+    "id": "mc-cobweb",
+    "kind": "english",
+    "text": "cobweb",
+    "zh": "蜘蛛网",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "The cobweb keeps our little house strong.",
+    "phraseZh": "cobweb让小屋更结实。",
+    "media": {
+      "image": "assets/img/vocab-mc/cobweb.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好cobweb",
+      "groupEn": "place cobweb"
+    }
+  },
+  {
+    "id": "mc-conduit",
+    "kind": "english",
+    "text": "conduit",
+    "zh": "潮涌核心",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "The conduit keeps our little house strong.",
+    "phraseZh": "conduit让小屋更结实。",
+    "media": {
+      "image": "assets/img/vocab-mc/conduit.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好conduit",
+      "groupEn": "place conduit"
+    }
+  },
+  {
+    "id": "mc-curium",
+    "kind": "english",
+    "text": "curium",
+    "zh": "锔",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "The builder stores the curium in a chest.",
+    "phraseZh": "建造的人把curium放进箱子。",
+    "media": {
+      "image": "assets/img/vocab-mc/curium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好curium",
+      "groupEn": "place curium"
+    }
+  },
+  {
+    "id": "mc-deny",
+    "kind": "english",
+    "text": "deny",
+    "zh": "v.驳回 ,不予受理,拒绝,不受理 ,抵赖,否定,否认,否认",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "A torch shines on the deny at night.",
+    "phraseZh": "夜里火把照亮了deny。",
+    "media": {
+      "image": "assets/img/vocab-mc/deny.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好deny",
+      "groupEn": "place deny"
+    }
+  },
+  {
+    "id": "mc-dubnium",
+    "kind": "english",
+    "text": "dubnium",
+    "zh": "Db元素",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "Rain falls softly on the dubnium.",
+    "phraseZh": "雨轻轻落在dubnium上。",
+    "media": {
+      "image": "assets/img/vocab-mc/dubnium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好dubnium",
+      "groupEn": "place dubnium"
+    }
+  },
+  {
+    "id": "mc-erbium",
+    "kind": "english",
+    "text": "erbium",
+    "zh": "铒",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "We make a small path with the erbium.",
+    "phraseZh": "我们用erbium铺出一条小路。",
+    "media": {
+      "image": "assets/img/vocab-mc/erbium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好erbium",
+      "groupEn": "place erbium"
+    }
+  },
+  {
+    "id": "mc-europium",
+    "kind": "english",
+    "text": "europium",
+    "zh": "铕",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I collect the europium before sunset.",
+    "phraseZh": "日落前我把europium收好。",
+    "media": {
+      "image": "assets/img/vocab-mc/europium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好europium",
+      "groupEn": "place europium"
+    }
+  },
+  {
+    "id": "mc-farmland",
+    "kind": "english",
+    "text": "farmland",
+    "zh": "耕地",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I count the farmland before we start building.",
+    "phraseZh": "开工前我先数一数farmland。",
+    "media": {
+      "image": "assets/img/vocab-mc/farmland.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好farmland",
+      "groupEn": "place farmland"
+    }
+  },
+  {
+    "id": "mc-fermium",
+    "kind": "english",
+    "text": "fermium",
+    "zh": "镄",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I place the fermium beside the doorway.",
+    "phraseZh": "我把fermium放在门口。",
+    "media": {
+      "image": "assets/img/vocab-mc/fermium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好fermium",
+      "groupEn": "place fermium"
+    }
+  },
+  {
+    "id": "mc-fluorine",
+    "kind": "english",
+    "text": "fluorine",
+    "zh": "氟",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I collect the fluorine before sunset.",
+    "phraseZh": "日落前我把fluorine收好。",
+    "media": {
+      "image": "assets/img/vocab-mc/fluorine.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好fluorine",
+      "groupEn": "place fluorine"
+    }
+  },
+  {
+    "id": "mc-francium",
+    "kind": "english",
+    "text": "francium",
+    "zh": "钫",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I replace the broken francium near camp.",
+    "phraseZh": "我在营地旁换掉坏掉的francium。",
+    "media": {
+      "image": "assets/img/vocab-mc/francium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好francium",
+      "groupEn": "place francium"
+    }
+  },
+  {
+    "id": "mc-gallium",
+    "kind": "english",
+    "text": "gallium",
+    "zh": "镓",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "We choose the gallium for the garden wall.",
+    "phraseZh": "花园围墙我们选用gallium。",
+    "media": {
+      "image": "assets/img/vocab-mc/gallium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好gallium",
+      "groupEn": "place gallium"
+    }
+  },
+  {
+    "id": "mc-gravel",
+    "kind": "english",
+    "text": "gravel",
+    "zh": "沙砾",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "We build a safe step with the gravel.",
+    "phraseZh": "我们用gravel搭出安全的台阶。",
+    "media": {
+      "image": "assets/img/vocab-mc/gravel.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好gravel",
+      "groupEn": "place gravel"
+    }
+  },
+  {
+    "id": "mc-hafnium",
+    "kind": "english",
+    "text": "hafnium",
+    "zh": "铪",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "Rain falls softly on the hafnium.",
+    "phraseZh": "雨轻轻落在hafnium上。",
+    "media": {
+      "image": "assets/img/vocab-mc/hafnium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好hafnium",
+      "groupEn": "place hafnium"
+    }
+  },
+  {
+    "id": "mc-hassium",
+    "kind": "english",
+    "text": "hassium",
+    "zh": "钅罕",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "We make a small path with the hassium.",
+    "phraseZh": "我们用hassium铺出一条小路。",
+    "media": {
+      "image": "assets/img/vocab-mc/hassium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好hassium",
+      "groupEn": "place hassium"
+    }
+  },
+  {
+    "id": "mc-helium",
+    "kind": "english",
+    "text": "helium",
+    "zh": "氦",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "Rain falls softly on the helium.",
+    "phraseZh": "雨轻轻落在helium上。",
+    "media": {
+      "image": "assets/img/vocab-mc/helium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好helium",
+      "groupEn": "place helium"
+    }
+  },
+  {
+    "id": "mc-holmium",
+    "kind": "english",
+    "text": "holmium",
+    "zh": "钬",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "We choose the holmium for the garden wall.",
+    "phraseZh": "花园围墙我们选用holmium。",
+    "media": {
+      "image": "assets/img/vocab-mc/holmium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好holmium",
+      "groupEn": "place holmium"
+    }
+  },
+  {
+    "id": "mc-hydrogen",
+    "kind": "english",
+    "text": "hydrogen",
+    "zh": "氢",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I collect the hydrogen before sunset.",
+    "phraseZh": "日落前我把hydrogen收好。",
+    "media": {
+      "image": "assets/img/vocab-mc/hydrogen.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好hydrogen",
+      "groupEn": "place hydrogen"
+    }
+  },
+  {
+    "id": "mc-indium",
+    "kind": "english",
+    "text": "indium",
+    "zh": "铟",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "Rain falls softly on the indium.",
+    "phraseZh": "雨轻轻落在indium上。",
+    "media": {
+      "image": "assets/img/vocab-mc/indium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好indium",
+      "groupEn": "place indium"
+    }
+  },
+  {
+    "id": "mc-iodine",
+    "kind": "english",
+    "text": "iodine",
+    "zh": "碘酒",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "A torch shines on the iodine at night.",
+    "phraseZh": "夜里火把照亮了iodine。",
+    "media": {
+      "image": "assets/img/vocab-mc/iodine.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好iodine",
+      "groupEn": "place iodine"
+    }
+  },
+  {
+    "id": "mc-iridium",
+    "kind": "english",
+    "text": "iridium",
+    "zh": "铱",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "We use the iridium to mark the path home.",
+    "phraseZh": "我们用iridium标出回家的路。",
+    "media": {
+      "image": "assets/img/vocab-mc/iridium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好iridium",
+      "groupEn": "place iridium"
+    }
+  },
+  {
+    "id": "mc-kelp",
+    "kind": "english",
+    "text": "kelp",
+    "zh": "巨藻",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "The kelp gives our base a new shape.",
+    "phraseZh": "kelp让基地有了新样子。",
+    "media": {
+      "image": "assets/img/vocab-mc/kelp.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好kelp",
+      "groupEn": "place kelp"
+    }
+  },
+  {
+    "id": "mc-krypton",
+    "kind": "english",
+    "text": "krypton",
+    "zh": "氪",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I count the krypton before we start building.",
+    "phraseZh": "开工前我先数一数krypton。",
+    "media": {
+      "image": "assets/img/vocab-mc/krypton.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好krypton",
+      "groupEn": "place krypton"
+    }
+  },
+  {
+    "id": "mc-lithium",
+    "kind": "english",
+    "text": "lithium",
+    "zh": "锂",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I collect the lithium before sunset.",
+    "phraseZh": "日落前我把lithium收好。",
+    "media": {
+      "image": "assets/img/vocab-mc/lithium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好lithium",
+      "groupEn": "place lithium"
+    }
+  },
+  {
+    "id": "mc-lutetium",
+    "kind": "english",
+    "text": "lutetium",
+    "zh": "镥",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "We build a safe step with the lutetium.",
+    "phraseZh": "我们用lutetium搭出安全的台阶。",
+    "media": {
+      "image": "assets/img/vocab-mc/lutetium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好lutetium",
+      "groupEn": "place lutetium"
+    }
+  },
+  {
+    "id": "mc-marble",
+    "kind": "english",
+    "text": "marble",
+    "zh": "大理石",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "We use the marble to mark the path home.",
+    "phraseZh": "我们用marble标出回家的路。",
+    "media": {
+      "image": "assets/img/vocab-mc/marble.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好marble",
+      "groupEn": "place marble"
+    }
+  },
+  {
+    "id": "mc-mercury",
+    "kind": "english",
+    "text": "mercury",
+    "zh": "水星",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I replace the broken mercury near camp.",
+    "phraseZh": "我在营地旁换掉坏掉的mercury。",
+    "media": {
+      "image": "assets/img/vocab-mc/mercury.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好mercury",
+      "groupEn": "place mercury"
+    }
+  },
+  {
+    "id": "mc-mycelium",
+    "kind": "english",
+    "text": "mycelium",
+    "zh": "菌丝体",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "We build a safe step with the mycelium.",
+    "phraseZh": "我们用mycelium搭出安全的台阶。",
+    "media": {
+      "image": "assets/img/vocab-mc/mycelium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好mycelium",
+      "groupEn": "place mycelium"
+    }
+  },
+  {
+    "id": "mc-neon",
+    "kind": "english",
+    "text": "neon",
+    "zh": "氖",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I stack the neon to make a small wall.",
+    "phraseZh": "我把neon叠成一堵小墙。",
+    "media": {
+      "image": "assets/img/vocab-mc/neon.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好neon",
+      "groupEn": "place neon"
+    }
+  },
+  {
+    "id": "mc-nickel",
+    "kind": "english",
+    "text": "nickel",
+    "zh": "镍",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "A torch shines on the nickel at night.",
+    "phraseZh": "夜里火把照亮了nickel。",
+    "media": {
+      "image": "assets/img/vocab-mc/nickel.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好nickel",
+      "groupEn": "place nickel"
+    }
+  },
+  {
+    "id": "mc-nihonium",
+    "kind": "english",
+    "text": "nihonium",
+    "zh": "Nh元素",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "We use the nihonium to mark the path home.",
+    "phraseZh": "我们用nihonium标出回家的路。",
+    "media": {
+      "image": "assets/img/vocab-mc/nihonium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好nihonium",
+      "groupEn": "place nihonium"
+    }
+  },
+  {
+    "id": "mc-niobium",
+    "kind": "english",
+    "text": "niobium",
+    "zh": "铌",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I count the niobium before we start building.",
+    "phraseZh": "开工前我先数一数niobium。",
+    "media": {
+      "image": "assets/img/vocab-mc/niobium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好niobium",
+      "groupEn": "place niobium"
+    }
+  },
+  {
+    "id": "mc-nitrogen",
+    "kind": "english",
+    "text": "nitrogen",
+    "zh": "氮",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "The nitrogen gives our base a new shape.",
+    "phraseZh": "nitrogen让基地有了新样子。",
+    "media": {
+      "image": "assets/img/vocab-mc/nitrogen.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好nitrogen",
+      "groupEn": "place nitrogen"
+    }
+  },
+  {
+    "id": "mc-nobelium",
+    "kind": "english",
+    "text": "nobelium",
+    "zh": "锘",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "We build a safe step with the nobelium.",
+    "phraseZh": "我们用nobelium搭出安全的台阶。",
+    "media": {
+      "image": "assets/img/vocab-mc/nobelium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好nobelium",
+      "groupEn": "place nobelium"
+    }
+  },
+  {
+    "id": "mc-osmium",
+    "kind": "english",
+    "text": "osmium",
+    "zh": "锇",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I stack the osmium to make a small wall.",
+    "phraseZh": "我把osmium叠成一堵小墙。",
+    "media": {
+      "image": "assets/img/vocab-mc/osmium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好osmium",
+      "groupEn": "place osmium"
+    }
+  },
+  {
+    "id": "mc-oxygen",
+    "kind": "english",
+    "text": "oxygen",
+    "zh": "氧气",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "We make a small path with the oxygen.",
+    "phraseZh": "我们用oxygen铺出一条小路。",
+    "media": {
+      "image": "assets/img/vocab-mc/oxygen.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好oxygen",
+      "groupEn": "place oxygen"
+    }
+  },
+  {
+    "id": "mc-planks",
+    "kind": "english",
+    "text": "planks",
+    "zh": "木板",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I replace the broken planks near camp.",
+    "phraseZh": "我在营地旁换掉坏掉的planks。",
+    "media": {
+      "image": "assets/img/vocab-mc/planks.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好planks",
+      "groupEn": "place planks"
+    }
+  },
+  {
+    "id": "mc-platinum",
+    "kind": "english",
+    "text": "platinum",
+    "zh": "铂",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "We make a small path with the platinum.",
+    "phraseZh": "我们用platinum铺出一条小路。",
+    "media": {
+      "image": "assets/img/vocab-mc/platinum.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好platinum",
+      "groupEn": "place platinum"
+    }
+  },
+  {
+    "id": "mc-podzol",
+    "kind": "english",
+    "text": "podzol",
+    "zh": "灰化土",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "We make a small path with the podzol.",
+    "phraseZh": "我们用podzol铺出一条小路。",
+    "media": {
+      "image": "assets/img/vocab-mc/podzol.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好podzol",
+      "groupEn": "place podzol"
+    }
+  },
+  {
+    "id": "mc-polonium",
+    "kind": "english",
+    "text": "polonium",
+    "zh": "钋",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "We build a safe step with the polonium.",
+    "phraseZh": "我们用polonium搭出安全的台阶。",
+    "media": {
+      "image": "assets/img/vocab-mc/polonium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好polonium",
+      "groupEn": "place polonium"
+    }
+  },
+  {
+    "id": "mc-purpur",
+    "kind": "english",
+    "text": "purpur",
+    "zh": "紫珀",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "We make a small path with the purpur.",
+    "phraseZh": "我们用purpur铺出一条小路。",
+    "media": {
+      "image": "assets/img/vocab-mc/purpur.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好purpur",
+      "groupEn": "place purpur"
+    }
+  },
+  {
+    "id": "mc-radium",
+    "kind": "english",
+    "text": "radium",
+    "zh": "镭",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "Rain falls softly on the radium.",
+    "phraseZh": "雨轻轻落在radium上。",
+    "media": {
+      "image": "assets/img/vocab-mc/radium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好radium",
+      "groupEn": "place radium"
+    }
+  },
+  {
+    "id": "mc-radon",
+    "kind": "english",
+    "text": "radon",
+    "zh": "氡",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "Rain falls softly on the radon.",
+    "phraseZh": "雨轻轻落在radon上。",
+    "media": {
+      "image": "assets/img/vocab-mc/radon.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好radon",
+      "groupEn": "place radon"
+    }
+  },
+  {
+    "id": "mc-rhenium",
+    "kind": "english",
+    "text": "rhenium",
+    "zh": "铼",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "We make a small path with the rhenium.",
+    "phraseZh": "我们用rhenium铺出一条小路。",
+    "media": {
+      "image": "assets/img/vocab-mc/rhenium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好rhenium",
+      "groupEn": "place rhenium"
+    }
+  },
+  {
+    "id": "mc-rhodium",
+    "kind": "english",
+    "text": "rhodium",
+    "zh": "铑",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I stack the rhodium to make a small wall.",
+    "phraseZh": "我把rhodium叠成一堵小墙。",
+    "media": {
+      "image": "assets/img/vocab-mc/rhodium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好rhodium",
+      "groupEn": "place rhodium"
+    }
+  },
+  {
+    "id": "mc-rubidium",
+    "kind": "english",
+    "text": "rubidium",
+    "zh": "铷",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "We choose the rubidium for the garden wall.",
+    "phraseZh": "花园围墙我们选用rubidium。",
+    "media": {
+      "image": "assets/img/vocab-mc/rubidium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好rubidium",
+      "groupEn": "place rubidium"
+    }
+  },
+  {
+    "id": "mc-samarium",
+    "kind": "english",
+    "text": "samarium",
+    "zh": "钐",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "The builder stores the samarium in a chest.",
+    "phraseZh": "建造的人把samarium放进箱子。",
+    "media": {
+      "image": "assets/img/vocab-mc/samarium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好samarium",
+      "groupEn": "place samarium"
+    }
+  },
+  {
+    "id": "mc-scandium",
+    "kind": "english",
+    "text": "scandium",
+    "zh": "钪",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I stack the scandium to make a small wall.",
+    "phraseZh": "我把scandium叠成一堵小墙。",
+    "media": {
+      "image": "assets/img/vocab-mc/scandium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好scandium",
+      "groupEn": "place scandium"
+    }
+  },
+  {
+    "id": "mc-selenium",
+    "kind": "english",
+    "text": "selenium",
+    "zh": "硒",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "A torch shines on the selenium at night.",
+    "phraseZh": "夜里火把照亮了selenium。",
+    "media": {
+      "image": "assets/img/vocab-mc/selenium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好selenium",
+      "groupEn": "place selenium"
+    }
+  },
+  {
+    "id": "mc-silicon",
+    "kind": "english",
+    "text": "silicon",
+    "zh": "硅",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I place the silicon beside the doorway.",
+    "phraseZh": "我把silicon放在门口。",
+    "media": {
+      "image": "assets/img/vocab-mc/silicon.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好silicon",
+      "groupEn": "place silicon"
+    }
+  },
+  {
+    "id": "mc-sodium",
+    "kind": "english",
+    "text": "sodium",
+    "zh": "钠",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "The builder stores the sodium in a chest.",
+    "phraseZh": "建造的人把sodium放进箱子。",
+    "media": {
+      "image": "assets/img/vocab-mc/sodium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好sodium",
+      "groupEn": "place sodium"
+    }
+  },
+  {
+    "id": "mc-spruce",
+    "kind": "english",
+    "text": "spruce",
+    "zh": "云杉",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I stack the spruce to make a small wall.",
+    "phraseZh": "我把spruce叠成一堵小墙。",
+    "media": {
+      "image": "assets/img/vocab-mc/spruce.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/spruce.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好spruce",
+      "groupEn": "place spruce"
+    }
+  },
+  {
+    "id": "mc-sulfur",
+    "kind": "english",
+    "text": "sulfur",
+    "zh": "硫磺",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I count the sulfur before we start building.",
+    "phraseZh": "开工前我先数一数sulfur。",
+    "media": {
+      "image": "assets/img/vocab-mc/sulfur.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好sulfur",
+      "groupEn": "place sulfur"
+    }
+  },
+  {
+    "id": "mc-tantalum",
+    "kind": "english",
+    "text": "tantalum",
+    "zh": "钽",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I collect the tantalum before sunset.",
+    "phraseZh": "日落前我把tantalum收好。",
+    "media": {
+      "image": "assets/img/vocab-mc/tantalum.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好tantalum",
+      "groupEn": "place tantalum"
+    }
+  },
+  {
+    "id": "mc-terbium",
+    "kind": "english",
+    "text": "terbium",
+    "zh": "铽",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "Rain falls softly on the terbium.",
+    "phraseZh": "雨轻轻落在terbium上。",
+    "media": {
+      "image": "assets/img/vocab-mc/terbium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好terbium",
+      "groupEn": "place terbium"
+    }
+  },
+  {
+    "id": "mc-thallium",
+    "kind": "english",
+    "text": "thallium",
+    "zh": "铊",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "We make a small path with the thallium.",
+    "phraseZh": "我们用thallium铺出一条小路。",
+    "media": {
+      "image": "assets/img/vocab-mc/thallium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好thallium",
+      "groupEn": "place thallium"
+    }
+  },
+  {
+    "id": "mc-thorium",
+    "kind": "english",
+    "text": "thorium",
+    "zh": "瑟银",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "The thorium keeps our little house strong.",
+    "phraseZh": "thorium让小屋更结实。",
+    "media": {
+      "image": "assets/img/vocab-mc/thorium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好thorium",
+      "groupEn": "place thorium"
+    }
+  },
+  {
+    "id": "mc-thulium",
+    "kind": "english",
+    "text": "thulium",
+    "zh": "铥",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "A torch shines on the thulium at night.",
+    "phraseZh": "夜里火把照亮了thulium。",
+    "media": {
+      "image": "assets/img/vocab-mc/thulium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好thulium",
+      "groupEn": "place thulium"
+    }
+  },
+  {
+    "id": "mc-tin",
+    "kind": "english",
+    "text": "tin",
+    "zh": "听",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "We choose the tin for the garden wall.",
+    "phraseZh": "花园围墙我们选用tin。",
+    "media": {
+      "image": "assets/img/vocab-mc/tin.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好tin",
+      "groupEn": "place tin"
+    }
+  },
+  {
+    "id": "mc-titanium",
+    "kind": "english",
+    "text": "titanium",
+    "zh": "钛",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I replace the broken titanium near camp.",
+    "phraseZh": "我在营地旁换掉坏掉的titanium。",
+    "media": {
+      "image": "assets/img/vocab-mc/titanium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好titanium",
+      "groupEn": "place titanium"
+    }
+  },
+  {
+    "id": "mc-tripwire",
+    "kind": "english",
+    "text": "tripwire",
+    "zh": "绊线钩",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "A torch shines on the tripwire at night.",
+    "phraseZh": "夜里火把照亮了tripwire。",
+    "media": {
+      "image": "assets/img/vocab-mc/tripwire.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好tripwire",
+      "groupEn": "place tripwire"
+    }
+  },
+  {
+    "id": "mc-tungsten",
+    "kind": "english",
+    "text": "tungsten",
+    "zh": "钨",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "We make a small path with the tungsten.",
+    "phraseZh": "我们用tungsten铺出一条小路。",
+    "media": {
+      "image": "assets/img/vocab-mc/tungsten.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好tungsten",
+      "groupEn": "place tungsten"
+    }
+  },
+  {
+    "id": "mc-uranium",
+    "kind": "english",
+    "text": "uranium",
+    "zh": "铀",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "We use the uranium to mark the path home.",
+    "phraseZh": "我们用uranium标出回家的路。",
+    "media": {
+      "image": "assets/img/vocab-mc/uranium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好uranium",
+      "groupEn": "place uranium"
+    }
+  },
+  {
+    "id": "mc-vanadium",
+    "kind": "english",
+    "text": "vanadium",
+    "zh": "钒",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "I count the vanadium before we start building.",
+    "phraseZh": "开工前我先数一数vanadium。",
+    "media": {
+      "image": "assets/img/vocab-mc/vanadium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好vanadium",
+      "groupEn": "place vanadium"
+    }
+  },
+  {
+    "id": "mc-xenon",
+    "kind": "english",
+    "text": "xenon",
+    "zh": "氙气灯",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "We make a small path with the xenon.",
+    "phraseZh": "我们用xenon铺出一条小路。",
+    "media": {
+      "image": "assets/img/vocab-mc/xenon.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好xenon",
+      "groupEn": "place xenon"
+    }
+  },
+  {
+    "id": "mc-yttrium",
+    "kind": "english",
+    "text": "yttrium",
+    "zh": "钇",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "We make a small path with the yttrium.",
+    "phraseZh": "我们用yttrium铺出一条小路。",
+    "media": {
+      "image": "assets/img/vocab-mc/yttrium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好yttrium",
+      "groupEn": "place yttrium"
+    }
+  },
+  {
+    "id": "mc-zinc",
+    "kind": "english",
+    "text": "zinc",
+    "zh": "锌",
+    "theme": "方块",
+    "level": "MC-D2",
+    "phrase": "The zinc gives our base a new shape.",
+    "phraseZh": "zinc让基地有了新样子。",
+    "media": {
+      "image": "assets/img/vocab-mc/zinc.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "block",
+      "group": "放好zinc",
+      "groupEn": "place zinc"
+    }
+  },
+  {
+    "id": "mc-pickaxe",
+    "kind": "english",
+    "text": "pickaxe",
+    "zh": "镐",
+    "theme": "工具",
+    "level": "MC-D2",
+    "phrase": "The pickaxe helps us reach the high ledge.",
+    "phraseZh": "pickaxe帮我们爬上高台。",
+    "media": {
+      "image": "assets/img/vocab-mc/pickaxe.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/pickaxe.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "tool",
+      "group": "用一把pickaxe",
+      "groupEn": "use a pickaxe"
+    }
+  },
+  {
+    "id": "mc-shears",
+    "kind": "english",
+    "text": "shears",
+    "zh": "剪刀",
+    "theme": "工具",
+    "level": "MC-D2",
+    "phrase": "I use the shears to gather materials.",
+    "phraseZh": "我用shears去收集材料。",
+    "media": {
+      "image": "assets/img/vocab-mc/shears.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "tool",
+      "group": "用一把shears",
+      "groupEn": "use a shears"
+    }
+  },
+  {
+    "id": "mc-shovel",
+    "kind": "english",
+    "text": "shovel",
+    "zh": "锹",
+    "theme": "工具",
+    "level": "MC-D2",
+    "phrase": "I use the shovel to gather materials.",
+    "phraseZh": "我用shovel去收集材料。",
+    "media": {
+      "image": "assets/img/vocab-mc/shovel.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/shovel.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "tool",
+      "group": "用一把shovel",
+      "groupEn": "use a shovel"
+    }
+  },
+  {
+    "id": "mc-temple",
+    "kind": "english",
+    "text": "temple",
+    "zh": "神殿",
+    "theme": "建筑",
+    "level": "MC-D2",
+    "phrase": "We discover the temple beyond the river.",
+    "phraseZh": "我们在河对岸发现了temple。",
+    "media": {
+      "image": "assets/img/vocab-mc/temple.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/temple.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "structure",
+      "group": "找到一个temple",
+      "groupEn": "find a temple"
+    }
+  },
+  {
+    "id": "mc-axolotl",
+    "kind": "english",
+    "text": "axolotl",
+    "zh": "美西螈",
+    "theme": "生物",
+    "level": "MC-D2",
+    "phrase": "The axolotl hides behind a tree.",
+    "phraseZh": "axolotl躲在树后面。",
+    "media": {
+      "image": "assets/img/vocab-mc/axolotl.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/axolotl.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "mob",
+      "group": "看见axolotl",
+      "groupEn": "spot a axolotl"
+    }
+  },
+  {
+    "id": "mc-beehive",
+    "kind": "english",
+    "text": "beehive",
+    "zh": "蜂箱",
+    "theme": "生物",
+    "level": "MC-D2",
+    "phrase": "We draw the beehive in our adventure book.",
+    "phraseZh": "我们把beehive画进冒险本。",
+    "media": {
+      "image": "assets/img/vocab-mc/beehive.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "mob",
+      "group": "看见beehive",
+      "groupEn": "spot a beehive"
+    }
+  },
+  {
+    "id": "mc-beetroot",
+    "kind": "english",
+    "text": "beetroot",
+    "zh": "甜菜根",
+    "theme": "生物",
+    "level": "MC-D2",
+    "phrase": "The beetroot follows us along the path.",
+    "phraseZh": "beetroot跟着我们走在路上。",
+    "media": {
+      "image": "assets/img/vocab-mc/beetroot.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "mob",
+      "group": "看见beetroot",
+      "groupEn": "spot a beetroot"
+    }
+  },
+  {
+    "id": "mc-creeper",
+    "kind": "english",
+    "text": "creeper",
+    "zh": "苦力怕",
+    "theme": "生物",
+    "level": "MC-D2",
+    "phrase": "We hear a creeper behind the trees.",
+    "phraseZh": "树后面传来creeper的声音。",
+    "media": {
+      "image": "assets/img/vocab-mc/creeper.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/creeper.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "mob",
+      "group": "看见creeper",
+      "groupEn": "spot a creeper"
+    }
+  },
+  {
+    "id": "mc-enderman",
+    "kind": "english",
+    "text": "enderman",
+    "zh": "末影人",
+    "theme": "生物",
+    "level": "MC-D2",
+    "phrase": "I spot a enderman near the village.",
+    "phraseZh": "我在村子附近看见enderman。",
+    "media": {
+      "image": "assets/img/vocab-mc/enderman.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/enderman.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "mob",
+      "group": "看见enderman",
+      "groupEn": "spot a enderman"
+    }
+  },
+  {
+    "id": "mc-guardian",
+    "kind": "english",
+    "text": "guardian",
+    "zh": "守卫者",
+    "theme": "生物",
+    "level": "MC-D2",
+    "phrase": "Our map marks a guardian nearby.",
+    "phraseZh": "地图上标着附近有guardian。",
+    "media": {
+      "image": "assets/img/vocab-mc/guardian.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/guardian.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "mob",
+      "group": "看见guardian",
+      "groupEn": "spot a guardian"
+    }
+  },
+  {
+    "id": "mc-hoglin",
+    "kind": "english",
+    "text": "hoglin",
+    "zh": "疣猪兽",
+    "theme": "生物",
+    "level": "MC-D2",
+    "phrase": "A hoglin rests beside the river.",
+    "phraseZh": "一只hoglin在河边休息。",
+    "media": {
+      "image": "assets/img/vocab-mc/hoglin.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/hoglin.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "mob",
+      "group": "看见hoglin",
+      "groupEn": "spot a hoglin"
+    }
+  },
+  {
+    "id": "mc-phantom",
+    "kind": "english",
+    "text": "phantom",
+    "zh": "幻翼",
+    "theme": "生物",
+    "level": "MC-D2",
+    "phrase": "A phantom rests beside the river.",
+    "phraseZh": "一只phantom在河边休息。",
+    "media": {
+      "image": "assets/img/vocab-mc/phantom.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/phantom.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "mob",
+      "group": "看见phantom",
+      "groupEn": "spot a phantom"
+    }
+  },
+  {
+    "id": "mc-piglin",
+    "kind": "english",
+    "text": "piglin",
+    "zh": "猪灵",
+    "theme": "生物",
+    "level": "MC-D2",
+    "phrase": "The piglin visits our camp at dawn.",
+    "phraseZh": "天亮时piglin来到我们的营地。",
+    "media": {
+      "image": "assets/img/vocab-mc/piglin.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/piglin.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "mob",
+      "group": "看见piglin",
+      "groupEn": "spot a piglin"
+    }
+  },
+  {
+    "id": "mc-skeleton",
+    "kind": "english",
+    "text": "skeleton",
+    "zh": "骷髅",
+    "theme": "生物",
+    "level": "MC-D2",
+    "phrase": "A skeleton crosses the bridge slowly.",
+    "phraseZh": "一只skeleton慢慢走过桥。",
+    "media": {
+      "image": "assets/img/vocab-mc/skeleton.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "mob",
+      "group": "看见skeleton",
+      "groupEn": "spot a skeleton"
+    }
+  },
+  {
+    "id": "mc-spawner",
+    "kind": "english",
+    "text": "spawner",
+    "zh": "刷怪笼",
+    "theme": "生物",
+    "level": "MC-D2",
+    "phrase": "The spawner follows us along the path.",
+    "phraseZh": "spawner跟着我们走在路上。",
+    "media": {
+      "image": "assets/img/vocab-mc/spawner.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "mob",
+      "group": "看见spawner",
+      "groupEn": "spot a spawner"
+    }
+  },
+  {
+    "id": "mc-strider",
+    "kind": "english",
+    "text": "strider",
+    "zh": "炽足兽",
+    "theme": "生物",
+    "level": "MC-D2",
+    "phrase": "Our map marks a strider nearby.",
+    "phraseZh": "地图上标着附近有strider。",
+    "media": {
+      "image": "assets/img/vocab-mc/strider.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/strider.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "mob",
+      "group": "看见strider",
+      "groupEn": "spot a strider"
+    }
+  },
+  {
+    "id": "mc-villager",
+    "kind": "english",
+    "text": "villager",
+    "zh": "村民",
+    "theme": "生物",
+    "level": "MC-D2",
+    "phrase": "I spot a villager near the village.",
+    "phraseZh": "我在村子附近看见villager。",
+    "media": {
+      "image": "assets/img/vocab-mc/villager.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/villager.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "mob",
+      "group": "看见villager",
+      "groupEn": "spot a villager"
+    }
+  },
+  {
+    "id": "mc-wither",
+    "kind": "english",
+    "text": "wither",
+    "zh": "凋灵",
+    "theme": "生物",
+    "level": "MC-D2",
+    "phrase": "The wither hides behind a tree.",
+    "phraseZh": "wither躲在树后面。",
+    "media": {
+      "image": "assets/img/vocab-mc/wither.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/wither.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "mob",
+      "group": "看见wither",
+      "groupEn": "spot a wither"
+    }
+  },
+  {
+    "id": "mc-zombie",
+    "kind": "english",
+    "text": "zombie",
+    "zh": "僵尸",
+    "theme": "生物",
+    "level": "MC-D2",
+    "phrase": "We draw the zombie in our adventure book.",
+    "phraseZh": "我们把zombie画进冒险本。",
+    "media": {
+      "image": "assets/img/vocab-mc/zombie.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/zombie.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "mob",
+      "group": "看见zombie",
+      "groupEn": "spot a zombie"
+    }
+  },
+  {
+    "id": "mc-biomes",
+    "kind": "english",
+    "text": "biomes",
+    "zh": "生物群系",
+    "theme": "生物群系",
+    "level": "MC-D2",
+    "phrase": "The biomes is full of new plants to discover.",
+    "phraseZh": "biomes里有很多新植物可以看。",
+    "media": {
+      "image": "assets/img/vocab-mc/biomes.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "biome",
+      "group": "去探索biomes",
+      "groupEn": "explore the biomes"
+    }
+  },
+  {
+    "id": "mc-nether",
+    "kind": "english",
+    "text": "nether",
+    "zh": "下界",
+    "theme": "生物群系",
+    "level": "MC-D2",
+    "phrase": "Our camp sits at the edge of the nether.",
+    "phraseZh": "我们的营地在nether边上。",
+    "media": {
+      "image": "assets/img/vocab-mc/nether.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "biome",
+      "group": "去探索nether",
+      "groupEn": "explore the nether"
+    }
+  },
+  {
+    "id": "mc-plains",
+    "kind": "english",
+    "text": "plains",
+    "zh": "平原",
+    "theme": "生物群系",
+    "level": "MC-D2",
+    "phrase": "We mark the plains on our map.",
+    "phraseZh": "我们在地图上标出plains。",
+    "media": {
+      "image": "assets/img/vocab-mc/plains.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "biome",
+      "group": "去探索plains",
+      "groupEn": "explore the plains"
+    }
+  },
+  {
+    "id": "mc-savanna",
+    "kind": "english",
+    "text": "savanna",
+    "zh": "热带草原",
+    "theme": "生物群系",
+    "level": "MC-D2",
+    "phrase": "We listen for new sounds in the savanna.",
+    "phraseZh": "我们在savanna里听有没有新声音。",
+    "media": {
+      "image": "assets/img/vocab-mc/savanna.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "biome",
+      "group": "去探索savanna",
+      "groupEn": "explore the savanna"
+    }
+  },
+  {
+    "id": "mc-berries",
+    "kind": "english",
+    "text": "berries",
+    "zh": "浆果",
+    "theme": "食物",
+    "level": "MC-D2",
+    "phrase": "The berries fills my hunger bar.",
+    "phraseZh": "berries让我填饱肚子。",
+    "media": {
+      "image": "assets/img/vocab-mc/berries.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "food",
+      "group": "吃berries",
+      "groupEn": "eat berries"
+    }
+  },
+  {
+    "id": "mc-carrots",
+    "kind": "english",
+    "text": "carrots",
+    "zh": "胡萝卜",
+    "theme": "食物",
+    "level": "MC-D2",
+    "phrase": "I put the carrots in the camp chest.",
+    "phraseZh": "我把carrots放进营地箱子。",
+    "media": {
+      "image": "assets/img/vocab-mc/carrots.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "food",
+      "group": "吃carrots",
+      "groupEn": "eat carrots"
+    }
+  },
+  {
+    "id": "mc-mutton",
+    "kind": "english",
+    "text": "mutton",
+    "zh": "羊肉",
+    "theme": "食物",
+    "level": "MC-D2",
+    "phrase": "I eat the mutton beside the warm fire.",
+    "phraseZh": "我在暖和的火堆旁吃mutton。",
+    "media": {
+      "image": "assets/img/vocab-mc/mutton.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "food",
+      "group": "吃mutton",
+      "groupEn": "eat mutton"
+    }
+  },
+  {
+    "id": "mc-porkchop",
+    "kind": "english",
+    "text": "porkchop",
+    "zh": "猪排",
+    "theme": "食物",
+    "level": "MC-D2",
+    "phrase": "I share the porkchop with my teammate.",
+    "phraseZh": "我和队友一起用porkchop。",
+    "media": {
+      "image": "assets/img/vocab-mc/porkchop.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "food",
+      "group": "吃porkchop",
+      "groupEn": "eat porkchop"
+    }
+  },
+  {
+    "id": "mc-potatoes",
+    "kind": "english",
+    "text": "potatoes",
+    "zh": "土豆",
+    "theme": "食物",
+    "level": "MC-D2",
+    "phrase": "We make a picnic with the potatoes.",
+    "phraseZh": "我们用potatoes做一次野餐。",
+    "media": {
+      "image": "assets/img/vocab-mc/potatoes.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "food",
+      "group": "吃potatoes",
+      "groupEn": "eat potatoes"
+    }
+  },
+  {
+    "id": "mc-salmon",
+    "kind": "english",
+    "text": "salmon",
+    "zh": "鲑鱼",
+    "theme": "食物",
+    "level": "MC-D2",
+    "phrase": "The salmon fills my hunger bar.",
+    "phraseZh": "salmon让我填饱肚子。",
+    "media": {
+      "image": "assets/img/vocab-mc/salmon.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "food",
+      "group": "吃salmon",
+      "groupEn": "eat salmon"
+    }
+  },
+  {
+    "id": "mc-crossbow",
+    "kind": "english",
+    "text": "crossbow",
+    "zh": "弩",
+    "theme": "武器",
+    "level": "MC-D2",
+    "phrase": "I hold the crossbow when night falls.",
+    "phraseZh": "天黑时我拿着crossbow。",
+    "media": {
+      "image": "assets/img/vocab-mc/crossbow.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "weapon",
+      "group": "用一把crossbow",
+      "groupEn": "use a crossbow"
+    }
+  },
+  {
+    "id": "mc-shield",
+    "kind": "english",
+    "text": "shield",
+    "zh": "盾牌",
+    "theme": "武器",
+    "level": "MC-D2",
+    "phrase": "We choose the shield for a careful rescue.",
+    "phraseZh": "这次小心救援我们选了shield。",
+    "media": {
+      "image": "assets/img/vocab-mc/shield.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "weapon",
+      "group": "用一把shield",
+      "groupEn": "use a shield"
+    }
+  },
+  {
+    "id": "mc-sword",
+    "kind": "english",
+    "text": "sword",
+    "zh": "剑",
+    "theme": "武器",
+    "level": "MC-D2",
+    "phrase": "The sword protects our team on the trail.",
+    "phraseZh": "sword在路上保护着我们。",
+    "media": {
+      "image": "assets/img/vocab-mc/sword.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/sword.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "weapon",
+      "group": "用一把sword",
+      "groupEn": "use a sword"
+    }
+  },
+  {
+    "id": "mc-trident",
+    "kind": "english",
+    "text": "trident",
+    "zh": "三叉戟",
+    "theme": "武器",
+    "level": "MC-D2",
+    "phrase": "The trident stays in its display frame.",
+    "phraseZh": "trident待在展示框里。",
+    "media": {
+      "image": "assets/img/vocab-mc/trident.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "weapon",
+      "group": "用一把trident",
+      "groupEn": "use a trident"
+    }
+  },
+  {
+    "id": "mc-alex",
+    "kind": "english",
+    "text": "alex",
+    "zh": "Alex（角色）",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I use the alex during our mission.",
+    "phraseZh": "任务里我用到了alex。",
+    "media": {
+      "image": "assets/img/vocab-mc/alex.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用alex",
+      "groupEn": "use the alex"
+    }
+  },
+  {
+    "id": "mc-altitude",
+    "kind": "english",
+    "text": "altitude",
+    "zh": "海拔",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "We prepare the altitude before sunset.",
+    "phraseZh": "日落前我们把altitude准备好。",
+    "media": {
+      "image": "assets/img/vocab-mc/altitude.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用altitude",
+      "groupEn": "use the altitude"
+    }
+  },
+  {
+    "id": "mc-ambience",
+    "kind": "english",
+    "text": "ambience",
+    "zh": "环境音",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "We keep the ambience in a quiet corner.",
+    "phraseZh": "我们把ambience放在安静的角落。",
+    "media": {
+      "image": "assets/img/vocab-mc/ambience.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用ambience",
+      "groupEn": "use the ambience"
+    }
+  },
+  {
+    "id": "mc-amethyst",
+    "kind": "english",
+    "text": "amethyst",
+    "zh": "紫水晶",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "My teammate passes me the amethyst.",
+    "phraseZh": "队友把amethyst递给我。",
+    "media": {
+      "image": "assets/img/vocab-mc/amethyst.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/amethyst.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用amethyst",
+      "groupEn": "use the amethyst"
+    }
+  },
+  {
+    "id": "mc-ammonia",
+    "kind": "english",
+    "text": "ammonia",
+    "zh": "氨",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I return the ammonia after the mission.",
+    "phraseZh": "任务结束后我把ammonia还回去。",
+    "media": {
+      "image": "assets/img/vocab-mc/ammonia.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用ammonia",
+      "groupEn": "use the ammonia"
+    }
+  },
+  {
+    "id": "mc-andesite",
+    "kind": "english",
+    "text": "andesite",
+    "zh": "安山岩",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "We prepare the andesite before sunset.",
+    "phraseZh": "日落前我们把andesite准备好。",
+    "media": {
+      "image": "assets/img/vocab-mc/andesite.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用andesite",
+      "groupEn": "use the andesite"
+    }
+  },
+  {
+    "id": "mc-badlands",
+    "kind": "english",
+    "text": "badlands",
+    "zh": "恶地",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "The badlands helps us finish the small task.",
+    "phraseZh": "badlands帮我们做完这件小事。",
+    "media": {
+      "image": "assets/img/vocab-mc/badlands.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用badlands",
+      "groupEn": "use the badlands"
+    }
+  },
+  {
+    "id": "mc-banner",
+    "kind": "english",
+    "text": "banner",
+    "zh": "旗帜",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I use the banner during our mission.",
+    "phraseZh": "任务里我用到了banner。",
+    "media": {
+      "image": "assets/img/vocab-mc/banner.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/banner.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用banner",
+      "groupEn": "use the banner"
+    }
+  },
+  {
+    "id": "mc-barrel",
+    "kind": "english",
+    "text": "barrel",
+    "zh": "木桶",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "We prepare the barrel before sunset.",
+    "phraseZh": "日落前我们把barrel准备好。",
+    "media": {
+      "image": "assets/img/vocab-mc/barrel.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/barrel.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用barrel",
+      "groupEn": "use the barrel"
+    }
+  },
+  {
+    "id": "mc-beacon",
+    "kind": "english",
+    "text": "beacon",
+    "zh": "信标",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I place the beacon in my adventure chest.",
+    "phraseZh": "我把beacon放进冒险箱子。",
+    "media": {
+      "image": "assets/img/vocab-mc/beacon.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用beacon",
+      "groupEn": "use the beacon"
+    }
+  },
+  {
+    "id": "mc-bedrock",
+    "kind": "english",
+    "text": "bedrock",
+    "zh": "基岩",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "My teammate passes me the bedrock.",
+    "phraseZh": "队友把bedrock递给我。",
+    "media": {
+      "image": "assets/img/vocab-mc/bedrock.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用bedrock",
+      "groupEn": "use the bedrock"
+    }
+  },
+  {
+    "id": "mc-bogged",
+    "kind": "english",
+    "text": "bogged",
+    "zh": "泥沼骷髅",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I place the bogged in my adventure chest.",
+    "phraseZh": "我把bogged放进冒险箱子。",
+    "media": {
+      "image": "assets/img/vocab-mc/bogged.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/bogged.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用bogged",
+      "groupEn": "use the bogged"
+    }
+  },
+  {
+    "id": "mc-breach",
+    "kind": "english",
+    "text": "breach",
+    "zh": "破甲",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "The breach stays safe in my backpack.",
+    "phraseZh": "breach安全地待在我的背包里。",
+    "media": {
+      "image": "assets/img/vocab-mc/breach.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/breach.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用breach",
+      "groupEn": "use the breach"
+    }
+  },
+  {
+    "id": "mc-breeze",
+    "kind": "english",
+    "text": "breeze",
+    "zh": "风弹怪",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "We keep the breeze in a quiet corner.",
+    "phraseZh": "我们把breeze放在安静的角落。",
+    "media": {
+      "image": "assets/img/vocab-mc/breeze.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/breeze.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用breeze",
+      "groupEn": "use the breeze"
+    }
+  },
+  {
+    "id": "mc-brewing",
+    "kind": "english",
+    "text": "brewing",
+    "zh": "酿造",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "We share the brewing when the team needs it.",
+    "phraseZh": "队友需要时我们一起用brewing。",
+    "media": {
+      "image": "assets/img/vocab-mc/brewing.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/brewing.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用brewing",
+      "groupEn": "use the brewing"
+    }
+  },
+  {
+    "id": "mc-bundle",
+    "kind": "english",
+    "text": "bundle",
+    "zh": "收纳袋",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "The bundle is ready for our next adventure.",
+    "phraseZh": "bundle已经准备好下一次冒险。",
+    "media": {
+      "image": "assets/img/vocab-mc/bundle.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用bundle",
+      "groupEn": "use the bundle"
+    }
+  },
+  {
+    "id": "mc-calcite",
+    "kind": "english",
+    "text": "calcite",
+    "zh": "方解石",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I place the calcite in my adventure chest.",
+    "phraseZh": "我把calcite放进冒险箱子。",
+    "media": {
+      "image": "assets/img/vocab-mc/calcite.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用calcite",
+      "groupEn": "use the calcite"
+    }
+  },
+  {
+    "id": "mc-campfire",
+    "kind": "english",
+    "text": "campfire",
+    "zh": "营火",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I place the campfire in my adventure chest.",
+    "phraseZh": "我把campfire放进冒险箱子。",
+    "media": {
+      "image": "assets/img/vocab-mc/campfire.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用campfire",
+      "groupEn": "use the campfire"
+    }
+  },
+  {
+    "id": "mc-cane",
+    "kind": "english",
+    "text": "cane",
+    "zh": "甘蔗",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "We share the cane when the team needs it.",
+    "phraseZh": "队友需要时我们一起用cane。",
+    "media": {
+      "image": "assets/img/vocab-mc/cane.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用cane",
+      "groupEn": "use the cane"
+    }
+  },
+  {
+    "id": "mc-cauldron",
+    "kind": "english",
+    "text": "cauldron",
+    "zh": "炼药锅",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I show the cauldron to my teammate at camp.",
+    "phraseZh": "我在营地把cauldron给队友看。",
+    "media": {
+      "image": "assets/img/vocab-mc/cauldron.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用cauldron",
+      "groupEn": "use the cauldron"
+    }
+  },
+  {
+    "id": "mc-charcoal",
+    "kind": "english",
+    "text": "charcoal",
+    "zh": "木炭",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I find the charcoal beside the crafting table.",
+    "phraseZh": "我在工作台旁边找到charcoal。",
+    "media": {
+      "image": "assets/img/vocab-mc/charcoal.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用charcoal",
+      "groupEn": "use the charcoal"
+    }
+  },
+  {
+    "id": "mc-chorus",
+    "kind": "english",
+    "text": "chorus",
+    "zh": "紫颂果",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I use the chorus during our mission.",
+    "phraseZh": "任务里我用到了chorus。",
+    "media": {
+      "image": "assets/img/vocab-mc/chorus.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用chorus",
+      "groupEn": "use the chorus"
+    }
+  },
+  {
+    "id": "mc-command",
+    "kind": "english",
+    "text": "command",
+    "zh": "命令",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "We share the command when the team needs it.",
+    "phraseZh": "队友需要时我们一起用command。",
+    "media": {
+      "image": "assets/img/vocab-mc/command.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/command.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用command",
+      "groupEn": "use the command"
+    }
+  },
+  {
+    "id": "mc-compass",
+    "kind": "english",
+    "text": "compass",
+    "zh": "指南针",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "The compass is ready for our next adventure.",
+    "phraseZh": "compass已经准备好下一次冒险。",
+    "media": {
+      "image": "assets/img/vocab-mc/compass.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/compass.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用compass",
+      "groupEn": "use the compass"
+    }
+  },
+  {
+    "id": "mc-compound",
+    "kind": "english",
+    "text": "compound",
+    "zh": "化合物",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "The compound stays safe in my backpack.",
+    "phraseZh": "compound安全地待在我的背包里。",
+    "media": {
+      "image": "assets/img/vocab-mc/compound.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用compound",
+      "groupEn": "use the compound"
+    }
+  },
+  {
+    "id": "mc-concrete",
+    "kind": "english",
+    "text": "concrete",
+    "zh": "混凝土",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I check the concrete beside the campfire.",
+    "phraseZh": "我在篝火旁检查concrete。",
+    "media": {
+      "image": "assets/img/vocab-mc/concrete.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/concrete.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用concrete",
+      "groupEn": "use the concrete"
+    }
+  },
+  {
+    "id": "mc-copper",
+    "kind": "english",
+    "text": "copper",
+    "zh": "铜",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "The copper is ready for our next adventure.",
+    "phraseZh": "copper已经准备好下一次冒险。",
+    "media": {
+      "image": "assets/img/vocab-mc/copper.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用copper",
+      "groupEn": "use the copper"
+    }
+  },
+  {
+    "id": "mc-crafting",
+    "kind": "english",
+    "text": "crafting",
+    "zh": "合成",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "The crafting is ready for our next adventure.",
+    "phraseZh": "crafting已经准备好下一次冒险。",
+    "media": {
+      "image": "assets/img/vocab-mc/crafting.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/crafting.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用crafting",
+      "groupEn": "use the crafting"
+    }
+  },
+  {
+    "id": "mc-crawling",
+    "kind": "english",
+    "text": "crawling",
+    "zh": "爬行",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "The crawling stays safe in my backpack.",
+    "phraseZh": "crawling安全地待在我的背包里。",
+    "media": {
+      "image": "assets/img/vocab-mc/crawling.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用crawling",
+      "groupEn": "use the crawling"
+    }
+  },
+  {
+    "id": "mc-creaking",
+    "kind": "english",
+    "text": "creaking",
+    "zh": "嘎吱怪",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I check the creaking before leaving camp.",
+    "phraseZh": "离开营地前我先检查creaking。",
+    "media": {
+      "image": "assets/img/vocab-mc/creaking.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/creaking.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用creaking",
+      "groupEn": "use the creaking"
+    }
+  },
+  {
+    "id": "mc-crit",
+    "kind": "english",
+    "text": "crit",
+    "zh": "暴击",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "The crit helps us finish the small task.",
+    "phraseZh": "crit帮我们做完这件小事。",
+    "media": {
+      "image": "assets/img/vocab-mc/crit.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用crit",
+      "groupEn": "use the crit"
+    }
+  },
+  {
+    "id": "mc-datapack",
+    "kind": "english",
+    "text": "datapack",
+    "zh": "数据包",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I check the datapack beside the campfire.",
+    "phraseZh": "我在篝火旁检查datapack。",
+    "media": {
+      "image": "assets/img/vocab-mc/datapack.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/datapack.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用datapack",
+      "groupEn": "use the datapack"
+    }
+  },
+  {
+    "id": "mc-debug",
+    "kind": "english",
+    "text": "debug",
+    "zh": "调试",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I show the debug to my teammate at camp.",
+    "phraseZh": "我在营地把debug给队友看。",
+    "media": {
+      "image": "assets/img/vocab-mc/debug.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用debug",
+      "groupEn": "use the debug"
+    }
+  },
+  {
+    "id": "mc-default",
+    "kind": "english",
+    "text": "default",
+    "zh": "默认",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I place the default in my adventure chest.",
+    "phraseZh": "我把default放进冒险箱子。",
+    "media": {
+      "image": "assets/img/vocab-mc/default.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用default",
+      "groupEn": "use the default"
+    }
+  },
+  {
+    "id": "mc-density",
+    "kind": "english",
+    "text": "density",
+    "zh": "密集",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "The density stays safe in my backpack.",
+    "phraseZh": "density安全地待在我的背包里。",
+    "media": {
+      "image": "assets/img/vocab-mc/density.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/density.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用density",
+      "groupEn": "use the density"
+    }
+  },
+  {
+    "id": "mc-diamonds",
+    "kind": "english",
+    "text": "diamonds",
+    "zh": "钻石",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I place the diamonds in my adventure chest.",
+    "phraseZh": "我把diamonds放进冒险箱子。",
+    "media": {
+      "image": "assets/img/vocab-mc/diamonds.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用diamonds",
+      "groupEn": "use the diamonds"
+    }
+  },
+  {
+    "id": "mc-diorite",
+    "kind": "english",
+    "text": "diorite",
+    "zh": "闪长岩",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I pick up the diorite near the path.",
+    "phraseZh": "我在小路边捡起diorite。",
+    "media": {
+      "image": "assets/img/vocab-mc/diorite.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用diorite",
+      "groupEn": "use the diorite"
+    }
+  },
+  {
+    "id": "mc-donkey",
+    "kind": "english",
+    "text": "donkey",
+    "zh": "驴",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I find the donkey beside the crafting table.",
+    "phraseZh": "我在工作台旁边找到donkey。",
+    "media": {
+      "image": "assets/img/vocab-mc/donkey.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/donkey.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用donkey",
+      "groupEn": "use the donkey"
+    }
+  },
+  {
+    "id": "mc-dropper",
+    "kind": "english",
+    "text": "dropper",
+    "zh": "投掷器",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I check the dropper before leaving camp.",
+    "phraseZh": "离开营地前我先检查dropper。",
+    "media": {
+      "image": "assets/img/vocab-mc/dropper.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用dropper",
+      "groupEn": "use the dropper"
+    }
+  },
+  {
+    "id": "mc-drowned",
+    "kind": "english",
+    "text": "drowned",
+    "zh": "溺尸",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I use the drowned during our mission.",
+    "phraseZh": "任务里我用到了drowned。",
+    "media": {
+      "image": "assets/img/vocab-mc/drowned.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/drowned.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用drowned",
+      "groupEn": "use the drowned"
+    }
+  },
+  {
+    "id": "mc-dungeon",
+    "kind": "english",
+    "text": "dungeon",
+    "zh": "地牢",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I pick up the dungeon near the path.",
+    "phraseZh": "我在小路边捡起dungeon。",
+    "media": {
+      "image": "assets/img/vocab-mc/dungeon.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/dungeon.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用dungeon",
+      "groupEn": "use the dungeon"
+    }
+  },
+  {
+    "id": "mc-elytra",
+    "kind": "english",
+    "text": "elytra",
+    "zh": "鞘翅",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I pick up the elytra near the path.",
+    "phraseZh": "我在小路边捡起elytra。",
+    "media": {
+      "image": "assets/img/vocab-mc/elytra.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用elytra",
+      "groupEn": "use the elytra"
+    }
+  },
+  {
+    "id": "mc-emerald",
+    "kind": "english",
+    "text": "emerald",
+    "zh": "绿宝石",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I find the emerald beside the crafting table.",
+    "phraseZh": "我在工作台旁边找到emerald。",
+    "media": {
+      "image": "assets/img/vocab-mc/emerald.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用emerald",
+      "groupEn": "use the emerald"
+    }
+  },
+  {
+    "id": "mc-emote",
+    "kind": "english",
+    "text": "emote",
+    "zh": "表情动作",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "We keep the emote in a quiet corner.",
+    "phraseZh": "我们把emote放在安静的角落。",
+    "media": {
+      "image": "assets/img/vocab-mc/emote.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用emote",
+      "groupEn": "use the emote"
+    }
+  },
+  {
+    "id": "mc-entities",
+    "kind": "english",
+    "text": "entities",
+    "zh": "实体",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I use the entities during our mission.",
+    "phraseZh": "任务里我用到了entities。",
+    "media": {
+      "image": "assets/img/vocab-mc/entities.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用entities",
+      "groupEn": "use the entities"
+    }
+  },
+  {
+    "id": "mc-evoker",
+    "kind": "english",
+    "text": "evoker",
+    "zh": "唤魔者",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "We keep the evoker in a quiet corner.",
+    "phraseZh": "我们把evoker放在安静的角落。",
+    "media": {
+      "image": "assets/img/vocab-mc/evoker.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用evoker",
+      "groupEn": "use the evoker"
+    }
+  },
+  {
+    "id": "mc-feather",
+    "kind": "english",
+    "text": "feather",
+    "zh": "羽毛",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I check the feather beside the campfire.",
+    "phraseZh": "我在篝火旁检查feather。",
+    "media": {
+      "image": "assets/img/vocab-mc/feather.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用feather",
+      "groupEn": "use the feather"
+    }
+  },
+  {
+    "id": "mc-fluids",
+    "kind": "english",
+    "text": "fluids",
+    "zh": "流体",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "We prepare the fluids before sunset.",
+    "phraseZh": "日落前我们把fluids准备好。",
+    "media": {
+      "image": "assets/img/vocab-mc/fluids.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用fluids",
+      "groupEn": "use the fluids"
+    }
+  },
+  {
+    "id": "mc-fog",
+    "kind": "english",
+    "text": "fog",
+    "zh": "雾",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I show the fog to my teammate at camp.",
+    "phraseZh": "我在营地把fog给队友看。",
+    "media": {
+      "image": "assets/img/vocab-mc/fog.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用fog",
+      "groupEn": "use the fog"
+    }
+  },
+  {
+    "id": "mc-fortune",
+    "kind": "english",
+    "text": "fortune",
+    "zh": "时运",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I place the fortune in my adventure chest.",
+    "phraseZh": "我把fortune放进冒险箱子。",
+    "media": {
+      "image": "assets/img/vocab-mc/fortune.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/fortune.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用fortune",
+      "groupEn": "use the fortune"
+    }
+  },
+  {
+    "id": "mc-fossil",
+    "kind": "english",
+    "text": "fossil",
+    "zh": "化石",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "We share the fossil when the team needs it.",
+    "phraseZh": "队友需要时我们一起用fossil。",
+    "media": {
+      "image": "assets/img/vocab-mc/fossil.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/fossil.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用fossil",
+      "groupEn": "use the fossil"
+    }
+  },
+  {
+    "id": "mc-furnace",
+    "kind": "english",
+    "text": "furnace",
+    "zh": "熔炉",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I use the furnace during our mission.",
+    "phraseZh": "任务里我用到了furnace。",
+    "media": {
+      "image": "assets/img/vocab-mc/furnace.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用furnace",
+      "groupEn": "use the furnace"
+    }
+  },
+  {
+    "id": "mc-garbage",
+    "kind": "english",
+    "text": "garbage",
+    "zh": "垃圾",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I show the garbage to my teammate at camp.",
+    "phraseZh": "我在营地把garbage给队友看。",
+    "media": {
+      "image": "assets/img/vocab-mc/garbage.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用garbage",
+      "groupEn": "use the garbage"
+    }
+  },
+  {
+    "id": "mc-granite",
+    "kind": "english",
+    "text": "granite",
+    "zh": "花岗岩",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "My teammate passes me the granite.",
+    "phraseZh": "队友把granite递给我。",
+    "media": {
+      "image": "assets/img/vocab-mc/granite.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用granite",
+      "groupEn": "use the granite"
+    }
+  },
+  {
+    "id": "mc-helmet",
+    "kind": "english",
+    "text": "helmet",
+    "zh": "头盔",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I check the helmet before leaving camp.",
+    "phraseZh": "离开营地前我先检查helmet。",
+    "media": {
+      "image": "assets/img/vocab-mc/helmet.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用helmet",
+      "groupEn": "use the helmet"
+    }
+  },
+  {
+    "id": "mc-hopper",
+    "kind": "english",
+    "text": "hopper",
+    "zh": "漏斗",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I check the hopper before leaving camp.",
+    "phraseZh": "离开营地前我先检查hopper。",
+    "media": {
+      "image": "assets/img/vocab-mc/hopper.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/hopper.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用hopper",
+      "groupEn": "use the hopper"
+    }
+  },
+  {
+    "id": "mc-hostile",
+    "kind": "english",
+    "text": "hostile",
+    "zh": "敌对的",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I find the hostile beside the crafting table.",
+    "phraseZh": "我在工作台旁边找到hostile。",
+    "media": {
+      "image": "assets/img/vocab-mc/hostile.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/hostile.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用hostile",
+      "groupEn": "use the hostile"
+    }
+  },
+  {
+    "id": "mc-illager",
+    "kind": "english",
+    "text": "illager",
+    "zh": "灾厄村民",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I check the illager beside the campfire.",
+    "phraseZh": "我在篝火旁检查illager。",
+    "media": {
+      "image": "assets/img/vocab-mc/illager.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/illager.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用illager",
+      "groupEn": "use the illager"
+    }
+  },
+  {
+    "id": "mc-impaling",
+    "kind": "english",
+    "text": "impaling",
+    "zh": "穿刺",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I use the impaling during our mission.",
+    "phraseZh": "任务里我用到了impaling。",
+    "media": {
+      "image": "assets/img/vocab-mc/impaling.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/impaling.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用impaling",
+      "groupEn": "use the impaling"
+    }
+  },
+  {
+    "id": "mc-infinity",
+    "kind": "english",
+    "text": "infinity",
+    "zh": "无限",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I check the infinity beside the campfire.",
+    "phraseZh": "我在篝火旁检查infinity。",
+    "media": {
+      "image": "assets/img/vocab-mc/infinity.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/infinity.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用infinity",
+      "groupEn": "use the infinity"
+    }
+  },
+  {
+    "id": "mc-item",
+    "kind": "english",
+    "text": "item",
+    "zh": "項目",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I find the item beside the crafting table.",
+    "phraseZh": "我在工作台旁边找到item。",
+    "media": {
+      "image": "assets/img/vocab-mc/item.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用item",
+      "groupEn": "use the item"
+    }
+  },
+  {
+    "id": "mc-jukebox",
+    "kind": "english",
+    "text": "jukebox",
+    "zh": "唱片机",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "The jukebox is ready for our next adventure.",
+    "phraseZh": "jukebox已经准备好下一次冒险。",
+    "media": {
+      "image": "assets/img/vocab-mc/jukebox.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用jukebox",
+      "groupEn": "use the jukebox"
+    }
+  },
+  {
+    "id": "mc-ladder",
+    "kind": "english",
+    "text": "ladder",
+    "zh": "梯子",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I find the ladder beside the crafting table.",
+    "phraseZh": "我在工作台旁边找到ladder。",
+    "media": {
+      "image": "assets/img/vocab-mc/ladder.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/ladder.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用ladder",
+      "groupEn": "use the ladder"
+    }
+  },
+  {
+    "id": "mc-lantern",
+    "kind": "english",
+    "text": "lantern",
+    "zh": "灯笼",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I use the lantern during our mission.",
+    "phraseZh": "任务里我用到了lantern。",
+    "media": {
+      "image": "assets/img/vocab-mc/lantern.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用lantern",
+      "groupEn": "use the lantern"
+    }
+  },
+  {
+    "id": "mc-leather",
+    "kind": "english",
+    "text": "leather",
+    "zh": "皮革",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I use the leather during our mission.",
+    "phraseZh": "任务里我用到了leather。",
+    "media": {
+      "image": "assets/img/vocab-mc/leather.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用leather",
+      "groupEn": "use the leather"
+    }
+  },
+  {
+    "id": "mc-lectern",
+    "kind": "english",
+    "text": "lectern",
+    "zh": "讲台",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "The lectern helps us finish the small task.",
+    "phraseZh": "lectern帮我们做完这件小事。",
+    "media": {
+      "image": "assets/img/vocab-mc/lectern.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用lectern",
+      "groupEn": "use the lectern"
+    }
+  },
+  {
+    "id": "mc-looting",
+    "kind": "english",
+    "text": "looting",
+    "zh": "抢夺",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "The looting helps us finish the small task.",
+    "phraseZh": "looting帮我们做完这件小事。",
+    "media": {
+      "image": "assets/img/vocab-mc/looting.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/looting.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用looting",
+      "groupEn": "use the looting"
+    }
+  },
+  {
+    "id": "mc-loyalty",
+    "kind": "english",
+    "text": "loyalty",
+    "zh": "忠诚",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "We share the loyalty when the team needs it.",
+    "phraseZh": "队友需要时我们一起用loyalty。",
+    "media": {
+      "image": "assets/img/vocab-mc/loyalty.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/loyalty.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用loyalty",
+      "groupEn": "use the loyalty"
+    }
+  },
+  {
+    "id": "mc-meadow",
+    "kind": "english",
+    "text": "meadow",
+    "zh": "草甸",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "We keep the meadow in a quiet corner.",
+    "phraseZh": "我们把meadow放在安静的角落。",
+    "media": {
+      "image": "assets/img/vocab-mc/meadow.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用meadow",
+      "groupEn": "use the meadow"
+    }
+  },
+  {
+    "id": "mc-mending",
+    "kind": "english",
+    "text": "mending",
+    "zh": "经验修补",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I pick up the mending near the path.",
+    "phraseZh": "我在小路边捡起mending。",
+    "media": {
+      "image": "assets/img/vocab-mc/mending.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/mending.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用mending",
+      "groupEn": "use the mending"
+    }
+  },
+  {
+    "id": "mc-minecart",
+    "kind": "english",
+    "text": "minecart",
+    "zh": "矿车",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "We keep the minecart in a quiet corner.",
+    "phraseZh": "我们把minecart放在安静的角落。",
+    "media": {
+      "image": "assets/img/vocab-mc/minecart.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用minecart",
+      "groupEn": "use the minecart"
+    }
+  },
+  {
+    "id": "mc-neutral",
+    "kind": "english",
+    "text": "neutral",
+    "zh": "中立的",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "My teammate passes me the neutral.",
+    "phraseZh": "队友把neutral递给我。",
+    "media": {
+      "image": "assets/img/vocab-mc/neutral.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/neutral.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用neutral",
+      "groupEn": "use the neutral"
+    }
+  },
+  {
+    "id": "mc-nugget",
+    "kind": "english",
+    "text": "nugget",
+    "zh": "粒",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I find the nugget beside the crafting table.",
+    "phraseZh": "我在工作台旁边找到nugget。",
+    "media": {
+      "image": "assets/img/vocab-mc/nugget.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/nugget.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用nugget",
+      "groupEn": "use the nugget"
+    }
+  },
+  {
+    "id": "mc-observer",
+    "kind": "english",
+    "text": "observer",
+    "zh": "侦测器",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "We prepare the observer before sunset.",
+    "phraseZh": "日落前我们把observer准备好。",
+    "media": {
+      "image": "assets/img/vocab-mc/observer.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用observer",
+      "groupEn": "use the observer"
+    }
+  },
+  {
+    "id": "mc-obsidian",
+    "kind": "english",
+    "text": "obsidian",
+    "zh": "黑曜石",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I place the obsidian in my adventure chest.",
+    "phraseZh": "我把obsidian放进冒险箱子。",
+    "media": {
+      "image": "assets/img/vocab-mc/obsidian.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用obsidian",
+      "groupEn": "use the obsidian"
+    }
+  },
+  {
+    "id": "mc-ocelot",
+    "kind": "english",
+    "text": "ocelot",
+    "zh": "豹猫",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I place the ocelot in my adventure chest.",
+    "phraseZh": "我把ocelot放进冒险箱子。",
+    "media": {
+      "image": "assets/img/vocab-mc/ocelot.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/ocelot.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用ocelot",
+      "groupEn": "use the ocelot"
+    }
+  },
+  {
+    "id": "mc-operator",
+    "kind": "english",
+    "text": "operator",
+    "zh": "管理员",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I show the operator to my teammate at camp.",
+    "phraseZh": "我在营地把operator给队友看。",
+    "media": {
+      "image": "assets/img/vocab-mc/operator.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/operator.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用operator",
+      "groupEn": "use the operator"
+    }
+  },
+  {
+    "id": "mc-passive",
+    "kind": "english",
+    "text": "passive",
+    "zh": "被动的",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "My teammate passes me the passive.",
+    "phraseZh": "队友把passive递给我。",
+    "media": {
+      "image": "assets/img/vocab-mc/passive.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/passive.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用passive",
+      "groupEn": "use the passive"
+    }
+  },
+  {
+    "id": "mc-peaceful",
+    "kind": "english",
+    "text": "peaceful",
+    "zh": "和平模式",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I find the peaceful beside the crafting table.",
+    "phraseZh": "我在工作台旁边找到peaceful。",
+    "media": {
+      "image": "assets/img/vocab-mc/peaceful.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/peaceful.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用peaceful",
+      "groupEn": "use the peaceful"
+    }
+  },
+  {
+    "id": "mc-piercing",
+    "kind": "english",
+    "text": "piercing",
+    "zh": "穿透",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I place the piercing in my adventure chest.",
+    "phraseZh": "我把piercing放进冒险箱子。",
+    "media": {
+      "image": "assets/img/vocab-mc/piercing.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/piercing.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用piercing",
+      "groupEn": "use the piercing"
+    }
+  },
+  {
+    "id": "mc-pillager",
+    "kind": "english",
+    "text": "pillager",
+    "zh": "掠夺者",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I use the pillager during our mission.",
+    "phraseZh": "任务里我用到了pillager。",
+    "media": {
+      "image": "assets/img/vocab-mc/pillager.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/pillager.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用pillager",
+      "groupEn": "use the pillager"
+    }
+  },
+  {
+    "id": "mc-piston",
+    "kind": "english",
+    "text": "piston",
+    "zh": "活塞",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I check the piston before leaving camp.",
+    "phraseZh": "离开营地前我先检查piston。",
+    "media": {
+      "image": "assets/img/vocab-mc/piston.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用piston",
+      "groupEn": "use the piston"
+    }
+  },
+  {
+    "id": "mc-potion",
+    "kind": "english",
+    "text": "potion",
+    "zh": "药水",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I find the potion beside the crafting table.",
+    "phraseZh": "我在工作台旁边找到potion。",
+    "media": {
+      "image": "assets/img/vocab-mc/potion.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/potion.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用potion",
+      "groupEn": "use the potion"
+    }
+  },
+  {
+    "id": "mc-pumpkin",
+    "kind": "english",
+    "text": "pumpkin",
+    "zh": "南瓜",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I use the pumpkin during our mission.",
+    "phraseZh": "任务里我用到了pumpkin。",
+    "media": {
+      "image": "assets/img/vocab-mc/pumpkin.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用pumpkin",
+      "groupEn": "use the pumpkin"
+    }
+  },
+  {
+    "id": "mc-quartz",
+    "kind": "english",
+    "text": "quartz",
+    "zh": "石英",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "The quartz is ready for our next adventure.",
+    "phraseZh": "quartz已经准备好下一次冒险。",
+    "media": {
+      "image": "assets/img/vocab-mc/quartz.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/quartz.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用quartz",
+      "groupEn": "use the quartz"
+    }
+  },
+  {
+    "id": "mc-quiver",
+    "kind": "english",
+    "text": "quiver",
+    "zh": "箭袋",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "The quiver helps us finish the small task.",
+    "phraseZh": "quiver帮我们做完这件小事。",
+    "media": {
+      "image": "assets/img/vocab-mc/quiver.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用quiver",
+      "groupEn": "use the quiver"
+    }
+  },
+  {
+    "id": "mc-ravager",
+    "kind": "english",
+    "text": "ravager",
+    "zh": "劫掠兽",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "We prepare the ravager before sunset.",
+    "phraseZh": "日落前我们把ravager准备好。",
+    "media": {
+      "image": "assets/img/vocab-mc/ravager.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/ravager.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用ravager",
+      "groupEn": "use the ravager"
+    }
+  },
+  {
+    "id": "mc-repeater",
+    "kind": "english",
+    "text": "repeater",
+    "zh": "中继器",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "We share the repeater when the team needs it.",
+    "phraseZh": "队友需要时我们一起用repeater。",
+    "media": {
+      "image": "assets/img/vocab-mc/repeater.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/repeater.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用repeater",
+      "groupEn": "use the repeater"
+    }
+  },
+  {
+    "id": "mc-riding",
+    "kind": "english",
+    "text": "riding",
+    "zh": "骑乘",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "We keep the riding in a quiet corner.",
+    "phraseZh": "我们把riding放在安静的角落。",
+    "media": {
+      "image": "assets/img/vocab-mc/riding.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用riding",
+      "groupEn": "use the riding"
+    }
+  },
+  {
+    "id": "mc-riptide",
+    "kind": "english",
+    "text": "riptide",
+    "zh": "激流",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "We share the riptide when the team needs it.",
+    "phraseZh": "队友需要时我们一起用riptide。",
+    "media": {
+      "image": "assets/img/vocab-mc/riptide.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/riptide.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用riptide",
+      "groupEn": "use the riptide"
+    }
+  },
+  {
+    "id": "mc-saddle",
+    "kind": "english",
+    "text": "saddle",
+    "zh": "马鞍",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "My teammate passes me the saddle.",
+    "phraseZh": "队友把saddle递给我。",
+    "media": {
+      "image": "assets/img/vocab-mc/saddle.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用saddle",
+      "groupEn": "use the saddle"
+    }
+  },
+  {
+    "id": "mc-shulker",
+    "kind": "english",
+    "text": "shulker",
+    "zh": "潜影贝",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "The shulker helps us finish the small task.",
+    "phraseZh": "shulker帮我们做完这件小事。",
+    "media": {
+      "image": "assets/img/vocab-mc/shulker.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/shulker.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用shulker",
+      "groupEn": "use the shulker"
+    }
+  },
+  {
+    "id": "mc-slate",
+    "kind": "english",
+    "text": "slate",
+    "zh": "板岩",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "My teammate passes me the slate.",
+    "phraseZh": "队友把slate递给我。",
+    "media": {
+      "image": "assets/img/vocab-mc/slate.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用slate",
+      "groupEn": "use the slate"
+    }
+  },
+  {
+    "id": "mc-smelting",
+    "kind": "english",
+    "text": "smelting",
+    "zh": "熔炼",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I return the smelting after the mission.",
+    "phraseZh": "任务结束后我把smelting还回去。",
+    "media": {
+      "image": "assets/img/vocab-mc/smelting.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/smelting.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用smelting",
+      "groupEn": "use the smelting"
+    }
+  },
+  {
+    "id": "mc-smoker",
+    "kind": "english",
+    "text": "smoker",
+    "zh": "烟熏炉",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I pick up the smoker near the path.",
+    "phraseZh": "我在小路边捡起smoker。",
+    "media": {
+      "image": "assets/img/vocab-mc/smoker.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用smoker",
+      "groupEn": "use the smoker"
+    }
+  },
+  {
+    "id": "mc-sneak",
+    "kind": "english",
+    "text": "sneak",
+    "zh": "潜行",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I return the sneak after the mission.",
+    "phraseZh": "任务结束后我把sneak还回去。",
+    "media": {
+      "image": "assets/img/vocab-mc/sneak.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用sneak",
+      "groupEn": "use the sneak"
+    }
+  },
+  {
+    "id": "mc-sniffer",
+    "kind": "english",
+    "text": "sniffer",
+    "zh": "嗅探兽",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "My teammate passes me the sniffer.",
+    "phraseZh": "队友把sniffer递给我。",
+    "media": {
+      "image": "assets/img/vocab-mc/sniffer.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/sniffer.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用sniffer",
+      "groupEn": "use the sniffer"
+    }
+  },
+  {
+    "id": "mc-snowball",
+    "kind": "english",
+    "text": "snowball",
+    "zh": "雪球",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "The snowball stays safe in my backpack.",
+    "phraseZh": "snowball安全地待在我的背包里。",
+    "media": {
+      "image": "assets/img/vocab-mc/snowball.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用snowball",
+      "groupEn": "use the snowball"
+    }
+  },
+  {
+    "id": "mc-snowfall",
+    "kind": "english",
+    "text": "snowfall",
+    "zh": "降雪",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "We prepare the snowfall before sunset.",
+    "phraseZh": "日落前我们把snowfall准备好。",
+    "media": {
+      "image": "assets/img/vocab-mc/snowfall.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用snowfall",
+      "groupEn": "use the snowfall"
+    }
+  },
+  {
+    "id": "mc-sponge",
+    "kind": "english",
+    "text": "sponge",
+    "zh": "海绵",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "We keep the sponge in a quiet corner.",
+    "phraseZh": "我们把sponge放在安静的角落。",
+    "media": {
+      "image": "assets/img/vocab-mc/sponge.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用sponge",
+      "groupEn": "use the sponge"
+    }
+  },
+  {
+    "id": "mc-sprint",
+    "kind": "english",
+    "text": "sprint",
+    "zh": "疾跑",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I pick up the sprint near the path.",
+    "phraseZh": "我在小路边捡起sprint。",
+    "media": {
+      "image": "assets/img/vocab-mc/sprint.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用sprint",
+      "groupEn": "use the sprint"
+    }
+  },
+  {
+    "id": "mc-spyglass",
+    "kind": "english",
+    "text": "spyglass",
+    "zh": "望远镜",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "We prepare the spyglass before sunset.",
+    "phraseZh": "日落前我们把spyglass准备好。",
+    "media": {
+      "image": "assets/img/vocab-mc/spyglass.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用spyglass",
+      "groupEn": "use the spyglass"
+    }
+  },
+  {
+    "id": "mc-stars",
+    "kind": "english",
+    "text": "stars",
+    "zh": "星星",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "We share the stars when the team needs it.",
+    "phraseZh": "队友需要时我们一起用stars。",
+    "media": {
+      "image": "assets/img/vocab-mc/stars.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用stars",
+      "groupEn": "use the stars"
+    }
+  },
+  {
+    "id": "mc-tadpole",
+    "kind": "english",
+    "text": "tadpole",
+    "zh": "蝌蚪",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "We prepare the tadpole before sunset.",
+    "phraseZh": "日落前我们把tadpole准备好。",
+    "media": {
+      "image": "assets/img/vocab-mc/tadpole.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/tadpole.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用tadpole",
+      "groupEn": "use the tadpole"
+    }
+  },
+  {
+    "id": "mc-thorns",
+    "kind": "english",
+    "text": "thorns",
+    "zh": "荆棘",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I check the thorns beside the campfire.",
+    "phraseZh": "我在篝火旁检查thorns。",
+    "media": {
+      "image": "assets/img/vocab-mc/thorns.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/thorns.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用thorns",
+      "groupEn": "use the thorns"
+    }
+  },
+  {
+    "id": "mc-trapdoor",
+    "kind": "english",
+    "text": "trapdoor",
+    "zh": "活板门",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I use the trapdoor during our mission.",
+    "phraseZh": "任务里我用到了trapdoor。",
+    "media": {
+      "image": "assets/img/vocab-mc/trapdoor.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/trapdoor.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用trapdoor",
+      "groupEn": "use the trapdoor"
+    }
+  },
+  {
+    "id": "mc-tundra",
+    "kind": "english",
+    "text": "tundra",
+    "zh": "冻原",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I check the tundra before leaving camp.",
+    "phraseZh": "离开营地前我先检查tundra。",
+    "media": {
+      "image": "assets/img/vocab-mc/tundra.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/tundra.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用tundra",
+      "groupEn": "use the tundra"
+    }
+  },
+  {
+    "id": "mc-warden",
+    "kind": "english",
+    "text": "warden",
+    "zh": "监守者",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "We share the warden when the team needs it.",
+    "phraseZh": "队友需要时我们一起用warden。",
+    "media": {
+      "image": "assets/img/vocab-mc/warden.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用warden",
+      "groupEn": "use the warden"
+    }
+  },
+  {
+    "id": "mc-zoglin",
+    "kind": "english",
+    "text": "zoglin",
+    "zh": "僵尸疣猪兽",
+    "theme": "物品",
+    "level": "MC-D2",
+    "phrase": "I return the zoglin after the mission.",
+    "phraseZh": "任务结束后我把zoglin还回去。",
+    "media": {
+      "image": "assets/img/vocab-mc/zoglin.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/zoglin.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "item",
+      "group": "用一用zoglin",
+      "groupEn": "use the zoglin"
+    }
+  },
+  {
+    "id": "mc-darkness",
+    "kind": "english",
+    "text": "darkness",
+    "zh": "黑暗",
+    "theme": "效果",
+    "level": "MC-D2",
+    "phrase": "The darkness fades after a short time.",
+    "phraseZh": "过一会儿darkness就消失了。",
+    "media": {
+      "image": "assets/img/vocab-mc/darkness.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "effect",
+      "group": "获得darkness效果",
+      "groupEn": "get the darkness effect"
+    }
+  },
+  {
+    "id": "mc-glowing",
+    "kind": "english",
+    "text": "glowing",
+    "zh": "发光",
+    "theme": "效果",
+    "level": "MC-D2",
+    "phrase": "I check the glowing before entering the cave.",
+    "phraseZh": "进洞前我先检查glowing。",
+    "media": {
+      "image": "assets/img/vocab-mc/glowing.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "effect",
+      "group": "获得glowing效果",
+      "groupEn": "get the glowing effect"
+    }
+  },
+  {
+    "id": "mc-haste",
+    "kind": "english",
+    "text": "haste",
+    "zh": "急迫",
+    "theme": "效果",
+    "level": "MC-D2",
+    "phrase": "The potion gives me haste.",
+    "phraseZh": "这瓶药水给了我haste。",
+    "media": {
+      "image": "assets/img/vocab-mc/haste.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "effect",
+      "group": "获得haste效果",
+      "groupEn": "get the haste effect"
+    }
+  },
+  {
+    "id": "mc-infested",
+    "kind": "english",
+    "text": "infested",
+    "zh": "出没",
+    "theme": "效果",
+    "level": "MC-D2",
+    "phrase": "A glowing icon shows the infested.",
+    "phraseZh": "发光的图标标出了infested。",
+    "media": {
+      "image": "assets/img/vocab-mc/infested.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "effect",
+      "group": "获得infested效果",
+      "groupEn": "get the infested effect"
+    }
+  },
+  {
+    "id": "mc-nausea",
+    "kind": "english",
+    "text": "nausea",
+    "zh": "反胃",
+    "theme": "效果",
+    "level": "MC-D2",
+    "phrase": "The nausea fades after a short time.",
+    "phraseZh": "过一会儿nausea就消失了。",
+    "media": {
+      "image": "assets/img/vocab-mc/nausea.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "effect",
+      "group": "获得nausea效果",
+      "groupEn": "get the nausea effect"
+    }
+  },
+  {
+    "id": "mc-oozing",
+    "kind": "english",
+    "text": "oozing",
+    "zh": "渗浆",
+    "theme": "效果",
+    "level": "MC-D2",
+    "phrase": "I notice the oozing during the challenge.",
+    "phraseZh": "挑战时我注意到oozing。",
+    "media": {
+      "image": "assets/img/vocab-mc/oozing.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "effect",
+      "group": "获得oozing效果",
+      "groupEn": "get the oozing effect"
+    }
+  },
+  {
+    "id": "mc-slowness",
+    "kind": "english",
+    "text": "slowness",
+    "zh": "缓慢",
+    "theme": "效果",
+    "level": "MC-D2",
+    "phrase": "I notice the slowness during the challenge.",
+    "phraseZh": "挑战时我注意到slowness。",
+    "media": {
+      "image": "assets/img/vocab-mc/slowness.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "effect",
+      "group": "获得slowness效果",
+      "groupEn": "get the slowness effect"
+    }
+  },
+  {
+    "id": "mc-speedrun",
+    "kind": "english",
+    "text": "speedrun",
+    "zh": "速通",
+    "theme": "效果",
+    "level": "MC-D2",
+    "phrase": "A glowing icon shows the speedrun.",
+    "phraseZh": "发光的图标标出了speedrun。",
+    "media": {
+      "image": "assets/img/vocab-mc/speedrun.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/speedrun.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "effect",
+      "group": "获得speedrun效果",
+      "groupEn": "get the speedrun effect"
+    }
+  },
+  {
+    "id": "mc-strength",
+    "kind": "english",
+    "text": "strength",
+    "zh": "力量",
+    "theme": "效果",
+    "level": "MC-D2",
+    "phrase": "The potion gives me strength.",
+    "phraseZh": "这瓶药水给了我strength。",
+    "media": {
+      "image": "assets/img/vocab-mc/strength.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "effect",
+      "group": "获得strength效果",
+      "groupEn": "get the strength effect"
+    }
+  },
+  {
+    "id": "mc-weakness",
+    "kind": "english",
+    "text": "weakness",
+    "zh": "虚弱",
+    "theme": "效果",
+    "level": "MC-D2",
+    "phrase": "The weakness helps me cross the cave.",
+    "phraseZh": "weakness帮我穿过山洞。",
+    "media": {
+      "image": "assets/img/vocab-mc/weakness.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "effect",
+      "group": "获得weakness效果",
+      "groupEn": "get the weakness effect"
+    }
+  },
+  {
+    "id": "mc-weaving",
+    "kind": "english",
+    "text": "weaving",
+    "zh": "编织",
+    "theme": "效果",
+    "level": "MC-D2",
+    "phrase": "The weaving fades after a short time.",
+    "phraseZh": "过一会儿weaving就消失了。",
+    "media": {
+      "image": "assets/img/vocab-mc/weaving.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "effect",
+      "group": "获得weaving效果",
+      "groupEn": "get the weaving effect"
+    }
+  },
+  {
+    "id": "mc-bleach",
+    "kind": "english",
+    "text": "bleach",
+    "zh": "漂白剂",
+    "theme": "颜色",
+    "level": "MC-D2",
+    "phrase": "A bleach path leads to the garden.",
+    "phraseZh": "一条bleach小路通向花园。",
+    "media": {
+      "image": "assets/img/vocab-mc/bleach.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "color",
+      "group": "bleach羊毛",
+      "groupEn": "bleach wool"
+    }
+  },
+  {
+    "id": "mc-redstone",
+    "kind": "english",
+    "text": "redstone",
+    "zh": "红石",
+    "theme": "颜色",
+    "level": "MC-D2",
+    "phrase": "The redstone torch glows beside the door.",
+    "phraseZh": "redstone火把在门边发着光。",
+    "media": {
+      "image": "assets/img/vocab-mc/redstone.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "color",
+      "group": "redstone羊毛",
+      "groupEn": "redstone wool"
+    }
+  },
+  {
+    "id": "mc-allium",
+    "kind": "english",
+    "text": "allium",
+    "zh": "绒球葱",
+    "theme": "植物",
+    "level": "MC-D2",
+    "phrase": "Rain helps the allium grow.",
+    "phraseZh": "雨水帮助allium长大。",
+    "media": {
+      "image": "assets/img/vocab-mc/allium.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "plant",
+      "group": "种下allium",
+      "groupEn": "grow allium"
+    }
+  },
+  {
+    "id": "mc-azalea",
+    "kind": "english",
+    "text": "azalea",
+    "zh": "杜鹃花",
+    "theme": "植物",
+    "level": "MC-D2",
+    "phrase": "I check the azalea before leaving camp.",
+    "phraseZh": "离开营地前我先检查azalea。",
+    "media": {
+      "image": "assets/img/vocab-mc/azalea.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "plant",
+      "group": "种下azalea",
+      "groupEn": "grow azalea"
+    }
+  },
+  {
+    "id": "mc-cactus",
+    "kind": "english",
+    "text": "cactus",
+    "zh": "仙人掌",
+    "theme": "植物",
+    "level": "MC-D2",
+    "phrase": "I plant the cactus beside the farm.",
+    "phraseZh": "我在农场边种下cactus。",
+    "media": {
+      "image": "assets/img/vocab-mc/cactus.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "plant",
+      "group": "种下cactus",
+      "groupEn": "grow cactus"
+    }
+  },
+  {
+    "id": "mc-cocoa",
+    "kind": "english",
+    "text": "cocoa",
+    "zh": "可可",
+    "theme": "植物",
+    "level": "MC-D2",
+    "phrase": "A path winds around the cocoa.",
+    "phraseZh": "小路绕着cocoa弯过去。",
+    "media": {
+      "image": "assets/img/vocab-mc/cocoa.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "plant",
+      "group": "种下cocoa",
+      "groupEn": "grow cocoa"
+    }
+  },
+  {
+    "id": "mc-fern",
+    "kind": "english",
+    "text": "fern",
+    "zh": "蕨类植物",
+    "theme": "植物",
+    "level": "MC-D2",
+    "phrase": "I plant the fern beside the farm.",
+    "phraseZh": "我在农场边种下fern。",
+    "media": {
+      "image": "assets/img/vocab-mc/fern.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "plant",
+      "group": "种下fern",
+      "groupEn": "grow fern"
+    }
+  },
+  {
+    "id": "mc-leaves",
+    "kind": "english",
+    "text": "leaves",
+    "zh": "树叶",
+    "theme": "植物",
+    "level": "MC-D2",
+    "phrase": "I plant the leaves near the village well.",
+    "phraseZh": "我在村子水井旁种下leaves。",
+    "media": {
+      "image": "assets/img/vocab-mc/leaves.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/leaves.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "plant",
+      "group": "种下leaves",
+      "groupEn": "grow leaves"
+    }
+  },
+  {
+    "id": "mc-lilac",
+    "kind": "english",
+    "text": "lilac",
+    "zh": "丁香",
+    "theme": "植物",
+    "level": "MC-D2",
+    "phrase": "A path winds around the lilac.",
+    "phraseZh": "小路绕着lilac弯过去。",
+    "media": {
+      "image": "assets/img/vocab-mc/lilac.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "plant",
+      "group": "种下lilac",
+      "groupEn": "grow lilac"
+    }
+  },
+  {
+    "id": "mc-moss",
+    "kind": "english",
+    "text": "moss",
+    "zh": "苔藓",
+    "theme": "植物",
+    "level": "MC-D2",
+    "phrase": "I water the moss in the morning.",
+    "phraseZh": "早上我给moss浇水。",
+    "media": {
+      "image": "assets/img/vocab-mc/moss.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "plant",
+      "group": "种下moss",
+      "groupEn": "grow moss"
+    }
+  },
+  {
+    "id": "mc-orchid",
+    "kind": "english",
+    "text": "orchid",
+    "zh": "兰花",
+    "theme": "植物",
+    "level": "MC-D2",
+    "phrase": "I plant the orchid beside the farm.",
+    "phraseZh": "我在农场边种下orchid。",
+    "media": {
+      "image": "assets/img/vocab-mc/orchid.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/orchid.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "plant",
+      "group": "种下orchid",
+      "groupEn": "grow orchid"
+    }
+  },
+  {
+    "id": "mc-peony",
+    "kind": "english",
+    "text": "peony",
+    "zh": "牡丹",
+    "theme": "植物",
+    "level": "MC-D2",
+    "phrase": "The peony makes the garden feel cheerful.",
+    "phraseZh": "peony让花园看起来很开心。",
+    "media": {
+      "image": "assets/img/vocab-mc/peony.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "plant",
+      "group": "种下peony",
+      "groupEn": "grow peony"
+    }
+  },
+  {
+    "id": "mc-poppy",
+    "kind": "english",
+    "text": "poppy",
+    "zh": "虞美人",
+    "theme": "植物",
+    "level": "MC-D2",
+    "phrase": "I plant the poppy near the village well.",
+    "phraseZh": "我在村子水井旁种下poppy。",
+    "media": {
+      "image": "assets/img/vocab-mc/poppy.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "plant",
+      "group": "种下poppy",
+      "groupEn": "grow poppy"
+    }
+  },
+  {
+    "id": "mc-sapling",
+    "kind": "english",
+    "text": "sapling",
+    "zh": "树苗",
+    "theme": "植物",
+    "level": "MC-D2",
+    "phrase": "I water the sapling in the morning.",
+    "phraseZh": "早上我给sapling浇水。",
+    "media": {
+      "image": "assets/img/vocab-mc/sapling.png",
+      "art": "none",
+      "audio": "assets/audio/vocab-mc/sapling.mp3"
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "plant",
+      "group": "种下sapling",
+      "groupEn": "grow sapling"
+    }
+  },
+  {
+    "id": "mc-seagrass",
+    "kind": "english",
+    "text": "seagrass",
+    "zh": "海草方块",
+    "theme": "植物",
+    "level": "MC-D2",
+    "phrase": "A path winds around the seagrass.",
+    "phraseZh": "小路绕着seagrass弯过去。",
+    "media": {
+      "image": "assets/img/vocab-mc/seagrass.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "plant",
+      "group": "种下seagrass",
+      "groupEn": "grow seagrass"
+    }
+  },
+  {
+    "id": "mc-seeds",
+    "kind": "english",
+    "text": "seeds",
+    "zh": "种子",
+    "theme": "植物",
+    "level": "MC-D2",
+    "phrase": "Rain helps the seeds grow.",
+    "phraseZh": "雨水帮助seeds长大。",
+    "media": {
+      "image": "assets/img/vocab-mc/seeds.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "plant",
+      "group": "种下seeds",
+      "groupEn": "grow seeds"
+    }
+  },
+  {
+    "id": "mc-vines",
+    "kind": "english",
+    "text": "vines",
+    "zh": "攀緣植物",
+    "theme": "植物",
+    "level": "MC-D2",
+    "phrase": "The vines gives our garden a bright color.",
+    "phraseZh": "vines让花园更鲜艳。",
+    "media": {
+      "image": "assets/img/vocab-mc/vines.png",
+      "art": "none",
+      "audio": ""
+    },
+    "source": "wordquest-mc",
+    "extra": {
+      "category": "plant",
+      "group": "种下vines",
+      "groupEn": "grow vines"
+    }
+  }
+]

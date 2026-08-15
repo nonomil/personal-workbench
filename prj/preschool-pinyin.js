@@ -4,16 +4,21 @@
     function parseBank(raw) {
         return (Array.isArray(raw) ? raw : []).map(function (row) {
             const source = row && typeof row === 'object' ? row : {};
-            const text = String(source.text || source.initial || '').trim();
+            const extra = source.extra && typeof source.extra === 'object' ? source.extra : {};
+            const text = String(source.text || extra.initial || source.initial || '').trim();
             return {
                 id: String(source.id || ''),
                 text: text,
-                initial: text,
-                sample: String(source.sample || '').trim(),
-                pinyin: String(source.pinyin || '').trim(),
-                kind: String(source.kind || 'initial').trim() || 'initial',
-                group: String(source.group || '').trim(),
-                level: String(source.level || 'L1').trim() || 'L1'
+                initial: String(extra.initial || source.initial || text).trim(),
+                sample: String(source.sample || extra.sample || '').trim(),
+                pinyin: String(source.pinyin || extra.pinyin || '').trim(),
+                kind: String(extra.kind || source.kind || 'initial').trim() || 'initial',
+                group: String(extra.group || source.group || '').trim(),
+                level: String(source.level || 'L1').trim() || 'L1',
+                homophones: Array.isArray(extra.homophones) ? extra.homophones : [],
+                nearPhones: Array.isArray(extra.nearPhones) ? extra.nearPhones : [],
+                art: String((source.media && source.media.art) || source.art || '').trim(),
+                media: source.media && typeof source.media === 'object' ? source.media : {}
             };
         }).filter(function (item) {
             return item.text && item.sample && item.pinyin;
@@ -58,8 +63,20 @@
         return {
             mode: 'pinyin-initial',
             rounds: targets.map(function (item, index) {
-                const others = pool.filter(function (entry) { return entry.text !== item.text; }).map(function (entry) { return entry.text; });
-                const distractors = rotate(others, index + item.text.length).slice(0, 2);
+                const others = pool.filter(function (entry) { return entry.text !== item.text; });
+                const otherTexts = others.map(function (entry) { return entry.text; });
+                const near = Array.isArray(item.nearPhones) ? item.nearPhones : [];
+                const fromNear = [];
+                near.forEach(function (phone) {
+                    const folded = String(phone || '').toLowerCase().replace(/[āáǎà]/g, 'a').replace(/[ōóǒò]/g, 'o').replace(/[ēéěè]/g, 'e').replace(/[īíǐì]/g, 'i').replace(/[ūúǔù]/g, 'u').replace(/[ǖǘǚǜü]/g, 'v');
+                    const match = others.find(function (entry) {
+                        const text = String(entry.text || '').toLowerCase();
+                        return text === folded || folded.indexOf(text) === 0 || text.indexOf(folded) === 0;
+                    });
+                    if (match && fromNear.indexOf(match.text) < 0) fromNear.push(match.text);
+                });
+                const fallback = rotate(otherTexts, index + item.text.length);
+                const distractors = fromNear.concat(fallback.filter(function (text) { return fromNear.indexOf(text) < 0; })).slice(0, 2);
                 const mixed = rotate([item.text].concat(distractors), index + 1);
                 return {
                     text: item.text,

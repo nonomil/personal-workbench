@@ -32,6 +32,21 @@
 
     function parseBank(raw) {
         return (Array.isArray(raw) ? raw : []).map(function (row) {
+            if (row && !Array.isArray(row) && typeof row === 'object') {
+                const extra = row.extra && typeof row.extra === 'object' ? row.extra : {};
+                const words = Array.isArray(extra.words) ? extra.words : (Array.isArray(row.words) ? row.words : []);
+                return {
+                    id: String(row.id || ''),
+                    char: String(row.text || row.char || '').trim(),
+                    pinyin: String(extra.pinyin || row.pinyin || '').trim(),
+                    theme: String(row.theme || '').trim(),
+                    words: words.map(function (word) { return String(word || '').trim(); }).filter(Boolean),
+                    explain: String(extra.explain || row.explain || '').trim(),
+                    level: String(row.level || 'L1').trim() || 'L1',
+                    art: String((row.media && row.media.art) || row.art || '').trim(),
+                    media: row.media && typeof row.media === 'object' ? row.media : {}
+                };
+            }
             const words = Array.isArray(row && row[3]) ? row[3].map(function (word) { return String(word || '').trim(); }).filter(Boolean) : [];
             return {
                 char: String(row && row[0] || '').trim(),
@@ -39,7 +54,9 @@
                 theme: String(row && row[2] || '').trim(),
                 words: words,
                 explain: rowExplain(row),
-                level: rowLevel(row)
+                level: rowLevel(row),
+                art: '',
+                media: {}
             };
         }).filter(function (item) {
             return item.char.length === 1;
@@ -281,6 +298,7 @@
             batch.push({
                 char: item.char,
                 pinyin: item.pinyin,
+                theme: item.theme,
                 words: item.words.slice(),
                 mark: null,
                 review: dueSet[item.char] === true
@@ -310,6 +328,7 @@
         return {
             char: item.char,
             pinyin: item.pinyin,
+            theme: item.theme,
             words: item.words.slice(0, 3),
             explain: buildExplain(item),
             speak: item.char,

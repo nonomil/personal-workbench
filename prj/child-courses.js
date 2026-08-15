@@ -11,7 +11,7 @@
             math: { mastery: {} },
             motion: { mastery: {} },
             phonics: { mastery: {} },
-            phonics: { mastery: {} }
+            minecraft: { mastery: {} }
         };
     }
 
@@ -80,7 +80,7 @@
             math: normalizeSimpleMastery(source.math),
             motion: normalizeSimpleMastery(source.motion),
             phonics: normalizeSimpleMastery(source.phonics),
-            phonics: normalizeSimpleMastery(source.phonics)
+            minecraft: normalizeEnglish({ english: source.minecraft })
         };
     }
 
@@ -100,6 +100,12 @@
     function saveEnglish(input, english) {
         const progress = normalize(input);
         progress.english = normalizeEnglish({ english: english });
+        return progress;
+    }
+
+    function saveMinecraft(input, minecraft) {
+        const progress = normalize(input);
+        progress.minecraft = normalizeEnglish({ english: minecraft });
         return progress;
     }
 
@@ -141,6 +147,7 @@
         completeLesson: completeLesson,
         saveLiteracy: saveLiteracy,
         saveEnglish: saveEnglish,
+        saveMinecraft: saveMinecraft,
         saveSubject: saveSubject,
         markSubjectReady: markSubjectReady,
         getCourseView: getCourseView

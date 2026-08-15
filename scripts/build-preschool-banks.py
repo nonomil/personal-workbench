@@ -20,12 +20,21 @@ def write_data_js(global_name, payload, out_name):
     print(out, out.stat().st_size)
 
 
+def is_schema_v1(bank):
+    return bool(bank) and isinstance(bank[0], dict) and ("media" in bank[0] or bank[0].get("kind"))
+
+
 def build_english():
     path = prj / "data" / "preschool" / "英语" / "vocabulary-bank.json"
     bank = json.loads(path.read_text(encoding="utf-8"))
     rules = json.loads((prj / "data" / "preschool" / "英语" / "review-rules.json").read_text(encoding="utf-8"))
-    write_data_js("PersonalWorkbenchEnglishVocabData", {"bank": bank, "reviewRules": rules, "levels": levels}, "preschool-english-vocab-data.js")
-    print("english words", len(bank))
+    write_data_js("PersonalWorkbenchEnglishVocabData", {"bank": bank, "reviewRules": rules, "levels": levels, "schemaVersion": 1 if is_schema_v1(bank) else 0}, "preschool-english-vocab-data.js")
+    print("english words", len(bank), "schema", "v1" if is_schema_v1(bank) else "legacy")
+    mc_path = prj / "data" / "preschool" / "英语" / "minecraft-bank.json"
+    if mc_path.exists():
+        mc = json.loads(mc_path.read_text(encoding="utf-8"))
+        write_data_js("PersonalWorkbenchMinecraftVocabData", {"bank": mc, "reviewRules": rules, "schemaVersion": 1}, "preschool-minecraft-vocab-data.js")
+        print("minecraft words", len(mc))
 
 
 def build_phonics():

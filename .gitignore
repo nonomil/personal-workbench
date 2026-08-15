@@ -40,6 +40,12 @@ docs/学习项目设计/refs/
 docs/工作台小游戏设计/refs/
 refs/
 
+# WordQuest 原包（84MB），只入库筛出的 vocab 素材
+prj/assets/vocab/wordquest-vocab-2026.08.15/
+
+# 本地分析草稿，不入库
+.tmp-analysis/
+
 # 本地专用游戏素材(商标形象,仅本地自用,不入库不发布)
 prj/games/ref/
 prj/games/platform-quest/assets/hero/jumper-*.png

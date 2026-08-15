@@ -32,10 +32,15 @@ test('pinyin bank ports 23 initials, 24 finals and 16 whole syllables', () => {
     for (const item of parsed) {
         assert.equal(['坡', '始', '游', '她', '店'].some(char => item.sample.includes(char)), false);
     }
+    const bee = parsed.find((item) => item.text === 'b');
+    assert.ok(bee && bee.homophones.length >= 2);
+    assert.ok(bee && bee.nearPhones.length >= 1);
     const first = pinyin.buildInitialQuiz(parsed, { kind: 'initial', preferred: 'b', size: 10 });
     assert.equal(first.rounds.length, 10);
     assert.equal(first.rounds[0].text, 'b');
     assert.equal(first.rounds[0].options[first.rounds[0].answer], 'b');
+    const distractors = first.rounds[0].options.filter((item) => item !== 'b');
+    assert.ok(distractors.includes('p'), 'nearPhones should prefer p for b');
     const finalsQuiz = pinyin.buildInitialQuiz(parsed, { kind: 'final', preferred: 'a', size: 8 });
     assert.equal(finalsQuiz.rounds[0].text, 'a');
     assert.match(finalsQuiz.rounds[0].prompt, /韵母/);
@@ -63,6 +68,20 @@ test('poetry lessons pick the next line from the poem bank', () => {
     assert.equal(lessons[1].activity.preferred, 'poem-yong-e');
     assert.equal(lessons[2].activity.preferred, 'poem-chunxiao');
     assert.match(lessons[3].title, /朗读《/);
+});
+
+test('phonics schema v1 flattens graphemes and phonemes for quizzes', () => {
+    const raw = JSON.parse(fs.readFileSync(path.join(root, 'data', 'preschool', 'english', 'phonics', 'word-bank.json'), 'utf8'));
+    const parsed = phonics.parseBank(raw);
+    assert.equal(parsed.length, 94);
+    const mat = parsed.find((item) => item.text === 'mat');
+    assert.ok(mat);
+    assert.ok(mat.graphemes.length >= 2);
+    assert.ok(mat.phonemes.length >= 2);
+    assert.ok(mat.stageId);
+    const quiz = phonics.buildBlendQuiz(parsed, { preferred: 'mat', size: 5 });
+    assert.equal(quiz.rounds[0].text, 'mat');
+    assert.match(quiz.rounds[0].blend, /-/);
 });
 
 test('phonics lessons 1-2 listen for letter sounds from the letter bank', () => {

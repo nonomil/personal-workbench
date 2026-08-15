@@ -94,3 +94,20 @@ test('preschool english course reads the vocab bank instead of handwritten word 
     assert.match(html, /preschool-english-vocab\.js/);
     assert.match(storage, /practiceLessonId: PRESCHOOL_ENGLISH_WORD_LESSON_ID/);
 });
+
+test('kid glosses drop dictionary leftovers and keep real sentences', () => {
+    const parsed = vocab.parseBank(readBank());
+    const byText = Object.fromEntries(parsed.map(item => [item.text, item]));
+    assert.equal(byText.playtime.zh, '课间休息');
+    assert.equal(byText.children.zh, '孩子们');
+    assert.equal(byText.aunt.zh, '阿姨');
+    assert.equal(byText.or.zh, '或者');
+    assert.match(byText.or.phrase, /red or blue/i);
+    assert.equal(byText['wake up'].zh, '起床');
+    assert.equal(byText.age.zh, '年龄');
+    assert.match(byText.age.phrase, /what is your age/i);
+    for (const item of parsed) {
+        assert.doesNotMatch(item.zh, /课件|的复数|姑母|姨母/);
+        assert.notEqual(item.phrase.trim().toLowerCase(), item.text);
+    }
+});

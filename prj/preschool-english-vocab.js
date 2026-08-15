@@ -4,17 +4,33 @@
     const STATES = ['introduced', 'practicing', 'ready', 'maintenance'];
     const DEFAULT_INTERVALS = [1, 3, 7, 14];
 
+    function localMedia(value) {
+        const raw = String(value || '').trim();
+        return /^https?:/i.test(raw) ? '' : raw;
+    }
+
     function parseBank(raw) {
         return (Array.isArray(raw) ? raw : []).map(function (row) {
             const source = row && typeof row === 'object' ? row : {};
+            const media = source.media && typeof source.media === 'object' ? source.media : {};
+            const image = localMedia(media.image || source.image);
+            const audio = localMedia(media.audio || source.audio);
+            const art = String(media.art || source.art || '').trim();
             return {
                 id: String(source.id || ''),
+                kind: String(source.kind || 'english'),
                 text: String(source.text || '').trim().toLowerCase(),
                 zh: String(source.zh || '').trim(),
                 theme: String(source.theme || '').trim(),
                 phrase: String(source.phrase || '').trim(),
                 phraseZh: String(source.phraseZh || '').trim(),
-                level: String(source.level || 'L1').trim() || 'L1'
+                level: String(source.level || 'L1').trim() || 'L1',
+                image: image,
+                audio: audio,
+                art: art,
+                media: { image: image, art: art, audio: audio },
+                source: source.source,
+                extra: source.extra && typeof source.extra === 'object' ? source.extra : {}
             };
         }).filter(function (item) {
             return item.text && item.zh && item.phrase && item.phraseZh;
@@ -82,6 +98,12 @@
             batch.push(Object.assign({}, items[(start + index) % items.length]));
         }
         return { day: day, cycle: cycle, batch: batch };
+    }
+
+    function todayTheme(bank, today, size, level) {
+        const daily = dailyWindow(bank, today, size, level);
+        const first = daily.batch[0];
+        return first && first.theme ? first.theme : '';
     }
 
     function buildReviewQueue(progress, rules, today, words) {
@@ -161,6 +183,11 @@
         return parseBank(data && data.bank);
     }
 
+    function getRuntimeMinecraftBank() {
+        const data = global.PersonalWorkbenchMinecraftVocabData;
+        return parseBank(data && data.bank);
+    }
+
     function getRuntimeRules() {
         const data = global.PersonalWorkbenchEnglishVocabData;
         return data && data.reviewRules ? data.reviewRules : { reviewIntervalsDays: DEFAULT_INTERVALS };
@@ -171,11 +198,13 @@
         createDefaultProgress: createDefaultProgress,
         courseDay: courseDay,
         dailyWindow: dailyWindow,
+        todayTheme: todayTheme,
         buildReviewQueue: buildReviewQueue,
         buildSpeakBatch: buildSpeakBatch,
         toMatchPairs: toMatchPairs,
         markKnown: markKnown,
         getRuntimeBank: getRuntimeBank,
+        getRuntimeMinecraftBank: getRuntimeMinecraftBank,
         getRuntimeRules: getRuntimeRules
     };
 })(typeof window !== 'undefined' ? window : globalThis);

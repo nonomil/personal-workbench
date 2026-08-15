@@ -1,7 +1,11 @@
 [
   {
     "id": "word-sat",
+    "kind": "phonics",
     "text": "sat",
+    "zh": "",
+    "theme": "cvc-blending",
+    "level": "L2",
     "graphemes": [
       "s",
       "a",
@@ -13,15 +17,33 @@
       "t"
     ],
     "stageId": "cvc-blending",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "s",
+        "a",
+        "t"
+      ],
+      "phonemes": [
+        "s",
+        "a",
+        "t"
+      ],
+      "stageId": "cvc-blending"
+    }
   },
   {
     "id": "word-pat",
+    "kind": "phonics",
     "text": "pat",
+    "zh": "",
+    "theme": "cvc-blending",
+    "level": "L2",
     "graphemes": [
       "p",
       "a",
@@ -33,15 +55,33 @@
       "t"
     ],
     "stageId": "cvc-blending",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "p",
+        "a",
+        "t"
+      ],
+      "phonemes": [
+        "p",
+        "a",
+        "t"
+      ],
+      "stageId": "cvc-blending"
+    }
   },
   {
     "id": "word-map",
+    "kind": "phonics",
     "text": "map",
+    "zh": "",
+    "theme": "cvc-blending",
+    "level": "L2",
     "graphemes": [
       "m",
       "a",
@@ -53,15 +93,33 @@
       "p"
     ],
     "stageId": "cvc-blending",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "m",
+        "a",
+        "p"
+      ],
+      "phonemes": [
+        "m",
+        "a",
+        "p"
+      ],
+      "stageId": "cvc-blending"
+    }
   },
   {
     "id": "word-tap",
+    "kind": "phonics",
     "text": "tap",
+    "zh": "",
+    "theme": "cvc-blending",
+    "level": "L2",
     "graphemes": [
       "t",
       "a",
@@ -73,15 +131,33 @@
       "p"
     ],
     "stageId": "cvc-blending",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "t",
+        "a",
+        "p"
+      ],
+      "phonemes": [
+        "t",
+        "a",
+        "p"
+      ],
+      "stageId": "cvc-blending"
+    }
   },
   {
     "id": "word-mat",
+    "kind": "phonics",
     "text": "mat",
+    "zh": "",
+    "theme": "cvc-blending",
+    "level": "L2",
     "graphemes": [
       "m",
       "a",
@@ -93,15 +169,33 @@
       "t"
     ],
     "stageId": "cvc-blending",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "m",
+        "a",
+        "t"
+      ],
+      "phonemes": [
+        "m",
+        "a",
+        "t"
+      ],
+      "stageId": "cvc-blending"
+    }
   },
   {
     "id": "word-mad",
+    "kind": "phonics",
     "text": "mad",
+    "zh": "",
+    "theme": "cvc-blending",
+    "level": "L2",
     "graphemes": [
       "m",
       "a",
@@ -113,15 +207,33 @@
       "d"
     ],
     "stageId": "cvc-blending",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "m",
+        "a",
+        "d"
+      ],
+      "phonemes": [
+        "m",
+        "a",
+        "d"
+      ],
+      "stageId": "cvc-blending"
+    }
   },
   {
     "id": "word-sad",
+    "kind": "phonics",
     "text": "sad",
+    "zh": "",
+    "theme": "cvc-blending",
+    "level": "L2",
     "graphemes": [
       "s",
       "a",
@@ -133,15 +245,33 @@
       "d"
     ],
     "stageId": "cvc-blending",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "s",
+        "a",
+        "d"
+      ],
+      "phonemes": [
+        "s",
+        "a",
+        "d"
+      ],
+      "stageId": "cvc-blending"
+    }
   },
   {
     "id": "word-sam",
-    "text": "Sam",
+    "kind": "phonics",
+    "text": "sam",
+    "zh": "",
+    "theme": "cvc-blending",
+    "level": "L2",
     "graphemes": [
       "s",
       "a",
@@ -153,15 +283,33 @@
       "m"
     ],
     "stageId": "cvc-blending",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "s",
+        "a",
+        "m"
+      ],
+      "phonemes": [
+        "s",
+        "a",
+        "m"
+      ],
+      "stageId": "cvc-blending"
+    }
   },
   {
     "id": "word-am",
+    "kind": "phonics",
     "text": "am",
+    "zh": "",
+    "theme": "cvc-blending",
+    "level": "L2",
     "graphemes": [
       "a",
       "m"
@@ -171,15 +319,31 @@
       "m"
     ],
     "stageId": "cvc-blending",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "a",
+        "m"
+      ],
+      "phonemes": [
+        "a",
+        "m"
+      ],
+      "stageId": "cvc-blending"
+    }
   },
   {
     "id": "word-at",
+    "kind": "phonics",
     "text": "at",
+    "zh": "",
+    "theme": "first-letter-sounds",
+    "level": "L1",
     "graphemes": [
       "a",
       "t"
@@ -189,15 +353,31 @@
       "t"
     ],
     "stageId": "first-letter-sounds",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L1"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "a",
+        "t"
+      ],
+      "phonemes": [
+        "a",
+        "t"
+      ],
+      "stageId": "first-letter-sounds"
+    }
   },
   {
     "id": "word-an",
+    "kind": "phonics",
     "text": "an",
+    "zh": "",
+    "theme": "first-letter-sounds",
+    "level": "L1",
     "graphemes": [
       "a",
       "n"
@@ -207,15 +387,31 @@
       "n"
     ],
     "stageId": "first-letter-sounds",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L1"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "a",
+        "n"
+      ],
+      "phonemes": [
+        "a",
+        "n"
+      ],
+      "stageId": "first-letter-sounds"
+    }
   },
   {
     "id": "word-in",
+    "kind": "phonics",
     "text": "in",
+    "zh": "",
+    "theme": "cvc-blending",
+    "level": "L2",
     "graphemes": [
       "i",
       "n"
@@ -225,15 +421,31 @@
       "n"
     ],
     "stageId": "cvc-blending",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "i",
+        "n"
+      ],
+      "phonemes": [
+        "i",
+        "n"
+      ],
+      "stageId": "cvc-blending"
+    }
   },
   {
     "id": "word-it",
+    "kind": "phonics",
     "text": "it",
+    "zh": "",
+    "theme": "cvc-blending",
+    "level": "L2",
     "graphemes": [
       "i",
       "t"
@@ -243,15 +455,31 @@
       "t"
     ],
     "stageId": "cvc-blending",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "i",
+        "t"
+      ],
+      "phonemes": [
+        "i",
+        "t"
+      ],
+      "stageId": "cvc-blending"
+    }
   },
   {
     "id": "word-is",
+    "kind": "phonics",
     "text": "is",
+    "zh": "",
+    "theme": "cvc-blending",
+    "level": "L2",
     "graphemes": [
       "i",
       "s"
@@ -261,15 +489,31 @@
       "s"
     ],
     "stageId": "cvc-blending",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "i",
+        "s"
+      ],
+      "phonemes": [
+        "i",
+        "s"
+      ],
+      "stageId": "cvc-blending"
+    }
   },
   {
     "id": "word-sit",
+    "kind": "phonics",
     "text": "sit",
+    "zh": "",
+    "theme": "cvc-blending",
+    "level": "L2",
     "graphemes": [
       "s",
       "i",
@@ -281,15 +525,33 @@
       "t"
     ],
     "stageId": "cvc-blending",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "s",
+        "i",
+        "t"
+      ],
+      "phonemes": [
+        "s",
+        "i",
+        "t"
+      ],
+      "stageId": "cvc-blending"
+    }
   },
   {
     "id": "word-pin",
+    "kind": "phonics",
     "text": "pin",
+    "zh": "",
+    "theme": "cvc-blending",
+    "level": "L2",
     "graphemes": [
       "p",
       "i",
@@ -301,15 +563,33 @@
       "n"
     ],
     "stageId": "cvc-blending",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "p",
+        "i",
+        "n"
+      ],
+      "phonemes": [
+        "p",
+        "i",
+        "n"
+      ],
+      "stageId": "cvc-blending"
+    }
   },
   {
     "id": "word-pit",
+    "kind": "phonics",
     "text": "pit",
+    "zh": "",
+    "theme": "cvc-blending",
+    "level": "L2",
     "graphemes": [
       "p",
       "i",
@@ -321,15 +601,33 @@
       "t"
     ],
     "stageId": "cvc-blending",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "p",
+        "i",
+        "t"
+      ],
+      "phonemes": [
+        "p",
+        "i",
+        "t"
+      ],
+      "stageId": "cvc-blending"
+    }
   },
   {
     "id": "word-tip",
+    "kind": "phonics",
     "text": "tip",
+    "zh": "",
+    "theme": "cvc-blending",
+    "level": "L2",
     "graphemes": [
       "t",
       "i",
@@ -341,15 +639,33 @@
       "p"
     ],
     "stageId": "cvc-blending",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "t",
+        "i",
+        "p"
+      ],
+      "phonemes": [
+        "t",
+        "i",
+        "p"
+      ],
+      "stageId": "cvc-blending"
+    }
   },
   {
     "id": "word-tin",
+    "kind": "phonics",
     "text": "tin",
+    "zh": "",
+    "theme": "cvc-blending",
+    "level": "L2",
     "graphemes": [
       "t",
       "i",
@@ -361,15 +677,33 @@
       "n"
     ],
     "stageId": "cvc-blending",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "t",
+        "i",
+        "n"
+      ],
+      "phonemes": [
+        "t",
+        "i",
+        "n"
+      ],
+      "stageId": "cvc-blending"
+    }
   },
   {
     "id": "word-nip",
+    "kind": "phonics",
     "text": "nip",
+    "zh": "",
+    "theme": "cvc-blending",
+    "level": "L2",
     "graphemes": [
       "n",
       "i",
@@ -381,15 +715,33 @@
       "p"
     ],
     "stageId": "cvc-blending",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "n",
+        "i",
+        "p"
+      ],
+      "phonemes": [
+        "n",
+        "i",
+        "p"
+      ],
+      "stageId": "cvc-blending"
+    }
   },
   {
     "id": "word-pan",
+    "kind": "phonics",
     "text": "pan",
+    "zh": "",
+    "theme": "cvc-blending",
+    "level": "L2",
     "graphemes": [
       "p",
       "a",
@@ -401,15 +753,33 @@
       "n"
     ],
     "stageId": "cvc-blending",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "p",
+        "a",
+        "n"
+      ],
+      "phonemes": [
+        "p",
+        "a",
+        "n"
+      ],
+      "stageId": "cvc-blending"
+    }
   },
   {
     "id": "word-nap",
+    "kind": "phonics",
     "text": "nap",
+    "zh": "",
+    "theme": "cvc-blending",
+    "level": "L2",
     "graphemes": [
       "n",
       "a",
@@ -421,15 +791,33 @@
       "p"
     ],
     "stageId": "cvc-blending",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "n",
+        "a",
+        "p"
+      ],
+      "phonemes": [
+        "n",
+        "a",
+        "p"
+      ],
+      "stageId": "cvc-blending"
+    }
   },
   {
     "id": "word-man",
+    "kind": "phonics",
     "text": "man",
+    "zh": "",
+    "theme": "cvc-blending",
+    "level": "L2",
     "graphemes": [
       "m",
       "a",
@@ -441,15 +829,33 @@
       "n"
     ],
     "stageId": "cvc-blending",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "m",
+        "a",
+        "n"
+      ],
+      "phonemes": [
+        "m",
+        "a",
+        "n"
+      ],
+      "stageId": "cvc-blending"
+    }
   },
   {
     "id": "word-can",
+    "kind": "phonics",
     "text": "can",
+    "zh": "",
+    "theme": "cvc-blending",
+    "level": "L2",
     "graphemes": [
       "c",
       "a",
@@ -461,15 +867,33 @@
       "n"
     ],
     "stageId": "cvc-blending",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "c",
+        "a",
+        "n"
+      ],
+      "phonemes": [
+        "c",
+        "a",
+        "n"
+      ],
+      "stageId": "cvc-blending"
+    }
   },
   {
     "id": "word-cat",
+    "kind": "phonics",
     "text": "cat",
+    "zh": "",
+    "theme": "cvc-blending",
+    "level": "L2",
     "graphemes": [
       "c",
       "a",
@@ -481,15 +905,33 @@
       "t"
     ],
     "stageId": "cvc-blending",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "c",
+        "a",
+        "t"
+      ],
+      "phonemes": [
+        "c",
+        "a",
+        "t"
+      ],
+      "stageId": "cvc-blending"
+    }
   },
   {
     "id": "word-hat",
+    "kind": "phonics",
     "text": "hat",
+    "zh": "",
+    "theme": "cvc-blending",
+    "level": "L2",
     "graphemes": [
       "h",
       "a",
@@ -501,15 +943,33 @@
       "t"
     ],
     "stageId": "cvc-blending",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "h",
+        "a",
+        "t"
+      ],
+      "phonemes": [
+        "h",
+        "a",
+        "t"
+      ],
+      "stageId": "cvc-blending"
+    }
   },
   {
     "id": "word-ham",
+    "kind": "phonics",
     "text": "ham",
+    "zh": "",
+    "theme": "cvc-blending",
+    "level": "L2",
     "graphemes": [
       "h",
       "a",
@@ -521,15 +981,33 @@
       "m"
     ],
     "stageId": "cvc-blending",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "h",
+        "a",
+        "m"
+      ],
+      "phonemes": [
+        "h",
+        "a",
+        "m"
+      ],
+      "stageId": "cvc-blending"
+    }
   },
   {
     "id": "word-hit",
+    "kind": "phonics",
     "text": "hit",
+    "zh": "",
+    "theme": "cvc-blending",
+    "level": "L2",
     "graphemes": [
       "h",
       "i",
@@ -541,15 +1019,33 @@
       "t"
     ],
     "stageId": "cvc-blending",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "h",
+        "i",
+        "t"
+      ],
+      "phonemes": [
+        "h",
+        "i",
+        "t"
+      ],
+      "stageId": "cvc-blending"
+    }
   },
   {
     "id": "word-bit",
+    "kind": "phonics",
     "text": "bit",
+    "zh": "",
+    "theme": "cvc-blending",
+    "level": "L2",
     "graphemes": [
       "b",
       "i",
@@ -561,15 +1057,33 @@
       "t"
     ],
     "stageId": "cvc-blending",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "b",
+        "i",
+        "t"
+      ],
+      "phonemes": [
+        "b",
+        "i",
+        "t"
+      ],
+      "stageId": "cvc-blending"
+    }
   },
   {
     "id": "word-bin",
+    "kind": "phonics",
     "text": "bin",
+    "zh": "",
+    "theme": "cvc-blending",
+    "level": "L2",
     "graphemes": [
       "b",
       "i",
@@ -581,15 +1095,33 @@
       "n"
     ],
     "stageId": "cvc-blending",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "b",
+        "i",
+        "n"
+      ],
+      "phonemes": [
+        "b",
+        "i",
+        "n"
+      ],
+      "stageId": "cvc-blending"
+    }
   },
   {
     "id": "word-dip",
+    "kind": "phonics",
     "text": "dip",
+    "zh": "",
+    "theme": "cvc-blending",
+    "level": "L2",
     "graphemes": [
       "d",
       "i",
@@ -601,15 +1133,33 @@
       "p"
     ],
     "stageId": "cvc-blending",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L2"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "d",
+        "i",
+        "p"
+      ],
+      "phonemes": [
+        "d",
+        "i",
+        "p"
+      ],
+      "stageId": "cvc-blending"
+    }
   },
   {
     "id": "word-hot",
+    "kind": "phonics",
     "text": "hot",
+    "zh": "",
+    "theme": "short-vowels-and-families",
+    "level": "L3",
     "graphemes": [
       "h",
       "o",
@@ -621,16 +1171,33 @@
       "t"
     ],
     "stageId": "short-vowels-and-families",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L3"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "h",
+        "o",
+        "t"
+      ],
+      "phonemes": [
+        "h",
+        "o",
+        "t"
+      ],
+      "stageId": "short-vowels-and-families"
+    }
   },
   {
     "id": "word-pot",
+    "kind": "phonics",
     "text": "pot",
+    "zh": "",
+    "theme": "short-vowels-and-families",
+    "level": "L3",
     "graphemes": [
       "p",
       "o",
@@ -642,16 +1209,33 @@
       "t"
     ],
     "stageId": "short-vowels-and-families",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L3"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "p",
+        "o",
+        "t"
+      ],
+      "phonemes": [
+        "p",
+        "o",
+        "t"
+      ],
+      "stageId": "short-vowels-and-families"
+    }
   },
   {
     "id": "word-not",
+    "kind": "phonics",
     "text": "not",
+    "zh": "",
+    "theme": "short-vowels-and-families",
+    "level": "L3",
     "graphemes": [
       "n",
       "o",
@@ -663,16 +1247,33 @@
       "t"
     ],
     "stageId": "short-vowels-and-families",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L3"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "n",
+        "o",
+        "t"
+      ],
+      "phonemes": [
+        "n",
+        "o",
+        "t"
+      ],
+      "stageId": "short-vowels-and-families"
+    }
   },
   {
     "id": "word-hop",
+    "kind": "phonics",
     "text": "hop",
+    "zh": "",
+    "theme": "short-vowels-and-families",
+    "level": "L3",
     "graphemes": [
       "h",
       "o",
@@ -684,16 +1285,33 @@
       "p"
     ],
     "stageId": "short-vowels-and-families",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L3"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "h",
+        "o",
+        "p"
+      ],
+      "phonemes": [
+        "h",
+        "o",
+        "p"
+      ],
+      "stageId": "short-vowels-and-families"
+    }
   },
   {
     "id": "word-mop",
+    "kind": "phonics",
     "text": "mop",
+    "zh": "",
+    "theme": "short-vowels-and-families",
+    "level": "L3",
     "graphemes": [
       "m",
       "o",
@@ -705,16 +1323,33 @@
       "p"
     ],
     "stageId": "short-vowels-and-families",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L3"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "m",
+        "o",
+        "p"
+      ],
+      "phonemes": [
+        "m",
+        "o",
+        "p"
+      ],
+      "stageId": "short-vowels-and-families"
+    }
   },
   {
     "id": "word-top",
+    "kind": "phonics",
     "text": "top",
+    "zh": "",
+    "theme": "short-vowels-and-families",
+    "level": "L3",
     "graphemes": [
       "t",
       "o",
@@ -726,16 +1361,33 @@
       "p"
     ],
     "stageId": "short-vowels-and-families",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L3"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "t",
+        "o",
+        "p"
+      ],
+      "phonemes": [
+        "t",
+        "o",
+        "p"
+      ],
+      "stageId": "short-vowels-and-families"
+    }
   },
   {
     "id": "word-dog",
+    "kind": "phonics",
     "text": "dog",
+    "zh": "",
+    "theme": "short-vowels-and-families",
+    "level": "L3",
     "graphemes": [
       "d",
       "o",
@@ -747,16 +1399,33 @@
       "g"
     ],
     "stageId": "short-vowels-and-families",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L3"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "d",
+        "o",
+        "g"
+      ],
+      "phonemes": [
+        "d",
+        "o",
+        "g"
+      ],
+      "stageId": "short-vowels-and-families"
+    }
   },
   {
     "id": "word-log",
+    "kind": "phonics",
     "text": "log",
+    "zh": "",
+    "theme": "short-vowels-and-families",
+    "level": "L3",
     "graphemes": [
       "l",
       "o",
@@ -768,16 +1437,33 @@
       "g"
     ],
     "stageId": "short-vowels-and-families",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L3"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "l",
+        "o",
+        "g"
+      ],
+      "phonemes": [
+        "l",
+        "o",
+        "g"
+      ],
+      "stageId": "short-vowels-and-families"
+    }
   },
   {
     "id": "word-fog",
+    "kind": "phonics",
     "text": "fog",
+    "zh": "",
+    "theme": "short-vowels-and-families",
+    "level": "L3",
     "graphemes": [
       "f",
       "o",
@@ -789,16 +1475,33 @@
       "g"
     ],
     "stageId": "short-vowels-and-families",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L3"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "f",
+        "o",
+        "g"
+      ],
+      "phonemes": [
+        "f",
+        "o",
+        "g"
+      ],
+      "stageId": "short-vowels-and-families"
+    }
   },
   {
     "id": "word-pet",
+    "kind": "phonics",
     "text": "pet",
+    "zh": "",
+    "theme": "short-vowels-and-families",
+    "level": "L3",
     "graphemes": [
       "p",
       "e",
@@ -810,16 +1513,33 @@
       "t"
     ],
     "stageId": "short-vowels-and-families",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L3"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "p",
+        "e",
+        "t"
+      ],
+      "phonemes": [
+        "p",
+        "e",
+        "t"
+      ],
+      "stageId": "short-vowels-and-families"
+    }
   },
   {
     "id": "word-get",
+    "kind": "phonics",
     "text": "get",
+    "zh": "",
+    "theme": "short-vowels-and-families",
+    "level": "L3",
     "graphemes": [
       "g",
       "e",
@@ -831,16 +1551,33 @@
       "t"
     ],
     "stageId": "short-vowels-and-families",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L3"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "g",
+        "e",
+        "t"
+      ],
+      "phonemes": [
+        "g",
+        "e",
+        "t"
+      ],
+      "stageId": "short-vowels-and-families"
+    }
   },
   {
     "id": "word-ten",
+    "kind": "phonics",
     "text": "ten",
+    "zh": "",
+    "theme": "short-vowels-and-families",
+    "level": "L3",
     "graphemes": [
       "t",
       "e",
@@ -852,16 +1589,33 @@
       "n"
     ],
     "stageId": "short-vowels-and-families",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L3"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "t",
+        "e",
+        "n"
+      ],
+      "phonemes": [
+        "t",
+        "e",
+        "n"
+      ],
+      "stageId": "short-vowels-and-families"
+    }
   },
   {
     "id": "word-bed",
+    "kind": "phonics",
     "text": "bed",
+    "zh": "",
+    "theme": "short-vowels-and-families",
+    "level": "L3",
     "graphemes": [
       "b",
       "e",
@@ -873,16 +1627,33 @@
       "d"
     ],
     "stageId": "short-vowels-and-families",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L3"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "b",
+        "e",
+        "d"
+      ],
+      "phonemes": [
+        "b",
+        "e",
+        "d"
+      ],
+      "stageId": "short-vowels-and-families"
+    }
   },
   {
     "id": "word-bug",
+    "kind": "phonics",
     "text": "bug",
+    "zh": "",
+    "theme": "short-vowels-and-families",
+    "level": "L3",
     "graphemes": [
       "b",
       "u",
@@ -894,16 +1665,33 @@
       "g"
     ],
     "stageId": "short-vowels-and-families",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L3"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "b",
+        "u",
+        "g"
+      ],
+      "phonemes": [
+        "b",
+        "u",
+        "g"
+      ],
+      "stageId": "short-vowels-and-families"
+    }
   },
   {
     "id": "word-mug",
+    "kind": "phonics",
     "text": "mug",
+    "zh": "",
+    "theme": "short-vowels-and-families",
+    "level": "L3",
     "graphemes": [
       "m",
       "u",
@@ -915,16 +1703,33 @@
       "g"
     ],
     "stageId": "short-vowels-and-families",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L3"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "m",
+        "u",
+        "g"
+      ],
+      "phonemes": [
+        "m",
+        "u",
+        "g"
+      ],
+      "stageId": "short-vowels-and-families"
+    }
   },
   {
     "id": "word-sun",
+    "kind": "phonics",
     "text": "sun",
+    "zh": "",
+    "theme": "short-vowels-and-families",
+    "level": "L3",
     "graphemes": [
       "s",
       "u",
@@ -936,16 +1741,33 @@
       "n"
     ],
     "stageId": "short-vowels-and-families",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L3"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "s",
+        "u",
+        "n"
+      ],
+      "phonemes": [
+        "s",
+        "u",
+        "n"
+      ],
+      "stageId": "short-vowels-and-families"
+    }
   },
   {
     "id": "word-run",
+    "kind": "phonics",
     "text": "run",
+    "zh": "",
+    "theme": "short-vowels-and-families",
+    "level": "L3",
     "graphemes": [
       "r",
       "u",
@@ -957,16 +1779,33 @@
       "n"
     ],
     "stageId": "short-vowels-and-families",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L3"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "r",
+        "u",
+        "n"
+      ],
+      "phonemes": [
+        "r",
+        "u",
+        "n"
+      ],
+      "stageId": "short-vowels-and-families"
+    }
   },
   {
     "id": "word-fun",
+    "kind": "phonics",
     "text": "fun",
+    "zh": "",
+    "theme": "short-vowels-and-families",
+    "level": "L3",
     "graphemes": [
       "f",
       "u",
@@ -978,16 +1817,33 @@
       "n"
     ],
     "stageId": "short-vowels-and-families",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L3"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "f",
+        "u",
+        "n"
+      ],
+      "phonemes": [
+        "f",
+        "u",
+        "n"
+      ],
+      "stageId": "short-vowels-and-families"
+    }
   },
   {
     "id": "word-ship",
+    "kind": "phonics",
     "text": "ship",
+    "zh": "",
+    "theme": "common-digraphs",
+    "level": "L4",
     "graphemes": [
       "sh",
       "i",
@@ -999,16 +1855,33 @@
       "p"
     ],
     "stageId": "common-digraphs",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "sh",
+        "i",
+        "p"
+      ],
+      "phonemes": [
+        "sh",
+        "i",
+        "p"
+      ],
+      "stageId": "common-digraphs"
+    }
   },
   {
     "id": "word-shop",
+    "kind": "phonics",
     "text": "shop",
+    "zh": "",
+    "theme": "common-digraphs",
+    "level": "L4",
     "graphemes": [
       "sh",
       "o",
@@ -1020,16 +1893,33 @@
       "p"
     ],
     "stageId": "common-digraphs",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "sh",
+        "o",
+        "p"
+      ],
+      "phonemes": [
+        "sh",
+        "o",
+        "p"
+      ],
+      "stageId": "common-digraphs"
+    }
   },
   {
     "id": "word-shut",
+    "kind": "phonics",
     "text": "shut",
+    "zh": "",
+    "theme": "common-digraphs",
+    "level": "L4",
     "graphemes": [
       "sh",
       "u",
@@ -1041,16 +1931,33 @@
       "t"
     ],
     "stageId": "common-digraphs",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "sh",
+        "u",
+        "t"
+      ],
+      "phonemes": [
+        "sh",
+        "u",
+        "t"
+      ],
+      "stageId": "common-digraphs"
+    }
   },
   {
     "id": "word-fish",
+    "kind": "phonics",
     "text": "fish",
+    "zh": "",
+    "theme": "common-digraphs",
+    "level": "L4",
     "graphemes": [
       "f",
       "i",
@@ -1062,16 +1969,33 @@
       "sh"
     ],
     "stageId": "common-digraphs",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "f",
+        "i",
+        "sh"
+      ],
+      "phonemes": [
+        "f",
+        "i",
+        "sh"
+      ],
+      "stageId": "common-digraphs"
+    }
   },
   {
     "id": "word-dish",
+    "kind": "phonics",
     "text": "dish",
+    "zh": "",
+    "theme": "common-digraphs",
+    "level": "L4",
     "graphemes": [
       "d",
       "i",
@@ -1083,16 +2007,33 @@
       "sh"
     ],
     "stageId": "common-digraphs",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "d",
+        "i",
+        "sh"
+      ],
+      "phonemes": [
+        "d",
+        "i",
+        "sh"
+      ],
+      "stageId": "common-digraphs"
+    }
   },
   {
     "id": "word-wish",
+    "kind": "phonics",
     "text": "wish",
+    "zh": "",
+    "theme": "common-digraphs",
+    "level": "L4",
     "graphemes": [
       "w",
       "i",
@@ -1104,16 +2045,33 @@
       "sh"
     ],
     "stageId": "common-digraphs",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "w",
+        "i",
+        "sh"
+      ],
+      "phonemes": [
+        "w",
+        "i",
+        "sh"
+      ],
+      "stageId": "common-digraphs"
+    }
   },
   {
     "id": "word-chip",
+    "kind": "phonics",
     "text": "chip",
+    "zh": "",
+    "theme": "common-digraphs",
+    "level": "L4",
     "graphemes": [
       "ch",
       "i",
@@ -1125,16 +2083,33 @@
       "p"
     ],
     "stageId": "common-digraphs",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "ch",
+        "i",
+        "p"
+      ],
+      "phonemes": [
+        "ch",
+        "i",
+        "p"
+      ],
+      "stageId": "common-digraphs"
+    }
   },
   {
     "id": "word-chat",
+    "kind": "phonics",
     "text": "chat",
+    "zh": "",
+    "theme": "common-digraphs",
+    "level": "L4",
     "graphemes": [
       "ch",
       "a",
@@ -1146,16 +2121,33 @@
       "t"
     ],
     "stageId": "common-digraphs",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "ch",
+        "a",
+        "t"
+      ],
+      "phonemes": [
+        "ch",
+        "a",
+        "t"
+      ],
+      "stageId": "common-digraphs"
+    }
   },
   {
     "id": "word-chop",
+    "kind": "phonics",
     "text": "chop",
+    "zh": "",
+    "theme": "common-digraphs",
+    "level": "L4",
     "graphemes": [
       "ch",
       "o",
@@ -1167,16 +2159,33 @@
       "p"
     ],
     "stageId": "common-digraphs",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "ch",
+        "o",
+        "p"
+      ],
+      "phonemes": [
+        "ch",
+        "o",
+        "p"
+      ],
+      "stageId": "common-digraphs"
+    }
   },
   {
     "id": "word-rich",
+    "kind": "phonics",
     "text": "rich",
+    "zh": "",
+    "theme": "common-digraphs",
+    "level": "L4",
     "graphemes": [
       "r",
       "i",
@@ -1188,16 +2197,33 @@
       "ch"
     ],
     "stageId": "common-digraphs",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "r",
+        "i",
+        "ch"
+      ],
+      "phonemes": [
+        "r",
+        "i",
+        "ch"
+      ],
+      "stageId": "common-digraphs"
+    }
   },
   {
     "id": "word-much",
+    "kind": "phonics",
     "text": "much",
+    "zh": "",
+    "theme": "common-digraphs",
+    "level": "L4",
     "graphemes": [
       "m",
       "u",
@@ -1209,16 +2235,33 @@
       "ch"
     ],
     "stageId": "common-digraphs",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "m",
+        "u",
+        "ch"
+      ],
+      "phonemes": [
+        "m",
+        "u",
+        "ch"
+      ],
+      "stageId": "common-digraphs"
+    }
   },
   {
     "id": "word-such",
+    "kind": "phonics",
     "text": "such",
+    "zh": "",
+    "theme": "common-digraphs",
+    "level": "L4",
     "graphemes": [
       "s",
       "u",
@@ -1230,16 +2273,33 @@
       "ch"
     ],
     "stageId": "common-digraphs",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "s",
+        "u",
+        "ch"
+      ],
+      "phonemes": [
+        "s",
+        "u",
+        "ch"
+      ],
+      "stageId": "common-digraphs"
+    }
   },
   {
     "id": "word-thin",
+    "kind": "phonics",
     "text": "thin",
+    "zh": "",
+    "theme": "common-digraphs",
+    "level": "L4",
     "graphemes": [
       "th",
       "i",
@@ -1251,16 +2311,33 @@
       "n"
     ],
     "stageId": "common-digraphs",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "th",
+        "i",
+        "n"
+      ],
+      "phonemes": [
+        "th",
+        "i",
+        "n"
+      ],
+      "stageId": "common-digraphs"
+    }
   },
   {
     "id": "word-that",
+    "kind": "phonics",
     "text": "that",
+    "zh": "",
+    "theme": "common-digraphs",
+    "level": "L4",
     "graphemes": [
       "th",
       "a",
@@ -1272,16 +2349,33 @@
       "t"
     ],
     "stageId": "common-digraphs",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "th",
+        "a",
+        "t"
+      ],
+      "phonemes": [
+        "th",
+        "a",
+        "t"
+      ],
+      "stageId": "common-digraphs"
+    }
   },
   {
     "id": "word-this",
+    "kind": "phonics",
     "text": "this",
+    "zh": "",
+    "theme": "common-digraphs",
+    "level": "L4",
     "graphemes": [
       "th",
       "i",
@@ -1293,16 +2387,33 @@
       "s"
     ],
     "stageId": "common-digraphs",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "th",
+        "i",
+        "s"
+      ],
+      "phonemes": [
+        "th",
+        "i",
+        "s"
+      ],
+      "stageId": "common-digraphs"
+    }
   },
   {
     "id": "word-back",
+    "kind": "phonics",
     "text": "back",
+    "zh": "",
+    "theme": "common-digraphs",
+    "level": "L4",
     "graphemes": [
       "b",
       "a",
@@ -1314,16 +2425,33 @@
       "ck"
     ],
     "stageId": "common-digraphs",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "b",
+        "a",
+        "ck"
+      ],
+      "phonemes": [
+        "b",
+        "a",
+        "ck"
+      ],
+      "stageId": "common-digraphs"
+    }
   },
   {
     "id": "word-pick",
+    "kind": "phonics",
     "text": "pick",
+    "zh": "",
+    "theme": "common-digraphs",
+    "level": "L4",
     "graphemes": [
       "p",
       "i",
@@ -1335,16 +2463,33 @@
       "ck"
     ],
     "stageId": "common-digraphs",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "p",
+        "i",
+        "ck"
+      ],
+      "phonemes": [
+        "p",
+        "i",
+        "ck"
+      ],
+      "stageId": "common-digraphs"
+    }
   },
   {
     "id": "word-kick",
+    "kind": "phonics",
     "text": "kick",
+    "zh": "",
+    "theme": "common-digraphs",
+    "level": "L4",
     "graphemes": [
       "k",
       "i",
@@ -1356,16 +2501,33 @@
       "ck"
     ],
     "stageId": "common-digraphs",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "k",
+        "i",
+        "ck"
+      ],
+      "phonemes": [
+        "k",
+        "i",
+        "ck"
+      ],
+      "stageId": "common-digraphs"
+    }
   },
   {
     "id": "word-sing",
+    "kind": "phonics",
     "text": "sing",
+    "zh": "",
+    "theme": "common-digraphs",
+    "level": "L4",
     "graphemes": [
       "s",
       "i",
@@ -1377,16 +2539,33 @@
       "ng"
     ],
     "stageId": "common-digraphs",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "s",
+        "i",
+        "ng"
+      ],
+      "phonemes": [
+        "s",
+        "i",
+        "ng"
+      ],
+      "stageId": "common-digraphs"
+    }
   },
   {
     "id": "word-ring",
+    "kind": "phonics",
     "text": "ring",
+    "zh": "",
+    "theme": "common-digraphs",
+    "level": "L4",
     "graphemes": [
       "r",
       "i",
@@ -1398,16 +2577,33 @@
       "ng"
     ],
     "stageId": "common-digraphs",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "r",
+        "i",
+        "ng"
+      ],
+      "phonemes": [
+        "r",
+        "i",
+        "ng"
+      ],
+      "stageId": "common-digraphs"
+    }
   },
   {
     "id": "word-long",
+    "kind": "phonics",
     "text": "long",
+    "zh": "",
+    "theme": "common-digraphs",
+    "level": "L4",
     "graphemes": [
       "l",
       "o",
@@ -1419,16 +2615,33 @@
       "ng"
     ],
     "stageId": "common-digraphs",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L4"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "l",
+        "o",
+        "ng"
+      ],
+      "phonemes": [
+        "l",
+        "o",
+        "ng"
+      ],
+      "stageId": "common-digraphs"
+    }
   },
   {
     "id": "word-stop",
+    "kind": "phonics",
     "text": "stop",
+    "zh": "",
+    "theme": "consonant-blends",
+    "level": "L5",
     "graphemes": [
       "st",
       "o",
@@ -1441,16 +2654,34 @@
       "p"
     ],
     "stageId": "consonant-blends",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "st",
+        "o",
+        "p"
+      ],
+      "phonemes": [
+        "s",
+        "t",
+        "o",
+        "p"
+      ],
+      "stageId": "consonant-blends"
+    }
   },
   {
     "id": "word-step",
+    "kind": "phonics",
     "text": "step",
+    "zh": "",
+    "theme": "consonant-blends",
+    "level": "L5",
     "graphemes": [
       "st",
       "e",
@@ -1463,16 +2694,34 @@
       "p"
     ],
     "stageId": "consonant-blends",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "st",
+        "e",
+        "p"
+      ],
+      "phonemes": [
+        "s",
+        "t",
+        "e",
+        "p"
+      ],
+      "stageId": "consonant-blends"
+    }
   },
   {
     "id": "word-stand",
+    "kind": "phonics",
     "text": "stand",
+    "zh": "",
+    "theme": "consonant-blends",
+    "level": "L5",
     "graphemes": [
       "st",
       "a",
@@ -1486,16 +2735,35 @@
       "d"
     ],
     "stageId": "consonant-blends",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "st",
+        "a",
+        "nd"
+      ],
+      "phonemes": [
+        "s",
+        "t",
+        "a",
+        "n",
+        "d"
+      ],
+      "stageId": "consonant-blends"
+    }
   },
   {
     "id": "word-spin",
+    "kind": "phonics",
     "text": "spin",
+    "zh": "",
+    "theme": "consonant-blends",
+    "level": "L5",
     "graphemes": [
       "sp",
       "i",
@@ -1508,16 +2776,34 @@
       "n"
     ],
     "stageId": "consonant-blends",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "sp",
+        "i",
+        "n"
+      ],
+      "phonemes": [
+        "s",
+        "p",
+        "i",
+        "n"
+      ],
+      "stageId": "consonant-blends"
+    }
   },
   {
     "id": "word-spot",
+    "kind": "phonics",
     "text": "spot",
+    "zh": "",
+    "theme": "consonant-blends",
+    "level": "L5",
     "graphemes": [
       "sp",
       "o",
@@ -1530,16 +2816,34 @@
       "t"
     ],
     "stageId": "consonant-blends",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "sp",
+        "o",
+        "t"
+      ],
+      "phonemes": [
+        "s",
+        "p",
+        "o",
+        "t"
+      ],
+      "stageId": "consonant-blends"
+    }
   },
   {
     "id": "word-spun",
+    "kind": "phonics",
     "text": "spun",
+    "zh": "",
+    "theme": "consonant-blends",
+    "level": "L5",
     "graphemes": [
       "sp",
       "u",
@@ -1552,16 +2856,34 @@
       "n"
     ],
     "stageId": "consonant-blends",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "sp",
+        "u",
+        "n"
+      ],
+      "phonemes": [
+        "s",
+        "p",
+        "u",
+        "n"
+      ],
+      "stageId": "consonant-blends"
+    }
   },
   {
     "id": "word-slam",
+    "kind": "phonics",
     "text": "slam",
+    "zh": "",
+    "theme": "consonant-blends",
+    "level": "L5",
     "graphemes": [
       "sl",
       "a",
@@ -1574,16 +2896,34 @@
       "m"
     ],
     "stageId": "consonant-blends",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "sl",
+        "a",
+        "m"
+      ],
+      "phonemes": [
+        "s",
+        "l",
+        "a",
+        "m"
+      ],
+      "stageId": "consonant-blends"
+    }
   },
   {
     "id": "word-slip",
+    "kind": "phonics",
     "text": "slip",
+    "zh": "",
+    "theme": "consonant-blends",
+    "level": "L5",
     "graphemes": [
       "sl",
       "i",
@@ -1596,16 +2936,34 @@
       "p"
     ],
     "stageId": "consonant-blends",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "sl",
+        "i",
+        "p"
+      ],
+      "phonemes": [
+        "s",
+        "l",
+        "i",
+        "p"
+      ],
+      "stageId": "consonant-blends"
+    }
   },
   {
     "id": "word-slap",
+    "kind": "phonics",
     "text": "slap",
+    "zh": "",
+    "theme": "consonant-blends",
+    "level": "L5",
     "graphemes": [
       "sl",
       "a",
@@ -1618,16 +2976,34 @@
       "p"
     ],
     "stageId": "consonant-blends",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "sl",
+        "a",
+        "p"
+      ],
+      "phonemes": [
+        "s",
+        "l",
+        "a",
+        "p"
+      ],
+      "stageId": "consonant-blends"
+    }
   },
   {
     "id": "word-skip",
+    "kind": "phonics",
     "text": "skip",
+    "zh": "",
+    "theme": "consonant-blends",
+    "level": "L5",
     "graphemes": [
       "sk",
       "i",
@@ -1640,16 +3016,34 @@
       "p"
     ],
     "stageId": "consonant-blends",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "sk",
+        "i",
+        "p"
+      ],
+      "phonemes": [
+        "s",
+        "k",
+        "i",
+        "p"
+      ],
+      "stageId": "consonant-blends"
+    }
   },
   {
     "id": "word-skin",
+    "kind": "phonics",
     "text": "skin",
+    "zh": "",
+    "theme": "consonant-blends",
+    "level": "L5",
     "graphemes": [
       "sk",
       "i",
@@ -1662,16 +3056,34 @@
       "n"
     ],
     "stageId": "consonant-blends",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "sk",
+        "i",
+        "n"
+      ],
+      "phonemes": [
+        "s",
+        "k",
+        "i",
+        "n"
+      ],
+      "stageId": "consonant-blends"
+    }
   },
   {
     "id": "word-skit",
+    "kind": "phonics",
     "text": "skit",
+    "zh": "",
+    "theme": "consonant-blends",
+    "level": "L5",
     "graphemes": [
       "sk",
       "i",
@@ -1684,16 +3096,34 @@
       "t"
     ],
     "stageId": "consonant-blends",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "sk",
+        "i",
+        "t"
+      ],
+      "phonemes": [
+        "s",
+        "k",
+        "i",
+        "t"
+      ],
+      "stageId": "consonant-blends"
+    }
   },
   {
     "id": "word-hand",
+    "kind": "phonics",
     "text": "hand",
+    "zh": "",
+    "theme": "consonant-blends",
+    "level": "L5",
     "graphemes": [
       "h",
       "a",
@@ -1706,16 +3136,34 @@
       "d"
     ],
     "stageId": "consonant-blends",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "h",
+        "a",
+        "nd"
+      ],
+      "phonemes": [
+        "h",
+        "a",
+        "n",
+        "d"
+      ],
+      "stageId": "consonant-blends"
+    }
   },
   {
     "id": "word-sand",
+    "kind": "phonics",
     "text": "sand",
+    "zh": "",
+    "theme": "consonant-blends",
+    "level": "L5",
     "graphemes": [
       "s",
       "a",
@@ -1728,16 +3176,34 @@
       "d"
     ],
     "stageId": "consonant-blends",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "s",
+        "a",
+        "nd"
+      ],
+      "phonemes": [
+        "s",
+        "a",
+        "n",
+        "d"
+      ],
+      "stageId": "consonant-blends"
+    }
   },
   {
     "id": "word-send",
+    "kind": "phonics",
     "text": "send",
+    "zh": "",
+    "theme": "consonant-blends",
+    "level": "L5",
     "graphemes": [
       "s",
       "e",
@@ -1750,16 +3216,34 @@
       "d"
     ],
     "stageId": "consonant-blends",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "s",
+        "e",
+        "nd"
+      ],
+      "phonemes": [
+        "s",
+        "e",
+        "n",
+        "d"
+      ],
+      "stageId": "consonant-blends"
+    }
   },
   {
     "id": "word-tent",
+    "kind": "phonics",
     "text": "tent",
+    "zh": "",
+    "theme": "consonant-blends",
+    "level": "L5",
     "graphemes": [
       "t",
       "e",
@@ -1772,16 +3256,34 @@
       "t"
     ],
     "stageId": "consonant-blends",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "t",
+        "e",
+        "nt"
+      ],
+      "phonemes": [
+        "t",
+        "e",
+        "n",
+        "t"
+      ],
+      "stageId": "consonant-blends"
+    }
   },
   {
     "id": "word-mint",
+    "kind": "phonics",
     "text": "mint",
+    "zh": "",
+    "theme": "consonant-blends",
+    "level": "L5",
     "graphemes": [
       "m",
       "i",
@@ -1794,16 +3296,34 @@
       "t"
     ],
     "stageId": "consonant-blends",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "m",
+        "i",
+        "nt"
+      ],
+      "phonemes": [
+        "m",
+        "i",
+        "n",
+        "t"
+      ],
+      "stageId": "consonant-blends"
+    }
   },
   {
     "id": "word-pant",
+    "kind": "phonics",
     "text": "pant",
+    "zh": "",
+    "theme": "consonant-blends",
+    "level": "L5",
     "graphemes": [
       "p",
       "a",
@@ -1816,16 +3336,34 @@
       "t"
     ],
     "stageId": "consonant-blends",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "p",
+        "a",
+        "nt"
+      ],
+      "phonemes": [
+        "p",
+        "a",
+        "n",
+        "t"
+      ],
+      "stageId": "consonant-blends"
+    }
   },
   {
     "id": "word-lamp",
+    "kind": "phonics",
     "text": "lamp",
+    "zh": "",
+    "theme": "consonant-blends",
+    "level": "L5",
     "graphemes": [
       "l",
       "a",
@@ -1838,16 +3376,34 @@
       "p"
     ],
     "stageId": "consonant-blends",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "l",
+        "a",
+        "mp"
+      ],
+      "phonemes": [
+        "l",
+        "a",
+        "m",
+        "p"
+      ],
+      "stageId": "consonant-blends"
+    }
   },
   {
     "id": "word-jump",
+    "kind": "phonics",
     "text": "jump",
+    "zh": "",
+    "theme": "consonant-blends",
+    "level": "L5",
     "graphemes": [
       "j",
       "u",
@@ -1860,16 +3416,34 @@
       "p"
     ],
     "stageId": "consonant-blends",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "j",
+        "u",
+        "mp"
+      ],
+      "phonemes": [
+        "j",
+        "u",
+        "m",
+        "p"
+      ],
+      "stageId": "consonant-blends"
+    }
   },
   {
     "id": "word-camp",
+    "kind": "phonics",
     "text": "camp",
+    "zh": "",
+    "theme": "consonant-blends",
+    "level": "L5",
     "graphemes": [
       "c",
       "a",
@@ -1882,16 +3456,34 @@
       "p"
     ],
     "stageId": "consonant-blends",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "c",
+        "a",
+        "mp"
+      ],
+      "phonemes": [
+        "c",
+        "a",
+        "m",
+        "p"
+      ],
+      "stageId": "consonant-blends"
+    }
   },
   {
     "id": "word-left",
+    "kind": "phonics",
     "text": "left",
+    "zh": "",
+    "theme": "consonant-blends",
+    "level": "L5",
     "graphemes": [
       "l",
       "e",
@@ -1904,16 +3496,34 @@
       "t"
     ],
     "stageId": "consonant-blends",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "l",
+        "e",
+        "ft"
+      ],
+      "phonemes": [
+        "l",
+        "e",
+        "f",
+        "t"
+      ],
+      "stageId": "consonant-blends"
+    }
   },
   {
     "id": "word-gift",
+    "kind": "phonics",
     "text": "gift",
+    "zh": "",
+    "theme": "consonant-blends",
+    "level": "L5",
     "graphemes": [
       "g",
       "i",
@@ -1926,16 +3536,34 @@
       "t"
     ],
     "stageId": "consonant-blends",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "g",
+        "i",
+        "ft"
+      ],
+      "phonemes": [
+        "g",
+        "i",
+        "f",
+        "t"
+      ],
+      "stageId": "consonant-blends"
+    }
   },
   {
     "id": "word-soft",
+    "kind": "phonics",
     "text": "soft",
+    "zh": "",
+    "theme": "consonant-blends",
+    "level": "L5",
     "graphemes": [
       "s",
       "o",
@@ -1948,11 +3576,25 @@
       "t"
     ],
     "stageId": "consonant-blends",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台自然拼读课程组"
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
     },
-    "level": "L5"
+    "source": "base-phonics",
+    "extra": {
+      "graphemes": [
+        "s",
+        "o",
+        "ft"
+      ],
+      "phonemes": [
+        "s",
+        "o",
+        "f",
+        "t"
+      ],
+      "stageId": "consonant-blends"
+    }
   }
 ]

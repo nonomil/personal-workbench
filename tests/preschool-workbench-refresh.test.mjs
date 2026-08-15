@@ -24,18 +24,24 @@ const root = path.join(fileURLToPath(new URL('..', import.meta.url)), 'prj');
 
 test('seeds six preschool workbench quests across learning and life lanes', () => {
   const state = storage.createSeedState();
-  assert.equal(state.preschoolDayPlanVersion, 3);
-  assert.equal(state.dailyPlans.length, 6);
-  assert.deepEqual(state.dailyPlans.map(item => item.title), ['完成今日识字', '朗读一首古诗', '数学闯关一关', '学习今日英语', '做一项运动', '专注力训练一题']);
+  assert.equal(state.preschoolDayPlanVersion, 4);
+  assert.equal(state.dailyPlans.length, 9);
+  assert.deepEqual(state.dailyPlans.map(item => item.title), ['完成今日识字', '朗读一首古诗', '数学闯关一关', '学习今日英语', '做一项运动', '专注力训练一题', '绘本阅读', '动画时光', '英语熏听']);
   assert.deepEqual(state.dailyPlans.map(item => item.practiceLessonId), [
     'preschool-chinese-1',
     'preschool-poetry-1',
     'preschool-math-1',
     'preschool-english-words-1',
     'preschool-exercise-1',
-    'preschool-focus-1'
+    'preschool-focus-1',
+    '',
+    '',
+    ''
   ]);
-  assert.equal(state.tasks.length, 6);
+  assert.equal(state.dailyPlans.find(item => item.id === 'preschool-plan-picturebook').checkinMode, 'timed');
+  assert.equal(state.dailyPlans.find(item => item.id === 'preschool-plan-cartoon').checkinMode, 'timed');
+  assert.equal(state.dailyPlans.find(item => item.id === 'preschool-plan-listen').checkinMode, 'timed');
+  assert.equal(state.tasks.length, 9);
 });
 
 test('migrates an old three-quest preschool snapshot once without changing completed state', () => {
@@ -57,10 +63,10 @@ test('migrates an old three-quest preschool snapshot once without changing compl
     growth: { sunlight: 40, totalSunlightEarned: 40 }
   });
   const again = storage.normalizeState(old);
-  assert.equal(old.preschoolDayPlanVersion, 3);
-  assert.equal(old.dailyPlans.length, 6);
+  assert.equal(old.preschoolDayPlanVersion, 4);
+  assert.equal(old.dailyPlans.length, 9);
   assert.equal(old.dailyPlans.find(item => item.title === '完成今日识字').done, true);
-  assert.equal(again.dailyPlans.length, 6);
+  assert.equal(again.dailyPlans.length, 9);
   assert.deepEqual(again.dailyPlans.map(item => item.id), old.dailyPlans.map(item => item.id));
   assert.equal(old.dailyPlans.find(item => item.id === 'preschool-plan-story').practiceLessonId, 'preschool-chinese-1');
   assert.equal(old.dailyPlans.find(item => item.id === 'preschool-plan-count').practiceLessonId, 'preschool-poetry-1');
@@ -71,9 +77,9 @@ test('exposes a sibling practice action for mapped preschool plans without nesti
   const homeStart = app.indexOf('function renderPreschoolHomeBattlefield');
   const homeEnd = app.indexOf('function renderPreschoolHomeOverview', homeStart);
   const homeTemplate = app.slice(homeStart, homeEnd);
-  assert.match(homeTemplate, /practiceLessonId/);
-  assert.match(homeTemplate, /open-plan-practice/);
+  assert.match(homeTemplate, /open-plan-course/);
   assert.match(homeTemplate, /preschool-home-lane-main/);
+  assert.match(homeTemplate, /preschool-home-lane-check/);
   assert.match(app, /ui\.lessonSession = \{ id: match\.lesson\.id, courseId: match\.course\.id, selectedIndex: null, correct: false, planId:/);
 });
 
@@ -82,8 +88,9 @@ test('keeps quick-add task action beside the preschool battlefield heading', () 
   const battlefieldStart = app.indexOf('function renderPreschoolHomeBattlefield');
   const overviewStart = app.indexOf('function renderPreschoolHomeOverview', battlefieldStart);
   const battlefieldTemplate = app.slice(battlefieldStart, overviewStart);
-  assert.match(battlefieldTemplate, /data-action="add-plan"/);
-  assert.match(battlefieldTemplate, /安排任务/);
+  assert.match(battlefieldTemplate, /data-action="navigate"/);
+  assert.match(battlefieldTemplate, /data-page="plans"/);
+  assert.match(battlefieldTemplate, /管理任务/);
   assert.match(battlefieldTemplate, /preschool-home-battlefield-add/);
 });
 
@@ -97,19 +104,20 @@ test('keeps preschool plans in one editable list instead of a fixed core and col
   assert.match(plansRenderer, /renderPreschoolPlanRows\(plans, \{ editable: true \}\)/);
   assert.doesNotMatch(plansRenderer, /todayCorePlans|todayOptionalPlans|preschool-optional-plans/);
   assert.doesNotMatch(app, /preschoolOptionalPlansOpen/);
-  assert.match(rowRenderer, /preschool-checkin-card-main/);
+  assert.match(rowRenderer, /preschool-home-lane-main/);
+  assert.match(rowRenderer, /preschool-plan-manage/);
   assert.match(rowRenderer, /data-action="edit-plan"/);
   assert.match(rowRenderer, /data-action="delete-plan"/);
-  assert.doesNotMatch(rowRenderer, /<button class="preschool-checkin-card /);
+  assert.doesNotMatch(rowRenderer, /preschool-checkin-card-main/);
 });
 
 test('bumps preschool runtime assets when the editable plan interaction changes', () => {
   const html = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
-  assert.match(html, /preschool-workbench\.css\?v=20260815-flashcards-v1/);
-  assert.match(html, /config\.js\?v=20260814-summer-banks-v1/);
-  assert.match(html, /storage\.js\?v=20260814-lesson-mistakes-v1/);
-  assert.match(html, /app\.js\?v=20260815-flashcards-v1/);
-  assert.match(html, /workbench-bridge\.js\?v=20260807-longterm-meta-v1/);
+  assert.match(html, /preschool-workbench\.css\?v=20260815-home-course-v1/);
+  assert.match(html, /config\.js\?v=20260815-home-course-v1/);
+  assert.match(html, /storage\.js\?v=20260815-summer-timed-v1/);
+  assert.match(html, /app\.js\?v=20260815-english-auto-v1/);
+  assert.match(html, /workbench-bridge\.js\?v=20260815-voxel-home-v1/);
 });
 
 test('updates from the visible preschool snapshot when persistence is one revision behind', () => {
@@ -231,13 +239,16 @@ test('merges reference learning zones into preschool resource cards', () => {
   assert.match(app, /preschool-course-note/);
 });
 
+test('uses point-lighting copy for preschool calendar metadata', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  assert.match(app, /const PRESCHOOL_COPY = \{[\s\S]*calendarTitle: '日历点亮'/);
+});
+
 test('exposes the reference workbench learning lanes as separate preschool navigation entries', () => {
-  const config = fs.readFileSync(path.join(root, 'config.js'), 'utf8');
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
   const preschoolIndex = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
-  assert.match(config, /calendar: \{ title: '日历打卡'/);
   for (const item of [
-    ['calendar', '日历打卡'],
+    ['calendar', '日历点亮'],
     ['growth', '花园基地'],
     ['preschool-literacy', '识字专区'],
     ['preschool-pinyin', '拼音专区'],
@@ -251,7 +262,11 @@ test('exposes the reference workbench learning lanes as separate preschool navig
     ['rewards', '奖励商城']
   ]) {
     const [courseId, label] = item;
-    assert.match(preschoolIndex, new RegExp(`data-page="${courseId === 'calendar' || courseId === 'growth' || courseId === 'mistakes' || courseId === 'rewards' ? courseId : 'courses'}"[^>]*>(?:[\\s\\S]*?)<span>${label}<\\/span>`));
+    if (courseId === 'calendar') {
+      assert.match(app, /const PRESCHOOL_NAV_LABELS = \{[\s\S]*calendar: '日历点亮'/);
+    } else {
+      assert.match(preschoolIndex, new RegExp(`data-page="${courseId === 'growth' || courseId === 'mistakes' || courseId === 'rewards' ? courseId : 'courses'}"[^>]*>(?:[\\s\\S]*?)<span>${label}<\\/span>`));
+    }
   }
   assert.match(app, /getCourseIdFromHash/);
   assert.match(app, /target\.dataset\.courseId/);
@@ -363,6 +378,12 @@ test('keeps the refreshed reward tiers and five-lane defense contract in the pre
     assert.match(preschoolIndex, new RegExp(asset.replace('.', '\\.') ));
     assert.equal(fs.existsSync(path.join(root, 'assets', 'generated', 'preschool-pvz-2d', 'published', asset)), true, asset);
   }
+  assert.match(app, /'sun-token': '\.\.\/assets\/generated\/preschool-pvz-2d\/published\/pvz-sun-token\.png'/);
+  assert.doesNotMatch(app, /PRESCHOOL_PVZ_ASSET_BASE\}\$\{PRESCHOOL_PVZ_ASSETS/);
+  assert.match(config, /rewards: 'treasure-chest'/);
+  assert.match(preschoolIndex, /data-page="account"[^>]*>[\s\S]*data-lucide="settings-2"/);
+  assert.match(config, /account: 'settings-2'/);
+  assert.equal(fs.existsSync(path.join(root, 'assets', 'generated', 'preschool-pixel', 'refresh-20260731', 'published', 'treasure-chest.png')), true);
   assert.match(preschoolIndex, /阳光成长工作台/);
   assert.match(preschoolIndex, /data-page="battle"[^>]*>[\s\S]*<span>花园保卫战<\/span>/);
   assert.match(preschoolIndex, /data-page="rewards"[^>]*>[\s\S]*<span>奖励商城<\/span>/);
@@ -372,10 +393,10 @@ test('keeps preschool check-in cards visual and reward-led', () => {
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
   const preschoolStyles = fs.readFileSync(path.join(root, 'css', 'preschool-workbench.css'), 'utf8');
   const styles = readCssGraph(path.join(root, 'styles.css'));
-  assert.match(app, /preschool-checkin-grid/);
-  assert.match(app, /preschool-checkin-card/);
-  assert.match(app, /preschool-checkin-card-actions/);
-  assert.match(app, /preschool-checkin-reward/);
+  assert.match(app, /preschool-plan-lanes/);
+  assert.match(app, /preschool-home-lane-main/);
+  assert.match(app, /preschool-plan-manage/);
+  assert.match(app, /创建任务/);
   assert.match(app, /preschool-reward-progress/);
   assert.match(app, /preschool-reward-next/);
   assert.match(app, /sun-progress-bar/);
@@ -543,8 +564,8 @@ test('translates the reference dashboard rhythm into existing preschool state', 
   assert.match(app, /计划用时/);
   assert.match(app, /preschool-home-date/);
   assert.doesNotMatch(homeTemplate, /renderPreschoolHomeRhythm\(derived\)/);
-  assert.match(identityTemplate, /今日完成/);
-  assert.match(identityTemplate, /计划分钟/);
+  assert.match(identityTemplate, /preschool-home-companion-tile/);
+  assert.match(identityTemplate, /data-page="growth"/);
   assert.doesNotMatch(identityTemplate, /<small>阳光<\/small>/);
   assert.doesNotMatch(identityTemplate, /<small>豌豆能量<\/small>/);
   assert.match(preschoolStyles, /25-reference-dashboard\.css/);
@@ -569,25 +590,27 @@ test('keeps world progress and weekly rhythm off the preschool home', () => {
 
 test('puts a single real-work workflow card above preschool home check-in lanes', () => {
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
-  const styles = fs.readFileSync(path.join(root, 'css', 'preschool', '24-game-study-loop.css'), 'utf8');
+  const styles = fs.readFileSync(path.join(root, 'css', 'preschool', '37-home-simple.css'), 'utf8');
   const html = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
   const workflowStart = app.indexOf('function getPreschoolHomeWorkflow');
-  const workflowRenderStart = app.indexOf('function renderPreschoolHomeWorkflowCard');
+  const heroStart = app.indexOf('function renderPreschoolHomeHero');
+  const heroEnd = app.indexOf('function renderPreschoolHomeRhythm', heroStart);
   const homeStart = app.indexOf('function renderPreschoolHomeOverview(derived)');
   const homeEnd = app.indexOf('function renderPreschoolPage(derived)', homeStart);
   const homeTemplate = app.slice(homeStart, homeEnd);
-  const workflowRender = workflowRenderStart === -1 ? '' : app.slice(workflowRenderStart, homeStart);
+  const heroRender = heroStart === -1 || heroEnd === -1 ? '' : app.slice(heroStart, heroEnd);
   assert.notEqual(workflowStart, -1);
-  assert.notEqual(workflowRenderStart, -1);
-  assert.match(homeTemplate, /renderPreschoolHomeWorkflowCard\(/);
-  assert.match(workflowRender, /open-plan-practice/);
-  assert.match(workflowRender, /已完成练习/);
-  assert.match(workflowRender, /open-world-game/);
-  assert.doesNotMatch(workflowRender, /toggle-plan/);
-  assert.doesNotMatch(workflowRender, /再完成\s*\d+\s*项打卡/);
+  assert.notEqual(heroStart, -1);
+  assert.match(homeTemplate, /renderPreschoolHomeHero\(/);
+  assert.match(heroRender, /preschoolWorkflowActionAttrs/);
+  assert.match(heroRender, /已完成练习/);
+  assert.match(app, /function preschoolWorkflowActionAttrs[\s\S]*open-plan-practice/);
+  assert.match(app, /function preschoolWorkflowActionAttrs[\s\S]*open-world-game/);
+  assert.doesNotMatch(heroRender, /toggle-plan/);
+  assert.doesNotMatch(heroRender, /再完成\s*\d+\s*项打卡/);
   assert.match(app, /item\.done && item\.completionSource === 'practice'/);
-  assert.match(styles, /preschool-home-workflow/);
-  assert.match(html, /app\.js\?v=20260815-flashcards-v1/);
+  assert.match(styles, /preschool-home-hero/);
+  assert.match(html, /app\.js\?v=20260815-english-auto-v1/);
   assert.doesNotMatch(app, /首页只负责打卡/);
 });
 
@@ -601,17 +624,20 @@ test('connects the preschool home to the game-study loop without nesting the les
   const homeEnd = app.indexOf('function renderPreschoolPage(derived)', homeStart);
   const homeTemplate = app.slice(homeStart, homeEnd);
   assert.match(homeTemplate, /renderPreschoolHomeIdentity/);
-  assert.match(homeTemplate, /renderPreschoolHomeEvidence/);
+  assert.match(homeTemplate, /renderPreschoolHomeHero/);
+  assert.doesNotMatch(homeTemplate, /renderPreschoolHomeEvidence/);
   assert.match(app, /pixel-settings-button[\s\S]*icon\('settings-2'\)/);
   assert.doesNotMatch(app, /pixel-settings-button[\s\S]*icon\('settings'\)/);
-  assert.match(app, /function renderPreschoolHomeIdentity[\s\S]*data-action="add-plan"/);
+  assert.match(app, /function renderPreschoolHomeIdentity[\s\S]*data-page="growth"/);
   assert.match(app, /function renderPreschoolHomeEvidence[\s\S]*data-action="navigate" data-page="courses"/);
   assert.doesNotMatch(homeTemplate, /data-action="open-lesson"/);
   assert.match(app, /preschool-home-identity/);
   assert.match(app, /preschool-home-evidence/);
   assert.match(preschoolStyles, /24-game-study-loop\.css/);
+  assert.match(preschoolStyles, /37-home-simple\.css/);
   assert.match(preschoolStyleGraph, /preschool-home-identity/);
   assert.match(preschoolStyleGraph, /preschool-home-evidence/);
+  assert.match(preschoolStyleGraph, /preschool-home-hero/);
   assert.match(preschoolIndex, /v0\.6\.0 · 幼儿版/);
   assert.doesNotMatch(preschoolIndex, /v0\.4\.2 · 幼儿版/);
 });
@@ -636,6 +662,9 @@ test('keeps three preschool visual themes on one persisted workbench contract', 
   assert.match(config, /garden-defense/);
   assert.match(config, /voxel-adventure/);
   assert.match(config, /platform-quest/);
+  assert.match(config, /name: '植物僵尸工作台'/);
+  assert.match(config, /name: '我的世界工作台'/);
+  assert.match(config, /name: '马里奥工作台'/);
   assert.match(app, /function applyPreschoolTheme\(\)/);
   assert.match(app, /function selectPreschoolTheme\(themeId\)/);
   assert.match(app, /next\.preschoolTheme = themeId/);
@@ -649,6 +678,22 @@ test('keeps three preschool visual themes on one persisted workbench contract', 
   assert.equal(voxelState.preschoolTheme, 'voxel-adventure');
   const invalidState = storage.normalizeState({ tasks: [], dailyPlans: [], preschoolTheme: 'not-a-theme' });
   assert.equal(invalidState.preschoolTheme, 'garden-defense');
+});
+
+test('keeps the voxel home sidebar offset and uses the generated block-world frame', () => {
+  const workshop = fs.readFileSync(path.join(root, 'css', 'preschool', '31-voxel-workshop.css'), 'utf8');
+  const home = fs.readFileSync(path.join(root, 'css', 'preschool', '37-home-simple.css'), 'utf8');
+  const asset = path.join(root, 'assets', 'generated', 'preschool-theme-assets', 'voxel-v2', 'reference', 'voxel-page-bg.webp');
+  const platformAsset = path.join(root, 'assets', 'generated', 'preschool-theme-assets', 'platform-v2', 'reference', 'platform-page-bg.webp');
+  assert.match(workshop, /:has\(\.voxel-workshop\) \.main-content/);
+  assert.doesNotMatch(workshop, /data-preschool-theme='voxel-adventure'\] \.main-content \{\s*margin:\s*0;/);
+  assert.match(home, /data-preschool-theme='voxel-adventure'\] \.preschool-home-hero-card/);
+  assert.match(home, /voxel-v2\/reference\/voxel-page-bg\.webp/);
+  assert.match(home, /data-preschool-theme='platform-quest'\] \.preschool-home-hero-card/);
+  assert.match(home, /platform-v2\/reference\/platform-page-bg\.webp/);
+  assert.match(home, /margin-left:\s*var\(--sidebar-width\)/);
+  assert.equal(fs.existsSync(asset), true);
+  assert.equal(fs.existsSync(platformAsset), true);
 });
 
 test('accepts the launcher theme query before the preschool page renders', () => {
@@ -754,8 +799,8 @@ test('defines answerable activities for every preschool lesson', () => {
   const config = fs.readFileSync(path.join(root, 'config.js'), 'utf8');
   const preschoolCourses = config.split("id: 'preschool-literacy'")[1].split("actions: { 'add-plan'")[0];
   const activities = preschoolCourses.match(/activity:\s*\{/g) || [];
-  assert.equal(activities.length, 26);
-  assert.equal((preschoolCourses.match(/optionIcons:\s*\[/g) || []).length, 26);
+  assert.equal(activities.length, 27);
+  assert.equal((preschoolCourses.match(/optionIcons:\s*\[/g) || []).length, 27);
   assert.match(preschoolCourses, /prompt: '/);
   assert.match(preschoolCourses, /options: \[/);
   assert.match(preschoolCourses, /answer: \d/);
@@ -777,7 +822,7 @@ test('keeps preschool option art aligned with its answer choices', () => {
       optionIcons: optionIcons ? (optionIcons[1].match(/'[^']*'/g) || []) : []
     };
   });
-  assert.equal(activities.length, 26);
+  assert.equal(activities.length, 27);
   for (const activity of activities) {
     assert.equal(activity.optionIcons.length, activity.options.length);
     for (const item of activity.optionIcons) {
@@ -858,10 +903,14 @@ test('shows progress and current state on the preschool course wall', () => {
   const styles = readCssGraph(path.join(root, 'css', 'preschool-workbench.css'));
   assert.match(app, /preschool-course-wall-dots/);
   assert.match(app, /preschool-course-wall-state/);
+  assert.match(app, /preschool-course-wall-preview/);
+  assert.match(app, /function getPreschoolCourseTodayPreview\(course\)/);
+  assert.match(app, /getPreschoolCourseTodayPreview\(course\)/);
   assert.match(app, /role="progressbar"/);
   assert.match(app, /data-route-state="\$\{status\}"/);
   assert.match(styles, /preschool-course-wall-dots/);
   assert.match(styles, /preschool-course-wall-state/);
+  assert.match(styles, /preschool-course-wall-preview/);
 });
 
 test('keeps sidebar course lanes as the persistent navigation on focused course pages', () => {
@@ -948,20 +997,188 @@ test('turns flashcard subjects into a flip-card page with known/unknown marking'
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
   const styles = readCssGraph(path.join(root, 'css', 'preschool-workbench.css'));
   const workbenchCss = fs.readFileSync(path.join(root, 'css', 'preschool-workbench.css'), 'utf8');
-  assert.match(app, /PRESCHOOL_FLASHCARD_COURSES = new Set\(\['preschool-literacy', 'preschool-english', 'preschool-pinyin', 'preschool-phonics'\]\)/);
+  assert.match(app, /PRESCHOOL_FLASHCARD_COURSES = new Set\(\['preschool-literacy', 'preschool-english', 'preschool-minecraft', 'preschool-pinyin', 'preschool-phonics', 'preschool-math'\]\)/);
+  assert.match(app, /PRESCHOOL_TODAY_PAGE_COURSES = new Set\(\['preschool-summer', 'preschool-literacy', 'preschool-pinyin', 'preschool-poetry', 'preschool-math', 'preschool-focus', 'preschool-english', 'preschool-minecraft', 'preschool-phonics', 'preschool-exercise'\]\)/);
+  assert.match(app, /PRESCHOOL_FLASHCARD_MARK_LABELS = \{ 'preschool-math': \['再练练', '答对了'\] \}/);
   assert.match(app, /function buildPreschoolCourseCardItems\(course\)/);
   assert.match(app, /buildFlashBatch/);
   assert.match(app, /buildSpeakBatch/);
   assert.match(app, /markFlash\(current, item\.key/);
   assert.match(app, /markKnown\(current, item\.key/);
-  assert.match(app, /markSubjectReady\(current, \[item\.key\]/);
+  assert.match(app, /saveMinecraft/);
+  assert.match(app, /label: '讲解'/);
+  assert.match(app, /label: '同音'/);
+  assert.match(app, /label: '近音'/);
+  assert.match(app, /label: '读音'/);
+  assert.match(app, /data-action="set-minecraft-band"/);
+  assert.match(app, /Minecraft 英语/);
+  assert.match(app, /commitPreschoolSubjectMark\(trackName, \[item\.key\], known\)/);
+  assert.match(app, /markSubjectReady\(current, keys/);
   assert.match(app, /function renderPreschoolCourseFlashcards\(course\)/);
   assert.match(app, /function renderPreschoolFlashcardComplete\(course, session\)/);
   assert.match(app, /data-action="flashcard-mark" data-known="0"/);
   assert.match(app, /data-action="flashcard-classic"/);
   assert.match(app, /if \(action === 'flashcard-mark'\) markPreschoolFlashcard/);
-  assert.match(workbenchCss, /35-course-flashcards\.css\?v=20260815-flashcards-v1/);
+  // 五科今日页：古诗/运动浏览卡 + 专注启动页 + 暑假今日资料
+  assert.match(app, /function renderPreschoolSubjectTodayPage\(course\)/);
+  assert.match(app, /function getPreschoolBrowseCardSession\(course\)/);
+  assert.match(app, /function renderPreschoolBrowseCards\(course\)/);
+  assert.match(app, /function renderPreschoolPoetryToday\(course\)/);
+  assert.match(app, /function renderPreschoolMotionComplete\(course, session\)/);
+  assert.match(app, /function renderPreschoolFocusToday\(course\)/);
+  assert.match(app, /function renderPreschoolSummerToday\(course\)/);
+  assert.match(app, /function commitPreschoolSubjectMark\(trackName, keys, known\)/);
+  assert.match(app, /data-action="flashcard-prev"/);
+  assert.match(app, /data-action="flashcard-next"/);
+  assert.match(app, /data-action="flashcard-poem-mark"/);
+  assert.match(app, /data-action="flashcard-motion-done"/);
+  assert.match(app, /data-action="flashcard-summer-open"/);
+  assert.match(app, /暑假 · 今日资料/);
+  assert.doesNotMatch(app, /暑假 · 今日任务/);
+  assert.match(app, /今天看一看，点开就能读/);
+  assert.match(app, /open-timed-checkin/);
+  assert.match(app, /function isPreschoolTimedCheckin/);
+  assert.match(app, /timed-checkin/);
+  assert.match(app, /if \(action === 'flashcard-prev'\)/);
+  assert.match(app, /if \(action === 'flashcard-next'\)/);
+  assert.match(app, /if \(action === 'flashcard-poem-mark'\) markPreschoolPoem/);
+  assert.match(app, /if \(action === 'flashcard-motion-done'\) markPreschoolMotionDone/);
+  assert.match(app, /if \(action === 'flashcard-summer-open'\)/);
+  assert.match(app, /buildQuiz\(engine\.getRuntimeBank\(\)/);
+  // 古诗今日一首：全文 + 讲解一页展示，不再逐句翻卡
+  assert.match(app, /function getPreschoolPoetryTodaySession\(course\)/);
+  assert.match(app, /preschool-poem-today/);
+  assert.match(app, /preschool-poem-meaning/);
+  assert.match(app, /听整首/);
+  assert.doesNotMatch(app, /renderPreschoolPoetryComplete/);
+  const poetryEngine = fs.readFileSync(path.join(root, 'preschool-poetry.js'), 'utf8');
+  assert.match(poetryEngine, /meaning: String\(source\.meaning \|\| ''\)\.trim\(\)/);
+  const poemBank = JSON.parse(fs.readFileSync(path.join(root, 'data', 'preschool', '古诗', 'poem-bank.json'), 'utf8'));
+  assert.ok(poemBank.length >= 30);
+  assert.ok(poemBank.every(poem => typeof poem.meaning === 'string' && poem.meaning.length >= 8));
+  const html = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
+  assert.match(html, /preschool-poetry-data\.js\?v=20260815-poem-meaning-v1/);
+  assert.match(html, /preschool-poetry\.js\?v=20260815-poem-meaning-v1/);
+  assert.match(workbenchCss, /35-course-flashcards\.css\?v=20260815-vocab-a1-v1/);
+  assert.match(styles, /preschool-card-art/);
+  assert.match(styles, /preschool-flashcard-cover/);
+  assert.match(app, /data-action="flashcard-reveal"/);
+  assert.match(app, /if \(!known && !session\.revealed\[item\.key\]\)/);
   assert.match(styles, /preschool-flashcard-actions/);
   assert.match(styles, /preschool-flashcard-mark\.is-known/);
+  assert.match(styles, /preschool-flashcard-mark\.is-nav/);
   assert.match(styles, /preschool-flashcard-complete-lessons/);
+  assert.match(styles, /preschool-focus-today/);
+  assert.match(styles, /preschool-summer-task/);
+  assert.match(styles, /preschool-poem-today/);
+  assert.match(styles, /preschool-poem-lines/);
+  assert.match(styles, /preschool-poem-meaning/);
+});
+
+test('adds a today preview on the course wall and splits classic into a child menu', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const html = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
+  const workbenchCss = fs.readFileSync(path.join(root, 'css', 'preschool-workbench.css'), 'utf8');
+  const styles = readCssGraph(path.join(root, 'css', 'preschool-workbench.css'));
+  const previewStart = app.indexOf('function getPreschoolCourseTodayPreview(course)');
+  const previewEnd = app.indexOf('\n    function ', previewStart + 1);
+  const previewFn = previewStart >= 0 ? app.slice(previewStart, previewEnd > previewStart ? previewEnd : previewStart + 1800) : '';
+  const deriveStart = app.indexOf('function derivePreschoolPoetryTodayPoem(');
+  const deriveEnd = app.indexOf('\n    function ', deriveStart + 1);
+  const deriveFn = deriveStart >= 0 ? app.slice(deriveStart, deriveEnd > deriveStart ? deriveEnd : deriveStart + 1200) : '';
+  assert.match(app, /function getPreschoolCourseTodayPreview\(course\)/);
+  assert.match(app, /preschool-course-wall-preview/);
+  assert.match(previewFn, /今天做完啦 ✓/);
+  assert.match(previewFn, /PRESCHOOL_FLASHCARD_SIZE/);
+  assert.match(previewFn, /derivePreschoolPoetryTodayPoem/);
+  assert.doesNotMatch(previewFn, /ui\.courseCards\s*=/);
+  assert.doesNotMatch(previewFn, /getPreschoolPoetryTodaySession/);
+  assert.match(app, /function derivePreschoolPoetryTodayPoem\(/);
+  assert.doesNotMatch(deriveFn, /ui\.courseCards\s*=/);
+  assert.match(app, /function renderPreschoolCourseMenu\(course\)/);
+  assert.match(app, /preschool-course-menu/);
+  assert.match(app, /preschool-course-parent-detail/);
+  assert.match(app, /<details class="preschool-course-parent-detail">/);
+  assert.match(app, /<summary>家长看详情<\/summary>/);
+  assert.match(app, /renderPreschoolCourseMenu\(activeCourse\)/);
+  const menuStart = app.indexOf('function renderPreschoolCourseMenu(course)');
+  const menuEnd = app.indexOf('\n    function ', menuStart + 1);
+  const menuFn = menuStart >= 0 ? app.slice(menuStart, menuEnd > menuStart ? menuEnd : menuStart + 2500) : '';
+  assert.match(menuFn, /renderPreschoolCourseCard\(course, true\)/);
+  assert.match(app, /function isPreschoolMenuCoreLesson\(lesson\)/);
+  assert.match(menuFn, /preschool-course-menu-grid/);
+  assert.match(menuFn, /isPreschoolMenuCoreLesson/);
+  assert.match(menuFn, /data-action="open-lesson"/);
+  assert.match(menuFn, /Minecraft 英语/);
+  assert.match(menuFn, /去改错本/);
+  assert.match(menuFn, /data-page="mistakes"/);
+  assert.doesNotMatch(app, /preschool-course-library-note/);
+  assert.doesNotMatch(app, /看看资料和其他练习/);
+  assert.match(app, /更多练习/);
+  assert.match(app, /更多资料/);
+  assert.doesNotMatch(app, /浏览完整资料库/);
+  assert.match(html, /preschool-workbench\.css\?v=20260815-home-course-v1/);
+  assert.match(html, /app\.js\?v=20260815-english-auto-v1/);
+  assert.match(html, /preschool-card-art\.js\?v=20260815-english-auto-v1/);
+  assert.match(workbenchCss, /36-course-menu\.css\?v=20260815-menu-cards-v2/);
+  assert.match(styles, /preschool-course-menu/);
+  assert.match(styles, /preschool-course-parent-detail/);
+  assert.match(styles, /min-height:\s*44px/);
+});
+
+test('adds media wall cards and in-course tabs for every preschool subject', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const styles = readCssGraph(path.join(root, 'css', 'preschool-workbench.css'));
+  assert.match(app, /function renderPreschoolCourseMediaWallCard\(course\)/);
+  assert.match(app, /preschool-course-wall-extras/);
+  assert.match(app, /function renderPreschoolCourseTabs\(course\)/);
+  assert.match(app, /data-action="course-tab"/);
+  assert.match(app, /data-tab="today"/);
+  assert.match(app, /data-tab="media"/);
+  assert.match(app, /data-tab="menu"/);
+  assert.match(app, /function renderPreschoolCourseMediaPane\(course\)/);
+  assert.match(app, /renderPreschoolCourseMedia\(course\)/);
+  assert.match(app, /动画屋/);
+  assert.match(app, /ui\.courseTab/);
+  assert.doesNotMatch(app, /localStorage\.(setItem|getItem)\(['"]courseTab/);
+  assert.match(app, /target\.dataset\.tab/);
+  assert.match(styles, /preschool-course-tabs/);
+  assert.match(styles, /preschool-course-wall-extras/);
+});
+
+test('keeps the english animation room as three cover cards', () => {
+  const config = fs.readFileSync(path.join(root, 'config.js'), 'utf8');
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const styles = readCssGraph(path.join(root, 'css', 'preschool-workbench.css'));
+  assert.match(app, /preschool-media-grid/);
+  assert.match(app, /preschool-media-cover/);
+  assert.match(app, /preschool-media-stage/);
+  assert.match(app, /data-action="media-open"/);
+  assert.match(app, /function renderPreschoolMediaCover\(item\)/);
+  assert.match(config, /Minecraft 英语课/);
+  assert.match(config, /Kids vs Phonics/);
+  assert.match(config, /BV1jg411M7hC/);
+  assert.match(config, /英语启蒙打印资料包/);
+  assert.match(config, /preschool-media\/published\/minecraft-english\.jpg/);
+  assert.match(config, /preschool-media\/published\/kids-vs-phonics\.jpg/);
+  assert.doesNotMatch(config, /Super Simple Songs/);
+  assert.doesNotMatch(config, /小猪佩奇/);
+  assert.doesNotMatch(config, /English Singsing/);
+  assert.match(styles, /preschool-media-grid/);
+  assert.match(styles, /preschool-media-cover/);
+});
+
+test('applies the paper-glow palette and embeds world assets as faint backgrounds', () => {
+  const workbenchCss = fs.readFileSync(path.join(root, 'css', 'preschool-workbench.css'), 'utf8');
+  assert.match(workbenchCss, /38-paper-glow\.css\?v=20260815-paper-glow-v1/);
+  assert.match(workbenchCss, /26-theme-skins\.css\?v=20260815-paper-glow-v1/);
+  const skins = fs.readFileSync(path.join(root, 'css', 'preschool', '26-theme-skins.css'), 'utf8');
+  assert.match(skins, /--theme-accent: #6fa893/);   // 花园雾绿
+  assert.match(skins, /--theme-accent: #7a6fc0/);   // 方块柔紫
+  assert.match(skins, /--theme-accent: #c99a44/);   // 闯关蜂蜜金
+  assert.doesNotMatch(skins, /#e54139|#c82d2c/i);   // 火焰红已移除
+  const glow = fs.readFileSync(path.join(root, 'css', 'preschool', '38-paper-glow.css'), 'utf8');
+  assert.match(glow, /pvz-garden-lawn-bg\.webp/);
+  assert.match(glow, /voxel-grass-block\.webp/);
+  assert.match(glow, /platform-coin\.webp/);
 });

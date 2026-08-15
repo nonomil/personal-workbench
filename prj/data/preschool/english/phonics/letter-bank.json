@@ -1,314 +1,522 @@
 [
   {
     "id": "letter-a",
-    "letter": "a",
-    "sound": "a",
-    "keyword": "apple",
-    "group": "amt",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "kind": "phonics",
+    "text": "a",
+    "zh": "apple",
+    "theme": "amt",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
+    },
+    "source": "base-phonics",
+    "extra": {
+      "letter": "a",
+      "sound": "a",
+      "keyword": "apple",
+      "group": "amt"
     }
   },
   {
     "id": "letter-b",
-    "letter": "b",
-    "sound": "b",
-    "keyword": "bat",
-    "group": "fb",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "kind": "phonics",
+    "text": "b",
+    "zh": "bat",
+    "theme": "fb",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
+    },
+    "source": "base-phonics",
+    "extra": {
+      "letter": "b",
+      "sound": "b",
+      "keyword": "bat",
+      "group": "fb"
     }
   },
   {
     "id": "letter-c",
-    "letter": "c",
-    "sound": "c",
-    "keyword": "cat",
-    "group": "alpha",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "kind": "phonics",
+    "text": "c",
+    "zh": "cat",
+    "theme": "alpha",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
+    },
+    "source": "base-phonics",
+    "extra": {
+      "letter": "c",
+      "sound": "c",
+      "keyword": "cat",
+      "group": "alpha"
     }
   },
   {
     "id": "letter-d",
-    "letter": "d",
-    "sound": "d",
-    "keyword": "dog",
-    "group": "alpha",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "kind": "phonics",
+    "text": "d",
+    "zh": "dog",
+    "theme": "alpha",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
+    },
+    "source": "base-phonics",
+    "extra": {
+      "letter": "d",
+      "sound": "d",
+      "keyword": "dog",
+      "group": "alpha"
     }
   },
   {
     "id": "letter-e",
-    "letter": "e",
-    "sound": "e",
-    "keyword": "egg",
-    "group": "alpha",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "kind": "phonics",
+    "text": "e",
+    "zh": "egg",
+    "theme": "alpha",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
+    },
+    "source": "base-phonics",
+    "extra": {
+      "letter": "e",
+      "sound": "e",
+      "keyword": "egg",
+      "group": "alpha"
     }
   },
   {
     "id": "letter-f",
-    "letter": "f",
-    "sound": "f",
-    "keyword": "fan",
-    "group": "fb",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "kind": "phonics",
+    "text": "f",
+    "zh": "fan",
+    "theme": "fb",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
+    },
+    "source": "base-phonics",
+    "extra": {
+      "letter": "f",
+      "sound": "f",
+      "keyword": "fan",
+      "group": "fb"
     }
   },
   {
     "id": "letter-g",
-    "letter": "g",
-    "sound": "g",
-    "keyword": "goat",
-    "group": "alpha",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "kind": "phonics",
+    "text": "g",
+    "zh": "goat",
+    "theme": "alpha",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
+    },
+    "source": "base-phonics",
+    "extra": {
+      "letter": "g",
+      "sound": "g",
+      "keyword": "goat",
+      "group": "alpha"
     }
   },
   {
     "id": "letter-h",
-    "letter": "h",
-    "sound": "h",
-    "keyword": "hat",
-    "group": "alpha",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "kind": "phonics",
+    "text": "h",
+    "zh": "hat",
+    "theme": "alpha",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
+    },
+    "source": "base-phonics",
+    "extra": {
+      "letter": "h",
+      "sound": "h",
+      "keyword": "hat",
+      "group": "alpha"
     }
   },
   {
     "id": "letter-i",
-    "letter": "i",
-    "sound": "i",
-    "keyword": "igloo",
-    "group": "alpha",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "kind": "phonics",
+    "text": "i",
+    "zh": "igloo",
+    "theme": "alpha",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
+    },
+    "source": "base-phonics",
+    "extra": {
+      "letter": "i",
+      "sound": "i",
+      "keyword": "igloo",
+      "group": "alpha"
     }
   },
   {
     "id": "letter-j",
-    "letter": "j",
-    "sound": "j",
-    "keyword": "jam",
-    "group": "alpha",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "kind": "phonics",
+    "text": "j",
+    "zh": "jam",
+    "theme": "alpha",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
+    },
+    "source": "base-phonics",
+    "extra": {
+      "letter": "j",
+      "sound": "j",
+      "keyword": "jam",
+      "group": "alpha"
     }
   },
   {
     "id": "letter-k",
-    "letter": "k",
-    "sound": "k",
-    "keyword": "kite",
-    "group": "alpha",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "kind": "phonics",
+    "text": "k",
+    "zh": "kite",
+    "theme": "alpha",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
+    },
+    "source": "base-phonics",
+    "extra": {
+      "letter": "k",
+      "sound": "k",
+      "keyword": "kite",
+      "group": "alpha"
     }
   },
   {
     "id": "letter-l",
-    "letter": "l",
-    "sound": "l",
-    "keyword": "leaf",
-    "group": "alpha",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "kind": "phonics",
+    "text": "l",
+    "zh": "leaf",
+    "theme": "alpha",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
+    },
+    "source": "base-phonics",
+    "extra": {
+      "letter": "l",
+      "sound": "l",
+      "keyword": "leaf",
+      "group": "alpha"
     }
   },
   {
     "id": "letter-m",
-    "letter": "m",
-    "sound": "m",
-    "keyword": "map",
-    "group": "amt",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "kind": "phonics",
+    "text": "m",
+    "zh": "map",
+    "theme": "amt",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
+    },
+    "source": "base-phonics",
+    "extra": {
+      "letter": "m",
+      "sound": "m",
+      "keyword": "map",
+      "group": "amt"
     }
   },
   {
     "id": "letter-n",
-    "letter": "n",
-    "sound": "n",
-    "keyword": "net",
-    "group": "alpha",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "kind": "phonics",
+    "text": "n",
+    "zh": "net",
+    "theme": "alpha",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
+    },
+    "source": "base-phonics",
+    "extra": {
+      "letter": "n",
+      "sound": "n",
+      "keyword": "net",
+      "group": "alpha"
     }
   },
   {
     "id": "letter-o",
-    "letter": "o",
-    "sound": "o",
-    "keyword": "octopus",
-    "group": "alpha",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "kind": "phonics",
+    "text": "o",
+    "zh": "octopus",
+    "theme": "alpha",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
+    },
+    "source": "base-phonics",
+    "extra": {
+      "letter": "o",
+      "sound": "o",
+      "keyword": "octopus",
+      "group": "alpha"
     }
   },
   {
     "id": "letter-p",
-    "letter": "p",
-    "sound": "p",
-    "keyword": "pan",
-    "group": "alpha",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "kind": "phonics",
+    "text": "p",
+    "zh": "pan",
+    "theme": "alpha",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
+    },
+    "source": "base-phonics",
+    "extra": {
+      "letter": "p",
+      "sound": "p",
+      "keyword": "pan",
+      "group": "alpha"
     }
   },
   {
     "id": "letter-q",
-    "letter": "q",
-    "sound": "q",
-    "keyword": "queen",
-    "group": "alpha",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "kind": "phonics",
+    "text": "q",
+    "zh": "queen",
+    "theme": "alpha",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
+    },
+    "source": "base-phonics",
+    "extra": {
+      "letter": "q",
+      "sound": "q",
+      "keyword": "queen",
+      "group": "alpha"
     }
   },
   {
     "id": "letter-r",
-    "letter": "r",
-    "sound": "r",
-    "keyword": "rat",
-    "group": "alpha",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "kind": "phonics",
+    "text": "r",
+    "zh": "rat",
+    "theme": "alpha",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
+    },
+    "source": "base-phonics",
+    "extra": {
+      "letter": "r",
+      "sound": "r",
+      "keyword": "rat",
+      "group": "alpha"
     }
   },
   {
     "id": "letter-s",
-    "letter": "s",
-    "sound": "s",
-    "keyword": "sun",
-    "group": "alpha",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "kind": "phonics",
+    "text": "s",
+    "zh": "sun",
+    "theme": "alpha",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
+    },
+    "source": "base-phonics",
+    "extra": {
+      "letter": "s",
+      "sound": "s",
+      "keyword": "sun",
+      "group": "alpha"
     }
   },
   {
     "id": "letter-t",
-    "letter": "t",
-    "sound": "t",
-    "keyword": "tap",
-    "group": "amt",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "kind": "phonics",
+    "text": "t",
+    "zh": "tap",
+    "theme": "amt",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
+    },
+    "source": "base-phonics",
+    "extra": {
+      "letter": "t",
+      "sound": "t",
+      "keyword": "tap",
+      "group": "amt"
     }
   },
   {
     "id": "letter-u",
-    "letter": "u",
-    "sound": "u",
-    "keyword": "umbrella",
-    "group": "alpha",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "kind": "phonics",
+    "text": "u",
+    "zh": "umbrella",
+    "theme": "alpha",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
+    },
+    "source": "base-phonics",
+    "extra": {
+      "letter": "u",
+      "sound": "u",
+      "keyword": "umbrella",
+      "group": "alpha"
     }
   },
   {
     "id": "letter-v",
-    "letter": "v",
-    "sound": "v",
-    "keyword": "van",
-    "group": "alpha",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "kind": "phonics",
+    "text": "v",
+    "zh": "van",
+    "theme": "alpha",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
+    },
+    "source": "base-phonics",
+    "extra": {
+      "letter": "v",
+      "sound": "v",
+      "keyword": "van",
+      "group": "alpha"
     }
   },
   {
     "id": "letter-w",
-    "letter": "w",
-    "sound": "w",
-    "keyword": "web",
-    "group": "alpha",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "kind": "phonics",
+    "text": "w",
+    "zh": "web",
+    "theme": "alpha",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
+    },
+    "source": "base-phonics",
+    "extra": {
+      "letter": "w",
+      "sound": "w",
+      "keyword": "web",
+      "group": "alpha"
     }
   },
   {
     "id": "letter-x",
-    "letter": "x",
-    "sound": "x",
-    "keyword": "box",
-    "group": "alpha",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "kind": "phonics",
+    "text": "x",
+    "zh": "box",
+    "theme": "alpha",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
+    },
+    "source": "base-phonics",
+    "extra": {
+      "letter": "x",
+      "sound": "x",
+      "keyword": "box",
+      "group": "alpha"
     }
   },
   {
     "id": "letter-y",
-    "letter": "y",
-    "sound": "y",
-    "keyword": "yellow",
-    "group": "alpha",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "kind": "phonics",
+    "text": "y",
+    "zh": "yellow",
+    "theme": "alpha",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
+    },
+    "source": "base-phonics",
+    "extra": {
+      "letter": "y",
+      "sound": "y",
+      "keyword": "yellow",
+      "group": "alpha"
     }
   },
   {
     "id": "letter-z",
-    "letter": "z",
-    "sound": "z",
-    "keyword": "zip",
-    "group": "alpha",
-    "source": {
-      "kind": "project-original",
-      "license": "project-original",
-      "attribution": "个人工作台幼儿课程组"
+    "kind": "phonics",
+    "text": "z",
+    "zh": "zip",
+    "theme": "alpha",
+    "level": "L1",
+    "media": {
+      "image": "",
+      "art": "emoji:🔤",
+      "audio": ""
+    },
+    "source": "base-phonics",
+    "extra": {
+      "letter": "z",
+      "sound": "z",
+      "keyword": "zip",
+      "group": "alpha"
     }
   }
 ]

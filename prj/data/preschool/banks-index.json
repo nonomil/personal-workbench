@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-08-15",
+  "banks": [
+    {
+      "id": "english",
+      "kind": "english",
+      "path": "英语/vocabulary-bank.json",
+      "count": 597,
+      "expected": 597,
+      "schemaVersion": 1,
+      "levels": {
+        "L1": 597
+      }
+    },
+    {
+      "id": "literacy",
+      "kind": "literacy",
+      "path": "识字/character-bank.json",
+      "count": 1500,
+      "expected": 1500,
+      "schemaVersion": 1,
+      "levels": {
+        "L1": 300,
+        "L2": 300,
+        "L3": 300,
+        "L4": 300,
+        "L5": 300
+      }
+    },
+    {
+      "id": "pinyin",
+      "kind": "pinyin",
+      "path": "识字/pinyin-initial-bank.json",
+      "count": 63,
+      "expected": 63,
+      "schemaVersion": 1,
+      "levels": {
+        "L1": 8,
+        "L2": 15,
+        "L3": 12,
+        "L4": 12,
+        "L5": 16
+      }
+    },
+    {
+      "id": "phonics-words",
+      "kind": "phonics",
+      "path": "english/phonics/word-bank.json",
+      "count": 94,
+      "expected": 94,
+      "schemaVersion": 1,
+      "levels": {
+        "L2": 29,
+        "L1": 2,
+        "L3": 18,
+        "L4": 21,
+        "L5": 24
+      }
+    },
+    {
+      "id": "phonics-letters",
+      "kind": "phonics",
+      "path": "english/phonics/letter-bank.json",
+      "count": 26,
+      "expected": 26,
+      "schemaVersion": 1,
+      "levels": {
+        "L1": 26
+      }
+    },
+    {
+      "id": "minecraft",
+      "kind": "english",
+      "path": "英语/minecraft-bank.json",
+      "count": 324,
+      "expected": 324,
+      "schemaVersion": 1,
+      "levels": {
+        "MC-D1": 60,
+        "MC-D2": 264
+      }
+    }
+  ]
+}
