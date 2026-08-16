@@ -37,6 +37,6 @@ test('lesson complete celebration reuses the existing feed-pet action', () => {
     assert.match(pet, /data-action="feed-pet"/);
     assert.match(app, /function showPreschoolCelebration[\s\S]*去喂星芒|renderFeedShortcut/);
     assert.match(app, /function completeCourseLesson[\s\S]*feedStar|renderFeedShortcut|去喂星芒/);
-    assert.match(html, /app\.js\?v=20260816-literacy-ui-v1/);
+    assert.match(html, /app\.js\?v=/);
     assert.match(growth, /function calculateStreak/);
 });

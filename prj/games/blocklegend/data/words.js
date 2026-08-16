@@ -138,8 +138,12 @@
 
     function shouldAsk(opts) {
         const o = opts || {};
-        if (o.firstHit) return true;
-        return (Number(o.combo) || 0) < SKIP_COMBO;
+        if (o.boss) {
+            if (o.firstHit) return true;
+            const n = Number(o.bossHits) || 0;
+            return n > 0 && n % 3 === 0;
+        }
+        return !!o.firstHit;
     }
 
     const KIND_ALIASES = {
@@ -148,11 +152,31 @@
         sand: ['sand'],
         snow: ['snow'],
         stone: ['stone'],
+        water: ['water'],
+        coal: ['coal'],
+        iron: ['iron'],
+        plank: ['plank'],
+        table: ['crafting table', 'table'],
         log: ['log'],
         leaf: ['leaves', 'leaf'],
         slime: ['slime'],
         cube: ['mob'],
-        husk: ['zombie', 'husk', 'skeleton'],
+        husk: ['husk'],
+        creeper: ['creeper'],
+        zombie: ['zombie'],
+        skeleton: ['skeleton'],
+        spider: ['spider'],
+        enderman: ['enderman'],
+        piglin: ['piglin'],
+        witch: ['witch'],
+        fox: ['fox'],
+        magma: ['magma'],
+        blaze: ['blaze'],
+        ghast: ['ghast'],
+        warden: ['warden'],
+        bow: ['bow'],
+        arrow: ['arrow'],
+        shield: ['shield'],
         boss: ['wither'],
         merchant: ['villager'],
         sword: ['sword'],
@@ -166,14 +190,46 @@
         sand: '沙子',
         snow: '雪',
         stone: '石头',
+        water: '水',
+        coal: '煤矿',
+        iron: '铁矿',
+        plank: '木板',
+        table: '合成台',
         log: '原木',
         leaf: '树叶',
         slime: '史莱姆',
         cube: '方块兽',
-        husk: '僵尸',
-        boss: '首领',
-        merchant: '村民'
+        husk: '尸壳',
+        creeper: '苦力怕',
+        zombie: '僵尸',
+        skeleton: '骷髅',
+        spider: '蜘蛛',
+        enderman: '末影人',
+        piglin: '猪灵',
+        witch: '女巫',
+        fox: '狐狸',
+        magma: '岩浆怪',
+        blaze: '烈焰人',
+        ghast: '恶魂',
+        warden: '监守者',
+        boss: '凋零',
+        merchant: '村民',
+        word: '单词方块',
+        bow: '弓',
+        arrow: '箭',
+        shield: '盾牌'
     };
+
+    const QUIET_LOOK = {
+        grass: 1, dirt: 1, sand: 1, snow: 1, stone: 1,
+        log: 1, leaf: 1, water: 1, plank: 1, coal: 1, iron: 1
+    };
+
+    function shouldAutoSpeak(kind, type) {
+        if (type === 'mob' || type === 'npc') return true;
+        if (kind === 'word') return true;
+        return !QUIET_LOOK[String(kind || '')];
+    }
 
     function labelFor(kind, bank) {
         const key = String(kind || '');
@@ -190,6 +246,29 @@
         const take = Math.max(1, Number(n) || 8);
         const words = (pool || []).slice(0, take).map(function (w) { return w && w.text; }).filter(Boolean);
         return 'Say: ' + words.join(' ');
+    }
+
+    const WORD_COINS = 3;
+    const WORD_HEAL = 4;
+
+    function collectWordBlock(state, word) {
+        const s = state || {};
+        const w = word || {};
+        const hpMax = Number(s.hpMax) || 20;
+        const hp = Math.min(hpMax, (Number(s.hp) || 0) + WORD_HEAL);
+        const coins = (Number(s.coins) || 0) + WORD_COINS;
+        const learnedIds = (s.learnedIds || []).slice();
+        const id = w.id || w.text;
+        if (id && learnedIds.indexOf(id) < 0) learnedIds.push(id);
+        return {
+            coins: coins,
+            hp: hp,
+            hpMax: hpMax,
+            learnedIds: learnedIds,
+            word: w,
+            coinsGain: WORD_COINS,
+            heal: WORD_HEAL
+        };
     }
 
     function nextWord(pool, learnedIds) {
@@ -213,6 +292,10 @@
         shouldAsk: shouldAsk,
         nextWord: nextWord,
         labelFor: labelFor,
-        sayStrip: sayStrip
+        shouldAutoSpeak: shouldAutoSpeak,
+        sayStrip: sayStrip,
+        collectWordBlock: collectWordBlock,
+        WORD_COINS: WORD_COINS,
+        WORD_HEAL: WORD_HEAL
     };
 }(typeof window !== 'undefined' ? window : globalThis));

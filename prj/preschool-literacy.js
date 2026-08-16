@@ -151,6 +151,7 @@
                 date: String(item.date || ''),
                 estimate: Math.max(0, Number(item.estimate) || 0),
                 confidence: Math.max(0, Math.min(1, Number(item.confidence) || 0)),
+                lowConfidence: item.lowConfidence === true,
                 level: /^L[1-5]$/.test(String(item.level || '')) ? String(item.level) : 'L1',
                 stage: String(item.stage || stageForCount(item.estimate)),
                 wrong: Array.isArray(item.wrong) ? item.wrong.map(function (char) { return String(char || ''); }).filter(Boolean) : []
@@ -572,6 +573,7 @@
             date: String(date || ''),
             estimate: Math.max(0, Number(result && result.estimate) || 0),
             confidence: Math.max(0, Math.min(1, Number(result && result.confidence) || 0)),
+            lowConfidence: !!(result && result.lowConfidence),
             level: highestAssessLevel(result),
             stage: String((result && result.stage) || stageForCount(result && result.estimate)),
             wrong: Array.isArray(result && result.wrongChars) ? result.wrongChars.map(function (char) { return String(char || ''); }).filter(Boolean) : []
@@ -585,7 +587,7 @@
         const latest = list.length ? list[list.length - 1] : null;
         let best = null;
         list.forEach(function (item) {
-            if (!item || Number(item.confidence) < 0.6) return;
+            if (!item || item.lowConfidence === true || Number(item.confidence) < 0.6) return;
             if (!best || Number(item.estimate) > Number(best.estimate)) best = item;
         });
         return { latest: latest, best: best, history: list };

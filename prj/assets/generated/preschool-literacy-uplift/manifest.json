@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "subject": "preschool-literacy-uplift",
+  "status": "published",
+  "sourceManifest": "../../../../docs/01-方案/学习项目设计/img/05-识字视觉优化/generated/ready/manifest.json",
+  "runtimePolicy": {
+    "localOnly": true,
+    "remoteRequests": false,
+    "textInDom": true,
+    "fallback": "emoji-or-css"
+  },
+  "items": [
+    { "id": "literacy-companion-reading", "file": "published/literacy-companion-reading.png", "width": 512, "height": 512, "mode": "RGBA" },
+    { "id": "literacy-action-assess", "file": "published/literacy-action-assess.png", "width": 384, "height": 384, "mode": "RGBA" },
+    { "id": "literacy-action-mistakes", "file": "published/literacy-action-mistakes.png", "width": 384, "height": 384, "mode": "RGBA" },
+    { "id": "literacy-action-profile", "file": "published/literacy-action-profile.png", "width": 384, "height": 384, "mode": "RGBA" },
+    { "id": "literacy-badge-seed", "file": "published/literacy-badge-seed.png", "width": 256, "height": 256, "mode": "RGBA" },
+    { "id": "literacy-badge-story", "file": "published/literacy-badge-story.png", "width": 256, "height": 256, "mode": "RGBA" },
+    { "id": "literacy-badge-reading", "file": "published/literacy-badge-reading.png", "width": 256, "height": 256, "mode": "RGBA" },
+    { "id": "literacy-badge-fluent", "file": "published/literacy-badge-fluent.png", "width": 256, "height": 256, "mode": "RGBA" },
+    { "id": "literacy-certificate-corner", "file": "published/literacy-certificate-corner.png", "width": 512, "height": 512, "mode": "RGBA" }
+  ]
+}

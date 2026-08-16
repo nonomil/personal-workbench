@@ -40,7 +40,7 @@
         mistakes: { title: '改错本', eyebrow: 'TRY AGAIN', heading: '再试一次', description: '不会的题，和家长一起看看。' },
         rewards: { title: '奖励商城', eyebrow: 'SUN / SHOP', heading: '阳光换礼物', description: '攒阳光，选一个小期待。' },
         family: { title: '家长互动', eyebrow: 'FAMILY', heading: '告诉家长', description: '把今天的小成就分享出去。' },
-        account: { title: '设置', eyebrow: 'SETTINGS', heading: '家长设置', description: '账号和多设备同步。' }
+        account: { title: '设置', eyebrow: 'SETTINGS', heading: '家长设置', description: '换主题、选学习级别、导出本周记录。云同步折在最下面。' }
     };
 
     // The three preschool looks share one data contract and one page shell. The
@@ -382,7 +382,7 @@
         '.topbar-context strong': selected.pageMeta.overview.title,
         '.mode-status strong': '本地模式',
         '.mode-status small': selected.statusNote,
-        '.sidebar-footnote': selected.id === 'preschool' ? 'v0.6.0 · 幼儿版' : selected.id === 'child' ? 'v0.6.0 · 儿童版' : 'v0.6.0 · 成人版',
+        '.sidebar-footnote': selected.id === 'preschool' ? 'v0.7.0 · 幼儿版' : selected.id === 'child' ? 'v0.7.0 · 儿童版' : 'v0.7.0 · 成人版',
         '.avatar': selected.avatar
     };
     Object.keys(labelMap).forEach(function (selector) {

@@ -13,12 +13,12 @@ function growthWithSunlight(sunlight = 200) {
   });
 }
 
-test('creates a versioned five-lane eight-column defense board', () => {
+test('creates a versioned five-lane ten-column defense board', () => {
   const growth = gardenEngine.normalize({});
   const defense = growth.garden.defense;
   assert.equal(defense.version, 1);
   assert.equal(defense.board.lanes, 5);
-  assert.equal(defense.board.columns, 8);
+  assert.equal(defense.board.columns, 10);
   assert.deepEqual(defense.plants, []);
   assert.deepEqual(defense.zombies, []);
 });
@@ -99,21 +99,27 @@ test('later stages mix tougher zombies but keep the wave small', () => {
 });
 
 test('keeps different zombie movement and health profiles observable', () => {
+  const rules = gardenEngine.ZOMBIE_RULES;
+  assert.ok(rules['zombie-basic'].maxHealth >= 24);
+  assert.ok(rules['zombie-basic'].moveEvery <= 10);
+  assert.ok(rules['zombie-football'].moveEvery < rules['zombie-basic'].moveEvery);
+  assert.ok(rules['zombie-buckethead'].maxHealth > rules['zombie-conehead'].maxHealth);
+  assert.ok(rules['zombie-javelin']);
+  assert.ok(rules['zombie-polevault']);
+
   let growth = gardenEngine.startDefenseGame(growthWithSunlight()).growth;
   growth.garden.defense.zombies = [
-    { id: 'a', kind: 'zombie-basic', lane: 0, column: 5, health: 3, maxHealth: 3, slowTicks: 0, moveClock: 0 },
-    { id: 'b', kind: 'zombie-conehead', lane: 2, column: 5, health: 5, maxHealth: 5, slowTicks: 0, moveClock: 0 },
-    { id: 'c', kind: 'zombie-buckethead', lane: 4, column: 5, health: 8, maxHealth: 8, slowTicks: 0, moveClock: 0 }
+    { id: 'a', kind: 'zombie-basic', lane: 0, column: 5, health: 28, maxHealth: 28, slowTicks: 0, moveClock: 0 },
+    { id: 'b', kind: 'zombie-football', lane: 2, column: 5, health: 56, maxHealth: 56, slowTicks: 0, moveClock: 0 },
+    { id: 'c', kind: 'zombie-buckethead', lane: 4, column: 5, health: 72, maxHealth: 72, slowTicks: 0, moveClock: 0 }
   ];
-  const ticked = gardenEngine.tickDefense(growth, 36).growth.garden.defense;
+  const ticked = gardenEngine.tickDefense(growth, 10).growth.garden.defense;
   const basic = ticked.zombies.find(item => item.kind === 'zombie-basic');
-  const cone = ticked.zombies.find(item => item.kind === 'zombie-conehead');
+  const football = ticked.zombies.find(item => item.kind === 'zombie-football');
   const bucket = ticked.zombies.find(item => item.kind === 'zombie-buckethead');
-  assert.ok(basic && cone && bucket);
+  assert.ok(basic && football && bucket);
+  assert.ok(football.column < basic.column);
   assert.ok(basic.column < 5);
-  assert.ok(bucket.column === 5);
-  assert.ok(bucket.maxHealth > cone.maxHealth);
-  assert.ok(gardenEngine.ZOMBIE_RULES['zombie-basic'].moveEvery > 10);
 });
 
 test('wallnut blocks a zombie and never creates a projectile', () => {
@@ -233,4 +239,89 @@ test('clearing the last zombie does not mark the defense won by itself', () => {
   const ticked = gardenEngine.tickDefense(growth, 1).growth.garden.defense;
   assert.equal(ticked.zombies.length, 0);
   assert.equal(ticked.status, 'playing');
+});
+
+function defenseWith(plants, zombies) {
+  const growth = gardenEngine.startDefenseGame(growthWithSunlight(), '2026-08-16').growth;
+  growth.garden.defense.plants = plants;
+  growth.garden.defense.zombies = zombies;
+  growth.garden.defense.status = 'playing';
+  return growth;
+}
+
+test('bucket zombie throws a bucket that turns a peashooter into a bucket shooter', () => {
+  let growth = defenseWith(
+    [{ id: 'p1', plantId: 'plant-peashooter', lane: 1, column: 2, health: 3, maxHealth: 3, age: 2 }],
+    [{ id: 'z1', kind: 'zombie-buckethead', lane: 1, column: 7, health: 72, maxHealth: 72, slowTicks: 0, moveClock: 0, skillClock: 99 }]
+  );
+  growth = gardenEngine.tickDefense(growth, 1).growth;
+  const thrown = growth.garden.defense.projectiles.find((item) => item.kind === 'bucket' && item.team === 'zombie');
+  assert.ok(thrown, 'bucket zombie should throw a bucket');
+  assert.equal(thrown.lane, 1);
+  assert.ok(thrown.convert === 'bucket');
+
+  thrown.column = 2;
+  growth = gardenEngine.tickDefense(growth, 1).growth;
+  const plant = growth.garden.defense.plants[0];
+  assert.equal(plant.plantId, 'plant-bucketshooter');
+  assert.ok(plant.health > 0);
+});
+
+test('converted bucket shooter fires buckets instead of peas', () => {
+  let growth = defenseWith(
+    [{ id: 'p1', plantId: 'plant-bucketshooter', lane: 0, column: 1, health: 4, maxHealth: 4, age: 2 }],
+    [{ id: 'z1', kind: 'zombie-basic', lane: 0, column: 6, health: 28, maxHealth: 28, slowTicks: 0, moveClock: 0 }]
+  );
+  growth = gardenEngine.tickDefense(growth, 2).growth;
+  const shot = growth.garden.defense.projectiles.find((item) => item.team === 'plant');
+  assert.ok(shot);
+  assert.equal(shot.kind, 'bucket');
+  assert.ok(shot.damage >= 2);
+});
+
+test('bucket zombie converts a snowpea into an ice bucket shooter', () => {
+  let growth = defenseWith(
+    [{ id: 'p1', plantId: 'plant-snowpea', lane: 2, column: 3, health: 3, maxHealth: 3, age: 2 }],
+    [{ id: 'z1', kind: 'zombie-buckethead', lane: 2, column: 8, health: 72, maxHealth: 72, slowTicks: 0, moveClock: 0, skillClock: 99 }]
+  );
+  growth = gardenEngine.tickDefense(growth, 1).growth;
+  const thrown = growth.garden.defense.projectiles.find((item) => item.kind === 'bucket');
+  thrown.column = 3;
+  growth = gardenEngine.tickDefense(growth, 1).growth;
+  assert.equal(growth.garden.defense.plants[0].plantId, 'plant-ice-bucketshooter');
+});
+
+test('javelin zombie throws a javelin that damages the first plant in lane', () => {
+  let growth = defenseWith(
+    [{ id: 'p1', plantId: 'plant-wallnut', lane: 3, column: 2, health: 8, maxHealth: 8, age: 2 }],
+    [{ id: 'z1', kind: 'zombie-javelin', lane: 3, column: 7, health: 40, maxHealth: 40, slowTicks: 0, moveClock: 0, skillClock: 99 }]
+  );
+  growth = gardenEngine.tickDefense(growth, 1).growth;
+  const spear = growth.garden.defense.projectiles.find((item) => item.kind === 'javelin' && item.team === 'zombie');
+  assert.ok(spear);
+  spear.column = 2;
+  growth = gardenEngine.tickDefense(growth, 1).growth;
+  const nut = growth.garden.defense.plants[0];
+  assert.ok(nut.health < 8);
+});
+
+test('pole vault zombie jumps over the first wallnut then walks on', () => {
+  let growth = defenseWith(
+    [{ id: 'p1', plantId: 'plant-wallnut', lane: 4, column: 4, health: 8, maxHealth: 8, age: 2 }],
+    [{ id: 'z1', kind: 'zombie-polevault', lane: 4, column: 5, health: 36, maxHealth: 36, slowTicks: 0, moveClock: 99, vaulted: false }]
+  );
+  growth = gardenEngine.tickDefense(growth, 1).growth;
+  const jumper = growth.garden.defense.zombies[0];
+  assert.equal(jumper.column, 3);
+  assert.equal(jumper.vaulted, true);
+  assert.equal(growth.garden.defense.plants[0].health, 8);
+});
+
+test('football zombie bites harder than a walker', () => {
+  let growth = defenseWith(
+    [{ id: 'p1', plantId: 'plant-wallnut', lane: 0, column: 3, health: 8, maxHealth: 8, age: 2 }],
+    [{ id: 'z1', kind: 'zombie-football', lane: 0, column: 4, health: 56, maxHealth: 56, slowTicks: 0, moveClock: 0 }]
+  );
+  growth = gardenEngine.tickDefense(growth, 1).growth;
+  assert.ok(growth.garden.defense.plants[0].health <= 6);
 });

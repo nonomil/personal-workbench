@@ -248,6 +248,54 @@ body.variant-preschool .preschool-pet-actions {
     gap: 8px;
 }
 
+body.variant-preschool .preschool-pet-eggs {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 8px;
+}
+
+body.variant-preschool .preschool-pet-egg {
+    display: grid;
+    justify-items: center;
+    gap: 4px;
+    padding: 8px 4px;
+    border: 0;
+    border-radius: 16px;
+    background: #fff8e4;
+    color: inherit;
+    cursor: pointer;
+}
+
+body.variant-preschool .preschool-pet-egg img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+}
+
+body.variant-preschool .preschool-pet-egg small {
+    font-size: 11px;
+    line-height: 1.2;
+    text-align: center;
+}
+
+body.variant-preschool .preschool-pet-egg.is-current {
+    outline: 2px solid #2f8a45;
+    background: #eef8e8;
+}
+
+body.variant-preschool .preschool-pet-egg.is-locked,
+body.variant-preschool .preschool-pet-egg:disabled {
+    opacity: .45;
+    cursor: default;
+}
+
+@media (max-width: 720px) {
+    body.variant-preschool .preschool-pet-eggs {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
 body.variant-preschool .preschool-pet-evolve-overlay {
     position: fixed;
     inset: 0;

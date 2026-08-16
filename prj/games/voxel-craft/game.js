@@ -9,6 +9,8 @@
 
     const bridge = window.WorkbenchGameBridge;
     const sfx = window.WorkbenchGameSfx;
+    const MAPS = window.VoxelCraftMaps;
+    const ENEMIES = window.VoxelCraftEnemies;
     const VW = window.VoxelCraftWorld;
     const Q = window.VoxelQuests;
     const ENG = window.VoxelCraftEngine;
@@ -31,8 +33,11 @@
         { kind: 'plank', cost: 12, desc: '精致的建筑板' },
         { kind: 'stone', cost: 12, desc: '坚硬的地基' },
         { kind: 'coal', cost: 15, desc: '火把的燃料' },
-        { kind: 'crystal', cost: 20, desc: '闪亮的收藏' }
+        { kind: 'crystal', cost: 20, desc: '闪亮的收藏' },
+        { kind: 'apple', cost: 10, desc: '补充饥饿' }
     ];
+    const FOOD_HEAL = { apple: 2, bread: 4 };
+    const TOOL_KINDS = ['wood_pick', 'stone_pick', 'wood_axe', 'stone_axe', 'wood_shovel', 'wood_sword'];
     const BLUEPRINT_COLORS = { w: 'rgba(122, 74, 34, .38)', p: 'rgba(196, 138, 74, .38)', s: 'rgba(141, 145, 152, .38)' };
     const SWATCH = {
         sand: '#e6d08a', leaf: '#2f9a3c', water: '#3f76e4', crystal: '#9b7cff',
@@ -44,11 +49,14 @@
     let world = null;
     let images = {};
     let inventory = VW.emptyInv();
+    let invSlots = VW.makeSlots();
+    let bagPick = -1;
+    let selectedSlot = 0;
     let tool = 'hand';
     let selectedKind = null;
     let placedCells = {};
     let session = { placedThis: {}, placedAnyThis: 0, collectedThis: {} };
-    let player = { x: 5 * TILE, y: 16 * TILE, w: 18, h: 54, vx: 0, vy: 0, onGround: false, facing: 1, inWater: false };
+    let player = { x: 5 * TILE, y: 16 * TILE, w: 18, h: 54, vx: 0, vy: 0, onGround: false, facing: 1, inWater: false, hp: 5, maxHp: 5, food: 10, maxFood: 10, invincibleUntil: 0 };
     let camera = { x: 0, y: 0 };
     let groundAnchor = 0; // 垂直相机锚点：只在落地/大幅跌落时更新，跳跃时镜头不动
     let keys = {};
@@ -58,6 +66,11 @@
     let chips = [];
     let hover = null;
     let settledQuest = null;
+    let enemies = [];
+    let attackUntil = 0;
+    let lastDamageAt = 0;
+    let lastHudAt = 0;
+    let enemyKills = 0;
     /* 格子合成（2d-minecraft 移植）：随身 2×2，点世界里的合成台开 3×3 */
     let craft = { size: 2, cells: Array(9).fill(null) };
 
@@ -66,7 +79,7 @@
     function defaultProgress() {
         return {
             questsDone: [], crystalsTotal: 0, buildTotal: 0, buildTotalByKind: {},
-            unlockedTools: ['hand', 'wood_pick'], biome: 'meadow',
+            unlockedTools: ['hand', 'wood_pick'], biome: 'meadow', mapId: 'meadow', enemiesDefeated: 0,
             worldSeed: 3, homeSnapshot: null, worldSave: null,
             worldSaves: { meadow: null, cave: null },
             placedCells: [],
@@ -74,8 +87,17 @@
         };
     }
 
+    function normalizeMapId(id) {
+        return MAPS && typeof MAPS.normalize === 'function' ? MAPS.normalize(id) : (id === 'cave' ? 'cave' : 'meadow');
+    }
+
+    function mapInfo(id) {
+        return MAPS && typeof MAPS.get === 'function' ? MAPS.get(id) : { id: normalizeMapId(id), title: '草原基地', unlockRank: 1 };
+    }
+
     function loadProgress() {
-        progress = Object.assign(defaultProgress(), (bridge.getProgress && bridge.getProgress(GAME_ID)) || {});
+        const stored = bridge.getProgress ? bridge.getProgress(GAME_ID) : null;
+        progress = Object.assign(defaultProgress(), (stored && stored.progress) || stored || {});
         if (!Array.isArray(progress.questsDone)) progress.questsDone = [];
         // 旧横版存档兼容：clearedLevels 映射为前 N 个生涯任务（只读，一次性迁移到 questsDone）
         if (progress.questsDone.length === 0 && Array.isArray(progress.clearedLevels) && progress.clearedLevels.length > 0) {
@@ -86,17 +108,22 @@
         progress.placedCells.forEach(function (key) { placedCells[key] = true; });
         if (!progress.worldSaves || typeof progress.worldSaves !== 'object') progress.worldSaves = {};
         if (!progress.worldSaves.meadow && progress.worldSave) progress.worldSaves.meadow = progress.worldSave;
-        progress.biome = progress.biome === 'cave' ? 'cave' : 'meadow';
-        const snap = progress.worldSaves[progress.biome] || (progress.biome === 'meadow' ? progress.worldSave : null);
+        progress.mapId = normalizeMapId(progress.mapId || progress.biome || 'meadow');
+        progress.biome = progress.mapId;
+        const snap = progress.worldSaves[progress.mapId] || (progress.mapId === 'meadow' ? progress.worldSave : null);
         const saved = VW.deserialize(snap);
         const avgSurface = saved && saved.world.surface
             ? saved.world.surface.reduce(function (a, b) { return a + b; }, 0) / saved.world.surface.length
             : 0;
-        const legacyTerrain = saved && saved.world.surface && progress.biome === 'meadow' && avgSurface < 25;
+        const legacyTerrain = saved && saved.world.surface && progress.mapId === 'meadow' && avgSurface < 25;
         if (saved && !legacyTerrain && saved.world.cols === VW.COLS) {
             world = saved.world;
-            world.biome = world.biome || progress.biome;
+            world.biome = world.biome || progress.mapId;
+            world.mapId = world.mapId || world.biome || progress.mapId;
+            progress.mapId = normalizeMapId(world.mapId);
+            progress.biome = progress.mapId;
             inventory = Object.assign(VW.emptyInv(), saved.inventory);
+            invSlots = Array.isArray(saved.slots) ? saved.slots : VW.slotsFromCounts(inventory);
             player.x = saved.player.x * TILE;
             player.y = saved.player.y * TILE;
             player.vx = 0;
@@ -107,7 +134,7 @@
                 placedCells = {};
                 toast('世界焕新：地面变薄啦');
             }
-            newWorld(progress.worldSeed);
+            newWorld(progress.worldSeed, progress.mapId);
         }
         // 存档校验：旧档位置可能嵌在方块里（卡死），重置到安全出生点
         if (ENG.rectHitsSolid(solidAt, player.x, player.y, player.w, player.h)) {
@@ -117,15 +144,22 @@
         if (!Array.isArray(progress.rankRewardsClaimed)) progress.rankRewardsClaimed = [];
         const backfill = VW.claimPendingRankRewards(inventory, progress.rankRewardsClaimed, rank());
         inventory = backfill.inventory;
+        invSlots = VW.slotsFromCounts(inventory);
         progress.rankRewardsClaimed = backfill.claimed;
+        enemyKills = Number(progress.enemiesDefeated) || 0;
+        spawnEnemies();
     }
 
-    function newWorld(seed) {
-        world = VW.createWorld(seed || 3, progress.biome || 'meadow');
+    function newWorld(seed, mapId) {
+        progress.mapId = normalizeMapId(mapId || progress.mapId || progress.biome || 'meadow');
+        progress.biome = progress.mapId;
+        world = VW.createWorld(seed || 3, progress.mapId);
         placePlayerAtSpawn();
         placedCells = {};
         inventory = VW.emptyInv();
         inventory.wood_pick = 1; // 开局默认木镐（工具链 rank1-2）
+        invSlots = VW.slotsFromCounts(inventory);
+        spawnEnemies();
     }
 
     /** 站在出生列的地面上（脚贴地表，避开树干） */
@@ -136,19 +170,24 @@
         player.vx = 0;
         player.vy = 0;
         player.onGround = false;
+        player.hp = player.maxHp;
+        player.food = player.maxFood;
+        player.invincibleUntil = 0;
         groundAnchor = player.y;
     }
 
     function persist() {
         progress.worldSeed = world.seed;
-        progress.biome = (world && world.biome) || progress.biome || 'meadow';
+        progress.mapId = normalizeMapId((world && (world.mapId || world.biome)) || progress.mapId || 'meadow');
+        progress.biome = progress.mapId;
+        progress.enemiesDefeated = enemyKills;
         progress.placedCells = Object.keys(placedCells);
         if (!progress.worldSaves || typeof progress.worldSaves !== 'object') progress.worldSaves = {};
         const snap = VW.serialize(world, effectiveInventory(), {
             x: Math.round(player.x / TILE), y: Math.round(player.y / TILE)
-        });
-        progress.worldSaves[progress.biome] = snap;
-        if (progress.biome === 'meadow') progress.worldSave = snap;
+        }, invSlots);
+        progress.worldSaves[progress.mapId] = snap;
+        if (progress.mapId === 'meadow') progress.worldSave = snap;
         if (bridge.saveProgress) bridge.saveProgress(GAME_ID, progress);
     }
 
@@ -163,9 +202,33 @@
 
     function returnCellsToInventory() {
         craft.cells.forEach(function (c) {
-            if (c) inventory = VW.addToInventory(inventory, c, 1);
+            if (c) gainItem(c, 1);
         });
         craft.cells = Array(9).fill(null);
+    }
+
+    function gainItem(kind, n) {
+        inventory = VW.addToInventory(inventory, kind, n);
+        invSlots = VW.addToSlots(invSlots, kind, n);
+        if (TOOL_KINDS.indexOf(kind) !== -1 && progress.unlockedTools.indexOf(kind) === -1) {
+            progress.unlockedTools.push(kind);
+        }
+    }
+
+    function spendItem(kind, n) {
+        const bag = VW.consumeFromInventory(inventory, kind, n);
+        if (!bag.ok) return bag;
+        inventory = bag.inventory;
+        let left = n || 1;
+        for (let i = 0; i < invSlots.length && left > 0; i += 1) {
+            if (invSlots[i] && invSlots[i].kind === kind) {
+                const take = Math.min(left, invSlots[i].n);
+                const res = VW.takeFromSlot(invSlots, i, take);
+                invSlots = res.slots;
+                left -= take;
+            }
+        }
+        return { ok: true, inventory: inventory };
     }
 
     function gridRecipeOf(id) {
@@ -205,9 +268,8 @@
         for (let i = 0; i < layout.length; i += 1) {
             const k = layout[i];
             if (!k || (inventory[k] || 0) <= 0) continue;
-            const bag = VW.consumeFromInventory(inventory, k, 1);
+            const bag = spendItem(k, 1);
             if (bag.ok) {
-                inventory = bag.inventory;
                 craft.cells[i] = k;
             }
         }
@@ -222,9 +284,9 @@
         const matched = VW.matchCraftGrid(craft.cells, craft.size);
         if (!matched) return;
         for (let i = 0; i < craft.size * craft.size; i += 1) craft.cells[i] = null;
-        inventory = VW.addToInventory(inventory, matched.out.kind, matched.out.n);
+        gainItem(matched.out.kind, matched.out.n);
         if (sfx && sfx.craft) sfx.craft();
-        toast('做好了！' + (VW.KIND_LABEL[matched.out.kind] || matched.out.kind) + ' ×' + matched.out.n);
+        toast('做好了！点格子可以把 ' + (VW.KIND_LABEL[matched.out.kind] || matched.out.kind) + ' 挪到物品栏');
         persist();
         renderBag();
         renderHotbar();
@@ -283,6 +345,170 @@
             blocksAlive: blocksAlive,
             world: world
         };
+    }
+
+    function enemyTier() {
+        return Math.max(1, Math.min(3, Math.ceil(rank() / 2)));
+    }
+
+    function spawnEnemies() {
+        enemies = [];
+        if (!world || !ENEMIES || typeof ENEMIES.getPool !== 'function') return;
+        const pool = ENEMIES.getPool(normalizeMapId(world.mapId || world.biome), enemyTier());
+        const count = Math.min(4, Math.max(2, 1 + enemyTier()));
+        const spawn = VW.spawnCell(world);
+        for (let i = 0; i < count; i += 1) {
+            for (let attempt = 0; attempt < world.cols; attempt += 1) {
+                // 首波落在出生点前方的可见范围，避免孩子只看到“敌人 2”却找不到目标。
+                const x = Math.min(world.cols - 4, spawn.x + 8 + i * 5 + (attempt % 3));
+                if (Math.abs(x - spawn.x) < 6) continue;
+                const enemy = ENEMIES.create(pool[(i + attempt) % pool.length], x * TILE, 0);
+                const surface = VW.surfaceOf(world, x);
+                enemy.y = enemy.behavior === 'flyer'
+                    ? Math.max(2 * TILE, surface * TILE - enemy.h - (2 + (i % 2)) * TILE)
+                    : surface * TILE - enemy.h;
+                if (enemy.behavior === 'flyer' || !ENG.rectHitsSolid(solidAt, enemy.x, enemy.y, enemy.w, enemy.h)) {
+                    enemies.push(enemy);
+                    break;
+                }
+            }
+        }
+    }
+
+    function attackDamage() {
+        if ((inventory.wood_sword || 0) > 0 || tool === 'wood_sword') return 3;
+        if (tool === 'stone_pick') return 2;
+        return 1;
+    }
+
+    function attack() {
+        const now = Date.now();
+        attackUntil = now + 180;
+        let hits = 0;
+        let defeated = 0;
+        enemies.forEach(function (enemy) {
+            const result = ENG.attackEnemy(enemy, player, attackDamage());
+            if (!result.ok) return;
+            hits += 1;
+            if (result.defeated) {
+                defeated += 1;
+                enemyKills += 1;
+                if (bridge.awardSunlight) {
+                    bridge.awardSunlight({
+                        gameId: GAME_ID,
+                        reason: '击败' + enemy.title,
+                        eventKey: 'enemy-' + normalizeMapId(world.mapId || world.biome) + '-' + enemyKills,
+                        amount: 2
+                    });
+                }
+            }
+        });
+        enemies = enemies.filter(function (enemy) { return !enemy.remove; });
+        if (hits) {
+            if (sfx && sfx.hit) sfx.hit();
+            toast(defeated ? '命中！击败 ' + defeated + ' 个敌人' : '命中！再来一下');
+            persist();
+            renderHud();
+        }
+    }
+
+    function tickEnemies(now) {
+        if (!world || !enemies.length) return;
+        enemies = enemies.map(function (enemy) {
+            return ENG.updateEnemy(enemy, player, solidAt, 1);
+        }).filter(function (enemy) { return !enemy.remove; });
+        if (now < player.invincibleUntil) return;
+        for (let i = 0; i < enemies.length; i += 1) {
+            const enemy = enemies[i];
+            const damage = ENG.enemyDamage(enemy, player, now);
+            if (!damage) continue;
+            player.hp = Math.max(0, player.hp - damage);
+            player.invincibleUntil = now + 900;
+            enemy.hitReadyAt = now + 1100;
+            lastDamageAt = now;
+            player.x += enemy.x < player.x ? 16 : -16;
+            toast(enemy.title + '碰到你了，退开一点');
+            if (player.hp <= 0) {
+                placePlayerAtSpawn();
+                toast('先休息一下，回到出生点啦');
+            }
+            break;
+        }
+    }
+
+    function enterMap(id) {
+        const next = normalizeMapId(id);
+        const info = mapInfo(next);
+        if (MAPS && typeof MAPS.isUnlocked === 'function' && !MAPS.isUnlocked(next, rank())) {
+            toast('完成更多任务后解锁：' + info.title);
+            return false;
+        }
+        persist();
+        progress.mapId = next;
+        progress.biome = next;
+        placedCells = {};
+        const snap = progress.worldSaves && progress.worldSaves[next];
+        const saved = VW.deserialize(snap);
+        let restored = false;
+        if (saved && saved.world && saved.world.cols === VW.COLS) {
+            world = saved.world;
+            world.mapId = world.mapId || next;
+            world.biome = world.biome || next;
+            inventory = Object.assign(VW.emptyInv(), saved.inventory);
+            invSlots = Array.isArray(saved.slots) ? saved.slots : VW.slotsFromCounts(inventory);
+            player.x = saved.player.x * TILE;
+            player.y = saved.player.y * TILE;
+            player.vx = 0;
+            player.vy = 0;
+            player.onGround = false;
+            player.hp = player.maxHp;
+            player.invincibleUntil = 0;
+            groundAnchor = player.y;
+            restored = true;
+        } else {
+            world = VW.createWorld(progress.worldSeed || 3, next);
+            placePlayerAtSpawn();
+        }
+        if (restored && ENG.rectHitsSolid(solidAt, player.x, player.y, player.w, player.h)) {
+            placePlayerAtSpawn();
+        }
+        spawnEnemies();
+        const layer = document.getElementById('map-layer');
+        if (layer) layer.classList.add('is-hidden');
+        persist();
+        renderMap();
+        renderHotbar();
+        renderHud();
+        toast('进入 ' + info.title + ' · ' + info.subtitle);
+        return true;
+    }
+
+    function renderMap() {
+        const grid = document.getElementById('map-grid');
+        if (!grid || !MAPS) return;
+        const current = normalizeMapId(world && (world.mapId || world.biome));
+        const r = rank();
+        grid.innerHTML = MAPS.list.map(function (map) {
+            const locked = !MAPS.isUnlocked(map.id, r);
+            const pool = ENEMIES && ENEMIES.getPool ? ENEMIES.getPool(map.id, enemyTier()) : [];
+            return '<button type="button" class="vc-map-card ' + (locked ? 'is-locked ' : '') + (map.id === current ? 'is-current' : '') + '" data-map-id="' + map.id + '" ' + (locked ? 'disabled' : '') + '>' +
+                '<i>' + (locked ? '🔒' : (map.id === current ? '📍' : '▶')) + '</i>' +
+                '<strong>' + map.title + '</strong><small>' + map.subtitle + (locked ? '<br>段位 ' + map.unlockRank + ' 解锁' : '') + '</small>' +
+                '<span class="vc-map-enemies">敌人：' + pool.map(function (id) { return (ENEMIES.get(id) || {}).title || id; }).join(' · ') + '</span></button>';
+        }).join('');
+        const copy = document.getElementById('map-copy');
+        if (copy) copy.textContent = '当前地图：' + (mapInfo(current).title || '草原基地') + ' · 地图会分别保存建造进度。';
+    }
+
+    function toggleMap() {
+        const layer = document.getElementById('map-layer');
+        if (!layer) return;
+        if (layer.classList.contains('is-hidden')) {
+            renderMap();
+            layer.classList.remove('is-hidden');
+        } else {
+            layer.classList.add('is-hidden');
+        }
     }
 
     function scaledSun(base) {
@@ -359,20 +585,7 @@
     }
 
     function enterBiome(next) {
-        persist();
-        progress.biome = next === 'cave' ? 'cave' : 'meadow';
-        const snap = progress.worldSaves && progress.worldSaves[progress.biome];
-        const saved = VW.deserialize(snap);
-        if (saved && saved.world && saved.world.cols === VW.COLS) {
-            world = saved.world;
-            world.biome = world.biome || progress.biome;
-        } else {
-            world = VW.createWorld(progress.worldSeed || 3, progress.biome);
-        }
-        placePlayerAtSpawn();
-        persist();
-        toast(progress.biome === 'cave' ? '进入矿洞，放下火把就能照亮' : '回到草原');
-        renderHud();
+        return enterMap(next);
     }
 
     function tryStartMine(cell) {
@@ -404,7 +617,7 @@
             if (dug.reason) toast(dug.reason);
             return;
         }
-        inventory = VW.addToInventory(inventory, dug.kind, 1);
+        gainItem(dug.kind, 1);
         session.collectedThis[dug.kind] = (session.collectedThis[dug.kind] || 0) + 1;
         if (dug.kind === 'crystal') progress.crystalsTotal = (progress.crystalsTotal || 0) + 1;
         delete placedCells[placedKey(cx, cy)];
@@ -441,8 +654,8 @@
         if (!ENG.inReach(player, cell.x, cell.y)) { toast('走近一点再放'); return; }
         const res = VW.placeBlock(world, cell.x, cell.y, selectedKind, { free: inActiveBlueprint(cell) });
         if (!res.ok) { toast(res.reason); return; }
-        const bag = VW.consumeFromInventory(inventory, selectedKind, 1);
-        inventory = bag.inventory;
+        const bag = spendItem(selectedKind, 1);
+        if (!bag.ok) return;
         placedCells[placedKey(cell.x, cell.y)] = true;
         session.placedThis[selectedKind] = (session.placedThis[selectedKind] || 0) + 1;
         session.placedAnyThis += 1;
@@ -458,6 +671,8 @@
     /* ---------- HUD 渲染 ---------- */
 
     function iconMarkup(id) {
+        const item = VW.itemIcon ? VW.itemIcon(id) : '';
+        if (item) return '<img src="./assets/mc/' + item + '" alt="">';
         const tex = ENG.MC_TEXTURES[id];
         if (tex) return '<img src="./assets/mc/' + tex + '" alt="">';
         if (SWATCH[id]) return '<span class="vc-swatch" style="background:' + SWATCH[id] + '"></span>';
@@ -467,20 +682,40 @@
     function renderHotbar() {
         const bar = document.getElementById('hotbar');
         if (!bar) return;
-        const tools = ownedTools();
         let html = '';
-        tools.forEach(function (t, i) {
-            html += '<button type="button" class="vc-slot' + (tool === t.id ? ' is-on' : '') + '" data-tool="' + t.id + '">' +
-                iconMarkup(t.id) + '<kbd>' + (i + 1) + '</kbd></button>';
-        });
-        ITEM_SLOTS.forEach(function (kind, i) {
-            const count = inventory[kind] || 0;
-            html += '<button type="button" class="vc-slot' + (selectedKind === kind ? ' is-on' : '') + '" data-kind="' + kind + '"' +
-                (count <= 0 ? ' disabled' : '') + '>' +
-                iconMarkup(kind) + '<kbd>' + (tools.length + i + 1) + '</kbd><b>' + count + '</b>' +
-                '<small>' + (VW.KIND_LABEL[kind] || kind) + '</small></button>';
-        });
+        for (let i = 0; i < VW.HOTBAR_COUNT; i += 1) {
+            const row = invSlots[i];
+            const on = selectedSlot === i;
+            html += '<button type="button" class="vc-slot' + (on ? ' is-on' : '') + (row ? '' : ' is-empty') + '" data-slot="' + i + '">' +
+                (row ? iconMarkup(row.kind) : '') +
+                '<kbd>' + (i + 1) + '</kbd>' +
+                (row && row.n > 1 ? '<b>' + row.n + '</b>' : '') +
+                (row ? '<small>' + (VW.KIND_LABEL[row.kind] || row.kind) + '</small>' : '') +
+                '</button>';
+        }
         bar.innerHTML = html;
+        renderSurvivalHud();
+    }
+
+    function renderSurvivalHud() {
+        const hearts = document.getElementById('hearts');
+        const food = document.getElementById('food-bar');
+        const bagHearts = document.getElementById('bag-hearts');
+        const bagFood = document.getElementById('bag-food');
+        const hp = Math.max(0, player.hp);
+        const foodN = Math.max(0, player.food);
+        const heartHtml = Array.from({ length: player.maxHp }, function (_, i) {
+            return '<img src="./assets/ui/heart.png" alt="" class="' + (i < hp ? 'is-on' : 'is-off') + '">';
+        }).join('');
+        const foodHtml = Array.from({ length: player.maxFood }, function (_, i) {
+            return '<img src="./assets/ui/food.png" alt="" class="' + (i < foodN ? 'is-on' : 'is-off') + '">';
+        }).join('');
+        if (hearts) hearts.innerHTML = heartHtml;
+        if (food) food.innerHTML = foodHtml;
+        if (bagHearts) bagHearts.innerHTML = heartHtml;
+        if (bagFood) bagFood.innerHTML = foodHtml;
+        const hpEl = document.getElementById('hp-label');
+        if (hpEl) hpEl.textContent = hp + '/' + player.maxHp;
     }
 
     function ownedTools() {
@@ -503,7 +738,11 @@
         const sunEl = document.getElementById('sun-label');
         if (sunEl) sunEl.textContent = wallet();
         const biomeEl = document.getElementById('biome-label');
-        if (biomeEl) biomeEl.textContent = (world && world.biome === 'cave') ? '矿洞' : '草原';
+        if (biomeEl) biomeEl.textContent = mapInfo(world && (world.mapId || world.biome)).title || '草原基地';
+        const hpEl = document.getElementById('hp-label');
+        if (hpEl) hpEl.textContent = Math.max(0, player.hp) + '/' + player.maxHp;
+        const enemyEl = document.getElementById('enemy-label');
+        if (enemyEl) enemyEl.textContent = enemies.filter(function (enemy) { return !enemy.remove; }).length;
         const title = document.getElementById('quest-title');
         const desc = document.getElementById('quest-desc');
         const fill = document.getElementById('quest-bar-fill');
@@ -590,24 +829,19 @@
             }
         }
 
-        // 背包格区：一格一物（MC 物品栏式）
         const grid = document.getElementById('bag-grid');
         if (grid) {
-            const kinds = ['wood_pick', 'stone_pick'].concat(
-                VW.KINDS.filter(function (k) { return k !== 'air' && k !== 'bedrock'; })
-            ).concat(['stick']);
-            const seen = {};
             let html = '';
-            kinds.forEach(function (kind) {
-                if (seen[kind]) return;
-                seen[kind] = true;
-                const count = inventory[kind] || 0;
-                html += '<button type="button" class="vc-mc-slot' + (count <= 0 ? ' is-empty' : '') + '" data-kind="' + kind + '"' +
-                    ' title="' + (VW.KIND_LABEL[kind] || kind) + (count > 0 ? ' ×' + count : '') + '">' +
-                    iconMarkup(kind) + (count > 0 ? '<b>' + count + '</b>' : '') + '</button>';
-            });
+            for (let i = 0; i < VW.INV_SLOT_COUNT; i += 1) {
+                const row = invSlots[i];
+                const on = bagPick === i;
+                html += '<button type="button" class="vc-mc-slot' + (row ? '' : ' is-empty') + (on ? ' is-picked' : '') + '" data-slot="' + i + '"' +
+                    ' title="' + (row ? (VW.KIND_LABEL[row.kind] || row.kind) + ' ×' + row.n : '空格子，点一下放下') + '">' +
+                    (row ? iconMarkup(row.kind) : '') + (row && row.n > 1 ? '<b>' + row.n + '</b>' : '') + '</button>';
+            }
             grid.innerHTML = html;
         }
+        renderSurvivalHud();
 
         // 配方书：迷你图案 + 摆一摆
         const recipes = document.getElementById('recipe-grid');
@@ -646,6 +880,25 @@
         }
     }
 
+    function tryEat(kind) {
+        const heal = FOOD_HEAL[kind];
+        if (!heal) return false;
+        if (player.food >= player.maxFood) {
+            toast('现在不饿');
+            return false;
+        }
+        const bag = spendItem(kind, 1);
+        if (!bag.ok) return false;
+        player.food = Math.min(player.maxFood, player.food + heal);
+        if (kind === 'bread') player.hp = Math.min(player.maxHp, player.hp + 1);
+        toast('吃了一口' + (VW.KIND_LABEL[kind] || kind));
+        persist();
+        renderHotbar();
+        renderBag();
+        renderHud();
+        return true;
+    }
+
     function buyItem(kind, cost) {
         if (progress.parentLock) { toast('家长锁开着，先请家长解锁'); return; }
         if (!bridge.spendSunlight) { toast('账本还没准备好'); return; }
@@ -655,7 +908,7 @@
             renderBag();
             return;
         }
-        inventory = VW.addToInventory(inventory, kind, 1);
+        gainItem(kind, 1);
         persist();
         renderHotbar();
         renderBag();
@@ -701,11 +954,12 @@
         document.getElementById('rankup-sub').textContent = '段位 ' + r + ' · ' + ability;
         if (r >= 3 && progress.unlockedTools.indexOf('stone_pick') === -1) {
             progress.unlockedTools.push('stone_pick');
-            inventory = VW.addToInventory(inventory, 'stone_pick', 1);
+            gainItem('stone_pick', 1);
         }
         const grant = VW.claimRankReward(inventory, progress.rankRewardsClaimed || [], r);
         if (grant.ok) {
             inventory = grant.inventory;
+            invSlots = VW.slotsFromCounts(inventory);
             progress.rankRewardsClaimed = grant.claimed;
             const names = grant.pack.filter(function (item) { return item.kind !== 'blueprint'; })
                 .map(function (item) { return (VW.KIND_LABEL[item.kind] || item.kind) + '×' + item.n; }).join('、');
@@ -757,6 +1011,11 @@
             mineAct.frames += 1;
             if (mineAct.frames >= mineAct.need) doBreakMine();
         }
+        tickEnemies(now);
+        if (now - lastHudAt > 120) {
+            lastHudAt = now;
+            renderHud();
+        }
         // 相机：横向跟随；纵向只以落地高度为目标、每帧 8% 缓动追踪——
         // 跳跃期间目标不变（镜头静止），地形起伏变成缓慢滑动而不是一格格跳变
         camera.x = Math.round(player.x + player.w / 2 - VIEW_W / 2);
@@ -806,9 +1065,22 @@
         ctx.fillRect(x, y, TILE, TILE);
     }
 
+    function drawAttackFx(now) {
+        if (now >= attackUntil) return;
+        const x = player.facing < 0 ? player.x - TILE : player.x + player.w;
+        const y = player.y + 12;
+        ctx.save();
+        ctx.strokeStyle = 'rgba(255, 225, 130, .95)';
+        ctx.lineWidth = 5;
+        ctx.beginPath();
+        ctx.arc(x + (player.facing < 0 ? TILE : 0), y + 12, 24, player.facing < 0 ? 1.7 : -1.7, player.facing < 0 ? 4.5 : 1.5);
+        ctx.stroke();
+        ctx.restore();
+    }
+
     function draw(now) {
         const t = Number(now) || 0;
-        ENG.drawSky(ctx, images, VIEW_W, VIEW_H, camera, world.rows * TILE, world.biome);
+        ENG.drawSky(ctx, images, VIEW_W, VIEW_H, camera, world.rows * TILE, world.mapId || world.biome);
         updateMineRing();
         const startCol = Math.max(0, Math.floor(camera.x / TILE));
         const endCol = Math.min(world.cols - 1, Math.ceil((camera.x + VIEW_W) / TILE));
@@ -832,6 +1104,7 @@
                 if (world.biome === 'cave') shadeCell(ctx, dx, dy, VW.lightAt(world, x, y, px, py));
             }
         }
+        if (ENG.drawDecorations) ENG.drawDecorations(ctx, images, world.decorations, camera);
         if (mineAct) {
             ENG.drawCrack(ctx, images, mineAct.frames / mineAct.need,
                 mineAct.cellX * TILE - camera.x, mineAct.cellY * TILE - camera.y);
@@ -863,7 +1136,9 @@
             ctx.lineWidth = 2;
             ctx.strokeRect(hover.x * TILE - camera.x + 1, hover.y * TILE - camera.y + 1, TILE - 2, TILE - 2);
         }
+        enemies.forEach(function (enemy) { ENG.drawEnemy(ctx, images, enemy, camera, t); });
         ENG.drawPlayer(ctx, images, player, camera, !!mineAct, t);
+        drawAttackFx(t);
         ENG.drawChips(ctx, chips, camera);
     }
 
@@ -947,6 +1222,8 @@
                 else if (hoverKind === 'table') openBag(3);
                 else tryPlace({ x: hover.x, y: hover.y });
             }
+            if (k === 'k' || k === 'j') attack();
+            if (k === 'm') toggleMap();
             if (k === 'e' || k === 'escape') toggleBag();
         });
         document.addEventListener('keyup', function (e) {
@@ -962,12 +1239,20 @@
 
         document.getElementById('hotbar').addEventListener('click', function (e) {
             const slot = e.target.closest('.vc-slot');
-            if (!slot || slot.disabled) return;
-            if (slot.dataset.tool) { tool = slot.dataset.tool; }
-            else if (slot.dataset.kind) { selectedKind = slot.dataset.kind; }
-            renderHotbar();
+            if (!slot) return;
+            selectSlot(Number(slot.dataset.slot));
         });
 
+        document.getElementById('map-btn').addEventListener('click', toggleMap);
+        document.getElementById('map-close-btn').addEventListener('click', toggleMap);
+        document.getElementById('attack-btn').addEventListener('click', attack);
+        document.getElementById('map-grid').addEventListener('click', function (e) {
+            const card = e.target.closest('[data-map-id]');
+            if (card && !card.disabled) enterMap(card.dataset.mapId);
+        });
+        document.getElementById('map-layer').addEventListener('click', function (e) {
+            if (e.target === e.currentTarget) toggleMap();
+        });
         document.getElementById('bag-btn').addEventListener('click', toggleBag);
         document.getElementById('bag-close-btn').addEventListener('click', toggleBag);
         document.getElementById('bag-tabs').addEventListener('click', function (e) {
@@ -981,7 +1266,7 @@
             const fill = e.target.closest('[data-fill]');
             const cellBtn = e.target.closest('[data-cell]');
             const outBtn = e.target.closest('#craft-out');
-            const bagCell = e.target.closest('[data-kind]');
+            const bagCell = e.target.closest('#bag-grid [data-slot]');
             const smelt = e.target.closest('[data-smelt]');
             const buy = e.target.closest('[data-buy]');
             const lockBtn = e.target.closest('#parent-lock-btn');
@@ -991,36 +1276,50 @@
             } else if (cellBtn) {
                 const idx = Number(cellBtn.dataset.cell) || 0;
                 if (craft.cells[idx]) {
-                    inventory = VW.addToInventory(inventory, craft.cells[idx], 1);
+                    gainItem(craft.cells[idx], 1);
                     craft.cells[idx] = null;
                     persist();
                     renderBag();
                     renderHotbar();
+                } else if (bagPick >= 0 && invSlots[bagPick]) {
+                    const kind = invSlots[bagPick].kind;
+                    const bag = spendItem(kind, 1);
+                    if (bag.ok) {
+                        craft.cells[idx] = kind;
+                        if (!invSlots[bagPick]) bagPick = -1;
+                        persist();
+                        renderBag();
+                        renderHotbar();
+                    }
                 }
                 return;
             } else if (outBtn) {
                 takeCraftOut();
                 return;
-            } else if (bagCell && !bagCell.classList.contains('is-empty')) {
-                // 点背包物品 → 放进网格第一个空格（合成台交互，2d-minecraft 手法）
-                const kind = bagCell.dataset.kind;
-                const limit = craft.size * craft.size;
-                const idx = craft.cells.findIndex(function (c, i) { return i < limit && !c; });
-                if (idx === -1) { toast('网格满了，点格子先拿回'); return; }
-                const bag = VW.consumeFromInventory(inventory, kind, 1);
-                if (bag.ok) {
-                    inventory = bag.inventory;
-                    craft.cells[idx] = kind;
+            } else if (bagCell) {
+                const idx = Number(bagCell.dataset.slot);
+                if (bagPick < 0) {
+                    if (!invSlots[idx]) return;
+                    if (FOOD_HEAL[invSlots[idx].kind] && player.food < player.maxFood && e.detail === 2) {
+                        tryEat(invSlots[idx].kind);
+                    } else {
+                        bagPick = idx;
+                    }
+                } else {
+                    invSlots = VW.moveSlot(invSlots, bagPick, idx);
+                    inventory = VW.countsFromSlots(invSlots);
+                    bagPick = -1;
                     persist();
-                    renderBag();
-                    renderHotbar();
                 }
+                renderBag();
+                renderHotbar();
                 return;
             } else if (smelt) {
                 if (progress.parentLock) { toast('家长锁开着，先请家长解锁'); return; }
                 const res = VW.smelt(inventory, smelt.dataset.smelt);
                 if (res.ok) {
                     inventory = res.inventory;
+                    invSlots = VW.slotsFromCounts(inventory);
                     toast('烧好了！');
                 } else toast(res.reason);
             } else if (buy) {
@@ -1070,14 +1369,26 @@
         if (back && bridge.backHref) back.href = bridge.backHref('voxel-adventure');
     }
 
-    let slotsCache = null;
     function selectSlot(i) {
-        if (!slotsCache) slotsCache = ownedTools().map(function (t) { return { tool: t.id }; })
-            .concat(ITEM_SLOTS.map(function (k) { return { kind: k }; }));
-        const slot = slotsCache[i];
-        if (!slot) return;
-        if (slot.tool) tool = slot.tool;
-        else selectedKind = slot.kind;
+        const idx = Number(i);
+        if (idx < 0 || idx >= VW.HOTBAR_COUNT) return;
+        selectedSlot = idx;
+        const row = invSlots[idx];
+        if (!row) {
+            tool = 'hand';
+            selectedKind = null;
+        } else if (TOOL_KINDS.indexOf(row.kind) !== -1) {
+            tool = row.kind;
+            selectedKind = null;
+            if (progress.unlockedTools.indexOf(row.kind) === -1) progress.unlockedTools.push(row.kind);
+        } else if (FOOD_HEAL[row.kind]) {
+            tool = 'hand';
+            selectedKind = null;
+            tryEat(row.kind);
+        } else {
+            tool = 'hand';
+            selectedKind = row.kind;
+        }
         renderHotbar();
     }
 
@@ -1149,6 +1460,7 @@
         setupSidebar();
         bind();
         renderHotbar();
+        renderMap();
         renderHud();
         say('欢迎来到方块世界！先挖点草，铺一条小路吧。');
         ENG.loadAllImages().then(function (store) {

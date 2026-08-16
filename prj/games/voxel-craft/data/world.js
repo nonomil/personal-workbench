@@ -21,8 +21,123 @@
         stone: '石头', coal: '煤矿', crystal: '晶体', torch: '火把', stick: '木棍',
         wood_pick: '木镐', stone_pick: '石镐', table: '合成台',
         wood_axe: '木斧', stone_axe: '石斧', wood_shovel: '木铲', wood_sword: '木剑',
-        portal: '矿洞洞口'
+        portal: '矿洞洞口',
+        wheat: '麦穗', bread: '面包', chest: '箱子', bowl: '碗', ladder: '梯子', fence: '木栅栏', apple: '苹果'
     };
+
+    const INV_SLOT_COUNT = 36;
+    const HOTBAR_COUNT = 9;
+    const ITEM_ICONS = {
+        wood_pick: 'items/wooden-pickaxe.png',
+        stone_pick: 'items/stone-pickaxe.png',
+        wood_axe: 'items/wooden-axe.png',
+        stone_axe: 'items/stone-axe.png',
+        wood_shovel: 'items/wooden-shovel.png',
+        wood_sword: 'items/wooden-sword.png',
+        stick: 'items/stick.png',
+        apple: 'items/apple.png',
+        bread: 'items/bread.png',
+        chest: 'items/chest.png',
+        bowl: 'items/bowl.png',
+        ladder: 'items/ladder.png',
+        fence: 'items/fence.png',
+        wheat: 'items/wheat.png',
+        coal: 'items/coal.png',
+        crystal: 'items/diamond.png',
+        grass: 'blocks/grass-block.png',
+        dirt: 'blocks/dirt.png',
+        stone: 'blocks/stone.png',
+        wood: 'blocks/oak-log.png',
+        leaf: 'blocks/oak-leaves.png',
+        plank: 'blocks/oak-planks.png',
+        torch: 'blocks/torch.png',
+        table: 'blocks/crafting-table.png',
+        portal: 'blocks/furnace-on.png'
+    };
+
+    function itemIcon(kind) {
+        return ITEM_ICONS[kind] || '';
+    }
+
+    function makeSlots(count) {
+        const n = count || INV_SLOT_COUNT;
+        const slots = [];
+        for (let i = 0; i < n; i += 1) slots.push(null);
+        return slots;
+    }
+
+    function cloneSlots(slots) {
+        return (slots || makeSlots()).map(function (row) {
+            return row ? { kind: row.kind, n: row.n } : null;
+        });
+    }
+
+    function addToSlots(slots, kind, n) {
+        const next = cloneSlots(slots);
+        let left = n || 1;
+        for (let i = 0; i < next.length && left > 0; i += 1) {
+            if (next[i] && next[i].kind === kind) {
+                next[i].n += left;
+                left = 0;
+            }
+        }
+        for (let i = 0; i < next.length && left > 0; i += 1) {
+            if (!next[i]) {
+                next[i] = { kind: kind, n: left };
+                left = 0;
+            }
+        }
+        return next;
+    }
+
+    function moveSlot(slots, from, to) {
+        const next = cloneSlots(slots);
+        const a = Number(from);
+        const b = Number(to);
+        if (a === b || a < 0 || b < 0 || a >= next.length || b >= next.length) return next;
+        const src = next[a];
+        const dst = next[b];
+        if (!src) return next;
+        if (!dst) {
+            next[b] = src;
+            next[a] = null;
+        } else if (dst.kind === src.kind) {
+            next[b] = { kind: dst.kind, n: dst.n + src.n };
+            next[a] = null;
+        } else {
+            next[a] = dst;
+            next[b] = src;
+        }
+        return next;
+    }
+
+    function takeFromSlot(slots, index, n) {
+        const next = cloneSlots(slots);
+        const i = Number(index);
+        const need = n || 1;
+        if (!next[i] || next[i].n < need) return { ok: false, slots: next, kind: '' };
+        const kind = next[i].kind;
+        next[i].n -= need;
+        if (next[i].n <= 0) next[i] = null;
+        return { ok: true, slots: next, kind: kind };
+    }
+
+    function countsFromSlots(slots) {
+        const inv = emptyInv();
+        (slots || []).forEach(function (row) {
+            if (row && row.kind) inv[row.kind] = (inv[row.kind] || 0) + (row.n || 0);
+        });
+        return inv;
+    }
+
+    function slotsFromCounts(inv) {
+        let slots = makeSlots();
+        const row = inv || {};
+        Object.keys(row).forEach(function (kind) {
+            if ((row[kind] || 0) > 0) slots = addToSlots(slots, kind, row[kind]);
+        });
+        return slots;
+    }
 
     /** 工具能力表（对齐 C++ 挖掘等级：木头等级 0，空手可砍——这是 MC 的起步循环） */
     const TOOL_MINE = {
@@ -64,7 +179,13 @@
         { id: 'wood_axe', name: '木斧', inputs: { plank: 3, stick: 2 }, outputs: { wood_axe: 1 } },
         { id: 'stone_axe', name: '石斧', inputs: { stone: 3, stick: 2 }, outputs: { stone_axe: 1 } },
         { id: 'wood_shovel', name: '木铲', inputs: { plank: 1, stick: 2 }, outputs: { wood_shovel: 1 } },
-        { id: 'wood_sword', name: '木剑', inputs: { plank: 2, stick: 1 }, outputs: { wood_sword: 1 } }
+        { id: 'wood_sword', name: '木剑', inputs: { plank: 2, stick: 1 }, outputs: { wood_sword: 1 } },
+        { id: 'chest', name: '箱子', inputs: { plank: 8 }, outputs: { chest: 1 } },
+        { id: 'bowl', name: '碗', inputs: { plank: 3 }, outputs: { bowl: 1 } },
+        { id: 'ladder', name: '梯子', inputs: { stick: 7 }, outputs: { ladder: 1 } },
+        { id: 'fence', name: '木栅栏', inputs: { plank: 4, stick: 2 }, outputs: { fence: 2 } },
+        { id: 'wheat', name: '麦穗', inputs: { grass: 1, leaf: 1 }, outputs: { wheat: 1 } },
+        { id: 'bread', name: '面包', inputs: { wheat: 3 }, outputs: { bread: 1 } }
     ];
 
     /** 格子合成配方（移植 2d-minecraft CRAFTING_RECIPIES）：
@@ -81,7 +202,13 @@
         { id: 'wood_sword', shape: [1, 3], cells: ['plank', 'plank', 'stick'], out: { kind: 'wood_sword', n: 1 } },
         { id: 'plank', shape: null, cells: ['wood'], out: { kind: 'plank', n: 4 } },
         { id: 'torch', shape: null, cells: ['coal', 'stick'], out: { kind: 'torch', n: 4 } },
-        { id: 'grass', shape: null, cells: ['dirt', 'dirt'], out: { kind: 'grass', n: 1 } }
+        { id: 'grass', shape: null, cells: ['dirt', 'dirt'], out: { kind: 'grass', n: 1 } },
+        { id: 'chest', shape: [3, 3], cells: ['plank', 'plank', 'plank', 'plank', null, 'plank', 'plank', 'plank', 'plank'], out: { kind: 'chest', n: 1 } },
+        { id: 'bowl', shape: [3, 2], cells: ['plank', null, 'plank', null, 'plank', null], out: { kind: 'bowl', n: 1 } },
+        { id: 'ladder', shape: [3, 3], cells: ['stick', null, 'stick', 'stick', 'stick', 'stick', 'stick', null, 'stick'], out: { kind: 'ladder', n: 3 } },
+        { id: 'fence', shape: [3, 2], cells: ['plank', 'stick', 'plank', 'plank', 'stick', 'plank'], out: { kind: 'fence', n: 2 } },
+        { id: 'wheat', shape: null, cells: ['grass', 'leaf'], out: { kind: 'wheat', n: 1 } },
+        { id: 'bread', shape: [3, 1], cells: ['wheat', 'wheat', 'wheat'], out: { kind: 'bread', n: 1 } }
     ];
 
     /** 网格匹配（C++ CraftingInventory::checkRecipie 移植）：cells 为 size×size 扁平数组（kind|null），不足自动补空 */
@@ -161,6 +288,13 @@
         });
     }
 
+    function mapConfig(id) {
+        if (global.VoxelCraftMaps && typeof global.VoxelCraftMaps.get === 'function') {
+            return global.VoxelCraftMaps.get(id);
+        }
+        return null;
+    }
+
     function canEnterCave(rank) {
         return (Number(rank) || 1) >= 4;
     }
@@ -192,6 +326,9 @@
     }
 
     function createWorld(seed, biome) {
+        if (biome && biome !== 'meadow' && biome !== 'cave' && mapConfig(biome)) {
+            return createMapWorld(seed, biome);
+        }
         const mode = biome === 'cave' ? 'cave' : 'meadow';
         if (mode === 'cave') return createCaveWorld(seed);
         const s = Number(seed) || 1;
@@ -246,7 +383,9 @@
             if (grid[y][x] === 'stone') { grid[y][x] = 'crystal'; placed += 1; }
         }
         placePortalAwayFromCrystals(grid, 32, ROWS - 3);
-        return { cols: COLS, rows: ROWS, seed: s, grid: grid, surface: surface, biome: 'meadow' };
+        return attachLook({
+            cols: COLS, rows: ROWS, seed: s, grid: grid, surface: surface, biome: 'meadow', mapId: 'meadow'
+        }, { id: 'meadow', sky: 'day', color: '#5db54a' }, rand);
     }
 
     function createCaveWorld(seed) {
@@ -287,7 +426,126 @@
             if (grid[y][x] === 'stone') { grid[y][x] = 'crystal'; placed += 1; }
         }
         placePortal(grid, 6, surface[6]);
-        return { cols: COLS, rows: ROWS, seed: s, grid: grid, surface: surface, biome: 'cave' };
+        return attachLook({
+            cols: COLS, rows: ROWS, seed: s, grid: grid, surface: surface, biome: 'cave', mapId: 'cave'
+        }, { id: 'cave', sky: 'cave', color: '#3b3b4f' }, rand);
+    }
+
+    /**
+     * 参考群系的当前引擎适配器：保持 64×32 网格，替换地表材质、天空主题、
+     * 装饰密度和敌人池所需的 mapId。这样旧的挖放/存档/碰撞代码无需分叉。
+     */
+    function createMapWorld(seed, mapId) {
+        const spec = mapConfig(mapId) || mapConfig('meadow');
+        const s = Number(seed) || 1;
+        const rand = mulberry32((s + String(spec.id).length * 97) * 2654435761);
+        const noise = noise1D(s + spec.id.length * 13);
+        const grid = emptyGrid();
+        const surface = [];
+        const surfaceKind = KINDS.indexOf(spec.surface) >= 0 ? spec.surface : 'grass';
+        const subKind = KINDS.indexOf(spec.sub) >= 0 ? spec.sub : 'dirt';
+        const deepKind = KINDS.indexOf(spec.deep) >= 0 ? spec.deep : 'stone';
+
+        for (let x = 0; x < COLS; x += 1) {
+            surface[x] = Math.max(8, Math.min(ROWS - 5, 24 + Math.round(noise(x) * 3) + (Number(spec.bias) || 0)));
+        }
+        for (let x = 0; x < COLS; x += 1) {
+            for (let y = surface[x]; y < ROWS; y += 1) {
+                if (y === ROWS - 1) grid[y][x] = 'bedrock';
+                else if (y === surface[x]) grid[y][x] = surfaceKind;
+                else if (y <= surface[x] + 2) grid[y][x] = subKind;
+                else grid[y][x] = deepKind;
+            }
+        }
+
+        if (spec.water) {
+            const waterStart = spec.id === 'ocean' ? 20 : 42;
+            const waterEnd = spec.id === 'ocean' ? 42 : 48;
+            for (let x = waterStart; x <= waterEnd && x < COLS; x += 1) {
+                const y = surface[x] - 1;
+                if (y >= 0 && grid[y][x] === 'air') grid[y][x] = 'water';
+            }
+        }
+        const treeChance = Math.max(0, Math.min(0.42, Number(spec.tree) || 0));
+        for (let x = 2; x < COLS - 2; x += 1) {
+            if (spec.id === 'ocean' && x >= 18 && x <= 44) continue;
+            if (rand() < treeChance) plantTree(grid, x, surface[x], rand);
+        }
+
+        const oreKind = spec.id === 'end' ? 'crystal' : (spec.id === 'volcano' || spec.id === 'nether' ? 'coal' : 'coal');
+        const oreVeins = spec.id === 'ocean' ? 5 : (spec.id === 'deep_dark' ? 12 : 8);
+        for (let v = 0; v < oreVeins; v += 1) {
+            let x = 2 + Math.floor(rand() * (COLS - 4));
+            let y = surface[x] + 2 + Math.floor(rand() * 4);
+            const count = 2 + Math.floor(rand() * 3);
+            for (let c = 0; c < count; c += 1) {
+                if (grid[y] && grid[y][x] === deepKind) grid[y][x] = oreKind;
+                x = Math.max(1, Math.min(COLS - 2, x + Math.floor(rand() * 3) - 1));
+                y = Math.max(1, Math.min(ROWS - 2, y + Math.floor(rand() * 3) - 1));
+            }
+        }
+        let crystals = spec.id === 'end' || spec.id === 'deep_dark' ? 10 : 6;
+        let guard = 0;
+        while (crystals > 0 && guard < 600) {
+            guard += 1;
+            const x = 1 + Math.floor(rand() * (COLS - 2));
+            const y = ROWS - 7 + Math.floor(rand() * 5);
+            if (grid[y] && grid[y][x] === deepKind) {
+                grid[y][x] = 'crystal';
+                crystals -= 1;
+            }
+        }
+        return attachLook({
+            cols: COLS, rows: ROWS, seed: s, grid: grid, surface: surface,
+            biome: spec.id, mapId: spec.id
+        }, spec, rand);
+    }
+
+    function plantDecorations(world, spec, rand) {
+        const list = [];
+        const id = (spec && spec.id) || world.mapId || world.biome || 'meadow';
+        const surface = world.surface || [];
+        function push(type, x) {
+            if (x < 1 || x >= COLS - 1) return;
+            list.push({ type: type, x: x, y: surface[x] || 0 });
+        }
+        if (id === 'forest' || id === 'cherry_grove') {
+            for (let x = 2; x < COLS - 2; x += 1) {
+                if (rand() < 0.2) push('bush', x);
+            }
+        } else if (id === 'desert') {
+            for (let x = 3; x < COLS - 3; x += 2) {
+                if (rand() < 0.28) push('cactus', x);
+            }
+        } else if (id === 'nether' || id === 'volcano') {
+            for (let x = 2; x < COLS - 2; x += 1) {
+                if (rand() < 0.14) push('ember', x);
+            }
+        } else if (id === 'cave' || id === 'deep_dark') {
+            for (let x = 4; x < COLS - 4; x += 5) push('crystal_glow', x);
+        }
+        world.decorations = list;
+        return list;
+    }
+
+    function attachLook(world, spec, rand) {
+        const row = spec || mapConfig(world.mapId || world.biome) || { id: 'meadow', sky: 'day', color: '#5db54a' };
+        world.theme = { sky: row.sky || 'day', color: row.color || '#5db54a', floating: !!row.floating };
+        plantDecorations(world, row, rand || function () { return 0.5; });
+        return world;
+    }
+
+    function lookOf(world) {
+        const id = (world && (world.mapId || world.biome)) || 'meadow';
+        const spec = mapConfig(id) || { sky: 'day', color: '#5db54a', surface: 'grass' };
+        const theme = (world && world.theme) || {};
+        return {
+            id: id,
+            sky: theme.sky || spec.sky || 'day',
+            color: theme.color || spec.color || '#5db54a',
+            surface: spec.surface || 'grass',
+            decorations: ((world && world.decorations) || []).map(function (row) { return row.type; })
+        };
     }
 
     function plantTree(grid, x, surfaceY, rand) {
@@ -438,7 +696,8 @@
             grass: 0, dirt: 0, sand: 0, wood: 0, leaf: 0, plank: 0, stone: 0, coal: 0,
             crystal: 0, torch: 0, table: 0, stick: 0,
             wood_pick: 0, stone_pick: 0,
-            wood_axe: 0, stone_axe: 0, wood_shovel: 0, wood_sword: 0
+            wood_axe: 0, stone_axe: 0, wood_shovel: 0, wood_sword: 0,
+            wheat: 0, bread: 0, chest: 0, bowl: 0, ladder: 0, fence: 0, apple: 0
         };
     }
 
@@ -552,32 +811,41 @@
 
     function cloneWorld(world) {
         return {
-            cols: world.cols, rows: world.rows, seed: world.seed, biome: world.biome || 'meadow',
+            cols: world.cols, rows: world.rows, seed: world.seed, biome: world.biome || 'meadow', mapId: world.mapId || world.biome || 'meadow',
             surface: world.surface.slice(),
-            grid: world.grid.map(function (row) { return row.slice(); })
+            grid: world.grid.map(function (row) { return row.slice(); }),
+            theme: world.theme ? Object.assign({}, world.theme) : undefined,
+            decorations: Array.isArray(world.decorations) ? world.decorations.map(function (row) { return Object.assign({}, row); }) : []
         };
     }
 
-    function serialize(world, inventory, player) {
+    function serialize(world, inventory, player, slots) {
         return {
-            cols: world.cols, rows: world.rows, seed: world.seed, biome: world.biome || 'meadow',
+            cols: world.cols, rows: world.rows, seed: world.seed, biome: world.biome || 'meadow', mapId: world.mapId || world.biome || 'meadow',
             surface: world.surface,
             grid: world.grid.map(function (row) { return row.join(','); }),
+            theme: world.theme || null,
+            decorations: Array.isArray(world.decorations) ? world.decorations : [],
             inventory: inventory || emptyInv(),
+            slots: Array.isArray(slots) ? slots : slotsFromCounts(inventory || emptyInv()),
             player: player || spawnCell(world)
         };
     }
 
     function deserialize(snap) {
         if (!snap || !Array.isArray(snap.grid)) return null;
+        const inventory = snap.inventory || emptyInv();
         return {
             world: {
                 cols: snap.cols, rows: snap.rows, seed: snap.seed,
-                biome: snap.biome || 'meadow',
+                biome: snap.biome || snap.mapId || 'meadow', mapId: snap.mapId || snap.biome || 'meadow',
                 surface: snap.surface,
-                grid: snap.grid.map(function (row) { return String(row).split(','); })
+                grid: snap.grid.map(function (row) { return String(row).split(','); }),
+                theme: snap.theme || null,
+                decorations: Array.isArray(snap.decorations) ? snap.decorations : []
             },
-            inventory: snap.inventory || emptyInv(),
+            inventory: inventory,
+            slots: Array.isArray(snap.slots) ? snap.slots : slotsFromCounts(inventory),
             player: snap.player || { x: 3, y: 8 }
         };
     }
@@ -647,7 +915,11 @@
         BREAK_TIME: BREAK_TIME, RECIPES: RECIPES, GRID_RECIPES: GRID_RECIPES, matchCraftGrid: matchCraftGrid,
         SMELT_RECIPES: SMELT_RECIPES, FUELS: FUELS,
         BLUEPRINTS: BLUEPRINTS,
-        createWorld: createWorld, canEnterCave: canEnterCave,
+        INV_SLOT_COUNT: INV_SLOT_COUNT, HOTBAR_COUNT: HOTBAR_COUNT, ITEM_ICONS: ITEM_ICONS,
+        itemIcon: itemIcon, makeSlots: makeSlots, addToSlots: addToSlots, moveSlot: moveSlot,
+        takeFromSlot: takeFromSlot, countsFromSlots: countsFromSlots, slotsFromCounts: slotsFromCounts,
+        createWorld: createWorld, createMapWorld: createMapWorld, canEnterCave: canEnterCave,
+        lookOf: lookOf,
         getCell: getCell, setCell: setCell, surfaceOf: surfaceOf,
         findKind: findKind, lightAt: lightAt,
         countKind: countKind, isPassable: isPassable, isSolid: isSolid,

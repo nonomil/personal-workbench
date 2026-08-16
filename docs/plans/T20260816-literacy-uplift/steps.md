@@ -39,3 +39,23 @@
 ## 收尾
 
 18. 更新 `docs/plans/README.md`、`00-总控/当前状态.md`、本包 README 状态；acceptance 全勾。
+
+## 视觉增量（V1 → V3，S1–S5 验收后执行）
+
+19. **V1 设计基线**：读取 `05-识字视觉与交互优化方案.md`，确认色彩 token、390px 布局、素材 ID、无文字嵌图和回退规则；不改测评算法。
+20. **V1 生成主视觉**：调用 `scripts/generate_literacy_visual_assets.py`，生成向阳小种子阅读主视觉；保存原图、去背图和来源 manifest。
+21. **V1 生成入口组**：生成测评/错字本/档案三图标组，拆分后各自命名；检查三个图标未互相重叠、未裁切。
+22. **V1 生成阶段组**：生成种子/绘本/阅读/进阶四徽章，拆分后统一到 256×256；生成证书角花并统一到 512×512。
+23. **V1 技术验收**：运行 `python -X utf8 scripts/normalize_literacy_visual_assets.py`，确认 `ready/manifest.json` 的 9 项均为 RGBA、四角透明、目标尺寸正确；有绿边/伪文字则返工。
+24. **V2 接线**：将 `ready/` 中通过验收的素材复制到 `prj/assets/generated/preschool-literacy-uplift/published/`，在 `40-literacy-uplift.css` 和现有 HTML 挂点接入；缺图回退 emoji/CSS。
+25. **V2 回归**：更新静态资源缓存戳，跑两份识字新增测试、既有摘要/错题测试和 `npm test`；确认没有运行时网络请求和新存储 key。
+26. **V3 浏览器验收**：在 390px、768px、桌面宽度走查首页；再走测评→结果→错字本→专项复习→打印→档案→证书；截图写入 `test-report.md`。
+27. **V3 打印验收**：Chrome 打印预览确认 A4 2×4 八卡、裁切线和练写格；屏幕导航/按钮不出纸面。
+28. **收口**：只有 V1 技术、V2 接入、V3 浏览器/打印证据齐全，才把本包状态从 `review` 改为 `accepted`。
+
+## 执行结果（2026-08-16）
+
+- S1–S5、V1–V3 已按本步骤执行；识字定向测试 **18/18**。
+- Codex 浏览器已完成首页、25 题高置信度测评、结果、错字本、专项复习、A4 八卡打印结构、成长档案和证书链路。
+- V2 缓存戳为 `app.js?v=20260816-literacy-ui-v4`、`40-literacy-uplift.css?v=20260816-literacy-ui-v7`、`preschool-literacy.js?v=20260816-literacy-ui-v2`。
+- 仓库全量 `npm test` 当前 **468/475**，7 项失败来自花园/资源包/图标/发布素材等本包范围外的既有门禁；因此包状态保留 `review`，不把全仓门禁写成通过。

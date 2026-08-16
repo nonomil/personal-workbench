@@ -95,6 +95,7 @@
         return {
             type: String(source.type || 'sunflower'),
             name: String(source.name || '小向日葵'),
+            speciesId: String(source.speciesId || (source.type === 'crystal' ? 'mc-slime' : source.type === 'star' ? 'platform-star' : 'pvz-sunflower')),
             stage: Math.max(0, Math.min(3, Number(source.stage) || 0)),
             exp: Math.max(0, Number(source.exp) || 0),
             maxExp: Math.max(1, Number(source.maxExp) || 50),

@@ -159,3 +159,61 @@
     .preschool-poem-today-head h2 { font-size: 1.6rem; }
     .preschool-poem-lines p { font-size: 1.3rem; }
 }
+
+body.variant-preschool .preschool-settings-stack {
+    display: grid;
+    gap: 14px;
+}
+body.variant-preschool[data-preschool-theme] .preschool-settings-stack .preschool-theme-settings {
+    grid-template-columns: 1fr;
+}
+body.variant-preschool[data-preschool-theme] .preschool-settings-stack .preschool-theme-option-copy strong,
+body.variant-preschool[data-preschool-theme] .preschool-settings-stack .preschool-theme-option-copy small {
+    overflow: visible;
+    text-overflow: unset;
+    white-space: normal;
+}
+body.variant-preschool .preschool-settings-stack > .pixel-feedback-settings,
+body.variant-preschool .preschool-settings-stack > .preschool-theme-settings,
+body.variant-preschool .preschool-settings-stack > .work-card {
+    margin-bottom: 0;
+}
+body.variant-preschool .practice-level-settings,
+body.variant-preschool .math-band-settings {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+body.variant-preschool .practice-level-settings .pixel-feedback-copy p,
+body.variant-preschool .math-band-settings .pixel-feedback-copy p {
+    max-width: none;
+}
+body.variant-preschool .practice-level-settings .preschool-practice-level-row {
+    margin-top: 0;
+    padding-top: 12px;
+    border-top: 1px solid rgba(35, 66, 44, 0.12);
+}
+body.variant-preschool .practice-level-settings .preschool-practice-level-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+body.variant-preschool .practice-level-settings .preschool-practice-level-chip {
+    min-height: 40px;
+    padding: 8px 12px;
+}
+body.variant-preschool .preschool-settings-more {
+    padding: 14px 16px;
+    border: 2px solid rgba(35, 66, 44, 0.12);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.88);
+}
+body.variant-preschool .preschool-settings-more > summary {
+    cursor: pointer;
+    color: #23422c;
+    font-size: 15px;
+    font-weight: 800;
+}
+body.variant-preschool .preschool-settings-more[open] > summary {
+    margin-bottom: 12px;
+}

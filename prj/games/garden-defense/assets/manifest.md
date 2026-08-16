@@ -10,11 +10,17 @@
 | plants/plant-potatomine.png | 土豆地雷（正式贴图，490×567 透明底） | 第 8 关起 |
 | plants/plant-snowpea.png | 寒冰豌豆 | 第 4 关起 |
 | plants/plant-cherrybomb.webp | 樱桃炸弹 | 第 6 关起 |
+| plants/plant-bucketshooter.png | 铁桶射手（豌豆被铁桶砸中后） | 转化 |
+| plants/plant-ice-bucketshooter.png | 寒冰铁桶射手 | 转化 |
 | zombies/zombie-basic.webp | 普通僵尸 | 全部关卡 |
 | zombies/zombie-flag.webp | 旗帜僵尸 | 波次首领 |
 | zombies/zombie-conehead.webp | 路障僵尸 | 中期关卡 |
 | zombies/zombie-buckethead.webp | 铁桶僵尸 | 高关 |
 | zombies/zombie-football.webp | 橄榄球僵尸 | 高关 |
+| zombies/zombie-javelin.png | 标枪僵尸 | 第 10 关起 |
+| zombies/zombie-polevault.png | 跳高僵尸 | 第 8 关起 |
+| projectiles/proj-bucket.png | 铁桶弹 | 铁桶僵尸 / 铁桶射手 |
+| projectiles/proj-javelin.png | 标枪弹 | 标枪僵尸 |
 
 - 2026-08-15 用户裁决（覆盖总纲 §5 绘本卡通措辞）：角色统一换用
   `prj/games/ref/assets/generated/preschool-pixel/pvz/` 像素套图（植物 5 + 僵尸 5，

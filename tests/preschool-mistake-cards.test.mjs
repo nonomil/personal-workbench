@@ -99,5 +99,5 @@ test('literacy home and print/archive actions are wired in the workbench', () =>
     assert.match(css, /40-literacy-uplift\.css/);
     assert.match(layer, /literacy-tianzige/);
     assert.match(layer, /@media print/);
-    assert.match(html, /40-literacy-uplift\.css\?v=20260816-literacy-ui-v1|preschool-workbench\.css\?v=20260816-english-uplift-v2/);
+    assert.match(html, /40-literacy-uplift\.css\?v=20260816-literacy-ui-v8|preschool-workbench\.css\?v=20260816-switcher-z-v1/);
 });

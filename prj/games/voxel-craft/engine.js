@@ -7,6 +7,7 @@
     'use strict';
 
     const TILE = 32;
+    const ENEMIES = global.VoxelCraftEnemies || { list: [] };
     const PHYS = {
         G: 0.42, JUMP: -7.6, MOVE: 3.2, RUN: 5.1,
         WATER_G: 0.16, WATER_MOVE: 1.9, SWIM: -3.0, MAX_FALL: 11,
@@ -62,6 +63,12 @@
         const jobs = [
             loadImage('skyDay', './assets/bg/sky-day.png', store),
             loadImage('skyDusk', './assets/bg/sky-dusk.png', store),
+            loadImage('skyForest', './assets/bg/sky-forest.png', store),
+            loadImage('skyDesert', './assets/bg/sky-desert.png', store),
+            loadImage('skyNether', './assets/bg/sky-nether.png', store),
+            loadImage('decoBush', './assets/deco/deco-bush.png', store),
+            loadImage('decoCactus', './assets/deco/deco-cactus.png', store),
+            loadImage('decoEmber', './assets/deco/deco-ember.png', store),
             loadImage('hero_steve', HERO.steve, store)
         ].concat(Object.keys(HERO).filter(function (k) { return k !== 'steve'; }).map(function (pose) {
             return loadImage('hero_' + pose, HERO[pose], store);
@@ -69,6 +76,8 @@
             return loadImage('tex_' + kind, MC_DIR + MC_TEXTURES[kind], store);
         })).concat(DESTROY_STAGES.map(function (src, i) {
             return loadImage('destroy' + i, MC_DIR + src, store);
+        })).concat((ENEMIES.list || []).map(function (enemy) {
+            return loadImage('enemy_' + enemy.id, enemy.sprite, store);
         }));
         return Promise.all(jobs).then(function () { return store; });
     }
@@ -85,6 +94,81 @@
             }
         }
         return false;
+    }
+
+    function rectsOverlap(a, b) {
+        return !!(a && b && a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y);
+    }
+
+    /** 敌人逐帧移动：返回新对象，便于 Node 直测，也避免渲染循环半更新状态。 */
+    function updateEnemy(enemy, player, solidAt, dt) {
+        const next = Object.assign({}, enemy);
+        const stepScale = Math.max(0.25, Number(dt) || 1);
+        if (!enemy || enemy.remove || enemy.hp <= 0) return next;
+        const behavior = enemy.behavior || 'walker';
+        const toward = player && Math.abs((player.x || 0) - enemy.x) < TILE * 12;
+        let dir = toward ? ((player.x + (player.w || 0) / 2) >= enemy.x ? 1 : -1) : (enemy.patrolDir || -1);
+        if (!dir) dir = 1;
+        next.facing = dir;
+        next.phase = (Number(enemy.phase) || 0) + stepScale;
+        const speed = Math.max(0.2, Number(enemy.speed) || 0.5) * stepScale;
+
+        if (behavior === 'flyer') {
+            next.x += dir * speed;
+            if (player) {
+                const dy = (player.y + (player.h || 0) / 2) - (enemy.y + enemy.h / 2);
+                next.y += Math.max(-1.8, Math.min(1.8, dy * 0.02)) * stepScale;
+            }
+            return next;
+        }
+
+        const nx = enemy.x + dir * speed;
+        if (!rectHitsSolid(solidAt, nx, enemy.y, enemy.w, enemy.h)) {
+            next.x = nx;
+        } else {
+            next.patrolDir = -dir;
+            next.facing = -dir;
+        }
+        next.vy = Math.min(10, (Number(enemy.vy) || 0) + 0.32 * stepScale);
+        const ny = enemy.y + next.vy;
+        if (!rectHitsSolid(solidAt, next.x, ny, enemy.w, enemy.h)) {
+            next.y = ny;
+            next.onGround = false;
+        } else {
+            next.onGround = next.vy >= 0;
+            next.vy = 0;
+        }
+        if (behavior === 'jumper' && next.onGround && player && Math.abs(player.x - next.x) < TILE * 8) {
+            next.vy = -5.2;
+            next.onGround = false;
+        }
+        return next;
+    }
+
+    function enemyDamage(enemy, player, now) {
+        if (!enemy || enemy.remove || !rectsOverlap(enemy, player)) return 0;
+        const current = Number(now) || 0;
+        if (current < (Number(enemy.hitReadyAt) || 0)) return 0;
+        return Math.max(1, Number(enemy.damage) || 1);
+    }
+
+    function attackEnemy(enemy, player, amount) {
+        if (!enemy || enemy.remove || !player) return { ok: false, defeated: false, damage: 0 };
+        const facing = player.facing < 0 ? -1 : 1;
+        const reach = {
+            x: facing < 0 ? player.x - TILE : player.x + player.w,
+            y: player.y + 8,
+            w: TILE,
+            h: Math.max(18, player.h - 16)
+        };
+        if (!rectsOverlap(reach, enemy)) return { ok: false, defeated: false, damage: 0 };
+        const damage = Math.max(1, Number(amount) || 1);
+        enemy.hp = Math.max(0, (Number(enemy.hp) || 0) - damage);
+        enemy.hitFlashUntil = Date.now() + 140;
+        enemy.facing = facing;
+        enemy.x += facing * 10;
+        if (enemy.hp <= 0) enemy.remove = true;
+        return { ok: true, defeated: !!enemy.remove, damage: damage };
     }
 
     function touchesKind(kindAt, x, y, w, h, kind) {
@@ -171,11 +255,26 @@
         camera.y = Math.round(player.y + player.h / 2 - viewH / 2);
     }
 
+    const SKY_KEY = {
+        meadow: 'skyDay', grassland: 'skyDay',
+        forest: 'skyForest', cherry_grove: 'skyForest',
+        desert: 'skyDesert',
+        nether: 'skyNether', volcano: 'skyNether',
+        cave: null, deep_dark: null, end: null
+    };
+
+    function skyKey(biome) {
+        if (Object.prototype.hasOwnProperty.call(SKY_KEY, biome)) return SKY_KEY[biome];
+        return 'skyDay';
+    }
+
     function drawSky(ctx, images, viewW, viewH, camera, worldH, biome) {
-        if (biome === 'cave') {
+        if (skyKey(biome) === null || biome === 'cave' || biome === 'deep_dark' || biome === 'end') {
             const grad = ctx.createLinearGradient(0, 0, 0, viewH);
-            grad.addColorStop(0, '#0b1630');
-            grad.addColorStop(1, '#152044');
+            const top = biome === 'end' ? '#160d2c' : (biome === 'deep_dark' ? '#071f2b' : '#0b1630');
+            const bottom = biome === 'end' ? '#3b1f58' : (biome === 'deep_dark' ? '#12313b' : '#152044');
+            grad.addColorStop(0, top);
+            grad.addColorStop(1, bottom);
             ctx.fillStyle = grad;
             ctx.fillRect(0, 0, viewW, viewH);
             ctx.fillStyle = 'rgba(180, 210, 255, 0.38)';
@@ -191,7 +290,7 @@
             }
             return;
         }
-        const sky = images.skyDay;
+        const sky = images[skyKey(biome)] || images.skyDay;
         if (sky) {
             ctx.drawImage(sky, 0, 0, sky.width, sky.height, -camera.x * 0.15, -camera.y * 0.1, viewW + 200, viewH + 120);
         } else {
@@ -206,6 +305,18 @@
         if (bottom < viewH) {
             ctx.fillStyle = '#241f1c';
             ctx.fillRect(0, Math.max(0, bottom), viewW, viewH - bottom);
+        }
+        const veil = {
+            forest: 'rgba(35, 120, 55, .16)', cherry: 'rgba(255, 155, 190, .14)',
+            snow: 'rgba(220, 245, 255, .3)', desert: 'rgba(255, 190, 75, .2)',
+            mushroom: 'rgba(176, 105, 210, .18)', mountain: 'rgba(90, 90, 120, .16)',
+            ocean: 'rgba(45, 145, 220, .18)', volcano: 'rgba(230, 60, 25, .2)',
+            nether: 'rgba(120, 10, 10, .25)', sky: 'rgba(120, 205, 255, .12)',
+            sky_dimension: 'rgba(255, 205, 45, .16)'
+        }[biome];
+        if (veil) {
+            ctx.fillStyle = veil;
+            ctx.fillRect(0, 0, viewW, viewH);
         }
     }
 
@@ -284,6 +395,36 @@
         ctx.restore();
     }
 
+    function drawEnemy(ctx, images, enemy, camera, now) {
+        if (!enemy || enemy.remove) return;
+        const dx = Math.round(enemy.x - camera.x);
+        const dy = Math.round(enemy.y - camera.y + Math.sin((Number(now) || 0) / 180 + (enemy.phase || 0)) * (enemy.behavior === 'flyer' ? 3 : 1));
+        const img = images['enemy_' + enemy.id];
+        ctx.save();
+        ctx.imageSmoothingEnabled = false;
+        if (enemy.facing < 0) {
+            ctx.translate(dx + enemy.w, dy);
+            ctx.scale(-1, 1);
+            if (img) ctx.drawImage(img, 0, 0, enemy.w, enemy.h);
+        } else if (img) {
+            ctx.drawImage(img, dx, dy, enemy.w, enemy.h);
+        } else {
+            ctx.fillStyle = enemy.color || '#8b6cff';
+            ctx.fillRect(dx, dy, enemy.w, enemy.h);
+            ctx.fillStyle = '#fff8d6';
+            ctx.fillRect(dx + Math.max(3, enemy.w * 0.2), dy + Math.max(4, enemy.h * 0.25), 4, 4);
+            ctx.fillRect(dx + Math.max(10, enemy.w * 0.62), dy + Math.max(4, enemy.h * 0.25), 4, 4);
+        }
+        ctx.restore();
+        if (enemy.hp < enemy.maxHp) {
+            const ratio = Math.max(0, Math.min(1, enemy.hp / Math.max(1, enemy.maxHp)));
+            ctx.fillStyle = 'rgba(25, 15, 15, .75)';
+            ctx.fillRect(dx, dy - 6, enemy.w, 4);
+            ctx.fillStyle = '#ffcc66';
+            ctx.fillRect(dx, dy - 6, enemy.w * ratio, 4);
+        }
+    }
+
     function spawnChips(chips, cellX, cellY, kind) {
         const cx = cellX * TILE + TILE / 2;
         const cy = cellY * TILE + TILE / 2;
@@ -297,6 +438,24 @@
                 color: color
             });
         }
+    }
+
+    function drawDecorations(ctx, images, decorations, camera) {
+        const keys = { bush: 'decoBush', cactus: 'decoCactus', ember: 'decoEmber', crystal_glow: 'decoEmber' };
+        const sizes = { bush: [36, 28], cactus: [22, 48], ember: [24, 24], crystal_glow: [22, 22] };
+        const colors = { bush: '#3d8a3a', cactus: '#2f9a3c', ember: '#ff7a18', crystal_glow: '#9b7cff' };
+        (decorations || []).forEach(function (row) {
+            const size = sizes[row.type] || [32, 32];
+            const x = row.x * TILE - camera.x + (TILE - size[0]) / 2;
+            const y = row.y * TILE - camera.y - size[1] + 6;
+            const img = images[keys[row.type]];
+            if (img) {
+                ctx.drawImage(img, x, y, size[0], size[1]);
+                return;
+            }
+            ctx.fillStyle = colors[row.type] || '#888';
+            ctx.fillRect(x, y, size[0], size[1]);
+        });
     }
 
     function drawChips(ctx, chips, camera) {
@@ -319,7 +478,9 @@
         updatePlayer: updatePlayer, rectHitsSolid: rectHitsSolid, touchesKind: touchesKind,
         screenToCell: screenToCell, inReach: inReach,
         followCamera: followCamera, clampCamera: clampCamera,
-        drawSky: drawSky, drawBlock: drawBlock, drawCrack: drawCrack,
-        drawPlayer: drawPlayer, spawnChips: spawnChips, drawChips: drawChips
+        skyKey: skyKey,
+        drawSky: drawSky, drawDecorations: drawDecorations, drawBlock: drawBlock, drawCrack: drawCrack,
+        drawPlayer: drawPlayer, drawEnemy: drawEnemy, spawnChips: spawnChips, drawChips: drawChips,
+        rectsOverlap: rectsOverlap, updateEnemy: updateEnemy, enemyDamage: enemyDamage, attackEnemy: attackEnemy
     };
 }(typeof window !== 'undefined' ? window : globalThis));

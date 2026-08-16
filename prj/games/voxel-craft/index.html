@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>方块世界 · 挖放乐园</title>
-    <link rel="stylesheet" href="./game.css?v=20260816-craft-v25">
+    <link rel="stylesheet" href="./game.css?v=20260816-craft-v27">
 </head>
 <body class="vc-body">
     <aside class="vc-side" id="vc-side" aria-label="方块世界工作台导航">
@@ -23,8 +23,12 @@
         <span class="vc-chip">⛏ <b id="rank-label">1 · 新手矿工</b></span>
         <span class="vc-chip">🌿 <b id="biome-label">草原</b></span>
         <span class="vc-chip">任务 <b id="quest-done">0</b>/<b id="quest-total">18</b></span>
+        <span class="vc-chip vc-hp-chip">❤ <b id="hp-label">5/5</b></span>
+        <span class="vc-chip">敌人 <b id="enemy-label">0</b></span>
         <span class="vc-chip">☀ <b id="sun-label">0</b></span>
         <span class="vc-top-actions">
+            <button type="button" class="vc-btn" id="map-btn" title="地图册">🗺️</button>
+            <button type="button" class="vc-btn vc-attack-btn" id="attack-btn" title="攻击 (K)">⚔️</button>
             <button type="button" class="vc-btn" id="bag-btn" title="背包 (E)">🎒</button>
             <button type="button" class="vc-btn" id="home-shot-btn" title="拍下家园">📷</button>
             <button type="button" class="vc-btn" id="reset-btn" title="重开世界">⭯</button>
@@ -47,15 +51,32 @@
                     <button type="button" data-hold="jump" aria-label="跳">▲</button>
                     <button type="button" data-hold="right" aria-label="右">▶</button>
                 </div>
-                <p class="vc-hint">按住挖 · 右键/长按放 · A/D 走 · 空格跳</p>
+                <p class="vc-hint">按住挖 · 右键/长按放 · A/D 走 · 空格跳 · K/⚔ 攻击</p>
             </div>
         </div>
         <div class="vc-hotbar-row">
-            <div class="vc-hotbar" id="hotbar" aria-label="工具和背包"></div>
+            <div class="vc-hotbar-wrap">
+                <div class="vc-survival-hud" id="survival-hud">
+                    <div class="vc-hearts" id="hearts" aria-label="生命"></div>
+                    <div class="vc-food" id="food-bar" aria-label="饥饿"></div>
+                </div>
+                <div class="vc-hotbar" id="hotbar" aria-label="快捷栏"></div>
+            </div>
         </div>
     </main>
 
     <div class="vc-toast" id="toast"></div>
+
+    <div class="vc-layer is-hidden" id="map-layer" role="dialog" aria-label="地图册">
+        <div class="vc-panel vc-map-panel">
+            <div class="vc-panel-head">
+                <strong>探险地图册</strong>
+                <button type="button" class="vc-btn" id="map-close-btn" title="关闭地图册">✕</button>
+            </div>
+            <p class="vc-map-copy" id="map-copy">选择一张地图开始探险。完成任务后会解锁更多区域。</p>
+            <div class="vc-map-grid" id="map-grid"></div>
+        </div>
+    </div>
 
     <span id="companion-say" hidden></span>
     <div class="vc-layer is-hidden" id="bag-layer" role="dialog" aria-label="背包与合成">
@@ -76,6 +97,10 @@
                     <span class="vc-craft-arrow">➜</span>
                     <button type="button" class="vc-mc-slot vc-craft-out" id="craft-out" title="点一下拿走产物"></button>
                     <small class="vc-craft-size" id="craft-size-label">2×2</small>
+                </div>
+                <div class="vc-survival-hud vc-survival-hud-bag">
+                    <div class="vc-hearts" id="bag-hearts" aria-label="生命"></div>
+                    <div class="vc-food" id="bag-food" aria-label="饥饿"></div>
                 </div>
                 <div class="vc-mc-inv" id="bag-grid"></div>
             </div>
@@ -115,9 +140,11 @@
     <script src="../shared/workbench-bridge.js?v=20260815-sfx-v1"></script>
     <script src="../shared/game-sfx.js?v=20260815-sfx-v1"></script>
     <script src="./data/quests.js?v=20260815-craft-v22"></script>
-    <script src="./data/world.js?v=20260816-craft-v25"></script>
-    <script src="./engine.js?v=20260816-craft-v25"></script>
-    <script src="./game.js?v=20260816-craft-v25"></script>
+    <script src="./data/maps.js?v=20260816-map-v2"></script>
+    <script src="./data/enemies.js?v=20260816-enemy-v1"></script>
+    <script src="./data/world.js?v=20260816-craft-v27"></script>
+    <script src="./engine.js?v=20260816-craft-v27"></script>
+    <script src="./game.js?v=20260816-craft-v27"></script>
 </div>
 </body>
 </html>

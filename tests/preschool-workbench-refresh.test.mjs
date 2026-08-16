@@ -122,10 +122,10 @@ test('keeps preschool plans in one editable list instead of a fixed core and col
 
 test('bumps preschool runtime assets when the editable plan interaction changes', () => {
   const html = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
-  assert.match(html, /preschool-workbench\.css\?v=20260816-english-uplift-v2/);
+  assert.match(html, /preschool-workbench\.css\?v=20260816-switcher-z-v1/);
   assert.match(html, /config\.js\?v=20260816-literacy-uplift-v1/);
   assert.match(html, /storage\.js\?v=20260816-english-uplift-v2/);
-  assert.match(html, /app\.js\?v=20260816-literacy-ui-v1/);
+  assert.match(html, /app\.js\?v=20260816-literacy-ui-v5/);
   assert.match(html, /workbench-bridge\.js\?v=20260815-blocklegend-v1/);
 });
 
@@ -433,7 +433,7 @@ test('uses transparent PVZ plants and zombie variants across the preschool defen
   assert.match(app, /const plantAsset = preschoolPlantAsset\(activePlant\)/);
   assert.match(app, /pixel-hud-defense-art/);
   assert.match(app, /asset: 'player-energy-bars'/);
-  assert.match(config, /selected\.id === 'preschool' \? 'v0\.6\.0 · 幼儿版'/);
+  assert.match(config, /selected\.id === 'preschool' \? 'v0\.7\.0 · 幼儿版'/);
   assert.doesNotMatch(config, /v0\.2\.4 · 幼儿版/);
   assert.match(styles, /pixel-hud-defense-art/);
    assert.match(styles, /preschool-pvz-art/);
@@ -617,7 +617,7 @@ test('puts a single real-work workflow card above preschool home check-in lanes'
   assert.doesNotMatch(heroRender, /再完成\s*\d+\s*项打卡/);
   assert.match(app, /item\.done && item\.completionSource === 'practice'/);
   assert.match(styles, /preschool-home-hero/);
-  assert.match(html, /app\.js\?v=20260816-literacy-ui-v1/);
+  assert.match(html, /app\.js\?v=20260816-literacy-ui-v5/);
   assert.doesNotMatch(app, /首页只负责打卡/);
 });
 
@@ -645,7 +645,7 @@ test('connects the preschool home to the game-study loop without nesting the les
   assert.match(preschoolStyleGraph, /preschool-home-identity/);
   assert.match(preschoolStyleGraph, /preschool-home-evidence/);
   assert.match(preschoolStyleGraph, /preschool-home-hero/);
-  assert.match(preschoolIndex, /v0\.6\.0 · 幼儿版/);
+  assert.match(preschoolIndex, /v0\.7\.0 · 幼儿版/);
   assert.doesNotMatch(preschoolIndex, /v0\.4\.2 · 幼儿版/);
 });
 
@@ -685,6 +685,16 @@ test('keeps three preschool visual themes on one persisted workbench contract', 
   assert.equal(voxelState.preschoolTheme, 'voxel-adventure');
   const invalidState = storage.normalizeState({ tasks: [], dailyPlans: [], preschoolTheme: 'not-a-theme' });
   assert.equal(invalidState.preschoolTheme, 'garden-defense');
+});
+
+test('keeps the themed topbar switcher above paper-glow page content', () => {
+  const glow = fs.readFileSync(path.join(root, 'css', 'preschool', '38-paper-glow.css'), 'utf8');
+  const flatten = glow.indexOf('.main-content > *');
+  assert.ok(flatten >= 0);
+  assert.ok(glow.indexOf('z-index: 1', flatten) > flatten);
+  const topbar = glow.indexOf('[data-preschool-theme] .topbar');
+  assert.ok(topbar > flatten);
+  assert.match(glow.slice(topbar, topbar + 160), /z-index:\s*(?:[2-9]\d|[1-9]\d{2,})/);
 });
 
 test('keeps the voxel home sidebar offset and uses the generated block-world frame', () => {
@@ -1070,7 +1080,7 @@ test('turns flashcard subjects into a flip-card page with known/unknown marking'
   const html = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
   assert.match(html, /preschool-poetry-data\.js\?v=20260815-poem-meaning-v1/);
   assert.match(html, /preschool-poetry\.js\?v=20260815-poem-meaning-v1/);
-  assert.match(workbenchCss, /35-course-flashcards\.css\?v=20260815-b3-s4-v1/);
+  assert.match(workbenchCss, /35-course-flashcards\.css\?v=20260816-settings-stack-v1/);
   assert.match(styles, /preschool-card-art/);
   assert.match(styles, /preschool-flashcard-cover/);
   assert.match(app, /data-action="flashcard-reveal"/);
@@ -1150,8 +1160,8 @@ test('adds a today preview on the course wall and splits classic into a child me
   assert.match(app, /更多练习/);
   assert.match(app, /更多资料/);
   assert.doesNotMatch(app, /浏览完整资料库/);
-  assert.match(html, /preschool-workbench\.css\?v=20260816-english-uplift-v2/);
-  assert.match(html, /app\.js\?v=20260816-literacy-ui-v1/);
+  assert.match(html, /preschool-workbench\.css\?v=20260816-switcher-z-v1/);
+  assert.match(html, /app\.js\?v=20260816-literacy-ui-v5/);
   assert.match(html, /preschool-card-art\.js\?v=20260815-english-auto-v1/);
   assert.match(workbenchCss, /36-course-menu\.css\?v=20260815-menu-cards-v2/);
   assert.match(styles, /preschool-course-menu/);
@@ -1203,7 +1213,7 @@ test('keeps the english animation room as three cover cards', () => {
 
 test('applies the paper-glow palette and embeds world assets as faint backgrounds', () => {
   const workbenchCss = fs.readFileSync(path.join(root, 'css', 'preschool-workbench.css'), 'utf8');
-  assert.match(workbenchCss, /38-paper-glow\.css\?v=20260815-paper-glow-v1/);
+  assert.match(workbenchCss, /38-paper-glow\.css\?v=20260816-switcher-z-v1/);
   assert.match(workbenchCss, /26-theme-skins\.css\?v=20260815-paper-glow-v1/);
   const skins = fs.readFileSync(path.join(root, 'css', 'preschool', '26-theme-skins.css'), 'utf8');
   assert.match(skins, /--theme-accent: #6fa893/);   // 花园雾绿
@@ -1214,4 +1224,26 @@ test('applies the paper-glow palette and embeds world assets as faint background
   assert.match(glow, /pvz-garden-lawn-bg\.webp/);
   assert.match(glow, /voxel-grass-block\.webp/);
   assert.match(glow, /platform-coin\.webp/);
+});
+
+test('preschool settings page stacks parent cards instead of a two-column level maze', () => {
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const styles = fs.readFileSync(path.join(root, 'css', 'preschool', '35-course-flashcards.css'), 'utf8');
+  const workbenchCss = fs.readFileSync(path.join(root, 'css', 'preschool-workbench.css'), 'utf8');
+  const accountStart = app.indexOf('function renderAccount()');
+  const accountEnd = app.indexOf('function renderPreschoolThemeSettings');
+  const account = app.slice(accountStart, accountEnd);
+  assert.match(account, /preschool-settings-stack/);
+  assert.match(account, /preschool-settings-more/);
+  const themeAt = account.indexOf('renderPreschoolThemeSettings');
+  const feedbackAt = account.indexOf('renderPreschoolFeedbackSettings');
+  const levelsAt = account.indexOf('renderPreschoolPracticeLevelSettings');
+  const moreAt = account.indexOf('preschool-settings-more');
+  assert.ok(themeAt > -1 && themeAt < levelsAt);
+  assert.ok(feedbackAt > -1 && feedbackAt < levelsAt);
+  assert.ok(moreAt > levelsAt);
+  assert.match(account, /preschool-settings-more[\s\S]*renderWorkbenchSwitcher/);
+  assert.match(styles, /practice-level-settings[\s\S]*grid-template-columns:\s*1fr/);
+  assert.match(styles, /math-band-settings[\s\S]*grid-template-columns:\s*1fr/);
+  assert.match(workbenchCss, /35-course-flashcards\.css\?v=20260816-settings-stack-v1/);
 });

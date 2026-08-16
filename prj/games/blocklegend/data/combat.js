@@ -11,7 +11,7 @@
     const MELEE_COOLDOWN_MS = 420;
     const BOLT_COOLDOWN_MS = 640;
     const INVINCIBLE_MS = 1600;
-    const MELEE_RANGE = 2.6;
+    const MELEE_RANGE = 4.5;
     const MELEE_ARC = 1.15; // 约 66° 半角
     const BOLT_SPEED = 11;
     const BOLT_TURN = 7.2; // rad/s
@@ -21,7 +21,19 @@
     const MONSTERS = {
         slime: { kind: 'slime', hp: 24, coins: 4, contact: 1, speed: 1.35, loot: 'slime-gel', color: 0x6fbf4a },
         cube: { kind: 'cube', hp: 36, coins: 6, contact: 2, speed: 1.05, loot: 'cube-shard', color: 0xc47a3a },
-        husk: { kind: 'husk', hp: 48, coins: 8, contact: 2, speed: 0.88, loot: 'husk-bone', color: 0x8a8f99 }
+        husk: { kind: 'husk', hp: 48, coins: 8, contact: 2, speed: 1.05, loot: 'husk-bone', color: 0x8a8f99 },
+        fox: { kind: 'fox', hp: 28, coins: 5, contact: 1, speed: 1.55, loot: 'fox-fur', color: 0xe07a28 },
+        magma: { kind: 'magma', hp: 40, coins: 7, contact: 2, speed: 0.95, loot: 'magma-cream', color: 0xff6a2a },
+        blaze: { kind: 'blaze', hp: 36, coins: 8, contact: 2, speed: 1.15, loot: 'blaze-rod', color: 0xffc04a, hitRadius: 0.55 },
+        ghast: { kind: 'ghast', hp: 52, coins: 10, contact: 2, speed: 0.72, loot: 'ghast-tear', color: 0xf4f0ea, hitRadius: 0.9 },
+        warden: { kind: 'warden', hp: 70, coins: 12, contact: 3, speed: 0.7, loot: 'warden-horn', color: 0x2a6a78, hitRadius: 0.7 },
+        creeper: { kind: 'creeper', hp: 32, coins: 7, contact: 3, speed: 1.05, loot: 'gunpowder', color: 0x6fbf45, hitRadius: 0.55 },
+        zombie: { kind: 'zombie', hp: 44, coins: 7, contact: 2, speed: 1.12, loot: 'rotten-flesh', color: 0x5a7a4a, hitRadius: 0.5 },
+        skeleton: { kind: 'skeleton', hp: 36, coins: 8, contact: 2, speed: 1.12, loot: 'bone', color: 0xe8d8b8, hitRadius: 0.45 },
+        spider: { kind: 'spider', hp: 30, coins: 6, contact: 2, speed: 1.28, loot: 'string', color: 0x3a2418, hitRadius: 0.7 },
+        enderman: { kind: 'enderman', hp: 50, coins: 10, contact: 2, speed: 1.22, loot: 'ender-pearl', color: 0x14141c, hitRadius: 0.45 },
+        piglin: { kind: 'piglin', hp: 42, coins: 8, contact: 2, speed: 1.0, loot: 'gold-nugget', color: 0xe8a878, hitRadius: 0.5 },
+        witch: { kind: 'witch', hp: 38, coins: 9, contact: 2, speed: 0.86, loot: 'glow-dust', color: 0x5a2a78, hitRadius: 0.5 }
     };
     const MONSTER_KINDS = Object.keys(MONSTERS);
 
@@ -65,7 +77,8 @@
             contact: row.contact,
             speed: row.speed,
             loot: row.loot,
-            color: row.color
+            color: row.color,
+            hitRadius: row.hitRadius || 0.45
         };
     }
 
@@ -89,11 +102,31 @@
         return { x: -Math.sin(yaw), z: -Math.cos(yaw) };
     }
 
+    function aimAction(opts) {
+        const o = opts || {};
+        const range = Number(o.meleeRange) || MELEE_RANGE;
+        const lookDist = o.lookDist == null ? Infinity : Number(o.lookDist);
+        if (o.inMelee || (o.lookMob && lookDist <= range + 0.2)) return 'melee';
+        if (o.mining && o.hasBlock) return 'mine';
+        return 'none';
+    }
+
+    function aimPoint(mob) {
+        const m = mob || {};
+        const h = Number(m.height) || 1.6;
+        return {
+            x: Number(m.x) || 0,
+            y: (Number(m.y) || 0) + h * 0.55,
+            z: Number(m.z) || 0
+        };
+    }
+
     function inMeleeArc(player, yaw, target) {
         const dx = target.x - player.x;
         const dz = target.z - player.z;
         const dist = Math.hypot(dx, dz);
-        if (dist > MELEE_RANGE || dist < 0.05) return false;
+        const pad = Number(target.hitRadius) || 0;
+        if (dist > MELEE_RANGE + pad || dist < 0.05) return false;
         const f = forwardXZ(yaw);
         const dot = (dx * f.x + dz * f.z) / dist;
         return Math.acos(Math.max(-1, Math.min(1, dot))) <= MELEE_ARC;
@@ -138,6 +171,16 @@
         return next;
     }
 
+    function canTouch(player, monster, opts) {
+        const o = opts || {};
+        const range = Number(o.range) || CONTACT_RANGE;
+        const dist = Math.hypot((player.x || 0) - (monster.x || 0), (player.z || 0) - (monster.z || 0));
+        if (dist > range) return false;
+        if (o.playerSheltered && !o.mobSheltered) return false;
+        if (o.wallBetween) return false;
+        return true;
+    }
+
     function applyContact(player, monster, now) {
         const hp = Number(player && player.hp) || 0;
         const last = Number(player && player.lastHitAt) || 0;
@@ -179,9 +222,12 @@
         addLoot: addLoot,
         pickupCoins: pickupCoins,
         forwardXZ: forwardXZ,
+        aimAction: aimAction,
+        aimPoint: aimPoint,
         inMeleeArc: inMeleeArc,
         nearestMonster: nearestMonster,
         steerBolt: steerBolt,
+        canTouch: canTouch,
         applyContact: applyContact,
         applyHit: applyHit
     };

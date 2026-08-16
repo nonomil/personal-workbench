@@ -173,8 +173,31 @@
 .vc-hud-actions { display: flex; gap: 8px; pointer-events: auto; flex-wrap: wrap; }
 .vc-hint { width: 100%; margin: 0; color: rgba(255, 255, 255, .75); font-size: 11px; text-align: right; }
 
-/* MC 热键栏 */
+/* 快捷栏 + 生存状态 */
 .vc-hotbar-row { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
+.vc-hotbar-wrap { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.vc-survival-hud {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 560px;
+    padding: 0 4px;
+    pointer-events: none;
+}
+.vc-hearts, .vc-food { display: flex; gap: 2px; }
+.vc-hearts img, .vc-food img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+.vc-hearts img.is-off, .vc-food img.is-off { opacity: .28; filter: grayscale(1); }
+.vc-survival-hud-bag {
+    max-width: none;
+    margin: 0 0 8px;
+    pointer-events: none;
+}
 .vc-hotbar {
     display: flex;
     gap: 5px;
@@ -399,12 +422,13 @@
 /* 物品格区（背包） */
 .vc-mc-inv {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 48px);
+    grid-template-columns: repeat(9, 44px);
     gap: 3px;
     justify-content: start;
     padding-top: 4px;
     border-top: 2px solid #a5a5a5;
 }
+.vc-mc-slot.is-picked { box-shadow: 0 0 0 2px #ffe08a; }
 
 /* 行式列表（配方书/熔炉/小卖部） */
 .vc-mc-rows { display: flex; flex-direction: column; gap: 6px; }
@@ -507,3 +531,23 @@
     .vc-mc-craftrow { flex-wrap: wrap; }
     .vc-hint { display: none; }
 }
+
+/* 多地图与轻战斗 HUD */
+.vc-hp-chip { color: #ffd7d7; }
+.vc-hp-chip b { color: #ff8f8f; }
+.vc-enemy-hp { color: #ffb39b; }
+.vc-attack-btn { border-color: rgba(255, 122, 92, .65); color: #ffd0c5; }
+.vc-map-panel { width: min(860px, calc(100vw - 32px)); max-width: calc(100% - 32px); box-sizing: border-box; }
+.vc-map-copy { margin: 8px 0 14px; color: #c9c1b2; font-size: 13px; }
+.vc-map-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.vc-map-card {
+    position: relative; min-height: 106px; padding: 12px; text-align: left; color: #f4ead6;
+    border: 1px solid rgba(255, 217, 138, .26); border-radius: 12px; background: #2d2922; cursor: pointer;
+}
+.vc-map-card:hover { border-color: rgba(255, 217, 138, .8); background: #3b3326; }
+.vc-map-card.is-current { box-shadow: inset 0 0 0 2px rgba(255, 217, 138, .72); }
+.vc-map-card.is-locked { opacity: .5; cursor: not-allowed; filter: grayscale(.3); }
+.vc-map-card strong { display: block; font-size: 14px; color: #ffd98a; }
+.vc-map-card small { display: block; margin-top: 7px; color: #c9c1b2; line-height: 1.45; }
+.vc-map-card i { position: absolute; right: 10px; top: 10px; font-style: normal; font-size: 17px; }
+.vc-map-card .vc-map-enemies { margin-top: 9px; color: #ffb39b; font-size: 11px; }

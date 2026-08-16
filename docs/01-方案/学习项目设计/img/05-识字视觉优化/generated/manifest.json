@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "subject": "preschool-literacy-uplift",
+  "generator": "gpt-image-2 via CliproxAPI",
+  "background": "#00ff00 chroma-key removed",
+  "items": [
+    {
+      "id": "literacy-companion-reading",
+      "file": "literacy-companion-reading.png",
+      "source": "_raw-companion.png",
+      "prompt": "companion.txt",
+      "width": 689,
+      "height": 988,
+      "mode": "RGBA",
+      "alphaCorners": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "literacy-action-assess",
+      "file": "literacy-action-assess.png",
+      "source": "_raw-actions-sheet.png",
+      "prompt": "actions-sheet.txt",
+      "width": 406,
+      "height": 462,
+      "mode": "RGBA",
+      "alphaCorners": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "literacy-action-mistakes",
+      "file": "literacy-action-mistakes.png",
+      "source": "_raw-actions-sheet.png",
+      "prompt": "actions-sheet.txt",
+      "width": 442,
+      "height": 443,
+      "mode": "RGBA",
+      "alphaCorners": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "literacy-action-profile",
+      "file": "literacy-action-profile.png",
+      "source": "_raw-actions-sheet.png",
+      "prompt": "actions-sheet.txt",
+      "width": 422,
+      "height": 419,
+      "mode": "RGBA",
+      "alphaCorners": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "literacy-badge-seed",
+      "file": "literacy-badge-seed.png",
+      "source": "_raw-badges-sheet.png",
+      "prompt": "badges-sheet.txt",
+      "width": 499,
+      "height": 568,
+      "mode": "RGBA",
+      "alphaCorners": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "literacy-badge-story",
+      "file": "literacy-badge-story.png",
+      "source": "_raw-badges-sheet.png",
+      "prompt": "badges-sheet.txt",
+      "width": 500,
+      "height": 552,
+      "mode": "RGBA",
+      "alphaCorners": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "literacy-badge-reading",
+      "file": "literacy-badge-reading.png",
+      "source": "_raw-badges-sheet.png",
+      "prompt": "badges-sheet.txt",
+      "width": 499,
+      "height": 541,
+      "mode": "RGBA",
+      "alphaCorners": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "literacy-badge-fluent",
+      "file": "literacy-badge-fluent.png",
+      "source": "_raw-badges-sheet.png",
+      "prompt": "badges-sheet.txt",
+      "width": 499,
+      "height": 541,
+      "mode": "RGBA",
+      "alphaCorners": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "literacy-certificate-corner",
+      "file": "literacy-certificate-corner.png",
+      "source": "_raw-certificate-corner.png",
+      "prompt": "certificate-corner.txt",
+      "width": 1081,
+      "height": 1119,
+      "mode": "RGBA",
+      "alphaCorners": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

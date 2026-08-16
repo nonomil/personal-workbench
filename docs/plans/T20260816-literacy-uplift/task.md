@@ -21,14 +21,15 @@
 5. print CSS（A4 2×4 字卡 + 证书）
 6. 新 CSS 层 `css/preschool/40-literacy-uplift.css` + 缓存戳
 7. 测试：`tests/preschool-literacy-assess.test.mjs`、`tests/preschool-mistake-cards.test.mjs`（新增），既有识字/错题/摘要测试保持绿
+8. 视觉增量：`docs/01-方案/学习项目设计/05-识字视觉与交互优化方案.md`、9 个原创 RGBA PNG、素材 manifest、CSS/HTML 本地资源挂点和视觉回归证据
 
 ## 边界
 
 - 不动 `character-bank.json` 内容，不动 `review-rules.json`
 - 不新建 localStorage key；不加图表库、打印库等新依赖
 - 不做分享/云同步/家长密码锁（工作台已有家长侧约定）
-- UI 正式插画不在本包内生成
+- UI 正式插画作为本包后置视觉增量 V1–V3 处理：V1 只生成和验收素材，V2 才接入运行时，V3 才以浏览器/打印证据收口
 
 ## 完成定义
 
-`docs/plans/T20260816-literacy-uplift/acceptance.md` 全勾 + `npm test` 全绿 + 浏览器手玩走查记录进 test-report。
+`docs/plans/T20260816-literacy-uplift/acceptance.md` 全勾 + `npm test` 全绿 + V1/V2/V3 视觉验收完成 + 浏览器手玩走查记录进 test-report。

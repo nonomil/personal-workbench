@@ -6,17 +6,17 @@
 
     const UNLOCK_COST = [0, 50, 150, 300, 500, 800];
     const SUN_PER_LEVEL = 8;
-    const SHIELD_REDUCE = 0.2;
+    const SHIELD_REDUCE = 0.5;
     const BROKEN_MS = 8000;
     const LEVEL_TOTAL = 6;
 
     const LEVELS = [
-        { level: 1, waves: 2, bossHp: 80, bossShield: 3, climate: 'plains', worldSeed: 7 },
-        { level: 2, waves: 2, bossHp: 110, bossShield: 4, climate: 'forest', worldSeed: 21 },
-        { level: 3, waves: 3, bossHp: 140, bossShield: 4, climate: 'quarry', worldSeed: 33 },
-        { level: 4, waves: 3, bossHp: 170, bossShield: 5, climate: 'duskvale', worldSeed: 47 },
-        { level: 5, waves: 3, bossHp: 200, bossShield: 5, climate: 'crystal', worldSeed: 59 },
-        { level: 6, waves: 4, bossHp: 240, bossShield: 6, climate: 'astral', worldSeed: 71 }
+        { level: 1, waves: 2, bossHp: 80, bossShield: 3, climate: 'plains', worldSeed: 7, bossId: 'wither', waveKinds: ['slime', 'cube', 'creeper'] },
+        { level: 2, waves: 2, bossHp: 110, bossShield: 4, climate: 'cherry', worldSeed: 21, bossId: 'wither', waveKinds: ['slime', 'fox', 'creeper'] },
+        { level: 3, waves: 3, bossHp: 140, bossShield: 4, climate: 'desert', worldSeed: 33, bossId: 'wither', waveKinds: ['cube', 'zombie', 'husk'] },
+        { level: 4, waves: 3, bossHp: 170, bossShield: 5, climate: 'duskvale', worldSeed: 47, bossId: 'wither', waveKinds: ['fox', 'skeleton', 'enderman'] },
+        { level: 5, waves: 3, bossHp: 200, bossShield: 5, climate: 'crystal', worldSeed: 59, bossId: 'wither', waveKinds: ['spider', 'witch', 'warden'] },
+        { level: 6, waves: 4, bossHp: 240, bossShield: 6, climate: 'nether', worldSeed: 71, bossId: 'wither', waveKinds: ['magma', 'piglin', 'ghast'] }
     ];
 
     function cloneBoss(boss) {

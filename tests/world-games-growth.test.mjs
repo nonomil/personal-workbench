@@ -57,10 +57,48 @@ test('preschool home surfaces three world progress and daily game sun cap', () =
   assert.match(app, /好久没拍啦/);
   assert.doesNotMatch(app, /史蒂夫/);
   assert.match(app, /'voxel-adventure': \{ href: '[^']+', label: '方块世界', unit: '任务', total: 18 \}/);
-  assert.match(app, /skipRequired|forcedTheme === 'voxel-adventure'/);
+  assert.doesNotMatch(app, /skipRequired|forcedTheme === 'voxel-adventure'/);
   assert.doesNotMatch(app, /if \(!openPreschoolWorldGame\(forcedTheme \|\| undefined\)\) setPage\('battle'\)/);
+  const openStart = app.indexOf('function openPreschoolWorldGame');
+  const openEnd = app.indexOf('\n    function ', openStart + 10);
+  assert.doesNotMatch(app.slice(openStart, openEnd), /先完成今日必做|arePreschoolRequiredPlansDone/);
   assert.match(css, /preschool-voxel-home/);
   assert.match(bridge, /家园 /);
+});
+
+test('minecraft workbench growth page uses block-base chrome instead of watering', () => {
+  const app = fs.readFileSync(path.join(fileURLToPath(new URL('..', import.meta.url)), 'prj', 'app.js'), 'utf8');
+  const growthStart = app.indexOf('function renderPreschoolGrowth()');
+  const growthEnd = app.indexOf('function renderPreschoolPlans', growthStart);
+  const growth = app.slice(growthStart, growthEnd);
+  assert.match(app, /function getPreschoolGrowthChrome/);
+  assert.match(app, /方块基地/);
+  assert.match(app, /function getPreschoolGrowthChrome[\s\S]*open-world-game/);
+  assert.match(growth, /getPreschoolGrowthChrome/);
+  assert.match(growth, /showPlants/);
+  assert.doesNotMatch(growth, /去保卫战/);
+});
+
+test('minecraft workbench growth next step is block adventure not garden', () => {
+  const app = fs.readFileSync(path.join(fileURLToPath(new URL('..', import.meta.url)), 'prj', 'app.js'), 'utf8');
+  const chromeStart = app.indexOf('function getPreschoolGrowthChrome');
+  const chromeEnd = app.indexOf('function renderPreschoolGrowth()');
+  const chrome = app.slice(chromeStart, chromeEnd);
+  const growthStart = app.indexOf('function renderPreschoolGrowth()');
+  const growthEnd = app.indexOf('function renderPreschoolPlans', growthStart);
+  const growth = app.slice(growthStart, growthEnd);
+  const heroStart = app.indexOf('function renderPreschoolHomeHero');
+  const heroEnd = app.indexOf('function renderPreschoolHomeRhythm', heroStart);
+  const hero = app.slice(heroStart, heroEnd);
+  assert.match(chrome, /nextWhenDone/);
+  assert.match(chrome, /去方块世界探险/);
+  assert.match(chrome, /showStyles: false/);
+  assert.match(growth, /chrome\.nextWhenDone/);
+  assert.match(growth, /showStyles/);
+  assert.doesNotMatch(growth, /星芒造型/);
+  assert.match(hero, /homeDescription|getPreschoolThemePlaybook/);
+  assert.doesNotMatch(hero, /再去守护自己的花园/);
+  assert.match(app, /ui\.page === 'growth'[\s\S]*getPreschoolGrowthChrome\(\)\.label/);
 });
 
 test('each world game is a self-contained folder with data and growth bridge', () => {

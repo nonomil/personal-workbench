@@ -71,6 +71,91 @@
         return tex;
     }
 
+    const SK = window.BlockLegendSkins;
+    const skinCache = {};
+
+    function skinTexture(kind) {
+        if (skinCache[kind]) return skinCache[kind];
+        const c = document.createElement('canvas');
+        c.width = 64;
+        c.height = 64;
+        const ctx = c.getContext('2d');
+        ctx.imageSmoothingEnabled = false;
+        const data = SK && SK.createSkinImage ? SK.createSkinImage(kind) : new Uint8ClampedArray(64 * 64 * 4);
+        const id = ctx.createImageData(64, 64);
+        id.data.set(data);
+        ctx.putImageData(id, 0, 0);
+        const tex = new THREE.CanvasTexture(c);
+        tex.magFilter = THREE.NearestFilter;
+        tex.minFilter = THREE.NearestFilter;
+        tex.generateMipmaps = false;
+        skinCache[kind] = tex;
+        return tex;
+    }
+
+    function setFaceUV(geo, face, x, y, w, h, tw, th) {
+        const uv = geo.attributes.uv;
+        const i = face * 4;
+        const u0 = x / tw;
+        const u1 = (x + w) / tw;
+        const v1 = 1 - y / th;
+        const v0 = 1 - (y + h) / th;
+        uv.setXY(i + 0, u0, v1);
+        uv.setXY(i + 1, u1, v1);
+        uv.setXY(i + 2, u0, v0);
+        uv.setXY(i + 3, u1, v0);
+    }
+
+    function mapMcBox(geo, tw, u, v, w, h, d) {
+        setFaceUV(geo, 0, u + d + w, v + d, d, h, tw, tw);
+        setFaceUV(geo, 1, u, v + d, d, h, tw, tw);
+        setFaceUV(geo, 2, u + d, v, w, d, tw, tw);
+        setFaceUV(geo, 3, u + d + w, v, w, d, tw, tw);
+        setFaceUV(geo, 4, u + d, v + d, w, h, tw, tw);
+        setFaceUV(geo, 5, u + d + w + d, v + d, w, h, tw, tw);
+        geo.attributes.uv.needsUpdate = true;
+    }
+
+    function skinnedBox(w, h, d, kind, u, v, px, opts) {
+        const o = opts || {};
+        const geo = new THREE.BoxGeometry(w * px, h * px, d * px);
+        mapMcBox(geo, 64, u, v, w, h, d);
+        return new THREE.Mesh(geo, new THREE.MeshLambertMaterial({
+            map: skinTexture(kind),
+            transparent: !!o.transparent,
+            opacity: o.opacity == null ? 1 : o.opacity,
+            emissive: o.emissive || 0x000000
+        }));
+    }
+
+    function addHumanoid(g, anim, kind, scale, pose) {
+        const px = (1 / 16) * (scale || 1);
+        const head = skinnedBox(8, 8, 8, kind, 0, 0, px);
+        head.position.y = 28 * px;
+        const body = skinnedBox(8, 12, 4, kind, 16, 16, px);
+        body.position.y = 18 * px;
+        g.add(head);
+        g.add(body);
+        anim.head = head;
+        anim.body = body;
+        [[-1, 40, 16], [1, 32, 48]].forEach(function (row) {
+            const arm = skinnedBox(4, 12, 4, kind, row[1], row[2], px);
+            arm.geometry.translate(0, -6 * px, 0);
+            arm.position.set(row[0] * 6 * px, 24 * px, 0);
+            if (pose === 'zombie') arm.rotation.x = -Math.PI / 2.4;
+            g.add(arm);
+            anim.arms.push(arm);
+        });
+        [[-1, 0, 16], [1, 16, 48]].forEach(function (row) {
+            const leg = skinnedBox(4, 12, 4, kind, row[1], row[2], px);
+            leg.geometry.translate(0, -6 * px, 0);
+            leg.position.set(row[0] * 2 * px, 12 * px, 0);
+            g.add(leg);
+            anim.legs.push(leg);
+        });
+        return 32 * px;
+    }
+
     function box(w, h, d, color, opts) {
         const o = opts || {};
         const mat = new THREE.MeshLambertMaterial({
@@ -117,123 +202,136 @@
         const anim = { legs: [], arms: [], head: null, body: null, phase: Math.random() * 6.28, bob: 0 };
         let height = 1.6;
 
-        if (kind === 'slime') {
-            const skin = box(1.18, 1.08, 1.18, 0x7ad35a);
-            skin.position.y = 0.58;
-            const cap = box(0.92, 0.38, 0.92, 0x8ee06a);
-            cap.position.y = 1.12;
-            const shine = box(0.22, 0.12, 0.04, 0xe8ffd4, { emissive: 0x6a9a40 });
-            shine.position.set(-0.28, 1.18, 0.46);
-            const face = new THREE.Mesh(
-                new THREE.PlaneGeometry(0.92, 0.72),
-                new THREE.MeshLambertMaterial({ map: faceTexture('slime') })
-            );
-            face.position.set(0, 0.7, 0.6);
-            const core = box(0.42, 0.36, 0.42, 0x3f8a2c);
-            core.position.y = 0.52;
-            const footL = box(0.34, 0.16, 0.3, 0x5aa83c);
-            const footR = box(0.34, 0.16, 0.3, 0x5aa83c);
-            footL.position.set(-0.28, 0.08, 0.08);
-            footR.position.set(0.28, 0.08, 0.08);
-            g.add(skin); g.add(cap); g.add(shine); g.add(face); g.add(core); g.add(footL); g.add(footR);
-            anim.body = skin; anim.face = face; anim.core = core;
-            height = 1.45;
-        } else if (kind === 'cube') {
-            // 四足方块兽：横置身体 + 4 短腿 + 大头 + 尾巴
-            const bodyC = 0xc47a3a;
-            const body = box(0.78, 0.56, 1.12, bodyC);
-            body.position.y = 0.78;
-            const spot = box(0.22, 0.16, 0.22, 0x8a4e22);
-            spot.position.set(0.18, 1.02, 0.1);
-            const head = headMesh(0.58, 'cube', 0xd08646);
-            head.position.set(0, 1.12, -0.72);
-            const earL = box(0.12, 0.16, 0.08, 0x9a5a2a);
-            const earR = box(0.12, 0.16, 0.08, 0x9a5a2a);
-            earL.position.set(-0.18, 1.42, -0.72);
-            earR.position.set(0.18, 1.42, -0.72);
-            const snout = box(0.26, 0.2, 0.16, 0x9a5a2a);
-            snout.position.set(0, 1.0, -1.04);
-            const nose = box(0.1, 0.08, 0.06, 0x3a2214);
-            nose.position.set(0, 1.02, -1.14);
-            const tail = box(0.16, 0.16, 0.38, 0x9a5a2a);
-            tail.position.set(0, 0.88, 0.72);
-            g.add(body); g.add(spot); g.add(head); g.add(earL); g.add(earR); g.add(snout); g.add(nose); g.add(tail);
-            [[-0.24, -0.34], [0.24, -0.34], [-0.24, 0.34], [0.24, 0.34]].forEach(function (p) {
-                const leg = box(0.18, 0.4, 0.18, 0x8a4e22);
-                leg.position.set(p[0], 0.2, p[1]);
-                leg.geometry.translate(0, -0.18, 0); // 顶端为轴心摆动
-                leg.position.y = 0.4;
+        if (kind === 'slime' || kind === 'magma' || kind === 'cube') {
+            const px = kind === 'cube' ? 1 / 18 : 1 / 16;
+            const body = skinnedBox(16, 16, 16, kind, 0, 0, px, kind === 'magma' ? { emissive: 0x401000 } : {});
+            body.position.y = 8 * px;
+            g.add(body);
+            anim.body = body;
+            height = 16 * px;
+        } else if (kind === 'fox') {
+            const px = 1 / 20;
+            const body = skinnedBox(16, 10, 16, kind, 0, 0, px);
+            body.position.y = 8 * px;
+            const head = skinnedBox(10, 8, 8, kind, 0, 0, px);
+            head.position.set(0, 12 * px, -10 * px);
+            const earL = box(0.1, 0.18, 0.08, 0xc45a18);
+            const earR = box(0.1, 0.18, 0.08, 0xc45a18);
+            earL.position.set(-0.16, 0.82, -0.52);
+            earR.position.set(0.16, 0.82, -0.52);
+            const tail = skinnedBox(4, 4, 8, kind, 0, 0, px);
+            tail.position.set(0, 8 * px, 10 * px);
+            g.add(body); g.add(head); g.add(earL); g.add(earR); g.add(tail);
+            [[-0.16, -0.22], [0.16, -0.22], [-0.16, 0.22], [0.16, 0.22]].forEach(function (p) {
+                const leg = skinnedBox(3, 6, 3, kind, 0, 0, px);
+                leg.geometry.translate(0, -3 * px, 0);
+                leg.position.set(p[0], 6 * px, p[1]);
                 g.add(leg);
                 anim.legs.push(leg);
             });
             anim.body = body; anim.head = head;
-            height = 1.5;
-        } else if (kind === 'merchant') {
-            const robe = box(0.66, 1.1, 0.46, 0x3d6ec9);
-            robe.position.y = 0.58;
-            const collar = box(0.7, 0.12, 0.5, 0x2a4e96);
-            collar.position.y = 1.16;
-            const apron = box(0.5, 0.62, 0.06, 0xe8dcc0);
-            apron.position.set(0, 0.5, -0.25);
-            const pouch = box(0.18, 0.16, 0.1, 0x8a6234);
-            pouch.position.set(0.22, 0.42, -0.28);
-            const arms = box(0.82, 0.2, 0.24, 0x32589e);
-            arms.position.set(0, 0.82, -0.14);
-            const head = headMesh(0.46, 'merchant', 0xe0b27e);
-            head.position.y = 1.38;
-            const nose = box(0.09, 0.16, 0.09, 0xc4895a);
-            nose.position.set(0, 1.34, -0.25);
-            const brow = box(0.32, 0.04, 0.04, 0x6a4a2c);
-            brow.position.set(0, 1.48, -0.22);
-            const brim = box(0.64, 0.07, 0.64, 0x2c2c34);
-            brim.position.y = 1.64;
-            const top = box(0.36, 0.24, 0.36, 0x2c2c34);
-            top.position.y = 1.78;
-            g.add(robe); g.add(collar); g.add(apron); g.add(pouch); g.add(arms); g.add(head); g.add(nose); g.add(brow); g.add(brim); g.add(top);
-            anim.body = robe; anim.head = head;
+            height = 1.15;
+        } else if (kind === 'blaze') {
+            const px = 1 / 16;
+            const head = skinnedBox(8, 8, 8, kind, 0, 0, px, { emissive: 0x662200 });
+            head.position.y = 1.35;
+            const core = skinnedBox(6, 8, 6, kind, 0, 0, px, { emissive: 0x551800 });
+            core.position.y = 0.95;
+            g.add(core); g.add(head);
+            for (let i = 0; i < 8; i += 1) {
+                const rod = skinnedBox(2, 10, 2, kind, 16, 16, px, { emissive: 0x331000 });
+                const a = (i / 8) * Math.PI * 2;
+                rod.position.set(Math.cos(a) * 0.48, 0.85, Math.sin(a) * 0.48);
+                g.add(rod);
+                anim.arms.push(rod);
+            }
+            anim.body = core; anim.head = head; anim.float = 0.95;
+            height = 1.7;
+        } else if (kind === 'ghast') {
+            const px = 1 / 14;
+            const body = skinnedBox(16, 16, 16, kind, 0, 0, px);
+            body.position.y = 1.2;
+            g.add(body);
+            for (let i = 0; i < 4; i += 1) {
+                const tent = skinnedBox(2, 10, 2, kind, 0, 0, px);
+                tent.geometry.translate(0, -5 * px, 0);
+                tent.position.set((i % 2 === 0 ? -0.28 : 0.28), 0.62, (i < 2 ? -0.28 : 0.28));
+                g.add(tent);
+                anim.legs.push(tent);
+            }
+            anim.body = body; anim.float = 1.2;
+            height = 2.15;
+        } else if (kind === 'creeper' && window.BlockLegendCreeperModel) {
+            const rig = window.BlockLegendCreeperModel.create(THREE);
+            g.add(rig);
+            anim.rig = rig;
+            height = 1.7;
+        } else if ((kind === 'zombie' || kind === 'husk') && window.BlockLegendZombieModel) {
+            const rig = window.BlockLegendZombieModel.create(THREE);
+            g.add(rig);
+            anim.rig = rig;
+            height = 2;
+        } else if (kind === 'skeleton' && window.BlockLegendSkeletonModel) {
+            const rig = window.BlockLegendSkeletonModel.create(THREE);
+            g.add(rig);
+            anim.rig = rig;
+            height = 1.85;
+        } else if (kind === 'spider' && window.BlockLegendSpiderModel) {
+            const rig = window.BlockLegendSpiderModel.create(THREE);
+            g.add(rig);
+            anim.rig = rig;
+            height = 0.85;
+        } else if (kind === 'enderman' && window.BlockLegendEndermanModel) {
+            const rig = window.BlockLegendEndermanModel.create(THREE);
+            g.add(rig);
+            anim.rig = rig;
+            height = 2.55;
+        } else if (kind === 'piglin' && window.BlockLegendPiglinModel) {
+            const rig = window.BlockLegendPiglinModel.create(THREE);
+            g.add(rig);
+            anim.rig = rig;
             height = 1.9;
+        } else if (kind === 'witch' && window.BlockLegendWitchModel) {
+            const rig = window.BlockLegendWitchModel.create(THREE);
+            g.add(rig);
+            anim.rig = rig;
+            height = 2.15;
+        } else if (kind === 'warden') {
+            height = addHumanoid(g, anim, 'warden', 1.25, 'zombie');
+            const hornL = box(0.1, 0.32, 0.1, 0x0e2026);
+            const hornR = box(0.1, 0.32, 0.1, 0x0e2026);
+            hornL.position.set(-0.16, height + 0.02, 0);
+            hornR.position.set(0.16, height + 0.02, 0);
+            g.add(hornL); g.add(hornR);
+        } else if (kind === 'merchant') {
+            height = addHumanoid(g, anim, 'merchant', 1, '');
+            const brim = box(0.62, 0.07, 0.62, 0x2c2c34);
+            const top = box(0.34, 0.22, 0.34, 0x2c2c34);
+            brim.position.y = height - 0.02;
+            top.position.y = height + 0.12;
+            g.add(brim); g.add(top);
+        } else if (kind === 'boss' && window.BlockLegendWitherModel) {
+            const rig = window.BlockLegendWitherModel.create(THREE);
+            g.add(rig);
+            anim.rig = rig;
+            anim.shield = rig.getObjectByName('boss-shield');
+            height = 2.2;
         } else {
-            // husk / boss：人形石壳怪（僵尸步态：双臂前伸）
             const isBoss = kind === 'boss';
-            const s = isBoss ? 1.9 : 1;
-            const skin = isBoss ? 0x8a5ca0 : 0x8a9096;
-            const dark = isBoss ? 0x5c3a6e : 0x5e646a;
-            const torso = box(0.66 * s, 0.78 * s, 0.38 * s, skin);
-            torso.position.y = 0.95 * s * 0.72 + 0.14 * s;
-            const shirt = box(0.7 * s, 0.36 * s, 0.42 * s, isBoss ? 0x4a2a58 : 0x4a6a48);
-            shirt.position.y = 1.02 * s;
-            const belt = box(0.7 * s, 0.14 * s, 0.42 * s, dark);
-            belt.position.y = 0.58 * s;
-            const head = headMesh(0.56 * s, isBoss ? 'boss' : 'husk', skin);
-            head.position.y = 1.45 * s;
-            const hair = box(0.58 * s, 0.1 * s, 0.58 * s, isBoss ? 0x2a1830 : 0x3a3a40);
-            hair.position.y = 1.72 * s;
-            [-1, 1].forEach(function (side) {
-                const arm = box(0.2 * s, 0.72 * s, 0.2 * s, skin);
-                arm.geometry.translate(0, -0.3 * s, 0); // 肩部为轴
-                arm.position.set(side * 0.47 * s, 1.18 * s, 0);
-                arm.rotation.x = -Math.PI / 2.4; // 前伸
-                g.add(arm);
-                anim.arms.push(arm);
-                const leg = box(0.22 * s, 0.62 * s, 0.22 * s, dark);
-                leg.geometry.translate(0, -0.28 * s, 0); // 髋部为轴
-                leg.position.set(side * 0.17 * s, 0.62 * s, 0);
-                g.add(leg);
-                anim.legs.push(leg);
-                if (isBoss) { // 肩甲 + 双角
-                    const pad = box(0.3 * s, 0.16 * s, 0.3 * s, 0x3a2444);
-                    pad.position.set(side * 0.47 * s, 1.28 * s, 0);
-                    g.add(pad);
-                    const horn = box(0.1 * s, 0.34 * s, 0.1 * s, 0xf0d890);
-                    horn.position.set(side * 0.2 * s, 1.78 * s, 0);
+            const skinKind = isBoss ? 'boss' : 'husk';
+            const s = isBoss ? 1.85 : 1;
+            height = addHumanoid(g, anim, skinKind, s, 'zombie');
+            if (isBoss) {
+                [-1, 1].forEach(function (side) {
+                    const extra = skinnedBox(8, 8, 8, 'boss', 0, 0, (1 / 16) * s * 0.72);
+                    extra.position.set(side * 0.58 * s, 1.22 * s, 0.06 * s);
+                    extra.name = 'wither-head';
+                    g.add(extra);
+                    const horn = box(0.1 * s, 0.3 * s, 0.1 * s, 0xf0d890);
+                    horn.position.set(side * 0.18 * s, height + 0.02, 0);
                     horn.rotation.z = side * 0.35;
                     g.add(horn);
-                }
-            });
-            g.add(torso); g.add(shirt); g.add(belt); g.add(head); g.add(hair);
-            anim.body = torso; anim.head = head;
-            height = 1.75 * s;
-            if (isBoss) {
+                });
                 const shield = new THREE.Mesh(
                     new THREE.SphereGeometry(1.55 * s * 0.72, 18, 12),
                     new THREE.MeshLambertMaterial({ color: 0x3d7dff, transparent: true, opacity: 0.3, depthWrite: false })
@@ -265,14 +363,24 @@
                 anim.legs.forEach(function (leg, i) {
                     leg.rotation.x = swing * (i % 2 === 0 ? 1 : -1);
                 });
-                anim.arms.forEach(function (arm, i) {
-                    arm.rotation.x = -Math.PI / 2.4 + (moving ? Math.sin(anim.phase + i * Math.PI) * 0.16 : Math.sin(anim.phase) * 0.05);
-                });
+                if (kind === 'blaze') {
+                    anim.arms.forEach(function (rod, i) {
+                        const a = anim.phase * 0.9 + i * (Math.PI / 4);
+                        rod.position.x = Math.cos(a) * 0.48;
+                        rod.position.z = Math.sin(a) * 0.48;
+                        rod.position.y = 0.85 + Math.sin(anim.phase + i) * 0.08;
+                    });
+                } else {
+                    anim.arms.forEach(function (arm, i) {
+                        arm.rotation.x = -Math.PI / 2.4 + (moving ? Math.sin(anim.phase + i * Math.PI) * 0.16 : Math.sin(anim.phase) * 0.05);
+                    });
+                }
                 if (anim.body) {
-                    if (kind === 'slime') { // 果冻呼吸 + 移动挤压
+                    if (kind === 'slime') {
                         const squash = moving ? 1 + Math.sin(anim.phase * 1.4) * 0.12 : 1 + Math.sin(anim.phase) * 0.045;
                         anim.body.scale.set(2 - squash, squash, 2 - squash);
-                        if (anim.face) anim.face.scale.copy(anim.body.scale);
+                    } else if (anim.float != null) {
+                        anim.body.position.y = anim.float + Math.sin((tSec || 0) * 2.2) * 0.08;
                     } else {
                         anim.body.position.x = (moving ? Math.sin(anim.phase * 2) * 0.02 : 0);
                         anim.body.rotation.z = moving ? Math.sin(anim.phase) * 0.03 : 0;
@@ -280,6 +388,9 @@
                 }
                 if (anim.head) anim.head.rotation.z = Math.sin(anim.phase * 0.5) * 0.04;
                 if (anim.shield) anim.shield.rotation.y += dt * 0.6;
+                if (anim.rig && anim.rig.userData && anim.rig.userData.tick) {
+                    anim.rig.userData.tick(anim.phase, moving);
+                }
             },
             setHp: function (frac, visible) {
                 hpBar.visible = !!visible && frac < 1.001;
@@ -296,98 +407,81 @@
     }
 
     function heldSword() {
+        if (window.BlockLegendTools3d) return window.BlockLegendTools3d.createSword(THREE);
         const g = new THREE.Group();
-        const blade = box(0.07, 0.68, 0.02, 0xe8edf4);
-        const edge = box(0.018, 0.64, 0.028, 0xffffff, { emissive: 0x8899bb });
-        const fuller = box(0.02, 0.5, 0.026, 0x9aa6b8);
-        const guard = box(0.24, 0.05, 0.07, 0xe0b040);
-        const wrap = box(0.07, 0.08, 0.07, 0x8a5a28);
-        const grip = box(0.055, 0.2, 0.055, 0x5a3a1c);
-        const pommel = box(0.09, 0.07, 0.09, 0xe0b040);
-        blade.position.set(0, 0.32, -0.04);
-        edge.position.set(0, 0.32, -0.036);
-        fuller.position.set(0, 0.3, -0.038);
-        guard.position.set(0, 0, -0.02);
-        wrap.position.set(0, -0.06, 0);
-        grip.position.set(0, -0.16, 0);
-        pommel.position.set(0, -0.28, 0);
-        [blade, edge, fuller].forEach(function (m) { m.rotation.x = -0.35; });
-        g.add(blade); g.add(edge); g.add(fuller); g.add(guard); g.add(wrap); g.add(grip); g.add(pommel);
-        g.userData.glow = edge;
+        const pommel = box(0.07, 0.05, 0.07, 0xe0b040);
+        const grip = box(0.045, 0.2, 0.045, 0x5a3a1c);
+        const guard = box(0.2, 0.04, 0.055, 0xe0b040);
+        const blade = box(0.055, 0.52, 0.018, 0xe8edf4);
+        const glow = box(0.02, 0.48, 0.024, 0xffffff, { emissive: 0x8899bb });
+        pommel.position.y = 0.025;
+        grip.position.y = 0.15;
+        guard.position.y = 0.27;
+        blade.position.y = 0.54;
+        glow.position.y = 0.54;
+        g.add(pommel); g.add(grip); g.add(guard); g.add(blade); g.add(glow);
+        g.userData.glow = glow;
         return g;
     }
 
     function heldAxe() {
+        if (window.BlockLegendTools3d) return window.BlockLegendTools3d.createAxe(THREE);
         const g = new THREE.Group();
-        const handle = box(0.05, 0.62, 0.05, 0x6a4a2c);
-        const collar = box(0.07, 0.08, 0.07, 0x8a8e96);
-        const head = box(0.26, 0.18, 0.09, 0xd0d5dc);
-        const bit = box(0.12, 0.24, 0.05, 0xc8ced6);
-        const back = box(0.1, 0.12, 0.08, 0xa8aeb8);
-        handle.rotation.x = -0.35;
-        collar.rotation.x = -0.35;
-        head.rotation.x = -0.35;
-        bit.rotation.x = -0.35;
-        back.rotation.x = -0.35;
-        handle.position.set(0, 0.06, 0);
-        collar.position.set(0.02, 0.28, -0.03);
-        head.position.set(0.12, 0.3, -0.04);
-        bit.position.set(0.22, 0.28, -0.04);
-        back.position.set(0.02, 0.3, -0.04);
-        g.add(handle); g.add(collar); g.add(head); g.add(bit); g.add(back);
+        const handle = box(0.04, 0.56, 0.04, 0x6a4a2c);
+        const head = box(0.2, 0.16, 0.07, 0xc8ced6);
+        const bit = box(0.08, 0.2, 0.04, 0xd8dde4);
+        handle.position.y = 0.28;
+        head.position.set(0.09, 0.5, 0);
+        bit.position.set(0.18, 0.5, 0);
+        g.add(handle); g.add(head); g.add(bit);
         return g;
     }
 
     function heldPickaxe() {
+        if (window.BlockLegendTools3d) return window.BlockLegendTools3d.createPickaxe(THREE);
         const g = new THREE.Group();
-        const handle = box(0.045, 0.62, 0.045, 0x6a4a2c);
-        const head = box(0.36, 0.07, 0.06, 0xb4bac4);
-        const tipL = box(0.08, 0.08, 0.05, 0xc4cad2);
-        const tipR = box(0.08, 0.08, 0.05, 0xc4cad2);
-        handle.rotation.x = -0.35;
-        head.rotation.x = -0.35;
-        tipL.rotation.x = -0.35;
-        tipR.rotation.x = -0.35;
-        handle.position.set(0, 0.06, 0);
-        head.position.set(0, 0.32, -0.05);
-        tipL.position.set(-0.2, 0.3, -0.05);
-        tipR.position.set(0.2, 0.3, -0.05);
-        g.add(handle); g.add(head); g.add(tipL); g.add(tipR);
+        const handle = box(0.04, 0.54, 0.04, 0x6a4a2c);
+        const bar = box(0.4, 0.055, 0.055, 0xb4bac4);
+        const tipL = box(0.07, 0.07, 0.05, 0xc4cad2);
+        const tipR = box(0.07, 0.07, 0.05, 0xc4cad2);
+        handle.position.y = 0.27;
+        bar.position.y = 0.52;
+        tipL.position.set(-0.2, 0.5, 0);
+        tipR.position.set(0.2, 0.5, 0);
+        g.add(handle); g.add(bar); g.add(tipL); g.add(tipR);
         return g;
     }
 
     function heldShovel() {
         const g = new THREE.Group();
-        const handle = box(0.045, 0.52, 0.045, 0x6a4a2c);
-        const neck = box(0.05, 0.1, 0.05, 0x8a8e96);
-        const scoop = box(0.16, 0.18, 0.04, 0xb8bdc6);
-        handle.rotation.x = -0.35;
-        neck.rotation.x = -0.35;
-        scoop.rotation.x = -0.35;
-        handle.position.set(0, 0.04, 0);
-        neck.position.set(0, 0.28, -0.04);
-        scoop.position.set(0, 0.4, -0.06);
+        const handle = box(0.04, 0.48, 0.04, 0x6a4a2c);
+        const neck = box(0.05, 0.08, 0.05, 0x8a8e96);
+        const scoop = box(0.15, 0.18, 0.03, 0xb8bdc6);
+        handle.position.y = 0.24;
+        neck.position.y = 0.48;
+        scoop.position.set(0, 0.58, 0.01);
         g.add(handle); g.add(neck); g.add(scoop);
+        return g;
+    }
+
+    function heldBlock() {
+        const g = new THREE.Group();
+        const cube = box(0.16, 0.16, 0.16, 0xc4a06a);
+        cube.position.y = 0.08;
+        g.add(cube);
         return g;
     }
 
     /* ---------- 第一人称手臂 + 当前工具 ---------- */
     function createViewModel() {
         const g = new THREE.Group();
-        const sleeve = box(0.14, 0.32, 0.14, 0x3d6ec9);
-        sleeve.rotation.x = 0.9;
-        const cuff = box(0.15, 0.06, 0.15, 0x2a4e96);
-        cuff.rotation.x = 0.9;
-        const fore = box(0.11, 0.3, 0.11, 0xe0b27e);
-        fore.rotation.x = 0.9;
-        const hand = box(0.13, 0.12, 0.13, 0xd8a670);
-        const finger = box(0.04, 0.08, 0.04, 0xc8965a);
-        hand.position.set(0.3, -0.32, -0.62);
-        finger.position.set(0.26, -0.36, -0.7);
-        fore.position.set(0.33, -0.2, -0.5);
-        cuff.position.set(0.36, -0.12, -0.44);
-        sleeve.position.set(0.38, -0.05, -0.38);
-        g.add(sleeve); g.add(cuff); g.add(fore); g.add(hand); g.add(finger);
+        const sleeve = box(0.2, 0.46, 0.2, 0x3d6ec9);
+        sleeve.position.set(0.46, -0.46, -0.5);
+        sleeve.rotation.set(1.05, 0.18, 0.08);
+        const hand = box(0.16, 0.16, 0.16, 0xd8a670);
+        hand.position.set(0.4, -0.28, -0.58);
+        g.add(sleeve);
+        g.add(hand);
 
         const tools = {
             sword: heldSword(),
@@ -395,21 +489,52 @@
             pickaxe: heldPickaxe(),
             shovel: heldShovel()
         };
+        tools.place = heldBlock();
+        if (window.BlockLegendTools3d) {
+            tools.bow = window.BlockLegendTools3d.createBow(THREE);
+            if (window.BlockLegendTools3d.createIronSword) {
+                tools.iron_sword = window.BlockLegendTools3d.createIronSword(THREE);
+            }
+        }
+        const offhand = window.BlockLegendTools3d
+            ? window.BlockLegendTools3d.createShield(THREE)
+            : heldBlock();
+        offhand.name = 'offhand-shield';
+        offhand.scale.set(1.35, 1.35, 1.35);
+        offhand.position.set(-0.38, -0.22, -0.46);
+        offhand.rotation.set(0.15, 0.85, 0.12);
+        offhand.visible = false;
+        g.add(offhand);
         Object.keys(tools).forEach(function (id) {
-            tools[id].position.set(0.3, -0.28, -0.66);
-            tools[id].visible = id === 'sword';
-            g.add(tools[id]);
+            const t = tools[id];
+            t.scale.set(1.85, 1.85, 1.85);
+            t.position.set(0.36, -0.18, -0.52);
+            t.rotation.set(-0.25, 0.95, 0.45);
+            t.visible = id === 'sword';
+            g.add(t); // camera-space tools
         });
 
-        const state = { t: 0, swing: 0, cast: 0, bobPhase: 0, tool: 'sword' };
+        const state = { t: 0, swing: 0, cast: 0, bobPhase: 0, tool: 'sword', blade: 'wood' };
+        function paintTools() {
+            const show = (state.tool === 'sword' && state.blade === 'iron' && tools.iron_sword)
+                ? 'iron_sword'
+                : state.tool;
+            Object.keys(tools).forEach(function (k) { tools[k].visible = k === show; });
+        }
         return {
             group: g,
             blade: tools.sword,
             bladeGlow: tools.sword.userData.glow,
             setTool: function (id) {
-                const next = tools[id] ? id : 'sword';
-                state.tool = next;
-                Object.keys(tools).forEach(function (k) { tools[k].visible = k === next; });
+                state.tool = tools[id] ? id : 'sword';
+                paintTools();
+            },
+            setBladeKind: function (kind) {
+                state.blade = kind === 'iron' ? 'iron' : 'wood';
+                paintTools();
+            },
+            setOffhand: function (on) {
+                offhand.visible = !!on;
             },
             triggerSwing: function () { state.swing = 1; },
             triggerCast: function () { state.cast = 1; },
@@ -418,18 +543,18 @@
                 state.bobPhase += dt * (moving ? 9 : 2);
                 state.swing = Math.max(0, state.swing - dt * 5.2);
                 state.cast = Math.max(0, state.cast - dt * 3.4);
-                const bob = Math.sin(state.bobPhase) * (moving ? 0.02 : 0.006);
+                const bob = Math.sin(state.bobPhase) * (moving ? 0.018 : 0.005);
                 const sw = state.swing;
                 const swArc = Math.sin(sw * Math.PI);
                 g.position.set(
-                    bob * 0.6 - swArc * 0.18,
-                    bob - swArc * 0.1 + state.cast * 0.05,
-                    swArc * 0.22 - state.cast * 0.1
+                    bob * 0.5 - swArc * 0.12,
+                    bob - swArc * 0.08 + state.cast * 0.04,
+                    swArc * 0.16 - state.cast * 0.08
                 );
                 g.rotation.set(
-                    -swArc * 1.5 + state.cast * -0.5,
-                    swArc * 0.5,
-                    swArc * -0.4
+                    -swArc * 1.15 + state.cast * -0.4,
+                    swArc * 0.35,
+                    swArc * -0.28
                 );
                 const glow = state.cast;
                 const glowMesh = tools.sword.userData.glow;
@@ -477,7 +602,7 @@
 
     function spawnDamageText(scene, fx, mob, amount, crit) {
         const sp = damageSprite(amount, crit);
-        sp.position.set(mob.x + (Math.random() - 0.5) * 0.3, mob.y + 1.6, mob.z);
+        sp.position.set(mob.x + (Math.random() - 0.5) * 0.3, mob.y + (Number(mob.height) || 1.6) + 0.35, mob.z);
         scene.add(sp);
         fx.push({ kind: 'text', obj: sp, life: 0.9, vy: 1.6 });
     }
@@ -492,6 +617,16 @@
                 vx: (Math.random() - 0.5) * 3.4, vy: 2 + Math.random() * 3, vz: (Math.random() - 0.5) * 3.4
             });
         }
+    }
+
+    function arrowMesh() {
+        if (window.BlockLegendTools3d) {
+            const g = window.BlockLegendTools3d.createArrow(THREE);
+            g.rotation.x = Math.PI / 2;
+            g.scale.set(1.4, 1.4, 1.4);
+            return g;
+        }
+        return boltMesh();
     }
 
     function boltMesh() {
@@ -553,6 +688,7 @@
         spawnDamageText: spawnDamageText,
         spawnBurst: spawnBurst,
         boltMesh: boltMesh,
+        arrowMesh: arrowMesh,
         coinMesh: coinMesh,
         stepFx: stepFx
     };

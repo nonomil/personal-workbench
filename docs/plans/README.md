@@ -13,7 +13,7 @@
   - [`T20260815-B3-reward-loop/`](./T20260815-B3-reward-loop/README.md) 奖励闭环四件套（P1，in-progress：S1–S4 代码已绿，浏览器走查待做）
   - [`T20260815-B4-content-deepening/`](./T20260815-B4-content-deepening/README.md) 内容深化（P2，in-progress：C1–C4 已落地，真照片图配字等素材）
 - 识字体验升级（源头 `docs/01-方案/学习项目设计/04-识字体验升级方案.md`，参考小书虫识字）：
-  - [`T20260816-literacy-uplift/`](./T20260816-literacy-uplift/README.md) 识字量测评 + 错字本字卡化/打印 + 成长档案曲线 + 首页三大卡（P1，**review**；S1–S5 代码已绿，浏览器手玩待验收）
+  - [`T20260816-literacy-uplift/`](./T20260816-literacy-uplift/README.md) 识字量测评 + 错字本字卡化/打印 + 成长档案曲线 + 首页三大卡 + 视觉素材增量（P1，**review**；识字定向 18/18，V1–V3 与 Codex 浏览器链路已验收；全仓 npm test 468/475，7 项范围外既有失败）
 - 认单词优化（源头 `docs/01-方案/学习项目设计/DS--认单词--参考方案.md` + 外部打BOSS单词游戏参考，裁决见包内 requirements-checklist）：
   - [`T20260816-english-word-uplift/`](./T20260816-english-word-uplift/README.md) 客观题型（听音选图/看图选词）+ 英语错词本三分类 + 词汇档案成长曲线 + 80 词 SVG 补齐 + 单词BOSS小游戏（P1，**in-progress**：S1–S5 代码已绿，浏览器关键路径已走，未标 accepted；S4 未走 grok）
 - 词库统一与素材接入（源头 `docs/03-研究与参考/词库整理/` 三份分析文档）：

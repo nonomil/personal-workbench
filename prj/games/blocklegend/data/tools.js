@@ -13,13 +13,19 @@
         grass: 420,
         sand: 480,
         snow: 380,
-        stone: 1400
+        stone: 1400,
+        water: 280,
+        coal: 1200,
+        iron: 1500,
+        plank: 700,
+        table: 720,
+        word: 280
     };
     const TOOLS = {
-        sword: { id: 'sword', melee: 1, mine: { log: 0.35, leaf: 0.45, dirt: 0.28, grass: 0.28, sand: 0.28, snow: 0.3, stone: 0.16 } },
-        axe: { id: 'axe', melee: 0.55, mine: { log: 1, leaf: 1, dirt: 0.34, grass: 0.34, sand: 0.34, snow: 0.34, stone: 0.2 } },
-        pickaxe: { id: 'pickaxe', melee: 0.42, mine: { log: 0.4, leaf: 0.4, dirt: 0.72, grass: 0.72, sand: 0.72, snow: 0.72, stone: 1 } },
-        shovel: { id: 'shovel', melee: 0.35, mine: { log: 0.25, leaf: 0.3, dirt: 1, grass: 1, sand: 1, snow: 1, stone: 0.14 } }
+        sword: { id: 'sword', melee: 1, mine: { log: 0.35, leaf: 0.45, dirt: 0.28, grass: 0.28, sand: 0.28, snow: 0.3, stone: 0.16, water: 0.3, coal: 0.16, iron: 0.14, plank: 0.4, table: 0.4, word: 1 } },
+        axe: { id: 'axe', melee: 0.55, mine: { log: 1, leaf: 1, dirt: 0.34, grass: 0.34, sand: 0.34, snow: 0.34, stone: 0.2, water: 0.34, coal: 0.2, iron: 0.18, plank: 1, table: 1, word: 1 } },
+        pickaxe: { id: 'pickaxe', melee: 0.42, mine: { log: 0.4, leaf: 0.4, dirt: 0.72, grass: 0.72, sand: 0.72, snow: 0.72, stone: 1, water: 0.4, coal: 1, iron: 1, plank: 0.45, table: 0.45, word: 1 } },
+        shovel: { id: 'shovel', melee: 0.35, mine: { log: 0.25, leaf: 0.3, dirt: 1, grass: 1, sand: 1, snow: 1, stone: 0.14, water: 1, coal: 0.14, iron: 0.12, plank: 0.28, table: 0.28, word: 1 } }
     };
     const DROPS = {
         log: 'oak-log',
@@ -28,7 +34,12 @@
         grass: 'dirt',
         sand: 'dirt',
         snow: 'dirt',
-        stone: 'cobble'
+        stone: 'cobble',
+        water: 'dirt',
+        coal: 'cobble',
+        iron: 'cobble',
+        plank: 'plank',
+        table: 'table'
     };
 
     function toolOf(id) {
@@ -84,6 +95,8 @@
         if (loot === 'dirt') return 'dirt';
         if (loot === 'cobble') return 'stone';
         if (loot === 'oak-log') return 'log';
+        if (loot === 'plank') return 'plank';
+        if (loot === 'table') return 'table';
         return null;
     }
 
@@ -91,6 +104,8 @@
         if (kind === 'dirt' || kind === 'grass') return 'dirt';
         if (kind === 'stone') return 'cobble';
         if (kind === 'log') return 'oak-log';
+        if (kind === 'plank') return 'plank';
+        if (kind === 'table') return 'table';
         return null;
     }
 

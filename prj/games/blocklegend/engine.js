@@ -1,7 +1,7 @@
 /**
  * blocklegend · 引擎层（T20260815-blocklegend-3d S1 + 体素地面）
  * three.js r147 UMD（本地 vendor，禁 CDN）。
- * 职责：种子化 192×192 多气候世界 + 按玩家半径流式区块 + 第一人称控制。
+ * 职责：种子化 192×192 多气候世界 + 洞穴/矿脉/水塘/村庄 + 按玩家半径流式区块 + 第一人称控制。
  * 体素填充/遮挡裁剪改自 dgreenheck/minecraft-threejs-clone（WorldChunk.generateTerrain
  * + isBlockObscured）：列内从 y=0 填到地表，只画邻格为空的单位面。
  * 区块流式改自同仓 scripts/world.js drawDistance：只建玩家半径内区块，离开则 dispose。
@@ -33,11 +33,14 @@
         quarry: { temp: 0.42, moist: 0.22, hMin: 5, hMax: 16, trees: 32, flowers: 28, oak: 0.18, birch: 0.12, spruce: 0.7, sky: 0x9aa4b0 },
         duskvale: { temp: 0.5, moist: 0.58, hMin: 2, hMax: 8, trees: 72, flowers: 200, oak: 0.4, birch: 0.42, spruce: 0.18, sky: 0xc48a6a },
         crystal: { temp: 0.34, moist: 0.7, hMin: 4, hMax: 13, trees: 170, flowers: 40, oak: 0.08, birch: 0.14, spruce: 0.78, sky: 0x7aa8c8 },
-        astral: { temp: 0.16, moist: 0.38, hMin: 6, hMax: 16, trees: 48, flowers: 16, oak: 0, birch: 0.12, spruce: 0.88, sky: 0xc8d4e8 }
+        astral: { temp: 0.16, moist: 0.38, hMin: 6, hMax: 16, trees: 48, flowers: 16, oak: 0, birch: 0.12, spruce: 0.88, sky: 0xc8d4e8 },
+        cherry: { temp: 0.52, moist: 0.72, hMin: 3, hMax: 10, trees: 200, flowers: 160, oak: 0.1, birch: 0.1, spruce: 0.1, sky: 0xf3c2d4 },
+        desert: { temp: 0.86, moist: 0.12, hMin: 3, hMax: 8, trees: 8, flowers: 6, oak: 0.4, birch: 0.3, spruce: 0.3, sky: 0xe8d08a },
+        nether: { temp: 0.92, moist: 0.08, hMin: 4, hMax: 12, trees: 0, flowers: 0, oak: 0, birch: 0, spruce: 1, sky: 0x5a1814 }
     };
     const ATLAS_TILE = 16;
     const ATLAS_COLS = 4;
-    const ATLAS_ROWS = 5;       // 20 格：14 地形 + 4 裂纹 + 2 备用
+    const ATLAS_ROWS = 5;       // 20 格：16 地形（含水/煤）+ 4 裂纹
     const CRACK_TILE0 = 16;     // 第 5 行：crack 0–3
 
     /* ---------- 确定性随机 ---------- */
@@ -94,6 +97,164 @@
     }
 
     /* ---------- 世界生成（纯数据，node 可测） ---------- */
+    function inRect(x, z, box) {
+        return !!(box && x >= box.x0 && x <= box.x1 && z >= box.z0 && z <= box.z1);
+    }
+
+    function villagePlan(climate, cx, cz) {
+        if (climate === 'astral' || climate === 'quarry' || climate === 'desert' || climate === 'nether') return null;
+        return {
+            x0: cx + 8,
+            z0: cz + 2,
+            x1: cx + 22,
+            z1: cz + 16,
+            houses: [
+                { x: cx + 10, z: cz + 4, w: 5, d: 5 },
+                { x: cx + 17, z: cz + 3, w: 5, d: 4 },
+                { x: cx + 11, z: cz + 11, w: 4, d: 5 }
+            ]
+        };
+    }
+
+    function fillPond(ponds, n, px, pz, r, village, cx, cz) {
+        if (Math.abs(px - cx) < 6 && Math.abs(pz - cz) < 6) return;
+        for (let dz = -r; dz <= r; dz += 1) {
+            for (let dx = -r; dx <= r; dx += 1) {
+                if (dx * dx + dz * dz > r * r) continue;
+                const x = px + dx, z = pz + dz;
+                if (x < 2 || z < 2 || x >= n - 2 || z >= n - 2) continue;
+                if (inRect(x, z, village)) continue;
+                ponds[x + ',' + z] = 1;
+            }
+        }
+    }
+
+    function stampPonds(n, ponds, rng, climate, cx, cz, village) {
+        if (climate === 'desert' || climate === 'nether') return;
+        if (climate !== 'astral' && climate !== 'quarry') {
+            fillPond(ponds, n, cx - 14, cz + 6, 3, village, cx, cz);
+            fillPond(ponds, n, cx - 7, cz - 11, 2, village, cx, cz);
+        }
+        if (climate === 'duskvale' || climate === 'plains') {
+            fillPond(ponds, n, cx + 4, cz - 16, 3, village, cx, cz);
+        }
+        if (climate !== 'astral' && climate !== 'quarry') {
+            let x = cx - 14, z = cz + 6;
+            const endX = cx - 7, endZ = cz - 11;
+            for (let i = 0; i < 48; i += 1) {
+                fillPond(ponds, n, x, z, 1, village, cx, cz);
+                if (x === endX && z === endZ) break;
+                if (x !== endX) x += x < endX ? 1 : -1;
+                else z += z < endZ ? 1 : -1;
+            }
+        }
+        const extra = climate === 'duskvale' ? 8 : climate === 'plains' ? 5 : climate === 'forest' ? 3 : 0;
+        for (let i = 0; i < extra; i += 1) {
+            const px = 8 + Math.floor(rng() * (n - 16));
+            const pz = 8 + Math.floor(rng() * (n - 16));
+            const r = 2 + Math.floor(rng() * 3);
+            fillPond(ponds, n, px, pz, r, village, cx, cz);
+        }
+    }
+
+    function stampVillage(n, heights, edits, plan) {
+        if (!plan) return;
+        plan.houses.forEach(function (house) {
+            let y0 = 99;
+            for (let z = house.z; z < house.z + house.d; z += 1) {
+                for (let x = house.x; x < house.x + house.w; x += 1) {
+                    if (x < 1 || z < 1 || x >= n - 1 || z >= n - 1) continue;
+                    y0 = Math.min(y0, heights[z * n + x]);
+                }
+            }
+            y0 = Math.max(2, y0);
+            const doorX = house.x + Math.floor(house.w / 2);
+            const doorZ = house.z + house.d - 1;
+            for (let z = house.z; z < house.z + house.d; z += 1) {
+                for (let x = house.x; x < house.x + house.w; x += 1) {
+                    if (x < 1 || z < 1 || x >= n - 1 || z >= n - 1) continue;
+                    heights[z * n + x] = y0;
+                    const edgeX = x === house.x || x === house.x + house.w - 1;
+                    const edgeZ = z === house.z || z === house.z + house.d - 1;
+                    const door = x === doorX && z === doorZ;
+                    if (edgeX || edgeZ) {
+                        if (!door) {
+                            edits[x + ',' + y0 + ',' + z] = (edgeX && edgeZ) ? 'log' : 'plank';
+                            edits[x + ',' + (y0 + 1) + ',' + z] = (edgeX && edgeZ) ? 'log' : 'plank';
+                        }
+                    }
+                    edits[x + ',' + (y0 + 2) + ',' + z] = 'plank';
+                }
+            }
+        });
+    }
+
+    function stampWordCubes(n, heights, edits, wordCells, words, cx, cz, village, ponds, treeSet) {
+        const list = (words || []).filter(function (w) { return w && w.text; }).slice(0, 8);
+        if (!list.length) return;
+        const spots = [
+            [cx - 5, cz + 9], [cx - 3, cz + 11], [cx + 2, cz + 10],
+            [cx - 9, cz + 3], [cx + 6, cz - 3], [cx - 4, cz - 8],
+            [cx + 3, cz + 7], [cx - 8, cz - 5]
+        ];
+        let i = 0;
+        spots.forEach(function (spot) {
+            if (i >= list.length) return;
+            const x = spot[0], z = spot[1];
+            if (x < 2 || z < 2 || x >= n - 2 || z >= n - 2) return;
+            if (inRect(x, z, village) || ponds[x + ',' + z] || treeSet[x + ',' + z]) return;
+            if (Math.abs(x - cx) <= 2 && Math.abs(z - cz) <= 2) return;
+            const y = heights[z * n + x];
+            const key = x + ',' + y + ',' + z;
+            edits[key] = 'word';
+            wordCells[key] = list[i];
+            i += 1;
+        });
+    }
+
+    function carveCaves(n, heights, hollow, rng, climate, cx, cz, village, treeSet, ponds) {
+        const worms = climate === 'quarry' ? 22 : climate === 'astral' ? 8 : 14;
+        const starts = [];
+        if (climate !== 'astral') {
+            starts.push([cx - 16, cz - 8], [cx - 10, cz + 14], [cx + 6, cz - 18]);
+        }
+        for (let w = 0; w < worms; w += 1) {
+            starts.push([6 + Math.floor(rng() * (n - 12)), 6 + Math.floor(rng() * (n - 12))]);
+        }
+        starts.forEach(function (start) {
+            let x = start[0], z = start[1];
+            if (Math.abs(x - cx) < 8 && Math.abs(z - cz) < 8) return;
+            if (inRect(x, z, village)) return;
+            const h0 = heights[z * n + x] || 4;
+            let y = Math.max(2, Math.min(h0 - 3, 2 + Math.floor(rng() * Math.max(1, h0 - 4))));
+            const steps = 22 + Math.floor(rng() * 18);
+            for (let s = 0; s < steps; s += 1) {
+                for (let dy = -1; dy <= 1; dy += 1) {
+                    for (let dz = -1; dz <= 0; dz += 1) {
+                        for (let dx = -1; dx <= 0; dx += 1) {
+                            const xx = x + dx, yy = y + dy, zz = z + dz;
+                            if (xx < 1 || zz < 1 || xx >= n - 1 || zz >= n - 1 || yy < 1) continue;
+                            if (inRect(xx, zz, village)) continue;
+                            if (treeSet[xx + ',' + zz]) continue;
+                            const top = heights[zz * n + xx];
+                            if (yy >= top) continue;
+                            if (ponds[xx + ',' + zz] && yy >= top - 1) continue;
+                            if (yy === top - 1 && rng() > 0.12) continue;
+                            hollow[xx + ',' + yy + ',' + zz] = 1;
+                        }
+                    }
+                }
+                x += Math.floor(rng() * 3) - 1;
+                z += Math.floor(rng() * 3) - 1;
+                y += Math.floor(rng() * 3) - 1;
+                x = Math.max(2, Math.min(n - 3, x));
+                z = Math.max(2, Math.min(n - 3, z));
+                const nh = heights[z * n + x] || 4;
+                y = Math.max(1, Math.min(nh - 2, y));
+            }
+        });
+    }
+
     function createWorld(seed, options) {
         const opts = options || {};
         const climateName = opts.climate || 'plains';
@@ -119,14 +280,28 @@
                 biomes[z * n + x] = pickBiome(tv, mv, hv);
             }
         }
+        if (climateName === 'desert' || climateName === 'nether' || climateName === 'cherry') {
+            const forced = climateName === 'desert' ? 2 : climateName === 'nether' ? 3 : 1;
+            biomes.fill(forced);
+        }
         const cx = Math.floor(n / 2), cz = Math.floor(n / 2);
         const base = at(cx, cz);
         for (let dz = -1; dz <= 1; dz += 1) {
             for (let dx = -1; dx <= 1; dx += 1) {
                 put(cx + dx, cz + dz, base);
-                biomes[(cz + dz) * n + (cx + dx)] = climateName === 'astral' ? 4 : (climateName === 'quarry' ? 3 : 0);
+                biomes[(cz + dz) * n + (cx + dx)] = climateName === 'astral' ? 4
+                    : climateName === 'nether' ? 3
+                    : climateName === 'desert' ? 2
+                    : climateName === 'quarry' ? 3
+                    : climateName === 'cherry' ? 1
+                    : 0;
             }
         }
+        const village = villagePlan(climateName, cx, cz);
+        const ponds = {};
+        stampPonds(n, ponds, rng, climateName, cx, cz, village);
+        const edits = {};
+        stampVillage(n, heights, edits, village);
         const trees = [];
         let guard = 0;
         const wantTrees = climate.trees;
@@ -135,12 +310,14 @@
             const tx = 3 + Math.floor(rng() * (n - 6));
             const tz = 3 + Math.floor(rng() * (n - 6));
             if (Math.abs(tx - cx) <= 3 && Math.abs(tz - cz) <= 3) continue;
+            if (inRect(tx, tz, village) || ponds[tx + ',' + tz]) continue;
             const biome = BIOME_NAMES[biomes[tz * n + tx]];
-            if (biome === 'desert') continue;
+            if (biome === 'desert' || climateName === 'nether') continue;
             if (trees.some(function (t) { return Math.abs(t.x - tx) + Math.abs(t.z - tz) < 5; })) continue;
             const roll = rng();
             let species = 'oak';
-            if (biome === 'snow' || climateName === 'astral') species = roll < 0.88 ? 'spruce' : 'birch';
+            if (climateName === 'cherry') species = 'cherry';
+            else if (biome === 'snow' || climateName === 'astral') species = roll < 0.88 ? 'spruce' : 'birch';
             else if (biome === 'forest' || climateName === 'crystal') species = roll < climate.spruce ? 'spruce' : (roll < climate.spruce + climate.birch ? 'birch' : 'oak');
             else if (roll < climate.oak) species = 'oak';
             else if (roll < climate.oak + climate.birch) species = 'birch';
@@ -160,11 +337,18 @@
             const fx = 2 + Math.floor(rng() * (n - 4));
             const fz = 2 + Math.floor(rng() * (n - 4));
             if (Math.abs(fx - cx) <= 2 && Math.abs(fz - cz) <= 2) continue;
+            if (inRect(fx, fz, village) || ponds[fx + ',' + fz]) continue;
             const biome = BIOME_NAMES[biomes[fz * n + fx]];
             if (biome === 'desert' || biome === 'snow') continue;
             if (trees.some(function (t) { return t.x === fx && t.z === fz; })) continue;
             flowers.push({ x: fx, z: fz, kind: rng() > 0.45 ? 'poppy' : 'dandelion' });
         }
+        const treeSet = {};
+        trees.forEach(function (t) { treeSet[t.x + ',' + t.z] = 1; });
+        const wordCells = {};
+        stampWordCubes(n, heights, edits, wordCells, opts.words, cx, cz, village, ponds, treeSet);
+        const hollow = {};
+        carveCaves(n, heights, hollow, rng, climateName, cx, cz, village, treeSet, ponds);
         return {
             seed: seed || 7,
             climate: climateName,
@@ -174,7 +358,11 @@
             trees: trees,
             treeCols: buildTreeCols(trees),
             flowers: flowers,
-            edits: {},
+            edits: edits,
+            ponds: ponds,
+            hollow: hollow,
+            wordCells: wordCells,
+            houses: village && village.houses ? village.houses.slice() : [],
             surfaceAt: function (x, z) { return surfaceAtWorld(this, x, z); },
             treeAt: function (x, z) {
                 return trees.find(function (t) { return t.x === x && t.z === z; }) || null;
@@ -183,22 +371,27 @@
     }
 
     /* ---------- 调色 ---------- */
-    function blockColor(kind, x, y, z, species) {
+    function blockColor(kind, x, y, z, species, climate) {
         const v = hash3(x, y, z) * 0.1 - 0.05;
         const pal = {
-            grass: [0.48, 0.72, 0.34],
-            dirt: [0.78, 0.62, 0.42],
+            grass: [0.64, 0.86, 0.48],
+            dirt: [0.90, 0.74, 0.54],
             sand: [0.91, 0.82, 0.52],
             snow: [0.92, 0.95, 0.98],
             stone: [0.62, 0.62, 0.65],
-            log: species === 'birch' ? [0.86, 0.82, 0.72] : species === 'spruce' ? [0.36, 0.26, 0.18] : [0.58, 0.42, 0.26],
-            leaf: species === 'birch' ? [0.62, 0.74, 0.28] : species === 'spruce' ? [0.18, 0.42, 0.28] : [0.32, 0.58, 0.26],
+            log: species === 'cherry' ? [0.58, 0.34, 0.40] : species === 'birch' ? [0.94, 0.90, 0.80] : species === 'spruce' ? [0.72, 0.58, 0.42] : [0.92, 0.74, 0.52],
+            leaf: species === 'cherry' ? [0.95, 0.62, 0.78] : species === 'birch' ? [0.80, 0.94, 0.52] : species === 'spruce' ? [0.52, 0.80, 0.58] : [0.68, 0.92, 0.52],
             water: [0.22, 0.48, 0.78],
             coal: [0.28, 0.28, 0.3],
             iron: [0.78, 0.7, 0.52],
-            plank: [0.72, 0.56, 0.32]
+            plank: [0.90, 0.72, 0.48],
+            table: [0.78, 0.52, 0.28],
+            word: [0.95, 0.78, 0.28]
         };
         const base = pal[kind] || pal.dirt;
+        if (climate === 'nether') {
+            return [base[0] * 0.72 + 0.22 + v, base[1] * 0.38 + 0.04 + v, base[2] * 0.34 + 0.02 + v];
+        }
         return [base[0] + v, base[1] + v, base[2] + v];
     }
 
@@ -239,6 +432,12 @@
             if (species === 'spruce') return 13;
             return 6;
         }
+        if (kind === 'water') return 14;
+        if (kind === 'coal') return 15;
+        if (kind === 'iron') return 3;
+        if (kind === 'plank') return 5;
+        if (kind === 'table') return 5;
+        if (kind === 'word') return 7;
         return 2;
     }
 
@@ -279,20 +478,20 @@
             return [c[0] * f, c[1] * f, c[2] * f];
         }
         const C = {
-            grass: [110, 178, 72],
-            dirt: [168, 122, 78],
-            dirtDark: [120, 82, 48],
-            dirtLight: [196, 148, 98],
+            grass: [138, 206, 96],
+            dirt: [198, 152, 104],
+            dirtDark: [156, 114, 74],
+            dirtLight: [226, 184, 128],
             stone: [127, 127, 127],
-            oak: [118, 84, 48],
-            oakDark: [80, 56, 32],
-            oakHeart: [178, 142, 90],
-            birch: [228, 220, 198],
-            birchDark: [70, 62, 52],
-            spruce: [74, 57, 35],
-            oakLeaf: [58, 126, 34],
-            birchLeaf: [110, 158, 42],
-            spruceLeaf: [44, 96, 60]
+            oak: [204, 156, 96],
+            oakDark: [158, 114, 72],
+            oakHeart: [232, 196, 140],
+            birch: [240, 232, 214],
+            birchDark: [120, 108, 90],
+            spruce: [148, 114, 78],
+            oakLeaf: [132, 208, 102],
+            birchLeaf: [168, 216, 104],
+            spruceLeaf: [110, 176, 122]
         };
         function paintDirtTile(tx, ty, seed) {
             for (let y = 0; y < tile; y += 1) {
@@ -322,7 +521,7 @@
             for (let i = 0; i < 26; i += 1) {
                 const x = Math.floor(n2(i, 8, 11) * tile);
                 const y = Math.floor(n2(i, 9, 12) * tile);
-                const c = mul(C.grass, 0.78);
+                const c = mul(C.grass, 0.9);
                 px(tx, ty, x, y, c[0], c[1], c[2]);
             }
             for (let i = 0; i < 14; i += 1) {
@@ -340,7 +539,7 @@
                     const c = mul(C.grass, lum(x, y, 22, 0.1));
                     px(tx, ty, x, y, c[0], c[1], c[2]);
                 }
-                const edge = mul(C.grass, 0.62);
+                const edge = mul(C.grass, 0.82);
                 px(tx, ty, x, depth, edge[0], edge[1], edge[2]);
             }
         }
@@ -388,12 +587,12 @@
         function paintLeaf(tx, ty, base, seed) {
             for (let y = 0; y < tile; y += 1) {
                 for (let x = 0; x < tile; x += 1) {
-                    if (n2(x, y, seed) < 0.09) {
+                    if (n2(x, y, seed) < 0.04) {
                         px(tx, ty, x, y, 0, 0, 0, 0);
                         continue;
                     }
-                    const f = n2(x, y, seed + 1) < 0.18 ? 1.3 : 1;
-                    const c = mul(base, f * lum(x, y, seed + 2, 0.16));
+                    const f = n2(x, y, seed + 1) < 0.28 ? 1.22 : 1.06;
+                    const c = mul(base, f * lum(x, y, seed + 2, 0.08));
                     px(tx, ty, x, y, c[0], c[1], c[2]);
                 }
             }
@@ -404,6 +603,58 @@
                     const cl = n2(x, y, 8);
                     px(tx, ty, x, y, 236 + cl * 16, 240 + cl * 12, 246);
                 }
+            }
+        }
+        function paintWord(tx, ty) {
+            for (let y = 0; y < tile; y += 1) {
+                for (let x = 0; x < tile; x += 1) {
+                    const edge = x === 0 || y === 0 || x === 15 || y === 15;
+                    if (edge) {
+                        px(tx, ty, x, y, 118, 72, 28);
+                        continue;
+                    }
+                    const c = mul([236, 196, 72], lum(x, y, 90, 0.1));
+                    px(tx, ty, x, y, c[0], c[1], c[2]);
+                }
+            }
+            for (let y = 4; y <= 11; y += 1) {
+                px(tx, ty, 5, y, 70, 42, 18);
+                px(tx, ty, 10, y, 70, 42, 18);
+            }
+            for (let x = 5; x <= 10; x += 1) {
+                px(tx, ty, x, 4, 70, 42, 18);
+                px(tx, ty, x, 8, 70, 42, 18);
+            }
+        }
+        function paintWater(tx, ty) {
+            for (let y = 0; y < tile; y += 1) {
+                for (let x = 0; x < tile; x += 1) {
+                    const wave = 0.88 + n2(x, y, 70) * 0.18 + ((x + y) % 5 === 0 ? 0.08 : 0);
+                    px(tx, ty, x, y, 36 * wave, 92 * wave, 168 * wave);
+                }
+            }
+            for (let i = 0; i < 10; i += 1) {
+                const x = Math.floor(n2(i, 1, 71) * tile);
+                const y = Math.floor(n2(i, 2, 72) * tile);
+                px(tx, ty, x, y, 120, 190, 230);
+            }
+        }
+        function paintCoal(tx, ty) {
+            for (let y = 0; y < tile; y += 1) {
+                for (let x = 0; x < tile; x += 1) {
+                    const c = mul([52, 52, 56], lum(x, y, 80, 0.12));
+                    px(tx, ty, x, y, c[0], c[1], c[2]);
+                }
+            }
+            for (let i = 0; i < 18; i += 1) {
+                const x = Math.floor(n2(i, 1, 81) * tile);
+                const y = Math.floor(n2(i, 2, 82) * tile);
+                px(tx, ty, x, y, 18, 18, 20);
+            }
+            for (let i = 0; i < 6; i += 1) {
+                const x = Math.floor(n2(i, 3, 83) * tile);
+                const y = Math.floor(n2(i, 4, 84) * tile);
+                px(tx, ty, x, y, 90, 90, 96);
             }
         }
         function paintCrack(tx, ty, stage) {
@@ -439,13 +690,15 @@
         paintLogSide(0, 1, C.oak, C.oakDark, 5);
         paintLogTop(1, 1, C.oak, C.oakHeart, 6);
         paintLeaf(2, 1, C.oakLeaf, 7);
-        paintCloud(3, 1);
+        paintWord(3, 1);
         paintLogSide(0, 2, C.birch, C.birchDark, 9);
         paintLogTop(1, 2, C.birch, [236, 228, 210], 10);
         paintLeaf(2, 2, C.birchLeaf, 11);
         paintLogSide(3, 2, C.spruce, [48, 36, 22], 12);
         paintLogTop(0, 3, C.spruce, [148, 113, 64], 13);
         paintLeaf(1, 3, C.spruceLeaf, 14);
+        paintWater(2, 3);
+        paintCoal(3, 3);
         paintCrack(0, 4, 0);
         paintCrack(1, 4, 1);
         paintCrack(2, 4, 2);
@@ -465,23 +718,40 @@
         return world.heights[z * world.size + x];
     }
 
+    function oreNoise(x, y, z) {
+        let h = (Math.imul(x, 374761393) + Math.imul(y, 668265263) + Math.imul(z, 2147483647)) >>> 0;
+        h = Math.imul(h ^ (h >>> 13), 1274126177) >>> 0;
+        return ((h ^ (h >>> 16)) >>> 0) / 4294967296;
+    }
+
+    function oreOrStone(x, y, z) {
+        const n = oreNoise(x, y + 11, z);
+        if (n > 0.975) return 'iron';
+        if (n > 0.94) return 'coal';
+        return 'stone';
+    }
+
     function groundKind(world, x, y, z) {
         const h = rawHeight(world, x, z);
         if (y < 0 || y >= h) return null;
+        if (world.climate === 'nether') {
+            if (y >= h - 2) return 'stone';
+            return oreOrStone(x, y, z);
+        }
         const biome = biomeAt(world, x, z);
-        if (biome === 'desert') {
+        if (world.climate === 'desert' || biome === 'desert') {
             if (y >= h - 2) return 'sand';
-            return 'stone';
+            return oreOrStone(x, y, z);
         }
         if (biome === 'snow') {
             if (y === h - 1) return 'snow';
             if (y === h - 2) return 'dirt';
-            return 'stone';
+            return oreOrStone(x, y, z);
         }
         if (biome === 'mountain' && h >= 11 && y === h - 1) return 'stone';
         if (y === h - 1) return 'grass';
         if (y === h - 2) return 'dirt';
-        return 'stone';
+        return oreOrStone(x, y, z);
     }
 
     function eachTreeVoxel(tree, fn) {
@@ -547,8 +817,10 @@
         if (!world.edits) world.edits = {};
         const key = editKey(x, y, z);
         if (Object.prototype.hasOwnProperty.call(world.edits, key)) return world.edits[key];
+        if (world.hollow && world.hollow[key]) return null;
         const tree = treeVoxelAt(world, x, y, z);
         if (tree) return tree.kind;
+        if (world.ponds && world.ponds[x + ',' + z] && y === rawHeight(world, x, z) - 1) return 'water';
         return groundKind(world, x, y, z);
     }
 
@@ -565,8 +837,50 @@
         return voxelAt(world, x, y, z);
     }
 
+    function inHouse(world, x, z) {
+        const houses = world && world.houses;
+        if (!houses || !houses.length) return false;
+        const ix = Math.floor(x), iz = Math.floor(z);
+        for (let i = 0; i < houses.length; i += 1) {
+            const h = houses[i];
+            if (ix >= h.x && ix < h.x + h.w && iz >= h.z && iz < h.z + h.d) return true;
+        }
+        return false;
+    }
+
+    function columnBlockedAt(world, px, pz, feetY) {
+        const cx = Math.floor(px), cz = Math.floor(pz);
+        if (!world) return true;
+        if (world.surfaceAt(cx, cz) - feetY > STEP_UP) return true;
+        const y0 = Math.floor(feetY + 0.35);
+        const y1 = Math.floor(feetY + 1.55);
+        for (let y = y0; y <= y1; y += 1) {
+            const kind = voxelAt(world, cx, y, cz);
+            if (kind && kind !== 'water') return true;
+        }
+        return false;
+    }
+
+    function wallBetween(world, ax, ay, az, bx, by, bz) {
+        const dx = bx - ax, dy = by - ay, dz = bz - az;
+        const dist = Math.hypot(dx, dy, dz) || 1;
+        const steps = Math.max(4, Math.ceil(dist / 0.12));
+        const minY = Math.min(ay, by) - 0.25;
+        const stop = Math.max(0.2, dist - 0.35);
+        for (let i = 1; i < steps; i += 1) {
+            const t = i / steps;
+            if (t * dist > stop) break;
+            const y = ay + dy * t;
+            if (y < minY) continue;
+            const kind = voxelAt(world, Math.floor(ax + dx * t), Math.floor(y), Math.floor(az + dz * t));
+            if (kind && kind !== 'water') return true;
+        }
+        return false;
+    }
+
     function isGroundKind(kind) {
-        return kind === 'grass' || kind === 'dirt' || kind === 'stone' || kind === 'sand' || kind === 'snow';
+        return kind === 'grass' || kind === 'dirt' || kind === 'stone' || kind === 'sand' || kind === 'snow'
+            || kind === 'water' || kind === 'coal' || kind === 'iron' || kind === 'plank';
     }
 
     function surfaceAtWorld(world, x, z) {
@@ -604,7 +918,7 @@
     }
 
     function placeVoxel(world, x, y, z, kind) {
-        const allowed = { dirt: true, stone: true, log: true };
+        const allowed = { dirt: true, stone: true, log: true, plank: true, table: true };
         if (y <= 0 || !allowed[kind]) return { ok: false };
         if (voxelAt(world, x, y, z)) return { ok: false };
         if (x < 0 || z < 0 || x >= world.size || z >= world.size) return { ok: false };
@@ -710,7 +1024,7 @@
         for (let i = 0; i < faces.length; i += 1) {
             const f = faces[i];
             const species = voxelSpecies(world, f.x, f.y, f.z);
-            const rgb = blockColor(faceKind(f.kind, f.dir), f.x, f.y, f.z, species);
+            const rgb = blockColor(faceKind(f.kind, f.dir), f.x, f.y, f.z, species, world.climate);
             const s = faceShade(f.dir);
             const aos = vertexAO(world, f.x, f.y, f.z, f.dir);
             const colors = aos.map(function (a) {
@@ -741,10 +1055,26 @@
         sun.position.set(30, 50, 20);
         scene.add(sun);
 
+        const SKY_FILES = {
+            plains: './assets/sky/plains.png',
+            cherry: './assets/sky/cherry.png',
+            desert: './assets/sky/desert.png',
+            nether: './assets/sky/nether.png',
+            duskvale: './assets/sky/cherry.png',
+            crystal: './assets/sky/plains.png'
+        };
         function applySky(climateName) {
             const sky = climateOf(climateName).sky;
             scene.background = new THREE.Color(sky);
-            scene.fog = new THREE.Fog(sky, 40, 70);
+            scene.fog = new THREE.Fog(sky, 46, 78);
+            const file = SKY_FILES[climateName];
+            if (!file) return;
+            const loader = new THREE.TextureLoader();
+            loader.load(file, function (tex) {
+                tex.magFilter = THREE.LinearFilter;
+                tex.minFilter = THREE.LinearFilter;
+                scene.background = tex;
+            });
         }
         applySky(world.climate);
 
@@ -798,7 +1128,7 @@
         }
         rebuildDecor();
 
-        const camera = new THREE.PerspectiveCamera(72, 16 / 9, 0.1, 220);
+        const camera = new THREE.PerspectiveCamera(72, 16 / 9, 0.05, 220);
         const player = {
             x: Math.floor(world.size / 2) + 0.5,
             z: Math.floor(world.size / 2) + 0.5,
@@ -892,15 +1222,7 @@
 
         /* ---------- 碰撞：高度场 + 树干 ---------- */
         function columnBlocked(px, pz, feetY) {
-            const cx = Math.floor(px), cz = Math.floor(pz);
-            if (world.surfaceAt(cx, cz) - feetY > STEP_UP) return true;
-            const y0 = Math.floor(feetY + 0.2);
-            const y1 = Math.floor(feetY + 1.55);
-            for (let y = y0; y <= y1; y += 1) {
-                const kind = voxelAt(world, cx, y, cz);
-                if (kind && !isGroundKind(kind)) return true;
-            }
-            return false;
+            return columnBlockedAt(world, px, pz, feetY);
         }
 
         function updatePhysics(dt, input) {
@@ -966,8 +1288,27 @@
         }
 
         let pointerLocked = false;
+        let lookFrozen = false;
         let dragLook = null; // PointerLock 不可用（部分 WebView/触屏）时的拖动视角兜底
         const SENS = 0.0026, DRAG_SENS = 0.005;
+        function syncLookTip() {
+            const tip = document.getElementById('look-tip');
+            if (!tip) return;
+            tip.classList.toggle('is-hidden', lookFrozen || pointerLocked);
+        }
+        function setUiMode(on) {
+            lookFrozen = !!on;
+            dragLook = null;
+            if (lookFrozen && document.exitPointerLock && document.pointerLockElement) {
+                document.exitPointerLock();
+            }
+            syncLookTip();
+        }
+        function resumeLook() {
+            lookFrozen = false;
+            if (canvas.requestPointerLock) canvas.requestPointerLock();
+            syncLookTip();
+        }
         function bindInput() {
             document.addEventListener('keydown', function (e) {
                 keys[e.key.toLowerCase()] = true;
@@ -978,25 +1319,24 @@
                 refreshKeys();
             });
             canvas.addEventListener('click', function () {
+                if (lookFrozen) return;
                 if (!pointerLocked && canvas.requestPointerLock) canvas.requestPointerLock();
             });
             document.addEventListener('pointerlockchange', function () {
                 pointerLocked = document.pointerLockElement === canvas;
-                const tip = document.getElementById('look-tip');
-                if (tip) tip.classList.toggle('is-hidden', pointerLocked);
+                syncLookTip();
             });
             document.addEventListener('mousemove', function (e) {
-                if (pointerLocked) {
-                    look.yaw -= e.movementX * SENS;
-                    look.pitch = Math.max(-1.35, Math.min(1.35, look.pitch - e.movementY * SENS));
-                }
+                if (lookFrozen || !pointerLocked) return;
+                look.yaw -= e.movementX * SENS;
+                look.pitch = Math.max(-1.35, Math.min(1.35, look.pitch - e.movementY * SENS));
             });
             canvas.addEventListener('pointerdown', function (e) {
-                if (pointerLocked) return;
+                if (lookFrozen || pointerLocked) return;
                 dragLook = { x: e.clientX, y: e.clientY, id: e.pointerId };
             });
             window.addEventListener('pointermove', function (e) {
-                if (!dragLook || e.pointerId !== dragLook.id) return;
+                if (lookFrozen || !dragLook || e.pointerId !== dragLook.id) return;
                 look.yaw -= (e.clientX - dragLook.x) * DRAG_SENS;
                 look.pitch = Math.max(-1.35, Math.min(1.35, look.pitch - (e.clientY - dragLook.y) * DRAG_SENS));
                 dragLook.x = e.clientX; dragLook.y = e.clientY;
@@ -1059,7 +1399,9 @@
             resize: resize,
             startLoop: startLoop,
             onTick: function (fn) { tickHook = fn; },
-            fps: function () { return fps; }
+            fps: function () { return fps; },
+            setUiMode: setUiMode,
+            resumeLook: resumeLook
         };
         return api;
     }
@@ -1092,4 +1434,11 @@
         voxelSpecies: voxelSpecies,
         removeTree: removeTree,
         breakVoxel: breakVoxel,
-        place
+        placeVoxel: placeVoxel,
+        inHouse: inHouse,
+        columnBlockedAt: columnBlockedAt,
+        wallBetween: wallBetween,
+        collectChunkFaces: collectChunkFaces,
+        create: create
+    };
+}(typeof window !== 'undefined' ? window : globalThis));

@@ -12,7 +12,7 @@
     const garden = window.PersonalWorkbenchPreschoolGarden;
     const stagesApi = window.GardenDefenseStages;
     const GAME_ID = 'garden-defense';
-    const TICK_MS = 1200;
+    const TICK_MS = 800;
     const WALK_LURCH = 1;
     const FIRST_WAVE_MS = 8000;
     const NEXT_WAVE_MS = 5200;
@@ -47,11 +47,17 @@
         'plant-snowpea': LOCAL + 'plants/plant-snowpea.png?v=20260815-ref-v1',
         'plant-cherrybomb': LOCAL + 'plants/plant-cherrybomb.webp?v=20260815-ref-v1',
         'plant-potatomine': LOCAL + 'plants/plant-potatomine.png?v=20260815-s2-v1',
+        'plant-bucketshooter': LOCAL + 'plants/plant-bucketshooter.png?v=20260816-skill-v1',
+        'plant-ice-bucketshooter': LOCAL + 'plants/plant-ice-bucketshooter.png?v=20260816-skill-v1',
         'zombie-basic': LOCAL + 'zombies/zombie-basic.webp?v=20260815-ref-v1',
         'zombie-conehead': LOCAL + 'zombies/zombie-conehead.webp?v=20260815-ref-v1',
         'zombie-buckethead': LOCAL + 'zombies/zombie-buckethead.webp?v=20260815-ref-v1',
         'zombie-flag': LOCAL + 'zombies/zombie-flag.webp?v=20260815-ref-v1',
-        'zombie-football': LOCAL + 'zombies/zombie-football.webp?v=20260815-ref-v1'
+        'zombie-football': LOCAL + 'zombies/zombie-football.webp?v=20260815-ref-v1',
+        'zombie-javelin': LOCAL + 'zombies/zombie-javelin.png?v=20260816-skill-v1',
+        'zombie-polevault': LOCAL + 'zombies/zombie-polevault.png?v=20260816-skill-v1',
+        'proj-bucket': LOCAL + 'projectiles/proj-bucket.png?v=20260816-skill-v1',
+        'proj-javelin': LOCAL + 'projectiles/proj-javelin.png?v=20260816-skill-v1'
     };
 
     const images = {};
@@ -212,9 +218,9 @@
     const COMPANION_LINES = {
         welcome: {
             '简单': [
-                '今天的僵尸慢悠悠，{who}随便种都能守住。',
+                '今天的僵尸还是会走过来，{who}先认识向日葵。',
                 '简单模式开启！星芒陪你先认识向日葵。',
-                '僵尸走得很慢，多攒一点阳光再种豌豆吧。'
+                '先攒一点阳光再种豌豆，挡住走过来的僵尸。'
             ],
             '普通': [
                 '僵尸速度刚刚好，{who}想好再种哦。',
@@ -236,7 +242,7 @@
         fail: [
             '差一点点！下次把坚果种在僵尸来的前排试试。',
             '别急，先种两棵向日葵攒阳光，再来守一次。',
-            '僵尸太快啦，试试寒冰豌豆让它慢下来。',
+            '僵尸太快啦，试试寒冰豌豆让它慢下来。铁桶砸中射手会变成铁桶射手哦。',
             '这一波没守住，樱桃炸弹留给僵尸扎堆的时候用。',
             '阳光要省着花，先把这一路种满再管别的路。'
         ]
@@ -354,7 +360,9 @@
         { roster: 'flag', title: '旗帜', src: LOCAL + 'zombies/zombie-flag.webp?v=20260815-ref-v1' },
         { roster: 'cone', title: '路障', src: LOCAL + 'zombies/zombie-conehead.webp?v=20260815-ref-v1' },
         { roster: 'bucket', title: '铁桶', src: LOCAL + 'zombies/zombie-buckethead.webp?v=20260815-ref-v1' },
-        { roster: 'football', title: '橄榄球', src: LOCAL + 'zombies/zombie-football.webp?v=20260815-ref-v1' }
+        { roster: 'football', title: '橄榄球', src: LOCAL + 'zombies/zombie-football.webp?v=20260815-ref-v1' },
+        { roster: 'javelin', title: '标枪', src: LOCAL + 'zombies/zombie-javelin.png?v=20260816-skill-v1' },
+        { roster: 'polevault', title: '跳高', src: LOCAL + 'zombies/zombie-polevault.png?v=20260816-skill-v1' }
     ];
 
     function seenRoster() {
@@ -754,6 +762,72 @@
         ctx.restore();
     }
 
+    function drawBucketToken(x, y, icy) {
+        const img = images['proj-bucket'];
+        if (img) {
+            ctx.drawImage(img, x - 14, y - 14, 28, 28);
+            return;
+        }
+        ctx.save();
+        ctx.fillStyle = icy ? '#7f9eb0' : '#8a93a0';
+        ctx.strokeStyle = icy ? '#2a4a5a' : '#3d4450';
+        ctx.lineWidth = 1.4;
+        ctx.beginPath();
+        ctx.moveTo(x - 10, y - 8);
+        ctx.lineTo(x + 10, y - 8);
+        ctx.lineTo(x + 8, y + 10);
+        ctx.lineTo(x - 8, y + 10);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.restore();
+    }
+
+    function drawJavelinToken(x, y) {
+        const img = images['proj-javelin'];
+        if (img) {
+            ctx.drawImage(img, x - 18, y - 6, 36, 12);
+            return;
+        }
+        ctx.save();
+        ctx.strokeStyle = '#8b5a2b';
+        ctx.fillStyle = '#c9a36a';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(x + 16, y);
+        ctx.lineTo(x - 14, y);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(x - 16, y);
+        ctx.lineTo(x - 8, y - 5);
+        ctx.lineTo(x - 8, y + 5);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+    }
+
+    function drawConeToken(x, y) {
+        ctx.save();
+        ctx.fillStyle = '#e38a2a';
+        ctx.strokeStyle = '#8a4a12';
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        ctx.moveTo(x, y - 12);
+        ctx.lineTo(x + 9, y + 10);
+        ctx.lineTo(x - 9, y + 10);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.restore();
+    }
+
+    function drawShot(shot, x, y) {
+        if (shot.kind === 'bucket') drawBucketToken(x, y, Boolean(shot.slowTicks));
+        else if (shot.kind === 'javelin') drawJavelinToken(x, y);
+        else if (shot.kind === 'cone') drawConeToken(x, y);
+        else drawPeaToken(x, y, Boolean(shot.slowTicks) || shot.kind === 'ice-pea');
+    }
+
     function drawSprite(key, boxX, boxY, boxW, boxH) {
         const img = images[key];
         if (!img) {
@@ -773,7 +847,9 @@
 
     function drawZombieActor(zombie, box, ts, frac, moving, eating, icy) {
         const seed = idHash(zombie.id);
-        const speed = icy ? 0.28 : (eating ? 2.1 : (moving ? 0.52 : 0.18));
+        const throwing = zombie.action === 'throw';
+        const vaulting = zombie.action === 'vault';
+        const speed = icy ? 0.28 : (eating ? 2.1 : (throwing ? 1.6 : (vaulting ? 1.2 : (moving ? 0.72 : 0.18))));
         const phase = ((ts || 0) / 1000) * speed + seed * 6.28;
         ctx.save();
         ctx.fillStyle = 'rgba(0,0,0,.16)';
@@ -782,8 +858,10 @@
         ctx.fill();
         ctx.translate(box.x + box.w * 0.5, box.y + box.h);
         if (icy) ctx.filter = 'hue-rotate(155deg) saturate(0.75)';
-        if (eating) ctx.translate(Math.sin(phase) * -1.4, 0);
-        else if (moving) ctx.translate(Math.sin(phase) * 1.1, Math.abs(Math.sin(phase * 2)) * -1.6);
+        if (vaulting) ctx.translate(Math.sin(phase) * 2, -18 - Math.abs(Math.sin(phase * 2)) * 10);
+        else if (throwing) ctx.translate(Math.sin(phase) * 3, Math.sin(phase) * -4);
+        else if (eating) ctx.translate(Math.sin(phase) * -1.4, 0);
+        else if (moving) ctx.translate(Math.sin(phase) * 1.6, Math.abs(Math.sin(phase * 2)) * -2.4);
         else ctx.translate(0, Math.sin(phase) * -0.5);
         const key = images[zombie.kind] ? zombie.kind : 'zombie-basic';
         drawSprite(key, -box.w / 2, -box.h, box.w, box.h);
@@ -845,13 +923,19 @@
         (defense.plants || []).forEach(function (plant, i) {
             const bob = Math.sin(animPhase * 2 + i) * 3;
             const box = plantScreenBox(plant, m, bob);
-            drawSprite(plant.plantId, box.x, box.y, box.w, box.h);
+            const spriteKey = images[plant.plantId] ? plant.plantId
+                : (plant.plantId === 'plant-ice-bucketshooter' ? 'plant-snowpea'
+                    : (plant.plantId === 'plant-bucketshooter' ? 'plant-peashooter' : plant.plantId));
+            drawSprite(spriteKey, box.x, box.y, box.w, box.h);
+            if ((plant.plantId === 'plant-bucketshooter' || plant.plantId === 'plant-ice-bucketshooter') && !images[plant.plantId]) {
+                drawBucketToken(box.x + box.w * 0.72, box.y + box.h * 0.22, plant.plantId === 'plant-ice-bucketshooter');
+            }
         });
 
         (defense.zombies || []).forEach(function (zombie) {
-            const eating = zombieIsBlocked(defense, zombie);
+            const eating = zombie.action === 'eat' || zombieIsBlocked(defense, zombie);
             const icy = zombie.slowTicks > 0;
-            const moving = !eating && !icy;
+            const moving = !eating && !icy && zombie.action !== 'throw';
             const box = zombieScreenBox(zombie, defense, m, frac, 0);
             drawZombieActor(zombie, box, ts, frac, moving, eating, icy);
             drawHealthBar(box, zombie.health, zombie.maxHealth);
@@ -859,15 +943,24 @@
                 ctx.fillStyle = '#7ad7ff';
                 ctx.font = 'bold 14px sans-serif';
                 ctx.fillText('慢!', box.x + 8, box.y + 22);
+            } else if (zombie.action === 'throw') {
+                ctx.fillStyle = '#ffe27a';
+                ctx.font = 'bold 14px sans-serif';
+                ctx.fillText('扔!', box.x + 8, box.y + 22);
+            } else if (zombie.action === 'vault') {
+                ctx.fillStyle = '#c6ff7a';
+                ctx.font = 'bold 14px sans-serif';
+                ctx.fillText('跳!', box.x + 8, box.y + 22);
             }
         });
 
-        (defense.projectiles || []).forEach(function (pea) {
-            const col = Number(pea.column) + frac;
-            const box = entityBox(pea.lane, (col + 0.5) / m.columns, m, 0, 0.45);
-            const px = box.x + box.w * 0.72;
+        (defense.projectiles || []).forEach(function (shot) {
+            const dir = shot.team === 'zombie' ? -1 : 1;
+            const col = Number(shot.column) + frac * dir;
+            const box = entityBox(shot.lane, (col + 0.5) / m.columns, m, 0, 0.45);
+            const px = box.x + box.w * (shot.team === 'zombie' ? 0.28 : 0.72);
             const py = box.y + box.h * 0.42;
-            drawPeaToken(px, py, Boolean(pea.slowTicks));
+            drawShot(shot, px, py);
         });
 
         skySuns.forEach(drawSunToken);
@@ -923,15 +1016,19 @@
             const taken = (defense.zombies || []).map(function (z) { return z.lane; });
             const lane = [0, 1, 2, 3, 4].filter(function (l) { return taken.indexOf(l) === -1; })[0];
             extraSeq += 1;
+            const extraRule = (garden.ZOMBIE_RULES || {})['zombie-basic'] || { maxHealth: 28 };
             (defense.zombies || (defense.zombies = [])).push({
                 id: 'zombie-extra-' + extraSeq + '-' + bridge.today(),
                 kind: 'zombie-basic',
                 lane: lane === undefined ? 2 : lane,
                 column: BOARD_COLUMNS - 1,
-                health: 10,
-                maxHealth: 10,
+                health: extraRule.maxHealth,
+                maxHealth: extraRule.maxHealth,
                 slowTicks: 0,
-                moveClock: 0
+                moveClock: 0,
+                skillClock: 0,
+                vaulted: false,
+                action: ''
             });
         }
         commitGrowth(r.growth);

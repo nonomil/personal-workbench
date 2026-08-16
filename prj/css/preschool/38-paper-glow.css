@@ -8,6 +8,10 @@ body.variant-preschool[data-preschool-theme] .main-content > * {
     z-index: 1;
 }
 
+body.variant-preschool[data-preschool-theme] .topbar {
+    z-index: 20;
+}
+
 /* 阳光花园：草坪全景大图垫在主区域顶部，渐隐 */
 body.variant-preschool[data-preschool-theme='garden-defense'] .main-content::before {
     content: '';

@@ -8,19 +8,28 @@
     const GAME_ID = 'blocklegend';
     const LOOT_PRICE = {
         'slime-gel': 3, 'cube-shard': 5, 'husk-bone': 7,
-        'oak-log': 2, 'stick': 1, 'dirt': 1, 'cobble': 2
+        'oak-log': 2, 'stick': 1, 'dirt': 1, 'cobble': 2, 'plank': 2, 'table': 4,
+        'fox-fur': 3, 'magma-cream': 4,
+        'blaze-rod': 5, 'ghast-tear': 6, 'warden-horn': 8,
+        gunpowder: 4, 'rotten-flesh': 3, bone: 4, string: 3,
+        wood_sword: 6, wood_pick: 6, wood_axe: 6,
+        wood_bow: 7, wood_shield: 7, arrow: 1, iron_sword: 10,
+        wood_shovel: 5, stone_sword: 8, stone_pick: 8, stone_axe: 8, stone_shovel: 7,
+        iron_pick: 10, iron_axe: 10, torch: 1, chest: 8, furnace: 8,
+        door: 6, fence: 3, ladder: 3, bowl: 2, boat: 7, shears: 5, bucket: 5, fishing_rod: 7,
+        'ender-pearl': 8, 'gold-nugget': 6, 'glow-dust': 5
     };
     const DROP_COLOR = {
-        'oak-log': 0x6b4a28, 'stick': 0x8a6234, 'dirt': 0x8a6a3c, 'cobble': 0x7a7a80
+        'oak-log': 0x6b4a28, 'stick': 0x8a6234, 'dirt': 0x8a6a3c, 'cobble': 0x7a7a80, 'plank': 0xe0b46a
     };
     const CHAPTERS = [
         '',
         '第一层 · 初生神域 · Genesis',
-        '第二层 · 翠绿林地 · Verdant',
-        '第三层 · 石丘矿脉 · Quarry',
+        '第二层 · 樱花林地 · Cherry',
+        '第三层 · 沙海荒原 · Desert',
         '第四层 · 暮色河谷 · Duskvale',
         '第五层 · 晶簇森林 · Crystal',
-        '第六层 · 星辉高地 · Astral'
+        '第六层 · 下界熔岩 · Nether'
     ];
     const bridge = window.WorkbenchGameBridge;
     const ENG = window.BlockLegendEngine;
@@ -29,6 +38,7 @@
     const L = window.BlockLegendLevels;
     const MOBS = window.BlockLegendMobs;
     const T = window.BlockLegendTools;
+    const CR = window.BlockLegendCraft;
     const S = window.BlockLegendShop;
     const sfx = window.WorkbenchGameSfx;
     const THREE = window.THREE;
@@ -68,7 +78,10 @@
         lookKey: '',
         lookSince: 0,
         lookSpoken: false,
-        placeLoot: 'dirt'
+        placeLoot: 'dirt',
+        atTable: false,
+        craftCells: [null, null, null, null, null, null, null, null, null],
+        craftSize: 2
     };
 
     function emptyProgress() {
@@ -163,6 +176,26 @@
         document.getElementById('help-btn').addEventListener('click', function () { toggleLayer('help-layer', true); });
         document.getElementById('help-close').addEventListener('click', function () { toggleLayer('help-layer', false); });
         document.getElementById('trade-close').addEventListener('click', function () { toggleLayer('trade-layer', false); });
+        const craftClose = document.getElementById('craft-close');
+        if (craftClose) craftClose.addEventListener('click', function () { toggleCraft(false); });
+        const craftLayer = document.getElementById('craft-layer');
+        if (craftLayer) {
+            craftLayer.addEventListener('click', function (e) {
+                const craftBtn = e.target.closest('[data-craft]');
+                if (craftBtn) { doCraft(craftBtn.getAttribute('data-craft')); return; }
+                const cell = e.target.closest('[data-cell]');
+                if (cell) { takeCraftCell(Number(cell.getAttribute('data-cell'))); return; }
+                const inv = e.target.closest('[data-inv]');
+                if (inv) { putCraftItem(inv.getAttribute('data-inv')); return; }
+                if (e.target.closest('#craft-out')) takeCraftResult();
+            });
+            craftLayer.addEventListener('contextmenu', function (e) {
+                const inv = e.target.closest('[data-inv]');
+                if (!inv) return;
+                e.preventDefault();
+                putCraftItem(inv.getAttribute('data-inv'));
+            });
+        }
         document.getElementById('trade-sell').addEventListener('click', sellAll);
         function replayQuizWord() {
             if (session.quiz) speakWord(session.quiz.word);
@@ -182,14 +215,28 @@
             startLevel(session.level);
         });
         document.addEventListener('keydown', function (e) {
+            if (session.quiz) {
+                if (e.key >= '1' && e.key <= '4') {
+                    e.preventDefault();
+                    pickQuizChoice(Number(e.key) - 1);
+                }
+                return;
+            }
             if (e.key === 'f' || e.key === 'F') {
                 if (session.nearMerchant) openTrade();
             }
-            if (e.key >= '1' && e.key <= '4') selectTool(Number(e.key) - 1);
-            if (e.key === '5') selectPlace();
+            if (e.key === 'c' || e.key === 'C') {
+                e.preventDefault();
+                toggleCraft();
+                return;
+            }
+            if (session.paused) return;
+            if (e.key >= '1' && e.key <= '9') selectSlot(Number(e.key));
+            if (e.key === 'q' || e.key === 'Q') tryBolt();
             if (e.key === 'Escape') {
                 toggleLayer('help-layer', false);
                 toggleLayer('trade-layer', false);
+                toggleCraft(false);
             }
         });
     }
@@ -197,7 +244,7 @@
     function nowMs() { return Date.now(); }
 
     function overlayOpen() {
-        return ['quiz-layer', 'settle-layer', 'trade-layer', 'help-layer'].some(function (id) {
+        return ['quiz-layer', 'settle-layer', 'trade-layer', 'help-layer', 'craft-layer'].some(function (id) {
             const el = document.getElementById(id);
             return el && !el.classList.contains('is-hidden');
         });
@@ -207,6 +254,159 @@
         const el = document.getElementById(id);
         if (el) el.classList.toggle('is-hidden', !on);
         session.paused = overlayOpen();
+        if (engine && engine.setUiMode) engine.setUiMode(session.paused);
+        if (!on && id === 'quiz-layer' && !session.paused && engine && engine.resumeLook) {
+            engine.resumeLook();
+        }
+    }
+
+    function nearTable() {
+        if (!engine || !ENG.voxelAt) return false;
+        const hit = lookHit();
+        if (hit && hit.hit && hit.kind === 'table') return true;
+        const p = engine.player;
+        const y0 = Math.floor(p.y);
+        for (let dz = -2; dz <= 2; dz += 1) {
+            for (let dx = -2; dx <= 2; dx += 1) {
+                const x = Math.floor(p.x) + dx;
+                const z = Math.floor(p.z) + dz;
+                if (ENG.voxelAt(engine.world, x, y0, z) === 'table') return true;
+                if (ENG.voxelAt(engine.world, x, y0 + 1, z) === 'table') return true;
+            }
+        }
+        return false;
+    }
+
+    function toggleCraft(forceOn, atTable) {
+        const el = document.getElementById('craft-layer');
+        if (!el) return;
+        const on = forceOn == null ? el.classList.contains('is-hidden') : !!forceOn;
+        session.atTable = atTable == null ? nearTable() : !!atTable;
+        const nextSize = session.atTable ? 3 : 2;
+        if (!on || session.craftSize !== nextSize) {
+            session.bag = CR.dumpGrid(session.bag, session.craftCells);
+            session.craftCells = CR.emptyGrid(nextSize);
+        }
+        session.craftSize = nextSize;
+        if (on) paintCraft();
+        toggleLayer('craft-layer', on);
+        if (!on) {
+            session.bag = CR.dumpGrid(session.bag, session.craftCells);
+            session.craftCells = CR.emptyGrid(session.craftSize);
+            persist();
+        }
+    }
+
+    function itemLabel(id) {
+        return (CR && CR.itemName) ? CR.itemName(id) : id;
+    }
+
+    function paintCraft() {
+        const tip = document.getElementById('craft-tip');
+        if (tip) tip.textContent = session.atTable
+            ? '合成台 3×3：左边点配方一键做，或把材料摆进格子再点右边产物。'
+            : '随身 2×2：只能做木板、木棍、合成台、火把。对着合成台右键打开 3×3。';
+        paintCraftGrid();
+        paintCraftBook();
+        paintCraftInv();
+        paintBagCounts();
+    }
+
+    function paintCraftGrid() {
+        const grid = document.getElementById('craft-grid');
+        const out = document.getElementById('craft-out');
+        if (!grid || !CR) return;
+        const size = session.craftSize;
+        grid.className = 'bl-mc-grid size' + size;
+        let html = '';
+        for (let i = 0; i < size * size; i += 1) {
+            const k = session.craftCells[i];
+            html += '<button type="button" class="bl-mc-slot" data-cell="' + i + '">' +
+                (k ? '<b>' + itemLabel(k) + '</b>' : '') + '</button>';
+        }
+        grid.innerHTML = html;
+        const hit = CR.matchGrid(session.craftCells, size);
+        if (out) {
+            if (hit) {
+                const outId = Object.keys(hit.recipe.outputs)[0];
+                const n = hit.recipe.outputs[outId];
+                out.innerHTML = '<b>' + itemLabel(outId) + '</b><em>×' + n + '</em>';
+                out.disabled = false;
+                out.setAttribute('data-ready', '1');
+            } else {
+                out.innerHTML = '';
+                out.disabled = true;
+                out.removeAttribute('data-ready');
+            }
+        }
+    }
+
+    function paintCraftBook() {
+        const box = document.getElementById('craft-book');
+        if (!box || !CR) return;
+        const list = CR.recipesFor({ atTable: session.atTable });
+        box.innerHTML = list.map(function (r) {
+            const ready = CR.canCraft(session.bag, r.id, { atTable: session.atTable });
+            return '<button type="button" class="bl-craft-btn' + (ready ? '' : ' is-off') + '" data-craft="' + r.id + '">' +
+                '<b>' + r.name + '</b><span>' + r.zh + '</span></button>';
+        }).join('');
+    }
+
+    function paintCraftInv() {
+        const box = document.getElementById('craft-inv');
+        if (!box) return;
+        const keys = Object.keys(session.bag).filter(function (k) { return (Number(session.bag[k]) || 0) > 0; });
+        box.innerHTML = keys.map(function (k) {
+            return '<button type="button" class="bl-mc-slot" data-inv="' + k + '"><b>' + itemLabel(k) + '</b><em>×' + session.bag[k] + '</em></button>';
+        }).join('') || '<span class="bl-mc-empty">背包是空的，先砍树挖石头</span>';
+    }
+
+    function putCraftItem(kind) {
+        if (!kind || (Number(session.bag[kind]) || 0) <= 0) return;
+        const n = session.craftSize * session.craftSize;
+        for (let i = 0; i < n; i += 1) {
+            if (!session.craftCells[i]) {
+                session.craftCells[i] = kind;
+                session.bag = C.addLoot(session.bag, kind, -1);
+                if ((Number(session.bag[kind]) || 0) < 0) session.bag[kind] = 0;
+                paintCraft();
+                return;
+            }
+        }
+    }
+
+    function takeCraftCell(i) {
+        const k = session.craftCells[i];
+        if (!k) return;
+        session.craftCells[i] = null;
+        session.bag = C.addLoot(session.bag, k, 1);
+        paintCraft();
+    }
+
+    function takeCraftResult() {
+        if (!CR) return;
+        const hit = CR.matchGrid(session.craftCells, session.craftSize);
+        if (!hit) return;
+        session.craftCells = CR.consumeGrid(session.craftCells, session.craftSize, hit);
+        Object.keys(hit.recipe.outputs).forEach(function (k) {
+            session.bag = C.addLoot(session.bag, k, hit.recipe.outputs[k]);
+        });
+        persist();
+        paintCraft();
+        toast('合成了 ' + hit.recipe.name);
+    }
+
+    function doCraft(id) {
+        if (!CR) return;
+        const r = CR.craft(session.bag, id, { atTable: session.atTable });
+        if (!r.ok) {
+            toast(r.reason || '材料不够');
+            return;
+        }
+        session.bag = r.bag;
+        persist();
+        paintCraft();
+        toast('合成了 ' + ((r.recipe && r.recipe.name) || id));
     }
 
     function bindCombatInput(canvas) {
@@ -215,28 +415,26 @@
             if (e.target && e.target.closest && e.target.closest('.bl-layer, button, a')) return;
             if (session.paused) return;
             if (e.button === 0) {
-                if (session.tool === 'place') {
-                    tryPlace();
-                    return;
-                }
                 session.mining = true;
                 if (meleeTarget()) tryMelee();
             }
             if (e.button === 2) {
                 e.preventDefault();
-                tryBolt();
+                const hit = lookHit();
+                if (hit && hit.hit && hit.kind === 'table') {
+                    toggleCraft(true, true);
+                    return;
+                }
+                tryPlace();
             }
         });
         document.addEventListener('mouseup', function (e) {
             if (e.button === 0) stopMining();
         });
-        document.querySelectorAll('.bl-slot[data-place]').forEach(function (el) {
-            el.addEventListener('click', function () { selectPlace(); });
-        });
-        document.querySelectorAll('.bl-slot[data-tool]').forEach(function (el) {
+        document.querySelectorAll('.bl-slot[data-key]').forEach(function (el) {
             el.addEventListener('click', function () {
-                const idx = T.SLOT_IDS.indexOf(el.getAttribute('data-tool'));
-                if (idx >= 0) selectTool(idx);
+                const n = Number(el.getAttribute('data-key'));
+                if (n >= 1 && n <= 9) selectSlot(n);
             });
         });
     }
@@ -255,7 +453,8 @@
         if (engine && engine.reloadWorld) {
             engine.reloadWorld(ENG.createWorld(cfg.worldSeed || (7 + session.level * 13), {
                 climate: cfg.climate || 'plains',
-                level: session.level
+                level: session.level,
+                words: (pool || []).slice(0, 8)
             }));
             if (session.merchant && session.merchant.mesh) engine.scene.remove(session.merchant.mesh);
             spawnMerchant();
@@ -301,7 +500,10 @@
             mesh: mesh,
             model: model,
             asked: false,
-            isBoss: isBoss
+            isBoss: isBoss,
+            height: model.height || 1.6,
+            hitRadius: isBoss ? 1.2 : (spec.hitRadius || 0.45),
+            bossHits: 0
         };
         if (mob.isBoss) {
             mob.hp = session.boss.hp;
@@ -313,26 +515,53 @@
         return mob;
     }
 
+    function openMobSpot(px, pz) {
+        const w = engine.world;
+        const mid = Math.floor(w.size / 2);
+        for (let r = 0; r < 8; r += 1) {
+            for (let a = 0; a < 8; a += 1) {
+                const x = px + Math.cos(a * Math.PI / 4) * r;
+                const z = pz + Math.sin(a * Math.PI / 4) * r;
+                const ix = Math.floor(x), iz = Math.floor(z);
+                if (ix < 2 || iz < 2 || ix >= w.size - 2 || iz >= w.size - 2) continue;
+                if (Math.abs(ix - mid) < 2 && Math.abs(iz - mid) < 2) continue;
+                if (w.ponds && w.ponds[ix + ',' + iz]) continue;
+                if (w.treeAt && w.treeAt(ix, iz)) continue;
+                if (ENG.inHouse && ENG.inHouse(w, ix, iz)) continue;
+                const y = w.surfaceAt(ix, iz);
+                if (engine.columnBlocked && engine.columnBlocked(ix + 0.5, iz + 0.5, y)) continue;
+                return { x: ix + 0.5, z: iz + 0.5 };
+            }
+        }
+        return { x: px, z: pz };
+    }
+
     function spawnWave() {
         session.wave += 1;
         session.wavesLeft = Math.max(0, session.wavesLeft - 1);
         const p = engine.player;
+        const cfg = L.levelOf(session.level);
+        const kinds = (cfg && cfg.waveKinds) || ['slime', 'cube', 'slime'];
         const spots = [
-            { kind: 'slime', dx: -6.2, dz: -6.2 },
-            { kind: 'cube', dx: -8.4, dz: 4.8 },
-            { kind: 'slime', dx: 7.2, dz: -5.6 }
+            { kind: kinds[0] || 'slime', dx: -6.2, dz: -6.2 },
+            { kind: kinds[1] || 'cube', dx: -8.4, dz: 4.8 },
+            { kind: kinds[2] || 'slime', dx: 7.2, dz: -5.6 }
         ];
-        if (session.wave > 1) spots.push({ kind: 'husk', dx: -11, dz: -6 });
-        spots.forEach(function (s) { spawnMonster(s.kind, p.x + s.dx, p.z + s.dz); });
+        if (session.wave > 1) spots.push({ kind: kinds[2] || 'husk', dx: -11, dz: -6 });
+        spots.forEach(function (s) {
+            const open = openMobSpot(p.x + s.dx, p.z + s.dz);
+            spawnMonster(s.kind, open.x, open.z);
+        });
     }
 
     function spawnBoss() {
         session.boss = L.createBoss(session.level);
         const p = engine.player;
-        session.bossMob = spawnMonster('husk', p.x + 8, p.z + 1, { boss: true });
+        const open = openMobSpot(p.x + 8, p.z + 1);
+        session.bossMob = spawnMonster('husk', open.x, open.z, { boss: true });
         const hud = document.getElementById('boss-hud');
         if (hud) hud.classList.remove('is-hidden');
-        toast('Boss 来了！答对单词破蓝罩。');
+        toast('凋零来了！砍它会掉血，答对单词破蓝罩。');
         syncBossHud();
     }
 
@@ -348,19 +577,27 @@
         session.merchant = { x: x, z: z, mesh: g, model: model };
     }
 
-    function meleeTarget() {
-        return session.monsters.find(function (m) {
+    function meleeHits() {
+        const arc = session.monsters.filter(function (m) {
             return m.hp > 0 && C.inMeleeArc(engine.player, engine.look.yaw, m);
-        }) || null;
+        });
+        if (arc.length) return arc;
+        const look = nearestLookMob();
+        if (look && Math.hypot(look.x - engine.player.x, look.z - engine.player.z) <= C.MELEE_RANGE + (look.hitRadius || 0)) {
+            return [look];
+        }
+        return [];
+    }
+
+    function meleeTarget() {
+        return meleeHits()[0] || null;
     }
 
     function tryMelee() {
         if (!C.canAttack({ kind: 'melee', lastAt: session.lastMeleeAt, now: nowMs() })) return;
         session.lastMeleeAt = nowMs();
         if (viewModel) viewModel.triggerSwing();
-        const hits = session.monsters.filter(function (m) {
-            return m.hp > 0 && C.inMeleeArc(engine.player, engine.look.yaw, m);
-        });
+        const hits = meleeHits();
         hits.forEach(function (m) { requestHit(m, 'melee'); });
         if (sfx && sfx.checkpoint) sfx.checkpoint();
     }
@@ -374,13 +611,70 @@
         if (viewModel && viewModel.setTool) viewModel.setTool(id);
     }
 
-    function selectPlace() {
+    function selectPlace(loot) {
         session.tool = 'place';
-        setHotbar(5);
+        if (loot) session.placeLoot = loot;
+        setHotbar(loot === 'cobble' ? 6 : loot === 'oak-log' ? 7 : loot === 'plank' ? 8 : loot === 'table' ? 9 : 5);
+        if (viewModel && viewModel.setTool) viewModel.setTool('place');
+    }
+
+    function selectSlot(n) {
+        const slot = Math.max(1, Math.min(9, Number(n) || 1));
+        if (slot <= 4) {
+            selectTool(slot - 1);
+            return;
+        }
+        if (slot === 5) selectPlace('dirt');
+        else if (slot === 6) selectPlace('cobble');
+        else if (slot === 7) selectPlace('oak-log');
+        else if (slot === 8) selectPlace('plank');
+        else if (slot === 9) selectPlace('table');
+        else setHotbar(slot);
+    }
+
+    function paintHearts() {
+        const box = document.getElementById('hearts');
+        if (!box || !engine) return;
+        const max = Number(engine.player.hpMax) || 10;
+        const hp = Math.max(0, Number(engine.player.hp) || 0);
+        const per = max / 10;
+        let html = '';
+        for (let i = 0; i < 10; i += 1) {
+            const v = hp - i * per;
+            const cls = v >= per - 0.01 ? 'is-full' : v >= per * 0.45 ? 'is-half' : 'is-empty';
+            html += '<i class="bl-heart ' + cls + '"></i>';
+        }
+        const stamp = String(Math.round(hp * 10) / 10) + '/' + max;
+        if (box.dataset.hp === stamp) return;
+        box.dataset.hp = stamp;
+        box.innerHTML = html;
+    }
+
+    function paintFood() {
+        const box = document.getElementById('food-pips');
+        if (!box) return;
+        if (box.childElementCount === 10) return;
+        let html = '';
+        for (let i = 0; i < 10; i += 1) html += '<i class="bl-pip is-full"></i>';
+        box.innerHTML = html;
+    }
+
+    function paintBagCounts() {
+        document.querySelectorAll('.bl-slot[data-place]').forEach(function (el) {
+            const loot = el.getAttribute('data-place');
+            let count = el.querySelector('.bl-count');
+            if (!count) {
+                count = document.createElement('b');
+                count.className = 'bl-count';
+                el.appendChild(count);
+            }
+            const n = Number(session.bag[loot]) || 0;
+            count.textContent = n > 0 ? String(n) : '';
+        });
     }
 
     function nextPlaceLoot() {
-        const order = [session.placeLoot, 'dirt', 'cobble', 'oak-log'];
+        const order = [session.placeLoot, 'dirt', 'cobble', 'oak-log', 'plank', 'table'];
         for (let i = 0; i < order.length; i += 1) {
             const loot = order[i];
             if (loot && (Number(session.bag[loot]) || 0) > 0) return loot;
@@ -523,14 +817,27 @@
             }
             return;
         }
-        if (meleeTarget()) {
+        const hit = lookHit();
+        const lookMob = nearestLookMob();
+        const lookDist = lookMob
+            ? Math.hypot(lookMob.x - engine.player.x, lookMob.z - engine.player.z)
+            : Infinity;
+        const action = C.aimAction({
+            mining: true,
+            inMelee: !!meleeTarget(),
+            lookMob: !!lookMob,
+            lookDist: lookDist,
+            meleeRange: C.MELEE_RANGE,
+            hasBlock: !!(hit && hit.hit && hit.y > 0)
+        });
+        if (action === 'melee') {
+            tryMelee();
             paintBreakBar(0, false);
             hideTarget();
             hideCrack();
             return;
         }
-        const hit = lookHit();
-        if (!hit.hit || hit.y <= 0) {
+        if (action !== 'mine' || !hit.hit || hit.y <= 0) {
             session.mine = null;
             paintBreakBar(0, false);
             hideTarget();
@@ -549,7 +856,8 @@
             if (viewModel) viewModel.triggerSwing();
             MOBS.spawnBurst(engine.scene, session.fx, hit.x + 0.5, hit.y + 0.5, hit.z + 0.5, 0xc8b48a, 2);
         }
-        const need = T.breakMs(session.tool, hit.kind);
+        const bonus = CR && CR.toolBonus ? CR.toolBonus(session.bag, session.tool) : { mine: 1 };
+        const need = Math.max(80, Math.round(T.breakMs(session.tool, hit.kind) / (bonus.mine || 1)));
         const frac = session.mine.acc / need;
         paintBreakBar(frac * 100, true);
         showCrack(hit.x, hit.y, hit.z, frac);
@@ -565,8 +873,32 @@
         if (!result || !result.ok) return;
         if (engine.remeshAt) engine.remeshAt(result.x != null ? result.x : hit.x, result.z != null ? result.z : hit.z);
         if (viewModel) viewModel.triggerSwing();
+        if (hit.kind === 'word') {
+            const key = hit.x + ',' + hit.y + ',' + hit.z;
+            const cell = engine.world.wordCells && engine.world.wordCells[key];
+            const r = W.collectWordBlock({
+                coins: session.coins,
+                hp: engine.player.hp,
+                hpMax: engine.player.hpMax,
+                learnedIds: progress.learnedIds
+            }, cell || {});
+            session.coins = r.coins;
+            engine.player.hp = r.hp;
+            progress.learnedIds = r.learnedIds;
+            if (engine.world.wordCells) delete engine.world.wordCells[key];
+            if (cell && cell.text && global.WorkbenchGameBridge && global.WorkbenchGameBridge.recordWordAnswer) {
+                global.WorkbenchGameBridge.recordWordAnswer(cell.text, true);
+            }
+            persist();
+            toast((cell && cell.text ? cell.text + ' · ' + (cell.zh || '') + '  ' : '') + '+' + r.coinsGain + '金币 +' + r.heal + 'HP');
+            MOBS.spawnBurst(engine.scene, session.fx, hit.x + 0.5, hit.y + 0.5, hit.z + 0.5, 0xf0c84a, 8);
+            if (sfx && sfx.celebrate) sfx.celebrate();
+            return;
+        }
         if (T.placeKindOf(result.drop)) session.placeLoot = result.drop;
-        spawnPickup(hit.x + 0.5, hit.z + 0.5, 0, result.drop);
+        session.bag = C.addLoot(session.bag, result.drop, 1);
+        persist();
+        toast('获得 ' + result.drop);
         MOBS.spawnBurst(engine.scene, session.fx, hit.x + 0.5, hit.y + 0.5, hit.z + 0.5, 0xc8b48a, 6);
         if (sfx && sfx.checkpoint) sfx.checkpoint();
     }
@@ -577,9 +909,10 @@
         let best = null, bestDot = 0.74, bestDist = 7;
         session.monsters.forEach(function (m) {
             if (m.hp <= 0) return;
-            const dx = m.x - origin.x;
-            const dy = (m.y + 0.85) - origin.y;
-            const dz = m.z - origin.z;
+            const aim = C.aimPoint(m);
+            const dx = aim.x - origin.x;
+            const dy = aim.y - origin.y;
+            const dz = aim.z - origin.z;
             const dist = Math.hypot(dx, dy, dz) || 1;
             if (dist > 7) return;
             const dot = (dx * dir.x + dy * dir.y + dz * dir.z) / dist;
@@ -597,7 +930,13 @@
         if (mob) return { type: 'mob', kind: mob.isBoss ? 'boss' : mob.kind, mob: mob };
         if (session.merchant && session.nearMerchant) return { type: 'npc', kind: 'merchant' };
         const hit = lookHit();
-        if (hit && hit.hit) return { type: 'block', kind: hit.kind, hit: hit };
+        if (hit && hit.hit) {
+            if (hit.kind === 'word' && engine.world.wordCells) {
+                const cell = engine.world.wordCells[hit.x + ',' + hit.y + ',' + hit.z];
+                if (cell) return { type: 'block', kind: 'word', word: cell, hit: hit };
+            }
+            return { type: 'block', kind: hit.kind, hit: hit };
+        }
         return null;
     }
 
@@ -635,7 +974,9 @@
             if (session.targetRing) session.targetRing.visible = false;
             return;
         }
-        const label = W.labelFor(sub.kind, bank);
+        const label = sub.word
+            ? { en: sub.word.text, zh: sub.word.zh || '', word: sub.word }
+            : W.labelFor(sub.kind, bank);
         const key = sub.type + ':' + sub.kind + (sub.mob ? ':' + sub.mob.x.toFixed(1) : '');
         document.getElementById('look-en').textContent = label.en;
         document.getElementById('look-zh').textContent = label.zh;
@@ -656,6 +997,11 @@
             session.lookSpoken = false;
         } else if (!session.lookSpoken && now - session.lookSince > 480) {
             session.lookSpoken = true;
+            if (!W.shouldAutoSpeak(sub.kind, sub.type)) return;
+            const last = session.lookSpokenAt || {};
+            if (last[sub.kind] && now - last[sub.kind] < 16000) return;
+            last[sub.kind] = now;
+            session.lookSpokenAt = last;
             speakWord(label.word || { text: label.en });
         }
     }
@@ -665,7 +1011,16 @@
         session.lastBoltAt = nowMs();
         if (viewModel) viewModel.triggerCast();
         const f = C.forwardXZ(engine.look.yaw);
-        const mesh = MOBS.boltMesh();
+        const hasBow = CR && (Number(session.bag.wood_bow) || 0) > 0;
+        const hasArrow = (Number(session.bag.arrow) || 0) > 0;
+        let mesh;
+        if (hasBow && hasArrow && MOBS.arrowMesh) {
+            session.bag = C.addLoot(session.bag, 'arrow', -1);
+            if ((Number(session.bag.arrow) || 0) < 0) session.bag.arrow = 0;
+            mesh = MOBS.arrowMesh();
+        } else {
+            mesh = MOBS.boltMesh();
+        }
         const y = engine.player.y + ENG.EYE_HEIGHT * 0.7;
         mesh.position.set(engine.player.x + f.x * 0.6, y, engine.player.z + f.z * 0.6);
         engine.scene.add(mesh);
@@ -679,7 +1034,8 @@
     function requestHit(mob, kind) {
         if (session.pending) return;
         const firstHit = !mob.asked;
-        if (W.shouldAsk({ firstHit: firstHit, combo: session.combo })) {
+        if (mob.isBoss) mob.bossHits = (Number(mob.bossHits) || 0) + 1;
+        if (W.shouldAsk({ firstHit: firstHit, combo: session.combo, boss: !!mob.isBoss, bossHits: mob.bossHits })) {
             openQuiz(mob, kind);
             return;
         }
@@ -714,15 +1070,23 @@
         }
         const box = document.getElementById('quiz-choices');
         box.innerHTML = '';
-        quiz.choices.forEach(function (zh) {
+        quiz.choices.forEach(function (zh, i) {
             const btn = document.createElement('button');
             btn.type = 'button';
-            btn.textContent = zh;
+            btn.setAttribute('data-quiz-i', String(i));
+            btn.textContent = (i + 1) + '  ' + zh;
             btn.addEventListener('click', function () { resolveQuiz(zh === quiz.answer); });
             box.appendChild(btn);
         });
         toggleLayer('quiz-layer', true);
         speakWord(word);
+    }
+
+    function pickQuizChoice(index) {
+        if (!session.quiz) return;
+        const zh = session.quiz.choices[index];
+        if (!zh) return;
+        resolveQuiz(zh === session.quiz.answer);
     }
 
     function resolveQuiz(correct) {
@@ -759,13 +1123,18 @@
             combo: session.combo
         });
         if (kind === 'melee') {
-            dmg = Math.max(1, Math.round(dmg * T.meleeScale(session.tool)));
+            const bonus = CR && CR.toolBonus ? CR.toolBonus(session.bag, session.tool) : { melee: 1 };
+            dmg = Math.max(1, Math.round(dmg * T.meleeScale(session.tool) * (bonus.melee || 1)));
             dmg += S.statsOf(progress.gear).atk;
+        } else if (kind === 'bolt') {
+            const bonus = CR && CR.toolBonus ? CR.toolBonus(session.bag, session.tool) : {};
+            dmg = Math.max(1, Math.round(dmg * (bonus.bolt || 1)));
         }
         const crit = !!(verdict.answered && verdict.correct);
         if (mob.isBoss && session.boss) {
             const r = L.applyBossDamage(session.boss, dmg, { now: nowMs() });
             session.boss = r.boss;
+            mob.hp = session.boss.hp;
             session.lastDamage = r.dealt;
             session.lastCrit = crit;
             MOBS.spawnDamageText(engine.scene, session.fx, mob, r.dealt, crit);
@@ -923,6 +1292,7 @@
     function speakFallback(text) {
         try {
             if (!window.speechSynthesis) return;
+            window.speechSynthesis.cancel();
             const u = new SpeechSynthesisUtterance(text);
             u.lang = 'en-US';
             window.speechSynthesis.speak(u);
@@ -970,6 +1340,10 @@
         if (viewModel) {
             const inp = engine.input;
             const moving = !!(inp.fwd || inp.back || inp.left || inp.right);
+            if (viewModel.setOffhand) viewModel.setOffhand((Number(session.bag.wood_shield) || 0) > 0);
+            if (viewModel.setBladeKind) {
+                viewModel.setBladeKind((Number(session.bag.iron_sword) || 0) > 0 ? 'iron' : 'wood');
+            }
             viewModel.update(dt, moving);
         }
         updateMerchantTip();
@@ -1013,6 +1387,17 @@
         ctx.fill();
     }
 
+    function mobBlocked(x, z, y, flyer) {
+        if (ENG.inHouse && ENG.inHouse(engine.world, x, z)) return true;
+        if (flyer) return false;
+        const r = 0.32;
+        return engine.columnBlocked(x, z, y)
+            || engine.columnBlocked(x + r, z, y)
+            || engine.columnBlocked(x - r, z, y)
+            || engine.columnBlocked(x, z + r, y)
+            || engine.columnBlocked(x, z - r, y);
+    }
+
     function moveMonsters(dt, t) {
         const p = engine.player;
         const tSec = t / 1000;
@@ -1021,33 +1406,68 @@
             const dx = p.x - m.x;
             const dz = p.z - m.z;
             const dist = Math.hypot(dx, dz) || 1;
+            const flyer = !!(m.isBoss || m.kind === 'ghast' || m.kind === 'blaze');
             let moving = false;
+            const ox = m.x, oz = m.z;
             if (dist > C.CONTACT_RANGE) {
                 moving = true;
-                const step = m.speed * dt;
-                const nx = m.x + dx / dist * step;
-                const nz = m.z + dz / dist * step;
-                if (!engine.columnBlocked(nx, m.z, m.y)) m.x = nx;
-                if (!engine.columnBlocked(m.x, nz, m.y)) m.z = nz;
-            } else {
-                const hit = C.applyContact({ hp: p.hp, lastHitAt: session.lastHitAt }, {
-                    contact: S.mitigate(m.contact, S.statsOf(progress.gear).def)
-                }, t);
-                if (hit.hit) {
-                    p.hp = hit.hp;
-                    session.lastHitAt = hit.lastHitAt;
-                    hurtFlash();
-                    if (p.hp <= 0) {
-                        respawn();
+                const step = Math.max(1.05, m.speed) * dt;
+                const ux = dx / dist, uz = dz / dist;
+                const nx = m.x + ux * step;
+                const nz = m.z + uz * step;
+                if (!mobBlocked(nx, m.z, m.y, flyer)) m.x = nx;
+                if (!mobBlocked(m.x, nz, m.y, flyer)) m.z = nz;
+                if (m.x === ox && m.z === oz) {
+                    const lx = -uz * step, lz = ux * step;
+                    if (!mobBlocked(m.x + lx, m.z + lz, m.y, flyer)) {
+                        m.x += lx; m.z += lz;
+                    } else if (!mobBlocked(m.x - lx, m.z - lz, m.y, flyer)) {
+                        m.x -= lx; m.z -= lz;
                     } else {
-                        toast('被碰到了！HP ' + Math.ceil(p.hp));
+                        for (let a = 0; a < 8; a += 1) {
+                            const sx = m.x + Math.cos(a * Math.PI / 4) * 0.7;
+                            const sz = m.z + Math.sin(a * Math.PI / 4) * 0.7;
+                            if (!mobBlocked(sx, sz, m.y, flyer)) { m.x = sx; m.z = sz; break; }
+                        }
+                    }
+                }
+            } else {
+                const wall = ENG.wallBetween
+                    ? ENG.wallBetween(engine.world, m.x, m.y + 1.1, m.z, p.x, p.y + 1.1, p.z)
+                    : false;
+                const canHit = C.canTouch(p, m, {
+                    playerSheltered: !!(ENG.inHouse && ENG.inHouse(engine.world, p.x, p.z)),
+                    mobSheltered: !!(ENG.inHouse && ENG.inHouse(engine.world, m.x, m.z)),
+                    wallBetween: wall
+                });
+                if (canHit) {
+                    const gearDef = S.statsOf(progress.gear).def;
+                    const shieldDef = CR && CR.toolBonus ? (CR.toolBonus(session.bag, session.tool).def || 0) : 0;
+                    const hit = C.applyContact({ hp: p.hp, lastHitAt: session.lastHitAt }, {
+                        contact: S.mitigate(m.contact, gearDef + shieldDef)
+                    }, t);
+                    if (hit.hit) {
+                        p.hp = hit.hp;
+                        session.lastHitAt = hit.lastHitAt;
+                        hurtFlash();
+                        if (p.hp <= 0) {
+                            respawn();
+                        } else {
+                            toast('被碰到了！HP ' + Math.ceil(p.hp));
+                        }
                     }
                 }
             }
-            m.y = engine.world.surfaceAt(Math.floor(m.x), Math.floor(m.z));
+            const ground = engine.world.surfaceAt(Math.floor(m.x), Math.floor(m.z));
+            m.y = flyer ? ground + (m.isBoss ? 1.6 : m.kind === 'ghast' ? 2.3 : 1.35) : ground;
             if (m.mesh) {
                 m.mesh.position.set(m.x, m.y, m.z);
-                m.mesh.rotation.y = Math.atan2(dx, dz); // 面朝玩家（模型脸在 +z）
+                const movedX = m.x - ox, movedZ = m.z - oz;
+                if (Math.hypot(movedX, movedZ) > 0.0008) {
+                    m.mesh.rotation.y = Math.atan2(movedX, movedZ);
+                } else {
+                    m.mesh.rotation.y = Math.atan2(dx, dz);
+                }
             }
             if (m.model) {
                 m.model.update(dt, moving, tSec);
@@ -1186,6 +1606,12 @@
         const fill = document.getElementById('boss-fill');
         if (hp) hp.textContent = Math.ceil(session.boss.hp) + '/' + session.boss.maxHp;
         if (fill) fill.style.width = Math.max(0, Math.round(session.boss.hp / session.boss.maxHp * 100)) + '%';
+        const shield = document.getElementById('boss-shield');
+        if (shield) {
+            shield.textContent = session.boss.state === 'broken'
+                ? '破罩'
+                : ('蓝罩 ' + (session.boss.shield || 0));
+        }
     }
 
     function syncHud() {
@@ -1193,13 +1619,9 @@
         if (coin) coin.textContent = String(session.coins);
         const lv = document.getElementById('level-label');
         if (lv) lv.textContent = String(session.level);
-        const fill = document.getElementById('hp-fill');
-        const hpNum = document.getElementById('hp-num');
-        if (engine) {
-            const pct = Math.max(0, Math.round((engine.player.hp / engine.player.hpMax) * 100));
-            if (fill) fill.style.width = pct + '%';
-            if (hpNum) hpNum.textContent = Math.max(0, Math.ceil(engine.player.hp)) + '/' + engine.player.hpMax;
-        }
+        paintHearts();
+        paintFood();
+        paintBagCounts();
         const learned = document.getElementById('stat-learned');
         const total = document.getElementById('stat-total');
         const bankEl = document.getElementById('stat-bank');
@@ -1218,8 +1640,10 @@
         const atk = document.getElementById('atk-label');
         const def = document.getElementById('def-label');
         const gear = S.statsOf(progress.gear);
-        if (atk) atk.textContent = String(Math.max(1, Math.round(C.BASE_MELEE * T.meleeScale(session.tool))) + gear.atk);
-        if (def) def.textContent = String(1 + session.level + gear.def);
+        const bonus = CR && CR.toolBonus ? CR.toolBonus(session.bag, session.tool) : { melee: 1 };
+        if (atk) atk.textContent = String(Math.max(1, Math.round(C.BASE_MELEE * T.meleeScale(session.tool) * (bonus.melee || 1))) + gear.atk);
+        const shieldDef = CR && CR.toolBonus ? (CR.toolBonus(session.bag, session.tool).def || 0) : 0;
+        if (def) def.textContent = String(1 + session.level + gear.def + shieldDef);
         const xpFill = document.getElementById('xp-fill');
         const xpNum = document.getElementById('xp-num');
         const poolN = pool.length || 1;

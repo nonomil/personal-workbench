@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>方块传奇 · 学英语大冒险</title>
-    <link rel="stylesheet" href="./game.css?v=20260816-bl-ui3">
+    <link rel="stylesheet" href="./game.css?v=20260816-bl-look2">
 </head>
 <body class="bl-body">
     <main class="bl-stage">
@@ -25,9 +25,6 @@
                 <b>Lv.<span id="level-label">1</span></b>
                 <span>Explorer</span>
             </div>
-            <div class="bl-bar bl-bar-hp"><i id="hp-fill"></i><em id="hp-num">10/10</em></div>
-            <div class="bl-bar bl-bar-mp"><i id="mp-fill"></i><em id="mp-num">combo 0</em></div>
-            <div class="bl-bar bl-bar-xp"><i id="xp-fill"></i><em id="xp-num">0/0</em></div>
             <div class="bl-currencies">
                 <span>🪙 <b id="coin-label">0</b></span>
                 <span>⚔ <b id="atk-label">8</b></span>
@@ -51,30 +48,41 @@
             <button type="button" class="bl-btn is-ghost" id="look-speak">听</button>
         </div>
 
-        <div class="bl-hotbar" aria-hidden="true">
-            <div class="bl-slot is-on" data-key="1" data-tool="sword"><i class="bl-ico-sword"></i><em>1</em></div>
-            <div class="bl-slot" data-key="2" data-tool="axe"><i class="bl-ico-axe"></i><em>2</em></div>
-            <div class="bl-slot" data-key="3" data-tool="pickaxe"><i class="bl-ico-pick"></i><em>3</em></div>
-            <div class="bl-slot" data-key="4" data-tool="shovel"><i class="bl-ico-shovel"></i><em>4</em></div>
-            <div class="bl-slot" data-key="5" data-place="1"><i class="bl-ico-place"></i><em>5</em></div>
-            <div class="bl-slot is-lock"><i class="bl-ico-lock"></i><em>6</em></div>
+        <div class="bl-mc-hud">
+            <div class="bl-mc-status">
+                <div class="bl-hearts" id="hearts" aria-label="生命"></div>
+                <div class="bl-food" id="food-pips" aria-label="连击"></div>
+            </div>
+            <div class="bl-xp"><i id="xp-fill"></i><em id="xp-num">0/0</em></div>
+            <div class="bl-hotbar" aria-hidden="true">
+                <div class="bl-slot is-on" data-key="1" data-tool="sword"><i class="bl-ico-sword"></i><em>1</em></div>
+                <div class="bl-slot" data-key="2" data-tool="axe"><i class="bl-ico-axe"></i><em>2</em></div>
+                <div class="bl-slot" data-key="3" data-tool="pickaxe"><i class="bl-ico-pick"></i><em>3</em></div>
+                <div class="bl-slot" data-key="4" data-tool="shovel"><i class="bl-ico-shovel"></i><em>4</em></div>
+                <div class="bl-slot" data-key="5" data-place="dirt"><i class="bl-ico-place"></i><em>5</em></div>
+                <div class="bl-slot" data-key="6" data-place="cobble"><i class="bl-ico-cobble"></i><em>6</em></div>
+                <div class="bl-slot" data-key="7" data-place="oak-log"><i class="bl-ico-log"></i><em>7</em></div>
+                <div class="bl-slot" data-key="8" data-place="plank"><i class="bl-ico-plank"></i><em>8</em></div>
+                <div class="bl-slot" data-key="9" data-place="table"><i class="bl-ico-table"></i><em>9</em></div>
+            </div>
         </div>
         <div class="bl-break is-hidden" id="break-bar"><i id="break-fill"></i></div>
 
         <div class="bl-look-tip" id="look-tip">点击画面锁定鼠标视角 · 再按 Esc 释放</div>
         <div class="bl-hurt" id="hurt-flash" aria-hidden="true"></div>
         <div class="bl-boss-hud is-hidden" id="boss-hud">
-            <span>BOSS</span>
+            <span>WITHER</span>
             <b id="boss-hp">0/0</b>
+            <em id="boss-shield">蓝罩 0</em>
             <div class="bl-boss-bar"><i id="boss-fill"></i></div>
         </div>
-        <p class="bl-hint">WASD · 1剑 2斧 3镐 4铲 5放 · 左键 · 右键魔法 · F 商店 · <b id="fps-label">--</b> fps</p>
+        <p class="bl-hint">WASD · 1-9物品栏 · 左键挖/打 · 右键放方块 · C 合成 · Q 魔法 · F 商店 · <b id="fps-label">--</b> fps</p>
         <div class="bl-trade-tip is-hidden" id="trade-tip">Press F to trade</div>
         <div class="bl-toast" id="toast"></div>
 
         <div class="bl-layer bl-quiz-layer is-hidden" id="quiz-layer">
             <div class="bl-card bl-quiz">
-                <p class="bl-quiz-kicker">暴击咒语</p>
+                <p class="bl-quiz-kicker">暴击咒语 · 点中文或按 1–4</p>
                 <button type="button" class="bl-quiz-en" id="quiz-en">word</button>
                 <img class="bl-quiz-img is-hidden" id="quiz-img" alt="">
                 <p class="bl-quiz-zh" id="quiz-zh"></p>
@@ -92,6 +100,25 @@
                 <div class="bl-card-actions">
                     <button type="button" class="bl-btn" id="unlock-btn">解锁下一关</button>
                     <button type="button" class="bl-btn" id="replay-btn">再打本关</button>
+                </div>
+            </div>
+        </div>
+        <div class="bl-layer is-hidden" id="craft-layer">
+            <div class="bl-card bl-craft bl-mc-craft">
+                <h2>Crafting · 合成</h2>
+                <p id="craft-tip">砍树得原木。随身 2×2，对着合成台右键打开 3×3。左边点配方，或把材料摆进格子再点产物。</p>
+                <div class="bl-mc-craft-body">
+                    <div class="bl-mc-book" id="craft-book"></div>
+                    <div class="bl-mc-bench">
+                        <div class="bl-mc-grid size2" id="craft-grid"></div>
+                        <span class="bl-mc-arrow" aria-hidden="true">→</span>
+                        <button type="button" class="bl-mc-slot bl-mc-out" id="craft-out" title="拿走产物"></button>
+                    </div>
+                </div>
+                <p class="bl-mc-inv-label">Inventory</p>
+                <div class="bl-mc-inv" id="craft-inv"></div>
+                <div class="bl-card-actions">
+                    <button type="button" class="bl-btn" id="craft-close">关闭</button>
                 </div>
             </div>
         </div>
@@ -113,14 +140,17 @@
                     <li>W A S D — move</li>
                     <li>Space — jump</li>
                     <li>Mouse — look around (Esc to unlock)</li>
-                    <li>1 sword · 2 axe · 3 pickaxe · 4 shovel · 5 place block</li>
+                    <li>1–4 tools · 5 dirt · 6 cobble · 7 log · 8 plank · 9 table</li>
                     <li>Look at a block or mob — its name appears under the crosshair</li>
-                    <li>Hold left click — hit mobs or mine the block you look at</li>
-                    <li>Hold left click — mine one block at a time (axe is fast on wood, shovel on dirt)</li>
-                    <li>Right click — homing magic bolt</li>
-                    <li>Answer the crit chant to deal a critical hit</li>
+                    <li>Hold left click — hit the mob you look at; if none, mine the block</li>
+                    <li>Gold word cubes — break them for coins, HP, and word progress</li>
+                    <li>C — 随身 2×2 合成；对着合成台右键打开 3×3 格子。左边点配方，或把材料摆进格子再点产物</li>
+                    <li>Right click a placed table to open the full craft grid; otherwise place a block</li>
+                    <li>Q — homing magic bolt; with a crafted bow and arrows it fires an arrow instead</li>
+                    <li>First hit on a mob opens a word card — mouse is free, click or press 1–4</li>
                     <li>F — sell loot or buy Leather Cap / Cloth Robe / Iron Blade / HP Potion</li>
-                    <li>Break the blue boss shield by answering words</li>
+                    <li>Wither takes damage when you hit it; blue shield only reduces damage</li>
+                    <li>Answer words every few hits to break the shield for a burst window</li>
                 </ul>
                 <button type="button" class="bl-btn" id="help-close">Close</button>
             </div>
@@ -133,12 +163,24 @@
     <script src="../../child-courses.js?v=20260815-word-backflow-v1"></script>
     <script src="./vendor/three.min.js?v=20260815-bl-s1"></script>
     <script src="./data/shop.js?v=20260815-bl-look11"></script>
-    <script src="./data/tools.js?v=20260816-bl-map1"></script>
-    <script src="./engine.js?v=20260816-bl-map1"></script>
-    <script src="./data/combat.js?v=20260815-bl-s2"></script>
-    <script src="./data/words.js?v=20260816-bl-map1"></script>
-    <script src="./data/levels.js?v=20260816-bl-map1"></script>
-    <script src="./mobs.js?v=20260816-bl-look12"></script>
-    <script src="./game.js?v=20260816-bl-map1"></script>
+    <script src="./data/tools.js?v=20260816-bl-look2"></script>
+    <script src="./data/craft.js?v=20260816-bl-look2"></script>
+    <script src="./engine.js?v=20260816-bl-look2"></script>
+    <script src="./data/combat.js?v=20260816-bl-look2"></script>
+    <script src="./data/words.js?v=20260816-bl-look2"></script>
+    <script src="./data/levels.js?v=20260816-bl-look2"></script>
+    <script src="./data/skins.js?v=20260816-bl-look2"></script>
+    <script src="./assets/img2threejs/createCreeperModel.js?v=20260816-bl-look2"></script>
+    <script src="./assets/img2threejs/createZombieModel.js?v=20260816-bl-look2"></script>
+    <script src="./assets/img2threejs/createSkeletonModel.js?v=20260816-bl-look2"></script>
+    <script src="./assets/img2threejs/createSpiderModel.js?v=20260816-bl-look2"></script>
+    <script src="./assets/img2threejs/createEndermanModel.js?v=20260816-bl-look2"></script>
+    <script src="./assets/img2threejs/createPiglinModel.js?v=20260816-bl-look2"></script>
+    <script src="./assets/img2threejs/createWitchModel.js?v=20260816-bl-look2"></script>
+    <script src="./assets/img2threejs/createWitherModel.js?v=20260816-bl-look2"></script>
+    <script src="./assets/img2threejs/createTools3d.js?v=20260816-bl-look2"></script>
+    <script src="./assets/img2threejs/createProps3d.js?v=20260816-bl-look2"></script>
+    <script src="./mobs.js?v=20260816-bl-look2"></script>
+    <script src="./game.js?v=20260816-bl-look2"></script>
 </body>
 </html>

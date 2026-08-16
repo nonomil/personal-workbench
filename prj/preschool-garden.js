@@ -11,28 +11,34 @@
     ]);
 
     const ZOMBIE_CATALOG = Object.freeze([
-        { id: 'zombie-basic', title: '普通僵尸', description: '慢慢走来的基础僵尸。', asset: 'zombie-basic', baseHealth: 10, tone: 'green' },
-        { id: 'zombie-conehead', title: '路障僵尸', description: '戴着路障，生命更厚。', asset: 'zombie-conehead', baseHealth: 20, tone: 'orange' },
-        { id: 'zombie-buckethead', title: '铁桶僵尸', description: '顶着铁桶，特别耐打。', asset: 'zombie-buckethead', baseHealth: 32, tone: 'slate' },
-        { id: 'zombie-flag', title: '旗帜僵尸', description: '举着旗子，提醒新一波来啦。', asset: 'zombie-flag', baseHealth: 14, tone: 'red' },
-        { id: 'zombie-football', title: '橄榄球僵尸', description: '速度很快，要专心完成任务。', asset: 'zombie-football', baseHealth: 24, tone: 'red' }
+        { id: 'zombie-basic', title: '普通僵尸', description: '大步走来的基础僵尸。', asset: 'zombie-basic', baseHealth: 28, tone: 'green' },
+        { id: 'zombie-conehead', title: '路障僵尸', description: '戴着路障，还会把路障扔过来。', asset: 'zombie-conehead', baseHealth: 48, tone: 'orange' },
+        { id: 'zombie-buckethead', title: '铁桶僵尸', description: '顶着铁桶，还能把铁桶砸向射手。', asset: 'zombie-buckethead', baseHealth: 72, tone: 'slate' },
+        { id: 'zombie-flag', title: '旗帜僵尸', description: '挥旗给同伴加油，走得更快。', asset: 'zombie-flag', baseHealth: 32, tone: 'red' },
+        { id: 'zombie-football', title: '橄榄球僵尸', description: '冲得很快，咬人也更狠。', asset: 'zombie-football', baseHealth: 56, tone: 'red' },
+        { id: 'zombie-javelin', title: '标枪僵尸', description: '隔着草坪就能把标枪掷过来。', asset: 'zombie-javelin', baseHealth: 40, tone: 'brown' },
+        { id: 'zombie-polevault', title: '跳高僵尸', description: '第一次碰到障碍会撑杆跳过去。', asset: 'zombie-polevault', baseHealth: 36, tone: 'lime' }
     ]);
 
     const DEFENSE_PLANT_RULES = Object.freeze({
         'plant-sunflower': { cost: 25, maxHealth: 3, cooldown: 0, damage: 0 },
-        'plant-peashooter': { cost: 40, maxHealth: 3, cooldown: 1, damage: 1 },
+        'plant-peashooter': { cost: 40, maxHealth: 3, cooldown: 1, damage: 1, ammo: 'pea' },
         'plant-wallnut': { cost: 30, maxHealth: 8, cooldown: 0, damage: 0 },
-        'plant-snowpea': { cost: 50, maxHealth: 3, cooldown: 1, damage: 1, slowTicks: 2 },
+        'plant-snowpea': { cost: 50, maxHealth: 3, cooldown: 1, damage: 1, slowTicks: 2, ammo: 'ice-pea' },
         'plant-cherrybomb': { cost: 75, maxHealth: 1, cooldown: 0, damage: 3 },
-        'plant-potatomine': { cost: 20, maxHealth: 2, cooldown: 0, damage: 8, armTicks: 3 }
+        'plant-potatomine': { cost: 20, maxHealth: 2, cooldown: 0, damage: 8, armTicks: 3 },
+        'plant-bucketshooter': { cost: 40, maxHealth: 4, cooldown: 2, damage: 2, ammo: 'bucket' },
+        'plant-ice-bucketshooter': { cost: 50, maxHealth: 4, cooldown: 2, damage: 2, slowTicks: 2, ammo: 'bucket' }
     });
 
     const DEFENSE_ZOMBIE_RULES = Object.freeze({
-        'zombie-basic': { maxHealth: 10, moveEvery: 36 },
-        'zombie-conehead': { maxHealth: 20, moveEvery: 34 },
-        'zombie-buckethead': { maxHealth: 32, moveEvery: 42 },
-        'zombie-flag': { maxHealth: 14, moveEvery: 32 },
-        'zombie-football': { maxHealth: 24, moveEvery: 30 }
+        'zombie-basic': { maxHealth: 28, moveEvery: 10, bite: 1 },
+        'zombie-conehead': { maxHealth: 48, moveEvery: 10, bite: 1, skill: 'cone-toss', skillEvery: 8, skillRange: 4, skillDamage: 2 },
+        'zombie-buckethead': { maxHealth: 72, moveEvery: 12, bite: 1, skill: 'bucket-toss', skillEvery: 7, skillRange: 5, skillDamage: 1 },
+        'zombie-flag': { maxHealth: 32, moveEvery: 8, bite: 1, skill: 'rally' },
+        'zombie-football': { maxHealth: 56, moveEvery: 6, bite: 2, skill: 'charge' },
+        'zombie-javelin': { maxHealth: 40, moveEvery: 9, bite: 1, skill: 'javelin-toss', skillEvery: 6, skillRange: 6, skillDamage: 3 },
+        'zombie-polevault': { maxHealth: 36, moveEvery: 7, bite: 1, skill: 'vault' }
     });
 
     const ROSTER_KIND = Object.freeze({
@@ -40,7 +46,14 @@
         cone: 'zombie-conehead',
         bucket: 'zombie-buckethead',
         flag: 'zombie-flag',
-        football: 'zombie-football'
+        football: 'zombie-football',
+        javelin: 'zombie-javelin',
+        polevault: 'zombie-polevault'
+    });
+
+    const BUCKET_CONVERT = Object.freeze({
+        'plant-peashooter': 'plant-bucketshooter',
+        'plant-snowpea': 'plant-ice-bucketshooter'
     });
 
     function kindsFromRoster(roster) {
@@ -140,7 +153,8 @@
                     column: Math.max(0, Math.min(BOARD_COLUMNS - 1, Math.floor(Number(plant.column) || 0))),
                     health: clampHealth(plant.health, maxHealth),
                     maxHealth: maxHealth,
-                    age: Math.max(0, Number(plant.age) || 0)
+                    age: Math.max(0, Number(plant.age) || 0),
+                    stunTicks: Math.max(0, Number(plant.stunTicks) || 0)
                 };
                 if (Number.isFinite(Number(plant.x))) {
                     normalized.x = Math.max(0, Math.min(1, Number(plant.x)));
@@ -159,19 +173,27 @@
                     health: clampHealth(zombie.health, maxHealth),
                     maxHealth: maxHealth,
                     slowTicks: Math.max(0, Number(zombie.slowTicks) || 0),
-                    moveClock: Math.max(0, Number.isFinite(Number(zombie.moveClock)) ? Number(zombie.moveClock) : 0)
+                    moveClock: Math.max(0, Number.isFinite(Number(zombie.moveClock)) ? Number(zombie.moveClock) : 0),
+                    skillClock: Math.max(0, Number.isFinite(Number(zombie.skillClock)) ? Number(zombie.skillClock) : 0),
+                    vaulted: Boolean(zombie.vaulted),
+                    action: String(zombie.action || '')
                 };
             }).filter(item => item.health > 0),
             projectiles: asArray(source.projectiles).map(function (item, index) {
                 const projectile = item && typeof item === 'object' ? item : {};
+                const team = projectile.team === 'zombie' ? 'zombie' : 'plant';
+                const kind = String(projectile.kind || (projectile.slowTicks ? 'ice-pea' : 'pea'));
                 return {
                     id: String(projectile.id || `pea-${index + 1}`),
                     lane: Math.max(0, Math.min(4, Math.floor(Number(projectile.lane) || 0))),
-                    column: Math.max(0, Math.min(BOARD_COLUMNS, Number(projectile.column) || 0)),
+                    column: Number.isFinite(Number(projectile.column)) ? Number(projectile.column) : 0,
                     damage: Math.max(1, Number(projectile.damage) || 1),
-                    slowTicks: Math.max(0, Number(projectile.slowTicks) || 0)
+                    slowTicks: Math.max(0, Number(projectile.slowTicks) || 0),
+                    kind: kind,
+                    team: team,
+                    convert: projectile.convert === 'bucket' ? 'bucket' : ''
                 };
-            }).filter(item => item.column <= BOARD_COLUMNS),
+            }).filter(item => item.column >= -1 && item.column <= BOARD_COLUMNS),
             selectedPlantId: String(source.selectedPlantId || activePlantId || 'plant-sunflower'),
             wave: Math.max(0, Number(source.wave) || 0),
             nextEntityId: Math.max(1, Number(source.nextEntityId) || 1),
@@ -335,7 +357,7 @@
         if (growth.garden.invader.active) return { growth: growth, changed: false, spawned: false };
         const wave = Math.max(1, (Number(growth.garden.invader.wave) || 0) + 1);
         const zombie = ZOMBIE_CATALOG[(wave - 1) % ZOMBIE_CATALOG.length];
-        const maxHealth = Math.min(9, zombie.baseHealth + Math.floor((wave - 1) / 5));
+        const maxHealth = Math.min(9, 3 + Math.floor((wave - 1) / 5));
         growth.garden.invader = Object.assign({}, growth.garden.invader, {
             active: true,
             kind: zombie.id,
@@ -600,7 +622,10 @@
                 health: rule.maxHealth,
                 maxHealth: rule.maxHealth,
                 slowTicks: 0,
-                moveClock: 0
+                moveClock: 0,
+                skillClock: 0,
+                vaulted: false,
+                action: ''
             };
             defense.zombies.push(zombie);
             spawned.push(zombie);
@@ -616,12 +641,65 @@
         return defense.plants.find(item => item.lane === lane && item.column === column && item.health > 0) || null;
     }
 
+    function nearestPlantAhead(defense, zombie) {
+        return defense.plants
+            .filter(function (plant) {
+                return plant.health > 0 && plant.lane === zombie.lane && plant.column < zombie.column;
+            })
+            .sort(function (a, b) { return b.column - a.column; })[0] || null;
+    }
+
+    function convertPlantToBucket(plant) {
+        const nextId = BUCKET_CONVERT[plant.plantId];
+        if (!nextId) return false;
+        const rule = DEFENSE_PLANT_RULES[nextId];
+        plant.plantId = nextId;
+        plant.maxHealth = rule.maxHealth;
+        plant.health = Math.max(1, Math.min(rule.maxHealth, Number(plant.health) || 1));
+        return true;
+    }
+
+    function applyZombieShot(plant, projectile) {
+        if (projectile.convert === 'bucket' && convertPlantToBucket(plant)) return;
+        plant.health = Math.max(0, plant.health - projectile.damage);
+        if (projectile.kind === 'cone') plant.stunTicks = Math.max(Number(plant.stunTicks) || 0, 2);
+    }
+
+    function throwKindForSkill(skill) {
+        if (skill === 'javelin-toss') return 'javelin';
+        if (skill === 'cone-toss') return 'cone';
+        return 'bucket';
+    }
+
+    function tryZombieThrow(defense, zombie, rule) {
+        const skill = rule.skill || '';
+        if (skill !== 'bucket-toss' && skill !== 'javelin-toss' && skill !== 'cone-toss') return false;
+        const target = nearestPlantAhead(defense, zombie);
+        if (!target) return false;
+        if (zombie.column - target.column > (rule.skillRange || 5)) return false;
+        if ((Number(zombie.skillClock) || 0) < (rule.skillEvery || 8)) return false;
+        zombie.skillClock = 0;
+        zombie.action = 'throw';
+        defense.projectiles.push({
+            id: defenseEntityId(defense, throwKindForSkill(skill)),
+            lane: zombie.lane,
+            column: zombie.column,
+            damage: Math.max(1, Number(rule.skillDamage) || 1),
+            slowTicks: 0,
+            kind: throwKindForSkill(skill),
+            team: 'zombie',
+            convert: skill === 'bucket-toss' ? 'bucket' : ''
+        });
+        return true;
+    }
+
     function stepDefense(growth) {
         const defense = growth.garden.defense;
         if (defense.status === 'lost' || defense.status === 'won') return growth;
         defense.tick += 1;
         defense.plants.forEach(function (plant) {
             plant.age += 1;
+            if (plant.stunTicks > 0) plant.stunTicks -= 1;
             if (plant.plantId === 'plant-sunflower' && defense.tick % 5 === 0) {
                 growth.sunlight = Math.max(0, Number(growth.sunlight) || 0) + 10;
                 growth.garden.growthPoints += 10;
@@ -650,6 +728,15 @@
 
         const nextProjectiles = [];
         defense.projectiles.forEach(function (projectile) {
+            if (projectile.team === 'zombie') {
+                projectile.column -= 1;
+                const target = defense.plants.find(function (item) {
+                    return item.health > 0 && item.lane === projectile.lane && item.column >= projectile.column;
+                });
+                if (target) applyZombieShot(target, projectile);
+                else if (projectile.column >= 0) nextProjectiles.push(projectile);
+                return;
+            }
             projectile.column += 1;
             const target = defense.zombies.find(item => item.health > 0 && item.lane === projectile.lane && item.column <= projectile.column);
             if (target) {
@@ -663,31 +750,61 @@
 
         defense.plants.forEach(function (plant) {
             const rule = DEFENSE_PLANT_RULES[plant.plantId];
-            if (!rule || !rule.damage || defense.tick % rule.cooldown !== 0) return;
+            if (!rule || !rule.damage || plant.stunTicks > 0) return;
+            if (defense.tick % Math.max(1, Number(rule.cooldown) || 1) !== 0) return;
             const target = defense.zombies.find(item => item.health > 0 && item.lane === plant.lane && item.column > plant.column);
             if (!target) return;
             defense.projectiles.push({
-                id: defenseEntityId(defense, 'pea'),
+                id: defenseEntityId(defense, rule.ammo || 'pea'),
                 lane: plant.lane,
                 column: plant.column,
                 damage: rule.damage,
-                slowTicks: rule.slowTicks || 0
+                slowTicks: rule.slowTicks || 0,
+                kind: rule.ammo || (rule.slowTicks ? 'ice-pea' : 'pea'),
+                team: 'plant',
+                convert: ''
             });
         });
 
+        const flagLanes = {};
         defense.zombies.forEach(function (zombie) {
-            if (zombie.health <= 0 || zombie.slowTicks > 0) {
+            if (zombie.health > 0 && zombie.kind === 'zombie-flag') flagLanes[zombie.lane] = true;
+        });
+
+        defense.zombies.forEach(function (zombie) {
+            zombie.action = '';
+            if (zombie.health <= 0) return;
+            if (zombie.slowTicks > 0) {
                 zombie.slowTicks = Math.max(0, zombie.slowTicks - 1);
-                return;
-            }
-            const blockingPlant = defensePlantAt(defense, zombie.lane, zombie.column - 1);
-            if (blockingPlant) {
-                blockingPlant.health = Math.max(0, blockingPlant.health - 1);
+                zombie.action = 'slow';
                 return;
             }
             const rule = DEFENSE_ZOMBIE_RULES[zombie.kind] || DEFENSE_ZOMBIE_RULES['zombie-basic'];
-            zombie.moveClock += 1;
+            zombie.skillClock = (Number(zombie.skillClock) || 0) + 1;
+            if (tryZombieThrow(defense, zombie, rule)) return;
+
+            const blockingPlant = defensePlantAt(defense, zombie.lane, zombie.column - 1);
+            if (blockingPlant && rule.skill === 'vault' && !zombie.vaulted) {
+                zombie.vaulted = true;
+                zombie.action = 'vault';
+                zombie.column = Math.max(-1, blockingPlant.column - 1);
+                zombie.moveClock = 0;
+                if (zombie.column < 0) defense.status = 'lost';
+                return;
+            }
+            if (blockingPlant) {
+                blockingPlant.health = Math.max(0, blockingPlant.health - (rule.bite || 1));
+                zombie.action = 'eat';
+                return;
+            }
+            let step = 1;
+            if (rule.skill === 'rally' || flagLanes[zombie.lane] || flagLanes[zombie.lane - 1] || flagLanes[zombie.lane + 1]) {
+                step += 1;
+            }
+            if (rule.skill === 'charge') step += 1;
+            zombie.moveClock += step;
             if (zombie.moveClock >= rule.moveEvery) {
+                zombie.action = 'walk';
                 if (zombie.column > 0) {
                     zombie.column -= 1;
                     zombie.moveClock = 0;

@@ -15,6 +15,20 @@ _site*/
 *.log
 .worktrees/
 .zcode/
+.playwright-mcp/
+current-english.png
+--/
+
+# Local game snapshots, not product
+prj/games/_backup/
+prj/games/blocklegend/assets/img2threejs/
+**/.img2threejs/
+
+# Local generation intermediates, not runtime
+prj/assets/generated/blocklegend-mobs-4view/
+prj/assets/generated/preschool-pvz-skills/
+docs/01-方案/学习项目设计/img/05-识字视觉优化/generated/_raw-*.png
+docs/01-方案/学习项目设计/img/05-识字视觉优化/generated/*.png
 
 # Local secrets and machine-specific configuration
 .env

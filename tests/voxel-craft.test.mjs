@@ -370,3 +370,56 @@ test('grid crafting matches shaped and shapeless recipes like 2d-minecraft', () 
   assert.match(html, /craft-grid/);
   assert.match(html, /craft-out/);
 });
+
+test('wood pick and other tools have item icons, not empty slots', () => {
+  const VW2 = globalThis.VoxelCraftWorld;
+  assert.equal(VW2.itemIcon('wood_pick'), 'items/wooden-pickaxe.png');
+  assert.equal(VW2.itemIcon('stone_pick'), 'items/stone-pickaxe.png');
+  assert.equal(VW2.itemIcon('wood_axe'), 'items/wooden-axe.png');
+  assert.equal(VW2.itemIcon('wood_sword'), 'items/wooden-sword.png');
+  assert.equal(VW2.itemIcon('stick'), 'items/stick.png');
+  assert.equal(VW2.itemIcon('bread'), 'items/bread.png');
+  assert.equal(VW2.itemIcon('chest'), 'items/chest.png');
+  assert.equal(fs.existsSync(path.join(gameDir, 'assets', 'mc', 'items', 'wooden-pickaxe.png')), true);
+  assert.equal(fs.existsSync(path.join(gameDir, 'assets', 'mc', 'items', 'bread.png')), true);
+  assert.equal(fs.existsSync(path.join(gameDir, 'assets', 'mc', 'items', 'chest.png')), true);
+  const game = fs.readFileSync(path.join(gameDir, 'game.js'), 'utf8');
+  assert.match(game, /itemIcon\(|ITEM_ICONS|VW\.itemIcon/);
+  assert.doesNotMatch(game, /function iconMarkup\(id\) \{\s*const tex = ENG\.MC_TEXTURES\[id\];/);
+});
+
+test('crafted result can move into a 36-slot inventory', () => {
+  const VW2 = globalThis.VoxelCraftWorld;
+  assert.equal(VW2.INV_SLOT_COUNT, 36);
+  assert.equal(VW2.HOTBAR_COUNT, 9);
+  const slots = VW2.makeSlots();
+  assert.equal(slots.length, 36);
+  const filled = VW2.addToSlots(slots, 'wood_pick', 1);
+  assert.equal(filled[0].kind, 'wood_pick');
+  assert.equal(filled[0].n, 1);
+  const moved = VW2.moveSlot(filled, 0, 10);
+  assert.equal(moved[0], null);
+  assert.equal(moved[10].kind, 'wood_pick');
+  const game = fs.readFileSync(path.join(gameDir, 'game.js'), 'utf8');
+  assert.match(game, /addToSlots|moveSlot|invSlots/);
+  assert.match(game, /takeCraftOut/);
+});
+
+test('more craftables and survival HUD hearts plus food icons', () => {
+  const VW2 = globalThis.VoxelCraftWorld;
+  assert.equal(VW2.matchCraftGrid(['plank','plank','plank','plank',null,'plank','plank','plank','plank'], 3).id, 'chest');
+  assert.equal(VW2.matchCraftGrid(['plank',null,'plank',null,'plank',null,null,null,null], 3).id, 'bowl');
+  assert.equal(VW2.matchCraftGrid(['wheat','wheat','wheat',null,null,null,null,null,null], 3).id, 'bread');
+  assert.ok(VW2.RECIPES.some((r) => r.id === 'chest'));
+  assert.ok(VW2.RECIPES.some((r) => r.id === 'bread'));
+  const html = fs.readFileSync(path.join(gameDir, 'index.html'), 'utf8');
+  const css = fs.readFileSync(path.join(gameDir, 'game.css'), 'utf8');
+  const game = fs.readFileSync(path.join(gameDir, 'game.js'), 'utf8');
+  assert.match(html, /id="survival-hud"|vc-survival-hud/);
+  assert.match(html, /id="hearts"|vc-hearts/);
+  assert.match(html, /id="food-bar"|vc-food/);
+  assert.match(css, /vc-hearts|vc-food/);
+  assert.match(game, /player\.food|renderSurvivalHud/);
+  assert.equal(fs.existsSync(path.join(gameDir, 'assets', 'ui', 'heart.png')), true);
+  assert.equal(fs.existsSync(path.join(gameDir, 'assets', 'ui', 'food.png')), true);
+});

@@ -164,6 +164,19 @@ test('recordAssessment appends history, caps at 24, and ignores low-confidence b
     assert.ok(Array.isArray((cloned.assessments || progress.assessments)));
 });
 
+test('rushed assessment stays reference-only even when its numeric confidence is high', () => {
+    const progress = literacy.recordAssessment(literacy.createDefaultProgress(), {
+        estimate: 900,
+        confidence: 0.86,
+        lowConfidence: true,
+        stage: '阅读进阶期',
+        wrongChars: [],
+        perLevel: { L1: { asked: 5 }, L2: { asked: 5 }, L3: { asked: 5 }, L4: { asked: 5 }, L5: { asked: 5 } }
+    }, '2026-08-16');
+    assert.equal(progress.assessments[0].lowConfidence, true);
+    assert.equal(literacy.summarizeAssessments(progress).best, null);
+});
+
 test('learning summary exposes latest and best literacy estimates from the same progress key', () => {
     const summary = courses.buildLearningSummary({
         streak: 2,
@@ -207,7 +220,7 @@ test('literacy course adds a 25-question assess lesson that stays off the requir
     const bankQuizFn = app.match(/function isBankQuizLesson\([\s\S]*?\n    \}/);
     assert.ok(bankQuizFn);
     assert.equal(bankQuizFn[0].includes('literacy-assess'), false);
-    assert.match(html, /preschool-literacy\.js\?v=20260816-literacy-ui-v1/);
-    assert.match(html, /app\.js\?v=20260816-literacy-ui-v1/);
+    assert.match(html, /preschool-literacy\.js\?v=20260816-literacy-ui-v2/);
+    assert.match(html, /app\.js\?v=20260816-literacy-ui-v5/);
     assert.match(html, /config\.js\?v=20260816-literacy-uplift-v1/);
 });

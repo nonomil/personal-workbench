@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 1,
+  "subject": "preschool-literacy-uplift",
+  "status": "visual-review",
+  "sourceManifest": "../manifest.json",
+  "items": [
+    {
+      "id": "literacy-companion-reading",
+      "file": "literacy-companion-reading.png",
+      "source": "docs/01-方案/学习项目设计/img/05-识字视觉优化/generated/literacy-companion-reading.png",
+      "width": 512,
+      "height": 512,
+      "mode": "RGBA",
+      "alphaCorners": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "literacy-action-assess",
+      "file": "literacy-action-assess.png",
+      "source": "docs/01-方案/学习项目设计/img/05-识字视觉优化/generated/literacy-action-assess.png",
+      "width": 384,
+      "height": 384,
+      "mode": "RGBA",
+      "alphaCorners": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "literacy-action-mistakes",
+      "file": "literacy-action-mistakes.png",
+      "source": "docs/01-方案/学习项目设计/img/05-识字视觉优化/generated/literacy-action-mistakes.png",
+      "width": 384,
+      "height": 384,
+      "mode": "RGBA",
+      "alphaCorners": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "literacy-action-profile",
+      "file": "literacy-action-profile.png",
+      "source": "docs/01-方案/学习项目设计/img/05-识字视觉优化/generated/literacy-action-profile.png",
+      "width": 384,
+      "height": 384,
+      "mode": "RGBA",
+      "alphaCorners": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "literacy-badge-seed",
+      "file": "literacy-badge-seed.png",
+      "source": "docs/01-方案/学习项目设计/img/05-识字视觉优化/generated/literacy-badge-seed.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGBA",
+      "alphaCorners": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "literacy-badge-story",
+      "file": "literacy-badge-story.png",
+      "source": "docs/01-方案/学习项目设计/img/05-识字视觉优化/generated/literacy-badge-story.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGBA",
+      "alphaCorners": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "literacy-badge-reading",
+      "file": "literacy-badge-reading.png",
+      "source": "docs/01-方案/学习项目设计/img/05-识字视觉优化/generated/literacy-badge-reading.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGBA",
+      "alphaCorners": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "literacy-badge-fluent",
+      "file": "literacy-badge-fluent.png",
+      "source": "docs/01-方案/学习项目设计/img/05-识字视觉优化/generated/literacy-badge-fluent.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGBA",
+      "alphaCorners": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "literacy-certificate-corner",
+      "file": "literacy-certificate-corner.png",
+      "source": "docs/01-方案/学习项目设计/img/05-识字视觉优化/generated/literacy-certificate-corner.png",
+      "width": 512,
+      "height": 512,
+      "mode": "RGBA",
+      "alphaCorners": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

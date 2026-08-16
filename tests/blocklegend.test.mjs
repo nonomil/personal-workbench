@@ -58,7 +58,7 @@ test('attack cooldown is kind-specific', () => {
 
 test('monster table has 2-3 kinds with hp and coin drops', () => {
   assert.ok(Array.isArray(C.MONSTER_KINDS));
-  assert.ok(C.MONSTER_KINDS.length >= 2 && C.MONSTER_KINDS.length <= 3);
+  assert.ok(C.MONSTER_KINDS.length >= 3 && C.MONSTER_KINDS.length <= 16);
   C.MONSTER_KINDS.forEach((k) => {
     const m = C.monsterOf(k);
     assert.equal(m.kind, k);
@@ -83,6 +83,13 @@ test('melee fan and bolt homing stay deterministic', () => {
   assert.equal(C.inMeleeArc({ x: 0, z: 0 }, 0, { x: 0, z: -1.4 }), true);
   assert.equal(C.inMeleeArc({ x: 0, z: 0 }, 0, { x: 0, z: 2 }), false);
   assert.equal(C.inMeleeArc({ x: 0, z: 0 }, 0, { x: 0, z: -8 }), false);
+  assert.equal(C.inMeleeArc({ x: 0, z: 0 }, 0, { x: 0, z: -3.8 }), true, 'sword should reach a mob a few steps ahead');
+  assert.equal(C.inMeleeArc({ x: 0, z: 0 }, 0, { x: 0, z: -5.4, hitRadius: 1.2 }), true, 'tall boss body still counts');
+  assert.ok(C.MELEE_RANGE >= 4, 'melee reach must be longer than a single block');
+  const aim = C.aimPoint({ x: 2, y: 4, z: 6, height: 3.3 });
+  assert.equal(aim.x, 2);
+  assert.equal(aim.z, 6);
+  assert.ok(aim.y > 5.5 && aim.y < 6.1);
   const nearest = C.nearestMonster({ x: 0, z: 0 }, [
     { id: 'a', x: 4, z: 0, hp: 4 },
     { id: 'b', x: 1, z: -1, hp: 4 },
@@ -91,6 +98,14 @@ test('melee fan and bolt homing stay deterministic', () => {
   assert.equal(nearest.id, 'b');
   const bolt = C.steerBolt({ x: 0, z: 0, vx: 0, vz: -C.BOLT_SPEED }, { x: 3, z: -4 }, 0.05);
   assert.ok(bolt.vx > 0, 'bolt should yaw toward +X');
+});
+
+test('holding attack prefers a mob in front over mining the ground', () => {
+  assert.equal(typeof C.aimAction, 'function');
+  assert.equal(C.aimAction({ mining: true, inMelee: true, hasBlock: true }), 'melee');
+  assert.equal(C.aimAction({ mining: true, lookMob: true, lookDist: 4.2, meleeRange: 4.5, hasBlock: true }), 'melee');
+  assert.equal(C.aimAction({ mining: true, inMelee: false, lookMob: false, hasBlock: true }), 'mine');
+  assert.equal(C.aimAction({ mining: false, inMelee: false, lookMob: false, hasBlock: true }), 'none');
 });
 
 await import('../prj/games/blocklegend/data/words.js');
@@ -141,16 +156,43 @@ test('look-at labels keep short Chinese fallbacks when the daily bank has no MC 
   assert.equal(slime.zh, '史莱姆');
   const grass = W.labelFor('grass', bank);
   assert.equal(grass.zh, '草坪');
+  const wordCube = W.labelFor('word', []);
+  assert.equal(wordCube.zh, '单词方块');
+  assert.equal(W.shouldAutoSpeak('grass', 'block'), false);
+  assert.equal(W.shouldAutoSpeak('log', 'block'), false);
+  assert.equal(W.shouldAutoSpeak('dirt', 'block'), false);
+  assert.equal(W.shouldAutoSpeak('word', 'block'), true);
+  assert.equal(W.shouldAutoSpeak('slime', 'mob'), true);
   const strip = W.sayStrip(W.poolForLevel(bank, 1), 6);
   assert.match(strip, /^Say: /);
   assert.ok(strip.split(' ').length >= 4);
 });
 
-test('quiz cadence asks on first hit then skips after a correct streak', () => {
+test('collecting a word block pays coins, heals HP, and keeps the word', () => {
+  const r = W.collectWordBlock(
+    { coins: 10, hp: 6, hpMax: 20, learnedIds: [] },
+    { id: 'apple', text: 'apple', zh: '苹果' }
+  );
+  assert.equal(r.coins, 13);
+  assert.equal(r.hp, 10);
+  assert.ok(r.learnedIds.indexOf('apple') >= 0);
+  assert.equal(r.word.text, 'apple');
+  const capped = W.collectWordBlock(
+    { coins: 0, hp: 19, hpMax: 20, learnedIds: ['apple'] },
+    { id: 'apple', text: 'apple', zh: '苹果' }
+  );
+  assert.equal(capped.hp, 20);
+  assert.deepEqual(capped.learnedIds, ['apple']);
+});
+
+test('quiz cadence asks once per mob, and every 3rd boss hit', () => {
   assert.equal(W.shouldAsk({ firstHit: true, combo: 0 }), true);
-  assert.equal(W.shouldAsk({ firstHit: false, combo: 0 }), true);
+  assert.equal(W.shouldAsk({ firstHit: false, combo: 0 }), false);
   assert.equal(W.shouldAsk({ firstHit: false, combo: W.SKIP_COMBO }), false);
   assert.equal(W.shouldAsk({ firstHit: true, combo: W.SKIP_COMBO }), true);
+  assert.equal(W.shouldAsk({ firstHit: true, boss: true }), true);
+  assert.equal(W.shouldAsk({ firstHit: false, boss: true }), false);
+  assert.equal(W.shouldAsk({ firstHit: false, boss: true, bossHits: 3 }), true);
 });
 
 await import('../prj/games/blocklegend/data/levels.js');
@@ -174,8 +216,10 @@ test('boss shield state machine: shielded reduce, broken window, recover 50%', (
   const boss = L.createBoss(1);
   assert.equal(boss.state, 'shielded');
   assert.equal(boss.color, 'blue');
+  assert.ok(L.SHIELD_REDUCE >= 0.45, 'shielded hits must still chip visible HP');
   const tick = L.applyBossDamage(boss, 10, { now: 1000 });
   assert.equal(tick.dealt, 10 * L.SHIELD_REDUCE);
+  assert.ok(tick.boss.hp <= boss.hp - 4);
   assert.equal(tick.boss.state, 'shielded');
   let b = tick.boss;
   while (b.shield > 0) {
@@ -207,6 +251,15 @@ test('workbench voxel home and game shell wire the S5 entry, help and merchant',
   assert.match(html, /id="look-card"/);
   assert.match(html, /Listening/);
   assert.match(game, /Press F to trade|openTrade|sellAll/);
+});
+
+test('contact requires a clear path and will not reach into a shelter', () => {
+  assert.equal(typeof C.canTouch, 'function');
+  assert.equal(C.canTouch({ x: 0, z: 0 }, { x: 1, z: 0 }, {}), true);
+  assert.equal(C.canTouch({ x: 0, z: 0 }, { x: 8, z: 0 }, {}), false);
+  assert.equal(C.canTouch({ x: 0, z: 0 }, { x: 1, z: 0 }, { wallBetween: true }), false);
+  assert.equal(C.canTouch({ x: 0, z: 0 }, { x: 1, z: 0 }, { playerSheltered: true, mobSheltered: false }), false);
+  assert.equal(C.canTouch({ x: 0, z: 0 }, { x: 1, z: 0 }, { playerSheltered: true, mobSheltered: true }), true);
 });
 
 test('contact hit respects invincible frames', () => {
@@ -245,6 +298,12 @@ test('terrain mesher emits unit cubes with grass/dirt/stone fill, not a paper-th
   assert.ok(species.size >= 2, 'trees should mix oak / birch / spruce');
   const dirtTint = E.blockColor('dirt', 3, 1, 3);
   assert.ok(dirtTint[0] > 0.72 && dirtTint[1] > 0.55, 'dirt under grass should be sandy, not chocolate');
+  const luma = (c) => 0.3 * c[0] + 0.59 * c[1] + 0.11 * c[2];
+  assert.ok(luma(E.blockColor('grass', 4, 2, 4)) > 0.62, 'grass should stay sunny');
+  assert.ok(luma(E.blockColor('dirt', 4, 1, 4)) > 0.66, 'dirt should stay sandy');
+  assert.ok(luma(E.blockColor('plank', 4, 2, 4)) > 0.62, 'planks should stay honey oak');
+  assert.ok(luma(E.blockColor('log', 4, 3, 4, 'oak')) > 0.68, 'oak logs should not be chocolate');
+  assert.ok(luma(E.blockColor('leaf', 4, 5, 4, 'oak')) > 0.68, 'oak leaves should stay spring green');
   const kinds = new Set(faces.map((f) => f.kind));
   assert.ok(kinds.has('grass') || kinds.has('sand') || kinds.has('snow') || kinds.has('stone'));
   assert.ok(kinds.has('dirt') || kinds.has('sand') || kinds.has('stone'));
@@ -296,6 +355,20 @@ test('six climates make distinct Minecraft-like maps', () => {
   assert.ok(snow + sand >= 8, 'later climates should show snow / sand / stone');
   const climates = (globalThis.BlockLegendLevels.LEVELS || []).map((row) => row.climate);
   assert.ok(new Set(climates).size >= 5, 'each chapter should pick a different climate');
+  const cherry = E.createWorld(21, { climate: 'cherry' });
+  const desert = E.createWorld(33, { climate: 'desert' });
+  const nether = E.createWorld(71, { climate: 'nether' });
+  assert.ok(E.climateOf('cherry').sky !== E.climateOf('forest').sky);
+  assert.ok(E.climateOf('nether').sky !== E.climateOf('astral').sky);
+  assert.ok(cherry.trees.length > desert.trees.length);
+  let desertSand = 0;
+  for (let i = 0; i < 40; i += 1) {
+    const x = (i * 17) % desert.size;
+    const z = (i * 13) % desert.size;
+    if (E.blockKindAt(desert, x, desert.surfaceAt(x, z) - 1, z) === 'sand') desertSand += 1;
+  }
+  assert.ok(desertSand >= 8, 'desert climate should show sand');
+  assert.equal(nether.climate, 'nether');
 });
 
 test('plains map has caves, ores, water and a village', () => {
@@ -322,6 +395,52 @@ test('plains map has caves, ores, water and a village', () => {
   assert.ok(hollowOpen >= 8, 'caves should be walkable voids');
   assert.equal(E.tileIndex('water'), 14);
   assert.equal(E.tileIndex('coal'), 15);
+});
+
+test('plains map stamps collectible word cubes from the level pool', () => {
+  const words = [
+    { id: 'red', text: 'red', zh: '红' },
+    { id: 'blue', text: 'blue', zh: '蓝' },
+    { id: 'cat', text: 'cat', zh: '猫' },
+    { id: 'dog', text: 'dog', zh: '狗' },
+    { id: 'sun', text: 'sun', zh: '太阳' },
+    { id: 'book', text: 'book', zh: '书' }
+  ];
+  const world = E.createWorld(7, { climate: 'plains', words: words });
+  assert.ok(world.wordCells);
+  const keys = Object.keys(world.wordCells);
+  assert.ok(keys.length >= 4, 'should plant several word cubes near spawn');
+  keys.forEach((key) => {
+    const p = key.split(',').map(Number);
+    assert.equal(E.voxelAt(world, p[0], p[1], p[2]), 'word');
+    assert.ok(world.wordCells[key].text);
+  });
+  assert.equal(E.tileIndex('word'), 7);
+});
+
+test('cabin walls block bodies and house interiors keep monsters out', () => {
+  const world = E.createWorld(7, { climate: 'plains' });
+  assert.ok(Array.isArray(world.houses) && world.houses.length >= 1);
+  const house = world.houses[0];
+  const wallX = house.x + 0.5;
+  const wallZ = house.z + 0.5;
+  const wallY = world.surfaceAt(house.x, house.z);
+  assert.equal(E.inHouse(world, house.x + 2, house.z + 2), true);
+  assert.equal(E.inHouse(world, 4, 4), false);
+  assert.equal(E.columnBlockedAt(world, wallX, wallZ, wallY), true, 'plank wall must stop a body');
+  const inX = house.x + 2.5;
+  const inZ = house.z + 2.5;
+  const inY = world.surfaceAt(house.x + 2, house.z + 2);
+  assert.equal(E.columnBlockedAt(world, inX, inZ, inY), false);
+  const outX = house.x - 1.5;
+  const outZ = house.z + 2.5;
+  const outY = world.surfaceAt(house.x - 1, house.z + 2) + 1.2;
+  const inEye = inY + 1.2;
+  assert.equal(E.wallBetween(world, outX, outY, outZ, inX, inEye, inZ), true);
+  const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  assert.match(game, /inHouse\(/);
+  assert.match(game, /canTouch\(/);
+  assert.match(game, /wallBetween\(/);
 });
 
 test('atlas exports 18+ tiles and four distinct crack stages', () => {
@@ -384,6 +503,54 @@ test('L-shaped dirt pair darkens the inner-corner face via AO', () => {
 
 await import('../prj/games/blocklegend/data/tools.js');
 const T = globalThis.BlockLegendTools;
+await import('../prj/games/blocklegend/data/craft.js');
+const CR = globalThis.BlockLegendCraft;
+
+test('wood crafts into planks and four planks craft a table', () => {
+  assert.equal(typeof CR, 'object');
+  assert.equal(CR.craft({ 'oak-log': 1 }, 'plank').ok, true);
+  assert.equal(CR.craft({ 'oak-log': 1 }, 'plank').bag.plank, 4);
+  assert.equal(CR.craft({ 'oak-log': 1 }, 'plank').bag['oak-log'], 0);
+  assert.equal(CR.craft({ plank: 3 }, 'table').ok, false);
+  const table = CR.craft({ plank: 4 }, 'table');
+  assert.equal(table.ok, true);
+  assert.equal(table.bag.table, 1);
+  assert.equal(table.bag.plank, 0);
+  assert.equal(CR.craft({ plank: 3, stick: 2 }, 'wood_pick').ok, false);
+  assert.equal(CR.craft({ plank: 3, stick: 2 }, 'wood_pick', { atTable: true }).ok, true);
+  assert.equal(CR.craft({ plank: 2, stick: 1 }, 'wood_sword', { atTable: true }).bag.wood_sword, 1);
+  assert.equal(CR.craft({ stick: 3, plank: 2 }, 'wood_bow', { atTable: true }).bag.wood_bow, 1);
+  assert.equal(CR.craft({ plank: 6 }, 'wood_shield', { atTable: true }).bag.wood_shield, 1);
+  assert.equal(CR.craft({ stick: 1, cobble: 1 }, 'arrow', { atTable: true }).bag.arrow, 4);
+  assert.equal(CR.craft({ cobble: 2, stick: 1 }, 'iron_sword', { atTable: true }).bag.iron_sword, 1);
+  assert.ok(CR.toolBonus({ iron_sword: 1 }, 'sword').melee > CR.toolBonus({ wood_sword: 1 }, 'sword').melee);
+  assert.equal(CR.craft({ plank: 1, stick: 2 }, 'wood_shovel', { atTable: true }).ok, true);
+  assert.equal(CR.craft({ cobble: 8 }, 'furnace', { atTable: true }).ok, true);
+  assert.equal(CR.matchGrid(['oak-log', null, null, null], 2).recipe.id, 'plank');
+  assert.equal(CR.matchGrid(['plank', 'plank', 'plank', 'plank'], 2).recipe.id, 'table');
+  assert.equal(CR.matchGrid(['plank', null, null, 'plank', null, null, 'stick', null, null], 3).recipe.id, 'wood_sword');
+  assert.ok(CR.toolBonus({ wood_pick: 1 }, 'pickaxe').mine > 1);
+  assert.ok(CR.toolBonus({ wood_sword: 1 }, 'sword').melee > 1);
+  assert.ok(CR.toolBonus({ wood_bow: 1 }, 'sword').bolt > 1);
+  assert.ok(CR.toolBonus({ wood_shield: 1 }, 'sword').def >= 1);
+  assert.equal(T.placeKindOf('table'), 'table');
+  assert.equal(T.dropOf('table'), 'table');
+  const world = E.createWorld(7);
+  const gx = 8, gz = 8;
+  const airY = world.surfaceAt(gx, gz) + 5;
+  const put = E.placeVoxel(world, gx, airY, gz, 'table');
+  assert.equal(put.ok, true);
+  assert.equal(E.voxelAt(world, gx, airY, gz), 'table');
+  const html = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'index.html'), 'utf8');
+  const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  assert.match(html, /id="craft-layer"/);
+  assert.match(html, /id="craft-grid"/);
+  assert.match(html, /id="craft-out"/);
+  assert.match(html, /id="craft-inv"/);
+  assert.match(html, /data-place="table"/);
+  assert.match(game, /e\.key === 'c'/);
+  assert.match(game, /hit\.kind === 'table'/);
+});
 
 test('chunksAround returns clamped keys within view radius', () => {
   assert.equal(typeof E.chunksAround, 'function');
@@ -413,6 +580,13 @@ test('tools table: sword/axe/pickaxe/shovel have distinct mine and melee roles',
   assert.ok(T.meleeScale('sword') > T.meleeScale('axe'));
   assert.equal(T.dropOf('log'), 'oak-log');
   assert.equal(T.dropOf('stone'), 'cobble');
+  assert.equal(T.dropOf('plank'), 'plank');
+  assert.equal(T.dropOf('dirt'), 'dirt');
+  assert.equal(T.placeKindOf('dirt'), 'dirt');
+  assert.equal(T.placeKindOf('plank'), 'plank');
+  assert.equal(T.placeKindOf('oak-log'), 'log');
+  assert.equal(T.placeKindOf('cobble'), 'stone');
+  assert.equal(T.lootOfPlace('plank'), 'plank');
   assert.equal(T.lookDir(0, 0).z < 0, true);
 });
 
@@ -457,6 +631,11 @@ test('chopping a tree and mining a block clear voxels and drop the right item', 
   assert.equal(E.voxelAt(world, gx, py, gz), 'dirt');
   assert.equal(E.placeVoxel(world, gx, 0, gz, 'dirt').ok, false);
   assert.equal(E.placeVoxel(world, gx, py, gz, 'dirt').ok, false);
+  const airY = world.surfaceAt(gx, gz) + 4;
+  assert.equal(E.voxelAt(world, gx, airY, gz), null);
+  const plankPut = E.placeVoxel(world, gx, airY, gz, 'plank');
+  assert.equal(plankPut.ok, true);
+  assert.equal(E.voxelAt(world, gx, airY, gz), 'plank');
 });
 
 await import('../prj/games/blocklegend/data/shop.js');
@@ -605,6 +784,132 @@ test('game.js mounts crack overlay while mining and clears it on stop', () => {
   assert.match(game, /tileIndex\(\s*['"]crack['"]/);
   assert.match(game, /polygonOffset/);
   assert.match(game, /spawnBurst\([\s\S]{0,80}2/);
+  assert.match(game, /aimAction\(/);
+  assert.match(game, /collectWordBlock\(/);
+  assert.match(game, /shouldAutoSpeak\(/);
+  assert.match(game, /speechSynthesis\.cancel/);
+});
+
+await import('../prj/games/blocklegend/data/skins.js');
+const SK = globalThis.BlockLegendSkins;
+
+test('minecraft-style skins are original 64x64 pixel sheets, not solid colors', () => {
+  assert.equal(typeof SK, 'object');
+  assert.equal(typeof SK.createSkinImage, 'function');
+  const slime = SK.createSkinImage('slime');
+  const warden = SK.createSkinImage('warden');
+  const blaze = SK.createSkinImage('blaze');
+  assert.equal(slime.length, 64 * 64 * 4);
+  assert.equal(warden.length, 64 * 64 * 4);
+  let painted = 0;
+  let diff = 0;
+  for (let i = 0; i < slime.length; i += 4) {
+    if (slime[i + 3] > 0) painted += 1;
+    if (slime[i] !== warden[i] || slime[i + 1] !== warden[i + 1] || slime[i + 2] !== warden[i + 2]) diff += 1;
+  }
+  assert.ok(painted >= 64 * 8, 'skin should paint visible texels');
+  assert.ok(diff >= 80, 'each mob kind needs its own palette');
+  assert.ok(SK.kinds.indexOf('blaze') >= 0 && SK.kinds.indexOf('ghast') >= 0 && SK.kinds.indexOf('warden') >= 0);
+  const front = SK.facePixels(blaze, 8, 8, 8, 8);
+  const uniq = new Set(front.map((p) => p.join(',')));
+  assert.ok(uniq.size >= 3, 'head front should be a pixel face, not one fill');
+  const mobs = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'mobs.js'), 'utf8');
+  const html = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'index.html'), 'utf8');
+  assert.match(mobs, /function mapMcBox/);
+  assert.match(mobs, /NearestFilter/);
+  assert.match(mobs, /skinTexture\(/);
+  assert.match(html, /data\/skins\.js/);
+  assert.match(html, /createCreeperModel\.js/);
+});
+
+test('first-person tools are parented to the arm, not floating boxes', () => {
+  const mobs = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'mobs.js'), 'utf8');
+  assert.match(mobs, /camera-space tools/);
+  assert.match(mobs, /function heldSword/);
+  assert.match(mobs, /function heldAxe/);
+  assert.match(mobs, /function heldPickaxe/);
+  assert.match(mobs, /function heldShovel/);
+  assert.match(mobs, /tools\.place/);
+});
+
+test('levels carry biome wave rosters and a wither-style boss', () => {
+  assert.equal(L.LEVELS.length, 6);
+  L.LEVELS.forEach((row) => {
+    assert.ok(Array.isArray(row.waveKinds) && row.waveKinds.length >= 3);
+    row.waveKinds.forEach((k) => assert.ok(C.MONSTERS[k], k));
+    assert.ok(row.bossId);
+  });
+  assert.equal(L.LEVELS[0].bossId, 'wither');
+  assert.ok(C.MONSTERS.blaze && C.MONSTERS.ghast && C.MONSTERS.warden);
+  assert.ok(C.MONSTERS.creeper && C.MONSTERS.zombie && C.MONSTERS.skeleton && C.MONSTERS.spider);
+  assert.ok(C.MONSTERS.enderman && C.MONSTERS.piglin && C.MONSTERS.witch);
+  const mobs = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'mobs.js'), 'utf8');
+  assert.match(mobs, /kind === 'blaze'/);
+  assert.match(mobs, /kind === 'ghast'/);
+  assert.match(mobs, /kind === 'warden'/);
+  assert.match(mobs, /kind === 'creeper'/);
+  assert.match(mobs, /kind === 'zombie'/);
+  assert.match(mobs, /kind === 'skeleton'/);
+  assert.match(mobs, /kind === 'spider'/);
+  assert.match(mobs, /kind === 'enderman'/);
+  assert.match(mobs, /kind === 'piglin'/);
+  assert.match(mobs, /kind === 'witch'/);
+  const html = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'index.html'), 'utf8');
+  const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  assert.match(html, /createCreeperModel\.js/);
+  assert.match(html, /createZombieModel\.js/);
+  assert.match(html, /createSkeletonModel\.js/);
+  assert.match(html, /createSpiderModel\.js/);
+  assert.match(html, /createEndermanModel\.js/);
+  assert.match(html, /createPiglinModel\.js/);
+  assert.match(html, /createWitchModel\.js/);
+  assert.match(html, /createWitherModel\.js/);
+  assert.match(html, /createTools3d\.js/);
+  assert.match(html, /createProps3d\.js/);
+  assert.match(html, /id="boss-shield"/);
+  assert.match(game, /bossHits/);
+  assert.match(game, /aimPoint\(/);
+  assert.match(game, /mob\.hp = session\.boss\.hp/);
+  assert.match(mobs, /wither-head/);
+});
+
+test('right click places collected dirt/plank/log; Q keeps the bolt', () => {
+  const html = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'index.html'), 'utf8');
+  const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  const engine = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'engine.js'), 'utf8');
+  assert.match(html, /data-place="plank"/);
+  assert.match(html, /右键放方块/);
+  assert.match(game, /if \(e\.button === 2\)[\s\S]{0,280}tryPlace\(\)/);
+  assert.match(game, /e\.key === 'q'[\s\S]{0,80}tryBolt\(\)/);
+  assert.match(game, /function paintBagCounts/);
+  assert.match(game, /addLoot\(session\.bag, result\.drop, 1\)/);
+  assert.match(engine, /allowed = \{ dirt: true, stone: true, log: true, plank: true, table: true \}/);
+});
+
+test('minecraft-like hud has 9 hotbar slots and a heart row', () => {
+  const html = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'index.html'), 'utf8');
+  const css = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.css'), 'utf8');
+  const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  assert.equal((html.match(/class="bl-slot/g) || []).length, 9);
+  assert.match(html, /id="hearts"/);
+  assert.match(css, /\.bl-heart/);
+  assert.match(css, /\.bl-mc-hud/);
+  assert.match(game, /function paintHearts/);
+  assert.match(game, /e\.key >= '1' && e\.key <= '9'/);
+});
+
+test('quiz overlay releases look capture and accepts 1-4 keys', () => {
+  const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  const engine = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'engine.js'), 'utf8');
+  const css = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.css'), 'utf8');
+  assert.match(engine, /function setUiMode/);
+  assert.match(engine, /exitPointerLock/);
+  assert.match(engine, /function resumeLook/);
+  assert.match(game, /setUiMode\(/);
+  assert.match(game, /resumeLook\(/);
+  assert.match(game, /pickQuizChoice/);
+  assert.match(game, /shouldAsk\(\{ firstHit: firstHit, combo: session\.combo, boss:/);
+  assert.match(css, /\.bl-quiz-layer[\s\S]{0,180}pointer-events:\s*auto/);
 });
 
 test('blocklegend page loads mastery engines and game.js writes answers back', () => {
