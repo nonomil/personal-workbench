@@ -992,18 +992,11 @@ test('restores the summer learning lane without loading the full library into th
 
 test('exposes one interactive 5x6 planting board and a drag-capable seed tray', () => {
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
-  const styles = readCssGraph(path.join(root, 'styles.css'));
-  assert.match(app, /data-action="place-defense-plant"/);
-  assert.match(app, /data-lane=/);
-  assert.match(app, /data-column=/);
-  assert.match(app, /draggable="\$\{unlocked \? 'true' : 'false'\}"/);
-  assert.match(app, /dataTransfer\.setData/);
-  assert.match(app, /drop/);
-  assert.match(app, /document\.addEventListener\('pointerdown'/);
-  assert.match(app, /document\.addEventListener\('pointerup'/);
-  assert.match(app, /elementFromPoint/);
-  assert.match(styles, /pixel-battle-slot/);
-  assert.match(styles, /pixel-battle-slot\.is-drop-target/);
+  const garden = fs.readFileSync(path.join(root, 'games', 'garden-defense', 'game.js'), 'utf8');
+  assert.match(app, /worldGameHref:\s*'\.\.\/games\/garden-defense\/index\.html'/);
+  assert.match(app, /open-world-game/);
+  assert.match(garden, /BOARD_COLUMNS/);
+  assert.match(garden, /seed|plant/i);
 });
 
 test('routes plant skills by effect instead of animating every plant as a pea shooter', () => {

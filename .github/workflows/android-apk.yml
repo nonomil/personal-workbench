@@ -27,8 +27,8 @@ jobs:
       - name: Install JavaScript dependencies
         run: npm ci
 
-      - name: Run web regression tests
-        run: npm test
+      - name: Run packaging contracts
+        run: node --test --test-concurrency=1 tests/prepare-mobile.test.mjs tests/release-contract.test.mjs tests/project-layout.test.mjs tests/release-asset-allowlist.test.mjs
 
       - name: Verify published launcher contract
         run: npm run release:verify

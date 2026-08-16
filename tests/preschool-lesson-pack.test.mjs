@@ -90,7 +90,7 @@ test('html and app wire the pack renderer and motion timer onto the existing dia
     const app = fs.readFileSync(path.join(repoRoot, 'prj', 'app.js'), 'utf8');
     const html = fs.readFileSync(path.join(repoRoot, 'prj', 'preschool-workbench', 'index.html'), 'utf8');
     const configSource = fs.readFileSync(path.join(repoRoot, 'prj', 'config.js'), 'utf8');
-    assert.equal((configSource.split("id: 'preschool-literacy'")[1].split("actions: { 'add-plan'")[0].match(/activity:\s*\{/g) || []).length, 30);
+    assert.equal((configSource.split("id: 'preschool-literacy'")[1].split("actions: { 'add-plan'")[0].match(/activity:\s*\{/g) || []).length, 31);
     assert.match(html, /preschool-lesson-pack-data\.js\?v=20260815-b4-c4-v1/);
     assert.match(html, /preschool-lesson-pack\.js\?v=20260815-b4-c1-v1/);
     assert.match(html, /preschool-play-games\.js/);
