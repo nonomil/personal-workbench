@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>方块传奇 · 学英语大冒险</title>
-    <link rel="stylesheet" href="./game.css?v=20260816-bl-look2">
+    <link rel="stylesheet" href="./game.css?v=20260816-bl-learn1">
 </head>
 <body class="bl-body">
     <main class="bl-stage">
@@ -86,8 +86,14 @@
                 <button type="button" class="bl-quiz-en" id="quiz-en">word</button>
                 <img class="bl-quiz-img is-hidden" id="quiz-img" alt="">
                 <p class="bl-quiz-zh" id="quiz-zh"></p>
+                <p class="bl-quiz-phrase is-hidden" id="quiz-phrase"></p>
+                <p class="bl-quiz-phrase-zh is-hidden" id="quiz-phrase-zh"></p>
                 <button type="button" class="bl-btn is-ghost" id="quiz-speak">听</button>
                 <div class="bl-quiz-choices" id="quiz-choices"></div>
+                <form class="bl-quiz-type is-hidden" id="quiz-type" autocomplete="off">
+                    <input id="quiz-input" type="text" inputmode="latin" autocapitalize="none" autocomplete="off" spellcheck="false" maxlength="24" placeholder="type the word">
+                    <button type="submit" class="bl-btn" id="quiz-submit">施放</button>
+                </form>
                 <div class="bl-quiz-time"><i id="quiz-timer"></i></div>
             </div>
         </div>
@@ -144,10 +150,12 @@
                     <li>Look at a block or mob — its name appears under the crosshair</li>
                     <li>Hold left click — hit the mob you look at; if none, mine the block</li>
                     <li>Gold word cubes — break them for coins, HP, and word progress</li>
+                    <li>Word gates block the path — walk up and answer to open them</li>
                     <li>C — 随身 2×2 合成；对着合成台右键打开 3×3 格子。左边点配方，或把材料摆进格子再点产物</li>
                     <li>Right click a placed table to open the full craft grid; otherwise place a block</li>
                     <li>Q — homing magic bolt; with a crafted bow and arrows it fires an arrow instead</li>
-                    <li>First hit on a mob opens a word card — mouse is free, click or press 1–4</li>
+                    <li>Word cards rotate: choose, listen, picture, fill the blank, or type the English word</li>
+                    <li>First hit on a mob opens a word card — mouse is free, click 1–4 or type and Enter</li>
                     <li>F — sell loot or buy Leather Cap / Cloth Robe / Iron Blade / HP Potion</li>
                     <li>Wither takes damage when you hit it; blue shield only reduces damage</li>
                     <li>Answer words every few hits to break the shield for a burst window</li>
@@ -163,24 +171,25 @@
     <script src="../../child-courses.js?v=20260815-word-backflow-v1"></script>
     <script src="./vendor/three.min.js?v=20260815-bl-s1"></script>
     <script src="./data/shop.js?v=20260815-bl-look11"></script>
-    <script src="./data/tools.js?v=20260816-bl-look2"></script>
-    <script src="./data/craft.js?v=20260816-bl-look2"></script>
-    <script src="./engine.js?v=20260816-bl-look2"></script>
-    <script src="./data/combat.js?v=20260816-bl-look2"></script>
-    <script src="./data/words.js?v=20260816-bl-look2"></script>
-    <script src="./data/levels.js?v=20260816-bl-look2"></script>
-    <script src="./data/skins.js?v=20260816-bl-look2"></script>
-    <script src="./assets/img2threejs/createCreeperModel.js?v=20260816-bl-look2"></script>
-    <script src="./assets/img2threejs/createZombieModel.js?v=20260816-bl-look2"></script>
-    <script src="./assets/img2threejs/createSkeletonModel.js?v=20260816-bl-look2"></script>
-    <script src="./assets/img2threejs/createSpiderModel.js?v=20260816-bl-look2"></script>
-    <script src="./assets/img2threejs/createEndermanModel.js?v=20260816-bl-look2"></script>
-    <script src="./assets/img2threejs/createPiglinModel.js?v=20260816-bl-look2"></script>
-    <script src="./assets/img2threejs/createWitchModel.js?v=20260816-bl-look2"></script>
-    <script src="./assets/img2threejs/createWitherModel.js?v=20260816-bl-look2"></script>
-    <script src="./assets/img2threejs/createTools3d.js?v=20260816-bl-look2"></script>
-    <script src="./assets/img2threejs/createProps3d.js?v=20260816-bl-look2"></script>
-    <script src="./mobs.js?v=20260816-bl-look2"></script>
-    <script src="./game.js?v=20260816-bl-look2"></script>
+    <script src="./data/tools.js?v=20260816-bl-learn1"></script>
+    <script src="./data/craft.js?v=20260816-bl-learn1"></script>
+    <script src="./engine.js?v=20260816-bl-learn1"></script>
+    <script src="./data/combat.js?v=20260816-bl-learn1"></script>
+    <script src="./data/words.js?v=20260816-bl-learn1"></script>
+    <script src="./data/levels.js?v=20260816-bl-learn1"></script>
+    <script src="./data/skins.js?v=20260816-bl-learn1"></script>
+    <script src="./assets/img2threejs/createCreeperModel.js?v=20260816-bl-learn1"></script>
+    <script src="./assets/img2threejs/createZombieModel.js?v=20260816-bl-learn1"></script>
+    <script src="./assets/img2threejs/createSkeletonModel.js?v=20260816-bl-learn1"></script>
+    <script src="./assets/img2threejs/createSpiderModel.js?v=20260816-bl-learn1"></script>
+    <script src="./assets/img2threejs/createEndermanModel.js?v=20260816-bl-learn1"></script>
+    <script src="./assets/img2threejs/createPiglinModel.js?v=20260816-bl-learn1"></script>
+    <script src="./assets/img2threejs/createWitchModel.js?v=20260816-bl-learn1"></script>
+    <script src="./assets/img2threejs/createGolemModel.js?v=20260816-bl-learn1"></script>
+    <script src="./assets/img2threejs/createWitherModel.js?v=20260816-bl-learn1"></script>
+    <script src="./assets/img2threejs/createTools3d.js?v=20260816-bl-learn1"></script>
+    <script src="./assets/img2threejs/createProps3d.js?v=20260816-bl-learn1"></script>
+    <script src="./mobs.js?v=20260816-bl-learn1"></script>
+    <script src="./game.js?v=20260816-bl-learn1"></script>
 </body>
 </html>

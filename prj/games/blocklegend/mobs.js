@@ -296,6 +296,11 @@
             g.add(rig);
             anim.rig = rig;
             height = 2.15;
+        } else if (kind === 'golem' && window.BlockLegendGolemModel) {
+            const rig = window.BlockLegendGolemModel.create(THREE);
+            g.add(rig);
+            anim.rig = rig;
+            height = 2.35;
         } else if (kind === 'warden') {
             height = addHumanoid(g, anim, 'warden', 1.25, 'zombie');
             const hornL = box(0.1, 0.32, 0.1, 0x0e2026);

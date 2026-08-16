@@ -129,11 +129,114 @@
         }
         picks = picks.slice(0, 3);
         return {
+            mode: 'choice',
             word: src,
             answer: answer,
             choices: shuffle([answer].concat(picks)),
+            phrase: src.phrase || '',
+            phraseZh: src.phraseZh || '',
             fallback: fallback
         };
+    }
+
+    const QUIZ_MODES = ['choice', 'listen', 'picture', 'fill', 'spell'];
+
+    function normAnswer(s) {
+        return String(s || '').trim().toLowerCase().replace(/\s+/g, ' ');
+    }
+
+    function escapeRe(s) {
+        return String(s || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    function blankPhrase(word) {
+        const phrase = String((word && word.phrase) || '').trim();
+        const text = String((word && word.text) || '').trim();
+        if (!phrase || !text) return '';
+        const re = new RegExp(escapeRe(text), 'i');
+        if (!re.test(phrase)) return '';
+        return phrase.replace(re, '____');
+    }
+
+    function availableModes(word) {
+        const w = word || {};
+        const modes = ['choice'];
+        if (w.media && (w.media.audio || w.text)) modes.push('listen');
+        if (w.media && w.media.image) modes.push('picture');
+        if (blankPhrase(w)) modes.push('fill');
+        if ((w.text || '').length >= 2 && (w.text || '').length <= 12) modes.push('spell');
+        return modes;
+    }
+
+    function pickQuizMode(word, opts) {
+        const o = opts || {};
+        if (o.mode && QUIZ_MODES.indexOf(o.mode) >= 0) return o.mode;
+        const modes = availableModes(word);
+        if (o.gate) return (Number(o.turn) || 0) % 2 === 1 && modes.indexOf('listen') >= 0 ? 'listen' : 'choice';
+        return modes[(Number(o.turn) || 0) % modes.length];
+    }
+
+    function englishChoices(word, bank) {
+        const src = word || {};
+        const list = bank || [];
+        const picks = [];
+        (src.distractors || []).forEach(function (en) {
+            if (en && en !== src.text && picks.indexOf(en) === -1) picks.push(en);
+        });
+        list.filter(function (w) { return w && w.theme === src.theme && w.text && w.text !== src.text; }).forEach(function (w) {
+            if (picks.length < 3 && picks.indexOf(w.text) === -1) picks.push(w.text);
+        });
+        list.forEach(function (w) {
+            if (picks.length < 3 && w && w.text && w.text !== src.text && picks.indexOf(w.text) === -1) picks.push(w.text);
+        });
+        return shuffle([src.text].concat(picks.slice(0, 3)));
+    }
+
+    function makeQuiz(word, bank, opts) {
+        const src = word || {};
+        const mode = pickQuizMode(src, opts);
+        const choice = quizFor(src, bank);
+        const quiz = {
+            mode: mode,
+            word: src,
+            phrase: src.phrase || '',
+            phraseZh: src.phraseZh || '',
+            blank: blankPhrase(src),
+            prompt: '选出中文',
+            choices: choice.choices,
+            answer: src.zh || '',
+            typed: false,
+            fallback: choice.fallback,
+            limitMs: QUIZ_MS
+        };
+        if (mode === 'listen') {
+            quiz.prompt = '听单词，选出意思';
+            quiz.hidePromptWord = true;
+        } else if (mode === 'picture') {
+            quiz.prompt = '看图选单词';
+            quiz.hidePromptWord = true;
+            quiz.choices = englishChoices(src, bank);
+            quiz.answer = src.text;
+        } else if (mode === 'fill') {
+            quiz.prompt = '补全句子';
+            quiz.hidePromptWord = true;
+            quiz.typed = true;
+            quiz.answer = src.text;
+            quiz.limitMs = 18000;
+        } else if (mode === 'spell') {
+            quiz.prompt = '拼出单词';
+            quiz.hidePromptWord = true;
+            quiz.typed = true;
+            quiz.answer = src.text;
+            quiz.limitMs = 18000;
+        }
+        return quiz;
+    }
+
+    function checkQuiz(quiz, input) {
+        const q = quiz || {};
+        if (q.typed || q.mode === 'spell' || q.mode === 'fill') return normAnswer(input) === normAnswer(q.answer);
+        return String(input) === String(q.answer);
     }
 
     function shouldAsk(opts) {
@@ -155,6 +258,17 @@
         water: ['water'],
         coal: ['coal'],
         iron: ['iron'],
+        gold: ['gold'],
+        diamond: ['diamond'],
+        villager: ['villager'],
+        pig: ['pig'],
+        cow: ['cow'],
+        sheep: ['sheep'],
+        chicken: ['chicken'],
+        bed: ['bed'],
+        wheat: ['wheat'],
+        golem: ['golem'],
+        gate: ['gate'],
         plank: ['plank'],
         table: ['crafting table', 'table'],
         log: ['log'],
@@ -193,6 +307,17 @@
         water: '水',
         coal: '煤矿',
         iron: '铁矿',
+        gold: '金矿',
+        diamond: '钻石矿',
+        villager: '村民',
+        pig: '猪',
+        cow: '牛',
+        sheep: '羊',
+        chicken: '鸡',
+        bed: '床',
+        wheat: '小麦',
+        golem: '铁傀儡',
+        gate: '单词闸门',
         plank: '木板',
         table: '合成台',
         log: '原木',
@@ -289,6 +414,11 @@
         loadCatalog: loadCatalog,
         poolForLevel: poolForLevel,
         quizFor: quizFor,
+        makeQuiz: makeQuiz,
+        checkQuiz: checkQuiz,
+        pickQuizMode: pickQuizMode,
+        availableModes: availableModes,
+        QUIZ_MODES: QUIZ_MODES,
         shouldAsk: shouldAsk,
         nextWord: nextWord,
         labelFor: labelFor,

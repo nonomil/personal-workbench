@@ -15,7 +15,7 @@
         { level: 2, waves: 2, bossHp: 110, bossShield: 4, climate: 'cherry', worldSeed: 21, bossId: 'wither', waveKinds: ['slime', 'fox', 'creeper'] },
         { level: 3, waves: 3, bossHp: 140, bossShield: 4, climate: 'desert', worldSeed: 33, bossId: 'wither', waveKinds: ['cube', 'zombie', 'husk'] },
         { level: 4, waves: 3, bossHp: 170, bossShield: 5, climate: 'duskvale', worldSeed: 47, bossId: 'wither', waveKinds: ['fox', 'skeleton', 'enderman'] },
-        { level: 5, waves: 3, bossHp: 200, bossShield: 5, climate: 'crystal', worldSeed: 59, bossId: 'wither', waveKinds: ['spider', 'witch', 'warden'] },
+        { level: 5, waves: 3, bossHp: 200, bossShield: 5, climate: 'crystal', worldSeed: 59, bossId: 'wither', waveKinds: ['spider', 'witch', 'warden', 'golem'] },
         { level: 6, waves: 4, bossHp: 240, bossShield: 6, climate: 'nether', worldSeed: 71, bossId: 'wither', waveKinds: ['magma', 'piglin', 'ghast'] }
     ];
 

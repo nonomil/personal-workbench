@@ -122,6 +122,8 @@ test('word pools use core-english 597 daily words, easy themes first', () => {
   assert.ok(black);
   assert.equal(black.zh, '黑色');
   assert.match(black.media.image, /media\/semantic\/black\.png$/);
+  assert.match(black.phrase || '', /black/i);
+  assert.ok(black.phraseZh);
   const pools = [1, 2, 3, 4, 5, 6].map((lv) => W.poolForLevel(bank, lv));
   pools.forEach((p) => assert.ok(p.length > 0, 'level pool empty'));
   const ids = pools.flat().map((w) => w.id);
@@ -142,6 +144,29 @@ test('quizFor picks 3 unique same-theme distractors or marks fallback', () => {
   assert.ok(quiz.choices.includes(word.zh));
   const others = quiz.choices.filter((c) => c !== word.zh);
   assert.equal(others.length, 3);
+  assert.equal(typeof W.makeQuiz, 'function');
+  assert.equal(typeof W.checkQuiz, 'function');
+  const listen = W.makeQuiz(word, bank, { mode: 'listen' });
+  assert.equal(listen.mode, 'listen');
+  assert.equal(W.checkQuiz(listen, word.zh), true);
+  const picture = W.makeQuiz(word, bank, { mode: 'picture' });
+  assert.equal(picture.mode, 'picture');
+  assert.ok(picture.choices.includes(word.text));
+  assert.equal(W.checkQuiz(picture, word.text), true);
+  const fill = W.makeQuiz(word, bank, { mode: 'fill' });
+  assert.equal(fill.mode, 'fill');
+  assert.match(fill.blank, /____/);
+  assert.equal(W.checkQuiz(fill, 'Black'), true);
+  const spell = W.makeQuiz(word, bank, { mode: 'spell' });
+  assert.equal(spell.mode, 'spell');
+  assert.equal(W.checkQuiz(spell, ' black '), true);
+  assert.equal(W.checkQuiz(spell, 'blue'), false);
+  const html = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'index.html'), 'utf8');
+  assert.match(html, /id="quiz-input"/);
+  assert.match(html, /id="quiz-phrase"/);
+  const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  assert.match(game, /makeQuiz\(/);
+  assert.match(game, /submitTypedQuiz/);
 });
 
 test('look-at labels keep short Chinese fallbacks when the daily bank has no MC nouns', () => {
@@ -369,6 +394,17 @@ test('six climates make distinct Minecraft-like maps', () => {
   }
   assert.ok(desertSand >= 8, 'desert climate should show sand');
   assert.equal(nether.climate, 'nether');
+  assert.ok(cherry.trees.length > 0 && cherry.trees.every((t) => t.species === 'cherry'), 'cherry jungle should grow cherry trees');
+  assert.ok(desert.trees.some((t) => t.species === 'cactus'), 'desert should grow cacti');
+  assert.ok(desert.trees.length >= 8, 'desert should still have cactus columns');
+  assert.ok(nether.trees.some((t) => t.species === 'crimson'), 'nether should grow crimson fungi');
+  assert.ok(nether.trees.length >= 8, 'nether should not be a bare stone field');
+  assert.ok(E.tileIndex('leaf', '+y', 'cherry') !== E.tileIndex('leaf', '+y', 'oak'));
+  assert.ok(E.tileIndex('log', '+x', 'cactus') !== E.tileIndex('log', '+x', 'oak'));
+  assert.ok(E.tileIndex('sand', '+y') !== E.tileIndex('dirt'));
+  assert.ok(E.tileIndex('grass', '+y', null, 'cherry') !== E.tileIndex('grass', '+y'));
+  const cherryLeaf = E.blockColor('leaf', 4, 5, 4, 'cherry');
+  assert.ok(cherryLeaf[0] > cherryLeaf[1], 'cherry leaves should stay pink');
 });
 
 test('plains map has caves, ores, water and a village', () => {
@@ -395,6 +431,16 @@ test('plains map has caves, ores, water and a village', () => {
   assert.ok(hollowOpen >= 8, 'caves should be walkable voids');
   assert.equal(E.tileIndex('water'), 14);
   assert.equal(E.tileIndex('coal'), 15);
+  assert.ok(world.villagers && world.villagers.length >= 2, 'village should have villagers');
+  assert.ok(world.beds && world.beds.length >= 1, 'houses should have beds');
+  assert.ok(world.garden && world.garden.w >= 2, 'village should keep a garden plot');
+  assert.ok(world.plants && world.plants.length >= 20, 'biomes should grow more than two flower cubes');
+  assert.ok(world.animals && world.animals.length >= 4, 'plains should have passive animals');
+  assert.ok(E.tileIndex('gold') !== E.tileIndex('iron'));
+  assert.ok(E.tileIndex('diamond') !== E.tileIndex('gold'));
+  const desertTown = E.createWorld(33, { climate: 'desert' });
+  assert.ok(desertTown.houses && desertTown.houses.length >= 1, 'desert oasis should still have houses');
+  assert.ok(desertTown.villagers && desertTown.villagers.length >= 1);
 });
 
 test('plains map stamps collectible word cubes from the level pool', () => {
@@ -416,6 +462,13 @@ test('plains map stamps collectible word cubes from the level pool', () => {
     assert.ok(world.wordCells[key].text);
   });
   assert.equal(E.tileIndex('word'), 7);
+  assert.ok(world.wordGates && world.wordGates.length >= 2, 'Mario-style word gates should block paths');
+  const gate = world.wordGates[0];
+  assert.equal(E.voxelAt(world, gate.x, gate.y, gate.z), 'gate');
+  assert.ok(gate.word && gate.word.text);
+  assert.equal(E.openWordGate(world, gate), true);
+  assert.equal(gate.open, true);
+  assert.equal(E.voxelAt(world, gate.x, gate.y, gate.z), null);
 });
 
 test('cabin walls block bodies and house interiors keep monsters out', () => {
@@ -843,6 +896,7 @@ test('levels carry biome wave rosters and a wither-style boss', () => {
   assert.ok(C.MONSTERS.blaze && C.MONSTERS.ghast && C.MONSTERS.warden);
   assert.ok(C.MONSTERS.creeper && C.MONSTERS.zombie && C.MONSTERS.skeleton && C.MONSTERS.spider);
   assert.ok(C.MONSTERS.enderman && C.MONSTERS.piglin && C.MONSTERS.witch);
+  assert.ok(C.MONSTERS.golem);
   const mobs = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'mobs.js'), 'utf8');
   assert.match(mobs, /kind === 'blaze'/);
   assert.match(mobs, /kind === 'ghast'/);

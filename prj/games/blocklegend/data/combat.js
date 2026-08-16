@@ -33,7 +33,8 @@
         spider: { kind: 'spider', hp: 30, coins: 6, contact: 2, speed: 1.28, loot: 'string', color: 0x3a2418, hitRadius: 0.7 },
         enderman: { kind: 'enderman', hp: 50, coins: 10, contact: 2, speed: 1.22, loot: 'ender-pearl', color: 0x14141c, hitRadius: 0.45 },
         piglin: { kind: 'piglin', hp: 42, coins: 8, contact: 2, speed: 1.0, loot: 'gold-nugget', color: 0xe8a878, hitRadius: 0.5 },
-        witch: { kind: 'witch', hp: 38, coins: 9, contact: 2, speed: 0.86, loot: 'glow-dust', color: 0x5a2a78, hitRadius: 0.5 }
+        witch: { kind: 'witch', hp: 38, coins: 9, contact: 2, speed: 0.86, loot: 'glow-dust', color: 0x5a2a78, hitRadius: 0.5 },
+        golem: { kind: 'golem', hp: 64, coins: 12, contact: 3, speed: 0.62, loot: 'iron-ingot', color: 0xb8c4c8, hitRadius: 0.7 }
     };
     const MONSTER_KINDS = Object.keys(MONSTERS);
 

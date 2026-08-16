@@ -214,8 +214,22 @@
             toggleLayer('settle-layer', false);
             startLevel(session.level);
         });
+        const quizForm = document.getElementById('quiz-type');
+        if (quizForm) {
+            quizForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                submitTypedQuiz();
+            });
+        }
         document.addEventListener('keydown', function (e) {
             if (session.quiz) {
+                if (session.quiz.typed) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        submitTypedQuiz();
+                    }
+                    return;
+                }
                 if (e.key >= '1' && e.key <= '4') {
                     e.preventDefault();
                     pickQuizChoice(Number(e.key) - 1);
@@ -447,6 +461,8 @@
         session.boss = null;
         session.bossMob = null;
         session.pending = null;
+        session.gateAsked = null;
+        session.quizTurn = 0;
         const cfg = L.levelOf(session.level);
         session.wavesLeft = cfg.waves;
         pool = W.poolForLevel(bank, session.level);
@@ -548,6 +564,7 @@
             { kind: kinds[2] || 'slime', dx: 7.2, dz: -5.6 }
         ];
         if (session.wave > 1) spots.push({ kind: kinds[2] || 'husk', dx: -11, dz: -6 });
+        if (kinds[3]) spots.push({ kind: kinds[3], dx: 8.6, dz: 7.1 });
         spots.forEach(function (s) {
             const open = openMobSpot(p.x + s.dx, p.z + s.dz);
             spawnMonster(s.kind, open.x, open.z);
@@ -935,6 +952,10 @@
                 const cell = engine.world.wordCells[hit.x + ',' + hit.y + ',' + hit.z];
                 if (cell) return { type: 'block', kind: 'word', word: cell, hit: hit };
             }
+            if (hit.kind === 'gate') {
+                const gate = nearestWordGate(2.8);
+                return { type: 'block', kind: 'gate', word: gate && gate.word, hit: hit };
+            }
             return { type: 'block', kind: hit.kind, hit: hit };
         }
         return null;
@@ -1042,23 +1063,19 @@
         applyResolvedHit(mob, kind, { answered: session.combo >= W.SKIP_COMBO, correct: session.combo >= W.SKIP_COMBO });
     }
 
-    function openQuiz(mob, kind) {
-        const word = W.nextWord(pool, progress.learnedIds) || pool[0];
-        if (!word) {
-            applyResolvedHit(mob, kind, { answered: false, correct: false });
-            return;
-        }
-        const quiz = W.quizFor(word, bank);
-        session.pending = { mob: mob, kind: kind };
-        session.quiz = quiz;
-        session.quizEndsAt = nowMs() + W.QUIZ_MS;
-        session.paused = true;
-        document.getElementById('quiz-en').textContent = word.text;
+    function fillQuizCard(quiz, kicker) {
+        const word = quiz.word || {};
+        const mode = quiz.mode || 'choice';
+        const kick = document.querySelector('.bl-quiz-kicker');
+        if (kick) kick.textContent = kicker || quiz.prompt || '暴击咒语';
+        const enBtn = document.getElementById('quiz-en');
+        enBtn.textContent = quiz.hidePromptWord ? (mode === 'listen' ? '🎧 听单词' : mode === 'picture' ? '看图选词' : '____') : word.text;
         const zhHint = document.getElementById('quiz-zh');
-        if (zhHint) zhHint.textContent = '';
+        if (zhHint) zhHint.textContent = (mode === 'spell' || mode === 'fill') ? (word.zh || '') : '';
         const img = document.getElementById('quiz-img');
         if (img) {
-            if (word.media && word.media.image) {
+            const showImg = !!(word.media && word.media.image) && (mode === 'picture' || mode === 'spell' || mode === 'choice');
+            if (showImg) {
                 img.src = word.media.image;
                 img.alt = word.text;
                 img.classList.remove('is-hidden');
@@ -1068,25 +1085,84 @@
                 img.classList.add('is-hidden');
             }
         }
+        const phrase = document.getElementById('quiz-phrase');
+        const phraseZh = document.getElementById('quiz-phrase-zh');
+        const phraseText = mode === 'fill' ? (quiz.blank || '') : (quiz.hidePromptWord ? (quiz.blank || '') : (quiz.phrase || ''));
+        if (phrase) {
+            phrase.textContent = phraseText;
+            phrase.classList.toggle('is-hidden', !phraseText);
+        }
+        if (phraseZh) {
+            phraseZh.textContent = quiz.phraseZh || '';
+            phraseZh.classList.toggle('is-hidden', !quiz.phraseZh);
+        }
         const box = document.getElementById('quiz-choices');
+        const typeBox = document.getElementById('quiz-type');
+        const input = document.getElementById('quiz-input');
         box.innerHTML = '';
-        quiz.choices.forEach(function (zh, i) {
-            const btn = document.createElement('button');
-            btn.type = 'button';
-            btn.setAttribute('data-quiz-i', String(i));
-            btn.textContent = (i + 1) + '  ' + zh;
-            btn.addEventListener('click', function () { resolveQuiz(zh === quiz.answer); });
-            box.appendChild(btn);
-        });
+        if (quiz.typed) {
+            box.classList.add('is-hidden');
+            if (typeBox) typeBox.classList.remove('is-hidden');
+            if (input) {
+                input.value = '';
+                setTimeout(function () { input.focus(); }, 30);
+            }
+        } else {
+            box.classList.remove('is-hidden');
+            if (typeBox) typeBox.classList.add('is-hidden');
+            (quiz.choices || []).forEach(function (choice, i) {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.setAttribute('data-quiz-i', String(i));
+                btn.textContent = (i + 1) + '  ' + choice;
+                btn.addEventListener('click', function () { resolveQuiz(W.checkQuiz(quiz, choice)); });
+                box.appendChild(btn);
+            });
+        }
+        session.quiz = quiz;
+        session.quizEndsAt = nowMs() + (quiz.limitMs || W.QUIZ_MS);
+        session.paused = true;
         toggleLayer('quiz-layer', true);
-        speakWord(word);
+        if (mode === 'listen' || mode === 'choice' || mode === 'fill') speakWord(word);
+    }
+
+    function nextLearnQuiz(word, extra) {
+        session.quizTurn = (Number(session.quizTurn) || 0) + 1;
+        return W.makeQuiz(word, bank, Object.assign({ turn: session.quizTurn }, extra || {}));
+    }
+
+    function openQuiz(mob, kind) {
+        const word = W.nextWord(pool, progress.learnedIds) || pool[0];
+        if (!word) {
+            applyResolvedHit(mob, kind, { answered: false, correct: false });
+            return;
+        }
+        session.pending = { mob: mob, kind: kind };
+        fillQuizCard(nextLearnQuiz(word), '暴击咒语 · ' + (word.zh || ''));
+    }
+
+    function openGateQuiz(gate) {
+        const word = gate.word || W.nextWord(pool, progress.learnedIds) || pool[0];
+        if (!word) {
+            ENG.openWordGate(engine.world, gate);
+            if (engine.remeshAt) engine.remeshAt(gate.x, gate.z);
+            return;
+        }
+        session.pending = { gate: gate };
+        fillQuizCard(nextLearnQuiz(word, { gate: true }), '单词闸门 · 答对才能通过');
     }
 
     function pickQuizChoice(index) {
-        if (!session.quiz) return;
-        const zh = session.quiz.choices[index];
-        if (!zh) return;
-        resolveQuiz(zh === session.quiz.answer);
+        if (!session.quiz || session.quiz.typed) return;
+        const choice = session.quiz.choices && session.quiz.choices[index];
+        if (!choice) return;
+        resolveQuiz(W.checkQuiz(session.quiz, choice));
+    }
+
+    function submitTypedQuiz() {
+        if (!session.quiz || !session.quiz.typed) return;
+        const input = document.getElementById('quiz-input');
+        resolveQuiz(W.checkQuiz(session.quiz, input && input.value));
     }
 
     function resolveQuiz(correct) {
@@ -1096,13 +1172,9 @@
         session.pending = null;
         session.quiz = null;
         toggleLayer('quiz-layer', false);
-        pending.mob.asked = true;
         if (correct) {
             progress.rightCount = (Number(progress.rightCount) || 0) + 1;
             if (word && word.id && progress.learnedIds.indexOf(word.id) === -1) progress.learnedIds.push(word.id);
-            if (pending.mob.isBoss && session.boss) {
-                session.boss = L.chipShield(session.boss, 1, { now: nowMs() }).boss;
-            }
             if (sfx && sfx.celebrate) sfx.celebrate();
         } else {
             progress.wrongCount = (Number(progress.wrongCount) || 0) + 1;
@@ -1110,8 +1182,23 @@
         if (word && word.text && global.WorkbenchGameBridge && global.WorkbenchGameBridge.recordWordAnswer) {
             global.WorkbenchGameBridge.recordWordAnswer(word.text, correct);
         }
-        session.combo = C.nextCombo({ answered: true, correct: correct, combo: session.combo });
         persist();
+        if (pending.gate) {
+            if (correct) {
+                ENG.openWordGate(engine.world, pending.gate);
+                if (engine.remeshAt) engine.remeshAt(pending.gate.x, pending.gate.z);
+                toast('闸门开了！');
+            } else {
+                toast('再试试才能过门');
+                session.gateAsked = null;
+            }
+            return;
+        }
+        pending.mob.asked = true;
+        if (correct && pending.mob.isBoss && session.boss) {
+            session.boss = L.chipShield(session.boss, 1, { now: nowMs() }).boss;
+        }
+        session.combo = C.nextCombo({ answered: true, correct: correct, combo: session.combo });
         applyResolvedHit(pending.mob, pending.kind, { answered: true, correct: correct });
     }
 
@@ -1315,7 +1402,7 @@
         if (session.quiz) {
             const left = Math.max(0, session.quizEndsAt - t);
             const bar = document.getElementById('quiz-timer');
-            if (bar) bar.style.width = Math.round(left / W.QUIZ_MS * 100) + '%';
+            if (bar) bar.style.width = Math.round(left / ((session.quiz && session.quiz.limitMs) || W.QUIZ_MS) * 100) + '%';
         }
         if (session.boss) {
             session.boss = L.tickBoss(session.boss, t);
@@ -1347,6 +1434,7 @@
             viewModel.update(dt, moving);
         }
         updateMerchantTip();
+        updateWordGate();
         syncHud();
         drawMinimap();
     }
@@ -1536,6 +1624,35 @@
             keep.push(item);
         });
         session.pickups = keep;
+    }
+
+    function nearestWordGate(range) {
+        const gates = engine.world && engine.world.wordGates;
+        if (!gates || !gates.length) return null;
+        const p = engine.player;
+        const max = range == null ? 2.3 : range;
+        let best = null, bestD = max;
+        gates.forEach(function (g) {
+            if (g.open) return;
+            const d = Math.hypot(p.x - (g.x + 0.5), p.z - (g.z + 0.5));
+            if (d < bestD) {
+                best = g;
+                bestD = d;
+            }
+        });
+        return best;
+    }
+
+    function updateWordGate() {
+        if (session.paused || session.quiz) return;
+        const gate = nearestWordGate(2.3);
+        if (!gate) {
+            session.gateAsked = null;
+            return;
+        }
+        if (session.gateAsked === gate) return;
+        session.gateAsked = gate;
+        openGateQuiz(gate);
     }
 
     function updateMerchantTip() {
