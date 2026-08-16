@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>方块传奇 · 学英语大冒险</title>
-    <link rel="stylesheet" href="./game.css?v=20260816-bl-speak1">
+    <link rel="stylesheet" href="./game.css?v=20260816-bl-voice3">
 </head>
 <body class="bl-body">
     <main class="bl-stage">
@@ -40,10 +40,12 @@
             <p class="bl-listen" id="listen-panel">
                 <span class="bl-listen-title">Listening</span>
                 <span class="bl-say" id="say-strip">Say:</span>
+                <span class="bl-my-english" id="my-english">My English: 0 words</span>
             </p>
         </aside>
 
         <aside class="bl-learn" id="learn-panel" aria-label="词汇学习">
+            <p class="bl-heard" id="heard-box"><span class="bl-heard-ico" aria-hidden="true">🎤</span><b id="heard-text">""</b></p>
             <b class="bl-learn-title">词汇学习</b>
             <ul>
                 <li><i class="bl-dot is-bank"></i>总词 <b id="stat-bank">0</b></li>
@@ -65,6 +67,10 @@
             <div class="bl-look-hp is-hidden" id="look-hp"><i id="look-hp-fill"></i></div>
             <p class="bl-look-meta" id="look-meta"></p>
             <button type="button" class="bl-btn is-ghost" id="look-speak">听</button>
+            <div class="bl-voice-fallback is-hidden" id="voice-fallback">
+                <p class="bl-voice-fallback-kicker" id="voice-fallback-kicker">选中文 · 世界不停</p>
+                <div class="bl-voice-fallback-choices" id="voice-fallback-choices"></div>
+            </div>
         </div>
 
         <div class="bl-mc-hud">
@@ -97,12 +103,14 @@
             <em id="boss-shield">蓝罩 0</em>
             <div class="bl-boss-bar"><i id="boss-fill"></i></div>
         </div>
-        <p class="bl-hint">WASD · 1-9物品栏 · 左键挖/打 · 右键放方块 · C 合成 · Q 魔法 · F 商店 · <b id="fps-label">--</b> fps</p>
-        <div class="bl-trade-tip is-hidden" id="trade-tip">Press F to trade</div>
+        <p class="bl-hint">WASD · V 开口 · T 打字 · 1-9物品栏 · 左键挖/打 · 右键放方块 · Q 魔法 · F 商店 · <b id="fps-label">--</b> fps</p>
+        <div class="bl-trade-tip is-hidden" id="trade-tip">Press F to talk to Merchant Leo (商人雷奥)</div>
         <div class="bl-cast-hud is-hidden" id="cast-hud">
             <p class="bl-cast-kicker" id="cast-kicker">打字施法 · T 吟唱 · 看中文拼英文击杀</p>
             <div class="bl-cast-words" id="cast-words"></div>
+            <p class="bl-cast-ghost" id="cast-ghost"></p>
             <input id="cast-input" type="text" readonly inputmode="latin" maxlength="24" placeholder="T 开始拼写" autocomplete="off" spellcheck="false">
+            <div class="bl-cast-keyboard is-hidden" id="cast-keyboard" aria-label="打字键盘"></div>
         </div>
         <div class="bl-toast" id="toast"></div>
 
@@ -181,11 +189,11 @@
                     <li>C — 随身 2×2 合成；对着合成台右键打开 3×3 格子。左边点配方，或把材料摆进格子再点产物</li>
                     <li>Right click a placed table to open the full craft grid; otherwise place a block</li>
                     <li>Q — homing magic bolt; with a crafted bow and arrows it fires an arrow instead</li>
-                    <li>Each normal mob asks one 4-choice word card — click, press 1–4, or say the English word</li>
-                    <li>A boss asks 2–3 times as its HP drops. Say or type the English word to shatter the blue shield</li>
-                    <li>Every few cards the example sentence joins in: once as a hint under the word, once as “what does this sentence mean”</li>
-                    <li>A word you miss 3 times in a row asks you to type it; T also lets you cast a stubborn word or the boss word</li>
-                    <li>F — sell loot or buy Leather Cap / Cloth Robe / Iron Blade / HP Potion</li>
+                    <li>V — Voice Challenge (say the word on the plaque). The world does not pause</li>
+                    <li>Look at a mob and hold V — saying the English word crits or shatters the boss shield</li>
+                    <li>T — type the word if the mic cannot hear you. Clicking Chinese is a fallback after two misses</li>
+                    <li>F — talk to Merchant Leo (商人雷奥); sell loot or buy Leather Cap / Cloth Robe / Iron Blade / HP Potion</li>
+                    <li>Gold word cubes and word gates still use a teaching card. Combat never pauses.</li>
                     <li>Wither takes damage when you hit it; blue shield only reduces damage</li>
                     <li>Say or type the word to break the shield; clicking Chinese only chips it</li>
                 </ul>
@@ -205,7 +213,7 @@
     <script src="./engine.js?v=20260816-bl-play1"></script>
     <script src="./data/combat.js?v=20260816-bl-spawn1"></script>
     <script src="./data/speech-input.js?v=20260816-bl-p2"></script>
-    <script src="./data/words.js?v=20260816-bl-spawn1"></script>
+    <script src="./data/words.js?v=20260816-bl-cast2"></script>
     <script src="./data/levels.js?v=20260816-bl-speak1"></script>
     <script src="./data/quests.js?v=20260816-bl-p1"></script>
     <script src="./data/skins.js?v=20260816-bl-mobs3"></script>
@@ -226,6 +234,6 @@
     <script src="./assets/img2threejs/createTools3d.js?v=20260816-bl-mobs4"></script>
     <script src="./assets/img2threejs/createProps3d.js?v=20260816-bl-play1"></script>
     <script src="./mobs.js?v=20260816-bl-play1"></script>
-    <script src="./game.js?v=20260816-bl-spawn1"></script>
+    <script src="./game.js?v=20260816-bl-voice3"></script>
 </body>
 </html>

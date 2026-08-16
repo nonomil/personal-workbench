@@ -332,10 +332,27 @@
         return quiz;
     }
 
-    function bindCastWord(pool, usedIds) {
+    function bindCastWord(pool, usedIds, opts) {
+        const o = opts || {};
         const used = {};
         (usedIds || []).forEach(function (id) { if (id) used[id] = true; });
         const list = (pool || []).filter(function (w) { return w && w.text; });
+        function findText(text) {
+            const want = normAnswer(text);
+            if (!want) return null;
+            return list.find(function (w) { return normAnswer(w.text) === want; }) || null;
+        }
+        const preferred = findText(o.prefer);
+        if (preferred) return preferred;
+        if (o.kind) {
+            const label = labelFor(o.kind, list);
+            if (label && label.word) return label.word;
+        }
+        const focus = Array.isArray(o.focus) ? o.focus : [];
+        for (let i = 0; i < focus.length; i += 1) {
+            const hit = findText(focus[i]);
+            if (hit && !used[hit.id || hit.text]) return hit;
+        }
         const fresh = list.filter(function (w) { return !used[w.id || w.text]; });
         const src = fresh.length ? fresh : list;
         if (!src.length) return null;
@@ -462,6 +479,12 @@
 
     function shouldAsk(opts) {
         const o = opts || {};
+        if (o.force) return true;
+        return (Number(o.voiceFails) || 0) >= 2;
+    }
+
+    function shouldNudgeSpeak(opts) {
+        const o = opts || {};
         if (o.boss) {
             const maxHp = Number(o.maxHp) || 80;
             const hp = o.hp == null ? maxHp : Number(o.hp);
@@ -523,6 +546,7 @@
         arrow: ['arrow'],
         shield: ['shield'],
         boss: ['wither'],
+        wither: ['wither', 'sword'],
         merchant: ['villager'],
         sword: ['sword'],
         axe: ['axe'],
@@ -722,6 +746,7 @@
         bindCastWord: bindCastWord,
         matchCast: matchCast,
         shouldAsk: shouldAsk,
+        shouldNudgeSpeak: shouldNudgeSpeak,
         nextWord: nextWord,
         masteryStage: masteryStage,
         countFamiliar: countFamiliar,

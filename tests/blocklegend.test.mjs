@@ -248,6 +248,22 @@ test('cast words bind uniquely and match typed English', () => {
   assert.equal(W.matchCast('   ', mobs), null);
 });
 
+test('bindCastWord prefers kind and focus words so the typed word matches the plaque', () => {
+  const pack = [
+    { id: 'mom', text: 'mother', zh: '妈妈' },
+    { id: 'slime', text: 'slime', zh: '史莱姆' },
+    { id: 'tree', text: 'tree', zh: '树' },
+    { id: 'sword', text: 'sword', zh: '剑' }
+  ];
+  assert.equal(W.bindCastWord(pack, [], { kind: 'slime' }).text, 'slime');
+  assert.equal(W.bindCastWord(pack, ['slime'], { kind: 'unknown-boss', focus: ['tree', 'sword'] }).text, 'tree');
+  assert.equal(W.bindCastWord(pack, [], { prefer: 'sword', focus: ['tree'] }).text, 'sword');
+  const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  assert.match(game, /word:\s*mob\.word/);
+  assert.match(game, /bindCastWord\([\s\S]{0,240}kind:/);
+  assert.match(game, /channel:\s*'spell'/);
+});
+
 test('look-at labels keep short Chinese fallbacks when the daily bank has no MC nouns', () => {
   const dirt = W.labelFor('dirt', bank);
   assert.equal(dirt.en, 'dirt');
@@ -297,23 +313,29 @@ test('collecting a word block pays coins, heals HP, and keeps the word', () => {
   assert.deepEqual(capped.learnedIds, ['apple']);
 });
 
-test('quiz cadence asks once per regular mob; boss asks 2 or 3 times by HP', () => {
+test('regular first hit does not open a quiz; two voice fails do; boss marks only nudge speak', () => {
   assert.equal(W.bossAskTimes(80), 2);
   assert.equal(W.bossAskTimes(140), 2);
   assert.equal(W.bossAskTimes(170), 3);
   assert.equal(W.bossAskTimes(240), 3);
   assert.deepEqual(W.bossAskMarks(80), [0.5, 0.25]);
   assert.deepEqual(W.bossAskMarks(200), [0.75, 0.5, 0.25]);
-  assert.equal(W.shouldAsk({ firstHit: true }), true);
+  assert.equal(W.shouldAsk({ firstHit: true }), false);
   assert.equal(W.shouldAsk({ firstHit: false }), false);
-  assert.equal(W.shouldAsk({ firstHit: true, combo: W.SKIP_COMBO }), true);
-  assert.equal(W.shouldAsk({ boss: true, hp: 80, maxHp: 80, askedCount: 0 }), false);
-  assert.equal(W.shouldAsk({ boss: true, hp: 40, maxHp: 80, askedCount: 0 }), true);
-  assert.equal(W.shouldAsk({ boss: true, hp: 40, maxHp: 80, askedCount: 1 }), false);
-  assert.equal(W.shouldAsk({ boss: true, hp: 20, maxHp: 80, askedCount: 1 }), true);
-  assert.equal(W.shouldAsk({ boss: true, hp: 20, maxHp: 80, askedCount: 2 }), false);
-  assert.equal(W.shouldAsk({ boss: true, hp: 127, maxHp: 170, askedCount: 0 }), true);
-  assert.equal(W.shouldAsk({ boss: true, hp: 160, maxHp: 170, askedCount: 0 }), false);
+  assert.equal(W.shouldAsk({ firstHit: true, combo: W.SKIP_COMBO }), false);
+  assert.equal(W.shouldAsk({ voiceFails: 1 }), false);
+  assert.equal(W.shouldAsk({ voiceFails: 2 }), true);
+  assert.equal(W.shouldAsk({ force: true }), true);
+  assert.equal(W.shouldAsk({ boss: true, hp: 40, maxHp: 80, askedCount: 0 }), false);
+  assert.equal(W.shouldNudgeSpeak({ firstHit: true }), true);
+  assert.equal(W.shouldNudgeSpeak({ firstHit: false }), false);
+  assert.equal(W.shouldNudgeSpeak({ boss: true, hp: 80, maxHp: 80, askedCount: 0 }), false);
+  assert.equal(W.shouldNudgeSpeak({ boss: true, hp: 40, maxHp: 80, askedCount: 0 }), true);
+  assert.equal(W.shouldNudgeSpeak({ boss: true, hp: 40, maxHp: 80, askedCount: 1 }), false);
+  assert.equal(W.shouldNudgeSpeak({ boss: true, hp: 20, maxHp: 80, askedCount: 1 }), true);
+  assert.equal(W.shouldNudgeSpeak({ boss: true, hp: 20, maxHp: 80, askedCount: 2 }), false);
+  assert.equal(W.shouldNudgeSpeak({ boss: true, hp: 127, maxHp: 170, askedCount: 0 }), true);
+  assert.equal(W.shouldNudgeSpeak({ boss: true, hp: 160, maxHp: 170, askedCount: 0 }), false);
 });
 
 await import('../prj/games/blocklegend/data/levels.js');
@@ -1150,7 +1172,8 @@ test('quiz overlay releases look capture and accepts 1-4 keys', () => {
   assert.match(game, /setUiMode\(/);
   assert.match(game, /resumeLook\(/);
   assert.match(game, /pickQuizChoice/);
-  assert.match(game, /shouldAsk\(\{[\s\S]{0,180}firstHit: !mob\.asked/);
+  assert.match(game, /shouldAsk\(\{[\s\S]{0,220}voiceFails/);
+  assert.match(game, /shouldNudgeSpeak/);
   assert.match(game, /askedCount:/);
   assert.match(css, /\.bl-quiz-layer[\s\S]{0,180}pointer-events:\s*auto/);
 });
@@ -1390,6 +1413,40 @@ test('quiz card keeps mic hidden unless speech is available', () => {
   assert.match(game, /function listenOnce/);
   assert.match(game, /channelMultiplier/);
   assert.match(game, /countFamiliar/);
+});
+
+test('voice challenge uses V, heard text, and does not pause on first hit', () => {
+  const html = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'index.html'), 'utf8');
+  const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  assert.match(html, /id="heard-text"/);
+  assert.match(html, /V — Voice Challenge/);
+  assert.match(html, /Merchant Leo/);
+  assert.match(html, /id="my-english"/);
+  assert.match(html, /id="voice-fallback"/);
+  assert.match(html, /id="cast-keyboard"/);
+  assert.match(game, /e\.key === 'v' \|\| e\.key === 'V'/);
+  assert.match(game, /function startVoiceChallenge/);
+  assert.match(game, /function paintHeard/);
+  assert.match(game, /function showVoiceFallback/);
+  assert.match(game, /function resolveVoiceFallback/);
+  assert.match(game, /targetKey/);
+  assert.match(game, /Merchant Leo/);
+  assert.match(game, /launchBoltToward/);
+  assert.match(game, /data-action="backspace"/);
+  assert.match(game, /home: mob \|\| null/);
+  assert.doesNotMatch(game, /shouldAsk\(\{[\s\S]{0,120}firstHit: !mob\.asked/);
+  const hitFn = game.slice(game.indexOf('function requestHit'), game.indexOf('function fillQuizCard'));
+  assert.doesNotMatch(hitFn, /openQuiz/);
+  assert.doesNotMatch(hitFn, /voiceFails/);
+  assert.doesNotMatch(game, /openQuiz\(mob, 'melee'\)/);
+  assert.match(game, /if \(session\.quiz\) \{[\s\S]{0,280}listenOnce\(\)/);
+  assert.doesNotMatch(game, /if \(session\.quiz\) \{[\s\S]{0,280}startVoiceChallenge\(\)/);
+  const speakFn = game.slice(game.indexOf('function applySpeakHit'), game.indexOf('function showVoiceFallback'));
+  assert.doesNotMatch(speakFn, /nearestLookMob/);
+  const fallbackFn = game.slice(game.indexOf('function showVoiceFallback'), game.indexOf('function hideVoiceFallback'));
+  assert.match(fallbackFn, /session\.paused = false/);
+  assert.doesNotMatch(fallbackFn, /setUiMode\(true\)/);
+  assert.doesNotMatch(fallbackFn, /openQuiz/);
 });
 
 test('boss can type-cast without a miss streak; regular mobs still need hard mode', () => {

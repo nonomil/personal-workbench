@@ -76,6 +76,7 @@
         quizEndsAt: 0,
         casting: false,
         castBuf: '',
+        voice: { state: 'idle', rec: null, lock: null, blocked: false },
         missByWord: {},
         tool: 'sword',
         mining: false,
@@ -236,6 +237,40 @@
             e.stopPropagation();
             listenOnce();
         });
+        const voiceBox = document.getElementById('voice-fallback-choices');
+        if (voiceBox) {
+            voiceBox.addEventListener('click', function (e) {
+                const btn = e.target.closest('[data-voice-choice]');
+                if (!btn) return;
+                e.preventDefault();
+                resolveVoiceFallback(Number(btn.getAttribute('data-voice-choice')));
+            });
+        }
+        const keys = document.getElementById('cast-keyboard');
+        if (keys) {
+            keys.addEventListener('click', function (e) {
+                const btn = e.target.closest('[data-key], [data-action]');
+                if (!btn || !session.casting) return;
+                e.preventDefault();
+                const action = btn.getAttribute('data-action');
+                if (action === 'backspace') {
+                    session.castBuf = String(session.castBuf || '').slice(0, -1);
+                    paintCastHud();
+                    return;
+                }
+                if (action === 'clear') {
+                    session.castBuf = '';
+                    paintCastHud();
+                    return;
+                }
+                if (action === 'enter') {
+                    tryCastSubmit();
+                    return;
+                }
+                const ch = btn.getAttribute('data-key');
+                if (ch) appendCast(ch);
+            });
+        }
         const lookSpeak = document.getElementById('look-speak');
         if (lookSpeak) lookSpeak.addEventListener('click', function (e) {
             e.preventDefault();
@@ -257,6 +292,11 @@
         }
         document.addEventListener('keydown', function (e) {
             if (session.quiz) {
+                if (e.key === 'v' || e.key === 'V') {
+                    e.preventDefault();
+                    listenOnce();
+                    return;
+                }
                 const inType = e.target && e.target.id === 'quiz-input';
                 if (session.quiz.typed || inType) {
                     if (e.key === 'Enter') {
@@ -270,6 +310,19 @@
                     pickQuizChoice(Number(e.key) - 1);
                 }
                 return;
+            }
+            if (e.key === 'v' || e.key === 'V') {
+                e.preventDefault();
+                startVoiceChallenge();
+                return;
+            }
+            if (session.voice && session.voice.lock && e.key >= '1' && e.key <= '4') {
+                const box = document.getElementById('voice-fallback');
+                if (box && !box.classList.contains('is-hidden')) {
+                    e.preventDefault();
+                    resolveVoiceFallback(Number(e.key) - 1);
+                    return;
+                }
             }
             if (e.key === 't' || e.key === 'T') {
                 if (!overlayOpen() || session.casting) {
@@ -1185,7 +1238,7 @@
         const mob = nearestLookMob();
         if (mob) {
             const bossKind = L.bossModelOf ? L.bossModelOf(mob.bossId) : 'boss';
-            return { type: 'mob', kind: mob.isBoss ? bossKind : mob.kind, mob: mob };
+            return { type: 'mob', kind: mob.isBoss ? bossKind : mob.kind, mob: mob, word: mob.word };
         }
         if (session.merchant && session.nearMerchant) return { type: 'npc', kind: 'merchant' };
         const life = nearestLookLife();
@@ -1222,6 +1275,13 @@
     function paintSayStrip() {
         const el = document.getElementById('say-strip');
         if (el) el.textContent = W.sayStrip(pool, 8);
+        const mine = document.getElementById('my-english');
+        if (mine) {
+            const n = W.countFamiliar
+                ? W.countFamiliar(progress.learnedIds, readMastery())
+                : (progress.learnedIds || []).length;
+            mine.textContent = 'My English: ' + n + ' words';
+        }
     }
 
     function hideLookTip() {
@@ -1242,6 +1302,7 @@
             card.classList.add('is-hidden');
             session.lookKey = '';
             if (session.targetRing) session.targetRing.visible = false;
+            hideVoiceFallback();
             return;
         }
         const label = sub.word
@@ -1282,7 +1343,7 @@
             ring.position.set(sub.mob.x, sub.mob.y + 0.04, sub.mob.z);
             ring.visible = true;
         } else {
-            if (who) who.textContent = sub.type === 'npc' ? 'Press F to talk' : '';
+            if (who) who.textContent = sub.type === 'npc' ? 'Merchant Leo · 商人雷奥' : '';
             if (hpBar) hpBar.classList.add('is-hidden');
             meta.textContent = '';
             if (session.targetRing) session.targetRing.visible = false;
@@ -1294,6 +1355,10 @@
             session.lookSince = now;
             session.lookSpoken = false;
             if (sub.kind === 'log') noteQuest({ type: 'look', kind: 'log' });
+            if (sub.mob && sub.mob.word) noteWordShown(sub.mob.word);
+            if (session.voice && session.voice.lock && session.voice.lock.mob !== sub.mob) {
+                hideVoiceFallback();
+            }
         } else if (!session.lookSpoken && now - session.lookSince > 480) {
             session.lookSpoken = true;
             if (!W.shouldAutoSpeak(sub.kind, sub.type)) return;
@@ -1305,49 +1370,68 @@
         }
     }
 
-    function tryBolt() {
-        if (!C.canAttack({ kind: 'bolt', lastAt: session.lastBoltAt, now: nowMs() })) return;
+    function launchBoltToward(mob, opts) {
+        const cosmetic = !!(opts && opts.cosmetic);
         session.lastBoltAt = nowMs();
         if (viewModel) viewModel.triggerCast();
         const f = C.forwardXZ(engine.look.yaw);
+        let vx = f.x * C.BOLT_SPEED;
+        let vz = f.z * C.BOLT_SPEED;
+        if (mob) {
+            const dx = mob.x - engine.player.x;
+            const dz = mob.z - engine.player.z;
+            const len = Math.hypot(dx, dz) || 1;
+            vx = dx / len * C.BOLT_SPEED;
+            vz = dz / len * C.BOLT_SPEED;
+        }
         const hasBow = CR && (Number(session.bag.wood_bow) || 0) > 0;
         const hasArrow = (Number(session.bag.arrow) || 0) > 0;
         let mesh;
-        if (hasBow && hasArrow && MOBS.arrowMesh) {
-            session.bag = C.addLoot(session.bag, 'arrow', -1);
-            if ((Number(session.bag.arrow) || 0) < 0) session.bag.arrow = 0;
+        if (hasBow && MOBS.arrowMesh && (hasArrow || cosmetic)) {
+            if (!cosmetic && hasArrow) {
+                session.bag = C.addLoot(session.bag, 'arrow', -1);
+                if ((Number(session.bag.arrow) || 0) < 0) session.bag.arrow = 0;
+            }
             mesh = MOBS.arrowMesh();
         } else {
             mesh = MOBS.boltMesh();
         }
         const y = engine.player.y + ENG.EYE_HEIGHT * 0.7;
         mesh.position.set(engine.player.x + f.x * 0.6, y, engine.player.z + f.z * 0.6);
+        mesh.rotation.y = Math.atan2(vx, vz);
         engine.scene.add(mesh);
         session.bolts.push({
             x: mesh.position.x, z: mesh.position.z, y: y,
-            vx: f.x * C.BOLT_SPEED, vz: f.z * C.BOLT_SPEED,
-            life: C.BOLT_LIFE, mesh: mesh, trailAt: 0
+            vx: vx, vz: vz,
+            life: C.BOLT_LIFE, mesh: mesh, trailAt: 0,
+            cosmetic: cosmetic,
+            home: mob || null
         });
+    }
+
+    function tryBolt() {
+        if (!C.canAttack({ kind: 'bolt', lastAt: session.lastBoltAt, now: nowMs() })) return;
+        launchBoltToward(nearestLookMob());
     }
 
     function requestHit(mob, kind) {
         if (session.pending) return;
         if (mob.isBoss) mob.bossHits = (Number(mob.bossHits) || 0) + 1;
-        const askedCount = Number(mob.quizCount) || 0;
-        if (W.shouldAsk({
-            firstHit: !mob.asked,
-            combo: session.combo,
+        const askedCount = Number(mob.nudgeCount) || 0;
+        if (W.shouldNudgeSpeak && W.shouldNudgeSpeak({
+            firstHit: !mob.nudged,
             boss: !!mob.isBoss,
             hp: mob.hp,
             maxHp: mob.maxHp,
             askedCount: askedCount
         })) {
-            mob.quizCount = askedCount + 1;
-            if (!mob.isBoss) mob.asked = true;
-            openQuiz(mob, kind);
-            return;
+            mob.nudged = true;
+            if (mob.isBoss) mob.nudgeCount = askedCount + 1;
+            const label = mob.word || W.labelFor(mob.kind, bank);
+            const en = (label && (label.text || label.en)) || '';
+            if (en) toast('按 V 说 ' + en);
         }
-        applyResolvedHit(mob, kind, { answered: session.combo >= W.SKIP_COMBO, correct: session.combo >= W.SKIP_COMBO });
+        applyResolvedHit(mob, kind, { answered: false, correct: false });
     }
 
     function fillQuizCard(quiz, kicker) {
@@ -1534,7 +1618,20 @@
         const used = session.monsters.map(function (m) {
             return m !== mob && m.word ? (m.word.id || m.word.text) : '';
         }).filter(Boolean);
-        mob.word = W.bindCastWord(pool, used);
+        const kind = mob.isBoss
+            ? ((L.bossModelOf && L.bossModelOf(mob.bossId)) || 'boss')
+            : mob.kind;
+        const cfg = L.levelOf ? L.levelOf(session.level) : null;
+        const src = (pool && pool.length) ? pool : bank;
+        mob.word = W.bindCastWord(src, used, {
+            kind: kind,
+            focus: (cfg && cfg.focusWords) || [],
+            prefer: mob.word && mob.word.text
+        });
+        if (!mob.word) {
+            const label = W.labelFor(kind, bank);
+            mob.word = label.word || { id: label.en, text: label.en, zh: label.zh };
+        }
     }
 
     function paintCastHud() {
@@ -1560,7 +1657,7 @@
                 chip.className = 'bl-cast-chip';
                 const en = String((m.word && m.word.text) || '').toLowerCase();
                 if (typed && en.indexOf(typed) === 0) chip.classList.add('is-hot');
-                chip.textContent = (m.kind || 'mob') + ' · ' + ((m.word && m.word.zh) || (m.word && m.word.text) || '');
+                chip.textContent = ((m.word && m.word.text) || '') + (m.word && m.word.zh ? ' · ' + m.word.zh : '');
                 list.appendChild(chip);
             });
         }
@@ -1568,7 +1665,40 @@
             input.value = session.castBuf || '';
             input.placeholder = session.casting ? 'type the word' : 'T 开始拼写';
         }
+        const ghost = document.getElementById('cast-ghost');
+        if (ghost) {
+            const aim = targets[0] && targets[0].word ? String(targets[0].word.text || '') : '';
+            const typed = String(session.castBuf || '');
+            ghost.innerHTML = aim
+                ? ('<b>' + typed + '</b><em>' + aim.slice(typed.length) + '</em>')
+                : '';
+        }
+        paintCastKeyboard(targets);
         if (session.casting && !targets.length) setCasting(false);
+    }
+
+    function paintCastKeyboard(targets) {
+        const box = document.getElementById('cast-keyboard');
+        if (!box) return;
+        box.classList.toggle('is-hidden', !session.casting);
+        if (!session.casting) {
+            box.innerHTML = '';
+            return;
+        }
+        const aim = String((targets[0] && targets[0].word && targets[0].word.text) || '').toLowerCase();
+        const typed = String(session.castBuf || '').toLowerCase();
+        const next = aim.charAt(typed.length);
+        const rows = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'];
+        box.innerHTML = rows.map(function (row) {
+            return '<div class="bl-keys">' + row.split('').map(function (ch) {
+                const cls = ch === next ? ' is-next' : (typed.indexOf(ch) >= 0 ? ' is-done' : '');
+                return '<button type="button" class="bl-key' + cls + '" data-key="' + ch + '">' + ch + '</button>';
+            }).join('') + '</div>';
+        }).join('') + '<div class="bl-keys bl-keys-actions">'
+            + '<button type="button" class="bl-key is-action" data-action="backspace">⌫</button>'
+            + '<button type="button" class="bl-key is-action" data-action="clear">清空</button>'
+            + '<button type="button" class="bl-key is-action" data-action="enter">确认</button>'
+            + '</div>';
     }
 
     function setCasting(on) {
@@ -1623,8 +1753,9 @@
             }
         }
         mob.asked = true;
-        applyResolvedHit(mob, 'bolt', { answered: true, correct: true });
-        if (mob.hp > 0) bindMobWord(mob);
+        launchBoltToward(mob, { cosmetic: true });
+        applyResolvedHit(mob, 'bolt', { answered: true, correct: true, channel: 'spell' });
+        if (mob.hp > 0 && !mob.isBoss) bindMobWord(mob);
         paintCastHud();
         toast((word && word.text) || 'Hit!');
     }
@@ -1947,51 +2078,216 @@
         } catch (e) { /* 静音不阻塞 */ }
     }
 
-    function listenOnce() {
-        if (!session.quiz || !session.pending) return;
-        if (!SP || !SP.canSpeak || !SP.canSpeak()) {
-            toast('这台设备不能听你说，点中文或拼写也能过');
+    function paintHeard(text) {
+        const el = document.getElementById('heard-text');
+        if (el) el.textContent = text ? ('"' + text + '"') : '""';
+    }
+
+    function setVoiceState(state) {
+        if (!session.voice) session.voice = { state: 'idle', rec: null, lock: null, blocked: false };
+        session.voice.state = state;
+        const box = document.getElementById('heard-box');
+        if (box) box.classList.toggle('is-listening', state === 'listening');
+    }
+
+    function stopVoiceRec() {
+        const rec = session.voice && session.voice.rec;
+        if (rec) {
+            try { rec.abort(); } catch (e) { /* ignore */ }
+            session.voice.rec = null;
+        }
+        if (session.voice && session.voice.state === 'listening') setVoiceState('idle');
+    }
+
+    function voiceLockAlive(lock) {
+        const mob = lock && lock.mob;
+        if (!mob || mob.hp <= 0) return false;
+        if (wordKey(mob.word) !== lock.targetKey) return false;
+        const dist = Math.hypot(mob.x - engine.player.x, mob.z - engine.player.z);
+        return dist <= 18;
+    }
+
+    function startVoiceChallenge() {
+        const sub = lookSubject();
+        if (!sub || sub.type !== 'mob' || !sub.mob || !sub.mob.word || !sub.mob.word.text) {
+            toast('先对准怪物');
             return;
         }
+        const lock = {
+            mob: sub.mob,
+            word: sub.mob.word,
+            targetKey: wordKey(sub.mob.word),
+            startedAt: nowMs()
+        };
+        session.voice.lock = lock;
+        if (session.voice.blocked || !SP || !SP.canSpeak || !SP.canSpeak() || !(window.SpeechRecognition || window.webkitSpeechRecognition)) {
+            setVoiceState('unsupported');
+            showVoiceFallback(lock, { reason: 'unsupported' });
+            return;
+        }
+        listenOnce({ lock: lock });
+    }
+
+    function applySpeakHit(lock, heard) {
+        const mob = lock && lock.mob;
+        const word = lock && lock.word;
+        if (!voiceLockAlive(lock)) {
+            setVoiceState('idle');
+            toast('目标已离开');
+            return;
+        }
+        noteWordSpoken(word);
+        if (mob.isBoss && session.boss) {
+            const before = session.boss.state;
+            const chip = L.shieldChipOf ? L.shieldChipOf('speak', session.boss.shield) : 2;
+            session.boss = L.chipShield(session.boss, chip, { now: nowMs() }).boss;
+            if (before !== 'broken' && session.boss.state === 'broken') {
+                noteQuest({ type: 'boss-shield-break' });
+            }
+        }
+        mob.voiceFails = 0;
+        mob.asked = true;
+        session.combo = C.nextCombo({ answered: true, correct: true, combo: session.combo });
+        applyResolvedHit(mob, 'melee', { answered: true, correct: true, channel: 'speak' });
+        hideVoiceFallback();
+        setVoiceState('matched');
+        toast((heard || (word && word.text) || '') + ' · 暴击');
+    }
+
+    function showVoiceFallback(lock, opts) {
+        const o = opts || {};
+        const box = document.getElementById('voice-fallback');
+        const list = document.getElementById('voice-fallback-choices');
+        const kick = document.getElementById('voice-fallback-kicker');
+        if (!box || !list || !lock || !lock.word) return;
+        session.voice.lock = lock;
+        const quiz = W.makeQuiz(lock.word, pool.length ? pool : bank, { mode: 'choice' });
+        session.voice.choices = (quiz && quiz.choices) || [];
+        list.innerHTML = '';
+        session.voice.choices.forEach(function (zh, i) {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.setAttribute('data-voice-choice', String(i));
+            btn.textContent = (i + 1) + ' ' + zh;
+            list.appendChild(btn);
+        });
+        if (kick) {
+            kick.textContent = o.reason === 'unsupported'
+                ? '没有麦克风 · 点中文或按 T'
+                : '选中文 · 世界不停';
+        }
+        box.classList.remove('is-hidden');
+        session.paused = false;
+        if (engine && engine.setUiMode) engine.setUiMode(false);
+    }
+
+    function hideVoiceFallback() {
+        const box = document.getElementById('voice-fallback');
+        if (box) box.classList.add('is-hidden');
+        if (session.voice) session.voice.choices = null;
+    }
+
+    function resolveVoiceFallback(index) {
+        const lock = session.voice && session.voice.lock;
+        const choices = (session.voice && session.voice.choices) || [];
+        const picked = choices[index];
+        if (!lock || picked == null) return;
+        const ok = String(picked) === String(lock.word.zh);
+        hideVoiceFallback();
+        if (!voiceLockAlive(lock)) {
+            toast('目标已离开');
+            return;
+        }
+        if (ok) {
+            applySpeakHit(lock, lock.word.text);
+        } else {
+            toast('再按 V 或按 T 打字');
+        }
+    }
+
+    function listenOnce(opts) {
+        const o = opts || {};
+        const lock = o.lock || (session.voice && session.voice.lock);
+        const inQuiz = !!(session.quiz && session.pending);
+        const target = (lock && lock.word && lock.word.text)
+            || (session.quiz && session.quiz.word && session.quiz.word.text)
+            || '';
+        if (!target) return;
+        if (session.voice && session.voice.rec) stopVoiceRec();
         const Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (!Rec) {
-            toast('这台设备不能听你说，点中文或拼写也能过');
+            setVoiceState('unsupported');
+            if (lock) showVoiceFallback(lock, { reason: 'unsupported' });
             return;
         }
         const rec = new Rec();
         rec.lang = 'en-US';
         rec.interimResults = false;
         rec.maxAlternatives = 3;
+        session.voice.rec = rec;
+        setVoiceState('listening');
         let done = false;
-        const target = (session.quiz.word && session.quiz.word.text) || '';
         rec.onresult = function (ev) {
-            if (done || !session.quiz) return;
+            if (done) return;
             const alts = [];
             const row = ev.results && ev.results[0];
             if (row) {
                 for (let i = 0; i < row.length; i += 1) alts.push(row[i].transcript);
             }
+            paintHeard(alts[0] || '');
             const hit = alts.some(function (heard) { return SP.matchHeard(target, heard).ok; });
             done = true;
+            session.voice.rec = null;
             if (hit) {
-                noteWordSpoken(session.quiz.word);
-                resolveQuiz(true, { record: true, crit: true, comboKeep: true, channel: 'speak' });
-            } else {
-                toast('没听清，再试一次或点中文');
+                if (inQuiz) {
+                    noteWordSpoken(session.quiz.word);
+                    resolveQuiz(true, { record: true, crit: true, comboKeep: true, channel: 'speak' });
+                    setVoiceState('matched');
+                } else {
+                    applySpeakHit(lock, alts[0] || target);
+                }
+                return;
             }
+            setVoiceState('not-matched');
+            if (lock && lock.mob) lock.mob.voiceFails = (Number(lock.mob.voiceFails) || 0) + 1;
+            if (lock && W.shouldAsk({ voiceFails: lock.mob && lock.mob.voiceFails })) {
+                showVoiceFallback(lock, { reason: 'not-matched' });
+                return;
+            }
+            toast('没听清，再按 V');
         };
         rec.onerror = function (ev) {
             if (done) return;
             done = true;
+            session.voice.rec = null;
             const err = ev && ev.error;
-            if (err === 'not-allowed') toast('没有麦克风权限，点中文或拼写也能过');
-            else toast('没听清，点中文或拼写也能过');
+            if (err === 'not-allowed') {
+                session.voice.blocked = true;
+                setVoiceState('mic-blocked');
+                if (lock) showVoiceFallback(lock, { reason: 'unsupported' });
+                toast('没有麦克风权限，点中文或按 T');
+                return;
+            }
+            if (err === 'no-speech') {
+                setVoiceState('timeout');
+                toast('没有听清');
+                return;
+            }
+            setVoiceState('not-matched');
+            toast('没听清，再按 V 或按 T 打字');
+        };
+        rec.onend = function () {
+            if (session.voice) session.voice.rec = null;
+            if (session.voice && session.voice.state === 'listening') setVoiceState('idle');
         };
         try {
             rec.start();
+            paintHeard('…');
             toast('说：' + target);
         } catch (e) {
-            toast('这台设备不能听你说，点中文或拼写也能过');
+            session.voice.rec = null;
+            setVoiceState('unsupported');
+            if (lock) showVoiceFallback(lock, { reason: 'unsupported' });
         }
     }
 
@@ -2203,11 +2499,14 @@
         const keep = [];
         session.bolts.forEach(function (b) {
             b.life -= dt;
-            const target = C.nearestMonster(b, session.monsters);
+            const target = (b.home && b.home.hp > 0)
+                ? b.home
+                : C.nearestMonster(b, session.monsters);
             const steered = C.steerBolt(b, target, dt);
             b.x = steered.x; b.z = steered.z; b.vx = steered.vx; b.vz = steered.vz;
             if (b.mesh) {
                 b.mesh.position.set(b.x, b.y, b.z);
+                b.mesh.rotation.y = Math.atan2(b.vx, b.vz);
                 const spin = b.mesh.userData.spin;
                 if (spin) {
                     spin.core.rotation.y += dt * 9;
@@ -2223,7 +2522,7 @@
             let hit = null;
             if (target && Math.hypot(target.x - b.x, target.z - b.z) < 0.55) hit = target;
             if (hit) {
-                requestHit(hit, 'bolt');
+                if (!b.cosmetic) requestHit(hit, 'bolt');
                 engine.scene.remove(b.mesh);
                 return;
             }
@@ -2319,7 +2618,10 @@
         });
         session.nearMerchant = near;
         const tip = document.getElementById('trade-tip');
-        if (tip) tip.classList.toggle('is-hidden', !session.nearMerchant || session.paused);
+        if (tip) {
+            tip.textContent = 'Press F to talk to Merchant Leo (商人雷奥)';
+            tip.classList.toggle('is-hidden', !session.nearMerchant || session.paused);
+        }
     }
 
     function openTrade() {
@@ -2465,6 +2767,7 @@
         const mpNumSide = document.getElementById('mp-num-side');
         if (mpFillSide) mpFillSide.style.width = Math.min(100, session.combo * 25) + '%';
         if (mpNumSide) mpNumSide.textContent = 'combo ' + session.combo;
+        paintSayStrip();
         const hpFill = document.getElementById('hp-fill');
         const hpNum = document.getElementById('hp-num');
         if (engine && engine.player) {
