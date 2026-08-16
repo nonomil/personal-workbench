@@ -801,12 +801,51 @@
         bridge.saveProgress(GAME_ID, progress);
     }
 
+    function playPassNow() {
+        if (!bridge.getPlayPass) return { remaining: 99, exhausted: false, redeemCost: 25, canRedeem: false };
+        return bridge.getPlayPass(GAME_ID);
+    }
+
     function refreshWallet() {
         const w = bridge.getWallet();
+        const pass = playPassNow();
         document.getElementById('wallet-hud').innerHTML =
             `<span class="chip">阳光 <b>${w.sunlight}</b></span>` +
+            `<span class="chip">今日还可冲 <b>${pass.remaining}</b> 次</span>` +
             `<span class="chip">星芒 Lv.<b>${w.petLevel}</b></span>` +
             `<span class="chip">生涯金币 <b>${progress.coinsTotal || 0}</b></span>`;
+    }
+
+    function showRest(pass) {
+        const view = pass || playPassNow();
+        const layer = document.getElementById('rest-layer');
+        if (!layer) return;
+        document.getElementById('rest-title').textContent = '先歇一歇再冲';
+        document.getElementById('rest-copy').textContent = '今天已经跑得很棒。去做一张字卡或一项今日任务，星芒就给你新的冲关次数。';
+        document.getElementById('rest-pass').textContent = view.canRedeem
+            ? ('也可以用 ' + (view.redeemCost || 25) + ' 阳光再冲一次。')
+            : '今天的阳光兑换也用完了，明天再来，或者先去点亮成就。';
+        const learn = document.getElementById('rest-learn-link');
+        if (learn) learn.href = bridge.backHref('platform-quest').replace('#overview', '#courses');
+        layer.classList.remove('is-hidden');
+        playing = false;
+    }
+
+    function hideRest() {
+        const layer = document.getElementById('rest-layer');
+        if (layer) layer.classList.add('is-hidden');
+    }
+
+    function tryStartRun(freeRetry) {
+        if (freeRetry || !bridge.consumePlayPass) return true;
+        const spent = bridge.consumePlayPass(GAME_ID);
+        if (spent.ok) {
+            refreshWallet();
+            return true;
+        }
+        showRest(spent.pass);
+        toast('今天先休息一下，去做任务再来冲');
+        return false;
     }
 
     function formatBestTime(sec) {
@@ -928,8 +967,10 @@
         });
         const totalEl = document.getElementById('level-total');
         if (totalEl) totalEl.textContent = String(levelsApi.count);
-        document.getElementById('progress-tip').textContent =
-            progress.clearedLevels.length + ' / ' + levelsApi.count;
+        const pass = playPassNow();
+        document.getElementById('progress-tip').textContent = pass.exhausted
+            ? '今日小目标：去做一张字卡，换一次新的冲关。'
+            : (progress.clearedLevels.length + ' / ' + levelsApi.count + ' · 还可冲 ' + pass.remaining + ' 次');
         refreshWallet();
     }
 
@@ -976,7 +1017,9 @@
         return (level && level.pipe) ? [level.pipe] : [];
     }
 
-    function enterLevel(id) {
+    function enterLevel(id, opts) {
+        if (!tryStartRun(opts && opts.freeRetry)) return;
+        hideRest();
         levelId = id;
         level = levelsApi.get(id);
         const theme = themeForLevel(level.id);
@@ -2263,7 +2306,32 @@
             jumpBtn.addEventListener('pointerup', function () { input.jumpHeld = false; });
             jumpBtn.addEventListener('pointercancel', function () { input.jumpHeld = false; });
         });
-        document.getElementById('restart-btn').addEventListener('click', resetRun);
+        document.getElementById('restart-btn').addEventListener('click', function () {
+            if (won) enterLevel(levelId);
+            else resetRun();
+        });
+        const restRedeem = document.getElementById('rest-redeem-btn');
+        if (restRedeem) {
+            restRedeem.addEventListener('click', function () {
+                if (!bridge.grantPlayPass) return;
+                const r = bridge.grantPlayPass(GAME_ID, { source: 'redeem' });
+                if (!r.ok) {
+                    toast(r.reason === '阳光不够' ? '阳光还不够，先去做任务攒一点' : '今天先休息，明天再冲');
+                    showRest(r.pass);
+                    return;
+                }
+                toast('阳光兑换成功，可以再冲一次');
+                hideRest();
+                refreshWallet();
+                renderMap();
+            });
+        }
+        const restWorkbench = document.getElementById('rest-workbench-btn');
+        if (restWorkbench) {
+            restWorkbench.addEventListener('click', function () {
+                location.href = bridge.backHref('platform-quest');
+            });
+        }
         document.getElementById('back-map-btn').addEventListener('click', showMap);
         document.getElementById('map-btn').addEventListener('click', showMap);
         document.getElementById('fullscreen-btn').addEventListener('click', function () {
@@ -2279,14 +2347,6 @@
     loadProgress();
     refreshPlayMods();
     updateModBadge();
-    if (typeof bridge.recordPlaySession === 'function') {
-        const play = bridge.recordPlaySession(GAME_ID);
-        if (play && play.awards && play.awards.length) {
-            setTimeout(function () {
-                toast(play.awards.map(function (a) { return a.title; }).join(' · '));
-            }, 400);
-        }
-    }
     bind();
     if (qaEnabled) {
         window.__pqQa = {

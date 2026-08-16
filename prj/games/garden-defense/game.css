@@ -517,6 +517,65 @@ body.is-picking .world-side {
 }
 .companion-say.is-on { opacity: 1; transform: none; }
 
+.today-goal {
+    margin: 0 0 8px;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: 800;
+    color: #6a4a12;
+    background: rgba(255, 236, 170, .85);
+    border: 2px solid rgba(212, 160, 48, .45);
+    border-radius: 12px;
+}
+
+.rest-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: rgba(24, 36, 20, .58);
+}
+.rest-layer.is-hidden { display: none; }
+.rest-card {
+    width: min(420px, 100%);
+    padding: 22px 20px;
+    text-align: center;
+    background: #fffcf2;
+    border: 3px solid rgba(47, 61, 42, .2);
+    border-radius: 20px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, .25);
+}
+.rest-card h3 { margin: 0 0 8px; font-size: 22px; color: #2f3d2a; }
+.rest-card p { margin: 6px 0; font-size: 14px; color: var(--muted); }
+.rest-pass { font-weight: 800; color: #d98200 !important; }
+.rest-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 14px;
+}
+.rest-actions a,
+.rest-actions button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 800;
+    text-decoration: none;
+    color: #fffcf2;
+    background: #4b9e3f;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+}
+.rest-actions button { background: #d98200; }
+.rest-actions button:last-child { background: #8a9b7d; }
+
 .settle-layer,
 .celebrate-layer {
     position: fixed;

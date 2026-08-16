@@ -766,3 +766,89 @@ test('blocklegend records play, keeps triple-day as >=3 worlds, and appears in w
   assert.equal(row.unit, '关');
   assert.equal(row.total, 6);
 });
+
+test('garden play pass gives two free runs then asks for learning or sunlight', () => {
+  const bridge = loadBridge();
+  const first = bridge.getPlayPass('garden-defense', '2026-08-16');
+  assert.equal(first.remaining, 2);
+  assert.equal(first.exhausted, false);
+
+  assert.equal(bridge.consumePlayPass('garden-defense', { date: '2026-08-16' }).ok, true);
+  assert.equal(bridge.consumePlayPass('garden-defense', { date: '2026-08-16' }).ok, true);
+  const empty = bridge.consumePlayPass('garden-defense', { date: '2026-08-16' });
+  assert.equal(empty.ok, false);
+  assert.equal(empty.reason, 'today-rest');
+  assert.equal(empty.pass.remaining, 0);
+
+  const learned = bridge.grantPlayPass('garden-defense', { source: 'learn', date: '2026-08-16' });
+  assert.equal(learned.ok, true);
+  assert.equal(learned.pass.remaining, 1);
+
+  const state = bridge.readState();
+  state.growth.sunlight = 40;
+  bridge.writeState(state);
+  const redeemed = bridge.grantPlayPass('garden-defense', { source: 'redeem', date: '2026-08-16' });
+  assert.equal(redeemed.ok, true);
+  assert.equal(redeemed.pass.remaining, 2);
+  assert.equal(bridge.getWallet().sunlight, 15);
+
+  const nextDay = bridge.getPlayPass('garden-defense', '2026-08-17');
+  assert.equal(nextDay.remaining, 2);
+
+  const gardenJs = fs.readFileSync(path.join(root, 'games', 'garden-defense', 'game.js'), 'utf8');
+  const gardenHtml = fs.readFileSync(path.join(root, 'games', 'garden-defense', 'index.html'), 'utf8');
+  assert.match(gardenJs, /consumePlayPass/);
+  assert.match(gardenJs, /freeRetry/);
+  assert.match(gardenHtml, /id="rest-layer"/);
+  assert.match(gardenJs, /去做一张字卡|去做今日学习/);
+});
+
+test('platform and voxel play passes stay per world; voxel is one timed segment', () => {
+  const bridge = loadBridge();
+  assert.equal(bridge.getPlayPass('garden-defense', '2026-08-16').remaining, 2);
+  assert.equal(bridge.getPlayPass('platform-quest', '2026-08-16').remaining, 2);
+  assert.equal(bridge.getPlayPass('voxel-adventure', '2026-08-16').remaining, 1);
+  assert.equal(bridge.getPlayPass('voxel-adventure', '2026-08-16').sessionMinutes, 12);
+
+  assert.equal(bridge.consumePlayPass('garden-defense', { date: '2026-08-16' }).ok, true);
+  assert.equal(bridge.consumePlayPass('garden-defense', { date: '2026-08-16' }).ok, true);
+  assert.equal(bridge.getPlayPass('platform-quest', '2026-08-16').remaining, 2, 'garden consume must not empty platform');
+  assert.equal(bridge.getPlayPass('voxel-adventure', '2026-08-16').remaining, 1, 'garden consume must not empty voxel');
+
+  assert.equal(bridge.consumePlayPass('voxel-adventure', { date: '2026-08-16' }).ok, true);
+  const voxelEmpty = bridge.consumePlayPass('voxel-adventure', { date: '2026-08-16' });
+  assert.equal(voxelEmpty.ok, false);
+  assert.equal(voxelEmpty.reason, 'today-rest');
+  assert.equal(bridge.getPlayPass('platform-quest', '2026-08-16').remaining, 2);
+
+  const learned = bridge.grantPlayPass('platform-quest', { source: 'learn', date: '2026-08-16' });
+  assert.equal(learned.ok, true);
+  assert.equal(learned.pass.remaining, 3);
+
+  const summary = bridge.getMetaSummary();
+  assert.ok(summary.playPasses);
+  assert.ok(summary.playPasses['platform-quest']);
+  assert.ok(summary.playPasses['voxel-adventure']);
+  assert.ok(summary.playPasses['garden-defense']);
+
+  const platformJs = fs.readFileSync(path.join(root, 'games', 'platform-quest', 'game.js'), 'utf8');
+  const platformHtml = fs.readFileSync(path.join(root, 'games', 'platform-quest', 'index.html'), 'utf8');
+  assert.match(platformJs, /consumePlayPass/);
+  assert.match(platformJs, /freeRetry/);
+  assert.match(platformHtml, /id="rest-layer"/);
+  assert.match(platformJs, /去做一张字卡|去做今日学习/);
+
+  const voxelJs = fs.readFileSync(path.join(root, 'games', 'voxel-craft', 'game.js'), 'utf8');
+  const voxelHtml = fs.readFileSync(path.join(root, 'games', 'voxel-craft', 'index.html'), 'utf8');
+  assert.match(voxelJs, /consumePlayPass/);
+  assert.match(voxelJs, /sessionMinutes|12 \* 60|720000/);
+  assert.match(voxelHtml, /id="rest-layer"/);
+  assert.match(voxelJs, /ensurePlaySegment|tryStartSegment/);
+  assert.match(voxelJs, /去做一张字卡|去做今日学习/);
+
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  assert.match(app, /今日还可冲/);
+  assert.match(app, /今日还可挖/);
+  assert.match(app, /grantPlayPass\('platform-quest'/);
+  assert.match(app, /grantPlayPass\('voxel-adventure'/);
+});

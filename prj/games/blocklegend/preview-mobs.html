@@ -36,22 +36,25 @@
         <button type="button" data-kind="pickaxe">镐</button>
         <button type="button" data-kind="axe">斧</button>
         <button type="button" data-kind="bow">弓</button>
+        <button type="button" data-kind="shovel">铲</button>
         <button type="button" data-kind="arrow">箭</button>
         <button type="button" data-kind="shield">盾</button>
         <span class="tip">拖动旋转 · 滚轮缩放 · 已接入正式关卡</span>
     </div>
     <div id="stage"></div>
     <script src="./vendor/three.min.js?v=20260815-bl-s1"></script>
+    <script src="./data/skins.js?v=20260816-bl-mobs2"></script>
+    <script src="./assets/img2threejs/voxelPix.js?v=20260816-bl-mobs2"></script>
     <script src="./assets/img2threejs/createCreeperModel.js?v=20260816-bl-i2t3"></script>
     <script src="./assets/img2threejs/createZombieModel.js?v=20260816-bl-i2t3"></script>
-    <script src="./assets/img2threejs/createSkeletonModel.js?v=20260816-bl-i2t3"></script>
-    <script src="./assets/img2threejs/createSpiderModel.js?v=20260816-bl-i2t3"></script>
-    <script src="./assets/img2threejs/createEndermanModel.js?v=20260816-bl-i2t3"></script>
-    <script src="./assets/img2threejs/createPiglinModel.js?v=20260816-bl-i2t3"></script>
-    <script src="./assets/img2threejs/createWitchModel.js?v=20260816-bl-look2"></script>
-    <script src="./assets/img2threejs/createWitherModel.js?v=20260816-bl-look2"></script>
-    <script src="./assets/img2threejs/createTools3d.js?v=20260816-bl-look2"></script>
-    <script src="./assets/img2threejs/createProps3d.js?v=20260816-bl-look2"></script>
+    <script src="./assets/img2threejs/createSkeletonModel.js?v=20260816-bl-mobs2"></script>
+    <script src="./assets/img2threejs/createSpiderModel.js?v=20260816-bl-mobs2"></script>
+    <script src="./assets/img2threejs/createEndermanModel.js?v=20260816-bl-mobs2"></script>
+    <script src="./assets/img2threejs/createPiglinModel.js?v=20260816-bl-mobs2"></script>
+    <script src="./assets/img2threejs/createWitchModel.js?v=20260816-bl-mobs2"></script>
+    <script src="./assets/img2threejs/createWitherModel.js?v=20260816-bl-mobs2"></script>
+    <script src="./assets/img2threejs/createTools3d.js?v=20260816-bl-tools1"></script>
+    <script src="./assets/img2threejs/createProps3d.js?v=20260816-bl-mobs2"></script>
     <script>
     (function () {
         const THREE = window.THREE;
@@ -92,6 +95,7 @@
             pickaxe: function () { return T.createPickaxe(THREE); },
             axe: function () { return T.createAxe(THREE); },
             bow: function () { return T.createBow(THREE); },
+            shovel: function () { return T.createShovel(THREE); },
             arrow: function () { return T.createArrow(THREE); },
             shield: function () { return T.createShield(THREE); }
         };
@@ -101,7 +105,7 @@
             if (current) scene.remove(current);
             current = factories[kind]();
             if (kind === 'spider') current.position.y = 0.2;
-            if (kind === 'sword' || kind === 'iron_sword' || kind === 'pickaxe' || kind === 'axe' || kind === 'bow' || kind === 'arrow' || kind === 'shield' || kind === 'chest' || kind === 'furnace' || kind === 'torch') {
+            if (kind === 'sword' || kind === 'iron_sword' || kind === 'pickaxe' || kind === 'axe' || kind === 'bow' || kind === 'shovel' || kind === 'arrow' || kind === 'shield' || kind === 'chest' || kind === 'furnace' || kind === 'torch') {
                 current.position.y = 1.1;
             }
             scene.add(current);

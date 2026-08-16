@@ -122,11 +122,11 @@ test('keeps preschool plans in one editable list instead of a fixed core and col
 
 test('bumps preschool runtime assets when the editable plan interaction changes', () => {
   const html = fs.readFileSync(path.join(root, 'preschool-workbench', 'index.html'), 'utf8');
-  assert.match(html, /preschool-workbench\.css\?v=20260816-switcher-z-v1/);
+  assert.match(html, /preschool-workbench\.css\?v=20260816-loop-v1/);
   assert.match(html, /config\.js\?v=20260816-literacy-uplift-v1/);
   assert.match(html, /storage\.js\?v=20260816-english-uplift-v2/);
-  assert.match(html, /app\.js\?v=20260816-literacy-ui-v5/);
-  assert.match(html, /workbench-bridge\.js\?v=20260815-blocklegend-v1/);
+  assert.match(html, /app\.js\?v=20260816-loop-v1/);
+  assert.match(html, /workbench-bridge\.js\?v=20260816-pass-v2/);
 });
 
 test('updates from the visible preschool snapshot when persistence is one revision behind', () => {
@@ -617,7 +617,7 @@ test('puts a single real-work workflow card above preschool home check-in lanes'
   assert.doesNotMatch(heroRender, /再完成\s*\d+\s*项打卡/);
   assert.match(app, /item\.done && item\.completionSource === 'practice'/);
   assert.match(styles, /preschool-home-hero/);
-  assert.match(html, /app\.js\?v=20260816-literacy-ui-v5/);
+  assert.match(html, /app\.js\?v=20260816-loop-v1/);
   assert.doesNotMatch(app, /首页只负责打卡/);
 });
 
@@ -1153,8 +1153,8 @@ test('adds a today preview on the course wall and splits classic into a child me
   assert.match(app, /更多练习/);
   assert.match(app, /更多资料/);
   assert.doesNotMatch(app, /浏览完整资料库/);
-  assert.match(html, /preschool-workbench\.css\?v=20260816-switcher-z-v1/);
-  assert.match(html, /app\.js\?v=20260816-literacy-ui-v5/);
+  assert.match(html, /preschool-workbench\.css\?v=20260816-loop-v1/);
+  assert.match(html, /app\.js\?v=20260816-loop-v1/);
   assert.match(html, /preschool-card-art\.js\?v=20260815-english-auto-v1/);
   assert.match(workbenchCss, /36-course-menu\.css\?v=20260815-menu-cards-v2/);
   assert.match(styles, /preschool-course-menu/);

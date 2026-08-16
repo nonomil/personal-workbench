@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#e54139">
     <title>横版闯关 · 成长关卡</title>
     <link rel="stylesheet" href="../shared/growth-hud.css">
-    <link rel="stylesheet" href="./game.css?v=20260815-s2-v1">
+    <link rel="stylesheet" href="./game.css?v=20260816-pass-v2">
 </head>
 <body data-world-game="platform-quest">
     <header class="world-bar">
@@ -82,12 +82,24 @@
             </div>
         </div>
     </div>
-    <script src="../shared/workbench-bridge.js?v=20260815-polish-v1"></script>
+    <div class="rest-layer is-hidden" id="rest-layer" role="dialog" aria-label="闯关休息">
+        <div class="rest-card">
+            <h3 id="rest-title">先歇一歇再冲</h3>
+            <p id="rest-copy">今天已经跑得很棒。去做一张字卡或一项今日任务，星芒就给你新的冲关次数。</p>
+            <p class="rest-pass" id="rest-pass"></p>
+            <div class="rest-actions">
+                <a class="rest-learn" id="rest-learn-link" href="../../preschool-workbench/index.html?theme=platform-quest#courses">去做今日学习</a>
+                <button type="button" id="rest-redeem-btn">用阳光再冲一次</button>
+                <button type="button" id="rest-workbench-btn">回工作台看成就</button>
+            </div>
+        </div>
+    </div>
+    <script src="../shared/workbench-bridge.js?v=20260816-pass-v2"></script>
     <script src="../shared/game-sfx.js?v=20260815-sfx-v1"></script>
     <script src="../shared/pixel-tiles.js?v=20260816-shared-v1"></script>
     <script src="./pixel-decor.js?v=20260815-polish-v1"></script>
     <script src="./data/physics.js?v=20260814-ground-v1"></script>
     <script src="./data/levels.js?v=20260815-cast-v4"></script>
-    <script src="./game.js?v=20260815-polish-v5"></script>
+    <script src="./game.js?v=20260816-pass-v2"></script>
 </body>
 </html>

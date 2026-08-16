@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>方块世界 · 挖放乐园</title>
-    <link rel="stylesheet" href="./game.css?v=20260816-craft-v27">
+    <link rel="stylesheet" href="./game.css?v=20260816-bar-v1">
 </head>
 <body class="vc-body">
     <aside class="vc-side" id="vc-side" aria-label="方块世界工作台导航">
@@ -18,22 +18,30 @@
     </aside>
     <div class="vc-shell">
     <header class="vc-topbar">
-        <a class="vc-back" id="back-link" href="../../preschool-workbench/index.html">返回工作台</a>
-        <strong class="vc-title">方块世界</strong>
-        <span class="vc-chip">⛏ <b id="rank-label">1 · 新手矿工</b></span>
-        <span class="vc-chip">🌿 <b id="biome-label">草原</b></span>
-        <span class="vc-chip">任务 <b id="quest-done">0</b>/<b id="quest-total">18</b></span>
-        <span class="vc-chip vc-hp-chip">❤ <b id="hp-label">5/5</b></span>
-        <span class="vc-chip">敌人 <b id="enemy-label">0</b></span>
-        <span class="vc-chip">☀ <b id="sun-label">0</b></span>
-        <span class="vc-top-actions">
-            <button type="button" class="vc-btn" id="map-btn" title="地图册">🗺️</button>
-            <button type="button" class="vc-btn vc-attack-btn" id="attack-btn" title="攻击 (K)">⚔️</button>
-            <button type="button" class="vc-btn" id="bag-btn" title="背包 (E)">🎒</button>
-            <button type="button" class="vc-btn" id="home-shot-btn" title="拍下家园">📷</button>
-            <button type="button" class="vc-btn" id="reset-btn" title="重开世界">⭯</button>
-            <button type="button" class="vc-btn" id="fullscreen-btn">⛶</button>
-        </span>
+        <div class="vc-bar-copy">
+            <span class="vc-bar-kicker">方块</span>
+            <h1>方块世界</h1>
+            <p>挖、放、做任务。</p>
+        </div>
+        <div class="vc-bar-stats" aria-label="今日状态">
+            <span class="vc-chip"><img class="vc-chip-ico" src="./assets/mc/items/stone-pickaxe.png" alt="">矿工 <b id="rank-label">1 · 新手矿工</b></span>
+            <span class="vc-chip"><img class="vc-chip-ico" src="./assets/mc/blocks/grass-block.png" alt="">地图 <b id="biome-label">草原</b></span>
+            <span class="vc-chip"><img class="vc-chip-ico" src="./assets/mc/items/chest.png" alt="">任务 <b id="quest-done">0</b>/<b id="quest-total">18</b></span>
+            <span class="vc-chip">还可挖 <b id="pass-label">1</b> 段</span>
+            <span class="vc-chip">本段 <b id="segment-label">未开始</b></span>
+            <span class="vc-chip vc-hp-chip"><img class="vc-chip-ico" src="./assets/ui/heart.png" alt="">生命 <b id="hp-label">5/5</b></span>
+            <span class="vc-chip"><img class="vc-chip-ico" src="./assets/mc/items/wooden-sword.png" alt="">敌人 <b id="enemy-label">0</b></span>
+            <span class="vc-chip">阳光 <b id="sun-label">0</b></span>
+        </div>
+        <div class="vc-bar-actions">
+            <button type="button" class="vc-tool" id="map-btn" title="地图册"><img src="./assets/mc/blocks/grass-block.png" alt="">地图</button>
+            <button type="button" class="vc-tool vc-attack-btn" id="attack-btn" title="攻击 (K)"><img src="./assets/mc/items/wooden-sword.png" alt="">攻击</button>
+            <button type="button" class="vc-tool" id="bag-btn" title="背包 (E)"><img src="./assets/mc/items/chest.png" alt="">背包</button>
+            <button type="button" class="vc-tool" id="home-shot-btn" title="拍下家园">拍照</button>
+            <button type="button" class="vc-tool" id="reset-btn" title="重开世界">重开</button>
+            <button type="button" class="vc-tool" id="fullscreen-btn">全屏</button>
+            <a class="vc-back" id="back-link" href="../../preschool-workbench/index.html?theme=voxel-adventure#overview">返回工作台</a>
+        </div>
     </header>
 
     <main class="vc-stage">
@@ -127,6 +135,19 @@
         </div>
     </div>
 
+    <div class="vc-layer is-hidden" id="rest-layer" role="dialog" aria-label="方块休息">
+        <div class="vc-panel vc-settle">
+            <h3 id="rest-title">矿工也要午睡啦</h3>
+            <p class="vc-line" id="rest-copy">这一段挖得很棒。去做一张字卡或一项今日任务，星芒就给你下一段挖掘。</p>
+            <p class="vc-line" id="rest-pass"></p>
+            <div class="vc-rest-actions">
+                <a class="vc-btn vc-primary" id="rest-learn-link" href="../../preschool-workbench/index.html?theme=voxel-adventure#courses">去做今日学习</a>
+                <button type="button" class="vc-btn" id="rest-redeem-btn">用阳光再挖一段</button>
+                <button type="button" class="vc-btn" id="rest-workbench-btn">回工作台看成就</button>
+            </div>
+        </div>
+    </div>
+
     <div class="vc-layer is-hidden" id="rankup-layer" role="dialog" aria-label="升段仪式">
         <div class="vc-panel vc-settle">
             <img class="vc-rank-img" src="./assets/mc/items/stone-pickaxe.png" alt="新镐子" id="rankup-img">
@@ -137,14 +158,14 @@
         </div>
     </div>
 
-    <script src="../shared/workbench-bridge.js?v=20260815-sfx-v1"></script>
+    <script src="../shared/workbench-bridge.js?v=20260816-pass-v2"></script>
     <script src="../shared/game-sfx.js?v=20260815-sfx-v1"></script>
     <script src="./data/quests.js?v=20260815-craft-v22"></script>
     <script src="./data/maps.js?v=20260816-map-v2"></script>
     <script src="./data/enemies.js?v=20260816-enemy-v1"></script>
     <script src="./data/world.js?v=20260816-craft-v27"></script>
     <script src="./engine.js?v=20260816-craft-v27"></script>
-    <script src="./game.js?v=20260816-craft-v27"></script>
+    <script src="./game.js?v=20260816-pass-v2"></script>
 </div>
 </body>
 </html>

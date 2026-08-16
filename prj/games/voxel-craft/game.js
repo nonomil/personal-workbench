@@ -56,6 +56,7 @@
     let selectedKind = null;
     let placedCells = {};
     let session = { placedThis: {}, placedAnyThis: 0, collectedThis: {} };
+    let playSegment = { active: false, startedAt: 0, endsAt: 0 };
     let player = { x: 5 * TILE, y: 16 * TILE, w: 18, h: 54, vx: 0, vy: 0, onGround: false, facing: 1, inWater: false, hp: 5, maxHp: 5, food: 10, maxFood: 10, invincibleUntil: 0 };
     let camera = { x: 0, y: 0 };
     let groundAnchor = 0; // 垂直相机锚点：只在落地/大幅跌落时更新，跳跃时镜头不动
@@ -382,6 +383,7 @@
     }
 
     function attack() {
+        if (!ensurePlaySegment()) return;
         const now = Date.now();
         attackUntil = now + 180;
         let hits = 0;
@@ -526,6 +528,7 @@
         const doneId = isDaily ? eventKey : quest.id;
         if (progress.questsDone.indexOf(doneId) !== -1) return;
         progress.questsDone.push(doneId);
+        endPlaySegment();
         const amount = scaledSun(quest.reward || 10);
         let awarded = amount;
         if (bridge.awardSunlight) {
@@ -599,6 +602,7 @@
             toast(VW.breakReason(kind, toolIdInHand(), rank()));
             return false;
         }
+        if (!ensurePlaySegment()) return false;
         const need = VW.breakTime(kind, toolIdInHand());
         if (!mineAct || mineAct.cellX !== cell.x || mineAct.cellY !== cell.y) {
             mineAct = { cellX: cell.x, cellY: cell.y, kind: kind, frames: 0, need: need };
@@ -648,10 +652,83 @@
         return Math.max(0, Number(w.sunlight) || 0);
     }
 
+    function playPassNow() {
+        if (!bridge.getPlayPass) return { remaining: 99, exhausted: false, redeemCost: 25, canRedeem: false, sessionMinutes: 12 };
+        return bridge.getPlayPass(GAME_ID);
+    }
+
+    function sessionMs() {
+        const mins = Number(playPassNow().sessionMinutes) || 12;
+        return Math.max(1, mins) * 60 * 1000;
+    }
+
+    function endPlaySegment() {
+        playSegment.active = false;
+    }
+
+    function showRest(pass) {
+        const view = pass || playPassNow();
+        const layer = document.getElementById('rest-layer');
+        if (!layer) return;
+        const title = document.getElementById('rest-title');
+        const copy = document.getElementById('rest-copy');
+        const restPass = document.getElementById('rest-pass');
+        if (title) title.textContent = '矿工也要午睡啦';
+        if (copy) copy.textContent = '这一段挖得很棒。去做一张字卡或一项今日任务，星芒就给你下一段挖掘。';
+        if (restPass) {
+            restPass.textContent = view.canRedeem
+                ? ('也可以用 ' + (view.redeemCost || 25) + ' 阳光再挖一段。')
+                : '今天的阳光兑换也用完了，明天再来，或者先去点亮成就。';
+        }
+        const learn = document.getElementById('rest-learn-link');
+        if (learn && bridge.backHref) learn.href = bridge.backHref('voxel-adventure').replace('#overview', '#courses');
+        layer.classList.remove('is-hidden');
+    }
+
+    function hideRest() {
+        const layer = document.getElementById('rest-layer');
+        if (layer) layer.classList.add('is-hidden');
+    }
+
+    function ensurePlaySegment() {
+        const now = Date.now();
+        if (playSegment.active) {
+            if (now < playSegment.endsAt) return true;
+            endPlaySegment();
+            showRest(playPassNow());
+            toast('这一段挖够啦，先去做一张字卡');
+            return false;
+        }
+        if (!bridge.consumePlayPass) {
+            playSegment = { active: true, startedAt: now, endsAt: now + sessionMs() };
+            renderHud();
+            return true;
+        }
+        const spent = bridge.consumePlayPass(GAME_ID);
+        if (!spent.ok) {
+            showRest(spent.pass);
+            toast('今天先休息一下，去做任务再来挖');
+            return false;
+        }
+        hideRest();
+        playSegment = { active: true, startedAt: now, endsAt: now + sessionMs() };
+        renderHud();
+        return true;
+    }
+
+    function checkPlaySegment() {
+        if (playSegment.active && Date.now() >= playSegment.endsAt) {
+            endPlaySegment();
+            showRest(playPassNow());
+            toast('这一段挖够啦，先去做一张字卡');
+        }
+    }
+
     function tryPlace(cell) {
         if (!selectedKind) { toast('先在热键栏选一个方块'); return; }
         if ((inventory[selectedKind] || 0) <= 0) { toast('背包里没有' + (VW.KIND_LABEL[selectedKind] || '材料')); return; }
         if (!ENG.inReach(player, cell.x, cell.y)) { toast('走近一点再放'); return; }
+        if (!ensurePlaySegment()) return;
         const res = VW.placeBlock(world, cell.x, cell.y, selectedKind, { free: inActiveBlueprint(cell) });
         if (!res.ok) { toast(res.reason); return; }
         const bag = spendItem(selectedKind, 1);
@@ -755,6 +832,18 @@
             title.textContent = '自由建造时间';
             desc.textContent = '今天的任务都完成啦';
             fill.style.width = '100%';
+        }
+        const pass = playPassNow();
+        const passEl = document.getElementById('pass-label');
+        if (passEl) passEl.textContent = String(pass.remaining);
+        const segEl = document.getElementById('segment-label');
+        if (segEl) {
+            if (playSegment.active) {
+                const left = Math.max(0, Math.ceil((playSegment.endsAt - Date.now()) / 60000));
+                segEl.textContent = '还剩 ' + left + ' 分钟';
+            } else {
+                segEl.textContent = pass.exhausted ? '今日已收工' : '未开始';
+            }
         }
     }
 
@@ -1146,6 +1235,7 @@
     let lastFrameAt = 0;
     function pump() {
         lastFrameAt = Date.now();
+        checkPlaySegment();
         frame(lastFrameAt);
     }
     function startLoop() {
@@ -1353,7 +1443,29 @@
         document.getElementById('settle-close-btn').addEventListener('click', function () {
             document.getElementById('settle-layer').classList.add('is-hidden');
             say(nextGoalLine());
+            if (playPassNow().exhausted) showRest();
         });
+        const restRedeem = document.getElementById('rest-redeem-btn');
+        if (restRedeem) {
+            restRedeem.addEventListener('click', function () {
+                if (!bridge.grantPlayPass) return;
+                const r = bridge.grantPlayPass(GAME_ID, { source: 'redeem' });
+                if (!r.ok) {
+                    toast(r.reason === '阳光不够' ? '阳光还不够，先去做任务攒一点' : '今天先休息，明天再挖');
+                    showRest(r.pass);
+                    return;
+                }
+                toast('阳光兑换成功，可以再挖一段');
+                hideRest();
+                renderHud();
+            });
+        }
+        const restWorkbench = document.getElementById('rest-workbench-btn');
+        if (restWorkbench) {
+            restWorkbench.addEventListener('click', function () {
+                location.href = bridge.backHref ? bridge.backHref('voxel-adventure') : '../../preschool-workbench/index.html?theme=voxel-adventure#overview';
+            });
+        }
         document.getElementById('rankup-close-btn').addEventListener('click', function () {
             document.getElementById('rankup-layer').classList.add('is-hidden');
         });
@@ -1456,7 +1568,6 @@
         };
         if (bridge.getPlayMods) playMods = bridge.getPlayMods();
         loadProgress();
-        if (bridge.recordPlaySession) bridge.recordPlaySession(GAME_ID);
         setupSidebar();
         bind();
         renderHotbar();

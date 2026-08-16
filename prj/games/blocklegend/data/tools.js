@@ -17,15 +17,18 @@
         water: 280,
         coal: 1200,
         iron: 1500,
+        gold: 1600,
+        diamond: 1800,
         plank: 700,
         table: 720,
-        word: 280
+        word: 280,
+        gate: 400
     };
     const TOOLS = {
-        sword: { id: 'sword', melee: 1, mine: { log: 0.35, leaf: 0.45, dirt: 0.28, grass: 0.28, sand: 0.28, snow: 0.3, stone: 0.16, water: 0.3, coal: 0.16, iron: 0.14, plank: 0.4, table: 0.4, word: 1 } },
-        axe: { id: 'axe', melee: 0.55, mine: { log: 1, leaf: 1, dirt: 0.34, grass: 0.34, sand: 0.34, snow: 0.34, stone: 0.2, water: 0.34, coal: 0.2, iron: 0.18, plank: 1, table: 1, word: 1 } },
-        pickaxe: { id: 'pickaxe', melee: 0.42, mine: { log: 0.4, leaf: 0.4, dirt: 0.72, grass: 0.72, sand: 0.72, snow: 0.72, stone: 1, water: 0.4, coal: 1, iron: 1, plank: 0.45, table: 0.45, word: 1 } },
-        shovel: { id: 'shovel', melee: 0.35, mine: { log: 0.25, leaf: 0.3, dirt: 1, grass: 1, sand: 1, snow: 1, stone: 0.14, water: 1, coal: 0.14, iron: 0.12, plank: 0.28, table: 0.28, word: 1 } }
+        sword: { id: 'sword', melee: 1, mine: { log: 0.35, leaf: 0.45, dirt: 0.28, grass: 0.28, sand: 0.28, snow: 0.3, stone: 0.16, water: 0.3, coal: 0.16, iron: 0.14, gold: 0.14, diamond: 0.12, plank: 0.4, table: 0.4, word: 1, gate: 1 } },
+        axe: { id: 'axe', melee: 0.55, mine: { log: 1, leaf: 1, dirt: 0.34, grass: 0.34, sand: 0.34, snow: 0.34, stone: 0.2, water: 0.34, coal: 0.2, iron: 0.18, gold: 0.16, diamond: 0.14, plank: 1, table: 1, word: 1, gate: 1 } },
+        pickaxe: { id: 'pickaxe', melee: 0.42, mine: { log: 0.4, leaf: 0.4, dirt: 0.72, grass: 0.72, sand: 0.72, snow: 0.72, stone: 1, water: 0.4, coal: 1, iron: 1, gold: 1, diamond: 1, plank: 0.45, table: 0.45, word: 1, gate: 1 } },
+        shovel: { id: 'shovel', melee: 0.35, mine: { log: 0.25, leaf: 0.3, dirt: 1, grass: 1, sand: 1, snow: 1, stone: 0.14, water: 1, coal: 0.14, iron: 0.12, gold: 0.12, diamond: 0.1, plank: 0.28, table: 0.28, word: 1, gate: 1 } }
     };
     const DROPS = {
         log: 'oak-log',
@@ -36,8 +39,10 @@
         snow: 'dirt',
         stone: 'cobble',
         water: 'dirt',
-        coal: 'cobble',
-        iron: 'cobble',
+        coal: 'coal',
+        iron: 'iron_ore',
+        gold: 'gold',
+        diamond: 'diamond',
         plank: 'plank',
         table: 'table'
     };
@@ -97,6 +102,7 @@
         if (loot === 'oak-log') return 'log';
         if (loot === 'plank') return 'plank';
         if (loot === 'table') return 'table';
+        if (loot === 'chest' || loot === 'furnace' || loot === 'torch') return loot;
         return null;
     }
 

@@ -69,26 +69,108 @@
 
 .vc-topbar {
     display: flex;
-    align-items: center;
-    gap: 10px;
     flex-wrap: wrap;
-    padding: 8px clamp(12px, 3vw, 28px);
-    background: rgba(22, 34, 27, .92);
-    border-bottom: 2px solid rgba(185, 137, 58, .35);
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px clamp(12px, 2vw, 20px);
+    background: rgba(255, 254, 250, .94);
+    border-bottom: 3px solid rgba(47, 61, 42, .16);
+    color: #243528;
 }
-.vc-top-actions { margin-left: auto; display: flex; gap: 6px; }
-.vc-top-actions .vc-btn { min-height: 34px; padding: 0 10px; font-size: 15px; }
-.vc-back { color: #ffd98a; font-weight: 800; text-decoration: none; font-size: 13px; }
-.vc-title { font-size: 16px; letter-spacing: .04em; }
+.vc-bar-copy { min-width: 120px; }
+.vc-bar-kicker {
+    display: block;
+    color: #2f7a45;
+    font-size: 11px;
+    font-weight: 850;
+    letter-spacing: .12em;
+}
+.vc-topbar h1 {
+    margin: 2px 0;
+    font-size: clamp(20px, 2.4vw, 28px);
+    color: #1d2b23;
+}
+.vc-topbar p {
+    margin: 0;
+    color: #5d6d5f;
+    font-size: 13px;
+    line-height: 1.5;
+}
+.vc-bar-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    flex: 1 1 240px;
+}
 .vc-chip {
-    padding: 4px 10px;
-    border-radius: 8px;
-    border: 1px solid rgba(185, 137, 58, .45);
-    background: rgba(185, 137, 58, .14);
-    font-size: 12px;
-    color: #e8dcc2;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 36px;
+    padding: 0 12px;
+    border-radius: 999px;
+    border: 2px solid rgba(47, 61, 42, .14);
+    background: #fffef6;
+    font-size: 13px;
+    font-weight: 800;
+    color: #3a4a3c;
 }
-.vc-chip b { color: #ffd98a; }
+.vc-chip b { color: #2d8748; }
+.vc-chip-ico {
+    width: 22px;
+    height: 22px;
+    image-rendering: pixelated;
+    flex: 0 0 22px;
+}
+.vc-bar-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin-left: auto;
+}
+.vc-tool {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 44px;
+    padding: 0 14px;
+    border: 2px solid rgba(47, 61, 42, .18);
+    border-radius: 12px;
+    background: #fff7d6;
+    color: #243528;
+    font-weight: 800;
+    font-size: 14px;
+    cursor: pointer;
+}
+.vc-tool img {
+    width: 22px;
+    height: 22px;
+    image-rendering: pixelated;
+}
+.vc-tool.vc-attack-btn {
+    border-color: rgba(196, 86, 58, .45);
+    background: #ffe4d8;
+    color: #7a2e1c;
+}
+.vc-back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 16px;
+    border: 2px solid #2c5c3c;
+    border-radius: 12px;
+    background: #3f7a52;
+    color: #fffdf5;
+    font-weight: 800;
+    font-size: 15px;
+    text-decoration: none;
+}
+.vc-back:hover { background: #4a8d60; }
 .vc-btn {
     min-height: 38px;
     padding: 0 14px;
@@ -496,6 +578,17 @@
 .vc-settle h3 { margin: 8px 0 12px; font-size: 20px; color: #ffd98a; }
 .vc-gain { margin: 0 0 10px; font-size: 15px; color: #ffe9bd; font-weight: 800; }
 .vc-line { margin: 4px 0; color: #cfc4a9; font-size: 13px; }
+.vc-rest-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 14px;
+}
+.vc-rest-actions a,
+.vc-rest-actions button {
+    text-decoration: none;
+    min-height: 44px;
+}
 .vc-rank-img { width: 64px; height: 64px; image-rendering: pixelated; }
 
 .vc-mine-ring {
@@ -522,9 +615,9 @@
 }
 
 @media (max-width: 390px) {
-    .vc-topbar { gap: 6px; padding: 6px 8px; }
-    .vc-title { font-size: 13px; }
-    .vc-chip { font-size: 11px; padding: 2px 6px; }
+    .vc-topbar { gap: 8px; padding: 8px; }
+    .vc-topbar p { display: none; }
+    .vc-chip { font-size: 12px; min-height: 32px; padding: 0 8px; }
     .vc-stage { padding: 8px 6px 16px; }
     .vc-mc-panel,
     .vc-panel { width: 100vw; max-width: 100vw; }
@@ -533,8 +626,8 @@
 }
 
 /* 多地图与轻战斗 HUD */
-.vc-hp-chip { color: #ffd7d7; }
-.vc-hp-chip b { color: #ff8f8f; }
+.vc-hp-chip { color: #7a2e1c; }
+.vc-hp-chip b { color: #c44b3a; }
 .vc-enemy-hp { color: #ffb39b; }
 .vc-attack-btn { border-color: rgba(255, 122, 92, .65); color: #ffd0c5; }
 .vc-map-panel { width: min(860px, calc(100vw - 32px)); max-width: calc(100% - 32px); box-sizing: border-box; }

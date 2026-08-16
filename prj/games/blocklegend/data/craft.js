@@ -8,6 +8,7 @@
     const ITEM_NAME = {
         'oak-log': '原木', plank: '木板', stick: '木棍', table: '合成台', cobble: '圆石',
         dirt: '泥土', coal: '煤炭', string: '线',
+        iron_ore: '铁矿', iron_ingot: '铁锭',
         wood_sword: '木剑', wood_pick: '木镐', wood_axe: '木斧', wood_shovel: '木铲',
         wood_bow: '木弓', wood_shield: '木盾', arrow: '箭',
         stone_sword: '石剑', stone_pick: '石镐', stone_axe: '石斧', stone_shovel: '石铲',
@@ -29,14 +30,14 @@
         { id: 'wood_bow', name: '木弓', zh: '3 木棍 + 2 木板 · 需合成台', inputs: { stick: 3, plank: 2 }, outputs: { wood_bow: 1 }, grid: 3, shape: [3, 3], cells: [null, 'stick', null, 'plank', null, 'plank', null, 'stick', 'stick'] },
         { id: 'arrow', name: '箭', zh: '1 木棍 + 1 圆石 → 4 箭 · 需合成台', inputs: { stick: 1, cobble: 1 }, outputs: { arrow: 4 }, grid: 3, shapeless: ['stick', 'cobble'] },
         { id: 'wood_shield', name: '木盾', zh: '6 木板 · 需合成台', inputs: { plank: 6 }, outputs: { wood_shield: 1 }, grid: 3, shape: [3, 3], cells: ['plank', 'plank', 'plank', 'plank', 'plank', 'plank', null, null, null] },
-        { id: 'iron_sword', name: '铁剑', zh: '2 圆石 + 1 木棍 · 需合成台', inputs: { cobble: 2, stick: 1 }, outputs: { iron_sword: 1 }, grid: 3, shape: [1, 3], cells: ['cobble', 'cobble', 'stick'] },
+        { id: 'iron_sword', name: '铁剑', zh: '2 铁锭 + 1 木棍 · 需合成台', inputs: { iron_ingot: 2, stick: 1 }, outputs: { iron_sword: 1 }, grid: 3, shape: [1, 3], cells: ['iron_ingot', 'iron_ingot', 'stick'] },
         { id: 'stone_sword', name: '石剑', zh: '2 圆石 + 1 木棍 · 需合成台', inputs: { cobble: 2, stick: 1 }, outputs: { stone_sword: 1 }, grid: 3 },
         { id: 'stone_pick', name: '石镐', zh: '3 圆石 + 2 木棍 · 需合成台', inputs: { cobble: 3, stick: 2 }, outputs: { stone_pick: 1 }, grid: 3, shape: [3, 3], cells: ['cobble', 'cobble', 'cobble', null, 'stick', null, null, 'stick', null] },
         { id: 'stone_axe', name: '石斧', zh: '3 圆石 + 2 木棍 · 需合成台', inputs: { cobble: 3, stick: 2 }, outputs: { stone_axe: 1 }, grid: 3, shape: [2, 3], cells: ['cobble', 'cobble', 'cobble', 'stick', null, 'stick'] },
         { id: 'stone_shovel', name: '石铲', zh: '1 圆石 + 2 木棍 · 需合成台', inputs: { cobble: 1, stick: 2 }, outputs: { stone_shovel: 1 }, grid: 3, shape: [1, 3], cells: ['cobble', 'stick', 'stick'] },
-        { id: 'iron_pick', name: '铁镐', zh: '3 圆石 + 2 木棍 · 需合成台', inputs: { cobble: 3, stick: 2 }, outputs: { iron_pick: 1 }, grid: 3 },
-        { id: 'iron_axe', name: '铁斧', zh: '3 圆石 + 2 木棍 · 需合成台', inputs: { cobble: 3, stick: 2 }, outputs: { iron_axe: 1 }, grid: 3 },
-        { id: 'chest', name: '箱子', zh: '8 木板 · 需合成台', inputs: { plank: 8 }, outputs: { chest: 1 }, grid: 3, shape: [3, 3], cells: ['plank', 'plank', 'plank', 'plank', null, 'plank', 'plank', 'plank', 'plank'] },
+        { id: 'iron_pick', name: '铁镐', zh: '3 铁锭 + 2 木棍 · 需合成台', inputs: { iron_ingot: 3, stick: 2 }, outputs: { iron_pick: 1 }, grid: 3, shape: [3, 3], cells: ['iron_ingot', 'iron_ingot', 'iron_ingot', null, 'stick', null, null, 'stick', null] },
+        { id: 'iron_axe', name: '铁斧', zh: '3 铁锭 + 2 木棍 · 需合成台', inputs: { iron_ingot: 3, stick: 2 }, outputs: { iron_axe: 1 }, grid: 3, shape: [2, 3], cells: ['iron_ingot', 'iron_ingot', 'iron_ingot', 'stick', null, 'stick'] },
+        { id: 'chest', name: '箱子', zh: '8 木板 · 需合成台', inputs: { plank: 8 }, outputs: { chest: 1 }, grid: 3, shape: [3, 3], cells: ['plank', 'plank', 'plank', 'plank', null, 'plank', 'plank', 'plank', 'plank'], keepOnDeath: true },
         { id: 'furnace', name: '熔炉', zh: '8 圆石 · 需合成台', inputs: { cobble: 8 }, outputs: { furnace: 1 }, grid: 3, shape: [3, 3], cells: ['cobble', 'cobble', 'cobble', 'cobble', null, 'cobble', 'cobble', 'cobble', 'cobble'] },
         { id: 'door', name: '木门', zh: '6 木板 · 需合成台', inputs: { plank: 6 }, outputs: { door: 1 }, grid: 3, shape: [2, 3], cells: ['plank', 'plank', 'plank', 'plank', 'plank', 'plank'] },
         { id: 'fence', name: '栅栏', zh: '4 木板 + 2 木棍 → 2 · 需合成台', inputs: { plank: 4, stick: 2 }, outputs: { fence: 2 }, grid: 3, shape: [3, 2], cells: ['plank', 'stick', 'plank', 'plank', 'stick', 'plank'] },
@@ -47,6 +48,16 @@
         { id: 'bucket', name: '桶', zh: '3 圆石 · 需合成台', inputs: { cobble: 3 }, outputs: { bucket: 1 }, grid: 3, shape: [3, 2], cells: ['cobble', null, 'cobble', null, 'cobble', null] },
         { id: 'fishing_rod', name: '钓竿', zh: '3 木棍 + 2 线 · 需合成台', inputs: { stick: 3, string: 2 }, outputs: { fishing_rod: 1 }, grid: 3, shape: [3, 3], cells: [null, null, 'stick', null, 'stick', 'string', 'stick', null, 'string'] }
     ];
+
+    const HIDDEN = { bowl: true, boat: true, shears: true, bucket: true, fishing_rod: true };
+
+    function isOffered(id) {
+        return !HIDDEN[id];
+    }
+
+    function keepsBagOnDeath(bag) {
+        return countOf(bag, 'chest') > 0;
+    }
 
     function recipeOf(id) {
         for (let i = 0; i < RECIPES.length; i += 1) {
@@ -63,14 +74,35 @@
         return ITEM_NAME[id] || id;
     }
 
+    const ITEM_ICON = {
+        'oak-log': 'log', plank: 'plank', stick: 'stick', table: 'table',
+        cobble: 'cobble', dirt: 'dirt', coal: 'coal', string: 'string',
+        iron_ore: 'iron-ore', iron_ingot: 'ingot',
+        wood_sword: 'sword-wood', stone_sword: 'sword-stone', iron_sword: 'sword-iron',
+        wood_pick: 'pick-wood', stone_pick: 'pick-stone', iron_pick: 'pick-iron',
+        wood_axe: 'axe-wood', stone_axe: 'axe-stone', iron_axe: 'axe-iron',
+        wood_shovel: 'shovel-wood', stone_shovel: 'shovel-stone',
+        wood_bow: 'bow', wood_shield: 'shield', arrow: 'arrow',
+        torch: 'torch', chest: 'chest', furnace: 'furnace', door: 'door',
+        fence: 'fence', ladder: 'ladder', bowl: 'bowl', boat: 'boat',
+        shears: 'shears', fishing_rod: 'rod', bucket: 'bucket'
+    };
+
+    function itemIcon(id) {
+        return ITEM_ICON[id] || 'unknown';
+    }
+
     function recipesFor(opts) {
         const atTable = !!(opts && opts.atTable);
-        return RECIPES.filter(function (r) { return (r.grid || 2) < 3 || atTable; });
+        return RECIPES.filter(function (r) {
+            if (!isOffered(r.id)) return false;
+            return (r.grid || 2) < 3 || atTable;
+        });
     }
 
     function canCraft(bag, id, opts) {
         const recipe = recipeOf(id);
-        if (!recipe) return false;
+        if (!recipe || !isOffered(id)) return false;
         if ((recipe.grid || 2) >= 3 && !(opts && opts.atTable)) return false;
         const keys = Object.keys(recipe.inputs);
         for (let i = 0; i < keys.length; i += 1) {
@@ -163,6 +195,7 @@
         let found = null;
         for (let i = 0; i < RECIPES.length; i += 1) {
             const r = RECIPES[i];
+            if (!isOffered(r.id)) continue;
             if ((r.grid || 2) > size) continue;
             const hit = r.shape ? matchShaped(view, size, r) : (r.shapeless ? matchShapeless(view, r) : null);
             if (!hit) continue;
@@ -210,15 +243,46 @@
         return next;
     }
 
+    const SMELTS = {
+        iron_ingot: { inputs: { iron_ore: 1, coal: 1 }, outputs: { iron_ingot: 1 } }
+    };
+
+    function smelt(bag, id) {
+        const recipe = SMELTS[id];
+        const copy = Object.assign({}, bag || {});
+        if (!recipe) return { ok: false, bag: copy, reason: '没有这个熔炼' };
+        const keys = Object.keys(recipe.inputs);
+        for (let i = 0; i < keys.length; i += 1) {
+            if (countOf(copy, keys[i]) < recipe.inputs[keys[i]]) {
+                return { ok: false, bag: copy, reason: '材料不够' };
+            }
+        }
+        const next = Object.assign({}, copy);
+        keys.forEach(function (k) {
+            next[k] = countOf(next, k) - recipe.inputs[k];
+            if (next[k] < 0) next[k] = 0;
+        });
+        Object.keys(recipe.outputs).forEach(function (k) {
+            next[k] = countOf(next, k) + recipe.outputs[k];
+        });
+        return { ok: true, bag: next, recipe: recipe };
+    }
+
     global.BlockLegendCraft = {
         RECIPES: RECIPES,
         ITEM_NAME: ITEM_NAME,
+        SMELTS: SMELTS,
+        isOffered: isOffered,
+        keepsBagOnDeath: keepsBagOnDeath,
         recipeOf: recipeOf,
         recipesFor: recipesFor,
         canCraft: canCraft,
         toolBonus: toolBonus,
         craft: craft,
+        smelt: smelt,
         itemName: itemName,
+        itemIcon: itemIcon,
+        ITEM_ICON: ITEM_ICON,
         matchGrid: matchGrid,
         consumeGrid: consumeGrid,
         emptyGrid: emptyGrid,

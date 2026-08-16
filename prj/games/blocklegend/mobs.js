@@ -202,35 +202,16 @@
         const anim = { legs: [], arms: [], head: null, body: null, phase: Math.random() * 6.28, bob: 0 };
         let height = 1.6;
 
-        if (kind === 'slime' || kind === 'magma' || kind === 'cube') {
-            const px = kind === 'cube' ? 1 / 18 : 1 / 16;
-            const body = skinnedBox(16, 16, 16, kind, 0, 0, px, kind === 'magma' ? { emissive: 0x401000 } : {});
-            body.position.y = 8 * px;
-            g.add(body);
-            anim.body = body;
-            height = 16 * px;
-        } else if (kind === 'fox') {
-            const px = 1 / 20;
-            const body = skinnedBox(16, 10, 16, kind, 0, 0, px);
-            body.position.y = 8 * px;
-            const head = skinnedBox(10, 8, 8, kind, 0, 0, px);
-            head.position.set(0, 12 * px, -10 * px);
-            const earL = box(0.1, 0.18, 0.08, 0xc45a18);
-            const earR = box(0.1, 0.18, 0.08, 0xc45a18);
-            earL.position.set(-0.16, 0.82, -0.52);
-            earR.position.set(0.16, 0.82, -0.52);
-            const tail = skinnedBox(4, 4, 8, kind, 0, 0, px);
-            tail.position.set(0, 8 * px, 10 * px);
-            g.add(body); g.add(head); g.add(earL); g.add(earR); g.add(tail);
-            [[-0.16, -0.22], [0.16, -0.22], [-0.16, 0.22], [0.16, 0.22]].forEach(function (p) {
-                const leg = skinnedBox(3, 6, 3, kind, 0, 0, px);
-                leg.geometry.translate(0, -3 * px, 0);
-                leg.position.set(p[0], 6 * px, p[1]);
-                g.add(leg);
-                anim.legs.push(leg);
-            });
-            anim.body = body; anim.head = head;
-            height = 1.15;
+        if ((kind === 'slime' || kind === 'magma' || kind === 'cube') && window.BlockLegendSlimeModel) {
+            const rig = window.BlockLegendSlimeModel.create(THREE, { kind: kind });
+            g.add(rig);
+            anim.rig = rig;
+            height = kind === 'cube' ? 1.05 : 1.1;
+        } else if (kind === 'fox' && window.BlockLegendFoxModel) {
+            const rig = window.BlockLegendFoxModel.create(THREE);
+            g.add(rig);
+            anim.rig = rig;
+            height = 0.85;
         } else if (kind === 'blaze') {
             const px = 1 / 16;
             const head = skinnedBox(8, 8, 8, kind, 0, 0, px, { emissive: 0x662200 });
@@ -296,6 +277,11 @@
             g.add(rig);
             anim.rig = rig;
             height = 2.15;
+        } else if (kind === 'golem' && window.BlockLegendGolemModel) {
+            const rig = window.BlockLegendGolemModel.create(THREE);
+            g.add(rig);
+            anim.rig = rig;
+            height = 2.35;
         } else if (kind === 'warden') {
             height = addHumanoid(g, anim, 'warden', 1.25, 'zombie');
             const hornL = box(0.1, 0.32, 0.1, 0x0e2026);
@@ -304,18 +290,33 @@
             hornR.position.set(0.16, height + 0.02, 0);
             g.add(hornL); g.add(hornR);
         } else if (kind === 'merchant') {
-            height = addHumanoid(g, anim, 'merchant', 1, '');
-            const brim = box(0.62, 0.07, 0.62, 0x2c2c34);
-            const top = box(0.34, 0.22, 0.34, 0x2c2c34);
-            brim.position.y = height - 0.02;
-            top.position.y = height + 0.12;
-            g.add(brim); g.add(top);
-        } else if (kind === 'boss' && window.BlockLegendWitherModel) {
-            const rig = window.BlockLegendWitherModel.create(THREE);
-            g.add(rig);
-            anim.rig = rig;
-            anim.shield = rig.getObjectByName('boss-shield');
-            height = 2.2;
+            if (window.BlockLegendProps3d && window.BlockLegendProps3d.createTrader) {
+                const rig = window.BlockLegendProps3d.createTrader(THREE);
+                g.add(rig);
+                anim.rig = rig;
+                height = 1.35;
+            } else {
+                height = addHumanoid(g, anim, 'merchant', 1, '');
+                const brim = box(0.62, 0.07, 0.62, 0x2c2c34);
+                const top = box(0.34, 0.22, 0.34, 0x2c2c34);
+                brim.position.y = height - 0.02;
+                top.position.y = height + 0.12;
+                g.add(brim); g.add(top);
+            }
+        } else if (kind === 'boss') {
+            const bossId = (o && o.bossId) || 'wither';
+            const factory = bossId === 'dragon' && window.BlockLegendDragonModel
+                ? window.BlockLegendDragonModel
+                : bossId === 'storm' && window.BlockLegendStormModel
+                    ? window.BlockLegendStormModel
+                    : window.BlockLegendWitherModel;
+            if (factory) {
+                const rig = factory.create(THREE);
+                g.add(rig);
+                anim.rig = rig;
+                anim.shield = rig.getObjectByName('boss-shield');
+                height = bossId === 'dragon' ? 2.6 : bossId === 'storm' ? 2.8 : 2.2;
+            }
         } else {
             const isBoss = kind === 'boss';
             const skinKind = isBoss ? 'boss' : 'husk';
@@ -453,6 +454,9 @@
     }
 
     function heldShovel() {
+        if (window.BlockLegendTools3d && window.BlockLegendTools3d.createShovel) {
+            return window.BlockLegendTools3d.createShovel(THREE);
+        }
         const g = new THREE.Group();
         const handle = box(0.04, 0.48, 0.04, 0x6a4a2c);
         const neck = box(0.05, 0.08, 0.05, 0x8a8e96);
@@ -491,10 +495,14 @@
         };
         tools.place = heldBlock();
         if (window.BlockLegendTools3d) {
-            tools.bow = window.BlockLegendTools3d.createBow(THREE);
-            if (window.BlockLegendTools3d.createIronSword) {
-                tools.iron_sword = window.BlockLegendTools3d.createIronSword(THREE);
-            }
+            const T3 = window.BlockLegendTools3d;
+            tools.bow = T3.createBow(THREE);
+            if (T3.createIronSword) tools.iron_sword = T3.createIronSword(THREE);
+            if (T3.createDiamondSword) tools.diamond_sword = T3.createDiamondSword(THREE);
+            if (T3.createIronAxe) tools.iron_axe = T3.createIronAxe(THREE);
+            if (T3.createDiamondAxe) tools.diamond_axe = T3.createDiamondAxe(THREE);
+            if (T3.createIronPickaxe) tools.iron_pickaxe = T3.createIronPickaxe(THREE);
+            if (T3.createDiamondPickaxe) tools.diamond_pickaxe = T3.createDiamondPickaxe(THREE);
         }
         const offhand = window.BlockLegendTools3d
             ? window.BlockLegendTools3d.createShield(THREE)
@@ -514,11 +522,17 @@
             g.add(t); // camera-space tools
         });
 
-        const state = { t: 0, swing: 0, cast: 0, bobPhase: 0, tool: 'sword', blade: 'wood' };
+        const state = { t: 0, swing: 0, cast: 0, bobPhase: 0, tool: 'sword', blade: 'wood', tiers: { sword: 'wood', axe: 'wood', pickaxe: 'wood' } };
+        function holdKey() {
+            const tool = state.tool;
+            if (tool === 'bow' && tools.bow) return 'bow';
+            const tier = state.tiers[tool] || (tool === 'sword' ? state.blade : 'wood');
+            const keyed = tier + '_' + tool;
+            if ((tier === 'iron' || tier === 'diamond') && tools[keyed]) return keyed;
+            return tools[tool] ? tool : 'sword';
+        }
         function paintTools() {
-            const show = (state.tool === 'sword' && state.blade === 'iron' && tools.iron_sword)
-                ? 'iron_sword'
-                : state.tool;
+            const show = holdKey();
             Object.keys(tools).forEach(function (k) { tools[k].visible = k === show; });
         }
         return {
@@ -526,11 +540,17 @@
             blade: tools.sword,
             bladeGlow: tools.sword.userData.glow,
             setTool: function (id) {
-                state.tool = tools[id] ? id : 'sword';
+                state.tool = tools[id] ? id : (id === 'bow' && tools.bow ? 'bow' : 'sword');
                 paintTools();
             },
             setBladeKind: function (kind) {
-                state.blade = kind === 'iron' ? 'iron' : 'wood';
+                state.blade = kind === 'diamond' ? 'diamond' : kind === 'iron' ? 'iron' : 'wood';
+                state.tiers.sword = state.blade;
+                paintTools();
+            },
+            setToolTiers: function (tiers) {
+                state.tiers = Object.assign({ sword: 'wood', axe: 'wood', pickaxe: 'wood' }, tiers || {});
+                state.blade = state.tiers.sword || 'wood';
                 paintTools();
             },
             setOffhand: function (on) {

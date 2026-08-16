@@ -194,6 +194,12 @@ test('mc texture assets and engine anchors are wired (S2)', () => {
   assert.match(game, /getPlayMods/);
   assert.match(html, /返回工作台|preschool-workbench/);
   assert.match(html, /fullscreen|全屏/i);
+  assert.match(html, /class="vc-back"/);
+  assert.match(html, />地图</);
+  assert.match(html, />背包</);
+  const css = fs.readFileSync(path.join(gameDir, 'game.css'), 'utf8');
+  assert.match(css, /\.vc-back[\s\S]*min-height:\s*44px/);
+  assert.match(css, /\.vc-tool[\s\S]*min-height:\s*44px/);
 });
 
 test('no minecraft trademark leaks into public copy', () => {
