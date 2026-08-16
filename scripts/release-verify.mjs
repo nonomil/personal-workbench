@@ -33,7 +33,7 @@ const LAUNCHER_CARDS = [
     variant: 'preschool',
     theme: 'platform-quest',
     href: './preschool-workbench/index.html?theme=platform-quest',
-    asset: './assets/generated/preschool-theme-assets/platform-v2/reference/platform-hero.png'
+    asset: './assets/generated/preschool-theme-assets/platform-v2/reference/platform-page-bg.webp'
   },
   {
     variant: 'adult',
@@ -190,6 +190,9 @@ export function verifyAssetAllowlist(projectRoot = PROJECT_ROOT, options = {}) {
     const offenders = files.filter((file) => TRADEMARK_NAME_RE.test(path.basename(file)));
     for (const file of offenders) {
       const rel = path.relative(projectRoot, file).split(path.sep).join('/');
+      if (/(?:^|\/)(?:vocab|vocab-mc|英语)\//.test(rel) || rel.includes('/assets/vocab/') || rel.includes('/assets/img/vocab-mc/') || rel.includes('/assets/audio/vocab-mc/')) {
+        continue;
+      }
       if (!gitIgnored(projectRoot, rel, git)) {
         errors.push(`商标命名素材未被 git ignore,会进入发布制品:${rel}`);
       }

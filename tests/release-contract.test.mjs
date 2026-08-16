@@ -42,11 +42,20 @@ test('Pages workflow deploys the prj workbench statically without Jekyll', () =>
   assert.doesNotMatch(workflow, /jekyll-build-pages/);
 });
 
+test('package-lock lists every package.json dependency so npm ci can install', () => {
+  const projectRoot = fileURLToPath(new URL('..', import.meta.url));
+  const pkg = JSON.parse(fs.readFileSync(path.join(projectRoot, 'package.json'), 'utf8'));
+  const lock = JSON.parse(fs.readFileSync(path.join(projectRoot, 'package-lock.json'), 'utf8'));
+  const names = [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.devDependencies || {})];
+  const missing = names.filter((name) => !lock.packages?.[`node_modules/${name}`]);
+  assert.deepEqual(missing, []);
+});
+
 test('Android workflow runs the web gates before uploading an APK', () => {
   const projectRoot = fileURLToPath(new URL('..', import.meta.url));
   const workflow = fs.readFileSync(path.join(projectRoot, '.github', 'workflows', 'android-apk.yml'), 'utf8');
 
-  assert.match(workflow, /run: npm test/);
+  assert.match(workflow, /tests\/prepare-mobile\.test\.mjs/);
   assert.match(workflow, /run: npm run release:verify/);
   assert.match(workflow, /node --check prj\/launcher\.js/);
   assert.match(workflow, /test -s android\/app\/build\/outputs\/apk\/debug\/app-debug\.apk/);

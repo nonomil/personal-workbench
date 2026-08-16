@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
+import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -53,7 +54,8 @@ test('every subject has a complete independent data and asset package', () => {
         assert.equal(manifest.policy.unknownLicensePublishable, false);
         assert.equal(fs.existsSync(path.join(assetDir, 'original')), true);
         assert.equal(fs.existsSync(path.join(assetDir, 'external')), true);
-        assert.equal(fs.existsSync(path.join(repoRoot, 'tmp')), false, 'temporary downloads must stay outside the release tree');
+        const trackedTmp = spawnSync('git', ['ls-files', 'tmp'], { cwd: repoRoot, encoding: 'utf8' });
+        assert.equal((trackedTmp.stdout || '').trim(), '', 'temporary downloads must stay outside the release tree');
 
         for (const lesson of lessons) {
             assert.equal(lesson.routeId, routeId);

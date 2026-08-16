@@ -39,6 +39,7 @@
         sliders: '<line x1="4" x2="4" y1="21" y2="14"></line><line x1="4" x2="4" y1="10" y2="3"></line><line x1="12" x2="12" y1="21" y2="12"></line><line x1="12" x2="12" y1="8" y2="3"></line><line x1="20" x2="20" y1="21" y2="16"></line><line x1="20" x2="20" y1="12" y2="3"></line><line x1="2" x2="6" y1="14" y2="14"></line><line x1="10" x2="14" y1="8" y2="8"></line><line x1="18" x2="22" y1="16" y2="16"></line>',
         album: '<rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M3 9h18"></path><path d="M9 3v6"></path><path d="M15 3v6"></path><path d="M7 14h.01"></path><path d="M12 14h.01"></path><path d="M17 14h.01"></path>',
         'arrow-right': '<path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path>',
+        bomb: '<circle cx="11" cy="13" r="9"></circle><path d="M14.35 4.65 16.3 2.7a2.41 2.41 0 0 1 3.4 0l1.6 1.6a2.4 2.4 0 0 1 0 3.4l-1.95 1.95"></path><path d="m22 2-1.5 1.5"></path>',
         bug: '<path d="m8 2 1.9 2.1"></path><path d="m16 2-1.9 2.1"></path><path d="M9 7.5a3 3 0 0 1 6 0v3.7a3 3 0 0 1-6 0Z"></path><path d="M4 10h5"></path><path d="M15 10h5"></path><path d="M5 15h4"></path><path d="M15 15h4"></path><path d="M12 14v8"></path>',
         cloud: '<path d="M17.5 19H9a7 7 0 1 1 6.7-9h1.8a4.5 4.5 0 1 1 0 9Z"></path>',
         'cloud-download': '<path d="M17.5 19H9a7 7 0 1 1 6.7-9h1.8a4.5 4.5 0 1 1 0 9Z"></path><path d="M12 12v6"></path><path d="m9 15 3 3 3-3"></path>',
