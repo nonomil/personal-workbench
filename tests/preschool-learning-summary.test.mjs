@@ -62,5 +62,5 @@ test('family page shows the parent-only learning summary without a new storage k
     assert.match(app, /学情摘要/);
     assert.match(app, /只给家长看，不改分数、不扣阳光/);
     assert.match(html, /child-courses\.js\?v=20260816-english-uplift-v2/);
-    assert.match(html, /app\.js\?v=20260816-literacy-ui-v5/);
+    assert.match(html, /app\.js\?v=20260816-loop-v1/);
 });

@@ -517,7 +517,7 @@
         const animals = [];
         const animalKinds = climateName === 'nether' || climateName === 'desert' ? []
             : climateName === 'crystal' ? ['sheep', 'chicken']
-                : ['pig', 'cow', 'sheep', 'chicken'];
+                : ['pig', 'cow', 'sheep', 'chicken', 'wolf'];
         guard = 0;
         while (animals.length < animalKinds.length * 3 && guard < 1600 && animalKinds.length) {
             guard += 1;
@@ -552,6 +552,7 @@
             flowers: flowers,
             plants: plants,
             animals: animals,
+            placedProps: [],
             villagers: village && village.villagers ? village.villagers.slice() : [],
             beds: village && village.beds ? village.beds.slice() : [],
             garden: village && village.garden ? village.garden : null,
@@ -1559,7 +1560,8 @@
                 decor.add(bed);
             });
             (world.villagers || []).forEach(function (v) {
-                const npc = propOf('createVillager', function () {
+                const factory = v.role === 'trader' ? 'createTrader' : 'createVillager';
+                const npc = propOf(factory, function () {
                     const g = new THREE.Group();
                     g.add(boxMesh(0.34, 0.42, 0.22, v.role === 'trader' ? 0x4a6a8a : 0x8b4513, 0.72));
                     g.add(boxMesh(0.28, 0.26, 0.26, 0xd2a679, 1.06));
@@ -1570,14 +1572,26 @@
                 });
                 v.mesh = placeLife(npc, v.x, v.z, 0);
             });
+            (world.placedProps || []).forEach(function (p) {
+                const factory = p.kind === 'furnace' ? 'createFurnace'
+                    : p.kind === 'torch' ? 'createTorch'
+                        : 'createChest';
+                const mesh = propOf(factory, function () {
+                    return boxMesh(0.7, 0.7, 0.7, 0x8a5a28, 0.35);
+                });
+                mesh.position.set(p.x + 0.5, p.y, p.z + 0.5);
+                decor.add(mesh);
+                p.mesh = mesh;
+            });
             (world.animals || []).forEach(function (a) {
                 const factory = a.kind === 'cow' ? 'createCow'
                     : a.kind === 'sheep' ? 'createSheep'
                         : a.kind === 'chicken' ? 'createChicken'
-                            : 'createPig';
+                            : a.kind === 'wolf' ? 'createWolf'
+                                : 'createPig';
                 const animal = propOf(factory, function () {
                     const g = new THREE.Group();
-                    const color = a.kind === 'cow' ? 0x6b4424 : a.kind === 'sheep' ? 0xf4f0ea : a.kind === 'chicken' ? 0xf4f0ea : 0xf2a0b4;
+                    const color = a.kind === 'cow' ? 0x6b4424 : a.kind === 'sheep' ? 0xf4f0ea : a.kind === 'chicken' ? 0xf4f0ea : a.kind === 'wolf' ? 0xa8a8b0 : 0xf2a0b4;
                     g.add(boxMesh(a.kind === 'chicken' ? 0.28 : 0.55, a.kind === 'chicken' ? 0.28 : 0.36, a.kind === 'chicken' ? 0.28 : 0.7, color, a.kind === 'chicken' ? 0.38 : 0.42));
                     return g;
                 });
@@ -1861,11 +1875,23 @@
                 }
                 a.mesh.position.set(a.x, world.surfaceAt(Math.floor(a.x), Math.floor(a.z)), a.z);
                 a.mesh.rotation.y = a.yaw || 0;
+                if (a.mesh.userData && typeof a.mesh.userData.tick === 'function') {
+                    a.mesh.userData.tick(a.phase, true);
+                }
             });
             (world.villagers || []).forEach(function (v) {
                 if (!v.mesh) return;
                 v.bob = (v.bob || 0) + dt;
                 v.mesh.position.y = world.surfaceAt(Math.floor(v.x), Math.floor(v.z)) + Math.sin(v.bob * 2) * 0.03;
+                if (v.mesh.userData && typeof v.mesh.userData.tick === 'function') {
+                    v.mesh.userData.tick(v.bob, false);
+                }
+            });
+            (world.placedProps || []).forEach(function (p) {
+                if (p.mesh && p.mesh.userData && typeof p.mesh.userData.tick === 'function') {
+                    p.t = (p.t || 0) + dt;
+                    p.mesh.userData.tick(p.t);
+                }
             });
         }
         let tickHook = null;
@@ -1915,6 +1941,21 @@
             reloadWorld: function (next) {
                 reloadWorld(next);
                 api.world = world;
+            },
+            placeProp: function (kind, x, y, z) {
+                const allowed = { chest: 'createChest', furnace: 'createFurnace', torch: 'createTorch' };
+                const factory = allowed[kind];
+                if (!factory || y <= 0) return { ok: false };
+                if (!world.placedProps) world.placedProps = [];
+                const P = global.BlockLegendProps3d;
+                const mesh = (P && typeof P[factory] === 'function')
+                    ? P[factory](THREE)
+                    : new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.7, 0.7), new THREE.MeshLambertMaterial({ color: 0x8a5a28 }));
+                mesh.position.set(x + 0.5, y, z + 0.5);
+                decor.add(mesh);
+                const row = { kind: kind, x: x, y: y, z: z, mesh: mesh, t: 0 };
+                world.placedProps.push(row);
+                return { ok: true, prop: row };
             },
             resize: resize,
             startLoop: startLoop,

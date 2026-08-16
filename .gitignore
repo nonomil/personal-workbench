@@ -21,6 +21,8 @@ current-english.png
 
 # Local game snapshots, not product
 prj/games/_backup/
+prj/games/*.zip
+prj/games/blocklegend/docs/
 prj/games/blocklegend/assets/img2threejs/
 **/.img2threejs/
 

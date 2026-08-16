@@ -101,6 +101,6 @@ test('english flashcards prefer local bitmap and play local audio when present',
     assert.match(styles, /preschool-card-photo/);
     assert.match(html, /preschool-english-vocab-data\.js\?v=20260815-english-auto-v1/);
     assert.match(html, /preschool-english-vocab\.js\?v=20260816-english-uplift-v2/);
-    assert.match(html, /app\.js\?v=20260816-literacy-ui-v5/);
-    assert.match(html, /35-course-flashcards\.css\?v=20260815-vocab-a1-v1|preschool-workbench\.css\?v=20260816-switcher-z-v1/);
+    assert.match(html, /app\.js\?v=20260816-loop-v1/);
+    assert.match(html, /35-course-flashcards\.css\?v=20260815-vocab-a1-v1|preschool-workbench\.css\?v=20260816-loop-v1/);
 });

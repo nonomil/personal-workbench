@@ -17,6 +17,24 @@
 
     const STORAGE_KEY = 'petbank_huchuliang_preschool_workbench_state_v1';
     const DAILY_GAME_SUN_CAP = 80;
+    const PLAY_PASS = Object.freeze({
+        dailyFree: 2,
+        maxLearned: 3,
+        maxRedeemed: 2,
+        redeemCost: 25
+    });
+    const PLAY_PASS_BY_GAME = Object.freeze({
+        'garden-defense': PLAY_PASS,
+        'platform-quest': PLAY_PASS,
+        'voxel-adventure': Object.freeze({
+            dailyFree: 1,
+            maxLearned: 2,
+            maxRedeemed: 2,
+            redeemCost: 25,
+            sessionMinutes: 12
+        })
+    });
+    const REWARD_GAME_IDS = ['garden-defense', 'platform-quest', 'voxel-adventure'];
     const GAME_IDS = ['garden-defense', 'voxel-adventure', 'platform-quest', 'blocklegend'];
     const PLATFORM_LEVEL_TOTAL = 16;
 
@@ -155,8 +173,125 @@
             playDates: [],
             playByDay: {}, // { '2026-08-07': { 'garden-defense': true, ... } }
             badges: [],
-            weekly: { weekStart: '', playedDays: [], tripleDays: 0, goalPlayDays: 4, goalTriple: 1 }
+            weekly: { weekStart: '', playedDays: [], tripleDays: 0, goalPlayDays: 4, goalTriple: 1 },
+            playPass: null,
+            playPasses: {}
         };
+    }
+
+    function passRules(gameId) {
+        return PLAY_PASS_BY_GAME[gameId] || PLAY_PASS;
+    }
+
+    function emptyPlayPass(date, gameId) {
+        const rules = passRules(gameId);
+        return {
+            date: date,
+            free: rules.dailyFree,
+            learned: 0,
+            redeemed: 0,
+            used: 0
+        };
+    }
+
+    function ensurePlayPasses(meta) {
+        if (!meta.playPasses || typeof meta.playPasses !== 'object') meta.playPasses = {};
+        if (meta.playPass && typeof meta.playPass === 'object' && !meta.playPasses['garden-defense']) {
+            meta.playPasses['garden-defense'] = meta.playPass;
+        }
+        return meta.playPasses;
+    }
+
+    function normalizePlayPass(meta, date, gameId) {
+        const day = date || today();
+        const id = gameId || 'garden-defense';
+        const slots = ensurePlayPasses(meta);
+        if (!slots[id] || typeof slots[id] !== 'object' || slots[id].date !== day) {
+            slots[id] = emptyPlayPass(day, id);
+        }
+        const rules = passRules(id);
+        const pass = slots[id];
+        pass.free = rules.dailyFree;
+        pass.learned = Math.max(0, Math.min(rules.maxLearned, Number(pass.learned) || 0));
+        pass.redeemed = Math.max(0, Math.min(rules.maxRedeemed, Number(pass.redeemed) || 0));
+        pass.used = Math.max(0, Number(pass.used) || 0);
+        if (id === 'garden-defense') meta.playPass = pass;
+        return pass;
+    }
+
+    function playPassView(pass, gameId) {
+        const rules = passRules(gameId);
+        const remaining = Math.max(0, pass.free + pass.learned + pass.redeemed - pass.used);
+        return {
+            remaining: remaining,
+            used: pass.used,
+            learned: pass.learned,
+            redeemed: pass.redeemed,
+            redeemCost: rules.redeemCost,
+            canRedeem: pass.redeemed < rules.maxRedeemed,
+            canLearn: pass.learned < rules.maxLearned,
+            exhausted: remaining <= 0,
+            dailyFree: rules.dailyFree,
+            sessionMinutes: rules.sessionMinutes || 0
+        };
+    }
+
+    function getPlayPass(gameId, date) {
+        const state = readState();
+        const meta = ensureWorldGames(state.growth).meta;
+        const id = gameId || 'garden-defense';
+        return playPassView(normalizePlayPass(meta, date || today(), id), id);
+    }
+
+    function consumePlayPass(gameId, options) {
+        const opts = options || {};
+        const date = opts.date || today();
+        const id = gameId || 'garden-defense';
+        const state = readState();
+        const meta = ensureWorldGames(state.growth).meta;
+        const pass = normalizePlayPass(meta, date, id);
+        const view = playPassView(pass, id);
+        if (view.remaining <= 0) {
+            return { ok: false, reason: 'today-rest', pass: view };
+        }
+        pass.used += 1;
+        writeState(state);
+        const play = recordPlaySession(id, { date: date });
+        return { ok: true, pass: playPassView(pass, id), play: play };
+    }
+
+    function grantPlayPass(gameId, options) {
+        const opts = options || {};
+        const source = opts.source || 'learn';
+        const date = opts.date || today();
+        const id = gameId || 'garden-defense';
+        const state = readState();
+        const growth = state.growth || (state.growth = {});
+        const meta = ensureWorldGames(growth).meta;
+        const pass = normalizePlayPass(meta, date, id);
+        const rules = passRules(id);
+        if (source === 'learn') {
+            if (pass.learned >= rules.maxLearned) {
+                return { ok: false, granted: false, reason: 'learn-cap', pass: playPassView(pass, id) };
+            }
+            pass.learned += 1;
+            writeState(state);
+            return { ok: true, granted: true, pass: playPassView(pass, id) };
+        }
+        if (source === 'redeem') {
+            if (pass.redeemed >= rules.maxRedeemed) {
+                return { ok: false, granted: false, reason: 'redeem-cap', pass: playPassView(pass, id) };
+            }
+            const have = Math.max(0, Number(growth.sunlight) || 0);
+            if (have < rules.redeemCost) {
+                return { ok: false, granted: false, reason: '阳光不够', pass: playPassView(pass, id) };
+            }
+            growth.sunlight = have - rules.redeemCost;
+            pass.redeemed += 1;
+            writeState(state);
+            return { ok: true, granted: true, pass: playPassView(pass, id) };
+        }
+        return { ok: false, granted: false, reason: 'unknown-source', pass: playPassView(pass, id) };
     }
 
     function defaultProgress(gameId) {
@@ -186,7 +321,8 @@
                 rightCount: 0,
                 wrongCount: 0,
                 clearedLevels: [],
-                bag: {}
+                bag: {},
+                gear: {}
             };
         }
         return {};
@@ -533,6 +669,11 @@
             badges: badges,
             badgeUnlocked: badges.filter(function (b) { return b.unlocked; }).length,
             badgeTotal: badges.length,
+            playPass: playPassView(normalizePlayPass(meta, date, 'garden-defense'), 'garden-defense'),
+            playPasses: REWARD_GAME_IDS.reduce(function (acc, id) {
+                acc[id] = playPassView(normalizePlayPass(meta, date, id), id);
+                return acc;
+            }, {}),
             bonuses: {
                 gardenStartSun: rank.gardenStartSun,
                 platformCoinBonus: rank.platformCoinBonus,
@@ -699,6 +840,11 @@
         countLiteracyKnown: countLiteracyKnown,
         playModsFromLiteracy: playModsFromLiteracy,
         getPlayMods: getPlayMods,
-        recordWordAnswer: recordWordAnswer
+        recordWordAnswer: recordWordAnswer,
+        PLAY_PASS: PLAY_PASS,
+        PLAY_PASS_BY_GAME: PLAY_PASS_BY_GAME,
+        getPlayPass: getPlayPass,
+        consumePlayPass: consumePlayPass,
+        grantPlayPass: grantPlayPass
     };
 }(typeof window !== 'undefined' ? window : globalThis));

@@ -4,33 +4,54 @@ import { fileURLToPath } from 'node:url';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(root, '..');
-const contentRoot = path.join(projectRoot, 'prj');
-const outputRoot = path.join(projectRoot, 'dist');
-const files = [
-  'index.html',
-  'launcher.js',
-  'config.js',
-  'icons.js',
-  'child-growth.js',
-  'child-courses.js',
-  'storage.js',
-  'family-interaction.js',
-  'api-adapter.js',
-  'app.js',
-  'preschool-garden.js',
-  'styles.css',
-  'preschool-pvz-final.css'
+
+// Runtime still copies 'games' from prj/; only drops unused intermediates.
+const SKIP_DIR_NAMES = new Set([
+  'raw',
+  'keyed',
+  'split',
+  '_backup',
+  'ref',
+  'visual-tests'
+]);
+
+const SKIP_RELATIVE_PREFIXES = [
+  'games/blocklegend/docs',
+  'assets/generated/game-asset-pipeline-smoke',
+  'assets/generated/world-rebuild-20260807',
+  'assets/generated/blocklegend-mobs-4view',
+  'assets/generated/preschool-pvz-skills',
+  'assets/GPT生图'
 ];
-const directories = ['成人成长工作台', '儿童学习工作台', 'preschool-workbench', 'assets', 'css', 'games'];
 
-await fs.rm(outputRoot, { recursive: true, force: true });
-await fs.mkdir(outputRoot, { recursive: true });
+const SKIP_EXTENSIONS = new Set(['.zip', '.bat', '.md']);
 
-for (const file of files) {
-  await fs.copyFile(path.join(contentRoot, file), path.join(outputRoot, file));
+export function shouldCopyMobilePath(relativePath) {
+  const rel = String(relativePath || '').split(path.sep).join('/');
+  if (!rel || rel === '.') return true;
+  const parts = rel.split('/');
+  if (parts.some((part) => SKIP_DIR_NAMES.has(part))) return false;
+  if (SKIP_RELATIVE_PREFIXES.some((prefix) => rel === prefix || rel.startsWith(`${prefix}/`))) {
+    return false;
+  }
+  const ext = path.extname(rel).toLowerCase();
+  return !SKIP_EXTENSIONS.has(ext);
 }
-for (const directory of directories) {
-  await fs.cp(path.join(contentRoot, directory), path.join(outputRoot, directory), { recursive: true });
+
+export async function assembleMobileDist(fromRoot = projectRoot) {
+  const src = path.join(fromRoot, 'prj');
+  const dest = path.join(fromRoot, 'dist');
+  await fs.rm(dest, { recursive: true, force: true });
+  await fs.cp(src, dest, {
+    recursive: true,
+    filter(source) {
+      return shouldCopyMobilePath(path.relative(src, source));
+    }
+  });
+  return dest;
 }
 
-console.log(`[prepare-mobile] copied ${files.length} files and ${directories.length} directories from prj/ to dist/`);
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  const dest = await assembleMobileDist();
+  console.log(`[prepare-mobile] copied prj/ runtime into ${dest} (skipped raw/ref/docs/zip)`);
+}

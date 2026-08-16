@@ -39,8 +39,8 @@
         snow: 'dirt',
         stone: 'cobble',
         water: 'dirt',
-        coal: 'cobble',
-        iron: 'cobble',
+        coal: 'coal',
+        iron: 'iron_ore',
         gold: 'gold',
         diamond: 'diamond',
         plank: 'plank',
@@ -102,6 +102,7 @@
         if (loot === 'oak-log') return 'log';
         if (loot === 'plank') return 'plank';
         if (loot === 'table') return 'table';
+        if (loot === 'chest' || loot === 'furnace' || loot === 'torch') return loot;
         return null;
     }
 

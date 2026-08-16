@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>方块传奇 · 学英语大冒险</title>
-    <link rel="stylesheet" href="./game.css?v=20260816-bl-cast1">
+    <link rel="stylesheet" href="./game.css?v=20260816-bl-speak1">
 </head>
 <body class="bl-body">
     <main class="bl-stage">
@@ -20,11 +20,18 @@
 
         <aside class="bl-rpg" aria-label="角色状态">
             <canvas id="mini-map" width="112" height="112" aria-hidden="true"></canvas>
+            <p class="bl-quest" id="quest-panel">
+                <b id="quest-goal">找到会发光的橡树</b>
+                <span id="quest-hint">WASD 走到树前，对准它</span>
+            </p>
             <p class="bl-chapter" id="chapter-label">第一层 · 初生神域 · Genesis</p>
             <div class="bl-rpg-head">
                 <b>Lv.<span id="level-label">1</span></b>
                 <span>Explorer</span>
             </div>
+            <div class="bl-bar bl-bar-hp"><i id="hp-fill"></i><em id="hp-num">10/10</em></div>
+            <div class="bl-bar bl-bar-mp"><i id="mp-fill-side"></i><em id="mp-num-side">combo 0</em></div>
+            <div class="bl-bar bl-bar-xp"><i id="xp-fill-side"></i><em id="xp-num-side">0/0</em></div>
             <div class="bl-currencies">
                 <span>🪙 <b id="coin-label">0</b></span>
                 <span>⚔ <b id="atk-label">8</b></span>
@@ -34,16 +41,28 @@
                 <span class="bl-listen-title">Listening</span>
                 <span class="bl-say" id="say-strip">Say:</span>
             </p>
-            <p class="bl-vocab" aria-live="polite">
-                <span class="bl-vocab-line">词 <b id="stat-learned">0</b>/<span id="stat-unread">0</span> · <b id="stat-right">0</b>✓ <b id="stat-wrong">0</b>×</span>
-                <span id="stat-bank" hidden>0</span>
-                <span id="stat-total" hidden>0</span>
-            </p>
+        </aside>
+
+        <aside class="bl-learn" id="learn-panel" aria-label="词汇学习">
+            <b class="bl-learn-title">词汇学习</b>
+            <ul>
+                <li><i class="bl-dot is-bank"></i>总词 <b id="stat-bank">0</b></li>
+                <li><i class="bl-dot is-learned"></i>已学 <b id="stat-learned">0</b></li>
+                <li><i class="bl-dot is-unread"></i>未跟读 <b id="stat-unread">0</b></li>
+                <li><i class="bl-dot is-right"></i>答对 <b id="stat-right">0</b></li>
+                <li><i class="bl-dot is-wrong"></i>答错 <b id="stat-wrong">0</b></li>
+            </ul>
+            <span id="stat-total" hidden>0</span>
         </aside>
 
         <div class="bl-look-card is-hidden" id="look-card">
-            <p class="bl-look-en" id="look-en">dirt</p>
-            <p class="bl-look-zh" id="look-zh">泥土</p>
+            <img class="bl-look-img is-hidden" id="look-img" alt="">
+            <div class="bl-look-row">
+                <p class="bl-look-en" id="look-en">dirt</p>
+                <p class="bl-look-zh" id="look-zh">泥土</p>
+            </div>
+            <p class="bl-look-who" id="look-who"></p>
+            <div class="bl-look-hp is-hidden" id="look-hp"><i id="look-hp-fill"></i></div>
             <p class="bl-look-meta" id="look-meta"></p>
             <button type="button" class="bl-btn is-ghost" id="look-speak">听</button>
         </div>
@@ -54,6 +73,7 @@
                 <div class="bl-food" id="food-pips" aria-label="连击"></div>
             </div>
             <div class="bl-xp"><i id="xp-fill"></i><em id="xp-num">0/0</em></div>
+            <div class="bl-mp"><i id="mp-fill"></i><em id="mp-num">combo 0</em></div>
             <div class="bl-hotbar" aria-hidden="true">
                 <div class="bl-slot is-on" data-key="1" data-tool="sword"><i class="bl-ico-sword"></i><em>1</em></div>
                 <div class="bl-slot" data-key="2" data-tool="axe"><i class="bl-ico-axe"></i><em>2</em></div>
@@ -73,10 +93,11 @@
         <div class="bl-boss-hud is-hidden" id="boss-hud">
             <span>WITHER</span>
             <b id="boss-hp">0/0</b>
+            <em id="boss-phase">识别</em>
             <em id="boss-shield">蓝罩 0</em>
             <div class="bl-boss-bar"><i id="boss-fill"></i></div>
         </div>
-        <p class="bl-hint">WASD · T 打字施法 · 1-9物品栏 · 左键挖/打 · 右键放方块 · C 合成 · Q 魔法 · F 商店 · <b id="fps-label">--</b> fps</p>
+        <p class="bl-hint">WASD · 1-9物品栏 · 左键挖/打 · 右键放方块 · C 合成 · Q 魔法 · F 商店 · <b id="fps-label">--</b> fps</p>
         <div class="bl-trade-tip is-hidden" id="trade-tip">Press F to trade</div>
         <div class="bl-cast-hud is-hidden" id="cast-hud">
             <p class="bl-cast-kicker" id="cast-kicker">打字施法 · T 吟唱 · 看中文拼英文击杀</p>
@@ -95,6 +116,7 @@
                 <p class="bl-quiz-phrase-zh is-hidden" id="quiz-phrase-zh"></p>
                 <button type="button" class="bl-btn is-ghost" id="quiz-speak">听</button>
                 <div class="bl-quiz-choices" id="quiz-choices"></div>
+                <button type="button" class="bl-btn is-ghost bl-quiz-mic is-hidden" id="quiz-mic">说出来</button>
                 <form class="bl-quiz-type is-hidden" id="quiz-type" autocomplete="off">
                     <input id="quiz-input" type="text" inputmode="latin" autocapitalize="none" autocomplete="off" spellcheck="false" maxlength="48" placeholder="type the word">
                     <button type="submit" class="bl-btn" id="quiz-submit">施放</button>
@@ -159,12 +181,13 @@
                     <li>C — 随身 2×2 合成；对着合成台右键打开 3×3 格子。左边点配方，或把材料摆进格子再点产物</li>
                     <li>Right click a placed table to open the full craft grid; otherwise place a block</li>
                     <li>Q — homing magic bolt; with a crafted bow and arrows it fires an arrow instead</li>
-                    <li>Word cards rotate: choose, listen, picture, fill the blank, type the word, or write the English sentence</li>
-                    <li>T — stand still and type the Chinese word on a monster to cast and kill it; the wave keeps moving</li>
-                    <li>First hit on a mob opens a word card — mouse is free, click 1–4 or type and Enter</li>
+                    <li>Each normal mob asks one 4-choice word card — click, press 1–4, or say the English word</li>
+                    <li>A boss asks 2–3 times as its HP drops. Say or type the English word to shatter the blue shield</li>
+                    <li>Every few cards the example sentence joins in: once as a hint under the word, once as “what does this sentence mean”</li>
+                    <li>A word you miss 3 times in a row asks you to type it; T also lets you cast a stubborn word or the boss word</li>
                     <li>F — sell loot or buy Leather Cap / Cloth Robe / Iron Blade / HP Potion</li>
                     <li>Wither takes damage when you hit it; blue shield only reduces damage</li>
-                    <li>Answer words every few hits to break the shield for a burst window</li>
+                    <li>Say or type the word to break the shield; clicking Chinese only chips it</li>
                 </ul>
                 <button type="button" class="bl-btn" id="help-close">Close</button>
             </div>
@@ -177,25 +200,32 @@
     <script src="../../child-courses.js?v=20260815-word-backflow-v1"></script>
     <script src="./vendor/three.min.js?v=20260815-bl-s1"></script>
     <script src="./data/shop.js?v=20260815-bl-look11"></script>
-    <script src="./data/tools.js?v=20260816-bl-cast1"></script>
-    <script src="./data/craft.js?v=20260816-bl-cast1"></script>
-    <script src="./engine.js?v=20260816-bl-cast1"></script>
-    <script src="./data/combat.js?v=20260816-bl-cast1"></script>
-    <script src="./data/words.js?v=20260816-bl-cast1"></script>
-    <script src="./data/levels.js?v=20260816-bl-cast1"></script>
-    <script src="./data/skins.js?v=20260816-bl-cast1"></script>
-    <script src="./assets/img2threejs/createCreeperModel.js?v=20260816-bl-cast1"></script>
-    <script src="./assets/img2threejs/createZombieModel.js?v=20260816-bl-cast1"></script>
-    <script src="./assets/img2threejs/createSkeletonModel.js?v=20260816-bl-cast1"></script>
-    <script src="./assets/img2threejs/createSpiderModel.js?v=20260816-bl-cast1"></script>
-    <script src="./assets/img2threejs/createEndermanModel.js?v=20260816-bl-cast1"></script>
-    <script src="./assets/img2threejs/createPiglinModel.js?v=20260816-bl-cast1"></script>
-    <script src="./assets/img2threejs/createWitchModel.js?v=20260816-bl-cast1"></script>
-    <script src="./assets/img2threejs/createGolemModel.js?v=20260816-bl-cast1"></script>
-    <script src="./assets/img2threejs/createWitherModel.js?v=20260816-bl-cast1"></script>
-    <script src="./assets/img2threejs/createTools3d.js?v=20260816-bl-cast1"></script>
-    <script src="./assets/img2threejs/createProps3d.js?v=20260816-bl-cast1"></script>
-    <script src="./mobs.js?v=20260816-bl-cast1"></script>
-    <script src="./game.js?v=20260816-bl-cast1"></script>
+    <script src="./data/tools.js?v=20260816-bl-play1"></script>
+    <script src="./data/craft.js?v=20260816-bl-craftico"></script>
+    <script src="./engine.js?v=20260816-bl-play1"></script>
+    <script src="./data/combat.js?v=20260816-bl-spawn1"></script>
+    <script src="./data/speech-input.js?v=20260816-bl-p2"></script>
+    <script src="./data/words.js?v=20260816-bl-spawn1"></script>
+    <script src="./data/levels.js?v=20260816-bl-speak1"></script>
+    <script src="./data/quests.js?v=20260816-bl-p1"></script>
+    <script src="./data/skins.js?v=20260816-bl-mobs3"></script>
+    <script src="./assets/img2threejs/voxelPix.js?v=20260816-bl-mobs3"></script>
+    <script src="./assets/img2threejs/createCreeperModel.js?v=20260816-bl-cast3"></script>
+    <script src="./assets/img2threejs/createZombieModel.js?v=20260816-bl-cast3"></script>
+    <script src="./assets/img2threejs/createSlimeModel.js?v=20260816-bl-mobs4"></script>
+    <script src="./assets/img2threejs/createFoxModel.js?v=20260816-bl-mobs4"></script>
+    <script src="./assets/img2threejs/createSkeletonModel.js?v=20260816-bl-mobs2"></script>
+    <script src="./assets/img2threejs/createSpiderModel.js?v=20260816-bl-mobs2"></script>
+    <script src="./assets/img2threejs/createEndermanModel.js?v=20260816-bl-mobs2"></script>
+    <script src="./assets/img2threejs/createPiglinModel.js?v=20260816-bl-mobs2"></script>
+    <script src="./assets/img2threejs/createWitchModel.js?v=20260816-bl-mobs2"></script>
+    <script src="./assets/img2threejs/createGolemModel.js?v=20260816-bl-mobs4"></script>
+    <script src="./assets/img2threejs/createWitherModel.js?v=20260816-bl-mobs4"></script>
+    <script src="./assets/img2threejs/createDragonModel.js?v=20260816-bl-mobs4"></script>
+    <script src="./assets/img2threejs/createStormModel.js?v=20260816-bl-mobs4"></script>
+    <script src="./assets/img2threejs/createTools3d.js?v=20260816-bl-mobs4"></script>
+    <script src="./assets/img2threejs/createProps3d.js?v=20260816-bl-play1"></script>
+    <script src="./mobs.js?v=20260816-bl-play1"></script>
+    <script src="./game.js?v=20260816-bl-spawn1"></script>
 </body>
 </html>

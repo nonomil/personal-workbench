@@ -541,6 +541,18 @@
         return null;
     }
 
+    function worldPlayPassHint(worldId, meta) {
+        const passes = meta && meta.playPasses && typeof meta.playPasses === 'object' ? meta.playPasses : null;
+        const pass = passes && passes[worldId]
+            ? passes[worldId]
+            : (worldId === 'garden-defense' && meta && meta.playPass ? meta.playPass : null);
+        if (!pass || pass.remaining == null) return '';
+        if (worldId === 'garden-defense') return ' · 今日还可守 ' + pass.remaining + ' 次';
+        if (worldId === 'platform-quest') return ' · 今日还可冲 ' + pass.remaining + ' 次';
+        if (worldId === 'voxel-adventure') return ' · 今日还可挖 ' + pass.remaining + ' 段';
+        return '';
+    }
+
     function renderPreschoolHomeWorldProgress() {
         const today = storage.localDate();
         const earned = getDailyGameSunEarned(today);
@@ -560,7 +572,7 @@
                 <div class="preschool-world-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${row.percent}" aria-label="${escapeHtml(row.label)}进度">
                     <i style="width:${row.percent}%"></i>
                 </div>
-                <small>${escapeHtml(row.detail)}${stamp ? ' · 今日已游玩' : ' · 今日未玩'}</small>
+                <small>${escapeHtml(row.detail)}${stamp ? ' · 今日已游玩' : ' · 今日未玩'}${worldPlayPassHint(row.id, meta)}</small>
                 <button class="preschool-world-progress-go" type="button" data-action="open-world-game" data-theme-id="${escapeHtml(row.id)}">${icon('play')} 进入</button>
             </article>`;
         }).join('');
@@ -590,8 +602,9 @@
                     <div class="preschool-world-progress-bar is-week" role="progressbar" aria-valuenow="${weekPct}" aria-valuemin="0" aria-valuemax="100"><i style="width:${weekPct}%"></i></div>
                 </div>
                 <div class="preschool-adventure-meta-side">
-                    <strong>徽章 ${meta.badgeUnlocked || 0}/${meta.badgeTotal || 0}</strong>
+                    <strong>冒险徽章 ${meta.badgeUnlocked || 0}/${meta.badgeTotal || 0}</strong>
                     <div class="preschool-adventure-badges">${badgePreview}</div>
+                    <small class="preschool-adventure-note">冒险徽章靠通关和坚持点亮；成长收集箱靠识字和英语课。</small>
                     <small>加成：花园开局+${(meta.bonuses && meta.bonuses.gardenStartSun) || 0}阳光 · 横版金币+${(meta.bonuses && meta.bonuses.platformCoinBonus) || 0} · 晶体+${(meta.bonuses && meta.bonuses.voxelCrystalBonus) || 0}</small>
                 </div>
             </div>`;
@@ -5678,11 +5691,16 @@
             ? `已完成练习：${escapeHtml(workflow.latestPracticeTitle)}`
             : (workflow.kind === 'practice' ? '答对后留下练习证据' : '');
         const actionIcon = workflow.kind === 'practice' ? 'play-circle' : workflow.kind === 'game' ? 'swords' : workflow.kind === 'empty' ? 'plus' : 'flag';
+        const reward = getPreschoolHomePlayReward(plans, themeId);
+        const rewardBtn = reward
+            ? `<button class="preschool-home-hero-reward" type="button" data-action="open-world-game" data-theme-id="${escapeHtml(reward.themeId)}">今日奖励：${escapeHtml(reward.cta)} · 还可 ${reward.remaining} ${escapeHtml(reward.unit)}</button>`
+            : '';
         return `<section class="preschool-home-hero" aria-label="现在就做">
             <button class="preschool-home-hero-card is-${escapeHtml(workflow.kind)}" type="button" ${preschoolWorkflowActionAttrs(workflow)}>
                 <div class="preschool-home-hero-copy"><small>${kicker}</small><strong>${heading}</strong><p>${escapeHtml(desc)}</p>${evidenceLine ? `<em>${evidenceLine}</em>` : ''}<span>${icon(actionIcon)}${escapeHtml(workflow.cta)}</span></div>
                 <span class="preschool-home-hero-art">${preschoolAsset(heroAsset, '')}</span>
             </button>
+            ${rewardBtn}
         </section>`;
     }
 
@@ -6735,14 +6753,54 @@
         }, getPreschoolFeedbackPreference('motionEnabled', true) ? 720 : 40);
     }
 
+    function playRewardCopy(themeId) {
+        if (themeId === 'platform-quest') return { verb: '冲', cta: '去冲一关', unit: '次' };
+        if (themeId === 'voxel-adventure') return { verb: '挖', cta: '去挖一段', unit: '段' };
+        return { verb: '守', cta: '去守一关', unit: '次' };
+    }
+
+    function buildLearnLoopReward(input) {
+        const opts = input || {};
+        const themeId = opts.themeId || 'garden-defense';
+        const copy = playRewardCopy(themeId);
+        const remaining = Math.max(0, Number(opts.remaining) || 0);
+        const dailyBonus = Math.max(0, Number(opts.dailyBonus) || 0);
+        const playPassGranted = opts.playPassGranted === true;
+        const details = [];
+        if (dailyBonus) details.push('今日点亮 +' + dailyBonus + ' 阳光');
+        if (playPassGranted) details.push('还可以再' + copy.verb + '一小局');
+        return {
+            message: dailyBonus ? '今日点亮啦！' : (opts.message || '做得真棒！'),
+            detail: details.join(' · '),
+            playThemeId: themeId,
+            playCta: playPassGranted ? copy.cta : '',
+            playRemaining: remaining,
+            dailyBonus: dailyBonus
+        };
+    }
+
+    function getPreschoolHomePlayReward(plans, themeId) {
+        const todayPlans = Array.isArray(plans) ? plans : [];
+        const practiced = todayPlans.some(function (item) {
+            return item.done && item.completionSource === 'practice';
+        });
+        if (!practiced) return null;
+        const meta = getAdventureMetaView();
+        const pass = meta && meta.playPasses && meta.playPasses[themeId];
+        if (!pass || !pass.remaining) return null;
+        const copy = playRewardCopy(themeId);
+        return { themeId: themeId, remaining: pass.remaining, cta: copy.cta, unit: copy.unit };
+    }
+
     function showPreschoolCelebration(payload) {
         if (!isPreschool || !payload) return;
         const old = document.querySelector('.preschool-celebration');
         if (old) old.remove();
         if (preschoolCelebrationTimer) window.clearTimeout(preschoolCelebrationTimer);
         const rewards = collectionTitles(payload.rewardIds || []);
-        const message = payload.invaderDefeated ? '僵尸被赶走啦！' : payload.message || '做得真棒！';
-        const detail = [payload.detail || '', payload.amount ? `阳光 +${payload.amount}` : '', payload.defenseEnergyGranted ? '豌豆能量 +1' : '', rewards.length ? `获得：${rewards.join('、')}` : ''].filter(Boolean).join(' · ');
+        const loop = payload.loopReward || (payload.playPassGranted ? buildLearnLoopReward(payload) : null);
+        const message = payload.invaderDefeated ? '僵尸被赶走啦！' : (loop && loop.message) || payload.message || '做得真棒！';
+        const detail = [loop && loop.detail, payload.detail || '', payload.amount ? `阳光 +${payload.amount}` : '', payload.defenseEnergyGranted ? '豌豆能量 +1' : '', rewards.length ? `获得：${rewards.join('、')}` : ''].filter(Boolean).join(' · ');
         const resourceMarkup = [
             payload.amount ? `<span>${preschoolAsset('sun-token', '阳光')}<b>+${escapeHtml(payload.amount)}</b></span>` : '',
             payload.defenseEnergyGranted ? `<span>${preschoolAsset('player-energy-bars', '豌豆能量')}<b>+1</b></span>` : ''
@@ -6750,18 +6808,21 @@
         const feedCta = payload.feedStar && global.PersonalWorkbenchPet && typeof global.PersonalWorkbenchPet.renderFeedShortcut === 'function'
             ? global.PersonalWorkbenchPet.renderFeedShortcut()
             : (payload.feedStar ? '<button class="workbench-action-button" type="button" data-action="feed-pet">去喂星芒</button>' : '');
+        const playCta = loop && loop.playCta
+            ? `<button class="workbench-action-button" type="button" data-action="open-world-game" data-theme-id="${escapeHtml(loop.playThemeId || getPreschoolThemeId() || 'garden-defense')}">${escapeHtml(loop.playCta)}</button>`
+            : '';
         const node = document.createElement('div');
         node.className = 'preschool-celebration';
         node.setAttribute('role', 'status');
         node.setAttribute('aria-live', 'polite');
-        node.innerHTML = `<span class="preschool-celebration-icon">${icon(payload.invaderDefeated ? 'shield-check' : rewards.length ? 'album' : 'sparkles')}</span><strong>${escapeHtml(message)}</strong>${detail ? `<small>${escapeHtml(detail)}</small>` : ''}${resourceMarkup ? `<span class="preschool-celebration-resources">${resourceMarkup}</span>` : ''}${feedCta}`;
+        node.innerHTML = `<span class="preschool-celebration-icon">${icon(payload.invaderDefeated ? 'shield-check' : rewards.length ? 'album' : 'sparkles')}</span><strong>${escapeHtml(message)}</strong>${detail ? `<small>${escapeHtml(detail)}</small>` : ''}${resourceMarkup ? `<span class="preschool-celebration-resources">${resourceMarkup}</span>` : ''}${playCta}${feedCta}`;
         document.body.appendChild(node);
         global.lucide.createIcons({ root: node });
         pulsePreschoolHud(payload);
         preschoolCelebrationTimer = window.setTimeout(function () {
             node.remove();
             preschoolCelebrationTimer = 0;
-        }, payload.feedStar ? 6000 : 2200);
+        }, (payload.feedStar || playCta) ? 6000 : 2200);
     }
 
     function submitFamilyForm(form) {
@@ -7309,7 +7370,25 @@
                 if (result.zombieDefeated || gardenView.invaderActive) next.growth.garden.invader.active = true;
                 const gardenEvent = preschoolGarden.recordEvent(next.growth, preschoolEventType(awardId), today, awardId);
                 next.growth = gardenEvent.growth;
-                ui.pendingCelebration = { message: gardenEvent.invaderDefeated ? '僵尸被赶走啦！' : '做得真棒！', amount: Math.max(0, Number(amount) || 0) + result.dailyBonus, rewardIds: gardenEvent.rewardIds, invaderDefeated: gardenEvent.invaderDefeated, defenseEnergyGranted: gardenEvent.defenseEnergyGranted };
+                let playPassGranted = false;
+                if (gardenEvent.changed && global.WorkbenchGameBridge && typeof global.WorkbenchGameBridge.grantPlayPass === 'function') {
+                    global.WorkbenchGameBridge.grantPlayPass('garden-defense', { source: 'learn', date: today });
+                    global.WorkbenchGameBridge.grantPlayPass('platform-quest', { source: 'learn', date: today });
+                    global.WorkbenchGameBridge.grantPlayPass('voxel-adventure', { source: 'learn', date: today });
+                    playPassGranted = true;
+                }
+                const playThemeId = getPreschoolThemeId() || 'garden-defense';
+                const playPass = playPassGranted && global.WorkbenchGameBridge.getPlayPass
+                    ? global.WorkbenchGameBridge.getPlayPass(playThemeId, today)
+                    : null;
+                const loopReward = buildLearnLoopReward({
+                    themeId: playThemeId,
+                    remaining: playPass && playPass.remaining,
+                    dailyBonus: result.dailyBonus,
+                    playPassGranted: playPassGranted,
+                    message: gardenEvent.invaderDefeated ? '僵尸被赶走啦！' : '做得真棒！'
+                });
+                ui.pendingCelebration = { message: loopReward.message, detail: loopReward.detail, amount: Math.max(0, Number(amount) || 0) + result.dailyBonus, rewardIds: gardenEvent.rewardIds, invaderDefeated: gardenEvent.invaderDefeated, defenseEnergyGranted: gardenEvent.defenseEnergyGranted, playPassGranted: playPassGranted, loopReward: loopReward };
             }
             return result.awarded;
         }

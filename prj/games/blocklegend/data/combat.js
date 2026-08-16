@@ -37,12 +37,51 @@
         golem: { kind: 'golem', hp: 64, coins: 12, contact: 3, speed: 0.62, loot: 'iron-ingot', color: 0xb8c4c8, hitRadius: 0.7 }
     };
     const MONSTER_KINDS = Object.keys(MONSTERS);
+    const BEHAVIOR = {
+        slime: 'chase', cube: 'chase', husk: 'chase', fox: 'chase',
+        magma: 'chase', creeper: 'chase', zombie: 'chase', spider: 'chase',
+        piglin: 'chase',
+        blaze: 'ranged', ghast: 'ranged', skeleton: 'ranged',
+        warden: 'shield', enderman: 'shield', golem: 'shield',
+        witch: 'summon'
+    };
+
+    function behaviorOf(kind) {
+        return BEHAVIOR[kind] || 'chase';
+    }
+
+    function behaviorSpeedScale(behavior) {
+        if (behavior === 'ranged') return 0.72;
+        if (behavior === 'shield') return 0.55;
+        if (behavior === 'summon') return 0.8;
+        return 1;
+    }
+
+    function torchSlow(opts) {
+        const o = opts || {};
+        if (o.hasTorch && o.inCave) return 0.6;
+        return 1;
+    }
+
+    function behaviorStopRange(behavior, contact) {
+        const base = Number(contact) > 0 ? Number(contact) : CONTACT_RANGE;
+        if (behavior === 'ranged') return Math.max(base, 4.2);
+        if (behavior === 'shield') return Math.max(base, 2.2);
+        return Math.max(base, CONTACT_RANGE);
+    }
 
     function critMultiplier(opts) {
         const o = opts || {};
         if (!o.answered || !o.correct) return 1;
         const combo = Math.max(0, Number(o.combo) || 0);
         return combo >= 3 ? CRIT_MULT + 1 : CRIT_MULT;
+    }
+
+    function channelMultiplier(channel) {
+        if (channel === 'choice') return 2;
+        if (channel === 'spell' || channel === 'speak') return 3;
+        if (channel === 'combo') return 4;
+        return 1;
     }
 
     function damage(opts) {
@@ -101,6 +140,18 @@
 
     function forwardXZ(yaw) {
         return { x: -Math.sin(yaw), z: -Math.cos(yaw) };
+    }
+
+    function waveOffsets(yaw, n) {
+        const f = forwardXZ(yaw);
+        const right = { x: -f.z, z: f.x };
+        const rows = [
+            { dx: f.x * 4.0, dz: f.z * 4.0 },
+            { dx: f.x * 5.2 + right.x * -2.2, dz: f.z * 5.2 + right.z * -2.2 },
+            { dx: f.x * 5.2 + right.x * 2.2, dz: f.z * 5.2 + right.z * 2.2 },
+            { dx: f.x * 6.4, dz: f.z * 6.4 }
+        ];
+        return rows.slice(0, Math.max(1, Number(n) || 3));
     }
 
     function aimAction(opts) {
@@ -213,7 +264,12 @@
         CONTACT_RANGE: CONTACT_RANGE,
         MONSTERS: MONSTERS,
         MONSTER_KINDS: MONSTER_KINDS,
+        behaviorOf: behaviorOf,
+        behaviorSpeedScale: behaviorSpeedScale,
+        behaviorStopRange: behaviorStopRange,
+        torchSlow: torchSlow,
         critMultiplier: critMultiplier,
+        channelMultiplier: channelMultiplier,
         damage: damage,
         nextCombo: nextCombo,
         canAttack: canAttack,
@@ -223,6 +279,7 @@
         addLoot: addLoot,
         pickupCoins: pickupCoins,
         forwardXZ: forwardXZ,
+        waveOffsets: waveOffsets,
         aimAction: aimAction,
         aimPoint: aimPoint,
         inMeleeArc: inMeleeArc,

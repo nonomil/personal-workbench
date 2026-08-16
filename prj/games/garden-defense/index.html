@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#2d8748">
     <title>花园保卫</title>
     <link rel="stylesheet" href="../shared/growth-hud.css">
-    <link rel="stylesheet" href="./game.css?v=20260815-wide-v1">
+    <link rel="stylesheet" href="./game.css?v=20260816-pass-v1">
 </head>
 <body data-world-game="garden-defense">
     <header class="world-bar">
@@ -27,6 +27,7 @@
             <h2 class="panel-title">选关 · <span id="stage-count">18</span></h2>
             <div class="zombie-showcase" id="zombie-showcase" aria-label="僵尸图鉴"></div>
             <div class="stage-map" id="stage-map" aria-label="18 个花园关卡"></div>
+            <p class="today-goal" id="today-goal">今日小目标：先守一关，再去做一张字卡。</p>
             <p class="tip" id="progress-tip">加载中…</p>
         </section>
         <section class="world-panel is-hidden" id="panel-play">
@@ -79,11 +80,23 @@
             <button type="button" id="celebrate-close-btn">收下</button>
         </div>
     </div>
+    <div class="rest-layer is-hidden" id="rest-layer" role="dialog" aria-label="花园休息">
+        <div class="rest-card">
+            <h3 id="rest-title">花园也要午睡啦</h3>
+            <p id="rest-copy">今天已经守得很棒。去做一张字卡或一项今日任务，星芒就给你新的守护次数。</p>
+            <p class="rest-pass" id="rest-pass"></p>
+            <div class="rest-actions">
+                <a class="rest-learn" id="rest-learn-link" href="../../preschool-workbench/index.html?theme=garden-defense#courses">去做今日学习</a>
+                <button type="button" id="rest-redeem-btn">用阳光再守一次</button>
+                <button type="button" id="rest-workbench-btn">回工作台看成就</button>
+            </div>
+        </div>
+    </div>
     <div class="toast-game" id="toast" role="status"></div>
-    <script src="../shared/workbench-bridge.js?v=20260815-sfx-v1"></script>
+    <script src="../shared/workbench-bridge.js?v=20260816-pass-v2"></script>
     <script src="../shared/game-sfx.js?v=20260815-sfx-v1"></script>
     <script src="../../preschool-garden.js?v=20260816-skill-v1"></script>
     <script src="./data/stages.js?v=20260816-skill-v1"></script>
-    <script src="./game.js?v=20260816-skill-v1"></script>
+    <script src="./game.js?v=20260816-pass-v1"></script>
 </body>
 </html>

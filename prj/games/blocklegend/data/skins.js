@@ -5,7 +5,11 @@
 (function (global) {
     'use strict';
 
-    const KINDS = ['slime', 'cube', 'husk', 'fox', 'magma', 'blaze', 'ghast', 'warden', 'merchant', 'boss'];
+    const KINDS = [
+        'slime', 'cube', 'husk', 'fox', 'magma', 'blaze', 'ghast', 'warden', 'merchant', 'boss',
+        'skeleton', 'spider', 'enderman', 'piglin', 'witch', 'wither', 'chest', 'furnace',
+        'pig', 'cow', 'sheep', 'chicken', 'wolf', 'villager', 'dragon', 'storm'
+    ];
 
     function put(img, x, y, c) {
         if (x < 0 || y < 0 || x >= 64 || y >= 64) return;
@@ -163,6 +167,129 @@
                 pants: [36, 22, 48], eye: [60, 12, 12], glow: [255, 64, 48],
                 mouth: [20, 8, 12], brow: [30, 16, 36]
             });
+        } else if (k === 'skeleton') {
+            paintHumanoid(img, {
+                skin: [232, 216, 184], dark: [168, 148, 120], shirt: [220, 200, 168],
+                pants: [210, 190, 158], eye: [24, 16, 12], glow: [8, 6, 4],
+                mouth: [40, 28, 20]
+            });
+            fill(img, 8, 8, 8, 8, [232, 216, 184]);
+            rect(img, 9, 10, 2, 2, [18, 12, 8]);
+            rect(img, 13, 10, 2, 2, [18, 12, 8]);
+            put(img, 10, 13, [48, 32, 24]);
+            put(img, 12, 13, [48, 32, 24]);
+            put(img, 11, 14, [48, 32, 24]);
+            put(img, 13, 14, [48, 32, 24]);
+        } else if (k === 'spider') {
+            paintCube16(img, {
+                base: [58, 36, 24], dark: [28, 16, 10], light: [90, 56, 36],
+                eye: [20, 8, 6], glow: [240, 220, 180], mouth: [40, 16, 10]
+            });
+            [[20, 20], [25, 20], [22, 18], [27, 18]].forEach(function (e) {
+                put(img, e[0], e[1], [240, 220, 180]);
+                put(img, e[0] + 1, e[1], [180, 40, 30]);
+            });
+        } else if (k === 'enderman') {
+            paintHumanoid(img, {
+                skin: [16, 16, 24], dark: [8, 8, 12], shirt: [18, 18, 28],
+                pants: [12, 12, 18], eye: [8, 4, 16], glow: [200, 76, 255],
+                mouth: [12, 8, 20]
+            });
+            rect(img, 9, 10, 2, 1, [200, 76, 255]);
+            rect(img, 13, 10, 2, 1, [200, 76, 255]);
+        } else if (k === 'piglin') {
+            paintHumanoid(img, {
+                skin: [232, 168, 120], dark: [180, 110, 70], shirt: [107, 68, 36],
+                pants: [74, 44, 24], eye: [40, 20, 12], glow: [255, 220, 160],
+                mouth: [160, 80, 50], brow: [90, 50, 30]
+            });
+            rect(img, 10, 12, 4, 2, [240, 184, 136]);
+        } else if (k === 'witch') {
+            paintHumanoid(img, {
+                skin: [138, 154, 106], dark: [80, 90, 60], shirt: [90, 42, 120],
+                pants: [58, 24, 80], eye: [26, 32, 16], glow: [40, 48, 20],
+                mouth: [70, 80, 50], brow: [50, 40, 28]
+            });
+            put(img, 12, 12, [90, 70, 50]);
+            fill(img, 8, 0, 8, 8, [26, 26, 34]);
+        } else if (k === 'wither') {
+            paintHumanoid(img, {
+                skin: [22, 22, 28], dark: [10, 10, 14], shirt: [28, 28, 34],
+                pants: [16, 16, 20], eye: [8, 8, 10], glow: [248, 248, 248],
+                mouth: [236, 236, 236]
+            });
+            rect(img, 8, 8, 8, 8, [22, 22, 28]);
+            rect(img, 8, 8, 8, 1, [36, 36, 42]);
+            rect(img, 9, 10, 2, 1, [248, 248, 248]);
+            rect(img, 13, 10, 2, 1, [248, 248, 248]);
+            rect(img, 10, 13, 4, 1, [236, 236, 236]);
+        } else if (k === 'pig') {
+            paintCube16(img, {
+                base: [232, 150, 168], dark: [180, 90, 110], light: [248, 190, 200],
+                eye: [32, 16, 16], glow: [255, 230, 220], mouth: [160, 70, 80]
+            });
+            rect(img, 22, 24, 4, 2, [224, 130, 148]);
+        } else if (k === 'cow') {
+            paintCube16(img, {
+                base: [92, 62, 36], dark: [48, 30, 16], light: [244, 236, 220],
+                eye: [20, 12, 8], glow: [255, 240, 210], mouth: [40, 24, 16]
+            });
+            rect(img, 18, 18, 3, 3, [244, 236, 220]);
+            rect(img, 26, 22, 4, 3, [244, 236, 220]);
+        } else if (k === 'sheep') {
+            paintCube16(img, {
+                base: [236, 232, 224], dark: [40, 32, 24], light: [255, 252, 246],
+                eye: [20, 16, 12], glow: [255, 255, 255], mouth: [36, 28, 20]
+            });
+            rect(img, 20, 20, 8, 8, [48, 36, 26]);
+        } else if (k === 'chicken') {
+            paintCube16(img, {
+                base: [240, 236, 228], dark: [200, 80, 60], light: [255, 252, 246],
+                eye: [24, 16, 12], glow: [255, 220, 80], mouth: [230, 160, 40]
+            });
+            rect(img, 22, 18, 4, 2, [220, 48, 48]);
+        } else if (k === 'wolf') {
+            paintCube16(img, {
+                base: [168, 168, 176], dark: [80, 80, 88], light: [236, 236, 240],
+                eye: [20, 16, 12], glow: [255, 220, 80], mouth: [40, 28, 24]
+            });
+        } else if (k === 'villager') {
+            paintHumanoid(img, {
+                skin: [224, 178, 126], dark: [168, 120, 80], shirt: [90, 58, 36],
+                pants: [62, 40, 24], eye: [40, 28, 20], glow: [255, 236, 200],
+                mouth: [160, 90, 70], brow: [70, 48, 28]
+            });
+        } else if (k === 'dragon') {
+            paintHumanoid(img, {
+                skin: [28, 16, 40], dark: [12, 8, 18], shirt: [48, 24, 72],
+                pants: [20, 12, 32], eye: [8, 4, 12], glow: [180, 80, 255],
+                mouth: [12, 8, 16]
+            });
+        } else if (k === 'storm') {
+            paintHumanoid(img, {
+                skin: [18, 18, 22], dark: [8, 8, 10], shirt: [30, 30, 36],
+                pants: [12, 12, 16], eye: [8, 8, 10], glow: [248, 248, 248],
+                mouth: [236, 236, 236]
+            });
+            rect(img, 8, 8, 8, 8, [18, 18, 22]);
+            rect(img, 9, 10, 2, 1, [248, 248, 248]);
+            rect(img, 13, 10, 2, 1, [248, 248, 248]);
+        } else if (k === 'chest') {
+            fillBox(img, 0, 0, 16, 12, 8, [138, 90, 40], [90, 58, 28]);
+            for (let y = 8; y < 20; y += 3) rect(img, 8, y, 16, 1, [90, 58, 28]);
+            rect(img, 8, 8, 16, 2, [74, 46, 22]);
+            rect(img, 15, 14, 2, 6, [224, 176, 64]);
+            rect(img, 14, 16, 4, 3, [196, 148, 48]);
+            rect(img, 8, 19, 16, 1, [74, 46, 22]);
+        } else if (k === 'furnace') {
+            fillBox(img, 0, 0, 16, 16, 8, [122, 122, 128], [70, 70, 76]);
+            for (let y = 8; y < 24; y += 4) rect(img, 8, y, 16, 1, [70, 70, 76]);
+            rect(img, 12, 12, 8, 2, [48, 48, 52]);
+            rect(img, 12, 18, 8, 6, [20, 16, 14]);
+            rect(img, 14, 20, 4, 3, [255, 138, 42]);
+            rect(img, 15, 21, 2, 2, [255, 220, 120]);
+            rect(img, 10, 10, 2, 2, [90, 90, 96]);
+            rect(img, 20, 10, 2, 2, [90, 90, 96]);
         } else {
             paintHumanoid(img, {
                 skin: [138, 142, 148], dark: [80, 84, 90], shirt: [74, 106, 72],

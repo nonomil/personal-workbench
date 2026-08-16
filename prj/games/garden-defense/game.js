@@ -20,6 +20,7 @@
     let plantsLost = 0;
     let breachedMid = false;
     let lastPlantCount = 0;
+    let lastRunWon = false;
     let plantedAt = 0;
     let wavePauseUntil = 0;
     let spawnedThisStage = 0;
@@ -110,6 +111,14 @@
         settleGoal: document.getElementById('settle-goal'),
         settleRetry: document.getElementById('settle-retry-btn'),
         settleMap: document.getElementById('settle-map-btn'),
+        todayGoal: document.getElementById('today-goal'),
+        restLayer: document.getElementById('rest-layer'),
+        restTitle: document.getElementById('rest-title'),
+        restCopy: document.getElementById('rest-copy'),
+        restPass: document.getElementById('rest-pass'),
+        restLearn: document.getElementById('rest-learn-link'),
+        restRedeem: document.getElementById('rest-redeem-btn'),
+        restWorkbench: document.getElementById('rest-workbench-btn'),
         celebrateLayer: document.getElementById('celebrate-layer'),
         celebrateTitle: document.getElementById('celebrate-title'),
         celebrateSub: document.getElementById('celebrate-sub'),
@@ -300,13 +309,49 @@
         bridge.writeState(state);
     }
 
+    function playPassNow() {
+        if (!bridge.getPlayPass) return { remaining: 99, exhausted: false, redeemCost: 25, canRedeem: false };
+        return bridge.getPlayPass(GAME_ID);
+    }
+
     function refreshWallet() {
         const w = bridge.getWallet();
         const g = growthState().growth;
+        const pass = playPassNow();
         els.wallet.innerHTML =
             `<span class="chip">阳光 <b>${w.sunlight}</b></span>` +
             `<span class="chip">能量 <b>${g.garden.defenseEnergy || 0}</b></span>` +
+            `<span class="chip">今日还可守 <b>${pass.remaining}</b> 次</span>` +
             `<span class="chip">星芒 Lv.<b>${w.petLevel}</b></span>`;
+    }
+
+    function showRest(pass) {
+        const view = pass || playPassNow();
+        if (!els.restLayer) return;
+        els.restTitle.textContent = '花园也要午睡啦';
+        els.restCopy.textContent = '今天已经守得很棒。去做一张字卡或一项今日任务，星芒就给你新的守护次数。';
+        els.restPass.textContent = view.canRedeem
+            ? ('也可以用 ' + (view.redeemCost || 25) + ' 阳光再守一次。今日还可兑换 ' + (2 - (view.redeemed || 0)) + ' 次。')
+            : '今天的阳光兑换也用完了，明天再来，或者先去点亮成就。';
+        if (els.restLearn) els.restLearn.href = bridge.backHref('garden-defense').replace('#overview', '#courses');
+        els.restLayer.classList.remove('is-hidden');
+        companionSay('玩得很好！先去做一张字卡，花园会等你回来。');
+    }
+
+    function hideRest() {
+        if (els.restLayer) els.restLayer.classList.add('is-hidden');
+    }
+
+    function tryStartRun(freeRetry) {
+        if (freeRetry || !bridge.consumePlayPass) return true;
+        const spent = bridge.consumePlayPass(GAME_ID);
+        if (spent.ok) {
+            refreshWallet();
+            return true;
+        }
+        showRest(spent.pass);
+        toast('今天先休息一下，去做任务再来守');
+        return false;
     }
 
     function loadProgress() {
@@ -351,6 +396,13 @@
             els.map.appendChild(btn);
         });
         els.progressTip.textContent = progress.clearedStages.length + ' / ' + stagesApi.count;
+        if (els.todayGoal) {
+            const pass = playPassNow();
+            const nextId = progress.unlockedStage;
+            els.todayGoal.textContent = pass.exhausted
+                ? '今日小目标：去做一张字卡，换一次新的守护。'
+                : ('今日小目标：先守住第 ' + nextId + ' 关，再去做一张字卡。还可守 ' + pass.remaining + ' 次。');
+        }
         renderAlmanac();
         refreshWallet();
     }
@@ -409,7 +461,10 @@
         return Math.max(4000, Number(currentStage.spawnGapMs) || 9000);
     }
 
-    function enterStage(id) {
+    function enterStage(id, opts) {
+        if (!tryStartRun(opts && opts.freeRetry)) return;
+        hideRest();
+        lastRunWon = false;
         currentStage = stagesApi.get(id);
         settled = false;
         lastDefenseTick = 0;
@@ -1082,6 +1137,7 @@
 
     function onStageClear() {
         if (settled || !currentStage) return;
+        lastRunWon = true;
         settled = true;
         const elapsed = (performance.now() - enterAt) / 1000;
         const remainingSun = Number((growthState().growth || {}).sunlight) || 0;
@@ -1181,7 +1237,7 @@
         canvas.addEventListener('pointerleave', function () { hoverPoint = null; });
         document.getElementById('spawn-btn').addEventListener('click', spawnWave);
         document.getElementById('restart-btn').addEventListener('click', function () {
-            if (currentStage) enterStage(currentStage.id);
+            if (currentStage) enterStage(currentStage.id, { freeRetry: !lastRunWon });
         });
         document.getElementById('back-map-btn').addEventListener('click', showMap);
         document.getElementById('map-btn').addEventListener('click', showMap);
@@ -1201,7 +1257,7 @@
         if (els.settleRetry) {
             els.settleRetry.addEventListener('click', function () {
                 hideSettle();
-                if (currentStage) enterStage(currentStage.id);
+                if (currentStage) enterStage(currentStage.id, { freeRetry: !lastRunWon });
             });
         }
         if (els.settleMap) {
@@ -1214,6 +1270,26 @@
             els.celebrateClose.addEventListener('click', function () {
                 celebrateQueue.shift();
                 showNextCelebration();
+            });
+        }
+        if (els.restRedeem) {
+            els.restRedeem.addEventListener('click', function () {
+                if (!bridge.grantPlayPass) return;
+                const r = bridge.grantPlayPass(GAME_ID, { source: 'redeem' });
+                if (!r.ok) {
+                    toast(r.reason === '阳光不够' ? '阳光还不够，先去做任务攒一点' : '今天先休息，明天再守');
+                    showRest(r.pass);
+                    return;
+                }
+                toast('阳光兑换成功，可以再守一次');
+                hideRest();
+                refreshWallet();
+                renderMap();
+            });
+        }
+        if (els.restWorkbench) {
+            els.restWorkbench.addEventListener('click', function () {
+                location.href = bridge.backHref('garden-defense');
             });
         }
         function loop(ts) {
@@ -1235,13 +1311,6 @@
         loadProgress();
         if (USE_PLAY_MODS && bridge.getPlayMods) playMods = bridge.getPlayMods();
         renderModBadge();
-        if (bridge.recordPlaySession) {
-            const play = bridge.recordPlaySession(GAME_ID);
-            if (play && play.awards && play.awards.length) {
-                toast(play.awards.map(function (a) { return a.title; }).join(' · '));
-                queueCelebrations(play.awards);
-            }
-        }
         loadAll().then(function () {
             renderMap();
             bind();

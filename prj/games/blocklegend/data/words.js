@@ -6,9 +6,17 @@
     'use strict';
 
     const SKIP_COMBO = 3;
+    const BOSS_ASK_HP = 170;
     const QUIZ_MS = 12000;
     const PACK_BASE = '../../assets/vocab/core-english-2026.08.15';
     const CAT_ORDER = ['颜色', '家人', '身体', '自然', '食物', '动物', '动作', '表达', '物品', '描述', '高频词', '生活', '学校'];
+    const FALLBACK_BANK = [
+        { id: 'tree', text: 'tree', zh: '树', theme: '自然' },
+        { id: 'dirt', text: 'dirt', zh: '泥土', theme: '自然' },
+        { id: 'sword', text: 'sword', zh: '剑', theme: '物品' },
+        { id: 'slime', text: 'slime', zh: '史莱姆', theme: '动物' },
+        { id: 'apple', text: 'apple', zh: '苹果', theme: '食物' }
+    ];
 
     function byId(a, b) {
         return String(a.id || a.text) < String(b.id || b.text) ? -1 : 1;
@@ -139,7 +147,9 @@
         };
     }
 
-    const QUIZ_MODES = ['choice', 'listen', 'picture', 'fill', 'spell', 'phrase'];
+    const QUIZ_MODES = ['choice', 'listen', 'picture', 'fill', 'spell', 'phrase', 'sentence'];
+    const HARD_MISS = 3;
+    const PHRASE_EVERY = 4;
 
     function normAnswer(s) {
         return String(s || '').trim().toLowerCase().replace(/\s+/g, ' ');
@@ -165,16 +175,54 @@
         if (w.media && w.media.image) modes.push('picture');
         if (blankPhrase(w)) modes.push('fill');
         if ((w.text || '').length >= 2 && (w.text || '').length <= 12) modes.push('spell');
-        if ((w.phrase || '').length >= 4 && w.phraseZh) modes.push('phrase');
+        if ((w.phrase || '').length >= 4 && w.phraseZh) {
+            modes.push('phrase');
+            modes.push('sentence');
+        }
         return modes;
+    }
+
+    function missCount(mastery) {
+        const m = mastery || {};
+        return Math.max(0, (Number(m.attempts) || 0) - (Number(m.correct) || 0));
+    }
+
+    function missStreakOf(opts) {
+        const o = opts || {};
+        if (o.missStreak != null) return Math.max(0, Number(o.missStreak) || 0);
+        if (o.misses != null) return Math.max(0, Number(o.misses) || 0);
+        return missCount(o.mastery);
+    }
+
+    function needsHardMode(word, opts) {
+        return missStreakOf(opts) >= HARD_MISS;
+    }
+
+    function hasSentence(word) {
+        const w = word || {};
+        return !!(w.phrase && w.phraseZh);
+    }
+
+    function shouldJoinPhrase(word, opts) {
+        const o = opts || {};
+        if (o.showPhrase === true) return hasSentence(word);
+        if (o.showPhrase === false || o.gate) return false;
+        const turn = Number(o.turn) || 0;
+        return hasSentence(word) && turn > 0 && turn % PHRASE_EVERY === 2;
     }
 
     function pickQuizMode(word, opts) {
         const o = opts || {};
         if (o.mode && QUIZ_MODES.indexOf(o.mode) >= 0) return o.mode;
-        const modes = availableModes(word);
-        if (o.gate) return (Number(o.turn) || 0) % 2 === 1 && modes.indexOf('listen') >= 0 ? 'listen' : 'choice';
-        return modes[(Number(o.turn) || 0) % modes.length];
+        if (needsHardMode(word, o)) {
+            const modes = availableModes(word);
+            if (modes.indexOf('spell') >= 0) return 'spell';
+            if (modes.indexOf('fill') >= 0) return 'fill';
+            return 'choice';
+        }
+        const turn = Number(o.turn) || 0;
+        if (!o.gate && hasSentence(word) && turn > 0 && turn % PHRASE_EVERY === 0) return 'sentence';
+        return 'choice';
     }
 
     function englishChoices(word, bank) {
@@ -193,6 +241,37 @@
         return shuffle([src.text].concat(picks.slice(0, 3)));
     }
 
+    function uniquePhraseZh(list) {
+        const seen = {};
+        const out = [];
+        (list || []).forEach(function (w) {
+            const zh = w && w.phraseZh;
+            if (!zh || seen[zh]) return;
+            seen[zh] = true;
+            out.push(zh);
+        });
+        return out;
+    }
+
+    function sentenceQuiz(word, bank) {
+        const src = word || {};
+        const answer = src.phraseZh || '';
+        const list = bank || [];
+        const picks = [];
+        uniquePhraseZh(list.filter(function (w) {
+            return w && w.theme === src.theme && w.phraseZh && w.phraseZh !== answer;
+        })).forEach(function (zh) {
+            if (picks.length < 3) picks.push(zh);
+        });
+        uniquePhraseZh(list).forEach(function (zh) {
+            if (picks.length < 3 && zh !== answer && picks.indexOf(zh) < 0) picks.push(zh);
+        });
+        return {
+            choices: shuffle(answer ? [answer].concat(picks.slice(0, 3)) : picks.slice(0, 4)),
+            fallback: picks.length < 3
+        };
+    }
+
     function makeQuiz(word, bank, opts) {
         const src = word || {};
         const mode = pickQuizMode(src, opts);
@@ -208,6 +287,8 @@
             answer: src.zh || '',
             typed: false,
             fallback: choice.fallback,
+            showPhrase: false,
+            showPhraseZh: false,
             limitMs: QUIZ_MS
         };
         if (mode === 'listen') {
@@ -236,6 +317,17 @@
             quiz.typed = true;
             quiz.answer = src.phrase;
             quiz.limitMs = 22000;
+        } else if (mode === 'sentence') {
+            const sent = sentenceQuiz(src, bank);
+            quiz.prompt = '选出这句话的意思';
+            quiz.choices = sent.choices;
+            quiz.answer = src.phraseZh || '';
+            quiz.showPhrase = true;
+            quiz.showPhraseZh = false;
+            quiz.fallback = sent.fallback;
+        } else if (mode === 'choice') {
+            quiz.showPhrase = shouldJoinPhrase(src, opts);
+            quiz.showPhraseZh = false;
         }
         return quiz;
     }
@@ -264,16 +356,119 @@
 
     function checkQuiz(quiz, input) {
         const q = quiz || {};
+        if (q.word && normAnswer(input) === normAnswer(q.word.text)) return true;
         if (q.typed || q.mode === 'spell' || q.mode === 'fill') return normAnswer(input) === normAnswer(q.answer);
         return String(input) === String(q.answer);
+    }
+
+    function channelOf(quiz, input) {
+        const q = quiz || {};
+        if (q.word && normAnswer(input) === normAnswer(q.word.text)) return 'spell';
+        if (q.typed || q.mode === 'spell' || q.mode === 'fill' || q.mode === 'phrase') return 'spell';
+        return 'choice';
+    }
+
+    function canTypeCast(opts) {
+        const o = opts || {};
+        if (o.boss) return true;
+        return needsHardMode(o.word, { missStreak: o.missStreak });
+    }
+
+    function noteId(list, id) {
+        const out = Array.isArray(list) ? list.slice() : [];
+        const key = String(id || '');
+        if (key && out.indexOf(key) < 0) out.push(key);
+        return out;
+    }
+
+    function unreadSpeakCount(shownIds, spokenIds) {
+        const spoken = {};
+        (spokenIds || []).forEach(function (id) { if (id) spoken[id] = true; });
+        let n = 0;
+        (shownIds || []).forEach(function (id) { if (id && !spoken[id]) n += 1; });
+        return n;
+    }
+
+    function resolveAttempt(quiz, input, opts) {
+        const correct = checkQuiz(quiz, input);
+        const retried = !!(opts && opts.retried);
+        if (correct) {
+            return {
+                correct: true,
+                retry: false,
+                record: true,
+                crit: true,
+                comboKeep: !retried,
+                reveal: (quiz && quiz.answer) || ''
+            };
+        }
+        if (!retried) {
+            return {
+                correct: false,
+                retry: true,
+                record: false,
+                crit: false,
+                comboKeep: false,
+                reveal: (quiz && quiz.answer) || '',
+                speak: true
+            };
+        }
+        return {
+            correct: false,
+            retry: false,
+            record: true,
+            crit: false,
+            comboKeep: false,
+            reveal: (quiz && quiz.answer) || ''
+        };
+    }
+
+    function focusPool(bank, level, opts) {
+        const o = opts || {};
+        const size = Math.max(1, Number(o.size) || 5);
+        const prefer = o.prefer || [];
+        const list = Array.isArray(bank) ? bank : [];
+        const out = [];
+        const used = {};
+        prefer.forEach(function (text) {
+            if (out.length >= size) return;
+            const hit = list.find(function (w) { return w && w.text === text; });
+            if (hit) {
+                const id = hit.id || hit.text;
+                if (!used[id]) {
+                    used[id] = true;
+                    out.push(hit);
+                }
+            }
+        });
+        poolForLevel(list, level).forEach(function (w) {
+            if (out.length >= size) return;
+            const id = w.id || w.text;
+            if (!used[id]) {
+                used[id] = true;
+                out.push(w);
+            }
+        });
+        return out.slice(0, size);
+    }
+
+    function bossAskTimes(maxHp) {
+        return (Number(maxHp) || 0) >= BOSS_ASK_HP ? 3 : 2;
+    }
+
+    function bossAskMarks(maxHp) {
+        return bossAskTimes(maxHp) === 3 ? [0.75, 0.5, 0.25] : [0.5, 0.25];
     }
 
     function shouldAsk(opts) {
         const o = opts || {};
         if (o.boss) {
-            if (o.firstHit) return true;
-            const n = Number(o.bossHits) || 0;
-            return n > 0 && n % 3 === 0;
+            const maxHp = Number(o.maxHp) || 80;
+            const hp = o.hp == null ? maxHp : Number(o.hp);
+            const asked = Number(o.askedCount) || 0;
+            const marks = bossAskMarks(maxHp);
+            if (asked >= marks.length) return false;
+            return hp <= maxHp * marks[asked];
         }
         return !!o.firstHit;
     }
@@ -290,10 +485,17 @@
         gold: ['gold'],
         diamond: ['diamond'],
         villager: ['villager'],
+        trader: ['villager'],
         pig: ['pig'],
         cow: ['cow'],
         sheep: ['sheep'],
         chicken: ['chicken'],
+        wolf: ['wolf'],
+        chest: ['chest'],
+        furnace: ['furnace'],
+        torch: ['torch'],
+        dragon: ['dragon'],
+        storm: ['storm'],
         bed: ['bed'],
         wheat: ['wheat'],
         golem: ['golem'],
@@ -339,10 +541,17 @@
         gold: '金矿',
         diamond: '钻石矿',
         villager: '村民',
+        trader: '流浪商人',
         pig: '猪',
         cow: '牛',
         sheep: '羊',
         chicken: '鸡',
+        wolf: '狼',
+        chest: '箱子',
+        furnace: '熔炉',
+        torch: '火把',
+        dragon: '末影龙',
+        storm: '凋零风暴',
         bed: '床',
         wheat: '小麦',
         golem: '铁傀儡',
@@ -380,7 +589,7 @@
     };
 
     function shouldAutoSpeak(kind, type) {
-        if (type === 'mob' || type === 'npc') return true;
+        if (type === 'mob' || type === 'npc' || type === 'animal') return true;
         if (kind === 'word') return true;
         return !QUIET_LOOK[String(kind || '')];
     }
@@ -408,6 +617,21 @@
     function collectWordBlock(state, word) {
         const s = state || {};
         const w = word || {};
+        return {
+            pendingQuiz: true,
+            coins: Number(s.coins) || 0,
+            hp: Number(s.hp) || 0,
+            hpMax: Number(s.hpMax) || 20,
+            learnedIds: (s.learnedIds || []).slice(),
+            word: w,
+            coinsGain: 0,
+            heal: 0
+        };
+    }
+
+    function commitWordBlock(state, word) {
+        const s = state || {};
+        const w = word || {};
         const hpMax = Number(s.hpMax) || 20;
         const hp = Math.min(hpMax, (Number(s.hp) || 0) + WORD_HEAL);
         const coins = (Number(s.coins) || 0) + WORD_COINS;
@@ -415,6 +639,7 @@
         const id = w.id || w.text;
         if (id && learnedIds.indexOf(id) < 0) learnedIds.push(id);
         return {
+            pendingQuiz: false,
             coins: coins,
             hp: hp,
             hpMax: hpMax,
@@ -423,6 +648,36 @@
             coinsGain: WORD_COINS,
             heal: WORD_HEAL
         };
+    }
+
+    function masteryStage(record, today) {
+        const r = record || {};
+        const correct = Number(r.correct) || 0;
+        const spoken = Number(r.spoken) || Number(r.quiz && r.quiz.speak && r.quiz.speak.correct) || 0;
+        const spell = Number(r.quiz && r.quiz.spell && r.quiz.spell.correct) || 0;
+        const listen = Number(r.quiz && r.quiz.listen && r.quiz.listen.correct) || 0;
+        const recallHits = spell + listen;
+        const dates = Array.isArray(r.dates) ? r.dates : [];
+        const day = String(today || '');
+        const nextReview = String(r.nextReview || '');
+        if (!correct && !spoken && !recallHits) return 'new';
+        if (day && nextReview && nextReview <= day) return 'due';
+        if (r.state === 'maintenance' || (dates.length >= 3 && spoken >= 1 && recallHits >= 1)) {
+            return 'mastered';
+        }
+        if (spoken >= 1) return 'spoken';
+        if (recallHits >= 2 || correct >= 2) return 'recall';
+        if (correct >= 1) return 'familiar';
+        return 'new';
+    }
+
+    function countFamiliar(ids, mastery, today) {
+        const map = mastery || {};
+        return (ids || []).filter(function (id) {
+            const rec = map[id] || map[String(id).toLowerCase()];
+            if (!rec) return true;
+            return masteryStage(rec, today) !== 'new';
+        }).length;
     }
 
     function nextWord(pool, learnedIds) {
@@ -436,26 +691,45 @@
 
     global.BlockLegendWords = {
         SKIP_COMBO: SKIP_COMBO,
+        BOSS_ASK_HP: BOSS_ASK_HP,
+        bossAskTimes: bossAskTimes,
+        bossAskMarks: bossAskMarks,
         QUIZ_MS: QUIZ_MS,
         PACK_BASE: PACK_BASE,
         CAT_ORDER: CAT_ORDER,
+        FALLBACK_BANK: FALLBACK_BANK,
         cardsToBank: cardsToBank,
         loadCatalog: loadCatalog,
         poolForLevel: poolForLevel,
         quizFor: quizFor,
         makeQuiz: makeQuiz,
         checkQuiz: checkQuiz,
+        channelOf: channelOf,
+        canTypeCast: canTypeCast,
+        noteId: noteId,
+        unreadSpeakCount: unreadSpeakCount,
+        resolveAttempt: resolveAttempt,
+        focusPool: focusPool,
         pickQuizMode: pickQuizMode,
         availableModes: availableModes,
         QUIZ_MODES: QUIZ_MODES,
+        HARD_MISS: HARD_MISS,
+        PHRASE_EVERY: PHRASE_EVERY,
+        hasSentence: hasSentence,
+        shouldJoinPhrase: shouldJoinPhrase,
+        missCount: missCount,
+        needsHardMode: needsHardMode,
         bindCastWord: bindCastWord,
         matchCast: matchCast,
         shouldAsk: shouldAsk,
         nextWord: nextWord,
+        masteryStage: masteryStage,
+        countFamiliar: countFamiliar,
         labelFor: labelFor,
         shouldAutoSpeak: shouldAutoSpeak,
         sayStrip: sayStrip,
         collectWordBlock: collectWordBlock,
+        commitWordBlock: commitWordBlock,
         WORD_COINS: WORD_COINS,
         WORD_HEAL: WORD_HEAL
     };

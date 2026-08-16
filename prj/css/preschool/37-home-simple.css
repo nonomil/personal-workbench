@@ -51,6 +51,22 @@ body.variant-preschool .preschool-home-hero-card {
     min-width: 0;
 }
 
+body.variant-preschool .preschool-home-hero {
+    display: grid;
+    gap: 8px;
+}
+
+body.variant-preschool .preschool-home-hero-reward {
+    min-height: 44px;
+    padding: 8px 14px;
+    border: 2px solid #d4a017;
+    border-radius: 14px;
+    color: #5a3d0b;
+    font-weight: 800;
+    cursor: pointer;
+    background: #ffe9a8;
+}
+
 body.variant-preschool .preschool-home-hero-card {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 96px;
