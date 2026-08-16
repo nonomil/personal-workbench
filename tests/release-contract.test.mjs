@@ -37,7 +37,8 @@ test('Pages workflow deploys the prj workbench statically without Jekyll', () =>
   const workflow = fs.readFileSync(path.join(projectRoot, '.github', 'workflows', 'pages.yml'), 'utf8');
 
   assert.match(workflow, /upload-pages-artifact/);
-  assert.match(workflow, /path: prj/);
+  assert.match(workflow, /cp -a prj _pages\/prj/);
+  assert.match(workflow, /path: _pages/);
   assert.doesNotMatch(workflow, /jekyll-build-pages/);
 });
 

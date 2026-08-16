@@ -12,9 +12,9 @@
 
 在线网站：<https://nonomil.github.io/personal-workbench/>
 
-- [成人成长工作台](https://nonomil.github.io/personal-workbench/成人成长工作台/)
-- [儿童学习工作台](https://nonomil.github.io/personal-workbench/儿童学习工作台/)
-- [阳光成长工作台](https://nonomil.github.io/personal-workbench/preschool-workbench/)
+- [成人成长工作台](https://nonomil.github.io/personal-workbench/prj/成人成长工作台/)
+- [儿童学习工作台](https://nonomil.github.io/personal-workbench/prj/儿童学习工作台/)
+- [阳光成长工作台](https://nonomil.github.io/personal-workbench/prj/preschool-workbench/)
 
 产品运行时集中在 `prj/`（入口、工作台、CSS、素材、小游戏、资料包）。仓库根只保留工具链配置（`package.json`、`scripts/`、`tests/`、`docs/` 等）与薄跳转 `index.html` → `prj/`。GitHub Pages 仍用 `main` 根目录；打开站点会跳到 `prj/`。仓库设置：`Settings` → `Pages` → `Deploy from a branch` → `main` → `/ (root)`。
 

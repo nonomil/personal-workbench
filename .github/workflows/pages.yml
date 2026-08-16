@@ -25,8 +25,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Mark static site
-        run: touch prj/.nojekyll
+      - name: Assemble public site
+        run: |
+          mkdir -p _pages
+          cp index.html _pages/index.html
+          cp -a prj _pages/prj
+          touch _pages/.nojekyll
+          touch _pages/prj/.nojekyll
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
@@ -34,7 +39,7 @@ jobs:
       - name: Upload static workbench
         uses: actions/upload-pages-artifact@v3
         with:
-          path: prj
+          path: _pages
 
       - name: Deploy
         id: deployment

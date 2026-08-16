@@ -35,7 +35,7 @@ python -m http.server 7000
 - `https://nonomil.github.io/personal-workbench/儿童学习工作台/`
 - `https://nonomil.github.io/personal-workbench/preschool-workbench/`
 
-网页由 `.github/workflows/pages.yml` 把 `prj/` 原样发布到 GitHub Pages，不跑 Jekyll。推送 `main` 或手动 `workflow_dispatch` 后，等 `Deploy GitHub Pages` 成功即可。仓库 Pages 源应设为 `GitHub Actions`。旧的 branch + Jekyll 会把 `docs/` 里的 Markdown 当成文章并因非法日期失败。
+网页由 `.github/workflows/pages.yml` 发布：根目录 `index.html` 跳到 `prj/`，工作台在 `/prj/...`。不跑 Jekyll。推送 `main` 后等 `Deploy GitHub Pages` 成功。仓库 Pages 源为 `GitHub Actions`。
 
 ## Android APK
 
