@@ -55,6 +55,7 @@ test('prepare-mobile keeps generated intermediates and local dumps out of dist/'
     path.join(distRoot, 'games', 'blocklegend', 'docs'),
     path.join(distRoot, 'assets', 'generated', 'preschool-pvz-2d', 'raw'),
     path.join(distRoot, 'assets', 'generated', 'world-rebuild-20260807'),
+    path.join(distRoot, 'assets', 'vocab', 'wordquest-vocab-2026.08.15'),
     path.join(distRoot, 'visual-tests')
   ];
   const present = banned.filter((item) => fs.existsSync(item));

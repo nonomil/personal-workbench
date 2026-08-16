@@ -21,7 +21,8 @@ const SKIP_RELATIVE_PREFIXES = [
   'assets/generated/world-rebuild-20260807',
   'assets/generated/blocklegend-mobs-4view',
   'assets/generated/preschool-pvz-skills',
-  'assets/GPT生图'
+  'assets/GPT生图',
+  'assets/vocab/wordquest-vocab-2026.08.15'
 ];
 
 const SKIP_EXTENSIONS = new Set(['.zip', '.bat', '.md']);
