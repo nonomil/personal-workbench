@@ -395,6 +395,59 @@ html, body.bl-body {
 }
 .bl-toast.is-on { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+.bl-cast-hud {
+    position: absolute;
+    left: 50%;
+    bottom: 118px;
+    transform: translateX(-50%);
+    width: min(440px, 92vw);
+    z-index: 4;
+    pointer-events: none;
+    text-align: center;
+}
+.bl-cast-hud.is-hidden { display: none; }
+.bl-cast-kicker {
+    margin: 0 0 6px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: #ffe27a;
+    text-shadow: 0 1px 2px #1a1208;
+}
+.bl-cast-words {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    margin: 0 0 6px;
+}
+.bl-cast-chip {
+    background: #3d2a16;
+    border: 2px solid #1a1208;
+    box-shadow: inset 0 0 0 1px #c4a574;
+    color: #fff6d2;
+    padding: 4px 8px;
+    font-size: 13px;
+}
+.bl-cast-chip.is-hot {
+    background: #6b4a28;
+    color: #ffe27a;
+}
+#cast-input {
+    width: min(280px, 80vw);
+    border: 2px solid #1a1208;
+    background: rgba(22, 14, 8, .88);
+    color: #fff6d2;
+    box-shadow: inset 0 0 0 1px #c4a574;
+    padding: 6px 10px;
+    font-size: 16px;
+    text-align: center;
+    letter-spacing: 1px;
+}
+.bl-cast-hud.is-casting #cast-input {
+    border-color: #ffe27a;
+    box-shadow: inset 0 0 0 1px #ffe27a, 0 0 0 2px rgba(255, 226, 122, .35);
+}
+
 .bl-hurt {
     position: absolute;
     inset: 0;
@@ -718,4 +771,5 @@ button.bl-quiz-en,
     .bl-mc-hud { transform: translateX(-50%) scale(.78); transform-origin: bottom center; }
     button.bl-quiz-en, .bl-quiz-en { font-size: 22px; }
     .bl-hint { max-width: 40vw; }
+    .bl-cast-hud { bottom: 96px; }
 }

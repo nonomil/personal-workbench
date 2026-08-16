@@ -1752,7 +1752,16 @@
 
         /* ---------- 输入 ---------- */
         const input = { fwd: false, back: false, left: false, right: false, jump: false };
+        let moveLocked = false;
         function refreshKeys() {
+            if (moveLocked) {
+                input.fwd = false;
+                input.back = false;
+                input.left = false;
+                input.right = false;
+                input.jump = false;
+                return;
+            }
             input.fwd = !!(keys['w'] || keys['arrowup']);
             input.back = !!(keys['s'] || keys['arrowdown']);
             input.left = !!(keys['a'] || keys['arrowleft']);
@@ -1780,6 +1789,20 @@
         function resumeLook() {
             lookFrozen = false;
             if (canvas.requestPointerLock) canvas.requestPointerLock();
+            syncLookTip();
+        }
+        function setCastMode(on) {
+            lookFrozen = !!on;
+            moveLocked = !!on;
+            if (moveLocked) {
+                input.fwd = false;
+                input.back = false;
+                input.left = false;
+                input.right = false;
+                input.jump = false;
+            } else {
+                refreshKeys();
+            }
             syncLookTip();
         }
         function bindInput() {
@@ -1898,7 +1921,8 @@
             onTick: function (fn) { tickHook = fn; },
             fps: function () { return fps; },
             setUiMode: setUiMode,
-            resumeLook: resumeLook
+            resumeLook: resumeLook,
+            setCastMode: setCastMode
         };
         return api;
     }

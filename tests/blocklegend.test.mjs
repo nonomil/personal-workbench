@@ -161,12 +161,38 @@ test('quizFor picks 3 unique same-theme distractors or marks fallback', () => {
   assert.equal(spell.mode, 'spell');
   assert.equal(W.checkQuiz(spell, ' black '), true);
   assert.equal(W.checkQuiz(spell, 'blue'), false);
+  const phraseWord = bank.find((w) => w.phrase && w.phraseZh) || word;
+  const phrase = W.makeQuiz(phraseWord, bank, { mode: 'phrase' });
+  assert.equal(phrase.mode, 'phrase');
+  assert.equal(phrase.typed, true);
+  assert.equal(W.checkQuiz(phrase, phraseWord.phrase), true);
+  assert.ok(W.QUIZ_MODES.includes('phrase'));
+  assert.ok(W.availableModes(phraseWord).includes('phrase'));
   const html = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'index.html'), 'utf8');
   assert.match(html, /id="quiz-input"/);
   assert.match(html, /id="quiz-phrase"/);
+  assert.match(html, /id="cast-hud"/);
+  assert.match(html, /id="cast-input"/);
   const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
   assert.match(game, /makeQuiz\(/);
   assert.match(game, /submitTypedQuiz/);
+  assert.match(game, /matchCast/);
+  assert.match(game, /setCastMode/);
+  const engine = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'engine.js'), 'utf8');
+  assert.match(engine, /setCastMode/);
+});
+
+test('cast words bind uniquely and match typed English', () => {
+  const a = W.bindCastWord(bank, []);
+  assert.ok(a && a.text);
+  const b = W.bindCastWord(bank, [a.id || a.text]);
+  assert.ok(b && b.text);
+  assert.notEqual(b.id || b.text, a.id || a.text);
+  const mobs = [{ id: 'm1', word: a, hp: 4 }, { id: 'm2', word: b, hp: 4 }];
+  assert.equal(W.matchCast(a.text.toUpperCase(), mobs), mobs[0]);
+  assert.equal(W.matchCast('  ' + b.text + '  ', mobs), mobs[1]);
+  assert.equal(W.matchCast('not-a-word', mobs), null);
+  assert.equal(W.matchCast('   ', mobs), null);
 });
 
 test('look-at labels keep short Chinese fallbacks when the daily bank has no MC nouns', () => {

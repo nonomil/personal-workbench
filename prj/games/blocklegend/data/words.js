@@ -139,7 +139,7 @@
         };
     }
 
-    const QUIZ_MODES = ['choice', 'listen', 'picture', 'fill', 'spell'];
+    const QUIZ_MODES = ['choice', 'listen', 'picture', 'fill', 'spell', 'phrase'];
 
     function normAnswer(s) {
         return String(s || '').trim().toLowerCase().replace(/\s+/g, ' ');
@@ -165,6 +165,7 @@
         if (w.media && w.media.image) modes.push('picture');
         if (blankPhrase(w)) modes.push('fill');
         if ((w.text || '').length >= 2 && (w.text || '').length <= 12) modes.push('spell');
+        if ((w.phrase || '').length >= 4 && w.phraseZh) modes.push('phrase');
         return modes;
     }
 
@@ -229,8 +230,36 @@
             quiz.typed = true;
             quiz.answer = src.text;
             quiz.limitMs = 18000;
+        } else if (mode === 'phrase') {
+            quiz.prompt = '写出英文句子';
+            quiz.hidePromptWord = true;
+            quiz.typed = true;
+            quiz.answer = src.phrase;
+            quiz.limitMs = 22000;
         }
         return quiz;
+    }
+
+    function bindCastWord(pool, usedIds) {
+        const used = {};
+        (usedIds || []).forEach(function (id) { if (id) used[id] = true; });
+        const list = (pool || []).filter(function (w) { return w && w.text; });
+        const fresh = list.filter(function (w) { return !used[w.id || w.text]; });
+        const src = fresh.length ? fresh : list;
+        if (!src.length) return null;
+        return src[Math.floor(Math.random() * src.length)];
+    }
+
+    function matchCast(typed, targets) {
+        const needle = normAnswer(typed);
+        if (!needle) return null;
+        const list = targets || [];
+        for (let i = 0; i < list.length; i += 1) {
+            const t = list[i];
+            const word = t && (t.word || t);
+            if (word && normAnswer(word.text) === needle) return t;
+        }
+        return null;
     }
 
     function checkQuiz(quiz, input) {
@@ -419,6 +448,8 @@
         pickQuizMode: pickQuizMode,
         availableModes: availableModes,
         QUIZ_MODES: QUIZ_MODES,
+        bindCastWord: bindCastWord,
+        matchCast: matchCast,
         shouldAsk: shouldAsk,
         nextWord: nextWord,
         labelFor: labelFor,

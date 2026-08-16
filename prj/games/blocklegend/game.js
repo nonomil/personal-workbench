@@ -72,6 +72,8 @@
         pending: null,
         quiz: null,
         quizEndsAt: 0,
+        casting: false,
+        castBuf: '',
         tool: 'sword',
         mining: false,
         mine: null,
@@ -233,6 +235,36 @@
                 if (e.key >= '1' && e.key <= '4') {
                     e.preventDefault();
                     pickQuizChoice(Number(e.key) - 1);
+                }
+                return;
+            }
+            if (e.key === 't' || e.key === 'T') {
+                if (!overlayOpen() || session.casting) {
+                    e.preventDefault();
+                    setCasting(!session.casting);
+                    return;
+                }
+            }
+            if (session.casting) {
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                    setCasting(false);
+                    return;
+                }
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    tryCastSubmit();
+                    return;
+                }
+                if (e.key === 'Backspace') {
+                    e.preventDefault();
+                    session.castBuf = session.castBuf.slice(0, -1);
+                    paintCastHud();
+                    return;
+                }
+                if (e.key.length === 1 && /[a-zA-Z'\-]/.test(e.key)) {
+                    e.preventDefault();
+                    appendCast(e.key);
                 }
                 return;
             }
@@ -463,6 +495,7 @@
         session.pending = null;
         session.gateAsked = null;
         session.quizTurn = 0;
+        setCasting(false);
         const cfg = L.levelOf(session.level);
         session.wavesLeft = cfg.waves;
         pool = W.poolForLevel(bank, session.level);
@@ -493,6 +526,7 @@
         session.fx = [];
         const hud = document.getElementById('boss-hud');
         if (hud) hud.classList.add('is-hidden');
+        paintCastHud();
     }
 
     function spawnMonster(kind, x, z, extra) {
@@ -521,6 +555,7 @@
             hitRadius: isBoss ? 1.2 : (spec.hitRadius || 0.45),
             bossHits: 0
         };
+        bindMobWord(mob);
         if (mob.isBoss) {
             mob.hp = session.boss.hp;
             mob.maxHp = session.boss.maxHp;
@@ -528,6 +563,7 @@
             model.setHp(1, true);
         }
         session.monsters.push(mob);
+        paintCastHud();
         return mob;
     }
 
@@ -1069,7 +1105,9 @@
         const kick = document.querySelector('.bl-quiz-kicker');
         if (kick) kick.textContent = kicker || quiz.prompt || '暴击咒语';
         const enBtn = document.getElementById('quiz-en');
-        enBtn.textContent = quiz.hidePromptWord ? (mode === 'listen' ? '🎧 听单词' : mode === 'picture' ? '看图选词' : '____') : word.text;
+        enBtn.textContent = quiz.hidePromptWord
+            ? (mode === 'listen' ? '🎧 听单词' : mode === 'picture' ? '看图选词' : mode === 'phrase' ? '写出英文句子' : '____')
+            : word.text;
         const zhHint = document.getElementById('quiz-zh');
         if (zhHint) zhHint.textContent = (mode === 'spell' || mode === 'fill') ? (word.zh || '') : '';
         const img = document.getElementById('quiz-img');
@@ -1087,7 +1125,7 @@
         }
         const phrase = document.getElementById('quiz-phrase');
         const phraseZh = document.getElementById('quiz-phrase-zh');
-        const phraseText = mode === 'fill' ? (quiz.blank || '') : (quiz.hidePromptWord ? (quiz.blank || '') : (quiz.phrase || ''));
+        const phraseText = mode === 'phrase' ? '' : (mode === 'fill' ? (quiz.blank || '') : (quiz.hidePromptWord ? (quiz.blank || '') : (quiz.phrase || '')));
         if (phrase) {
             phrase.textContent = phraseText;
             phrase.classList.toggle('is-hidden', !phraseText);
@@ -1122,6 +1160,7 @@
         session.quiz = quiz;
         session.quizEndsAt = nowMs() + (quiz.limitMs || W.QUIZ_MS);
         session.paused = true;
+        setCasting(false);
         toggleLayer('quiz-layer', true);
         if (mode === 'listen' || mode === 'choice' || mode === 'fill') speakWord(word);
     }
@@ -1163,6 +1202,105 @@
         if (!session.quiz || !session.quiz.typed) return;
         const input = document.getElementById('quiz-input');
         resolveQuiz(W.checkQuiz(session.quiz, input && input.value));
+    }
+
+    function liveCastTargets() {
+        return session.monsters.filter(function (m) {
+            return m && m.hp > 0 && m.word && m.word.text;
+        });
+    }
+
+    function bindMobWord(mob) {
+        if (!mob) return;
+        const used = session.monsters.map(function (m) {
+            return m !== mob && m.word ? (m.word.id || m.word.text) : '';
+        }).filter(Boolean);
+        mob.word = W.bindCastWord(pool, used);
+    }
+
+    function paintCastHud() {
+        const hud = document.getElementById('cast-hud');
+        const list = document.getElementById('cast-words');
+        const input = document.getElementById('cast-input');
+        const kick = document.getElementById('cast-kicker');
+        const targets = liveCastTargets();
+        if (!hud) return;
+        hud.classList.toggle('is-hidden', !targets.length);
+        hud.classList.toggle('is-casting', !!session.casting);
+        if (kick) {
+            kick.textContent = session.casting
+                ? '吟唱中 · 拼中文对应的英文，怪物会走近'
+                : '打字施法 · T 吟唱 · 看中文拼英文击杀';
+        }
+        if (list) {
+            list.innerHTML = '';
+            const typed = String(session.castBuf || '').trim().toLowerCase();
+            targets.forEach(function (m) {
+                const chip = document.createElement('span');
+                chip.className = 'bl-cast-chip';
+                const en = String((m.word && m.word.text) || '').toLowerCase();
+                if (typed && en.indexOf(typed) === 0) chip.classList.add('is-hot');
+                chip.textContent = (m.kind || 'mob') + ' · ' + ((m.word && m.word.zh) || (m.word && m.word.text) || '');
+                list.appendChild(chip);
+            });
+        }
+        if (input) {
+            input.value = session.castBuf || '';
+            input.placeholder = session.casting ? 'type the word' : 'T 开始拼写';
+        }
+        if (session.casting && !targets.length) setCasting(false);
+    }
+
+    function setCasting(on) {
+        const want = !!on && liveCastTargets().length > 0;
+        session.casting = want;
+        if (!want) session.castBuf = '';
+        if (engine && engine.setCastMode) engine.setCastMode(want);
+        paintCastHud();
+    }
+
+    function appendCast(ch) {
+        session.castBuf = String(session.castBuf || '') + ch;
+        paintCastHud();
+        const hit = W.matchCast(session.castBuf, liveCastTargets());
+        if (hit) fireCast(hit);
+    }
+
+    function tryCastSubmit() {
+        const hit = W.matchCast(session.castBuf, liveCastTargets());
+        if (hit) {
+            fireCast(hit);
+            return;
+        }
+        if (String(session.castBuf || '').trim()) {
+            progress.wrongCount = (Number(progress.wrongCount) || 0) + 1;
+            persist();
+            toast('再拼一次');
+        }
+        session.castBuf = '';
+        paintCastHud();
+    }
+
+    function fireCast(mob) {
+        const word = mob && mob.word;
+        session.castBuf = '';
+        if (word && word.id && progress.learnedIds.indexOf(word.id) === -1) progress.learnedIds.push(word.id);
+        progress.rightCount = (Number(progress.rightCount) || 0) + 1;
+        if (word && word.text && global.WorkbenchGameBridge && global.WorkbenchGameBridge.recordWordAnswer) {
+            global.WorkbenchGameBridge.recordWordAnswer(word.text, true);
+        }
+        persist();
+        if (sfx && sfx.celebrate) sfx.celebrate();
+        if (viewModel) viewModel.triggerCast();
+        session.combo = C.nextCombo({ answered: true, correct: true, combo: session.combo });
+        if (mob.isBoss && session.boss) {
+            session.boss = L.chipShield(session.boss, 1, { now: nowMs() }).boss;
+        }
+        mob.asked = true;
+        applyResolvedHit(mob, 'bolt', { answered: true, correct: true });
+        if (mob.hp > 0) bindMobWord(mob);
+        paintCastHud();
+        toast((word && word.text) || 'Hit!');
     }
 
     function resolveQuiz(correct) {
@@ -1260,6 +1398,7 @@
         flashMesh(mob.mesh);
         if (mob.model) mob.model.setHp(mob.hp / (mob.maxHp || 1), true);
         if (res.dead) killMonster(mob);
+        paintCastHud();
     }
 
     function killMonster(mob) {
@@ -1269,6 +1408,7 @@
         if (mob.mesh) engine.scene.remove(mob.mesh);
         session.monsters = session.monsters.filter(function (m) { return m !== mob; });
         spawnPickup(mob.x, mob.z, mob.coins, mob.loot);
+        paintCastHud();
         if (!session.boss && session.monsters.length === 0) {
             if (session.wavesLeft > 0) spawnWave();
             else spawnBoss();
