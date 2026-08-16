@@ -32,6 +32,15 @@ test('launcher exposes an accessible two-tier world selector', () => {
   assert.match(html, /@media \(prefers-reduced-motion: reduce\)/);
 });
 
+test('Pages workflow deploys the prj workbench statically without Jekyll', () => {
+  const projectRoot = fileURLToPath(new URL('..', import.meta.url));
+  const workflow = fs.readFileSync(path.join(projectRoot, '.github', 'workflows', 'pages.yml'), 'utf8');
+
+  assert.match(workflow, /upload-pages-artifact/);
+  assert.match(workflow, /path: prj/);
+  assert.doesNotMatch(workflow, /jekyll-build-pages/);
+});
+
 test('Android workflow runs the web gates before uploading an APK', () => {
   const projectRoot = fileURLToPath(new URL('..', import.meta.url));
   const workflow = fs.readFileSync(path.join(projectRoot, '.github', 'workflows', 'android-apk.yml'), 'utf8');

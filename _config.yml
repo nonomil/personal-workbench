@@ -1,0 +1,10 @@
+# Keep the legacy branch builder from treating docs Markdown as Jekyll posts.
+exclude:
+  - docs
+  - tests
+  - scripts
+  - tmp
+  - android
+  - node_modules
+  - .worktrees
+  - .github

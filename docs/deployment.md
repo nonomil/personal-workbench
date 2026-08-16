@@ -35,7 +35,7 @@ python -m http.server 7000
 - `https://nonomil.github.io/personal-workbench/儿童学习工作台/`
 - `https://nonomil.github.io/personal-workbench/preschool-workbench/`
 
-不需要构建命令或输出目录。修改后推送到 `main`，等待 Pages 部署完成即可。GitHub 仓库设置为 `Settings` → `Pages` → `Deploy from a branch` → `main` → `/ (root)`。
+网页由 `.github/workflows/pages.yml` 把 `prj/` 原样发布到 GitHub Pages，不跑 Jekyll。推送 `main` 或手动 `workflow_dispatch` 后，等 `Deploy GitHub Pages` 成功即可。仓库 Pages 源应设为 `GitHub Actions`。旧的 branch + Jekyll 会把 `docs/` 里的 Markdown 当成文章并因非法日期失败。
 
 ## Android APK
 
