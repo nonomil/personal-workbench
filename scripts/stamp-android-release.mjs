@@ -20,6 +20,14 @@ export function stampGradleRelease(gradleText, { versionName, versionCode, keyst
   next = next.replace(/versionCode\s+\d+/, `versionCode ${versionCode}`);
   next = next.replace(/versionName\s+"[^"]+"/, `versionName "${versionName}"`);
 
+  if (!/signingConfig\s+signingConfigs\.release/.test(next)) {
+    next = next.replace(
+      /buildTypes\s*\{\s*release\s*\{/,
+      `buildTypes {
+        release {
+            signingConfig signingConfigs.release`
+    );
+  }
   if (!/signingConfigs\s*\{/.test(next)) {
     next = next.replace(
       /buildTypes\s*\{/,
@@ -32,13 +40,6 @@ export function stampGradleRelease(gradleText, { versionName, versionCode, keyst
         }
     }
     buildTypes {`
-    );
-  }
-  if (!/signingConfig\s+signingConfigs\.release/.test(next)) {
-    next = next.replace(
-      /release\s*\{/,
-      `release {
-            signingConfig signingConfigs.release`
     );
   }
   return next;

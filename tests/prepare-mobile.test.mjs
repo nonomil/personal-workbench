@@ -32,7 +32,8 @@ test('android release stamp raises versionCode with package version', () => {
   );
   assert.match(stamped, /versionCode 703/);
   assert.match(stamped, /versionName "0.7.3"/);
-  assert.match(stamped, /signingConfig signingConfigs\.release/);
+  assert.match(stamped, /buildTypes\s*\{\s*release\s*\{\s*signingConfig signingConfigs\.release/);
+  assert.doesNotMatch(stamped, /signingConfigs\s*\{\s*release\s*\{\s*signingConfig/);
 });
 
 test('prepare-mobile copies every preschool workbench script into dist/', () => {
