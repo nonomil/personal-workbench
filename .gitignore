@@ -28,9 +28,38 @@ prj/games/blocklegend/assets/img2threejs/
 
 # Local generation intermediates, not runtime
 prj/assets/generated/blocklegend-mobs-4view/
+prj/assets/generated/blocklegend-roster/
+prj/assets/generated/blocklegend-tools/
+prj/assets/generated/blocklegend-art/
+prj/assets/generated/blocklegend-biomes/
 prj/assets/generated/preschool-pvz-skills/
+prj/assets/generated/game-asset-pipeline-smoke/
+prj/assets/generated/world-rebuild-20260807/
+prj/assets/generated/garden-zombie-v4/
+prj/assets/generated/platform-hero/
+prj/assets/generated/voxel-paper-mc/
+prj/assets/GPT生图/
+prj/assets/generated/**/raw/
+prj/assets/generated/**/raw-v2/
+prj/assets/generated/**/raw-v3/
+prj/assets/generated/**/keyed/
+prj/assets/generated/**/split/
+prj/assets/generated/**/parts/
+prj/assets/generated/**/clean/
 docs/01-方案/学习项目设计/img/05-识字视觉优化/generated/_raw-*.png
 docs/01-方案/学习项目设计/img/05-识字视觉优化/generated/*.png
+
+# Unused local game leftovers
+prj/games/focus-arcade/
+prj/games/blocklegend/
+tests/blocklegend.test.mjs
+prj/games/blocklegend/tools/
+prj/games/blocklegend/compare-four-view.html
+prj/games/blocklegend/review-roster.html
+prj/games/blocklegend/preview-mobs.html
+prj/games/blocklegend/*.bat
+review_debug/
+test_*.py
 
 # Local secrets and machine-specific configuration
 .env

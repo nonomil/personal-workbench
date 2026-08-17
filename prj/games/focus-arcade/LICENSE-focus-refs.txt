@@ -1,8 +1,0 @@
-Visual remakes of the vanilla HTML/CSS/JS games listed in
-docs/01-方案/工作台小游戏设计/04-专注力小游戏/专注力游戏--参考.md
-
-- alfredang/sudoku — MIT. Cream/teal board and stacked difficulty rows.
-- NimbusApp/SchulteTable — mint stage and teal tiles (look only).
-- shouqalshammari/memory-card-game — space theme and card gradients (look only).
-- bocaletto-luca/Symon-Says — classic 2x2 color pads (look only; no GPL source copied).
-- jjestrada2/Find-the-Object-Game — hunt-style target banner (look only; grid engine kept).

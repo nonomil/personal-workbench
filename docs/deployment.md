@@ -45,8 +45,8 @@ GitHub Actions workflow 位于 `.github/workflows/android-apk.yml`：
 
 - 推送到 `main` 自动运行 `Build Android APK`，构建结果会上传为 artifact；也可以在 Actions 页面手动运行；
 - Android 工程生成前会先运行 `npm test`、`npm run release:verify` 和关键 JavaScript 语法检查；构建后还会拒绝 0 字节或缺失的 APK；
-- 推送 `v*` 标签时自动构建，并把 Debug APK 附加到 GitHub Release；
-- 首版产物是可安装的 Debug APK，不包含生产签名；生产签名必须使用 GitHub Secrets 注入 keystore，不能提交到仓库。
+- 推送 `v*` 标签时自动构建，并把正式签名 APK 附加到 GitHub Release；
+- 产物是 `assembleRelease` 包。签名钥匙只通过 GitHub Secrets 注入，不能提交到仓库。
 
 本地构建环境要求 Node.js 22、Java 21 和 Android SDK：
 

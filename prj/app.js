@@ -5981,16 +5981,6 @@
         return `<section class="preschool-home-workflow" aria-label="今天要做的事"><button class="preschool-home-workflow-card is-${escapeHtml(workflow.kind)}" type="button" ${actionAttrs}><small>${kicker}</small><strong>${heading}</strong>${evidenceLine ? `<em>${evidenceLine}</em>` : ''}<span>${icon(actionIcon)}${escapeHtml(workflow.cta)}</span></button></section>`;
     }
 
-    function renderPreschoolBlocklegendCard() {
-        if (getPreschoolThemeId() !== 'voxel-adventure') return '';
-        return `<section class="preschool-blocklegend-entry" aria-label="方块传奇">
-            <span class="pixel-panel-kicker">BLOCK LEGEND / ENGLISH</span>
-            <h2>方块传奇 · 学英语</h2>
-            <p>打怪认单词，答对就暴击。</p>
-            <a class="preschool-world-progress-go" href="../games/blocklegend/index.html">进入方块传奇</a>
-        </section>`;
-    }
-
     function renderPreschoolHomeOverview(derived) {
         const growth = getChildGrowth();
         const plans = derived.todayPlans;
@@ -6004,7 +5994,6 @@
             </div>
             ${renderPreschoolHomeBattlefield(plans, defense)}
             ${getPreschoolThemeId() === 'voxel-adventure' ? renderPreschoolVoxelHomeCard() : ''}
-            ${renderPreschoolBlocklegendCard()}
             <div class="preschool-home-exits" aria-label="冒险出口"><button class="workbench-action-button" type="button" ${getPreschoolThemePlaybook().worldGameHref ? 'data-action="open-world-game"' : 'data-action="navigate" data-page="battle"'}>${icon('swords')} ${escapeHtml(getPreschoolThemePlaybook().exitGame)}</button><button class="workbench-secondary-button" type="button" data-action="navigate" data-page="rewards">${icon('gift')} 去领奖励</button></div>
         </div>`;
     }

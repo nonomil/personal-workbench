@@ -58,5 +58,5 @@ test('Android workflow runs the web gates before uploading an APK', () => {
   assert.match(workflow, /tests\/prepare-mobile\.test\.mjs/);
   assert.match(workflow, /run: npm run release:verify/);
   assert.match(workflow, /node --check prj\/launcher\.js/);
-  assert.match(workflow, /test -s android\/app\/build\/outputs\/apk\/debug\/app-debug\.apk/);
+  assert.match(workflow, /test -s android\/app\/build\/outputs\/apk\/release\/app-release\.apk/);
 });

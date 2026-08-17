@@ -1,8 +1,0 @@
-First-person voxel game, player looking at a grass block one meter away, sunny day, oak tree to the side.
-White plus crosshair in the exact center.
-Directly under the crosshair: a tiny Minecraft-style nametag, a small dark translucent rectangle with a 1-pixel beige border, square corners, no rounded card, no big popup, no flashcard.
-The nametag is blank, no letters.
-Bottom of screen: a compact 6-slot pixel hotbar.
-No left study list, no listening panel, no white paper UI, no logos, no watermark.
-No text, no letters, no numbers, no Chinese characters, no fake writing.
-Clean children's voxel game screenshot, diegetic HUD only.

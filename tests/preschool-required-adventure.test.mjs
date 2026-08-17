@@ -51,7 +51,7 @@ test('world game entries stay open even when required plans are unfinished', () 
     assert.match(exits, /data-action="open-world-game"/);
     assert.doesNotMatch(exits, /先完成今日必做/);
     assert.doesNotMatch(exits, /disabled/);
-    assert.match(app, /进入方块传奇/);
+    assert.doesNotMatch(app, /进入方块传奇/);
     assert.doesNotMatch(app, /先完成今日必做/);
     assert.match(wall, /preschool-course-today-adventure/);
     assert.match(html, /app\.js\?v=20260818-phonics-zh-v1/);

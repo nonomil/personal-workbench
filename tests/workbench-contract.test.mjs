@@ -165,7 +165,7 @@ test('keeps adult, child and preschool entry points isolated', () => {
   assert.match(workflow, /branches:\s*\n\s*- main/);
   assert.match(workflow, /tags:\s*\n\s*- 'v\*'/);
   assert.match(workflow, /working-directory:\s*android/);
-  assert.match(workflow, /assembleDebug/);
+  assert.match(workflow, /assembleRelease/);
   assert.match(workflow, /softprops\/action-gh-release/);
   assert.match(config, /workbench-hero-child/);
   assert.match(config, /reward-story-choice/);
