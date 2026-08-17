@@ -12,17 +12,17 @@
 
     const LEVELS = [
         {
-            level: 1, waves: 2, bossHp: 80, bossShield: 3, climate: 'plains', worldSeed: 7,
+            level: 1, waves: 3, bossHp: 80, bossShield: 3, climate: 'plains', worldSeed: 7,
             bossId: 'wither', bossMechanic: 'speak-break', missionType: 'chop-craft-fight',
-            waveKinds: ['slime', 'cube', 'creeper'], targetWords: 5, reviewRatio: 0.2,
+            waveKinds: ['slime', 'cube', 'creeper'], targetWords: 12, reviewRatio: 0.2,
             wordThemes: ['自然', '物品', '动物'],
-            focusWords: ['tree', 'dirt', 'sword', 'slime', 'apple'],
+            focusWords: ['tree', 'sword', 'slime', 'apple', 'jump', 'sun', 'flower', 'run'],
             unlock: { coins: 0, recallWords: 0 }
         },
         {
             level: 2, waves: 2, bossHp: 110, bossShield: 4, climate: 'cherry', worldSeed: 21,
             bossId: 'mirror-fox', bossMechanic: 'direction-callout', missionType: 'find-and-guide',
-            waveKinds: ['slime', 'fox', 'creeper'], targetWords: 6, reviewRatio: 0.4,
+            waveKinds: ['slime', 'fox', 'creeper'], targetWords: 14, reviewRatio: 0.4,
             wordThemes: ['动物', '自然', '方位'],
             focusWords: ['fox', 'flower', 'left', 'right', 'behind', 'tree'],
             unlock: { coins: 50, recallWords: 5 }
@@ -30,7 +30,7 @@
         {
             level: 3, waves: 3, bossHp: 140, bossShield: 4, climate: 'desert', worldSeed: 33,
             bossId: 'key-guardian', bossMechanic: 'spell-key', missionType: 'collect-key',
-            waveKinds: ['cube', 'zombie', 'husk'], targetWords: 6, reviewRatio: 0.4,
+            waveKinds: ['cube', 'zombie', 'husk'], targetWords: 14, reviewRatio: 0.4,
             wordThemes: ['物品', '自然', '动作'],
             focusWords: ['sand', 'stone', 'key', 'door', 'chest', 'open'],
             unlock: { coins: 150, recallWords: 5 }
@@ -38,7 +38,7 @@
         {
             level: 4, waves: 3, bossHp: 170, bossShield: 5, climate: 'duskvale', worldSeed: 47,
             bossId: 'dragon', bossMechanic: 'action-potion', missionType: 'night-escort',
-            waveKinds: ['fox', 'skeleton', 'enderman'], targetWords: 7, reviewRatio: 0.5,
+            waveKinds: ['fox', 'skeleton', 'enderman'], targetWords: 16, reviewRatio: 0.5,
             wordThemes: ['动作', '生活', '动物'],
             focusWords: ['run', 'jump', 'torch', 'night', 'wolf', 'help', 'light'],
             unlock: { coins: 300, recallWords: 5 }
@@ -46,7 +46,7 @@
         {
             level: 5, waves: 3, bossHp: 200, bossShield: 5, climate: 'crystal', worldSeed: 59,
             bossId: 'storm', bossMechanic: 'listen-pair', missionType: 'sort-crystal',
-            waveKinds: ['spider', 'witch', 'warden', 'golem'], targetWords: 7, reviewRatio: 0.5,
+            waveKinds: ['spider', 'witch', 'warden', 'golem'], targetWords: 16, reviewRatio: 0.5,
             wordThemes: ['描述', '颜色', '自然'],
             focusWords: ['blue', 'red', 'hard', 'soft', 'bright', 'dark', 'crystal'],
             unlock: { coins: 500, recallWords: 5 }
@@ -54,7 +54,7 @@
         {
             level: 6, waves: 4, bossHp: 240, bossShield: 6, climate: 'nether', worldSeed: 71,
             bossId: 'wither', bossMechanic: 'review-route', missionType: 'mixed-review',
-            waveKinds: ['magma', 'piglin', 'ghast'], targetWords: 8, reviewRatio: 0.7,
+            waveKinds: ['magma', 'piglin', 'ghast', 'blaze'], targetWords: 18, reviewRatio: 0.7,
             wordThemes: ['高频词', '动物', '物品'],
             focusWords: ['fire', 'gold', 'hot', 'dark', 'run', 'help', 'door', 'key'],
             unlock: { coins: 800, recallWords: 5 }
@@ -81,11 +81,11 @@
     }
 
     function bossTitle(id) {
-        if (id === 'dragon') return '末影龙';
-        if (id === 'storm') return '凋零风暴';
+        if (id === 'dragon') return '墨翼';
+        if (id === 'storm') return '雷语';
         if (id === 'mirror-fox') return '镜子狐狸';
         if (id === 'key-guardian') return '钥匙守卫';
-        return '凋零';
+        return '字母石像';
     }
 
     function createBoss(level) {

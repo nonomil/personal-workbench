@@ -35,18 +35,12 @@
         if (o.nearMerchant || o.doing === 'walk-merchant') {
             return { kind: 'remind', say: 'Press F. Talk to Leo.' };
         }
-        if (o.doing === 'swing') {
-            return { kind: 'remind', say: 'Slow. Say the word.' };
-        }
-        if ((Number(o.unread) || 0) >= 3) {
-            return { kind: 'remind', say: "Say it. Don't only click." };
-        }
         const word = wordOf(o);
         if (o.shield === 'up' && word) {
             return { kind: 'remind', say: clipLine('Shield. Say ' + word + '.') };
         }
         if (o.look && o.look.type === 'mob' && word) {
-            return { kind: 'remind', say: clipLine('Look. Say ' + word + '.') };
+            return { kind: 'remind', say: clipLine('Press V. Say ' + word + '.') };
         }
         return { kind: 'silent', say: '' };
     }
@@ -121,6 +115,30 @@
         return clipLine(text);
     }
 
+    function queryGet(search, key) {
+        if (search && typeof search.get === 'function') return search.get(key) || '';
+        const raw = String(search || '').replace(/^\?/, '');
+        try {
+            return new URLSearchParams(raw).get(key) || '';
+        } catch (e) {
+            return '';
+        }
+    }
+
+    function shouldSkipBuddyGate(search) {
+        if (queryGet(search, 'playtest') === '1') return true;
+        if (queryGet(search, 'skipBuddyGate') === '1') return true;
+        if (queryGet(search, 'buddyEndpoint')) return true;
+        return false;
+    }
+
+    function applyBuddyPick(pick) {
+        const p = String(pick || '');
+        if (p === 'home') return { pick: 'home', typeOnly: false, openForm: true, clearModel: false };
+        if (p === 'type') return { pick: 'type', typeOnly: true, openForm: false, clearModel: true };
+        return { pick: 'play', typeOnly: false, openForm: false, clearModel: true };
+    }
+
     function resolveBuddyConfig(source) {
         const s = source || {};
         const q = s.query || {};
@@ -129,12 +147,15 @@
         const model = q.buddyModel || pasted.model || DEFAULT_MODEL;
         const apiKey = pasted.apiKey || '';
         const ttsUrl = q.buddyTts || pasted.ttsUrl || '';
+        const base = normalizeEndpoint(endpoint);
+        const sttUrl = q.buddyStt || pasted.sttUrl || (base ? base + '/stt' : '');
         return {
             enabled: !!endpoint,
             endpoint: endpoint,
             model: model,
             apiKey: apiKey,
-            ttsUrl: ttsUrl
+            ttsUrl: ttsUrl,
+            sttUrl: sttUrl
         };
     }
 
@@ -220,6 +241,8 @@
         replyTo: replyTo,
         buildChatRequest: buildChatRequest,
         parseChatReply: parseChatReply,
+        shouldSkipBuddyGate: shouldSkipBuddyGate,
+        applyBuddyPick: applyBuddyPick,
         resolveBuddyConfig: resolveBuddyConfig,
         pickTtsVoice: pickTtsVoice,
         planSpeak: planSpeak,

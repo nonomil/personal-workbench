@@ -17,9 +17,11 @@
     const BOLT_TURN = 7.2; // rad/s
     const BOLT_LIFE = 2.4;
     const CONTACT_RANGE = 1.7; // 停在玩家前方可见距离（1.15 时低于相机半视场角看不见）
+    const AGGRO_ENTER = 8;
+    const AGGRO_EXIT = 14;
 
     const MONSTERS = {
-        slime: { kind: 'slime', hp: 24, coins: 4, contact: 1, speed: 1.35, loot: 'slime-gel', color: 0x6fbf4a },
+        slime: { kind: 'slime', hp: 24, coins: 4, contact: 1, speed: 1.12, loot: 'slime-gel', color: 0x6fbf4a },
         cube: { kind: 'cube', hp: 36, coins: 6, contact: 2, speed: 1.05, loot: 'cube-shard', color: 0xc47a3a },
         husk: { kind: 'husk', hp: 48, coins: 8, contact: 2, speed: 1.05, loot: 'husk-bone', color: 0x8a8f99 },
         fox: { kind: 'fox', hp: 28, coins: 5, contact: 1, speed: 1.55, loot: 'fox-fur', color: 0xe07a28 },
@@ -61,6 +63,16 @@
         const o = opts || {};
         if (o.hasTorch && o.inCave) return 0.6;
         return 1;
+    }
+
+    function tickAggro(wasAggro, dist, enter, exit) {
+        const on = Number(enter) > 0 ? Number(enter) : AGGRO_ENTER;
+        const off = Number(exit) > 0 ? Number(exit) : AGGRO_EXIT;
+        const d = Number(dist);
+        if (!(d >= 0)) return !!wasAggro;
+        if (d <= on) return true;
+        if (d >= off) return false;
+        return !!wasAggro;
     }
 
     function behaviorStopRange(behavior, contact) {
@@ -146,10 +158,10 @@
         const f = forwardXZ(yaw);
         const right = { x: -f.z, z: f.x };
         const rows = [
-            { dx: f.x * 4.0, dz: f.z * 4.0 },
-            { dx: f.x * 5.2 + right.x * -2.2, dz: f.z * 5.2 + right.z * -2.2 },
-            { dx: f.x * 5.2 + right.x * 2.2, dz: f.z * 5.2 + right.z * 2.2 },
-            { dx: f.x * 6.4, dz: f.z * 6.4 }
+            { dx: f.x * 10.0, dz: f.z * 10.0 },
+            { dx: f.x * 11.2 + right.x * -2.4, dz: f.z * 11.2 + right.z * -2.4 },
+            { dx: f.x * 11.2 + right.x * 2.4, dz: f.z * 11.2 + right.z * 2.4 },
+            { dx: f.x * 12.4, dz: f.z * 12.4 }
         ];
         return rows.slice(0, Math.max(1, Number(n) || 3));
     }
@@ -262,6 +274,9 @@
         BOLT_TURN: BOLT_TURN,
         BOLT_LIFE: BOLT_LIFE,
         CONTACT_RANGE: CONTACT_RANGE,
+        AGGRO_ENTER: AGGRO_ENTER,
+        AGGRO_EXIT: AGGRO_EXIT,
+        tickAggro: tickAggro,
         MONSTERS: MONSTERS,
         MONSTER_KINDS: MONSTER_KINDS,
         behaviorOf: behaviorOf,

@@ -18,6 +18,26 @@
         { id: 'apple', text: 'apple', zh: '苹果', theme: '食物' }
     ];
 
+    const BLOCK_FILLER = {
+        grass: 1, dirt: 1, log: 1, leaf: 1, leaves: 1, plank: 1,
+        cobble: 1, water: 1, snow: 1
+    };
+
+    function isBlockFiller(text) {
+        return !!BLOCK_FILLER[String(text || '').toLowerCase()];
+    }
+
+    function shuffle(list) {
+        const out = (list || []).slice();
+        for (let i = out.length - 1; i > 0; i -= 1) {
+            const j = Math.floor(Math.random() * (i + 1));
+            const tmp = out[i];
+            out[i] = out[j];
+            out[j] = tmp;
+        }
+        return out;
+    }
+
     function byId(a, b) {
         return String(a.id || a.text) < String(b.id || b.text) ? -1 : 1;
     }
@@ -41,6 +61,7 @@
                 level: card.curriculumLevel || 'L1',
                 phrase: card.example || card.phrase || '',
                 phraseZh: card.exampleZh || card.phraseTranslation || '',
+                phonetic: card.phonetic || '',
                 distractors: Array.isArray(card.distractors) ? card.distractors.slice() : [],
                 media: { image: image, audio: audio }
             };
@@ -147,7 +168,7 @@
         };
     }
 
-    const QUIZ_MODES = ['choice', 'listen', 'picture', 'fill', 'spell', 'phrase', 'sentence'];
+    const QUIZ_MODES = ['choice', 'enpick', 'listen', 'picture', 'fill', 'spell', 'phrase', 'sentence'];
     const HARD_MISS = 3;
     const PHRASE_EVERY = 4;
 
@@ -170,7 +191,7 @@
 
     function availableModes(word) {
         const w = word || {};
-        const modes = ['choice'];
+        const modes = ['choice', 'enpick'];
         if (w.media && (w.media.audio || w.text)) modes.push('listen');
         if (w.media && w.media.image) modes.push('picture');
         if (blankPhrase(w)) modes.push('fill');
@@ -211,6 +232,20 @@
         return hasSentence(word) && turn > 0 && turn % PHRASE_EVERY === 2;
     }
 
+    function modeForStage(stage, word) {
+        const modes = availableModes(word);
+        function first(ids) {
+            for (let i = 0; i < ids.length; i += 1) {
+                if (modes.indexOf(ids[i]) >= 0) return ids[i];
+            }
+            return 'choice';
+        }
+        if (stage === 'familiar') return first(['enpick', 'choice']);
+        if (stage === 'due' || stage === 'mastered') return first(['listen', 'fill', 'enpick']);
+        if (stage === 'spoken' || stage === 'recall') return first(['fill', 'spell', 'enpick']);
+        return 'choice';
+    }
+
     function pickQuizMode(word, opts) {
         const o = opts || {};
         if (o.mode && QUIZ_MODES.indexOf(o.mode) >= 0) return o.mode;
@@ -220,8 +255,16 @@
             if (modes.indexOf('fill') >= 0) return 'fill';
             return 'choice';
         }
+        if (o.stage && o.stage !== 'new') return modeForStage(o.stage, word);
         const turn = Number(o.turn) || 0;
         if (!o.gate && hasSentence(word) && turn > 0 && turn % PHRASE_EVERY === 0) return 'sentence';
+        if (turn > 0 && turn % 4 === 3) {
+            const modes = availableModes(word);
+            const mix = ['enpick', 'listen', 'fill', 'spell'].filter(function (id) {
+                return modes.indexOf(id) >= 0;
+            });
+            if (mix.length) return mix[Math.floor(Math.random() * mix.length)];
+        }
         return 'choice';
     }
 
@@ -325,6 +368,13 @@
             quiz.showPhrase = true;
             quiz.showPhraseZh = false;
             quiz.fallback = sent.fallback;
+        } else if (mode === 'enpick') {
+            quiz.prompt = '看中文，选英文';
+            quiz.hidePromptWord = true;
+            quiz.choices = englishChoices(src, bank);
+            quiz.answer = src.text;
+            quiz.showPhrase = !!(src.phrase);
+            quiz.showPhraseZh = !!(src.phraseZh);
         } else if (mode === 'choice') {
             quiz.showPhrase = shouldJoinPhrase(src, opts);
             quiz.showPhraseZh = false;
@@ -346,17 +396,21 @@
         if (preferred) return preferred;
         if (o.kind) {
             const label = labelFor(o.kind, list);
-            if (label && label.word) return label.word;
+            const word = label && label.word;
+            const id = word && (word.id || word.text);
+            if (word && id && !used[id] && !isBlockFiller(word.text)) return word;
         }
-        const focus = Array.isArray(o.focus) ? o.focus : [];
-        for (let i = 0; i < focus.length; i += 1) {
-            const hit = findText(focus[i]);
-            if (hit && !used[hit.id || hit.text]) return hit;
-        }
-        const fresh = list.filter(function (w) { return !used[w.id || w.text]; });
-        const src = fresh.length ? fresh : list;
-        if (!src.length) return null;
-        return src[Math.floor(Math.random() * src.length)];
+        const focusHits = (Array.isArray(o.focus) ? o.focus : []).map(findText).filter(function (hit) {
+            return hit && !used[hit.id || hit.text] && !isBlockFiller(hit.text);
+        });
+        if (focusHits.length) return focusHits[Math.floor(Math.random() * focusHits.length)];
+        const fresh = list.filter(function (w) {
+            return w && !used[w.id || w.text] && !isBlockFiller(w.text);
+        });
+        if (fresh.length) return fresh[Math.floor(Math.random() * fresh.length)];
+        const nonFill = list.filter(function (w) { return w && !isBlockFiller(w.text); });
+        if (nonFill.length) return nonFill[Math.floor(Math.random() * nonFill.length)];
+        return list[0] || null;
     }
 
     function matchCast(typed, targets) {
@@ -440,6 +494,30 @@
         };
     }
 
+    function findBankWord(list, key) {
+        const want = normAnswer(key);
+        if (!want) return null;
+        return list.find(function (w) {
+            return w && (normAnswer(w.text) === want || normAnswer(w.id) === want);
+        }) || null;
+    }
+
+    function collectReviewKeys(opts) {
+        const o = opts || {};
+        const keys = [];
+        function push(key) {
+            const k = String(key || '').trim();
+            if (k && keys.indexOf(k) < 0) keys.push(k);
+        }
+        (o.review || []).forEach(push);
+        (o.missed || []).forEach(push);
+        const mastery = o.mastery || {};
+        Object.keys(mastery).forEach(function (id) {
+            if (masteryStage(mastery[id], o.today) === 'due') push(id);
+        });
+        return keys;
+    }
+
     function focusPool(bank, level, opts) {
         const o = opts || {};
         const size = Math.max(1, Number(o.size) || 5);
@@ -447,26 +525,26 @@
         const list = Array.isArray(bank) ? bank : [];
         const out = [];
         const used = {};
+        function add(hit, allowFiller) {
+            if (!hit || out.length >= size) return;
+            if (!allowFiller && isBlockFiller(hit.text)) return;
+            const id = hit.id || hit.text;
+            if (!id || used[id]) return;
+            used[id] = true;
+            out.push(hit);
+        }
+        const reviewN = Math.min(size, Math.round(size * Math.max(0, Number(o.reviewRatio) || 0)));
+        if (reviewN) {
+            collectReviewKeys(o).forEach(function (key) {
+                if (out.length < reviewN) add(findBankWord(list, key), true);
+            });
+        }
         prefer.forEach(function (text) {
-            if (out.length >= size) return;
-            const hit = list.find(function (w) { return w && w.text === text; });
-            if (hit) {
-                const id = hit.id || hit.text;
-                if (!used[id]) {
-                    used[id] = true;
-                    out.push(hit);
-                }
-            }
+            add(findBankWord(list, text), false);
         });
-        poolForLevel(list, level).forEach(function (w) {
-            if (out.length >= size) return;
-            const id = w.id || w.text;
-            if (!used[id]) {
-                used[id] = true;
-                out.push(w);
-            }
-        });
-        return out.slice(0, size);
+        shuffle(poolForLevel(list, level)).forEach(function (hit) { add(hit, false); });
+        if (out.length < size) shuffle(list).forEach(function (hit) { add(hit, false); });
+        return shuffle(out).slice(0, size);
     }
 
     function bossAskTimes(maxHp) {
@@ -477,9 +555,13 @@
         return bossAskTimes(maxHp) === 3 ? [0.75, 0.5, 0.25] : [0.5, 0.25];
     }
 
+    const REASK_HITS = 3;
+
     function shouldAsk(opts) {
         const o = opts || {};
         if (o.force) return true;
+        if (o.firstHit) return true;
+        if (o.lastQuizWrong && (Number(o.hitsSinceQuiz) || 0) >= REASK_HITS) return true;
         return (Number(o.voiceFails) || 0) >= 2;
     }
 
@@ -574,20 +656,20 @@
         chest: '箱子',
         furnace: '熔炉',
         torch: '火把',
-        dragon: '末影龙',
-        storm: '凋零风暴',
+        dragon: '墨翼',
+        storm: '雷语',
         bed: '床',
         wheat: '小麦',
-        golem: '铁傀儡',
+        golem: '铁卫',
         gate: '单词闸门',
         plank: '木板',
         table: '合成台',
         log: '原木',
         leaf: '树叶',
-        slime: '史莱姆',
+        slime: '漏字史莱姆',
         cube: '方块兽',
-        husk: '尸壳',
-        creeper: '苦力怕',
+        husk: '沙行者',
+        creeper: '绿爆怪',
         zombie: '僵尸',
         skeleton: '骷髅',
         spider: '蜘蛛',
@@ -598,8 +680,8 @@
         magma: '岩浆怪',
         blaze: '烈焰人',
         ghast: '恶魂',
-        warden: '监守者',
-        boss: '凋零',
+        warden: '循声守卫',
+        boss: '字母石像',
         merchant: '村民',
         word: '单词方块',
         bow: '弓',
@@ -616,6 +698,18 @@
         if (type === 'mob' || type === 'npc' || type === 'animal') return true;
         if (kind === 'word') return true;
         return !QUIET_LOOK[String(kind || '')];
+    }
+
+    function shouldShowLookLabel(kind, type) {
+        if (type === 'mob' || type === 'npc' || type === 'animal' || type === 'prop') return true;
+        if (kind === 'word' || kind === 'gate') return true;
+        return !QUIET_LOOK[String(kind || '')];
+    }
+
+    function shouldRevealLookZh(opts) {
+        const o = opts || {};
+        if (o.type === 'mob') return !!o.asked;
+        return true;
     }
 
     function labelFor(kind, bank) {
@@ -745,6 +839,7 @@
         needsHardMode: needsHardMode,
         bindCastWord: bindCastWord,
         matchCast: matchCast,
+        REASK_HITS: REASK_HITS,
         shouldAsk: shouldAsk,
         shouldNudgeSpeak: shouldNudgeSpeak,
         nextWord: nextWord,
@@ -752,6 +847,8 @@
         countFamiliar: countFamiliar,
         labelFor: labelFor,
         shouldAutoSpeak: shouldAutoSpeak,
+        shouldShowLookLabel: shouldShowLookLabel,
+        shouldRevealLookZh: shouldRevealLookZh,
         sayStrip: sayStrip,
         collectWordBlock: collectWordBlock,
         commitWordBlock: commitWordBlock,

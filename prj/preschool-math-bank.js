@@ -18,7 +18,7 @@
         { id: 'mixMulDiv', group: '混合', title: '乘除一起练', summary: '100 以内乘法 + 简单除法' },
         { id: 'mixKoujue', group: '混合', title: '口诀 + 除法', summary: '乘法口诀和对应的除法' }
     ];
-    var DEFAULT_PRACTICE_BAND = 'mix100';
+    var DEFAULT_PRACTICE_BAND = 'within20';
     var BAND_IDS = {};
     PRACTICE_BANDS.forEach(function (item) { BAND_IDS[item.id] = true; });
     var CN_NUM = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
@@ -115,7 +115,7 @@
     function normalizePracticeBand(id) {
         const value = String(id || '');
         if (BAND_IDS[value]) return value;
-        if (value === 'within100') return 'mix100';
+        if (value === 'within100') return 'addsub100';
         return DEFAULT_PRACTICE_BAND;
     }
 

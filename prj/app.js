@@ -2925,6 +2925,7 @@
                 return `<button class="lesson-dialog-option literacy-find-option ${isCorrect ? 'is-correct' : ''} ${isWrong ? 'is-wrong' : ''}" type="button" data-action="lesson-answer" data-index="${index}" aria-pressed="${isSelected}" ${bankQuiz.roundCorrect ? 'disabled' : ''}><strong>${escapeHtml(option)}</strong>${isCorrect ? icon('check') : isWrong ? icon('rotate-ccw') : icon('arrow-right')}</button>`;
             }).join('');
             const speakText = round.speak || round.text || '';
+            const isPhonicsQuiz = bankQuiz.mode === 'phonics-cvc' || bankQuiz.mode === 'phonics-letter';
             const cue = bankQuiz.mode === 'math-bank'
                 ? `<p class="literacy-char">${escapeHtml(round.tokens || '')}</p>`
                 : bankQuiz.mode === 'poetry-line'
@@ -2933,7 +2934,12 @@
                         ? (bankQuiz.roundCorrect
                             ? `<p class="literacy-pinyin">${escapeHtml(round.blend || '')}</p><p class="literacy-char">${escapeHtml(round.text || '')}</p>`
                             : '<p class="literacy-pinyin">听声调</p><p class="literacy-char">♪</p>')
-                        : `<p class="literacy-pinyin">${escapeHtml(round.blend || '')}</p><p class="literacy-char">${bankQuiz.roundCorrect ? escapeHtml(round.text || '') : '?'}</p>`;
+                        : isPhonicsQuiz
+                            ? `<p class="literacy-pinyin phonics-ipa">${escapeHtml(round.ipa || '')}</p><p class="literacy-char">${bankQuiz.roundCorrect ? escapeHtml(round.text || '') : '?'}</p><p class="literacy-word">${escapeHtml(round.blend || '')}${round.ipaParts ? ' · ' + escapeHtml(round.ipaParts) : ''}${round.keyword && bankQuiz.roundCorrect ? ' · ' + escapeHtml(round.keyword) : ''}${round.zh && bankQuiz.roundCorrect ? ' · ' + escapeHtml(round.zh) : ''}</p>`
+                            : `<p class="literacy-pinyin">${escapeHtml(round.blend || '')}</p><p class="literacy-char">${bankQuiz.roundCorrect ? escapeHtml(round.text || '') : '?'}</p>`;
+            const partsSpeak = isPhonicsQuiz && ((round.speakParts && round.speakParts.length) || round.speakSound)
+                ? `<button class="btn-secondary" type="button" data-action="phonics-speak-parts" data-parts="${escapeHtml((round.speakParts && round.speakParts.length ? round.speakParts : [round.speakSound]).join('|'))}" aria-label="听拆音">${icon('volume-2')} 听拆音</button>`
+                : '';
             const canAdvance = bankQuiz.roundCorrect || bankQuiz.complete;
             const nextLabel = bankQuiz.complete ? '完成' : (bankQuiz.roundIndex >= total - 1 ? '完成' : '下一题');
             const nextAction = bankQuiz.complete || (bankQuiz.roundCorrect && bankQuiz.roundIndex >= total - 1) ? 'lesson-finish' : 'bank-quiz-next';
@@ -2944,7 +2950,7 @@
                     : ui.lessonSession.selectedIndex !== null
                         ? '<p class="lesson-dialog-feedback" role="status">再想想哦～</p>'
                         : `<p class="lesson-dialog-feedback">${escapeHtml(round.prompt || '')}</p>`;
-            lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}${renderLessonFourSteps(match.lesson)}<div class="literacy-find-progress" aria-label="题目进度"><span>第 ${bankQuiz.roundIndex + 1}/${total} 题</span><span class="literacy-stars">${stars}</span></div><h3 class="lesson-dialog-prompt">${escapeHtml(round.prompt || '')}</h3><article class="literacy-card literacy-find-cue">${cue}<div class="literacy-find-tools"><button class="btn-secondary" type="button" data-action="bank-quiz-speak" data-text="${escapeHtml(speakText)}" data-lang="${escapeHtml(bankQuiz.speakLang || 'zh-CN')}" aria-label="听一听">${icon('volume-2')} 听一听</button></div></article><div class="lesson-dialog-options literacy-find-options" role="group" aria-label="选项">${optionMarkup}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary lesson-quit" type="button" data-action="close-lesson" aria-label="先放一放" title="先放一放">${icon('x')}</button><button class="btn-primary" type="button" data-action="${nextAction}" ${canAdvance ? '' : 'disabled'}>${icon(canAdvance ? 'sparkles' : 'lock-keyhole')}${nextLabel}</button></div></div>`;
+            lessonDialogContent.innerHTML = `<div class="lesson-dialog-body">${progressHead}${renderLessonFourSteps(match.lesson)}<div class="literacy-find-progress" aria-label="题目进度"><span>第 ${bankQuiz.roundIndex + 1}/${total} 题</span><span class="literacy-stars">${stars}</span></div><h3 class="lesson-dialog-prompt">${escapeHtml(round.prompt || '')}</h3><article class="literacy-card literacy-find-cue">${cue}<div class="literacy-find-tools"><button class="btn-secondary" type="button" data-action="bank-quiz-speak" data-text="${escapeHtml(speakText)}" data-lang="${escapeHtml(bankQuiz.speakLang || 'zh-CN')}" aria-label="听一听">${icon('volume-2')} ${isPhonicsQuiz ? '听单词' : '听一听'}</button>${partsSpeak}</div></article><div class="lesson-dialog-options literacy-find-options" role="group" aria-label="选项">${optionMarkup}</div>${feedback}<div class="lesson-dialog-actions"><button class="btn-secondary lesson-quit" type="button" data-action="close-lesson" aria-label="先放一放" title="先放一放">${icon('x')}</button><button class="btn-primary" type="button" data-action="${nextAction}" ${canAdvance ? '' : 'disabled'}>${icon(canAdvance ? 'sparkles' : 'lock-keyhole')}${nextLabel}</button></div></div>`;
         } else if (ui.lessonSession.play) {
             lessonDialogContent.innerHTML = renderPlayLessonBody(progressHead, ui.lessonSession.play);
         } else if (ui.lessonSession.timer) {
@@ -3694,7 +3700,16 @@
         const bankQuiz = ui.lessonSession && ui.lessonSession.bankQuiz;
         if (!bankQuiz || !bankQuiz.run) return;
         const round = bankQuiz.run.rounds[bankQuiz.roundIndex];
-        if (round && round.speak) speakLiteracy(round.speak, bankQuiz.speakLang || 'zh-CN');
+        if (!round) return;
+        if (bankQuiz.mode === 'phonics-letter' && (round.speakSound || (round.speakParts && round.speakParts.length))) {
+            speakPhonicsParts((round.speakParts && round.speakParts.length ? round.speakParts : [round.speakSound]).concat(round.speak ? [round.speak] : []), 'en-US');
+            return;
+        }
+        if (bankQuiz.mode === 'phonics-cvc' && Array.isArray(round.speakParts) && round.speakParts.length) {
+            speakPhonicsParts(round.speakParts.concat(round.speak ? [round.speak] : []), 'en-US');
+            return;
+        }
+        if (round.speak) speakLiteracy(round.speak, bankQuiz.speakLang || 'zh-CN');
     }
 
     function advanceBankQuiz() {
@@ -3714,6 +3729,16 @@
         return true;
     }
 
+    function pickSpeechVoice(lang) {
+        if (!global.speechSynthesis || typeof global.speechSynthesis.getVoices !== 'function') return null;
+        const voices = global.speechSynthesis.getVoices() || [];
+        const want = String(lang || 'zh-CN').toLowerCase();
+        const prefix = want.split('-')[0];
+        return voices.find(function (voice) { return String(voice.lang || '').toLowerCase() === want; })
+            || voices.find(function (voice) { return String(voice.lang || '').toLowerCase().indexOf(prefix) === 0; })
+            || null;
+    }
+
     function speakLiteracy(text, lang, rate) {
         if (!global.speechSynthesis || !global.SpeechSynthesisUtterance) {
             showToast('当前浏览器暂不支持听发音。', true);
@@ -3724,10 +3749,41 @@
             const utterance = new global.SpeechSynthesisUtterance(String(text || ''));
             utterance.lang = lang || 'zh-CN';
             utterance.rate = Number(rate) > 0 ? Number(rate) : 0.8;
+            const voice = pickSpeechVoice(utterance.lang);
+            if (voice) utterance.voice = voice;
             global.speechSynthesis.speak(utterance);
         } catch (error) {
             console.warn('[PersonalWorkbench] 识字发音失败', error);
             showToast('暂时听不了，请看大字。', true);
+        }
+    }
+
+    function speakPhonicsParts(parts, lang) {
+        const list = (Array.isArray(parts) ? parts : String(parts || '').split('|')).map(function (item) {
+            return String(item || '').trim();
+        }).filter(Boolean);
+        if (!list.length) return;
+        if (!global.speechSynthesis || !global.SpeechSynthesisUtterance) {
+            showToast('当前浏览器暂不支持听发音。', true);
+            return;
+        }
+        try {
+            global.speechSynthesis.cancel();
+            const voiceLang = lang || 'en-US';
+            const voice = pickSpeechVoice(voiceLang);
+            function next(index) {
+                if (index >= list.length) return;
+                const utterance = new global.SpeechSynthesisUtterance(list[index]);
+                utterance.lang = voiceLang;
+                utterance.rate = 0.7;
+                if (voice) utterance.voice = voice;
+                utterance.onend = function () { setTimeout(function () { next(index + 1); }, 160); };
+                global.speechSynthesis.speak(utterance);
+            }
+            next(0);
+        } catch (error) {
+            console.warn('[PersonalWorkbench] 拼读拆音失败', error);
+            showToast('暂时听不了，请看音标。', true);
         }
     }
 
@@ -4597,13 +4653,10 @@
         }
         if (course.id === 'preschool-exercise') {
             if (session && session.motionDone) return true;
-            const levels = global.PersonalWorkbenchBankLevels;
-            const bank = getLevelBanks().motion || [];
-            const scoped = levels && typeof levels.levelPool === 'function' ? levels.levelPool(bank, getPracticeLevelForCourse(course.id)) : bank;
-            const pool = scoped.length ? scoped : bank;
+            const items = getTodayMotionItems();
             const mastery = getPreschoolCourseMasteryMap(course);
-            return pool.length > 0 && pool.every(function (motion) {
-                return hasPreschoolMasteryToday(mastery[motion.id], today);
+            return items.length > 0 && items.every(function (item) {
+                return hasPreschoolMasteryToday(mastery[item.key], today);
             });
         }
         if (course.id === 'preschool-focus') {
@@ -4829,6 +4882,10 @@
             const theme = item && item.theme ? item.theme : '';
             return theme ? '今天学：' + theme : '今天 ' + total + ' 张';
         }
+        if (course.id === 'preschool-math') {
+            const band = getMathPracticeBandMeta();
+            return (band.title || '口算') + ' · 今天 ' + total + ' 道';
+        }
         return getPreschoolCourseShortTitle(course) + ' · ' + getPracticeLevelLabel(course.id) + ' · 今天 ' + total + ' 张';
     }
 
@@ -4842,7 +4899,7 @@
                 'preschool-english': getEnglishTodayThemeLabel(size),
                 'preschool-minecraft': getMinecraftTodayThemeLabel(size),
                 'preschool-pinyin': '今天认 ' + size + ' 个拼音',
-                'preschool-phonics': '今天认 ' + size + ' 个词',
+                'preschool-phonics': getPracticeLevelForCourse('preschool-phonics') === 'L1' ? '今天认 ' + size + ' 个字母' : '今天认 ' + size + ' 个词',
                 'preschool-math': '今天 ' + size + ' 道口算'
             };
             return labels[course.id] || ('今天 ' + size + ' 张');
@@ -4852,7 +4909,7 @@
             return poem && poem.title ? '今日一首 · ' + poem.title : '今日一首';
         }
         if (course.id === 'preschool-focus') return '点一张卡开始玩';
-        if (course.id === 'preschool-exercise') return '跟做今天的动作';
+        if (course.id === 'preschool-exercise') return '今天 ' + getTodayMotionItems().length + ' 个动作';
         if (course.id === 'preschool-summer') return '今天看五样';
         return '';
     }
@@ -4914,11 +4971,44 @@
         }
         if (course.id === 'preschool-math') {
             const engine = getMathBankEngine();
-            if (!engine || typeof engine.buildQuiz !== 'function') return [];
-            const quiz = engine.buildQuiz(engine.getRuntimeBank(), { level: level, band: getMathPracticeBand(), size: size, salt: today });
+            if (!engine || typeof engine.buildPracticeQuiz !== 'function') return [];
+            const quiz = engine.buildPracticeQuiz(getMathPracticeBand(), { size: size, salt: preschoolDateSalt(today) });
             const rounds = quiz && Array.isArray(quiz.rounds) ? quiz.rounds : [];
             return rounds.map(function (round) {
-                return { key: round.id, main: round.tokens || round.prompt || '', sub: '', rows: [{ label: '答案', text: String(round.answerValue) }], speak: round.speak || round.prompt || '', lang: 'zh-CN', review: false, art: preschoolCardArt({ kind: 'math', text: round.tokens || round.prompt || '', main: round.tokens || '', answer: round.answerValue }) };
+                return {
+                    key: round.id,
+                    main: round.tokens || round.prompt || '',
+                    sub: round.prompt || '算一算',
+                    rows: [],
+                    options: Array.isArray(round.options) ? round.options : [],
+                    answerIndex: Number(round.answer) || 0,
+                    speak: round.speak || round.prompt || '',
+                    lang: 'zh-CN',
+                    review: false,
+                    art: ''
+                };
+            });
+        }
+        if (course.id === 'preschool-phonics') {
+            const engine = getPhonicsEngine();
+            if (!engine) return [];
+            const cards = level === 'L1' && typeof engine.buildLetterCards === 'function'
+                ? engine.buildLetterCards(engine.getRuntimeLetters(), { size: size, preferred: 'm' })
+                : engine.buildWordCards(engine.getRuntimeBank(), { size: size, level: level, preferred: 'mat' });
+            return cards.map(function (card) {
+                const media = resolvePreschoolCardMedia({ kind: 'phonics', text: card.main, theme: card.theme, media: card.media, art: card.art });
+                return {
+                    key: card.key,
+                    main: card.main,
+                    sub: card.sub || '',
+                    zh: card.zh || '',
+                    rows: card.rows || [],
+                    speak: card.speak,
+                    speakParts: card.speakParts || [],
+                    lang: 'en-US',
+                    review: false,
+                    art: media.markup
+                };
             });
         }
         const trackName = PRESCHOOL_SUBJECT_TRACK[course.id];
@@ -4968,10 +5058,18 @@
         });
     }
 
+    function preschoolDateSalt(today) {
+        const text = String(today || '');
+        let n = 0;
+        for (let i = 0; i < text.length; i += 1) n = (n * 33 + text.charCodeAt(i)) >>> 0;
+        return n;
+    }
+
     function getPreschoolCourseCardSession(course) {
         const level = course.id === 'preschool-minecraft' ? getMinecraftBand() : getPracticeLevelForCourse(course.id);
-        if (ui.courseCards && ui.courseCards.courseId === course.id && ui.courseCards.level === level && Array.isArray(ui.courseCards.items)) return ui.courseCards;
-        ui.courseCards = { courseId: course.id, items: buildPreschoolCourseCardItems(course), index: 0, marks: {}, revealed: {}, level: level };
+        const mathBand = course.id === 'preschool-math' ? getMathPracticeBand() : '';
+        if (ui.courseCards && ui.courseCards.courseId === course.id && ui.courseCards.level === level && ui.courseCards.mathBand === mathBand && Array.isArray(ui.courseCards.items)) return ui.courseCards;
+        ui.courseCards = { courseId: course.id, items: buildPreschoolCourseCardItems(course), index: 0, marks: {}, revealed: {}, level: level, mathBand: mathBand, mathPick: null };
         return ui.courseCards;
     }
 
@@ -4994,33 +5092,59 @@
             const stateClass = dotIndex < session.index ? 'is-on' : dotIndex === session.index ? 'is-current' : '';
             return `<i class="${stateClass}"></i>`;
         }).join('');
-        const rows = item.rows.map(function (row) {
+        const rows = (item.rows || []).map(function (row) {
             return `<div class="preschool-flashcard-row"><small>${escapeHtml(row.label)}</small><strong>${escapeHtml(row.text)}</strong></div>`;
         }).join('');
         const coverHint = {
             'preschool-english': '点开看意思',
             'preschool-minecraft': '点开看意思',
             'preschool-literacy': '点开看组词',
-            'preschool-math': '点开看答案',
             'preschool-pinyin': '点开看例字',
             'preschool-phonics': '点开看拼读'
         }[course.id] || '点开看看';
-        const side = isPreschoolFlashcardRevealed(session, item)
-            ? `<div class="preschool-flashcard-rows">${rows}</div>`
-            : `<button class="preschool-flashcard-cover" type="button" data-action="flashcard-reveal"><small>还不会？</small><strong>${coverHint}</strong></button>`;
+        const side = course.id === 'preschool-math'
+            ? renderPreschoolMathOptions(session, item)
+            : isPreschoolFlashcardRevealed(session, item)
+                ? `<div class="preschool-flashcard-rows">${rows}</div>`
+                : `<button class="preschool-flashcard-cover" type="button" data-action="flashcard-reveal"><small>还不会？</small><strong>${coverHint}</strong></button>`;
         const mainGlyph = course.id === 'preschool-literacy'
             ? `<div class="literacy-tianzige literacy-tianzige-lg" aria-hidden="true">${escapeHtml(item.main)}</div><strong>${escapeHtml(item.main)}</strong>`
             : `<strong>${escapeHtml(item.main)}</strong>`;
-        const compactToday = course.id === 'preschool-english' || course.id === 'preschool-literacy';
+        const compactToday = course.id === 'preschool-english' || course.id === 'preschool-literacy' || course.id === 'preschool-math';
         const reviewMark = item.review ? '<em class="preschool-flashcard-review">复习</em>' : '';
         const countMarkup = compactToday
             ? reviewMark
             : `<p class="preschool-flashcard-count">第 ${session.index + 1} / ${total} 张${reviewMark}</p>`;
-        const levelMarkup = compactToday && course.id === 'preschool-english' ? '' : renderPreschoolPracticeLevelChips(course);
+        const levelMarkup = course.id === 'preschool-math'
+            ? renderPreschoolMathBandChips()
+            : compactToday && course.id === 'preschool-english' ? '' : renderPreschoolPracticeLevelChips(course);
         const footMarkup = compactToday
             ? ''
             : '<div class="preschool-flashcard-foot"><button class="workbench-text-button" type="button" data-action="flashcard-classic">更多练习</button></div>';
-        return `<div class="preschool-flashcard-page tone-${escapeHtml(course.tone || 'blue')}${course.id === 'preschool-literacy' ? ' is-literacy' : ''}"><div class="preschool-flashcard-top"><button class="workbench-text-button" type="button" data-action="navigate" data-page="courses">${icon('arrow-left')}<span>卡片墙</span></button><strong>${escapeHtml(getPreschoolFlashcardCaption(course, session))}</strong><span class="preschool-flashcard-dots" aria-label="第 ${session.index + 1} 张，共 ${total} 张">${dots}</span></div>${levelMarkup}${countMarkup}<div class="preschool-flashcard"><div class="preschool-flashcard-main">${item.art || ''}${mainGlyph}${item.sub ? `<small>${escapeHtml(item.sub)}</small>` : ''}</div>${side}</div><div class="preschool-flashcard-toolbar"><button class="preschool-flashcard-speak" type="button" data-action="${item.lang === 'en-US' ? 'english-speak' : 'literacy-speak'}" data-text="${escapeHtml(item.speak)}" data-audio="${escapeHtml(item.audioUrl || resolvePreschoolCardMedia(item).audioUrl)}" aria-label="朗读${escapeHtml(item.main)}" title="点我朗读">${icon('volume-2')}<span>听一听</span></button></div><div class="preschool-flashcard-actions">${actionsMarkup}</div>${footMarkup}</div>`;
+        const pageClass = 'preschool-flashcard-page tone-' + escapeHtml(course.tone || 'blue')
+            + (course.id === 'preschool-literacy' ? ' is-literacy' : '')
+            + (course.id === 'preschool-math' ? ' is-math' : '');
+        const partsBtn = item.speakParts && item.speakParts.length
+            ? `<button class="preschool-flashcard-speak" type="button" data-action="phonics-speak-parts" data-parts="${escapeHtml(item.speakParts.join('|'))}" aria-label="听拆音" title="一个音一个音听">${icon('volume-2')}<span>听拆音</span></button>`
+            : '';
+        const speakLabel = course.id === 'preschool-phonics' ? '听单词' : '听一听';
+        const subClass = course.id === 'preschool-phonics' ? ' class="phonics-ipa"' : '';
+        const zhLine = course.id === 'preschool-phonics' && item.zh
+            ? `<small class="phonics-zh">${escapeHtml(item.zh)}</small>`
+            : '';
+        return `<div class="${pageClass}"><div class="preschool-flashcard-top"><button class="workbench-text-button" type="button" data-action="navigate" data-page="courses">${icon('arrow-left')}<span>卡片墙</span></button><strong>${escapeHtml(getPreschoolFlashcardCaption(course, session))}</strong><span class="preschool-flashcard-dots" aria-label="第 ${session.index + 1} 张，共 ${total} 张">${dots}</span></div>${levelMarkup}${countMarkup}<div class="preschool-flashcard"><div class="preschool-flashcard-main">${course.id === 'preschool-math' ? '' : (item.art || '')}${mainGlyph}${item.sub ? `<small${subClass}>${escapeHtml(item.sub)}</small>` : ''}${zhLine}</div>${side}</div><div class="preschool-flashcard-toolbar"><button class="preschool-flashcard-speak" type="button" data-action="${item.lang === 'en-US' ? 'english-speak' : 'literacy-speak'}" data-text="${escapeHtml(item.speak)}" data-audio="${escapeHtml(item.audioUrl || resolvePreschoolCardMedia(item).audioUrl)}" aria-label="朗读${escapeHtml(item.main)}" title="点我朗读">${icon('volume-2')}<span>${speakLabel}</span></button>${partsBtn}</div><div class="preschool-flashcard-actions">${actionsMarkup}</div>${footMarkup}</div>`;
+    }
+
+    function renderPreschoolMathOptions(session, item) {
+        const options = Array.isArray(item.options) ? item.options : [];
+        const pick = session.mathPick && session.mathPick.key === item.key ? session.mathPick : null;
+        return `<div class="preschool-math-options" role="group" aria-label="选得数">${options.map(function (option, index) {
+            const isPicked = !!(pick && pick.index === index);
+            const isCorrect = !!(pick && pick.correct && index === item.answerIndex);
+            const isWrong = !!(isPicked && pick && !pick.correct);
+            const locked = !!(pick && pick.correct);
+            return `<button class="preschool-math-option${isCorrect ? ' is-correct' : ''}${isWrong ? ' is-wrong' : ''}" type="button" data-action="flashcard-math-pick" data-index="${index}" ${locked ? 'disabled' : ''} aria-pressed="${isPicked ? 'true' : 'false'}"><strong>${escapeHtml(String(option))}</strong></button>`;
+        }).join('')}</div>`;
     }
 
     function renderPreschoolCourseFlashcards(course) {
@@ -5028,6 +5152,13 @@
         const total = session.items.length;
         if (!total || session.index >= total) return renderPreschoolFlashcardComplete(course, session);
         const item = session.items[session.index];
+        if (course.id === 'preschool-math') {
+            const pick = session.mathPick && session.mathPick.key === item.key ? session.mathPick : null;
+            const actions = pick && pick.correct
+                ? `<button class="preschool-flashcard-mark is-known" type="button" data-action="flashcard-mark" data-known="1">${icon('check')}<span>下一题</span></button>`
+                : `<p class="preschool-math-hint">${pick && !pick.correct ? '再想想哦～' : '选出得数'}</p>`;
+            return renderPreschoolCardFrame(course, session, item, actions);
+        }
         const labels = PRESCHOOL_FLASHCARD_MARK_LABELS[course.id] || ['还不会', '会了'];
         const actions = `<button class="preschool-flashcard-mark is-unknown" type="button" data-action="flashcard-mark" data-known="0">${icon('rotate-ccw')}<span>${labels[0]}</span></button><button class="preschool-flashcard-mark is-known" type="button" data-action="flashcard-mark" data-known="1">${icon('check')}<span>${labels[1]}</span></button>`;
         return renderPreschoolCardFrame(course, session, item, actions);
@@ -5066,36 +5197,56 @@
         return ui.courseCards;
     }
 
+    function getTodayMotionItems() {
+        const engine = global.PersonalWorkbenchPreschoolMotionArt;
+        const bank = getLevelBanks().motion || [];
+        const moves = bank.filter(function (item) { return item.type !== 'focus'; });
+        const pool = moves.length ? moves : bank;
+        const size = Math.min(4, pool.length);
+        const start = preschoolDayIndex(pool.length || 1);
+        const picked = [];
+        for (let i = 0; i < size; i += 1) picked.push(pool[(start + i) % pool.length]);
+        return picked.map(function (motion) {
+            return {
+                key: motion.id,
+                main: motion.name || '运动',
+                howTo: (engine && typeof engine.howTo === 'function' ? engine.howTo(motion) : '') || motion.howTo || ('跟爸爸妈妈一起做' + (motion.name || '这个动作')),
+                seconds: Number(motion.durationSec) || 45,
+                safety: Array.isArray(motion.safety) ? motion.safety.join(' · ') : '',
+                art: engine && typeof engine.render === 'function' ? engine.render(motion) : '',
+                speak: (motion.name || '运动') + '。' + ((engine && typeof engine.howTo === 'function' ? engine.howTo(motion) : '') || '')
+            };
+        });
+    }
+
     function getPreschoolBrowseCardSession(course) {
-        if (ui.courseCards && ui.courseCards.courseId === course.id && ui.courseCards.level === getPracticeLevelForCourse(course.id) && Array.isArray(ui.courseCards.items)) return ui.courseCards;
-        ui.courseCards = { courseId: course.id, items: [], index: 0, marks: {}, poemId: '', motionDone: false, level: getPracticeLevelForCourse(course.id) };
-        const level = ui.courseCards.level;
-        const levels = global.PersonalWorkbenchBankLevels;
-        if (course.id === 'preschool-exercise') {
-            const bank = getLevelBanks().motion || [];
-            const scoped = levels && typeof levels.levelPool === 'function' ? levels.levelPool(bank, level) : bank;
-            const pool = scoped.length ? scoped : bank;
-            ui.courseCards.items = pool.map(function (motion) {
-                const seconds = Number(motion.durationSec) || 60;
-                const rows = [
-                    { label: '时长', text: `${seconds} 秒` },
-                    { label: '注意', text: Array.isArray(motion.safety) ? motion.safety.join(' · ') : '' }
-                ].filter(function (row) { return row.text; });
-                return { key: motion.id, main: motion.name || '运动', sub: '跟爸爸妈妈一起做', rows: rows, speak: motion.name || '', lang: 'zh-CN', review: false };
-            });
-        }
+        if (ui.courseCards && ui.courseCards.courseId === course.id && ui.courseCards.kind === 'motion-today' && Array.isArray(ui.courseCards.items)) return ui.courseCards;
+        const today = storage.localDate();
+        const items = course.id === 'preschool-exercise' ? getTodayMotionItems() : [];
+        const mastery = getPreschoolCourseMasteryMap(course);
+        const marks = {};
+        items.forEach(function (item) {
+            if (hasPreschoolMasteryToday(mastery[item.key], today)) marks[item.key] = 'known';
+        });
+        const allDone = items.length > 0 && items.every(function (item) { return marks[item.key] === 'known'; });
+        ui.courseCards = { courseId: course.id, kind: 'motion-today', items: items, index: 0, marks: marks, poemId: '', motionDone: allDone, level: '' };
         return ui.courseCards;
     }
 
     function renderPreschoolBrowseCards(course) {
         const session = getPreschoolBrowseCardSession(course);
         const total = session.items.length;
-        if (!total || session.index >= total) {
-            return renderPreschoolMotionComplete(course, session);
-        }
-        const item = session.items[session.index];
-        const actions = `<button class="preschool-flashcard-mark is-nav" type="button" data-action="flashcard-prev" ${session.index === 0 ? 'disabled' : ''}>${icon('arrow-left')}<span>上一张</span></button><button class="preschool-flashcard-mark is-nav" type="button" data-action="flashcard-next">${icon('arrow-right')}<span>${session.index === total - 1 ? '翻完啦' : '下一张'}</span></button>`;
-        return renderPreschoolCardFrame(course, session, item, actions);
+        const doneCount = session.items.filter(function (item) { return session.marks[item.key] === 'known'; }).length;
+        const cards = session.items.map(function (item) {
+            const done = session.marks[item.key] === 'known';
+            return `<article class="preschool-motion-card ${done ? 'is-done' : ''}"><div class="preschool-motion-card-art">${item.art || ''}</div><h3>${escapeHtml(item.main)}</h3><p>${escapeHtml(item.howTo)}</p><small>${escapeHtml((item.seconds ? item.seconds + ' 秒' : '') + (item.safety ? ' · ' + item.safety : ''))}</small><div class="preschool-motion-card-tools"><button class="preschool-flashcard-speak" type="button" data-action="literacy-speak" data-text="${escapeHtml(item.speak)}" aria-label="朗读${escapeHtml(item.main)}">${icon('volume-2')}<span>听一听</span></button>${done ? `<span class="preschool-motion-card-done">${icon('check')}做完了</span>` : `<button class="preschool-flashcard-mark is-known" type="button" data-action="flashcard-motion-card" data-key="${escapeHtml(item.key)}">${icon('check')}<span>做完了</span></button>`}</div></article>`;
+        }).join('');
+        const checkin = session.motionDone
+            ? `<div class="preschool-motion-checkin is-done"><h2>今天打卡成功！🎉</h2><p>这几个动作记进花园了。</p></div>`
+            : doneCount === total && total
+                ? `<div class="preschool-motion-checkin"><h2>动作都做完啦</h2><p>点一下，今天的运动就打卡。</p><button class="preschool-flashcard-mark is-known" type="button" data-action="flashcard-motion-done">${icon('check')}<span>打卡</span></button></div>`
+                : `<p class="preschool-motion-hint">做完 ${doneCount} / ${total} 个，就可以打卡。</p>`;
+        return `<div class="preschool-flashcard-page tone-${escapeHtml(course.tone || 'green')} is-motion"><div class="preschool-flashcard-top"><button class="workbench-text-button" type="button" data-action="navigate" data-page="courses">${icon('arrow-left')}<span>卡片墙</span></button><strong>今日 ${total} 个动作</strong><span></span></div><div class="preschool-motion-grid">${cards}</div>${checkin}</div>`;
     }
 
     function renderPreschoolPoetryToday(course) {
@@ -5347,7 +5498,31 @@
         }
         session.marks[item.key] = known ? 'known' : 'unknown';
         resolveReviewOutcome(!!known);
+        session.mathPick = null;
         session.index += 1;
+        render();
+    }
+
+    function pickMathFlashcard(index) {
+        const session = ui.courseCards;
+        if (!session || session.courseId !== 'preschool-math' || !Array.isArray(session.items)) return;
+        const item = session.items[session.index];
+        if (!item || !Array.isArray(item.options)) return;
+        if (session.mathPick && session.mathPick.key === item.key && session.mathPick.correct) return;
+        const selected = Number(index);
+        if (!Number.isInteger(selected) || selected < 0 || selected >= item.options.length) return;
+        const correct = selected === Number(item.answerIndex);
+        session.mathPick = { key: item.key, index: selected, correct: correct };
+        if (!correct) {
+            recordPreschoolLessonMistake({
+                subject: storage.subjectForCourse ? storage.subjectForCourse('preschool-math') : 'math',
+                question: item.main,
+                correctAnswer: String(item.options[item.answerIndex] || ''),
+                mistakeReason: '选了 ' + String(item.options[selected] || ''),
+                sourceKey: 'math:' + String(item.key || ''),
+                lessonId: 'preschool-math-3'
+            });
+        }
         render();
     }
 
@@ -5378,12 +5553,31 @@
         render();
     }
 
+    function markPreschoolMotionCard(key) {
+        const session = ui.courseCards;
+        if (!session || session.courseId !== 'preschool-exercise' || session.motionDone) return;
+        const itemKey = String(key || '');
+        if (!session.items.some(function (item) { return item.key === itemKey; })) return;
+        session.marks[itemKey] = 'known';
+        render();
+    }
+
     function markPreschoolMotionDone() {
         const session = ui.courseCards;
         if (!session || session.courseId !== 'preschool-exercise' || session.motionDone) return;
         const keys = session.items.map(function (item) { return item.key; });
+        if (!keys.length || keys.some(function (itemKey) { return session.marks[itemKey] !== 'known'; })) {
+            showToast('先把今天的动作做完');
+            return;
+        }
         commitPreschoolSubjectMark('motion', keys, true);
         session.motionDone = true;
+        const today = storage.localDate();
+        const plan = (state.dailyPlans || []).find(function (item) {
+            return item && String(item.date || '') === today && (item.id === 'preschool-plan-move' || item.practiceLessonId === 'preschool-exercise-1') && !item.done;
+        });
+        if (plan) completeCourseLesson('preschool-exercise-1', plan.id, plan.date);
+        else completeCourseLesson('preschool-exercise-1');
         render();
     }
 
@@ -6289,8 +6483,7 @@
         { track: 'pinyin', title: '拼音' },
         { track: 'poetry', title: '古诗' },
         { track: 'phonics', title: '拼读' },
-        { track: 'math', title: '数学题库' },
-        { track: 'motion', title: '运动' }
+        { track: 'math', title: '数学题库' }
     ];
 
     function getPracticeLevel(track) {
@@ -6342,7 +6535,7 @@
         }
         const track = helper.trackForCourse(course.id);
         const hideEnglishPracticeLevels = course.id === 'preschool-english';
-        if (hideEnglishPracticeLevels || course.id === 'preschool-focus' || course.id === 'preschool-summer') return '';
+        if (hideEnglishPracticeLevels || course.id === 'preschool-math' || course.id === 'preschool-exercise' || course.id === 'preschool-focus' || course.id === 'preschool-summer') return '';
         const current = getPracticeLevel(track);
         const defs = typeof helper.getDefinitions === 'function' ? helper.getDefinitions(track) : [];
         if (!defs.length) return '';
@@ -6387,17 +6580,45 @@
             }).join('');
             return `<article class="preschool-practice-level-row"><h3>${escapeHtml(row.title)}</h3><div class="preschool-practice-level-chips">${chips}</div></article>`;
         }).join('');
-        return `<section class="pixel-feedback-settings practice-level-settings"><div class="pixel-feedback-copy"><span class="pixel-panel-kicker">LEARN / LEVELS</span><h2>学习级别</h2><p>按现在会的来选。识字、拼音、古诗、拼读、数学题库和运动都可以单独换。英语按主题顺序自动往下学。口算范围还在下面另选。</p></div>${rows}</section>`;
+        return `<section class="pixel-feedback-settings practice-level-settings"><div class="pixel-feedback-copy"><span class="pixel-panel-kicker">LEARN / LEVELS</span><h2>学习级别</h2><p>按现在会的来选。识字、拼音、古诗和拼读都可以单独换。英语按主题顺序自动往下学。口算范围在数学页选。运动是今日动作卡。</p></div>${rows}</section>`;
     }
 
     function getMathPracticeBand() {
         const garden = state.growth && state.growth.garden;
         const engine = getMathBankEngine();
         const raw = garden && garden.mathPracticeBand;
-        if (engine && typeof engine.normalizePracticeBand === 'function') return engine.normalizePracticeBand(raw);
-        if (raw === 'within10' || raw === 'within20' || raw === 'within50' || raw === 'addsub100' || raw === 'addsub100big' || raw === 'mul20' || raw === 'mul40' || raw === 'mul60' || raw === 'mul80' || raw === 'mul100' || raw === 'divSimple' || raw === 'koujue' || raw === 'mix100' || raw === 'mixMulDiv' || raw === 'mixKoujue') return raw;
-        if (raw === 'within100') return 'mix100';
-        return 'mix100';
+        if (engine && typeof engine.normalizePracticeBand === 'function') {
+            const band = engine.normalizePracticeBand(raw);
+            return band === 'mix100' ? 'within20' : band;
+        }
+        if (raw === 'within10' || raw === 'within20' || raw === 'within50' || raw === 'addsub100' || raw === 'addsub100big' || raw === 'mul20' || raw === 'mul40' || raw === 'mul60' || raw === 'mul80' || raw === 'mul100' || raw === 'divSimple' || raw === 'koujue' || raw === 'mixMulDiv' || raw === 'mixKoujue') return raw;
+        if (raw === 'within100') return 'addsub100';
+        return 'within20';
+    }
+
+    function getMathPracticeBandMeta() {
+        const engine = getMathBankEngine();
+        const bands = engine && typeof engine.listPracticeBands === 'function' ? engine.listPracticeBands() : [];
+        const current = getMathPracticeBand();
+        return bands.find(function (item) { return item.id === current; }) || { id: current, title: '口算' };
+    }
+
+    function renderPreschoolMathBandChips() {
+        const engine = getMathBankEngine();
+        const bands = engine && typeof engine.listPracticeBands === 'function' ? engine.listPracticeBands() : [];
+        if (!bands.length) return '';
+        const current = getMathPracticeBand();
+        const featuredIds = { within10: 1, within20: 1, within50: 1, mul20: 1, mul40: 1, koujue: 1, addsub100: 1, divSimple: 1 };
+        const featured = bands.filter(function (band) { return featuredIds[band.id]; });
+        if (!featured.some(function (band) { return band.id === current; })) {
+            const extra = bands.find(function (band) { return band.id === current; });
+            if (extra) featured.unshift(extra);
+        }
+        const buttons = featured.map(function (band) {
+            const active = band.id === current;
+            return `<button class="preschool-flashcard-level ${active ? 'is-active' : ''}" type="button" data-action="set-math-band" data-band="${escapeHtml(band.id)}" aria-pressed="${active ? 'true' : 'false'}">${escapeHtml(band.title)}</button>`;
+        }).join('');
+        return `<div class="preschool-flashcard-levels preschool-math-bands" role="group" aria-label="选择口算范围">${buttons}</div>`;
     }
 
     function setMathPracticeBand(band) {
@@ -6414,7 +6635,10 @@
             if (!result.ok) throw new Error(result.reason || '口算级别无法保存');
             next.growth = result.growth;
         }, '口算已换成' + (current && current.title ? current.title : '当前级别'));
-        if (ok) render();
+        if (ok) {
+            ui.courseCards = null;
+            render();
+        }
     }
 
     function renderPreschoolMathBandSettings() {
@@ -7941,10 +8165,12 @@
         if (action === 'complete-lesson') completeCourseLesson(target.dataset.id);
         if (action === 'open-lesson') openLessonDialog(target.dataset.id);
         if (action === 'flashcard-reveal') revealPreschoolFlashcard();
+        if (action === 'flashcard-math-pick') pickMathFlashcard(target.dataset.index);
         if (action === 'flashcard-mark') markPreschoolFlashcard(target.dataset.known === '1');
         if (action === 'flashcard-prev') { if (ui.courseCards) { ui.courseCards.index = Math.max(0, ui.courseCards.index - 1); render(); } }
         if (action === 'flashcard-next') { if (ui.courseCards) { ui.courseCards.index = Math.min(ui.courseCards.items.length, ui.courseCards.index + 1); render(); } }
         if (action === 'flashcard-poem-mark') markPreschoolPoem(target.dataset.known === '1');
+        if (action === 'flashcard-motion-card') markPreschoolMotionCard(target.dataset.key);
         if (action === 'flashcard-motion-done') markPreschoolMotionDone();
         if (action === 'media-open') {
             const bvid = String(target.dataset.bvid || '');
@@ -8028,6 +8254,7 @@
         if (action === 'print-literacy-cert') printLiteracyCertAction();
         if (action === 'bank-quiz-next') advanceBankQuiz();
         if (action === 'bank-quiz-speak') speakLiteracy(target.dataset.text, target.dataset.lang || 'zh-CN');
+        if (action === 'phonics-speak-parts') speakPhonicsParts(target.dataset.parts, 'en-US');
         if (action === 'literacy-bloom') toggleLiteracyBloom(target.dataset.word);
         if (action === 'lesson-finish') finishLesson();
         if (action === 'close-lesson') closeLessonDialog();

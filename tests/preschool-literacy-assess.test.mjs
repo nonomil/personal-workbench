@@ -221,6 +221,6 @@ test('literacy course adds a 25-question assess lesson that stays off the requir
     assert.ok(bankQuizFn);
     assert.equal(bankQuizFn[0].includes('literacy-assess'), false);
     assert.match(html, /preschool-literacy\.js\?v=20260816-literacy-ui-v2/);
-    assert.match(html, /app\.js\?v=20260816-loop-v1/);
+    assert.match(html, /app\.js\?v=20260818-phonics-zh-v1/);
     assert.match(html, /config\.js\?v=20260816-literacy-uplift-v1/);
 });

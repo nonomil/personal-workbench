@@ -224,7 +224,7 @@
             lastDefenseDate: '',
             lastSkillDate: '',
             feedbackPreferences: { musicEnabled: false, motionEnabled: true },
-            mathPracticeBand: 'mix100',
+            mathPracticeBand: 'within20',
             practiceLevels: createDefaultPracticeLevels(),
             invader: { active: false, kind: 'zombie-basic', defeated: 0, health: 3, maxHealth: 3, wave: 0, lastSpawnDate: '', blockedTurns: 0, slowedTurns: 0, lastEffect: '' },
             defense: createDefaultDefense()
@@ -515,8 +515,8 @@
             return global.PersonalWorkbenchPreschoolMathBank.normalizePracticeBand(value);
         }
         if (value === 'within10' || value === 'within20' || value === 'within50' || value === 'addsub100' || value === 'addsub100big' || value === 'mul20' || value === 'mul40' || value === 'mul60' || value === 'mul80' || value === 'mul100' || value === 'divSimple' || value === 'koujue' || value === 'mix100' || value === 'mixMulDiv' || value === 'mixKoujue') return value;
-        if (value === 'within100') return 'mix100';
-        return 'mix100';
+        if (value === 'within100') return 'addsub100';
+        return 'within20';
     }
 
     function setMathPracticeBand(input, band) {

@@ -106,8 +106,8 @@ test('first wave offsets sit in front of the look direction', () => {
   assert.equal(spots.length, 3);
   spots.forEach((s) => {
     assert.ok(s.dz * f.z > 0 || Math.abs(s.dz) < 0.01, 'forward-ish z');
-    assert.ok(Math.hypot(s.dx, s.dz) >= 3.5);
-    assert.ok(Math.hypot(s.dx, s.dz) <= 7);
+    assert.ok(Math.hypot(s.dx, s.dz) >= 8);
+    assert.ok(Math.hypot(s.dx, s.dz) <= 14);
   });
   assert.ok(Math.abs(spots[0].dx) < 0.2);
   assert.ok(spots[0].dz < 0);
@@ -220,7 +220,21 @@ test('quizFor picks 3 unique same-theme distractors or marks fallback', () => {
   assert.equal(phrase.typed, true);
   assert.equal(W.checkQuiz(phrase, phraseWord.phrase), true);
   assert.ok(W.QUIZ_MODES.includes('phrase'));
+  assert.ok(W.QUIZ_MODES.includes('enpick'));
   assert.ok(W.availableModes(phraseWord).includes('phrase'));
+  const enpick = W.makeQuiz(word, bank, { mode: 'enpick' });
+  assert.equal(enpick.mode, 'enpick');
+  assert.ok(enpick.choices.includes(word.text));
+  assert.equal(W.checkQuiz(enpick, word.text), true);
+  const rotated = W.makeQuiz(word, bank, { turn: 3 });
+  assert.ok(['enpick', 'listen', 'fill', 'spell'].includes(rotated.mode));
+  assert.equal(W.pickQuizMode(word, { stage: 'new' }), 'choice');
+  assert.equal(W.pickQuizMode(word, { stage: 'familiar' }), 'enpick');
+  assert.equal(W.pickQuizMode(word, { stage: 'due' }), 'listen');
+  assert.equal(W.pickQuizMode(word, { stage: 'spoken' }), 'fill');
+  assert.equal(W.pickQuizMode(word, { missStreak: 3, stage: 'familiar' }), 'spell');
+  const gameLearn = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  assert.match(gameLearn, /stage:\s*W\.masteryStage|stage:\s*\(W\.masteryStage/);
   const html = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'index.html'), 'utf8');
   assert.match(html, /id="quiz-input"/);
   assert.match(html, /id="quiz-phrase"/);
@@ -256,12 +270,101 @@ test('bindCastWord prefers kind and focus words so the typed word matches the pl
     { id: 'sword', text: 'sword', zh: '剑' }
   ];
   assert.equal(W.bindCastWord(pack, [], { kind: 'slime' }).text, 'slime');
-  assert.equal(W.bindCastWord(pack, ['slime'], { kind: 'unknown-boss', focus: ['tree', 'sword'] }).text, 'tree');
+  const second = W.bindCastWord(pack, ['slime'], { kind: 'unknown-boss', focus: ['tree', 'sword'] });
+  assert.ok(['tree', 'sword'].includes(second.text));
   assert.equal(W.bindCastWord(pack, [], { prefer: 'sword', focus: ['tree'] }).text, 'sword');
   const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
   assert.match(game, /word:\s*mob\.word/);
   assert.match(game, /bindCastWord\([\s\S]{0,240}kind:/);
   assert.match(game, /channel:\s*'spell'/);
+});
+
+test('bindCastWord gives two slimes different unused words and skips grass log fillers', () => {
+  const pack = [
+    { id: 'slime', text: 'slime', zh: '史莱姆' },
+    { id: 'apple', text: 'apple', zh: '苹果' },
+    { id: 'jump', text: 'jump', zh: '跳' },
+    { id: 'grass', text: 'grass', zh: '草' },
+    { id: 'log', text: 'log', zh: '原木' }
+  ];
+  const first = W.bindCastWord(pack, [], { kind: 'slime' });
+  const second = W.bindCastWord(pack, [first.id || first.text], { kind: 'slime' });
+  assert.ok(second && second.text);
+  assert.notEqual(second.text, first.text);
+  const filler = W.bindCastWord(pack, ['slime', 'apple', 'jump'], { kind: 'cube' });
+  assert.ok(filler && filler.text);
+  assert.notEqual(filler.text, 'grass');
+  assert.notEqual(filler.text, 'log');
+});
+
+test('look card hides common terrain words but keeps mobs and word cubes', () => {
+  assert.equal(W.shouldShowLookLabel('grass', 'block'), false);
+  assert.equal(W.shouldShowLookLabel('log', 'block'), false);
+  assert.equal(W.shouldShowLookLabel('dirt', 'block'), false);
+  assert.equal(W.shouldShowLookLabel('word', 'block'), true);
+  assert.equal(W.shouldShowLookLabel('gate', 'block'), true);
+  assert.equal(W.shouldShowLookLabel('slime', 'mob'), true);
+  const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  assert.match(game, /shouldShowLookLabel/);
+});
+
+test('look card hides Chinese until the mob has been asked', () => {
+  assert.equal(W.shouldRevealLookZh({ type: 'mob', asked: false }), false);
+  assert.equal(W.shouldRevealLookZh({ type: 'mob', asked: true }), true);
+  assert.equal(W.shouldRevealLookZh({ type: 'block' }), true);
+  assert.equal(W.shouldRevealLookZh({ type: 'npc' }), true);
+  const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  const lookFn = game.slice(game.indexOf('function updateLookCard'), game.indexOf('function tryBolt') > 0
+    ? game.indexOf('function tryBolt')
+    : game.indexOf('function requestHit'));
+  assert.match(lookFn, /shouldRevealLookZh/);
+  assert.match(lookFn, /look-zh/);
+});
+
+test('focusPool mixes a larger unique set and does not fill with grass or log', () => {
+  const mixed = W.focusPool(bank, 1, {
+    size: 12,
+    prefer: ['tree', 'dirt', 'sword', 'slime', 'apple', 'grass', 'log']
+  });
+  assert.ok(mixed.length >= 8);
+  const texts = mixed.map((w) => w.text);
+  assert.equal(new Set(texts).size, texts.length);
+  assert.ok(!texts.includes('grass'));
+  assert.ok(!texts.includes('log'));
+});
+
+test('focusPool reserves reviewRatio slots for due and missed words', () => {
+  const pack = [
+    { id: 'apple', text: 'apple', zh: '苹果' },
+    { id: 'jump', text: 'jump', zh: '跳' },
+    { id: 'tree', text: 'tree', zh: '树' },
+    { id: 'sun', text: 'sun', zh: '太阳' },
+    { id: 'run', text: 'run', zh: '跑' },
+    { id: 'sand', text: 'sand', zh: '沙子' }
+  ];
+  const mixed = W.focusPool(pack, 1, {
+    size: 4,
+    prefer: ['tree', 'sun'],
+    reviewRatio: 0.5,
+    review: ['apple'],
+    missed: ['jump']
+  });
+  const texts = mixed.map((w) => w.text);
+  assert.ok(texts.includes('apple'));
+  assert.ok(texts.includes('jump'));
+  const due = W.focusPool(pack, 1, {
+    size: 4,
+    prefer: ['tree'],
+    reviewRatio: 0.5,
+    mastery: { apple: { correct: 1, nextReview: '2026-08-01', dates: ['2026-08-01'] } },
+    today: '2026-08-18'
+  });
+  assert.ok(due.map((w) => w.text).includes('apple'));
+  const focused = W.focusPool(pack, 1, { size: 4, prefer: ['sand', 'tree'] });
+  assert.ok(focused.map((w) => w.text).includes('sand'));
+  const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  assert.match(game, /reviewRatio/);
+  assert.match(game, /reviewWords/);
 });
 
 test('look-at labels keep short Chinese fallbacks when the daily bank has no MC nouns', () => {
@@ -273,7 +376,7 @@ test('look-at labels keep short Chinese fallbacks when the daily bank has no MC 
   const leaf = W.labelFor('leaf', bank);
   assert.equal(leaf.zh, '树叶');
   const slime = W.labelFor('slime', bank);
-  assert.equal(slime.zh, '史莱姆');
+  assert.equal(slime.zh, '漏字史莱姆');
   const grass = W.labelFor('grass', bank);
   assert.equal(grass.zh, '草坪');
   const wordCube = W.labelFor('word', []);
@@ -313,29 +416,28 @@ test('collecting a word block pays coins, heals HP, and keeps the word', () => {
   assert.deepEqual(capped.learnedIds, ['apple']);
 });
 
-test('regular first hit does not open a quiz; two voice fails do; boss marks only nudge speak', () => {
+test('first hit opens a quiz; a wrong answer reasks after a few hits', () => {
   assert.equal(W.bossAskTimes(80), 2);
   assert.equal(W.bossAskTimes(140), 2);
   assert.equal(W.bossAskTimes(170), 3);
   assert.equal(W.bossAskTimes(240), 3);
   assert.deepEqual(W.bossAskMarks(80), [0.5, 0.25]);
   assert.deepEqual(W.bossAskMarks(200), [0.75, 0.5, 0.25]);
-  assert.equal(W.shouldAsk({ firstHit: true }), false);
+  assert.equal(W.REASK_HITS, 3);
+  assert.equal(W.shouldAsk({ firstHit: true }), true);
   assert.equal(W.shouldAsk({ firstHit: false }), false);
-  assert.equal(W.shouldAsk({ firstHit: true, combo: W.SKIP_COMBO }), false);
-  assert.equal(W.shouldAsk({ voiceFails: 1 }), false);
-  assert.equal(W.shouldAsk({ voiceFails: 2 }), true);
+  assert.equal(W.shouldAsk({ lastQuizWrong: true, hitsSinceQuiz: 2 }), false);
+  assert.equal(W.shouldAsk({ lastQuizWrong: true, hitsSinceQuiz: 3 }), true);
   assert.equal(W.shouldAsk({ force: true }), true);
-  assert.equal(W.shouldAsk({ boss: true, hp: 40, maxHp: 80, askedCount: 0 }), false);
   assert.equal(W.shouldNudgeSpeak({ firstHit: true }), true);
   assert.equal(W.shouldNudgeSpeak({ firstHit: false }), false);
-  assert.equal(W.shouldNudgeSpeak({ boss: true, hp: 80, maxHp: 80, askedCount: 0 }), false);
-  assert.equal(W.shouldNudgeSpeak({ boss: true, hp: 40, maxHp: 80, askedCount: 0 }), true);
-  assert.equal(W.shouldNudgeSpeak({ boss: true, hp: 40, maxHp: 80, askedCount: 1 }), false);
-  assert.equal(W.shouldNudgeSpeak({ boss: true, hp: 20, maxHp: 80, askedCount: 1 }), true);
-  assert.equal(W.shouldNudgeSpeak({ boss: true, hp: 20, maxHp: 80, askedCount: 2 }), false);
-  assert.equal(W.shouldNudgeSpeak({ boss: true, hp: 127, maxHp: 170, askedCount: 0 }), true);
-  assert.equal(W.shouldNudgeSpeak({ boss: true, hp: 160, maxHp: 170, askedCount: 0 }), false);
+  const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  const hitFn = game.slice(game.indexOf('function requestHit'), game.indexOf('function fillQuizCard'));
+  assert.match(hitFn, /openQuiz\(mob/);
+  assert.match(hitFn, /hitsSinceQuiz/);
+  assert.match(hitFn, /按 V 说/);
+  assert.match(game, /mob\.word/);
+  assert.match(game, /function openQuiz/);
 });
 
 await import('../prj/games/blocklegend/data/levels.js');
@@ -389,11 +491,29 @@ test('workbench voxel home and game shell wire the S5 entry, help and merchant',
   assert.match(app, /方块传奇 · 学英语/);
   assert.match(app, /games\/blocklegend\/index\.html/);
   assert.match(html, /id="help-layer"/);
-  assert.match(html, /How to play/);
+  assert.match(html, /操作说明/);
   assert.match(html, /id="trade-layer"/);
   assert.match(html, /id="look-card"/);
   assert.match(html, /Listening/);
   assert.match(game, /Press F to trade|openTrade|sellAll/);
+});
+
+test('help overlay uses compact two-column key grid and two pages', () => {
+  const html = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'index.html'), 'utf8');
+  const css = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.css'), 'utf8');
+  const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  assert.match(html, /id="help-pages"/);
+  assert.match(html, /class="bl-help-grid"/);
+  assert.match(html, /id="help-prev"/);
+  assert.match(html, /id="help-next"/);
+  assert.ok((html.match(/class="bl-help-page/g) || []).length >= 2);
+  assert.ok((html.match(/class="bl-help-row"/g) || []).length >= 12);
+  assert.match(html, /<kbd>W A S D<\/kbd>/);
+  assert.match(css, /\.bl-help-grid/);
+  assert.match(css, /grid-template-columns:\s*1fr\s+1fr/);
+  assert.match(game, /help-prev/);
+  assert.match(game, /help-next/);
+  assert.match(game, /function showHelpPage/);
 });
 
 test('contact requires a clear path and will not reach into a shelter', () => {
@@ -435,7 +555,7 @@ test('terrain mesher emits unit cubes with grass/dirt/stone fill, not a paper-th
     assert.ok(Math.max(...zs) - Math.min(...zs) <= 1);
   });
   assert.ok(E.WORLD_SIZE >= 80, 'playable map should be at least 80×80');
-  assert.equal(E.WORLD_SIZE, 192);
+  assert.equal(E.WORLD_SIZE, 256);
   assert.equal(world.size, E.WORLD_SIZE);
   const species = new Set((world.trees || []).map((t) => t.species || 'oak'));
   assert.ok(species.size >= 2, 'trees should mix oak / birch / spruce');
@@ -561,6 +681,36 @@ test('plains map has caves, ores, water and a village', () => {
   assert.ok(desertTown.villagers && desertTown.villagers.length >= 1);
 });
 
+test('plains world keeps a river, mountains, hamlets and the 3D roster', () => {
+  const world = E.createWorld(7, { climate: 'plains' });
+  assert.equal(world.size, 256);
+  assert.ok(world.houses && world.houses.length >= 6, 'main village plus hamlets');
+  assert.ok(world.villagers && world.villagers.length >= 5);
+  const mid = Math.floor(world.size / 2);
+  const farHouse = world.houses.some((h) => Math.abs(h.x - mid) > 28 || Math.abs(h.z - mid) > 28);
+  assert.ok(farHouse, 'at least one cabin should sit away from spawn');
+  const kinds = new Set((world.animals || []).map((a) => a.kind));
+  ['pig', 'cow', 'sheep', 'chicken', 'wolf'].forEach((k) => assert.ok(kinds.has(k), k));
+  assert.ok(world.golems && world.golems.length >= 1, 'village iron golem should stand in town');
+  const waters = [];
+  let peaks = 0;
+  for (let z = 2; z < world.size - 2; z += 1) {
+    for (let x = 2; x < world.size - 2; x += 1) {
+      if (world.ponds && world.ponds[x + ',' + z]) waters.push({ x: x, z: z });
+      if (E.biomeAt(world, x, z) === 'mountain' && world.surfaceAt(x, z) >= 12) peaks += 1;
+    }
+  }
+  assert.ok(waters.length >= 36, 'river plus ponds should leave a long water body');
+  const spanX = Math.max(...waters.map((w) => w.x)) - Math.min(...waters.map((w) => w.x));
+  const spanZ = Math.max(...waters.map((w) => w.z)) - Math.min(...waters.map((w) => w.z));
+  assert.ok(spanX >= 24 || spanZ >= 24, 'water should run like a river, not one puddle');
+  assert.ok(peaks >= 24, 'mountain biome columns should rise above the plains');
+  const engine = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'engine.js'), 'utf8');
+  assert.match(engine, /BlockLegendGolemModel/);
+  const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  assert.match(game, /world\.golems/);
+});
+
 test('plains map stamps collectible word cubes from the level pool', () => {
   const words = [
     { id: 'red', text: 'red', zh: '红' },
@@ -587,6 +737,32 @@ test('plains map stamps collectible word cubes from the level pool', () => {
   assert.equal(E.openWordGate(world, gate), true);
   assert.equal(gate.open, true);
   assert.equal(E.voxelAt(world, gate.x, gate.y, gate.z), null);
+});
+
+test('village houses rise two stories and keep chests, tables and chimneys', () => {
+  const world = E.createWorld(7, { climate: 'plains' });
+  const house = (world.houses || []).find((h) => h.role === 'trader') || world.houses[0];
+  assert.ok(house && house.y0 >= 2);
+  let wallH = 0;
+  for (let y = house.y0; y <= house.y0 + 7; y += 1) {
+    if (E.voxelAt(world, house.x, y, house.z)) wallH += 1;
+  }
+  assert.ok(wallH >= 5, 'trader house should be taller than a 3-block shack');
+  const kinds = (world.placedProps || []).map((p) => p.kind);
+  assert.ok(kinds.indexOf('chest') >= 0, 'houses should contain a chest');
+  assert.ok(kinds.indexOf('furnace') >= 0 || kinds.indexOf('torch') >= 0, 'houses should keep furnace or torch');
+  let table = 0, chimney = 0;
+  for (let z = house.z; z < house.z + house.d; z += 1) {
+    for (let x = house.x; x < house.x + house.w; x += 1) {
+      for (let y = house.y0; y <= house.y0 + 8; y += 1) {
+        const kind = E.voxelAt(world, x, y, z);
+        if (kind === 'table') table += 1;
+        if (kind === 'stone' && y >= house.y0 + 4) chimney += 1;
+      }
+    }
+  }
+  assert.ok(table >= 1, 'a crafting table should sit inside a house');
+  assert.ok(chimney >= 1, 'taller houses should grow a chimney');
 });
 
 test('cabin walls block bodies and house interiors keep monsters out', () => {
@@ -687,7 +863,7 @@ test('wood crafts into planks and four planks craft a table', () => {
   assert.equal(table.ok, true);
   assert.equal(table.bag.table, 1);
   assert.equal(table.bag.plank, 0);
-  assert.equal(CR.craft({ plank: 3, stick: 2 }, 'wood_pick').ok, false);
+  assert.equal(CR.craft({ plank: 3, stick: 2 }, 'wood_pick').ok, true);
   assert.equal(CR.craft({ plank: 3, stick: 2 }, 'wood_pick', { atTable: true }).ok, true);
   assert.equal(CR.craft({ plank: 2, stick: 1 }, 'wood_sword', { atTable: true }).bag.wood_sword, 1);
   assert.equal(CR.craft({ stick: 3, plank: 2 }, 'wood_bow', { atTable: true }).bag.wood_bow, 1);
@@ -721,6 +897,31 @@ test('wood crafts into planks and four planks craft a table', () => {
   assert.match(html, /data-place="table"/);
   assert.match(game, /e\.key === 'c'/);
   assert.match(game, /hit\.kind === 'table'/);
+  assert.match(game, /craftSize: 3/);
+  assert.match(html, /bl-mc-grid size3/);
+});
+
+test('craft grid is 3x3 by default and follows vanilla tool shapes', () => {
+  const book = CR.recipesFor().map((r) => r.id);
+  ['wood_pick', 'iron_shovel', 'gold_sword', 'diamond_pick', 'stone_axe'].forEach((id) => {
+    assert.ok(book.indexOf(id) >= 0, id);
+  });
+  assert.equal(CR.craft({ stick: 1, coal: 1 }, 'torch').ok, true);
+  assert.equal(CR.craft({ stick: 1, cobble: 1 }, 'torch').ok, false);
+  assert.equal(CR.craft({ iron_ingot: 1, stick: 2 }, 'iron_shovel').ok, true);
+  assert.equal(CR.craft({ gold_ingot: 2, stick: 1 }, 'gold_sword').ok, true);
+  assert.equal(CR.craft({ diamond: 3, stick: 2 }, 'diamond_pick').ok, true);
+  assert.equal(CR.smelt({ gold: 1, coal: 1 }, 'gold_ingot').ok, true);
+  assert.ok(CR.toolBonus({ diamond_sword: 1 }, 'sword').melee > CR.toolBonus({ iron_sword: 1 }, 'sword').melee);
+  assert.ok(CR.toolBonus({ iron_shovel: 1 }, 'shovel').mine > CR.toolBonus({ wood_shovel: 1 }, 'shovel').mine);
+  assert.equal(CR.matchGrid([
+    'plank', 'plank', 'plank',
+    null, 'stick', null,
+    null, 'stick', null
+  ], 3).recipe.id, 'wood_pick');
+  const css = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.css'), 'utf8');
+  assert.match(css, /\.bl-item-sword-gold/);
+  assert.match(css, /\.bl-item-pick-diamond/);
 });
 
 test('chunksAround returns clamped keys within view radius', () => {
@@ -759,6 +960,23 @@ test('tools table: sword/axe/pickaxe/shovel have distinct mine and melee roles',
   assert.equal(T.placeKindOf('cobble'), 'stone');
   assert.equal(T.lootOfPlace('plank'), 'plank');
   assert.equal(T.lookDir(0, 0).z < 0, true);
+});
+
+test('crafted bag items can swap onto the 9-slot hotbar', () => {
+  assert.deepEqual(T.DEFAULT_HOTBAR, ['sword', 'axe', 'pickaxe', 'shovel', 'dirt', 'cobble', 'oak-log', 'plank', 'table']);
+  assert.equal(T.isHotTool('sword'), true);
+  assert.equal(T.isHotTool('chest'), false);
+  assert.equal(T.assignHotbar(T.emptyHotbar(), 4, 'chest')[4], 'chest');
+  assert.deepEqual(T.swapHotbar(['a', 'b', 'c'], 0, 2), ['c', 'b', 'a']);
+  assert.deepEqual(T.normalizeHotbar(['sword', 'chest']), T.assignHotbar(T.emptyHotbar(), 1, 'chest'));
+  const html = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'index.html'), 'utf8');
+  const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  assert.match(html, /id="craft-hotbar"/);
+  assert.match(html, /点背包.*物品栏/);
+  assert.match(game, /function paintHotbar/);
+  assert.match(game, /function clickCraftHot/);
+  assert.match(game, /session\.hotbar/);
+  assert.match(game, /INV_SLOTS = 27/);
 });
 
 test('voxel ray hits the first solid cell along the look ray', () => {
@@ -1052,6 +1270,98 @@ test('review roster page and bat list animals plus extra bosses', () => {
   assert.match(torch, /userData\.tick/);
 });
 
+test('village animals are designed voxel parts from roster refs', () => {
+  const props = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'assets', 'img2threejs', 'createProps3d.js'), 'utf8');
+  assert.match(props, /nostril/);
+  assert.match(props, /hoof/);
+  assert.match(props, /named\([\s\S]{0,80}'wool'/);
+  assert.match(props, /name = 'foot'|prong/);
+  assert.match(props, /name = 'tail'/);
+  assert.match(props, /armBar|crossed|name = 'arms'/);
+  assert.match(props, /backpack/);
+});
+
+test('golem statue keeps vines, flower, red slits and hanging arms', () => {
+  const golem = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'assets', 'img2threejs', 'createGolemModel.js'), 'utf8');
+  assert.match(golem, /vine/);
+  assert.match(golem, /flower/);
+  assert.match(golem, /0xc62828|0xff2a2a|0xe01818/);
+  assert.match(golem, /4 \* px, 30 \* px, 6 \* px/);
+  assert.match(golem, /18 \* px, 12 \* px, 11 \* px/);
+  assert.match(golem, /NearestFilter/);
+  assert.match(golem, /i < 5/);
+});
+
+test('village animals map four-view pixel hides onto the cuboids', () => {
+  const props = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'assets', 'img2threejs', 'createProps3d.js'), 'utf8');
+  assert.match(props, /hideMat\(THREE, 'pig'/);
+  assert.match(props, /hideMat\(THREE, 'cow'/);
+  assert.match(props, /hideMat\(THREE, 'sheep'/);
+  assert.match(props, /hideMat\(THREE, 'wolf'/);
+  assert.match(props, /faceOf\(THREE, 'villager'|hideMat\(THREE, 'villager'/);
+});
+
+test('village roster uses public voxel cuboid sizes', () => {
+  const props = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'assets', 'img2threejs', 'createProps3d.js'), 'utf8');
+  assert.match(props, /pbox\(THREE, 10, 8, 16/);
+  assert.match(props, /pbox\(THREE, 12, 10, 18/);
+  assert.match(props, /pbox\(THREE, 8, 10, 8/);
+  assert.match(props, /pbox\(THREE, 6, 6, 8/);
+  assert.match(props, /\[2, 8, 2\]/);
+  const sheetDir = path.join(repoRoot, 'prj', 'assets', 'generated', 'blocklegend-roster', 'four-view');
+  ['pig', 'cow', 'sheep', 'chicken', 'wolf', 'villager', 'golem'].forEach((id) => {
+    assert.ok(fs.existsSync(path.join(sheetDir, id + '-4view.png')), id + ' four-view');
+  });
+});
+
+test('golem, villager, and 5 animals consume mechanically projected four-view atlases', () => {
+  const root = path.join(repoRoot, 'prj', 'games', 'blocklegend');
+  ['golem', 'villager', 'pig', 'cow', 'sheep', 'chicken', 'wolf'].forEach((id) => {
+    assert.ok(fs.existsSync(path.join(root, 'assets', 'atlas4v', id + '-atlas.png')), id + ' atlas png');
+    const js = fs.readFileSync(path.join(root, 'assets', 'atlas4v', id + '-atlas.js'), 'utf8');
+    assert.match(js, /BlockLegendAtlas4V/);
+    assert.match(js, /"faces"/);
+  });
+  const fourView = fs.readFileSync(path.join(root, 'assets', 'img2threejs', 'fourViewModel.js'), 'utf8');
+  assert.match(fourView, /NearestFilter/);
+  assert.match(fourView, /setFaceUv/);
+  const golem = fs.readFileSync(path.join(root, 'assets', 'img2threejs', 'createGolemModel.js'), 'utf8');
+  assert.match(golem, /BlockLegendFourView\.build\(THREE, 'golem'/);
+  const props = fs.readFileSync(path.join(root, 'assets', 'img2threejs', 'createProps3d.js'), 'utf8');
+  assert.match(props, /BlockLegendFourView\.build\(THREE, 'villager'/);
+  assert.match(props, /BlockLegendFourView\.build\(THREE, 'pig'/);
+  assert.match(props, /BlockLegendFourView\.build\(THREE, 'cow'/);
+  assert.match(props, /BlockLegendFourView\.build\(THREE, 'sheep'/);
+  assert.match(props, /BlockLegendFourView\.build\(THREE, 'chicken'/);
+  assert.match(props, /BlockLegendFourView\.build\(THREE, 'wolf'/);
+  ['review-roster.html', 'index.html'].forEach((page) => {
+    const html = fs.readFileSync(path.join(root, page), 'utf8');
+    assert.match(html, /atlas4v\/golem-atlas\.js/, page + ' golem atlas');
+    assert.match(html, /atlas4v\/villager-atlas\.js/, page + ' villager atlas');
+    assert.match(html, /atlas4v\/pig-atlas\.js/, page + ' pig atlas');
+    assert.match(html, /fourViewModel\.js/, page + ' builder');
+  });
+  assert.ok(fs.existsSync(path.join(root, 'compare-four-view.html')), 'comparison gate page');
+  assert.ok(fs.existsSync(path.join(root, 'tools', 'fourview-to-atlas.py')), 'projection tool');
+});
+
+test('ghast blaze warden have dedicated factories on the roster', () => {
+  const root = path.join(repoRoot, 'prj', 'games', 'blocklegend');
+  assert.ok(fs.existsSync(path.join(root, 'assets', 'img2threejs', 'createGhastModel.js')));
+  assert.ok(fs.existsSync(path.join(root, 'assets', 'img2threejs', 'createBlazeModel.js')));
+  assert.ok(fs.existsSync(path.join(root, 'assets', 'img2threejs', 'createWardenModel.js')));
+  const review = fs.readFileSync(path.join(root, 'review-roster.html'), 'utf8');
+  const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+  const mobs = fs.readFileSync(path.join(root, 'mobs.js'), 'utf8');
+  ['ghast', 'blaze', 'warden'].forEach((id) => {
+    assert.match(review, new RegExp("id: '" + id + "'"));
+    assert.match(html, new RegExp('create' + id.charAt(0).toUpperCase() + id.slice(1) + 'Model\\.js'));
+  });
+  assert.match(mobs, /BlockLegendGhastModel/);
+  assert.match(mobs, /BlockLegendBlazeModel/);
+  assert.match(mobs, /BlockLegendWardenModel/);
+});
+
 test('roster rebuild: golem nose, wither necks, slime factory, wood/iron/diamond tools', () => {
   const golem = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'assets', 'img2threejs', 'createGolemModel.js'), 'utf8');
   assert.match(golem, /nose/);
@@ -1073,12 +1383,14 @@ test('roster rebuild: golem nose, wither necks, slime factory, wood/iron/diamond
 
 test('first-person tools are parented to the arm, not floating boxes', () => {
   const mobs = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'mobs.js'), 'utf8');
-  assert.match(mobs, /camera-space tools/);
+  assert.match(mobs, /hand\.add\(grip\)|grip\.add\(/);
   assert.match(mobs, /function heldSword/);
   assert.match(mobs, /function heldAxe/);
   assert.match(mobs, /function heldPickaxe/);
   assert.match(mobs, /function heldShovel/);
-  assert.match(mobs, /tools\.place/);
+  assert.match(mobs, /setPlaceKind/);
+  assert.match(mobs, /place_dirt|heldBlock\(THREE, 'dirt'\)/);
+  assert.match(mobs, /grip\.rotation\.set\(-0\.88, -0\.18, 0\.42\)/);
   const factory = path.join(repoRoot, 'prj', 'games', 'blocklegend', 'assets', 'img2threejs', 'createTools3d.js');
   if (fs.existsSync(factory)) {
     const src = fs.readFileSync(factory, 'utf8');
@@ -1092,6 +1404,14 @@ test('first-person tools are parented to the arm, not floating boxes', () => {
     path.join(repoRoot, 'prj', 'assets', 'generated', 'blocklegend-tools', 'raw', id + '.png')
   );
   refs.forEach((p) => assert.ok(fs.existsSync(p), p));
+  const html = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'index.html'), 'utf8');
+  const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  ['sword', 'axe', 'pickaxe', 'shovel'].forEach((id) => {
+    assert.match(html, new RegExp(id + '\\.png'));
+  });
+  assert.match(html, /assets\/atlas\/dirt\.png/);
+  assert.match(html, /assets\/atlas\/stone\.png/);
+  assert.match(game, /setPlaceKind\(/);
 });
 
 test('levels carry biome wave rosters and a wither-style boss', () => {
@@ -1106,6 +1426,12 @@ test('levels carry biome wave rosters and a wither-style boss', () => {
   assert.ok(C.MONSTERS.creeper && C.MONSTERS.zombie && C.MONSTERS.skeleton && C.MONSTERS.spider);
   assert.ok(C.MONSTERS.enderman && C.MONSTERS.piglin && C.MONSTERS.witch);
   assert.ok(C.MONSTERS.golem);
+  const used = new Set();
+  L.LEVELS.forEach((row) => row.waveKinds.forEach((k) => used.add(k)));
+  ['slime', 'cube', 'creeper', 'fox', 'zombie', 'husk', 'skeleton', 'enderman',
+    'spider', 'witch', 'warden', 'golem', 'magma', 'piglin', 'ghast', 'blaze'
+  ].forEach((k) => assert.ok(used.has(k), 'wave roster missing ' + k));
+  assert.ok(L.LEVELS[5].waveKinds.indexOf('blaze') >= 0, 'nether should field blaze');
   const mobs = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'mobs.js'), 'utf8');
   assert.match(mobs, /kind === 'blaze'/);
   assert.match(mobs, /kind === 'ghast'/);
@@ -1172,7 +1498,7 @@ test('quiz overlay releases look capture and accepts 1-4 keys', () => {
   assert.match(game, /setUiMode\(/);
   assert.match(game, /resumeLook\(/);
   assert.match(game, /pickQuizChoice/);
-  assert.match(game, /shouldAsk\(\{[\s\S]{0,220}voiceFails/);
+  assert.match(game, /shouldAsk\(\{[\s\S]{0,280}firstHit/);
   assert.match(game, /shouldNudgeSpeak/);
   assert.match(game, /askedCount:/);
   assert.match(css, /\.bl-quiz-layer[\s\S]{0,180}pointer-events:\s*auto/);
@@ -1329,7 +1655,7 @@ test('playtest roster wires every combat kind, animal ticks, trader, and placeab
   assert.match(mobs, /createDiamondSword/);
   assert.match(mobs, /createIronAxe/);
   assert.match(words, /wolf: '狼'/);
-  assert.match(words, /dragon: '末影龙'/);
+  assert.match(words, /dragon: '墨翼'/);
   assert.equal(T.placeKindOf('chest'), 'chest');
   assert.equal(T.placeKindOf('furnace'), 'furnace');
   assert.equal(T.placeKindOf('torch'), 'torch');
@@ -1364,6 +1690,79 @@ test('boss hud shows learn-phase names', () => {
   assert.match(game, /bossPhase\(/);
 });
 
+test('BL-19 first-level names drop official IP titles', () => {
+  assert.equal(L.bossTitle('wither'), '字母石像');
+  assert.equal(L.bossTitle('dragon'), '墨翼');
+  assert.equal(L.bossTitle('storm'), '雷语');
+  assert.equal(W.labelFor('slime', bank).zh, '漏字史莱姆');
+  assert.equal(W.labelFor('creeper', bank).zh, '绿爆怪');
+  assert.equal(W.labelFor('boss', bank).zh, '字母石像');
+  const html = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'index.html'), 'utf8');
+  assert.doesNotMatch(html, /WITHER/);
+  assert.match(html, /id="boss-name"/);
+  const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  assert.match(game, /boss-name/);
+  assert.match(game, /bossTitle\(/);
+});
+
+test('BL-17 combat sfx covers hit crit shieldBreak and pickup', () => {
+  const sfx = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'shared', 'game-sfx.js'), 'utf8');
+  const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  assert.match(sfx, /hit:\s*function/);
+  assert.match(sfx, /crit:\s*function/);
+  assert.match(sfx, /shieldBreak:\s*function/);
+  assert.match(sfx, /pickup:\s*function/);
+  assert.match(game, /sfx\.hit\(/);
+  assert.match(game, /sfx\.crit\(/);
+  assert.match(game, /sfx\.shieldBreak\(/);
+  assert.match(game, /sfx\.pickup\(/);
+});
+
+test('blocklegend plays theme BGM and coin reward clear sfx', () => {
+  const theme = path.join(repoRoot, 'prj', 'games', 'blocklegend', 'assets', 'audio', 'minecraft-theme.mp3');
+  assert.ok(fs.existsSync(theme), 'theme mp3 should sit in assets/audio');
+  assert.ok(fs.statSync(theme).size > 1000);
+  const sfx = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'shared', 'game-sfx.js'), 'utf8');
+  const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  const html = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'index.html'), 'utf8');
+  assert.match(sfx, /playBgm:\s*(function|playBgm)/);
+  assert.match(sfx, /coin:\s*function/);
+  assert.match(sfx, /reward:\s*function/);
+  assert.match(sfx, /levelClear:\s*function/);
+  assert.match(sfx, /swing:\s*function/);
+  assert.match(game, /assets\/audio\/minecraft-theme\.mp3/);
+  assert.match(game, /function startTheme\s*\(/);
+  assert.match(game, /function paintAudioBtn\s*\(/);
+  assert.match(game, /playBgm\(/);
+  assert.match(game, /sfx\.coin\(/);
+  assert.match(game, /sfx\.reward\(/);
+  assert.match(game, /sfx\.levelClear\(/);
+  assert.match(game, /sfx\.swing\(/);
+  assert.match(html, /id="audio-btn"/);
+});
+
+test('blocklegend starts theme on enter and wires classic action sfx', async () => {
+  await import('../prj/games/shared/game-sfx.js');
+  const Sfx = globalThis.WorkbenchGameSfx;
+  ['place', 'hurt', 'death', 'bolt', 'eat', 'jump', 'craft', 'buy'].forEach((name) => {
+    assert.equal(typeof Sfx[name], 'function', name + ' sfx should exist');
+  });
+  const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  const html = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'index.html'), 'utf8');
+  assert.match(html, /id="theme-bgm"/);
+  assert.match(html, /minecraft-theme\.mp3/);
+  assert.match(game, /function chooseBuddy\([\s\S]*?startTheme\(\)/);
+  assert.match(game, /maybeShowBuddyGate\(\);\s*startTheme\(\)/);
+  assert.match(game, /sfx\.place\(/);
+  assert.match(game, /sfx\.hurt\(/);
+  assert.match(game, /sfx\.death\(/);
+  assert.match(game, /sfx\.bolt\(/);
+  assert.match(game, /sfx\.eat\(/);
+  assert.match(game, /sfx\.jump\(/);
+  assert.match(game, /sfx\.craft\(/);
+  assert.match(game, /sfx\.buy\(/);
+});
+
 test('settlement copy names new words, review list, and sunlight destination', () => {
   const lines = L.buildSettlement({
     level: 1,
@@ -1391,6 +1790,14 @@ test('speech matcher accepts close child pronunciations and five failure kinds',
     assert.equal(Speech.fail(k).kind, k);
   });
   assert.equal(Speech.canSpeak(), false);
+});
+
+test('speech matcher rejects short-word near-misses and accepts a slime', () => {
+  assert.equal(Speech.matchHeard('red', 'bed').ok, false);
+  assert.equal(Speech.matchHeard('cat', 'hat').ok, false);
+  assert.equal(Speech.matchHeard('slime', 'a slime').ok, true);
+  assert.equal(Speech.matchHeard('slime', 'the slime').ok, true);
+  assert.equal(Speech.matchHeard('apple', 'apple').ok, true);
 });
 
 test('channel multiplier does not change legacy critMultiplier defaults', () => {
@@ -1440,7 +1847,8 @@ test('voice challenge uses V, heard text, and does not pause on first hit', () =
   const html = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'index.html'), 'utf8');
   const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
   assert.match(html, /id="heard-text"/);
-  assert.match(html, /V — Voice Challenge/);
+  assert.match(html, /<kbd>V<\/kbd>/);
+  assert.match(html, /开口说词/);
   assert.match(html, /Merchant Leo/);
   assert.match(html, /id="my-english"/);
   assert.match(html, /id="voice-fallback"/);
@@ -1455,11 +1863,11 @@ test('voice challenge uses V, heard text, and does not pause on first hit', () =
   assert.match(game, /launchBoltToward/);
   assert.match(game, /data-action="backspace"/);
   assert.match(game, /home: mob \|\| null/);
-  assert.doesNotMatch(game, /shouldAsk\(\{[\s\S]{0,120}firstHit: !mob\.asked/);
+  assert.match(game, /shouldAsk\(\{[\s\S]{0,220}firstHit: !mob\.asked/);
   const hitFn = game.slice(game.indexOf('function requestHit'), game.indexOf('function fillQuizCard'));
-  assert.doesNotMatch(hitFn, /openQuiz/);
-  assert.doesNotMatch(hitFn, /voiceFails/);
-  assert.doesNotMatch(game, /openQuiz\(mob, 'melee'\)/);
+  assert.match(hitFn, /openQuiz\(mob/);
+  assert.match(hitFn, /hitsSinceQuiz/);
+  assert.match(game, /openQuiz\(mob,/);
   assert.match(game, /if \(session\.quiz\) \{[\s\S]{0,280}listenOnce\(\)/);
   assert.doesNotMatch(game, /if \(session\.quiz\) \{[\s\S]{0,280}startVoiceChallenge\(\)/);
   const speakFn = game.slice(game.indexOf('function applySpeakHit'), game.indexOf('function showVoiceFallback'));
@@ -1522,7 +1930,7 @@ test('each level carries mission, themes, boss mechanic, and unlock gate', () =>
   L.LEVELS.forEach((row) => {
     assert.ok(row.missionType, 'missionType ' + row.level);
     assert.ok(Array.isArray(row.wordThemes) && row.wordThemes.length >= 1);
-    assert.ok(row.targetWords >= 5);
+    assert.ok(row.targetWords >= 12);
     assert.ok(row.bossMechanic);
     assert.ok(row.unlock && row.unlock.coins >= 0);
     assert.ok(Array.isArray(row.focusWords));
@@ -1595,9 +2003,19 @@ test('craft ui maps every offered item to an icon class', () => {
   assert.match(game, /function itemIconHtml/);
   assert.match(game, /bl-item-/);
   assert.match(game, /bl-craft-mat/);
+  assert.match(game, /itemArt\(/);
   assert.match(css, /\.bl-item-plank/);
   assert.match(css, /\.bl-item-log/);
   assert.match(css, /\.bl-item-torch/);
+  assert.match(css, /\.bl-item-art/);
+  assert.match(css, /\.bl-item-iso/);
+  assert.equal(CR.itemArt('wood_sword'), './assets/ui/sword.png');
+  assert.equal(CR.itemArt('iron_axe'), './assets/ui/axe.png');
+  assert.equal(CR.itemArt('dirt'), './assets/atlas/dirt.png');
+  assert.equal(CR.itemArt('cobble'), './assets/atlas/stone.png');
+  assert.equal(CR.itemArt('stick'), '');
+  const html = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'index.html'), 'utf8');
+  assert.match(html, /5–9 选中.*右键/);
 });
 
 test('recipe book hides unused items and keeps chest/torch/furnace offered', () => {
@@ -1697,24 +2115,44 @@ test('companion times out to the template and never writes a localStorage key', 
     const html = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'index.html'), 'utf8');
     const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
     assert.match(html, /id="buddy-say"/);
-    assert.match(html, /G — Talk to buddy/);
+    assert.match(html, /<kbd>G<\/kbd>/);
+    assert.match(html, /跟伙伴说话/);
     assert.match(html, /data\/companion\.js/);
     assert.match(game, /function collectSnapshot/);
     assert.match(game, /e\.key === 'g' \|\| e\.key === 'G'/);
     assert.match(game, /startVoiceChallenge/);
     assert.doesNotMatch(game, /localStorage\.setItem\(\s*['"]bl-buddy/);
     assert.match(html, /id="buddy-layer"/);
+    assert.match(html, /id="buddy-gate"/);
+    assert.match(html, /id="buddy-pick-play"/);
+    assert.match(html, /id="buddy-pick-home"/);
+    assert.match(html, /id="buddy-pick-type"/);
     assert.match(html, /id="buddy-endpoint"/);
     assert.match(html, /This session only/);
     assert.match(game, /buddy-layer/);
+    assert.match(game, /buddy-gate/);
     assert.match(game, /function applyBuddySettings/);
     assert.match(game, /function openBuddySettings/);
+    assert.match(game, /function chooseBuddy/);
+    assert.match(game, /function maybeShowBuddyGate/);
+    assert.match(game, /session\.buddyTypeOnly/);
     assert.doesNotMatch(game, /localStorage\.setItem/);
     const launch = path.join(repoRoot, 'prj', 'games', 'blocklegend', '打开方块传奇.bat');
     assert.ok(fs.existsSync(launch));
     assert.match(fs.readFileSync(launch, 'utf8'), /\/prj\/games\/blocklegend\/index\.html/);
     assert.doesNotMatch(fs.readFileSync(launch, 'utf8'), /playtest=1/);
   });
+});
+
+test('buddy gate skips playtest and home-pc pick opens the form without saving', () => {
+  assert.equal(P.shouldSkipBuddyGate('?playtest=1'), true);
+  assert.equal(P.shouldSkipBuddyGate('?skipBuddyGate=1'), true);
+  assert.equal(P.shouldSkipBuddyGate('?buddyEndpoint=http://127.0.0.1:4210/v1'), true);
+  assert.equal(P.shouldSkipBuddyGate(''), false);
+  assert.deepEqual(P.applyBuddyPick('play'), { pick: 'play', typeOnly: false, openForm: false, clearModel: true });
+  assert.deepEqual(P.applyBuddyPick('type'), { pick: 'type', typeOnly: true, openForm: false, clearModel: true });
+  assert.deepEqual(P.applyBuddyPick('home'), { pick: 'home', typeOnly: false, openForm: true, clearModel: false });
+  assert.equal(P.STORAGE_KEY, null);
 });
 
 test('buddy pasted config enables flash chat without a storage key', () => {
@@ -1725,6 +2163,28 @@ test('buddy pasted config enables flash chat without a storage key', () => {
   assert.equal(cfg.endpoint, 'https://example.com/v1');
   assert.equal(cfg.apiKey, 'secret');
   assert.equal(P.STORAGE_KEY, null);
+});
+
+test('buddy-proxy exposes optional /v1/stt and 501 when whisper is missing', () => {
+  const proxy = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'tools', 'buddy-proxy.mjs'), 'utf8');
+  assert.match(proxy, /\/v1\/stt/);
+  assert.match(proxy, /faster-whisper|whisper-stt/);
+  assert.match(proxy, /stt:/);
+  assert.match(proxy, /501/);
+});
+
+test('buddy config accepts sttUrl from query or pasted and defaults from endpoint', () => {
+  const q = P.resolveBuddyConfig({ query: { buddyStt: 'http://127.0.0.1:4210/v1/stt' } });
+  assert.equal(q.sttUrl, 'http://127.0.0.1:4210/v1/stt');
+  const pasted = P.resolveBuddyConfig({ pasted: { endpoint: 'http://127.0.0.1:4210/v1' } });
+  assert.equal(pasted.sttUrl, 'http://127.0.0.1:4210/v1/stt');
+  const html = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'index.html'), 'utf8');
+  const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  assert.match(html, /id="buddy-stt"/);
+  assert.match(game, /function listenViaGateway/);
+  assert.match(game, /MediaRecorder/);
+  assert.match(game, /sttUrl/);
+  assert.doesNotMatch(game, /localStorage\.setItem\(\s*['"]bl-stt/);
 });
 
 test('companion speech plan prefers Microsoft English then optional edge-tts proxy', () => {
@@ -1743,6 +2203,37 @@ test('companion speech plan prefers Microsoft English then optional edge-tts pro
   assert.equal(silent.method, 'silent');
 });
 
+test('full buddy flow: gate pick, plaque hit, home-pc request, model timeout', () => {
+  const play = P.applyBuddyPick('play');
+  assert.equal(play.clearModel, true);
+  const hit = P.replyTo({
+    heard: 'lemon',
+    snapshot: { look: { type: 'mob', kind: 'slime', word: 'lemon' } },
+    matchHeard: SP.matchHeard
+  });
+  assert.equal(hit.hit, true);
+  const home = P.applyBuddyPick('home');
+  const cfg = P.resolveBuddyConfig({ pasted: { endpoint: 'http://127.0.0.1:4210/v1' } });
+  assert.equal(home.openForm, true);
+  assert.equal(cfg.enabled, true);
+  const req = P.buildChatRequest({
+    config: cfg,
+    snapshot: { look: { type: 'mob', kind: 'slime', word: 'lemon' } },
+    heard: 'hi'
+  });
+  assert.match(req.url, /127\.0\.0\.1:4210\/v1\/chat\/completions/);
+  return P.runBuddyTurn({
+    heard: 'hello',
+    snapshot: { look: { type: 'mob', kind: 'slime', word: 'lemon' } },
+    matchHeard: SP.matchHeard,
+    askModel: function () { return new Promise(function () {}); },
+    timeoutMs: 1
+  }).then(function (turn) {
+    assert.equal(turn.source, 'template');
+    assert.ok(String(turn.say).split(/\s+/).filter(Boolean).length <= 8);
+  });
+});
+
 test('companion full pipeline: heard word hits combat and speaks a short line', () => {
   const spoken = [];
   return P.runBuddyTurn({
@@ -1757,4 +2248,226 @@ test('companion full pipeline: heard word hits combat and speaks a short line', 
     assert.match(turn.say, /yes/i);
     assert.deepEqual(spoken, [turn.say]);
   });
+});
+
+function skinRun(kind, x, y, w, h) {
+  const pix = SK.facePixels(SK.createSkinImage(kind), x, y, w, h);
+  let best = 1;
+  let run = 1;
+  for (let i = 1; i < pix.length; i += 1) {
+    const same = pix[i].join(',') === pix[i - 1].join(',');
+    const wrap = i % w === 0;
+    run = same && !wrap ? run + 1 : 1;
+    if (run > best) best = run;
+  }
+  return { pix: pix, run: best, colors: new Set(pix.map((p) => p.join(','))).size };
+}
+
+test('ART-03 slime and fox skins are designed faces, not jitter fill', () => {
+  const slimeBody = skinRun('slime', 16, 16, 16, 16);
+  const slimeFace = skinRun('slime', 0, 0, 16, 16);
+  const foxFur = skinRun('fox', 0, 16, 16, 16);
+  const foxFace = skinRun('fox', 0, 0, 8, 8);
+  const foxCream = skinRun('fox', 32, 16, 8, 8);
+  assert.ok(slimeBody.run >= 3 && slimeBody.colors >= 4 && slimeBody.colors <= 12, 'slime body designed');
+  assert.ok(slimeFace.run >= 3 && slimeFace.colors >= 4 && slimeFace.colors <= 12, 'slime face designed');
+  assert.ok(foxFur.run >= 3 && foxFur.colors >= 4 && foxFur.colors <= 12, 'fox fur designed');
+  assert.ok(foxFace.run >= 2 && foxFace.colors >= 4 && foxFace.colors <= 12, 'fox face designed');
+  assert.ok(foxCream.colors >= 2 && foxCream.colors <= 8, 'fox cream patch');
+  const dark = slimeFace.pix.filter((p) => p[0] + p[1] + p[2] < 120);
+  assert.ok(dark.length >= 8, 'slime face needs two eyes');
+  const cream = foxFace.pix.filter((p) => p[0] > 220 && p[1] > 200 && p[2] > 170);
+  const orange = foxFace.pix.filter((p) => p[0] > 180 && p[1] > 80 && p[1] < 180);
+  assert.ok(cream.length >= 4, 'fox muzzle is cream');
+  assert.ok(orange.length >= 8, 'fox face stays orange');
+  const slime = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'assets', 'img2threejs', 'createSlimeModel.js'), 'utf8');
+  const fox = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'assets', 'img2threejs', 'createFoxModel.js'), 'utf8');
+  assert.match(slime, /regionMat\(\s*THREE,\s*kind,\s*0,\s*0,\s*16,\s*16/);
+  assert.match(slime, /regionMat\(\s*THREE,\s*kind,\s*16,\s*16,\s*16,\s*16/);
+  assert.match(fox, /regionMat\(\s*THREE,\s*'fox',\s*0,\s*16,\s*16,\s*16/);
+  assert.match(fox, /faceX:\s*0/);
+  assert.match(fox, /regionMat\(\s*THREE,\s*'fox',\s*32,\s*16,\s*8,\s*8/);
+  assert.doesNotMatch(fox, /0xf4efe4/);
+});
+
+test('ART-02 designed leaves keep cutouts and tinted variants', async () => {
+  await import('../prj/games/blocklegend/data/atlas-paint.js');
+  const P = globalThis.BlockLegendAtlasPaint;
+  const oak = P.decodeTile('oak_leaf');
+  assert.ok(oak.some((p) => p.a === 0), 'oak leaf cutout');
+  assert.equal(typeof P.paintLeaves, 'function');
+  const painted = {};
+  P.paintLeaves(function (index, x, y, r, g, b, a) {
+    painted[index] = painted[index] || [];
+    painted[index].push({ r: r, g: g, b: b, a: a });
+  });
+  assert.ok(painted[6] && painted[10] && painted[13] && painted[22], 'oak birch spruce cherry leaves');
+  assert.ok(painted[10].some((p) => p.a === 0));
+  const engine = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'engine.js'), 'utf8');
+  assert.match(engine, /paintLeaves/);
+});
+
+test('ART-04 prompt lock file forbids bevel and PBR', () => {
+  const p = path.join(repoRoot, 'prj', 'assets', 'generated', 'blocklegend-art', 'PROMPTS.md');
+  assert.equal(fs.existsSync(p), true);
+  const text = fs.readFileSync(p, 'utf8');
+  assert.match(text, /axis-aligned boxes/i);
+  assert.match(text, /no bevel/i);
+  assert.match(text, /nearest-neighbor/i);
+  assert.match(text, /no PBR/i);
+});
+
+test('ART-05 sky is an inward sphere that follows the camera', () => {
+  const engine = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'engine.js'), 'utf8');
+  assert.match(engine, /SphereGeometry/);
+  assert.match(engine, /scale\(\s*-1/);
+  assert.match(engine, /skyDome\.position\.copy/);
+  assert.match(engine, /DirectionalLight/);
+});
+
+test('ART-06 mine sfx splits wood stone dirt and game uses it', async () => {
+  await import('../prj/games/blocklegend/data/fx.js');
+  const FX = globalThis.BlockLegendFx;
+  assert.equal(FX.mineSfxKind('log'), 'wood');
+  assert.equal(FX.mineSfxKind('leaf'), 'wood');
+  assert.equal(FX.mineSfxKind('stone'), 'stone');
+  assert.equal(FX.mineSfxKind('coal'), 'stone');
+  assert.equal(FX.mineSfxKind('grass'), 'dirt');
+  assert.ok(FX.debrisColor('grass') !== FX.debrisColor('stone'));
+  const sfx = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'shared', 'game-sfx.js'), 'utf8');
+  const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  const html = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'index.html'), 'utf8');
+  assert.match(sfx, /kind === 'wood'/);
+  assert.match(game, /mineSfxKind/);
+  assert.match(game, /sfx\.mine\(/);
+  assert.match(html, /data\/fx\.js/);
+});
+
+test('ART-07 death scales the mesh before remove', () => {
+  const mobs = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'mobs.js'), 'utf8');
+  const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  assert.match(mobs, /beginDeath/);
+  assert.match(game, /beginDeath/);
+  assert.match(game, /flashMesh/);
+});
+
+test('ART-08 HUD drops currency emoji for pixel icons', () => {
+  const html = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'index.html'), 'utf8');
+  const css = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.css'), 'utf8');
+  assert.doesNotMatch(html, /🪙|⚔|🛡|🎤/);
+  assert.match(html, /bl-ico-coin/);
+  assert.match(html, /bl-ico-atk/);
+  assert.match(html, /bl-ico-def/);
+  assert.match(css, /\.bl-ico-coin/);
+  assert.match(css, /\.bl-wood/);
+});
+
+test('mobs only aggro inside a leash and drop when far', () => {
+  assert.equal(typeof C.tickAggro, 'function');
+  assert.ok(C.AGGRO_ENTER < C.AGGRO_EXIT);
+  assert.equal(C.tickAggro(false, C.AGGRO_ENTER), true);
+  assert.equal(C.tickAggro(false, C.AGGRO_ENTER + 0.5), false);
+  assert.equal(C.tickAggro(true, C.AGGRO_EXIT), false);
+  assert.equal(C.tickAggro(true, (C.AGGRO_ENTER + C.AGGRO_EXIT) / 2), true);
+  const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  assert.match(game, /tickAggro/);
+});
+
+test('casting T types the letter instead of toggling off', () => {
+  const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  assert.match(game, /\(e\.key === 't' \|\| e\.key === 'T'\) && !session\.casting/);
+});
+
+test('level 1 first wave is slimes only and needs more than one wave before boss', () => {
+  assert.ok(L.LEVELS[0].waves >= 3);
+  const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  assert.match(game, /wave === 1/);
+  assert.match(game, /'slime'/);
+  assert.match(game, /spawnBoss/);
+  const start = game.indexOf('function startLevel');
+  const startFn = game.slice(start, game.indexOf('function refreshPool'));
+  assert.doesNotMatch(startFn, /spawnBoss\(\)/);
+});
+
+test('ART-01 atlas-paint exposes 8 designed 16x16 core tiles', async () => {
+  await import('../prj/games/blocklegend/data/atlas-paint.js');
+  const P = globalThis.BlockLegendAtlasPaint;
+  assert.equal(typeof P, 'object');
+  assert.equal(P.TILE, 16);
+  assert.deepEqual(P.CORE, {
+    grass_top: 0,
+    grass_side: 1,
+    dirt: 2,
+    stone: 3,
+    oak_side: 4,
+    oak_top: 5,
+    oak_leaf: 6,
+    sand: 24
+  });
+  Object.keys(P.CORE).forEach((name) => {
+    const tile = P.decodeTile(name);
+    assert.equal(tile.length, 16 * 16, name);
+    const colors = new Set(tile.map((p) => p.r + ',' + p.g + ',' + p.b + ',' + p.a));
+    assert.ok(colors.size >= 4 && colors.size <= 12, name + ' should be designed (4-12 colors), got ' + colors.size);
+  });
+  const side = P.decodeTile('grass_side');
+  const topRowGreen = [0, 1, 2].every((y) => {
+    const p = side[y * 16 + 8];
+    return p.g > p.r && p.g > p.b && p.a === 255;
+  });
+  const bottomBrown = [13, 14, 15].every((y) => {
+    const p = side[y * 16 + 8];
+    return p.r > p.g && p.a === 255;
+  });
+  assert.equal(topRowGreen, true, 'grass_side must have a grass rim');
+  assert.equal(bottomBrown, true, 'grass_side must keep dirt below the rim');
+  const leaf = P.decodeTile('oak_leaf');
+  assert.ok(leaf.some((p) => p.a === 0), 'oak_leaf needs cutout pixels for alphaTest');
+  assert.ok(leaf.filter((p) => p.a === 255).length >= 240, 'oak_leaf canopy should stay dense');
+  const grass = P.decodeTile('grass_top');
+  assert.ok(neighborEdges(grass) < 140, 'grass_top should stay calm, not speckled');
+});
+
+function neighborEdges(tile) {
+  let n = 0;
+  const key = (p) => p.r + ',' + p.g + ',' + p.b + ',' + p.a;
+  for (let y = 0; y < 16; y += 1) {
+    for (let x = 0; x < 16; x += 1) {
+      const i = y * 16 + x;
+      if (x < 15 && key(tile[i]) !== key(tile[i + 1])) n += 1;
+      if (y < 15 && key(tile[i]) !== key(tile[i + 16])) n += 1;
+    }
+  }
+  return n;
+}
+
+test('ART-01 engine paints core tiles from atlas-paint, not noise fill', () => {
+  const engine = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'engine.js'), 'utf8');
+  const html = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'index.html'), 'utf8');
+  assert.match(engine, /BlockLegendAtlasPaint/);
+  assert.match(engine, /paintCore/);
+  assert.match(html, /data\/atlas-paint\.js/);
+  const paintIdx = html.indexOf('atlas-paint.js');
+  const engineIdx = html.indexOf('engine.js');
+  assert.ok(paintIdx >= 0 && paintIdx < engineIdx, 'atlas-paint must load before engine.js');
+});
+
+test('hurt flash does not leave emissive stuck white', () => {
+  const mobs = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'mobs.js'), 'utf8');
+  assert.doesNotMatch(mobs, /if \(hurtFlash\)[\s\S]{0,180}setHex\(0xffffff\)/);
+});
+
+test('listenOnce prefers gateway STT when sttUrl is set', () => {
+  const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  const listen = game.slice(game.indexOf('function listenOnce'), game.indexOf('function tick('));
+  const beforeRec = listen.slice(0, listen.indexOf('const Rec'));
+  assert.match(beforeRec, /hasGatewayStt\(\)/);
+  assert.match(beforeRec, /listenViaGateway/);
+});
+
+test('hidden buddy input blurs so V and T still work', () => {
+  const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  assert.match(game, /showBuddyType/);
+  assert.match(game, /input\.blur\(\)/);
+  assert.match(game, /is-hidden[\s\S]{0,80}blur|buried|blur\(\)/);
 });

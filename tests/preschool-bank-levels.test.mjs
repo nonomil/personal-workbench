@@ -55,7 +55,7 @@ test('english follows one theme sequence and does not offer child tracks', () =>
     assert.doesNotMatch(app, /看图词/);
     assert.match(html, /preschool-english-vocab-data\.js\?v=20260815-english-auto-v1/);
     assert.match(html, /preschool-bank-levels\.js\?v=20260815-english-auto-v1/);
-    assert.match(html, /app\.js\?v=20260816-loop-v1/);
+    assert.match(html, /app\.js\?v=20260818-phonics-zh-v1/);
 });
 
 test('shared level bands define L1-L5 without grade labels', () => {

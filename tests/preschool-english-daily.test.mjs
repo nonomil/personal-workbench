@@ -70,7 +70,7 @@ test('english today ui shows 今日 3 词 and 我的词库', () => {
     assert.match(config, /今日 3 词/);
     assert.match(config, /size: 3/);
     assert.match(html, /preschool-english-data\.js\?v=20260816-english-uplift-v2/);
-    assert.match(html, /app\.js\?v=20260816-literacy-ui-v/);
+    assert.match(html, /app\.js\?v=20260818-phonics-zh-v1/);
     assert.match(table, /hello/);
     assert.match(table, /Dolch/);
     assert.match(table, /课标一年级生活词/);

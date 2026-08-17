@@ -92,7 +92,7 @@ test('html and app wire the pack renderer and motion timer onto the existing dia
     const configSource = fs.readFileSync(path.join(repoRoot, 'prj', 'config.js'), 'utf8');
     assert.equal((configSource.split("id: 'preschool-literacy'")[1].split("actions: { 'add-plan'")[0].match(/activity:\s*\{/g) || []).length, 31);
     assert.match(html, /preschool-lesson-pack-data\.js\?v=20260815-b4-c4-v1/);
-    assert.match(html, /preschool-lesson-pack\.js\?v=20260815-b4-c1-v1/);
+    assert.match(html, /preschool-lesson-pack\.js\?v=20260818-motion-cards-v1/);
     assert.match(html, /preschool-play-games\.js/);
     assert.match(app, /mode === 'motion-timer'/);
     assert.match(app, /data-action="motion-done"/);

@@ -101,23 +101,57 @@
         return asArray(rows).map(function (row) { return choiceLesson(row); }).filter(Boolean);
     }
 
+    function extractPhonicsTokens(examples) {
+        const letters = [];
+        const words = [];
+        function addLetter(value) {
+            const letter = String(value || '').trim().toLowerCase();
+            if (/^[a-z]$/.test(letter) && letters.indexOf(letter) < 0) letters.push(letter);
+        }
+        function addWord(value) {
+            const word = String(value || '').trim().toLowerCase().replace(/[^a-z]/g, '');
+            if (/^[a-z]{2,}$/.test(word) && words.indexOf(word) < 0) words.push(word);
+        }
+        asArray(examples).forEach(function (raw) {
+            const text = String(raw || '').trim();
+            if (!text) return;
+            if (text.indexOf('/') >= 0) {
+                addWord(text.replace(/\//g, ' '));
+                return;
+            }
+            if (/[-\u2013]/.test(text) && /[a-z]/i.test(text)) {
+                text.split(/[-\u2013]/).forEach(function (part) {
+                    const bit = part.trim();
+                    if (/^[a-z]$/i.test(bit)) addLetter(bit);
+                    else addWord(bit);
+                });
+                return;
+            }
+            if (/^[a-z]$/i.test(text)) addLetter(text);
+            else if (/^[a-z]{2,}$/i.test(text)) addWord(text);
+        });
+        return { letters: letters, words: words };
+    }
+
     function phonicsLesson(row) {
         const source = row && typeof row === 'object' ? row : {};
-        const examples = asArray(source.examples).map(function (item) { return String(item || '').trim(); }).filter(Boolean);
-        const letters = examples.filter(function (item) { return /^[a-z]$/i.test(item); });
-        const words = examples.filter(function (item) { return /^[a-z]{2,}$/i.test(item); });
+        const tokens = extractPhonicsTokens(source.examples);
+        const letters = tokens.letters;
+        const words = tokens.words;
+        const type = String(source.activityType || '');
         const extras = {
             id: String(source.id || ''),
             title: String(source.title || ''),
             minutes: Number(source.minutes) || 8,
             meta: source.day ? ('第 ' + source.day + ' 天') : '拼读',
-            tip: String(source.tip || source.prompt || '先听，再选。')
+            tip: String(source.tip || source.prompt || source.objective || '先听声音，再看字母和音标。')
         };
-        if (words.length) {
+        const wantWords = /blend|cvc|rhyme|syllable|oral|decodable|word-family/i.test(type);
+        if ((wantWords && words.length) || (!letters.length && words.length)) {
             return attachGuide(Object.assign({}, extras, {
                 activity: {
                     mode: 'phonics-cvc',
-                    preferred: words[0].toLowerCase(),
+                    preferred: words[0],
                     size: Math.min(10, Math.max(3, words.length)),
                     prompt: String(source.prompt || '听一听，哪个词？'),
                     hint: extras.tip,
@@ -128,23 +162,20 @@
                 }
             }), source);
         }
-        if (letters.length) {
-            return attachGuide(Object.assign({}, extras, {
-                activity: {
-                    mode: 'phonics-letter',
-                    preferred: letters[0].toLowerCase(),
-                    groups: 'alpha',
-                    size: Math.min(8, Math.max(3, letters.length)),
-                    prompt: String(source.prompt || '听一听，哪个字母？'),
-                    hint: extras.tip,
-                    options: ['听一听', '选字母', '下一题'],
-                    answer: 0,
-                    optionIcons: ['languages', 'target', 'sparkles'],
-                    success: String(source.success || '字母听出来啦！')
-                }
-            }), source);
-        }
-        return null;
+        return attachGuide(Object.assign({}, extras, {
+            activity: {
+                mode: 'phonics-letter',
+                preferred: letters[0] || 'm',
+                groups: letters.length ? '' : 'amt',
+                size: Math.min(8, Math.max(3, letters.length || 3)),
+                prompt: String(source.prompt || '听一听，哪个字母？'),
+                hint: extras.tip,
+                options: ['听一听', '选字母', '下一题'],
+                answer: 0,
+                optionIcons: ['languages', 'target', 'sparkles'],
+                success: String(source.success || '字母听出来啦！')
+            }
+        }), source);
     }
 
     function phonicsLessons(rows) {
@@ -187,7 +218,10 @@
                 id: String(source.id || ''),
                 name: String(source.name || ''),
                 level: String(source.level || 'L1'),
-                type: String(source.type || 'movement')
+                type: String(source.type || 'movement'),
+                durationSec: Number(source.durationSec) || 45,
+                safety: Array.isArray(source.safety) ? source.safety.map(function (item) { return String(item); }) : [],
+                howTo: String(source.howTo || '')
             };
         }).filter(function (item) { return item.id; });
     }

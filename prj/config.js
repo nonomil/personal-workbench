@@ -243,7 +243,7 @@
                 {
                     id: 'preschool-math',
                     title: '数学专区',
-                    description: '先数一数、比大小，口算级别在设置里选。加减、乘法、除法和口诀都可以换。',
+                    description: '今日口算直接选题。加减、小乘法和口诀都可以在数学页换。',
                     icon: 'calculator',
                     tone: 'blue',
                     badge: '五级题库',
@@ -330,7 +330,7 @@
                 {
                     id: 'preschool-exercise',
                     title: '每日运动',
-                    description: '参考页有 10 个居家动作，这里保留动作清单和开始按钮节奏。',
+                    description: '今天几张动作卡，跟着图做完就能打卡。',
                     icon: 'heart',
                     tone: 'green',
                     badge: '10 个动作',
@@ -382,7 +382,7 @@
         '.topbar-context strong': selected.pageMeta.overview.title,
         '.mode-status strong': '本地模式',
         '.mode-status small': selected.statusNote,
-        '.sidebar-footnote': selected.id === 'preschool' ? 'v0.7.1 · 幼儿版' : selected.id === 'child' ? 'v0.7.1 · 儿童版' : 'v0.7.1 · 成人版',
+        '.sidebar-footnote': selected.id === 'preschool' ? 'v0.7.2 · 幼儿版' : selected.id === 'child' ? 'v0.7.2 · 儿童版' : 'v0.7.2 · 成人版',
         '.avatar': selected.avatar
     };
     Object.keys(labelMap).forEach(function (selector) {

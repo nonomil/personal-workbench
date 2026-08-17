@@ -34,12 +34,29 @@
         return grid[left.length][right.length];
     }
 
+    function tokensOf(s) {
+        return String(s || '').toLowerCase().split(/[^a-z']+/).filter(Boolean);
+    }
+
+    function closeEnough(want, got) {
+        if (!want || !got) return false;
+        if (want === got) return true;
+        if (want.length <= 3) return false;
+        return editDistance(want, got) <= 1;
+    }
+
     function matchHeard(target, heard) {
         const want = normHeard(target);
+        if (!want) return { ok: false, kind: 'mismatch' };
+        const parts = tokensOf(heard);
+        let i = 0;
+        for (i = 0; i < parts.length; i += 1) {
+            if (closeEnough(want, parts[i])) {
+                return { ok: true, kind: parts[i] === want ? 'match' : 'close' };
+            }
+        }
         const got = normHeard(heard);
-        if (!want || !got) return { ok: false, kind: 'mismatch' };
-        if (want === got) return { ok: true, kind: 'match' };
-        if (editDistance(want, got) <= 1) return { ok: true, kind: 'close' };
+        if (closeEnough(want, got)) return { ok: true, kind: want === got ? 'match' : 'close' };
         return { ok: false, kind: 'mismatch' };
     }
 

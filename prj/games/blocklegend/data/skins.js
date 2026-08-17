@@ -104,13 +104,150 @@
         rect(img, 22, 22, 4, 2, pal.light || pal.base);
     }
 
+    function stamp(img, ox, oy, spec) {
+        const rows = spec.rows;
+        let y;
+        for (y = 0; y < rows.length; y += 1) {
+            const row = rows[y];
+            let x;
+            for (x = 0; x < row.length; x += 1) {
+                const c = spec.palette[row.charAt(x)];
+                if (c) put(img, ox + x, oy + y, c);
+            }
+        }
+    }
+
+    function paintDesignedSlime(img) {
+        const jelly = {
+            d: [46, 112, 40, 255],
+            s: [68, 148, 52, 255],
+            g: [92, 186, 74, 255],
+            G: [148, 220, 118, 255],
+            y: [188, 236, 150, 255],
+            e: [22, 36, 18, 255],
+            m: [28, 44, 22, 255]
+        };
+        stamp(img, 0, 0, {
+            palette: jelly,
+            rows: [
+                'ddssggggggggssdd',
+                'dsggGgggggGggssd',
+                'ssgGyGggggGyGgss',
+                'sggGggssssggGggs',
+                'gggssgeeeegssggg',
+                'gGygggeeeegggGyg',
+                'sggGggssssggGggs',
+                'ssggssggggssggss',
+                'dsggGggmmggGgssd',
+                'sggGggmmmmggGggs',
+                'gggssggmmggssggg',
+                'gGgggGggggGgggGg',
+                'sggGggggggggGggs',
+                'ssggssgGGgssggss',
+                'dssggggggggggssd',
+                'dddssggggggssddd'
+            ]
+        });
+        stamp(img, 16, 16, {
+            palette: jelly,
+            rows: [
+                'ddssggggggggssdd',
+                'dsggGgggggGggssd',
+                'ssgGyGggggGyGgss',
+                'sggGggssssggGggs',
+                'gggssgGGGGgssggg',
+                'gGygggGyyGgggGyg',
+                'sggGggggggggGggs',
+                'ssggssgGGggssggs',
+                'dsggGggggGgggssd',
+                'sggGyGgggGyGggsg',
+                'gggssggGGggssggg',
+                'gGgggGyyyyGgggGg',
+                'sggGggggggggGggs',
+                'ssggssgGGgssggss',
+                'dssggggggggggssd',
+                'dddssggggggssddd'
+            ]
+        });
+    }
+
+    function paintDesignedFox(img) {
+        const fur = {
+            D: [140, 64, 18, 255],
+            o: [196, 98, 28, 255],
+            O: [224, 122, 40, 255],
+            L: [240, 158, 72, 255],
+            c: [244, 226, 196, 255],
+            w: [252, 244, 228, 255],
+            e: [28, 16, 10, 255],
+            n: [48, 24, 14, 255]
+        };
+        stamp(img, 0, 0, {
+            palette: fur,
+            rows: [
+                'DOOOOODD',
+                'OOLLOOOO',
+                'OeeOOeeO',
+                'OeeOOeeO',
+                'OOOnnOOO',
+                'OccnnccO',
+                'wccccccw',
+                'wwccccww'
+            ]
+        });
+        stamp(img, 8, 0, {
+            palette: fur,
+            rows: [
+                'DOOOOOOD',
+                'OOOOOOOO',
+                'OOLLOOOO',
+                'OODODOOO',
+                'OOOOOOOO',
+                'OOLLOOOO',
+                'OOOOOOOO',
+                'DDOOOODD'
+            ]
+        });
+        stamp(img, 0, 16, {
+            palette: fur,
+            rows: [
+                'DDOOOOOOOOOOODDD',
+                'DOOOLLooLLOOOOOD',
+                'OOOOLLooLLOOOOOO',
+                'OODOOOOOOOOODOOO',
+                'OOOOOLLLLLOOOOOO',
+                'OOLLooooooooLLOO',
+                'OOOOOOOOOOOOOOOO',
+                'DOOOLLooLLOOOOOD',
+                'OOOOLLooLLOOOOOO',
+                'OOOOOOOOOOOOOOOO',
+                'OOLLooooooooLLOO',
+                'OOOOOLLLLLOOOOOO',
+                'OODOOOOOOOOODOOO',
+                'OOOOOOOOOOOOOOOO',
+                'DOOOLLooLLOOOOOD',
+                'DDOOOOOOOOOOODDD'
+            ]
+        });
+        stamp(img, 32, 16, {
+            palette: fur,
+            rows: [
+                'wwccccww',
+                'wccccccw',
+                'cccccccc',
+                'ccwwwccc',
+                'cccccccc',
+                'wccccccw',
+                'wwccccww',
+                'wwwccwww'
+            ]
+        });
+    }
+
     function paintSkin(kind, img) {
         const k = String(kind || 'husk');
         if (k === 'slime') {
-            paintCube16(img, {
-                base: [92, 186, 74], dark: [46, 112, 40], light: [168, 226, 130],
-                eye: [22, 36, 18], glow: [210, 250, 180], mouth: [28, 44, 22]
-            });
+            paintDesignedSlime(img);
         } else if (k === 'magma') {
             paintCube16(img, {
                 base: [168, 52, 22], dark: [72, 18, 10], light: [255, 140, 40],
@@ -131,10 +268,7 @@
                 eye: [40, 24, 14], glow: [255, 210, 120], mouth: [60, 32, 16]
             });
         } else if (k === 'fox') {
-            paintCube16(img, {
-                base: [224, 122, 40], dark: [168, 72, 20], light: [244, 210, 166],
-                eye: [32, 20, 12], glow: [255, 236, 180], mouth: [80, 40, 20]
-            });
+            paintDesignedFox(img);
         } else if (k === 'husk') {
             paintHumanoid(img, {
                 skin: [138, 142, 120], dark: [78, 80, 70], shirt: [74, 96, 64],

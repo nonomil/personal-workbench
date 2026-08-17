@@ -15,7 +15,10 @@
         wood_sword: 6, wood_pick: 6, wood_axe: 6,
         wood_bow: 7, wood_shield: 7, arrow: 1, iron_sword: 10,
         wood_shovel: 5, stone_sword: 8, stone_pick: 8, stone_axe: 8, stone_shovel: 7,
-        iron_pick: 10, iron_axe: 10, iron_ore: 3, iron_ingot: 6, coal: 2, torch: 1, chest: 8, furnace: 8,
+        iron_pick: 10, iron_axe: 10, iron_shovel: 9, iron_ore: 3, iron_ingot: 6, coal: 2, torch: 1, chest: 8, furnace: 8,
+        gold: 5, gold_ingot: 8, diamond: 12,
+        gold_sword: 9, gold_pick: 9, gold_axe: 9, gold_shovel: 8,
+        diamond_sword: 14, diamond_pick: 14, diamond_axe: 14, diamond_shovel: 13,
         door: 6, fence: 3, ladder: 3, bowl: 2, boat: 7, shears: 5, bucket: 5, fishing_rod: 7,
         'ender-pearl': 8, 'gold-nugget': 6, 'glow-dust': 5
     };
@@ -44,6 +47,7 @@
     const CR = window.BlockLegendCraft;
     const S = window.BlockLegendShop;
     const sfx = window.WorkbenchGameSfx;
+    const THEME_BGM = './assets/audio/minecraft-theme.mp3';
     const THREE = window.THREE;
 
     let engine = null;
@@ -81,6 +85,8 @@
         buddyAt: 0,
         buddyKey: '',
         buddyConfig: null,
+        buddyPick: '',
+        buddyTypeOnly: false,
         lastHeard: '',
         missByWord: {},
         tool: 'sword',
@@ -90,9 +96,13 @@
         lookSince: 0,
         lookSpoken: false,
         placeLoot: 'dirt',
+        hotbar: T && T.emptyHotbar ? T.emptyHotbar() : ['sword', 'axe', 'pickaxe', 'shovel', 'dirt', 'cobble', 'oak-log', 'plank', 'table'],
+        hotIndex: 0,
+        invPick: null,
+        helpPage: 0,
         atTable: false,
         craftCells: [null, null, null, null, null, null, null, null, null],
-        craftSize: 2,
+        craftSize: 3,
         quest: null,
         quizRetry: false,
         wordCorrect: 0
@@ -105,11 +115,13 @@
             learnedIds: [],
             shownWordIds: [],
             spokenWordIds: [],
+            reviewWords: [],
             rightCount: 0,
             wrongCount: 0,
             clearedLevels: [],
             bag: {},
-            gear: {}
+            gear: {},
+            hotbar: null
         };
     }
 
@@ -127,6 +139,7 @@
         loadProgress();
         const canvas = document.getElementById('world-canvas');
         engine = ENG.create(canvas, { seed: 7, climate: 'plains' });
+        engine.onJump = function () { if (sfx && sfx.jump) sfx.jump(); };
         // 第一人称手臂+剑：挂到相机上（相机需入场景，子对象才会渲染）
         viewModel = MOBS.createViewModel();
         engine.scene.add(engine.camera);
@@ -138,6 +151,8 @@
         bindCombatInput(canvas);
         spawnMerchant();
         engine.onTick(tick);
+        maybeShowBuddyGate();
+        startTheme();
         if (bridge && bridge.recordPlaySession) bridge.recordPlaySession(GAME_ID);
         bank = (W.FALLBACK_BANK || []).slice();
         startLevel(progress.unlockedLevel || 1);
@@ -187,18 +202,36 @@
         if (!Array.isArray(progress.learnedIds)) progress.learnedIds = [];
         if (!Array.isArray(progress.shownWordIds)) progress.shownWordIds = [];
         if (!Array.isArray(progress.spokenWordIds)) progress.spokenWordIds = [];
+        if (!Array.isArray(progress.reviewWords)) progress.reviewWords = [];
         if (!Array.isArray(progress.clearedLevels)) progress.clearedLevels = [];
         if (!progress.gear || typeof progress.gear !== 'object') progress.gear = {};
         session.coins = Number(progress.coined) || 0;
         session.bag = Object.assign({}, progress.bag || C.emptyBag());
+        session.hotbar = T.normalizeHotbar(progress.hotbar);
+        session.hotIndex = 0;
+        session.invPick = null;
     }
 
     function persist() {
         progress.coined = session.coins;
         progress.bag = session.bag;
+        progress.hotbar = session.hotbar;
         progress.gear = progress.gear || {};
         if (bridge && bridge.saveProgress) bridge.saveProgress(GAME_ID, progress);
         syncHud();
+    }
+
+    function startTheme() {
+        if (sfx && sfx.playBgm) sfx.playBgm(THEME_BGM);
+    }
+
+    function paintAudioBtn() {
+        const audioBtn = document.getElementById('audio-btn');
+        if (!audioBtn) return;
+        const muted = !!(sfx && sfx.isMuted && sfx.isMuted());
+        audioBtn.textContent = muted ? '静音' : '音乐';
+        audioBtn.setAttribute('aria-pressed', muted ? 'true' : 'false');
+        audioBtn.setAttribute('aria-label', muted ? 'Unmute music' : 'Mute music');
     }
 
     function bindChrome() {
@@ -208,14 +241,43 @@
             if (!document.fullscreenElement) (r.requestFullscreen || function () {}).call(r);
             else if (document.exitFullscreen) document.exitFullscreen();
         });
-        document.getElementById('help-btn').addEventListener('click', function () { toggleLayer('help-layer', true); });
+        document.getElementById('help-btn').addEventListener('click', function () {
+            showHelpPage(0);
+            toggleLayer('help-layer', true);
+        });
         document.getElementById('help-close').addEventListener('click', function () { toggleLayer('help-layer', false); });
+        const helpPrev = document.getElementById('help-prev');
+        const helpNext = document.getElementById('help-next');
+        if (helpPrev) helpPrev.addEventListener('click', function () { showHelpPage(session.helpPage - 1); });
+        if (helpNext) helpNext.addEventListener('click', function () { showHelpPage(session.helpPage + 1); });
+        const audioBtn = document.getElementById('audio-btn');
+        if (audioBtn) {
+            audioBtn.addEventListener('click', function () {
+                const muted = !!(sfx && sfx.isMuted && sfx.isMuted());
+                if (sfx && sfx.setMuted) sfx.setMuted(!muted);
+                startTheme();
+                paintAudioBtn();
+            });
+        }
+        document.addEventListener('pointerdown', startTheme, { once: true });
+        document.addEventListener('keydown', startTheme, { once: true });
+        paintAudioBtn();
         const buddyBtn = document.getElementById('buddy-btn');
         if (buddyBtn) buddyBtn.addEventListener('click', function () { openBuddySettings(); });
         const buddyClose = document.getElementById('buddy-close');
         if (buddyClose) buddyClose.addEventListener('click', function () { toggleLayer('buddy-layer', false); });
         const buddyClear = document.getElementById('buddy-clear');
         if (buddyClear) buddyClear.addEventListener('click', function () { clearBuddySettings(); });
+        const buddyRepick = document.getElementById('buddy-repick');
+        if (buddyRepick) buddyRepick.addEventListener('click', function () { showBuddyGate(); });
+        const gate = document.getElementById('buddy-gate');
+        if (gate) {
+            gate.addEventListener('click', function (e) {
+                const btn = e.target.closest('[data-buddy-pick]');
+                if (!btn) return;
+                chooseBuddy(btn.getAttribute('data-buddy-pick'));
+            });
+        }
         const buddyForm = document.getElementById('buddy-form');
         if (buddyForm) {
             buddyForm.addEventListener('submit', function (e) {
@@ -232,9 +294,20 @@
                 const craftBtn = e.target.closest('[data-craft]');
                 if (craftBtn) { doCraft(craftBtn.getAttribute('data-craft')); return; }
                 const cell = e.target.closest('[data-cell]');
-                if (cell) { takeCraftCell(Number(cell.getAttribute('data-cell'))); return; }
+                if (cell) {
+                    if (session.invPick && session.invPick.from === 'inv') {
+                        putCraftItem(session.invPick.id);
+                        session.invPick = null;
+                        paintCraft();
+                        return;
+                    }
+                    takeCraftCell(Number(cell.getAttribute('data-cell')));
+                    return;
+                }
+                const hot = e.target.closest('[data-hot]');
+                if (hot) { clickCraftHot(Number(hot.getAttribute('data-hot'))); return; }
                 const inv = e.target.closest('[data-inv]');
-                if (inv) { putCraftItem(inv.getAttribute('data-inv')); return; }
+                if (inv) { clickCraftInv(inv.getAttribute('data-inv')); return; }
                 if (e.target.closest('#craft-out')) takeCraftResult();
             });
             craftLayer.addEventListener('contextmenu', function (e) {
@@ -331,11 +404,17 @@
                 return;
             }
             if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) {
-                if (e.key === 'Escape') {
-                    showBuddyType(false);
-                    toggleLayer('buddy-layer', false);
+                const wrap = e.target.closest('form, .bl-layer, .bl-buddy-type');
+                const buried = !!(wrap && wrap.classList.contains('is-hidden'));
+                if (buried) {
+                    e.target.blur();
+                } else {
+                    if (e.key === 'Escape') {
+                        showBuddyType(false);
+                        toggleLayer('buddy-layer', false);
+                    }
+                    return;
                 }
-                return;
             }
             if (e.key === 'v' || e.key === 'V') {
                 e.preventDefault();
@@ -358,10 +437,12 @@
                     return;
                 }
             }
-            if (e.key === 't' || e.key === 'T') {
-                if (!overlayOpen() || session.casting) {
+            if ((e.key === 't' || e.key === 'T') && !session.casting) {
+                if (!overlayOpen()) {
                     e.preventDefault();
-                    setCasting(!session.casting);
+                    setCasting(true);
+                    if (!session.casting) toast('先对准怪物按 V；听不清两次后再按 T 打字');
+                    else toast('Esc 取消 · 再按字母拼单词');
                     return;
                 }
             }
@@ -400,6 +481,11 @@
             if (e.key >= '1' && e.key <= '9') selectSlot(Number(e.key));
             if (e.key === 'q' || e.key === 'Q') tryBolt();
             if (e.key === 'Escape') {
+                const gateOpen = document.getElementById('buddy-gate');
+                if (gateOpen && !gateOpen.classList.contains('is-hidden')) {
+                    chooseBuddy('play');
+                    return;
+                }
                 toggleLayer('help-layer', false);
                 toggleLayer('trade-layer', false);
                 toggleLayer('buddy-layer', false);
@@ -428,10 +514,21 @@
     function nowMs() { return Date.now(); }
 
     function overlayOpen() {
-        return ['quiz-layer', 'settle-layer', 'trade-layer', 'help-layer', 'craft-layer', 'buddy-layer'].some(function (id) {
+        return ['quiz-layer', 'settle-layer', 'trade-layer', 'help-layer', 'craft-layer', 'buddy-layer', 'buddy-gate'].some(function (id) {
             const el = document.getElementById(id);
             return el && !el.classList.contains('is-hidden');
         });
+    }
+
+    function showHelpPage(n) {
+        const pages = document.querySelectorAll('#help-pages .bl-help-page');
+        const total = pages.length || 1;
+        session.helpPage = ((Number(n) || 0) % total + total) % total;
+        pages.forEach(function (page, idx) {
+            page.classList.toggle('is-hidden', idx !== session.helpPage);
+        });
+        const lab = document.getElementById('help-page-label');
+        if (lab) lab.textContent = (session.helpPage + 1) + ' / ' + total;
     }
 
     function toggleLayer(id, on) {
@@ -465,8 +562,8 @@
         const el = document.getElementById('craft-layer');
         if (!el) return;
         const on = forceOn == null ? el.classList.contains('is-hidden') : !!forceOn;
-        session.atTable = atTable == null ? nearTable() : !!atTable;
-        const nextSize = session.atTable ? 3 : 2;
+        session.atTable = true;
+        const nextSize = 3;
         if (!on || session.craftSize !== nextSize) {
             session.bag = CR.dumpGrid(session.bag, session.craftCells);
             session.craftCells = CR.emptyGrid(nextSize);
@@ -487,7 +584,11 @@
 
     function itemIconHtml(id) {
         const key = (CR && CR.itemIcon) ? CR.itemIcon(id) : 'unknown';
-        return '<i class="bl-item bl-item-' + key + '" aria-hidden="true"></i>';
+        const src = CR && CR.itemArt ? CR.itemArt(id) : '';
+        if (src) {
+            return '<img class="bl-item bl-item-art bl-item-' + key + '" src="' + src + '" alt="">';
+        }
+        return '<i class="bl-item bl-item-iso bl-item-' + key + '" aria-hidden="true"></i>';
     }
 
     function slotInner(id, count) {
@@ -499,12 +600,14 @@
 
     function paintCraft() {
         const tip = document.getElementById('craft-tip');
-        if (tip) tip.textContent = session.atTable
-            ? '合成台 3×3：左边点配方一键做，或把材料摆进格子再点右边产物。'
-            : '随身 2×2：只能做木板、木棍、合成台、火把。对着合成台右键打开 3×3。';
+        if (tip) {
+            tip.textContent = '左边点配方一键做。点背包再点合成格放材料；点背包再点下面物品栏，把合成的东西装到 1–9。';
+        }
         paintCraftGrid();
         paintCraftBook();
         paintCraftInv();
+        paintCraftHotbar();
+        paintHotbar();
         paintBagCounts();
     }
 
@@ -559,14 +662,79 @@
         }).join('');
     }
 
+    const INV_SLOTS = 27;
+
     function paintCraftInv() {
         const box = document.getElementById('craft-inv');
         if (!box) return;
         const keys = Object.keys(session.bag).filter(function (k) { return (Number(session.bag[k]) || 0) > 0; });
-        box.innerHTML = keys.map(function (k) {
-            return '<button type="button" class="bl-mc-slot" data-inv="' + k + '" data-item="' + k + '" title="' + itemLabel(k) + '">' +
-                slotInner(k, session.bag[k]) + '</button>';
-        }).join('') || '<span class="bl-mc-empty">背包是空的，先砍树挖石头</span>';
+        let html = '';
+        for (let i = 0; i < INV_SLOTS; i += 1) {
+            const k = keys[i];
+            const pick = session.invPick && session.invPick.from === 'inv' && session.invPick.id === k;
+            html += '<button type="button" class="bl-mc-slot' + (pick ? ' is-pick' : '') + '"' +
+                (k ? ' data-inv="' + k + '" data-item="' + k + '" title="' + itemLabel(k) + '"' : '') + '>' +
+                (k ? slotInner(k, session.bag[k]) : '') + '</button>';
+        }
+        box.innerHTML = html;
+    }
+
+    function paintCraftHotbar() {
+        const box = document.getElementById('craft-hotbar');
+        if (!box) return;
+        const bar = session.hotbar || T.emptyHotbar();
+        let html = '';
+        for (let i = 0; i < 9; i += 1) {
+            const id = bar[i];
+            const pick = session.invPick && session.invPick.from === 'hot' && session.invPick.index === i;
+            const n = id && !T.isHotTool(id) ? (Number(session.bag[id]) || 0) : 0;
+            html += '<button type="button" class="bl-mc-slot' + (pick ? ' is-pick' : '') + (session.hotIndex === i ? ' is-on' : '') +
+                '" data-hot="' + i + '"' + (id ? ' data-item="' + id + '" title="' + itemLabel(id) + '"' : '') + '>' +
+                (id ? slotInner(id, n > 1 ? n : 0) : '') + '<em>' + (i + 1) + '</em></button>';
+        }
+        box.innerHTML = html;
+    }
+
+    function clickCraftInv(id) {
+        if (!id) return;
+        if (session.invPick && session.invPick.from === 'hot') {
+            session.hotbar = T.assignHotbar(session.hotbar, session.invPick.index, id);
+            session.invPick = null;
+            persist();
+            paintCraft();
+            toast('已装到物品栏。按 ' + ((session.hotIndex || 0) + 1) + '–9 选用。');
+            return;
+        }
+        if (session.invPick && session.invPick.from === 'inv' && session.invPick.id === id) {
+            putCraftItem(id);
+            return;
+        }
+        session.invPick = { from: 'inv', id: id };
+        paintCraftInv();
+        paintCraftHotbar();
+        toast('再点下面物品栏格子装上去，或再点一次放进合成格。');
+    }
+
+    function clickCraftHot(index) {
+        const i = Math.max(0, Math.min(8, Number(index) || 0));
+        if (session.invPick && session.invPick.from === 'inv') {
+            session.hotbar = T.assignHotbar(session.hotbar, i, session.invPick.id);
+            session.invPick = null;
+            persist();
+            paintCraft();
+            toast('已装到物品栏 ' + (i + 1) + '。关掉后按 ' + (i + 1) + ' 选用。');
+            return;
+        }
+        if (session.invPick && session.invPick.from === 'hot') {
+            session.hotbar = T.swapHotbar(session.hotbar, session.invPick.index, i);
+            session.invPick = null;
+            persist();
+            paintCraft();
+            return;
+        }
+        session.invPick = { from: 'hot', id: session.hotbar[i], index: i };
+        paintCraftHotbar();
+        toast('再点背包物品互换，或点另一个物品栏格子对调。');
     }
 
     function putCraftItem(kind) {
@@ -601,7 +769,8 @@
         });
         persist();
         paintCraft();
-        toast('合成了 ' + hit.recipe.name);
+        if (sfx && sfx.craft) sfx.craft();
+        toast(craftDoneTip(hit.recipe));
         if (hit.recipe && hit.recipe.id) noteQuest({ type: 'craft', id: hit.recipe.id });
     }
 
@@ -615,8 +784,19 @@
         session.bag = r.bag;
         persist();
         paintCraft();
-        toast('合成了 ' + ((r.recipe && r.recipe.name) || id));
+        if (sfx && sfx.craft) sfx.craft();
+        toast(craftDoneTip(r.recipe || { id: id, name: id }));
         noteQuest({ type: 'craft', id: id });
+    }
+
+    function craftDoneTip(recipe) {
+        const id = recipe && recipe.id;
+        const name = (recipe && recipe.name) || id || '物品';
+        if (id === 'table' || id === 'chest' || id === 'furnace' || id === 'torch') {
+            session.placeLoot = id;
+            return '合成了' + name + '。点背包里的它，再点下面物品栏格子装上去，然后按 1–9 选用、右键放置。';
+        }
+        return '合成了 ' + name + '。点背包再点下面物品栏，就能装到 1–9。';
     }
 
     function bindCombatInput(canvas) {
@@ -637,7 +817,7 @@
                     toggleCraft(true, true);
                     return;
                 }
-                tryPlace();
+                if (session.tool === 'place') tryPlace();
             }
         });
         document.addEventListener('mouseup', function (e) {
@@ -685,12 +865,33 @@
         syncHud();
     }
 
+    function todayStr() {
+        const d = new Date();
+        const m = String(d.getMonth() + 1);
+        const day = String(d.getDate());
+        return d.getFullYear() + '-' + (m.length < 2 ? '0' + m : m) + '-' + (day.length < 2 ? '0' + day : day);
+    }
+
+    function sessionMissed() {
+        return Object.keys(session.missByWord || {}).filter(function (k) {
+            return (Number(session.missByWord[k]) || 0) > 0;
+        });
+    }
+
     function refreshPool() {
         const cfg = L.levelOf(session.level);
         const src = (bank && bank.length) ? bank : (W.FALLBACK_BANK || []);
         const focusN = Number(cfg && cfg.targetWords) || 0;
         pool = (focusN && W.focusPool)
-            ? W.focusPool(src, session.level, { size: focusN, prefer: (cfg && cfg.focusWords) || [] })
+            ? W.focusPool(src, session.level, {
+                size: focusN,
+                prefer: (cfg && cfg.focusWords) || [],
+                reviewRatio: (cfg && cfg.reviewRatio) || 0,
+                review: progress.reviewWords || [],
+                missed: sessionMissed(),
+                mastery: readMastery(),
+                today: todayStr()
+            })
             : W.poolForLevel(src, session.level);
         if (!pool.length) pool = src.slice();
     }
@@ -716,7 +917,7 @@
         });
         session.boss = L.createBoss(session.level);
         ['wither', 'dragon', 'storm'].forEach(function (bossId, i) {
-            const open = openMobSpot(p.x - 6, p.z + 4 + i * 3.4);
+            const open = openMobSpot(p.x - 16, p.z + 18 + i * 4);
             const mob = spawnMonster('husk', open.x, open.z, { boss: true, bossId: bossId });
             mob.parked = true;
         });
@@ -821,7 +1022,9 @@
         session.wavesLeft = Math.max(0, session.wavesLeft - 1);
         const p = engine.player;
         const cfg = L.levelOf(session.level);
-        const kinds = (cfg && cfg.waveKinds) || ['slime', 'cube', 'slime'];
+        const kinds = (session.wave === 1)
+            ? ['slime', 'slime']
+            : ((cfg && cfg.waveKinds) || ['slime', 'cube', 'slime']);
         const count = kinds.length + (session.wave > 1 ? 1 : 0);
         const offs = C.waveOffsets ? C.waveOffsets(engine.look.yaw, count) : [
             { dx: 0, dz: -4 }, { dx: -2.2, dz: -5.2 }, { dx: 2.2, dz: -5.2 }
@@ -831,19 +1034,19 @@
             const open = openMobSpot(p.x + s.dx, p.z + s.dz);
             spawnMonster(kind, open.x, open.z);
         });
-        if (session.wave === 1) toast('史莱姆在正前方，对准它再砍');
+        if (session.wave === 1) toast('漏字史莱姆在正前方，对准它再砍');
     }
 
     function spawnBoss() {
         session.boss = L.createBoss(session.level);
         const p = engine.player;
-        const open = openMobSpot(p.x + 8, p.z + 1);
+        const open = openMobSpot(p.x + 16, p.z + 4);
         const cfg = L.levelOf(session.level);
         const bossId = (cfg && cfg.bossId) || 'wither';
         session.bossMob = spawnMonster('husk', open.x, open.z, { boss: true, bossId: bossId });
         const hud = document.getElementById('boss-hud');
         if (hud) hud.classList.remove('is-hidden');
-        const bossName = L.bossTitle ? L.bossTitle(bossId) : '凋零';
+        const bossName = L.bossTitle ? L.bossTitle(bossId) : '字母石像';
         toast(bossName + '来了！砍它会掉血，答对单词破罩。');
         syncBossHud();
     }
@@ -882,7 +1085,7 @@
         if (viewModel) viewModel.triggerSwing();
         const hits = meleeHits();
         hits.forEach(function (m) { requestHit(m, 'melee'); });
-        if (sfx && sfx.checkpoint) sfx.checkpoint();
+        if (sfx && sfx.swing) sfx.swing();
     }
 
     function selectTool(index) {
@@ -890,29 +1093,40 @@
         if (!id) return;
         session.tool = id;
         if (session.mine) session.mine.acc = 0;
+        session.hotIndex = index;
         setHotbar(index + 1);
         if (viewModel && viewModel.setTool) viewModel.setTool(id);
+        showUseTip();
     }
 
     function selectPlace(loot) {
         session.tool = 'place';
         if (loot) session.placeLoot = loot;
-        setHotbar(loot === 'cobble' ? 6 : loot === 'oak-log' ? 7 : loot === 'plank' ? 8 : loot === 'table' ? 9 : 5);
+        setHotbar((session.hotIndex || 0) + 1);
         if (viewModel && viewModel.setTool) viewModel.setTool('place');
+        if (viewModel && viewModel.setPlaceKind) viewModel.setPlaceKind(loot || session.placeLoot || 'dirt');
+        showUseTip();
     }
 
     function selectSlot(n) {
         const slot = Math.max(1, Math.min(9, Number(n) || 1));
-        if (slot <= 4) {
-            selectTool(slot - 1);
+        session.hotIndex = slot - 1;
+        const id = (session.hotbar && session.hotbar[slot - 1]) || null;
+        setHotbar(slot);
+        if (!id) {
+            session.tool = 'place';
+            showUseTip();
             return;
         }
-        if (slot === 5) selectPlace('dirt');
-        else if (slot === 6) selectPlace('cobble');
-        else if (slot === 7) selectPlace('oak-log');
-        else if (slot === 8) selectPlace('plank');
-        else if (slot === 9) selectPlace('table');
-        else setHotbar(slot);
+        if (T.isHotTool(id)) {
+            selectTool(T.SLOT_IDS.indexOf(id));
+            session.hotIndex = slot - 1;
+            setHotbar(slot);
+            return;
+        }
+        selectPlace(id);
+        session.hotIndex = slot - 1;
+        setHotbar(slot);
     }
 
     function paintHearts() {
@@ -947,22 +1161,38 @@
         box.innerHTML = html;
     }
 
-    function paintBagCounts() {
-        document.querySelectorAll('.bl-slot[data-place]').forEach(function (el) {
-            const loot = el.getAttribute('data-place');
-            let count = el.querySelector('.bl-count');
-            if (!count) {
-                count = document.createElement('b');
-                count.className = 'bl-count';
-                el.appendChild(count);
+    function paintHotbar() {
+        const bar = session.hotbar || (T.emptyHotbar && T.emptyHotbar()) || [];
+        document.querySelectorAll('.bl-hotbar .bl-slot').forEach(function (el) {
+            const n = Number(el.getAttribute('data-key')) || 0;
+            const id = bar[n - 1] || '';
+            if (id) {
+                el.setAttribute('data-item', id);
+                if (T.isHotTool(id)) {
+                    el.setAttribute('data-tool', id);
+                    el.removeAttribute('data-place');
+                } else {
+                    el.setAttribute('data-place', id);
+                    el.removeAttribute('data-tool');
+                }
+            } else {
+                el.removeAttribute('data-item');
+                el.removeAttribute('data-tool');
+                el.removeAttribute('data-place');
             }
-            const n = Number(session.bag[loot]) || 0;
-            count.textContent = n > 0 ? String(n) : '';
+            const nBag = id && !T.isHotTool(id) ? (Number(session.bag[id]) || 0) : 0;
+            el.innerHTML = (id ? slotInner(id, nBag > 1 ? nBag : 0) : '') + '<em>' + n + '</em>' +
+                (nBag > 0 ? '<b class="bl-count">' + nBag + '</b>' : '');
+            el.classList.toggle('is-on', session.hotIndex === n - 1);
         });
     }
 
+    function paintBagCounts() {
+        paintHotbar();
+    }
+
     function nextPlaceLoot() {
-        const order = [session.placeLoot, 'dirt', 'cobble', 'oak-log', 'plank', 'table'];
+        const order = [session.placeLoot, 'dirt', 'cobble', 'oak-log', 'plank', 'table', 'chest', 'furnace', 'torch'];
         for (let i = 0; i < order.length; i += 1) {
             const loot = order[i];
             if (loot && (Number(session.bag[loot]) || 0) > 0) return loot;
@@ -997,6 +1227,7 @@
             session.placeLoot = loot;
             persist();
             if (viewModel) viewModel.triggerSwing();
+            if (sfx && sfx.place) sfx.place();
             return;
         }
         const res = ENG.placeVoxel(engine.world, hit.prev.x, hit.prev.y, hit.prev.z, kind);
@@ -1010,6 +1241,7 @@
         if (engine.remeshAt) engine.remeshAt(res.x, res.z);
         persist();
         if (viewModel) viewModel.triggerSwing();
+        if (sfx && sfx.place) sfx.place();
     }
 
     function eyeOrigin() {
@@ -1159,7 +1391,7 @@
         if (session.mine.swingAt > 0.36) {
             session.mine.swingAt = 0;
             if (viewModel) viewModel.triggerSwing();
-            MOBS.spawnBurst(engine.scene, session.fx, hit.x + 0.5, hit.y + 0.5, hit.z + 0.5, 0xc8b48a, 2);
+            spawnMineChips(hit, 2);
         }
         const bonus = CR && CR.toolBonus ? CR.toolBonus(session.bag, session.tool) : { mine: 1 };
         const need = Math.max(80, Math.round(T.breakMs(session.tool, hit.kind) / (bonus.mine || 1)));
@@ -1201,8 +1433,15 @@
         session.bag = C.addLoot(session.bag, result.drop, 1);
         persist();
         toast('获得 ' + result.drop);
-        MOBS.spawnBurst(engine.scene, session.fx, hit.x + 0.5, hit.y + 0.5, hit.z + 0.5, 0xc8b48a, 6);
-        if (sfx && sfx.checkpoint) sfx.checkpoint();
+        spawnMineChips(hit, 6);
+    }
+
+    function spawnMineChips(hit, n) {
+        const FX = globalThis.BlockLegendFx;
+        const color = FX && FX.debrisColor ? FX.debrisColor(hit.kind) : 0xc8b48a;
+        const sfxKind = FX && FX.mineSfxKind ? FX.mineSfxKind(hit.kind) : 'dirt';
+        MOBS.spawnBurst(engine.scene, session.fx, hit.x + 0.5, hit.y + 0.5, hit.z + 0.5, color, n);
+        if (sfx && sfx.mine) sfx.mine(sfxKind);
     }
 
     function nearestLookMob() {
@@ -1256,6 +1495,9 @@
         });
         (engine.world.villagers || []).forEach(function (v) {
             consider(v, 'npc', v.role === 'trader' ? 'trader' : 'villager', engine.world.surfaceAt(Math.floor(v.x), Math.floor(v.z)) + 1.1);
+        });
+        (engine.world.golems || []).forEach(function (g) {
+            consider(g, 'animal', 'golem', engine.world.surfaceAt(Math.floor(g.x), Math.floor(g.z)) + 1.4);
         });
         (engine.world.placedProps || []).forEach(function (p) {
             const row = { x: p.x + 0.5, z: p.z + 0.5, y: p.y, prop: p };
@@ -1341,6 +1583,17 @@
         if (tip) tip.classList.add('is-hidden');
     }
 
+    function showUseTip() {
+        const tip = document.getElementById('look-tip');
+        if (!tip) return;
+        if (session.tool === 'place') {
+            tip.textContent = '右键对准方块邻面放置 · 左键仍是徒手敲 · 格子上的数字是背包数量';
+        } else {
+            tip.textContent = '左键挖/打 · 右键只互动（箱子/熔炉/工作台）· 换 5–9 才能放方块';
+        }
+        tip.classList.remove('is-hidden');
+    }
+
     function updateLookCard(now) {
         const card = document.getElementById('look-card');
         if (!card) return;
@@ -1350,7 +1603,7 @@
             return;
         }
         const sub = lookSubject();
-        if (!sub) {
+        if (!sub || (W.shouldShowLookLabel && !W.shouldShowLookLabel(sub.kind, sub.type) && !sub.word)) {
             card.classList.add('is-hidden');
             session.lookKey = '';
             if (session.targetRing) session.targetRing.visible = false;
@@ -1361,10 +1614,14 @@
             ? { en: sub.word.text, zh: sub.word.zh || '', word: sub.word }
             : W.labelFor(sub.kind, bank);
         const key = sub.type + ':' + sub.kind + (sub.mob ? ':' + sub.mob.x.toFixed(1) : '');
+        const revealZh = !W.shouldRevealLookZh || W.shouldRevealLookZh({
+            type: sub.type,
+            asked: !!(sub.mob && sub.mob.asked)
+        });
         document.getElementById('look-en').textContent = label.en;
-        document.getElementById('look-zh').textContent = label.zh;
+        document.getElementById('look-zh').textContent = revealZh ? (label.zh || '') : '？';
         const lookImg = document.getElementById('look-img');
-        const pic = label.word && label.word.media && label.word.media.image;
+        const pic = revealZh && label.word && label.word.media && label.word.media.image;
         if (lookImg) {
             if (pic) {
                 lookImg.src = pic;
@@ -1460,6 +1717,7 @@
             cosmetic: cosmetic,
             home: mob || null
         });
+        if (sfx && sfx.bolt) sfx.bolt();
     }
 
     function tryBolt() {
@@ -1470,21 +1728,30 @@
     function requestHit(mob, kind) {
         if (session.pending) return;
         if (mob.isBoss) mob.bossHits = (Number(mob.bossHits) || 0) + 1;
+        if (W.shouldAsk({
+            firstHit: !mob.asked,
+            lastQuizWrong: !!mob.lastQuizWrong,
+            hitsSinceQuiz: Number(mob.hitsSinceQuiz) || 0,
+            voiceFails: Number(mob.voiceFails) || 0
+        })) {
+            openQuiz(mob, kind);
+            return;
+        }
         const askedCount = Number(mob.nudgeCount) || 0;
-        if (W.shouldNudgeSpeak && W.shouldNudgeSpeak({
-            firstHit: !mob.nudged,
-            boss: !!mob.isBoss,
+        if (!mob.vHinted || (mob.isBoss && W.shouldNudgeSpeak && W.shouldNudgeSpeak({
+            firstHit: false,
+            boss: true,
             hp: mob.hp,
             maxHp: mob.maxHp,
             askedCount: askedCount
-        })) {
-            mob.nudged = true;
+        }))) {
+            mob.vHinted = true;
             if (mob.isBoss) mob.nudgeCount = askedCount + 1;
             const label = mob.word || W.labelFor(mob.kind, bank);
             const en = (label && (label.text || label.en)) || '';
-            if (en) toast('按 V 说 ' + en);
-            maybeBuddyCue({ doing: 'swing' });
+            if (en) toast('按 V 说 ' + en + ' · 暴击并破除防护罩');
         }
+        if (mob.lastQuizWrong) mob.hitsSinceQuiz = (Number(mob.hitsSinceQuiz) || 0) + 1;
         applyResolvedHit(mob, kind, { answered: false, correct: false });
     }
 
@@ -1495,10 +1762,20 @@
         if (kick) kick.textContent = kicker || quiz.prompt || '暴击咒语';
         const enBtn = document.getElementById('quiz-en');
         enBtn.textContent = quiz.hidePromptWord
-            ? (mode === 'listen' ? '🎧 听单词' : mode === 'picture' ? '看图选词' : mode === 'phrase' ? '写出英文句子' : '____')
+            ? (mode === 'listen' ? '🎧 听单词'
+                : mode === 'picture' ? '看图选词'
+                    : mode === 'phrase' ? '写出英文句子'
+                        : mode === 'enpick' ? (word.zh || '看中文，选英文')
+                            : '____')
             : (mode === 'sentence' ? (quiz.phrase || word.text) : word.text);
         const zhHint = document.getElementById('quiz-zh');
-        if (zhHint) zhHint.textContent = (mode === 'spell' || mode === 'fill') ? (word.zh || '') : '';
+        if (zhHint) {
+            const ipa = word.phonetic ? (' /' + word.phonetic + '/') : '';
+            if (mode === 'enpick') zhHint.textContent = ipa.trim();
+            else if (mode === 'spell' || mode === 'fill') zhHint.textContent = (word.zh || '') + ipa;
+            else if (mode === 'choice' || mode === 'listen' || mode === 'sentence') zhHint.textContent = ipa.trim();
+            else zhHint.textContent = '';
+        }
         const img = document.getElementById('quiz-img');
         if (img) {
             const showImg = !!(word.media && word.media.image) && (mode === 'picture' || mode === 'spell' || mode === 'choice');
@@ -1514,14 +1791,19 @@
         }
         const phrase = document.getElementById('quiz-phrase');
         const phraseZh = document.getElementById('quiz-phrase-zh');
-        const phraseText = mode === 'fill' ? (quiz.blank || '') : (quiz.showPhrase && mode !== 'sentence' ? (quiz.phrase || '') : '');
+        const phraseText = mode === 'fill'
+            ? (quiz.blank || '')
+            : (mode === 'sentence' || mode === 'listen' ? '' : (quiz.phrase || word.phrase || ''));
+        const phraseZhText = (mode === 'sentence' || mode === 'choice' || mode === 'listen')
+            ? ''
+            : (quiz.phraseZh || word.phraseZh || '');
         if (phrase) {
             phrase.textContent = phraseText;
             phrase.classList.toggle('is-hidden', !phraseText);
         }
         if (phraseZh) {
-            phraseZh.textContent = quiz.showPhraseZh ? (quiz.phraseZh || '') : '';
-            phraseZh.classList.toggle('is-hidden', !quiz.showPhraseZh || !quiz.phraseZh);
+            phraseZh.textContent = phraseZhText;
+            phraseZh.classList.toggle('is-hidden', !phraseZhText);
         }
         const box = document.getElementById('quiz-choices');
         const typeBox = document.getElementById('quiz-type');
@@ -1561,7 +1843,7 @@
         persist();
         const mic = document.getElementById('quiz-mic');
         if (mic) mic.classList.toggle('is-hidden', !(SP && SP.canSpeak && SP.canSpeak()));
-        if (mode === 'listen' || mode === 'choice' || mode === 'fill' || mode === 'sentence') speakWord(word);
+        if (mode !== 'picture') speakWord(word);
         if (kick && bossType) kick.textContent = '说出来或打英文打碎蓝罩 · 点中文也能过';
     }
 
@@ -1595,14 +1877,18 @@
 
     function nextLearnQuiz(word, extra) {
         session.quizTurn = (Number(session.quizTurn) || 0) + 1;
+        const mastery = readMastery();
+        const key = String((word && word.text) || '').toLowerCase();
+        const rec = mastery[key] || mastery[(word && (word.id || word.text)) || ''] || {};
         return W.makeQuiz(word, bank, Object.assign({
             turn: session.quizTurn,
-            missStreak: missStreakOf(word)
+            missStreak: missStreakOf(word),
+            stage: W.masteryStage ? W.masteryStage(rec, todayStr()) : 'new'
         }, extra || {}));
     }
 
     function openQuiz(mob, kind) {
-        const word = W.nextWord(pool, progress.learnedIds) || pool[0];
+        const word = (mob && mob.word) || W.nextWord(pool, progress.learnedIds) || pool[0];
         if (!word) {
             applyResolvedHit(mob, kind, { answered: false, correct: false });
             return;
@@ -1610,9 +1896,11 @@
         session.pending = { mob: mob, kind: kind };
         const quiz = nextLearnQuiz(word);
         const hard = W.needsHardMode(word, { missStreak: missStreakOf(word) });
-        const kick = quiz.mode === 'sentence'
-            ? '选出这句话的意思'
-            : (hard ? '这个词错过几次了，拼出来 · ' : '暴击咒语 · ') + (word.zh || '');
+        const kick = quiz.mode === 'enpick'
+            ? '看中文，选英文'
+            : quiz.mode === 'sentence'
+                ? '选出这句话的意思'
+                : (hard ? '这个词错过几次了，拼出来' : (quiz.prompt || '先做题才能打'));
         fillQuizCard(quiz, kick);
     }
 
@@ -1795,16 +2083,11 @@
             global.WorkbenchGameBridge.recordWordAnswer(word.text, true);
         }
         persist();
-        if (sfx && sfx.celebrate) sfx.celebrate();
+        if (sfx && sfx.reward) sfx.reward();
         if (viewModel) viewModel.triggerCast();
         session.combo = C.nextCombo({ answered: true, correct: true, combo: session.combo });
         if (mob.isBoss && session.boss) {
-            const before = session.boss.state;
-            const chip = L.shieldChipOf ? L.shieldChipOf('spell', session.boss.shield) : 1;
-            session.boss = L.chipShield(session.boss, chip, { now: nowMs() }).boss;
-            if (before !== 'broken' && session.boss.state === 'broken') {
-                noteQuest({ type: 'boss-shield-break' });
-            }
+            chipBossShield('spell', 1);
         }
         mob.asked = true;
         launchBoltToward(mob, { cosmetic: true });
@@ -1894,14 +2177,11 @@
             return;
         }
         pending.mob.asked = true;
+        pending.mob.lastQuizWrong = !correct;
+        pending.mob.hitsSinceQuiz = 0;
         if (correct && rec.channel === 'speak') noteWordSpoken(word);
         if (correct && pending.mob.isBoss && session.boss) {
-            const before = session.boss.state;
-            const chip = L.shieldChipOf ? L.shieldChipOf(rec.channel, session.boss.shield) : (rec.channel === 'speak' ? 2 : 1);
-            session.boss = L.chipShield(session.boss, chip, { now: nowMs() }).boss;
-            if (before !== 'broken' && session.boss.state === 'broken') {
-                noteQuest({ type: 'boss-shield-break' });
-            }
+            chipBossShield(rec.channel, rec.channel === 'speak' ? 2 : 1);
         }
         if (!(correct && rec.comboKeep === false)) {
             session.combo = C.nextCombo({ answered: true, correct: correct, combo: session.combo });
@@ -1957,13 +2237,32 @@
             session.lastCrit = crit;
             MOBS.spawnDamageText(engine.scene, session.fx, mob, r.dealt, crit);
             flashMesh(mob.mesh);
+            mob.hurtFlash = 0.1;
             if (mob.model) mob.model.setHp(session.boss.hp / (session.boss.maxHp || 1), true);
             paintBossShield();
             syncBossHud();
             if (session.boss.dead) killBoss(mob);
+            playCombatHit(crit);
             return;
         }
         hurtMonster(mob, dmg, crit);
+    }
+
+    function playCombatHit(crit) {
+        if (!sfx) return;
+        if (crit && sfx.crit) sfx.crit();
+        else if (sfx.hit) sfx.hit();
+    }
+
+    function chipBossShield(channel, fallbackChip) {
+        if (!session.boss) return;
+        const before = session.boss.state;
+        const chip = L.shieldChipOf ? L.shieldChipOf(channel, session.boss.shield) : fallbackChip;
+        session.boss = L.chipShield(session.boss, chip, { now: nowMs() }).boss;
+        if (before !== 'broken' && session.boss.state === 'broken') {
+            noteQuest({ type: 'boss-shield-break' });
+            if (sfx && sfx.shieldBreak) sfx.shieldBreak();
+        }
     }
 
     function paintBossShield() {
@@ -1989,8 +2288,10 @@
         session.lastCrit = !!crit;
         MOBS.spawnDamageText(engine.scene, session.fx, mob, dmg, crit);
         flashMesh(mob.mesh);
+        mob.hurtFlash = 0.1;
         if (mob.model) mob.model.setHp(mob.hp / (mob.maxHp || 1), true);
         if (res.dead) killMonster(mob);
+        playCombatHit(crit);
         paintCastHud();
     }
 
@@ -1998,7 +2299,8 @@
         mob.hp = 0;
         const spec = C.monsterOf(mob.kind);
         MOBS.spawnBurst(engine.scene, session.fx, mob.x, mob.y, mob.z, spec.color, 12);
-        if (mob.mesh) engine.scene.remove(mob.mesh);
+        if (mob.mesh && MOBS.beginDeath) MOBS.beginDeath(engine.scene, session.fx, mob.mesh);
+        else if (mob.mesh) engine.scene.remove(mob.mesh);
         session.monsters = session.monsters.filter(function (m) { return m !== mob; });
         spawnPickup(mob.x, mob.z, mob.coins, mob.loot);
         paintCastHud();
@@ -2012,7 +2314,8 @@
     function killBoss(mob) {
         MOBS.spawnBurst(engine.scene, session.fx, mob.x, mob.y, mob.z, 0x8a5ca0, 26);
         MOBS.spawnBurst(engine.scene, session.fx, mob.x, mob.y + 1, mob.z, 0xf0d890, 14);
-        if (mob.mesh) engine.scene.remove(mob.mesh);
+        if (mob.mesh && MOBS.beginDeath) MOBS.beginDeath(engine.scene, session.fx, mob.mesh);
+        else if (mob.mesh) engine.scene.remove(mob.mesh);
         session.monsters = session.monsters.filter(function (m) { return m !== mob; });
         spawnPickup(mob.x, mob.z, 20, 'cube-shard');
         finishLevel();
@@ -2032,10 +2335,9 @@
             sun = res && res.awarded === false ? 0 : (res && res.amount) || L.SUN_PER_LEVEL;
             capped = !!(res && res.awarded === false);
         }
+        const reviewWords = sessionMissed();
+        progress.reviewWords = reviewWords;
         persist();
-        const reviewWords = Object.keys(session.missByWord || {}).filter(function (k) {
-            return (Number(session.missByWord[k]) || 0) > 0;
-        });
         const lines = L.buildSettlement({
             level: session.level,
             sunAwarded: sun,
@@ -2058,7 +2360,8 @@
             ? '进入下一关'
             : ('解锁第 ' + next + ' 关（' + paid + ' 金币）');
         toggleLayer('settle-layer', true);
-        if (sfx && sfx.clear) sfx.clear();
+        if (sfx && sfx.levelClear) sfx.levelClear();
+        else if (sfx && sfx.clear) sfx.clear();
     }
 
     function unlockNext() {
@@ -2146,6 +2449,7 @@
             q.buddyEndpoint = usp.get('buddyEndpoint') || '';
             q.buddyModel = usp.get('buddyModel') || '';
             q.buddyTts = usp.get('buddyTts') || '';
+            q.buddyStt = usp.get('buddyStt') || '';
         } catch (e) { /* ignore */ }
         return P.resolveBuddyConfig({ query: q, window: window });
     }
@@ -2175,6 +2479,39 @@
         el.textContent = bits.join(' ');
     }
 
+    function maybeShowBuddyGate() {
+        const search = window.location.search || '';
+        if (P && P.shouldSkipBuddyGate && P.shouldSkipBuddyGate(search)) {
+            toggleLayer('buddy-gate', false);
+            return;
+        }
+        toggleLayer('buddy-gate', true);
+    }
+
+    function showBuddyGate() {
+        toggleLayer('buddy-layer', false);
+        toggleLayer('buddy-gate', true);
+    }
+
+    function chooseBuddy(pick) {
+        const plan = P && P.applyBuddyPick ? P.applyBuddyPick(pick) : {
+            pick: 'play', typeOnly: false, openForm: false, clearModel: true
+        };
+        session.buddyPick = plan.pick;
+        session.buddyTypeOnly = !!plan.typeOnly;
+        if (plan.clearModel) {
+            window.BLOCKLEGEND_BUDDY = {};
+            session.buddyConfig = readBuddyConfig();
+        }
+        toggleLayer('buddy-gate', false);
+        startTheme();
+        if (plan.openForm) {
+            openBuddySettings();
+            return;
+        }
+        toast(plan.typeOnly ? '只打字 · Type only' : '先玩 · Template buddy');
+    }
+
     function openBuddySettings() {
         const cfg = session.buddyConfig || readBuddyConfig();
         const pasted = (window.BLOCKLEGEND_BUDDY) || {};
@@ -2182,6 +2519,7 @@
         setField('buddy-model', cfg.model || 'deepseek-v4-flash');
         setField('buddy-api-key', pasted.apiKey || cfg.apiKey || '');
         setField('buddy-tts', cfg.ttsUrl || '');
+        setField('buddy-stt', cfg.sttUrl || '');
         paintBuddyHint();
         toggleLayer('buddy-layer', true);
     }
@@ -2191,12 +2529,16 @@
             endpoint: fieldVal('buddy-endpoint'),
             model: fieldVal('buddy-model') || 'deepseek-v4-flash',
             apiKey: fieldVal('buddy-api-key'),
-            ttsUrl: fieldVal('buddy-tts')
+            ttsUrl: fieldVal('buddy-tts'),
+            sttUrl: fieldVal('buddy-stt')
         };
+        session.buddyPick = 'home';
+        session.buddyTypeOnly = false;
         session.buddyConfig = readBuddyConfig();
         paintBuddyHint();
         toggleLayer('buddy-layer', false);
-        toast(session.buddyConfig.enabled ? 'Buddy model on' : 'Buddy template only');
+        startTheme();
+        toast(session.buddyConfig.enabled ? '已连家里电脑' : '没填地址，先玩模板');
     }
 
     function clearBuddySettings() {
@@ -2204,10 +2546,14 @@
         setField('buddy-endpoint', '');
         setField('buddy-api-key', '');
         setField('buddy-tts', '');
+        setField('buddy-stt', '');
         setField('buddy-model', 'deepseek-v4-flash');
+        session.buddyPick = 'play';
+        session.buddyTypeOnly = false;
         session.buddyConfig = readBuddyConfig();
         paintBuddyHint();
-        toast('Buddy template only');
+        toggleLayer('buddy-layer', false);
+        toast('先玩 · Template buddy');
     }
 
     function collectSnapshot() {
@@ -2305,9 +2651,11 @@
         const form = document.getElementById('buddy-type');
         if (!form) return;
         form.classList.toggle('is-hidden', !on);
+        const input = document.getElementById('buddy-input');
         if (on) {
-            const input = document.getElementById('buddy-input');
             if (input) setTimeout(function () { input.focus(); }, 30);
+        } else if (input) {
+            input.blur();
         }
     }
 
@@ -2321,7 +2669,7 @@
             targetKey: wordKey(word),
             startedAt: nowMs()
         } : null;
-        if (!SP || !SP.canSpeak || !SP.canSpeak() || !(window.SpeechRecognition || window.webkitSpeechRecognition)) {
+        if (session.buddyTypeOnly || (!hasWebSpeech() && !hasGatewayStt())) {
             setVoiceState('unsupported');
             showBuddyType(true);
             return;
@@ -2405,7 +2753,7 @@
             startedAt: nowMs()
         };
         session.voice.lock = lock;
-        if (session.voice.blocked || !SP || !SP.canSpeak || !SP.canSpeak() || !(window.SpeechRecognition || window.webkitSpeechRecognition)) {
+        if (session.buddyTypeOnly || session.voice.blocked || (!hasWebSpeech() && !hasGatewayStt())) {
             setVoiceState('unsupported');
             showVoiceFallback(lock, { reason: 'unsupported' });
             return;
@@ -2423,12 +2771,7 @@
         }
         noteWordSpoken(word);
         if (mob.isBoss && session.boss) {
-            const before = session.boss.state;
-            const chip = L.shieldChipOf ? L.shieldChipOf('speak', session.boss.shield) : 2;
-            session.boss = L.chipShield(session.boss, chip, { now: nowMs() }).boss;
-            if (before !== 'broken' && session.boss.state === 'broken') {
-                noteQuest({ type: 'boss-shield-break' });
-            }
+            chipBossShield('speak', 2);
         }
         mob.voiceFails = 0;
         mob.asked = true;
@@ -2491,6 +2834,96 @@
         }
     }
 
+    function hasWebSpeech() {
+        return !!(window.SpeechRecognition || window.webkitSpeechRecognition);
+    }
+
+    function hasGatewayStt() {
+        return !!(session.buddyConfig && session.buddyConfig.sttUrl);
+    }
+
+    function finishListen(heard, o, lock, inQuiz, target) {
+        paintHeard(heard);
+        const hit = !!(SP && SP.matchHeard && SP.matchHeard(target, heard).ok);
+        if (o.buddy) {
+            setVoiceState(hit ? 'matched' : 'not-matched');
+            handleBuddyHeard(heard, lock);
+            return;
+        }
+        if (hit) {
+            if (inQuiz) {
+                noteWordSpoken(session.quiz.word);
+                resolveQuiz(true, { record: true, crit: true, comboKeep: true, channel: 'speak' });
+                setVoiceState('matched');
+            } else {
+                applySpeakHit(lock, heard || target);
+            }
+            return;
+        }
+        setVoiceState('not-matched');
+        if (lock && lock.mob) lock.mob.voiceFails = (Number(lock.mob.voiceFails) || 0) + 1;
+        if (lock && W.shouldAsk({ voiceFails: lock.mob && lock.mob.voiceFails })) {
+            showVoiceFallback(lock, { reason: 'not-matched' });
+            return;
+        }
+        toast('没听清，再按 V');
+    }
+
+    function listenViaGateway(opts) {
+        const o = opts || {};
+        const lock = o.lock || (session.voice && session.voice.lock);
+        const inQuiz = !!(session.quiz && session.pending);
+        const target = (lock && lock.word && lock.word.text)
+            || (session.quiz && session.quiz.word && session.quiz.word.text)
+            || '';
+        const url = session.buddyConfig && session.buddyConfig.sttUrl;
+        if (!url || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            setVoiceState('unsupported');
+            if (o.buddy) showBuddyType(true);
+            else if (lock) showVoiceFallback(lock, { reason: 'unsupported' });
+            return;
+        }
+        setVoiceState('listening');
+        paintHeard('…');
+        toast(o.buddy ? '跟陪玩说英语' : ('说：' + target));
+        navigator.mediaDevices.getUserMedia({ audio: true }).then(function (stream) {
+            const rec = new MediaRecorder(stream);
+            const chunks = [];
+            rec.ondataavailable = function (ev) {
+                if (ev.data && ev.data.size) chunks.push(ev.data);
+            };
+            rec.onstop = function () {
+                stream.getTracks().forEach(function (t) { t.stop(); });
+                const blob = new Blob(chunks, { type: rec.mimeType || 'audio/webm' });
+                fetch(url, {
+                    method: 'POST',
+                    headers: { 'x-prompt': String(target || '').slice(0, 80) },
+                    body: blob
+                }).then(function (res) {
+                    if (!res.ok) throw new Error('stt');
+                    return res.json();
+                }).then(function (json) {
+                    finishListen(String((json && json.text) || '').trim(), o, lock, inQuiz, target);
+                }).catch(function () {
+                    setVoiceState('unsupported');
+                    if (o.buddy) showBuddyType(true);
+                    else if (lock) showVoiceFallback(lock, { reason: 'unsupported' });
+                    else toast('没听清，按 T 打字');
+                });
+            };
+            rec.start();
+            setTimeout(function () {
+                try { rec.stop(); } catch (e) { /* ignore */ }
+            }, 2500);
+        }).catch(function () {
+            session.voice.blocked = true;
+            setVoiceState('mic-blocked');
+            if (o.buddy) showBuddyType(true);
+            else if (lock) showVoiceFallback(lock, { reason: 'unsupported' });
+            toast('没有麦克风权限，点中文或按 T');
+        });
+    }
+
     function listenOnce(opts) {
         const o = opts || {};
         const lock = o.lock || (session.voice && session.voice.lock);
@@ -2500,10 +2933,15 @@
             || '';
         if (!target && !o.buddy) return;
         if (session.voice && session.voice.rec) stopVoiceRec();
+        if (hasGatewayStt()) {
+            listenViaGateway(o);
+            return;
+        }
         const Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (!Rec) {
             setVoiceState('unsupported');
-            if (lock) showVoiceFallback(lock, { reason: 'unsupported' });
+            if (o.buddy) showBuddyType(true);
+            else if (lock) showVoiceFallback(lock, { reason: 'unsupported' });
             return;
         }
         const rec = new Rec();
@@ -2520,32 +2958,11 @@
             if (row) {
                 for (let i = 0; i < row.length; i += 1) alts.push(row[i].transcript);
             }
-            paintHeard(alts[0] || '');
-            const hit = alts.some(function (heard) { return SP.matchHeard(target, heard).ok; });
             done = true;
             session.voice.rec = null;
-            if (o.buddy) {
-                setVoiceState(hit ? 'matched' : 'not-matched');
-                handleBuddyHeard(alts[0] || '', lock);
-                return;
-            }
-            if (hit) {
-                if (inQuiz) {
-                    noteWordSpoken(session.quiz.word);
-                    resolveQuiz(true, { record: true, crit: true, comboKeep: true, channel: 'speak' });
-                    setVoiceState('matched');
-                } else {
-                    applySpeakHit(lock, alts[0] || target);
-                }
-                return;
-            }
-            setVoiceState('not-matched');
-            if (lock && lock.mob) lock.mob.voiceFails = (Number(lock.mob.voiceFails) || 0) + 1;
-            if (lock && W.shouldAsk({ voiceFails: lock.mob && lock.mob.voiceFails })) {
-                showVoiceFallback(lock, { reason: 'not-matched' });
-                return;
-            }
-            toast('没听清，再按 V');
+            const heard = alts[0] || '';
+            const hit = alts.some(function (line) { return SP.matchHeard(target, line).ok; });
+            finishListen(hit ? (alts.filter(function (line) { return SP.matchHeard(target, line).ok; })[0] || heard) : heard, o, lock, inQuiz, target);
         };
         rec.onerror = function (ev) {
             if (done) return;
@@ -2562,6 +2979,10 @@
             if (err === 'no-speech') {
                 setVoiceState('timeout');
                 toast('没有听清');
+                return;
+            }
+            if (hasGatewayStt() && err !== 'aborted') {
+                listenViaGateway(o);
                 return;
             }
             setVoiceState('not-matched');
@@ -2628,7 +3049,8 @@
                 viewModel.setToolTiers({
                     sword: toolTierOf('sword'),
                     axe: toolTierOf('axe'),
-                    pickaxe: toolTierOf('pickaxe')
+                    pickaxe: toolTierOf('pickaxe'),
+                    shovel: toolTierOf('shovel')
                 });
             } else if (viewModel.setBladeKind) {
                 viewModel.setBladeKind(toolTierOf('sword'));
@@ -2699,17 +3121,30 @@
             const flyer = !!(m.isBoss || m.kind === 'ghast' || m.kind === 'blaze');
             let moving = false;
             const ox = m.x, oz = m.z;
-            if (m.parked && dist > 3.2) {
+            m.aggro = C.tickAggro ? C.tickAggro(!!m.aggro, dist) : dist <= 8;
+            if (m.parked && !m.aggro) {
                 const groundPark = engine.world.surfaceAt(Math.floor(m.x), Math.floor(m.z));
                 m.y = flyer ? groundPark + (m.isBoss ? 1.6 : m.kind === 'ghast' ? 2.3 : 1.35) : groundPark;
                 if (m.mesh) m.mesh.position.set(m.x, m.y, m.z);
+                if (m.hurtFlash) m.hurtFlash = Math.max(0, m.hurtFlash - dt);
                 if (m.model) {
                     m.model.update(dt, false, tSec);
                     m.model.faceHpBarTo(engine.camera);
                 }
                 return;
             }
-            if (m.parked && dist <= 3.2) m.parked = false;
+            if (m.parked && m.aggro) m.parked = false;
+            if (!m.aggro) {
+                const groundIdle = engine.world.surfaceAt(Math.floor(m.x), Math.floor(m.z));
+                m.y = flyer ? groundIdle + (m.isBoss ? 1.6 : m.kind === 'ghast' ? 2.3 : 1.35) : groundIdle;
+                if (m.mesh) m.mesh.position.set(m.x, m.y, m.z);
+                if (m.hurtFlash) m.hurtFlash = Math.max(0, m.hurtFlash - dt);
+                if (m.model) {
+                    m.model.update(dt, false, tSec);
+                    m.model.faceHpBarTo(engine.camera);
+                }
+                return;
+            }
             const stopAt = C.behaviorStopRange
                 ? C.behaviorStopRange(m.behavior || 'chase', C.CONTACT_RANGE)
                 : C.CONTACT_RANGE;
@@ -2759,6 +3194,7 @@
                         p.hp = hit.hp;
                         session.lastHitAt = hit.lastHitAt;
                         hurtFlash();
+                        if (sfx && sfx.hurt) sfx.hurt();
                         if (p.hp <= 0) {
                             respawn();
                         } else {
@@ -2778,8 +3214,9 @@
                     m.mesh.rotation.y = Math.atan2(dx, dz);
                 }
             }
+            if (m.hurtFlash) m.hurtFlash = Math.max(0, m.hurtFlash - dt);
             if (m.model) {
-                m.model.update(dt, moving, tSec);
+                m.model.update(dt, moving, tSec, m.hurtFlash > 0);
                 if (m.hp < m.maxHp) m.model.setHp(m.hp / m.maxHp, true);
                 m.model.faceHpBarTo(engine.camera);
             }
@@ -2832,13 +3269,16 @@
         const keep = [];
         session.pickups.forEach(function (item) {
             if (Math.hypot(item.x - p.x, item.z - p.z) < 1.15) {
-                if (item.coins) session.coins = C.pickupCoins(session.coins, item.coins);
+                if (item.coins) {
+                    session.coins = C.pickupCoins(session.coins, item.coins);
+                    if (sfx && sfx.coin) sfx.coin();
+                }
                 session.bag = C.addLoot(session.bag, item.loot, 1);
                 engine.scene.remove(item.mesh);
                 MOBS.spawnBurst(engine.scene, session.fx, item.x, item.y, item.z, 0xffd24a, 5);
                 persist();
                 toast(item.coins ? ('金币 +' + item.coins) : ('获得 ' + item.loot));
-                if (sfx && sfx.checkpoint) sfx.checkpoint();
+                if (sfx && sfx.pickup) sfx.pickup();
                 return;
             }
             if (item.mesh) {
@@ -2885,14 +3325,22 @@
         if (tool === 'sword') {
             if (n('diamond_sword') > 0) return 'diamond';
             if (n('iron_sword') > 0) return 'iron';
+            if (n('gold_sword') > 0) return 'gold';
         }
         if (tool === 'axe') {
             if (n('diamond_axe') > 0) return 'diamond';
             if (n('iron_axe') > 0) return 'iron';
+            if (n('gold_axe') > 0) return 'gold';
         }
         if (tool === 'pickaxe') {
             if (n('diamond_pick') > 0 || n('diamond_pickaxe') > 0) return 'diamond';
             if (n('iron_pick') > 0) return 'iron';
+            if (n('gold_pick') > 0) return 'gold';
+        }
+        if (tool === 'shovel') {
+            if (n('diamond_shovel') > 0) return 'diamond';
+            if (n('iron_shovel') > 0) return 'iron';
+            if (n('gold_shovel') > 0) return 'gold';
         }
         return 'wood';
     }
@@ -2946,8 +3394,10 @@
         }
         session.coins = res.coined;
         progress.gear = res.gear;
+        if (sfx && sfx.buy) sfx.buy();
         if (res.heal && engine) {
             engine.player.hp = Math.min(engine.player.hpMax, engine.player.hp + res.heal);
+            if (sfx && sfx.eat) sfx.eat();
             toast('HP +' + res.heal);
         } else {
             toast('Bought ' + ((res.item && res.item.en) || id));
@@ -2983,6 +3433,8 @@
         }
         const phase = document.getElementById('boss-phase');
         if (phase && L.bossPhase) phase.textContent = L.bossPhase(session.boss);
+        const nameEl = document.getElementById('boss-name');
+        if (nameEl) nameEl.textContent = (L.bossTitle && L.bossTitle(session.boss.id)) || '字母石像';
     }
 
     function readMastery() {
@@ -3115,6 +3567,7 @@
         session.combo = 0;
         session.lastHitAt = nowMs();
         MOBS.spawnBurst(engine.scene, session.fx, engine.player.x, engine.player.y + 1, engine.player.z, 0x54d43c, 14);
+        if (sfx && sfx.death) sfx.death();
         toast('You fainted · 回出生点，连击清零');
     }
 

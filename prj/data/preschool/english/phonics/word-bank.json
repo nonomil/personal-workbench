@@ -3,7 +3,7 @@
     "id": "word-sat",
     "kind": "phonics",
     "text": "sat",
-    "zh": "",
+    "zh": "坐下",
     "theme": "cvc-blending",
     "level": "L2",
     "graphemes": [
@@ -41,7 +41,7 @@
     "id": "word-pat",
     "kind": "phonics",
     "text": "pat",
-    "zh": "",
+    "zh": "轻拍",
     "theme": "cvc-blending",
     "level": "L2",
     "graphemes": [
@@ -79,7 +79,7 @@
     "id": "word-map",
     "kind": "phonics",
     "text": "map",
-    "zh": "",
+    "zh": "地图",
     "theme": "cvc-blending",
     "level": "L2",
     "graphemes": [
@@ -117,7 +117,7 @@
     "id": "word-tap",
     "kind": "phonics",
     "text": "tap",
-    "zh": "",
+    "zh": "轻敲",
     "theme": "cvc-blending",
     "level": "L2",
     "graphemes": [
@@ -155,7 +155,7 @@
     "id": "word-mat",
     "kind": "phonics",
     "text": "mat",
-    "zh": "",
+    "zh": "垫子",
     "theme": "cvc-blending",
     "level": "L2",
     "graphemes": [
@@ -193,7 +193,7 @@
     "id": "word-mad",
     "kind": "phonics",
     "text": "mad",
-    "zh": "",
+    "zh": "生气",
     "theme": "cvc-blending",
     "level": "L2",
     "graphemes": [
@@ -231,7 +231,7 @@
     "id": "word-sad",
     "kind": "phonics",
     "text": "sad",
-    "zh": "",
+    "zh": "难过",
     "theme": "cvc-blending",
     "level": "L2",
     "graphemes": [
@@ -269,7 +269,7 @@
     "id": "word-sam",
     "kind": "phonics",
     "text": "sam",
-    "zh": "",
+    "zh": "山姆",
     "theme": "cvc-blending",
     "level": "L2",
     "graphemes": [
@@ -307,7 +307,7 @@
     "id": "word-am",
     "kind": "phonics",
     "text": "am",
-    "zh": "",
+    "zh": "我是",
     "theme": "cvc-blending",
     "level": "L2",
     "graphemes": [
@@ -341,7 +341,7 @@
     "id": "word-at",
     "kind": "phonics",
     "text": "at",
-    "zh": "",
+    "zh": "在",
     "theme": "first-letter-sounds",
     "level": "L1",
     "graphemes": [
@@ -375,7 +375,7 @@
     "id": "word-an",
     "kind": "phonics",
     "text": "an",
-    "zh": "",
+    "zh": "一个",
     "theme": "first-letter-sounds",
     "level": "L1",
     "graphemes": [
@@ -409,7 +409,7 @@
     "id": "word-in",
     "kind": "phonics",
     "text": "in",
-    "zh": "",
+    "zh": "里面",
     "theme": "cvc-blending",
     "level": "L2",
     "graphemes": [
@@ -443,7 +443,7 @@
     "id": "word-it",
     "kind": "phonics",
     "text": "it",
-    "zh": "",
+    "zh": "它",
     "theme": "cvc-blending",
     "level": "L2",
     "graphemes": [
@@ -477,7 +477,7 @@
     "id": "word-is",
     "kind": "phonics",
     "text": "is",
-    "zh": "",
+    "zh": "是",
     "theme": "cvc-blending",
     "level": "L2",
     "graphemes": [
@@ -511,7 +511,7 @@
     "id": "word-sit",
     "kind": "phonics",
     "text": "sit",
-    "zh": "",
+    "zh": "坐",
     "theme": "cvc-blending",
     "level": "L2",
     "graphemes": [
@@ -549,7 +549,7 @@
     "id": "word-pin",
     "kind": "phonics",
     "text": "pin",
-    "zh": "",
+    "zh": "别针",
     "theme": "cvc-blending",
     "level": "L2",
     "graphemes": [
@@ -587,7 +587,7 @@
     "id": "word-pit",
     "kind": "phonics",
     "text": "pit",
-    "zh": "",
+    "zh": "坑",
     "theme": "cvc-blending",
     "level": "L2",
     "graphemes": [
@@ -625,7 +625,7 @@
     "id": "word-tip",
     "kind": "phonics",
     "text": "tip",
-    "zh": "",
+    "zh": "尖尖",
     "theme": "cvc-blending",
     "level": "L2",
     "graphemes": [
@@ -663,7 +663,7 @@
     "id": "word-tin",
     "kind": "phonics",
     "text": "tin",
-    "zh": "",
+    "zh": "罐子",
     "theme": "cvc-blending",
     "level": "L2",
     "graphemes": [
@@ -701,7 +701,7 @@
     "id": "word-nip",
     "kind": "phonics",
     "text": "nip",
-    "zh": "",
+    "zh": "轻咬",
     "theme": "cvc-blending",
     "level": "L2",
     "graphemes": [
@@ -739,7 +739,7 @@
     "id": "word-pan",
     "kind": "phonics",
     "text": "pan",
-    "zh": "",
+    "zh": "平底锅",
     "theme": "cvc-blending",
     "level": "L2",
     "graphemes": [
@@ -777,7 +777,7 @@
     "id": "word-nap",
     "kind": "phonics",
     "text": "nap",
-    "zh": "",
+    "zh": "小睡",
     "theme": "cvc-blending",
     "level": "L2",
     "graphemes": [
@@ -815,7 +815,7 @@
     "id": "word-man",
     "kind": "phonics",
     "text": "man",
-    "zh": "",
+    "zh": "男人",
     "theme": "cvc-blending",
     "level": "L2",
     "graphemes": [
@@ -853,7 +853,7 @@
     "id": "word-can",
     "kind": "phonics",
     "text": "can",
-    "zh": "",
+    "zh": "可以",
     "theme": "cvc-blending",
     "level": "L2",
     "graphemes": [
@@ -891,7 +891,7 @@
     "id": "word-cat",
     "kind": "phonics",
     "text": "cat",
-    "zh": "",
+    "zh": "猫",
     "theme": "cvc-blending",
     "level": "L2",
     "graphemes": [
@@ -929,7 +929,7 @@
     "id": "word-hat",
     "kind": "phonics",
     "text": "hat",
-    "zh": "",
+    "zh": "帽子",
     "theme": "cvc-blending",
     "level": "L2",
     "graphemes": [
@@ -967,7 +967,7 @@
     "id": "word-ham",
     "kind": "phonics",
     "text": "ham",
-    "zh": "",
+    "zh": "火腿",
     "theme": "cvc-blending",
     "level": "L2",
     "graphemes": [
@@ -1005,7 +1005,7 @@
     "id": "word-hit",
     "kind": "phonics",
     "text": "hit",
-    "zh": "",
+    "zh": "打",
     "theme": "cvc-blending",
     "level": "L2",
     "graphemes": [
@@ -1043,7 +1043,7 @@
     "id": "word-bit",
     "kind": "phonics",
     "text": "bit",
-    "zh": "",
+    "zh": "一点",
     "theme": "cvc-blending",
     "level": "L2",
     "graphemes": [
@@ -1081,7 +1081,7 @@
     "id": "word-bin",
     "kind": "phonics",
     "text": "bin",
-    "zh": "",
+    "zh": "箱子",
     "theme": "cvc-blending",
     "level": "L2",
     "graphemes": [
@@ -1119,7 +1119,7 @@
     "id": "word-dip",
     "kind": "phonics",
     "text": "dip",
-    "zh": "",
+    "zh": "蘸一蘸",
     "theme": "cvc-blending",
     "level": "L2",
     "graphemes": [
@@ -1157,7 +1157,7 @@
     "id": "word-hot",
     "kind": "phonics",
     "text": "hot",
-    "zh": "",
+    "zh": "热",
     "theme": "short-vowels-and-families",
     "level": "L3",
     "graphemes": [
@@ -1195,7 +1195,7 @@
     "id": "word-pot",
     "kind": "phonics",
     "text": "pot",
-    "zh": "",
+    "zh": "锅",
     "theme": "short-vowels-and-families",
     "level": "L3",
     "graphemes": [
@@ -1233,7 +1233,7 @@
     "id": "word-not",
     "kind": "phonics",
     "text": "not",
-    "zh": "",
+    "zh": "不",
     "theme": "short-vowels-and-families",
     "level": "L3",
     "graphemes": [
@@ -1271,7 +1271,7 @@
     "id": "word-hop",
     "kind": "phonics",
     "text": "hop",
-    "zh": "",
+    "zh": "跳",
     "theme": "short-vowels-and-families",
     "level": "L3",
     "graphemes": [
@@ -1309,7 +1309,7 @@
     "id": "word-mop",
     "kind": "phonics",
     "text": "mop",
-    "zh": "",
+    "zh": "拖把",
     "theme": "short-vowels-and-families",
     "level": "L3",
     "graphemes": [
@@ -1347,7 +1347,7 @@
     "id": "word-top",
     "kind": "phonics",
     "text": "top",
-    "zh": "",
+    "zh": "上面",
     "theme": "short-vowels-and-families",
     "level": "L3",
     "graphemes": [
@@ -1385,7 +1385,7 @@
     "id": "word-dog",
     "kind": "phonics",
     "text": "dog",
-    "zh": "",
+    "zh": "狗",
     "theme": "short-vowels-and-families",
     "level": "L3",
     "graphemes": [
@@ -1423,7 +1423,7 @@
     "id": "word-log",
     "kind": "phonics",
     "text": "log",
-    "zh": "",
+    "zh": "木头",
     "theme": "short-vowels-and-families",
     "level": "L3",
     "graphemes": [
@@ -1461,7 +1461,7 @@
     "id": "word-fog",
     "kind": "phonics",
     "text": "fog",
-    "zh": "",
+    "zh": "雾",
     "theme": "short-vowels-and-families",
     "level": "L3",
     "graphemes": [
@@ -1499,7 +1499,7 @@
     "id": "word-pet",
     "kind": "phonics",
     "text": "pet",
-    "zh": "",
+    "zh": "宠物",
     "theme": "short-vowels-and-families",
     "level": "L3",
     "graphemes": [
@@ -1537,7 +1537,7 @@
     "id": "word-get",
     "kind": "phonics",
     "text": "get",
-    "zh": "",
+    "zh": "拿到",
     "theme": "short-vowels-and-families",
     "level": "L3",
     "graphemes": [
@@ -1575,7 +1575,7 @@
     "id": "word-ten",
     "kind": "phonics",
     "text": "ten",
-    "zh": "",
+    "zh": "十",
     "theme": "short-vowels-and-families",
     "level": "L3",
     "graphemes": [
@@ -1613,7 +1613,7 @@
     "id": "word-bed",
     "kind": "phonics",
     "text": "bed",
-    "zh": "",
+    "zh": "床",
     "theme": "short-vowels-and-families",
     "level": "L3",
     "graphemes": [
@@ -1651,7 +1651,7 @@
     "id": "word-bug",
     "kind": "phonics",
     "text": "bug",
-    "zh": "",
+    "zh": "虫子",
     "theme": "short-vowels-and-families",
     "level": "L3",
     "graphemes": [
@@ -1689,7 +1689,7 @@
     "id": "word-mug",
     "kind": "phonics",
     "text": "mug",
-    "zh": "",
+    "zh": "杯子",
     "theme": "short-vowels-and-families",
     "level": "L3",
     "graphemes": [
@@ -1727,7 +1727,7 @@
     "id": "word-sun",
     "kind": "phonics",
     "text": "sun",
-    "zh": "",
+    "zh": "太阳",
     "theme": "short-vowels-and-families",
     "level": "L3",
     "graphemes": [
@@ -1765,7 +1765,7 @@
     "id": "word-run",
     "kind": "phonics",
     "text": "run",
-    "zh": "",
+    "zh": "跑",
     "theme": "short-vowels-and-families",
     "level": "L3",
     "graphemes": [
@@ -1803,7 +1803,7 @@
     "id": "word-fun",
     "kind": "phonics",
     "text": "fun",
-    "zh": "",
+    "zh": "好玩",
     "theme": "short-vowels-and-families",
     "level": "L3",
     "graphemes": [
@@ -1841,7 +1841,7 @@
     "id": "word-ship",
     "kind": "phonics",
     "text": "ship",
-    "zh": "",
+    "zh": "船",
     "theme": "common-digraphs",
     "level": "L4",
     "graphemes": [
@@ -1879,7 +1879,7 @@
     "id": "word-shop",
     "kind": "phonics",
     "text": "shop",
-    "zh": "",
+    "zh": "商店",
     "theme": "common-digraphs",
     "level": "L4",
     "graphemes": [
@@ -1917,7 +1917,7 @@
     "id": "word-shut",
     "kind": "phonics",
     "text": "shut",
-    "zh": "",
+    "zh": "关上",
     "theme": "common-digraphs",
     "level": "L4",
     "graphemes": [
@@ -1955,7 +1955,7 @@
     "id": "word-fish",
     "kind": "phonics",
     "text": "fish",
-    "zh": "",
+    "zh": "鱼",
     "theme": "common-digraphs",
     "level": "L4",
     "graphemes": [
@@ -1993,7 +1993,7 @@
     "id": "word-dish",
     "kind": "phonics",
     "text": "dish",
-    "zh": "",
+    "zh": "盘子",
     "theme": "common-digraphs",
     "level": "L4",
     "graphemes": [
@@ -2031,7 +2031,7 @@
     "id": "word-wish",
     "kind": "phonics",
     "text": "wish",
-    "zh": "",
+    "zh": "许愿",
     "theme": "common-digraphs",
     "level": "L4",
     "graphemes": [
@@ -2069,7 +2069,7 @@
     "id": "word-chip",
     "kind": "phonics",
     "text": "chip",
-    "zh": "",
+    "zh": "薯片",
     "theme": "common-digraphs",
     "level": "L4",
     "graphemes": [
@@ -2107,7 +2107,7 @@
     "id": "word-chat",
     "kind": "phonics",
     "text": "chat",
-    "zh": "",
+    "zh": "聊天",
     "theme": "common-digraphs",
     "level": "L4",
     "graphemes": [
@@ -2145,7 +2145,7 @@
     "id": "word-chop",
     "kind": "phonics",
     "text": "chop",
-    "zh": "",
+    "zh": "砍",
     "theme": "common-digraphs",
     "level": "L4",
     "graphemes": [
@@ -2183,7 +2183,7 @@
     "id": "word-rich",
     "kind": "phonics",
     "text": "rich",
-    "zh": "",
+    "zh": "有钱",
     "theme": "common-digraphs",
     "level": "L4",
     "graphemes": [
@@ -2221,7 +2221,7 @@
     "id": "word-much",
     "kind": "phonics",
     "text": "much",
-    "zh": "",
+    "zh": "很多",
     "theme": "common-digraphs",
     "level": "L4",
     "graphemes": [
@@ -2259,7 +2259,7 @@
     "id": "word-such",
     "kind": "phonics",
     "text": "such",
-    "zh": "",
+    "zh": "这样",
     "theme": "common-digraphs",
     "level": "L4",
     "graphemes": [
@@ -2297,7 +2297,7 @@
     "id": "word-thin",
     "kind": "phonics",
     "text": "thin",
-    "zh": "",
+    "zh": "瘦",
     "theme": "common-digraphs",
     "level": "L4",
     "graphemes": [
@@ -2335,7 +2335,7 @@
     "id": "word-that",
     "kind": "phonics",
     "text": "that",
-    "zh": "",
+    "zh": "那个",
     "theme": "common-digraphs",
     "level": "L4",
     "graphemes": [
@@ -2373,7 +2373,7 @@
     "id": "word-this",
     "kind": "phonics",
     "text": "this",
-    "zh": "",
+    "zh": "这个",
     "theme": "common-digraphs",
     "level": "L4",
     "graphemes": [
@@ -2411,7 +2411,7 @@
     "id": "word-back",
     "kind": "phonics",
     "text": "back",
-    "zh": "",
+    "zh": "后面",
     "theme": "common-digraphs",
     "level": "L4",
     "graphemes": [
@@ -2449,7 +2449,7 @@
     "id": "word-pick",
     "kind": "phonics",
     "text": "pick",
-    "zh": "",
+    "zh": "捡",
     "theme": "common-digraphs",
     "level": "L4",
     "graphemes": [
@@ -2487,7 +2487,7 @@
     "id": "word-kick",
     "kind": "phonics",
     "text": "kick",
-    "zh": "",
+    "zh": "踢",
     "theme": "common-digraphs",
     "level": "L4",
     "graphemes": [
@@ -2525,7 +2525,7 @@
     "id": "word-sing",
     "kind": "phonics",
     "text": "sing",
-    "zh": "",
+    "zh": "唱歌",
     "theme": "common-digraphs",
     "level": "L4",
     "graphemes": [
@@ -2563,7 +2563,7 @@
     "id": "word-ring",
     "kind": "phonics",
     "text": "ring",
-    "zh": "",
+    "zh": "戒指",
     "theme": "common-digraphs",
     "level": "L4",
     "graphemes": [
@@ -2601,7 +2601,7 @@
     "id": "word-long",
     "kind": "phonics",
     "text": "long",
-    "zh": "",
+    "zh": "长",
     "theme": "common-digraphs",
     "level": "L4",
     "graphemes": [
@@ -2639,7 +2639,7 @@
     "id": "word-stop",
     "kind": "phonics",
     "text": "stop",
-    "zh": "",
+    "zh": "停",
     "theme": "consonant-blends",
     "level": "L5",
     "graphemes": [
@@ -2679,7 +2679,7 @@
     "id": "word-step",
     "kind": "phonics",
     "text": "step",
-    "zh": "",
+    "zh": "一步",
     "theme": "consonant-blends",
     "level": "L5",
     "graphemes": [
@@ -2719,7 +2719,7 @@
     "id": "word-stand",
     "kind": "phonics",
     "text": "stand",
-    "zh": "",
+    "zh": "站",
     "theme": "consonant-blends",
     "level": "L5",
     "graphemes": [
@@ -2761,7 +2761,7 @@
     "id": "word-spin",
     "kind": "phonics",
     "text": "spin",
-    "zh": "",
+    "zh": "转",
     "theme": "consonant-blends",
     "level": "L5",
     "graphemes": [
@@ -2801,7 +2801,7 @@
     "id": "word-spot",
     "kind": "phonics",
     "text": "spot",
-    "zh": "",
+    "zh": "斑点",
     "theme": "consonant-blends",
     "level": "L5",
     "graphemes": [
@@ -2841,7 +2841,7 @@
     "id": "word-spun",
     "kind": "phonics",
     "text": "spun",
-    "zh": "",
+    "zh": "转过",
     "theme": "consonant-blends",
     "level": "L5",
     "graphemes": [
@@ -2881,7 +2881,7 @@
     "id": "word-slam",
     "kind": "phonics",
     "text": "slam",
-    "zh": "",
+    "zh": "摔门",
     "theme": "consonant-blends",
     "level": "L5",
     "graphemes": [
@@ -2921,7 +2921,7 @@
     "id": "word-slip",
     "kind": "phonics",
     "text": "slip",
-    "zh": "",
+    "zh": "滑倒",
     "theme": "consonant-blends",
     "level": "L5",
     "graphemes": [
@@ -2961,7 +2961,7 @@
     "id": "word-slap",
     "kind": "phonics",
     "text": "slap",
-    "zh": "",
+    "zh": "拍打",
     "theme": "consonant-blends",
     "level": "L5",
     "graphemes": [
@@ -3001,7 +3001,7 @@
     "id": "word-skip",
     "kind": "phonics",
     "text": "skip",
-    "zh": "",
+    "zh": "跳过",
     "theme": "consonant-blends",
     "level": "L5",
     "graphemes": [
@@ -3041,7 +3041,7 @@
     "id": "word-skin",
     "kind": "phonics",
     "text": "skin",
-    "zh": "",
+    "zh": "皮肤",
     "theme": "consonant-blends",
     "level": "L5",
     "graphemes": [
@@ -3081,7 +3081,7 @@
     "id": "word-skit",
     "kind": "phonics",
     "text": "skit",
-    "zh": "",
+    "zh": "小品",
     "theme": "consonant-blends",
     "level": "L5",
     "graphemes": [
@@ -3121,7 +3121,7 @@
     "id": "word-hand",
     "kind": "phonics",
     "text": "hand",
-    "zh": "",
+    "zh": "手",
     "theme": "consonant-blends",
     "level": "L5",
     "graphemes": [
@@ -3161,7 +3161,7 @@
     "id": "word-sand",
     "kind": "phonics",
     "text": "sand",
-    "zh": "",
+    "zh": "沙子",
     "theme": "consonant-blends",
     "level": "L5",
     "graphemes": [
@@ -3201,7 +3201,7 @@
     "id": "word-send",
     "kind": "phonics",
     "text": "send",
-    "zh": "",
+    "zh": "寄出",
     "theme": "consonant-blends",
     "level": "L5",
     "graphemes": [
@@ -3241,7 +3241,7 @@
     "id": "word-tent",
     "kind": "phonics",
     "text": "tent",
-    "zh": "",
+    "zh": "帐篷",
     "theme": "consonant-blends",
     "level": "L5",
     "graphemes": [
@@ -3281,7 +3281,7 @@
     "id": "word-mint",
     "kind": "phonics",
     "text": "mint",
-    "zh": "",
+    "zh": "薄荷",
     "theme": "consonant-blends",
     "level": "L5",
     "graphemes": [
@@ -3321,7 +3321,7 @@
     "id": "word-pant",
     "kind": "phonics",
     "text": "pant",
-    "zh": "",
+    "zh": "喘气",
     "theme": "consonant-blends",
     "level": "L5",
     "graphemes": [
@@ -3361,7 +3361,7 @@
     "id": "word-lamp",
     "kind": "phonics",
     "text": "lamp",
-    "zh": "",
+    "zh": "灯",
     "theme": "consonant-blends",
     "level": "L5",
     "graphemes": [
@@ -3401,7 +3401,7 @@
     "id": "word-jump",
     "kind": "phonics",
     "text": "jump",
-    "zh": "",
+    "zh": "跳",
     "theme": "consonant-blends",
     "level": "L5",
     "graphemes": [
@@ -3441,7 +3441,7 @@
     "id": "word-camp",
     "kind": "phonics",
     "text": "camp",
-    "zh": "",
+    "zh": "营地",
     "theme": "consonant-blends",
     "level": "L5",
     "graphemes": [
@@ -3481,7 +3481,7 @@
     "id": "word-left",
     "kind": "phonics",
     "text": "left",
-    "zh": "",
+    "zh": "左边",
     "theme": "consonant-blends",
     "level": "L5",
     "graphemes": [
@@ -3521,7 +3521,7 @@
     "id": "word-gift",
     "kind": "phonics",
     "text": "gift",
-    "zh": "",
+    "zh": "礼物",
     "theme": "consonant-blends",
     "level": "L5",
     "graphemes": [
@@ -3561,7 +3561,7 @@
     "id": "word-soft",
     "kind": "phonics",
     "text": "soft",
-    "zh": "",
+    "zh": "软",
     "theme": "consonant-blends",
     "level": "L5",
     "graphemes": [

@@ -82,5 +82,5 @@ test('preschool rewards ui has pending, cancel and 2s parent hold confirm', () =
     assert.match(app, /cancel-reward/);
     assert.match(app, /2000/);
     assert.match(app, /待家长确认|等家长/);
-    assert.match(html, /app\.js\?v=20260816-loop-v1/);
+    assert.match(html, /app\.js\?v=20260818-phonics-zh-v1/);
 });

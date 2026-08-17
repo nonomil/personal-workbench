@@ -751,6 +751,11 @@ body.variant-preschool .literacy-pinyin {
     font-size: 22px;
     font-weight: 850;
 }
+body.variant-preschool .literacy-pinyin.phonics-ipa {
+    color: #2c7a45;
+    font-size: 36px;
+    letter-spacing: 0.03em;
+}
 body.variant-preschool .literacy-char {
     margin: 0;
     color: var(--wb-ink);

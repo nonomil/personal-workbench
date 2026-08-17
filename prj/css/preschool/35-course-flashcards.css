@@ -48,6 +48,8 @@
 .literacy-card .preschool-card-art { width: 72px; height: 72px; }
 .preschool-flashcard-main > strong { font-size: 4.6rem; line-height: 1.1; font-weight: 800; color: #23422c; overflow-wrap: anywhere; }
 .preschool-flashcard-main > small { font-size: 1.15rem; color: #6b7f5e; font-weight: 700; }
+.preschool-flashcard-main > small.phonics-ipa { font-size: 1.7rem; color: #2c7a45; letter-spacing: 0.04em; }
+.preschool-flashcard-main > small.phonics-zh { font-size: 1.25rem; color: #5c7350; font-weight: 800; }
 .preschool-flashcard-rows { display: grid; gap: 10px; align-content: center; }
 .preschool-flashcard-cover {
     min-height: 160px; border-radius: 18px; cursor: pointer;
@@ -69,7 +71,7 @@
 .preschool-flashcard-page.tone-pink .preschool-flashcard { border-color: rgba(235, 110, 150, 0.4); background: #fff7fa; }
 .preschool-flashcard-page.tone-gold .preschool-flashcard { border-color: rgba(224, 172, 62, 0.5); background: #fffbec; }
 
-.preschool-flashcard-toolbar { display: flex; justify-content: center; }
+.preschool-flashcard-toolbar { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
 .preschool-flashcard-speak {
     display: inline-flex; align-items: center; gap: 8px;
     min-height: 48px; padding: 0 22px; border-radius: 999px;
@@ -78,6 +80,39 @@
 }
 .preschool-flashcard-speak:hover, .preschool-flashcard-speak:focus-visible { background: #eefae4; }
 .preschool-flashcard-speak svg { width: 20px; height: 20px; }
+
+.preschool-flashcard-page.is-math .preschool-flashcard {
+    grid-template-columns: 1fr;
+    justify-items: stretch;
+    min-height: 0;
+}
+.preschool-flashcard-page.is-math .preschool-flashcard-main > strong {
+    font-size: 2.4rem;
+    letter-spacing: 0.02em;
+}
+.preschool-math-bands { margin: 0; }
+.preschool-math-options {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    width: 100%;
+}
+.preschool-math-option {
+    min-height: 72px;
+    border-radius: 18px;
+    border: 2px solid rgba(64, 140, 230, 0.35);
+    background: #ffffff;
+    color: #1d4f7a;
+    font-size: 1.7rem;
+    font-weight: 800;
+    cursor: pointer;
+}
+.preschool-math-option strong { font-size: inherit; }
+.preschool-math-option.is-correct { background: #2d8748; border-color: #2d8748; color: #ffffff; }
+.preschool-math-option.is-wrong { background: #fff3e8; border-color: #e08a3c; color: #b05a1e; }
+.preschool-math-option:disabled { cursor: default; }
+.preschool-math-hint { margin: 0; text-align: center; font-size: 1rem; font-weight: 700; color: #5c7350; }
+.preschool-flashcard-page.is-math .preschool-flashcard-actions { grid-template-columns: 1fr; }
 
 .preschool-flashcard-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .preschool-flashcard-mark {
@@ -202,6 +237,48 @@ body.variant-preschool .practice-level-settings .preschool-practice-level-chip {
     min-height: 40px;
     padding: 8px 12px;
 }
+.preschool-flashcard-page.is-motion .preschool-motion-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+.preschool-motion-card {
+    display: grid;
+    gap: 8px;
+    justify-items: center;
+    text-align: center;
+    background: #ffffff;
+    border: 2px solid rgba(63, 162, 92, 0.28);
+    border-radius: 22px;
+    padding: 16px 14px 18px;
+    box-shadow: 0 10px 22px rgba(31, 73, 42, 0.08);
+}
+.preschool-motion-card.is-done { border-color: #2d8748; background: #f3fbf0; }
+.preschool-motion-card-art { width: 132px; height: 132px; }
+.preschool-motion-svg { width: 100%; height: 100%; display: block; }
+.preschool-motion-card h3 { margin: 0; font-size: 1.25rem; color: #23422c; }
+.preschool-motion-card p { margin: 0; font-size: 0.95rem; color: #3c5636; line-height: 1.5; }
+.preschool-motion-card small { color: #8a6b1f; font-weight: 700; }
+.preschool-motion-card-tools { display: grid; gap: 8px; width: 100%; }
+.preschool-motion-card-tools .preschool-flashcard-mark { min-height: 48px; }
+.preschool-motion-card-done {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    min-height: 48px; color: #2d8748; font-weight: 800;
+}
+.preschool-motion-hint { margin: 4px 0 0; text-align: center; color: #5c7350; font-weight: 700; }
+.preschool-motion-checkin {
+    display: grid; justify-items: center; gap: 8px; text-align: center;
+    background: #ffffff; border-radius: 22px; padding: 20px 16px;
+    border: 2px solid rgba(224, 172, 62, 0.45);
+}
+.preschool-motion-checkin.is-done { border-color: #2d8748; background: #f3fbf0; }
+.preschool-motion-checkin h2 { margin: 0; font-size: 1.35rem; color: #23422c; }
+.preschool-motion-checkin p { margin: 0; color: #5c7350; }
+.preschool-motion-checkin .preschool-flashcard-mark { min-width: 180px; }
+@media (max-width: 760px) {
+    .preschool-flashcard-page.is-motion .preschool-motion-grid { grid-template-columns: 1fr; }
+}
+
 body.variant-preschool .preschool-settings-more {
     padding: 14px 16px;
     border: 2px solid rgba(35, 66, 44, 0.12);

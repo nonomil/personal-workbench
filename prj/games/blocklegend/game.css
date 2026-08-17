@@ -233,6 +233,22 @@ html, body.bl-body {
     line-height: 1.45;
     color: #e8d8b8;
 }
+.bl-buddy-picks {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 14px;
+}
+.bl-buddy-pick {
+    min-height: 48px;
+    width: 100%;
+    font-size: 16px;
+}
+.bl-buddy-more {
+    margin: 10px 0 0;
+    font-size: 13px;
+}
+.bl-buddy-more summary { cursor: pointer; }
 .bl-look-img {
     display: block;
     width: 72px;
@@ -292,9 +308,6 @@ html, body.bl-body {
     width: 176px;
     padding: 8px 10px;
     pointer-events: none;
-    background: rgba(22, 14, 8, .78);
-    border: 2px solid #1a1208;
-    box-shadow: inset 0 0 0 1px #c4a574, 0 3px 0 #0c0804;
     text-shadow: 1px 1px 0 #0c0804;
 }
 .bl-heard {
@@ -384,8 +397,55 @@ html, body.bl-body {
 .bl-bar-hp i { background: linear-gradient(90deg, #e24a3a, #ff6a4a); }
 .bl-bar-mp i { background: linear-gradient(90deg, #2d7dff, #5aa7ff); }
 .bl-bar-xp i { background: linear-gradient(90deg, #d4a017, #ffe27a); }
-.bl-currencies { display: flex; gap: 10px; font-size: 13px; margin-top: 4px; }
+.bl-currencies { display: flex; gap: 10px; font-size: 13px; margin-top: 4px; align-items: center; }
+.bl-currencies span { display: inline-flex; align-items: center; gap: 4px; }
 .bl-currencies b { color: #ffe27a; }
+.bl-wood {
+    background-color: #3d2a16;
+    background-image:
+        repeating-linear-gradient(90deg, rgba(0, 0, 0, .14) 0 2px, transparent 2px 10px),
+        linear-gradient(#4a331c, #322212);
+    border: 2px solid #1a1208;
+    box-shadow: inset 0 0 0 1px #c4a574, 0 3px 0 #0c0804;
+}
+.bl-ico {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    flex: 0 0 16px;
+    image-rendering: pixelated;
+    vertical-align: -3px;
+    position: relative;
+}
+.bl-ico-coin {
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 35% 30%, #ffe27a 0 38%, #e0b040 39% 72%, #8a6410 73% 100%);
+    box-shadow: inset 0 0 0 2px #6a4a10;
+}
+.bl-ico-atk {
+    background:
+        linear-gradient(#d8e0ea, #d8e0ea) 7px 1px / 2px 10px no-repeat,
+        linear-gradient(#c4a574, #c4a574) 4px 10px / 8px 2px no-repeat,
+        linear-gradient(#6a4a20, #6a4a20) 6px 12px / 4px 3px no-repeat;
+}
+.bl-ico-def {
+    background:
+        linear-gradient(#7fd36a, #7fd36a) 3px 2px / 10px 3px no-repeat,
+        linear-gradient(#3d8bfd, #3d8bfd) 4px 5px / 8px 8px no-repeat,
+        linear-gradient(#1a3a6a, #1a3a6a) 6px 9px / 4px 5px no-repeat;
+}
+.bl-ico-mic {
+    background:
+        linear-gradient(#7dff9a, #7dff9a) 5px 1px / 6px 8px no-repeat,
+        linear-gradient(#4ab86a, #4ab86a) 4px 9px / 8px 2px no-repeat,
+        linear-gradient(#7dff9a, #7dff9a) 7px 11px / 2px 4px no-repeat;
+}
+.bl-ico-alert {
+    background:
+        linear-gradient(#ff8a7a, #ff8a7a) 7px 1px / 2px 9px no-repeat,
+        linear-gradient(#ff8a7a, #ff8a7a) 7px 12px / 2px 2px no-repeat;
+}
 
 .bl-mc-hud {
     position: absolute;
@@ -520,6 +580,12 @@ html, body.bl-body {
     font-size: 12px;
     color: #c5c9d1;
 }
+.bl-slot .bl-item {
+    width: 28px;
+    height: 28px;
+    flex-basis: 28px;
+    margin: 4px auto 0;
+}
 .bl-slot em {
     position: absolute;
     right: 4px;
@@ -535,6 +601,25 @@ html, body.bl-body {
     font-weight: 700;
     color: #fff;
     text-shadow: 1px 1px 0 #000;
+}
+.bl-hot-art {
+    display: block;
+    width: 28px;
+    height: 28px;
+    margin: 4px auto 0;
+    object-fit: contain;
+    image-rendering: pixelated;
+    pointer-events: none;
+}
+.bl-hot-art.is-tile {
+    width: 22px;
+    height: 22px;
+    margin-top: 7px;
+    box-shadow: 1px 1px 0 rgba(0, 0, 0, .35);
+}
+.bl-slot[data-place="table"] .bl-hot-art {
+    outline: 2px solid #6a3e18;
+    outline-offset: -1px;
 }
 .bl-ico-cobble { background: linear-gradient(180deg, #9a9a9a 40%, #6e6e6e 41%); }
 .bl-ico-log { background: linear-gradient(180deg, #c49a5a 40%, #8a6234 41%); }
@@ -976,7 +1061,66 @@ button.bl-quiz-en,
     box-shadow: inset 0 0 0 1px #1a1208;
 }
 #quiz-timer { display: block; height: 100%; width: 100%; background: #ffe27a; }
-.bl-help ul { padding-left: 18px; margin: 0 0 12px; line-height: 1.7; }
+.bl-card.bl-help {
+    width: min(640px, 94vw);
+    max-height: 78vh;
+}
+.bl-help-page.is-hidden { display: none; }
+.bl-help-kicker {
+    margin: 0 0 8px;
+    font-size: 12px;
+    color: #c4a574;
+    letter-spacing: 1px;
+}
+.bl-help-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 14px;
+}
+.bl-help-row {
+    display: grid;
+    grid-template-columns: 88px 1fr;
+    align-items: center;
+    gap: 8px;
+    min-height: 30px;
+    padding: 2px 0;
+    border-bottom: 1px solid rgba(196, 165, 116, .28);
+}
+.bl-help-row kbd {
+    display: inline-block;
+    min-width: 0;
+    padding: 3px 6px;
+    background: #2a1c10;
+    color: #ffe27a;
+    border: 1px solid #1a1208;
+    box-shadow: inset 0 0 0 1px #c4a574;
+    font-size: 12px;
+    font-family: inherit;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.2;
+}
+.bl-help-row span {
+    font-size: 13px;
+    color: #fff6d2;
+    line-height: 1.3;
+}
+.bl-help-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+.bl-help-nav em {
+    font-style: normal;
+    min-width: 48px;
+    text-align: center;
+    color: #ffe27a;
+}
+@media (max-width: 560px) {
+    .bl-help-grid { grid-template-columns: 1fr; }
+}
 .bl-card.bl-mc-craft { width: min(620px, 96vw); }
 .bl-mc-craft-body {
     display: flex;
@@ -1051,6 +1195,35 @@ button.bl-quiz-en,
     image-rendering: pixelated;
     box-shadow: inset 0 0 0 1px rgba(0,0,0,.25);
 }
+.bl-item-art {
+    object-fit: contain;
+    background: none !important;
+    box-shadow: none;
+    clip-path: none !important;
+}
+.bl-item-art.bl-item-sword-wood,
+.bl-item-art.bl-item-pick-wood,
+.bl-item-art.bl-item-axe-wood,
+.bl-item-art.bl-item-shovel-wood { filter: sepia(.55) saturate(1.2); }
+.bl-item-art.bl-item-sword-stone,
+.bl-item-art.bl-item-pick-stone,
+.bl-item-art.bl-item-axe-stone,
+.bl-item-art.bl-item-shovel-stone { filter: grayscale(.35) brightness(.92); }
+.bl-item-art.bl-item-sword-gold,
+.bl-item-art.bl-item-pick-gold,
+.bl-item-art.bl-item-axe-gold,
+.bl-item-art.bl-item-shovel-gold { filter: sepia(1) saturate(2.1) hue-rotate(8deg) brightness(1.12); }
+.bl-item-art.bl-item-sword-diamond,
+.bl-item-art.bl-item-pick-diamond,
+.bl-item-art.bl-item-axe-diamond,
+.bl-item-art.bl-item-shovel-diamond { filter: hue-rotate(145deg) saturate(1.45) brightness(1.08); }
+.bl-item-iso {
+    width: 14px;
+    height: 14px;
+    margin: 4px auto 0;
+    transform: rotateX(52deg) rotateZ(-32deg);
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, .28), inset 1px 1px 0 rgba(255, 255, 255, .28);
+}
 .bl-item-log { background: linear-gradient(180deg, #c49a5a 38%, #6b4020 39%, #8a6234 100%); }
 .bl-item-plank { background: linear-gradient(180deg, #e8c07a 42%, #c49248 43%); }
 .bl-item-stick { background: linear-gradient(90deg, transparent 38%, #8a6234 39%, #c49a5a 61%, transparent 62%); }
@@ -1061,6 +1234,9 @@ button.bl-quiz-en,
 .bl-item-string { background: repeating-linear-gradient(90deg, #f4efe4 0 3px, #c4b49a 3px 5px); }
 .bl-item-iron-ore { background: linear-gradient(135deg, #8a8a8a 30%, #c47a3a 31%, #6e6e6e 70%); }
 .bl-item-ingot { background: linear-gradient(180deg, #f0f2f6 30%, #b8c0c8 31%, #8a93a0 100%); }
+.bl-item-gold { background: linear-gradient(135deg, #f6d36a 30%, #c49a28 31%, #ffe27a 80%); }
+.bl-item-gold-ingot { background: linear-gradient(180deg, #ffe27a 30%, #e0b44a 31%, #c49a28 100%); }
+.bl-item-diamond { background: linear-gradient(135deg, #7ee8e0 20%, #2aa8c8 40%, #e8ffff 80%); }
 .bl-item-torch {
     background:
         radial-gradient(circle at 50% 22%, #ffe27a 0 28%, transparent 29%),
@@ -1079,29 +1255,38 @@ button.bl-quiz-en,
 .bl-item-bow { background: linear-gradient(135deg, #8a6234 40%, #f4efe4 41%); clip-path: polygon(15% 10%, 85% 50%, 15% 90%, 28% 50%); }
 .bl-item-shield { background: linear-gradient(180deg, #c49a5a 40%, #6a3e18 41%); clip-path: polygon(20% 8%, 80% 8%, 88% 40%, 50% 96%, 12% 40%); }
 .bl-item-arrow { background: linear-gradient(135deg, #cfd6e0 20%, #8a6234 21%, #c47a3a 80%); clip-path: polygon(10% 55%, 70% 40%, 92% 8%, 60% 70%, 8% 68%); }
-.bl-item-sword-wood, .bl-item-sword-stone, .bl-item-sword-iron {
+.bl-item-sword-wood, .bl-item-sword-stone, .bl-item-sword-iron, .bl-item-sword-gold, .bl-item-sword-diamond {
     clip-path: polygon(20% 90%, 32% 78%, 70% 18%, 88% 8%, 78% 30%, 30% 82%);
 }
 .bl-item-sword-wood { background: linear-gradient(135deg, #e8c07a, #8a6234); }
 .bl-item-sword-stone { background: linear-gradient(135deg, #cfd6e0, #6e6e6e); }
 .bl-item-sword-iron { background: linear-gradient(135deg, #f0f2f6, #8a93a0); }
-.bl-item-pick-wood, .bl-item-pick-stone, .bl-item-pick-iron {
+.bl-item-sword-gold { background: linear-gradient(135deg, #ffe27a, #c49a28); }
+.bl-item-sword-diamond { background: linear-gradient(135deg, #7ee8e0, #2aa8c8); }
+.bl-item-pick-wood, .bl-item-pick-stone, .bl-item-pick-iron, .bl-item-pick-gold, .bl-item-pick-diamond {
     clip-path: polygon(10% 30%, 50% 8%, 90% 30%, 78% 42%, 55% 28%, 55% 92%, 45% 92%, 45% 28%, 22% 42%);
 }
 .bl-item-pick-wood { background: linear-gradient(180deg, #e8c07a 38%, #8a6234 39%); }
 .bl-item-pick-stone { background: linear-gradient(180deg, #cfd6e0 38%, #6a4a2c 39%); }
 .bl-item-pick-iron { background: linear-gradient(180deg, #f0f2f6 38%, #6a4a2c 39%); }
-.bl-item-axe-wood, .bl-item-axe-stone, .bl-item-axe-iron {
+.bl-item-pick-gold { background: linear-gradient(180deg, #ffe27a 38%, #6a4a2c 39%); }
+.bl-item-pick-diamond { background: linear-gradient(180deg, #7ee8e0 38%, #6a4a2c 39%); }
+.bl-item-axe-wood, .bl-item-axe-stone, .bl-item-axe-iron, .bl-item-axe-gold, .bl-item-axe-diamond {
     clip-path: polygon(20% 90%, 35% 70%, 70% 20%, 90% 10%, 80% 35%, 30% 80%);
 }
 .bl-item-axe-wood { background: linear-gradient(135deg, #8a6234 40%, #e8c07a 41%); }
 .bl-item-axe-stone { background: linear-gradient(135deg, #8a6234 40%, #c5cad2 41%); }
 .bl-item-axe-iron { background: linear-gradient(135deg, #8a6234 40%, #f0f2f6 41%); }
-.bl-item-shovel-wood, .bl-item-shovel-stone {
+.bl-item-axe-gold { background: linear-gradient(135deg, #8a6234 40%, #ffe27a 41%); }
+.bl-item-axe-diamond { background: linear-gradient(135deg, #8a6234 40%, #7ee8e0 41%); }
+.bl-item-shovel-wood, .bl-item-shovel-stone, .bl-item-shovel-iron, .bl-item-shovel-gold, .bl-item-shovel-diamond {
     clip-path: polygon(45% 8%, 55% 8%, 55% 58%, 72% 78%, 50% 96%, 28% 78%, 45% 58%);
 }
 .bl-item-shovel-wood { background: linear-gradient(180deg, #8a6234 55%, #e8c07a 56%); }
 .bl-item-shovel-stone { background: linear-gradient(180deg, #6a4a2c 55%, #b8bdc6 56%); }
+.bl-item-shovel-iron { background: linear-gradient(180deg, #6a4a2c 55%, #f0f2f6 56%); }
+.bl-item-shovel-gold { background: linear-gradient(180deg, #6a4a2c 55%, #ffe27a 56%); }
+.bl-item-shovel-diamond { background: linear-gradient(180deg, #6a4a2c 55%, #7ee8e0 56%); }
 .bl-item-unknown { background: repeating-linear-gradient(45deg, #6a6a6a 0 4px, #8a8a8a 4px 8px); }
 .bl-mc-out {
     width: 54px;
@@ -1122,6 +1307,33 @@ button.bl-quiz-en,
 }
 .bl-mc-inv .bl-mc-slot { width: 48px; height: 48px; }
 .bl-mc-inv .bl-item { width: 26px; height: 26px; flex-basis: 26px; }
+.bl-mc-hot {
+    display: flex;
+    gap: 4px;
+    padding: 8px;
+    margin-top: 2px;
+    background: #8b8b8b;
+    border: 3px solid #373737;
+    box-shadow: inset 0 0 0 1px #c6c6c6;
+}
+.bl-mc-hot .bl-mc-slot {
+    width: 48px;
+    height: 48px;
+    position: relative;
+}
+.bl-mc-hot .bl-mc-slot em {
+    position: absolute;
+    right: 3px;
+    bottom: 1px;
+    font-size: 10px;
+    color: #ffe27a;
+    font-style: normal;
+}
+.bl-mc-slot.is-pick,
+.bl-mc-hot .bl-mc-slot.is-on {
+    outline: 2px solid #ffe27a;
+    outline-offset: -2px;
+}
 .bl-mc-empty { color: #373737; font-size: 13px; }
 .bl-craft-list { display: flex; flex-direction: column; gap: 8px; margin: 10px 0; }
 .bl-craft-btn {

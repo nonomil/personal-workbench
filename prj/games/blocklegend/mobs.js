@@ -212,35 +212,15 @@
             g.add(rig);
             anim.rig = rig;
             height = 0.85;
-        } else if (kind === 'blaze') {
-            const px = 1 / 16;
-            const head = skinnedBox(8, 8, 8, kind, 0, 0, px, { emissive: 0x662200 });
-            head.position.y = 1.35;
-            const core = skinnedBox(6, 8, 6, kind, 0, 0, px, { emissive: 0x551800 });
-            core.position.y = 0.95;
-            g.add(core); g.add(head);
-            for (let i = 0; i < 8; i += 1) {
-                const rod = skinnedBox(2, 10, 2, kind, 16, 16, px, { emissive: 0x331000 });
-                const a = (i / 8) * Math.PI * 2;
-                rod.position.set(Math.cos(a) * 0.48, 0.85, Math.sin(a) * 0.48);
-                g.add(rod);
-                anim.arms.push(rod);
-            }
-            anim.body = core; anim.head = head; anim.float = 0.95;
+        } else if (kind === 'blaze' && window.BlockLegendBlazeModel) {
+            const rig = window.BlockLegendBlazeModel.create(THREE);
+            g.add(rig);
+            anim.rig = rig;
             height = 1.7;
-        } else if (kind === 'ghast') {
-            const px = 1 / 14;
-            const body = skinnedBox(16, 16, 16, kind, 0, 0, px);
-            body.position.y = 1.2;
-            g.add(body);
-            for (let i = 0; i < 4; i += 1) {
-                const tent = skinnedBox(2, 10, 2, kind, 0, 0, px);
-                tent.geometry.translate(0, -5 * px, 0);
-                tent.position.set((i % 2 === 0 ? -0.28 : 0.28), 0.62, (i < 2 ? -0.28 : 0.28));
-                g.add(tent);
-                anim.legs.push(tent);
-            }
-            anim.body = body; anim.float = 1.2;
+        } else if (kind === 'ghast' && window.BlockLegendGhastModel) {
+            const rig = window.BlockLegendGhastModel.create(THREE);
+            g.add(rig);
+            anim.rig = rig;
             height = 2.15;
         } else if (kind === 'creeper' && window.BlockLegendCreeperModel) {
             const rig = window.BlockLegendCreeperModel.create(THREE);
@@ -282,13 +262,11 @@
             g.add(rig);
             anim.rig = rig;
             height = 2.35;
-        } else if (kind === 'warden') {
-            height = addHumanoid(g, anim, 'warden', 1.25, 'zombie');
-            const hornL = box(0.1, 0.32, 0.1, 0x0e2026);
-            const hornR = box(0.1, 0.32, 0.1, 0x0e2026);
-            hornL.position.set(-0.16, height + 0.02, 0);
-            hornR.position.set(0.16, height + 0.02, 0);
-            g.add(hornL); g.add(hornR);
+        } else if (kind === 'warden' && window.BlockLegendWardenModel) {
+            const rig = window.BlockLegendWardenModel.create(THREE);
+            g.add(rig);
+            anim.rig = rig;
+            height = 2.4;
         } else if (kind === 'merchant') {
             if (window.BlockLegendProps3d && window.BlockLegendProps3d.createTrader) {
                 const rig = window.BlockLegendProps3d.createTrader(THREE);
@@ -358,7 +336,7 @@
             group: g,
             hpBar: hpBar,
             height: height,
-            update: function (dt, moving, tSec, hurtFlash) {
+            update: function (dt, moving, tSec) {
                 anim.phase += dt * (moving ? 7.5 : 1.6);
                 const swing = Math.sin(anim.phase) * (moving ? 0.55 : 0.06);
                 anim.legs.forEach(function (leg, i) {
@@ -468,11 +446,55 @@
         return g;
     }
 
-    function heldBlock() {
+    const BLOCK_TEX_SRC = {
+        dirt: './assets/atlas/dirt.png',
+        cobble: './assets/atlas/stone.png',
+        'oak-log': './assets/atlas/oak_side.png',
+        plank: './assets/atlas/oak_top.png',
+        table: './assets/atlas/oak_top.png',
+        chest: './assets/atlas/oak_top.png',
+        furnace: './assets/atlas/stone.png',
+        torch: './assets/atlas/oak_side.png'
+    };
+    const blockTexCache = {};
+
+    function blockTex(kind) {
+        const src = BLOCK_TEX_SRC[kind] || BLOCK_TEX_SRC.dirt;
+        if (blockTexCache[src]) return blockTexCache[src];
+        const loader = new THREE.TextureLoader();
+        const tex = loader.load(src);
+        tex.magFilter = THREE.NearestFilter;
+        tex.minFilter = THREE.NearestFilter;
+        tex.generateMipmaps = false;
+        if ('encoding' in tex && THREE.sRGBEncoding) tex.encoding = THREE.sRGBEncoding;
+        blockTexCache[src] = tex;
+        return tex;
+    }
+
+    function heldBlock(THREE, kind) {
+        const k = kind || 'dirt';
         const g = new THREE.Group();
-        const cube = box(0.16, 0.16, 0.16, 0xc4a06a);
-        cube.position.y = 0.08;
+        g.name = 'place_' + k;
+        const mat = new THREE.MeshLambertMaterial({
+            map: blockTex(k),
+            color: 0xffffff
+        });
+        const cube = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.18, 0.18), mat);
+        cube.position.y = 0.09;
         g.add(cube);
+        if (k === 'table') {
+            const top = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.03, 0.2), mat);
+            top.position.y = 0.195;
+            g.add(top);
+        }
+        if (k === 'oak-log') {
+            const cap = new THREE.Mesh(
+                new THREE.BoxGeometry(0.181, 0.02, 0.181),
+                new THREE.MeshLambertMaterial({ map: blockTex('plank'), color: 0xffffff })
+            );
+            cap.position.y = 0.181;
+            g.add(cap);
+        }
         return g;
     }
 
@@ -487,26 +509,38 @@
         g.add(sleeve);
         g.add(hand);
 
+        const grip = new THREE.Group();
+        grip.name = 'grip';
+        grip.position.set(0.06, 0.02, 0.04);
+        grip.rotation.set(-0.88, -0.18, 0.42);
+        hand.add(grip);
+
         const tools = {
             sword: heldSword(),
             axe: heldAxe(),
             pickaxe: heldPickaxe(),
-            shovel: heldShovel()
+            shovel: heldShovel(),
+            place_dirt: heldBlock(THREE, 'dirt'),
+            place_cobble: heldBlock(THREE, 'cobble'),
+            'place_oak-log': heldBlock(THREE, 'oak-log'),
+            place_plank: heldBlock(THREE, 'plank'),
+            place_table: heldBlock(THREE, 'table')
         };
-        tools.place = heldBlock();
         if (window.BlockLegendTools3d) {
             const T3 = window.BlockLegendTools3d;
             tools.bow = T3.createBow(THREE);
-            if (T3.createIronSword) tools.iron_sword = T3.createIronSword(THREE);
-            if (T3.createDiamondSword) tools.diamond_sword = T3.createDiamondSword(THREE);
-            if (T3.createIronAxe) tools.iron_axe = T3.createIronAxe(THREE);
-            if (T3.createDiamondAxe) tools.diamond_axe = T3.createDiamondAxe(THREE);
-            if (T3.createIronPickaxe) tools.iron_pickaxe = T3.createIronPickaxe(THREE);
-            if (T3.createDiamondPickaxe) tools.diamond_pickaxe = T3.createDiamondPickaxe(THREE);
+            // keep explicit names for playtest roster wiring (createDiamondSword / createIronAxe)
+            ['iron', 'gold', 'diamond'].forEach(function (tier) {
+                ['sword', 'axe', 'pickaxe', 'shovel'].forEach(function (tool) {
+                    const fn = 'create' + tier.charAt(0).toUpperCase() + tier.slice(1)
+                        + tool.charAt(0).toUpperCase() + tool.slice(1);
+                    if (T3[fn]) tools[tier + '_' + tool] = T3[fn](THREE);
+                });
+            });
         }
         const offhand = window.BlockLegendTools3d
             ? window.BlockLegendTools3d.createShield(THREE)
-            : heldBlock();
+            : heldBlock(THREE, 'plank');
         offhand.name = 'offhand-shield';
         offhand.scale.set(1.35, 1.35, 1.35);
         offhand.position.set(-0.38, -0.22, -0.46);
@@ -515,20 +549,34 @@
         g.add(offhand);
         Object.keys(tools).forEach(function (id) {
             const t = tools[id];
-            t.scale.set(1.85, 1.85, 1.85);
-            t.position.set(0.36, -0.18, -0.52);
-            t.rotation.set(-0.25, 0.95, 0.45);
+            if (id.indexOf('place') === 0) {
+                t.scale.set(1.15, 1.15, 1.15);
+                t.position.set(0.05, 0.02, 0.06);
+                t.rotation.set(0.35, 0.55, 0.2);
+            } else {
+                t.scale.set(1.05, 1.05, 1.05);
+                t.position.set(0, -0.13, 0);
+                t.rotation.set(0, 0, 0);
+            }
             t.visible = id === 'sword';
-            g.add(t); // camera-space tools
+            grip.add(t);
         });
 
-        const state = { t: 0, swing: 0, cast: 0, bobPhase: 0, tool: 'sword', blade: 'wood', tiers: { sword: 'wood', axe: 'wood', pickaxe: 'wood' } };
+        const state = {
+            t: 0, swing: 0, cast: 0, bobPhase: 0,
+            tool: 'sword', blade: 'wood', placeKind: 'dirt',
+            tiers: { sword: 'wood', axe: 'wood', pickaxe: 'wood', shovel: 'wood' }
+        };
         function holdKey() {
             const tool = state.tool;
+            if (tool === 'place') {
+                const pk = 'place_' + (state.placeKind || 'dirt');
+                return tools[pk] ? pk : 'place_dirt';
+            }
             if (tool === 'bow' && tools.bow) return 'bow';
             const tier = state.tiers[tool] || (tool === 'sword' ? state.blade : 'wood');
             const keyed = tier + '_' + tool;
-            if ((tier === 'iron' || tier === 'diamond') && tools[keyed]) return keyed;
+            if ((tier === 'iron' || tier === 'diamond' || tier === 'gold') && tools[keyed]) return keyed;
             return tools[tool] ? tool : 'sword';
         }
         function paintTools() {
@@ -540,16 +588,30 @@
             blade: tools.sword,
             bladeGlow: tools.sword.userData.glow,
             setTool: function (id) {
-                state.tool = tools[id] ? id : (id === 'bow' && tools.bow ? 'bow' : 'sword');
+                if (id && String(id).indexOf('place') === 0) state.tool = 'place';
+                else state.tool = tools[id] ? id : (id === 'bow' && tools.bow ? 'bow' : 'sword');
+                paintTools();
+            },
+            setPlaceKind: function (kind) {
+                const k = kind || 'dirt';
+                state.placeKind = k;
+                const key = 'place_' + k;
+                if (!tools[key]) {
+                    tools[key] = heldBlock(THREE, BLOCK_TEX_SRC[k] ? k : 'dirt');
+                    tools[key].scale.set(1.15, 1.15, 1.15);
+                    tools[key].position.set(0.05, 0.02, 0.06);
+                    tools[key].rotation.set(0.35, 0.55, 0.2);
+                    grip.add(tools[key]);
+                }
                 paintTools();
             },
             setBladeKind: function (kind) {
-                state.blade = kind === 'diamond' ? 'diamond' : kind === 'iron' ? 'iron' : 'wood';
+                state.blade = kind === 'diamond' ? 'diamond' : kind === 'iron' ? 'iron' : kind === 'gold' ? 'gold' : 'wood';
                 state.tiers.sword = state.blade;
                 paintTools();
             },
             setToolTiers: function (tiers) {
-                state.tiers = Object.assign({ sword: 'wood', axe: 'wood', pickaxe: 'wood' }, tiers || {});
+                state.tiers = Object.assign({ sword: 'wood', axe: 'wood', pickaxe: 'wood', shovel: 'wood' }, tiers || {});
                 state.blade = state.tiers.sword || 'wood';
                 paintTools();
             },
@@ -627,6 +689,11 @@
         fx.push({ kind: 'text', obj: sp, life: 0.9, vy: 1.6 });
     }
 
+    function beginDeath(scene, fx, mesh) {
+        if (!mesh) return;
+        fx.push({ kind: 'death', obj: mesh, life: 0.28, maxLife: 0.28 });
+    }
+
     function spawnBurst(scene, fx, x, y, z, colorHex, n) {
         for (let i = 0; i < (n || 10); i += 1) {
             const p = box(0.1 + Math.random() * 0.1, 0.1 + Math.random() * 0.1, 0.1 + Math.random() * 0.1, colorHex);
@@ -694,6 +761,9 @@
                 e.obj.rotation.x += dt * 6;
                 e.obj.rotation.y += dt * 5;
                 if (e.life < 0.3) e.obj.scale.setScalar(Math.max(0.01, e.life / 0.3));
+            } else if (e.kind === 'death') {
+                const s = Math.max(0.01, e.life / (e.maxLife || 0.28));
+                e.obj.scale.set(s, s * (0.85 + s * 0.15), s);
             }
             keep.push(e);
         });
@@ -707,6 +777,7 @@
         createViewModel: createViewModel,
         spawnDamageText: spawnDamageText,
         spawnBurst: spawnBurst,
+        beginDeath: beginDeath,
         boltMesh: boltMesh,
         arrowMesh: arrowMesh,
         coinMesh: coinMesh,
