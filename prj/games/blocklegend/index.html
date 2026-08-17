@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>方块传奇 · 学英语大冒险</title>
-    <link rel="stylesheet" href="./game.css?v=20260816-bl-voice3">
+    <link rel="stylesheet" href="./game.css?v=20260817-bl-set1">
 </head>
 <body class="bl-body">
     <main class="bl-stage">
@@ -14,6 +14,7 @@
         <header class="bl-topbar">
             <a class="bl-back" id="back-link" href="../../preschool-workbench/index.html">返回工作台</a>
             <strong class="bl-title">方块传奇</strong>
+            <button type="button" class="bl-btn" id="buddy-btn" aria-label="Buddy settings">设</button>
             <button type="button" class="bl-btn" id="help-btn" aria-label="Help">?</button>
             <button type="button" class="bl-btn" id="fullscreen-btn">全屏</button>
         </header>
@@ -21,13 +22,14 @@
         <aside class="bl-rpg" aria-label="角色状态">
             <canvas id="mini-map" width="112" height="112" aria-hidden="true"></canvas>
             <p class="bl-quest" id="quest-panel">
+                <span class="bl-quest-kicker">⚠ 今天要处理 / Today's Alerts</span>
                 <b id="quest-goal">找到会发光的橡树</b>
-                <span id="quest-hint">WASD 走到树前，对准它</span>
+                <span class="bl-quest-hint" id="quest-hint">WASD 走到树前，对准它</span>
             </p>
             <p class="bl-chapter" id="chapter-label">第一层 · 初生神域 · Genesis</p>
             <div class="bl-rpg-head">
                 <b>Lv.<span id="level-label">1</span></b>
-                <span>Explorer</span>
+                <span>Explorer Workshop</span>
             </div>
             <div class="bl-bar bl-bar-hp"><i id="hp-fill"></i><em id="hp-num">10/10</em></div>
             <div class="bl-bar bl-bar-mp"><i id="mp-fill-side"></i><em id="mp-num-side">combo 0</em></div>
@@ -46,7 +48,7 @@
 
         <aside class="bl-learn" id="learn-panel" aria-label="词汇学习">
             <p class="bl-heard" id="heard-box"><span class="bl-heard-ico" aria-hidden="true">🎤</span><b id="heard-text">""</b></p>
-            <b class="bl-learn-title">词汇学习</b>
+            <b class="bl-learn-title">学习 / Study · 词汇学习</b>
             <ul>
                 <li><i class="bl-dot is-bank"></i>总词 <b id="stat-bank">0</b></li>
                 <li><i class="bl-dot is-learned"></i>已学 <b id="stat-learned">0</b></li>
@@ -72,6 +74,10 @@
                 <div class="bl-voice-fallback-choices" id="voice-fallback-choices"></div>
             </div>
         </div>
+        <p class="bl-buddy-say" id="buddy-say" aria-live="polite"></p>
+        <form class="bl-buddy-type is-hidden" id="buddy-type" autocomplete="off">
+            <input id="buddy-input" type="text" maxlength="48" placeholder="Type to buddy" inputmode="latin" autocapitalize="none" spellcheck="false">
+        </form>
 
         <div class="bl-mc-hud">
             <div class="bl-mc-status">
@@ -103,7 +109,9 @@
             <em id="boss-shield">蓝罩 0</em>
             <div class="bl-boss-bar"><i id="boss-fill"></i></div>
         </div>
-        <p class="bl-hint">WASD · V 开口 · T 打字 · 1-9物品栏 · 左键挖/打 · 右键放方块 · Q 魔法 · F 商店 · <b id="fps-label">--</b> fps</p>
+        <p class="bl-lowhp is-hidden" id="low-hp-tip">Low HP · 先跑开或按 V 说词</p>
+        <p class="bl-world-meta" id="world-meta"><span id="coord-label">坐标 0, 0</span><span id="bag-count">背包 0</span></p>
+        <p class="bl-hint">点击挖矿 · 右键放方块 · WASD · V 开口 · T 打字 · 1-9物品栏 · Q 魔法 · F 小卖部 · <b id="fps-label">--</b> fps</p>
         <div class="bl-trade-tip is-hidden" id="trade-tip">Press F to talk to Merchant Leo (商人雷奥)</div>
         <div class="bl-cast-hud is-hidden" id="cast-hud">
             <p class="bl-cast-kicker" id="cast-kicker">打字施法 · T 吟唱 · 看中文拼英文击杀</p>
@@ -135,6 +143,7 @@
         <div class="bl-layer is-hidden" id="settle-layer">
             <div class="bl-card">
                 <h2>通关啦</h2>
+                <p class="bl-settle-kicker">等级奖励 / Level Rewards</p>
                 <p id="settle-gain"></p>
                 <p id="settle-progress"></p>
                 <p id="settle-next"></p>
@@ -146,7 +155,7 @@
         </div>
         <div class="bl-layer is-hidden" id="craft-layer">
             <div class="bl-card bl-craft bl-mc-craft">
-                <h2>Crafting · 合成</h2>
+                <h2>合成台 / Crafting Table</h2>
                 <p id="craft-tip">砍树得原木。随身 2×2，对着合成台右键打开 3×3。左边点配方，或把材料摆进格子再点产物。</p>
                 <div class="bl-mc-craft-body">
                     <div class="bl-mc-book" id="craft-book"></div>
@@ -156,7 +165,7 @@
                         <button type="button" class="bl-mc-slot bl-mc-out" id="craft-out" title="拿走产物"></button>
                     </div>
                 </div>
-                <p class="bl-mc-inv-label">Inventory</p>
+                <p class="bl-mc-inv-label">背包 / Inventory</p>
                 <div class="bl-mc-inv" id="craft-inv"></div>
                 <div class="bl-card-actions">
                     <button type="button" class="bl-btn" id="craft-close">关闭</button>
@@ -165,8 +174,8 @@
         </div>
         <div class="bl-layer is-hidden" id="trade-layer">
             <div class="bl-card">
-                <h2>Shop · 商城</h2>
-                <p id="trade-copy">Sell loot for coins.</p>
+                <h2>小卖部 / Shop</h2>
+                <p id="trade-copy">Sell loot for coins. 卖掉战利品，点卡片购买装备。</p>
                 <div id="shop-list" class="bl-shop-list"></div>
                 <div class="bl-card-actions">
                     <button type="button" class="bl-btn" id="trade-sell">Sell all</button>
@@ -183,13 +192,15 @@
                     <li>Mouse — look around (Esc to unlock)</li>
                     <li>1–4 tools · 5 dirt · 6 cobble · 7 log · 8 plank · 9 table</li>
                     <li>Look at a block or mob — its name appears under the crosshair</li>
-                    <li>Hold left click — hit the mob you look at; if none, mine the block</li>
+                    <li>Click to mine · Right click to place. Hold left click to hit the mob you look at</li>
                     <li>Gold word cubes — break them for coins, HP, and word progress</li>
                     <li>Word gates block the path — walk up and answer to open them</li>
                     <li>C — 随身 2×2 合成；对着合成台右键打开 3×3 格子。左边点配方，或把材料摆进格子再点产物</li>
                     <li>Right click a placed table to open the full craft grid; otherwise place a block</li>
                     <li>Q — homing magic bolt; with a crafted bow and arrows it fires an arrow instead</li>
                     <li>V — Voice Challenge (say the word on the plaque). The world does not pause</li>
+                    <li>G — Talk to buddy. Hold G to speak, or type if there is no mic</li>
+                    <li>设 — Buddy settings this session only. Android types with G; use an https model URL</li>
                     <li>Look at a mob and hold V — saying the English word crits or shatters the boss shield</li>
                     <li>T — type the word if the mic cannot hear you. Clicking Chinese is a fallback after two misses</li>
                     <li>F — talk to Merchant Leo (商人雷奥); sell loot or buy Leather Cap / Cloth Robe / Iron Blade / HP Potion</li>
@@ -198,6 +209,28 @@
                     <li>Say or type the word to break the shield; clicking Chinese only chips it</li>
                 </ul>
                 <button type="button" class="bl-btn" id="help-close">Close</button>
+            </div>
+        </div>
+        <div class="bl-layer is-hidden" id="buddy-layer">
+            <div class="bl-card bl-buddy-card">
+                <h2>陪玩 / Buddy</h2>
+                <p id="buddy-hint" class="bl-buddy-note">This session only. Nothing is saved.</p>
+                <form class="bl-buddy-form" id="buddy-form" autocomplete="off">
+                    <label for="buddy-endpoint">Model URL</label>
+                    <input id="buddy-endpoint" name="buddy-endpoint" type="url" inputmode="url" placeholder="http://127.0.0.1:4210/v1" spellcheck="false">
+                    <label for="buddy-model">Model</label>
+                    <input id="buddy-model" name="buddy-model" type="text" value="deepseek-v4-flash" spellcheck="false">
+                    <label for="buddy-api-key">API key (optional)</label>
+                    <input id="buddy-api-key" name="buddy-api-key" type="password" autocomplete="off" spellcheck="false">
+                    <label for="buddy-tts">TTS URL (optional)</label>
+                    <input id="buddy-tts" name="buddy-tts" type="url" inputmode="url" placeholder="http://127.0.0.1:4210/v1/tts" spellcheck="false">
+                    <p class="bl-buddy-note">Desktop can use the local proxy. Android WebView usually has no speech — type with G. On a phone, 127.0.0.1 is the phone, not your PC; paste a public https endpoint.</p>
+                    <div class="bl-card-actions">
+                        <button type="submit" class="bl-btn" id="buddy-apply">Apply</button>
+                        <button type="button" class="bl-btn" id="buddy-clear">Template only</button>
+                        <button type="button" class="bl-btn" id="buddy-close">Close</button>
+                    </div>
+                </form>
             </div>
         </div>
     </main>
@@ -213,6 +246,7 @@
     <script src="./engine.js?v=20260816-bl-play1"></script>
     <script src="./data/combat.js?v=20260816-bl-spawn1"></script>
     <script src="./data/speech-input.js?v=20260816-bl-p2"></script>
+    <script src="./data/companion.js?v=20260817-bl-buddy1"></script>
     <script src="./data/words.js?v=20260816-bl-cast2"></script>
     <script src="./data/levels.js?v=20260816-bl-speak1"></script>
     <script src="./data/quests.js?v=20260816-bl-p1"></script>
@@ -234,6 +268,6 @@
     <script src="./assets/img2threejs/createTools3d.js?v=20260816-bl-mobs4"></script>
     <script src="./assets/img2threejs/createProps3d.js?v=20260816-bl-play1"></script>
     <script src="./mobs.js?v=20260816-bl-play1"></script>
-    <script src="./game.js?v=20260816-bl-voice3"></script>
+    <script src="./game.js?v=20260817-bl-set1"></script>
 </body>
 </html>

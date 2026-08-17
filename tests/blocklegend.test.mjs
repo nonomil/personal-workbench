@@ -1261,6 +1261,27 @@ test('hud copies reference look plaque, learn panel, and side bars', () => {
   assert.match(game, /hideLookTip/);
 });
 
+test('workshop hud shows today alerts, shop, bag count, coords, and low-hp tip', () => {
+  const html = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'index.html'), 'utf8');
+  const css = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.css'), 'utf8');
+  const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+  assert.match(html, /Today's Alerts/);
+  assert.match(html, /小卖部 \/ Shop/);
+  assert.match(html, /合成台 \/ Crafting Table/);
+  assert.match(html, /id="coord-label"/);
+  assert.match(html, /id="bag-count"/);
+  assert.match(html, /id="low-hp-tip"/);
+  assert.match(html, /Level Rewards/);
+  assert.match(html, /Click to mine/);
+  assert.match(html, /词汇学习/);
+  assert.match(css, /\.bl-quest-kicker/);
+  assert.match(css, /\.bl-lowhp/);
+  assert.match(game, /coord-label/);
+  assert.match(game, /bag-count/);
+  assert.match(game, /You fainted/);
+  assert.match(game, /购买 Buy/);
+});
+
 test('default hud shows a single quest goal node', () => {
   const html = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'index.html'), 'utf8');
   assert.match(html, /id="quest-goal"/);
@@ -1595,4 +1616,145 @@ test('recipe book hides unused items and keeps chest/torch/furnace offered', () 
   assert.equal(CR.keepsBagOnDeath({}), false);
   assert.ok(C.torchSlow({ hasTorch: true, inCave: true }) < 1);
   assert.equal(C.torchSlow({ hasTorch: false, inCave: true }), 1);
+});
+
+await import('../prj/games/blocklegend/data/companion.js');
+const P = globalThis.BlockLegendCompanion;
+await import('../prj/games/blocklegend/data/speech-input.js');
+const SP = globalThis.BlockLegendSpeech;
+
+test('companion reminds say-word when look target is a new mob', () => {
+  const cue = P.decideCue({
+    look: { type: 'mob', kind: 'slime', word: 'lemon' },
+    doing: 'look',
+    heard: '',
+    unread: 1,
+    lastCueAt: 0,
+    now: 5000
+  });
+  assert.equal(cue.kind, 'remind');
+  assert.match(cue.say, /lemon/i);
+});
+
+test('companion stays silent inside cooldown', () => {
+  const cue = P.decideCue({
+    look: { type: 'mob', kind: 'slime', word: 'lemon' },
+    doing: 'look',
+    lastCueAt: 9000,
+    now: 10000
+  });
+  assert.equal(cue.kind, 'silent');
+});
+
+test('companion reply hits the plaque word and otherwise stays short English', () => {
+  const snap = { look: { type: 'mob', kind: 'slime', word: 'lemon' }, shield: 'up' };
+  const hit = P.replyTo({ heard: 'lemon', snapshot: snap, matchHeard: SP.matchHeard });
+  assert.equal(hit.kind, 'reply');
+  assert.equal(hit.hit, true);
+  assert.match(hit.say, /yes/i);
+  const miss = P.replyTo({ heard: 'pardon', snapshot: snap, matchHeard: SP.matchHeard });
+  assert.equal(miss.hit, false);
+  assert.ok(String(miss.say).split(/\s+/).filter(Boolean).length <= 8);
+});
+
+test('companion chat request uses OpenAI-compatible deepseek-v4-flash and no secrets in body', () => {
+  const req = P.buildChatRequest({
+    snapshot: { look: { type: 'mob', word: 'lemon' }, doing: 'look' },
+    heard: 'hello',
+    config: { endpoint: 'http://127.0.0.1:4210/v1', model: 'deepseek-v4-flash', apiKey: 'sk-test' }
+  });
+  assert.equal(req.url, 'http://127.0.0.1:4210/v1/chat/completions');
+  assert.equal(req.body.model, 'deepseek-v4-flash');
+  assert.equal(req.body.stream, false);
+  assert.ok(req.body.max_tokens <= 32);
+  const packed = JSON.stringify(req.body);
+  assert.doesNotMatch(packed, /sk-test/);
+  assert.doesNotMatch(packed, /screenshot|audio|wav|webm/i);
+  assert.match(packed, /lemon/);
+  assert.match(req.headers.authorization, /Bearer sk-test/);
+});
+
+test('companion times out to the template and never writes a localStorage key', () => {
+  const fallback = P.decideCue({
+    look: { type: 'mob', kind: 'slime', word: 'lemon' },
+    doing: 'look',
+    lastCueAt: 0,
+    now: 8000
+  });
+  return P.runBuddyTurn({
+    heard: 'what is this',
+    snapshot: { look: { type: 'mob', kind: 'slime', word: 'lemon' }, doing: 'talk' },
+    matchHeard: SP.matchHeard,
+    askModel: function () {
+      return new Promise(function (resolve) { setTimeout(function () { resolve('This is a very long model answer.'); }, 50); });
+    },
+    timeoutMs: 1
+  }).then(function (turn) {
+    assert.equal(turn.source, 'template');
+    assert.equal(turn.hit, false);
+    assert.ok(String(turn.say).split(/\s+/).filter(Boolean).length <= 8);
+    assert.equal(P.STORAGE_KEY, null);
+    const html = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'index.html'), 'utf8');
+    const game = fs.readFileSync(path.join(repoRoot, 'prj', 'games', 'blocklegend', 'game.js'), 'utf8');
+    assert.match(html, /id="buddy-say"/);
+    assert.match(html, /G — Talk to buddy/);
+    assert.match(html, /data\/companion\.js/);
+    assert.match(game, /function collectSnapshot/);
+    assert.match(game, /e\.key === 'g' \|\| e\.key === 'G'/);
+    assert.match(game, /startVoiceChallenge/);
+    assert.doesNotMatch(game, /localStorage\.setItem\(\s*['"]bl-buddy/);
+    assert.match(html, /id="buddy-layer"/);
+    assert.match(html, /id="buddy-endpoint"/);
+    assert.match(html, /This session only/);
+    assert.match(game, /buddy-layer/);
+    assert.match(game, /function applyBuddySettings/);
+    assert.match(game, /function openBuddySettings/);
+    assert.doesNotMatch(game, /localStorage\.setItem/);
+    const launch = path.join(repoRoot, 'prj', 'games', 'blocklegend', '打开方块传奇.bat');
+    assert.ok(fs.existsSync(launch));
+    assert.match(fs.readFileSync(launch, 'utf8'), /\/prj\/games\/blocklegend\/index\.html/);
+    assert.doesNotMatch(fs.readFileSync(launch, 'utf8'), /playtest=1/);
+  });
+});
+
+test('buddy pasted config enables flash chat without a storage key', () => {
+  const cfg = P.resolveBuddyConfig({
+    pasted: { endpoint: 'https://example.com/v1', model: 'deepseek-v4-flash', apiKey: 'secret' }
+  });
+  assert.equal(cfg.enabled, true);
+  assert.equal(cfg.endpoint, 'https://example.com/v1');
+  assert.equal(cfg.apiKey, 'secret');
+  assert.equal(P.STORAGE_KEY, null);
+});
+
+test('companion speech plan prefers Microsoft English then optional edge-tts proxy', () => {
+  const synth = P.planSpeak('Say lemon.', {
+    voices: [
+      { name: 'Google US English', lang: 'en-US' },
+      { name: 'Microsoft Aria Online (Natural) - English (United States)', lang: 'en-US' }
+    ]
+  });
+  assert.equal(synth.method, 'speechSynthesis');
+  assert.match(synth.voice, /Aria|Microsoft/i);
+  const edge = P.planSpeak('Say lemon.', { ttsUrl: 'http://127.0.0.1:4210/v1/tts' });
+  assert.equal(edge.method, 'edge-tts');
+  assert.equal(edge.url, 'http://127.0.0.1:4210/v1/tts');
+  const silent = P.planSpeak('', {});
+  assert.equal(silent.method, 'silent');
+});
+
+test('companion full pipeline: heard word hits combat and speaks a short line', () => {
+  const spoken = [];
+  return P.runBuddyTurn({
+    heard: 'lemon lemon',
+    snapshot: { look: { type: 'mob', kind: 'slime', word: 'lemon' }, doing: 'talk' },
+    matchHeard: SP.matchHeard,
+    askModel: function () { return Promise.resolve('This should not be used when the plaque matches.'); },
+    speak: function (line) { spoken.push(line); }
+  }).then(function (turn) {
+    assert.equal(turn.hit, true);
+    assert.equal(turn.source, 'template');
+    assert.match(turn.say, /yes/i);
+    assert.deepEqual(spoken, [turn.say]);
+  });
 });

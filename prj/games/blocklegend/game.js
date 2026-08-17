@@ -36,6 +36,7 @@
     const C = window.BlockLegendCombat;
     const W = window.BlockLegendWords;
     const SP = window.BlockLegendSpeech;
+    const P = window.BlockLegendCompanion;
     const L = window.BlockLegendLevels;
     const Q = window.BlockLegendQuests;
     const MOBS = window.BlockLegendMobs;
@@ -76,7 +77,11 @@
         quizEndsAt: 0,
         casting: false,
         castBuf: '',
-        voice: { state: 'idle', rec: null, lock: null, blocked: false },
+        voice: { state: 'idle', rec: null, lock: null, blocked: false, buddy: false },
+        buddyAt: 0,
+        buddyKey: '',
+        buddyConfig: null,
+        lastHeard: '',
         missByWord: {},
         tool: 'sword',
         mining: false,
@@ -128,6 +133,7 @@
         engine.camera.add(viewModel.group);
         const back = document.getElementById('back-link');
         if (back && bridge && bridge.backHref) back.href = bridge.backHref('blocklegend');
+        session.buddyConfig = readBuddyConfig();
         bindChrome();
         bindCombatInput(canvas);
         spawnMerchant();
@@ -204,6 +210,19 @@
         });
         document.getElementById('help-btn').addEventListener('click', function () { toggleLayer('help-layer', true); });
         document.getElementById('help-close').addEventListener('click', function () { toggleLayer('help-layer', false); });
+        const buddyBtn = document.getElementById('buddy-btn');
+        if (buddyBtn) buddyBtn.addEventListener('click', function () { openBuddySettings(); });
+        const buddyClose = document.getElementById('buddy-close');
+        if (buddyClose) buddyClose.addEventListener('click', function () { toggleLayer('buddy-layer', false); });
+        const buddyClear = document.getElementById('buddy-clear');
+        if (buddyClear) buddyClear.addEventListener('click', function () { clearBuddySettings(); });
+        const buddyForm = document.getElementById('buddy-form');
+        if (buddyForm) {
+            buddyForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                applyBuddySettings();
+            });
+        }
         document.getElementById('trade-close').addEventListener('click', function () { toggleLayer('trade-layer', false); });
         const craftClose = document.getElementById('craft-close');
         if (craftClose) craftClose.addEventListener('click', function () { toggleCraft(false); });
@@ -311,9 +330,24 @@
                 }
                 return;
             }
+            if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) {
+                if (e.key === 'Escape') {
+                    showBuddyType(false);
+                    toggleLayer('buddy-layer', false);
+                }
+                return;
+            }
             if (e.key === 'v' || e.key === 'V') {
                 e.preventDefault();
+                session.voice.buddy = false;
                 startVoiceChallenge();
+                return;
+            }
+            if (e.key === 'g' || e.key === 'G') {
+                if (e.repeat) return;
+                if (session.voice && session.voice.state === 'listening' && session.voice.lock && !session.voice.buddy) return;
+                e.preventDefault();
+                startBuddyListen();
                 return;
             }
             if (session.voice && session.voice.lock && e.key >= '1' && e.key <= '4') {
@@ -368,15 +402,33 @@
             if (e.key === 'Escape') {
                 toggleLayer('help-layer', false);
                 toggleLayer('trade-layer', false);
+                toggleLayer('buddy-layer', false);
                 toggleCraft(false);
+                showBuddyType(false);
             }
         });
+        document.addEventListener('keyup', function (e) {
+            if (e.key === 'g' || e.key === 'G') {
+                if (session.voice && session.voice.buddy) stopVoiceRec();
+            }
+        });
+        const buddyTypeForm = document.getElementById('buddy-type');
+        if (buddyTypeForm) {
+            buddyTypeForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const input = document.getElementById('buddy-input');
+                const heard = input ? String(input.value || '').trim() : '';
+                if (input) input.value = '';
+                showBuddyType(false);
+                if (heard) handleBuddyHeard(heard, session.voice && session.voice.lock);
+            });
+        }
     }
 
     function nowMs() { return Date.now(); }
 
     function overlayOpen() {
-        return ['quiz-layer', 'settle-layer', 'trade-layer', 'help-layer', 'craft-layer'].some(function (id) {
+        return ['quiz-layer', 'settle-layer', 'trade-layer', 'help-layer', 'craft-layer', 'buddy-layer'].some(function (id) {
             const el = document.getElementById(id);
             return el && !el.classList.contains('is-hidden');
         });
@@ -1359,6 +1411,7 @@
             if (session.voice && session.voice.lock && session.voice.lock.mob !== sub.mob) {
                 hideVoiceFallback();
             }
+            if (sub.type === 'mob') maybeBuddyCue({ doing: 'look' });
         } else if (!session.lookSpoken && now - session.lookSince > 480) {
             session.lookSpoken = true;
             if (!W.shouldAutoSpeak(sub.kind, sub.type)) return;
@@ -1430,6 +1483,7 @@
             const label = mob.word || W.labelFor(mob.kind, bank);
             const en = (label && (label.text || label.en)) || '';
             if (en) toast('按 V 说 ' + en);
+            maybeBuddyCue({ doing: 'swing' });
         }
         applyResolvedHit(mob, kind, { answered: false, correct: false });
     }
@@ -2081,6 +2135,237 @@
     function paintHeard(text) {
         const el = document.getElementById('heard-text');
         if (el) el.textContent = text ? ('"' + text + '"') : '""';
+        if (text && text !== '…') session.lastHeard = text;
+    }
+
+    function readBuddyConfig() {
+        if (!P || !P.resolveBuddyConfig) return { enabled: false };
+        const q = {};
+        try {
+            const usp = new URLSearchParams(window.location.search);
+            q.buddyEndpoint = usp.get('buddyEndpoint') || '';
+            q.buddyModel = usp.get('buddyModel') || '';
+            q.buddyTts = usp.get('buddyTts') || '';
+        } catch (e) { /* ignore */ }
+        return P.resolveBuddyConfig({ query: q, window: window });
+    }
+
+    function fieldVal(id) {
+        const el = document.getElementById(id);
+        return el ? String(el.value || '').trim() : '';
+    }
+
+    function setField(id, value) {
+        const el = document.getElementById(id);
+        if (el) el.value = value == null ? '' : String(value);
+    }
+
+    function paintBuddyHint() {
+        const el = document.getElementById('buddy-hint');
+        if (!el) return;
+        const rec = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const android = /Android/i.test(navigator.userAgent || '');
+        const on = session.buddyConfig && session.buddyConfig.enabled;
+        const bits = [
+            on ? 'Model on this session.' : 'Template buddy. Paste a model URL to upgrade.',
+            android
+                ? 'Android WebView usually has no speech. Type with G. 127.0.0.1 is this phone.'
+                : (rec ? 'Mic ready. Hold G to talk.' : 'No speech API. Type with G.')
+        ];
+        el.textContent = bits.join(' ');
+    }
+
+    function openBuddySettings() {
+        const cfg = session.buddyConfig || readBuddyConfig();
+        const pasted = (window.BLOCKLEGEND_BUDDY) || {};
+        setField('buddy-endpoint', cfg.endpoint || '');
+        setField('buddy-model', cfg.model || 'deepseek-v4-flash');
+        setField('buddy-api-key', pasted.apiKey || cfg.apiKey || '');
+        setField('buddy-tts', cfg.ttsUrl || '');
+        paintBuddyHint();
+        toggleLayer('buddy-layer', true);
+    }
+
+    function applyBuddySettings() {
+        window.BLOCKLEGEND_BUDDY = {
+            endpoint: fieldVal('buddy-endpoint'),
+            model: fieldVal('buddy-model') || 'deepseek-v4-flash',
+            apiKey: fieldVal('buddy-api-key'),
+            ttsUrl: fieldVal('buddy-tts')
+        };
+        session.buddyConfig = readBuddyConfig();
+        paintBuddyHint();
+        toggleLayer('buddy-layer', false);
+        toast(session.buddyConfig.enabled ? 'Buddy model on' : 'Buddy template only');
+    }
+
+    function clearBuddySettings() {
+        window.BLOCKLEGEND_BUDDY = {};
+        setField('buddy-endpoint', '');
+        setField('buddy-api-key', '');
+        setField('buddy-tts', '');
+        setField('buddy-model', 'deepseek-v4-flash');
+        session.buddyConfig = readBuddyConfig();
+        paintBuddyHint();
+        toast('Buddy template only');
+    }
+
+    function collectSnapshot() {
+        const sub = lookSubject();
+        const word = sub && (sub.word || (sub.mob && sub.mob.word));
+        return {
+            look: sub ? {
+                type: sub.type,
+                kind: sub.kind,
+                word: word && (word.text || word.en || word)
+            } : null,
+            doing: session.casting ? 'type'
+                : (session.voice && session.voice.buddy ? 'talk'
+                    : (session.nearMerchant ? 'walk-merchant' : 'look')),
+            heard: session.lastHeard || '',
+            unread: W.unreadSpeakCount
+                ? W.unreadSpeakCount(progress.shownWordIds || [], progress.spokenWordIds || [])
+                : 0,
+            shield: session.boss ? session.boss.state : '',
+            nearMerchant: !!session.nearMerchant,
+            lastCueAt: session.buddyAt || 0,
+            now: nowMs()
+        };
+    }
+
+    function maybeBuddyCue(extra) {
+        if (!P || !P.decideCue) return;
+        const snap = Object.assign(collectSnapshot(), extra || {});
+        const key = [
+            snap.look && snap.look.word,
+            snap.doing,
+            snap.heard,
+            snap.shield,
+            extra && extra.heardHit ? 'hit' : ''
+        ].join('|');
+        if (key === session.buddyKey && !(extra && extra.force)) return;
+        session.buddyKey = key;
+        const cue = P.decideCue(snap);
+        if (!cue || cue.kind === 'silent') return;
+        session.buddyAt = snap.now;
+        showBuddy(cue.say);
+    }
+
+    function showBuddy(text) {
+        const el = document.getElementById('buddy-say');
+        if (el) {
+            el.textContent = text || '';
+            el.classList.toggle('is-on', !!text);
+            clearTimeout(showBuddy._t);
+            if (text) showBuddy._t = setTimeout(function () { el.classList.remove('is-on'); }, 3200);
+        }
+        speakBuddy(text);
+    }
+
+    function speakBuddy(text) {
+        if (!P || !P.planSpeak || !text) return;
+        const plan = P.planSpeak(text, {
+            voices: window.speechSynthesis ? window.speechSynthesis.getVoices() : [],
+            ttsUrl: session.buddyConfig && session.buddyConfig.ttsUrl
+        });
+        if (plan.method === 'edge-tts') {
+            fetch(plan.url, {
+                method: 'POST',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify({ text: plan.text, voice: plan.voice })
+            }).then(function (res) {
+                if (!res.ok) throw new Error('tts');
+                return res.blob();
+            }).then(function (blob) {
+                const audio = new Audio(URL.createObjectURL(blob));
+                audio.play();
+            }).catch(function () {
+                speakSynth(plan.text, plan.voice);
+            });
+            return;
+        }
+        if (plan.method === 'speechSynthesis') speakSynth(plan.text, plan.voice);
+    }
+
+    function speakSynth(text, voiceName) {
+        if (!window.speechSynthesis) return;
+        try {
+            window.speechSynthesis.cancel();
+            const u = new SpeechSynthesisUtterance(text);
+            u.lang = 'en-US';
+            const voices = window.speechSynthesis.getVoices() || [];
+            const picked = voices.filter(function (v) { return v.name === voiceName; })[0]
+                || (P && P.pickTtsVoice ? P.pickTtsVoice(voices) : null);
+            if (picked) u.voice = picked;
+            window.speechSynthesis.speak(u);
+        } catch (e) { /* 静音不阻塞 */ }
+    }
+
+    function showBuddyType(on) {
+        const form = document.getElementById('buddy-type');
+        if (!form) return;
+        form.classList.toggle('is-hidden', !on);
+        if (on) {
+            const input = document.getElementById('buddy-input');
+            if (input) setTimeout(function () { input.focus(); }, 30);
+        }
+    }
+
+    function startBuddyListen() {
+        const sub = lookSubject();
+        const word = sub && sub.mob && sub.mob.word;
+        session.voice.buddy = true;
+        session.voice.lock = word ? {
+            mob: sub.mob,
+            word: word,
+            targetKey: wordKey(word),
+            startedAt: nowMs()
+        } : null;
+        if (!SP || !SP.canSpeak || !SP.canSpeak() || !(window.SpeechRecognition || window.webkitSpeechRecognition)) {
+            setVoiceState('unsupported');
+            showBuddyType(true);
+            return;
+        }
+        listenOnce({ lock: session.voice.lock, buddy: true });
+    }
+
+    function askBuddyModel(heard, snap) {
+        const req = P.buildChatRequest({
+            snapshot: snap,
+            heard: heard,
+            config: session.buddyConfig || {}
+        });
+        const ctrl = new AbortController();
+        const timer = setTimeout(function () { ctrl.abort(); }, 2000);
+        return fetch(req.url, {
+            method: 'POST',
+            headers: req.headers,
+            body: JSON.stringify(req.body),
+            signal: ctrl.signal
+        }).then(function (res) {
+            return res.json();
+        }).then(function (json) {
+            return P.parseChatReply(json);
+        }).finally(function () {
+            clearTimeout(timer);
+        });
+    }
+
+    function handleBuddyHeard(heard, lock) {
+        paintHeard(heard);
+        const snap = collectSnapshot();
+        const ask = session.buddyConfig && session.buddyConfig.enabled
+            ? function () { return askBuddyModel(heard, snap); }
+            : null;
+        P.runBuddyTurn({
+            heard: heard,
+            snapshot: snap,
+            matchHeard: SP && SP.matchHeard,
+            askModel: ask,
+            speak: showBuddy
+        }).then(function (turn) {
+            if (turn && turn.hit && lock && lock.mob) applySpeakHit(lock, heard);
+        });
     }
 
     function setVoiceState(state) {
@@ -2152,6 +2437,7 @@
         hideVoiceFallback();
         setVoiceState('matched');
         toast((heard || (word && word.text) || '') + ' · 暴击');
+        maybeBuddyCue({ doing: 'speak-hit', heardHit: true, force: true });
     }
 
     function showVoiceFallback(lock, opts) {
@@ -2212,7 +2498,7 @@
         const target = (lock && lock.word && lock.word.text)
             || (session.quiz && session.quiz.word && session.quiz.word.text)
             || '';
-        if (!target) return;
+        if (!target && !o.buddy) return;
         if (session.voice && session.voice.rec) stopVoiceRec();
         const Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (!Rec) {
@@ -2238,6 +2524,11 @@
             const hit = alts.some(function (heard) { return SP.matchHeard(target, heard).ok; });
             done = true;
             session.voice.rec = null;
+            if (o.buddy) {
+                setVoiceState(hit ? 'matched' : 'not-matched');
+                handleBuddyHeard(alts[0] || '', lock);
+                return;
+            }
             if (hit) {
                 if (inQuiz) {
                     noteWordSpoken(session.quiz.word);
@@ -2283,7 +2574,7 @@
         try {
             rec.start();
             paintHeard('…');
-            toast('说：' + target);
+            toast(o.buddy ? '跟陪玩说英语' : ('说：' + target));
         } catch (e) {
             session.voice.rec = null;
             setVoiceState('unsupported');
@@ -2638,8 +2929,8 @@
                 const worn = progress.gear && progress.gear[it.slot] === it.id;
                 const row = document.createElement('button');
                 row.type = 'button';
-                row.className = 'bl-shop-row';
-                row.textContent = it.en + ' · ' + it.zh + '  $' + it.cost + (worn ? '  (on)' : '');
+                row.className = 'bl-shop-row bl-shop-card';
+                row.innerHTML = '<b>' + it.en + '</b><em>' + it.zh + ' · $' + it.cost + (worn ? ' (on)' : '') + '</em><span class="bl-shop-buy">购买 Buy</span>';
                 row.addEventListener('click', function () { buyItem(it.id); });
                 list.appendChild(row);
             });
@@ -2778,6 +3069,20 @@
         }
         const chapter = document.getElementById('chapter-label');
         if (chapter) chapter.textContent = CHAPTERS[session.level] || CHAPTERS[1];
+        const coord = document.getElementById('coord-label');
+        if (coord && engine && engine.player) {
+            coord.textContent = '坐标 ' + Math.floor(engine.player.x) + ', ' + Math.floor(engine.player.z);
+        }
+        const bagEl = document.getElementById('bag-count');
+        if (bagEl) {
+            let n = 0;
+            Object.keys(session.bag || {}).forEach(function (k) { n += Number(session.bag[k]) || 0; });
+            bagEl.textContent = '背包 ' + n;
+        }
+        const low = document.getElementById('low-hp-tip');
+        if (low && engine && engine.player) {
+            low.classList.toggle('is-hidden', engine.player.hp > 3);
+        }
     }
 
     function toast(msg) {
@@ -2810,7 +3115,7 @@
         session.combo = 0;
         session.lastHitAt = nowMs();
         MOBS.spawnBurst(engine.scene, session.fx, engine.player.x, engine.player.y + 1, engine.player.z, 0x54d43c, 14);
-        toast('倒下啦，回出生点复活！连击清零');
+        toast('You fainted · 回出生点，连击清零');
     }
 
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
