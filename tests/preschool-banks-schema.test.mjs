@@ -19,6 +19,7 @@ test('banks-index and schema v1 pass validate-banks', () => {
     assert.equal(byId.pinyin.count, 63);
     assert.equal(byId['phonics-words'].count, 94);
     assert.equal(byId['phonics-letters'].count, 26);
+    assert.equal(byId.math.count, 50);
 });
 
 test('card art honors emoji:X and none directives', () => {

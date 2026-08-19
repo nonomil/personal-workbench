@@ -66,6 +66,20 @@
         };
     }
 
+    function normalizeEvents(list) {
+        const out = [];
+        (Array.isArray(list) ? list : []).forEach(function (item) {
+            if (!item || typeof item !== 'object') return;
+            out.push({
+                ts: String(item.ts || ''),
+                mode: String(item.mode || ''),
+                correct: !!item.correct,
+                source: String(item.source || 'workbench')
+            });
+        });
+        return out.slice(-20);
+    }
+
     function normalizeEnglishQuiz(source) {
         const quiz = source && typeof source === 'object' ? source : {};
         function bucket(name) {
@@ -92,8 +106,12 @@
                 nextReview: String(item.nextReview || ''),
                 sunlightDelta: 0,
                 masteredAt: String(item.masteredAt || ''),
-                quiz: normalizeEnglishQuiz(item.quiz)
+                quiz: normalizeEnglishQuiz(item.quiz),
+                events: normalizeEvents(item.events),
+                planVersion: Number(item.planVersion) === 2 ? 2 : (Number(item.planVersion) === 1 ? 1 : undefined),
+                reviewRound: Math.max(0, Number(item.reviewRound) || 0)
             };
+            if (!cleaned[word].planVersion) delete cleaned[word].planVersion;
         });
         return { mastery: cleaned };
     }

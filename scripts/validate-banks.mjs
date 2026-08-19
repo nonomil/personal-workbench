@@ -7,11 +7,13 @@ const pre = path.join(repoRoot, 'prj', 'data', 'preschool');
 const indexPath = path.join(pre, 'banks-index.json');
 
 const REQUIRED = ['id', 'kind', 'text', 'theme', 'level', 'media'];
+const REQUIRED_MATH = ['id', 'level', 'prompt', 'answer'];
 const KIND_EXTRA = {
     english: ['zh', 'phrase', 'phraseZh'],
     literacy: [],
     pinyin: [],
-    phonics: []
+    phonics: [],
+    math: []
 };
 
 export function validateBanks() {
@@ -41,13 +43,14 @@ export function validateBanks() {
             errors.push(entry.id + ': index count ' + entry.count + ' !== file ' + rows.length);
         }
         const extraRequired = KIND_EXTRA[entry.kind] || [];
+        const required = entry.kind === 'math' ? REQUIRED_MATH : REQUIRED;
         rows.forEach((row, indexNo) => {
             const label = entry.id + '[' + indexNo + ']';
             if (!row || typeof row !== 'object' || Array.isArray(row)) {
                 errors.push(label + ': expected object row');
                 return;
             }
-            REQUIRED.concat(extraRequired).forEach((key) => {
+            required.concat(extraRequired).forEach((key) => {
                 if (row[key] == null || row[key] === '') {
                     if (key === 'theme' && entry.kind === 'phonics') return;
                     errors.push(label + ': missing ' + key);

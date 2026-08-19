@@ -1,0 +1,3730 @@
+{
+  "version": 1,
+  "generatedAt": "2026-08-19T01:50:05.458Z",
+  "buildIdentity": {
+    "batchId": "core-pinyin-2026.08.19",
+    "manifestHash": "01806876c757a4853878688dc07fd57e74966531c2bcf3e23d7d6082ae77b4f1",
+    "inputHash": "01806876c757a4853878688dc07fd57e74966531c2bcf3e23d7d6082ae77b4f1",
+    "builderVersion": "export-question-packages@1"
+  },
+  "cardCount": 63,
+  "cards": [
+    {
+      "id": "pinyin-initial-b",
+      "kind": "pinyin",
+      "word": "b",
+      "translation": "爸",
+      "partOfSpeech": "",
+      "phonetic": "bà",
+      "example": "爸",
+      "exampleZh": "bà",
+      "phrase": "爸",
+      "phraseTranslation": "bà",
+      "category": "lips",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "p",
+        "m",
+        "f",
+        "d",
+        "t",
+        "n"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "lips",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-initial-p",
+      "kind": "pinyin",
+      "word": "p",
+      "translation": "皮",
+      "partOfSpeech": "",
+      "phonetic": "pí",
+      "example": "皮",
+      "exampleZh": "pí",
+      "phrase": "皮",
+      "phraseTranslation": "pí",
+      "category": "lips",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "b",
+        "m",
+        "f",
+        "d",
+        "t",
+        "n"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "lips",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-initial-m",
+      "kind": "pinyin",
+      "word": "m",
+      "translation": "妈",
+      "partOfSpeech": "",
+      "phonetic": "mā",
+      "example": "妈",
+      "exampleZh": "mā",
+      "phrase": "妈",
+      "phraseTranslation": "mā",
+      "category": "lips",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "b",
+        "p",
+        "f",
+        "d",
+        "t",
+        "n"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "lips",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-initial-f",
+      "kind": "pinyin",
+      "word": "f",
+      "translation": "飞",
+      "partOfSpeech": "",
+      "phonetic": "fēi",
+      "example": "飞",
+      "exampleZh": "fēi",
+      "phrase": "飞",
+      "phraseTranslation": "fēi",
+      "category": "lips",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "b",
+        "p",
+        "m",
+        "d",
+        "t",
+        "n"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "lips",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-initial-d",
+      "kind": "pinyin",
+      "word": "d",
+      "translation": "大",
+      "partOfSpeech": "",
+      "phonetic": "dà",
+      "example": "大",
+      "exampleZh": "dà",
+      "phrase": "大",
+      "phraseTranslation": "dà",
+      "category": "tip",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "t",
+        "n",
+        "l",
+        "b",
+        "p",
+        "m"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "tip",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-initial-t",
+      "kind": "pinyin",
+      "word": "t",
+      "translation": "土",
+      "partOfSpeech": "",
+      "phonetic": "tǔ",
+      "example": "土",
+      "exampleZh": "tǔ",
+      "phrase": "土",
+      "phraseTranslation": "tǔ",
+      "category": "tip",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "d",
+        "n",
+        "l",
+        "b",
+        "p",
+        "m"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "tip",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-initial-n",
+      "kind": "pinyin",
+      "word": "n",
+      "translation": "你",
+      "partOfSpeech": "",
+      "phonetic": "nǐ",
+      "example": "你",
+      "exampleZh": "nǐ",
+      "phrase": "你",
+      "phraseTranslation": "nǐ",
+      "category": "tip",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "d",
+        "t",
+        "l",
+        "b",
+        "p",
+        "m"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "tip",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-initial-l",
+      "kind": "pinyin",
+      "word": "l",
+      "translation": "乐",
+      "partOfSpeech": "",
+      "phonetic": "lè",
+      "example": "乐",
+      "exampleZh": "lè",
+      "phrase": "乐",
+      "phraseTranslation": "lè",
+      "category": "tip",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "d",
+        "t",
+        "n",
+        "b",
+        "p",
+        "m"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "tip",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-initial-g",
+      "kind": "pinyin",
+      "word": "g",
+      "translation": "哥",
+      "partOfSpeech": "",
+      "phonetic": "gē",
+      "example": "哥",
+      "exampleZh": "gē",
+      "phrase": "哥",
+      "phraseTranslation": "gē",
+      "category": "root",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "k",
+        "h",
+        "b",
+        "p",
+        "m",
+        "f"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "root",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-initial-k",
+      "kind": "pinyin",
+      "word": "k",
+      "translation": "可",
+      "partOfSpeech": "",
+      "phonetic": "kě",
+      "example": "可",
+      "exampleZh": "kě",
+      "phrase": "可",
+      "phraseTranslation": "kě",
+      "category": "root",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "g",
+        "h",
+        "b",
+        "p",
+        "m",
+        "f"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "root",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-initial-h",
+      "kind": "pinyin",
+      "word": "h",
+      "translation": "火",
+      "partOfSpeech": "",
+      "phonetic": "huǒ",
+      "example": "火",
+      "exampleZh": "huǒ",
+      "phrase": "火",
+      "phraseTranslation": "huǒ",
+      "category": "root",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "g",
+        "k",
+        "b",
+        "p",
+        "m",
+        "f"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "root",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-initial-j",
+      "kind": "pinyin",
+      "word": "j",
+      "translation": "鸡",
+      "partOfSpeech": "",
+      "phonetic": "jī",
+      "example": "鸡",
+      "exampleZh": "jī",
+      "phrase": "鸡",
+      "phraseTranslation": "jī",
+      "category": "palatal",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "q",
+        "x",
+        "b",
+        "p",
+        "m",
+        "f"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "palatal",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-initial-q",
+      "kind": "pinyin",
+      "word": "q",
+      "translation": "七",
+      "partOfSpeech": "",
+      "phonetic": "qī",
+      "example": "七",
+      "exampleZh": "qī",
+      "phrase": "七",
+      "phraseTranslation": "qī",
+      "category": "palatal",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "j",
+        "x",
+        "b",
+        "p",
+        "m",
+        "f"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "palatal",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-initial-x",
+      "kind": "pinyin",
+      "word": "x",
+      "translation": "西",
+      "partOfSpeech": "",
+      "phonetic": "xī",
+      "example": "西",
+      "exampleZh": "xī",
+      "phrase": "西",
+      "phraseTranslation": "xī",
+      "category": "palatal",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "j",
+        "q",
+        "b",
+        "p",
+        "m",
+        "f"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "palatal",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-initial-zh",
+      "kind": "pinyin",
+      "word": "zh",
+      "translation": "知",
+      "partOfSpeech": "",
+      "phonetic": "zhī",
+      "example": "知",
+      "exampleZh": "zhī",
+      "phrase": "知",
+      "phraseTranslation": "zhī",
+      "category": "retroflex",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ch",
+        "sh",
+        "r",
+        "b",
+        "p",
+        "m"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "retroflex",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-initial-ch",
+      "kind": "pinyin",
+      "word": "ch",
+      "translation": "吃",
+      "partOfSpeech": "",
+      "phonetic": "chī",
+      "example": "吃",
+      "exampleZh": "chī",
+      "phrase": "吃",
+      "phraseTranslation": "chī",
+      "category": "retroflex",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "zh",
+        "sh",
+        "r",
+        "b",
+        "p",
+        "m"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "retroflex",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-initial-sh",
+      "kind": "pinyin",
+      "word": "sh",
+      "translation": "师",
+      "partOfSpeech": "",
+      "phonetic": "shī",
+      "example": "师",
+      "exampleZh": "shī",
+      "phrase": "师",
+      "phraseTranslation": "shī",
+      "category": "retroflex",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "zh",
+        "ch",
+        "r",
+        "b",
+        "p",
+        "m"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "retroflex",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-initial-r",
+      "kind": "pinyin",
+      "word": "r",
+      "translation": "日",
+      "partOfSpeech": "",
+      "phonetic": "rì",
+      "example": "日",
+      "exampleZh": "rì",
+      "phrase": "日",
+      "phraseTranslation": "rì",
+      "category": "retroflex",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "zh",
+        "ch",
+        "sh",
+        "b",
+        "p",
+        "m"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "retroflex",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-initial-z",
+      "kind": "pinyin",
+      "word": "z",
+      "translation": "字",
+      "partOfSpeech": "",
+      "phonetic": "zì",
+      "example": "字",
+      "exampleZh": "zì",
+      "phrase": "字",
+      "phraseTranslation": "zì",
+      "category": "dental",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "c",
+        "s",
+        "b",
+        "p",
+        "m",
+        "f"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "dental",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-initial-c",
+      "kind": "pinyin",
+      "word": "c",
+      "translation": "草",
+      "partOfSpeech": "",
+      "phonetic": "cǎo",
+      "example": "草",
+      "exampleZh": "cǎo",
+      "phrase": "草",
+      "phraseTranslation": "cǎo",
+      "category": "dental",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "z",
+        "s",
+        "b",
+        "p",
+        "m",
+        "f"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "dental",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-initial-s",
+      "kind": "pinyin",
+      "word": "s",
+      "translation": "丝",
+      "partOfSpeech": "",
+      "phonetic": "sī",
+      "example": "丝",
+      "exampleZh": "sī",
+      "phrase": "丝",
+      "phraseTranslation": "sī",
+      "category": "dental",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "z",
+        "c",
+        "b",
+        "p",
+        "m",
+        "f"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "dental",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-initial-y",
+      "kind": "pinyin",
+      "word": "y",
+      "translation": "衣",
+      "partOfSpeech": "",
+      "phonetic": "yī",
+      "example": "衣",
+      "exampleZh": "yī",
+      "phrase": "衣",
+      "phraseTranslation": "yī",
+      "category": "semi",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "w",
+        "b",
+        "p",
+        "m",
+        "f",
+        "d"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "semi",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-initial-w",
+      "kind": "pinyin",
+      "word": "w",
+      "translation": "乌",
+      "partOfSpeech": "",
+      "phonetic": "wū",
+      "example": "乌",
+      "exampleZh": "wū",
+      "phrase": "乌",
+      "phraseTranslation": "wū",
+      "category": "semi",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "y",
+        "b",
+        "p",
+        "m",
+        "f",
+        "d"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "semi",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-final-a",
+      "kind": "pinyin",
+      "word": "a",
+      "translation": "啊",
+      "partOfSpeech": "",
+      "phonetic": "ā",
+      "example": "啊",
+      "exampleZh": "ā",
+      "phrase": "啊",
+      "phraseTranslation": "ā",
+      "category": "simple",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "o",
+        "e",
+        "i",
+        "u",
+        "ü",
+        "b"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "simple",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-final-o",
+      "kind": "pinyin",
+      "word": "o",
+      "translation": "哦",
+      "partOfSpeech": "",
+      "phonetic": "ó",
+      "example": "哦",
+      "exampleZh": "ó",
+      "phrase": "哦",
+      "phraseTranslation": "ó",
+      "category": "simple",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "a",
+        "e",
+        "i",
+        "u",
+        "ü",
+        "b"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "simple",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-final-e",
+      "kind": "pinyin",
+      "word": "e",
+      "translation": "鹅",
+      "partOfSpeech": "",
+      "phonetic": "é",
+      "example": "鹅",
+      "exampleZh": "é",
+      "phrase": "鹅",
+      "phraseTranslation": "é",
+      "category": "simple",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "a",
+        "o",
+        "i",
+        "u",
+        "ü",
+        "b"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "simple",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-final-i",
+      "kind": "pinyin",
+      "word": "i",
+      "translation": "衣",
+      "partOfSpeech": "",
+      "phonetic": "yī",
+      "example": "衣",
+      "exampleZh": "yī",
+      "phrase": "衣",
+      "phraseTranslation": "yī",
+      "category": "simple",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "a",
+        "o",
+        "e",
+        "u",
+        "ü",
+        "b"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "simple",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-final-u",
+      "kind": "pinyin",
+      "word": "u",
+      "translation": "乌",
+      "partOfSpeech": "",
+      "phonetic": "wū",
+      "example": "乌",
+      "exampleZh": "wū",
+      "phrase": "乌",
+      "phraseTranslation": "wū",
+      "category": "simple",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "a",
+        "o",
+        "e",
+        "i",
+        "ü",
+        "b"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "simple",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-final-ü",
+      "kind": "pinyin",
+      "word": "ü",
+      "translation": "鱼",
+      "partOfSpeech": "",
+      "phonetic": "yú",
+      "example": "鱼",
+      "exampleZh": "yú",
+      "phrase": "鱼",
+      "phraseTranslation": "yú",
+      "category": "simple",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "a",
+        "o",
+        "e",
+        "i",
+        "u",
+        "b"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "simple",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-final-ai",
+      "kind": "pinyin",
+      "word": "ai",
+      "translation": "爱",
+      "partOfSpeech": "",
+      "phonetic": "ài",
+      "example": "爱",
+      "exampleZh": "ài",
+      "phrase": "爱",
+      "phraseTranslation": "ài",
+      "category": "compound",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ei",
+        "ui",
+        "ao",
+        "ou",
+        "iu",
+        "ie"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "compound",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-final-ei",
+      "kind": "pinyin",
+      "word": "ei",
+      "translation": "诶",
+      "partOfSpeech": "",
+      "phonetic": "ēi",
+      "example": "诶",
+      "exampleZh": "ēi",
+      "phrase": "诶",
+      "phraseTranslation": "ēi",
+      "category": "compound",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ai",
+        "ui",
+        "ao",
+        "ou",
+        "iu",
+        "ie"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "compound",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-final-ui",
+      "kind": "pinyin",
+      "word": "ui",
+      "translation": "喂",
+      "partOfSpeech": "",
+      "phonetic": "wèi",
+      "example": "喂",
+      "exampleZh": "wèi",
+      "phrase": "喂",
+      "phraseTranslation": "wèi",
+      "category": "compound",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ai",
+        "ei",
+        "ao",
+        "ou",
+        "iu",
+        "ie"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "compound",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-final-ao",
+      "kind": "pinyin",
+      "word": "ao",
+      "translation": "袄",
+      "partOfSpeech": "",
+      "phonetic": "ǎo",
+      "example": "袄",
+      "exampleZh": "ǎo",
+      "phrase": "袄",
+      "phraseTranslation": "ǎo",
+      "category": "compound",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ai",
+        "ei",
+        "ui",
+        "ou",
+        "iu",
+        "ie"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "compound",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-final-ou",
+      "kind": "pinyin",
+      "word": "ou",
+      "translation": "欧",
+      "partOfSpeech": "",
+      "phonetic": "ōu",
+      "example": "欧",
+      "exampleZh": "ōu",
+      "phrase": "欧",
+      "phraseTranslation": "ōu",
+      "category": "compound",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ai",
+        "ei",
+        "ui",
+        "ao",
+        "iu",
+        "ie"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "compound",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-final-iu",
+      "kind": "pinyin",
+      "word": "iu",
+      "translation": "优",
+      "partOfSpeech": "",
+      "phonetic": "yōu",
+      "example": "优",
+      "exampleZh": "yōu",
+      "phrase": "优",
+      "phraseTranslation": "yōu",
+      "category": "compound",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ai",
+        "ei",
+        "ui",
+        "ao",
+        "ou",
+        "ie"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "compound",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-final-ie",
+      "kind": "pinyin",
+      "word": "ie",
+      "translation": "耶",
+      "partOfSpeech": "",
+      "phonetic": "yē",
+      "example": "耶",
+      "exampleZh": "yē",
+      "phrase": "耶",
+      "phraseTranslation": "yē",
+      "category": "compound",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ai",
+        "ei",
+        "ui",
+        "ao",
+        "ou",
+        "iu"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "compound",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-final-üe",
+      "kind": "pinyin",
+      "word": "üe",
+      "translation": "月",
+      "partOfSpeech": "",
+      "phonetic": "yuè",
+      "example": "月",
+      "exampleZh": "yuè",
+      "phrase": "月",
+      "phraseTranslation": "yuè",
+      "category": "compound",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ai",
+        "ei",
+        "ui",
+        "ao",
+        "ou",
+        "iu"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "compound",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-final-er",
+      "kind": "pinyin",
+      "word": "er",
+      "translation": "耳",
+      "partOfSpeech": "",
+      "phonetic": "ěr",
+      "example": "耳",
+      "exampleZh": "ěr",
+      "phrase": "耳",
+      "phraseTranslation": "ěr",
+      "category": "special",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "b",
+        "p",
+        "m",
+        "f",
+        "d",
+        "t"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "special",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-final-an",
+      "kind": "pinyin",
+      "word": "an",
+      "translation": "安",
+      "partOfSpeech": "",
+      "phonetic": "ān",
+      "example": "安",
+      "exampleZh": "ān",
+      "phrase": "安",
+      "phraseTranslation": "ān",
+      "category": "front-nasal",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "en",
+        "in",
+        "un",
+        "ün",
+        "b",
+        "p"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "front-nasal",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-final-en",
+      "kind": "pinyin",
+      "word": "en",
+      "translation": "恩",
+      "partOfSpeech": "",
+      "phonetic": "ēn",
+      "example": "恩",
+      "exampleZh": "ēn",
+      "phrase": "恩",
+      "phraseTranslation": "ēn",
+      "category": "front-nasal",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "an",
+        "in",
+        "un",
+        "ün",
+        "b",
+        "p"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "front-nasal",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-final-in",
+      "kind": "pinyin",
+      "word": "in",
+      "translation": "因",
+      "partOfSpeech": "",
+      "phonetic": "yīn",
+      "example": "因",
+      "exampleZh": "yīn",
+      "phrase": "因",
+      "phraseTranslation": "yīn",
+      "category": "front-nasal",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "an",
+        "en",
+        "un",
+        "ün",
+        "b",
+        "p"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "front-nasal",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-final-un",
+      "kind": "pinyin",
+      "word": "un",
+      "translation": "温",
+      "partOfSpeech": "",
+      "phonetic": "wēn",
+      "example": "温",
+      "exampleZh": "wēn",
+      "phrase": "温",
+      "phraseTranslation": "wēn",
+      "category": "front-nasal",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "an",
+        "en",
+        "in",
+        "ün",
+        "b",
+        "p"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "front-nasal",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-final-ün",
+      "kind": "pinyin",
+      "word": "ün",
+      "translation": "云",
+      "partOfSpeech": "",
+      "phonetic": "yún",
+      "example": "云",
+      "exampleZh": "yún",
+      "phrase": "云",
+      "phraseTranslation": "yún",
+      "category": "front-nasal",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "an",
+        "en",
+        "in",
+        "un",
+        "b",
+        "p"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "front-nasal",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-final-ang",
+      "kind": "pinyin",
+      "word": "ang",
+      "translation": "昂",
+      "partOfSpeech": "",
+      "phonetic": "áng",
+      "example": "昂",
+      "exampleZh": "áng",
+      "phrase": "昂",
+      "phraseTranslation": "áng",
+      "category": "back-nasal",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "eng",
+        "ing",
+        "ong",
+        "b",
+        "p",
+        "m"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "back-nasal",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-final-eng",
+      "kind": "pinyin",
+      "word": "eng",
+      "translation": "亨",
+      "partOfSpeech": "",
+      "phonetic": "hēng",
+      "example": "亨",
+      "exampleZh": "hēng",
+      "phrase": "亨",
+      "phraseTranslation": "hēng",
+      "category": "back-nasal",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ang",
+        "ing",
+        "ong",
+        "b",
+        "p",
+        "m"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "back-nasal",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-final-ing",
+      "kind": "pinyin",
+      "word": "ing",
+      "translation": "英",
+      "partOfSpeech": "",
+      "phonetic": "yīng",
+      "example": "英",
+      "exampleZh": "yīng",
+      "phrase": "英",
+      "phraseTranslation": "yīng",
+      "category": "back-nasal",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ang",
+        "eng",
+        "ong",
+        "b",
+        "p",
+        "m"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "back-nasal",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-final-ong",
+      "kind": "pinyin",
+      "word": "ong",
+      "translation": "翁",
+      "partOfSpeech": "",
+      "phonetic": "wēng",
+      "example": "翁",
+      "exampleZh": "wēng",
+      "phrase": "翁",
+      "phraseTranslation": "wēng",
+      "category": "back-nasal",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ang",
+        "eng",
+        "ing",
+        "b",
+        "p",
+        "m"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "back-nasal",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-whole-zhi",
+      "kind": "pinyin",
+      "word": "zhi",
+      "translation": "知",
+      "partOfSpeech": "",
+      "phonetic": "zhī",
+      "example": "知",
+      "exampleZh": "zhī",
+      "phrase": "知",
+      "phraseTranslation": "zhī",
+      "category": "whole",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "chi",
+        "shi",
+        "ri",
+        "zi",
+        "ci",
+        "si"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "whole",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-whole-chi",
+      "kind": "pinyin",
+      "word": "chi",
+      "translation": "吃",
+      "partOfSpeech": "",
+      "phonetic": "chī",
+      "example": "吃",
+      "exampleZh": "chī",
+      "phrase": "吃",
+      "phraseTranslation": "chī",
+      "category": "whole",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "zhi",
+        "shi",
+        "ri",
+        "zi",
+        "ci",
+        "si"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "whole",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-whole-shi",
+      "kind": "pinyin",
+      "word": "shi",
+      "translation": "师",
+      "partOfSpeech": "",
+      "phonetic": "shī",
+      "example": "师",
+      "exampleZh": "shī",
+      "phrase": "师",
+      "phraseTranslation": "shī",
+      "category": "whole",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "zhi",
+        "chi",
+        "ri",
+        "zi",
+        "ci",
+        "si"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "whole",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-whole-ri",
+      "kind": "pinyin",
+      "word": "ri",
+      "translation": "日",
+      "partOfSpeech": "",
+      "phonetic": "rì",
+      "example": "日",
+      "exampleZh": "rì",
+      "phrase": "日",
+      "phraseTranslation": "rì",
+      "category": "whole",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "zhi",
+        "chi",
+        "shi",
+        "zi",
+        "ci",
+        "si"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "whole",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-whole-zi",
+      "kind": "pinyin",
+      "word": "zi",
+      "translation": "字",
+      "partOfSpeech": "",
+      "phonetic": "zì",
+      "example": "字",
+      "exampleZh": "zì",
+      "phrase": "字",
+      "phraseTranslation": "zì",
+      "category": "whole",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "zhi",
+        "chi",
+        "shi",
+        "ri",
+        "ci",
+        "si"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "whole",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-whole-ci",
+      "kind": "pinyin",
+      "word": "ci",
+      "translation": "次",
+      "partOfSpeech": "",
+      "phonetic": "cì",
+      "example": "次",
+      "exampleZh": "cì",
+      "phrase": "次",
+      "phraseTranslation": "cì",
+      "category": "whole",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "zhi",
+        "chi",
+        "shi",
+        "ri",
+        "zi",
+        "si"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "whole",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-whole-si",
+      "kind": "pinyin",
+      "word": "si",
+      "translation": "丝",
+      "partOfSpeech": "",
+      "phonetic": "sī",
+      "example": "丝",
+      "exampleZh": "sī",
+      "phrase": "丝",
+      "phraseTranslation": "sī",
+      "category": "whole",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "zhi",
+        "chi",
+        "shi",
+        "ri",
+        "zi",
+        "ci"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "whole",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-whole-yi",
+      "kind": "pinyin",
+      "word": "yi",
+      "translation": "衣",
+      "partOfSpeech": "",
+      "phonetic": "yī",
+      "example": "衣",
+      "exampleZh": "yī",
+      "phrase": "衣",
+      "phraseTranslation": "yī",
+      "category": "whole",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "zhi",
+        "chi",
+        "shi",
+        "ri",
+        "zi",
+        "ci"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "whole",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-whole-wu",
+      "kind": "pinyin",
+      "word": "wu",
+      "translation": "乌",
+      "partOfSpeech": "",
+      "phonetic": "wū",
+      "example": "乌",
+      "exampleZh": "wū",
+      "phrase": "乌",
+      "phraseTranslation": "wū",
+      "category": "whole",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "zhi",
+        "chi",
+        "shi",
+        "ri",
+        "zi",
+        "ci"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "whole",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-whole-yu",
+      "kind": "pinyin",
+      "word": "yu",
+      "translation": "鱼",
+      "partOfSpeech": "",
+      "phonetic": "yú",
+      "example": "鱼",
+      "exampleZh": "yú",
+      "phrase": "鱼",
+      "phraseTranslation": "yú",
+      "category": "whole",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "zhi",
+        "chi",
+        "shi",
+        "ri",
+        "zi",
+        "ci"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "whole",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-whole-ye",
+      "kind": "pinyin",
+      "word": "ye",
+      "translation": "叶",
+      "partOfSpeech": "",
+      "phonetic": "yè",
+      "example": "叶",
+      "exampleZh": "yè",
+      "phrase": "叶",
+      "phraseTranslation": "yè",
+      "category": "whole",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "zhi",
+        "chi",
+        "shi",
+        "ri",
+        "zi",
+        "ci"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "whole",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-whole-yue",
+      "kind": "pinyin",
+      "word": "yue",
+      "translation": "月",
+      "partOfSpeech": "",
+      "phonetic": "yuè",
+      "example": "月",
+      "exampleZh": "yuè",
+      "phrase": "月",
+      "phraseTranslation": "yuè",
+      "category": "whole",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "zhi",
+        "chi",
+        "shi",
+        "ri",
+        "zi",
+        "ci"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "whole",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-whole-yuan",
+      "kind": "pinyin",
+      "word": "yuan",
+      "translation": "元",
+      "partOfSpeech": "",
+      "phonetic": "yuán",
+      "example": "元",
+      "exampleZh": "yuán",
+      "phrase": "元",
+      "phraseTranslation": "yuán",
+      "category": "whole",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "zhi",
+        "chi",
+        "shi",
+        "ri",
+        "zi",
+        "ci"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "whole",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-whole-yin",
+      "kind": "pinyin",
+      "word": "yin",
+      "translation": "因",
+      "partOfSpeech": "",
+      "phonetic": "yīn",
+      "example": "因",
+      "exampleZh": "yīn",
+      "phrase": "因",
+      "phraseTranslation": "yīn",
+      "category": "whole",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "zhi",
+        "chi",
+        "shi",
+        "ri",
+        "zi",
+        "ci"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "whole",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-whole-yun",
+      "kind": "pinyin",
+      "word": "yun",
+      "translation": "云",
+      "partOfSpeech": "",
+      "phonetic": "yún",
+      "example": "云",
+      "exampleZh": "yún",
+      "phrase": "云",
+      "phraseTranslation": "yún",
+      "category": "whole",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "zhi",
+        "chi",
+        "shi",
+        "ri",
+        "zi",
+        "ci"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "whole",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "pinyin-whole-ying",
+      "kind": "pinyin",
+      "word": "ying",
+      "translation": "英",
+      "partOfSpeech": "",
+      "phonetic": "yīng",
+      "example": "英",
+      "exampleZh": "yīng",
+      "phrase": "英",
+      "phraseTranslation": "yīng",
+      "category": "whole",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "zhi",
+        "chi",
+        "shi",
+        "ri",
+        "zi",
+        "ci"
+      ],
+      "sourceIds": [
+        "personal-workbench-pinyin-63"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-pinyin-63",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "pinyin",
+        "kindergarten",
+        "whole",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    }
+  ]
+}

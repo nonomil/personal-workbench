@@ -78,6 +78,6 @@ test('pinyin course adds listen-for-tone and literacy keeps picture-match days',
     assert.match(app, /picture-match-option/);
     assert.match(app, /lookupLiteracyCard/);
     assert.match(html, /preschool-pinyin\.js\?v=20260815-b4-c1-v1/);
-    assert.match(html, /app\.js\?v=20260818-phonics-zh-v1/);
+    assert.match(html, /app\.js\?v=20260819-v074/);
     assert.match(html, /preschool-workbench\.css\?v=20260816-loop-v1/);
 });

@@ -1,5 +1,14 @@
 /* 36 · 学习专区中间层：墙卡今日预览 + 更多练习菜单 + 家长详情折叠 */
 
+.preschool-course-wall-game {
+    display: block;
+    max-width: 100%;
+    margin-top: 2px;
+    font-size: 0.74rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #7a5a20;
+}
 .preschool-course-wall-preview {
     display: block;
     max-width: 100%;

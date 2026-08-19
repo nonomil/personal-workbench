@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-08-15",
+  "updated": "2026-08-19",
   "banks": [
     {
       "id": "english",
@@ -79,6 +79,22 @@
       "levels": {
         "MC-D1": 60,
         "MC-D2": 264
+      }
+    },
+    {
+      "id": "math",
+      "kind": "math",
+      "path": "数学/problem-bank.json",
+      "count": 50,
+      "expected": 50,
+      "schemaVersion": 1,
+      "generated": true,
+      "levels": {
+        "L1": 10,
+        "L2": 10,
+        "L3": 10,
+        "L4": 10,
+        "L5": 10
       }
     }
   ]

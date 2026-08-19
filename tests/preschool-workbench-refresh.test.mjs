@@ -125,7 +125,7 @@ test('bumps preschool runtime assets when the editable plan interaction changes'
   assert.match(html, /preschool-workbench\.css\?v=20260816-loop-v1/);
   assert.match(html, /config\.js\?v=20260816-literacy-uplift-v1/);
   assert.match(html, /storage\.js\?v=20260816-english-uplift-v2/);
-  assert.match(html, /app\.js\?v=20260818-phonics-zh-v1/);
+  assert.match(html, /app\.js\?v=20260819-v074/);
   assert.match(html, /workbench-bridge\.js\?v=20260816-pass-v2/);
 });
 
@@ -433,7 +433,7 @@ test('uses transparent PVZ plants and zombie variants across the preschool defen
   assert.match(app, /const plantAsset = preschoolPlantAsset\(activePlant\)/);
   assert.match(app, /pixel-hud-defense-art/);
   assert.match(app, /asset: 'player-energy-bars'/);
-  assert.match(config, /selected\.id === 'preschool' \? 'v0\.7\.0 · 幼儿版'/);
+  assert.match(config, /selected\.id === 'preschool' \? 'v0\.7\.4 · 幼儿版'/);
   assert.doesNotMatch(config, /v0\.2\.4 · 幼儿版/);
   assert.match(styles, /pixel-hud-defense-art/);
    assert.match(styles, /preschool-pvz-art/);
@@ -617,7 +617,7 @@ test('puts a single real-work workflow card above preschool home check-in lanes'
   assert.doesNotMatch(heroRender, /再完成\s*\d+\s*项打卡/);
   assert.match(app, /item\.done && item\.completionSource === 'practice'/);
   assert.match(styles, /preschool-home-hero/);
-  assert.match(html, /app\.js\?v=20260818-phonics-zh-v1/);
+  assert.match(html, /app\.js\?v=20260819-v074/);
   assert.doesNotMatch(app, /首页只负责打卡/);
 });
 
@@ -645,7 +645,7 @@ test('connects the preschool home to the game-study loop without nesting the les
   assert.match(preschoolStyleGraph, /preschool-home-identity/);
   assert.match(preschoolStyleGraph, /preschool-home-evidence/);
   assert.match(preschoolStyleGraph, /preschool-home-hero/);
-  assert.match(preschoolIndex, /v0\.7\.0 · 幼儿版/);
+  assert.match(preschoolIndex, /v0\.7\.4 · 幼儿版/);
   assert.doesNotMatch(preschoolIndex, /v0\.4\.2 · 幼儿版/);
 });
 
@@ -1154,7 +1154,7 @@ test('adds a today preview on the course wall and splits classic into a child me
   assert.match(app, /更多资料/);
   assert.doesNotMatch(app, /浏览完整资料库/);
   assert.match(html, /preschool-workbench\.css\?v=20260816-loop-v1/);
-  assert.match(html, /app\.js\?v=20260818-phonics-zh-v1/);
+  assert.match(html, /app\.js\?v=20260819-v074/);
   assert.match(html, /preschool-card-art\.js\?v=20260815-english-auto-v1/);
   assert.match(workbenchCss, /36-course-menu\.css\?v=20260815-menu-cards-v2/);
   assert.match(styles, /preschool-course-menu/);

@@ -1,0 +1,3013 @@
+{
+  "version": 1,
+  "generatedAt": "2026-08-19T01:50:05.458Z",
+  "buildIdentity": {
+    "batchId": "core-math-2026.08.19",
+    "manifestHash": "710fa9be17f7570c98b41fa51853a768a986ecca5b37df259fa89e744179f8c8",
+    "inputHash": "710fa9be17f7570c98b41fa51853a768a986ecca5b37df259fa89e744179f8c8",
+    "builderVersion": "export-question-packages@1"
+  },
+  "cardCount": 50,
+  "cards": [
+    {
+      "id": "math-problem-01",
+      "kind": "math",
+      "word": "花园数量题 1",
+      "translation": "1",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "花园数量题 1",
+      "exampleZh": "1",
+      "phrase": "花园数量题 1",
+      "phraseTranslation": "1",
+      "category": "counting",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 7",
+        "花园数量题 2",
+        "花园数量题 3",
+        "花园数量题 4",
+        "花园数量题 5",
+        "花园数量题 6"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "answer": 1,
+      "tags": [
+        "math",
+        "kindergarten",
+        "counting",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-02",
+      "kind": "math",
+      "word": "花园数量题 2",
+      "translation": "2",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "花园数量题 2",
+      "exampleZh": "2",
+      "phrase": "花园数量题 2",
+      "phraseTranslation": "2",
+      "category": "compare",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 8",
+        "哪边太阳更多？",
+        "花园数量题 1",
+        "花园数量题 3",
+        "花园数量题 4",
+        "花园数量题 5"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "answer": 2,
+      "tags": [
+        "math",
+        "kindergarten",
+        "compare",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-03",
+      "kind": "math",
+      "word": "花园数量题 3",
+      "translation": "3",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "花园数量题 3",
+      "exampleZh": "3",
+      "phrase": "花园数量题 3",
+      "phraseTranslation": "3",
+      "category": "compose",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 9",
+        "花园数量题 1",
+        "花园数量题 2",
+        "花园数量题 4",
+        "花园数量题 5",
+        "花园数量题 6"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "answer": 3,
+      "tags": [
+        "math",
+        "kindergarten",
+        "compose",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-04",
+      "kind": "math",
+      "word": "花园数量题 4",
+      "translation": "4",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "花园数量题 4",
+      "exampleZh": "4",
+      "phrase": "花园数量题 4",
+      "phraseTranslation": "4",
+      "category": "take-away",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 10",
+        "8 - 3 = ?",
+        "9 - 4 = ?",
+        "12 - 5 = ?",
+        "11 - 4 = ?",
+        "10 - 3 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "answer": 4,
+      "tags": [
+        "math",
+        "kindergarten",
+        "take-away",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-05",
+      "kind": "math",
+      "word": "花园数量题 5",
+      "translation": "5",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "花园数量题 5",
+      "exampleZh": "5",
+      "phrase": "花园数量题 5",
+      "phraseTranslation": "5",
+      "category": "addition",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "3 + 2 = ?",
+        "4 + 5 = ?",
+        "6 + 4 = ?",
+        "8 + 7 = ?",
+        "9 + 6 = ?",
+        "6 + 3 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "answer": 5,
+      "tags": [
+        "math",
+        "kindergarten",
+        "addition",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-06",
+      "kind": "math",
+      "word": "花园数量题 6",
+      "translation": "1",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "花园数量题 6",
+      "exampleZh": "1",
+      "phrase": "花园数量题 6",
+      "phraseTranslation": "1",
+      "category": "grouping",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 1",
+        "花园数量题 2",
+        "花园数量题 3",
+        "花园数量题 4",
+        "花园数量题 5",
+        "花园数量题 7"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "answer": 1,
+      "tags": [
+        "math",
+        "kindergarten",
+        "grouping",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-07",
+      "kind": "math",
+      "word": "花园数量题 7",
+      "translation": "2",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "花园数量题 7",
+      "exampleZh": "2",
+      "phrase": "花园数量题 7",
+      "phraseTranslation": "2",
+      "category": "counting",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 1",
+        "花园数量题 2",
+        "花园数量题 3",
+        "花园数量题 4",
+        "花园数量题 5",
+        "花园数量题 6"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "answer": 2,
+      "tags": [
+        "math",
+        "kindergarten",
+        "counting",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-08",
+      "kind": "math",
+      "word": "花园数量题 8",
+      "translation": "3",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "花园数量题 8",
+      "exampleZh": "3",
+      "phrase": "花园数量题 8",
+      "phraseTranslation": "3",
+      "category": "compare",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 2",
+        "哪边太阳更多？",
+        "花园数量题 1",
+        "花园数量题 3",
+        "花园数量题 4",
+        "花园数量题 5"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "answer": 3,
+      "tags": [
+        "math",
+        "kindergarten",
+        "compare",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-09",
+      "kind": "math",
+      "word": "花园数量题 9",
+      "translation": "4",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "花园数量题 9",
+      "exampleZh": "4",
+      "phrase": "花园数量题 9",
+      "phraseTranslation": "4",
+      "category": "compose",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 3",
+        "花园数量题 1",
+        "花园数量题 2",
+        "花园数量题 4",
+        "花园数量题 5",
+        "花园数量题 6"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "answer": 4,
+      "tags": [
+        "math",
+        "kindergarten",
+        "compose",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-10",
+      "kind": "math",
+      "word": "花园数量题 10",
+      "translation": "5",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "花园数量题 10",
+      "exampleZh": "5",
+      "phrase": "花园数量题 10",
+      "phraseTranslation": "5",
+      "category": "take-away",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 4",
+        "8 - 3 = ?",
+        "9 - 4 = ?",
+        "12 - 5 = ?",
+        "11 - 4 = ?",
+        "10 - 3 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "answer": 5,
+      "tags": [
+        "math",
+        "kindergarten",
+        "take-away",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-11",
+      "kind": "math",
+      "word": "哪边太阳更多？",
+      "translation": "5",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "哪边太阳更多？",
+      "exampleZh": "5",
+      "phrase": "哪边太阳更多？",
+      "phraseTranslation": "5",
+      "category": "compare",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 2",
+        "花园数量题 8",
+        "花园数量题 1",
+        "花园数量题 3",
+        "花园数量题 4",
+        "花园数量题 5"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "answer": 5,
+      "tags": [
+        "math",
+        "kindergarten",
+        "compare",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-12",
+      "kind": "math",
+      "word": "哪边太阳更多？",
+      "translation": "4",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "哪边太阳更多？",
+      "exampleZh": "4",
+      "phrase": "哪边太阳更多？",
+      "phraseTranslation": "4",
+      "category": "compare",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 2",
+        "花园数量题 8",
+        "花园数量题 1",
+        "花园数量题 3",
+        "花园数量题 4",
+        "花园数量题 5"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "answer": 4,
+      "tags": [
+        "math",
+        "kindergarten",
+        "compare",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-13",
+      "kind": "math",
+      "word": "哪边太阳更多？",
+      "translation": "6",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "哪边太阳更多？",
+      "exampleZh": "6",
+      "phrase": "哪边太阳更多？",
+      "phraseTranslation": "6",
+      "category": "compare",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 2",
+        "花园数量题 8",
+        "花园数量题 1",
+        "花园数量题 3",
+        "花园数量题 4",
+        "花园数量题 5"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "answer": 6,
+      "tags": [
+        "math",
+        "kindergarten",
+        "compare",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-14",
+      "kind": "math",
+      "word": "哪边太阳更多？",
+      "translation": "8",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "哪边太阳更多？",
+      "exampleZh": "8",
+      "phrase": "哪边太阳更多？",
+      "phraseTranslation": "8",
+      "category": "compare",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 2",
+        "花园数量题 8",
+        "花园数量题 1",
+        "花园数量题 3",
+        "花园数量题 4",
+        "花园数量题 5"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "answer": 8,
+      "tags": [
+        "math",
+        "kindergarten",
+        "compare",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-15",
+      "kind": "math",
+      "word": "哪边太阳更多？",
+      "translation": "7",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "哪边太阳更多？",
+      "exampleZh": "7",
+      "phrase": "哪边太阳更多？",
+      "phraseTranslation": "7",
+      "category": "compare",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 2",
+        "花园数量题 8",
+        "花园数量题 1",
+        "花园数量题 3",
+        "花园数量题 4",
+        "花园数量题 5"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "answer": 7,
+      "tags": [
+        "math",
+        "kindergarten",
+        "compare",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-16",
+      "kind": "math",
+      "word": "哪边太阳更多？",
+      "translation": "9",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "哪边太阳更多？",
+      "exampleZh": "9",
+      "phrase": "哪边太阳更多？",
+      "phraseTranslation": "9",
+      "category": "compare",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 2",
+        "花园数量题 8",
+        "花园数量题 1",
+        "花园数量题 3",
+        "花园数量题 4",
+        "花园数量题 5"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "answer": 9,
+      "tags": [
+        "math",
+        "kindergarten",
+        "compare",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-17",
+      "kind": "math",
+      "word": "哪边太阳更多？",
+      "translation": "8",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "哪边太阳更多？",
+      "exampleZh": "8",
+      "phrase": "哪边太阳更多？",
+      "phraseTranslation": "8",
+      "category": "compare",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 2",
+        "花园数量题 8",
+        "花园数量题 1",
+        "花园数量题 3",
+        "花园数量题 4",
+        "花园数量题 5"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "answer": 8,
+      "tags": [
+        "math",
+        "kindergarten",
+        "compare",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-18",
+      "kind": "math",
+      "word": "哪边太阳更多？",
+      "translation": "5",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "哪边太阳更多？",
+      "exampleZh": "5",
+      "phrase": "哪边太阳更多？",
+      "phraseTranslation": "5",
+      "category": "compare",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 2",
+        "花园数量题 8",
+        "花园数量题 1",
+        "花园数量题 3",
+        "花园数量题 4",
+        "花园数量题 5"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "answer": 5,
+      "tags": [
+        "math",
+        "kindergarten",
+        "compare",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-19",
+      "kind": "math",
+      "word": "哪边太阳更多？",
+      "translation": "7",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "哪边太阳更多？",
+      "exampleZh": "7",
+      "phrase": "哪边太阳更多？",
+      "phraseTranslation": "7",
+      "category": "compare",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 2",
+        "花园数量题 8",
+        "花园数量题 1",
+        "花园数量题 3",
+        "花园数量题 4",
+        "花园数量题 5"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "answer": 7,
+      "tags": [
+        "math",
+        "kindergarten",
+        "compare",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-20",
+      "kind": "math",
+      "word": "哪边太阳更多？",
+      "translation": "9",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "哪边太阳更多？",
+      "exampleZh": "9",
+      "phrase": "哪边太阳更多？",
+      "phraseTranslation": "9",
+      "category": "compare",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 2",
+        "花园数量题 8",
+        "花园数量题 1",
+        "花园数量题 3",
+        "花园数量题 4",
+        "花园数量题 5"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "answer": 9,
+      "tags": [
+        "math",
+        "kindergarten",
+        "compare",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-21",
+      "kind": "math",
+      "word": "3 + 2 = ?",
+      "translation": "5",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "3 + 2 = ?",
+      "exampleZh": "5",
+      "phrase": "3 + 2 = ?",
+      "phraseTranslation": "5",
+      "category": "addition",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 5",
+        "4 + 5 = ?",
+        "6 + 4 = ?",
+        "8 + 7 = ?",
+        "9 + 6 = ?",
+        "6 + 3 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "answer": 5,
+      "tags": [
+        "math",
+        "kindergarten",
+        "addition",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-22",
+      "kind": "math",
+      "word": "4 + 5 = ?",
+      "translation": "9",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "4 + 5 = ?",
+      "exampleZh": "9",
+      "phrase": "4 + 5 = ?",
+      "phraseTranslation": "9",
+      "category": "addition",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 5",
+        "3 + 2 = ?",
+        "6 + 4 = ?",
+        "8 + 7 = ?",
+        "9 + 6 = ?",
+        "6 + 3 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "answer": 9,
+      "tags": [
+        "math",
+        "kindergarten",
+        "addition",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-23",
+      "kind": "math",
+      "word": "8 - 3 = ?",
+      "translation": "5",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "8 - 3 = ?",
+      "exampleZh": "5",
+      "phrase": "8 - 3 = ?",
+      "phraseTranslation": "5",
+      "category": "take-away",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 4",
+        "花园数量题 10",
+        "9 - 4 = ?",
+        "12 - 5 = ?",
+        "11 - 4 = ?",
+        "10 - 3 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "answer": 5,
+      "tags": [
+        "math",
+        "kindergarten",
+        "take-away",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-24",
+      "kind": "math",
+      "word": "6 + 4 = ?",
+      "translation": "10",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "6 + 4 = ?",
+      "exampleZh": "10",
+      "phrase": "6 + 4 = ?",
+      "phraseTranslation": "10",
+      "category": "addition",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 5",
+        "3 + 2 = ?",
+        "4 + 5 = ?",
+        "8 + 7 = ?",
+        "9 + 6 = ?",
+        "6 + 3 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "answer": 10,
+      "tags": [
+        "math",
+        "kindergarten",
+        "addition",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-25",
+      "kind": "math",
+      "word": "9 - 4 = ?",
+      "translation": "5",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "9 - 4 = ?",
+      "exampleZh": "5",
+      "phrase": "9 - 4 = ?",
+      "phraseTranslation": "5",
+      "category": "take-away",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 4",
+        "花园数量题 10",
+        "8 - 3 = ?",
+        "12 - 5 = ?",
+        "11 - 4 = ?",
+        "10 - 3 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "answer": 5,
+      "tags": [
+        "math",
+        "kindergarten",
+        "take-away",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-26",
+      "kind": "math",
+      "word": "8 + 7 = ?",
+      "translation": "15",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "8 + 7 = ?",
+      "exampleZh": "15",
+      "phrase": "8 + 7 = ?",
+      "phraseTranslation": "15",
+      "category": "addition",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 5",
+        "3 + 2 = ?",
+        "4 + 5 = ?",
+        "6 + 4 = ?",
+        "9 + 6 = ?",
+        "6 + 3 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "answer": 15,
+      "tags": [
+        "math",
+        "kindergarten",
+        "addition",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-27",
+      "kind": "math",
+      "word": "12 - 5 = ?",
+      "translation": "7",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "12 - 5 = ?",
+      "exampleZh": "7",
+      "phrase": "12 - 5 = ?",
+      "phraseTranslation": "7",
+      "category": "take-away",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 4",
+        "花园数量题 10",
+        "8 - 3 = ?",
+        "9 - 4 = ?",
+        "11 - 4 = ?",
+        "10 - 3 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "answer": 7,
+      "tags": [
+        "math",
+        "kindergarten",
+        "take-away",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-28",
+      "kind": "math",
+      "word": "9 + 6 = ?",
+      "translation": "15",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "9 + 6 = ?",
+      "exampleZh": "15",
+      "phrase": "9 + 6 = ?",
+      "phraseTranslation": "15",
+      "category": "addition",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 5",
+        "3 + 2 = ?",
+        "4 + 5 = ?",
+        "6 + 4 = ?",
+        "8 + 7 = ?",
+        "6 + 3 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "answer": 15,
+      "tags": [
+        "math",
+        "kindergarten",
+        "addition",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-29",
+      "kind": "math",
+      "word": "11 - 4 = ?",
+      "translation": "7",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "11 - 4 = ?",
+      "exampleZh": "7",
+      "phrase": "11 - 4 = ?",
+      "phraseTranslation": "7",
+      "category": "take-away",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 4",
+        "花园数量题 10",
+        "8 - 3 = ?",
+        "9 - 4 = ?",
+        "12 - 5 = ?",
+        "10 - 3 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "answer": 7,
+      "tags": [
+        "math",
+        "kindergarten",
+        "take-away",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-30",
+      "kind": "math",
+      "word": "10 - 3 = ?",
+      "translation": "7",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "10 - 3 = ?",
+      "exampleZh": "7",
+      "phrase": "10 - 3 = ?",
+      "phraseTranslation": "7",
+      "category": "take-away",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 4",
+        "花园数量题 10",
+        "8 - 3 = ?",
+        "9 - 4 = ?",
+        "12 - 5 = ?",
+        "11 - 4 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "answer": 7,
+      "tags": [
+        "math",
+        "kindergarten",
+        "take-away",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-31",
+      "kind": "math",
+      "word": "5 - 1 = ?",
+      "translation": "4",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "5 - 1 = ?",
+      "exampleZh": "4",
+      "phrase": "5 - 1 = ?",
+      "phraseTranslation": "4",
+      "category": "take-away",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 4",
+        "花园数量题 10",
+        "8 - 3 = ?",
+        "9 - 4 = ?",
+        "12 - 5 = ?",
+        "11 - 4 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "answer": 4,
+      "tags": [
+        "math",
+        "kindergarten",
+        "take-away",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-32",
+      "kind": "math",
+      "word": "5 - 2 = ?",
+      "translation": "3",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "5 - 2 = ?",
+      "exampleZh": "3",
+      "phrase": "5 - 2 = ?",
+      "phraseTranslation": "3",
+      "category": "take-away",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 4",
+        "花园数量题 10",
+        "8 - 3 = ?",
+        "9 - 4 = ?",
+        "12 - 5 = ?",
+        "11 - 4 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "answer": 3,
+      "tags": [
+        "math",
+        "kindergarten",
+        "take-away",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-33",
+      "kind": "math",
+      "word": "5 - 3 = ?",
+      "translation": "2",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "5 - 3 = ?",
+      "exampleZh": "2",
+      "phrase": "5 - 3 = ?",
+      "phraseTranslation": "2",
+      "category": "take-away",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 4",
+        "花园数量题 10",
+        "8 - 3 = ?",
+        "9 - 4 = ?",
+        "12 - 5 = ?",
+        "11 - 4 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "answer": 2,
+      "tags": [
+        "math",
+        "kindergarten",
+        "take-away",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-34",
+      "kind": "math",
+      "word": "4 - 1 = ?",
+      "translation": "3",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "4 - 1 = ?",
+      "exampleZh": "3",
+      "phrase": "4 - 1 = ?",
+      "phraseTranslation": "3",
+      "category": "take-away",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 4",
+        "花园数量题 10",
+        "8 - 3 = ?",
+        "9 - 4 = ?",
+        "12 - 5 = ?",
+        "11 - 4 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "answer": 3,
+      "tags": [
+        "math",
+        "kindergarten",
+        "take-away",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-35",
+      "kind": "math",
+      "word": "4 - 2 = ?",
+      "translation": "2",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "4 - 2 = ?",
+      "exampleZh": "2",
+      "phrase": "4 - 2 = ?",
+      "phraseTranslation": "2",
+      "category": "take-away",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 4",
+        "花园数量题 10",
+        "8 - 3 = ?",
+        "9 - 4 = ?",
+        "12 - 5 = ?",
+        "11 - 4 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "answer": 2,
+      "tags": [
+        "math",
+        "kindergarten",
+        "take-away",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-36",
+      "kind": "math",
+      "word": "3 - 1 = ?",
+      "translation": "2",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "3 - 1 = ?",
+      "exampleZh": "2",
+      "phrase": "3 - 1 = ?",
+      "phraseTranslation": "2",
+      "category": "take-away",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 4",
+        "花园数量题 10",
+        "8 - 3 = ?",
+        "9 - 4 = ?",
+        "12 - 5 = ?",
+        "11 - 4 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "answer": 2,
+      "tags": [
+        "math",
+        "kindergarten",
+        "take-away",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-37",
+      "kind": "math",
+      "word": "5 - 4 = ?",
+      "translation": "1",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "5 - 4 = ?",
+      "exampleZh": "1",
+      "phrase": "5 - 4 = ?",
+      "phraseTranslation": "1",
+      "category": "take-away",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 4",
+        "花园数量题 10",
+        "8 - 3 = ?",
+        "9 - 4 = ?",
+        "12 - 5 = ?",
+        "11 - 4 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "answer": 1,
+      "tags": [
+        "math",
+        "kindergarten",
+        "take-away",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-38",
+      "kind": "math",
+      "word": "4 - 3 = ?",
+      "translation": "1",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "4 - 3 = ?",
+      "exampleZh": "1",
+      "phrase": "4 - 3 = ?",
+      "phraseTranslation": "1",
+      "category": "take-away",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 4",
+        "花园数量题 10",
+        "8 - 3 = ?",
+        "9 - 4 = ?",
+        "12 - 5 = ?",
+        "11 - 4 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "answer": 1,
+      "tags": [
+        "math",
+        "kindergarten",
+        "take-away",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-39",
+      "kind": "math",
+      "word": "5 - 0 = ?",
+      "translation": "5",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "5 - 0 = ?",
+      "exampleZh": "5",
+      "phrase": "5 - 0 = ?",
+      "phraseTranslation": "5",
+      "category": "take-away",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 4",
+        "花园数量题 10",
+        "8 - 3 = ?",
+        "9 - 4 = ?",
+        "12 - 5 = ?",
+        "11 - 4 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "answer": 5,
+      "tags": [
+        "math",
+        "kindergarten",
+        "take-away",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-40",
+      "kind": "math",
+      "word": "3 - 2 = ?",
+      "translation": "1",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "3 - 2 = ?",
+      "exampleZh": "1",
+      "phrase": "3 - 2 = ?",
+      "phraseTranslation": "1",
+      "category": "take-away",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 4",
+        "花园数量题 10",
+        "8 - 3 = ?",
+        "9 - 4 = ?",
+        "12 - 5 = ?",
+        "11 - 4 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "answer": 1,
+      "tags": [
+        "math",
+        "kindergarten",
+        "take-away",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-41",
+      "kind": "math",
+      "word": "6 + 3 = ?",
+      "translation": "9",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "6 + 3 = ?",
+      "exampleZh": "9",
+      "phrase": "6 + 3 = ?",
+      "phraseTranslation": "9",
+      "category": "addition",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 5",
+        "3 + 2 = ?",
+        "4 + 5 = ?",
+        "6 + 4 = ?",
+        "8 + 7 = ?",
+        "9 + 6 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "answer": 9,
+      "tags": [
+        "math",
+        "kindergarten",
+        "addition",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-42",
+      "kind": "math",
+      "word": "7 + 2 = ?",
+      "translation": "9",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "7 + 2 = ?",
+      "exampleZh": "9",
+      "phrase": "7 + 2 = ?",
+      "phraseTranslation": "9",
+      "category": "addition",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 5",
+        "3 + 2 = ?",
+        "4 + 5 = ?",
+        "6 + 4 = ?",
+        "8 + 7 = ?",
+        "9 + 6 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "answer": 9,
+      "tags": [
+        "math",
+        "kindergarten",
+        "addition",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-43",
+      "kind": "math",
+      "word": "5 + 5 = ?",
+      "translation": "10",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "5 + 5 = ?",
+      "exampleZh": "10",
+      "phrase": "5 + 5 = ?",
+      "phraseTranslation": "10",
+      "category": "addition",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 5",
+        "3 + 2 = ?",
+        "4 + 5 = ?",
+        "6 + 4 = ?",
+        "8 + 7 = ?",
+        "9 + 6 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "answer": 10,
+      "tags": [
+        "math",
+        "kindergarten",
+        "addition",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-44",
+      "kind": "math",
+      "word": "8 + 2 = ?",
+      "translation": "10",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "8 + 2 = ?",
+      "exampleZh": "10",
+      "phrase": "8 + 2 = ?",
+      "phraseTranslation": "10",
+      "category": "addition",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 5",
+        "3 + 2 = ?",
+        "4 + 5 = ?",
+        "6 + 4 = ?",
+        "8 + 7 = ?",
+        "9 + 6 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "answer": 10,
+      "tags": [
+        "math",
+        "kindergarten",
+        "addition",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-45",
+      "kind": "math",
+      "word": "9 + 1 = ?",
+      "translation": "10",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "9 + 1 = ?",
+      "exampleZh": "10",
+      "phrase": "9 + 1 = ?",
+      "phraseTranslation": "10",
+      "category": "addition",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 5",
+        "3 + 2 = ?",
+        "4 + 5 = ?",
+        "6 + 4 = ?",
+        "8 + 7 = ?",
+        "9 + 6 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "answer": 10,
+      "tags": [
+        "math",
+        "kindergarten",
+        "addition",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-46",
+      "kind": "math",
+      "word": "10 - 4 = ?",
+      "translation": "6",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "10 - 4 = ?",
+      "exampleZh": "6",
+      "phrase": "10 - 4 = ?",
+      "phraseTranslation": "6",
+      "category": "take-away",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 4",
+        "花园数量题 10",
+        "8 - 3 = ?",
+        "9 - 4 = ?",
+        "12 - 5 = ?",
+        "11 - 4 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "answer": 6,
+      "tags": [
+        "math",
+        "kindergarten",
+        "take-away",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-47",
+      "kind": "math",
+      "word": "9 - 3 = ?",
+      "translation": "6",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "9 - 3 = ?",
+      "exampleZh": "6",
+      "phrase": "9 - 3 = ?",
+      "phraseTranslation": "6",
+      "category": "take-away",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 4",
+        "花园数量题 10",
+        "8 - 3 = ?",
+        "9 - 4 = ?",
+        "12 - 5 = ?",
+        "11 - 4 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "answer": 6,
+      "tags": [
+        "math",
+        "kindergarten",
+        "take-away",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-48",
+      "kind": "math",
+      "word": "8 - 5 = ?",
+      "translation": "3",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "8 - 5 = ?",
+      "exampleZh": "3",
+      "phrase": "8 - 5 = ?",
+      "phraseTranslation": "3",
+      "category": "take-away",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 4",
+        "花园数量题 10",
+        "8 - 3 = ?",
+        "9 - 4 = ?",
+        "12 - 5 = ?",
+        "11 - 4 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "answer": 3,
+      "tags": [
+        "math",
+        "kindergarten",
+        "take-away",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-49",
+      "kind": "math",
+      "word": "7 - 4 = ?",
+      "translation": "3",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "7 - 4 = ?",
+      "exampleZh": "3",
+      "phrase": "7 - 4 = ?",
+      "phraseTranslation": "3",
+      "category": "take-away",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 4",
+        "花园数量题 10",
+        "8 - 3 = ?",
+        "9 - 4 = ?",
+        "12 - 5 = ?",
+        "11 - 4 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "answer": 3,
+      "tags": [
+        "math",
+        "kindergarten",
+        "take-away",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "math-problem-50",
+      "kind": "math",
+      "word": "10 - 6 = ?",
+      "translation": "4",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "10 - 6 = ?",
+      "exampleZh": "4",
+      "phrase": "10 - 6 = ?",
+      "phraseTranslation": "4",
+      "category": "take-away",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "花园数量题 4",
+        "花园数量题 10",
+        "8 - 3 = ?",
+        "9 - 4 = ?",
+        "12 - 5 = ?",
+        "11 - 4 = ?"
+      ],
+      "sourceIds": [
+        "personal-workbench-math-50"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-math-50",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "answer": 4,
+      "tags": [
+        "math",
+        "kindergarten",
+        "take-away",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "schema": "wordquest.vocab-release.v1",
+  "packageVersion": "2026.08.19",
+  "catalogSchema": "wordquest.vocab-runtime.v1",
+  "protocol": "wordquest.game.v2",
+  "generatedAt": "2026-08-19T01:50:05.458Z",
+  "buildIdentity": {
+    "batchId": "core-pinyin-2026.08.19",
+    "manifestHash": "01806876c757a4853878688dc07fd57e74966531c2bcf3e23d7d6082ae77b4f1",
+    "inputHash": "01806876c757a4853878688dc07fd57e74966531c2bcf3e23d7d6082ae77b4f1",
+    "builderVersion": "export-question-packages@1"
+  },
+  "catalogFile": "catalog.json",
+  "chaptersFile": "chapters.json",
+  "cardCount": 63,
+  "chapterCount": 5,
+  "groupCount": 9,
+  "mediaCounts": {
+    "semanticImage": 0,
+    "imageFallback": 0,
+    "audio": 0
+  },
+  "mediaFileCount": 0,
+  "packageContents": [
+    "README.md",
+    "manifest.json",
+    "catalog.json",
+    "chapters.json",
+    "词表.csv"
+  ],
+  "sourceDatabaseIncluded": false,
+  "auditIncluded": false,
+  "sourceSnapshotsIncluded": false,
+  "consumerRule": "consume catalog.json; project CardSnapshot; do not read source SQLite",
+  "edition": "pinyin",
+  "title": "拼音 · 声韵 63",
+  "subject": "pinyin"
+}

@@ -1,0 +1,7093 @@
+{
+  "version": 1,
+  "generatedAt": "2026-08-19T01:50:05.458Z",
+  "buildIdentity": {
+    "batchId": "core-phonics-2026.08.19",
+    "manifestHash": "41ce471f1b8992edd486c902fd15bd9d2ed4e1b4313837ee2e8a5c17b51ce789",
+    "inputHash": "41ce471f1b8992edd486c902fd15bd9d2ed4e1b4313837ee2e8a5c17b51ce789",
+    "builderVersion": "export-question-packages@1"
+  },
+  "cardCount": 120,
+  "cards": [
+    {
+      "id": "word-sat",
+      "kind": "phonics",
+      "word": "sat",
+      "translation": "坐下",
+      "partOfSpeech": "",
+      "phonetic": "s-a-t",
+      "example": "s-a-t",
+      "exampleZh": "坐下",
+      "phrase": "s-a-t",
+      "phraseTranslation": "坐下",
+      "category": "cvc-blending",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "pat",
+        "map",
+        "tap",
+        "mat",
+        "mad",
+        "sad"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "cvc-blending",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-pat",
+      "kind": "phonics",
+      "word": "pat",
+      "translation": "轻拍",
+      "partOfSpeech": "",
+      "phonetic": "p-a-t",
+      "example": "p-a-t",
+      "exampleZh": "轻拍",
+      "phrase": "p-a-t",
+      "phraseTranslation": "轻拍",
+      "category": "cvc-blending",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "sat",
+        "map",
+        "tap",
+        "mat",
+        "mad",
+        "sad"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "cvc-blending",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-map",
+      "kind": "phonics",
+      "word": "map",
+      "translation": "地图",
+      "partOfSpeech": "",
+      "phonetic": "m-a-p",
+      "example": "m-a-p",
+      "exampleZh": "地图",
+      "phrase": "m-a-p",
+      "phraseTranslation": "地图",
+      "category": "cvc-blending",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "sat",
+        "pat",
+        "tap",
+        "mat",
+        "mad",
+        "sad"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "cvc-blending",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-tap",
+      "kind": "phonics",
+      "word": "tap",
+      "translation": "轻敲",
+      "partOfSpeech": "",
+      "phonetic": "t-a-p",
+      "example": "t-a-p",
+      "exampleZh": "轻敲",
+      "phrase": "t-a-p",
+      "phraseTranslation": "轻敲",
+      "category": "cvc-blending",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "sat",
+        "pat",
+        "map",
+        "mat",
+        "mad",
+        "sad"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "cvc-blending",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-mat",
+      "kind": "phonics",
+      "word": "mat",
+      "translation": "垫子",
+      "partOfSpeech": "",
+      "phonetic": "m-a-t",
+      "example": "m-a-t",
+      "exampleZh": "垫子",
+      "phrase": "m-a-t",
+      "phraseTranslation": "垫子",
+      "category": "cvc-blending",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "sat",
+        "pat",
+        "map",
+        "tap",
+        "mad",
+        "sad"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "cvc-blending",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-mad",
+      "kind": "phonics",
+      "word": "mad",
+      "translation": "生气",
+      "partOfSpeech": "",
+      "phonetic": "m-a-d",
+      "example": "m-a-d",
+      "exampleZh": "生气",
+      "phrase": "m-a-d",
+      "phraseTranslation": "生气",
+      "category": "cvc-blending",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "sat",
+        "pat",
+        "map",
+        "tap",
+        "mat",
+        "sad"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "cvc-blending",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-sad",
+      "kind": "phonics",
+      "word": "sad",
+      "translation": "难过",
+      "partOfSpeech": "",
+      "phonetic": "s-a-d",
+      "example": "s-a-d",
+      "exampleZh": "难过",
+      "phrase": "s-a-d",
+      "phraseTranslation": "难过",
+      "category": "cvc-blending",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "sat",
+        "pat",
+        "map",
+        "tap",
+        "mat",
+        "mad"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "cvc-blending",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-sam",
+      "kind": "phonics",
+      "word": "sam",
+      "translation": "山姆",
+      "partOfSpeech": "",
+      "phonetic": "s-a-m",
+      "example": "s-a-m",
+      "exampleZh": "山姆",
+      "phrase": "s-a-m",
+      "phraseTranslation": "山姆",
+      "category": "cvc-blending",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "sat",
+        "pat",
+        "map",
+        "tap",
+        "mat",
+        "mad"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "cvc-blending",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-am",
+      "kind": "phonics",
+      "word": "am",
+      "translation": "我是",
+      "partOfSpeech": "",
+      "phonetic": "a-m",
+      "example": "a-m",
+      "exampleZh": "我是",
+      "phrase": "a-m",
+      "phraseTranslation": "我是",
+      "category": "cvc-blending",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "sat",
+        "pat",
+        "map",
+        "tap",
+        "mat",
+        "mad"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "cvc-blending",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-at",
+      "kind": "phonics",
+      "word": "at",
+      "translation": "在",
+      "partOfSpeech": "",
+      "phonetic": "a-t",
+      "example": "a-t",
+      "exampleZh": "在",
+      "phrase": "a-t",
+      "phraseTranslation": "在",
+      "category": "first-letter-sounds",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "an",
+        "sat",
+        "pat",
+        "map",
+        "tap",
+        "mat"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "first-letter-sounds",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-an",
+      "kind": "phonics",
+      "word": "an",
+      "translation": "一个",
+      "partOfSpeech": "",
+      "phonetic": "a-n",
+      "example": "a-n",
+      "exampleZh": "一个",
+      "phrase": "a-n",
+      "phraseTranslation": "一个",
+      "category": "first-letter-sounds",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "at",
+        "sat",
+        "pat",
+        "map",
+        "tap",
+        "mat"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "first-letter-sounds",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-in",
+      "kind": "phonics",
+      "word": "in",
+      "translation": "里面",
+      "partOfSpeech": "",
+      "phonetic": "i-n",
+      "example": "i-n",
+      "exampleZh": "里面",
+      "phrase": "i-n",
+      "phraseTranslation": "里面",
+      "category": "cvc-blending",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "sat",
+        "pat",
+        "map",
+        "tap",
+        "mat",
+        "mad"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "cvc-blending",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-it",
+      "kind": "phonics",
+      "word": "it",
+      "translation": "它",
+      "partOfSpeech": "",
+      "phonetic": "i-t",
+      "example": "i-t",
+      "exampleZh": "它",
+      "phrase": "i-t",
+      "phraseTranslation": "它",
+      "category": "cvc-blending",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "sat",
+        "pat",
+        "map",
+        "tap",
+        "mat",
+        "mad"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "cvc-blending",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-is",
+      "kind": "phonics",
+      "word": "is",
+      "translation": "是",
+      "partOfSpeech": "",
+      "phonetic": "i-s",
+      "example": "i-s",
+      "exampleZh": "是",
+      "phrase": "i-s",
+      "phraseTranslation": "是",
+      "category": "cvc-blending",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "sat",
+        "pat",
+        "map",
+        "tap",
+        "mat",
+        "mad"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "cvc-blending",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-sit",
+      "kind": "phonics",
+      "word": "sit",
+      "translation": "坐",
+      "partOfSpeech": "",
+      "phonetic": "s-i-t",
+      "example": "s-i-t",
+      "exampleZh": "坐",
+      "phrase": "s-i-t",
+      "phraseTranslation": "坐",
+      "category": "cvc-blending",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "sat",
+        "pat",
+        "map",
+        "tap",
+        "mat",
+        "mad"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "cvc-blending",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-pin",
+      "kind": "phonics",
+      "word": "pin",
+      "translation": "别针",
+      "partOfSpeech": "",
+      "phonetic": "p-i-n",
+      "example": "p-i-n",
+      "exampleZh": "别针",
+      "phrase": "p-i-n",
+      "phraseTranslation": "别针",
+      "category": "cvc-blending",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "sat",
+        "pat",
+        "map",
+        "tap",
+        "mat",
+        "mad"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "cvc-blending",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-pit",
+      "kind": "phonics",
+      "word": "pit",
+      "translation": "坑",
+      "partOfSpeech": "",
+      "phonetic": "p-i-t",
+      "example": "p-i-t",
+      "exampleZh": "坑",
+      "phrase": "p-i-t",
+      "phraseTranslation": "坑",
+      "category": "cvc-blending",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "sat",
+        "pat",
+        "map",
+        "tap",
+        "mat",
+        "mad"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "cvc-blending",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-tip",
+      "kind": "phonics",
+      "word": "tip",
+      "translation": "尖尖",
+      "partOfSpeech": "",
+      "phonetic": "t-i-p",
+      "example": "t-i-p",
+      "exampleZh": "尖尖",
+      "phrase": "t-i-p",
+      "phraseTranslation": "尖尖",
+      "category": "cvc-blending",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "sat",
+        "pat",
+        "map",
+        "tap",
+        "mat",
+        "mad"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "cvc-blending",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-tin",
+      "kind": "phonics",
+      "word": "tin",
+      "translation": "罐子",
+      "partOfSpeech": "",
+      "phonetic": "t-i-n",
+      "example": "t-i-n",
+      "exampleZh": "罐子",
+      "phrase": "t-i-n",
+      "phraseTranslation": "罐子",
+      "category": "cvc-blending",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "sat",
+        "pat",
+        "map",
+        "tap",
+        "mat",
+        "mad"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "cvc-blending",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-nip",
+      "kind": "phonics",
+      "word": "nip",
+      "translation": "轻咬",
+      "partOfSpeech": "",
+      "phonetic": "n-i-p",
+      "example": "n-i-p",
+      "exampleZh": "轻咬",
+      "phrase": "n-i-p",
+      "phraseTranslation": "轻咬",
+      "category": "cvc-blending",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "sat",
+        "pat",
+        "map",
+        "tap",
+        "mat",
+        "mad"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "cvc-blending",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-pan",
+      "kind": "phonics",
+      "word": "pan",
+      "translation": "平底锅",
+      "partOfSpeech": "",
+      "phonetic": "p-a-n",
+      "example": "p-a-n",
+      "exampleZh": "平底锅",
+      "phrase": "p-a-n",
+      "phraseTranslation": "平底锅",
+      "category": "cvc-blending",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "sat",
+        "pat",
+        "map",
+        "tap",
+        "mat",
+        "mad"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "cvc-blending",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-nap",
+      "kind": "phonics",
+      "word": "nap",
+      "translation": "小睡",
+      "partOfSpeech": "",
+      "phonetic": "n-a-p",
+      "example": "n-a-p",
+      "exampleZh": "小睡",
+      "phrase": "n-a-p",
+      "phraseTranslation": "小睡",
+      "category": "cvc-blending",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "sat",
+        "pat",
+        "map",
+        "tap",
+        "mat",
+        "mad"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "cvc-blending",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-man",
+      "kind": "phonics",
+      "word": "man",
+      "translation": "男人",
+      "partOfSpeech": "",
+      "phonetic": "m-a-n",
+      "example": "m-a-n",
+      "exampleZh": "男人",
+      "phrase": "m-a-n",
+      "phraseTranslation": "男人",
+      "category": "cvc-blending",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "sat",
+        "pat",
+        "map",
+        "tap",
+        "mat",
+        "mad"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "cvc-blending",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-can",
+      "kind": "phonics",
+      "word": "can",
+      "translation": "可以",
+      "partOfSpeech": "",
+      "phonetic": "c-a-n",
+      "example": "c-a-n",
+      "exampleZh": "可以",
+      "phrase": "c-a-n",
+      "phraseTranslation": "可以",
+      "category": "cvc-blending",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "sat",
+        "pat",
+        "map",
+        "tap",
+        "mat",
+        "mad"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "cvc-blending",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-cat",
+      "kind": "phonics",
+      "word": "cat",
+      "translation": "猫",
+      "partOfSpeech": "",
+      "phonetic": "c-a-t",
+      "example": "c-a-t",
+      "exampleZh": "猫",
+      "phrase": "c-a-t",
+      "phraseTranslation": "猫",
+      "category": "cvc-blending",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "sat",
+        "pat",
+        "map",
+        "tap",
+        "mat",
+        "mad"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "cvc-blending",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-hat",
+      "kind": "phonics",
+      "word": "hat",
+      "translation": "帽子",
+      "partOfSpeech": "",
+      "phonetic": "h-a-t",
+      "example": "h-a-t",
+      "exampleZh": "帽子",
+      "phrase": "h-a-t",
+      "phraseTranslation": "帽子",
+      "category": "cvc-blending",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "sat",
+        "pat",
+        "map",
+        "tap",
+        "mat",
+        "mad"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "cvc-blending",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-ham",
+      "kind": "phonics",
+      "word": "ham",
+      "translation": "火腿",
+      "partOfSpeech": "",
+      "phonetic": "h-a-m",
+      "example": "h-a-m",
+      "exampleZh": "火腿",
+      "phrase": "h-a-m",
+      "phraseTranslation": "火腿",
+      "category": "cvc-blending",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "sat",
+        "pat",
+        "map",
+        "tap",
+        "mat",
+        "mad"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "cvc-blending",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-hit",
+      "kind": "phonics",
+      "word": "hit",
+      "translation": "打",
+      "partOfSpeech": "",
+      "phonetic": "h-i-t",
+      "example": "h-i-t",
+      "exampleZh": "打",
+      "phrase": "h-i-t",
+      "phraseTranslation": "打",
+      "category": "cvc-blending",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "sat",
+        "pat",
+        "map",
+        "tap",
+        "mat",
+        "mad"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "cvc-blending",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-bit",
+      "kind": "phonics",
+      "word": "bit",
+      "translation": "一点",
+      "partOfSpeech": "",
+      "phonetic": "b-i-t",
+      "example": "b-i-t",
+      "exampleZh": "一点",
+      "phrase": "b-i-t",
+      "phraseTranslation": "一点",
+      "category": "cvc-blending",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "sat",
+        "pat",
+        "map",
+        "tap",
+        "mat",
+        "mad"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "cvc-blending",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-bin",
+      "kind": "phonics",
+      "word": "bin",
+      "translation": "箱子",
+      "partOfSpeech": "",
+      "phonetic": "b-i-n",
+      "example": "b-i-n",
+      "exampleZh": "箱子",
+      "phrase": "b-i-n",
+      "phraseTranslation": "箱子",
+      "category": "cvc-blending",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "sat",
+        "pat",
+        "map",
+        "tap",
+        "mat",
+        "mad"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "cvc-blending",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-dip",
+      "kind": "phonics",
+      "word": "dip",
+      "translation": "蘸一蘸",
+      "partOfSpeech": "",
+      "phonetic": "d-i-p",
+      "example": "d-i-p",
+      "exampleZh": "蘸一蘸",
+      "phrase": "d-i-p",
+      "phraseTranslation": "蘸一蘸",
+      "category": "cvc-blending",
+      "stage": "kindergarten",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "sat",
+        "pat",
+        "map",
+        "tap",
+        "mat",
+        "mad"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L2",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "cvc-blending",
+        "L2"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-hot",
+      "kind": "phonics",
+      "word": "hot",
+      "translation": "热",
+      "partOfSpeech": "",
+      "phonetic": "h-o-t",
+      "example": "h-o-t",
+      "exampleZh": "热",
+      "phrase": "h-o-t",
+      "phraseTranslation": "热",
+      "category": "short-vowels-and-families",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "pot",
+        "not",
+        "hop",
+        "mop",
+        "top",
+        "dog"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "short-vowels-and-families",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-pot",
+      "kind": "phonics",
+      "word": "pot",
+      "translation": "锅",
+      "partOfSpeech": "",
+      "phonetic": "p-o-t",
+      "example": "p-o-t",
+      "exampleZh": "锅",
+      "phrase": "p-o-t",
+      "phraseTranslation": "锅",
+      "category": "short-vowels-and-families",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "hot",
+        "not",
+        "hop",
+        "mop",
+        "top",
+        "dog"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "short-vowels-and-families",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-not",
+      "kind": "phonics",
+      "word": "not",
+      "translation": "不",
+      "partOfSpeech": "",
+      "phonetic": "n-o-t",
+      "example": "n-o-t",
+      "exampleZh": "不",
+      "phrase": "n-o-t",
+      "phraseTranslation": "不",
+      "category": "short-vowels-and-families",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "hot",
+        "pot",
+        "hop",
+        "mop",
+        "top",
+        "dog"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "short-vowels-and-families",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-hop",
+      "kind": "phonics",
+      "word": "hop",
+      "translation": "跳",
+      "partOfSpeech": "",
+      "phonetic": "h-o-p",
+      "example": "h-o-p",
+      "exampleZh": "跳",
+      "phrase": "h-o-p",
+      "phraseTranslation": "跳",
+      "category": "short-vowels-and-families",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "hot",
+        "pot",
+        "not",
+        "mop",
+        "top",
+        "dog"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "short-vowels-and-families",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-mop",
+      "kind": "phonics",
+      "word": "mop",
+      "translation": "拖把",
+      "partOfSpeech": "",
+      "phonetic": "m-o-p",
+      "example": "m-o-p",
+      "exampleZh": "拖把",
+      "phrase": "m-o-p",
+      "phraseTranslation": "拖把",
+      "category": "short-vowels-and-families",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "hot",
+        "pot",
+        "not",
+        "hop",
+        "top",
+        "dog"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "short-vowels-and-families",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-top",
+      "kind": "phonics",
+      "word": "top",
+      "translation": "上面",
+      "partOfSpeech": "",
+      "phonetic": "t-o-p",
+      "example": "t-o-p",
+      "exampleZh": "上面",
+      "phrase": "t-o-p",
+      "phraseTranslation": "上面",
+      "category": "short-vowels-and-families",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "hot",
+        "pot",
+        "not",
+        "hop",
+        "mop",
+        "dog"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "short-vowels-and-families",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-dog",
+      "kind": "phonics",
+      "word": "dog",
+      "translation": "狗",
+      "partOfSpeech": "",
+      "phonetic": "d-o-g",
+      "example": "d-o-g",
+      "exampleZh": "狗",
+      "phrase": "d-o-g",
+      "phraseTranslation": "狗",
+      "category": "short-vowels-and-families",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "hot",
+        "pot",
+        "not",
+        "hop",
+        "mop",
+        "top"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "short-vowels-and-families",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-log",
+      "kind": "phonics",
+      "word": "log",
+      "translation": "木头",
+      "partOfSpeech": "",
+      "phonetic": "l-o-g",
+      "example": "l-o-g",
+      "exampleZh": "木头",
+      "phrase": "l-o-g",
+      "phraseTranslation": "木头",
+      "category": "short-vowels-and-families",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "hot",
+        "pot",
+        "not",
+        "hop",
+        "mop",
+        "top"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "short-vowels-and-families",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-fog",
+      "kind": "phonics",
+      "word": "fog",
+      "translation": "雾",
+      "partOfSpeech": "",
+      "phonetic": "f-o-g",
+      "example": "f-o-g",
+      "exampleZh": "雾",
+      "phrase": "f-o-g",
+      "phraseTranslation": "雾",
+      "category": "short-vowels-and-families",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "hot",
+        "pot",
+        "not",
+        "hop",
+        "mop",
+        "top"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "short-vowels-and-families",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-pet",
+      "kind": "phonics",
+      "word": "pet",
+      "translation": "宠物",
+      "partOfSpeech": "",
+      "phonetic": "p-e-t",
+      "example": "p-e-t",
+      "exampleZh": "宠物",
+      "phrase": "p-e-t",
+      "phraseTranslation": "宠物",
+      "category": "short-vowels-and-families",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "hot",
+        "pot",
+        "not",
+        "hop",
+        "mop",
+        "top"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "short-vowels-and-families",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-get",
+      "kind": "phonics",
+      "word": "get",
+      "translation": "拿到",
+      "partOfSpeech": "",
+      "phonetic": "g-e-t",
+      "example": "g-e-t",
+      "exampleZh": "拿到",
+      "phrase": "g-e-t",
+      "phraseTranslation": "拿到",
+      "category": "short-vowels-and-families",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "hot",
+        "pot",
+        "not",
+        "hop",
+        "mop",
+        "top"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "short-vowels-and-families",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-ten",
+      "kind": "phonics",
+      "word": "ten",
+      "translation": "十",
+      "partOfSpeech": "",
+      "phonetic": "t-e-n",
+      "example": "t-e-n",
+      "exampleZh": "十",
+      "phrase": "t-e-n",
+      "phraseTranslation": "十",
+      "category": "short-vowels-and-families",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "hot",
+        "pot",
+        "not",
+        "hop",
+        "mop",
+        "top"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "short-vowels-and-families",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-bed",
+      "kind": "phonics",
+      "word": "bed",
+      "translation": "床",
+      "partOfSpeech": "",
+      "phonetic": "b-e-d",
+      "example": "b-e-d",
+      "exampleZh": "床",
+      "phrase": "b-e-d",
+      "phraseTranslation": "床",
+      "category": "short-vowels-and-families",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "hot",
+        "pot",
+        "not",
+        "hop",
+        "mop",
+        "top"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "short-vowels-and-families",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-bug",
+      "kind": "phonics",
+      "word": "bug",
+      "translation": "虫子",
+      "partOfSpeech": "",
+      "phonetic": "b-u-g",
+      "example": "b-u-g",
+      "exampleZh": "虫子",
+      "phrase": "b-u-g",
+      "phraseTranslation": "虫子",
+      "category": "short-vowels-and-families",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "hot",
+        "pot",
+        "not",
+        "hop",
+        "mop",
+        "top"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "short-vowels-and-families",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-mug",
+      "kind": "phonics",
+      "word": "mug",
+      "translation": "杯子",
+      "partOfSpeech": "",
+      "phonetic": "m-u-g",
+      "example": "m-u-g",
+      "exampleZh": "杯子",
+      "phrase": "m-u-g",
+      "phraseTranslation": "杯子",
+      "category": "short-vowels-and-families",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "hot",
+        "pot",
+        "not",
+        "hop",
+        "mop",
+        "top"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "short-vowels-and-families",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-sun",
+      "kind": "phonics",
+      "word": "sun",
+      "translation": "太阳",
+      "partOfSpeech": "",
+      "phonetic": "s-u-n",
+      "example": "s-u-n",
+      "exampleZh": "太阳",
+      "phrase": "s-u-n",
+      "phraseTranslation": "太阳",
+      "category": "short-vowels-and-families",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "hot",
+        "pot",
+        "not",
+        "hop",
+        "mop",
+        "top"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "short-vowels-and-families",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-run",
+      "kind": "phonics",
+      "word": "run",
+      "translation": "跑",
+      "partOfSpeech": "",
+      "phonetic": "r-u-n",
+      "example": "r-u-n",
+      "exampleZh": "跑",
+      "phrase": "r-u-n",
+      "phraseTranslation": "跑",
+      "category": "short-vowels-and-families",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "hot",
+        "pot",
+        "not",
+        "hop",
+        "mop",
+        "top"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "short-vowels-and-families",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-fun",
+      "kind": "phonics",
+      "word": "fun",
+      "translation": "好玩",
+      "partOfSpeech": "",
+      "phonetic": "f-u-n",
+      "example": "f-u-n",
+      "exampleZh": "好玩",
+      "phrase": "f-u-n",
+      "phraseTranslation": "好玩",
+      "category": "short-vowels-and-families",
+      "stage": "kindergarten",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "hot",
+        "pot",
+        "not",
+        "hop",
+        "mop",
+        "top"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L3",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "short-vowels-and-families",
+        "L3"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-ship",
+      "kind": "phonics",
+      "word": "ship",
+      "translation": "船",
+      "partOfSpeech": "",
+      "phonetic": "sh-i-p",
+      "example": "sh-i-p",
+      "exampleZh": "船",
+      "phrase": "sh-i-p",
+      "phraseTranslation": "船",
+      "category": "common-digraphs",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "shop",
+        "shut",
+        "fish",
+        "dish",
+        "wish",
+        "chip"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "common-digraphs",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-shop",
+      "kind": "phonics",
+      "word": "shop",
+      "translation": "商店",
+      "partOfSpeech": "",
+      "phonetic": "sh-o-p",
+      "example": "sh-o-p",
+      "exampleZh": "商店",
+      "phrase": "sh-o-p",
+      "phraseTranslation": "商店",
+      "category": "common-digraphs",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ship",
+        "shut",
+        "fish",
+        "dish",
+        "wish",
+        "chip"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "common-digraphs",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-shut",
+      "kind": "phonics",
+      "word": "shut",
+      "translation": "关上",
+      "partOfSpeech": "",
+      "phonetic": "sh-u-t",
+      "example": "sh-u-t",
+      "exampleZh": "关上",
+      "phrase": "sh-u-t",
+      "phraseTranslation": "关上",
+      "category": "common-digraphs",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ship",
+        "shop",
+        "fish",
+        "dish",
+        "wish",
+        "chip"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "common-digraphs",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-fish",
+      "kind": "phonics",
+      "word": "fish",
+      "translation": "鱼",
+      "partOfSpeech": "",
+      "phonetic": "f-i-sh",
+      "example": "f-i-sh",
+      "exampleZh": "鱼",
+      "phrase": "f-i-sh",
+      "phraseTranslation": "鱼",
+      "category": "common-digraphs",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ship",
+        "shop",
+        "shut",
+        "dish",
+        "wish",
+        "chip"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "common-digraphs",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-dish",
+      "kind": "phonics",
+      "word": "dish",
+      "translation": "盘子",
+      "partOfSpeech": "",
+      "phonetic": "d-i-sh",
+      "example": "d-i-sh",
+      "exampleZh": "盘子",
+      "phrase": "d-i-sh",
+      "phraseTranslation": "盘子",
+      "category": "common-digraphs",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ship",
+        "shop",
+        "shut",
+        "fish",
+        "wish",
+        "chip"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "common-digraphs",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-wish",
+      "kind": "phonics",
+      "word": "wish",
+      "translation": "许愿",
+      "partOfSpeech": "",
+      "phonetic": "w-i-sh",
+      "example": "w-i-sh",
+      "exampleZh": "许愿",
+      "phrase": "w-i-sh",
+      "phraseTranslation": "许愿",
+      "category": "common-digraphs",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ship",
+        "shop",
+        "shut",
+        "fish",
+        "dish",
+        "chip"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "common-digraphs",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-chip",
+      "kind": "phonics",
+      "word": "chip",
+      "translation": "薯片",
+      "partOfSpeech": "",
+      "phonetic": "ch-i-p",
+      "example": "ch-i-p",
+      "exampleZh": "薯片",
+      "phrase": "ch-i-p",
+      "phraseTranslation": "薯片",
+      "category": "common-digraphs",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ship",
+        "shop",
+        "shut",
+        "fish",
+        "dish",
+        "wish"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "common-digraphs",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-chat",
+      "kind": "phonics",
+      "word": "chat",
+      "translation": "聊天",
+      "partOfSpeech": "",
+      "phonetic": "ch-a-t",
+      "example": "ch-a-t",
+      "exampleZh": "聊天",
+      "phrase": "ch-a-t",
+      "phraseTranslation": "聊天",
+      "category": "common-digraphs",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ship",
+        "shop",
+        "shut",
+        "fish",
+        "dish",
+        "wish"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "common-digraphs",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-chop",
+      "kind": "phonics",
+      "word": "chop",
+      "translation": "砍",
+      "partOfSpeech": "",
+      "phonetic": "ch-o-p",
+      "example": "ch-o-p",
+      "exampleZh": "砍",
+      "phrase": "ch-o-p",
+      "phraseTranslation": "砍",
+      "category": "common-digraphs",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ship",
+        "shop",
+        "shut",
+        "fish",
+        "dish",
+        "wish"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "common-digraphs",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-rich",
+      "kind": "phonics",
+      "word": "rich",
+      "translation": "有钱",
+      "partOfSpeech": "",
+      "phonetic": "r-i-ch",
+      "example": "r-i-ch",
+      "exampleZh": "有钱",
+      "phrase": "r-i-ch",
+      "phraseTranslation": "有钱",
+      "category": "common-digraphs",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ship",
+        "shop",
+        "shut",
+        "fish",
+        "dish",
+        "wish"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "common-digraphs",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-much",
+      "kind": "phonics",
+      "word": "much",
+      "translation": "很多",
+      "partOfSpeech": "",
+      "phonetic": "m-u-ch",
+      "example": "m-u-ch",
+      "exampleZh": "很多",
+      "phrase": "m-u-ch",
+      "phraseTranslation": "很多",
+      "category": "common-digraphs",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ship",
+        "shop",
+        "shut",
+        "fish",
+        "dish",
+        "wish"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "common-digraphs",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-such",
+      "kind": "phonics",
+      "word": "such",
+      "translation": "这样",
+      "partOfSpeech": "",
+      "phonetic": "s-u-ch",
+      "example": "s-u-ch",
+      "exampleZh": "这样",
+      "phrase": "s-u-ch",
+      "phraseTranslation": "这样",
+      "category": "common-digraphs",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ship",
+        "shop",
+        "shut",
+        "fish",
+        "dish",
+        "wish"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "common-digraphs",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-thin",
+      "kind": "phonics",
+      "word": "thin",
+      "translation": "瘦",
+      "partOfSpeech": "",
+      "phonetic": "th-i-n",
+      "example": "th-i-n",
+      "exampleZh": "瘦",
+      "phrase": "th-i-n",
+      "phraseTranslation": "瘦",
+      "category": "common-digraphs",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ship",
+        "shop",
+        "shut",
+        "fish",
+        "dish",
+        "wish"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "common-digraphs",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-that",
+      "kind": "phonics",
+      "word": "that",
+      "translation": "那个",
+      "partOfSpeech": "",
+      "phonetic": "th-a-t",
+      "example": "th-a-t",
+      "exampleZh": "那个",
+      "phrase": "th-a-t",
+      "phraseTranslation": "那个",
+      "category": "common-digraphs",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ship",
+        "shop",
+        "shut",
+        "fish",
+        "dish",
+        "wish"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "common-digraphs",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-this",
+      "kind": "phonics",
+      "word": "this",
+      "translation": "这个",
+      "partOfSpeech": "",
+      "phonetic": "th-i-s",
+      "example": "th-i-s",
+      "exampleZh": "这个",
+      "phrase": "th-i-s",
+      "phraseTranslation": "这个",
+      "category": "common-digraphs",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ship",
+        "shop",
+        "shut",
+        "fish",
+        "dish",
+        "wish"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "common-digraphs",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-back",
+      "kind": "phonics",
+      "word": "back",
+      "translation": "后面",
+      "partOfSpeech": "",
+      "phonetic": "b-a-ck",
+      "example": "b-a-ck",
+      "exampleZh": "后面",
+      "phrase": "b-a-ck",
+      "phraseTranslation": "后面",
+      "category": "common-digraphs",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ship",
+        "shop",
+        "shut",
+        "fish",
+        "dish",
+        "wish"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "common-digraphs",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-pick",
+      "kind": "phonics",
+      "word": "pick",
+      "translation": "捡",
+      "partOfSpeech": "",
+      "phonetic": "p-i-ck",
+      "example": "p-i-ck",
+      "exampleZh": "捡",
+      "phrase": "p-i-ck",
+      "phraseTranslation": "捡",
+      "category": "common-digraphs",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ship",
+        "shop",
+        "shut",
+        "fish",
+        "dish",
+        "wish"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "common-digraphs",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-kick",
+      "kind": "phonics",
+      "word": "kick",
+      "translation": "踢",
+      "partOfSpeech": "",
+      "phonetic": "k-i-ck",
+      "example": "k-i-ck",
+      "exampleZh": "踢",
+      "phrase": "k-i-ck",
+      "phraseTranslation": "踢",
+      "category": "common-digraphs",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ship",
+        "shop",
+        "shut",
+        "fish",
+        "dish",
+        "wish"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "common-digraphs",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-sing",
+      "kind": "phonics",
+      "word": "sing",
+      "translation": "唱歌",
+      "partOfSpeech": "",
+      "phonetic": "s-i-ng",
+      "example": "s-i-ng",
+      "exampleZh": "唱歌",
+      "phrase": "s-i-ng",
+      "phraseTranslation": "唱歌",
+      "category": "common-digraphs",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ship",
+        "shop",
+        "shut",
+        "fish",
+        "dish",
+        "wish"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "common-digraphs",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-ring",
+      "kind": "phonics",
+      "word": "ring",
+      "translation": "戒指",
+      "partOfSpeech": "",
+      "phonetic": "r-i-ng",
+      "example": "r-i-ng",
+      "exampleZh": "戒指",
+      "phrase": "r-i-ng",
+      "phraseTranslation": "戒指",
+      "category": "common-digraphs",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ship",
+        "shop",
+        "shut",
+        "fish",
+        "dish",
+        "wish"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "common-digraphs",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-long",
+      "kind": "phonics",
+      "word": "long",
+      "translation": "长",
+      "partOfSpeech": "",
+      "phonetic": "l-o-ng",
+      "example": "l-o-ng",
+      "exampleZh": "长",
+      "phrase": "l-o-ng",
+      "phraseTranslation": "长",
+      "category": "common-digraphs",
+      "stage": "kindergarten",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "ship",
+        "shop",
+        "shut",
+        "fish",
+        "dish",
+        "wish"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L4",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "common-digraphs",
+        "L4"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-stop",
+      "kind": "phonics",
+      "word": "stop",
+      "translation": "停",
+      "partOfSpeech": "",
+      "phonetic": "st-o-p",
+      "example": "st-o-p",
+      "exampleZh": "停",
+      "phrase": "st-o-p",
+      "phraseTranslation": "停",
+      "category": "consonant-blends",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "step",
+        "stand",
+        "spin",
+        "spot",
+        "spun",
+        "slam"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "consonant-blends",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-step",
+      "kind": "phonics",
+      "word": "step",
+      "translation": "一步",
+      "partOfSpeech": "",
+      "phonetic": "st-e-p",
+      "example": "st-e-p",
+      "exampleZh": "一步",
+      "phrase": "st-e-p",
+      "phraseTranslation": "一步",
+      "category": "consonant-blends",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "stop",
+        "stand",
+        "spin",
+        "spot",
+        "spun",
+        "slam"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "consonant-blends",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-stand",
+      "kind": "phonics",
+      "word": "stand",
+      "translation": "站",
+      "partOfSpeech": "",
+      "phonetic": "st-a-nd",
+      "example": "st-a-nd",
+      "exampleZh": "站",
+      "phrase": "st-a-nd",
+      "phraseTranslation": "站",
+      "category": "consonant-blends",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "stop",
+        "step",
+        "spin",
+        "spot",
+        "spun",
+        "slam"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "consonant-blends",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-spin",
+      "kind": "phonics",
+      "word": "spin",
+      "translation": "转",
+      "partOfSpeech": "",
+      "phonetic": "sp-i-n",
+      "example": "sp-i-n",
+      "exampleZh": "转",
+      "phrase": "sp-i-n",
+      "phraseTranslation": "转",
+      "category": "consonant-blends",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "stop",
+        "step",
+        "stand",
+        "spot",
+        "spun",
+        "slam"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "consonant-blends",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-spot",
+      "kind": "phonics",
+      "word": "spot",
+      "translation": "斑点",
+      "partOfSpeech": "",
+      "phonetic": "sp-o-t",
+      "example": "sp-o-t",
+      "exampleZh": "斑点",
+      "phrase": "sp-o-t",
+      "phraseTranslation": "斑点",
+      "category": "consonant-blends",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "stop",
+        "step",
+        "stand",
+        "spin",
+        "spun",
+        "slam"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "consonant-blends",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-spun",
+      "kind": "phonics",
+      "word": "spun",
+      "translation": "转过",
+      "partOfSpeech": "",
+      "phonetic": "sp-u-n",
+      "example": "sp-u-n",
+      "exampleZh": "转过",
+      "phrase": "sp-u-n",
+      "phraseTranslation": "转过",
+      "category": "consonant-blends",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "stop",
+        "step",
+        "stand",
+        "spin",
+        "spot",
+        "slam"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "consonant-blends",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-slam",
+      "kind": "phonics",
+      "word": "slam",
+      "translation": "摔门",
+      "partOfSpeech": "",
+      "phonetic": "sl-a-m",
+      "example": "sl-a-m",
+      "exampleZh": "摔门",
+      "phrase": "sl-a-m",
+      "phraseTranslation": "摔门",
+      "category": "consonant-blends",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "stop",
+        "step",
+        "stand",
+        "spin",
+        "spot",
+        "spun"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "consonant-blends",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-slip",
+      "kind": "phonics",
+      "word": "slip",
+      "translation": "滑倒",
+      "partOfSpeech": "",
+      "phonetic": "sl-i-p",
+      "example": "sl-i-p",
+      "exampleZh": "滑倒",
+      "phrase": "sl-i-p",
+      "phraseTranslation": "滑倒",
+      "category": "consonant-blends",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "stop",
+        "step",
+        "stand",
+        "spin",
+        "spot",
+        "spun"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "consonant-blends",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-slap",
+      "kind": "phonics",
+      "word": "slap",
+      "translation": "拍打",
+      "partOfSpeech": "",
+      "phonetic": "sl-a-p",
+      "example": "sl-a-p",
+      "exampleZh": "拍打",
+      "phrase": "sl-a-p",
+      "phraseTranslation": "拍打",
+      "category": "consonant-blends",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "stop",
+        "step",
+        "stand",
+        "spin",
+        "spot",
+        "spun"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "consonant-blends",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-skip",
+      "kind": "phonics",
+      "word": "skip",
+      "translation": "跳过",
+      "partOfSpeech": "",
+      "phonetic": "sk-i-p",
+      "example": "sk-i-p",
+      "exampleZh": "跳过",
+      "phrase": "sk-i-p",
+      "phraseTranslation": "跳过",
+      "category": "consonant-blends",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "stop",
+        "step",
+        "stand",
+        "spin",
+        "spot",
+        "spun"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "consonant-blends",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-skin",
+      "kind": "phonics",
+      "word": "skin",
+      "translation": "皮肤",
+      "partOfSpeech": "",
+      "phonetic": "sk-i-n",
+      "example": "sk-i-n",
+      "exampleZh": "皮肤",
+      "phrase": "sk-i-n",
+      "phraseTranslation": "皮肤",
+      "category": "consonant-blends",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "stop",
+        "step",
+        "stand",
+        "spin",
+        "spot",
+        "spun"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "consonant-blends",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-skit",
+      "kind": "phonics",
+      "word": "skit",
+      "translation": "小品",
+      "partOfSpeech": "",
+      "phonetic": "sk-i-t",
+      "example": "sk-i-t",
+      "exampleZh": "小品",
+      "phrase": "sk-i-t",
+      "phraseTranslation": "小品",
+      "category": "consonant-blends",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "stop",
+        "step",
+        "stand",
+        "spin",
+        "spot",
+        "spun"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "consonant-blends",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-hand",
+      "kind": "phonics",
+      "word": "hand",
+      "translation": "手",
+      "partOfSpeech": "",
+      "phonetic": "h-a-nd",
+      "example": "h-a-nd",
+      "exampleZh": "手",
+      "phrase": "h-a-nd",
+      "phraseTranslation": "手",
+      "category": "consonant-blends",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "stop",
+        "step",
+        "stand",
+        "spin",
+        "spot",
+        "spun"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "consonant-blends",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-sand",
+      "kind": "phonics",
+      "word": "sand",
+      "translation": "沙子",
+      "partOfSpeech": "",
+      "phonetic": "s-a-nd",
+      "example": "s-a-nd",
+      "exampleZh": "沙子",
+      "phrase": "s-a-nd",
+      "phraseTranslation": "沙子",
+      "category": "consonant-blends",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "stop",
+        "step",
+        "stand",
+        "spin",
+        "spot",
+        "spun"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "consonant-blends",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-send",
+      "kind": "phonics",
+      "word": "send",
+      "translation": "寄出",
+      "partOfSpeech": "",
+      "phonetic": "s-e-nd",
+      "example": "s-e-nd",
+      "exampleZh": "寄出",
+      "phrase": "s-e-nd",
+      "phraseTranslation": "寄出",
+      "category": "consonant-blends",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "stop",
+        "step",
+        "stand",
+        "spin",
+        "spot",
+        "spun"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "consonant-blends",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-tent",
+      "kind": "phonics",
+      "word": "tent",
+      "translation": "帐篷",
+      "partOfSpeech": "",
+      "phonetic": "t-e-nt",
+      "example": "t-e-nt",
+      "exampleZh": "帐篷",
+      "phrase": "t-e-nt",
+      "phraseTranslation": "帐篷",
+      "category": "consonant-blends",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "stop",
+        "step",
+        "stand",
+        "spin",
+        "spot",
+        "spun"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "consonant-blends",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-mint",
+      "kind": "phonics",
+      "word": "mint",
+      "translation": "薄荷",
+      "partOfSpeech": "",
+      "phonetic": "m-i-nt",
+      "example": "m-i-nt",
+      "exampleZh": "薄荷",
+      "phrase": "m-i-nt",
+      "phraseTranslation": "薄荷",
+      "category": "consonant-blends",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "stop",
+        "step",
+        "stand",
+        "spin",
+        "spot",
+        "spun"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "consonant-blends",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-pant",
+      "kind": "phonics",
+      "word": "pant",
+      "translation": "喘气",
+      "partOfSpeech": "",
+      "phonetic": "p-a-nt",
+      "example": "p-a-nt",
+      "exampleZh": "喘气",
+      "phrase": "p-a-nt",
+      "phraseTranslation": "喘气",
+      "category": "consonant-blends",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "stop",
+        "step",
+        "stand",
+        "spin",
+        "spot",
+        "spun"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "consonant-blends",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-lamp",
+      "kind": "phonics",
+      "word": "lamp",
+      "translation": "灯",
+      "partOfSpeech": "",
+      "phonetic": "l-a-mp",
+      "example": "l-a-mp",
+      "exampleZh": "灯",
+      "phrase": "l-a-mp",
+      "phraseTranslation": "灯",
+      "category": "consonant-blends",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "stop",
+        "step",
+        "stand",
+        "spin",
+        "spot",
+        "spun"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "consonant-blends",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-jump",
+      "kind": "phonics",
+      "word": "jump",
+      "translation": "跳",
+      "partOfSpeech": "",
+      "phonetic": "j-u-mp",
+      "example": "j-u-mp",
+      "exampleZh": "跳",
+      "phrase": "j-u-mp",
+      "phraseTranslation": "跳",
+      "category": "consonant-blends",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "stop",
+        "step",
+        "stand",
+        "spin",
+        "spot",
+        "spun"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "consonant-blends",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-camp",
+      "kind": "phonics",
+      "word": "camp",
+      "translation": "营地",
+      "partOfSpeech": "",
+      "phonetic": "c-a-mp",
+      "example": "c-a-mp",
+      "exampleZh": "营地",
+      "phrase": "c-a-mp",
+      "phraseTranslation": "营地",
+      "category": "consonant-blends",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "stop",
+        "step",
+        "stand",
+        "spin",
+        "spot",
+        "spun"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "consonant-blends",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-left",
+      "kind": "phonics",
+      "word": "left",
+      "translation": "左边",
+      "partOfSpeech": "",
+      "phonetic": "l-e-ft",
+      "example": "l-e-ft",
+      "exampleZh": "左边",
+      "phrase": "l-e-ft",
+      "phraseTranslation": "左边",
+      "category": "consonant-blends",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "stop",
+        "step",
+        "stand",
+        "spin",
+        "spot",
+        "spun"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "consonant-blends",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-gift",
+      "kind": "phonics",
+      "word": "gift",
+      "translation": "礼物",
+      "partOfSpeech": "",
+      "phonetic": "g-i-ft",
+      "example": "g-i-ft",
+      "exampleZh": "礼物",
+      "phrase": "g-i-ft",
+      "phraseTranslation": "礼物",
+      "category": "consonant-blends",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "stop",
+        "step",
+        "stand",
+        "spin",
+        "spot",
+        "spun"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "consonant-blends",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "word-soft",
+      "kind": "phonics",
+      "word": "soft",
+      "translation": "软",
+      "partOfSpeech": "",
+      "phonetic": "s-o-ft",
+      "example": "s-o-ft",
+      "exampleZh": "软",
+      "phrase": "s-o-ft",
+      "phraseTranslation": "软",
+      "category": "consonant-blends",
+      "stage": "kindergarten",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "stop",
+        "step",
+        "stand",
+        "spin",
+        "spot",
+        "spun"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L5",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "consonant-blends",
+        "L5"
+      ],
+      "quality": {
+        "hasExample": true,
+        "hasPhonetic": true,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "letter-a",
+      "kind": "phonics",
+      "word": "a",
+      "translation": "apple",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "",
+      "exampleZh": "a",
+      "phrase": "",
+      "phraseTranslation": "a",
+      "category": "amt",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "m",
+        "t",
+        "sat",
+        "pat",
+        "map",
+        "tap"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "amt",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": false,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "letter-b",
+      "kind": "phonics",
+      "word": "b",
+      "translation": "bat",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "",
+      "exampleZh": "b",
+      "phrase": "",
+      "phraseTranslation": "b",
+      "category": "fb",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "f",
+        "sat",
+        "pat",
+        "map",
+        "tap",
+        "mat"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "fb",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": false,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "letter-c",
+      "kind": "phonics",
+      "word": "c",
+      "translation": "cat",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "",
+      "exampleZh": "c",
+      "phrase": "",
+      "phraseTranslation": "c",
+      "category": "alpha",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "d",
+        "e",
+        "g",
+        "h",
+        "i",
+        "j"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "alpha",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": false,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "letter-d",
+      "kind": "phonics",
+      "word": "d",
+      "translation": "dog",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "",
+      "exampleZh": "d",
+      "phrase": "",
+      "phraseTranslation": "d",
+      "category": "alpha",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "c",
+        "e",
+        "g",
+        "h",
+        "i",
+        "j"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "alpha",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": false,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "letter-e",
+      "kind": "phonics",
+      "word": "e",
+      "translation": "egg",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "",
+      "exampleZh": "e",
+      "phrase": "",
+      "phraseTranslation": "e",
+      "category": "alpha",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "c",
+        "d",
+        "g",
+        "h",
+        "i",
+        "j"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "alpha",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": false,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "letter-f",
+      "kind": "phonics",
+      "word": "f",
+      "translation": "fan",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "",
+      "exampleZh": "f",
+      "phrase": "",
+      "phraseTranslation": "f",
+      "category": "fb",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "b",
+        "sat",
+        "pat",
+        "map",
+        "tap",
+        "mat"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "fb",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": false,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "letter-g",
+      "kind": "phonics",
+      "word": "g",
+      "translation": "goat",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "",
+      "exampleZh": "g",
+      "phrase": "",
+      "phraseTranslation": "g",
+      "category": "alpha",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "c",
+        "d",
+        "e",
+        "h",
+        "i",
+        "j"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "alpha",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": false,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "letter-h",
+      "kind": "phonics",
+      "word": "h",
+      "translation": "hat",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "",
+      "exampleZh": "h",
+      "phrase": "",
+      "phraseTranslation": "h",
+      "category": "alpha",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "c",
+        "d",
+        "e",
+        "g",
+        "i",
+        "j"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "alpha",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": false,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "letter-i",
+      "kind": "phonics",
+      "word": "i",
+      "translation": "igloo",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "",
+      "exampleZh": "i",
+      "phrase": "",
+      "phraseTranslation": "i",
+      "category": "alpha",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "c",
+        "d",
+        "e",
+        "g",
+        "h",
+        "j"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "alpha",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": false,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "letter-j",
+      "kind": "phonics",
+      "word": "j",
+      "translation": "jam",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "",
+      "exampleZh": "j",
+      "phrase": "",
+      "phraseTranslation": "j",
+      "category": "alpha",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "c",
+        "d",
+        "e",
+        "g",
+        "h",
+        "i"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "alpha",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": false,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "letter-k",
+      "kind": "phonics",
+      "word": "k",
+      "translation": "kite",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "",
+      "exampleZh": "k",
+      "phrase": "",
+      "phraseTranslation": "k",
+      "category": "alpha",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "c",
+        "d",
+        "e",
+        "g",
+        "h",
+        "i"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "alpha",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": false,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "letter-l",
+      "kind": "phonics",
+      "word": "l",
+      "translation": "leaf",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "",
+      "exampleZh": "l",
+      "phrase": "",
+      "phraseTranslation": "l",
+      "category": "alpha",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "c",
+        "d",
+        "e",
+        "g",
+        "h",
+        "i"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "alpha",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": false,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "letter-m",
+      "kind": "phonics",
+      "word": "m",
+      "translation": "map",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "",
+      "exampleZh": "m",
+      "phrase": "",
+      "phraseTranslation": "m",
+      "category": "amt",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "a",
+        "t",
+        "sat",
+        "pat",
+        "map",
+        "tap"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "amt",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": false,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "letter-n",
+      "kind": "phonics",
+      "word": "n",
+      "translation": "net",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "",
+      "exampleZh": "n",
+      "phrase": "",
+      "phraseTranslation": "n",
+      "category": "alpha",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "c",
+        "d",
+        "e",
+        "g",
+        "h",
+        "i"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "alpha",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": false,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "letter-o",
+      "kind": "phonics",
+      "word": "o",
+      "translation": "octopus",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "",
+      "exampleZh": "o",
+      "phrase": "",
+      "phraseTranslation": "o",
+      "category": "alpha",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "c",
+        "d",
+        "e",
+        "g",
+        "h",
+        "i"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "alpha",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": false,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "letter-p",
+      "kind": "phonics",
+      "word": "p",
+      "translation": "pan",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "",
+      "exampleZh": "p",
+      "phrase": "",
+      "phraseTranslation": "p",
+      "category": "alpha",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "c",
+        "d",
+        "e",
+        "g",
+        "h",
+        "i"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "alpha",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": false,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "letter-q",
+      "kind": "phonics",
+      "word": "q",
+      "translation": "queen",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "",
+      "exampleZh": "q",
+      "phrase": "",
+      "phraseTranslation": "q",
+      "category": "alpha",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "c",
+        "d",
+        "e",
+        "g",
+        "h",
+        "i"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "alpha",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": false,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "letter-r",
+      "kind": "phonics",
+      "word": "r",
+      "translation": "rat",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "",
+      "exampleZh": "r",
+      "phrase": "",
+      "phraseTranslation": "r",
+      "category": "alpha",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "c",
+        "d",
+        "e",
+        "g",
+        "h",
+        "i"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "alpha",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": false,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "letter-s",
+      "kind": "phonics",
+      "word": "s",
+      "translation": "sun",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "",
+      "exampleZh": "s",
+      "phrase": "",
+      "phraseTranslation": "s",
+      "category": "alpha",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "c",
+        "d",
+        "e",
+        "g",
+        "h",
+        "i"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "alpha",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": false,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "letter-t",
+      "kind": "phonics",
+      "word": "t",
+      "translation": "tap",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "",
+      "exampleZh": "t",
+      "phrase": "",
+      "phraseTranslation": "t",
+      "category": "amt",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "a",
+        "m",
+        "sat",
+        "pat",
+        "map",
+        "tap"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "amt",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": false,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "letter-u",
+      "kind": "phonics",
+      "word": "u",
+      "translation": "umbrella",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "",
+      "exampleZh": "u",
+      "phrase": "",
+      "phraseTranslation": "u",
+      "category": "alpha",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "c",
+        "d",
+        "e",
+        "g",
+        "h",
+        "i"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "alpha",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": false,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "letter-v",
+      "kind": "phonics",
+      "word": "v",
+      "translation": "van",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "",
+      "exampleZh": "v",
+      "phrase": "",
+      "phraseTranslation": "v",
+      "category": "alpha",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "c",
+        "d",
+        "e",
+        "g",
+        "h",
+        "i"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "alpha",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": false,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "letter-w",
+      "kind": "phonics",
+      "word": "w",
+      "translation": "web",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "",
+      "exampleZh": "w",
+      "phrase": "",
+      "phraseTranslation": "w",
+      "category": "alpha",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "c",
+        "d",
+        "e",
+        "g",
+        "h",
+        "i"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "alpha",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": false,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "letter-x",
+      "kind": "phonics",
+      "word": "x",
+      "translation": "box",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "",
+      "exampleZh": "x",
+      "phrase": "",
+      "phraseTranslation": "x",
+      "category": "alpha",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "c",
+        "d",
+        "e",
+        "g",
+        "h",
+        "i"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "alpha",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": false,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "letter-y",
+      "kind": "phonics",
+      "word": "y",
+      "translation": "yellow",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "",
+      "exampleZh": "y",
+      "phrase": "",
+      "phraseTranslation": "y",
+      "category": "alpha",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "c",
+        "d",
+        "e",
+        "g",
+        "h",
+        "i"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "alpha",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": false,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    },
+    {
+      "id": "letter-z",
+      "kind": "phonics",
+      "word": "z",
+      "translation": "zip",
+      "partOfSpeech": "",
+      "phonetic": "",
+      "example": "",
+      "exampleZh": "z",
+      "phrase": "",
+      "phraseTranslation": "z",
+      "category": "alpha",
+      "stage": "kindergarten",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "image": "",
+      "imageFallback": "",
+      "audio": "",
+      "distractors": [
+        "c",
+        "d",
+        "e",
+        "g",
+        "h",
+        "i"
+      ],
+      "sourceIds": [
+        "personal-workbench-phonics-120"
+      ],
+      "sourceProviders": [
+        "personal-workbench"
+      ],
+      "sourceModuleId": "personal-workbench-phonics-120",
+      "curriculumLevel": "L1",
+      "minecraftBand": "",
+      "tags": [
+        "phonics",
+        "kindergarten",
+        "alpha",
+        "L1"
+      ],
+      "quality": {
+        "hasExample": false,
+        "hasPhonetic": false,
+        "hasImage": false,
+        "hasImageFallback": false,
+        "hasAudio": false,
+        "hasDistractors": true
+      },
+      "fallback": {
+        "image": true,
+        "imageAsset": "",
+        "audio": true
+      }
+    }
+  ]
+}

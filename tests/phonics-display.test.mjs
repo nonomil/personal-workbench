@@ -99,5 +99,5 @@ test('workbench flashcards and quiz cue render IPA and a sound-parts button', ()
     assert.match(app, /phonics-zh/);
     assert.match(app, /pickSpeechVoice/);
     assert.match(html, /preschool-phonics\.js\?v=20260818-phonics-zh-v1/);
-    assert.match(html, /app\.js\?v=20260818-phonics-zh-v1/);
+    assert.match(html, /app\.js\?v=20260819-v074/);
 });

@@ -3,6 +3,11 @@
 
     const STATES = ['introduced', 'practicing', 'ready', 'maintenance'];
     const DEFAULT_INTERVALS = [1, 3, 7, 14];
+    const INTERVALS_BY_VERSION = {
+        1: [1, 3, 7, 14],
+        2: [0.25, 1, 2, 4, 7, 14, 28]
+    };
+    const OVERDUE_GRACE_MS = 48 * 60 * 60 * 1000;
 
     function localMedia(value) {
         const raw = String(value || '').trim();
@@ -62,6 +67,41 @@
         return next;
     }
 
+    function normalizeEvents(list) {
+        const out = [];
+        (Array.isArray(list) ? list : []).forEach(function (item) {
+            if (!item || typeof item !== 'object') return;
+            out.push({
+                ts: String(item.ts || ''),
+                mode: String(item.mode || ''),
+                correct: !!item.correct,
+                source: String(item.source || 'workbench')
+            });
+        });
+        return out.slice(-20);
+    }
+
+    function eventTime(extra, date) {
+        const o = extra && typeof extra === 'object' ? extra : {};
+        if (o.now) return String(o.now);
+        const stamp = String(date || '');
+        if (/^\d{4}-\d{2}-\d{2}$/.test(stamp)) return stamp + 'T12:00:00.000Z';
+        return stamp || new Date().toISOString();
+    }
+
+    function appendEvent(item, event) {
+        const current = item && typeof item === 'object' ? item : {};
+        const next = normalizeEvents(current.events);
+        next.push({
+            ts: String(event && event.ts || ''),
+            mode: String(event && event.mode || ''),
+            correct: !!(event && event.correct),
+            source: String(event && event.source || 'workbench')
+        });
+        current.events = next.slice(-20);
+        return current;
+    }
+
     function cloneProgress(progress) {
         const source = progress && progress.mastery && typeof progress.mastery === 'object' ? progress.mastery : {};
         const next = { mastery: {} };
@@ -75,10 +115,169 @@
                 nextReview: String(item.nextReview || ''),
                 sunlightDelta: 0,
                 masteredAt: String(item.masteredAt || ''),
-                quiz: normalizeQuizBuckets(item.quiz)
+                quiz: normalizeQuizBuckets(item.quiz),
+                events: normalizeEvents(item.events),
+                planVersion: Number(item.planVersion) === 2 ? 2 : (Number(item.planVersion) === 1 ? 1 : undefined),
+                reviewRound: Math.max(0, Number(item.reviewRound) || 0)
             };
         });
+        Object.keys(next.mastery).forEach(function (word) {
+            if (!next.mastery[word].planVersion) delete next.mastery[word].planVersion;
+        });
         return next;
+    }
+
+    function nowMs(now) {
+        if (now instanceof Date) return now.getTime();
+        if (typeof now === 'number' && Number.isFinite(now)) return now;
+        const raw = String(now || '');
+        if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) {
+            const day = Date.parse(raw + 'T12:00:00.000Z');
+            return Number.isNaN(day) ? Date.now() : day;
+        }
+        const parsed = Date.parse(raw);
+        return Number.isNaN(parsed) ? Date.now() : parsed;
+    }
+
+    function parseReviewAt(value) {
+        const raw = String(value || '');
+        if (!raw) return null;
+        if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) {
+            const day = Date.parse(raw + 'T00:00:00.000Z');
+            return Number.isNaN(day) ? null : day;
+        }
+        const parsed = Date.parse(raw);
+        return Number.isNaN(parsed) ? null : parsed;
+    }
+
+    function addDuration(from, days) {
+        return new Date(nowMs(from) + Number(days) * 86400000).toISOString();
+    }
+
+    function isDue(item, now) {
+        const at = parseReviewAt(item && item.nextReview);
+        return at != null && nowMs(now) >= at;
+    }
+
+    function isOverdue(item, now) {
+        const at = parseReviewAt(item && item.nextReview);
+        return at != null && nowMs(now) > at + OVERDUE_GRACE_MS;
+    }
+
+    function isSoon(item, now) {
+        const at = parseReviewAt(item && item.nextReview);
+        if (at == null) return false;
+        const t = nowMs(now);
+        return at > t && at <= t + 24 * 60 * 60 * 1000;
+    }
+
+    function taskBucket(item, now) {
+        if (isOverdue(item, now)) return 'overdue';
+        if (isDue(item, now)) return 'due';
+        if (isSoon(item, now)) return 'soon';
+        return '';
+    }
+
+    function normalizeWordList(words) {
+        const out = [];
+        const seen = {};
+        (Array.isArray(words) ? words : []).forEach(function (item) {
+            const key = typeof item === 'string'
+                ? String(item || '').trim().toLowerCase()
+                : String(item && (item.text || item.word) || '').trim().toLowerCase();
+            if (!key || seen[key]) return;
+            seen[key] = true;
+            out.push(key);
+        });
+        return out;
+    }
+
+    function lookupMastery(source, word) {
+        if (source[word]) return source[word];
+        const keys = Object.keys(source);
+        for (let i = 0; i < keys.length; i += 1) {
+            if (String(keys[i] || '').toLowerCase() === word) return source[keys[i]];
+        }
+        return null;
+    }
+
+    function firstSeenDay(item) {
+        const dates = item && Array.isArray(item.dates) ? item.dates : [];
+        if (dates.length) return String(dates[0] || '').slice(0, 10);
+        const events = item && Array.isArray(item.events) ? item.events : [];
+        if (events.length) return String(events[0] && events[0].ts || '').slice(0, 10);
+        return '';
+    }
+
+    function isNewCandidate(item) {
+        if (!item) return true;
+        const attempts = Number(item.attempts) || 0;
+        const dates = Array.isArray(item.dates) ? item.dates : [];
+        return attempts === 0 && dates.length === 0 && !item.nextReview;
+    }
+
+    function selectTodayTasks(mastery, now, quota, words) {
+        const source = mastery && typeof mastery === 'object' ? mastery : {};
+        const hasList = arguments.length >= 4;
+        const list = hasList ? normalizeWordList(words) : Object.keys(source).map(function (key) {
+            return String(key || '').toLowerCase();
+        }).filter(Boolean);
+        const empty = list.length === 0;
+        if (empty) {
+            return { items: [], reviewCount: 0, newCount: 0, minutes: 0, done: false, empty: true };
+        }
+        const cap = quota == null || quota === '' ? 3 : Math.max(0, Math.round(Number(quota)));
+        const rank = { overdue: 0, due: 1, soon: 2, new: 3 };
+        const review = [];
+        const used = {};
+        list.forEach(function (word) {
+            const item = lookupMastery(source, word);
+            const bucket = item ? taskBucket(item, now) : '';
+            if (!bucket) return;
+            used[word] = true;
+            review.push({ word: word, bucket: bucket, at: parseReviewAt(item.nextReview) });
+        });
+        review.sort(function (a, b) {
+            const byBucket = (rank[a.bucket] || 0) - (rank[b.bucket] || 0);
+            if (byBucket) return byBucket;
+            const ta = a.at == null ? 0 : a.at;
+            const tb = b.at == null ? 0 : b.at;
+            if (ta !== tb) return ta - tb;
+            return a.word < b.word ? -1 : a.word > b.word ? 1 : 0;
+        });
+        const today = String(now || '').slice(0, 10);
+        let usedNew = 0;
+        list.forEach(function (word) {
+            const item = lookupMastery(source, word);
+            if (item && firstSeenDay(item) === today) usedNew += 1;
+        });
+        const remain = Math.max(0, (Number.isFinite(cap) ? cap : 3) - usedNew);
+        const newcomers = [];
+        list.forEach(function (word) {
+            if (newcomers.length >= remain || used[word]) return;
+            if (!isNewCandidate(lookupMastery(source, word))) return;
+            newcomers.push({ word: word, bucket: 'new' });
+        });
+        const items = review.map(function (item) {
+            return { word: item.word, bucket: item.bucket };
+        }).concat(newcomers);
+        return {
+            items: items,
+            reviewCount: review.length,
+            newCount: newcomers.length,
+            minutes: items.length ? Math.ceil(items.length * 25 / 60) : 0,
+            done: items.length === 0,
+            empty: false
+        };
+    }
+
+    function resolvePlanVersion(item) {
+        const n = Number(item && item.planVersion);
+        if (n === 1 || n === 2) return n;
+        const seen = (Number(item && item.attempts) || 0) > 0
+            || (item && Array.isArray(item.dates) && item.dates.length > 0)
+            || !!(item && item.nextReview);
+        return seen ? 1 : 2;
     }
 
     function addDays(date, days) {
@@ -135,7 +334,7 @@
         return available.filter(function (word) {
             const key = String(word || '').toLowerCase();
             const item = mastery[key] || mastery[word];
-            return item && item.nextReview && String(item.nextReview) <= String(today);
+            return item && isDue(item, today);
         });
     }
 
@@ -187,7 +386,8 @@
             nextReview: '',
             sunlightDelta: 0,
             masteredAt: '',
-            quiz: emptyQuizBuckets()
+            quiz: emptyQuizBuckets(),
+            events: []
         };
     }
 
@@ -207,8 +407,11 @@
         return quizCorrectTotal(item && item.quiz) >= 3 && quizCoveredTypes(item && item.quiz).length >= 2;
     }
 
-    function applyMasteryStamp(current, known, date, rules, mode) {
+    function applyMasteryStamp(current, known, date, rules, mode, extra) {
         const stamp = String(date || '');
+        const opts = extra && typeof extra === 'object' ? extra : {};
+        const version = resolvePlanVersion(current);
+        current.planVersion = version;
         current.attempts += 1;
         if (known) current.correct += 1;
         if (stamp && current.dates.indexOf(stamp) === -1) current.dates.push(stamp);
@@ -221,18 +424,33 @@
         } else {
             current.state = 'practicing';
         }
-        current.nextReview = addDays(stamp, intervalDays(current.state, rules));
+        const when = opts.now || stamp;
+        if (version === 2) {
+            const table = INTERVALS_BY_VERSION[2];
+            const round = Math.max(0, Math.min(Number(current.reviewRound) || 0, table.length - 1));
+            current.nextReview = addDuration(when, table[round]);
+            current.reviewRound = Math.min(round + 1, table.length - 1);
+        } else {
+            current.nextReview = addDuration(when, intervalDays(current.state, rules));
+        }
         current.sunlightDelta = 0;
         if (current.state === 'ready' && !current.masteredAt) current.masteredAt = stamp;
         return current;
     }
 
-    function markKnown(progress, word, known, date, rules) {
+    function markKnown(progress, word, known, date, rules, extra) {
         const next = cloneProgress(progress);
         const key = String(word || '').toLowerCase();
         if (!key) return next;
+        const opts = extra && typeof extra === 'object' ? extra : {};
         const current = next.mastery[key] || blankMastery();
-        next.mastery[key] = applyMasteryStamp(current, known, date, rules, 'self');
+        const stamped = applyMasteryStamp(current, known, date, rules, 'self', opts);
+        next.mastery[key] = appendEvent(stamped, {
+            ts: eventTime(opts, date),
+            mode: 'self',
+            correct: !!known,
+            source: opts.source || 'workbench'
+        });
         return next;
     }
 
@@ -253,7 +471,13 @@
         current.quiz = normalizeQuizBuckets(current.quiz);
         current.quiz[type].attempts += 1;
         if (source.correct) current.quiz[type].correct += 1;
-        next.mastery[key] = applyMasteryStamp(current, !!source.correct, source.date, source.rules, 'quiz');
+        const stamped = applyMasteryStamp(current, !!source.correct, source.date, source.rules, 'quiz', source);
+        next.mastery[key] = appendEvent(stamped, {
+            ts: eventTime(source, source.date),
+            mode: type,
+            correct: !!source.correct,
+            source: source.source || 'workbench'
+        });
         return next;
     }
 
@@ -429,7 +653,7 @@
             const item = mastery[word] || {};
             if (item.state === 'ready' || item.state === 'maintenance') known += 1;
             else if (item.state === 'practicing' || item.state === 'introduced') practicing += 1;
-            if (item.nextReview && stamp && String(item.nextReview) <= stamp && item.state !== 'introduced') reviewing += 1;
+            if (stamp && item.state !== 'introduced' && isDue(item, stamp)) reviewing += 1;
             const quiz = normalizeQuizBuckets(item.quiz);
             ['listen', 'read', 'spell'].forEach(function (type) {
                 rates[type].attempts += quiz[type].attempts;
@@ -510,7 +734,7 @@
             const state = STATES.indexOf(entry.state) >= 0 ? entry.state : '';
             if (state === 'ready' || state === 'maintenance') known += 1;
             else if (state === 'introduced' || state === 'practicing') practicing += 1;
-            if (stamp && entry.nextReview && String(entry.nextReview).slice(0, 10) <= stamp && state !== 'introduced') reviewing += 1;
+            if (stamp && state !== 'introduced' && isDue(entry, stamp)) reviewing += 1;
             const masteredAt = String(entry.masteredAt || '').slice(0, 10);
             if (masteredAt && dueDate && masteredAt >= dueDate && masteredAt <= stamp) thisWeekNew += 1;
             const dates = Array.isArray(entry.dates) ? entry.dates : [];
@@ -604,6 +828,11 @@
         buildSpeakBatch: buildSpeakBatch,
         toMatchPairs: toMatchPairs,
         markKnown: markKnown,
+        appendEvent: appendEvent,
+        isDue: isDue,
+        isOverdue: isOverdue,
+        selectTodayTasks: selectTodayTasks,
+        INTERVALS_BY_VERSION: INTERVALS_BY_VERSION,
         cloneProgress: cloneProgress,
         buildQuizQuestions: buildQuizQuestions,
         recordQuizAnswer: recordQuizAnswer,

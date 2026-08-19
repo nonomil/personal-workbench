@@ -145,17 +145,90 @@
     }
 
     /** 词卡答题回流：只写 courseProgress.minecraft.mastery，零阳光、零 worldGames 改动 */
-    function recordWordAnswer(word, correct) {
+    function recordWordAnswer(word, correct, extra) {
         const engine = global.PersonalWorkbenchPreschoolEnglishVocab;
         const courses = global.PersonalWorkbenchChildCourses;
         if (!word || !engine || typeof engine.markKnown !== 'function'
             || !courses || typeof courses.saveMinecraft !== 'function') return null;
+        const opts = extra && typeof extra === 'object' ? extra : {};
         const state = readState();
         const current = (state.courseProgress && state.courseProgress.minecraft) || engine.createDefaultProgress();
-        const next = engine.markKnown(current, word, !!correct, today());
+        const rules = engine.getRuntimeRules ? engine.getRuntimeRules() : undefined;
+        const next = engine.markKnown(current, word, !!correct, today(), rules, {
+            source: opts.source || 'workbench'
+        });
         state.courseProgress = courses.saveMinecraft(state.courseProgress || {}, next);
         if (!writeState(state)) return null;
         return next.mastery[String(word).toLowerCase()] || null;
+    }
+
+    function shiftDay(date, days) {
+        const raw = String(date || '');
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(raw)) return raw;
+        const t = new Date(raw + 'T00:00:00');
+        if (Number.isNaN(t.getTime())) return raw;
+        t.setDate(t.getDate() + (Number(days) || 0));
+        const y = t.getFullYear();
+        const m = String(t.getMonth() + 1);
+        const d = String(t.getDate());
+        return y + '-' + (m.length < 2 ? '0' + m : m) + '-' + (d.length < 2 ? '0' + d : d);
+    }
+
+    function bumpMasteryItem(item, correct, date, extra) {
+        const rec = item && typeof item === 'object' ? item : {};
+        const dates = Array.isArray(rec.dates) ? rec.dates.slice() : [];
+        if (date && dates.indexOf(date) < 0) dates.push(date);
+        const attempts = Math.max(0, Number(rec.attempts) || 0) + 1;
+        const hits = Math.max(0, Number(rec.correct) || 0) + (correct ? 1 : 0);
+        const next = {
+            state: correct ? (rec.state === 'ready' || rec.state === 'maintenance' ? rec.state : 'practicing') : (rec.state || 'introduced'),
+            dates: dates,
+            attempts: attempts,
+            correct: hits,
+            nextReview: shiftDay(date, correct ? 1 : 0)
+        };
+        if (extra && extra.literacy) {
+            const types = Array.isArray(rec.activityTypes) ? rec.activityTypes.slice() : [];
+            if (types.indexOf('blocklegend') < 0) types.push('blocklegend');
+            next.activityTypes = types;
+            next.accuracy = attempts ? hits / attempts : 0;
+            next.sunlightDelta = 0;
+        }
+        return next;
+    }
+
+    /** 配菜写回分科掌握度，不走 minecraft.mastery */
+    function recordSubjectAnswer(track, key, correct) {
+        const courses = global.PersonalWorkbenchChildCourses;
+        const id = String(key || '').trim();
+        const field = String(track || '').trim();
+        if (!id || !courses) return null;
+        if (field === 'minecraft' || field === 'english') return recordWordAnswer(id, correct);
+        const state = readState();
+        const date = today();
+        if (field === 'literacy') {
+            const engine = global.PersonalWorkbenchPreschoolLiteracy;
+            const current = (state.courseProgress && state.courseProgress.literacy) || { mastery: {} };
+            let next;
+            if (engine && typeof engine.recordAttempt === 'function') {
+                next = engine.recordAttempt(current, id, { date: date, correct: !!correct, activityType: 'blocklegend' });
+            } else {
+                const mastery = current.mastery && typeof current.mastery === 'object' ? current.mastery : {};
+                mastery[id] = bumpMasteryItem(mastery[id], !!correct, date, { literacy: true });
+                next = { mastery: mastery };
+            }
+            state.courseProgress = courses.saveLiteracy(state.courseProgress || {}, next);
+            if (!writeState(state)) return null;
+            return next.mastery[id] || null;
+        }
+        if (!courses.saveSubject) return null;
+        const current = (state.courseProgress && state.courseProgress[field]) || { mastery: {} };
+        const mastery = current.mastery && typeof current.mastery === 'object' ? current.mastery : {};
+        mastery[id] = bumpMasteryItem(mastery[id], !!correct, date);
+        const next = { mastery: mastery };
+        state.courseProgress = courses.saveSubject(state.courseProgress || {}, field, next);
+        if (!writeState(state)) return null;
+        return next.mastery[id] || null;
     }
 
     function ensureWorldGames(growth) {
@@ -739,7 +812,7 @@
                 'garden-defense': { label: '花园保卫', unit: '关', done: gardenClears(wg), total: 18 },
                 'voxel-adventure': { label: '方块世界', unit: '关', done: voxelQuests(wg), total: (global.VoxelQuests && global.VoxelQuests.list ? global.VoxelQuests.list.length : 12) },
                 'platform-quest': { label: '横版闯关', unit: '关', done: platformClears(wg), total: PLATFORM_LEVEL_TOTAL },
-                'blocklegend': { label: '方块传奇', unit: '关', done: blocklegendClears(wg), total: 6 }
+                'blocklegend': { label: '方块传奇', unit: '关', done: blocklegendClears(wg), total: 12 }
             };
             const L = labels[id];
             let fact = '';
@@ -841,6 +914,7 @@
         playModsFromLiteracy: playModsFromLiteracy,
         getPlayMods: getPlayMods,
         recordWordAnswer: recordWordAnswer,
+        recordSubjectAnswer: recordSubjectAnswer,
         PLAY_PASS: PLAY_PASS,
         PLAY_PASS_BY_GAME: PLAY_PASS_BY_GAME,
         getPlayPass: getPlayPass,

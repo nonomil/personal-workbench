@@ -1,0 +1,330 @@
+{
+  "version": 2,
+  "generatedAt": "2026-08-19T01:50:05.458Z",
+  "buildIdentity": {
+    "batchId": "core-pinyin-2026.08.19",
+    "manifestHash": "01806876c757a4853878688dc07fd57e74966531c2bcf3e23d7d6082ae77b4f1",
+    "inputHash": "01806876c757a4853878688dc07fd57e74966531c2bcf3e23d7d6082ae77b4f1",
+    "builderVersion": "export-question-packages@1"
+  },
+  "catalog": "catalog.json",
+  "chapters": [
+    {
+      "id": "core-pinyin-2026.08.19-foundation",
+      "title": "起步",
+      "titleEn": "foundation",
+      "summary": "拼音 起步：听音选声母/韵母。",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "cardCount": 8,
+      "groups": [
+        {
+          "id": "core-pinyin-2026.08.19-foundation-001",
+          "title": "起步 · 第 1 组",
+          "cardIds": [
+            "pinyin-initial-b",
+            "pinyin-initial-p",
+            "pinyin-initial-m",
+            "pinyin-initial-f",
+            "pinyin-initial-d",
+            "pinyin-initial-t",
+            "pinyin-initial-n",
+            "pinyin-initial-l"
+          ],
+          "cardCount": 8,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "sound-pick",
+            "typingGame": "pinyin-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "lips",
+            "tip"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core-pinyin-2026.08.19-expanding",
+      "title": "扩展",
+      "titleEn": "expanding",
+      "summary": "拼音 扩展：听音选声母/韵母。",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "cardCount": 15,
+      "groups": [
+        {
+          "id": "core-pinyin-2026.08.19-expanding-001",
+          "title": "扩展 · 第 1 组",
+          "cardIds": [
+            "pinyin-initial-g",
+            "pinyin-initial-k",
+            "pinyin-initial-h",
+            "pinyin-initial-j",
+            "pinyin-initial-q",
+            "pinyin-initial-x",
+            "pinyin-initial-zh",
+            "pinyin-initial-ch",
+            "pinyin-initial-sh",
+            "pinyin-initial-r"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "sound-pick",
+            "typingGame": "pinyin-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "root",
+            "palatal",
+            "retroflex"
+          ]
+        },
+        {
+          "id": "core-pinyin-2026.08.19-expanding-002",
+          "title": "扩展 · 第 2 组",
+          "cardIds": [
+            "pinyin-initial-z",
+            "pinyin-initial-c",
+            "pinyin-initial-s",
+            "pinyin-initial-y",
+            "pinyin-initial-w"
+          ],
+          "cardCount": 5,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "sound-pick",
+            "typingGame": "pinyin-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "dental",
+            "semi"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core-pinyin-2026.08.19-consolidating",
+      "title": "巩固",
+      "titleEn": "consolidating",
+      "summary": "拼音 巩固：听音选声母/韵母。",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "cardCount": 12,
+      "groups": [
+        {
+          "id": "core-pinyin-2026.08.19-consolidating-001",
+          "title": "巩固 · 第 1 组",
+          "cardIds": [
+            "pinyin-final-a",
+            "pinyin-final-o",
+            "pinyin-final-e",
+            "pinyin-final-i",
+            "pinyin-final-u",
+            "pinyin-final-ü",
+            "pinyin-final-ai",
+            "pinyin-final-ei",
+            "pinyin-final-ui",
+            "pinyin-final-ao"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "sound-pick",
+            "typingGame": "pinyin-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "simple",
+            "compound"
+          ]
+        },
+        {
+          "id": "core-pinyin-2026.08.19-consolidating-002",
+          "title": "巩固 · 第 2 组",
+          "cardIds": [
+            "pinyin-final-ou",
+            "pinyin-final-iu"
+          ],
+          "cardCount": 2,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "sound-pick",
+            "typingGame": "pinyin-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "compound"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core-pinyin-2026.08.19-challenge",
+      "title": "挑战",
+      "titleEn": "challenge",
+      "summary": "拼音 挑战：听音选声母/韵母。",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "cardCount": 12,
+      "groups": [
+        {
+          "id": "core-pinyin-2026.08.19-challenge-001",
+          "title": "挑战 · 第 1 组",
+          "cardIds": [
+            "pinyin-final-ie",
+            "pinyin-final-üe",
+            "pinyin-final-er",
+            "pinyin-final-an",
+            "pinyin-final-en",
+            "pinyin-final-in",
+            "pinyin-final-un",
+            "pinyin-final-ün",
+            "pinyin-final-ang",
+            "pinyin-final-eng"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "sound-pick",
+            "typingGame": "pinyin-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "compound",
+            "special",
+            "front-nasal",
+            "back-nasal"
+          ]
+        },
+        {
+          "id": "core-pinyin-2026.08.19-challenge-002",
+          "title": "挑战 · 第 2 组",
+          "cardIds": [
+            "pinyin-final-ing",
+            "pinyin-final-ong"
+          ],
+          "cardCount": 2,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "sound-pick",
+            "typingGame": "pinyin-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "back-nasal"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core-pinyin-2026.08.19-mixed",
+      "title": "综合",
+      "titleEn": "mixed",
+      "summary": "拼音 综合：听音选声母/韵母。",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "sound-pick",
+        "typingGame": "pinyin-choice"
+      },
+      "cardCount": 16,
+      "groups": [
+        {
+          "id": "core-pinyin-2026.08.19-mixed-001",
+          "title": "综合 · 第 1 组",
+          "cardIds": [
+            "pinyin-whole-zhi",
+            "pinyin-whole-chi",
+            "pinyin-whole-shi",
+            "pinyin-whole-ri",
+            "pinyin-whole-zi",
+            "pinyin-whole-ci",
+            "pinyin-whole-si",
+            "pinyin-whole-yi",
+            "pinyin-whole-wu",
+            "pinyin-whole-yu"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "sound-pick",
+            "typingGame": "pinyin-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "whole"
+          ]
+        },
+        {
+          "id": "core-pinyin-2026.08.19-mixed-002",
+          "title": "综合 · 第 2 组",
+          "cardIds": [
+            "pinyin-whole-ye",
+            "pinyin-whole-yue",
+            "pinyin-whole-yuan",
+            "pinyin-whole-yin",
+            "pinyin-whole-yun",
+            "pinyin-whole-ying"
+          ],
+          "cardCount": 6,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "sound-pick",
+            "typingGame": "pinyin-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "whole"
+          ]
+        }
+      ]
+    }
+  ]
+}

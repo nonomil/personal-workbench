@@ -37,6 +37,6 @@ test('exercise today page is action cards, not levels', () => {
     assert.doesNotMatch(app, /\{ track: 'motion', title: '运动' \}/);
     assert.match(config, /今天几张动作卡，跟着图做完就能打卡/);
     assert.match(html, /preschool-motion-art\.js\?v=20260818-motion-cards-v1/);
-    assert.match(html, /app\.js\?v=20260818-phonics-zh-v1/);
+    assert.match(html, /app\.js\?v=20260819-v074/);
     assert.match(css, /\.preschool-motion-card/);
 });

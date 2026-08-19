@@ -26,12 +26,13 @@ test('prepare-mobile keeps only workbench game folders', () => {
 
 test('android release stamp raises versionCode with package version', () => {
   assert.equal(versionCodeFromName('0.7.3'), 703);
+  assert.equal(versionCodeFromName('0.7.4'), 704);
   const stamped = stampGradleRelease(
     'android {\n    defaultConfig {\n        versionCode 1\n        versionName "1.0"\n    }\n    buildTypes {\n        release {\n            minifyEnabled false\n        }\n    }\n}\n',
-    { versionName: '0.7.3', versionCode: 703 }
+    { versionName: '0.7.4', versionCode: 704 }
   );
-  assert.match(stamped, /versionCode 703/);
-  assert.match(stamped, /versionName "0.7.3"/);
+  assert.match(stamped, /versionCode 704/);
+  assert.match(stamped, /versionName "0.7.4"/);
   assert.match(stamped, /buildTypes\s*\{\s*release\s*\{\s*signingConfig signingConfigs\.release/);
   assert.doesNotMatch(stamped, /signingConfigs\s*\{\s*release\s*\{\s*signingConfig/);
 });

@@ -1,0 +1,38 @@
+{
+  "schema": "wordquest.vocab-release.v1",
+  "packageVersion": "2026.08.19",
+  "catalogSchema": "wordquest.vocab-runtime.v1",
+  "protocol": "wordquest.game.v2",
+  "generatedAt": "2026-08-19T01:50:05.458Z",
+  "buildIdentity": {
+    "batchId": "core-math-2026.08.19",
+    "manifestHash": "710fa9be17f7570c98b41fa51853a768a986ecca5b37df259fa89e744179f8c8",
+    "inputHash": "710fa9be17f7570c98b41fa51853a768a986ecca5b37df259fa89e744179f8c8",
+    "builderVersion": "export-question-packages@1"
+  },
+  "catalogFile": "catalog.json",
+  "chaptersFile": "chapters.json",
+  "cardCount": 50,
+  "chapterCount": 5,
+  "groupCount": 5,
+  "mediaCounts": {
+    "semanticImage": 0,
+    "imageFallback": 0,
+    "audio": 0
+  },
+  "mediaFileCount": 0,
+  "packageContents": [
+    "README.md",
+    "manifest.json",
+    "catalog.json",
+    "chapters.json",
+    "词表.csv"
+  ],
+  "sourceDatabaseIncluded": false,
+  "auditIncluded": false,
+  "sourceSnapshotsIncluded": false,
+  "consumerRule": "consume catalog.json; project CardSnapshot; do not read source SQLite",
+  "edition": "math",
+  "title": "口算 · 静题 50",
+  "subject": "math"
+}

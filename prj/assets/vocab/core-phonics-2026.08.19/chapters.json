@@ -1,0 +1,479 @@
+{
+  "version": 2,
+  "generatedAt": "2026-08-19T01:50:05.458Z",
+  "buildIdentity": {
+    "batchId": "core-phonics-2026.08.19",
+    "manifestHash": "41ce471f1b8992edd486c902fd15bd9d2ed4e1b4313837ee2e8a5c17b51ce789",
+    "inputHash": "41ce471f1b8992edd486c902fd15bd9d2ed4e1b4313837ee2e8a5c17b51ce789",
+    "builderVersion": "export-question-packages@1"
+  },
+  "catalog": "catalog.json",
+  "chapters": [
+    {
+      "id": "core-phonics-2026.08.19-foundation",
+      "title": "起步",
+      "titleEn": "foundation",
+      "summary": "拼读 起步：字母音和 CVC。",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "cardCount": 28,
+      "groups": [
+        {
+          "id": "core-phonics-2026.08.19-foundation-001",
+          "title": "起步 · 第 1 组",
+          "cardIds": [
+            "word-at",
+            "word-an",
+            "letter-a",
+            "letter-b",
+            "letter-c",
+            "letter-d",
+            "letter-e",
+            "letter-f",
+            "letter-g",
+            "letter-h"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "listen-blend",
+            "typingGame": "cvc-spell"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "first-letter-sounds",
+            "amt",
+            "fb",
+            "alpha"
+          ]
+        },
+        {
+          "id": "core-phonics-2026.08.19-foundation-002",
+          "title": "起步 · 第 2 组",
+          "cardIds": [
+            "letter-i",
+            "letter-j",
+            "letter-k",
+            "letter-l",
+            "letter-m",
+            "letter-n",
+            "letter-o",
+            "letter-p",
+            "letter-q",
+            "letter-r"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "listen-blend",
+            "typingGame": "cvc-spell"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "alpha",
+            "amt"
+          ]
+        },
+        {
+          "id": "core-phonics-2026.08.19-foundation-003",
+          "title": "起步 · 第 3 组",
+          "cardIds": [
+            "letter-s",
+            "letter-t",
+            "letter-u",
+            "letter-v",
+            "letter-w",
+            "letter-x",
+            "letter-y",
+            "letter-z"
+          ],
+          "cardCount": 8,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "listen-blend",
+            "typingGame": "cvc-spell"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "alpha",
+            "amt"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core-phonics-2026.08.19-expanding",
+      "title": "扩展",
+      "titleEn": "expanding",
+      "summary": "拼读 扩展：字母音和 CVC。",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "cardCount": 29,
+      "groups": [
+        {
+          "id": "core-phonics-2026.08.19-expanding-001",
+          "title": "扩展 · 第 1 组",
+          "cardIds": [
+            "word-sat",
+            "word-pat",
+            "word-map",
+            "word-tap",
+            "word-mat",
+            "word-mad",
+            "word-sad",
+            "word-sam",
+            "word-am",
+            "word-in"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "listen-blend",
+            "typingGame": "cvc-spell"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "cvc-blending"
+          ]
+        },
+        {
+          "id": "core-phonics-2026.08.19-expanding-002",
+          "title": "扩展 · 第 2 组",
+          "cardIds": [
+            "word-it",
+            "word-is",
+            "word-sit",
+            "word-pin",
+            "word-pit",
+            "word-tip",
+            "word-tin",
+            "word-nip",
+            "word-pan",
+            "word-nap"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "listen-blend",
+            "typingGame": "cvc-spell"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "cvc-blending"
+          ]
+        },
+        {
+          "id": "core-phonics-2026.08.19-expanding-003",
+          "title": "扩展 · 第 3 组",
+          "cardIds": [
+            "word-man",
+            "word-can",
+            "word-cat",
+            "word-hat",
+            "word-ham",
+            "word-hit",
+            "word-bit",
+            "word-bin",
+            "word-dip"
+          ],
+          "cardCount": 9,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "listen-blend",
+            "typingGame": "cvc-spell"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "cvc-blending"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core-phonics-2026.08.19-consolidating",
+      "title": "巩固",
+      "titleEn": "consolidating",
+      "summary": "拼读 巩固：字母音和 CVC。",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "cardCount": 18,
+      "groups": [
+        {
+          "id": "core-phonics-2026.08.19-consolidating-001",
+          "title": "巩固 · 第 1 组",
+          "cardIds": [
+            "word-hot",
+            "word-pot",
+            "word-not",
+            "word-hop",
+            "word-mop",
+            "word-top",
+            "word-dog",
+            "word-log",
+            "word-fog",
+            "word-pet"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "listen-blend",
+            "typingGame": "cvc-spell"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "short-vowels-and-families"
+          ]
+        },
+        {
+          "id": "core-phonics-2026.08.19-consolidating-002",
+          "title": "巩固 · 第 2 组",
+          "cardIds": [
+            "word-get",
+            "word-ten",
+            "word-bed",
+            "word-bug",
+            "word-mug",
+            "word-sun",
+            "word-run",
+            "word-fun"
+          ],
+          "cardCount": 8,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "listen-blend",
+            "typingGame": "cvc-spell"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "short-vowels-and-families"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core-phonics-2026.08.19-challenge",
+      "title": "挑战",
+      "titleEn": "challenge",
+      "summary": "拼读 挑战：字母音和 CVC。",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "cardCount": 21,
+      "groups": [
+        {
+          "id": "core-phonics-2026.08.19-challenge-001",
+          "title": "挑战 · 第 1 组",
+          "cardIds": [
+            "word-ship",
+            "word-shop",
+            "word-shut",
+            "word-fish",
+            "word-dish",
+            "word-wish",
+            "word-chip",
+            "word-chat",
+            "word-chop",
+            "word-rich"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "listen-blend",
+            "typingGame": "cvc-spell"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "common-digraphs"
+          ]
+        },
+        {
+          "id": "core-phonics-2026.08.19-challenge-002",
+          "title": "挑战 · 第 2 组",
+          "cardIds": [
+            "word-much",
+            "word-such",
+            "word-thin",
+            "word-that",
+            "word-this",
+            "word-back",
+            "word-pick",
+            "word-kick",
+            "word-sing",
+            "word-ring"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "listen-blend",
+            "typingGame": "cvc-spell"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "common-digraphs"
+          ]
+        },
+        {
+          "id": "core-phonics-2026.08.19-challenge-003",
+          "title": "挑战 · 第 3 组",
+          "cardIds": [
+            "word-long"
+          ],
+          "cardCount": 1,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "listen-blend",
+            "typingGame": "cvc-spell"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "common-digraphs"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core-phonics-2026.08.19-mixed",
+      "title": "综合",
+      "titleEn": "mixed",
+      "summary": "拼读 综合：字母音和 CVC。",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "listen-blend",
+        "typingGame": "cvc-spell"
+      },
+      "cardCount": 24,
+      "groups": [
+        {
+          "id": "core-phonics-2026.08.19-mixed-001",
+          "title": "综合 · 第 1 组",
+          "cardIds": [
+            "word-stop",
+            "word-step",
+            "word-stand",
+            "word-spin",
+            "word-spot",
+            "word-spun",
+            "word-slam",
+            "word-slip",
+            "word-slap",
+            "word-skip"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "listen-blend",
+            "typingGame": "cvc-spell"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "consonant-blends"
+          ]
+        },
+        {
+          "id": "core-phonics-2026.08.19-mixed-002",
+          "title": "综合 · 第 2 组",
+          "cardIds": [
+            "word-skin",
+            "word-skit",
+            "word-hand",
+            "word-sand",
+            "word-send",
+            "word-tent",
+            "word-mint",
+            "word-pant",
+            "word-lamp",
+            "word-jump"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "listen-blend",
+            "typingGame": "cvc-spell"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "consonant-blends"
+          ]
+        },
+        {
+          "id": "core-phonics-2026.08.19-mixed-003",
+          "title": "综合 · 第 3 组",
+          "cardIds": [
+            "word-camp",
+            "word-left",
+            "word-gift",
+            "word-soft"
+          ],
+          "cardCount": 4,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "listen-blend",
+            "typingGame": "cvc-spell"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "consonant-blends"
+          ]
+        }
+      ]
+    }
+  ]
+}

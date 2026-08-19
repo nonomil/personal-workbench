@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-08-19",
+  "base": "prj/assets/vocab",
+  "source": "prj/data/preschool",
+  "subjects": [
+    {
+      "id": "english",
+      "kind": "english",
+      "role": "main",
+      "track": "minecraft",
+      "masteryKey": "text",
+      "lang": "en-US",
+      "count": 597,
+      "package": "core-english-2026.08.15",
+      "banks": [
+        { "id": "english", "path": "英语/vocabulary-bank.json" }
+      ]
+    },
+    {
+      "id": "literacy",
+      "kind": "literacy",
+      "role": "side",
+      "track": "literacy",
+      "masteryKey": "char",
+      "lang": "zh-CN",
+      "count": 1500,
+      "package": "core-literacy-2026.08.19",
+      "banks": [
+        { "id": "literacy", "path": "识字/character-bank.json" }
+      ]
+    },
+    {
+      "id": "pinyin",
+      "kind": "pinyin",
+      "role": "side",
+      "track": "pinyin",
+      "masteryKey": "text",
+      "lang": "zh-CN",
+      "count": 63,
+      "package": "core-pinyin-2026.08.19",
+      "banks": [
+        { "id": "pinyin", "path": "识字/pinyin-initial-bank.json" }
+      ]
+    },
+    {
+      "id": "phonics",
+      "kind": "phonics",
+      "role": "side",
+      "track": "phonics",
+      "masteryKey": "text",
+      "lang": "en-US",
+      "count": 120,
+      "package": "core-phonics-2026.08.19",
+      "banks": [
+        { "id": "phonics-words", "path": "english/phonics/word-bank.json" },
+        { "id": "phonics-letters", "path": "english/phonics/letter-bank.json" }
+      ]
+    },
+    {
+      "id": "math",
+      "kind": "math",
+      "role": "side",
+      "track": "math",
+      "masteryKey": "id",
+      "lang": "zh-CN",
+      "count": 50,
+      "generated": true,
+      "package": "core-math-2026.08.19",
+      "banks": [
+        { "id": "math", "path": "数学/problem-bank.json" }
+      ]
+    }
+  ]
+}

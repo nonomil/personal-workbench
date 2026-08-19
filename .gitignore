@@ -22,6 +22,9 @@ current-english.png
 # Local game snapshots, not product
 prj/games/_backup/
 prj/games/*.zip
+
+# AGPL reference project, local-only, never commit (see docs/plans/T20260819-echoloop-borrow/)
+prj/games/Echo-Loop-main/
 prj/games/blocklegend/docs/
 prj/games/blocklegend/assets/img2threejs/
 **/.img2threejs/
@@ -49,10 +52,13 @@ prj/assets/generated/**/clean/
 docs/01-方案/学习项目设计/img/05-识字视觉优化/generated/_raw-*.png
 docs/01-方案/学习项目设计/img/05-识字视觉优化/generated/*.png
 
-# Unused local game leftovers
+# Unused local leftovers. blocklegend is an independent repo
+# (github.com/nonomil/blocklegend); this folder is a local working copy, not a git repo.
 prj/games/focus-arcade/
+prj/games/minewords-main/
 prj/games/blocklegend/
 tests/blocklegend.test.mjs
+tests/blocklegend-*.test.mjs
 prj/games/blocklegend/tools/
 prj/games/blocklegend/compare-four-view.html
 prj/games/blocklegend/review-roster.html

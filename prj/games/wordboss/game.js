@@ -116,7 +116,7 @@
         if (!state.battle || state.battle.over) return;
         state.battle = engine.applySkill(state.battle, currentSkill());
         if (bridge && typeof bridge.recordWordAnswer === 'function' && state.word) {
-            bridge.recordWordAnswer(state.word.text, true);
+            bridge.recordWordAnswer(state.word.text, true, { source: 'wordboss' });
         }
         if (state.battle.over === 'win' && bridge && typeof bridge.awardSunlight === 'function') {
             bridge.awardSunlight({ gameId: 'wordboss', reason: 'clear-' + currentBoss().id, eventKey: 'clear-' + currentBoss().id, amount: 8 });
@@ -136,7 +136,7 @@
             else render();
         } else {
             state.typed = '';
-            if (bridge && typeof bridge.recordWordAnswer === 'function') bridge.recordWordAnswer(state.word.text, false);
+            if (bridge && typeof bridge.recordWordAnswer === 'function') bridge.recordWordAnswer(state.word.text, false, { source: 'wordboss' });
             render();
         }
     });

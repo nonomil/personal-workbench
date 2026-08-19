@@ -36,6 +36,17 @@
   - [`T20260815-blocklegend-3d/`](./T20260815-blocklegend-3d/README.md) 新建 `prj/games/blocklegend/`（首版 S1–S6，待手玩验收）
   - [`T20260815-blocklegend-sim/`](./T20260815-blocklegend-sim/README.md) 薄商店 + 放置手（源头 `docs/01-方案/工作台小游戏设计/05-方块传奇/`，P1，**in-progress**）
   - [`T20260816-blocklegend-mc-polish/`](./T20260816-blocklegend-mc-polish/README.md) 画面对齐成熟体素项目：Fable5-mc 图集画法/顶点 AO/挖掘裂纹 + dgreenheck 流式区块、世界 128×128（P1，**review** 待手玩；参考仓已浅克隆 `tmp/voxel-refs/` 不入库）
+- Echo Loop（AGPL）借鉴批次（可参考源码但不复制代码；分析包 + 三个执行包，用户拍板 2026-08-19：mastery 间隔走方案 A 双轨）：
+  - [`T20260819-echoloop-borrow/`](./T20260819-echoloop-borrow/README.md) 方案分析包（**已完成**；含机制提炼、AGPL 口径、04 参数速查）。`Echo-Loop-main/` 已 gitignore 留本地参考
+  - [`T20260819-E1-speech-match/`](./T20260819-E1-speech-match/README.md) 共享跟读评测引擎（lemma+LCS 覆盖率+分场景阈值，接 Boss speak/练一句/跟读题；P0，**review**：S1–S3 代码已绿，手玩/独立仓未做）
+  - [`T20260819-W1-mastery-uplift/`](./T20260819-W1-mastery-uplift/README.md) 工作台调度升级方案 A（S1–S3 代码已绿，未手玩；不标 accepted）
+  - [`T20260819-E2-review-gate/`](./T20260819-E2-review-gate/README.md) 方块传奇复习之门+今日冒险+E3 切片（S1–S4 代码已绿，未手玩；独立仓未推）
+  - [`T20260819-E4-scene-loop/`](./T20260819-E4-scene-loop/README.md) 句子跟读关（练一句三遍循环，代码已绿，未手玩）
+  - 完整测试步骤：[`T20260819-echoloop-borrow/05-完整测试方案.md`](./T20260819-echoloop-borrow/05-完整测试方案.md)
+- 英语词包切换 + 多科配菜优化（源头 2026-08-19 各科题库接入分析；MC 324 词包零消费者是主发现）：
+  - [`T20260819-bank-switch-uplift/`](./T20260819-bank-switch-uplift/README.md) 家长页切生活/MC 词包 + 欠账 toast 指路老师 + 卡片墙显示游戏练习量 + 村庄碎词收敛（P0–P2，**review**：S1–S4 代码已绿，S5 手玩未做，不标 accepted）
+- 地下城式关卡循环 + 单词记忆状态（源头 `docs/01-方案/工作台小游戏设计/05-方块传奇/07-地下城式关卡与ANKI复习优化.md`，与 E2 共用词账本）：
+  - [`T20260819-dungeon-anki-uplift/`](./T20260819-dungeon-anki-uplift/README.md) 词级 Leitner 5 盒+词力 → 重玩三档难度 → 词卷轴隐藏关+营地 → 难词补救（P0/P1，**review**：D1–D4 代码已绿，未手玩，独立仓未推）
 - 《什么是真正的工作台》对照整改（只改三套工作台，不改独立游戏）：
   - **主包** [`T20260815-工作台对照整改/`](./T20260815-工作台对照整改/README.md) W1–W3 已落地待手点（**review**；合同 16/16）
   - 偏题包 [`T20260815-真正的工作台整改/`](./T20260815-真正的工作台整改/README.md) 误把 P1 做成 blocklegend 词学回流；代码已在、不算本轮工作台目标

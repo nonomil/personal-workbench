@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T15:50:54.785Z",
+  "generatedAt": "2026-08-19T01:50:05.458Z",
   "packages": [
     {
       "folder": "core-english-2026.08.15",
@@ -18,6 +18,46 @@
       "groups": 33,
       "images": 324,
       "audio": 110
+    },
+    {
+      "folder": "core-literacy-2026.08.19",
+      "title": "识字 · 1500 字",
+      "cards": 1500,
+      "chapters": 5,
+      "groups": 150,
+      "images": 0,
+      "audio": 0,
+      "subject": "literacy"
+    },
+    {
+      "folder": "core-pinyin-2026.08.19",
+      "title": "拼音 · 声韵 63",
+      "cards": 63,
+      "chapters": 5,
+      "groups": 9,
+      "images": 0,
+      "audio": 0,
+      "subject": "pinyin"
+    },
+    {
+      "folder": "core-phonics-2026.08.19",
+      "title": "自然拼读 · 词+字母",
+      "cards": 120,
+      "chapters": 5,
+      "groups": 14,
+      "images": 0,
+      "audio": 0,
+      "subject": "phonics"
+    },
+    {
+      "folder": "core-math-2026.08.19",
+      "title": "口算 · 静题 50",
+      "cards": 50,
+      "chapters": 5,
+      "groups": 5,
+      "images": 0,
+      "audio": 0,
+      "subject": "math"
     }
   ],
   "referenceFormat": "wordquest-vocab-2026.08.15"

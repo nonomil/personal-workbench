@@ -38,9 +38,8 @@ test('world game entries stay open even when required plans are unfinished', () 
     assert.doesNotMatch(today, /先完成今日必做/);
     assert.doesNotMatch(today, /disabled/);
     assert.match(today, /open-world-game/);
-    assert.match(today, /garden-defense/);
-    assert.match(today, /voxel-adventure/);
-    assert.match(today, /platform-quest/);
+    assert.match(today, /PRESCHOOL_WORLD_LAUNCH_IDS/);
+    assert.match(app, /PRESCHOOL_WORLD_LAUNCH_IDS = \['garden-defense', 'voxel-adventure', 'platform-quest'\]/);
     const openStart = app.indexOf('function openPreschoolWorldGame');
     const openEnd = app.indexOf('\n    function ', openStart + 10);
     const opener = app.slice(openStart, openEnd);
@@ -52,8 +51,9 @@ test('world game entries stay open even when required plans are unfinished', () 
     assert.doesNotMatch(exits, /先完成今日必做/);
     assert.doesNotMatch(exits, /disabled/);
     assert.doesNotMatch(app, /进入方块传奇/);
+    assert.doesNotMatch(today, /blocklegend/);
     assert.doesNotMatch(app, /先完成今日必做/);
     assert.match(wall, /preschool-course-today-adventure/);
-    assert.match(html, /app\.js\?v=20260818-phonics-zh-v1/);
+    assert.match(html, /app\.js\?v=20260819-v074/);
     assert.doesNotMatch(bridge, /pendingRewardIds|arePreschoolRequiredPlansDone/);
 });

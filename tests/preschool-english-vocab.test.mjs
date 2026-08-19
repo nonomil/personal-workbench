@@ -60,7 +60,8 @@ test('speak batch puts due review words first using 1/3/7/14 without SM-2', () =
     progress = vocab.recordQuizAnswer(progress, 'panda', { type: 'read', correct: true, date: '2026-08-14', rules: rules });
     progress = vocab.recordQuizAnswer(progress, 'panda', { type: 'spell', correct: true, date: '2026-08-14', rules: rules });
     assert.equal(progress.mastery.panda.state, 'ready');
-    assert.equal(progress.mastery.panda.nextReview, '2026-08-17');
+    assert.equal(progress.mastery.panda.planVersion, 2);
+    assert.equal(progress.mastery.panda.nextReview, '2026-08-16T12:00:00.000Z');
     const sameDay = vocab.buildSpeakBatch(bank, progress, rules, '2026-08-14', '', 5);
     assert.equal(sameDay.some(item => item.text === 'panda' && item.review), false);
     const dueDay = vocab.buildSpeakBatch(bank, progress, rules, '2026-08-17', '', 5);

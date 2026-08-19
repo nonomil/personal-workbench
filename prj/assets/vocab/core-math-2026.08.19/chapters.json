@@ -1,0 +1,240 @@
+{
+  "version": 2,
+  "generatedAt": "2026-08-19T01:50:05.458Z",
+  "buildIdentity": {
+    "batchId": "core-math-2026.08.19",
+    "manifestHash": "710fa9be17f7570c98b41fa51853a768a986ecca5b37df259fa89e744179f8c8",
+    "inputHash": "710fa9be17f7570c98b41fa51853a768a986ecca5b37df259fa89e744179f8c8",
+    "builderVersion": "export-question-packages@1"
+  },
+  "catalog": "catalog.json",
+  "chapters": [
+    {
+      "id": "core-math-2026.08.19-foundation",
+      "title": "起步",
+      "titleEn": "foundation",
+      "summary": "口算 起步：数数、比较和加减。",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "cardCount": 10,
+      "groups": [
+        {
+          "id": "core-math-2026.08.19-foundation-001",
+          "title": "起步 · 第 1 组",
+          "cardIds": [
+            "math-problem-01",
+            "math-problem-02",
+            "math-problem-03",
+            "math-problem-04",
+            "math-problem-05",
+            "math-problem-06",
+            "math-problem-07",
+            "math-problem-08",
+            "math-problem-09",
+            "math-problem-10"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "count-pick",
+            "typingGame": "kou-suan"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "counting",
+            "compare",
+            "compose",
+            "take-away",
+            "addition",
+            "grouping"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core-math-2026.08.19-expanding",
+      "title": "扩展",
+      "titleEn": "expanding",
+      "summary": "口算 扩展：数数、比较和加减。",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "cardCount": 10,
+      "groups": [
+        {
+          "id": "core-math-2026.08.19-expanding-001",
+          "title": "扩展 · 第 1 组",
+          "cardIds": [
+            "math-problem-11",
+            "math-problem-12",
+            "math-problem-13",
+            "math-problem-14",
+            "math-problem-15",
+            "math-problem-16",
+            "math-problem-17",
+            "math-problem-18",
+            "math-problem-19",
+            "math-problem-20"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "count-pick",
+            "typingGame": "kou-suan"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "compare"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core-math-2026.08.19-consolidating",
+      "title": "巩固",
+      "titleEn": "consolidating",
+      "summary": "口算 巩固：数数、比较和加减。",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "cardCount": 10,
+      "groups": [
+        {
+          "id": "core-math-2026.08.19-consolidating-001",
+          "title": "巩固 · 第 1 组",
+          "cardIds": [
+            "math-problem-21",
+            "math-problem-22",
+            "math-problem-23",
+            "math-problem-24",
+            "math-problem-25",
+            "math-problem-26",
+            "math-problem-27",
+            "math-problem-28",
+            "math-problem-29",
+            "math-problem-30"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "count-pick",
+            "typingGame": "kou-suan"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "addition",
+            "take-away"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core-math-2026.08.19-challenge",
+      "title": "挑战",
+      "titleEn": "challenge",
+      "summary": "口算 挑战：数数、比较和加减。",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "cardCount": 10,
+      "groups": [
+        {
+          "id": "core-math-2026.08.19-challenge-001",
+          "title": "挑战 · 第 1 组",
+          "cardIds": [
+            "math-problem-31",
+            "math-problem-32",
+            "math-problem-33",
+            "math-problem-34",
+            "math-problem-35",
+            "math-problem-36",
+            "math-problem-37",
+            "math-problem-38",
+            "math-problem-39",
+            "math-problem-40"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "count-pick",
+            "typingGame": "kou-suan"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "take-away"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core-math-2026.08.19-mixed",
+      "title": "综合",
+      "titleEn": "mixed",
+      "summary": "口算 综合：数数、比较和加减。",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "count-pick",
+        "typingGame": "kou-suan"
+      },
+      "cardCount": 10,
+      "groups": [
+        {
+          "id": "core-math-2026.08.19-mixed-001",
+          "title": "综合 · 第 1 组",
+          "cardIds": [
+            "math-problem-41",
+            "math-problem-42",
+            "math-problem-43",
+            "math-problem-44",
+            "math-problem-45",
+            "math-problem-46",
+            "math-problem-47",
+            "math-problem-48",
+            "math-problem-49",
+            "math-problem-50"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "count-pick",
+            "typingGame": "kou-suan"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "addition",
+            "take-away"
+          ]
+        }
+      ]
+    }
+  ]
+}

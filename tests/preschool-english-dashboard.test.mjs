@@ -69,12 +69,16 @@ test('summarizeEnglishDashboard returns stable zero values without history', () 
 test('english dashboard exposes a direct practice loop and parent review routes', () => {
     const app = fs.readFileSync(path.join(repoRoot, 'prj', 'app.js'), 'utf8');
     const css = fs.readFileSync(path.join(repoRoot, 'prj', 'css', 'preschool-workbench.css'), 'utf8');
+    const dashboardCss = fs.readFileSync(path.join(repoRoot, 'prj', 'css', 'preschool', '42-english-dashboard.css'), 'utf8');
     const html = fs.readFileSync(path.join(repoRoot, 'prj', 'preschool-workbench', 'index.html'), 'utf8');
 
     assert.match(app, /function getEnglishDashboardView\(/);
     assert.match(app, /function renderPreschoolEnglishDashboard\(/);
     assert.match(app, /英语词汇启蒙/);
     assert.match(app, /开始今日测评/);
+    assert.match(app, /今天练这个/);
+    assert.match(app, /今日已完成/);
+    assert.match(app, /selectTodayTasks/);
     assert.match(app, /open-english-wrongbook/);
     assert.match(app, /open-english-archive/);
     assert.match(app, /听音/);
@@ -86,5 +90,6 @@ test('english dashboard exposes a direct practice loop and parent review routes'
     assert.match(app, /连续学习/);
     assert.match(app, /data-action="open-lesson"/);
     assert.match(css, /42-english-dashboard\.css/);
+    assert.match(dashboardCss, /english-dashboard-today-card/);
     assert.match(html, /42-english-dashboard\.css/);
 });

@@ -108,7 +108,7 @@ test('self-assess markKnown still reaches ready so 我的词库 and game backflo
     const progress = vocab.markKnown(vocab.createDefaultProgress(), 'hello', true, '2026-08-16', rules);
     assert.equal(progress.mastery.hello.state, 'ready');
     assert.equal(progress.mastery.hello.sunlightDelta, 0);
-    assert.equal(progress.mastery.hello.nextReview, '2026-08-19');
+    assert.equal(progress.mastery.hello.nextReview, '2026-08-16T18:00:00.000Z');
     assert.equal((progress.mastery.hello.quiz && progress.mastery.hello.quiz.listen.correct) || 0, 0);
 });
 
@@ -125,7 +125,7 @@ test('recordQuizAnswer writes buckets and ready needs 3 correct across 2 types',
     progress = vocab.recordQuizAnswer(progress, 'cat', { type: 'spell', correct: true, date: '2026-08-16', rules: rules });
     assert.equal(progress.mastery.cat.state, 'ready');
     assert.equal(progress.mastery.cat.correct, 3);
-    assert.equal(progress.mastery.cat.nextReview, '2026-08-19');
+    assert.equal(progress.mastery.cat.nextReview, '2026-08-18T12:00:00.000Z');
 });
 
 test('wrong quiz answers increment attempts only and expose errorType', () => {

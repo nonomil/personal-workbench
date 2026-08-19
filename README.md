@@ -2,8 +2,9 @@
 
 一个独立的中文个人学习/成长工作台目录，内含三套可独立打开的 Vanilla JS 工作台：成人成长工作台、儿童学习工作台和阳光成长工作台。根入口额外提供五个选择入口：上方三个幼儿游戏世界（植物大战僵尸式花园、我的世界式方块探险、马里奥式横版闯关），下方两个通用工作台（成人、少儿）。设计参考胡楚靓风格工作台案例、用户提供的小红书公开学习工作台案例和公众号教程整理而来。
 
-当前源码发布候选：`v0.7.3`。
+当前源码发布候选：`v0.7.4`。
 
+- [v0.7.4 发布说明](docs/04-发布/v0.7.4.md)
 - [v0.7.3 发布说明](docs/04-发布/v0.7.3.md)
 - [v0.7.2 发布说明](docs/04-发布/v0.7.2.md)
 - [v0.7.1 发布说明](docs/04-发布/v0.7.1.md)
@@ -27,7 +28,7 @@
 
 - [Actions 构建页面](https://github.com/nonomil/personal-workbench/actions/workflows/android-apk.yml)：推送 `main` 会自动编译并上传 APK artifact，也可以点击 `Run workflow` 手动编译。
 - 推送 `v*` 标签会自动构建，并把正式签名 APK 附加到对应 GitHub Release。
-- 构建产物是 `assembleRelease` 包：`versionName` 跟 `package.json`，`versionCode` 按 `0.7.3 → 703` 递增；签名钥匙只放在 GitHub Secrets。
+- 构建产物是 `assembleRelease` 包：`versionName` 跟 `package.json`，`versionCode` 按 `0.7.4 → 704` 递增；签名钥匙只放在 GitHub Secrets。
 
 本地构建需要 Node.js 22、Java 21 和 Android SDK：
 

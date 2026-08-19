@@ -445,8 +445,11 @@
     const PRESCHOOL_WORLD_GAME_LINKS = {
         'garden-defense': { href: '../games/garden-defense/index.html', label: '花园保卫', unit: '关', total: 18 },
         'voxel-adventure': { href: '../games/voxel-craft/index.html', label: '方块世界', unit: '任务', total: 18 },
-        'platform-quest': { href: '../games/platform-quest/index.html', label: '横版闯关', unit: '关', total: 16 }
+        'platform-quest': { href: '../games/platform-quest/index.html', label: '横版闯关', unit: '关', total: 16 },
+        'blocklegend': { href: '../games/blocklegend/index.html', label: '方块传奇 · 学英语', unit: '关', total: 12 }
     };
+    // APK / 平板启动页只开这三界。方块传奇要指针锁和键盘，不进打包清单。
+    const PRESCHOOL_WORLD_LAUNCH_IDS = ['garden-defense', 'voxel-adventure', 'platform-quest'];
     const DAILY_GAME_SUN_CAP = 80;
 
     function arePreschoolRequiredPlansDone(plans) {
@@ -497,7 +500,7 @@
         const worldGames = (state.growth && state.growth.worldGames && typeof state.growth.worldGames === 'object')
             ? state.growth.worldGames
             : {};
-        return ['garden-defense', 'voxel-adventure', 'platform-quest'].map(function (id) {
+        return PRESCHOOL_WORLD_LAUNCH_IDS.map(function (id) {
             const meta = PRESCHOOL_WORLD_GAME_LINKS[id];
             const prog = worldGames[id] && typeof worldGames[id] === 'object' ? worldGames[id] : {};
             let done = 0;
@@ -584,7 +587,9 @@
                 ? Math.max(0, Math.min(100, Math.round((meta.adventurePoints / next.need) * 100)))
                 : 100;
             const weekPct = Math.max(0, Math.min(100, Math.round((meta.weekly.playedDays / meta.weekly.goalPlayDays) * 100)));
-            const stamps = (meta.todayWorlds || []).map(function (w) {
+            const stamps = (meta.todayWorlds || []).filter(function (w) {
+                return PRESCHOOL_WORLD_LAUNCH_IDS.indexOf(w.id) >= 0;
+            }).map(function (w) {
                 const labels = { 'garden-defense': '花园', 'voxel-adventure': '方块', 'platform-quest': '闯关' };
                 return `<span class="preschool-adventure-stamp ${w.played ? 'is-on' : ''}">${labels[w.id] || w.id}${w.played ? '✓' : ''}</span>`;
             }).join('');
@@ -1627,7 +1632,9 @@
                 : day.isFuture ? `${day.date} 还没到` : `${day.date} 未玩`;
             return `<span class="preschool-weekly-day is-${tone}" title="${escapeHtml(title)}"><small>周${escapeHtml(day.weekday)}</small><b>${escapeHtml(day.date.slice(8))}</b><i>${day.isTriple ? '③' : day.played ? '●' : '·'}</i></span>`;
         }).join('');
-        const worldRows = (report.worlds || []).map(function (w) {
+        const worldRows = (report.worlds || []).filter(function (w) {
+            return PRESCHOOL_WORLD_LAUNCH_IDS.indexOf(w.id) >= 0;
+        }).map(function (w) {
             return `<article class="preschool-weekly-world theme-${escapeHtml(w.id)}">
                 <div class="preschool-weekly-world-head"><strong>${escapeHtml(w.label)}</strong><span>本周 ${w.playDays} 天</span></div>
                 <div class="preschool-world-progress-bar" role="progressbar" aria-valuenow="${w.percent}" aria-valuemin="0" aria-valuemax="100"><i style="width:${w.percent}%"></i></div>
@@ -4420,6 +4427,30 @@
         return 0;
     }
 
+    function countTodayGamePractice(track) {
+        const today = storage.localDate();
+        const mastery = state.courseProgress && state.courseProgress[track] && state.courseProgress[track].mastery;
+        if (!mastery || typeof mastery !== 'object') return 0;
+        return Object.keys(mastery).filter(function (key) {
+            const dates = mastery[key] && mastery[key].dates;
+            return Array.isArray(dates) && dates.indexOf(today) >= 0;
+        }).length;
+    }
+
+    function renderTodayGamePracticeLine(course) {
+        const map = {
+            'preschool-literacy': 'literacy',
+            'preschool-pinyin': 'pinyin',
+            'preschool-phonics': 'phonics',
+            'preschool-math': 'math'
+        };
+        const track = map[course && course.id];
+        if (!track) return '';
+        const n = countTodayGamePractice(track);
+        if (!n) return '';
+        return `<small class="preschool-course-wall-game">今日游戏里练 ${n} 道</small>`;
+    }
+
     function renderPreschoolLiteracyMastery(course) {
         if (!course || course.id !== 'preschool-literacy') return '';
         const engine = getLiteracyEngine();
@@ -4433,7 +4464,7 @@
         const track = getCourseTrackProgress(course.id);
         const maxLevel = track && track.maxUnlocked ? track.maxUnlocked : 'L1';
         const due = countDueReviews(course.id);
-        return `<div class="preschool-literacy-mastery" aria-label="识字会了还不会"><span>会了 ${summary.known}</span><span>还不会 ${summary.unknown}</span><span>还没点 ${unseen}</span><span class="is-review">今天再认 ${due}</span><span>已开到 ${escapeHtml(maxLevel)}</span></div>`;
+        return `<div class="preschool-literacy-mastery" aria-label="识字会了还不会"><span>会了 ${summary.known}</span><span>还不会 ${summary.unknown}</span><span>还没点 ${unseen}</span><span class="is-review">今天再认 ${due}</span><span>已开到 ${escapeHtml(maxLevel)}</span>${renderTodayGamePracticeLine(course)}</div>`;
     }
 
     function renderPreschoolEnglishMastery(course) {
@@ -4471,7 +4502,7 @@
             'preschool-math': '数学掌握',
             'preschool-exercise': '运动掌握'
         };
-        return `<div class="preschool-literacy-mastery" aria-label="${escapeHtml(labels[course.id] || '掌握进度')}"><span>会了 ${summary.known}</span><span>练过 ${summary.unknown}</span><span>还没点 ${summary.unseen}</span><span>已开到 ${escapeHtml(maxLevel)}</span></div>`;
+        return `<div class="preschool-literacy-mastery" aria-label="${escapeHtml(labels[course.id] || '掌握进度')}"><span>会了 ${summary.known}</span><span>练过 ${summary.unknown}</span><span>还没点 ${summary.unseen}</span><span>已开到 ${escapeHtml(maxLevel)}</span>${renderTodayGamePracticeLine(course)}</div>`;
     }
 
     function renderPreschoolCourseRoute(course) {
@@ -4536,7 +4567,7 @@
         const levelMark = course.id !== 'preschool-english' && course.id !== 'preschool-minecraft' && (PRESCHOOL_LEVEL_BAND_COURSES.has(course.id) || PRESCHOOL_FLASHCARD_COURSES.has(course.id))
             ? `<small class="preschool-course-wall-level">${escapeHtml(formatPracticeLevelCaption(course.id))}</small>`
             : '';
-        return `<button class="preschool-course-wall-card tone-${escapeHtml(course.tone || 'blue')}" type="button" data-action="navigate" data-page="courses" data-course-id="${escapeHtml(course.id)}" aria-label="打开${escapeHtml(course.title)}"><span class="preschool-course-wall-art" aria-hidden="true">${art}</span><strong>${escapeHtml(getPreschoolCourseShortTitle(course))}</strong>${levelMark}<small class="preschool-course-wall-preview">${escapeHtml(getPreschoolCourseTodayPreview(course))}</small><span class="preschool-course-wall-dots" role="progressbar" aria-label="${escapeHtml(course.title)}完成度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${completion.percent}">${dots}</span><span class="preschool-course-wall-state is-${status}" data-route-state="${status}">${statusLabel}</span></button>`;
+        return `<button class="preschool-course-wall-card tone-${escapeHtml(course.tone || 'blue')}" type="button" data-action="navigate" data-page="courses" data-course-id="${escapeHtml(course.id)}" aria-label="打开${escapeHtml(course.title)}"><span class="preschool-course-wall-art" aria-hidden="true">${art}</span><strong>${escapeHtml(getPreschoolCourseShortTitle(course))}</strong>${levelMark}<small class="preschool-course-wall-preview">${escapeHtml(getPreschoolCourseTodayPreview(course))}</small>${renderTodayGamePracticeLine(course)}<span class="preschool-course-wall-dots" role="progressbar" aria-label="${escapeHtml(course.title)}完成度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${completion.percent}">${dots}</span><span class="preschool-course-wall-state is-${status}" data-route-state="${status}">${statusLabel}</span></button>`;
     }
 
     function renderPreschoolCourseMediaWallCard(course) {
@@ -4581,7 +4612,7 @@
         const requiredList = required.map(function (item) {
             return `<li class="${item.done ? 'is-done' : ''}">${escapeHtml(item.title)}</li>`;
         }).join('');
-        const worlds = ['garden-defense', 'voxel-adventure', 'platform-quest'].map(function (id) {
+        const worlds = PRESCHOOL_WORLD_LAUNCH_IDS.map(function (id) {
             const link = PRESCHOOL_WORLD_GAME_LINKS[id] || { label: id };
             return `<button class="preschool-course-today-world" type="button" data-action="open-world-game" data-theme-id="${escapeHtml(id)}">${escapeHtml(link.label)}</button>`;
         }).join('');
@@ -4729,6 +4760,9 @@
             : [];
         const stage = summary.currentStage || { level: 'L1', label: '起步', total: 0, ready: 0, percent: 0 };
         const media = resolvePreschoolCardMedia(featured);
+        const todayTasks = typeof engine.selectTodayTasks === 'function'
+            ? engine.selectTodayTasks(progress.mastery, today, 3, bank)
+            : { items: [], reviewCount: 0, newCount: 0, minutes: 0, done: false, empty: !bank.length };
         return {
             engine: engine,
             bank: bank,
@@ -4739,8 +4773,24 @@
             featuredMedia: media.markup || `<span class="english-dashboard-fallback-art" aria-hidden="true">${icon('languages')}</span>`,
             mistakes: mistakes,
             dueCount: Number(daily.dueCount) || summary.reviewing || 0,
+            todayTasks: todayTasks,
             lessonId: 'preschool-english-words-1'
         };
+    }
+
+    function renderEnglishTodayTaskCard(view) {
+        const tasks = view && view.todayTasks ? view.todayTasks : {};
+        const streak = Number(view && view.summary && view.summary.currentStreak) || 0;
+        const lessonId = escapeHtml((view && view.lessonId) || 'preschool-english-words-1');
+        if (tasks.empty) {
+            return `<section class="english-dashboard-today-card is-empty" aria-label="今天练这个"><div><span class="eyebrow">TODAY / START</span><h2>今天练这个</h2><p>先认识几个词，今天就能练。</p></div><button class="btn-primary" type="button" data-action="open-lesson" data-id="${lessonId}">${icon('play')}<span>开始认识</span></button></section>`;
+        }
+        if (tasks.done) {
+            return `<section class="english-dashboard-today-card is-done" aria-label="今天练这个"><div><span class="eyebrow">TODAY / DONE</span><h2>今日已完成 · 连续 ${streak} 天</h2><p>今天的词练完了，明天再来。</p></div></section>`;
+        }
+        const count = Array.isArray(tasks.items) ? tasks.items.length : 0;
+        const minutes = Number(tasks.minutes) || 0;
+        return `<section class="english-dashboard-today-card" aria-label="今天练这个"><div><span class="eyebrow">TODAY / TASK</span><h2>今天练这个</h2><p>复习 ${count} 个词（约 ${minutes} 分钟）</p></div><button class="btn-primary" type="button" data-action="open-lesson" data-id="${lessonId}">${icon('play')}<span>开始练习</span></button></section>`;
     }
 
     function renderPreschoolEnglishDashboard(course) {
@@ -4761,6 +4811,7 @@
             return `<span class="english-dashboard-ability">${icon(entry[0])}<b>${entry[1]}</b></span>`;
         }).join('');
         return `<section class="english-dashboard" aria-labelledby="english-dashboard-title">
+            ${renderEnglishTodayTaskCard(view)}
             <div class="english-dashboard-hero">
                 <div class="english-dashboard-hero-copy">
                     <span class="eyebrow">LEARN / ENGLISH WORDS</span>

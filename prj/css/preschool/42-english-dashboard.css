@@ -1,5 +1,42 @@
 /* 42 · 英语认单词首页：把今日行动、复习和成长放在同一条路径上 */
 
+.english-dashboard-today-card {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 18px;
+    padding: 16px 18px;
+    border: 1px solid rgba(72, 143, 86, 0.28);
+    border-radius: 22px;
+    background: linear-gradient(135deg, #fff8d8 0%, #eaf7df 62%, #fffdf7 100%);
+    box-shadow: 0 10px 24px rgba(45, 82, 53, 0.08);
+}
+
+.english-dashboard-today-card .eyebrow {
+    color: var(--english-green, #2d8748);
+    letter-spacing: 0.11em;
+}
+
+.english-dashboard-today-card h2 {
+    margin: 4px 0 2px;
+    font-size: clamp(1.15rem, 2.4vw, 1.45rem);
+    letter-spacing: -0.03em;
+}
+
+.english-dashboard-today-card p {
+    margin: 0;
+    color: var(--english-muted, #6e816d);
+}
+
+.english-dashboard-today-card.is-done {
+    background: linear-gradient(135deg, #eaf7df 0%, #fffdf7 100%);
+}
+
+.english-dashboard-today-card.is-empty {
+    background: #fffdf7;
+}
+
 .english-dashboard {
     --english-ink: #214633;
     --english-muted: #6e816d;
@@ -401,6 +438,8 @@
 }
 
 @media (max-width: 560px) {
+    .english-dashboard-today-card { padding: 13px 14px; border-radius: 18px; }
+    .english-dashboard-today-card .btn-primary { width: 100%; justify-content: center; }
     .english-dashboard { gap: 10px; }
     .english-dashboard-hero { grid-template-columns: 1fr; padding: 20px 17px; border-radius: 24px; }
     .english-dashboard-hero-copy { gap: 10px; }

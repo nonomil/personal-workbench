@@ -1,0 +1,4771 @@
+{
+  "version": 2,
+  "generatedAt": "2026-08-19T01:50:05.458Z",
+  "buildIdentity": {
+    "batchId": "core-literacy-2026.08.19",
+    "manifestHash": "61e65a9d637899116b36aa3e2f8147637b9549bf50d22583f9e92b3ff48ee640",
+    "inputHash": "61e65a9d637899116b36aa3e2f8147637b9549bf50d22583f9e92b3ff48ee640",
+    "builderVersion": "export-question-packages@1"
+  },
+  "catalog": "catalog.json",
+  "chapters": [
+    {
+      "id": "core-literacy-2026.08.19-foundation",
+      "title": "起步",
+      "titleEn": "foundation",
+      "summary": "识字 起步：认字、拼音和组词。",
+      "difficulty": 1,
+      "difficultyBand": "foundation",
+      "gamePolicy": {
+        "recognitionGame": "word-tablet",
+        "typingGame": "char-choice"
+      },
+      "cardCount": 300,
+      "groups": [
+        {
+          "id": "core-literacy-2026.08.19-foundation-001",
+          "title": "起步 · 第 1 组",
+          "cardIds": [
+            "zh-的",
+            "zh-一",
+            "zh-是",
+            "zh-不",
+            "zh-了",
+            "zh-在",
+            "zh-人",
+            "zh-有",
+            "zh-我",
+            "zh-他"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "number",
+            "self"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-foundation-002",
+          "title": "起步 · 第 2 组",
+          "cardIds": [
+            "zh-这",
+            "zh-个",
+            "zh-们",
+            "zh-中",
+            "zh-来",
+            "zh-上",
+            "zh-大",
+            "zh-为",
+            "zh-和",
+            "zh-国"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "quantity"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-foundation-003",
+          "title": "起步 · 第 3 组",
+          "cardIds": [
+            "zh-地",
+            "zh-到",
+            "zh-以",
+            "zh-说",
+            "zh-时",
+            "zh-要",
+            "zh-就",
+            "zh-出",
+            "zh-会",
+            "zh-可"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "nature",
+            "number",
+            "life",
+            "action"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-foundation-004",
+          "title": "起步 · 第 4 组",
+          "cardIds": [
+            "zh-也",
+            "zh-你",
+            "zh-对",
+            "zh-生",
+            "zh-能",
+            "zh-而",
+            "zh-子",
+            "zh-那",
+            "zh-得",
+            "zh-于"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "self",
+            "life",
+            "school",
+            "number",
+            "family",
+            "animal",
+            "color"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-foundation-005",
+          "title": "起步 · 第 5 组",
+          "cardIds": [
+            "zh-着",
+            "zh-下",
+            "zh-自",
+            "zh-之",
+            "zh-年",
+            "zh-过",
+            "zh-发",
+            "zh-后",
+            "zh-作",
+            "zh-里"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "body",
+            "school"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-foundation-006",
+          "title": "起步 · 第 6 组",
+          "cardIds": [
+            "zh-用",
+            "zh-道",
+            "zh-行",
+            "zh-所",
+            "zh-然",
+            "zh-家",
+            "zh-种",
+            "zh-事",
+            "zh-成",
+            "zh-方"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "number",
+            "nature",
+            "body"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-foundation-007",
+          "title": "起步 · 第 7 组",
+          "cardIds": [
+            "zh-多",
+            "zh-经",
+            "zh-么",
+            "zh-去",
+            "zh-法",
+            "zh-学",
+            "zh-如",
+            "zh-都",
+            "zh-同",
+            "zh-现"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "quantity",
+            "life",
+            "action"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-foundation-008",
+          "title": "起步 · 第 8 组",
+          "cardIds": [
+            "zh-当",
+            "zh-没",
+            "zh-动",
+            "zh-面",
+            "zh-起",
+            "zh-看",
+            "zh-定",
+            "zh-天",
+            "zh-分",
+            "zh-还"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "self",
+            "food",
+            "action",
+            "nature",
+            "number"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-foundation-009",
+          "title": "起步 · 第 9 组",
+          "cardIds": [
+            "zh-进",
+            "zh-好",
+            "zh-小",
+            "zh-部",
+            "zh-其",
+            "zh-些",
+            "zh-主",
+            "zh-样",
+            "zh-理",
+            "zh-心"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "action",
+            "self",
+            "quantity",
+            "life",
+            "body"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-foundation-010",
+          "title": "起步 · 第 10 组",
+          "cardIds": [
+            "zh-本",
+            "zh-前",
+            "zh-开",
+            "zh-但",
+            "zh-因",
+            "zh-只",
+            "zh-从",
+            "zh-想",
+            "zh-实",
+            "zh-日"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "school",
+            "life",
+            "animal",
+            "quantity",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-foundation-011",
+          "title": "起步 · 第 11 组",
+          "cardIds": [
+            "zh-军",
+            "zh-者",
+            "zh-意",
+            "zh-无",
+            "zh-力",
+            "zh-它",
+            "zh-与",
+            "zh-长",
+            "zh-把",
+            "zh-机"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "number",
+            "body",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-foundation-012",
+          "title": "起步 · 第 12 组",
+          "cardIds": [
+            "zh-十",
+            "zh-民",
+            "zh-第",
+            "zh-公",
+            "zh-此",
+            "zh-已",
+            "zh-工",
+            "zh-使",
+            "zh-情",
+            "zh-明"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "number",
+            "life",
+            "nature",
+            "animal"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-foundation-013",
+          "title": "起步 · 第 13 组",
+          "cardIds": [
+            "zh-性",
+            "zh-知",
+            "zh-全",
+            "zh-三",
+            "zh-又",
+            "zh-关",
+            "zh-点",
+            "zh-正",
+            "zh-业",
+            "zh-外"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature",
+            "number",
+            "body",
+            "school"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-foundation-014",
+          "title": "起步 · 第 14 组",
+          "cardIds": [
+            "zh-将",
+            "zh-两",
+            "zh-高",
+            "zh-间",
+            "zh-由",
+            "zh-问",
+            "zh-很",
+            "zh-最",
+            "zh-重",
+            "zh-并"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "quantity",
+            "action",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-foundation-015",
+          "title": "起步 · 第 15 组",
+          "cardIds": [
+            "zh-物",
+            "zh-手",
+            "zh-应",
+            "zh-战",
+            "zh-向",
+            "zh-头",
+            "zh-文",
+            "zh-体",
+            "zh-政",
+            "zh-美"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "body",
+            "nature",
+            "school",
+            "number"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-foundation-016",
+          "title": "起步 · 第 16 组",
+          "cardIds": [
+            "zh-相",
+            "zh-见",
+            "zh-被",
+            "zh-利",
+            "zh-什",
+            "zh-二",
+            "zh-等",
+            "zh-产",
+            "zh-或",
+            "zh-新"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "animal",
+            "number"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-foundation-017",
+          "title": "起步 · 第 17 组",
+          "cardIds": [
+            "zh-己",
+            "zh-制",
+            "zh-身",
+            "zh-果",
+            "zh-加",
+            "zh-西",
+            "zh-斯",
+            "zh-月",
+            "zh-话",
+            "zh-合"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "body",
+            "food",
+            "nature",
+            "school"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-foundation-018",
+          "title": "起步 · 第 18 组",
+          "cardIds": [
+            "zh-回",
+            "zh-特",
+            "zh-代",
+            "zh-内",
+            "zh-信",
+            "zh-表",
+            "zh-化",
+            "zh-老",
+            "zh-给",
+            "zh-世"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "action",
+            "life",
+            "color",
+            "family"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-foundation-019",
+          "title": "起步 · 第 19 组",
+          "cardIds": [
+            "zh-位",
+            "zh-次",
+            "zh-度",
+            "zh-门",
+            "zh-任",
+            "zh-常",
+            "zh-先",
+            "zh-海",
+            "zh-通",
+            "zh-教"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature",
+            "animal"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-foundation-020",
+          "title": "起步 · 第 20 组",
+          "cardIds": [
+            "zh-儿",
+            "zh-原",
+            "zh-东",
+            "zh-声",
+            "zh-提",
+            "zh-立",
+            "zh-及",
+            "zh-比",
+            "zh-员",
+            "zh-解"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "family",
+            "life",
+            "body",
+            "number"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-foundation-021",
+          "title": "起步 · 第 21 组",
+          "cardIds": [
+            "zh-水",
+            "zh-名",
+            "zh-真",
+            "zh-论",
+            "zh-处",
+            "zh-走",
+            "zh-义",
+            "zh-各",
+            "zh-入",
+            "zh-几"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "nature",
+            "school",
+            "life",
+            "action"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-foundation-022",
+          "title": "起步 · 第 22 组",
+          "cardIds": [
+            "zh-口",
+            "zh-认",
+            "zh-条",
+            "zh-平",
+            "zh-系",
+            "zh-气",
+            "zh-题",
+            "zh-活",
+            "zh-尔",
+            "zh-更"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "body",
+            "life",
+            "color",
+            "nature",
+            "number"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-foundation-023",
+          "title": "起步 · 第 23 组",
+          "cardIds": [
+            "zh-别",
+            "zh-打",
+            "zh-女",
+            "zh-变",
+            "zh-四",
+            "zh-神",
+            "zh-总",
+            "zh-何",
+            "zh-电",
+            "zh-数"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "action",
+            "family",
+            "number",
+            "nature",
+            "body"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-foundation-024",
+          "title": "起步 · 第 24 组",
+          "cardIds": [
+            "zh-安",
+            "zh-少",
+            "zh-报",
+            "zh-才",
+            "zh-结",
+            "zh-反",
+            "zh-受",
+            "zh-目",
+            "zh-太",
+            "zh-量"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "quantity",
+            "body"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-foundation-025",
+          "title": "起步 · 第 25 组",
+          "cardIds": [
+            "zh-再",
+            "zh-感",
+            "zh-建",
+            "zh-务",
+            "zh-做",
+            "zh-接",
+            "zh-必",
+            "zh-场",
+            "zh-件",
+            "zh-计"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "number",
+            "life",
+            "food"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-foundation-026",
+          "title": "起步 · 第 26 组",
+          "cardIds": [
+            "zh-管",
+            "zh-期",
+            "zh-市",
+            "zh-直",
+            "zh-德",
+            "zh-资",
+            "zh-命",
+            "zh-山",
+            "zh-金",
+            "zh-指"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature",
+            "color"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-foundation-027",
+          "title": "起步 · 第 27 组",
+          "cardIds": [
+            "zh-克",
+            "zh-许",
+            "zh-统",
+            "zh-区",
+            "zh-保",
+            "zh-至",
+            "zh-队",
+            "zh-形",
+            "zh-社",
+            "zh-便"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "number"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-foundation-028",
+          "title": "起步 · 第 28 组",
+          "cardIds": [
+            "zh-空",
+            "zh-决",
+            "zh-治",
+            "zh-展",
+            "zh-马",
+            "zh-科",
+            "zh-司",
+            "zh-五",
+            "zh-基",
+            "zh-眼"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "nature",
+            "life",
+            "body",
+            "animal",
+            "school",
+            "number"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-foundation-029",
+          "title": "起步 · 第 29 组",
+          "cardIds": [
+            "zh-书",
+            "zh-非",
+            "zh-则",
+            "zh-听",
+            "zh-白",
+            "zh-却",
+            "zh-界",
+            "zh-达",
+            "zh-光",
+            "zh-放"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "action",
+            "color",
+            "number",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-foundation-030",
+          "title": "起步 · 第 30 组",
+          "cardIds": [
+            "zh-强",
+            "zh-即",
+            "zh-像",
+            "zh-难",
+            "zh-且",
+            "zh-权",
+            "zh-思",
+            "zh-王",
+            "zh-象",
+            "zh-完"
+          ],
+          "cardCount": 10,
+          "difficulty": 1,
+          "difficultyBand": "foundation",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "body",
+            "nature"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core-literacy-2026.08.19-expanding",
+      "title": "扩展",
+      "titleEn": "expanding",
+      "summary": "识字 扩展：认字、拼音和组词。",
+      "difficulty": 2,
+      "difficultyBand": "expanding",
+      "gamePolicy": {
+        "recognitionGame": "word-tablet",
+        "typingGame": "char-choice"
+      },
+      "cardCount": 300,
+      "groups": [
+        {
+          "id": "core-literacy-2026.08.19-expanding-001",
+          "title": "扩展 · 第 1 组",
+          "cardIds": [
+            "zh-设",
+            "zh-式",
+            "zh-色",
+            "zh-路",
+            "zh-记",
+            "zh-南",
+            "zh-品",
+            "zh-住",
+            "zh-告",
+            "zh-类"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "number",
+            "school"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-expanding-002",
+          "title": "扩展 · 第 2 组",
+          "cardIds": [
+            "zh-求",
+            "zh-据",
+            "zh-程",
+            "zh-北",
+            "zh-边",
+            "zh-死",
+            "zh-张",
+            "zh-该",
+            "zh-交",
+            "zh-规"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "school"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-expanding-003",
+          "title": "扩展 · 第 3 组",
+          "cardIds": [
+            "zh-万",
+            "zh-取",
+            "zh-拉",
+            "zh-格",
+            "zh-望",
+            "zh-觉",
+            "zh-术",
+            "zh-领",
+            "zh-共",
+            "zh-确"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "number",
+            "life",
+            "body"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-expanding-004",
+          "title": "扩展 · 第 4 组",
+          "cardIds": [
+            "zh-传",
+            "zh-师",
+            "zh-观",
+            "zh-清",
+            "zh-今",
+            "zh-切",
+            "zh-院",
+            "zh-让",
+            "zh-识",
+            "zh-候"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "family",
+            "color"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-expanding-005",
+          "title": "扩展 · 第 5 组",
+          "cardIds": [
+            "zh-带",
+            "zh-导",
+            "zh-争",
+            "zh-运",
+            "zh-笑",
+            "zh-飞",
+            "zh-风",
+            "zh-步",
+            "zh-改",
+            "zh-收"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "action",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-expanding-006",
+          "title": "扩展 · 第 6 组",
+          "cardIds": [
+            "zh-根",
+            "zh-干",
+            "zh-造",
+            "zh-言",
+            "zh-联",
+            "zh-持",
+            "zh-组",
+            "zh-每",
+            "zh-济",
+            "zh-车"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-expanding-007",
+          "title": "扩展 · 第 7 组",
+          "cardIds": [
+            "zh-亲",
+            "zh-极",
+            "zh-林",
+            "zh-服",
+            "zh-快",
+            "zh-办",
+            "zh-议",
+            "zh-往",
+            "zh-元",
+            "zh-英"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "family",
+            "life",
+            "action"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-expanding-008",
+          "title": "扩展 · 第 8 组",
+          "cardIds": [
+            "zh-士",
+            "zh-证",
+            "zh-近",
+            "zh-失",
+            "zh-转",
+            "zh-夫",
+            "zh-令",
+            "zh-准",
+            "zh-布",
+            "zh-怎"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "action"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-expanding-009",
+          "title": "扩展 · 第 9 组",
+          "cardIds": [
+            "zh-存",
+            "zh-未",
+            "zh-远",
+            "zh-叫",
+            "zh-台",
+            "zh-单",
+            "zh-影",
+            "zh-具",
+            "zh-罗",
+            "zh-字"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "action",
+            "number",
+            "nature",
+            "school"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-expanding-010",
+          "title": "扩展 · 第 10 组",
+          "cardIds": [
+            "zh-爱",
+            "zh-击",
+            "zh-流",
+            "zh-备",
+            "zh-兵",
+            "zh-连",
+            "zh-调",
+            "zh-深",
+            "zh-商",
+            "zh-算"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "self",
+            "life",
+            "nature",
+            "school"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-expanding-011",
+          "title": "扩展 · 第 11 组",
+          "cardIds": [
+            "zh-质",
+            "zh-团",
+            "zh-集",
+            "zh-百",
+            "zh-需",
+            "zh-价",
+            "zh-花",
+            "zh-党",
+            "zh-华",
+            "zh-城"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "number",
+            "nature",
+            "animal"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-expanding-012",
+          "title": "扩展 · 第 12 组",
+          "cardIds": [
+            "zh-石",
+            "zh-级",
+            "zh-整",
+            "zh-府",
+            "zh-离",
+            "zh-况",
+            "zh-亚",
+            "zh-请",
+            "zh-技",
+            "zh-际"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "nature",
+            "life"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-expanding-013",
+          "title": "扩展 · 第 13 组",
+          "cardIds": [
+            "zh-约",
+            "zh-示",
+            "zh-复",
+            "zh-病",
+            "zh-息",
+            "zh-究",
+            "zh-线",
+            "zh-似",
+            "zh-官",
+            "zh-火"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-expanding-014",
+          "title": "扩展 · 第 14 组",
+          "cardIds": [
+            "zh-断",
+            "zh-精",
+            "zh-满",
+            "zh-支",
+            "zh-视",
+            "zh-消",
+            "zh-越",
+            "zh-器",
+            "zh-容",
+            "zh-照"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "nature",
+            "life"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-expanding-015",
+          "title": "扩展 · 第 15 组",
+          "cardIds": [
+            "zh-须",
+            "zh-九",
+            "zh-增",
+            "zh-研",
+            "zh-写",
+            "zh-称",
+            "zh-企",
+            "zh-八",
+            "zh-功",
+            "zh-包"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "number",
+            "action"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-expanding-016",
+          "title": "扩展 · 第 16 组",
+          "cardIds": [
+            "zh-片",
+            "zh-史",
+            "zh-委",
+            "zh-乎",
+            "zh-查",
+            "zh-轻",
+            "zh-易",
+            "zh-早",
+            "zh-曾",
+            "zh-除"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "number",
+            "life",
+            "school"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-expanding-017",
+          "title": "扩展 · 第 17 组",
+          "cardIds": [
+            "zh-农",
+            "zh-找",
+            "zh-装",
+            "zh-广",
+            "zh-显",
+            "zh-阿",
+            "zh-李",
+            "zh-标",
+            "zh-谈",
+            "zh-吃"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "food",
+            "life",
+            "family",
+            "color",
+            "action"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-expanding-018",
+          "title": "扩展 · 第 18 组",
+          "cardIds": [
+            "zh-图",
+            "zh-念",
+            "zh-六",
+            "zh-引",
+            "zh-历",
+            "zh-首",
+            "zh-医",
+            "zh-局",
+            "zh-突",
+            "zh-专"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "number",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-expanding-019",
+          "title": "扩展 · 第 19 组",
+          "cardIds": [
+            "zh-费",
+            "zh-号",
+            "zh-尽",
+            "zh-另",
+            "zh-周",
+            "zh-较",
+            "zh-注",
+            "zh-语",
+            "zh-仅",
+            "zh-考"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "color",
+            "life",
+            "animal"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-expanding-020",
+          "title": "扩展 · 第 20 组",
+          "cardIds": [
+            "zh-落",
+            "zh-青",
+            "zh-随",
+            "zh-选",
+            "zh-列",
+            "zh-武",
+            "zh-红",
+            "zh-响",
+            "zh-虽",
+            "zh-推"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "number",
+            "food",
+            "life",
+            "color",
+            "action"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-expanding-021",
+          "title": "扩展 · 第 21 组",
+          "cardIds": [
+            "zh-势",
+            "zh-参",
+            "zh-希",
+            "zh-古",
+            "zh-众",
+            "zh-构",
+            "zh-房",
+            "zh-半",
+            "zh-节",
+            "zh-土"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "nature",
+            "life"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-expanding-022",
+          "title": "扩展 · 第 22 组",
+          "cardIds": [
+            "zh-投",
+            "zh-某",
+            "zh-案",
+            "zh-黑",
+            "zh-维",
+            "zh-革",
+            "zh-划",
+            "zh-敌",
+            "zh-致",
+            "zh-陈"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature",
+            "color"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-expanding-023",
+          "title": "扩展 · 第 23 组",
+          "cardIds": [
+            "zh-律",
+            "zh-足",
+            "zh-态",
+            "zh-护",
+            "zh-七",
+            "zh-兴",
+            "zh-派",
+            "zh-孩",
+            "zh-验",
+            "zh-责"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "body",
+            "number",
+            "self"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-expanding-024",
+          "title": "扩展 · 第 24 组",
+          "cardIds": [
+            "zh-营",
+            "zh-星",
+            "zh-够",
+            "zh-章",
+            "zh-音",
+            "zh-跟",
+            "zh-志",
+            "zh-底",
+            "zh-站",
+            "zh-严"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature",
+            "action"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-expanding-025",
+          "title": "扩展 · 第 25 组",
+          "cardIds": [
+            "zh-巴",
+            "zh-例",
+            "zh-防",
+            "zh-族",
+            "zh-供",
+            "zh-效",
+            "zh-续",
+            "zh-施",
+            "zh-留",
+            "zh-讲"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "color",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-expanding-026",
+          "title": "扩展 · 第 26 组",
+          "cardIds": [
+            "zh-型",
+            "zh-料",
+            "zh-终",
+            "zh-答",
+            "zh-紧",
+            "zh-黄",
+            "zh-绝",
+            "zh-奇",
+            "zh-察",
+            "zh-母"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "school",
+            "food",
+            "color",
+            "action",
+            "family"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-expanding-027",
+          "title": "扩展 · 第 27 组",
+          "cardIds": [
+            "zh-京",
+            "zh-段",
+            "zh-依",
+            "zh-批",
+            "zh-群",
+            "zh-项",
+            "zh-故",
+            "zh-按",
+            "zh-河",
+            "zh-米"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature",
+            "color",
+            "body",
+            "food"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-expanding-028",
+          "title": "扩展 · 第 28 组",
+          "cardIds": [
+            "zh-围",
+            "zh-江",
+            "zh-织",
+            "zh-害",
+            "zh-斗",
+            "zh-双",
+            "zh-境",
+            "zh-客",
+            "zh-纪",
+            "zh-采"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature",
+            "animal",
+            "color"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-expanding-029",
+          "title": "扩展 · 第 29 组",
+          "cardIds": [
+            "zh-举",
+            "zh-杀",
+            "zh-攻",
+            "zh-父",
+            "zh-苏",
+            "zh-密",
+            "zh-低",
+            "zh-朝",
+            "zh-友",
+            "zh-诉"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "body",
+            "life",
+            "action",
+            "family",
+            "color"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-expanding-030",
+          "title": "扩展 · 第 30 组",
+          "cardIds": [
+            "zh-止",
+            "zh-细",
+            "zh-愿",
+            "zh-千",
+            "zh-值",
+            "zh-仍",
+            "zh-男",
+            "zh-钱",
+            "zh-破",
+            "zh-网"
+          ],
+          "cardCount": 10,
+          "difficulty": 2,
+          "difficultyBand": "expanding",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "number",
+            "nature"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core-literacy-2026.08.19-consolidating",
+      "title": "巩固",
+      "titleEn": "consolidating",
+      "summary": "识字 巩固：认字、拼音和组词。",
+      "difficulty": 3,
+      "difficultyBand": "consolidating",
+      "gamePolicy": {
+        "recognitionGame": "word-tablet",
+        "typingGame": "char-choice"
+      },
+      "cardCount": 300,
+      "groups": [
+        {
+          "id": "core-literacy-2026.08.19-consolidating-001",
+          "title": "巩固 · 第 1 组",
+          "cardIds": [
+            "zh-热",
+            "zh-助",
+            "zh-倒",
+            "zh-育",
+            "zh-属",
+            "zh-坐",
+            "zh-帝",
+            "zh-限",
+            "zh-船",
+            "zh-脸"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "nature",
+            "life",
+            "action",
+            "color",
+            "body"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-consolidating-002",
+          "title": "巩固 · 第 2 组",
+          "cardIds": [
+            "zh-职",
+            "zh-速",
+            "zh-刻",
+            "zh-乐",
+            "zh-否",
+            "zh-刚",
+            "zh-威",
+            "zh-毛",
+            "zh-状",
+            "zh-率"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "action",
+            "school"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-consolidating-003",
+          "title": "巩固 · 第 3 组",
+          "cardIds": [
+            "zh-甚",
+            "zh-独",
+            "zh-球",
+            "zh-般",
+            "zh-普",
+            "zh-怕",
+            "zh-弹",
+            "zh-校",
+            "zh-苦",
+            "zh-创"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "family",
+            "animal",
+            "body",
+            "school",
+            "food"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-consolidating-004",
+          "title": "巩固 · 第 4 组",
+          "cardIds": [
+            "zh-假",
+            "zh-久",
+            "zh-错",
+            "zh-承",
+            "zh-印",
+            "zh-晚",
+            "zh-兰",
+            "zh-试",
+            "zh-股",
+            "zh-拿"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "body",
+            "school"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-consolidating-005",
+          "title": "巩固 · 第 5 组",
+          "cardIds": [
+            "zh-脑",
+            "zh-预",
+            "zh-谁",
+            "zh-益",
+            "zh-阳",
+            "zh-若",
+            "zh-哪",
+            "zh-微",
+            "zh-继",
+            "zh-送"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "nature",
+            "life"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-consolidating-006",
+          "title": "巩固 · 第 6 组",
+          "cardIds": [
+            "zh-急",
+            "zh-血",
+            "zh-惊",
+            "zh-伤",
+            "zh-素",
+            "zh-药",
+            "zh-适",
+            "zh-波",
+            "zh-夜",
+            "zh-省"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "animal",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-consolidating-007",
+          "title": "巩固 · 第 7 组",
+          "cardIds": [
+            "zh-初",
+            "zh-喜",
+            "zh-卫",
+            "zh-源",
+            "zh-食",
+            "zh-险",
+            "zh-待",
+            "zh-述",
+            "zh-陆",
+            "zh-习"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature",
+            "school"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-consolidating-008",
+          "title": "巩固 · 第 8 组",
+          "cardIds": [
+            "zh-置",
+            "zh-居",
+            "zh-劳",
+            "zh-财",
+            "zh-环",
+            "zh-排",
+            "zh-福",
+            "zh-纳",
+            "zh-欢",
+            "zh-雷"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-consolidating-009",
+          "title": "巩固 · 第 9 组",
+          "cardIds": [
+            "zh-警",
+            "zh-获",
+            "zh-模",
+            "zh-充",
+            "zh-负",
+            "zh-云",
+            "zh-停",
+            "zh-木",
+            "zh-龙",
+            "zh-树"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-consolidating-010",
+          "title": "巩固 · 第 10 组",
+          "cardIds": [
+            "zh-疑",
+            "zh-层",
+            "zh-冷",
+            "zh-洲",
+            "zh-冲",
+            "zh-射",
+            "zh-略",
+            "zh-范",
+            "zh-竟",
+            "zh-句"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "nature",
+            "number",
+            "life"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-consolidating-011",
+          "title": "巩固 · 第 11 组",
+          "cardIds": [
+            "zh-室",
+            "zh-异",
+            "zh-激",
+            "zh-汉",
+            "zh-村",
+            "zh-哈",
+            "zh-策",
+            "zh-演",
+            "zh-简",
+            "zh-卡"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "number",
+            "body"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-consolidating-012",
+          "title": "巩固 · 第 12 组",
+          "cardIds": [
+            "zh-罪",
+            "zh-判",
+            "zh-担",
+            "zh-州",
+            "zh-静",
+            "zh-退",
+            "zh-既",
+            "zh-衣",
+            "zh-宗",
+            "zh-积"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-consolidating-013",
+          "title": "巩固 · 第 13 组",
+          "cardIds": [
+            "zh-余",
+            "zh-痛",
+            "zh-检",
+            "zh-差",
+            "zh-富",
+            "zh-灵",
+            "zh-协",
+            "zh-角",
+            "zh-占",
+            "zh-配"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-consolidating-014",
+          "title": "巩固 · 第 14 组",
+          "cardIds": [
+            "zh-征",
+            "zh-修",
+            "zh-皮",
+            "zh-挥",
+            "zh-胜",
+            "zh-降",
+            "zh-阶",
+            "zh-审",
+            "zh-沉",
+            "zh-坚"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "body"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-consolidating-015",
+          "title": "巩固 · 第 15 组",
+          "cardIds": [
+            "zh-善",
+            "zh-妈",
+            "zh-读",
+            "zh-超",
+            "zh-免",
+            "zh-压",
+            "zh-银",
+            "zh-买",
+            "zh-皇",
+            "zh-养"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "family",
+            "action",
+            "color"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-consolidating-016",
+          "title": "巩固 · 第 16 组",
+          "cardIds": [
+            "zh-怀",
+            "zh-执",
+            "zh-副",
+            "zh-乱",
+            "zh-抗",
+            "zh-犯",
+            "zh-追",
+            "zh-帮",
+            "zh-宣",
+            "zh-佛"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-consolidating-017",
+          "title": "巩固 · 第 17 组",
+          "cardIds": [
+            "zh-岁",
+            "zh-航",
+            "zh-优",
+            "zh-怪",
+            "zh-香",
+            "zh-著",
+            "zh-田",
+            "zh-铁",
+            "zh-控",
+            "zh-税"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-consolidating-018",
+          "title": "巩固 · 第 18 组",
+          "cardIds": [
+            "zh-左",
+            "zh-右",
+            "zh-份",
+            "zh-穿",
+            "zh-艺",
+            "zh-背",
+            "zh-阵",
+            "zh-草",
+            "zh-脚",
+            "zh-概"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "number",
+            "body",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-consolidating-019",
+          "title": "巩固 · 第 19 组",
+          "cardIds": [
+            "zh-恶",
+            "zh-块",
+            "zh-顿",
+            "zh-敢",
+            "zh-守",
+            "zh-酒",
+            "zh-岛",
+            "zh-托",
+            "zh-央",
+            "zh-户"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-consolidating-020",
+          "title": "巩固 · 第 20 组",
+          "cardIds": [
+            "zh-烈",
+            "zh-洋",
+            "zh-哥",
+            "zh-索",
+            "zh-胡",
+            "zh-款",
+            "zh-靠",
+            "zh-评",
+            "zh-版",
+            "zh-宝"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "family",
+            "nature",
+            "animal"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-consolidating-021",
+          "title": "巩固 · 第 21 组",
+          "cardIds": [
+            "zh-座",
+            "zh-释",
+            "zh-景",
+            "zh-顾",
+            "zh-弟",
+            "zh-登",
+            "zh-货",
+            "zh-互",
+            "zh-付",
+            "zh-慢"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "family",
+            "action"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-consolidating-022",
+          "title": "巩固 · 第 22 组",
+          "cardIds": [
+            "zh-欧",
+            "zh-换",
+            "zh-闻",
+            "zh-危",
+            "zh-忙",
+            "zh-核",
+            "zh-暗",
+            "zh-姐",
+            "zh-介",
+            "zh-坏"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "family"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-consolidating-023",
+          "title": "巩固 · 第 23 组",
+          "cardIds": [
+            "zh-讨",
+            "zh-丽",
+            "zh-良",
+            "zh-序",
+            "zh-升",
+            "zh-监",
+            "zh-临",
+            "zh-亮",
+            "zh-露",
+            "zh-永"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-consolidating-024",
+          "title": "巩固 · 第 24 组",
+          "cardIds": [
+            "zh-呼",
+            "zh-味",
+            "zh-野",
+            "zh-架",
+            "zh-域",
+            "zh-沙",
+            "zh-掉",
+            "zh-括",
+            "zh-舰",
+            "zh-鱼"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "color",
+            "nature",
+            "life",
+            "food",
+            "animal"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-consolidating-025",
+          "title": "巩固 · 第 25 组",
+          "cardIds": [
+            "zh-杂",
+            "zh-误",
+            "zh-湾",
+            "zh-吉",
+            "zh-减",
+            "zh-编",
+            "zh-楚",
+            "zh-肯",
+            "zh-测",
+            "zh-败"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "school",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-consolidating-026",
+          "title": "巩固 · 第 26 组",
+          "cardIds": [
+            "zh-屋",
+            "zh-跑",
+            "zh-梦",
+            "zh-散",
+            "zh-温",
+            "zh-困",
+            "zh-渐",
+            "zh-封",
+            "zh-救",
+            "zh-贵"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "action"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-consolidating-027",
+          "title": "巩固 · 第 27 组",
+          "cardIds": [
+            "zh-枪",
+            "zh-缺",
+            "zh-楼",
+            "zh-县",
+            "zh-尚",
+            "zh-毫",
+            "zh-移",
+            "zh-娘",
+            "zh-朋",
+            "zh-画"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature",
+            "food",
+            "family",
+            "action"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-consolidating-028",
+          "title": "巩固 · 第 28 组",
+          "cardIds": [
+            "zh-班",
+            "zh-智",
+            "zh-亦",
+            "zh-耳",
+            "zh-恩",
+            "zh-短",
+            "zh-掌",
+            "zh-恐",
+            "zh-遗",
+            "zh-固"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "school",
+            "life",
+            "body",
+            "color",
+            "animal"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-consolidating-029",
+          "title": "巩固 · 第 29 组",
+          "cardIds": [
+            "zh-席",
+            "zh-松",
+            "zh-秘",
+            "zh-谢",
+            "zh-遇",
+            "zh-康",
+            "zh-虑",
+            "zh-幸",
+            "zh-均",
+            "zh-销"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-consolidating-030",
+          "title": "巩固 · 第 30 组",
+          "cardIds": [
+            "zh-钟",
+            "zh-诗",
+            "zh-藏",
+            "zh-赶",
+            "zh-剧",
+            "zh-票",
+            "zh-损",
+            "zh-忽",
+            "zh-巨",
+            "zh-炮"
+          ],
+          "cardCount": 10,
+          "difficulty": 3,
+          "difficultyBand": "consolidating",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature",
+            "body"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core-literacy-2026.08.19-challenge",
+      "title": "挑战",
+      "titleEn": "challenge",
+      "summary": "识字 挑战：认字、拼音和组词。",
+      "difficulty": 4,
+      "difficultyBand": "challenge",
+      "gamePolicy": {
+        "recognitionGame": "word-tablet",
+        "typingGame": "char-choice"
+      },
+      "cardCount": 300,
+      "groups": [
+        {
+          "id": "core-literacy-2026.08.19-challenge-001",
+          "title": "挑战 · 第 1 组",
+          "cardIds": [
+            "zh-旧",
+            "zh-端",
+            "zh-探",
+            "zh-湖",
+            "zh-录",
+            "zh-叶",
+            "zh-春",
+            "zh-乡",
+            "zh-附",
+            "zh-吸"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature",
+            "school"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-challenge-002",
+          "title": "挑战 · 第 2 组",
+          "cardIds": [
+            "zh-予",
+            "zh-礼",
+            "zh-港",
+            "zh-雨",
+            "zh-板",
+            "zh-庭",
+            "zh-妇",
+            "zh-归",
+            "zh-饭",
+            "zh-额"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature",
+            "family",
+            "food"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-challenge-003",
+          "title": "挑战 · 第 3 组",
+          "cardIds": [
+            "zh-含",
+            "zh-顺",
+            "zh-输",
+            "zh-摇",
+            "zh-招",
+            "zh-婚",
+            "zh-脱",
+            "zh-补",
+            "zh-谓",
+            "zh-督"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "body"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-challenge-004",
+          "title": "挑战 · 第 4 组",
+          "cardIds": [
+            "zh-毒",
+            "zh-油",
+            "zh-疗",
+            "zh-旅",
+            "zh-泽",
+            "zh-材",
+            "zh-灭",
+            "zh-逐",
+            "zh-莫",
+            "zh-笔"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature",
+            "school"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-challenge-005",
+          "title": "挑战 · 第 5 组",
+          "cardIds": [
+            "zh-亡",
+            "zh-鲜",
+            "zh-词",
+            "zh-圣",
+            "zh-择",
+            "zh-寻",
+            "zh-厂",
+            "zh-睡",
+            "zh-博",
+            "zh-勒"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature",
+            "action"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-challenge-006",
+          "title": "挑战 · 第 6 组",
+          "cardIds": [
+            "zh-烟",
+            "zh-授",
+            "zh-诺",
+            "zh-伦",
+            "zh-岸",
+            "zh-奥",
+            "zh-唐",
+            "zh-卖",
+            "zh-炸",
+            "zh-载"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "number",
+            "life",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-challenge-007",
+          "title": "挑战 · 第 7 组",
+          "cardIds": [
+            "zh-洛",
+            "zh-健",
+            "zh-堂",
+            "zh-旁",
+            "zh-宫",
+            "zh-喝",
+            "zh-借",
+            "zh-君",
+            "zh-禁",
+            "zh-阴"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "food",
+            "life",
+            "color",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-challenge-008",
+          "title": "挑战 · 第 8 组",
+          "cardIds": [
+            "zh-园",
+            "zh-谋",
+            "zh-避",
+            "zh-抓",
+            "zh-荣",
+            "zh-姑",
+            "zh-孙",
+            "zh-逃",
+            "zh-牙",
+            "zh-束"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature",
+            "body"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-challenge-009",
+          "title": "挑战 · 第 9 组",
+          "cardIds": [
+            "zh-跳",
+            "zh-顶",
+            "zh-玉",
+            "zh-镇",
+            "zh-雪",
+            "zh-午",
+            "zh-练",
+            "zh-迫",
+            "zh-爷",
+            "zh-篇"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "action",
+            "life",
+            "color",
+            "nature",
+            "family"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-challenge-010",
+          "title": "挑战 · 第 10 组",
+          "cardIds": [
+            "zh-肉",
+            "zh-嘴",
+            "zh-馆",
+            "zh-遍",
+            "zh-凡",
+            "zh-础",
+            "zh-洞",
+            "zh-卷",
+            "zh-坦",
+            "zh-牛"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "food",
+            "nature",
+            "life",
+            "animal"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-challenge-011",
+          "title": "挑战 · 第 11 组",
+          "cardIds": [
+            "zh-宁",
+            "zh-纸",
+            "zh-诸",
+            "zh-训",
+            "zh-私",
+            "zh-庄",
+            "zh-祖",
+            "zh-丝",
+            "zh-翻",
+            "zh-暴"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "school",
+            "body"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-challenge-012",
+          "title": "挑战 · 第 12 组",
+          "cardIds": [
+            "zh-森",
+            "zh-塔",
+            "zh-默",
+            "zh-握",
+            "zh-戏",
+            "zh-隐",
+            "zh-熟",
+            "zh-骨",
+            "zh-访",
+            "zh-弱"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "school",
+            "animal"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-challenge-013",
+          "title": "挑战 · 第 13 组",
+          "cardIds": [
+            "zh-蒙",
+            "zh-歌",
+            "zh-鬼",
+            "zh-软",
+            "zh-典",
+            "zh-欲",
+            "zh-萨",
+            "zh-伙",
+            "zh-遭",
+            "zh-盘"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "action"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-challenge-014",
+          "title": "挑战 · 第 14 组",
+          "cardIds": [
+            "zh-爸",
+            "zh-扩",
+            "zh-盖",
+            "zh-弄",
+            "zh-雄",
+            "zh-稳",
+            "zh-忘",
+            "zh-亿",
+            "zh-刺",
+            "zh-拥"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "family",
+            "life",
+            "number",
+            "body"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-challenge-015",
+          "title": "挑战 · 第 15 组",
+          "cardIds": [
+            "zh-徒",
+            "zh-齐",
+            "zh-赛",
+            "zh-趣",
+            "zh-曲",
+            "zh-刀",
+            "zh-床",
+            "zh-迎",
+            "zh-冰",
+            "zh-虚"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature",
+            "number"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-challenge-016",
+          "title": "挑战 · 第 16 组",
+          "cardIds": [
+            "zh-玩",
+            "zh-析",
+            "zh-窗",
+            "zh-醒",
+            "zh-透",
+            "zh-购",
+            "zh-替",
+            "zh-塞",
+            "zh-休",
+            "zh-虎"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "action",
+            "life",
+            "food",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-challenge-017",
+          "title": "挑战 · 第 17 组",
+          "cardIds": [
+            "zh-扬",
+            "zh-途",
+            "zh-侵",
+            "zh-刑",
+            "zh-绿",
+            "zh-兄",
+            "zh-迅",
+            "zh-套",
+            "zh-贸",
+            "zh-毕"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "color",
+            "family",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-challenge-018",
+          "title": "挑战 · 第 18 组",
+          "cardIds": [
+            "zh-唯",
+            "zh-谷",
+            "zh-轮",
+            "zh-库",
+            "zh-迹",
+            "zh-尤",
+            "zh-竞",
+            "zh-街",
+            "zh-促",
+            "zh-延"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-challenge-019",
+          "title": "挑战 · 第 19 组",
+          "cardIds": [
+            "zh-震",
+            "zh-弃",
+            "zh-甲",
+            "zh-伟",
+            "zh-麻",
+            "zh-川",
+            "zh-申",
+            "zh-缓",
+            "zh-潜",
+            "zh-闪"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "nature",
+            "life"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-challenge-020",
+          "title": "挑战 · 第 20 组",
+          "cardIds": [
+            "zh-售",
+            "zh-灯",
+            "zh-针",
+            "zh-哲",
+            "zh-络",
+            "zh-抵",
+            "zh-抱",
+            "zh-鼓",
+            "zh-植",
+            "zh-纯"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-challenge-021",
+          "title": "挑战 · 第 21 组",
+          "cardIds": [
+            "zh-夏",
+            "zh-忍",
+            "zh-杰",
+            "zh-筑",
+            "zh-折",
+            "zh-郑",
+            "zh-贝",
+            "zh-尊",
+            "zh-秀",
+            "zh-混"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "nature",
+            "life",
+            "school"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-challenge-022",
+          "title": "挑战 · 第 22 组",
+          "cardIds": [
+            "zh-臣",
+            "zh-雅",
+            "zh-振",
+            "zh-染",
+            "zh-盛",
+            "zh-怒",
+            "zh-舞",
+            "zh-圆",
+            "zh-搞",
+            "zh-狂"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "action"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-challenge-023",
+          "title": "挑战 · 第 23 组",
+          "cardIds": [
+            "zh-措",
+            "zh-姓",
+            "zh-残",
+            "zh-秋",
+            "zh-培",
+            "zh-迷",
+            "zh-诚",
+            "zh-宽",
+            "zh-宇",
+            "zh-猛"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-challenge-024",
+          "title": "挑战 · 第 24 组",
+          "cardIds": [
+            "zh-摆",
+            "zh-梅",
+            "zh-毁",
+            "zh-伸",
+            "zh-摩",
+            "zh-盟",
+            "zh-末",
+            "zh-乃",
+            "zh-悲",
+            "zh-拍"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "body"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-challenge-025",
+          "title": "挑战 · 第 25 组",
+          "cardIds": [
+            "zh-丁",
+            "zh-硬",
+            "zh-麦",
+            "zh-操",
+            "zh-阻",
+            "zh-订",
+            "zh-彩",
+            "zh-抽",
+            "zh-赞",
+            "zh-魔"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-challenge-026",
+          "title": "挑战 · 第 26 组",
+          "cardIds": [
+            "zh-纷",
+            "zh-沿",
+            "zh-喊",
+            "zh-违",
+            "zh-妹",
+            "zh-浪",
+            "zh-汇",
+            "zh-币",
+            "zh-丰",
+            "zh-蓝"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "nature",
+            "life",
+            "family",
+            "color"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-challenge-027",
+          "title": "挑战 · 第 27 组",
+          "cardIds": [
+            "zh-殊",
+            "zh-献",
+            "zh-桌",
+            "zh-瓦",
+            "zh-援",
+            "zh-译",
+            "zh-夺",
+            "zh-汽",
+            "zh-烧",
+            "zh-距"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "school",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-challenge-028",
+          "title": "挑战 · 第 28 组",
+          "cardIds": [
+            "zh-裁",
+            "zh-偏",
+            "zh-符",
+            "zh-勇",
+            "zh-触",
+            "zh-课",
+            "zh-敬",
+            "zh-哭",
+            "zh-懂",
+            "zh-墙"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "body",
+            "school",
+            "action"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-challenge-029",
+          "title": "挑战 · 第 29 组",
+          "cardIds": [
+            "zh-袭",
+            "zh-召",
+            "zh-罚",
+            "zh-厅",
+            "zh-拜",
+            "zh-巧",
+            "zh-侧",
+            "zh-冒",
+            "zh-债",
+            "zh-融"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-challenge-030",
+          "title": "挑战 · 第 30 组",
+          "cardIds": [
+            "zh-惯",
+            "zh-享",
+            "zh-戴",
+            "zh-童",
+            "zh-犹",
+            "zh-乘",
+            "zh-挂",
+            "zh-奖",
+            "zh-绍",
+            "zh-厚"
+          ],
+          "cardCount": 10,
+          "difficulty": 4,
+          "difficultyBand": "challenge",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature",
+            "color"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core-literacy-2026.08.19-mixed",
+      "title": "综合",
+      "titleEn": "mixed",
+      "summary": "识字 综合：认字、拼音和组词。",
+      "difficulty": 5,
+      "difficultyBand": "mixed",
+      "gamePolicy": {
+        "recognitionGame": "word-tablet",
+        "typingGame": "char-choice"
+      },
+      "cardCount": 300,
+      "groups": [
+        {
+          "id": "core-literacy-2026.08.19-mixed-001",
+          "title": "综合 · 第 1 组",
+          "cardIds": [
+            "zh-纵",
+            "zh-障",
+            "zh-讯",
+            "zh-涉",
+            "zh-彻",
+            "zh-刊",
+            "zh-爆",
+            "zh-乌",
+            "zh-役",
+            "zh-描"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature",
+            "body"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-mixed-002",
+          "title": "综合 · 第 2 组",
+          "cardIds": [
+            "zh-洗",
+            "zh-患",
+            "zh-妙",
+            "zh-镜",
+            "zh-唱",
+            "zh-烦",
+            "zh-签",
+            "zh-彼",
+            "zh-症",
+            "zh-仿"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "body",
+            "life",
+            "action"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-mixed-003",
+          "title": "综合 · 第 3 组",
+          "cardIds": [
+            "zh-倾",
+            "zh-牌",
+            "zh-陷",
+            "zh-鸟",
+            "zh-轰",
+            "zh-菜",
+            "zh-闭",
+            "zh-奋",
+            "zh-庆",
+            "zh-撤"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "animal",
+            "food",
+            "body"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-mixed-004",
+          "title": "综合 · 第 4 组",
+          "cardIds": [
+            "zh-泪",
+            "zh-茶",
+            "zh-疾",
+            "zh-缘",
+            "zh-播",
+            "zh-朗",
+            "zh-杜",
+            "zh-奶",
+            "zh-季",
+            "zh-丹"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "food",
+            "body",
+            "action",
+            "family",
+            "number"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-mixed-005",
+          "title": "综合 · 第 5 组",
+          "cardIds": [
+            "zh-狗",
+            "zh-尾",
+            "zh-仪",
+            "zh-偷",
+            "zh-奔",
+            "zh-珠",
+            "zh-虫",
+            "zh-驻",
+            "zh-孔",
+            "zh-宜"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "animal",
+            "life",
+            "color"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-mixed-006",
+          "title": "综合 · 第 6 组",
+          "cardIds": [
+            "zh-桥",
+            "zh-淡",
+            "zh-翼",
+            "zh-恨",
+            "zh-繁",
+            "zh-寒",
+            "zh-伴",
+            "zh-叹",
+            "zh-旦",
+            "zh-愈"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature",
+            "number"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-mixed-007",
+          "title": "综合 · 第 7 组",
+          "cardIds": [
+            "zh-潮",
+            "zh-粮",
+            "zh-缩",
+            "zh-罢",
+            "zh-聚",
+            "zh-径",
+            "zh-恰",
+            "zh-挑",
+            "zh-袋",
+            "zh-灰"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-mixed-008",
+          "title": "综合 · 第 8 组",
+          "cardIds": [
+            "zh-捕",
+            "zh-珍",
+            "zh-幕",
+            "zh-映",
+            "zh-裂",
+            "zh-泰",
+            "zh-隔",
+            "zh-启",
+            "zh-尖",
+            "zh-忠"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "body"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-mixed-009",
+          "title": "综合 · 第 9 组",
+          "cardIds": [
+            "zh-累",
+            "zh-炎",
+            "zh-暂",
+            "zh-估",
+            "zh-泛",
+            "zh-荒",
+            "zh-偿",
+            "zh-横",
+            "zh-拒",
+            "zh-瑞"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "body"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-mixed-010",
+          "title": "综合 · 第 10 组",
+          "cardIds": [
+            "zh-忆",
+            "zh-孤",
+            "zh-鼻",
+            "zh-闹",
+            "zh-羊",
+            "zh-呆",
+            "zh-厉",
+            "zh-衡",
+            "zh-胞",
+            "zh-零"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "number",
+            "body",
+            "animal",
+            "school",
+            "family"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-mixed-011",
+          "title": "综合 · 第 11 组",
+          "cardIds": [
+            "zh-穷",
+            "zh-舍",
+            "zh-码",
+            "zh-赫",
+            "zh-婆",
+            "zh-魂",
+            "zh-灾",
+            "zh-洪",
+            "zh-腿",
+            "zh-胆"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "animal",
+            "body"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-mixed-012",
+          "title": "综合 · 第 12 组",
+          "cardIds": [
+            "zh-津",
+            "zh-俗",
+            "zh-辩",
+            "zh-胸",
+            "zh-晓",
+            "zh-劲",
+            "zh-贫",
+            "zh-仁",
+            "zh-偶",
+            "zh-辑"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-mixed-013",
+          "title": "综合 · 第 13 组",
+          "cardIds": [
+            "zh-邦",
+            "zh-赖",
+            "zh-圈",
+            "zh-摸",
+            "zh-仰",
+            "zh-润",
+            "zh-堆",
+            "zh-碰",
+            "zh-艇",
+            "zh-稍"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-mixed-014",
+          "title": "综合 · 第 14 组",
+          "cardIds": [
+            "zh-迟",
+            "zh-废",
+            "zh-净",
+            "zh-凶",
+            "zh-署",
+            "zh-壁",
+            "zh-御",
+            "zh-奉",
+            "zh-旋",
+            "zh-冬"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-mixed-015",
+          "title": "综合 · 第 15 组",
+          "cardIds": [
+            "zh-矿",
+            "zh-抬",
+            "zh-蛋",
+            "zh-晨",
+            "zh-伏",
+            "zh-吹",
+            "zh-鸡",
+            "zh-倍",
+            "zh-糊",
+            "zh-秦"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "body",
+            "food",
+            "nature",
+            "animal",
+            "family"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-mixed-016",
+          "title": "综合 · 第 16 组",
+          "cardIds": [
+            "zh-盾",
+            "zh-杯",
+            "zh-租",
+            "zh-骑",
+            "zh-乏",
+            "zh-隆",
+            "zh-诊",
+            "zh-奴",
+            "zh-摄",
+            "zh-丧"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "animal"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-mixed-017",
+          "title": "综合 · 第 17 组",
+          "cardIds": [
+            "zh-污",
+            "zh-渡",
+            "zh-旗",
+            "zh-甘",
+            "zh-耐",
+            "zh-凭",
+            "zh-扎",
+            "zh-抢",
+            "zh-绪",
+            "zh-粗"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-mixed-018",
+          "title": "综合 · 第 18 组",
+          "cardIds": [
+            "zh-肩",
+            "zh-梁",
+            "zh-幻",
+            "zh-皆",
+            "zh-碎",
+            "zh-岩",
+            "zh-荡",
+            "zh-综",
+            "zh-爬",
+            "zh-荷"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-mixed-019",
+          "title": "综合 · 第 19 组",
+          "cardIds": [
+            "zh-悉",
+            "zh-返",
+            "zh-井",
+            "zh-壮",
+            "zh-薄",
+            "zh-悄",
+            "zh-扫",
+            "zh-敏",
+            "zh-碍",
+            "zh-殖"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-mixed-020",
+          "title": "综合 · 第 20 组",
+          "cardIds": [
+            "zh-详",
+            "zh-迪",
+            "zh-矛",
+            "zh-允",
+            "zh-幅",
+            "zh-撒",
+            "zh-剩",
+            "zh-凯",
+            "zh-颗",
+            "zh-骂"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "body"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-mixed-021",
+          "title": "综合 · 第 21 组",
+          "cardIds": [
+            "zh-赏",
+            "zh-液",
+            "zh-番",
+            "zh-箱",
+            "zh-贴",
+            "zh-漫",
+            "zh-酸",
+            "zh-郎",
+            "zh-腰",
+            "zh-舒"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "body",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-mixed-022",
+          "title": "综合 · 第 22 组",
+          "cardIds": [
+            "zh-眉",
+            "zh-忧",
+            "zh-浮",
+            "zh-辛",
+            "zh-恋",
+            "zh-餐",
+            "zh-吓",
+            "zh-挺",
+            "zh-励",
+            "zh-辞"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "body",
+            "life",
+            "number",
+            "school",
+            "color"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-mixed-023",
+          "title": "综合 · 第 23 组",
+          "cardIds": [
+            "zh-键",
+            "zh-伍",
+            "zh-峰",
+            "zh-尺",
+            "zh-昨",
+            "zh-辈",
+            "zh-贯",
+            "zh-侦",
+            "zh-滑",
+            "zh-券"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "number",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-mixed-024",
+          "title": "综合 · 第 24 组",
+          "cardIds": [
+            "zh-崇",
+            "zh-扰",
+            "zh-宪",
+            "zh-绕",
+            "zh-趋",
+            "zh-慈",
+            "zh-阅",
+            "zh-汗",
+            "zh-枝",
+            "zh-拖"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "body",
+            "nature",
+            "number"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-mixed-025",
+          "title": "综合 · 第 25 组",
+          "cardIds": [
+            "zh-墨",
+            "zh-胁",
+            "zh-插",
+            "zh-箭",
+            "zh-腊",
+            "zh-粉",
+            "zh-泥",
+            "zh-拔",
+            "zh-骗",
+            "zh-慧"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "school",
+            "life",
+            "nature",
+            "color",
+            "body"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-mixed-026",
+          "title": "综合 · 第 26 组",
+          "cardIds": [
+            "zh-媒",
+            "zh-佩",
+            "zh-愤",
+            "zh-扑",
+            "zh-龄",
+            "zh-驱",
+            "zh-惜",
+            "zh-豪",
+            "zh-掩",
+            "zh-兼"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "body",
+            "nature"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-mixed-027",
+          "title": "综合 · 第 27 组",
+          "cardIds": [
+            "zh-跃",
+            "zh-肃",
+            "zh-驶",
+            "zh-届",
+            "zh-欣",
+            "zh-惠",
+            "zh-册",
+            "zh-储",
+            "zh-飘",
+            "zh-桑"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-mixed-028",
+          "title": "综合 · 第 28 组",
+          "cardIds": [
+            "zh-闲",
+            "zh-惨",
+            "zh-洁",
+            "zh-踪",
+            "zh-勃",
+            "zh-宾",
+            "zh-频",
+            "zh-仇",
+            "zh-磨",
+            "zh-递"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "number",
+            "life"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-mixed-029",
+          "title": "综合 · 第 29 组",
+          "cardIds": [
+            "zh-邪",
+            "zh-撞",
+            "zh-拟",
+            "zh-滚",
+            "zh-奏",
+            "zh-巡",
+            "zh-颜",
+            "zh-剂",
+            "zh-绩",
+            "zh-贡"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "life",
+            "number"
+          ]
+        },
+        {
+          "id": "core-literacy-2026.08.19-mixed-030",
+          "title": "综合 · 第 30 组",
+          "cardIds": [
+            "zh-疯",
+            "zh-瞧",
+            "zh-截",
+            "zh-燃",
+            "zh-焦",
+            "zh-殿",
+            "zh-伪",
+            "zh-柳",
+            "zh-锁",
+            "zh-逼"
+          ],
+          "cardCount": 10,
+          "difficulty": 5,
+          "difficultyBand": "mixed",
+          "gamePolicy": {
+            "recognitionGame": "word-tablet",
+            "typingGame": "char-choice"
+          },
+          "stages": [
+            "kindergarten"
+          ],
+          "categories": [
+            "body",
+            "life"
+          ]
+        }
+      ]
+    }
+  ]
+}

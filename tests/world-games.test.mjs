@@ -764,7 +764,7 @@ test('blocklegend records play, keeps triple-day as >=3 worlds, and appears in w
   assert.ok(row);
   assert.equal(row.label, '方块传奇');
   assert.equal(row.unit, '关');
-  assert.equal(row.total, 6);
+  assert.equal(row.total, 12);
 });
 
 test('garden play pass gives two free runs then asks for learning or sunlight', () => {
