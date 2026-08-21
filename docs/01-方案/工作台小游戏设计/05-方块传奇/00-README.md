@@ -39,4 +39,4 @@
 - **词库**：`prj/assets/vocab/core-english-2026.08.15`（597 词，均有中英例句）。包装音频约 33 条；无学术音标时用 `phoneticOf`。
 - **账本**：只写 `growth.worldGames.blocklegend`；通关 `awardSunlight` eventKey `level-<n>`。
 - **Boss**：三阶段技能已出手（弹幕/冲撞/砸地/召唤），弹种剪影可辨。见 04。
-- **独立仓**：`https://github.com/nonomil/blocklegend` 版本 **0.9.2**（2026-08-20）。网页 https://nonomil.github.io/blocklegend/ 。APK 走独立仓 Actions。工作台 APK 仍不含本游戏。不新录 500 条音频；不扩第 13 关。
+- **独立仓**：`https://github.com/nonomil/blocklegend` 版本 **0.9.3**（2026-08-21）。网页 https://nonomil.github.io/blocklegend/ 。APK 走独立仓 Actions。工作台 APK 仍不含本游戏。不新录 500 条音频；不扩第 13 关。
