@@ -20,6 +20,7 @@
 | 07 | [地下城式关卡与ANKI复习优化](07-地下城式关卡与ANKI复习优化.md) | 2026-08-19 调研+执行：词力/三档/词灵回廊/难词支架已进代码（未手玩）；包 `docs/plans/T20260819-dungeon-anki-uplift/` |
 | 08 | [命名用项目介绍](08-命名用项目介绍.md) | 给外部模型取中文名+英文短名：三者定位、避名表、输出格式 |
 | 09 | [工作台合成规则落地](09-工作台合成规则落地.md) | ★ 2026-08-20：Wiki 规则 + 砂砾/粘土/砂岩/石砖/砖/地毯可挖可合成可放 |
+| 10 | [骑龙剧情学习与兑换](10-骑龙剧情学习与兑换.md) | 2026-08-22：20 秒体验 → 龙鞍 → 指定关短空战；包 `docs/plans/T20260822-ride-story/` |
 
 给 DeepSeek 再分析（2026-08-20 现状，对照旧建议）：`prj/games/blocklegend/docs/优化方案/DS-复盘包-20260820/`
 
@@ -39,4 +40,4 @@
 - **词库**：`prj/assets/vocab/core-english-2026.08.15`（597 词，均有中英例句）。包装音频约 33 条；无学术音标时用 `phoneticOf`。
 - **账本**：只写 `growth.worldGames.blocklegend`；通关 `awardSunlight` eventKey `level-<n>`。
 - **Boss**：三阶段技能已出手（弹幕/冲撞/砸地/召唤），弹种剪影可辨。见 04。
-- **独立仓**：`https://github.com/nonomil/blocklegend` 版本 **0.9.3**（2026-08-21）。网页 https://nonomil.github.io/blocklegend/ 。APK 走独立仓 Actions。工作台 APK 仍不含本游戏。不新录 500 条音频；不扩第 13 关。
+- **独立仓**：`https://github.com/nonomil/blocklegend` 版本 **0.9.4**（2026-08-22）。网页 https://nonomil.github.io/blocklegend/ 。APK 走独立仓 Actions。工作台 APK 仍不含本游戏。不新录 500 条音频；不扩第 13 关。
