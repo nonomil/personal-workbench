@@ -1,48 +1,50 @@
 # 个人工作台
 
-一个独立的中文个人学习/成长工作台目录，内含三套可独立打开的 Vanilla JS 工作台：成人成长工作台、儿童学习工作台和阳光成长工作台。根入口额外提供五个选择入口：上方三个幼儿游戏世界（植物大战僵尸式花园、我的世界式方块探险、马里奥式横版闯关），下方两个通用工作台（成人、少儿）。设计参考胡楚靓风格工作台案例、用户提供的小红书公开学习工作台案例和公众号教程整理而来。
+一个可以在浏览器里直接打开的中文学习与成长工作台。它把「今天先做一小步」放在前面：成人用来安排自己的计划，少儿用来记录学习和成长，幼儿则先进入一个游戏世界，再完成今天的识字、古诗、数学或英语。
 
-当前源码发布候选：`v0.7.4`。
+页面是 Vanilla JS，不需要安装就能看。学习记录默认只保存在这台设备的浏览器里。当前版本是 `v0.7.4`。
 
-- [v0.7.4 发布说明](docs/04-发布/v0.7.4.md)
-- [v0.7.3 发布说明](docs/04-发布/v0.7.3.md)
-- [v0.7.2 发布说明](docs/04-发布/v0.7.2.md)
-- [v0.7.1 发布说明](docs/04-发布/v0.7.1.md)
-- [v0.7.0 发布说明](docs/04-发布/v0.7.0.md)
-- [v0.6.0 发布说明](docs/04-发布/v0.6.0.md)
-- [v0.5.2 发布说明](docs/04-发布/v0.5.2.md)
+在线入口：<https://nonomil.github.io/personal-workbench/>
 
-## GitHub Pages 网站
+![入口页：五个工作台里先选一个](docs/images/readme/01-launcher-worlds.png)
 
-在线网站：<https://nonomil.github.io/personal-workbench/>
+上面这张图，以及后面的工作台截图，都是在空浏览器里打开内置示例时拍的，不是真实的个人记录，也不包含本机路径或账号。
 
-- [成人成长工作台](https://nonomil.github.io/personal-workbench/prj/成人成长工作台/)
-- [儿童学习工作台](https://nonomil.github.io/personal-workbench/prj/儿童学习工作台/)
-- [阳光成长工作台](https://nonomil.github.io/personal-workbench/prj/preschool-workbench/)
+## 五个入口
 
-产品运行时集中在 `prj/`（入口、工作台、CSS、素材、小游戏、资料包）。仓库根只保留工具链配置（`package.json`、`scripts/`、`tests/`、`docs/` 等）与薄跳转 `index.html` → `prj/`。GitHub Pages 仍用 `main` 根目录；打开站点会跳到 `prj/`。仓库设置：`Settings` → `Pages` → `Deploy from a branch` → `main` → `/ (root)`。
+入口页分成两组。上面三个是幼儿游戏世界，任务和本地数据是同一套，只是外观不同。下面两个是成人和少儿工作台，数据彼此分开。
 
-## Android APK
+| 入口 | 适合谁 | 在线打开 |
+| --- | --- | --- |
+| 植物僵尸工作台 | 幼儿，花园主题 | [花园版](https://nonomil.github.io/personal-workbench/prj/preschool-workbench/?theme=garden-defense) |
+| 我的世界工作台 | 幼儿，方块主题 | [方块版](https://nonomil.github.io/personal-workbench/prj/preschool-workbench/?theme=voxel-adventure) |
+| 马里奥工作台 | 幼儿，横版闯关主题 | [闯关版](https://nonomil.github.io/personal-workbench/prj/preschool-workbench/?theme=platform-quest) |
+| 成人成长工作台 | 自己安排今天 | [成人版](https://nonomil.github.io/personal-workbench/prj/成人成长工作台/) |
+| 儿童学习工作台 | 少儿学习与成长记录 | [儿童版](https://nonomil.github.io/personal-workbench/prj/儿童学习工作台/) |
 
-网页和 APK 共用同一套 Vanilla JS 资源，Android 端通过 Capacitor 包装，不维护第二套页面代码。
+## 三个工作台
 
-- [Actions 构建页面](https://github.com/nonomil/personal-workbench/actions/workflows/android-apk.yml)：推送 `main` 会自动编译并上传 APK artifact，也可以点击 `Run workflow` 手动编译。
-- 推送 `v*` 标签会自动构建，并把正式签名 APK 附加到对应 GitHub Release。
-- 构建产物是 `assembleRelease` 包：`versionName` 跟 `package.json`，`versionCode` 按 `0.7.4 → 704` 递增；签名钥匙只放在 GitHub Secrets。
+### 成人成长工作台
 
-本地构建需要 Node.js 22、Java 21 和 Android SDK：
+先看见今天最重要的一件事，再看专注时间、已完成任务、连续行动和本周阅读。侧栏里还有今日计划、成长任务、阅读记录、长期目标、生活分区、归档与统计、家庭互动、每周复盘、账号与同步、偏好设置。
 
-```powershell
-npm install
-npm run android:init
-npm run android:build
-```
+![成人成长工作台概览，内置示例](docs/images/readme/02-adult-overview.png)
 
-构建流程和部署边界见 `docs/deployment.md` 与 `.github/workflows/android-apk.yml`。
+### 儿童学习工作台
 
-## 运行
+今天的页面把「先完成三件小事」放在最上面，旁边是成长地图和留下的学习记录。完成打卡、学习任务、课程和第一次记下阅读，可以获得阳光，再到奖励中心兑换事先说好的线下奖励。同一件事只记一次。
 
-从仓库根目录启动静态服务：
+![儿童学习工作台今天页，内置示例](docs/images/readme/03-child-today.png)
+
+### 幼儿游戏工作台
+
+字更少，按钮更大。首页只排今天的识字、古诗、数学、英语、运动和专注。阳光和能量是完成之后的反馈，没做完不会扣分。三个主题共用这一套任务。
+
+![植物僵尸工作台首页，内置示例](docs/images/readme/04-preschool-garden.png)
+
+## 在自己的电脑上打开
+
+在仓库根目录启动一个静态服务：
 
 ```powershell
 python -m http.server 7000
@@ -50,38 +52,60 @@ python -m http.server 7000
 
 然后打开：
 
-- `http://127.0.0.1:7000/prj/`
-- `http://127.0.0.1:7000/prj/成人成长工作台/`
-- `http://127.0.0.1:7000/prj/儿童学习工作台/`
-- `http://127.0.0.1:7000/prj/preschool-workbench/`
+- <http://127.0.0.1:7000/prj/>
+- <http://127.0.0.1:7000/prj/成人成长工作台/>
+- <http://127.0.0.1:7000/prj/儿童学习工作台/>
+- <http://127.0.0.1:7000/prj/preschool-workbench/?theme=garden-defense>
+- <http://127.0.0.1:7000/prj/preschool-workbench/?theme=voxel-adventure>
+- <http://127.0.0.1:7000/prj/preschool-workbench/?theme=platform-quest>
 
-仓库根 `index.html` 会跳转到 `prj/`。也可以直接打开 `prj/index.html`。
+仓库根目录的 `index.html` 会跳到 `prj/`。直接双击 HTML 时，部分浏览器会限制本地存储，所以建议用上面的方式打开。
 
-## 当前实现
+## 数据放在哪里
 
-- 成人版：概览、今日计划、成长任务、阅读记录、长期目标、生活分区、归档与年度统计、家庭互动、每周复盘、账号与同步、偏好设置。生活分区覆盖学习、健身、美妆护肤、理财、购物和灵感，支持习惯打卡、DDL/考试节点、备注和附件元数据。
-- 儿童版：今天、成长地图、今日打卡、学习任务、错题本、语数英课程、阅读记录、成长目标、奖励中心、家长互动、成长日记、账号与同步。
-- 阳光成长工作台：少文字、大图卡、大方框导航；工作台首页聚焦今日打卡、阳光/豌豆能量和去游戏/领奖励出口。独立的“花园保卫战”小游戏提供植物选择、5 路 6 列棋盘、三类僵尸、自动行动和刷新后可恢复的本地游戏状态；课程、改错、奖励、家长和设置仍保留在各自页面。
-- 儿童版完成打卡、完成学习任务、课程和首次记录阅读会获得阳光，可在奖励中心领取约定好的线下奖励；每个事件只奖励一次。
-- 儿童版成长地图包含阳光、植物阶段、独角兽 XP/等级、造型解锁、连续奖励、漏打卡僵尸状态和浏览器语音夸奖开关。
-- 幼儿版花园使用同一份本地成长快照，按累计阳光解锁植物伙伴，按学习/打卡/照料/奖励事件收集贴纸；防守能量、入侵者生命值、波次和击退次数可导入导出，未完成行动不会扣分。
-- localStorage 本地快照（schema v6）、独立家庭互动 feed、JSON 导入导出、成人完成项自动归档、初始示例数据。
-- 三个项目使用不同 localStorage key，互不污染。
-- 成人/儿童版移动端侧栏抽屉、幼儿版参考帧固定路线栏、表单校验、Toast 反馈、CSS 趋势图。
-- 账号和多设备同步可接入外部自托管 API：注册、登录、家庭、孩子档案、快照恢复、上传和 revision 冲突提示均由 `api-adapter.js` 负责；凭证不进入工作台快照。
-- Vercel 部署边界见 `vercel.json` 和 `docs/deployment.md`：Vercel 只部署静态前端，SQLite 与自托管 API 仍需单独部署；不重新引入 Supabase 运行时。
+- 记录写在浏览器的 `localStorage` 里。成人、儿童、幼儿使用不同的 key，互不覆盖。
+- 可以导出、导入 JSON 备份。备份就是当时这份本地快照，换浏览器或清除站点数据前先导出。
+- 账号凭证不会写进工作台快照。如果要多设备同步，需要另外部署自托管 API，说明见 [docs/api-contract.md](docs/api-contract.md) 和 [docs/deployment.md](docs/deployment.md)。
+- 页面可以放到 GitHub Pages 或 Vercel，那只是静态前端。数据库不在这个仓库里。
 
-## 资料目录
+## Android 安装包
 
-- `docs/03-研究与参考/幼儿学习工作台研究/`：本地资料分析、Tavily/Firecrawl 原始证据、外部来源和许可证清单。
-- `docs/02-课程/幼儿课程方案/`：幼儿版总方案、六学科分方案、自然拼读 60 日路线、成长游戏、资料授权和实施验收。
-- `docs/research.md`：调研结论与设计推断。
-- `docs/sources.md`：来源、抓取时间和使用边界。
-- `docs/case-study-xhs.md`：小红书案例拆解。
-- `docs/data-model.md`：本地快照和实体字段。
-- `docs/api-contract.md`：现有自托管账号、家庭、档案和快照 API 契约。
-- `docs/deployment.md`：Vercel 静态前端与自托管后端部署说明。
-- `docs/database/schema.sql`：SQLite 数据库预留草案。
-- `docs/99-归档/prompts/`：本地生成素材所用提示词。
-- `docs/wechat-tutorials.md`：公众号文章与 WorkBuddy 教程整理。
-- `docs/image-generation-tests.md`：Agnes、Bee、TokenX24 等接口测试记录。
+手机版不另写一套页面，用 Capacitor 把同一套 `prj/` 页面包成 APK。
+
+签名证书不在仓库中。GitHub Actions 只有在仓库 Secrets 里配好下面四项后，才能打出正式签名包：
+
+- `ANDROID_KEYSTORE_BASE64`
+- `ANDROID_KEYSTORE_PASSWORD`
+- `ANDROID_KEY_ALIAS`
+- `ANDROID_KEY_PASSWORD`
+
+没有这些 Secrets 时，[构建流程](https://github.com/nonomil/personal-workbench/actions/workflows/android-apk.yml) 会在签名步骤失败。推送 `main` 不会自动产出可用的签名 APK。打上 `v*` 标签并且构建成功后，才会把 APK 附加到对应的 GitHub Release。
+
+`versionName` 跟随 `package.json`。`versionCode` 按 `主版本 × 10000 + 次版本 × 100 + 修订号` 计算，所以 `0.7.4` 对应 `704`。
+
+本机打包需要 Node.js 22、Java 21 和 Android SDK：
+
+```powershell
+npm install
+npm run android:init
+npm run android:build
+```
+
+## 版本
+
+- [v0.7.4 发布说明](docs/04-发布/v0.7.4.md)
+- [v0.7.3 发布说明](docs/04-发布/v0.7.3.md)
+- [v0.7.2 发布说明](docs/04-发布/v0.7.2.md)
+- [v0.7.1 发布说明](docs/04-发布/v0.7.1.md)
+- [v0.7.0 发布说明](docs/04-发布/v0.7.0.md)
+
+更早的说明在 [docs/04-发布](docs/04-发布)。
+
+## 仓库结构
+
+- `prj/`：真正打开的页面、样式、素材和小游戏
+- `docs/`：方案、课程、发布说明和本页用到的界面图
+- `scripts/`、`tests/`：打包检查和测试
+- `package.json`：版本号和 Android 包装脚本
+
+产品页面集中在 `prj/`。GitHub Pages 使用 `main` 分支的根目录，打开站点后会进入 `prj/`。
