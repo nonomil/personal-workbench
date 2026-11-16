@@ -6050,7 +6050,7 @@
             { asset: 'zombie-buckethead', label: '铁桶僵尸' }
         ] },
         'voxel-adventure': { obstacle: false, list: [
-            { asset: '../assets/generated/preschool-theme-assets/voxel-v1/published/voxel-enemy-creeper.png', label: '苦力怕' },
+            { asset: '../assets/generated/preschool-theme-assets/voxel-v1/published/voxel-enemy-greenblock.png', label: '苦力怕' },
             { asset: '../assets/generated/preschool-theme-assets/voxel-v1/published/voxel-enemy-skeleton.png', label: '骷髅' },
             { asset: '../assets/generated/preschool-theme-assets/voxel-v1/published/voxel-enemy-spider.png', label: '蜘蛛' }
         ] },

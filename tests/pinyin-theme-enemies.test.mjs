@@ -24,7 +24,7 @@ test('E1 per-theme enemy map covers all three themes', () => {
   assert.match(map, /'voxel-adventure'/);
   assert.match(map, /'platform-quest'/);
   // voxel 用方块怪物，platform 用障碍物
-  assert.match(map, /creeper/);
+  assert.match(map, /voxel-enemy-greenblock/);
   assert.match(map, /platform-brick/);
   // 僵尸仍是 garden 的敌人
   assert.match(map, /zombie-basic/);
@@ -32,7 +32,7 @@ test('E1 per-theme enemy map covers all three themes', () => {
 
 test('E2 voxel enemy assets resolve to the roster front views', () => {
   const voxel = sourceBetween(app, 'PRESCHOOL_SCENE_ENEMIES = {', 'function preschoolSceneEnemyArt');
-  assert.match(voxel, /voxel-enemy-creeper\.png/);
+  assert.match(voxel, /voxel-enemy-greenblock\.png/);
   assert.match(voxel, /preschool-theme-assets\/voxel-v1/);
   assert.match(voxel, /skeleton/);
 });

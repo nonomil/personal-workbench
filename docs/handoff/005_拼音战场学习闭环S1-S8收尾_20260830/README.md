@@ -45,7 +45,7 @@
 - **APK 签名凭据（2026-08-30 生成，钥匙串请自行保管）**：`android/app/release.jks`
   （仓库无历史证书，此前真机均为 debug 包；首次 release 签名与旧 debug 不同，
   已装 debug 的机器需卸载重装）。alias `personalworkbench`；
-  store/key 密码均为 `nlCmudZArFazcjMRqo518h9W`；构建时需设环境变量
+  store/key 密码均为 `见仓库外私钥备份，不写入仓库`；构建时需设环境变量
   `ANDROID_KEYSTORE_PASSWORD` / `ANDROID_KEY_ALIAS` / `ANDROID_KEY_PASSWORD`
 - 定向测试：`node --test tests/pinyin-kit.test.mjs tests/pinyin-pronunciation.test.mjs tests/pinyin-tones.test.mjs tests/pinyin-wheel.test.mjs tests/pinyin-theme-enemies.test.mjs tests/garden-quiz-gate.test.mjs tests/garden-quiz-dynamic.test.mjs tests/pvz-learning-loop.test.mjs tests/preschool-literacy-card-wall.test.mjs` → **46/46**
 - 题库重生成：`python scripts/build-literacy-quiz-bank.py`；音频重烤：`pip install edge-tts && python pinyin-pronunciation-kit/scripts/bake_call_audio.py`
