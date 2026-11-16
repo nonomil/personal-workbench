@@ -1,0 +1,346 @@
+/* 54 · 拼音游戏化题面
+ *
+ * 题面只承担一件事：让孩子看见“部件 → 音节 → 四声 → 例字/词语”的关系。
+ * 先把信息压成一张小卡，再把可选答案留给下面的按钮；这样网页可以自然
+ * 滚动，Android 横屏也不会因为教学说明变成一张长页面。
+ */
+
+body.variant-preschool .pinyin-syllable-cue {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+    padding: 12px 14px;
+    border: 1px solid rgba(87, 174, 214, .24);
+    border-radius: 20px;
+    background:
+        radial-gradient(circle at 8% 18%, rgba(255, 255, 255, .9), transparent 32%),
+        linear-gradient(145deg, #eefaff, #fffaf0 78%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .92), 0 8px 18px rgba(60, 126, 148, .08);
+}
+
+body.variant-preschool .pinyin-syllable-equation {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(72px, auto);
+    gap: 9px;
+    align-items: center;
+}
+
+body.variant-preschool .pinyin-syllable-parts {
+    display: flex;
+    min-width: 0;
+    align-items: stretch;
+    justify-content: center;
+    gap: 6px;
+}
+
+body.variant-preschool .pinyin-syllable-part {
+    display: grid;
+    min-width: 52px;
+    min-height: 50px;
+    place-items: center;
+    padding: 5px 8px 7px;
+    border: 1px solid rgba(87, 174, 214, .26);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, .82);
+    box-shadow: 0 3px 0 rgba(87, 174, 214, .1);
+}
+
+body.variant-preschool .pinyin-syllable-part small,
+body.variant-preschool .pinyin-syllable-examples small {
+    color: #6c8490;
+    font-size: .66rem;
+    font-weight: 850;
+    line-height: 1.2;
+}
+
+body.variant-preschool .pinyin-syllable-part strong {
+    color: #205a79;
+    font-size: clamp(1.22rem, 3.1vw, 1.72rem);
+    font-weight: 950;
+    line-height: 1.05;
+}
+
+body.variant-preschool .pinyin-syllable-plus,
+body.variant-preschool .pinyin-syllable-arrow {
+    display: grid;
+    place-items: center;
+    color: #e19b35;
+    font-size: 1.25rem;
+    font-weight: 950;
+}
+
+body.variant-preschool .pinyin-syllable-arrow {
+    color: #4f9fbd;
+    font-size: 1.55rem;
+}
+
+body.variant-preschool .pinyin-syllable-result {
+    display: grid;
+    min-width: 72px;
+    min-height: 64px;
+    place-items: center;
+    border: 2px solid rgba(239, 166, 67, .38);
+    border-radius: 18px;
+    color: #a5601e;
+    background: rgba(255, 247, 211, .9);
+    box-shadow: 0 4px 0 rgba(239, 166, 67, .12);
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 950;
+    line-height: 1;
+}
+
+body.variant-preschool .pinyin-syllable-tone-strip {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+}
+
+body.variant-preschool .pinyin-syllable-tone {
+    display: grid;
+    min-width: 0;
+    gap: 2px;
+    place-items: center;
+    padding: 5px 3px 6px;
+    border: 1px solid rgba(119, 158, 174, .18);
+    border-radius: 11px;
+    color: #6f8290;
+    background: rgba(255, 255, 255, .66);
+}
+
+body.variant-preschool .pinyin-syllable-tone b {
+    color: #376f88;
+    font-size: 1.03rem;
+    font-weight: 950;
+    line-height: 1.1;
+}
+
+body.variant-preschool .pinyin-syllable-tone small {
+    font-size: .58rem;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+body.variant-preschool .pinyin-syllable-tone.is-active {
+    border-color: rgba(239, 166, 67, .62);
+    color: #955a1d;
+    background: #fff1bd;
+    box-shadow: 0 3px 0 rgba(239, 166, 67, .14);
+}
+
+body.variant-preschool .pinyin-syllable-tone.is-active b { color: #9d5c1b; }
+
+body.variant-preschool .pinyin-syllable-examples {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+}
+
+body.variant-preschool .pinyin-syllable-examples > span {
+    display: grid;
+    min-width: 0;
+    gap: 3px;
+    padding: 7px 9px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, .68);
+}
+
+body.variant-preschool .pinyin-syllable-examples strong {
+    overflow: hidden;
+    color: #355d50;
+    font-size: .87rem;
+    font-weight: 900;
+    line-height: 1.25;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.variant-preschool .pinyin-syllable-hint {
+    margin: 0;
+    color: #6d808a;
+    font-size: .78rem;
+    font-weight: 750;
+    line-height: 1.35;
+    text-align: center;
+}
+
+body.variant-preschool .pinyin-syllable-cue + .literacy-find-tools,
+body.variant-preschool .literacy-find-cue.has-pinyin-cue .literacy-find-tools {
+    margin-top: 0;
+}
+
+body.variant-preschool .literacy-find-cue.has-pinyin-cue {
+    gap: 8px;
+    padding: 10px;
+}
+
+body.variant-preschool .literacy-find-cue.has-pinyin-cue .literacy-find-tools {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 7px;
+}
+
+body.variant-preschool .literacy-find-cue.has-pinyin-cue .literacy-find-tools .btn-secondary {
+    min-height: 42px;
+    padding: 0 12px;
+    font-size: .78rem;
+}
+
+@media (max-width: 440px) {
+    body.variant-preschool .pinyin-syllable-cue { padding: 10px; border-radius: 17px; }
+    body.variant-preschool .pinyin-syllable-equation { grid-template-columns: minmax(0, 1fr) auto; }
+    body.variant-preschool .pinyin-syllable-result { grid-column: 1 / -1; min-height: 52px; }
+    body.variant-preschool .pinyin-syllable-part { min-width: 45px; min-height: 45px; padding-inline: 5px; }
+    body.variant-preschool .pinyin-syllable-part strong { font-size: 1.22rem; }
+    body.variant-preschool .pinyin-syllable-examples strong { font-size: .78rem; }
+}
+
+@media (orientation: landscape) {
+    html.is-android-app body.variant-preschool .pinyin-syllable-cue {
+        gap: 7px;
+        padding: 8px 11px;
+        border-radius: 15px;
+    }
+
+    html.is-android-app body.variant-preschool .pinyin-syllable-part {
+        min-height: 42px;
+        padding: 4px 7px 5px;
+    }
+
+    html.is-android-app body.variant-preschool .pinyin-syllable-result {
+        min-height: 50px;
+        font-size: 1.55rem;
+    }
+
+    html.is-android-app body.variant-preschool .pinyin-syllable-tone { padding-block: 3px 4px; }
+    html.is-android-app body.variant-preschool .pinyin-syllable-tone b { font-size: .9rem; }
+    html.is-android-app body.variant-preschool .pinyin-syllable-examples { gap: 5px; }
+    html.is-android-app body.variant-preschool .pinyin-syllable-examples > span { padding-block: 5px; }
+}
+
+/*
+ * A pinyin round is a single-screen action on Android landscape.  The shared
+ * lesson dialog is intentionally roomy for web and portrait, but its four
+ * step strip + two-column answers can make a 640px CSS viewport scroll.  Give
+ * this one compact, high-signal lesson a wider rail and one answer row while
+ * keeping every control at a touchable size.
+ */
+@media (orientation: landscape) and (min-width: 760px) and (min-height: 560px) {
+    html.is-android-app body.variant-preschool .lesson-dialog.has-pinyin-cue {
+        width: min(860px, calc(100vw - 24px));
+        max-height: calc(100vh - 16px);
+        overflow: hidden;
+    }
+
+    html.is-android-app body.variant-preschool .lesson-dialog.has-pinyin-cue .lesson-dialog-head {
+        gap: 10px;
+        padding: 12px 16px 10px;
+    }
+
+    html.is-android-app body.variant-preschool .lesson-dialog.has-pinyin-cue .lesson-dialog-head h2 {
+        margin-top: 3px;
+        font-size: 20px;
+    }
+
+    html.is-android-app body.variant-preschool .lesson-dialog.has-pinyin-cue .lesson-dialog-body {
+        padding: 8px 16px 0;
+    }
+
+    html.is-android-app body.variant-preschool .lesson-dialog.has-pinyin-cue .lesson-dialog-progress {
+        gap: 5px;
+        margin-top: 8px;
+    }
+
+    html.is-android-app body.variant-preschool .lesson-dialog.has-pinyin-cue .lesson-dialog-progress-track {
+        height: 6px;
+    }
+
+    html.is-android-app body.variant-preschool .lesson-dialog.has-pinyin-cue .lesson-four-steps {
+        gap: 5px;
+        margin-top: 7px;
+    }
+
+    html.is-android-app body.variant-preschool .lesson-dialog.has-pinyin-cue .lesson-four-steps li {
+        min-height: 42px;
+        padding: 4px 6px;
+    }
+
+    html.is-android-app body.variant-preschool .lesson-dialog.has-pinyin-cue .lesson-four-steps strong {
+        font-size: 11px;
+    }
+
+    html.is-android-app body.variant-preschool .lesson-dialog.has-pinyin-cue .lesson-four-steps small {
+        font-size: 9px;
+        line-height: 1.2;
+    }
+
+    html.is-android-app body.variant-preschool .lesson-dialog.has-pinyin-cue .lesson-dialog-prompt {
+        margin: 8px 0 10px;
+        font-size: clamp(22px, 2.5vw, 30px);
+        line-height: 1.16;
+    }
+
+    html.is-android-app body.variant-preschool .lesson-dialog.has-pinyin-cue .literacy-card.has-pinyin-cue {
+        gap: 4px;
+        padding: 6px 8px;
+        border-radius: 16px;
+    }
+
+    html.is-android-app body.variant-preschool .lesson-dialog.has-pinyin-cue .pinyin-syllable-cue {
+        gap: 3px;
+        padding: 4px 8px;
+    }
+
+    html.is-android-app body.variant-preschool .lesson-dialog.has-pinyin-cue .pinyin-syllable-result {
+        min-height: 46px;
+    }
+
+    html.is-android-app body.variant-preschool .lesson-dialog.has-pinyin-cue .pinyin-syllable-tone {
+        padding-block: 2px 3px;
+    }
+
+    html.is-android-app body.variant-preschool .lesson-dialog.has-pinyin-cue .pinyin-syllable-examples > span {
+        padding-block: 4px;
+    }
+
+    html.is-android-app body.variant-preschool .lesson-dialog.has-pinyin-cue .literacy-find-tools {
+        gap: 4px;
+    }
+
+    html.is-android-app body.variant-preschool .lesson-dialog.has-pinyin-cue .literacy-find-tools .btn-secondary {
+        min-height: 40px;
+        padding-inline: 12px;
+    }
+
+    html.is-android-app body.variant-preschool .lesson-dialog.has-pinyin-cue .literacy-find-options {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 6px;
+    }
+
+    html.is-android-app body.variant-preschool .lesson-dialog.has-pinyin-cue .literacy-find-option {
+        min-height: 56px;
+        padding: 6px 8px;
+        border-radius: 13px;
+    }
+
+    html.is-android-app body.variant-preschool .lesson-dialog.has-pinyin-cue .literacy-find-option strong {
+        font-size: 28px;
+    }
+
+    html.is-android-app body.variant-preschool .lesson-dialog.has-pinyin-cue .lesson-dialog-feedback {
+        min-height: 18px;
+        margin-top: 7px;
+        font-size: 12px;
+        line-height: 1.25;
+    }
+
+    html.is-android-app body.variant-preschool .lesson-dialog.has-pinyin-cue .lesson-dialog-actions {
+        gap: 6px;
+        margin-top: 7px;
+        padding-top: 6px;
+    }
+
+    html.is-android-app body.variant-preschool .lesson-dialog.has-pinyin-cue .lesson-dialog-actions button {
+        min-height: 44px;
+    }
+}

@@ -16,7 +16,8 @@ test('preschool home surfaces three world progress and daily game sun cap', () =
   assert.match(app, /function getDailyGameSunEarned\(/);
   assert.match(app, /function getWorldGameProgressRows\(/);
   assert.match(app, /DAILY_GAME_SUN_CAP\s*=\s*80/);
-  assert.match(app, /今日游戏阳光/);
+  assert.match(app, /今日游戏\$\{currency\}/);
+  assert.match(app, /currency: playbook\.currency \|\| '阳光'/);
   const homeStart = app.indexOf('function renderPreschoolHomeOverview(derived)');
   const homeEnd = app.indexOf('function renderPreschoolPage(derived)', homeStart);
   const growthStart = app.indexOf('function renderPreschoolGrowth()');
@@ -186,4 +187,14 @@ test('badge totals derive from the catalog length, never hardcoded', () => {
   for (const src of [achievements, bridge, fs.readFileSync(path.join(fileURLToPath(new URL('..', import.meta.url)), 'prj', 'app.js'), 'utf8')]) {
     assert.doesNotMatch(src, /badgeTotal\s*[:=]\s*11\b/, 'badge total must not be hardcoded to 11');
   }
+});
+
+test('home world progress rows append career coins from platform saves', () => {
+  const app = fs.readFileSync(path.join(fileURLToPath(new URL('..', import.meta.url)), 'prj', 'app.js'), 'utf8');
+  const start = app.indexOf('function getWorldGameProgressRows');
+  const end = app.indexOf('function getAdventureMetaView', start);
+  const fn = app.slice(start, end);
+  assert.match(fn, /coinsTotal/);
+  assert.match(fn, /生涯金币 x/);
+  assert.match(fn, /platform-quest[\s\S]*生涯金币 x|生涯金币 x[\s\S]*platform-quest/);
 });

@@ -12,9 +12,11 @@
     "android:prepare": "node scripts/prepare-mobile.mjs",
     "android:init": "npm run android:prepare && cap add android",
     "android:sync": "npm run android:prepare && cap sync android",
-    "android:build": "npm run android:sync && node scripts/stamp-android-release.mjs && cd android && gradlew.bat assembleRelease"
+    "android:build": "npm run android:sync && node scripts/stamp-android-release.mjs && cd android && gradlew.bat assembleRelease",
+    "parent-review:start": "node scripts/parent-review-exporter-server.mjs"
   },
   "dependencies": {
+    "@capacitor-community/text-to-speech": "8.0.2",
     "@capacitor/core": "8.4.2"
   },
   "devDependencies": {

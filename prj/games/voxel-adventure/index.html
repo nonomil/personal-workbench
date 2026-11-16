@@ -7,7 +7,7 @@
     <title>方块世界</title>
     <link rel="stylesheet" href="../shared/growth-hud.css">
     <link rel="stylesheet" href="../../css/preschool/31-voxel-workshop.css?v=20260814-game-v1">
-    <link rel="stylesheet" href="./game.css?v=20260815-mc-art-v1">
+    <link rel="stylesheet" href="./game.css?v=20260827-door-tip-v1">
 </head>
 <body data-world-game="voxel-adventure" class="mc-world">
     <header class="world-bar mc-top">
@@ -28,6 +28,10 @@
     <main class="world-shell mc-stage">
         <section class="world-panel" id="panel-map">
             <h2 class="panel-title">选关 · <span id="stage-count">8</span> <small class="tip" id="progress-tip">加载中…</small></h2>
+            <div class="companion-hud map-companion" id="map-companion-hud" aria-live="polite">
+                <img src="../../assets/generated/preschool-theme-assets/voxel-v1/published/voxel-companion.png" alt="星芒" onerror="this.replaceWith(Object.assign(document.createElement('b'),{textContent:'🦄'}))">
+                <span class="companion-say" id="map-companion-say"></span>
+            </div>
             <div class="stage-map" id="stage-map" aria-label="8 个区域关卡"></div>
         </section>
         <section class="world-panel is-hidden" id="panel-play">
@@ -90,13 +94,13 @@
         </div>
     </div>
     <div class="vw-overlay is-hidden" id="workshop-overlay" aria-label="方块工坊"></div>
-    <script src="../shared/workbench-bridge.js?v=20260815-sfx-v1"></script>
+    <script src="../shared/workbench-bridge.js?v=20260824-learning-game-p0"></script>
     <script src="../shared/game-sfx.js?v=20260815-sfx-v1"></script>
     <script src="./data/quests.js?v=20260815-s2-v1"></script>
     <script src="./data/levels.js?v=20260814-mob-v2"></script>
     <script src="./data/world.js?v=20260815-s2-v2"></script>
     <script src="./pixel-tiles.js?v=20260814-art-v2"></script>
     <script src="./workshop.js?v=20260815-mc-art-v1"></script>
-    <script src="./game.js?v=20260815-mc-art-v1"></script>
+    <script src="./game.js?v=20260827-door-tip-v1"></script>
 </body>
 </html>

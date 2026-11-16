@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>方块世界 · 挖放乐园</title>
-    <link rel="stylesheet" href="./game.css?v=20260816-bar-v1">
+    <link rel="stylesheet" href="./game.css?v=20260827-flatmc-z11">
 </head>
-<body class="vc-body">
+<body class="vc-body vc-immersive" data-learning-mode="optional">
     <aside class="vc-side" id="vc-side" aria-label="方块世界工作台导航">
         <div class="vc-side-brand">
             <span class="vc-side-logo">⛏️</span>
@@ -32,11 +32,13 @@
             <span class="vc-chip vc-hp-chip"><img class="vc-chip-ico" src="./assets/ui/heart.png" alt="">生命 <b id="hp-label">5/5</b></span>
             <span class="vc-chip"><img class="vc-chip-ico" src="./assets/mc/items/wooden-sword.png" alt="">敌人 <b id="enemy-label">0</b></span>
             <span class="vc-chip">阳光 <b id="sun-label">0</b></span>
+            <span class="vc-chip vc-learning-chip" id="learning-mode-hud"><span>学习</span> <b id="learning-mode-count">0/10</b></span>
         </div>
         <div class="vc-bar-actions">
             <button type="button" class="vc-tool" id="map-btn" title="地图册"><img src="./assets/mc/blocks/grass-block.png" alt="">地图</button>
             <button type="button" class="vc-tool vc-attack-btn" id="attack-btn" title="攻击 (K)"><img src="./assets/mc/items/wooden-sword.png" alt="">攻击</button>
             <button type="button" class="vc-tool" id="bag-btn" title="背包 (E)"><img src="./assets/mc/items/chest.png" alt="">背包</button>
+            <button type="button" class="vc-tool" id="skin-btn" title="换成火柴人">火柴人</button>
             <button type="button" class="vc-tool" id="home-shot-btn" title="拍下家园">拍照</button>
             <button type="button" class="vc-tool" id="reset-btn" title="重开世界">重开</button>
             <button type="button" class="vc-tool" id="fullscreen-btn">全屏</button>
@@ -59,7 +61,7 @@
                     <button type="button" data-hold="jump" aria-label="跳">▲</button>
                     <button type="button" data-hold="right" aria-label="右">▶</button>
                 </div>
-                <p class="vc-hint">按住挖 · 右键/长按放 · A/D 走 · 空格跳 · K/⚔ 攻击</p>
+                <p class="vc-hint">点方块贴着放 · 拿镐挖 · 拿剑点敌人 · 中键/双击拿 · A/D 走 · 空格跳</p>
             </div>
         </div>
         <div class="vc-hotbar-row">
@@ -158,14 +160,30 @@
         </div>
     </div>
 
-    <script src="../shared/workbench-bridge.js?v=20260816-pass-v2"></script>
+    <div class="vc-learning-layer is-hidden" id="learning-card-layer" data-learning-mode="overlay" role="dialog" aria-modal="true" aria-labelledby="learning-card-prompt">
+        <article class="vc-learning-card">
+            <div class="vc-learning-card-head"><span id="learning-track-label">学习卡</span><button type="button" id="learning-speak-button" class="vc-learning-speak" aria-label="听音">🔊 再听一次</button></div>
+            <strong id="learning-card-symbol"></strong>
+            <h2 id="learning-card-prompt">选择正确的图片</h2>
+            <div class="vc-learning-answer-grid" id="learning-answer-grid"></div>
+            <p id="learning-card-feedback" role="status"></p>
+            <button type="button" id="learning-correction-button" class="vc-btn vc-primary is-hidden">我记住了，继续探险</button>
+        </article>
+    </div>
+
+    <script src="../shared/workbench-memory.js?v=20260825-memory-v1"></script>
+    <script src="../shared/workbench-bridge.js?v=20260824-learning-game-p0"></script>
+    <script src="../../preschool-speech.js"></script>
+    <script src="../voxel-learning/core/learning-adapter.js"></script>
+    <script src="../learning-defense/data/cards.js"></script>
+    <script src="../shared/learning-card-overlay.js"></script>
     <script src="../shared/game-sfx.js?v=20260815-sfx-v1"></script>
     <script src="./data/quests.js?v=20260815-craft-v22"></script>
     <script src="./data/maps.js?v=20260816-map-v2"></script>
     <script src="./data/enemies.js?v=20260816-enemy-v1"></script>
-    <script src="./data/world.js?v=20260816-craft-v27"></script>
-    <script src="./engine.js?v=20260816-craft-v27"></script>
-    <script src="./game.js?v=20260816-pass-v2"></script>
+    <script src="./data/world.js?v=20260827-flatmc-z3"></script>
+    <script src="./engine.js?v=20260827-flatmc-z10"></script>
+    <script src="./game.js?v=20260827-flatmc-z11"></script>
 </div>
 </body>
 </html>

@@ -17,6 +17,22 @@ function loadPlayModsFromLiteracy() {
   return box.playModsFromLiteracy;
 }
 
+function loadBridge() {
+  const store = {};
+  const box = {
+    localStorage: {
+      getItem(key) { return Object.prototype.hasOwnProperty.call(store, key) ? store[key] : null; },
+      setItem(key, value) { store[key] = String(value); },
+      removeItem(key) { delete store[key]; }
+    },
+    console: { warn() {}, log() {} }
+  };
+  box.window = box;
+  box.globalThis = box;
+  vm.runInNewContext(bridgeSrc, box);
+  return box.WorkbenchGameBridge;
+}
+
 test('literacy count picks easy / normal / hard play mods', () => {
   const playModsFromLiteracy = loadPlayModsFromLiteracy();
   const easy = playModsFromLiteracy(0);
@@ -35,6 +51,23 @@ test('literacy count picks easy / normal / hard play mods', () => {
   assert.equal(hard.sunMult, 2);
   assert.equal(hard.extraMob, true);
   assert.equal(hard.chaseMs < mid.chaseMs, true);
+});
+
+test('literacy game difficulty counts only ready and maintenance entries', () => {
+  const bridge = loadBridge();
+  const known = bridge.countLiteracyKnown({
+    courseProgress: {
+      literacy: {
+        mastery: {
+          一: { state: 'introduced' },
+          二: { state: 'practicing' },
+          三: { state: 'ready' },
+          四: { state: 'maintenance' }
+        }
+      }
+    }
+  });
+  assert.equal(known, 2);
 });
 
 test('voxel world consumes play mods for speed and sunlight', () => {

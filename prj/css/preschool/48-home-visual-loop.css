@@ -1,0 +1,489 @@
+/* 48 · Visual Match Loop v1
+ *
+ * The reference composition is a navigation rail plus an illustrated scene,
+ * with a compact status strip and independent destinations. This layer keeps
+ * the three existing theme asset packs and route contracts, but makes the
+ * homepage read as a scene with a task card wall instead of one hero panel.
+ */
+
+@media (min-width: 761px) and (min-height: 481px) {
+    body.variant-preschool {
+        --reference-rail: clamp(216px, 20.5vw, 276px);
+    }
+
+    body.variant-preschool .sidebar {
+        width: var(--reference-rail);
+        overflow-x: hidden;
+        overflow-y: auto;
+        border-right: 1px solid rgba(123, 164, 185, .22);
+    }
+
+    body.variant-preschool .main-content {
+        width: calc(100% - var(--reference-rail));
+        margin-left: var(--reference-rail);
+    }
+
+    main.home-simple #page-content {
+        padding-top: 14px;
+        padding-bottom: 0;
+    }
+
+    #page-content .preschool-home-overview.is-simple {
+        position: relative;
+        height: calc(100vh - 70px);
+        min-height: 0;
+        padding: 14px clamp(16px, 2.2vw, 32px) 12px;
+        gap: 10px;
+        overflow: hidden;
+        background:
+            radial-gradient(circle at 76% 18%, rgba(255, 255, 255, .72) 0 3px, transparent 4px),
+            radial-gradient(circle at 82% 22%, rgba(255, 246, 182, .7) 0 5px, transparent 6px),
+            linear-gradient(180deg, rgba(226, 247, 255, .18), rgba(240, 252, 239, .08) 62%, rgba(255, 249, 233, .5)),
+            var(--child-scene-image) center / cover;
+    }
+
+    #page-content .preschool-home-overview.is-simple .workbench-overview-header {
+        flex: 0 0 88px;
+        min-height: 88px;
+        padding: 12px 20px;
+        border: 2px solid rgba(255, 255, 255, .68);
+        border-radius: 28px;
+        background: linear-gradient(115deg, rgba(244, 252, 255, .96), rgba(222, 245, 255, .88) 63%, rgba(255, 249, 219, .92));
+        box-shadow: 0 7px 0 rgba(36, 67, 90, .12), 0 16px 30px rgba(36, 67, 90, .12);
+        backdrop-filter: blur(10px);
+    }
+
+    #page-content .preschool-home-overview.is-simple .workbench-overview-header > div:first-child {
+        position: relative;
+        padding-left: 48px;
+    }
+
+    #page-content .preschool-home-overview.is-simple .workbench-overview-header > div:first-child::before {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 36px;
+        height: 36px;
+        border: 3px solid rgba(255, 255, 255, .86);
+        border-radius: 50%;
+        background: radial-gradient(circle at 35% 32%, #fff9be 0 22%, #f4ca4c 23% 58%, #df9635 59% 100%);
+        box-shadow: 0 4px 0 rgba(36, 67, 90, .14), 0 8px 16px rgba(36, 67, 90, .12);
+        content: "";
+        transform: translateY(-50%);
+    }
+
+    #page-content .preschool-home-overview.is-simple .workbench-overview-greeting {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-height: 18px;
+        color: #24435a;
+    }
+
+    #page-content .preschool-home-overview.is-simple .workbench-overview-greeting strong {
+        font-size: 13px;
+        font-weight: 950;
+    }
+
+    #page-content .preschool-home-overview.is-simple .workbench-overview-greeting span {
+        padding: 3px 8px;
+        border-radius: 999px;
+        color: #6d7f68;
+        background: rgba(255, 241, 170, .72);
+        font-size: 9px;
+        font-weight: 900;
+        letter-spacing: .04em;
+    }
+
+    #page-content .preschool-home-overview.is-simple .workbench-overview-header h1 {
+        font-size: clamp(21px, 2.25vw, 30px);
+        letter-spacing: -.035em;
+    }
+
+    #page-content .preschool-home-overview.is-simple .workbench-overview-header p {
+        font-size: 11px;
+    }
+
+    #page-content .preschool-home-overview.is-simple .preschool-home-top {
+        height: clamp(360px, calc(100vh - 292px), 440px);
+        min-height: 360px;
+    }
+
+    #page-content .preschool-home-overview.is-simple .preschool-home-hero-card {
+        position: relative;
+        display: block;
+        height: 100%;
+        min-height: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent !important;
+        box-shadow: none;
+    }
+
+    #page-content .preschool-home-overview.is-simple .preschool-home-hero-card:hover,
+    #page-content .preschool-home-overview.is-simple .preschool-home-hero-card:focus-visible {
+        border: 0;
+        outline: 0;
+        transform: none;
+    }
+
+    #page-content .preschool-home-overview.is-simple .preschool-home-hero-copy {
+        top: 8%;
+        left: 3%;
+        width: min(300px, 33%);
+        padding: 14px 17px 15px;
+        border: 2px solid rgba(255, 255, 255, .82);
+        border-radius: 24px 24px 24px 11px;
+        background: rgba(255, 253, 242, .92);
+        box-shadow: 0 7px 0 rgba(36, 67, 90, .13), 0 16px 28px rgba(36, 67, 90, .12);
+        backdrop-filter: blur(7px);
+    }
+
+    #page-content .preschool-home-overview.is-simple .preschool-home-hero-copy::after {
+        right: 24px;
+        bottom: -12px;
+        width: 20px;
+        height: 20px;
+        border-right: 2px solid rgba(255, 255, 255, .82);
+        border-bottom: 2px solid rgba(255, 255, 255, .82);
+        background: rgba(255, 253, 242, .92);
+    }
+
+    #page-content .preschool-home-overview.is-simple .preschool-home-hero-copy strong {
+        font-size: clamp(21px, 2.35vw, 30px);
+    }
+
+    #page-content .preschool-home-overview.is-simple .preschool-home-hero-copy p,
+    #page-content .preschool-home-overview.is-simple .preschool-home-hero-copy em {
+        display: none;
+    }
+
+    #page-content .preschool-home-overview.is-simple .preschool-home-hero-art {
+        right: 5%;
+        width: min(43%, 380px);
+        height: 90%;
+        grid-template-rows: minmax(0, 1fr);
+        overflow: hidden;
+    }
+
+    #page-content .preschool-home-overview.is-simple .preschool-home-hero-art .preschool-generated-art,
+    #page-content .preschool-home-overview.is-simple .preschool-home-hero-art img {
+        min-height: 0;
+        max-height: 100%;
+    }
+
+    #page-content .preschool-home-overview.is-simple .child-game-companion-panel {
+        top: 4%;
+        right: 1%;
+        width: min(190px, 21%);
+        min-height: 96px;
+        border-radius: 26px 26px 11px 26px;
+        background: rgba(246, 253, 255, .88);
+        box-shadow: 0 7px 0 rgba(36, 67, 90, .12), 0 14px 24px rgba(36, 67, 90, .1);
+        backdrop-filter: blur(7px);
+    }
+
+    /* Pull the independent task destinations into the scene's lower field. */
+    #page-content .preschool-home-overview.is-simple .preschool-home-battlefield {
+        position: absolute;
+        z-index: 6;
+        top: clamp(244px, 38vh, 282px);
+        right: clamp(16px, 2.4vw, 32px);
+        left: clamp(16px, 2.4vw, 32px);
+        display: block;
+        height: auto;
+        min-height: 0;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent !important;
+        box-shadow: none;
+        overflow: visible;
+    }
+
+    #page-content .preschool-home-overview.is-simple .preschool-home-battlefield-head,
+    #page-content .preschool-home-overview.is-simple .preschool-home-task-overview,
+    #page-content .preschool-home-overview.is-simple .preschool-home-review,
+    #page-content .preschool-home-overview.is-simple .preschool-home-battlefield-foot {
+        display: none;
+    }
+
+    #page-content .preschool-home-overview.is-simple .preschool-home-lanes {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-auto-rows: 96px;
+        gap: 10px 12px;
+        height: auto;
+        min-height: 0;
+        overflow: visible;
+    }
+
+    #page-content .preschool-home-overview.is-simple .preschool-home-lane {
+        position: relative;
+        display: grid;
+        min-width: 0;
+        min-height: 0;
+        height: 96px;
+        grid-template-rows: minmax(0, 1fr) auto;
+        gap: 2px;
+        padding: 5px 8px;
+        border-width: 2px;
+        border-radius: 24px 24px 18px 12px;
+        border-color: rgba(255, 255, 255, .8);
+        background: linear-gradient(145deg, rgba(255, 255, 255, .84), var(--mission-surface, rgba(255, 251, 239, .82)));
+        box-shadow: 0 6px 0 rgba(36, 67, 90, .13), 0 14px 24px rgba(36, 67, 90, .11);
+        backdrop-filter: blur(6px);
+        overflow: visible;
+        transform: translateY(var(--mission-offset, 0px)) rotate(var(--mission-tilt, 0deg));
+        transition: border-color 180ms ease, box-shadow 180ms ease, filter 180ms ease, transform 180ms ease;
+    }
+
+    #page-content .preschool-home-overview.is-simple .preschool-home-lane::before {
+        position: absolute;
+        top: 9px;
+        right: 12px;
+        width: 24px;
+        height: 5px;
+        border-radius: 999px;
+        background: var(--mission-accent, #78b889);
+        content: "";
+        opacity: .68;
+    }
+
+    #page-content .preschool-home-overview.is-simple .preschool-home-lane::after {
+        position: absolute;
+        bottom: -8px;
+        left: 28px;
+        width: 15px;
+        height: 15px;
+        border-right: 2px solid rgba(255, 255, 255, .8);
+        border-bottom: 2px solid rgba(255, 255, 255, .8);
+        background: var(--mission-surface, rgba(255, 251, 239, .82));
+        content: "";
+        transform: rotate(45deg);
+    }
+
+    #page-content .preschool-home-overview.is-simple .preschool-home-lane:nth-child(3n + 1) {
+        --mission-surface: rgba(210, 241, 220, .84);
+        --mission-accent: #64ae7e;
+    }
+
+    #page-content .preschool-home-overview.is-simple .preschool-home-lane:nth-child(3n + 2) {
+        --mission-surface: rgba(255, 239, 174, .86);
+        --mission-accent: #e1ad3f;
+        --mission-offset: -3px;
+    }
+
+    #page-content .preschool-home-overview.is-simple .preschool-home-lane:nth-child(3n + 3) {
+        --mission-surface: rgba(218, 231, 255, .86);
+        --mission-accent: #788bd0;
+        --mission-offset: 2px;
+    }
+
+    #page-content .preschool-home-overview.is-simple .preschool-home-lane:nth-child(2n) {
+        --mission-tilt: -.35deg;
+    }
+
+    #page-content .preschool-home-overview.is-simple .preschool-home-lane:nth-child(3n) {
+        --mission-tilt: .35deg;
+    }
+
+    #page-content .preschool-home-overview.is-simple .preschool-home-lane:hover,
+    #page-content .preschool-home-overview.is-simple .preschool-home-lane:focus-within {
+        border-color: var(--mission-accent, #64ae7e);
+        box-shadow: 0 7px 0 rgba(36, 67, 90, .15), 0 18px 28px rgba(36, 67, 90, .14);
+        filter: saturate(1.05);
+        transform: translateY(calc(var(--mission-offset, 0px) - 3px)) rotate(var(--mission-tilt, 0deg));
+    }
+
+    #page-content .preschool-home-overview.is-simple .preschool-home-lane-main {
+        min-width: 0;
+        min-height: 44px;
+        grid-template-columns: 38px minmax(0, 1fr);
+        gap: 6px;
+        padding: 0;
+    }
+
+    /* The scene card already routes into the lesson. Keep the second practice
+     * action in the course/task surfaces so the compact wall has one clear CTA. */
+    #page-content .preschool-home-overview.is-simple .preschool-home-lane-practice {
+        display: none;
+    }
+
+    #page-content .preschool-home-overview.is-simple .preschool-home-lane-characters,
+    #page-content .preschool-home-overview.is-simple .preschool-home-lane-plant {
+        width: 38px;
+        height: 38px;
+    }
+
+    #page-content .preschool-home-overview.is-simple .preschool-home-lane-plant img,
+    #page-content .preschool-home-overview.is-simple .preschool-home-lane-plant .preschool-generated-art {
+        width: 34px;
+        height: 34px;
+    }
+
+    #page-content .preschool-home-overview.is-simple .preschool-home-lane-copy {
+        gap: 1px;
+    }
+
+    #page-content .preschool-home-overview.is-simple .preschool-home-lane-copy small {
+        font-size: 9px;
+    }
+
+    #page-content .preschool-home-overview.is-simple .preschool-home-lane-copy strong {
+        font-size: 13px;
+        letter-spacing: -.015em;
+    }
+
+    #page-content .preschool-home-overview.is-simple .preschool-home-lane-status {
+        display: none;
+    }
+
+    #page-content .preschool-home-overview.is-simple .preschool-home-lane-check,
+    #page-content .preschool-home-overview.is-simple .preschool-home-lane-practice {
+        min-height: 26px;
+        padding: 0 7px;
+        border-radius: 10px;
+        border-color: rgba(255, 255, 255, .72);
+        color: #315344;
+        background: rgba(255, 255, 255, .66);
+        box-shadow: 0 3px 0 rgba(36, 67, 90, .1);
+        font-size: 10px;
+        line-height: 1;
+    }
+
+    #page-content .preschool-home-overview.is-simple .preschool-home-exits {
+        position: absolute;
+        right: clamp(16px, 2.4vw, 32px);
+        bottom: 8px;
+        left: clamp(16px, 2.4vw, 32px);
+        z-index: 7;
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        margin: 0;
+    }
+
+    #page-content .preschool-home-overview.is-simple .preschool-home-exits > button {
+        min-height: 40px;
+        padding: 0 12px;
+        border-radius: 17px;
+        box-shadow: 0 3px 0 rgba(36, 67, 90, .12);
+        font-size: 11px;
+    }
+
+    /* The voxel world has its own navigation destination on native Android.
+     * On the wide web canvas the compact task wall is the primary scene, so
+     * keep the secondary world preview out of the fixed viewport. */
+    html:not(.is-android-app) body.variant-preschool[data-preschool-theme="voxel-adventure"] .preschool-home-overview.is-simple > .preschool-voxel-home {
+        display: none;
+    }
+
+    /* MuMu keeps the native pager at a tall landscape size, so its task
+     * pages use the same card grid without desktop-only floating decoration. */
+    html.is-android-app #page-content .preschool-home-overview.is-simple .preschool-home-lane {
+        transform: none;
+    }
+
+    html.is-android-app #page-content .preschool-home-overview.is-simple .preschool-home-lane::before,
+    html.is-android-app #page-content .preschool-home-overview.is-simple .preschool-home-lane::after {
+        display: none;
+    }
+}
+
+/* Android landscape is a different contract: the native pager owns height.
+ * This selector intentionally catches 800x360, where min-width desktop media
+ * queries would otherwise leak a fixed hero height into the first page. */
+@media (orientation: landscape) and (max-height: 480px) {
+    html.is-android-app #page-content .preschool-home-overview.is-simple {
+        display: block;
+        height: 100% !important;
+        min-height: 0 !important;
+        padding: 8px !important;
+        overflow: hidden !important;
+    }
+
+    html.is-android-app #page-content .preschool-home-overview.is-simple .workbench-overview-header {
+        height: 64px !important;
+        min-height: 64px !important;
+    }
+
+    html.is-android-app #page-content .preschool-home-overview.is-simple .workbench-overview-greeting {
+        display: none;
+    }
+
+    html.is-android-app #page-content .preschool-home-overview.is-simple .preschool-home-top {
+        display: grid !important;
+        height: calc(100% - 72px) !important;
+        min-height: 0 !important;
+        grid-template-columns: minmax(0, 1fr) clamp(132px, 20vw, 202px);
+    }
+
+    html.is-android-app #page-content .preschool-home-overview.is-simple .preschool-home-hero,
+    html.is-android-app #page-content .preschool-home-overview.is-simple .preschool-home-hero-card {
+        height: 100% !important;
+        min-height: 0 !important;
+    }
+
+    html.is-android-app #page-content .preschool-home-overview.is-simple .preschool-home-hero-copy {
+        height: 76px !important;
+        min-height: 0 !important;
+        gap: 2px !important;
+        padding: 6px 8px !important;
+        overflow: hidden !important;
+    }
+
+    html.is-android-app #page-content .preschool-home-overview.is-simple .preschool-home-hero-copy > span {
+        height: 32px;
+        min-height: 32px !important;
+    }
+
+    html.is-android-app #page-content .preschool-home-overview.is-simple .preschool-home-hero-art {
+        height: 84% !important;
+        min-height: 0 !important;
+        grid-template-rows: minmax(0, 1fr) !important;
+        overflow: hidden !important;
+    }
+
+    html.is-android-app #page-content .preschool-home-overview.is-simple .preschool-home-hero-art .preschool-generated-art {
+        min-height: 0 !important;
+        max-height: 100% !important;
+    }
+
+    html.is-android-app #page-content .preschool-home-overview.is-simple .preschool-home-battlefield {
+        position: relative !important;
+        top: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        left: auto !important;
+        height: 100% !important;
+        min-height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+        overflow: hidden !important;
+    }
+
+    html.is-android-app #page-content .preschool-native-page[data-native-kind="home-tasks"] .preschool-home-exits {
+        display: none !important;
+    }
+
+    html.is-android-app #page-content .preschool-native-page[data-native-kind="home-tasks"] .preschool-home-overview.is-simple {
+        grid-template-rows: minmax(0, 1fr) !important;
+        gap: 0 !important;
+        padding: 8px 8px 0 !important;
+    }
+}
+
+/* 页面路径在幼儿游戏首页中隐藏时，操作组仍需占据顶部右侧的锚点。 */
+body.variant-preschool .topbar-actions {
+    margin-inline-start: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #page-content .preschool-home-overview.is-simple .preschool-home-lane,
+    #page-content .preschool-home-overview.is-simple .preschool-home-hero-card {
+        transition: none;
+    }
+}

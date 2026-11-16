@@ -81,15 +81,19 @@ ios/
 *.apk
 *.aab
 
+# 本地临时/输出目录，不入库（2026-08-30 快照提交时排除）
+_tmp_mobile_preview/
+_tmp_mumu_verify/
+artifacts/
+output/
+exports/
+
 # Local cleanup archive (old-project worktree backups, 2026-08-06)
 personal-workbench-cleanup-20260806/
 
-# Downloaded badge-system reference clones
-docs/徽章系统/refs/
-
-# Downloaded learning-game reference clones
-docs/学习项目设计/refs/
-docs/工作台小游戏设计/refs/
+# Downloaded reference clones. The old docs/<topic>/refs paths did not match
+# the real folders under docs/01-方案; refs/ already ignores every such directory.
+docs/01-方案/**/refs/
 refs/
 
 # WordQuest 原包（84MB），只入库筛出的 vocab 素材
@@ -111,3 +115,35 @@ prj/games/voxel-adventure/assets/hero/miner-idle.png
 prj/games/voxel-adventure/assets/hero/keyed/
 prj/games/voxel-adventure/assets/enemies/keyed/
 prj/games/voxel-adventure/assets/enemies/green-boom.png
+
+# Root draft screenshots, not product assets
+/*.png
+
+# Local model-list draft
+bee2.json
+
+# Ephemeral browser feedback profiles
+scene-feedback-chrome-*/
+
+# Local archives
+*.7z
+
+# One-off sidebar UX captures; the plan markdown stays
+docs/plans/T20260824-sidebar-ux-*.png
+
+# Local game review screenshots
+prj/games/learning-defense/docs/screenshots/
+
+# Third-party reference media removed from the public repo
+docs/01-方案/工作台小游戏设计/99-参考资料/**/*.mp4
+docs/01-方案/工作台小游戏设计/99-参考资料/**/*.wav
+docs/01-方案/工作台小游戏设计/99-参考资料/**/*.zip
+docs/01-方案/工作台小游戏设计/99-参考资料/**/*.jpg
+docs/01-方案/工作台小游戏设计/99-参考资料/**/*.png
+
+# Archived visual-research binaries
+docs/99-归档/pvz-visual-research/**/*.png
+docs/99-归档/pvz-visual-research/**/*.jpg
+
+# Rejected design references
+docs/03-研究与参考/**/rejected/

@@ -1,0 +1,775 @@
+{
+  "generatedAt": "2026-08-15T03:19:58.295Z",
+  "summary": {
+    "images": 101,
+    "audio": 33,
+    "bytes": 4002337,
+    "rejected": [
+      "sun",
+      "hello",
+      "look",
+      "play",
+      "friend",
+      "water",
+      "tree"
+    ]
+  },
+  "words": [
+    {
+      "text": "black",
+      "image": "assets/img/vocab/black.png",
+      "audio": "assets/audio/vocab/black.mp3",
+      "bytes": 28932,
+      "rejected": false
+    },
+    {
+      "text": "blue",
+      "image": "assets/img/vocab/blue.png",
+      "audio": "assets/audio/vocab/blue.mp3",
+      "bytes": 29553,
+      "rejected": false
+    },
+    {
+      "text": "green",
+      "image": "assets/img/vocab/green.png",
+      "audio": "assets/audio/vocab/green.mp3",
+      "bytes": 29875,
+      "rejected": false
+    },
+    {
+      "text": "purple",
+      "image": "assets/img/vocab/purple.png",
+      "audio": "",
+      "bytes": 8337,
+      "rejected": false
+    },
+    {
+      "text": "red",
+      "image": "assets/img/vocab/red.png",
+      "audio": "assets/audio/vocab/red.mp3",
+      "bytes": 29438,
+      "rejected": false
+    },
+    {
+      "text": "white",
+      "image": "assets/img/vocab/white.png",
+      "audio": "assets/audio/vocab/white.mp3",
+      "bytes": 29936,
+      "rejected": false
+    },
+    {
+      "text": "yellow",
+      "image": "assets/img/vocab/yellow.png",
+      "audio": "assets/audio/vocab/yellow.mp3",
+      "bytes": 30900,
+      "rejected": false
+    },
+    {
+      "text": "bee",
+      "image": "assets/img/vocab/bee.png",
+      "audio": "assets/audio/vocab/bee.mp3",
+      "bytes": 265466,
+      "rejected": false
+    },
+    {
+      "text": "cat",
+      "image": "assets/img/vocab/cat.png",
+      "audio": "assets/audio/vocab/cat.mp3",
+      "bytes": 11846,
+      "rejected": false
+    },
+    {
+      "text": "chicken",
+      "image": "assets/img/vocab/chicken.png",
+      "audio": "assets/audio/vocab/chicken.mp3",
+      "bytes": 211352,
+      "rejected": false
+    },
+    {
+      "text": "cow",
+      "image": "assets/img/vocab/cow.png",
+      "audio": "assets/audio/vocab/cow.mp3",
+      "bytes": 233892,
+      "rejected": false
+    },
+    {
+      "text": "dog",
+      "image": "assets/img/vocab/dog.png",
+      "audio": "",
+      "bytes": 9329,
+      "rejected": false
+    },
+    {
+      "text": "fish",
+      "image": "assets/img/vocab/fish.png",
+      "audio": "",
+      "bytes": 2288,
+      "rejected": false
+    },
+    {
+      "text": "fox",
+      "image": "assets/img/vocab/fox.png",
+      "audio": "assets/audio/vocab/fox.mp3",
+      "bytes": 241479,
+      "rejected": false
+    },
+    {
+      "text": "frog",
+      "image": "assets/img/vocab/frog.png",
+      "audio": "assets/audio/vocab/frog.mp3",
+      "bytes": 260399,
+      "rejected": false
+    },
+    {
+      "text": "horse",
+      "image": "assets/img/vocab/horse.png",
+      "audio": "assets/audio/vocab/horse.mp3",
+      "bytes": 225462,
+      "rejected": false
+    },
+    {
+      "text": "lion",
+      "image": "assets/img/vocab/lion.png",
+      "audio": "",
+      "bytes": 10441,
+      "rejected": false
+    },
+    {
+      "text": "panda",
+      "image": "assets/img/vocab/panda.png",
+      "audio": "assets/audio/vocab/panda.mp3",
+      "bytes": 303440,
+      "rejected": false
+    },
+    {
+      "text": "pig",
+      "image": "assets/img/vocab/pig.png",
+      "audio": "assets/audio/vocab/pig.mp3",
+      "bytes": 197283,
+      "rejected": false
+    },
+    {
+      "text": "rabbit",
+      "image": "assets/img/vocab/rabbit.png",
+      "audio": "",
+      "bytes": 2226,
+      "rejected": false
+    },
+    {
+      "text": "sheep",
+      "image": "assets/img/vocab/sheep.png",
+      "audio": "assets/audio/vocab/sheep.mp3",
+      "bytes": 252329,
+      "rejected": false
+    },
+    {
+      "text": "eye",
+      "image": "assets/img/vocab/eye.png",
+      "audio": "",
+      "bytes": 10147,
+      "rejected": false
+    },
+    {
+      "text": "nose",
+      "image": "assets/img/vocab/nose.png",
+      "audio": "",
+      "bytes": 6168,
+      "rejected": false
+    },
+    {
+      "text": "apple",
+      "image": "assets/img/vocab/apple.png",
+      "audio": "assets/audio/vocab/apple.mp3",
+      "bytes": 12433,
+      "rejected": false
+    },
+    {
+      "text": "banana",
+      "image": "assets/img/vocab/banana.png",
+      "audio": "",
+      "bytes": 6795,
+      "rejected": false
+    },
+    {
+      "text": "bread",
+      "image": "assets/img/vocab/bread.png",
+      "audio": "",
+      "bytes": 2270,
+      "rejected": false
+    },
+    {
+      "text": "cake",
+      "image": "assets/img/vocab/cake.png",
+      "audio": "",
+      "bytes": 7190,
+      "rejected": false
+    },
+    {
+      "text": "cherry",
+      "image": "assets/img/vocab/cherry.png",
+      "audio": "",
+      "bytes": 8645,
+      "rejected": false
+    },
+    {
+      "text": "cookie",
+      "image": "assets/img/vocab/cookie.png",
+      "audio": "",
+      "bytes": 2229,
+      "rejected": false
+    },
+    {
+      "text": "egg",
+      "image": "assets/img/vocab/egg.png",
+      "audio": "",
+      "bytes": 2018,
+      "rejected": false
+    },
+    {
+      "text": "grape",
+      "image": "assets/img/vocab/grape.png",
+      "audio": "",
+      "bytes": 8763,
+      "rejected": false
+    },
+    {
+      "text": "milk",
+      "image": "assets/img/vocab/milk.png",
+      "audio": "",
+      "bytes": 2176,
+      "rejected": false
+    },
+    {
+      "text": "noodles",
+      "image": "assets/img/vocab/noodles.png",
+      "audio": "",
+      "bytes": 4701,
+      "rejected": false
+    },
+    {
+      "text": "orange",
+      "image": "assets/img/vocab/orange.png",
+      "audio": "",
+      "bytes": 6409,
+      "rejected": false
+    },
+    {
+      "text": "peach",
+      "image": "assets/img/vocab/peach.png",
+      "audio": "",
+      "bytes": 7631,
+      "rejected": false
+    },
+    {
+      "text": "pear",
+      "image": "assets/img/vocab/pear.png",
+      "audio": "",
+      "bytes": 6885,
+      "rejected": false
+    },
+    {
+      "text": "rice",
+      "image": "assets/img/vocab/rice.png",
+      "audio": "",
+      "bytes": 8951,
+      "rejected": false
+    },
+    {
+      "text": "strawberry",
+      "image": "assets/img/vocab/strawberry.png",
+      "audio": "",
+      "bytes": 7191,
+      "rejected": false
+    },
+    {
+      "text": "water",
+      "image": "",
+      "audio": "assets/audio/vocab/water.mp3",
+      "bytes": 10368,
+      "rejected": true
+    },
+    {
+      "text": "watermelon",
+      "image": "assets/img/vocab/watermelon.png",
+      "audio": "",
+      "bytes": 7750,
+      "rejected": false
+    },
+    {
+      "text": "cloud",
+      "image": "assets/img/vocab/cloud.png",
+      "audio": "",
+      "bytes": 2515,
+      "rejected": false
+    },
+    {
+      "text": "rain",
+      "image": "assets/img/vocab/rain.png",
+      "audio": "",
+      "bytes": 2414,
+      "rejected": false
+    },
+    {
+      "text": "snow",
+      "image": "assets/img/vocab/snow.png",
+      "audio": "",
+      "bytes": 8300,
+      "rejected": false
+    },
+    {
+      "text": "sun",
+      "image": "",
+      "audio": "assets/audio/vocab/sun.mp3",
+      "bytes": 10224,
+      "rejected": true
+    },
+    {
+      "text": "eleven",
+      "image": "assets/img/vocab/eleven.png",
+      "audio": "",
+      "bytes": 5477,
+      "rejected": false
+    },
+    {
+      "text": "grass",
+      "image": "assets/img/vocab/grass.png",
+      "audio": "",
+      "bytes": 7631,
+      "rejected": false
+    },
+    {
+      "text": "hospital",
+      "image": "assets/img/vocab/hospital.png",
+      "audio": "",
+      "bytes": 6384,
+      "rejected": false
+    },
+    {
+      "text": "potato",
+      "image": "assets/img/vocab/potato.png",
+      "audio": "",
+      "bytes": 2035,
+      "rejected": false
+    },
+    {
+      "text": "rainy",
+      "image": "assets/img/vocab/rainy.png",
+      "audio": "",
+      "bytes": 5590,
+      "rejected": false
+    },
+    {
+      "text": "second",
+      "image": "assets/img/vocab/second.png",
+      "audio": "",
+      "bytes": 7418,
+      "rejected": false
+    },
+    {
+      "text": "snowy",
+      "image": "assets/img/vocab/snowy.png",
+      "audio": "",
+      "bytes": 4974,
+      "rejected": false
+    },
+    {
+      "text": "tomato",
+      "image": "assets/img/vocab/tomato.png",
+      "audio": "",
+      "bytes": 6232,
+      "rejected": false
+    },
+    {
+      "text": "tongue",
+      "image": "assets/img/vocab/tongue.png",
+      "audio": "",
+      "bytes": 12865,
+      "rejected": false
+    },
+    {
+      "text": "turtle",
+      "image": "assets/img/vocab/turtle.png",
+      "audio": "assets/audio/vocab/turtle.mp3",
+      "bytes": 236136,
+      "rejected": false
+    },
+    {
+      "text": "weather",
+      "image": "assets/img/vocab/weather.png",
+      "audio": "",
+      "bytes": 2685,
+      "rejected": false
+    },
+    {
+      "text": "windy",
+      "image": "assets/img/vocab/windy.png",
+      "audio": "",
+      "bytes": 5595,
+      "rejected": false
+    },
+    {
+      "text": "animal",
+      "image": "assets/img/vocab/animal.png",
+      "audio": "",
+      "bytes": 6892,
+      "rejected": false
+    },
+    {
+      "text": "baby",
+      "image": "assets/img/vocab/baby.png",
+      "audio": "",
+      "bytes": 9895,
+      "rejected": false
+    },
+    {
+      "text": "boat",
+      "image": "assets/img/vocab/boat.png",
+      "audio": "assets/audio/vocab/boat.mp3",
+      "bytes": 223313,
+      "rejected": false
+    },
+    {
+      "text": "chinese",
+      "image": "assets/img/vocab/chinese.png",
+      "audio": "",
+      "bytes": 5208,
+      "rejected": false
+    },
+    {
+      "text": "english",
+      "image": "assets/img/vocab/english.png",
+      "audio": "",
+      "bytes": 5170,
+      "rejected": false
+    },
+    {
+      "text": "flower",
+      "image": "assets/img/vocab/flower.png",
+      "audio": "assets/audio/vocab/flower.mp3",
+      "bytes": 14027,
+      "rejected": false
+    },
+    {
+      "text": "friend",
+      "image": "",
+      "audio": "assets/audio/vocab/friend.mp3",
+      "bytes": 10368,
+      "rejected": true
+    },
+    {
+      "text": "glass",
+      "image": "assets/img/vocab/glass.png",
+      "audio": "",
+      "bytes": 4665,
+      "rejected": false
+    },
+    {
+      "text": "hill",
+      "image": "assets/img/vocab/hill.png",
+      "audio": "assets/audio/vocab/hill.mp3",
+      "bytes": 109623,
+      "rejected": false
+    },
+    {
+      "text": "mango",
+      "image": "assets/img/vocab/mango.png",
+      "audio": "",
+      "bytes": 6841,
+      "rejected": false
+    },
+    {
+      "text": "music",
+      "image": "assets/img/vocab/music.png",
+      "audio": "",
+      "bytes": 4914,
+      "rejected": false
+    },
+    {
+      "text": "pineapple",
+      "image": "assets/img/vocab/pineapple.png",
+      "audio": "",
+      "bytes": 9478,
+      "rejected": false
+    },
+    {
+      "text": "river",
+      "image": "assets/img/vocab/river.png",
+      "audio": "",
+      "bytes": 123365,
+      "rejected": false
+    },
+    {
+      "text": "sandwich",
+      "image": "assets/img/vocab/sandwich.png",
+      "audio": "",
+      "bytes": 7595,
+      "rejected": false
+    },
+    {
+      "text": "science",
+      "image": "assets/img/vocab/science.png",
+      "audio": "",
+      "bytes": 8298,
+      "rejected": false
+    },
+    {
+      "text": "sixteen",
+      "image": "assets/img/vocab/sixteen.png",
+      "audio": "",
+      "bytes": 8975,
+      "rejected": false
+    },
+    {
+      "text": "spring",
+      "image": "assets/img/vocab/spring.png",
+      "audio": "",
+      "bytes": 11404,
+      "rejected": false
+    },
+    {
+      "text": "swim",
+      "image": "assets/img/vocab/swim.png",
+      "audio": "",
+      "bytes": 2680,
+      "rejected": false
+    },
+    {
+      "text": "teacher",
+      "image": "assets/img/vocab/teacher.png",
+      "audio": "",
+      "bytes": 12329,
+      "rejected": false
+    },
+    {
+      "text": "tree",
+      "image": "",
+      "audio": "assets/audio/vocab/tree.mp3",
+      "bytes": 9504,
+      "rejected": true
+    },
+    {
+      "text": "twenty",
+      "image": "assets/img/vocab/twenty.png",
+      "audio": "",
+      "bytes": 6413,
+      "rejected": false
+    },
+    {
+      "text": "clean",
+      "image": "assets/img/vocab/clean.png",
+      "audio": "",
+      "bytes": 6872,
+      "rejected": false
+    },
+    {
+      "text": "first",
+      "image": "assets/img/vocab/first.png",
+      "audio": "",
+      "bytes": 9080,
+      "rejected": false
+    },
+    {
+      "text": "how",
+      "image": "assets/img/vocab/how.png",
+      "audio": "",
+      "bytes": 12387,
+      "rejected": false
+    },
+    {
+      "text": "kind",
+      "image": "assets/img/vocab/kind.png",
+      "audio": "",
+      "bytes": 10455,
+      "rejected": false
+    },
+    {
+      "text": "dance",
+      "image": "assets/img/vocab/dance.png",
+      "audio": "",
+      "bytes": 11752,
+      "rejected": false
+    },
+    {
+      "text": "look",
+      "image": "",
+      "audio": "assets/audio/vocab/look.mp3",
+      "bytes": 9504,
+      "rejected": true
+    },
+    {
+      "text": "play",
+      "image": "",
+      "audio": "assets/audio/vocab/play.mp3",
+      "bytes": 9792,
+      "rejected": true
+    },
+    {
+      "text": "run",
+      "image": "assets/img/vocab/run.png",
+      "audio": "assets/audio/vocab/run.mp3",
+      "bytes": 11779,
+      "rejected": false
+    },
+    {
+      "text": "sit",
+      "image": "assets/img/vocab/sit.png",
+      "audio": "",
+      "bytes": 2003,
+      "rejected": false
+    },
+    {
+      "text": "sleep",
+      "image": "assets/img/vocab/sleep.png",
+      "audio": "",
+      "bytes": 9537,
+      "rejected": false
+    },
+    {
+      "text": "write",
+      "image": "assets/img/vocab/write.png",
+      "audio": "",
+      "bytes": 4516,
+      "rejected": false
+    },
+    {
+      "text": "bag",
+      "image": "assets/img/vocab/bag.png",
+      "audio": "assets/audio/vocab/bag.mp3",
+      "bytes": 11689,
+      "rejected": false
+    },
+    {
+      "text": "bed",
+      "image": "assets/img/vocab/bed.png",
+      "audio": "assets/audio/vocab/bed.mp3",
+      "bytes": 228433,
+      "rejected": false
+    },
+    {
+      "text": "book",
+      "image": "assets/img/vocab/book.png",
+      "audio": "",
+      "bytes": 2321,
+      "rejected": false
+    },
+    {
+      "text": "bus",
+      "image": "assets/img/vocab/bus.png",
+      "audio": "",
+      "bytes": 6418,
+      "rejected": false
+    },
+    {
+      "text": "car",
+      "image": "assets/img/vocab/car.png",
+      "audio": "",
+      "bytes": 5992,
+      "rejected": false
+    },
+    {
+      "text": "chair",
+      "image": "assets/img/vocab/chair.png",
+      "audio": "",
+      "bytes": 59367,
+      "rejected": false
+    },
+    {
+      "text": "clock",
+      "image": "assets/img/vocab/clock.png",
+      "audio": "",
+      "bytes": 2422,
+      "rejected": false
+    },
+    {
+      "text": "doll",
+      "image": "assets/img/vocab/doll.png",
+      "audio": "",
+      "bytes": 6993,
+      "rejected": false
+    },
+    {
+      "text": "door",
+      "image": "assets/img/vocab/door.png",
+      "audio": "assets/audio/vocab/door.mp3",
+      "bytes": 23813,
+      "rejected": false
+    },
+    {
+      "text": "dress",
+      "image": "assets/img/vocab/dress.png",
+      "audio": "",
+      "bytes": 7215,
+      "rejected": false
+    },
+    {
+      "text": "eight",
+      "image": "assets/img/vocab/eight.png",
+      "audio": "",
+      "bytes": 6829,
+      "rejected": false
+    },
+    {
+      "text": "hello",
+      "image": "",
+      "audio": "assets/audio/vocab/hello.mp3",
+      "bytes": 10080,
+      "rejected": true
+    },
+    {
+      "text": "light",
+      "image": "assets/img/vocab/light.png",
+      "audio": "assets/audio/vocab/light.mp3",
+      "bytes": 11664,
+      "rejected": false
+    },
+    {
+      "text": "new",
+      "image": "assets/img/vocab/new.png",
+      "audio": "",
+      "bytes": 7848,
+      "rejected": false
+    },
+    {
+      "text": "no",
+      "image": "assets/img/vocab/no.png",
+      "audio": "",
+      "bytes": 11689,
+      "rejected": false
+    },
+    {
+      "text": "table",
+      "image": "assets/img/vocab/table.png",
+      "audio": "",
+      "bytes": 6310,
+      "rejected": false
+    },
+    {
+      "text": "they",
+      "image": "assets/img/vocab/they.png",
+      "audio": "",
+      "bytes": 5123,
+      "rejected": false
+    },
+    {
+      "text": "three",
+      "image": "assets/img/vocab/three.png",
+      "audio": "",
+      "bytes": 6522,
+      "rejected": false
+    },
+    {
+      "text": "train",
+      "image": "assets/img/vocab/train.png",
+      "audio": "",
+      "bytes": 9269,
+      "rejected": false
+    },
+    {
+      "text": "you",
+      "image": "assets/img/vocab/you.png",
+      "audio": "",
+      "bytes": 4308,
+      "rejected": false
+    }
+  ]
+}

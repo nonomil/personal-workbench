@@ -1,0 +1,622 @@
+/* 43 · Mobile app shell
+ * Normal web/portrait keeps natural document scrolling.
+ * Only the native Android landscape shell is viewport-bound and horizontally paged.
+ */
+
+.preschool-native-page-switch { display: none; }
+.preschool-native-pager,
+.preschool-native-page,
+.preschool-native-frame { display: contents; }
+
+@media (max-width: 1024px) {
+    html,
+    body.variant-preschool {
+        min-width: 0;
+        min-height: 100vh;
+        min-height: 100dvh;
+        overflow-x: hidden;
+        overflow-x: clip;
+    }
+
+    body.variant-preschool .app-shell { min-height: 100vh; min-height: 100dvh; }
+
+    body.variant-preschool .page-content {
+        min-width: 0;
+        padding-bottom: max(140px, calc(126px + env(safe-area-inset-bottom)));
+    }
+
+    body.variant-preschool button,
+    body.variant-preschool a,
+    body.variant-preschool summary,
+    body.variant-preschool .preschool-mobile-nav-item {
+        min-height: 44px;
+        touch-action: manipulation;
+    }
+}
+
+@media (orientation: landscape) {
+    html.is-android-app {
+        width: 100%;
+        height: 100vh;
+        height: 100dvh;
+        overflow: hidden;
+        overscroll-behavior: none;
+    }
+
+    html.is-android-app body.variant-preschool {
+        --preschool-app-rail: clamp(66px, 7vw, 80px);
+        width: 100%;
+        height: 100vh;
+        height: 100dvh;
+        min-height: 0;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        overscroll-behavior: none;
+    }
+
+    html.is-android-app body.variant-preschool .app-shell {
+        display: block;
+        width: 100%;
+        height: 100vh;
+        height: 100dvh;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    html.is-android-app body.variant-preschool .main-content {
+        width: calc(100% - var(--preschool-app-rail) - env(safe-area-inset-left)) !important;
+        height: 100vh;
+        height: 100dvh;
+        min-height: 0;
+        margin-left: calc(var(--preschool-app-rail) + env(safe-area-inset-left)) !important;
+        overflow: hidden;
+    }
+
+    html.is-android-app body.variant-preschool .topbar {
+        position: relative;
+        top: auto;
+        min-height: 50px;
+        height: 50px;
+        padding: env(safe-area-inset-top) max(12px, env(safe-area-inset-right)) 0 12px;
+        box-shadow: 0 2px 12px rgba(31, 103, 56, .08);
+    }
+
+    html.is-android-app body.variant-preschool .menu-toggle,
+    html.is-android-app body.variant-preschool .topbar-context > span,
+    html.is-android-app body.variant-preschool .topbar-context > b,
+    html.is-android-app body.variant-preschool .topbar-divider { display: none !important; }
+
+    html.is-android-app body.variant-preschool .topbar-context strong { font-size: 15px; }
+    html.is-android-app body.variant-preschool .topbar-focus-button { min-height: 44px; padding-block: 0; }
+
+    html.is-android-app body.variant-preschool .page-content {
+        width: 100%;
+        max-width: none;
+        height: calc(100vh - 50px);
+        height: calc(100dvh - 50px);
+        min-height: 0;
+        margin: 0;
+        padding: 5px max(8px, env(safe-area-inset-right)) max(5px, env(safe-area-inset-bottom)) 8px;
+        overflow: hidden;
+    }
+
+    html.is-android-app body.variant-preschool .page-content.preschool-native-paged {
+        display: grid;
+        grid-template-rows: 44px minmax(0, 1fr);
+        gap: 4px;
+    }
+
+    html.is-android-app body.variant-preschool .page-content.preschool-native-paged.has-native-course-tabs {
+        grid-template-rows: 44px 44px minmax(0, 1fr);
+    }
+
+    html.is-android-app body.variant-preschool .page-content.preschool-native-paged > .preschool-page-intro { display: none; }
+
+    html.is-android-app body.variant-preschool .sidebar {
+        position: fixed;
+        z-index: 80;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: min(262px, calc(100vw - 84px));
+        height: 100vh;
+        height: 100dvh;
+        max-height: 100vh;
+        max-height: 100dvh;
+        padding-top: max(12px, env(safe-area-inset-top));
+        padding-bottom: max(12px, env(safe-area-inset-bottom));
+        overflow-x: hidden;
+        overflow-y: auto;
+        transform: translateX(-105%) !important;
+        transition: transform 180ms ease;
+    }
+
+    html.is-android-app body.variant-preschool .sidebar.is-open { transform: translateX(0) !important; }
+    html.is-android-app body.variant-preschool .sidebar-close { display: inline-grid !important; }
+
+    html.is-android-app body.variant-preschool .sidebar-scrim { display: none !important; }
+    html.is-android-app body.variant-preschool .sidebar-scrim.is-visible {
+        position: fixed;
+        z-index: 70;
+        inset: 0;
+        display: block !important;
+        background: rgba(18, 50, 34, .4);
+        backdrop-filter: blur(2px);
+    }
+
+    html.is-android-app body.variant-preschool .preschool-mobile-nav {
+        position: fixed;
+        z-index: 60;
+        top: 0;
+        right: auto;
+        bottom: 0;
+        left: 0;
+        display: grid !important;
+        width: calc(var(--preschool-app-rail) + env(safe-area-inset-left));
+        min-width: 0;
+        min-height: 0;
+        height: 100vh;
+        height: 100dvh;
+        padding: max(5px, env(safe-area-inset-top)) 5px max(5px, env(safe-area-inset-bottom)) max(5px, env(safe-area-inset-left));
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: repeat(5, minmax(44px, 1fr));
+        gap: 5px;
+        border: 0;
+        border-right: 1px solid rgba(255, 255, 255, .24);
+        border-radius: 0;
+        background: linear-gradient(180deg, #22734a, #145238);
+        box-shadow: 7px 0 18px rgba(20, 91, 57, .16);
+        backdrop-filter: none;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-item {
+        display: grid;
+        min-width: 44px;
+        min-height: 44px;
+        place-items: center;
+        align-content: center;
+        gap: 3px;
+        padding: 4px 2px;
+        border: 1px solid transparent;
+        border-radius: 15px;
+        color: #dff3d8;
+        background: rgba(255, 255, 255, .06);
+        font-size: 9px;
+        line-height: 1.12;
+        text-align: center;
+        transform: none;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-item span {
+        display: block;
+        max-width: 100%;
+        overflow-wrap: anywhere;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-item svg { width: 21px; height: 21px; }
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-item.is-active {
+        border-color: rgba(255, 255, 255, .7);
+        color: #185b3b;
+        background: #fff8dc;
+        box-shadow: 0 4px 0 rgba(11, 64, 41, .25);
+        transform: none;
+    }
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-item.is-active::after { display: none; }
+
+    html.is-android-app body.variant-preschool .preschool-native-page-switch {
+        display: grid;
+        grid-template-columns: 44px minmax(0, 1fr) auto 44px;
+        align-items: center;
+        gap: 6px;
+        min-width: 0;
+        min-height: 44px;
+        padding: 0 4px;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page-switch.is-single { display: none; }
+
+    html.is-android-app body.variant-preschool .page-content.preschool-native-paged.has-single-native-page {
+        grid-template-rows: minmax(0, 1fr);
+    }
+
+    html.is-android-app body.variant-preschool .page-content.preschool-native-paged.has-native-course-tabs.has-single-native-page {
+        grid-template-rows: 44px minmax(0, 1fr);
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page-step,
+    html.is-android-app body.variant-preschool .preschool-native-page-dot {
+        display: inline-grid;
+        min-width: 44px;
+        min-height: 44px;
+        place-items: center;
+        padding: 0;
+        border: 1px solid #bdd7b7;
+        border-radius: 14px;
+        color: #2f7850;
+        background: rgba(255, 255, 255, .9);
+        cursor: pointer;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page-step:disabled { opacity: .35; cursor: default; }
+    html.is-android-app body.variant-preschool .preschool-native-page-step svg { width: 18px; height: 18px; }
+
+    html.is-android-app body.variant-preschool .preschool-native-page-dots {
+        display: flex;
+        min-width: 0;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page-dot {
+        min-width: 44px;
+        width: 44px;
+        border-color: transparent;
+        background: transparent;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page-dot::before {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #adc8a8;
+        content: "";
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page-dot[aria-selected="true"]::before {
+        width: 24px;
+        border-radius: 999px;
+        background: #2f8a50;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page-label {
+        max-width: 180px;
+        overflow: hidden;
+        color: #4d6a54;
+        font-size: 11px;
+        font-weight: 850;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-pager {
+        display: flex;
+        width: 100%;
+        min-width: 0;
+        min-height: 0;
+        height: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+        overscroll-behavior-x: contain;
+        touch-action: pan-x;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-pager::-webkit-scrollbar { display: none; }
+
+    html.is-android-app body.variant-preschool .preschool-native-page {
+        display: block;
+        flex: 0 0 100%;
+        width: 100%;
+        min-width: 0;
+        min-height: 0;
+        height: 100%;
+        padding: 2px 5px 4px;
+        overflow: hidden;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-frame {
+        display: block;
+        width: 100%;
+        min-width: 0;
+        min-height: 0;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    /* Workbench home: action/companion on screen one, tasks/rewards on screen two. */
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="home-primary"] .preschool-home-overview,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="home-tasks"] .preschool-home-overview,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="home-world"] .preschool-home-overview {
+        display: grid;
+        width: 100%;
+        max-width: none;
+        height: 100%;
+        margin: 0;
+        padding: 8px;
+        gap: 8px;
+        overflow: hidden;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="home-primary"] .preschool-home-overview {
+        grid-template-rows: auto minmax(0, 1fr);
+    }
+
+    html.is-android-app body.variant-preschool .preschool-home-overview.is-simple .workbench-overview-header h1 { font-size: clamp(20px, 2.5vw, 28px); }
+    html.is-android-app body.variant-preschool .preschool-home-overview.is-simple .workbench-overview-header p { font-size: 12px; }
+    html.is-android-app body.variant-preschool .preschool-home-overview.is-simple .workbench-kicker { font-size: 9px; }
+    html.is-android-app body.variant-preschool .preschool-home-top {
+        min-height: 0;
+        height: 100%;
+        grid-template-columns: minmax(0, 1fr) clamp(118px, 14vw, 150px);
+    }
+    html.is-android-app body.variant-preschool .preschool-home-pet-capsule {
+        display: grid;
+        width: 100%;
+        min-width: 0;
+        height: 100%;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        place-items: center;
+        align-content: center;
+        gap: 5px;
+        padding: 8px;
+        text-align: center;
+    }
+    html.is-android-app body.variant-preschool .preschool-home-hero { min-height: 0; height: 100%; grid-template-rows: minmax(0, 1fr) auto; }
+    html.is-android-app body.variant-preschool .preschool-home-hero-card { min-height: 0; height: 100%; }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="home-tasks"] .preschool-home-overview {
+        grid-template-rows: minmax(0, 1fr) auto;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="home-tasks"] .preschool-home-battlefield {
+        display: grid;
+        min-height: 0;
+        height: 100%;
+        padding: 8px;
+        grid-template-rows: auto auto minmax(0, 1fr);
+        gap: 6px;
+        overflow: hidden;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-home-battlefield-head { min-height: 44px; }
+    html.is-android-app body.variant-preschool .preschool-home-battlefield-head h2 { margin-block: 0 2px; font-size: 18px; }
+    html.is-android-app body.variant-preschool .preschool-home-battlefield-head p,
+    html.is-android-app body.variant-preschool .preschool-home-battlefield-head .pixel-panel-kicker { display: none; }
+    html.is-android-app body.variant-preschool .preschool-home-battlefield-add { min-height: 44px; }
+    html.is-android-app body.variant-preschool .is-simple .preschool-home-review { min-height: 44px; margin: 0; padding-block: 4px; }
+    html.is-android-app body.variant-preschool .is-simple .preschool-home-lanes {
+        min-height: 0;
+        height: 100%;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-auto-rows: minmax(0, 1fr);
+        gap: 6px;
+        overflow: hidden;
+    }
+    html.is-android-app body.variant-preschool .is-simple .preschool-home-lane { min-height: 0; height: 100%; padding: 5px; }
+    html.is-android-app body.variant-preschool .is-simple .preschool-home-lane-main { min-height: 44px; }
+    html.is-android-app body.variant-preschool .is-simple .preschool-home-lane-practice,
+    html.is-android-app body.variant-preschool .is-simple .preschool-home-lane-check { min-height: 44px; }
+    html.is-android-app body.variant-preschool .preschool-home-exits { min-height: 44px; gap: 8px; }
+    html.is-android-app body.variant-preschool .preschool-home-exits > button { min-height: 44px; }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="home-world"] .preschool-home-overview {
+        grid-template-rows: minmax(0, 1fr);
+    }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="home-world"] .preschool-voxel-home { height: 100%; min-height: 0; overflow: hidden; }
+
+    /* Learning wall: one intro screen, then compact 2x2 subject screens. */
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-today"] {
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr);
+        gap: 6px;
+    }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-today"] .preschool-page-intro { margin: 0; }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-today"] .preschool-page-intro h1 { font-size: 24px; }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-today"] .preschool-page-intro p { margin-top: 2px; font-size: 12px; }
+    html.is-android-app body.variant-preschool .preschool-course-today {
+        min-height: 0;
+        height: 100%;
+        margin: 0;
+        padding: 10px 14px;
+        gap: 8px 14px;
+        overflow: hidden;
+    }
+    html.is-android-app body.variant-preschool .preschool-course-today-split { min-height: 0; margin-top: 0; }
+    html.is-android-app body.variant-preschool .preschool-course-today-world { min-height: 44px; }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall {
+        display: grid;
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: repeat(2, minmax(0, 1fr));
+        grid-auto-rows: minmax(0, 1fr);
+        gap: 7px;
+        overflow: hidden;
+    }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-extras {
+        display: grid;
+        height: 100%;
+        min-height: 0;
+        margin: 0;
+        grid-template-rows: auto minmax(0, 1fr);
+        gap: 5px;
+    }
+    html.is-android-app body.variant-preschool .preschool-course-wall-extras-title { margin: 0; font-size: 15px; }
+    html.is-android-app body.variant-preschool .preschool-course-wall-card {
+        min-width: 0;
+        min-height: 0;
+        height: 100%;
+        gap: 3px;
+        padding: 6px 5px;
+        border-radius: 16px;
+        overflow: hidden;
+    }
+    html.is-android-app body.variant-preschool .preschool-course-wall-art { width: clamp(38px, 6vh, 62px); width: clamp(38px, 6dvh, 62px); height: clamp(38px, 6vh, 62px); height: clamp(38px, 6dvh, 62px); }
+    html.is-android-app body.variant-preschool .preschool-course-wall-card strong { font-size: clamp(13px, 1.45vw, 17px); }
+    html.is-android-app body.variant-preschool .preschool-course-wall-level,
+    html.is-android-app body.variant-preschool .preschool-course-wall-preview,
+    html.is-android-app body.variant-preschool .preschool-course-wall-game { font-size: 10px; line-height: 1.15; }
+    html.is-android-app body.variant-preschool .preschool-course-wall-dots { gap: 4px; }
+    html.is-android-app body.variant-preschool .preschool-course-wall-dots i { width: 8px; height: 8px; }
+    html.is-android-app body.variant-preschool .preschool-course-wall-state { padding: 3px 9px; font-size: 10px; }
+
+    /* Course pages retain the three course tabs, while their content becomes pages. */
+    html.is-android-app body.variant-preschool .page-content.has-native-course-tabs > .preschool-course-tabs {
+        height: 44px;
+        min-height: 44px;
+        margin: 0;
+        gap: 6px;
+    }
+    html.is-android-app body.variant-preschool .preschool-course-tab { min-height: 44px; padding-block: 4px; border-radius: 13px; font-size: 12px; }
+    html.is-android-app body.variant-preschool .preschool-native-page .preschool-course-layout,
+    html.is-android-app body.variant-preschool .preschool-native-page .preschool-course-content { width: 100%; height: 100%; min-height: 0; overflow: hidden; }
+    html.is-android-app body.variant-preschool .preschool-native-page .preschool-course-content { display: block; }
+
+    html.is-android-app body.variant-preschool .preschool-flashcard-page {
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        gap: 6px;
+        overflow: hidden;
+    }
+    html.is-android-app body.variant-preschool .preschool-flashcard-top { min-height: 44px; flex-wrap: nowrap; }
+    html.is-android-app body.variant-preschool .preschool-flashcard {
+        min-height: 0;
+        height: 100%;
+        gap: 10px;
+        padding: 10px 14px;
+        border-radius: 18px;
+        overflow: hidden;
+    }
+    html.is-android-app body.variant-preschool .preschool-flashcard-main > .preschool-card-art { width: clamp(56px, 12vh, 100px); width: clamp(56px, 12dvh, 100px); height: clamp(56px, 12vh, 100px); height: clamp(56px, 12dvh, 100px); }
+    html.is-android-app body.variant-preschool .preschool-flashcard-main > strong { font-size: clamp(2.5rem, 9vh, 4.4rem); font-size: clamp(2.5rem, 9dvh, 4.4rem); }
+    html.is-android-app body.variant-preschool .preschool-flashcard-cover { min-height: 44px; height: 100%; }
+    html.is-android-app body.variant-preschool .preschool-flashcard-toolbar { min-height: 44px; }
+    html.is-android-app body.variant-preschool .preschool-flashcard-speak,
+    html.is-android-app body.variant-preschool .preschool-flashcard-mark { min-height: 44px; }
+    html.is-android-app body.variant-preschool .preschool-flashcard-actions { gap: 8px; }
+    html.is-android-app body.variant-preschool .preschool-flashcard-foot { min-height: 44px; }
+
+    html.is-android-app body.variant-preschool .english-dashboard {
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        margin: 0;
+        gap: 7px;
+        overflow: hidden;
+    }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="english-today"] .english-dashboard { grid-template-rows: minmax(0, 1fr); }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="english-hero"] .english-dashboard { grid-template-rows: minmax(0, 1fr); }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="english-start"] .english-dashboard { grid-template-rows: auto minmax(0, 1fr); }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="english-stats"] .english-dashboard { grid-template-rows: minmax(0, 1fr) auto; }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="english-tools"] .english-dashboard { grid-template-rows: minmax(0, 1fr); }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="english-growth"] .english-dashboard { grid-template-rows: auto minmax(0, 1fr) auto; }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="english-today"] .english-dashboard-today-card { height: 100%; align-content: center; }
+    html.is-android-app body.variant-preschool .english-dashboard-today-card { padding: 7px 12px; border-radius: 16px; }
+    html.is-android-app body.variant-preschool .english-dashboard-today-card h2 { margin: 0; font-size: 16px; }
+    html.is-android-app body.variant-preschool .english-dashboard-today-card p { font-size: 11px; }
+    html.is-android-app body.variant-preschool .english-dashboard-hero { min-height: 0; height: 100%; padding: 10px 14px; border-radius: 20px; }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="english-start"] .english-dashboard-hero { height: auto; }
+    html.is-android-app body.variant-preschool .english-dashboard-hero-copy { gap: 5px; }
+    html.is-android-app body.variant-preschool .english-dashboard-title-row h1 { font-size: clamp(20px, 3vw, 30px); }
+    html.is-android-app body.variant-preschool .english-dashboard-hero-copy p { font-size: 12px; line-height: 1.35; }
+    html.is-android-app body.variant-preschool .english-dashboard-primary { min-height: 44px; }
+    html.is-android-app body.variant-preschool .english-dashboard-hero-visual { min-height: 0; height: 100%; padding: 7px; }
+    html.is-android-app body.variant-preschool .english-dashboard-hero-art { width: clamp(54px, 11vh, 82px); width: clamp(54px, 11dvh, 82px); height: clamp(54px, 11vh, 82px); height: clamp(54px, 11dvh, 82px); }
+    html.is-android-app body.variant-preschool .english-dashboard-stats { gap: 6px; }
+    html.is-android-app body.variant-preschool .english-dashboard-stat { min-height: 44px; padding: 6px 9px; border-radius: 14px; }
+    html.is-android-app body.variant-preschool .english-dashboard-main-grid { min-height: 0; height: 100%; gap: 7px; }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="english-growth"] .english-dashboard-main-grid { height: auto; }
+    html.is-android-app body.variant-preschool .english-dashboard-practice-card,
+    html.is-android-app body.variant-preschool .english-dashboard-tools,
+    html.is-android-app body.variant-preschool .english-dashboard-stage-progress { min-height: 0; padding: 9px; border-radius: 16px; }
+    html.is-android-app body.variant-preschool .english-dashboard-practice-card { gap: 7px; overflow: hidden; }
+    html.is-android-app body.variant-preschool .english-dashboard-word-card { min-height: 44px; }
+    html.is-android-app body.variant-preschool .english-dashboard-tools { gap: 5px; }
+    html.is-android-app body.variant-preschool .english-dashboard-tool { min-height: 44px; padding: 5px 8px; }
+    html.is-android-app body.variant-preschool .english-dashboard-stage-progress { padding-block: 6px; }
+
+    html.is-android-app body.variant-preschool .preschool-course-menu,
+    html.is-android-app body.variant-preschool .preschool-course-media-pane {
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        overflow: hidden;
+    }
+    html.is-android-app body.variant-preschool .preschool-course-menu-grid,
+    html.is-android-app body.variant-preschool .preschool-media-grid {
+        min-height: 0;
+        height: 100%;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        grid-template-rows: repeat(2, minmax(0, 1fr));
+        gap: 7px;
+        overflow: hidden;
+    }
+    html.is-android-app body.variant-preschool .preschool-media-card { min-height: 0; height: 100%; overflow: hidden; }
+    html.is-android-app body.variant-preschool .preschool-media-cover-wrap { min-height: 0; }
+
+    html.is-android-app body.variant-preschool dialog { max-height: calc(100vh - 20px); max-height: calc(100dvh - 20px); }
+}
+
+@media (orientation: landscape) and (max-height: 480px) {
+    html.is-android-app body.variant-preschool .topbar { min-height: 44px; height: 44px; padding-top: env(safe-area-inset-top); }
+    html.is-android-app body.variant-preschool .topbar-focus-button { display: none; }
+    html.is-android-app body.variant-preschool .page-content { height: calc(100vh - 44px); height: calc(100dvh - 44px); padding-block: 2px max(2px, env(safe-area-inset-bottom)); }
+    html.is-android-app body.variant-preschool .page-content.preschool-native-paged { gap: 2px; }
+    html.is-android-app body.variant-preschool .preschool-native-page { padding-block: 1px 2px; }
+    html.is-android-app body.variant-preschool .preschool-native-page-label { display: none; }
+    html.is-android-app body.variant-preschool .preschool-native-page-switch { grid-template-columns: 44px minmax(0, 1fr) 44px; }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="home-primary"] .preschool-home-overview,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="home-tasks"] .preschool-home-overview { padding: 5px; gap: 4px; }
+    html.is-android-app body.variant-preschool .preschool-home-overview.is-simple .workbench-overview-header { min-height: 44px; }
+    html.is-android-app body.variant-preschool .preschool-home-overview.is-simple .workbench-overview-header h1 { font-size: 19px; }
+    html.is-android-app body.variant-preschool .preschool-home-overview.is-simple .workbench-overview-header p,
+    html.is-android-app body.variant-preschool .preschool-home-overview.is-simple .workbench-kicker,
+    html.is-android-app body.variant-preschool .preschool-home-hero-copy p,
+    html.is-android-app body.variant-preschool .preschool-home-hero-copy em { display: none; }
+    html.is-android-app body.variant-preschool .preschool-home-hero-card { grid-template-columns: minmax(0, 1fr) 72px; }
+    html.is-android-app body.variant-preschool .preschool-home-hero-art img { width: 66px; height: 78px; }
+    html.is-android-app body.variant-preschool .preschool-home-hero-copy strong { font-size: 18px; }
+    html.is-android-app body.variant-preschool .preschool-home-hero-reward { min-height: 44px; padding-block: 3px; }
+    html.is-android-app body.variant-preschool .preschool-home-overview.is-simple .preschool-home-companion-tile { width: 66px; height: 66px; }
+    html.is-android-app body.variant-preschool .preschool-home-pet-capsule { min-height: 0; }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="home-tasks"] .preschool-home-battlefield { padding: 5px; gap: 3px; }
+    html.is-android-app body.variant-preschool .is-simple .preschool-home-lane-characters { display: none; }
+    html.is-android-app body.variant-preschool .is-simple .preschool-home-lane-copy small { display: none; }
+    html.is-android-app body.variant-preschool .is-simple .preschool-home-lane { padding: 3px; }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-today"] { grid-template-rows: minmax(0, 1fr); }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-today"] .preschool-page-intro { display: none; }
+    html.is-android-app body.variant-preschool .preschool-course-today { padding: 7px 10px; }
+    html.is-android-app body.variant-preschool .preschool-course-today-art { width: 48px; height: 48px; }
+    html.is-android-app body.variant-preschool .preschool-course-today-copy small { font-size: 10px; }
+    html.is-android-app body.variant-preschool .preschool-course-today-copy strong { font-size: 14px; }
+    html.is-android-app body.variant-preschool .preschool-course-today-required,
+    html.is-android-app body.variant-preschool .preschool-course-today-adventure { padding: 5px 8px; }
+    html.is-android-app body.variant-preschool .preschool-course-wall-preview,
+    html.is-android-app body.variant-preschool .preschool-course-wall-game { display: none; }
+    html.is-android-app body.variant-preschool .preschool-course-wall-art { width: 38px; height: 38px; }
+
+    html.is-android-app body.variant-preschool .preschool-flashcard-page { gap: 3px; }
+    html.is-android-app body.variant-preschool .preschool-flashcard { gap: 6px; padding: 5px 9px; }
+    html.is-android-app body.variant-preschool .preschool-flashcard-main > .preschool-card-art { width: 52px; height: 52px; }
+    html.is-android-app body.variant-preschool .preschool-flashcard-main > strong { font-size: 2.5rem; }
+    html.is-android-app body.variant-preschool .preschool-practice-level-chips { flex-wrap: nowrap; overflow: hidden; }
+    html.is-android-app body.variant-preschool .preschool-practice-level-chip:not(.is-active) { display: none; }
+
+    html.is-android-app body.variant-preschool .english-dashboard-today-card p,
+    html.is-android-app body.variant-preschool .english-dashboard-hero-copy > .eyebrow,
+    html.is-android-app body.variant-preschool .english-dashboard-hero-copy p,
+    html.is-android-app body.variant-preschool .english-dashboard-hero-note,
+    html.is-android-app body.variant-preschool .english-dashboard-section-meta,
+    html.is-android-app body.variant-preschool .english-dashboard-tool small { display: none; }
+    html.is-android-app body.variant-preschool .english-dashboard-hero { padding: 6px 10px; }
+    html.is-android-app body.variant-preschool .english-dashboard-hero-visual { padding: 4px; }
+    html.is-android-app body.variant-preschool .english-dashboard-stat { padding: 3px 6px; }
+    html.is-android-app body.variant-preschool .english-dashboard-stat > span { width: 28px; height: 28px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .preschool-native-pager { scroll-behavior: auto !important; }
+}

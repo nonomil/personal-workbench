@@ -347,6 +347,50 @@
 
 .english-dashboard-word-copy strong { font-size: 0.98rem; }
 .english-dashboard-word-copy small { color: var(--english-muted); font-size: 0.75rem; font-weight: 700; }
+
+.english-dashboard-sentence-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.english-dashboard-sentence-card {
+    display: grid;
+    gap: 3px;
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 1px solid rgba(59, 94, 68, 0.16);
+    border-radius: 16px;
+    color: #243528;
+    text-align: left;
+    cursor: pointer;
+    background: #fffdf6;
+}
+
+.english-dashboard-sentence-card small {
+    color: #2d8748;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+}
+
+.english-dashboard-sentence-card strong {
+    overflow: hidden;
+    font-size: 0.95rem;
+    font-weight: 800;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.english-dashboard-sentence-card span {
+    overflow: hidden;
+    color: var(--english-muted, #6e816d);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 .english-dashboard-review-dot { color: #a6791b; font-size: 0.72rem; font-style: normal; font-weight: 900; }
 .english-dashboard-empty { color: var(--english-muted); font-weight: 700; }
 
@@ -469,6 +513,7 @@
     .english-dashboard-word-art .preschool-card-art,
     .english-dashboard-word-art .preschool-card-photo { width: 35px; height: 35px; }
     .english-dashboard-word-copy { width: 100%; }
+    .english-dashboard-sentence-list { grid-template-columns: 1fr; }
     .english-dashboard-review-dot { display: none; }
     .english-dashboard-practice-foot { align-items: stretch; }
     .english-dashboard-ability-list { width: 100%; }

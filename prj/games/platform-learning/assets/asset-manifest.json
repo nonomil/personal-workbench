@@ -1,0 +1,16 @@
+{
+  "generated_root": "assets/generated/<asset-id>",
+  "reused": [
+    { "source": "prj/games/learning-defense/assets/reused/learning/apple.png", "target": "assets/reused/learning/apple.png", "sha256": "6e8498bb6c6c913678be1968e1d89904691c2a9a2df4e77bc97fecaba1ba4326" },
+    { "source": "prj/games/learning-defense/assets/reused/learning/banana.png", "target": "assets/reused/learning/banana.png", "sha256": "3fd6ee6ecac3a7d74cd0e142baad6fce2562f2f97e192372ea347be9495228b4" },
+    { "source": "prj/games/learning-defense/assets/reused/learning/cat.png", "target": "assets/reused/learning/cat.png", "sha256": "e8420f16f0fee898f3fd97bfe7c575c0415a8ecf0b74b09910179a686bfe916f" },
+    { "source": "prj/games/learning-defense/assets/reused/learning/dog.png", "target": "assets/reused/learning/dog.png", "sha256": "0e4e856399e8a044da2a37a61867131a4137a2bded6a92ce846e798a6c4ad4e2" },
+    { "source": "prj/games/learning-defense/assets/reused/learning/fish.png", "target": "assets/reused/learning/fish.png", "sha256": "99fef6793edb86ec614be3ebab891a953ce831e0504fd1dd6a18d12ce53dcbf1" },
+    { "source": "prj/games/learning-defense/assets/reused/learning/flower.png", "target": "assets/reused/learning/flower.png", "sha256": "0b7bc81e1435af03dafbb8b6e9ce48e79a122945d3bc897a7ffbb23f7530dbea" },
+    { "source": "prj/games/learning-defense/assets/reused/learning/hill.png", "target": "assets/reused/learning/hill.png", "sha256": "8da6e805f3663777b458f1bb0678d5a5b8745b3aee0a8646ad4b4065d2446e7d" },
+    { "source": "prj/games/learning-defense/assets/reused/learning/river.png", "target": "assets/reused/learning/river.png", "sha256": "37c49518501a0d1b11af2f8446b1e1ca72af822df27124ac5def06cb89b7638e" },
+    { "source": "prj/games/platform-quest/assets/bg/sky-day.png", "target": "assets/reused/world/sky-day.png", "sha256": "3c0d4ac59db6501a3a5965aab0d25e71d3a25fb8b9bc4d7711b8bf4029c8b594" },
+    { "source": "prj/games/platform-quest/assets/hero/explorer-idle.png", "target": "assets/reused/world/player.png", "sha256": "32ccc7973895e257b7f6784f75cd147b83b9ff9d9a0c16b3b421bf84d92e4c8e" },
+    { "source": "prj/games/platform-quest/assets/enemies/slime-idle.png", "target": "assets/reused/enemies/slime.png", "sha256": "410a812a98cabe92102e7068bf702699ea169346f417ca62cbe5c9168d87eedb" }
+  ]
+}

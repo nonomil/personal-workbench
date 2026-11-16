@@ -13,7 +13,7 @@
 1. 脚本 `scripts/extract-wordquest-assets.mjs`：
    - 读 WordQuest `catalog.json` × `vocabulary-bank.json`，匹配 108 个重叠词（词面小写相等，同词多卡取第一张）。
    - 拷 semantic PNG → `prj/assets/img/vocab/{text}.png`；33 条 mp3 → `prj/assets/audio/vocab/{text}.mp3`。
-   - 输出 `.tmp-analysis/wordquest-extract-report.json`（应为 108 图 / 33 音频 / ~3.9MB），幂等可重跑。
+   - 输出 `tests/fixtures/wordquest-extract-report.json`（应为 108 图 / 33 音频 / ~3.9MB），幂等可重跑。
 2. 回填 `vocabulary-bank.json` 的 `image`/`audio` 字段，条数仍 597。
 3. `.gitignore` 追加 wordquest 原包目录；人工抽查 10 张图与词义相符（不符超 10 张停下请示）。
 4. 页面最小接入：英语翻卡 `item.image` 有值出 `<img>`、`item.audio` 有值"听一听"播文件失败回退 Web Speech；缓存戳 + 测试。

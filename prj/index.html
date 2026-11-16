@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#f6f3eb">
     <title>个人工作台</title>
     <style>
@@ -97,6 +97,8 @@
         .launcher-note { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-top: 22px; color: #878b83; font-size: 12px; }
         .launcher-note a { display: inline-flex; align-items: center; min-height: 44px; color: #1f6c4e; font-weight: 850; text-decoration: none; }
         .launcher-note a:hover { text-decoration: underline; }
+        .launcher-page-switch { display: none; }
+        .launcher-app-pager, .launcher-app-page { display: contents; }
         @media (max-width: 900px) {
             .launcher-heading-row { grid-template-columns: 1fr; gap: 24px; margin-top: 58px; }
             .launcher-recent { max-width: 360px; }
@@ -132,6 +134,123 @@
             .workbench-link[data-card-kind="workbench"] .workbench-image { min-height: 195px; height: 195px; }
             .workbench-copy { padding: 20px; }
         }
+        @media (orientation: landscape) {
+            html.is-android-app { width: 100%; height: 100dvh; overflow: hidden; overscroll-behavior: none; }
+            html.is-android-app body { width: 100%; height: 100dvh; min-height: 0; overflow: hidden; }
+            html.is-android-app .launcher-skip-link { display: none; }
+            html.is-android-app .launcher-main {
+                display: grid;
+                width: 100%;
+                height: 100dvh;
+                margin: 0;
+                padding: max(6px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) max(6px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
+                grid-template-rows: 40px 44px minmax(0, 1fr);
+                overflow: hidden;
+            }
+            html.is-android-app .launcher-topbar { min-height: 40px; padding-inline: 4px; }
+            html.is-android-app .launcher-topbar-meta { font-size: 9px; }
+            html.is-android-app .launcher-page-switch {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                min-width: 0;
+            }
+            html.is-android-app .launcher-page-switch button {
+                min-width: 116px;
+                min-height: 44px;
+                padding: 0 18px;
+                border: 1px solid #bfcabd;
+                border-radius: 999px;
+                color: #556159;
+                background: rgba(255, 253, 248, .86);
+                font: inherit;
+                font-size: 12px;
+                font-weight: 850;
+                cursor: pointer;
+            }
+            html.is-android-app .launcher-page-switch button[aria-selected="true"] { border-color: #1f6c4e; color: #fff; background: #1f6c4e; box-shadow: 0 5px 14px rgba(31, 108, 78, .22); }
+            html.is-android-app .launcher-page-switch button:focus-visible { outline: 3px solid rgba(31, 108, 78, .25); outline-offset: 2px; }
+            html.is-android-app .launcher-app-pager {
+                display: flex;
+                width: 100%;
+                min-width: 0;
+                min-height: 0;
+                overflow-x: auto;
+                overflow-y: hidden;
+                scroll-snap-type: x mandatory;
+                scroll-behavior: smooth;
+                scrollbar-width: none;
+                overscroll-behavior-x: contain;
+                touch-action: pan-x;
+            }
+            html.is-android-app .launcher-app-pager::-webkit-scrollbar { display: none; }
+            html.is-android-app .launcher-app-page {
+                display: flex;
+                flex: 0 0 100%;
+                width: 100%;
+                min-width: 0;
+                min-height: 0;
+                height: 100%;
+                padding: 8px 10px 4px;
+                flex-direction: column;
+                overflow: hidden;
+                scroll-snap-align: start;
+                scroll-snap-stop: always;
+            }
+            html.is-android-app .launcher-heading-row { grid-template-columns: minmax(0, 1fr) minmax(220px, 30%); gap: 18px; margin-top: 0; }
+            html.is-android-app .launcher-kicker { margin-bottom: 5px; }
+            html.is-android-app .launcher-heading h1 { max-width: none; font-size: clamp(30px, 4.3vw, 48px); line-height: 1; }
+            html.is-android-app .launcher-heading h1 br { display: none; }
+            html.is-android-app .launcher-intro { max-width: 760px; margin-top: 8px; font-size: 12px; line-height: 1.45; }
+            html.is-android-app .launcher-recent { min-height: 0; padding: 12px 15px; }
+            html.is-android-app .launcher-recent strong { margin-top: 5px; font-size: 16px; }
+            html.is-android-app .launcher-recent p { min-height: 0; margin-top: 3px; font-size: 10px; line-height: 1.35; }
+            html.is-android-app .launcher-recent a { min-height: 44px; margin-top: 2px; }
+            html.is-android-app .launcher-group-heading { flex: 0 0 auto; min-height: 32px; margin-top: 8px; padding-bottom: 5px; }
+            html.is-android-app .launcher-app-page > .workbench-grid { flex: 1 1 auto; min-height: 0; margin-top: 8px; }
+            html.is-android-app .workbench-grid-preschool { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+            html.is-android-app .workbench-grid-general { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: none; gap: 14px; }
+            html.is-android-app .workbench-grid-preschool .workbench-link:last-child { grid-column: auto; }
+            html.is-android-app .workbench-link,
+            html.is-android-app .workbench-link[data-card-kind="world"],
+            html.is-android-app .workbench-link[data-card-kind="workbench"] { min-height: 0; height: 100%; grid-template-rows: minmax(92px, 46%) minmax(0, 1fr); }
+            html.is-android-app .workbench-visual,
+            html.is-android-app .workbench-image,
+            html.is-android-app .workbench-link[data-card-kind="world"] .workbench-visual,
+            html.is-android-app .workbench-link[data-card-kind="world"] .workbench-image,
+            html.is-android-app .workbench-link[data-card-kind="workbench"] .workbench-visual,
+            html.is-android-app .workbench-link[data-card-kind="workbench"] .workbench-image { min-height: 0; height: 100%; }
+            html.is-android-app .workbench-copy,
+            html.is-android-app .workbench-link[data-card-kind="workbench"] .workbench-copy { min-height: 0; gap: 7px; padding: 11px 14px 9px; }
+            html.is-android-app .workbench-copy h2,
+            html.is-android-app .workbench-link[data-card-kind="world"] .workbench-copy h2,
+            html.is-android-app .workbench-link[data-card-kind="workbench"] .workbench-copy h2 { margin: 4px 0; font-size: clamp(16px, 2vw, 21px); }
+            html.is-android-app .workbench-copy p { max-width: none; font-size: 11px; line-height: 1.4; }
+            html.is-android-app .open-link { min-height: 44px; padding-top: 5px; }
+            html.is-android-app .launcher-note { flex: 0 0 44px; margin-top: 4px; }
+        }
+        @media (orientation: landscape) and (max-height: 480px) {
+            html.is-android-app .launcher-main { grid-template-rows: 36px 44px minmax(0, 1fr); padding-block: max(2px, env(safe-area-inset-top)) max(2px, env(safe-area-inset-bottom)); }
+            html.is-android-app .launcher-topbar { min-height: 36px; }
+            html.is-android-app .launcher-heading-row { display: none; }
+            html.is-android-app .launcher-app-page { padding-block: 3px; }
+            html.is-android-app .launcher-group-heading { min-height: 27px; margin-top: 0; padding-bottom: 3px; }
+            html.is-android-app .launcher-group-heading small { display: none; }
+            html.is-android-app .launcher-app-page > .workbench-grid { margin-top: 5px; }
+            html.is-android-app .workbench-link,
+            html.is-android-app .workbench-link[data-card-kind="world"],
+            html.is-android-app .workbench-link[data-card-kind="workbench"] { grid-template-rows: minmax(72px, 48%) minmax(0, 1fr); }
+            html.is-android-app .workbench-copy,
+            html.is-android-app .workbench-link[data-card-kind="workbench"] .workbench-copy { padding: 7px 10px 5px; }
+            html.is-android-app .workbench-eyebrow,
+            html.is-android-app .workbench-copy p,
+            html.is-android-app .launcher-note { display: none; }
+            html.is-android-app .workbench-copy h2,
+            html.is-android-app .workbench-link[data-card-kind="world"] .workbench-copy h2,
+            html.is-android-app .workbench-link[data-card-kind="workbench"] .workbench-copy h2 { margin: 0; font-size: 15px; }
+            html.is-android-app .open-link { min-height: 44px; padding-top: 2px; font-size: 11px; }
+        }
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
         }
@@ -144,6 +263,12 @@
             <a class="launcher-brand" href="./" aria-label="回到个人工作台首页"><span class="launcher-brand-mark" aria-hidden="true"></span><span>PERSONAL WORKBENCH</span></a>
             <div class="launcher-topbar-meta"><span>03 WORLDS</span><span class="launcher-topbar-rule" aria-hidden="true"></span><span>02 WORKBENCHES</span><span class="launcher-topbar-rule" aria-hidden="true"></span><span>LOCAL FIRST</span></div>
         </header>
+        <nav class="launcher-page-switch" aria-label="入口分页">
+            <button type="button" data-launcher-page="0" aria-selected="true">幼儿世界</button>
+            <button type="button" data-launcher-page="1" aria-selected="false">工作台</button>
+        </nav>
+        <div class="launcher-app-pager">
+        <section class="launcher-app-page" aria-label="幼儿游戏世界">
             <div class="launcher-heading-row">
                 <div class="launcher-heading"><p class="launcher-kicker">选择入口 / CHOOSE YOUR WORLD</p><h1>先选一个<br><span>适合今天的<span class="launcher-mobile-break" aria-hidden="true"></span>工作台</span></h1><p class="launcher-intro">先选一个幼儿游戏世界，再进入成人或少儿工作台。入口不同，任务和本地数据各自保持清楚。</p></div>
             <aside class="launcher-recent" data-recent-panel hidden><span class="launcher-recent-label">RECENTLY USED / 最近使用</span><strong data-recent-title></strong><p data-recent-description></p><a data-recent-link href="./">继续进入 <span aria-hidden="true">&#8594;</span></a></aside>
@@ -163,6 +288,8 @@
                 <span class="workbench-copy"><span><span class="workbench-eyebrow">PRESCHOOL / PLATFORM QUEST</span><h2>马里奥工作台</h2><p>跳过平台、收集金币、抵达旗帜，把今日任务走成一条闯关路线。</p></span><span class="open-link">进入闯关版 <span aria-hidden="true">&#8594;</span></span></span>
             </a>
         </section>
+        </section>
+        <section class="launcher-app-page" aria-label="成人与少儿工作台">
         <div class="launcher-group-heading launcher-group-heading-general" id="general-workbenches-heading"><strong>成人与少儿工作台</strong><small>计划、学习与成长记录</small><span>04 — 05</span></div>
         <section class="workbench-grid workbench-grid-general" aria-labelledby="general-workbenches-heading" data-launcher-group="general-workbenches">
             <a class="workbench-link workbench-link--general" data-card-kind="workbench" data-workbench-variant="adult" href="./成人成长工作台/index.html">
@@ -175,6 +302,8 @@
             </a>
         </section>
         <footer class="launcher-note"><span data-remembered-note>五个入口 · 三套幼儿主题共享一份本地任务数据</span><a href="?choose=1">重新选择工作台</a></footer>
+        </section>
+        </div>
     </main>
     <script src="./launcher.js"></script>
     <script>

@@ -193,6 +193,53 @@ test('minecraft workbench hides a leftover garden egg and feeds the slime starte
   assert.equal(fed.growth.pet.exp, 10);
 });
 
+test('hatched garden pet looks like the Mario companion without rewriting the save', () => {
+  const growth = {
+    sunlight: 20,
+    pet: pet.normalize({ speciesId: 'pvz-sunflower', stage: 2, hunger: 80, exp: 20, lastUpdate: 1 })
+  };
+  const mario = pet.view(growth, 'platform-quest', 1);
+  assert.equal(mario.displayName, '探险星芒');
+  assert.match(mario.stageName, /探险员|小旅伴|星光勇者|星尘蛋/);
+  assert.match(mario.art, /pet-platform-/);
+  assert.doesNotMatch(mario.displayName, /向日葵/);
+  assert.equal(mario.pet.speciesId, 'pvz-sunflower');
+
+  const garden = pet.view(growth, 'garden-defense', 1);
+  assert.equal(garden.displayName, '小向日葵');
+  assert.match(garden.art, /pvz-sunflower\.png|pet-garden-/);
+
+  const fed = pet.feed({ sunlight: 20, pet: growth.pet }, 2, 'platform-quest');
+  assert.equal(fed.ok, true);
+  assert.equal(fed.growth.pet.speciesId, 'pvz-sunflower');
+
+  const capsule = pet.renderCapsule(growth, 'platform-quest', 1);
+  assert.match(capsule, /探险星芒/);
+  assert.doesNotMatch(capsule, /小向日葵/);
+});
+
+test('pet card and feed fail copy use theme currency instead of garden sunlight', () => {
+  const growth = { sunlight: 20, pet: pet.normalize({ hunger: 80, stage: 1, lastUpdate: 1 }) };
+  const mario = pet.renderCard(growth, 'platform-quest', 1);
+  assert.match(mario, /喂食 · 5 金币/);
+  assert.doesNotMatch(mario, /喂食 · 5 阳光/);
+
+  const garden = pet.renderCard(growth, 'garden-defense', 1);
+  assert.match(garden, /喂食 · 5 阳光/);
+
+  const voxel = pet.renderCard(growth, 'voxel-adventure', 1);
+  assert.match(voxel, /喂食 · 5 晶体/);
+
+  const broke = pet.feed({ sunlight: 2, pet: pet.normalize({ hunger: 40, lastUpdate: 1 }) }, 2, 'platform-quest');
+  assert.equal(broke.ok, false);
+  assert.match(broke.reason, /金币/);
+  assert.doesNotMatch(broke.reason, /阳光/);
+
+  const gardenBroke = pet.feed({ sunlight: 2, pet: pet.normalize({ hunger: 40, lastUpdate: 1 }) }, 2, 'garden-defense');
+  assert.equal(gardenBroke.ok, false);
+  assert.match(gardenBroke.reason, /阳光/);
+});
+
 test('growth page wires hatch-egg without adding a storage key', () => {
   const app = fs.readFileSync(path.join(repoRoot, 'prj', 'app.js'), 'utf8');
   const model = fs.readFileSync(path.join(repoRoot, 'docs', 'data-model.md'), 'utf8');

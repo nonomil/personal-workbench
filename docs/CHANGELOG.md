@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.7.4 补丁（E1 走查修复 + 重打包）- 2026-08-30
+
+- 动态知识门浏览器端到端走查闭环（**E1，27/27**）：拼音三选一弹卡、答错无惩罚（红+正确项绿 850ms 后仍种下）、每 5 棵节奏、断网/题库缺失回退 LearningDefenseCards、答题回流 `workbench:memory:v1`、全程无新 storage key。
+- 走查抓到 3 个真 bug + 1 处附带（单测绿挡不住，已浏览器实测修复并加回归合同）：
+  ① `quizGateDoneThisStage` 死变量赋值——strict 模式下 ReferenceError，弹层关闭被中断、**植物永不种下**（已删）；
+  ② 游戏页漏挂 `preschool-speech.js`——知识门题面从不自动朗读（已挂载 + `localAudioRoot` 调用点修正）；
+  ③ 动态卡答错只标红、不展示正确答案（已补，与静态图卡一致）；
+  ④ 兜底图卡 `showLearningCard` 漏写 `quizPendingPoint`，图卡答完不种下（已补）。
+- 定向套件回归 **46/46**；缓存戳 `game.js?v=…quiz-gate=v3`、`preschool-speech.js?v=20260829-speech-v2`（三页同步）。
+- APK 重打包（96.6MB，`versionCode=704`）：**签名钥匙变更**——历史 release.jks 未留存，2026-08-30 新生成；与历史正式包签名不同，**旧版需卸载重装**。真机验收清单 `docs/plans/T20260829-pvz-learning-loop/e2-checklist.md`，验收中（待用户装机）。
+- 计划包 T20260829 状态同步：README 切片表补 S5~S8 landed（原 S5/S6 合并口径）、acceptance.md 勾选、test-report.md 补 E1 章节。
+- 详见 `docs/04-发布/v0.7.4.md`（2026-08-30 补丁节）。
+
 ## 方块传奇独立仓 0.9.4 - 2026-08-22
 
 - 独立仓 `nonomil/blocklegend`：营地出生点旁会动的紫金龙；20 秒白骑、龙鞍门控。工作台仍是 **v0.7.4**，APK 仍不含该游戏。

@@ -1,0 +1,17 @@
+task_id: "T01-bubble-rules"
+title: "词泡破盾纯函数"
+status: "done"
+priority: "P0"
+phase: "T01"
+created: "2026-08-22"
+depends_on: []
+files:
+  - path: "data/sky-shield.js"
+    change_type: "create"
+  - path: "test/sky-shield.test.mjs"
+    change_type: "create"
+acceptance:
+  - "pickBubbles 只从本关词表抽 10 个"
+  - "hearBubble 任意命中，5 个破盾"
+  - "node --test test/sky-shield.test.mjs 绿"
+tags: ["blocklegend", "sky-shield"]

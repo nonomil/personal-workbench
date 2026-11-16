@@ -1,0 +1,8 @@
+task_id: "T04-red-shield-vfx"
+title: "红球 + 白词泡，不新 GLB"
+status: "done"
+priority: "P1"
+phase: "T04"
+created: "2026-08-22"
+depends_on: ["T01-bubble-rules"]
+tags: ["blocklegend", "vfx"]

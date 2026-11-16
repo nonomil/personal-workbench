@@ -9,7 +9,7 @@
 | 项 | 值 |
 |---|---|
 | **Endpoint** | `POST https://rn6.nonom.top/v1/images/generations`(本机 `http://rn6.nonom.top/v1/images/generations`) |
-| **Auth** | `Authorization: Bearer sk-cli-proxy-deploy-2026` |
+| **Auth** | `Authorization: Bearer sk-your-proxy-key` |
 | **模型** | `gpt-image-2`(OpenAI Images 兼容) |
 | **返回** | **只有 `b64_json`,解码后是 JPEG(无透明通道、无 url)** |
 | **实测尺寸** | `1024x1024`(宽高比待逐批验证) |
@@ -18,7 +18,7 @@
 
 ```bash
 curl -s https://rn6.nonom.top/v1/images/generations \
-  -H "Authorization: Bearer sk-cli-proxy-deploy-2026" \
+  -H "Authorization: Bearer sk-your-proxy-key" \
   -H "Content-Type: application/json" \
   -d '{"model":"gpt-image-2","prompt":"...","n":1,"size":"1024x1024"}' \
 | python3 -c "
@@ -259,7 +259,7 @@ shared/
 import base64, json, time, urllib.request
 
 ENDPOINT = "https://rn6.nonom.top/v1/images/generations"
-KEY = "sk-cli-proxy-deploy-2026"
+KEY = "sk-your-proxy-key"
 
 prompts = [
     {"name": "peashooter", "prompt": "A cute cartoon pea shooter..."},

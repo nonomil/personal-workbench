@@ -226,6 +226,33 @@ body.variant-preschool .preschool-home-pet-capsule.is-hungry {
     color: #7a3b2e;
 }
 
+body.variant-preschool .preschool-home-hunger,
+body.variant-preschool .preschool-reward-stage-hunger {
+    display: block;
+    width: 100%;
+    height: 6px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: #e4eedc;
+}
+
+body.variant-preschool .preschool-home-hunger {
+    margin-top: 4px;
+}
+
+body.variant-preschool .preschool-home-hunger i,
+body.variant-preschool .preschool-reward-stage-hunger i {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: #2f8a45;
+}
+
+body.variant-preschool .preschool-home-pet-capsule.is-hungry .preschool-home-hunger i,
+body.variant-preschool .preschool-reward-stage.is-hungry .preschool-reward-stage-hunger i {
+    background: #c45c3a;
+}
+
 body.variant-preschool .preschool-pet-hunger {
     height: 10px;
     margin-top: 8px;

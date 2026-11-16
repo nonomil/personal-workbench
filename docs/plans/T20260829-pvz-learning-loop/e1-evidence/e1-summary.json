@@ -1,0 +1,149 @@
+{
+  "url": "http://127.0.0.1:8642/prj/games/garden-defense/index.html?theme=garden-defense&from=%2Fprj%2Fpreschool-workbench%2Findex.html%3Ftheme%3Dgarden-defense%26sim-android%23overview&sim-android=1",
+  "results": [
+    {
+      "name": "E1-pre http 服务可用",
+      "ok": true,
+      "detail": "status 200"
+    },
+    {
+      "name": "E1.1 跳转至花园保卫页",
+      "ok": true,
+      "detail": "http://127.0.0.1:8642/prj/games/garden-defense/index.html?theme=garden-defense&from=%2Fprj%2Fpreschool-workbench%2Findex.html%3Ftheme%3Dgarden-defense%26sim-android%23overview&sim-android=1"
+    },
+    {
+      "name": "E1.1b 跳转 URL 带 sim-android=1",
+      "ok": true,
+      "detail": "http://127.0.0.1:8642/prj/games/garden-defense/index.html?theme=garden-defense&from=%2Fprj%2Fpreschool-workbench%2Findex.html%3Ftheme%3Dgarden-defense%26sim-android%23overview&sim-android=1"
+    },
+    {
+      "name": "E1.1c 跳转 URL 带 theme=garden-defense",
+      "ok": true,
+      "detail": "http://127.0.0.1:8642/prj/games/garden-defense/index.html?theme=garden-defense&from=%2Fprj%2Fpreschool-workbench%2Findex.html%3Ftheme%3Dgarden-defense%26sim-android%23overview&sim-android=1"
+    },
+    {
+      "name": "E1.1d html.is-android-app 生效",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "E1.2 进入第 1 关战斗页",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "E1.3 抽题返回非空",
+      "ok": true,
+      "detail": "话 / huà / [huà,hé,huì]"
+    },
+    {
+      "name": "E1.4 弹「X怎么读」拼音选项（非图卡）",
+      "ok": true,
+      "detail": "prompt=「话」怎么读？ opts=3 imgs=0"
+    },
+    {
+      "name": "E1.4b 三个选项 = 抽题 options（含正确拼音）",
+      "ok": true,
+      "detail": "[\"huà\",\"hé\",\"huì\"]"
+    },
+    {
+      "name": "E1.4c 题面自动朗读（speech 模块存在并已调用）",
+      "ok": true,
+      "detail": "present=true calls=[话]"
+    },
+    {
+      "name": "E1.5 答错项变红 is-wrong",
+      "ok": true,
+      "detail": "wrongIds=[\"hé\"]"
+    },
+    {
+      "name": "E1.5b 正确项同时变绿 is-correct（等待期提示）",
+      "ok": true,
+      "detail": "correctGreen=true"
+    },
+    {
+      "name": "E1.5c 答错也种下（plants=1）",
+      "ok": true,
+      "detail": "plants=1"
+    },
+    {
+      "name": "E1.5d recordLearningOutcome 回流 workbench:memory:v1",
+      "ok": true,
+      "detail": "key=true wordKeys=[\"话\"]"
+    },
+    {
+      "name": "E1.6 连种 4 棵不再弹（计数 1..4）",
+      "ok": true,
+      "detail": "plants=5"
+    },
+    {
+      "name": "E1.7 第 6 棵（计数 5）再弹动态卡",
+      "ok": true,
+      "detail": "plants=5"
+    },
+    {
+      "name": "E1.7b 第 6 棵弹卡仍是拼音三选一",
+      "ok": true,
+      "detail": "[\"huà\",\"hé\",\"huì\"]"
+    },
+    {
+      "name": "E1.8 答对项变绿 is-correct",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "E1.8b 答对后种下（plants=6）",
+      "ok": true,
+      "detail": "plants=6"
+    },
+    {
+      "name": "E1.9 题库脚本请求被断（模拟断网）",
+      "ok": true,
+      "detail": "LiteracyQuizBank=undefined"
+    },
+    {
+      "name": "E1.10 断网重试首棵：回退图卡",
+      "ok": true,
+      "detail": "quiz=true plants=0"
+    },
+    {
+      "name": "E1.10b 回退卡为图卡（LearningDefenseCards，3 图）",
+      "ok": true,
+      "detail": "prompt=“山”是哪一张图？"
+    },
+    {
+      "name": "E1.10c 回退卡图片加载成功",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "E1.10d 回退卡与 LearningDefenseCards 首位一致",
+      "ok": true,
+      "detail": "expect=“山”是哪一张图？"
+    },
+    {
+      "name": "E1.10e 回退卡答对仍种下（plants=1）",
+      "ok": true,
+      "detail": "plants=1"
+    },
+    {
+      "name": "E1.11 未新增 storage key",
+      "ok": true,
+      "detail": "newKeys=[\"workbench:memory:v1\"]"
+    },
+    {
+      "name": "E1.12 过程无异常控制台错误（除故意断开的 bank）",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "failed": [],
+  "total": 27,
+  "pass": 27,
+  "consoleErrors": [
+    "console.error: Failed to load resource: the server responded with a status of 404 (File not found)",
+    "console.error: Failed to load resource: the server responded with a status of 404 (File not found)",
+    "console.error: Failed to load resource: net::ERR_FAILED"
+  ],
+  "evidenceDir": "G:/StudyCode/个人工作台/docs/plans/T20260829-pvz-learning-loop/e1-evidence"
+}

@@ -72,6 +72,9 @@ body.variant-preschool .literacy-uplift.is-compact > summary::after {
 
 body.variant-preschool .literacy-uplift.is-compact:not([open]) > summary::after { content: '展开测评 / 错字本 / 档案'; }
 
+/* display:grid on <details> can leak closed children; keep compact footer to KPIs only. */
+body.variant-preschool .literacy-uplift.is-compact:not([open]) > :not(summary) { display: none; }
+
 body.variant-preschool .literacy-uplift.is-compact .literacy-uplift-cards {
     gap: 8px;
 }
@@ -397,6 +400,450 @@ body.variant-preschool .literacy-tianzige-lg {
     box-shadow: inset 0 0 0 1px #f3e7dc;
 }
 
+body.variant-preschool .preschool-flashcard-page.is-literacy.is-card-wall {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    grid-template-rows: auto auto minmax(0, 1fr);
+    gap: 10px;
+    padding: 12px;
+    overflow: hidden;
+}
+
+body.variant-preschool .preschool-literacy-wall-head {
+    display: flex;
+    min-width: 0;
+    min-height: 44px;
+    align-items: center;
+    gap: 12px;
+}
+
+body.variant-preschool .preschool-literacy-wall-head > .workbench-text-button {
+    min-width: 88px;
+    min-height: 44px;
+    flex: 0 0 auto;
+}
+
+body.variant-preschool .preschool-literacy-wall-head > span {
+    display: grid;
+    min-width: 0;
+    gap: 2px;
+}
+
+body.variant-preschool .preschool-literacy-wall-head strong {
+    overflow: hidden;
+    color: var(--lit-ink, #2a3d2c);
+    font-size: 1rem;
+    font-weight: 900;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.variant-preschool .preschool-literacy-wall-head small {
+    color: var(--lit-muted, #6b7f5e);
+    font-size: .76rem;
+    font-weight: 750;
+}
+
+body.variant-preschool .preschool-literacy-card-wall {
+    display: grid;
+    min-width: 0;
+    min-height: 0;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: minmax(190px, 1fr);
+    gap: clamp(8px, 1vw, 14px);
+    padding: 2px 4px 8px 2px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+}
+
+body.variant-preschool .preschool-literacy-wall-card {
+    position: relative;
+    display: grid;
+    min-width: 0;
+    min-height: 190px;
+    grid-template-rows: minmax(74px, 1fr) minmax(36px, auto) auto;
+    gap: 6px;
+    padding: 9px;
+    border: 2px solid rgba(61, 154, 74, .18);
+    border-radius: 20px;
+    background: linear-gradient(180deg, #fffef8, #f4faed);
+    box-shadow: 0 7px 0 rgba(74, 96, 68, .1), 0 12px 24px rgba(74, 96, 68, .08);
+    overflow: hidden;
+}
+
+body.variant-preschool .preschool-literacy-wall-card:nth-child(4n + 2) {
+    border-color: rgba(90, 160, 214, .22);
+    background: linear-gradient(180deg, #fffefb, #edf7fd);
+}
+
+body.variant-preschool .preschool-literacy-wall-card:nth-child(4n + 3) {
+    border-color: rgba(244, 200, 74, .3);
+    background: linear-gradient(180deg, #fffef9, #fff7d9);
+}
+
+body.variant-preschool .preschool-literacy-wall-card:nth-child(4n) {
+    border-color: rgba(239, 143, 58, .24);
+    background: linear-gradient(180deg, #fffef9, #fff0df);
+}
+
+body.variant-preschool .preschool-literacy-wall-card.is-known {
+    border-color: rgba(61, 154, 74, .62);
+    box-shadow: 0 5px 0 rgba(61, 154, 74, .18);
+}
+
+body.variant-preschool .preschool-literacy-wall-card.is-unknown {
+    border-color: rgba(239, 143, 58, .58);
+    box-shadow: 0 5px 0 rgba(239, 143, 58, .16);
+}
+
+body.variant-preschool .preschool-literacy-wall-review,
+body.variant-preschool .preschool-literacy-wall-state {
+    position: absolute;
+    z-index: 2;
+    top: 7px;
+    min-height: 24px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 8px;
+    border-radius: 999px;
+    font-size: .66rem;
+    font-style: normal;
+    font-weight: 900;
+    pointer-events: none;
+}
+
+body.variant-preschool .preschool-literacy-wall-review {
+    left: 7px;
+    color: #806217;
+    background: #fff0a8;
+}
+
+body.variant-preschool .preschool-literacy-wall-state {
+    right: 7px;
+    color: #277b39;
+    background: #dff2d9;
+}
+
+body.variant-preschool .preschool-literacy-wall-card.is-unknown .preschool-literacy-wall-state {
+    color: #9a561d;
+    background: #ffead2;
+}
+
+body.variant-preschool .preschool-literacy-wall-face {
+    display: grid;
+    min-width: 0;
+    min-height: 74px;
+    grid-template-columns: minmax(64px, 84px) minmax(0, 1fr);
+    align-items: center;
+    justify-items: center;
+    gap: 7px;
+    padding: 3px;
+    border: 0;
+    border-radius: 14px;
+    color: var(--lit-ink, #2a3d2c);
+    background: rgba(255, 255, 255, .48);
+    cursor: pointer;
+}
+
+body.variant-preschool .preschool-literacy-wall-face:hover,
+body.variant-preschool .preschool-literacy-wall-face:focus-visible {
+    outline: 3px solid rgba(61, 154, 74, .28);
+    outline-offset: -2px;
+    background: rgba(255, 255, 255, .82);
+}
+
+body.variant-preschool .preschool-literacy-wall-glyph {
+    width: clamp(62px, 6.4vw, 78px);
+    height: clamp(62px, 6.4vw, 78px);
+    font-size: clamp(36px, 4.2vw, 48px);
+    border-radius: 9px;
+}
+
+body.variant-preschool .preschool-literacy-wall-visual {
+    display: grid;
+    min-width: 0;
+    justify-items: center;
+    gap: 2px;
+}
+
+body.variant-preschool .preschool-literacy-wall-visual > .preschool-generated-art,
+body.variant-preschool .preschool-literacy-wall-visual > .preschool-card-art {
+    width: clamp(38px, 4.4vw, 58px);
+    height: clamp(38px, 4.4vw, 58px);
+    object-fit: contain;
+}
+
+body.variant-preschool .preschool-literacy-wall-visual > strong {
+    max-width: 100%;
+    overflow: hidden;
+    color: #426b53;
+    font-size: .86rem;
+    font-weight: 850;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.variant-preschool .preschool-literacy-wall-detail {
+    display: grid;
+    min-width: 0;
+    min-height: 36px;
+    align-content: center;
+    gap: 2px;
+    padding: 4px 7px;
+    border-radius: 11px;
+    color: var(--lit-muted, #6b7f5e);
+    background: rgba(255, 255, 255, .58);
+    overflow: hidden;
+}
+
+body.variant-preschool .preschool-literacy-wall-detail.is-open {
+    color: var(--lit-ink, #2a3d2c);
+    background: rgba(231, 246, 228, .84);
+}
+
+body.variant-preschool .preschool-literacy-wall-hint {
+    overflow: hidden;
+    font-size: .72rem;
+    font-weight: 800;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.variant-preschool .preschool-literacy-wall-detail-row {
+    display: flex;
+    min-width: 0;
+    align-items: baseline;
+    gap: 5px;
+}
+
+body.variant-preschool .preschool-literacy-wall-detail-row small {
+    flex: 0 0 auto;
+    color: var(--lit-green, #3d9a4a);
+    font-size: .63rem;
+    font-weight: 900;
+}
+
+body.variant-preschool .preschool-literacy-wall-detail-row strong {
+    min-width: 0;
+    overflow: hidden;
+    font-size: .72rem;
+    font-weight: 850;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.variant-preschool .preschool-literacy-wall-tools {
+    display: grid;
+    min-width: 0;
+    grid-template-columns: repeat(3, minmax(44px, 1fr));
+    gap: 8px;
+}
+
+body.variant-preschool .preschool-literacy-wall-tool {
+    display: inline-flex;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 0 7px;
+    border: 2px solid rgba(61, 154, 74, .28);
+    border-radius: 12px;
+    color: #277b39;
+    background: rgba(255, 255, 255, .84);
+    font-size: .7rem;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+body.variant-preschool .preschool-literacy-wall-tool svg {
+    width: 15px;
+    height: 15px;
+    flex: 0 0 auto;
+}
+
+body.variant-preschool .preschool-literacy-wall-tool.is-unknown {
+    border-color: rgba(239, 143, 58, .34);
+    color: #a65d20;
+}
+
+body.variant-preschool .preschool-literacy-wall-tool.is-known {
+    border-color: #3d9a4a;
+    color: #fff;
+    background: #3d9a4a;
+}
+
+body.variant-preschool .preschool-literacy-wall-tool:disabled {
+    opacity: .46;
+    cursor: default;
+}
+
+/* Web/desktop literacy study: these nodes exist in HTML but were only styled for Android. */
+body.variant-preschool .preschool-literacy-focus-card {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 6px 12px;
+    height: auto;
+    min-height: 0;
+    padding: 14px 16px;
+    border: 1.5px solid rgba(61, 154, 74, .2);
+    border-radius: 20px;
+    background: linear-gradient(180deg, #fffef8, #f4faed);
+    box-shadow: 0 7px 0 rgba(74, 96, 68, .08);
+}
+
+body.variant-preschool .preschool-literacy-focus-kicker {
+    grid-column: 1 / -1;
+    color: var(--lit-green, #3d9a4a);
+    font-size: .66rem;
+    font-weight: 900;
+    letter-spacing: .08em;
+}
+
+body.variant-preschool .preschool-literacy-focus-glyph {
+    display: grid;
+    width: 72px;
+    height: 72px;
+    place-items: center;
+    border: 2px solid #d7c3b4;
+    border-radius: 10px;
+    color: #243428;
+    background:
+        linear-gradient(#e3b4b4, #e3b4b4) center/1px 100% no-repeat,
+        linear-gradient(#e3b4b4, #e3b4b4) center/100% 1px no-repeat,
+        #fff;
+    font-size: 42px;
+    font-weight: 900;
+    line-height: 1;
+}
+
+body.variant-preschool .preschool-literacy-focus-pinyin {
+    color: #426b53;
+    font-size: 1.05rem;
+    font-weight: 850;
+    letter-spacing: .06em;
+}
+
+body.variant-preschool .preschool-literacy-focus-hint,
+body.variant-preschool .preschool-literacy-focus-detail {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    color: var(--lit-muted, #6b7f5e);
+    background: transparent;
+    font-size: .78rem;
+    font-weight: 800;
+    text-align: left;
+    cursor: pointer;
+}
+
+body.variant-preschool .preschool-literacy-focus-detail {
+    display: grid;
+    gap: 2px;
+    cursor: default;
+}
+
+body.variant-preschool .preschool-literacy-focus-row {
+    display: flex;
+    min-width: 0;
+    align-items: baseline;
+    gap: 6px;
+}
+
+body.variant-preschool .preschool-literacy-focus-row small {
+    flex: 0 0 auto;
+    color: var(--lit-green, #3d9a4a);
+    font-size: .66rem;
+    font-weight: 900;
+}
+
+body.variant-preschool .preschool-literacy-focus-row strong {
+    min-width: 0;
+    overflow: hidden;
+    font-size: .78rem;
+    font-weight: 850;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.variant-preschool .preschool-literacy-focus-tools {
+    display: flex;
+    flex-wrap: wrap;
+    grid-column: 1 / -1;
+    gap: 8px;
+}
+
+body.variant-preschool .preschool-literacy-today-queue {
+    display: grid;
+    gap: 8px;
+    height: auto;
+    min-height: 0;
+    padding: 10px 12px 12px;
+    border: 1.5px solid rgba(90, 160, 214, .22);
+    border-radius: 18px;
+    background: #f7fbff;
+}
+
+body.variant-preschool .preschool-literacy-today-queue header h2 {
+    margin: 0;
+    color: var(--lit-ink, #2a3d2c);
+    font-size: .95rem;
+    font-weight: 900;
+}
+
+body.variant-preschool .preschool-literacy-today-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+body.variant-preschool .preschool-literacy-today-item {
+    display: inline-flex;
+    min-width: 64px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    border: 2px solid #d8c48e;
+    border-radius: 12px;
+    background: linear-gradient(180deg, #fffdf6, #f3e4b4);
+    cursor: pointer;
+}
+
+body.variant-preschool .preschool-literacy-today-item.is-current {
+    border-color: #f4b942;
+    background: linear-gradient(180deg, #fff8d6, #f4d56a);
+}
+
+body.variant-preschool .preschool-literacy-today-item.is-known {
+    border-color: rgba(61, 154, 74, .62);
+}
+
+body.variant-preschool .preschool-literacy-today-copy {
+    display: grid;
+    justify-items: center;
+    gap: 1px;
+}
+
+body.variant-preschool .preschool-literacy-today-copy strong {
+    color: #243428;
+    font-size: 1.15rem;
+    font-weight: 900;
+    line-height: 1.1;
+}
+
+body.variant-preschool .preschool-literacy-today-copy small {
+    color: #6b7f5e;
+    font-size: .7rem;
+    font-weight: 800;
+}
+
 body.variant-preschool .literacy-mistake-board {
     display: grid;
     gap: 12px;
@@ -637,6 +1084,60 @@ body.variant-preschool .literacy-assess-result {
     body.variant-preschool .literacy-uplift-cards { grid-template-columns: 1fr; }
 }
 
+@media (max-width: 1100px) and (min-width: 861px) {
+    body.variant-preschool .preschool-literacy-card-wall {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+/* 横屏窄窗口（≤860px）网页版：新版学习页是 4 段内容（焦点字/写一写/今日队列/卡片墙），
+ * 一屏装不下，所以这里不再锁死视口高度（旧规则会把焦点字压成 93px 造成堆叠），
+ * 交给文档自然滚动。 */
+@media (max-width: 860px) and (orientation: landscape) {
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.is-literacy.is-card-wall {
+        min-height: calc(100vh - 67px);
+        min-height: calc(100dvh - 67px);
+        gap: 6px;
+        padding: 8px;
+    }
+    html:not(.is-android-app) body.variant-preschool .preschool-literacy-card-wall {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-auto-rows: minmax(170px, auto);
+        overflow-y: auto;
+    }
+    html:not(.is-android-app) body.variant-preschool .preschool-literacy-wall-card {
+        min-height: 170px;
+        grid-template-rows: minmax(58px, 1fr) minmax(30px, auto) 44px;
+        gap: 3px;
+        padding: 5px;
+    }
+    html:not(.is-android-app) body.variant-preschool .preschool-literacy-wall-face {
+        min-height: 58px;
+        grid-template-columns: 58px minmax(0, 1fr);
+        gap: 4px;
+        padding: 2px;
+    }
+    html:not(.is-android-app) body.variant-preschool .preschool-literacy-wall-glyph {
+        width: 56px;
+        height: 56px;
+        font-size: 34px;
+    }
+    html:not(.is-android-app) body.variant-preschool .preschool-literacy-wall-detail {
+        min-height: 30px;
+        padding: 2px 5px;
+    }
+    html:not(.is-android-app) body.variant-preschool .preschool-literacy-wall-tools { gap: 6px; }
+    html:not(.is-android-app) body.variant-preschool .preschool-literacy-wall-tool { padding: 0 4px; }
+}
+
+@media (max-width: 720px) and (orientation: portrait) {
+    body.variant-preschool .preschool-literacy-card-wall {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-auto-rows: minmax(190px, auto);
+    }
+    body.variant-preschool .preschool-literacy-wall-tool { padding: 0 4px; }
+}
+
 @media (max-width: 420px) {
     body.variant-preschool .literacy-uplift-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     body.variant-preschool .literacy-uplift-cards { grid-template-columns: 1fr; }
@@ -719,4 +1220,136 @@ body.variant-preschool .literacy-assess-result {
     .literacy-certificate-corner .literacy-generated-asset { width: 100%; height: 100%; }
     .literacy-certificate strong { font-size: 72px; color: #2f8a44; }
     .literacy-certificate em { font-style: normal; color: #6b7f5e; font-size: 22px; }
+}
+
+@media print {
+    .english-print-sheet {
+        min-height: 297mm;
+        padding: 10mm 12mm;
+        box-sizing: border-box;
+        color: #223;
+        font-size: 13px;
+        line-height: 1.5;
+    }
+    .english-print-head {
+        display: flex;
+        align-items: baseline;
+        gap: 6mm;
+        border-bottom: 2px solid #2d8748;
+        padding-bottom: 3mm;
+        margin-bottom: 5mm;
+    }
+    .english-print-head strong {
+        font-size: 22px;
+        font-weight: 800;
+        color: #2d8748;
+    }
+    .english-print-head span { color: #556; }
+    .english-print-head .english-print-meta { margin-left: auto; }
+    .english-print-section { margin-bottom: 6mm; break-inside: avoid; }
+    .english-print-section h3 {
+        font-size: 14px;
+        font-weight: 800;
+        color: #2d8748;
+        margin: 0 0 2.5mm;
+    }
+    .english-print-recite { margin: 0; padding-left: 6mm; }
+    .english-print-recite li { margin-bottom: 2mm; }
+    .english-print-recite b { font-size: 15px; margin-right: 3mm; }
+    .english-print-recite span { color: #334; margin-right: 3mm; }
+    .english-print-recite em { font-style: normal; color: #667; }
+    .english-print-row {
+        display: flex;
+        align-items: baseline;
+        gap: 4mm;
+        min-height: 9mm;
+        margin-bottom: 1.5mm;
+    }
+    .english-print-row b { min-width: 34mm; font-size: 14px; }
+    .english-print-row small {
+        color: #8a6b1f;
+        border: 1px solid #e0c37a;
+        border-radius: 3px;
+        padding: 0 2mm;
+        font-size: 10px;
+    }
+    .english-print-blank {
+        flex: 1;
+        border-bottom: 1px solid #9aa;
+        min-height: 7mm;
+    }
+    .english-print-empty { color: #667; margin: 0 0 2mm; }
+    .english-print-foot {
+        border-top: 1px dashed #9aa;
+        padding-top: 3mm;
+        color: #445;
+    }
+}
+
+/* 拼音四声条：声母/韵母/整体认读卡的 bā bá bǎ bà 可点读（toneForms 派生）。 */
+.preschool-pinyin-tones {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 5px;
+    margin-top: 8px;
+}
+
+.preschool-pinyin-tone {
+    display: grid;
+    justify-items: center;
+    gap: 0;
+    min-height: 42px;
+    padding: 4px 2px;
+    border: 2px solid #e0d2b4;
+    border-radius: 10px;
+    background: #fffdf6;
+    cursor: pointer;
+}
+
+.preschool-pinyin-tone b {
+    color: #243428;
+    font-size: 15px;
+    font-weight: 900;
+    line-height: 1.1;
+}
+
+.preschool-pinyin-tone small {
+    color: #8a7b52;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.preschool-pinyin-tone.is-current {
+    border-color: #f4b942;
+    background: linear-gradient(180deg, #fff8d6, #f7dd8a);
+}
+
+/* 拼读转盘：声母卡换韵母 chips（横向滚动），配合四声条联动。 */
+.preschool-pinyin-wheel {
+    display: flex;
+    gap: 5px;
+    margin-top: 6px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.preschool-pinyin-wheel-chip {
+    flex: 0 0 auto;
+    min-width: 40px;
+    min-height: 38px;
+    padding: 0 8px;
+    border: 2px solid #d8e4c8;
+    border-radius: 10px;
+    color: #4a5b3f;
+    background: #fbfff2;
+    font-size: 14px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.preschool-pinyin-wheel-chip.is-active {
+    border-color: #3d9a4a;
+    background: #e7f6e4;
+    color: #237032;
 }

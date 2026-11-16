@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "project": "learning-defense",
+  "generated_root": "assets/generated/<asset-id>",
+  "notes": [
+    "Reused assets are copied for the MVP and are isolated from garden-defense runtime changes.",
+    "New raster art must use stable kebab-case asset IDs with a per-asset manifest and review file."
+  ],
+  "reused": [
+    {
+      "source": "prj/games/garden-defense/assets/bg/pvz-garden-lawn-bg.webp",
+      "target": "assets/reused/scene/sunny-lawn.webp",
+      "purpose": "MVP battlefield background; replace with original sunny-learning-lawn-background",
+      "sha256": "8c7fd8323917be3b7e8504114bf316eea1b9d64fe19fce0a128167b73a3ba22e"
+    },
+    {
+      "source": "prj/games/garden-defense/assets/plants/plant-sunflower.png",
+      "target": "assets/reused/plants/sun-bloom.png",
+      "purpose": "sun producer",
+      "sha256": "2141b9b4a2e2c6f51f07d514679315c1e7d72528837ebd2f4fcfb2d1c0b6703f"
+    },
+    {
+      "source": "prj/games/garden-defense/assets/plants/plant-peashooter.png",
+      "target": "assets/reused/plants/seed-shooter.png",
+      "purpose": "starter ranged guardian",
+      "sha256": "eeb702864845a1f8d734839f83eebb4697ea9266748310c126365c374d3b2650"
+    },
+    {
+      "source": "prj/games/garden-defense/assets/plants/plant-wallnut.png",
+      "target": "assets/reused/plants/moss-shield.png",
+      "purpose": "lane blocker",
+      "sha256": "8c5f07d64fbabafce1a0a389b28134f0ac11b062b3754ecd0fbc326c57629464"
+    },
+    {
+      "source": "prj/games/garden-defense/assets/zombies/garden-walker-v5.png",
+      "target": "assets/reused/enemies/garden-walker.png",
+      "purpose": "normal raider",
+      "sha256": "756e50fed340cb2f4dafd137c7aaef7a6112cbd6c6509488b0a7a8574eb9313d"
+    },
+    {
+      "source": "prj/games/garden-defense/assets/zombies/garden-cone-walker-v5.png",
+      "target": "assets/reused/enemies/cone-walker.png",
+      "purpose": "armored raider",
+      "sha256": "aea28d2565532a1e69b6544a2c6f03563898c4ba57a788d7d0427b307474f671"
+    },
+    {
+      "source": "prj/games/garden-defense/assets/zombies/garden-pail-walker-v5.png",
+      "target": "assets/reused/enemies/pail-walker.png",
+      "purpose": "final-wave raider",
+      "sha256": "5beface24132bf0497359dc194a54094eb89f6fc6b2345e3f17e03b48d716e22"
+    },
+    {
+      "source": "prj/assets/generated/preschool-pvz-2d/published/pvz-sun-token.png",
+      "target": "assets/reused/ui/sun-token.png",
+      "purpose": "energy token",
+      "sha256": "9ff6afeeb4420b85df13b6e0d4f446044d5d3e0d1c6549a66e2405976b844e99"
+    },
+    {
+      "source": "prj/assets/vocab/core-english-2026.08.15/media/semantic/apple.png",
+      "target": "assets/reused/learning/apple.png",
+      "purpose": "picture answer",
+      "sha256": "6e8498bb6c6c913678be1968e1d89904691c2a9a2df4e77bc97fecaba1ba4326"
+    },
+    {
+      "source": "prj/assets/vocab/core-english-2026.08.15/media/semantic/banana.png",
+      "target": "assets/reused/learning/banana.png",
+      "purpose": "picture answer",
+      "sha256": "3fd6ee6ecac3a7d74cd0e142baad6fce2562f2f97e192372ea347be9495228b4"
+    },
+    {
+      "source": "prj/assets/vocab/core-english-2026.08.15/media/semantic/cat.png",
+      "target": "assets/reused/learning/cat.png",
+      "purpose": "picture answer",
+      "sha256": "e8420f16f0fee898f3fd97bfe7c575c0415a8ecf0b74b09910179a686bfe916f"
+    },
+    {
+      "source": "prj/assets/vocab/core-english-2026.08.15/media/semantic/dog.png",
+      "target": "assets/reused/learning/dog.png",
+      "purpose": "picture answer",
+      "sha256": "0e4e856399e8a044da2a37a61867131a4137a2bded6a92ce846e798a6c4ad4e2"
+    },
+    {
+      "source": "prj/assets/vocab/core-english-2026.08.15/media/semantic/fish.png",
+      "target": "assets/reused/learning/fish.png",
+      "purpose": "picture answer",
+      "sha256": "99fef6793edb86ec614be3ebab891a953ce831e0504fd1dd6a18d12ce53dcbf1"
+    },
+    {
+      "source": "prj/assets/vocab/core-english-2026.08.15/media/semantic/flower.png",
+      "target": "assets/reused/learning/flower.png",
+      "purpose": "picture answer",
+      "sha256": "0b7bc81e1435af03dafbb8b6e9ce48e79a122945d3bc897a7ffbb23f7530dbea"
+    },
+    {
+      "source": "prj/assets/vocab/core-english-2026.08.15/media/semantic/hill.png",
+      "target": "assets/reused/learning/hill.png",
+      "purpose": "picture answer",
+      "sha256": "8da6e805f3663777b458f1bb0678d5a5b8745b3aee0a8646ad4b4065d2446e7d"
+    },
+    {
+      "source": "prj/assets/vocab/core-english-2026.08.15/media/semantic/river.png",
+      "target": "assets/reused/learning/river.png",
+      "purpose": "picture answer",
+      "sha256": "37c49518501a0d1b11af2f8446b1e1ca72af822df27124ac5def06cb89b7638e"
+    }
+  ]
+}

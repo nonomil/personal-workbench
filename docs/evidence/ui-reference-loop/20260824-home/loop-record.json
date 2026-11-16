@@ -1,0 +1,130 @@
+{
+  "target": {
+    "route": "#overview",
+    "outcome": "对标参考工作台的左侧导航、场景画布、状态条、主任务气泡、伙伴卡和独立任务卡墙",
+    "reference": [
+      "G:/UserCode/跨平台采集器/notes/游戏化学习工作台/✨给3岁女儿手搓布鲁伊主题AI学习工作台1.0/img/frame_1.jpg",
+      "G:/UserCode/跨平台采集器/notes/游戏化学习工作台/✨给3岁女儿手搓布鲁伊主题AI学习工作台1.0/img/frame_2.jpg",
+      "G:/UserCode/跨平台采集器/notes/游戏化学习工作台/✨给3岁女儿手搓布鲁伊主题AI学习工作台1.0/img/frame_3.jpg",
+      "G:/UserCode/跨平台采集器/notes/游戏化学习工作台/✨给3岁女儿手搓布鲁伊主题AI学习工作台1.0/img/img_1.jpg"
+    ]
+  },
+  "viewports": [
+    { "name": "desktop", "width": 1280, "height": 720 },
+    { "name": "android-landscape", "width": 800, "height": 360 },
+    { "name": "android-landscape-tall", "width": 915, "height": 412 },
+    { "name": "android-mumu", "width": 1463, "height": 616 }
+  ],
+  "allowedFiles": [
+    "prj/preschool-workbench/index.html",
+    "prj/app.js",
+    "prj/css/preschool/48-home-visual-loop.css",
+    "scripts/diagnose-workbench-android-landscape.mjs",
+    "tests/preschool-home-visual-loop.test.mjs"
+  ],
+  "stopRules": [
+    "接受信号达到：场景画布、独立卡墙、侧栏比例和响应式契约均通过",
+    "连续两轮 Top 3 无改善",
+    "截图或测试路径失败",
+    "需要扩大到业务逻辑或无关页面"
+  ],
+  "confirmationCard": {
+    "inputs": [
+      "参考图片四张",
+      "工作台首页 #overview",
+      "现有三套主题资源：garden-defense、voxel-adventure、platform-quest"
+    ],
+    "viewports": [
+      { "name": "desktop", "width": 1280, "height": 720 },
+      { "name": "android-landscape", "width": 800, "height": 360 },
+      { "name": "android-landscape-tall", "width": 915, "height": 412 },
+      { "name": "android-mumu", "width": 1463, "height": 616 }
+    ],
+    "allowedFiles": [
+      "prj/preschool-workbench/index.html",
+      "prj/app.js",
+      "prj/css/preschool/48-home-visual-loop.css",
+      "scripts/diagnose-workbench-android-landscape.mjs",
+      "tests/preschool-home-visual-loop.test.mjs"
+    ],
+    "excluded": [
+      "业务逻辑和路由合同",
+      "API 与语音实现",
+      "无关课程页和游戏页",
+      "第三方角色/品牌美术的重新生成或描摹"
+    ],
+    "feedback": [
+      "固定尺寸截图对比",
+      "页面与嵌套溢出检查",
+      "三主题首页检查",
+      "任务卡数量与导航触控尺寸检查"
+    ],
+    "stopRules": [
+      "接受信号达到：场景画布、独立卡墙、侧栏比例和响应式契约均通过",
+      "连续两轮 Top 3 无改善",
+      "截图或测试路径失败",
+      "需要扩大到业务逻辑或无关页面"
+    ]
+  },
+  "iterations": [
+    {
+      "number": 0,
+      "beforeScreenshot": "iteration-00-baseline-1280x720.png",
+      "afterScreenshot": "iteration-00-baseline-1280x720.png",
+      "top3": ["首页被单一大框占据", "侧栏比例和信息密度不足", "缺少场景层级与独立任务入口"],
+      "result": "baseline"
+    },
+    {
+      "number": 1,
+      "beforeScreenshot": "iteration-00-baseline-1280x720.png",
+      "afterScreenshot": "iteration-01-after-1280x720.png",
+      "top3": ["场景背景承载主任务", "任务入口变为 3×3 卡墙", "侧栏宽度接近参考构图"],
+      "result": "desktop composition improved"
+    },
+    {
+      "number": 2,
+      "beforeScreenshot": "iteration-01-after-1280x720.png",
+      "afterScreenshot": "iteration-02-after-1280x720.png",
+      "top3": ["状态条与伙伴卡更紧凑", "桌面卡墙保持独立层级", "Android 横屏进入固定分页契约"],
+      "result": "desktop and mobile contracts improved"
+    },
+    {
+      "number": 3,
+      "beforeScreenshot": "iteration-02-after-1280x720.png",
+      "afterScreenshot": [
+        "iteration-03-garden-defense-1280x720.png",
+        "iteration-03-voxel-adventure-1280x720.png",
+        "iteration-03-platform-quest-1280x720.png"
+      ],
+      "top3": ["Android 任务页移除旧 16px 底部外边距，嵌套溢出归零", "方块主题限制插画的固有最小高度", "桌面方块主题隐藏与独立导航重复的家园预览"],
+      "result": "three themes pass browser overflow check"
+    },
+    {
+      "number": 4,
+      "beforeScreenshot": "iteration-03-garden-defense-1280x720.png",
+      "afterScreenshot": [
+        "iteration-04-garden-defense-1280x720.png",
+        "iteration-04-voxel-adventure-1280x720.png",
+        "iteration-04-platform-quest-1280x720.png"
+      ],
+      "top3": ["任务卡高度从按钮条提升为可读卡片", "三列卡墙保持一致的纵向节奏", "卡墙上移后与底部入口保持独立间距"],
+      "result": "desktop task cards are less flat and all three themes remain bounded"
+    },
+    {
+      "number": 5,
+      "beforeScreenshot": "iteration-04-garden-defense-1280x720.png",
+      "afterScreenshot": [
+        "iteration-05-garden-defense-1280x720.png",
+        "iteration-05-voxel-adventure-1280x720.png",
+        "iteration-05-platform-quest-1280x720.png"
+      ],
+      "top3": ["顶部状态条加入问候与每日金句，首屏更有进入感", "主任务与任务卡改成带气泡尾巴的场景入口", "桌面装饰与 Android 原生分页隔离，保持三主题一致"],
+      "result": "homepage is more inviting while preserving the 3x3 task wall and native layout contract"
+    }
+  ],
+  "validation": {
+    "browser": "Codex 浏览器 1280×720：三主题页面/首页/卡墙 overflow x=0、y=0，卡片 9 张；问候状态条和任务气泡均显示",
+    "android": "scripts/verify-workbench-android-landscape.mjs：800×360、915×412、1463×616 的 launcher、overview、courses、english 均通过；页面和嵌套 overflow=0",
+    "webPortrait": "390×844 保留自然滚动，未被原生分页样式接管"
+  }
+}

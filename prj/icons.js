@@ -6,6 +6,9 @@
         'layout-dashboard': '<rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect>',
         'clipboard-check': '<rect width="8" height="4" x="8" y="3" rx="1"></rect><path d="M16 4h2a2 2 0 0 1 2 2v14H4V6a2 2 0 0 1 2-2h2"></path><path d="m8 13 2 2 4-4"></path>',
         'book-open': '<path d="M12 7v14"></path><path d="M3 5.5A2.5 2.5 0 0 1 5.5 3H12v18H5.5A2.5 2.5 0 0 1 3 18.5Z"></path><path d="M21 5.5A2.5 2.5 0 0 0 18.5 3H12v18h6.5a2.5 2.5 0 0 0 2.5-2.5Z"></path>',
+        'book-open-check': '<path d="M12 7v14"></path><path d="M3 5.5A2.5 2.5 0 0 1 5.5 3H12v18H5.5A2.5 2.5 0 0 1 3 18.5Z"></path><path d="M21 5.5A2.5 2.5 0 0 0 18.5 3H12v18h6.5A2.5 2.5 0 0 0 21 18.5Z"></path><path d="m15 11 2 2 4-4"></path>',
+        eraser: '<path d="m7 21 10-10"></path><path d="m14 6 4 4"></path><path d="m3 17 8-8 8 8-4 4H7Z"></path><path d="M3 21h18"></path>',
+        'undo-2': '<path d="M9 14 4 9l5-5"></path><path d="M4 9h10a6 6 0 0 1 6 6v1"></path>',
         target: '<circle cx="12" cy="12" r="8"></circle><circle cx="12" cy="12" r="3"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.42 1.42"></path><path d="m17.65 17.65 1.42 1.42"></path>',
         'rotate-ccw': '<path d="M3 12a9 9 0 1 0 3-6.7L3 8"></path><path d="M3 3v5h5"></path>',
         'settings-2': '<path d="M20 7h-9"></path><path d="M14 17H5"></path><circle cx="17" cy="17" r="3"></circle><circle cx="7" cy="7" r="3"></circle>',
@@ -115,7 +118,10 @@
         tv: '<rect width="20" height="15" x="2" y="4" rx="2"></rect><path d="m8 21 4-2 4 2"></path><path d="M8 2l4 2 4-2"></path>',
         zap: '<path d="M13 2 3 14h9l-1 8 10-12h-9Z"></path>',
         'calendar-range': '<path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path><path d="M8 14h3"></path><path d="M8 18h8"></path>',
-        'repeat-2': '<path d="m2 9 3-3 3 3"></path><path d="M5 6h9a4 4 0 0 1 4 4v1"></path><path d="m22 15-3 3-3-3"></path><path d="M19 18h-9a4 4 0 0 1-4-4v-1"></path>'
+        'repeat-2': '<path d="m2 9 3-3 3 3"></path><path d="M5 6h9a4 4 0 0 1 4 4v1"></path><path d="m22 15-3 3-3-3"></path><path d="M19 18h-9a4 4 0 0 1-4-4v-1"></path>',
+        'circle-help': '<circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path>',
+        printer: '<path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6"></path><rect x="6" y="14" width="12" height="8" rx="1"></rect>',
+        hammer: '<path d="m15 12-8.373 8.373a1 1 0 1 1-3-3L12 9"></path><path d="m18 15 4-4"></path><path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172V7l-2.26-2.26a6 6 0 0 0-4.202-1.756L9 2.96l.92.82A6.18 6.18 0 0 1 12 8.4V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5"></path>'
     };
 
     function createIcons(options) {

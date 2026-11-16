@@ -31,6 +31,18 @@
 | 首页合同 | 识字今日页含 KPI 行、3 张 data-action 大卡、周连续条、课时列表 |
 | 缓存戳 | index.html 引用的 app.js/css/config.js 戳为本包新值 |
 
+### tests/preschool-literacy-card-wall.test.mjs（C1）
+
+| 用例 | 断言 |
+| --- | --- |
+| 独立渲染 | 仅识字今日页分流到 `renderPreschoolLiteracyCardWall`，8 张均带 `data-index` |
+| 逐卡行为 | 提示和会/不会把所点卡片索引传给 reveal/mark，不依赖当前翻页索引 |
+| 完成条件 | 每张独立留痕，8 张全部标记后才进入完成页 |
+| Web 响应式 | 默认 4 列；800×360 普通 Web 为 2 列且卡墙内部可滚动 |
+| Android 横屏 | 固定 4 列 × 2 行，卡墙不滚动、不超 viewport |
+| 儿童触控 | 卡内朗读/提示/会了均至少 44×44px，常规间距 8px |
+| 缓存戳 | CSS manifest、HTML 直链和 app.js 均追加 `literacy-wall=v1` |
+
 ## 既有测试回归
 
 `npm test` 全量；重点盯 `preschool-lesson-mistakes`、`preschool-learning-summary`、`preschool-workbench-refresh`（活动计数、图标注册、CSS import 合同）。

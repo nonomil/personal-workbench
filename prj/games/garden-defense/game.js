@@ -1,6 +1,47 @@
 (function () {
     'use strict';
 
+    function markNativeAndroidRuntime() {
+        try {
+            const search = window.location && window.location.search;
+            if (search && new URLSearchParams(search).has('sim-android')) {
+                document.documentElement.classList.add('is-android-app');
+                return true;
+            }
+        } catch (error) { /* fall through to Capacitor detection */ }
+        const Capacitor = window.Capacitor;
+        if (!Capacitor) return false;
+        let platform = '';
+        let nativeRuntime = true;
+        try {
+            platform = typeof Capacitor.getPlatform === 'function'
+                ? Capacitor.getPlatform()
+                : String(Capacitor.platform || '');
+            if (typeof Capacitor.isNativePlatform === 'function') {
+                nativeRuntime = Capacitor.isNativePlatform();
+            }
+        } catch (error) {
+            return false;
+        }
+        const isAndroidApp = nativeRuntime !== false && String(platform).toLowerCase() === 'android';
+        document.documentElement.classList.toggle('is-android-app', isAndroidApp);
+        return isAndroidApp;
+    }
+
+    const IS_ANDROID_APP = markNativeAndroidRuntime();
+
+    function requestAndroidImmersiveFullscreen() {
+        if (!IS_ANDROID_APP || window.innerWidth <= window.innerHeight || document.fullscreenElement) return;
+        const requestFullscreen = document.documentElement.requestFullscreen;
+        if (typeof requestFullscreen !== 'function') return;
+        try {
+            const pending = requestFullscreen.call(document.documentElement, { navigationUI: 'hide' });
+            if (pending && typeof pending.catch === 'function') pending.catch(function () {});
+        } catch (error) {
+            // Some WebViews reject fullscreen; the short-height CSS layout remains the fallback.
+        }
+    }
+
     /**
      * 花园保卫 · 种植物后豌豆自己发射（接近原版循环）
      * 规则：selectPlant / placeDefensePlant / spawnDefenseWave / tickDefense
@@ -42,7 +83,7 @@
         'bg-sunset': LAWN,
         'bg-night': LAWN,
         sun: PVZ + 'pvz-sun-token.png',
-        'plant-sunflower': LOCAL + 'plants/plant-sunflower.png?v=20260815-ref-v1',
+        'plant-sunflower': LOCAL + 'plants/plant-sunflower.png?v=20260824-alpha-v2',
         'plant-peashooter': LOCAL + 'plants/plant-peashooter.png?v=20260815-ref-v1',
         'plant-wallnut': LOCAL + 'plants/plant-wallnut.png?v=20260815-ref-v1',
         'plant-snowpea': LOCAL + 'plants/plant-snowpea.png?v=20260815-ref-v1',
@@ -87,6 +128,9 @@
         map: document.getElementById('stage-map'),
         panelMap: document.getElementById('panel-map'),
         panelPlay: document.getElementById('panel-play'),
+        playPager: document.getElementById('play-pager'),
+        playPageButtons: Array.from(document.querySelectorAll('[data-play-page]')),
+        guideBack: document.getElementById('guide-back-btn'),
         stageTitle: document.getElementById('stage-title'),
         stageBlurb: document.getElementById('stage-blurb'),
         killCount: document.getElementById('kill-count'),
@@ -438,10 +482,30 @@
         }).join('');
     }
 
+    function setPlayPage(name) {
+        const page = name === 'guide' ? 'guide' : 'battle';
+        if (els.playPager && IS_ANDROID_APP) {
+            els.playPager.scrollLeft = page === 'guide' ? els.playPager.clientWidth : 0;
+        }
+        (els.playPageButtons || []).forEach(function (button) {
+            const selected = button.dataset.playPage === page;
+            button.setAttribute('aria-selected', selected ? 'true' : 'false');
+        });
+    }
+
+    function syncPlayPageSelection() {
+        if (!els.playPager || !IS_ANDROID_APP) return;
+        const page = els.playPager.scrollLeft >= els.playPager.clientWidth / 2 ? 'guide' : 'battle';
+        (els.playPageButtons || []).forEach(function (button) {
+            button.setAttribute('aria-selected', button.dataset.playPage === page ? 'true' : 'false');
+        });
+    }
+
     function showMap() {
         document.body.classList.add('is-picking');
         els.panelMap.classList.remove('is-hidden');
         els.panelPlay.classList.add('is-hidden');
+        setPlayPage('battle');
         renderMap();
     }
 
@@ -449,6 +513,7 @@
         document.body.classList.remove('is-picking');
         els.panelMap.classList.add('is-hidden');
         els.panelPlay.classList.remove('is-hidden');
+        requestAnimationFrame(function () { setPlayPage('battle'); });
     }
 
     function stageGoal() {
@@ -462,10 +527,12 @@
     }
 
     function enterStage(id, opts) {
+        requestAndroidImmersiveFullscreen();
         if (!tryStartRun(opts && opts.freeRetry)) return;
         hideRest();
         lastRunWon = false;
         currentStage = stagesApi.get(id);
+        quizPlantsThisStage = 0;
         settled = false;
         lastDefenseTick = 0;
         enterAt = performance.now();
@@ -1036,17 +1103,170 @@
         placeAt(event);
     }
 
+    const QUIZ_GATE_INTERVAL = 5;
+    let quizPlantsThisStage = 0;
+    let quizPendingPoint = null;
+    let quizCardIndex = 0;
+
+    function rewriteLearningImagePath(src) {
+        return String(src || '').replace('./assets/reused/learning/', '../learning-defense/assets/reused/learning/');
+    }
+
+    // 知识门：每关第一棵植物要先答对一张知识花园的字卡（答错也种下，只展示正确答案）。
+    function maybeQuizThenPlace(point) {
+        if (quizPlantsThisStage % QUIZ_GATE_INTERVAL !== 0) {
+            doPlace(point);
+            return;
+        }
+        const bridgeApi = globalThis.WorkbenchGameBridge;
+        const dynamic = bridgeApi && typeof bridgeApi.drawLiteracyQuiz === 'function'
+            ? bridgeApi.drawLiteracyQuiz({ count: 1 })
+            : [];
+        if (dynamic.length) {
+            showDynamicQuiz(dynamic[0], point);
+            return;
+        }
+        const bank = globalThis.LearningDefenseCards;
+        if (!bank || !bank.cards || !bank.cards.length) {
+            doPlace(point);
+            return;
+        }
+        showLearningCard(bank.cards[quizCardIndex % bank.cards.length], point);
+        quizCardIndex += 1;
+    }
+
+    function showDynamicQuiz(quiz, point) {
+        quizPendingPoint = point;
+        if (quiz.teachOnly) {
+            showTeachCard(quiz, point);
+            return;
+        }
+        const layer = document.createElement('div');
+        layer.className = 'quiz-gate';
+        layer.innerHTML = '<div class="quiz-gate-card"><p class="quiz-gate-prompt">「' + quiz.char + '」怎么读？</p><div class="quiz-gate-options quiz-gate-options-text">'
+            + quiz.options.map(function (option) {
+                return '<button type="button" class="quiz-gate-option quiz-gate-option-text" data-id="' + option + '"><b>' + option + '</b></button>';
+            }).join('')
+            + '<button type="button" class="quiz-gate-option quiz-gate-option-text quiz-gate-option-unknown" data-id="__learning_unknown__"><b>不会 / 跳过</b></button>'
+            + '</div></div>';
+        const speech = globalThis.PersonalWorkbenchPreschoolSpeech;
+        if (speech && quiz.speech) speech.speak(Object.assign({}, quiz.speech, { localAudioRoot: '../../assets/audio/tts/' }));
+        layer.addEventListener('click', function (event) {
+            const btn = event.target && event.target.closest ? event.target.closest('.quiz-gate-option') : null;
+            if (!btn) return;
+            // 幼儿无惩罚的诚实出口：不会/跳过 → 记 unknown（重教优先），仍种下
+            if (btn.getAttribute('data-id') === '__learning_unknown__') {
+                const bridgeUnknown = globalThis.WorkbenchGameBridge;
+                if (bridgeUnknown && typeof bridgeUnknown.recordLearningOutcome === 'function') {
+                    bridgeUnknown.recordLearningOutcome({ key: quiz.char, track: 'literacy' }, 'unknown');
+                }
+                closeQuizGate(layer);
+                return;
+            }
+            const correct = btn.getAttribute('data-id') === quiz.pinyin;
+            if (correct) {
+                btn.classList.add('is-correct');
+            } else {
+                btn.classList.add('is-wrong');
+                // 幼儿无惩罚：答错只展示正确答案（与静态图卡一致），850ms 后仍种下
+                Array.prototype.forEach.call(layer.querySelectorAll('.quiz-gate-option'), function (node) {
+                    if (node.getAttribute('data-id') === quiz.pinyin) node.classList.add('is-correct');
+                });
+            }
+            const bridge2 = globalThis.WorkbenchGameBridge;
+            if (bridge2 && typeof bridge2.recordLearningOutcome === 'function') {
+                bridge2.recordLearningOutcome({ key: quiz.char, track: 'literacy' }, correct ? 'correct' : 'wrong');
+            }
+            setTimeout(function () { closeQuizGate(layer); }, correct ? 250 : 850);
+        });
+        document.body.appendChild(layer);
+    }
+
+    // 准备度闸门：未学字首次弹出"先学一学"卡（展示+跟读），不三选一。
+    // 个性化引擎 §4.1：new 永不出题，先教后考；答"会了/还不会"都种下（无惩罚）。
+    function showTeachCard(quiz, point) {
+        quizPendingPoint = point;
+        const layer = document.createElement('div');
+        layer.className = 'quiz-gate';
+        layer.innerHTML = '<div class="quiz-gate-card quiz-gate-card-teach"><p class="quiz-gate-prompt">新朋友「' + quiz.char + '」——先认识一下</p>'
+            + '<p class="quiz-gate-teach-glyph">' + quiz.char + '</p>'
+            + '<p class="quiz-gate-teach-pinyin">' + quiz.pinyin + '</p>'
+            + '<p class="quiz-gate-teach-hint">听一听，在心里跟读一遍</p>'
+            + '<div class="quiz-gate-options quiz-gate-options-teach">'
+            + '<button type="button" class="quiz-gate-option quiz-gate-option-unknown" data-id="__learning_unknown__"><b>还不会</b></button>'
+            + '<button type="button" class="quiz-gate-option quiz-gate-option-known" data-id="__learning_known__"><b>会了</b></button>'
+            + '</div></div>';
+        const speech = globalThis.PersonalWorkbenchPreschoolSpeech;
+        if (speech && quiz.speech) speech.speak(Object.assign({}, quiz.speech, { localAudioRoot: '../../assets/audio/tts/' }));
+        layer.addEventListener('click', function (event) {
+            const btn = event.target && event.target.closest ? event.target.closest('.quiz-gate-option') : null;
+            if (!btn) return;
+            const bridgeApi = globalThis.WorkbenchGameBridge;
+            const known = btn.getAttribute('data-id') === '__learning_known__';
+            if (bridgeApi && typeof bridgeApi.recordLearningOutcome === 'function') {
+                bridgeApi.recordLearningOutcome({ key: quiz.char, track: 'literacy' }, known ? 'correct' : 'unknown');
+            }
+            closeQuizGate(layer);
+        });
+        document.body.appendChild(layer);
+    }
+
+    function showLearningCard(card, point) {
+        quizPendingPoint = point;
+        const layer = document.createElement('div');
+        layer.className = 'quiz-gate';
+        layer.innerHTML = '<div class="quiz-gate-card"><p class="quiz-gate-prompt">' + card.prompt + '</p><div class="quiz-gate-options">'
+            + card.options.map(function (option, index) {
+                return '<button type="button" class="quiz-gate-option" data-id="' + option.id + '"><img src="' + rewriteLearningImagePath(option.image) + '" alt="' + option.label + '"><span>' + option.label + '</span></button>';
+            }).join('') + '</div></div>';
+        const speech = globalThis.PersonalWorkbenchPreschoolSpeech;
+        if (speech && card.speech) speech.speak(Object.assign({}, card.speech, { localAudioRoot: '../../assets/audio/tts/' }));
+        layer.addEventListener('click', function (event) {
+            const btn = event.target && event.target.closest ? event.target.closest('.quiz-gate-option') : null;
+            if (!btn) return;
+            const correct = btn.getAttribute('data-id') === card.answer;
+            const bridgeApi = globalThis.WorkbenchGameBridge;
+            if (bridgeApi && typeof bridgeApi.recordLearningOutcome === 'function') {
+                bridgeApi.recordLearningOutcome(card, correct ? 'correct' : 'wrong');
+            }
+            if (!correct) {
+                Array.prototype.forEach.call(layer.querySelectorAll('.quiz-gate-option'), function (node) {
+                    if (node.getAttribute('data-id') === card.answer) node.classList.add('is-correct');
+                });
+                setTimeout(function () { closeQuizGate(layer); }, 850);
+            } else {
+                closeQuizGate(layer);
+            }
+        });
+        document.body.appendChild(layer);
+    }
+
+    function closeQuizGate(layer) {
+        if (layer && layer.parentNode) layer.parentNode.removeChild(layer);
+        if (quizPendingPoint) {
+            doPlace(quizPendingPoint);
+            quizPendingPoint = null;
+        }
+    }
+
     function placeAt(event) {
         if (settled) return;
         const point = lawnFromEvent(event);
         if (!point) return;
+        maybeQuizThenPlace(point);
+    }
+
+    function doPlace(point) {
         const g = growthState().growth;
         const status = (g.garden.defense || {}).status;
         if (status === 'lost' || status === 'won') return;
         const r = garden.placeDefensePlant(g, point.lane, point.column, { x: point.x });
         commitGrowth(r.growth);
         els.tip.textContent = r.ok ? '种好了！再种几棵，僵尸马上自己来。' : (r.reason || '不能种');
-        if (r.ok && !plantedAt) plantedAt = performance.now();
+        if (r.ok) {
+            if (!plantedAt) plantedAt = performance.now();
+            quizPlantsThisStage += 1;
+        }
         if (!r.ok) toast(r.reason || '不能种');
         renderSeeds();
         renderHud();
@@ -1246,6 +1466,15 @@
             if (!document.fullscreenElement) (root.requestFullscreen || function () {}).call(root);
             else if (document.exitFullscreen) document.exitFullscreen();
         });
+        (els.playPageButtons || []).forEach(function (button) {
+            button.addEventListener('click', function () { setPlayPage(button.dataset.playPage); });
+        });
+        if (els.guideBack) {
+            els.guideBack.addEventListener('click', function () { setPlayPage('battle'); });
+        }
+        if (els.playPager) {
+            els.playPager.addEventListener('scroll', syncPlayPageSelection, { passive: true });
+        }
         els.back.href = bridge.backHref('garden-defense');
         if (els.modBadge) {
             els.modBadge.addEventListener('click', function () {
@@ -1277,7 +1506,9 @@
                 if (!bridge.grantPlayPass) return;
                 const r = bridge.grantPlayPass(GAME_ID, { source: 'redeem' });
                 if (!r.ok) {
-                    toast(r.reason === '阳光不够' ? '阳光还不够，先去做任务攒一点' : '今天先休息，明天再守');
+                    toast(r.reason === '阳光不够' ? '阳光还不够，先去做任务攒一点'
+                        : r.reason === 'learn-first' ? '先学一张卡，再换守护次数'
+                            : '今天先休息，明天再守');
                     showRest(r.pass);
                     return;
                 }

@@ -1,0 +1,8 @@
+task_id: "T06-handplay-sync"
+title: "手玩 + 双仓 + cache"
+status: "done"
+priority: "P0"
+phase: "T06"
+created: "2026-08-22"
+depends_on: ["T05-level-wire"]
+tags: ["blocklegend", "acceptance"]

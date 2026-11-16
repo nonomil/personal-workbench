@@ -1,0 +1,8 @@
+task_id: "T02-fireball-toast"
+title: "火球走现伤害 + toast"
+status: "done"
+priority: "P0"
+phase: "T02"
+created: "2026-08-22"
+depends_on: ["T01-bubble-rules"]
+tags: ["blocklegend", "combat"]

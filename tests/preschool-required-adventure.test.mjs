@@ -39,13 +39,14 @@ test('world game entries stay open even when required plans are unfinished', () 
     assert.doesNotMatch(today, /disabled/);
     assert.match(today, /open-world-game/);
     assert.match(today, /PRESCHOOL_WORLD_LAUNCH_IDS/);
-    assert.match(app, /PRESCHOOL_WORLD_LAUNCH_IDS = \['garden-defense', 'voxel-adventure', 'platform-quest'\]/);
+    assert.match(app, /PRESCHOOL_WORLD_LAUNCH_IDS = \['garden-defense', 'learning-defense', 'voxel-adventure', 'platform-quest'\]/);
     const openStart = app.indexOf('function openPreschoolWorldGame');
     const openEnd = app.indexOf('\n    function ', openStart + 10);
     const opener = app.slice(openStart, openEnd);
     assert.doesNotMatch(opener, /arePreschoolRequiredPlansDone/);
     assert.doesNotMatch(opener, /先完成今日必做/);
-    const exitsStart = app.indexOf('preschool-home-exits');
+    const exitsStart = app.lastIndexOf('<div class="preschool-home-exits"');
+    assert.ok(exitsStart >= 0, 'home exits markup must exist');
     const exits = app.slice(exitsStart, exitsStart + 600);
     assert.match(exits, /data-action="open-world-game"/);
     assert.doesNotMatch(exits, /先完成今日必做/);
@@ -54,6 +55,6 @@ test('world game entries stay open even when required plans are unfinished', () 
     assert.doesNotMatch(today, /blocklegend/);
     assert.doesNotMatch(app, /先完成今日必做/);
     assert.match(wall, /preschool-course-today-adventure/);
-    assert.match(html, /app\.js\?v=20260819-v074/);
+    assert.match(html, /app\.js\?[^"']*learning-defense=review2/);
     assert.doesNotMatch(bridge, /pendingRewardIds|arePreschoolRequiredPlansDone/);
 });

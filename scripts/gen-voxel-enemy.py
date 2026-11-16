@@ -20,7 +20,7 @@ from pathlib import Path
 import requests
 
 ENDPOINT = "https://rn6.nonom.top/v1/images/generations"
-DEFAULT_OUT = Path(r"C:\Users\No'mi'l\.cursor\projects\g-StudyCode\assets")
+DEFAULT_OUT = Path(r"C:\Users\<local-user>\.cursor\projects\g-StudyCode\assets")
 
 
 def main() -> int:

@@ -1,0 +1,87 @@
+/* 首页下一项实物奖励距离：还差 N / 现在就能换 / 待家长确认。
+   短横屏也保留这一行，不藏起来。
+   旧 WebView：不要用 has 选择器、color mix、裸动态视口单位。 */
+
+body.variant-preschool .preschool-home-next-reward {
+    position: relative;
+    z-index: 6;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    min-height: 44px;
+    padding: 6px 12px;
+    border: 2px solid rgba(196, 132, 40, 0.28);
+    border-radius: 16px;
+    color: #6a3d12;
+    text-align: left;
+    cursor: pointer;
+    background: rgba(255, 248, 230, 0.94);
+}
+
+body.variant-preschool .preschool-home-next-reward small {
+    color: #a36b1c;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+}
+
+body.variant-preschool .preschool-home-next-reward strong {
+    overflow: hidden;
+    color: #6a3d12;
+    font-size: 14px;
+    font-weight: 900;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.variant-preschool .preschool-home-next-reward b {
+    color: #c45c3a;
+    font-size: 13px;
+    font-weight: 900;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+body.variant-preschool .preschool-home-next-reward.is-ready {
+    border-color: rgba(49, 93, 43, 0.28);
+    color: #243528;
+    background: rgba(232, 246, 228, 0.94);
+}
+
+body.variant-preschool .preschool-home-next-reward.is-ready b {
+    color: #315d2b;
+}
+
+body.variant-preschool .preschool-home-next-reward.is-pending b {
+    color: #6a3d12;
+}
+
+@media (orientation: landscape) and (max-height: 480px) {
+    body.variant-preschool .preschool-home-next-reward {
+        min-height: 36px;
+        padding: 4px 10px;
+    }
+
+    body.variant-preschool .preschool-home-next-reward strong,
+    body.variant-preschool .preschool-home-next-reward b {
+        font-size: 12px;
+    }
+}
+
+html.is-android-app body.variant-preschool #page-content .preschool-native-page[data-native-kind="home-primary"] .preschool-home-next-reward {
+    min-height: 36px;
+    padding: 4px 10px;
+}
+
+body.preschool-no-motion .preschool-home-next-reward,
+body.variant-preschool .preschool-home-next-reward {
+    transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.variant-preschool .preschool-home-next-reward {
+        transition: none;
+    }
+}

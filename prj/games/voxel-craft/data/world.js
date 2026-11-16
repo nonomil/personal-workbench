@@ -589,15 +589,21 @@
         return null;
     }
 
-    function lightAt(world, x, y, playerX, playerY) {
-        if (!world || world.biome !== 'cave') return 1;
-        let light = 0.16;
-        const px = Number(playerX);
-        const py = Number(playerY);
-        if (isFinite(px) && isFinite(py)) {
-            const pd = Math.abs(x - px) + Math.abs(y - py);
-            if (pd <= 6) light = Math.max(light, 1 - pd / 7);
+    function isDarkBiome(biome) {
+        return biome === 'cave' || biome === 'deep_dark' || biome === 'nether' || biome === 'end';
+    }
+
+    function skyCover(world, x, y) {
+        let cover = 0;
+        for (let ty = y - 1; ty >= 0; ty -= 1) {
+            if (isSolid(getCell(world, x, ty))) cover += 1;
+            if (cover >= 10) break;
         }
+        return cover;
+    }
+
+    function torchLightAt(world, x, y) {
+        let light = 0;
         for (let ty = y - 6; ty <= y + 6; ty += 1) {
             for (let tx = x - 6; tx <= x + 6; tx += 1) {
                 if (getCell(world, tx, ty) === 'torch') {
@@ -606,6 +612,24 @@
                 }
             }
         }
+        return light;
+    }
+
+    function lightAt(world, x, y, playerX, playerY) {
+        if (!world) return 1;
+        let light;
+        if (isDarkBiome(world.biome)) {
+            light = 0.16;
+            const px = Number(playerX);
+            const py = Number(playerY);
+            if (isFinite(px) && isFinite(py)) {
+                const pd = Math.abs(x - px) + Math.abs(y - py);
+                if (pd <= 6) light = Math.max(light, 1 - pd / 7);
+            }
+        } else {
+            light = Math.max(0.28, 1 - skyCover(world, x, y) * 0.15);
+        }
+        light = Math.max(light, torchLightAt(world, x, y));
         if (getCell(world, x, y) === 'portal') light = Math.max(light, 0.88);
         return Math.min(1, light);
     }
@@ -629,11 +653,23 @@
         return kind !== 'air' && kind !== 'water' && kind !== 'torch' && kind !== 'leaf';
     }
 
+    function pickableKind(kind) {
+        if (!kind || kind === 'air' || kind === 'water' || kind === 'bedrock' || kind === 'portal') return null;
+        return kind;
+    }
+
     /** 出生点：找一棵树旁的干净列（脚/头两格都是空气，脚下是实地） */
     function spawnCell(world) {
+        const end = Math.min(world.cols - 4, 28);
+        for (let x = 12; x < end; x += 1) {
+            const s = surfaceOf(world, x);
+            if (s >= 2 && world.grid[s - 1][x] === 'air' && world.grid[s - 2][x] === 'air') {
+                return { x: x, y: s - 1, surface: s };
+            }
+        }
         for (let x = 4; x < 16 && x < world.cols; x += 1) {
             const s = surfaceOf(world, x);
-            if (world.grid[s - 1][x] === 'air' && world.grid[s - 2][x] === 'air') {
+            if (s >= 2 && world.grid[s - 1][x] === 'air' && world.grid[s - 2][x] === 'air') {
                 return { x: x, y: s - 1, surface: s };
             }
         }
@@ -921,7 +957,7 @@
         createWorld: createWorld, createMapWorld: createMapWorld, canEnterCave: canEnterCave,
         lookOf: lookOf,
         getCell: getCell, setCell: setCell, surfaceOf: surfaceOf,
-        findKind: findKind, lightAt: lightAt,
+        findKind: findKind, lightAt: lightAt, pickableKind: pickableKind,
         countKind: countKind, isPassable: isPassable, isSolid: isSolid,
         spawnCell: spawnCell, isVoid: isVoid, cloneWorld: cloneWorld,
         canBreak: canBreak, breakReason: breakReason, breakTime: breakTime,

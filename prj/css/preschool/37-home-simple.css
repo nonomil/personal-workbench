@@ -381,16 +381,16 @@ body.variant-preschool .preschool-home-overview.is-simple .preschool-home-exits 
 
 /* Voxel home: keep the fixed sidebar off the cards, and use the generated block-world scene. */
 @media (min-width: 761px) {
-    body.variant-preschool[data-preschool-theme='voxel-adventure']:not(:has(.voxel-workshop)) {
+    body.variant-preschool[data-preschool-theme='voxel-adventure']:not(.has-voxel-workshop) {
         --sidebar-width: 236px;
     }
 
-    body.variant-preschool[data-preschool-theme='voxel-adventure']:not(:has(.voxel-workshop)) .sidebar {
+    body.variant-preschool[data-preschool-theme='voxel-adventure']:not(.has-voxel-workshop) .sidebar {
         width: var(--sidebar-width);
         max-width: var(--sidebar-width);
     }
 
-    body.variant-preschool[data-preschool-theme='voxel-adventure']:not(:has(.voxel-workshop)) .main-content {
+    body.variant-preschool[data-preschool-theme='voxel-adventure']:not(.has-voxel-workshop) .main-content {
         width: calc(100% - var(--sidebar-width)) !important;
         margin-left: var(--sidebar-width) !important;
         min-width: 0;
@@ -728,7 +728,9 @@ body.variant-preschool .preschool-timed-chip input {
 }
 
 body.variant-preschool[data-preschool-theme] .preschool-timed-chip:has(input:checked),
-body.variant-preschool .preschool-timed-chip:has(input:checked) {
+body.variant-preschool[data-preschool-theme] .preschool-timed-chip.is-checked,
+body.variant-preschool .preschool-timed-chip:has(input:checked),
+body.variant-preschool .preschool-timed-chip.is-checked {
     border-color: #2d8748;
     color: #1f6b36;
     background: #e1f4d6;

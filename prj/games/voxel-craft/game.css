@@ -1,15 +1,20 @@
 /* voxel-craft · MC 风皮肤（T20260815-voxel-remake S2） */
 * { box-sizing: border-box; }
+html, .vc-body {
+    height: 100%;
+    height: 100vh;
+}
 .vc-body {
     margin: 0;
     min-height: 100vh;
-    background: #1d2b23;
+    background: #070b12;
     color: #f2f6ef;
     font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
     display: flex;
     flex-direction: row;
+    overflow: hidden;
 }
-.vc-shell { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.vc-shell { display: flex; flex-direction: column; flex: 1; min-width: 0; min-height: 0; height: 100%; position: relative; }
 
 /* 工作台同款侧栏（voxel-adventure 主题皮肤），从工作台进入时显示；<1100px 自动隐藏 */
 .vc-side {
@@ -77,6 +82,32 @@
     background: rgba(255, 254, 250, .94);
     border-bottom: 3px solid rgba(47, 61, 42, .16);
     color: #243528;
+}
+.vc-immersive .vc-topbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 8;
+    padding: 8px 10px;
+    background: rgba(8, 12, 18, .42);
+    border-bottom: 0;
+    color: #f4ead6;
+}
+.vc-immersive .vc-bar-copy,
+.vc-immersive .vc-bar-stats { display: none; }
+.vc-immersive .vc-tool {
+    min-height: 40px;
+    padding: 0 10px;
+    font-size: 12px;
+    background: rgba(20, 20, 24, .55);
+    color: #f4ead6;
+    border-color: rgba(255, 255, 255, .28);
+}
+.vc-immersive .vc-back {
+    min-height: 40px;
+    padding: 0 12px;
+    font-size: 13px;
 }
 .vc-bar-copy { min-width: 120px; }
 .vc-bar-kicker {
@@ -151,10 +182,15 @@
     height: 22px;
     image-rendering: pixelated;
 }
-.vc-tool.vc-attack-btn {
-    border-color: rgba(196, 86, 58, .45);
+.vc-tool.vc-attack-btn.is-on {
+    border-color: rgba(196, 86, 58, .55);
     background: #ffe4d8;
     color: #7a2e1c;
+}
+.vc-immersive .vc-tool.vc-attack-btn.is-on {
+    border-color: rgba(255, 168, 120, .85);
+    background: rgba(196, 86, 58, .55);
+    color: #ffe4d8;
 }
 .vc-back {
     display: inline-flex;
@@ -186,7 +222,8 @@
 .vc-btn.vc-primary { background: #3f7a52; border-color: #2c5c3c; color: #fffdf5; }
 .vc-btn.vc-primary:hover { background: #4a8d60; }
 
-.vc-stage { display: flex; flex-direction: column; gap: 10px; padding: 12px clamp(12px, 3vw, 28px) 26px; flex: 1; }
+.vc-stage { display: flex; flex-direction: column; gap: 10px; padding: 12px clamp(12px, 3vw, 28px) 26px; flex: 1; min-height: 0; position: relative; }
+.vc-immersive .vc-stage { gap: 0; padding: 0; }
 
 /* 任务 HUD：画布顶部的半透明窄条（减负后不再占独立一行） */
 .vc-quest-hud {
@@ -215,16 +252,12 @@
 }
 .vc-quest-bar i { display: block; height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg, #d4b96a, #6fa893); transition: width .3s; }
 
-.vc-view { position: relative; }
+.vc-view { position: relative; flex: 1; min-height: 0; }
 #world-canvas {
     display: block;
     width: 100%;
-    height: auto;
-    aspect-ratio: 960 / 540;
-    max-height: min(64vh, 580px);
+    height: 100%;
     margin: 0 auto;
-    border-radius: 12px;
-    border: 3px solid rgba(185, 137, 58, .4);
     background: #4a4642;
     touch-action: none;
     cursor: crosshair;
@@ -254,10 +287,30 @@
 }
 .vc-hud-actions { display: flex; gap: 8px; pointer-events: auto; flex-wrap: wrap; }
 .vc-hint { width: 100%; margin: 0; color: rgba(255, 255, 255, .75); font-size: 11px; text-align: right; }
+.vc-immersive .vc-hint {
+    display: block;
+    margin: 0 0 6px 4px;
+    color: #f4ead6;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .7);
+    font-size: 13px;
+    font-weight: 800;
+}
 
 /* 快捷栏 + 生存状态 */
-.vc-hotbar-row { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
-.vc-hotbar-wrap { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.vc-hotbar-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 12px;
+    z-index: 6;
+    pointer-events: none;
+}
+.vc-hotbar-wrap { display: flex; flex-direction: column; align-items: center; gap: 4px; pointer-events: auto; }
 .vc-survival-hud {
     display: flex;
     justify-content: space-between;
@@ -269,11 +322,12 @@
 }
 .vc-hearts, .vc-food { display: flex; gap: 2px; }
 .vc-hearts img, .vc-food img {
-    width: 18px;
-    height: 18px;
+    width: 22px;
+    height: 22px;
     object-fit: contain;
     image-rendering: pixelated;
 }
+.vc-hotbar .vc-slot small { display: none; }
 .vc-hearts img.is-off, .vc-food img.is-off { opacity: .28; filter: grayscale(1); }
 .vc-survival-hud-bag {
     max-width: none;
@@ -619,6 +673,7 @@
     .vc-topbar p { display: none; }
     .vc-chip { font-size: 12px; min-height: 32px; padding: 0 8px; }
     .vc-stage { padding: 8px 6px 16px; }
+    .vc-immersive .vc-stage { padding: 0; }
     .vc-mc-panel,
     .vc-panel { width: 100vw; max-width: 100vw; }
     .vc-mc-craftrow { flex-wrap: wrap; }
@@ -629,7 +684,7 @@
 .vc-hp-chip { color: #7a2e1c; }
 .vc-hp-chip b { color: #c44b3a; }
 .vc-enemy-hp { color: #ffb39b; }
-.vc-attack-btn { border-color: rgba(255, 122, 92, .65); color: #ffd0c5; }
+.vc-attack-btn.is-on { border-color: rgba(255, 122, 92, .85); color: #ffd0c5; }
 .vc-map-panel { width: min(860px, calc(100vw - 32px)); max-width: calc(100% - 32px); box-sizing: border-box; }
 .vc-map-copy { margin: 8px 0 14px; color: #c9c1b2; font-size: 13px; }
 .vc-map-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
@@ -644,3 +699,34 @@
 .vc-map-card small { display: block; margin-top: 7px; color: #c9c1b2; line-height: 1.45; }
 .vc-map-card i { position: absolute; right: 10px; top: 10px; font-style: normal; font-size: 17px; }
 .vc-map-card .vc-map-enemies { margin-top: 9px; color: #ffb39b; font-size: 11px; }
+
+.vc-learning-chip { display: none; border-color: rgba(255, 217, 138, .7); color: #ffe7a4; }
+body[data-learning-mode="on"] .vc-learning-chip { display: inline-flex; }
+.vc-learning-layer {
+    position: fixed; inset: 0; z-index: 150; display: grid; place-items: center;
+    padding: clamp(12px, 3vw, 36px); background: rgba(12, 22, 36, .78);
+}
+.vc-learning-layer.is-hidden { display: none; }
+.vc-learning-card {
+    width: min(760px, 94vw); max-height: 94vh; overflow: auto; padding: clamp(18px, 3vw, 32px);
+    color: #243b4d; text-align: center; background: linear-gradient(145deg, #fff8d6, #d8f0ee);
+    border: 3px solid #ffd166; border-radius: 24px; box-shadow: 0 24px 70px rgba(0, 0, 0, .42);
+}
+.vc-learning-card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: #5d7180; font-size: 14px; }
+.vc-learning-speak { min-height: 44px; padding: 8px 13px; color: #1e4b62; background: #d5e9ee; border-radius: 12px; }
+.vc-learning-card > strong { display: block; margin: 12px 0 4px; color: #256d7d; font-size: clamp(42px, 8vw, 72px); }
+.vc-learning-card h2 { margin: 0 0 18px; font-size: clamp(19px, 3vw, 28px); }
+.vc-learning-answer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.learning-answer-option { min-height: 130px; display: grid; place-items: center; gap: 7px; padding: 10px; color: #243b4d; background: #fff; border: 3px solid #b9d7d5; border-radius: 17px; }
+.learning-answer-option img { width: 78px; height: 78px; object-fit: contain; }
+.learning-answer-option.is-correct { background: #e5f8e8; border-color: #40a873; }
+.learning-answer-option.is-wrong { background: #ffebe6; border-color: #dc7564; }
+.learning-answer-option:disabled { cursor: default; }
+.vc-learning-card p { min-height: 24px; margin: 12px 0 6px; color: #60788a; }
+.vc-learning-card .vc-btn { min-height: 48px; }
+@media (max-width: 700px) { .vc-learning-answer-grid { gap: 7px; } .learning-answer-option { min-height: 104px; } .learning-answer-option img { width: 58px; height: 58px; } }
+.learning-answer-option--unknown { border-style: dashed; border-color: #e4b64e; background: #fff7df; color: #7a5a22; }
+.learning-answer-option--unknown strong { font-size: 30px; line-height: 1; color: #d28b2f; }
+.learning-answer-option--unknown small { font-size: 11px; color: #9a7a43; }
+.vc-learning-answer-grid { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 700px) { .vc-learning-answer-grid { grid-template-columns: repeat(2, 1fr); } }

@@ -254,6 +254,7 @@ body.variant-preschool .pixel-feedback-copy h2 { color: var(--garden-ink); font-
 body.variant-preschool .pixel-feedback-copy p { color: var(--garden-ink-soft); }
 body.variant-preschool .pixel-feedback-option { min-height: 88px; padding: 12px 12px 12px 44px; border: 1px solid #e0cfa8; border-radius: 17px; color: var(--garden-ink); background: #fffdf6; box-shadow: 0 7px 18px rgba(37,112,58,.08); }
 body.variant-preschool .pixel-feedback-option:has(input:checked),
+body.variant-preschool .pixel-feedback-option.is-checked,
 body.variant-preschool .pixel-feedback-option.is-active { border-color: #93c985; background: #f0faeb; box-shadow: 0 0 0 3px rgba(112,189,93,.12); }
 body.variant-preschool .pixel-feedback-option input { accent-color: var(--garden-green); }
 body.variant-preschool .account-setup-card,
@@ -738,6 +739,7 @@ body.variant-preschool .pixel-feedback-copy p { color: var(--garden-ink-soft); }
 body.variant-preschool .pixel-feedback-options { gap: 10px; }
 body.variant-preschool .pixel-feedback-option { min-height: 88px; padding: 12px 12px 12px 44px; border: 1px solid #e0cfa8; border-radius: 17px; color: var(--garden-ink); background: #fffdf6; box-shadow: var(--garden-shadow-soft); cursor: pointer; }
 body.variant-preschool .pixel-feedback-option:has(input:checked),
+body.variant-preschool .pixel-feedback-option.is-checked,
 body.variant-preschool .pixel-feedback-option.is-active { border-color: #93c985; background: #f0faeb; box-shadow: 0 0 0 3px rgba(112,189,93,.12); }
 body.variant-preschool .pixel-feedback-option input { accent-color: var(--garden-green); }
 body.variant-preschool .pixel-feedback-option strong { font-family: inherit; }
@@ -871,3 +873,52 @@ body.variant-preschool .pixel-battle-layout > div > .pixel-map-panel.is-compact 
     body.variant-preschool .pixel-battle-layout > div > .pixel-map-panel.is-compact { min-height: 426px; }
 }
 
+
+body.variant-preschool .preschool-wish { margin-top: 14px; }
+body.variant-preschool .preschool-wish-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border: 1px dashed var(--preschool-line, #c9b8a8);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.55);
+}
+body.variant-preschool .preschool-wish-form input {
+    flex: 1 1 180px;
+    min-width: 0;
+    border: 1px solid var(--preschool-line, #c9b8a8);
+    border-radius: 10px;
+    padding: 9px 12px;
+    font-size: 15px;
+    background: #fff;
+}
+body.variant-preschool .preschool-wish-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+body.variant-preschool .preschool-wish-chip {
+    border: 1px solid var(--preschool-line, #c9b8a8);
+    border-radius: 999px;
+    background: #fff;
+    padding: 7px 12px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #6b5b4a;
+    cursor: pointer;
+}
+body.variant-preschool .preschool-wish-chip.is-active {
+    border-color: #2f8a44;
+    background: #e8f5e9;
+    color: #2f8a44;
+}
+body.variant-preschool .preschool-wish-grid { margin-top: 10px; }
+body.variant-preschool .preschool-reward-card.is-wish { position: relative; }
+body.variant-preschool .preschool-wish-remove {
+    margin-top: 4px;
+    font-size: 12px;
+    color: #a0785a;
+}
+body.variant-preschool .preschool-wish-empty {
+    margin-top: 8px;
+    font-size: 13px;
+    color: #8a7a68;
+}

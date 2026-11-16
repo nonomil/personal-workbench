@@ -1,0 +1,131 @@
+/* 首页今日学习目标漏斗：0/N 清单 + 开始今日学习。
+   短横屏只保留计数，完整列表藏起来，避免挤掉舞台。
+   旧 WebView：不要用 has 选择器、color mix、裸动态视口单位。 */
+
+body.variant-preschool .preschool-today-goals {
+    display: grid;
+    gap: 8px;
+    padding: 10px 12px;
+    border: 2px solid rgba(47, 61, 42, 0.18);
+    border-radius: 16px;
+    background: rgba(255, 253, 246, 0.92);
+}
+
+body.variant-preschool .preschool-today-goals-head {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: baseline;
+    gap: 8px;
+}
+
+body.variant-preschool .preschool-today-goals-head small {
+    color: #5d6d5f;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+}
+
+body.variant-preschool .preschool-today-goals-head strong {
+    color: #243528;
+    font-size: 15px;
+    font-weight: 900;
+}
+
+body.variant-preschool .preschool-today-goals-head b {
+    color: #315d2b;
+    font-size: 16px;
+    font-variant-numeric: tabular-nums;
+}
+
+body.variant-preschool .preschool-today-goals-empty {
+    margin: 0;
+    color: #5d6d5f;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+body.variant-preschool .preschool-today-goals-list {
+    display: grid;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+body.variant-preschool .preschool-today-goal-btn {
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr) auto;
+    align-items: center;
+    width: 100%;
+    min-height: 44px;
+    padding: 6px 10px;
+    border: 2px solid rgba(47, 61, 42, 0.16);
+    border-radius: 12px;
+    color: #243528;
+    text-align: left;
+    cursor: pointer;
+    background: #fffdf6;
+}
+
+body.variant-preschool .preschool-today-goal-btn small {
+    color: #5d6d5f;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+body.variant-preschool .preschool-today-goal-btn strong {
+    overflow: hidden;
+    font-size: 13px;
+    font-weight: 800;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.variant-preschool .preschool-today-goal-btn span {
+    color: #315d2b;
+    font-size: 11px;
+    font-weight: 900;
+}
+
+body.variant-preschool .preschool-today-goal.is-now .preschool-today-goal-btn {
+    border-color: #d4a017;
+    background: #fff4cc;
+}
+
+body.variant-preschool .preschool-today-goal.is-done .preschool-today-goal-btn {
+    cursor: default;
+    opacity: 0.72;
+}
+
+body.variant-preschool .preschool-today-goal.is-done .preschool-today-goal-btn span {
+    color: #5d6d5f;
+}
+
+@media (orientation: landscape) and (max-height: 480px) {
+    body.variant-preschool .preschool-today-goals {
+        padding: 6px 10px;
+    }
+
+    body.variant-preschool .preschool-today-goals-list {
+        display: none;
+    }
+}
+
+html.is-android-app body.variant-preschool #page-content .preschool-native-page[data-native-kind="home-primary"] .preschool-today-goals-list {
+    display: none;
+}
+
+html.is-android-app body.variant-preschool #page-content .preschool-native-page[data-native-kind="home-primary"] .preschool-today-goals {
+    padding: 6px 10px;
+}
+
+body.preschool-no-motion .preschool-today-goal-btn,
+body.variant-preschool .preschool-today-goal-btn {
+    transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.variant-preschool .preschool-today-goal-btn {
+        transition: none;
+    }
+}

@@ -21,7 +21,7 @@
 @import url("./preschool/17-lightweight-workbench.css");
 @import url("./preschool/18-green-theme-restore.css");
 @import url("./preschool/19-home-battlefield.css");
-@import url("./preschool/20-sidebar-orientation.css?v=20260806-landscape-sidebar-v1");
+@import url("./preschool/20-sidebar-orientation.css?v=20260824-learning-game-p0b");
 @import url("./preschool/21-summer-library.css");
 @import url("./preschool/22-growth-dashboard.css");
 @import url("./preschool/23-plan-editor.css");
@@ -30,8 +30,8 @@
 @import url("./preschool/26-theme-skins.css?v=20260815-paper-glow-v1");
 @import url("./preschool/27-theme-asset-overrides.css?v=20260814-actor-scale-v1");
 @import url("./preschool/28-world-progress.css?v=20260815-blocklegend-v1");
-@import url("./preschool/29-achievements.css?v=20260814-badge-borrow-v1");
-@import url("./preschool/30-growth-world.css?v=20260816-pet-eggs-v1");
+@import url("./preschool/29-achievements.css?v=20260814-badge-borrow-v1&rank-ceremony=v1");
+@import url("./preschool/30-growth-world.css?v=20260816-pet-eggs-v1&home-hunger=v1");
 @import url("./preschool/31-voxel-workshop.css?v=20260815-sidebar-offset-v1");
 @import url("./preschool/32-lesson-play.css?v=20260815-focus-arcade-v1");
 @import url("./preschool/39-focus-arcade.css?v=20260815-focus-candy-v2");
@@ -41,6 +41,9 @@
 @import url("./preschool/36-course-menu.css?v=20260815-menu-cards-v2");
 @import url("./preschool/37-home-simple.css?v=20260816-loop-v1");
 @import url("./preschool/38-paper-glow.css?v=20260816-switcher-z-v1");
-@import url("./preschool/40-literacy-uplift.css?v=20260816-literacy-ui-v6");
+@import url("./preschool/40-literacy-uplift.css?v=20260816-literacy-ui-v6&literacy-wall=v1");
 @import url("./preschool/41-english-vocab-uplift.css?v=20260816-english-quiz-v1");
 @import url("./preschool/42-english-dashboard.css?v=20260819-w1s3");
+@import url("./preschool/43-mobile-app-shell.css?v=20260823-android-pager-v1");
+@import url("./preschool/44-child-game-world.css?v=20260824-learning-game-p0e&literacy-wall=v1");
+@import url("./preschool/45-course-art-wall.css?v=20260824-course-art-v5-two-row");

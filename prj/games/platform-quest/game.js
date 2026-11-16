@@ -6,7 +6,10 @@
     const levelsApi = window.PlatformLevels;
     const pixels = window.VoxelPixelTiles;
     const decor = window.PlatformPixelDecor;
-    const GAME_ID = 'platform-quest';
+    const learningParams = new URLSearchParams(window.location.search || '');
+    const learningMode = learningParams.get('mode') === 'learning';
+    const GAME_ID = learningMode ? 'platform-learning' : 'platform-quest';
+    const learningCards = learningMode && window.LearningDefenseCards ? window.LearningDefenseCards.cards : [];
 
     const canvas = document.getElementById('world-canvas');
     const ctx = canvas.getContext('2d');
@@ -116,6 +119,96 @@
     const USE_PLAY_MODS = true;
     let playMods = { mode: 'easy', label: '简单', enemySpeed: 1, sunMult: 1, extraMob: false };
     let lastCompanionAt = -1;
+    let learningSession = null;
+    let learningOverlay = null;
+    let learningCheckpointMeter = null;
+    let learningFlagHintAt = 0;
+
+    function resolveLearningImage(source) {
+        return String(source || '').replace('./assets/reused/learning/', '../learning-defense/assets/reused/learning/');
+    }
+
+    function updateLearningHud() {
+        if (!learningMode || !learningSession) return;
+        const state = learningSession.snapshot();
+        const progressEl = document.getElementById('learning-mode-progress');
+        const countEl = document.getElementById('learning-mode-count');
+        if (progressEl) progressEl.style.width = (state.cardsRequired
+            ? Math.round((state.cardsCompleted / state.cardsRequired) * 100)
+            : 0) + '%';
+        if (countEl) countEl.textContent = state.cardsCompleted + '/' + state.cardsRequired;
+    }
+
+    function syncLearningProgress() {
+        if (!learningMode || !learningSession || !progress) return;
+        const state = learningSession.snapshot();
+        progress.learningCardsCompleted = state.cardsCompleted;
+        progress.learningCardsRequired = state.cardsRequired;
+        progress.learningCorrect = state.correctCount;
+        progress.learningWrong = state.wrongCount;
+        progress.learningSettled = Boolean(state.settled && state.settled.won);
+        updateLearningHud();
+    }
+
+    function learningCanSimulate() {
+        if (!learningMode || !learningSession) return true;
+        return learningSession.canSimulate();
+    }
+
+    function learningGoalUnlocked() {
+        if (!learningMode || !learningSession) return true;
+        const state = learningSession.snapshot();
+        return state.cardsCompleted >= state.cardsRequired;
+    }
+
+    function pickLearningCard(options) {
+        const config = options || {};
+        const state = config.state || {};
+        const memory = bridge && typeof bridge.getMemory === 'function' ? bridge.getMemory() : null;
+        const api = window.WorkbenchMemory;
+        if (api && typeof api.pickCards === 'function') {
+            const picked = api.pickCards(
+                learningCards.slice(0, 10),
+                memory,
+                Date.now(),
+                { count: 1, usedIds: config.usedIds || [] }
+            );
+            if (picked.length) return picked[0];
+        }
+        return learningCards[state.cardsCompleted] || null;
+    }
+
+    function learningRecordCheckpoint(checkpointId) {
+        if (!learningMode || !learningSession || !learningOverlay || !learningCheckpointMeter) return;
+        if (!learningCanSimulate() || learningGoalUnlocked()) return;
+        if (!learningCheckpointMeter.record(checkpointId)) return;
+        learningOverlay.trigger(checkpointId);
+    }
+
+    function setupLearningMode() {
+        if (!learningMode || !window.PlatformLearningCore || !learningCards.length) return;
+        document.body.dataset.learningMode = 'on';
+        learningSession = window.PlatformLearningCore.createSession({
+            cardsRequired: Math.min(10, learningCards.length),
+            initialCardsCompleted: Number(progress.learningCardsCompleted) || 0,
+            initialSettled: progress.learningSettled === true
+        });
+        learningCheckpointMeter = window.PlatformLearningCore.createCheckpointMeter();
+        const state = learningSession.snapshot();
+        if (state.phase === 'ready') learningSession.startRun();
+        else if (state.phase === 'flag-ready') learningSession.startFinalFlag();
+        learningOverlay = window.WorkbenchLearningCardOverlay.create({
+            session: learningSession,
+            cards: learningCards.slice(0, 10),
+            bridge: bridge,
+            source: 'platform-quest-learning',
+            pickCard: pickLearningCard,
+            resolveImage: resolveLearningImage,
+            finalMethod: 'startFinalFlag',
+            onProgress: function () { syncLearningProgress(); }
+        });
+        syncLearningProgress();
+    }
 
     function refreshPlayMods() {
         if (USE_PLAY_MODS && bridge && typeof bridge.getPlayMods === 'function') {
@@ -792,13 +885,20 @@
     }
 
     function loadProgress() {
-        progress = bridge.getProgress(GAME_ID).progress;
+        const stored = bridge.getProgress(GAME_ID);
+        progress = (stored && stored.progress) || {};
         if (!progress.unlockedLevel) progress.unlockedLevel = 1;
         if (!Array.isArray(progress.clearedLevels)) progress.clearedLevels = [];
         if (!progress.stars) progress.stars = {};
         if (!Number.isFinite(progress.coinsTotal)) progress.coinsTotal = 0;
         if (!progress.bestTime) progress.bestTime = {};
+        if (!Number.isFinite(progress.learningCardsCompleted)) progress.learningCardsCompleted = 0;
+        if (!Number.isFinite(progress.learningCardsRequired)) progress.learningCardsRequired = 10;
+        if (!Number.isFinite(progress.learningCorrect)) progress.learningCorrect = 0;
+        if (!Number.isFinite(progress.learningWrong)) progress.learningWrong = 0;
+        progress.learningSettled = progress.learningSettled === true;
         bridge.saveProgress(GAME_ID, progress);
+        setupLearningMode();
     }
 
     function playPassNow() {
@@ -1275,6 +1375,7 @@
             toast('记录检查点');
             if (gameSfx && gameSfx.checkpoint) gameSfx.checkpoint();
             sayCompanion(companionLine('checkpoint'));
+            learningRecordCheckpoint('checkpoint-' + level.id + '-' + cp.x);
         });
     }
 
@@ -1408,6 +1509,7 @@
     }
 
     function tryThrow(now) {
+        if (!learningCanSimulate()) return false;
         now = now || performance.now();
         if (now - lastThrowAt < 280) return false;
         if (!heldCube && !playerCanThrow) return false;
@@ -1533,6 +1635,7 @@
     }
 
     function update(dt) {
+        if (!learningCanSimulate()) return;
         tickFireworks(dt);
         if (level && level.checkpoints) {
             level.checkpoints.forEach(function (cp) {
@@ -1845,8 +1948,21 @@
         });
 
         if (touchingFlag(player, level.flag)) {
-            climbingFlag = true;
-            sayCompanion('冲到旗杆了，顺着滑下去。');
+            if (!learningGoalUnlocked()) {
+                const hintNow = performance.now();
+                if (hintNow - learningFlagHintAt > 1800) {
+                    learningFlagHintAt = hintNow;
+                    toast('先完成 10 张学习卡，旗杆才会打开');
+                    sayCompanion('先学完十张卡，再来冲旗！');
+                }
+            } else {
+                if (learningSession && learningSession.snapshot().phase === 'flag-ready') {
+                    learningSession.startFinalFlag();
+                    syncLearningProgress();
+                }
+                climbingFlag = true;
+                sayCompanion('冲到旗杆了，顺着滑下去。');
+            }
         }
         updatePose(dt);
         updateTimerHud();
@@ -1872,6 +1988,16 @@
 
     function onClear() {
         if (won || awarding) return;
+        if (!learningGoalUnlocked()) {
+            climbingFlag = false;
+            return;
+        }
+        if (learningMode && learningSession) {
+            if (learningSession.snapshot().phase === 'flag-ready') learningSession.startFinalFlag();
+            if (learningSession.snapshot().phase !== 'final-flag') return;
+            learningSession.settle(true);
+            syncLearningProgress();
+        }
         won = true;
         awarding = true;
         playing = false;

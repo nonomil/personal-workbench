@@ -15,6 +15,15 @@
         'voxel-adventure': { type: 'crystal', name: '小晶体', stages: ['方块蛋', '小晶体', '发光矿', '水晶守护'] },
         'platform-quest': { type: 'star', name: '探险星芒', stages: ['星尘蛋', '小旅伴', '探险员', '星光勇者'] }
     };
+    const THEME_CURRENCY = {
+        'garden-defense': '阳光',
+        'voxel-adventure': '晶体',
+        'platform-quest': '金币'
+    };
+
+    function themeCurrency(themeId) {
+        return THEME_CURRENCY[themeId] || '阳光';
+    }
     const PET_ART_BASE = '../assets/generated/preschool-badges-pets/pets/published/';
     const PVZ_ART_BASE = '../assets/generated/preschool-pvz-2d/published/';
     const MC_ENEMY_BASE = '../games/voxel-adventure/assets/enemies/';
@@ -180,6 +189,12 @@
         return next;
     }
 
+    function displaySpeciesId(pet, themeId) {
+        const spec = speciesById(pet && pet.speciesId, themeId);
+        if (themeId && !seriesMatchesTheme(spec, themeId)) return defaultSpeciesId(themeId);
+        return pet && pet.speciesId ? pet.speciesId : defaultSpeciesId(themeId);
+    }
+
     function unlockHint(spec) {
         const unlock = spec && spec.unlock ? spec.unlock : {};
         if (unlock.always) return '';
@@ -278,7 +293,7 @@
     function feed(growth, now, themeId) {
         const next = growth && typeof growth === 'object' ? JSON.parse(JSON.stringify(growth)) : { sunlight: 0 };
         const sunlight = Math.max(0, Number(next.sunlight) || 0);
-        if (sunlight < FEED_COST) return { ok: false, reason: '还需要 5 阳光才能喂食', growth: next, evolved: false };
+        if (sunlight < FEED_COST) return { ok: false, reason: '还需要 ' + FEED_COST + ' ' + themeCurrency(themeId) + '才能喂食', growth: next, evolved: false };
         const before = themeAlignedPet(sync(readPet(next), now), themeId);
         const stageBefore = before.stage;
         next.sunlight = sunlight - FEED_COST;
@@ -298,7 +313,8 @@
 
     function view(growth, themeId, now) {
         const pet = themeAlignedPet(sync(readPet(growth), now), themeId);
-        const spec = speciesById(pet.speciesId, themeId);
+        const showId = displaySpeciesId(pet, themeId);
+        const spec = speciesById(showId, themeId);
         const stage = STAGES[pet.stage] || STAGES[0];
         const hungry = pet.hunger < 20;
         return {
@@ -308,7 +324,7 @@
             hungry: hungry,
             hungerLabel: hungry ? '好饿…' : (pet.hunger < 50 ? '有点饿' : '饱饱的'),
             feedCost: FEED_COST,
-            art: artSrc(themeId, pet.stage, hungry, pet.speciesId)
+            art: artSrc(themeId, pet.stage, hungry, showId)
         };
     }
 
@@ -348,7 +364,7 @@
     function renderCard(growth, themeId, now) {
         const card = view(growth, themeId, now);
         const hungryClass = card.hungry ? ' is-hungry' : '';
-        return `<section class="preschool-pet-card${hungryClass}" aria-label="伙伴养成"><div class="preschool-pet-art" data-pet-stage="${card.pet.stage}"><img src="${escapeHtml(card.art)}" alt="" width="72" height="72"></div><div class="preschool-pet-copy"><span class="eyebrow">PET / EGG</span><h2>${escapeHtml(card.displayName)} · ${escapeHtml(card.stageName)}</h2><p>${escapeHtml(card.hungerLabel)} · 经验 ${card.pet.exp}/${card.pet.maxExp}</p><div class="preschool-pet-hunger" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(card.pet.hunger)}"><i style="width:${Math.round(card.pet.hunger)}%"></i></div></div><div class="preschool-pet-actions"><button class="workbench-action-button" type="button" data-action="feed-pet">喂食 · ${card.feedCost} 阳光</button><button class="workbench-text-button" type="button" data-action="pat-pet">摸摸</button></div>${renderEggNest(growth, themeId, card)}</section>`;
+        return `<section class="preschool-pet-card${hungryClass}" aria-label="伙伴养成"><div class="preschool-pet-art" data-pet-stage="${card.pet.stage}"><img src="${escapeHtml(card.art)}" alt="" width="72" height="72"></div><div class="preschool-pet-copy"><span class="eyebrow">PET / EGG</span><h2>${escapeHtml(card.displayName)} · ${escapeHtml(card.stageName)}</h2><p>${escapeHtml(card.hungerLabel)} · 经验 ${card.pet.exp}/${card.pet.maxExp}</p><div class="preschool-pet-hunger" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(card.pet.hunger)}"><i style="width:${Math.round(card.pet.hunger)}%"></i></div></div><div class="preschool-pet-actions"><button class="workbench-action-button" type="button" data-action="feed-pet">喂食 · ${card.feedCost} ${escapeHtml(themeCurrency(themeId))}</button><button class="workbench-text-button" type="button" data-action="pat-pet">摸摸</button></div>${renderEggNest(growth, themeId, card)}</section>`;
     }
 
     function renderFeedShortcut(label) {
@@ -357,7 +373,8 @@
 
     function renderCapsule(growth, themeId, now) {
         const card = view(growth, themeId, now);
-        return `<button class="preschool-home-identity preschool-home-pet-capsule${card.hungry ? ' is-hungry' : ''}" type="button" data-action="navigate" data-page="growth" aria-label="${escapeHtml(card.displayName)} ${escapeHtml(card.hungerLabel)}"><img src="${escapeHtml(card.art)}" alt="" width="44" height="44"><span><b>${escapeHtml(card.displayName)}</b><small>${escapeHtml(card.hungerLabel)}</small></span></button>`;
+        const hungerNow = Math.round(card.pet.hunger);
+        return `<button class="preschool-home-identity preschool-home-pet-capsule${card.hungry ? ' is-hungry' : ''}" type="button" data-action="feed-pet" aria-label="喂${escapeHtml(card.displayName)}，${escapeHtml(card.hungerLabel)}"><img src="${escapeHtml(card.art)}" alt="" width="44" height="44"><span><b>${escapeHtml(card.displayName)}</b><small>${escapeHtml(card.hungerLabel)}</small><span class="preschool-home-hunger" role="progressbar" aria-label="饱食度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${hungerNow}"><i style="width:${hungerNow}%"></i></span></span></button>`;
     }
 
     function pat(growth, now, themeId) {

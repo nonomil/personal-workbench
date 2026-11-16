@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#57c7ee">
+    <title>跃跃闯关 · 10 张卡</title>
+    <link rel="stylesheet" href="./game.css">
+</head>
+<body data-world-game="platform-learning">
+    <main class="game-shell">
+        <header class="hud">
+            <div class="brand"><span class="brand-dot">●</span><span><b>跃跃闯关</b><small>10 张卡</small></span></div>
+            <div class="progress" aria-label="学习卡进度"><span>学习进度</span><i><em id="learning-progress"></em></i><strong id="learning-count">0/10</strong></div>
+            <div class="hud-actions"><button id="sound-button" type="button" aria-label="声音">🔊</button><a id="back-link" href="#" aria-label="返回工作台">↩</a></div>
+        </header>
+        <section class="stage" aria-label="跃跃闯关场景">
+            <canvas id="battle-canvas" width="1280" height="620" aria-label="横版闯关画布"></canvas>
+            <p id="stage-tip" class="stage-tip" role="status">按开始，跑过检查点，收集 10 张学习卡。</p>
+            <div class="touch-controls" aria-label="触屏控制">
+                <button type="button" data-control="left" aria-label="向左">◀</button>
+                <button type="button" data-control="right" aria-label="向右">▶</button>
+                <button type="button" data-control="jump" aria-label="跳跃">⬆</button>
+                <button type="button" data-control="run" aria-label="奔跑">跑</button>
+            </div>
+        </section>
+        <footer class="footer"><span id="timer-label">时间 0s</span><span id="flag-label">完成 10 张后触碰终点旗</span><button id="start-button" class="primary" type="button">开始闯关</button><button id="flag-button" class="primary is-hidden" type="button">触碰最终旗</button></footer>
+    </main>
+    <section class="learning-card-layer is-hidden" id="learning-card-layer" role="dialog" aria-modal="true" aria-labelledby="card-prompt">
+        <article class="learning-card"><div class="card-head"><span id="card-track-label">学习卡</span><button id="speak-button" type="button">🔊 听音</button></div><strong id="card-symbol">山</strong><h2 id="card-prompt">选择正确的图片</h2><div id="answer-grid" class="answer-grid"></div><p id="card-feedback" role="status"></p><button id="correction-button" class="correction-button is-hidden" type="button">我记住了，继续</button></article>
+    </section>
+    <section class="orientation-lock" id="orientation-lock" aria-label="请旋转设备"><div><b>↻</b><h2>请把设备横过来</h2><p>横屏才能看到完整的闯关世界。</p></div></section>
+    <script src="../shared/workbench-bridge.js"></script>
+    <script src="../../preschool-speech.js"></script>
+    <script src="./core/learning-adapter.js"></script>
+    <script src="./data/cards.js"></script>
+    <script src="./game.js"></script>
+</body>
+</html>

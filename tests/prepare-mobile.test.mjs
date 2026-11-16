@@ -18,6 +18,8 @@ function scriptRefsFromWorkbenchHtml() {
 
 test('prepare-mobile keeps only workbench game folders', () => {
   assert.equal(shouldCopyMobilePath('games/garden-defense/index.html'), true);
+  assert.equal(shouldCopyMobilePath('games/learning-defense/index.html'), true);
+  assert.equal(shouldCopyMobilePath('games/learning-defense/docs/screenshots/review.png'), false);
   assert.equal(shouldCopyMobilePath('games/voxel-craft/index.html'), true);
   assert.equal(shouldCopyMobilePath('games/blocklegend/index.html'), false);
   assert.equal(shouldCopyMobilePath('games/focus-arcade/LICENSE-brain-planet.txt'), false);
@@ -53,6 +55,9 @@ test('prepare-mobile copies every preschool workbench script into dist/', () => 
   assert.deepEqual(missing, [], `dist/ missing workbench scripts: ${missing.join(', ')}`);
   assert.equal(fs.existsSync(path.join(distRoot, 'data')), true, 'dist/data missing');
   assert.equal(fs.existsSync(path.join(distRoot, 'games', 'garden-defense', 'index.html')), true);
+  assert.equal(fs.existsSync(path.join(distRoot, 'games', 'learning-defense', 'index.html')), true);
+  assert.equal(fs.existsSync(path.join(distRoot, 'games', 'learning-defense', 'game.js')), true);
+  assert.equal(fs.existsSync(path.join(distRoot, 'games', 'learning-defense', 'docs')), false);
   assert.equal(fs.existsSync(path.join(distRoot, 'games', 'voxel-craft', 'index.html')), true);
   assert.equal(fs.existsSync(path.join(distRoot, 'games', 'platform-quest', 'index.html')), true);
   assert.equal(fs.existsSync(path.join(distRoot, 'games', 'wordboss', 'index.html')), true);

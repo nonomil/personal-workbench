@@ -16,6 +16,7 @@
     'use strict';
 
     const STORAGE_KEY = 'petbank_huchuliang_preschool_workbench_state_v1';
+    const MEMORY_STORAGE_KEY = 'workbench:memory:v1';
     const DAILY_GAME_SUN_CAP = 80;
     const PLAY_PASS = Object.freeze({
         dailyFree: 2,
@@ -26,22 +27,35 @@
     const PLAY_PASS_BY_GAME = Object.freeze({
         'garden-defense': PLAY_PASS,
         'platform-quest': PLAY_PASS,
+        'platform-learning': PLAY_PASS,
         'voxel-adventure': Object.freeze({
             dailyFree: 1,
             maxLearned: 2,
             maxRedeemed: 2,
             redeemCost: 25,
             sessionMinutes: 12
-        })
+        }),
+        'voxel-learning': Object.freeze({
+            dailyFree: 1,
+            maxLearned: 2,
+            maxRedeemed: 2,
+            redeemCost: 25,
+            sessionMinutes: 12
+        }),
+        'learning-defense': PLAY_PASS
     });
-    const REWARD_GAME_IDS = ['garden-defense', 'platform-quest', 'voxel-adventure'];
-    const GAME_IDS = ['garden-defense', 'voxel-adventure', 'platform-quest', 'blocklegend'];
+    const REWARD_GAME_IDS = ['garden-defense', 'platform-quest', 'platform-learning', 'voxel-adventure', 'voxel-learning', 'learning-defense'];
+    const GAME_IDS = ['garden-defense', 'learning-defense', 'voxel-adventure', 'voxel-learning', 'platform-quest', 'platform-learning', 'blocklegend'];
     const PLATFORM_LEVEL_TOTAL = 16;
 
     function countLiteracyKnown(state) {
         const mastery = state && state.courseProgress && state.courseProgress.literacy
             && state.courseProgress.literacy.mastery;
-        return mastery && typeof mastery === 'object' ? Object.keys(mastery).length : 0;
+        if (!mastery || typeof mastery !== 'object') return 0;
+        return Object.keys(mastery).filter(function (key) {
+            const entry = mastery[key];
+            return entry && (entry.state === 'ready' || entry.state === 'maintenance');
+        }).length;
     }
 
     function playModsFromLiteracy(known) {
@@ -69,6 +83,17 @@
         { level: 6, need: 220, title: '花园守护者', gardenStartSun: 45, platformCoinBonus: 2, voxelCrystalBonus: 2 },
         { level: 7, need: 320, title: '传说冒险家', gardenStartSun: 60, platformCoinBonus: 3, voxelCrystalBonus: 2 }
     ];
+    const THEME_ADVENTURE_TITLES = {
+        'voxel-adventure': ['木镐旅人', '铁锭学徒', '石匠骑士', '晶体工匠', '矿层探险家', '深渊守护者', '方块大师'],
+        'platform-quest': ['草地旅人', '旗杆学徒', '金币骑士', '星光工匠', '彩虹探险家', '城堡守护者', '终旗冒险家']
+    };
+
+    function themeAdventureTitle(themeId, level) {
+        const n = Math.round(Number(level) || 0);
+        if (n < 1 || n > ADVENTURE_RANKS.length) return ADVENTURE_RANKS[0].title;
+        const pack = THEME_ADVENTURE_TITLES[themeId];
+        return (pack && pack[n - 1]) || ADVENTURE_RANKS[n - 1].title;
+    }
 
     /** 里程碑：长期徽章（事件去重发奖） */
     const MILESTONES = [
@@ -144,22 +169,234 @@
         }
     }
 
+    function fallbackMemory(source) {
+        const raw = source && typeof source === 'object' ? source : {};
+        const words = raw.words && typeof raw.words === 'object' ? raw.words : {};
+        return {
+            memoryVersion: Number(raw.memoryVersion) > 0 ? Number(raw.memoryVersion) : 1,
+            words: Object.keys(words).reduce(function (out, key) {
+                const canonical = String(key || '').trim().toLowerCase();
+                if (canonical) out[canonical] = Object.assign({}, words[key]);
+                return out;
+            }, {})
+        };
+    }
+
+    function normalizeMemory(source) {
+        const api = global.WorkbenchMemory;
+        return api && typeof api.createMemory === 'function'
+            ? api.createMemory(source)
+            : fallbackMemory(source);
+    }
+
+    // 识字读音三选一抽题：练习中/到期字优先，已会次之，未学只"先学一学"（准备度闸门）。
+    // 数据来自 shared/literacy-quiz-bank.js（识字字库派生，构建期生成）。
+    // 干扰项优先取"已见字"（个性化引擎 §4.6：干扰项不得从未教过的项里抽——排除法假信号）。
+    function drawLiteracyQuiz(options) {
+        const opts = options || {};
+        const want = Math.max(1, Math.min(10, Math.floor(Number(opts.count) || 5)));
+        const bank = globalThis.LiteracyQuizBank;
+        if (!bank || !bank.length) return [];
+        const date = today();
+        let seed = 0;
+        for (let index = 0; index < date.length; index += 1) seed = (seed * 33 + date.charCodeAt(index)) >>> 0;
+        const state = readState();
+        const mastery = state && state.courseProgress && state.courseProgress.literacy
+            && state.courseProgress.literacy.mastery
+            ? state.courseProgress.literacy.mastery
+            : {};
+        // 合流两本账：卡墙 mastery ∪ 游戏回流 memory（知识门答题只写 memory，
+        // 若只看 mastery，答过的字永远算"未学"，闭环断裂）
+        const memory = getMemory();
+        const words = memory && memory.words ? memory.words : {};
+        const seen = {};
+        Object.keys(mastery).forEach(function (key) { seen[key] = true; });
+        Object.keys(words).forEach(function (key) { seen[key] = true; });
+        const seenIndex = {};
+        const allIndex = {};
+        bank.forEach(function (row) {
+            const p = row.pinyin;
+            (allIndex[p] = allIndex[p] || []).push(row.char);
+            if (seen[row.char]) (seenIndex[p] = seenIndex[p] || []).push(row.char);
+        });
+        const now = Date.now();
+        const scored = bank.map(function (row, index) {
+            const entry = mastery[row.char];
+            const memoryRow = words[row.char];
+            let tier;
+            if (entry && entry.state !== 'ready' && entry.state !== 'maintenance') tier = 0;
+            else if (entry && entry.nextReview && String(entry.nextReview) <= date) tier = 0;
+            else if (memoryRow && (memoryRow.needsRelearn === true
+                || memoryRow.lastOutcome === 'slip' || memoryRow.lastOutcome === 'unsure'
+                || memoryRow.lastOutcome === 'unknown'
+                || (memoryRow.dueAt != null && Number(memoryRow.dueAt) <= now))) tier = 0;
+            else if (entry || (memoryRow && memoryRow.lastOutcome === 'known')) tier = 1;
+            else tier = 2; // 未学：准备度闸门 → 只能先教，不能考
+            const rotate = ((index * 2654435761 + seed) >>> 0) % 1000;
+            return { row: row, tier: tier, score: tier * 1000 + rotate };
+        });
+        scored.sort(function (a, b) { return a.score - b.score; });
+        return scored.slice(0, want).map(function (item) {
+            const base = {
+                char: item.row.char,
+                pinyin: item.row.pinyin,
+                speech: { kind: 'hanzi', text: item.row.char, lang: 'zh-CN', rate: 0.8 }
+            };
+            if (item.tier === 2) {
+                // 闸门：未学字弹"先学一学"卡（展示+跟读），不三选一
+                return Object.assign(base, { teachOnly: true, options: [] });
+            }
+            return Object.assign(base, {
+                teachOnly: false,
+                options: buildSeenOptions(item.row, seenIndex, allIndex)
+            });
+        });
+    }
+
+    function buildSeenOptions(row, seenIndex, allIndex) {
+        const correct = row.pinyin;
+        const hasSeen = function (p) {
+            const list = seenIndex[p];
+            return list && list.length ? p : '';
+        };
+        const add = function (p, list) {
+            if (p === correct || candidates.indexOf(p) >= 0) return;
+            if (list && list.length) candidates.push(p);
+        };
+        const candidates = [];
+        // 1) 原生成器的同声母带调候选项里，先取"已见字"对应的拼音
+        (row.options || []).forEach(function (p) {
+            if (candidates.length >= 2) return;
+            add(p, seenIndex[p]);
+        });
+        // 2) 不足两个：从任意已见字拼音补（跨组，保证至少 2 干扰）
+        Object.keys(seenIndex).forEach(function (p) {
+            if (candidates.length >= 2) return;
+            add(p, seenIndex[p]);
+        });
+        // 3) 冷启动兜底（已见字极少时）：退回生成器原候选项，再退回全库
+        if (candidates.length < 2) {
+            (row.options || []).forEach(function (p) {
+                if (candidates.length >= 2) return;
+                add(p, allIndex[p]);
+            });
+        }
+        if (candidates.length < 2) {
+            Object.keys(allIndex).forEach(function (p) {
+                if (candidates.length >= 2) return;
+                add(p, allIndex[p]);
+            });
+        }
+        return [correct].concat(candidates.slice(0, 2));
+    }
+
+    function getMemory() {
+        try {
+            const raw = localStorage.getItem(MEMORY_STORAGE_KEY);
+            return normalizeMemory(raw ? JSON.parse(raw) : null);
+        } catch (e) {
+            return normalizeMemory(null);
+        }
+    }
+
+    function saveMemory(source) {
+        const next = normalizeMemory(source);
+        try {
+            localStorage.setItem(MEMORY_STORAGE_KEY, JSON.stringify(next));
+            return next;
+        } catch (e) {
+            return null;
+        }
+    }
+
+    function recordMemoryAnswer(card, grade, options) {
+        const opt = options && typeof options === 'object' ? options : {};
+        const api = global.WorkbenchMemory;
+        const current = getMemory();
+        let next;
+        if (api && typeof api.recordAnswer === 'function') {
+            next = api.recordAnswer(current, card, grade, opt.at == null ? Date.now() : opt.at, opt);
+        } else {
+            const rawKey = card && typeof card === 'object' ? (card.key || card.text || card.word || card.id) : card;
+            const key = String(rawKey || '').trim().toLowerCase();
+            if (!key) return null;
+            const previous = current.words[key] || {};
+            const isAgain = String(grade || '').toLowerCase() === 'again' || grade === false;
+            const row = Object.assign({}, previous, {
+                key: key,
+                track: String((card && card.track) || previous.track || 'unknown'),
+                box: isAgain ? 1 : Math.min(5, Math.max(1, Number(previous.box) || 1) + 1),
+                attempts: (Number(previous.attempts) || 0) + 1,
+                wrong: (Number(previous.wrong) || 0) + (isAgain ? 1 : 0),
+                correct: (Number(previous.correct) || 0) + (isAgain ? 0 : 1),
+                lastGrade: isAgain ? 'again' : 'good',
+                lastSeenAt: opt.at == null ? Date.now() : opt.at,
+                dueAt: isAgain ? (opt.at == null ? Date.now() : opt.at) : Date.now() + 86400000 * 3
+            });
+            next = fallbackMemory(current);
+            next.words[key] = row;
+        }
+        const saved = saveMemory(next);
+        if (!saved) return null;
+        const key = api && typeof api.keyOf === 'function'
+            ? api.keyOf(card)
+            : String(card && typeof card === 'object' ? (card.key || card.text || card.word || card.id) : card || '').trim().toLowerCase();
+        return saved.words[key] || null;
+    }
+
+    /**
+     * 统一学习结果入口。
+     * unknown 是孩子主动求助，不是答错：只写共享复习账本，不写错题、不扣阳光。
+     */
+    function recordLearningOutcome(card, outcome, options) {
+        const opt = options && typeof options === 'object' ? options : {};
+        const value = String(outcome || '').trim().toLowerCase();
+        const api = global.WorkbenchMemory;
+        if (value === 'unknown' && api && typeof api.recordOutcome === 'function') {
+            const current = getMemory();
+            const next = api.recordOutcome(current, card, 'unknown', opt.at == null ? Date.now() : opt.at, opt);
+            const saved = saveMemory(next);
+            if (!saved) return null;
+            const key = api.keyOf(card);
+            return saved.words[key] || null;
+        }
+        if (api && typeof api.recordOutcome === 'function') {
+            const current = getMemory();
+            const next = api.recordOutcome(current, card, value || 'unknown', opt.at == null ? Date.now() : opt.at, opt);
+            const saved = saveMemory(next);
+            if (!saved) return null;
+            const key = api.keyOf(card);
+            return saved.words[key] || null;
+        }
+        return value === 'unknown' ? recordMemoryAnswer(card, 'again', opt) : recordMemoryAnswer(card, opt.grade || 'good', opt);
+    }
+
     /** 词卡答题回流：只写 courseProgress.minecraft.mastery，零阳光、零 worldGames 改动 */
     function recordWordAnswer(word, correct, extra) {
         const engine = global.PersonalWorkbenchPreschoolEnglishVocab;
         const courses = global.PersonalWorkbenchChildCourses;
-        if (!word || !engine || typeof engine.markKnown !== 'function'
-            || !courses || typeof courses.saveMinecraft !== 'function') return null;
+        const id = String(word || '').trim().toLowerCase();
+        if (!id) return null;
         const opts = extra && typeof extra === 'object' ? extra : {};
         const state = readState();
-        const current = (state.courseProgress && state.courseProgress.minecraft) || engine.createDefaultProgress();
-        const rules = engine.getRuntimeRules ? engine.getRuntimeRules() : undefined;
-        const next = engine.markKnown(current, word, !!correct, today(), rules, {
-            source: opts.source || 'workbench'
-        });
-        state.courseProgress = courses.saveMinecraft(state.courseProgress || {}, next);
+        const current = (state.courseProgress && state.courseProgress.minecraft)
+            || (engine && typeof engine.createDefaultProgress === 'function' ? engine.createDefaultProgress() : { mastery: {} });
+        let next;
+        if (engine && typeof engine.markKnown === 'function'
+            && courses && typeof courses.saveMinecraft === 'function') {
+            const rules = engine.getRuntimeRules ? engine.getRuntimeRules() : undefined;
+            next = engine.markKnown(current, id, !!correct, today(), rules, {
+                source: opts.source || 'workbench'
+            });
+            state.courseProgress = courses.saveMinecraft(state.courseProgress || {}, next);
+        } else {
+            const mastery = Object.assign({}, current.mastery && typeof current.mastery === 'object' ? current.mastery : {});
+            mastery[id] = bumpMasteryItem(mastery[id], !!correct, today(), { source: opts.source || 'workbench' });
+            next = Object.assign({}, current, { mastery: mastery });
+            state.courseProgress = Object.assign({}, state.courseProgress || {}, { minecraft: next });
+        }
         if (!writeState(state)) return null;
-        return next.mastery[String(word).toLowerCase()] || null;
+        return next.mastery[id] || null;
     }
 
     function shiftDay(date, days) {
@@ -189,44 +426,54 @@
         };
         if (extra && extra.literacy) {
             const types = Array.isArray(rec.activityTypes) ? rec.activityTypes.slice() : [];
-            if (types.indexOf('blocklegend') < 0) types.push('blocklegend');
+            const activityType = extra.activityType || 'learning-defense';
+            if (types.indexOf(activityType) < 0) types.push(activityType);
             next.activityTypes = types;
             next.accuracy = attempts ? hits / attempts : 0;
             next.sunlightDelta = 0;
+        } else if (extra && extra.source) {
+            const sources = Array.isArray(rec.sources) ? rec.sources.slice() : [];
+            if (sources.indexOf(extra.source) < 0) sources.push(extra.source);
+            next.sources = sources;
         }
         return next;
     }
 
     /** 配菜写回分科掌握度，不走 minecraft.mastery */
-    function recordSubjectAnswer(track, key, correct) {
+    function recordSubjectAnswer(track, key, correct, options) {
         const courses = global.PersonalWorkbenchChildCourses;
         const id = String(key || '').trim();
         const field = String(track || '').trim();
-        if (!id || !courses) return null;
+        const opts = options && typeof options === 'object' ? options : {};
+        if (!id) return null;
         if (field === 'minecraft' || field === 'english') return recordWordAnswer(id, correct);
         const state = readState();
         const date = today();
         if (field === 'literacy') {
             const engine = global.PersonalWorkbenchPreschoolLiteracy;
             const current = (state.courseProgress && state.courseProgress.literacy) || { mastery: {} };
+            const activityType = String(opts.activityType || 'learning-defense');
             let next;
             if (engine && typeof engine.recordAttempt === 'function') {
-                next = engine.recordAttempt(current, id, { date: date, correct: !!correct, activityType: 'blocklegend' });
+                next = engine.recordAttempt(current, id, { date: date, correct: !!correct, activityType: activityType });
             } else {
-                const mastery = current.mastery && typeof current.mastery === 'object' ? current.mastery : {};
-                mastery[id] = bumpMasteryItem(mastery[id], !!correct, date, { literacy: true });
+                const mastery = Object.assign({}, current.mastery && typeof current.mastery === 'object' ? current.mastery : {});
+                mastery[id] = bumpMasteryItem(mastery[id], !!correct, date, { literacy: true, activityType: activityType });
                 next = { mastery: mastery };
             }
-            state.courseProgress = courses.saveLiteracy(state.courseProgress || {}, next);
+            state.courseProgress = courses && typeof courses.saveLiteracy === 'function'
+                ? courses.saveLiteracy(state.courseProgress || {}, next)
+                : Object.assign({}, state.courseProgress || {}, { literacy: next });
             if (!writeState(state)) return null;
             return next.mastery[id] || null;
         }
-        if (!courses.saveSubject) return null;
         const current = (state.courseProgress && state.courseProgress[field]) || { mastery: {} };
-        const mastery = current.mastery && typeof current.mastery === 'object' ? current.mastery : {};
+        const mastery = Object.assign({}, current.mastery && typeof current.mastery === 'object' ? current.mastery : {});
         mastery[id] = bumpMasteryItem(mastery[id], !!correct, date);
         const next = { mastery: mastery };
-        state.courseProgress = courses.saveSubject(state.courseProgress || {}, field, next);
+        state.courseProgress = courses && typeof courses.saveSubject === 'function'
+            ? courses.saveSubject(state.courseProgress || {}, field, next)
+            : Object.assign({}, state.courseProgress || {}, { [field]: next });
         if (!writeState(state)) return null;
         return next.mastery[id] || null;
     }
@@ -333,6 +580,25 @@
         return { ok: true, pass: playPassView(pass, id), play: play };
     }
 
+    // "学完才能继续"：今日是否有学习证据（memory 回流 ∪ 卡墙 mastery），供 redeem 闸门使用。
+    function learntToday() {
+        const date = today();
+        const start = new Date(date + 'T00:00:00').getTime();
+        const memory = getMemory();
+        const rows = memory && memory.words ? memory.words : {};
+        if (Object.keys(rows).some(function (key) { return Number(rows[key].lastSeenAt) >= start; })) return true;
+        const progress = ((readState() || {}).courseProgress) || {};
+        return Object.keys(progress).some(function (subject) {
+            const mastery = progress[subject] && progress[subject].mastery;
+            if (!mastery || typeof mastery !== 'object') return false;
+            return Object.keys(mastery).some(function (key) {
+                const row = mastery[key];
+                if (!row || typeof row !== 'object') return false;
+                return String(row.nextReview || '') === date || (Array.isArray(row.dates) && row.dates.indexOf(date) >= 0);
+            });
+        });
+    }
+
     function grantPlayPass(gameId, options) {
         const opts = options || {};
         const source = opts.source || 'learn';
@@ -354,6 +620,10 @@
         if (source === 'redeem') {
             if (pass.redeemed >= rules.maxRedeemed) {
                 return { ok: false, granted: false, reason: 'redeem-cap', pass: playPassView(pass, id) };
+            }
+            // L2：阳光兑换也要求今日先学过（把"学完才能继续游戏"钉死，防零学习纯兑换）
+            if (!learntToday()) {
+                return { ok: false, granted: false, reason: 'learn-first', pass: playPassView(pass, id) };
             }
             const have = Math.max(0, Number(growth.sunlight) || 0);
             if (have < rules.redeemCost) {
@@ -385,6 +655,12 @@
         }
         if (gameId === 'platform-quest') {
             return { unlockedLevel: 1, clearedLevels: [], stars: {}, coinsTotal: 0, bestTime: {} };
+        }
+        if (gameId === 'voxel-learning') {
+            return { cardsCompleted: 0, cardsRequired: 10, settled: false, clearedStages: [] };
+        }
+        if (gameId === 'platform-learning') {
+            return { cardsCompleted: 0, cardsRequired: 10, settled: false, clearedLevels: [] };
         }
         if (gameId === 'blocklegend') {
             return {
@@ -473,8 +749,7 @@
         return rank;
     }
 
-    function getWallet() {
-        const state = readState();
+    function walletFromState(state) {
         const g = state.growth || {};
         return {
             sunlight: Math.max(0, Number(g.sunlight) || 0),
@@ -483,6 +758,10 @@
             petLevel: Math.floor((Math.max(0, Number(g.unicorn && g.unicorn.xp) || 0)) / 100) + 1,
             defenseEnergy: Math.max(0, Number(g.garden && g.garden.defenseEnergy) || 0)
         };
+    }
+
+    function getWallet() {
+        return walletFromState(readState());
     }
 
     function dailyAwardedSun(growth, date) {
@@ -502,21 +781,22 @@
         const eventKey = String(opts.eventKey || reason);
         const want = Math.max(0, Math.min(40, Math.floor(Number(opts.amount) || 0)));
         const date = opts.date || today();
-        const state = readState();
+        const sharedState = opts.state && typeof opts.state === 'object' ? opts.state : null;
+        const state = sharedState || readState();
         const growth = state.growth || (state.growth = {});
         if (!Array.isArray(growth.awardedIds)) growth.awardedIds = [];
         if (!growth.unicorn || typeof growth.unicorn !== 'object') growth.unicorn = { xp: 0, level: 1 };
 
         const eventId = `game:${gameId}:${eventKey}`;
         if (growth.awardedIds.includes(eventId)) {
-            return { ok: false, awarded: false, amount: 0, reason: '这份奖励已经领过了', wallet: getWallet() };
+            return { ok: false, awarded: false, amount: 0, reason: '这份奖励已经领过了', wallet: walletFromState(state) };
         }
 
         const already = dailyAwardedSun(growth, date);
         const room = Math.max(0, DAILY_GAME_SUN_CAP - already);
         const amount = Math.min(want, room);
         if (amount <= 0) {
-            return { ok: false, awarded: false, amount: 0, reason: '今日游戏阳光已达上限，明天再来', wallet: getWallet() };
+            return { ok: false, awarded: false, amount: 0, reason: '今日游戏阳光已达上限，明天再来', wallet: walletFromState(state) };
         }
 
         growth.awardedIds.push(eventId);
@@ -530,8 +810,8 @@
             growth.garden.defenseEnergy = Math.min(9, Math.max(0, Number(growth.garden.defenseEnergy) || 0) + Math.min(2, Number(opts.energy) || 0));
         }
 
-        writeState(state);
-        return { ok: true, awarded: true, amount: amount, reason: '', wallet: getWallet() };
+        if (!sharedState) writeState(state);
+        return { ok: true, awarded: true, amount: amount, reason: '', wallet: walletFromState(state) };
     }
 
     function spendSunlight(amount) {
@@ -604,6 +884,7 @@
         if (firstTodayWorld) {
             addAdventurePoints(meta, 1);
             const playAward = awardSunlight({
+                state: state,
                 gameId: 'meta',
                 eventKey: 'daily-play:' + date + ':' + gameId,
                 amount: 3,
@@ -616,6 +897,7 @@
         if (isTriple) {
             addAdventurePoints(meta, 3);
             const tripleAward = awardSunlight({
+                state: state,
                 gameId: 'meta',
                 eventKey: 'daily-triple:' + date,
                 amount: 8,
@@ -629,6 +911,7 @@
             weekly.claimedPlayDays = true;
             addAdventurePoints(meta, 5);
             const w1 = awardSunlight({
+                state: state,
                 gameId: 'meta',
                 eventKey: 'weekly-play:' + weekly.weekStart,
                 amount: 15,
@@ -640,6 +923,7 @@
             weekly.claimedTriple = true;
             addAdventurePoints(meta, 5);
             const w2 = awardSunlight({
+                state: state,
                 gameId: 'meta',
                 eventKey: 'weekly-triple:' + weekly.weekStart,
                 amount: 12,
@@ -673,6 +957,7 @@
             meta.badges.push(ms.id);
             addAdventurePoints(meta, ms.points || 0);
             const a = awardSunlight({
+                state: state,
                 gameId: 'meta',
                 eventKey: 'milestone:' + ms.id,
                 amount: ms.sun || 10,
@@ -810,9 +1095,12 @@
             });
             const labels = {
                 'garden-defense': { label: '花园保卫', unit: '关', done: gardenClears(wg), total: 18 },
+                'learning-defense': { label: '知识花园', unit: '关', done: Array.isArray(wg['learning-defense'] && wg['learning-defense'].clearedStages) ? wg['learning-defense'].clearedStages.length : 0, total: 1 },
                 'voxel-adventure': { label: '方块世界', unit: '关', done: voxelQuests(wg), total: (global.VoxelQuests && global.VoxelQuests.list ? global.VoxelQuests.list.length : 12) },
+                'voxel-learning': { label: '方块学习', unit: '关', done: Array.isArray(wg['voxel-learning'] && wg['voxel-learning'].clearedStages) ? wg['voxel-learning'].clearedStages.length : 0, total: 1 },
                 'platform-quest': { label: '横版闯关', unit: '关', done: platformClears(wg), total: PLATFORM_LEVEL_TOTAL },
-                'blocklegend': { label: '方块传奇', unit: '关', done: blocklegendClears(wg), total: 12 }
+                'platform-learning': { label: '闯关学习', unit: '关', done: Array.isArray(wg['platform-learning'] && wg['platform-learning'].clearedLevels) ? wg['platform-learning'].clearedLevels.length : 0, total: 1 },
+                'blocklegend': { label: '我的方块学园', unit: '关', done: blocklegendClears(wg), total: 12 }
             };
             const L = labels[id];
             let fact = '';
@@ -888,11 +1176,13 @@
 
     global.WorkbenchGameBridge = {
         STORAGE_KEY: STORAGE_KEY,
+        MEMORY_STORAGE_KEY: MEMORY_STORAGE_KEY,
         DAILY_GAME_SUN_CAP: DAILY_GAME_SUN_CAP,
         GAME_IDS: GAME_IDS,
         worldsPlayedToday: worldsPlayedToday,
         PLATFORM_LEVEL_TOTAL: PLATFORM_LEVEL_TOTAL,
         ADVENTURE_RANKS: ADVENTURE_RANKS,
+        themeAdventureTitle: themeAdventureTitle,
         MILESTONES: MILESTONES,
         today: today,
         readState: readState,
@@ -915,6 +1205,11 @@
         getPlayMods: getPlayMods,
         recordWordAnswer: recordWordAnswer,
         recordSubjectAnswer: recordSubjectAnswer,
+        getMemory: getMemory,
+        drawLiteracyQuiz: drawLiteracyQuiz,
+        saveMemory: saveMemory,
+        recordMemoryAnswer: recordMemoryAnswer,
+        recordLearningOutcome: recordLearningOutcome,
         PLAY_PASS: PLAY_PASS,
         PLAY_PASS_BY_GAME: PLAY_PASS_BY_GAME,
         getPlayPass: getPlayPass,

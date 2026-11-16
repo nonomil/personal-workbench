@@ -1,7 +1,7 @@
 /**
  * voxel-craft · 装配层（T20260815-voxel-remake S2–S4）
  * 接口兼容（任务包 task.md §3）：
- * - GAME_ID 仍是 'voxel-adventure'，进度键 growth.worldGames.voxel-adventure 不变
+ * - 经典模式继续使用 'voxel-adventure'；学习模式使用独立的 'voxel-learning' 存档
  * - 发奖口径 quest-<id> / daily-<日期>-<key> 不变
  */
 (function () {
@@ -14,11 +14,14 @@
     const VW = window.VoxelCraftWorld;
     const Q = window.VoxelQuests;
     const ENG = window.VoxelCraftEngine;
-    const GAME_ID = 'voxel-adventure';
     const TILE = ENG.TILE;
-    const VIEW_W = 960;
-    const VIEW_H = 540;
+    let VIEW_W = 960;
+    let VIEW_H = 540;
     const LONG_PRESS_MS = 380;
+    const learningParams = new URLSearchParams(window.location.search || '');
+    const learningMode = learningParams.get('mode') === 'learning';
+    const GAME_ID = learningMode ? 'voxel-learning' : 'voxel-adventure';
+    const learningCards = learningMode && window.LearningDefenseCards ? window.LearningDefenseCards.cards : [];
 
     const canvas = document.getElementById('world-canvas');
     const ctx = canvas.getContext('2d');
@@ -57,7 +60,7 @@
     let placedCells = {};
     let session = { placedThis: {}, placedAnyThis: 0, collectedThis: {} };
     let playSegment = { active: false, startedAt: 0, endsAt: 0 };
-    let player = { x: 5 * TILE, y: 16 * TILE, w: 18, h: 54, vx: 0, vy: 0, onGround: false, facing: 1, inWater: false, hp: 5, maxHp: 5, food: 10, maxFood: 10, invincibleUntil: 0 };
+    let player = { x: 5 * TILE, y: 16 * TILE, w: 18, h: 54, vx: 0, vy: 0, onGround: false, facing: 1, inWater: false, hp: 5, maxHp: 5, food: 10, maxFood: 10, invincibleUntil: 0, skin: 'steve' };
     let camera = { x: 0, y: 0 };
     let groundAnchor = 0; // 垂直相机锚点：只在落地/大幅跌落时更新，跳跃时镜头不动
     let keys = {};
@@ -65,13 +68,19 @@
     let pointer = null;   // {down, cellX, cellY, since, placeMode}
     let mineAct = null;   // {cellX, cellY, kind, frames, need}
     let chips = [];
+    let drops = [];
+    let lastTap = { t: 0, x: 0, y: 0 };
     let hover = null;
+    let aimHit = null;
     let settledQuest = null;
     let enemies = [];
     let attackUntil = 0;
     let lastDamageAt = 0;
     let lastHudAt = 0;
     let enemyKills = 0;
+    let learningSession = null;
+    let learningOverlay = null;
+    let learningActionCount = 0;
     /* 格子合成（2d-minecraft 移植）：随身 2×2，点世界里的合成台开 3×3 */
     let craft = { size: 2, cells: Array(9).fill(null) };
 
@@ -84,8 +93,85 @@
             worldSeed: 3, homeSnapshot: null, worldSave: null,
             worldSaves: { meadow: null, cave: null },
             placedCells: [],
-            parentLock: false, rankRewardsClaimed: []
+            parentLock: false, rankRewardsClaimed: [],
+            learningCardsCompleted: 0, learningCardsRequired: 10, learningCorrect: 0, learningWrong: 0,
+            learningSettled: false, heroSkin: 'steve'
         };
+    }
+
+    function resolveLearningImage(source) {
+        return String(source || '').replace('./assets/reused/learning/', '../learning-defense/assets/reused/learning/');
+    }
+
+    function syncLearningProgress() {
+        if (!learningMode || !learningSession || !progress) return;
+        const state = learningSession.snapshot();
+        progress.learningCardsCompleted = state.cardsCompleted;
+        progress.learningCardsRequired = state.cardsRequired;
+        progress.learningCorrect = state.correctCount;
+        progress.learningWrong = state.wrongCount;
+        progress.learningSettled = Boolean(state.settled && state.settled.won);
+    }
+
+    function learningCanSimulate() {
+        if (!learningMode || !learningSession) return true;
+        return learningSession.canSimulate();
+    }
+
+    function learningRecordAction(kind) {
+        if (!learningMode || !learningSession || !learningOverlay || !learningCanSimulate()) return;
+        if (learningSession.snapshot().cardsCompleted >= learningSession.snapshot().cardsRequired) return;
+        learningActionCount += 1;
+        if (learningActionCount < 2) return;
+        learningActionCount = 0;
+        learningOverlay.trigger(kind || 'build');
+    }
+
+    function learningGoalUnlocked() {
+        if (!learningMode || !learningSession) return true;
+        const state = learningSession.snapshot();
+        return state.cardsCompleted >= state.cardsRequired;
+    }
+
+    function pickLearningCard(options) {
+        const config = options || {};
+        const state = config.state || {};
+        const memory = bridge && typeof bridge.getMemory === 'function' ? bridge.getMemory() : null;
+        const api = window.WorkbenchMemory;
+        if (api && typeof api.pickCards === 'function') {
+            const picked = api.pickCards(
+                learningCards.slice(0, 10),
+                memory,
+                Date.now(),
+                { count: 1, usedIds: config.usedIds || [] }
+            );
+            if (picked.length) return picked[0];
+        }
+        return learningCards[state.cardsCompleted] || null;
+    }
+
+    function setupLearningMode() {
+        if (!learningMode || !window.VoxelLearningCore || !learningCards.length) return;
+        document.body.dataset.learningMode = 'on';
+        learningSession = window.VoxelLearningCore.createSession({
+            cardsRequired: Math.min(10, learningCards.length),
+            initialCardsCompleted: Number(progress.learningCardsCompleted) || 0,
+            initialSettled: progress.learningSettled === true
+        });
+        const state = learningSession.snapshot();
+        if (state.phase === 'ready') learningSession.startExpedition();
+        else if (state.phase === 'final-ready') learningSession.startFinalPortal();
+        learningOverlay = window.WorkbenchLearningCardOverlay.create({
+            session: learningSession,
+            cards: learningCards.slice(0, 10),
+            bridge: bridge,
+            source: 'voxel-craft-learning',
+            pickCard: pickLearningCard,
+            resolveImage: resolveLearningImage,
+            finalMethod: 'startFinalPortal',
+            onProgress: function () { syncLearningProgress(); renderHud(); }
+        });
+        syncLearningProgress();
     }
 
     function normalizeMapId(id) {
@@ -148,7 +234,10 @@
         invSlots = VW.slotsFromCounts(inventory);
         progress.rankRewardsClaimed = backfill.claimed;
         enemyKills = Number(progress.enemiesDefeated) || 0;
+        player.skin = ENG.heroSkinOf ? ENG.heroSkinOf(progress.heroSkin) : (progress.heroSkin === 'stick' ? 'stick' : 'steve');
         spawnEnemies();
+        setupLearningMode();
+        selectSlot(selectedSlot);
     }
 
     function newWorld(seed, mapId) {
@@ -159,7 +248,10 @@
         placedCells = {};
         inventory = VW.emptyInv();
         inventory.wood_pick = 1; // 开局默认木镐（工具链 rank1-2）
+        inventory.wood_sword = 1; // 开局木剑，点敌人就能打
+        inventory.grass = 8; // 第一任务「铺一条小路」开局就能放
         invSlots = VW.slotsFromCounts(inventory);
+        selectSlot(0);
         spawnEnemies();
     }
 
@@ -178,10 +270,12 @@
     }
 
     function persist() {
+        syncLearningProgress();
         progress.worldSeed = world.seed;
         progress.mapId = normalizeMapId((world && (world.mapId || world.biome)) || progress.mapId || 'meadow');
         progress.biome = progress.mapId;
         progress.enemiesDefeated = enemyKills;
+        progress.heroSkin = ENG.heroSkinOf ? ENG.heroSkinOf(player.skin) : (player.skin === 'stick' ? 'stick' : 'steve');
         progress.placedCells = Object.keys(placedCells);
         if (!progress.worldSaves || typeof progress.worldSaves !== 'object') progress.worldSaves = {};
         const snap = VW.serialize(world, effectiveInventory(), {
@@ -376,20 +470,36 @@
         }
     }
 
-    function attackDamage() {
-        if ((inventory.wood_sword || 0) > 0 || tool === 'wood_sword') return 3;
-        if (tool === 'stone_pick') return 2;
-        return 1;
+    function heldKind() {
+        return selectedKind || (tool !== 'hand' ? tool : '') || '';
     }
 
-    function attack() {
+    function syncHeld() {
+        player.held = heldKind();
+        player.attacking = Date.now() < attackUntil;
+        syncAttackBtn();
+    }
+
+    function syncAttackBtn() {
+        const btn = document.getElementById('attack-btn');
+        if (!btn) return;
+        btn.classList.toggle('is-on', ENG.heldUse(heldKind()) === 'attack' || !!player.attacking);
+    }
+
+    function attackDamage() {
+        return ENG.heldDamage(heldKind());
+    }
+
+    function attack(target) {
+        if (!learningCanSimulate()) return;
         if (!ensurePlaySegment()) return;
         const now = Date.now();
+        if (now < attackUntil) return;
         attackUntil = now + 180;
         let hits = 0;
         let defeated = 0;
         enemies.forEach(function (enemy) {
-            const result = ENG.attackEnemy(enemy, player, attackDamage());
+            const result = ENG.attackEnemy(enemy, player, attackDamage(), { aimed: !!(target && enemy === target) });
             if (!result.ok) return;
             hits += 1;
             if (result.defeated) {
@@ -409,6 +519,7 @@
         if (hits) {
             if (sfx && sfx.hit) sfx.hit();
             toast(defeated ? '命中！击败 ' + defeated + ' 个敌人' : '命中！再来一下');
+            learningRecordAction(defeated ? 'defeat' : 'attack');
             persist();
             renderHud();
         }
@@ -574,6 +685,10 @@
     }
 
     function tryUsePortal() {
+        if (!learningGoalUnlocked()) {
+            toast('先完成 10 张学习卡，传送门才会打开');
+            return false;
+        }
         const from = (world && world.biome) || progress.biome || 'meadow';
         if (from === 'meadow') {
             if (!VW.canEnterCave(rank())) {
@@ -592,6 +707,7 @@
     }
 
     function tryStartMine(cell) {
+        if (!learningCanSimulate()) return false;
         const kind = VW.getCell(world, cell.x, cell.y);
         if (kind === 'air' || kind === 'water' || kind === 'portal') return false;
         if (!ENG.inReach(player, cell.x, cell.y)) {
@@ -621,16 +737,12 @@
             if (dug.reason) toast(dug.reason);
             return;
         }
-        gainItem(dug.kind, 1);
-        session.collectedThis[dug.kind] = (session.collectedThis[dug.kind] || 0) + 1;
-        if (dug.kind === 'crystal') progress.crystalsTotal = (progress.crystalsTotal || 0) + 1;
         delete placedCells[placedKey(cx, cy)];
+        ENG.spawnDrop(drops, cx, cy, dug.kind);
         ENG.spawnChips(chips, cx, cy, dug.kind);
         if (sfx && sfx.mine) sfx.mine();
         persist();
-        renderHotbar();
-        renderHud();
-        checkQuests();
+        learningRecordAction('mine');
     }
 
     function placedKey(x, y) { return x + ',' + y; }
@@ -691,6 +803,7 @@
     }
 
     function ensurePlaySegment() {
+        if (!learningCanSimulate()) return false;
         const now = Date.now();
         if (playSegment.active) {
             if (now < playSegment.endsAt) return true;
@@ -724,7 +837,12 @@
         }
     }
 
+    function cellBlocked(x, y) {
+        return ENG.rectsOverlap(player, { x: x * TILE, y: y * TILE, w: TILE, h: TILE });
+    }
+
     function tryPlace(cell) {
+        if (!learningCanSimulate()) return;
         if (!selectedKind) { toast('先在热键栏选一个方块'); return; }
         if ((inventory[selectedKind] || 0) <= 0) { toast('背包里没有' + (VW.KIND_LABEL[selectedKind] || '材料')); return; }
         if (!ENG.inReach(player, cell.x, cell.y)) { toast('走近一点再放'); return; }
@@ -742,7 +860,105 @@
         persist();
         renderHotbar();
         renderHud();
+        learningRecordAction('place');
         checkQuests();
+    }
+
+    function tryPlaceAtPointer(e, cell) {
+        if (!selectedKind || !cell) return;
+        const hit = (e && ENG.screenToHit) ? ENG.screenToHit(canvas, camera, e.clientX, e.clientY) : (aimHit || cell);
+        const kindAt = function (x, y) { return VW.getCell(world, x, y); };
+        const air = pickPlaceCell(hit, kindAt);
+        if (air) tryPlace(air);
+    }
+
+    function nearFeetHit(hit) {
+        if (!hit || !player) return false;
+        const px = player.x + player.w / 2;
+        const py = player.y + player.h;
+        const dx = (hit.x + 0.5) * TILE - px;
+        const dy = (hit.y + 0.5) * TILE - py;
+        return Math.abs(dx) < TILE * 2.5 && Math.abs(dy) < TILE * 2.2;
+    }
+
+    function pickPlaceCell(hit, kindAt) {
+        if (nearFeetHit(hit) && ENG.footPlaceCell) {
+            const foot = ENG.footPlaceCell(player, kindAt, cellBlocked);
+            if (foot) return foot;
+        }
+        return ENG.placeTarget(hit, kindAt, cellBlocked) ||
+            (ENG.footPlaceCell ? ENG.footPlaceCell(player, kindAt, cellBlocked) : null);
+    }
+
+    function rememberAim(e) {
+        if (!e || !ENG.screenToHit) return;
+        aimHit = ENG.screenToHit(canvas, camera, e.clientX, e.clientY);
+        hover = { x: aimHit.x, y: aimHit.y };
+    }
+
+    function placeAimCell() {
+        if (!selectedKind || !aimHit || !ENG.placeTarget) return null;
+        const kindAt = function (x, y) { return VW.getCell(world, x, y); };
+        return pickPlaceCell(aimHit, kindAt);
+    }
+
+    function selectKindInHotbar(kind) {
+        for (let i = 0; i < VW.HOTBAR_COUNT; i += 1) {
+            if (invSlots[i] && invSlots[i].kind === kind) {
+                selectSlot(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function collectDrops() {
+        if (!ENG.updateDrops) return;
+        const picked = ENG.updateDrops(drops, player, solidAt);
+        if (!picked.length) return;
+        picked.forEach(function (row) {
+            gainItem(row.kind, row.n || 1);
+            session.collectedThis[row.kind] = (session.collectedThis[row.kind] || 0) + (row.n || 1);
+            if (row.kind === 'crystal') progress.crystalsTotal = (progress.crystalsTotal || 0) + (row.n || 1);
+            const quest = currentQuest();
+            if (quest && (quest.type === 'build' || quest.type === 'build_total_block') && quest.block === row.kind) {
+                selectKindInHotbar(row.kind);
+            }
+        });
+        persist();
+        renderHotbar();
+        renderHud();
+        learningRecordAction('mine');
+        checkQuests();
+    }
+
+    function tryPickBlock(cell) {
+        if (!cell || !VW.pickableKind) return false;
+        const kind = VW.pickableKind(VW.getCell(world, cell.x, cell.y));
+        if (!kind) return false;
+        if (!ENG.inReach(player, cell.x, cell.y)) {
+            toast('走近一点再拿');
+            return false;
+        }
+        for (let i = 0; i < VW.HOTBAR_COUNT; i += 1) {
+            if (invSlots[i] && invSlots[i].kind === kind) {
+                selectSlot(i);
+                toast('选中了' + (VW.KIND_LABEL[kind] || kind));
+                return true;
+            }
+        }
+        gainItem(kind, 1);
+        for (let i = 0; i < VW.HOTBAR_COUNT; i += 1) {
+            if (invSlots[i] && invSlots[i].kind === kind) {
+                selectSlot(i);
+                break;
+            }
+        }
+        toast('拿到了' + (VW.KIND_LABEL[kind] || kind));
+        persist();
+        renderHotbar();
+        renderHud();
+        return true;
     }
 
     /* ---------- HUD 渲染 ---------- */
@@ -766,7 +982,7 @@
             html += '<button type="button" class="vc-slot' + (on ? ' is-on' : '') + (row ? '' : ' is-empty') + '" data-slot="' + i + '">' +
                 (row ? iconMarkup(row.kind) : '') +
                 '<kbd>' + (i + 1) + '</kbd>' +
-                (row && row.n > 1 ? '<b>' + row.n + '</b>' : '') +
+                (row && row.n ? '<b>' + row.n + '</b>' : '') +
                 (row ? '<small>' + (VW.KIND_LABEL[row.kind] || row.kind) + '</small>' : '') +
                 '</button>';
         }
@@ -845,6 +1061,22 @@
                 segEl.textContent = pass.exhausted ? '今日已收工' : '未开始';
             }
         }
+        renderSkinBtn();
+    }
+
+    function renderSkinBtn() {
+        const btn = document.getElementById('skin-btn');
+        if (!btn) return;
+        const stick = ENG.heroSkinOf(player.skin) === 'stick';
+        btn.textContent = stick ? '方块人' : '火柴人';
+        btn.title = stick ? '换成方块人' : '换成火柴人';
+    }
+
+    function toggleSkin() {
+        player.skin = ENG.heroSkinOf(player.skin) === 'stick' ? 'steve' : 'stick';
+        persist();
+        renderSkinBtn();
+        toast(player.skin === 'stick' ? '换成火柴人' : '换成方块人');
     }
 
     let bagTab = 'craft';
@@ -1068,12 +1300,14 @@
     /* ---------- 主循环 ---------- */
 
     function tick(now) {
+        if (!learningCanSimulate()) return;
         const input = {
             left: holds.left || keys['a'] || keys['arrowleft'],
             right: holds.right || keys['d'] || keys['arrowright'],
             jump: holds.jump || keys[' '] || keys['w'] || keys['arrowup'],
             run: keys['shift']
         };
+        syncHeld();
         const wasGround = player.onGround;
         const result = ENG.updatePlayer(player, input, solidAt, kindAt);
         if (input.jump && wasGround && !player.onGround && sfx && sfx.jump) sfx.jump();
@@ -1082,7 +1316,7 @@
             toast('掉进虚空啦，回到出生点');
         }
         // 按住持续挖
-        if (pointer && pointer.down && !pointer.placeMode) {
+        if (pointer && pointer.down && !pointer.placeMode && !pointer.attacked) {
             tryStartMine({ x: pointer.cellX, y: pointer.cellY });
             // 触屏长按：合成台开 3×3 面板；空气格放置当前选中的方块
             if (!pointer.placed && pointer.startKind === 'table' &&
@@ -1101,6 +1335,7 @@
             if (mineAct.frames >= mineAct.need) doBreakMine();
         }
         tickEnemies(now);
+        collectDrops();
         if (now - lastHudAt > 120) {
             lastHudAt = now;
             renderHud();
@@ -1129,9 +1364,14 @@
         const scaleY = canvasRect.height / VIEW_H;
         const sx = canvasRect.left - viewRect.left + (mineAct.cellX * TILE - camera.x + TILE / 2) * scaleX;
         const sy = canvasRect.top - viewRect.top + (mineAct.cellY * TILE - camera.y + TILE / 2) * scaleY;
+        const tileCss = Math.max(32, Math.round(TILE * scaleX));
         el.hidden = false;
         el.style.left = sx + 'px';
         el.style.top = sy + 'px';
+        el.style.width = tileCss + 'px';
+        el.style.height = tileCss + 'px';
+        el.style.marginLeft = (-tileCss / 2) + 'px';
+        el.style.marginTop = (-tileCss / 2) + 'px';
         el.style.setProperty('--p', String(Math.round(100 * mineAct.frames / mineAct.need)));
     }
 
@@ -1167,7 +1407,25 @@
         ctx.restore();
     }
 
+    function enemyUnderPointer(e) {
+        if (!e) return null;
+        const hit = ENG.screenToHit(canvas, camera, e.clientX, e.clientY);
+        const wx = hit.x * TILE + hit.lx;
+        const wy = hit.y * TILE + hit.ly;
+        const pad = 8;
+        for (let i = 0; i < enemies.length; i += 1) {
+            const en = enemies[i];
+            if (!en || en.remove) continue;
+            if (wx < en.x - pad || wx > en.x + en.w + pad || wy < en.y - pad || wy > en.y + en.h + pad) continue;
+            const cx = Math.floor((en.x + en.w / 2) / TILE);
+            const cy = Math.floor((en.y + en.h / 2) / TILE);
+            if (ENG.inReach(player, cx, cy)) return en;
+        }
+        return null;
+    }
+
     function draw(now) {
+        syncHeld();
         const t = Number(now) || 0;
         ENG.drawSky(ctx, images, VIEW_W, VIEW_H, camera, world.rows * TILE, world.mapId || world.biome);
         updateMineRing();
@@ -1189,8 +1447,10 @@
                         ctx.fillStyle = 'rgba(168, 130, 255,' + pulse + ')';
                         ctx.fillRect(dx, dy, TILE, TILE);
                     }
+                    shadeCell(ctx, dx, dy, VW.lightAt(world, x, y, px, py));
+                } else if (world.biome === 'cave' || world.biome === 'deep_dark' || world.biome === 'nether' || world.biome === 'end') {
+                    shadeCell(ctx, dx, dy, VW.lightAt(world, x, y, px, py));
                 }
-                if (world.biome === 'cave') shadeCell(ctx, dx, dy, VW.lightAt(world, x, y, px, py));
             }
         }
         if (ENG.drawDecorations) ENG.drawDecorations(ctx, images, world.decorations, camera);
@@ -1219,16 +1479,22 @@
             });
             ctx.restore();
         }
-        if (hover) {
-            const reach = ENG.inReach(player, hover.x, hover.y);
-            ctx.strokeStyle = reach ? (selectedKind ? '#ffd98a' : '#ffffff') : 'rgba(255,255,255,.35)';
-            ctx.lineWidth = 2;
-            ctx.strokeRect(hover.x * TILE - camera.x + 1, hover.y * TILE - camera.y + 1, TILE - 2, TILE - 2);
+        const ghost = (!mineAct && selectedKind) ? placeAimCell() : null;
+        if (ghost && ENG.drawPlaceGhost && ENG.inReach(player, ghost.x, ghost.y)) {
+            ENG.drawPlaceGhost(ctx, images, selectedKind,
+                ghost.x * TILE - camera.x, ghost.y * TILE - camera.y);
+        }
+        const aim = mineAct ? { x: mineAct.cellX, y: mineAct.cellY } : (ghost || hover);
+        if (aim && ENG.drawSelectBox) {
+            const reach = ENG.inReach(player, aim.x, aim.y);
+            const color = !reach ? 'rgba(255,255,255,.35)' : (mineAct ? '#ffffff' : (selectedKind ? '#ffd98a' : '#ffffff'));
+            ENG.drawSelectBox(ctx, aim.x * TILE - camera.x, aim.y * TILE - camera.y, color);
         }
         enemies.forEach(function (enemy) { ENG.drawEnemy(ctx, images, enemy, camera, t); });
         ENG.drawPlayer(ctx, images, player, camera, !!mineAct, t);
         drawAttackFx(t);
         ENG.drawChips(ctx, chips, camera);
+        if (ENG.drawDrops) ENG.drawDrops(ctx, images, drops, camera);
     }
 
     /** 主循环：rAF 优先，被挂起（嵌入式 webview/后台标签）时降级为 setInterval 驱动 */
@@ -1249,6 +1515,7 @@
     }
 
     function frame(now) {
+        fitView();
         tick(now);
         draw(now);
     }
@@ -1257,11 +1524,17 @@
 
     function onPointerDown(e) {
         e.preventDefault();
-        const cell = ENG.screenToCell(canvas, camera, e.clientX, e.clientY);
+        rememberAim(e);
+        const cell = hover || ENG.screenToCell(canvas, camera, e.clientX, e.clientY);
         const startKind = VW.getCell(world, cell.x, cell.y);
         const placeMode = e.button === 2;
         if (startKind === 'portal') {
             tryUsePortal();
+            pointer = null;
+            return;
+        }
+        if (e.button === 1) {
+            tryPickBlock(cell);
             pointer = null;
             return;
         }
@@ -1273,22 +1546,46 @@
         }
         pointer = {
             down: true, cellX: cell.x, cellY: cell.y, since: Date.now(),
-            placeMode: placeMode, startKind: startKind, placed: false
+            placeMode: placeMode, startKind: startKind, placed: false, attacked: false
         };
-        if (placeMode) tryPlace(cell);
-    }
-
-    function onPointerMove(e) {
-        const cell = ENG.screenToCell(canvas, camera, e.clientX, e.clientY);
-        hover = cell;
-        if (pointer && pointer.down) {
-            pointer.cellX = cell.x;
-            pointer.cellY = cell.y;
-            if (pointer.placeMode) tryPlace(cell);
+        const use = ENG.heldUse(heldKind());
+        const overEnemy = !placeMode ? enemyUnderPointer(e) : null;
+        if (!placeMode && (overEnemy || use === 'attack')) {
+            if (overEnemy) {
+                player.facing = (overEnemy.x + overEnemy.w / 2) < (player.x + player.w / 2) ? -1 : 1;
+            }
+            mineAct = null;
+            attack(overEnemy);
+            pointer.attacked = true;
+        } else if (placeMode) {
+            tryPlaceAtPointer(e, cell);
+            pointer.placed = true;
+        } else if (use === 'place' && startKind !== 'table') {
+            tryPlaceAtPointer(e, cell);
+            pointer.placed = true;
+            pointer.placeMode = true;
         }
     }
 
-    function onPointerUp() {
+    function onPointerMove(e) {
+        rememberAim(e);
+        const cell = hover || ENG.screenToCell(canvas, camera, e.clientX, e.clientY);
+        if (pointer && pointer.down) {
+            pointer.cellX = cell.x;
+            pointer.cellY = cell.y;
+            if (pointer.placeMode) tryPlaceAtPointer(e, cell);
+        }
+    }
+
+    function onPointerUp(e) {
+        if (e && (e.pointerType === 'touch' || e.pointerType === 'pen')) {
+            const now = Date.now();
+            const cell = ENG.screenToCell(canvas, camera, e.clientX, e.clientY);
+            if (now - lastTap.t < 320 && Math.abs(e.clientX - lastTap.x) < 28 && Math.abs(e.clientY - lastTap.y) < 28) {
+                tryPickBlock(cell);
+            }
+            lastTap = { t: now, x: e.clientX, y: e.clientY };
+        }
         pointer = null;
     }
 
@@ -1301,6 +1598,18 @@
         canvas.addEventListener('pointermove', onPointerMove);
         window.addEventListener('pointerup', onPointerUp);
         canvas.addEventListener('contextmenu', onContextMenu);
+        canvas.addEventListener('dblclick', function (e) {
+            e.preventDefault();
+            tryPickBlock(ENG.screenToCell(canvas, camera, e.clientX, e.clientY));
+        });
+        canvas.addEventListener('auxclick', function (e) {
+            if (e.button !== 1) return;
+            e.preventDefault();
+            tryPickBlock(ENG.screenToCell(canvas, camera, e.clientX, e.clientY));
+        });
+        canvas.addEventListener('mousedown', function (e) {
+            if (e.button === 1) e.preventDefault();
+        });
 
         document.addEventListener('keydown', function (e) {
             const k = e.key.length === 1 ? e.key.toLowerCase() : e.key.toLowerCase();
@@ -1344,6 +1653,7 @@
             if (e.target === e.currentTarget) toggleMap();
         });
         document.getElementById('bag-btn').addEventListener('click', toggleBag);
+        document.getElementById('skin-btn').addEventListener('click', toggleSkin);
         document.getElementById('bag-close-btn').addEventListener('click', toggleBag);
         document.getElementById('bag-tabs').addEventListener('click', function (e) {
             const btn = e.target.closest('[data-tab]');
@@ -1555,6 +1865,20 @@
         }).join('');
     }
 
+    function fitView() {
+        const view = document.querySelector('.vc-view');
+        if (!view || !canvas) return;
+        const cssW = Math.max(320, view.clientWidth | 0);
+        const cssH = Math.max(240, view.clientHeight | 0);
+        const size = ENG.viewSize(cssW, cssH);
+        if (canvas.width === size.w && canvas.height === size.h) return;
+        VIEW_W = size.w;
+        VIEW_H = size.h;
+        canvas.width = size.w;
+        canvas.height = size.h;
+        ctx.imageSmoothingEnabled = false;
+    }
+
     function boot() {
         window.__vcErr = '';
         window.onerror = function (msg) {
@@ -1570,12 +1894,15 @@
         loadProgress();
         setupSidebar();
         bind();
+        fitView();
+        window.addEventListener('resize', fitView);
         renderHotbar();
         renderMap();
         renderHud();
-        say('欢迎来到方块世界！先挖点草，铺一条小路吧。');
+        say('热键栏第一格是草。对着空地点一下，就能铺路。');
         ENG.loadAllImages().then(function (store) {
             images = store;
+            fitView();
             startLoop();
         });
         window.addEventListener('beforeunload', persist);

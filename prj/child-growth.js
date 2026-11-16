@@ -60,6 +60,7 @@
             awardedIds: [],
             claimedRewardIds: [],
             pendingRewardIds: [],
+            wishes: [],
             checkinDates: [],
             claimedStreakRewardIds: [],
             voiceEnabled: false,
@@ -68,7 +69,8 @@
             zombie: { active: false, defeated: 0, lastSpawnDate: '' },
             achievements: { unlocked: [], history: [], lastShown: '', seen: [] },
             pet: normalizePet(null),
-            streakRepair: { cardsUsedByMonth: {}, repairedDates: [] }
+            streakRepair: { cardsUsedByMonth: {}, repairedDates: [] },
+            voxelWorkshop: { homeDurability: 100, lastSettleDate: '', weaponId: 'none', armorId: 'none', ownedWeaponIds: ['none'], ownedArmorIds: ['none'], log: [] }
         };
     }
 
@@ -84,6 +86,24 @@
         return {
             cardsUsedByMonth: used,
             repairedDates: asArray(source.repairedDates).filter(item => /^\d{4}-\d{2}-\d{2}$/.test(String(item))).sort()
+        };
+    }
+
+    function normalizeVoxelWorkshop(input) {
+        const source = input && typeof input === 'object' ? input : {};
+        const clamp100 = (value) => Math.max(0, Math.min(100, Number(value) || 0));
+        const ids = (value, fallback) => {
+            const list = asArray(value).filter(item => typeof item === 'string' && item);
+            return list.length ? list : fallback.slice();
+        };
+        return {
+            homeDurability: clamp100(source.homeDurability == null ? 100 : source.homeDurability),
+            lastSettleDate: /^\d{4}-\d{2}-\d{2}$/.test(String(source.lastSettleDate || '')) ? String(source.lastSettleDate) : '',
+            weaponId: String(source.weaponId || 'none'),
+            armorId: String(source.armorId || 'none'),
+            ownedWeaponIds: ids(source.ownedWeaponIds, ['none']),
+            ownedArmorIds: ids(source.ownedArmorIds, ['none']),
+            log: asArray(source.log).filter(item => item && typeof item === 'object' && typeof item.t === 'string').slice(-24)
         };
     }
 
@@ -127,6 +147,7 @@
             awardedIds: asArray(source.awardedIds).filter(item => typeof item === 'string'),
             claimedRewardIds: asArray(source.claimedRewardIds).filter(item => typeof item === 'string'),
             pendingRewardIds: asArray(source.pendingRewardIds).filter(item => typeof item === 'string' && item),
+            wishes: normalizeWishes(source.wishes),
             checkinDates: asArray(source.checkinDates).filter(item => /^\d{4}-\d{2}-\d{2}$/.test(String(item))).sort(),
             claimedStreakRewardIds: asArray(source.claimedStreakRewardIds).filter(item => typeof item === 'string'),
             voiceEnabled: Boolean(source.voiceEnabled),
@@ -186,6 +207,7 @@
         growth.achievements = normalizeAchievements(source.achievements);
         growth.pet = normalizePet(source.pet);
         growth.streakRepair = normalizeStreakRepair(source.streakRepair);
+        growth.voxelWorkshop = normalizeVoxelWorkshop(source.voxelWorkshop);
         return growth;
     }
 
@@ -279,6 +301,7 @@
             unlockedStyleIds: growth.unicorn.unlockedStyleIds,
             claimedRewardIds: growth.claimedRewardIds,
             pendingRewardIds: growth.pendingRewardIds,
+            wishes: growth.wishes,
             plantStage: growth.plant.stage,
             plant: PLANT_STAGES[growth.plant.stage] || PLANT_STAGES[0],
             plantWaterCount: growth.plant.waterCount,
@@ -316,6 +339,39 @@
         const growth = normalize(input);
         if (!growth.unicorn.unlockedStyleIds.includes(styleId)) return { ok: false, growth: growth, reason: '造型还没有解锁' };
         growth.unicorn.activeStyleId = styleId;
+        return { ok: true, growth: growth };
+    }
+
+    function normalizeWishes(source) {
+        return asArray(source).filter(item => item && typeof item === 'object').map(item => ({
+            id: typeof item.id === 'string' && item.id ? item.id.slice(0, 48) : '',
+            title: typeof item.title === 'string' ? item.title.trim().slice(0, 24) : '',
+            cost: Math.max(1, Math.min(999, Math.round(Number(item.cost) || 0))),
+            createdAt: /^\d{4}-\d{2}-\d{2}$/.test(String(item.createdAt)) ? String(item.createdAt) : ''
+        })).filter(item => item.id && item.title).slice(0, 5);
+    }
+
+    function addWish(input, spec, date) {
+        const growth = normalize(input);
+        const title = String(spec && spec.title || '').trim();
+        const cost = Math.round(Number(spec && spec.cost) || 0);
+        if (!title) return { ok: false, growth: growth, reason: '先写下想换什么' };
+        if (title.length > 24) return { ok: false, growth: growth, reason: '心愿名最多 24 个字' };
+        if (!Number.isFinite(cost) || cost < 5 || cost > 999) return { ok: false, growth: growth, reason: '阳光价要在 5 到 999 之间' };
+        if (growth.wishes.some(item => item.title === title)) return { ok: false, growth: growth, reason: '这个心愿已经有了' };
+        if (growth.wishes.length >= 5) return { ok: false, growth: growth, reason: '心愿单满了，先删掉一个' };
+        const id = (typeof spec === 'object' && spec && typeof spec.id === 'string' && spec.id) || ('wish-' + Math.random().toString(36).slice(2, 10));
+        growth.wishes.push({ id: id.slice(0, 48), title: title.slice(0, 24), cost: cost, createdAt: localDate(date) });
+        return { ok: true, growth: growth, id: id };
+    }
+
+    function removeWish(input, wishId) {
+        const growth = normalize(input);
+        const id = String(wishId || '');
+        const before = growth.wishes.length;
+        growth.wishes = growth.wishes.filter(item => item.id !== id);
+        growth.pendingRewardIds = growth.pendingRewardIds.filter(item => item !== id);
+        if (growth.wishes.length === before) return { ok: false, growth: growth, reason: '没有这个心愿' };
         return { ok: true, growth: growth };
     }
 
@@ -363,6 +419,27 @@
         return { ok: true, growth: growth };
     }
 
+    function getNextRewardHint(rewards, growth) {
+        const list = Array.isArray(rewards) ? rewards.slice() : [];
+        const claimed = asArray(growth && growth.claimedRewardIds);
+        const pending = asArray(growth && growth.pendingRewardIds);
+        const sunlight = Math.max(0, Number(growth && growth.sunlight) || 0);
+        const unclaimed = list.filter(function (item) {
+            return item && item.id && claimed.indexOf(item.id) === -1;
+        }).sort(function (a, b) {
+            return (Number(a.cost) || 0) - (Number(b.cost) || 0);
+        });
+        const next = unclaimed[0] || null;
+        if (!next) {
+            return { next: null, remaining: 0, pending: false, status: 'done', sunlight: sunlight, cost: 0 };
+        }
+        const cost = Math.max(0, Number(next.cost) || 0);
+        const remaining = Math.max(0, cost - sunlight);
+        const isPending = pending.indexOf(next.id) !== -1;
+        const status = isPending ? 'pending' : (remaining > 0 ? 'short' : 'ready');
+        return { next: next, remaining: remaining, pending: isPending, status: status, sunlight: sunlight, cost: cost };
+    }
+
     function setVoiceEnabled(input, enabled) {
         const growth = normalize(input);
         growth.voiceEnabled = Boolean(enabled);
@@ -385,6 +462,9 @@
         requestPendingReward: requestPendingReward,
         confirmPendingReward: confirmPendingReward,
         cancelPendingReward: cancelPendingReward,
+        addWish: addWish,
+        removeWish: removeWish,
+        getNextRewardHint: getNextRewardHint,
         setVoiceEnabled: setVoiceEnabled,
         calculateStreak: calculateStreak
     };

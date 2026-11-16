@@ -80,6 +80,10 @@
         };
     }
 
+    const LEVEL_WELCOME = {
+        1: '先用方向键走到木门前。'
+    };
+
     const COMPANION_LINES = {
         welcome: [
             '先放几块草，把家门口铺平。',
@@ -104,6 +108,9 @@
     };
 
     function companionLine(kind, pick) {
+        if (kind === 'welcome' && LEVEL_WELCOME[levelId]) {
+            return LEVEL_WELCOME[levelId];
+        }
         const pool = COMPANION_LINES[kind] || COMPANION_LINES.quest || [];
         if (!pool.length) return '';
         const index = typeof pick === 'number' ? (Math.abs(Math.floor(pick)) % pool.length) : Math.floor(Math.random() * pool.length);
@@ -219,7 +226,10 @@
     canvas.width = VIEW_W;
     canvas.height = VIEW_H;
     ctx.imageSmoothingEnabled = false;
-    if (/embed=1/.test(location.search || '')) document.body.classList.add('mc-embed');
+    if (/embed=1/.test(location.search || '')) {
+        document.body.classList.add('mc-embed');
+        document.documentElement.classList.add('mc-embed');
+    }
     let progress = null;
     let world = null;
     let levelId = 1;
@@ -483,6 +493,7 @@
             ? ((lv.goal.label || lv.goal.type) + ' ' + lv.goal.count + ' + 出口')
             : '走到出口通关';
         toast((lv && lv.title ? lv.title : '第 ' + levelId + ' 关') + ' · 识字 ' + playMods.literacyKnown + ' · ' + playMods.label + '模式');
+        sayCompanion(companionLine('welcome'));
     }
 
     function loadProgress() {
@@ -742,6 +753,13 @@
         });
         const tip = document.getElementById('progress-tip');
         if (tip) tip.textContent = '通关 ' + (progress.clearedLevels || []).length + ' / ' + levelsApi.count;
+        const mapSay = document.getElementById('map-companion-say');
+        if (mapSay) {
+            const nextPlay = Math.max(1, Number(progress.unlockedLevel) || 1);
+            const line = LEVEL_WELCOME[nextPlay] || '';
+            mapSay.textContent = line;
+            mapSay.classList.toggle('is-on', !!line);
+        }
         refreshWallet();
     }
 

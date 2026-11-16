@@ -183,7 +183,7 @@ test('settings and math lessons read the selected practice band', () => {
     assert.match(config, /简单除法/);
     assert.match(html, /preschool-math-bank\.js\?v=20260817-math-kouuan-v1/);
     assert.match(html, /preschool-garden\.js\?v=20260817-math-kouuan-v1/);
-    assert.match(html, /app\.js\?v=20260819-v074/);
+    assert.match(html, /app\.js\?v=20260826-review-export/);
 });
 
 test('garden stores per-subject practice levels without grade labels or a new storage key', () => {

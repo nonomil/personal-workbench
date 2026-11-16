@@ -1,0 +1,472 @@
+/* 46 · Sidebar UX
+ * Reference direction: light workbench surface + independent navigation cards.
+ * The card language is shared, while each world keeps its own native art pack.
+ */
+
+body.variant-preschool .preschool-nav-art,
+body.variant-preschool .preschool-mobile-nav-art {
+    image-rendering: auto;
+}
+
+/* The full drawer uses the same visual grammar when opened from “更多”. */
+body.variant-preschool .sidebar {
+    --sidebar-ink: #294b65;
+    --sidebar-muted: #7690a0;
+    --sidebar-surface: #f3faff;
+    --sidebar-line: #d9e8ef;
+    background: linear-gradient(180deg, #e9f5ff 0%, #f7fbff 58%, #eef8f1 100%);
+    border-right: 1px solid var(--sidebar-line);
+    box-shadow: 10px 0 28px rgba(49, 94, 119, .12);
+}
+
+body.variant-preschool .sidebar-topline {
+    padding: 2px 4px 14px;
+    border-bottom: 1px solid rgba(123, 164, 185, .2);
+}
+
+body.variant-preschool .brand {
+    align-items: center;
+    color: var(--sidebar-ink);
+}
+
+body.variant-preschool .brand-mark {
+    width: 52px;
+    height: 52px;
+    flex-basis: 52px;
+    border: 2px solid rgba(255, 255, 255, .84);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, .72);
+    box-shadow: 0 5px 0 rgba(75, 125, 149, .15);
+}
+
+body.variant-preschool .brand-mark .preschool-nav-art {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+}
+
+body.variant-preschool .brand strong { color: #2d5a78; }
+body.variant-preschool .brand small,
+body.variant-preschool .sidebar-section-label,
+body.variant-preschool .sidebar-footnote { color: var(--sidebar-muted); }
+
+body.variant-preschool .sidebar-section-label {
+    margin: 16px 7px 8px;
+    letter-spacing: .08em;
+}
+
+body.variant-preschool .primary-nav {
+    grid-template-columns: 1fr;
+    gap: 8px;
+}
+
+body.variant-preschool .nav-item {
+    min-height: 54px;
+    grid-template-columns: 38px minmax(0, 1fr) auto;
+    gap: 9px;
+    padding: 7px 10px;
+    border: 2px solid transparent;
+    border-radius: 17px;
+    color: var(--sidebar-ink);
+    background: var(--nav-card-bg, rgba(255, 255, 255, .72));
+    box-shadow: 0 4px 0 var(--nav-card-shadow, rgba(74, 117, 137, .14));
+    text-align: left;
+}
+
+body.variant-preschool .nav-item::before { display: none; }
+
+body.variant-preschool .nav-item .preschool-nav-art {
+    display: block;
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    filter: drop-shadow(0 3px 2px rgba(36, 67, 90, .16));
+}
+
+body.variant-preschool .nav-item span {
+    color: inherit;
+    font-size: 13px;
+    font-weight: 900;
+}
+
+body.variant-preschool .nav-item kbd {
+    display: none;
+}
+
+body.variant-preschool .nav-item[data-page="overview"] { --nav-card-bg: #dceeff; --nav-card-border: #9fcae8; --nav-card-accent: #3e8fc4; }
+body.variant-preschool .nav-item[data-page="battle"] { --nav-card-bg: #ffe1d8; --nav-card-border: #efad99; --nav-card-accent: #db735c; }
+body.variant-preschool .nav-item[data-page="calendar"] { --nav-card-bg: #e7f4d9; --nav-card-border: #b8d890; --nav-card-accent: #6eaa55; }
+body.variant-preschool .nav-item[data-page="plans"] { --nav-card-bg: #fff0c9; --nav-card-border: #e5c56f; --nav-card-accent: #b8842d; }
+body.variant-preschool .nav-item[data-page="courses"] { --nav-card-bg: #e8e0fb; --nav-card-border: #c0adeb; --nav-card-accent: #7959b8; }
+body.variant-preschool .nav-item[data-page="growth"] { --nav-card-bg: #dff2e6; --nav-card-border: #9fd2b1; --nav-card-accent: #39875c; }
+body.variant-preschool .nav-item[data-page="mistakes"] { --nav-card-bg: #f5e0f1; --nav-card-border: #d8acd1; --nav-card-accent: #a45792; }
+body.variant-preschool .nav-item[data-page="rewards"] { --nav-card-bg: #fff0c2; --nav-card-border: #ebc45a; --nav-card-accent: #b77a22; }
+body.variant-preschool .nav-item[data-page="family"] { --nav-card-bg: #d9f0ed; --nav-card-border: #9bcfc9; --nav-card-accent: #3b8d85; }
+body.variant-preschool .nav-item[data-page="account"] { --nav-card-bg: #e7edf2; --nav-card-border: #b9cbd5; --nav-card-accent: #5d7584; }
+
+body.variant-preschool .nav-item:hover,
+body.variant-preschool .nav-item:focus-visible {
+    border-color: var(--nav-card-border, #a8c9d9);
+    color: var(--sidebar-ink);
+    background: #fff;
+    background: color-mix(in srgb, var(--nav-card-bg, #fff) 72%, #fff 28%);
+    outline: 3px solid rgba(168, 201, 217, .28);
+    outline: 3px solid color-mix(in srgb, var(--nav-card-border, #a8c9d9) 28%, transparent);
+    outline-offset: 2px;
+    transform: translateY(-1px);
+}
+
+body.variant-preschool .nav-item.is-active {
+    border-color: var(--nav-card-accent, #3e8fc4);
+    color: var(--sidebar-ink);
+    background: #fff;
+    box-shadow: 0 4px 0 var(--nav-card-accent, #3e8fc4), 0 8px 18px rgba(60, 109, 133, .12);
+}
+
+body.variant-preschool .sidebar-section-toggle {
+    min-height: 48px;
+    margin-top: 14px;
+    padding: 8px 10px;
+    border: 2px solid #c9b8e8;
+    border-radius: 16px;
+    color: #5e4b87;
+    background: #eee7ff;
+    box-shadow: 0 4px 0 rgba(117, 87, 157, .14);
+}
+
+body.variant-preschool .sidebar-section-toggle:hover,
+body.variant-preschool .sidebar-section-toggle:focus-visible {
+    border-color: #9d82d2;
+    outline: 3px solid rgba(157, 130, 210, .2);
+    outline-offset: 2px;
+}
+
+body.variant-preschool .sidebar-footer {
+    border-top-color: rgba(123, 164, 185, .22);
+}
+
+body.variant-preschool .mode-status strong { color: #347352; }
+body.variant-preschool .mode-status small { color: var(--sidebar-muted); }
+body.variant-preschool .tool-button {
+    border-color: #c8dce7;
+    color: #4d7288;
+    background: rgba(255, 255, 255, .68);
+    box-shadow: 0 3px 0 rgba(83, 128, 148, .12);
+}
+
+body.variant-preschool .tool-button:hover,
+body.variant-preschool .tool-button:focus-visible {
+    border-color: #83b2c9;
+    color: #2f617b;
+    background: #fff;
+}
+
+/* Android landscape: the shortcut rail becomes a real card wall. */
+@media (orientation: landscape) {
+    html.is-android-app body.variant-preschool {
+        --child-nav-width: clamp(194px, 17.5vw, 240px);
+        --preschool-app-rail: var(--child-nav-width);
+    }
+
+    html.is-android-app body.variant-preschool .main-content {
+        width: calc(100% - var(--child-nav-width) - env(safe-area-inset-left)) !important;
+        margin-left: calc(var(--child-nav-width) + env(safe-area-inset-left)) !important;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-mobile-nav {
+        position: fixed;
+        z-index: 60;
+        top: 0;
+        right: auto;
+        bottom: 0;
+        left: 0;
+        display: grid !important;
+        width: var(--child-nav-width);
+        min-width: 0;
+        min-height: 0;
+        height: 100vh;
+        height: 100dvh;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto repeat(5, minmax(44px, 1fr));
+        gap: 9px;
+        padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+        border: 0;
+        border-right: 1px solid #d5e5eb;
+        border-radius: 0;
+        background: linear-gradient(180deg, #f8fcff, #edf8f1);
+        box-shadow: 10px 0 28px rgba(54, 99, 120, .14);
+        overflow: hidden;
+    }
+
+    /* 44 used this pseudo-element for the old text-only header. The real DOM
+     * brand card below replaces it so the rail has one clear identity block. */
+    html.is-android-app body.variant-preschool .preschool-mobile-nav::before { display: none; }
+
+    html.is-android-app body.variant-preschool .preschool-mobile-nav::after {
+        position: absolute;
+        right: -52px;
+        bottom: -46px;
+        width: 164px;
+        height: 164px;
+        border: 18px solid rgba(112, 191, 145, .1);
+        border-radius: 50%;
+        content: "";
+        pointer-events: none;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-brand {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        min-width: 0;
+        min-height: 70px;
+        grid-template-columns: 52px minmax(0, 1fr);
+        align-items: center;
+        gap: 9px;
+        padding: 8px 10px;
+        border: 2px solid rgba(255, 255, 255, .9);
+        border-radius: 20px;
+        background: rgba(255, 255, 255, .74);
+        box-shadow: 0 5px 0 rgba(83, 128, 148, .13);
+    }
+
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-brand-mark {
+        display: grid;
+        width: 48px;
+        height: 48px;
+        place-items: center;
+        border-radius: 15px;
+        background: #fff;
+        box-shadow: inset 0 0 0 1px rgba(102, 151, 166, .16);
+    }
+
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-brand-mark .preschool-mobile-nav-art {
+        width: 42px;
+        height: 42px;
+        object-fit: contain;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-brand-copy {
+        min-width: 0;
+        color: #2f5c76;
+        line-height: 1.12;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-brand-copy strong,
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-brand-copy small {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-brand-copy strong {
+        font-size: clamp(14px, 1.45vw, 18px);
+        font-weight: 950;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-brand-copy small {
+        margin-top: 5px;
+        color: #7a98a7;
+        font-size: clamp(9px, 1vw, 12px);
+        font-weight: 850;
+        letter-spacing: .04em;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-item {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        min-width: 44px;
+        min-height: 44px;
+        grid-template-columns: 48px minmax(0, 1fr);
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+        border: 2px solid var(--nav-card-border, rgba(122, 164, 182, .34));
+        border-radius: 19px;
+        color: #2f5268;
+        background: var(--nav-card-bg, #fff);
+        box-shadow: 0 5px 0 var(--nav-card-shadow, rgba(75, 119, 139, .15)), 0 8px 16px rgba(64, 104, 122, .06);
+        font-size: clamp(12px, 1.25vw, 16px);
+        font-weight: 950;
+        line-height: 1.15;
+        text-align: left;
+        touch-action: manipulation;
+        transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease, background-color 140ms ease;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-item::after {
+        position: absolute;
+        top: 10px;
+        right: 11px;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--nav-card-accent, #5eae75);
+        content: "";
+        opacity: .72;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-item:nth-of-type(1) { --nav-card-bg: #dceeff; --nav-card-border: #9fcae8; --nav-card-accent: #3e8fc4; }
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-item:nth-of-type(2) { --nav-card-bg: #fff0c9; --nav-card-border: #e5c56f; --nav-card-accent: #b8842d; }
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-item:nth-of-type(3) { --nav-card-bg: #ffe1d8; --nav-card-border: #efad99; --nav-card-accent: #db735c; }
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-item:nth-of-type(4) { --nav-card-bg: #e8e0fb; --nav-card-border: #c0adeb; --nav-card-accent: #7959b8; }
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-item:nth-of-type(5) { --nav-card-bg: #dff2e6; --nav-card-border: #9fd2b1; --nav-card-accent: #39875c; }
+
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-item .preschool-mobile-nav-art {
+        display: block;
+        width: 44px;
+        height: 44px;
+        flex: 0 0 44px;
+        padding: 2px;
+        border: 1px solid rgba(255, 255, 255, .72);
+        border-radius: 14px;
+        object-fit: contain;
+        filter: drop-shadow(0 3px 2px rgba(36, 67, 90, .18));
+    }
+
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-item span {
+        display: block;
+        max-width: calc(100% - 10px);
+        overflow: hidden;
+        overflow-wrap: anywhere;
+        text-overflow: ellipsis;
+        white-space: normal;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-item:hover,
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-item:focus-visible {
+        border-color: var(--nav-card-accent, #4e9d6b);
+        outline: 3px solid rgba(78, 157, 107, .24);
+        outline: 3px solid color-mix(in srgb, var(--nav-card-accent, #4e9d6b) 24%, transparent);
+        outline-offset: 2px;
+        transform: translateY(-2px);
+    }
+
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-item:active {
+        box-shadow: 0 2px 0 var(--nav-card-shadow, rgba(75, 119, 139, .15));
+        transform: translateY(2px);
+    }
+
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-item.is-active {
+        border-color: var(--nav-card-accent, #3e8fc4);
+        color: #214e67;
+        background: #fff;
+        box-shadow: 0 5px 0 var(--nav-card-accent, #3e8fc4), 0 10px 20px rgba(64, 104, 122, .14);
+        transform: translateY(-1px);
+    }
+
+    html.is-android-app body.variant-preschool[data-preschool-theme="voxel-adventure"] .preschool-mobile-nav {
+        background: linear-gradient(180deg, #f0efff, #eef5ff);
+    }
+
+    html.is-android-app body.variant-preschool[data-preschool-theme="voxel-adventure"] .preschool-mobile-nav-item {
+        border-radius: 13px;
+        box-shadow: 0 4px 0 rgba(78, 77, 133, .18), 0 8px 16px rgba(70, 73, 119, .06);
+    }
+
+    html.is-android-app body.variant-preschool[data-preschool-theme="platform-quest"] .preschool-mobile-nav {
+        background: linear-gradient(180deg, #fff9ed, #edf7ff);
+    }
+
+    html.is-android-app body.variant-preschool[data-preschool-theme="platform-quest"] .preschool-mobile-nav-item {
+        border-radius: 15px;
+        box-shadow: 0 4px 0 rgba(137, 94, 44, .18), 0 8px 16px rgba(109, 94, 67, .06);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.variant-preschool .nav-item,
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-item {
+        transition: none;
+    }
+
+    body.variant-preschool .nav-item:hover,
+    body.variant-preschool .nav-item:focus-visible,
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-item:hover,
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-item:focus-visible,
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-item.is-active {
+        transform: none;
+    }
+}
+
+/* The older theme skin is intentionally high-specificity. Keep this final
+ * bridge adjacent to the new layer so the reference card wall wins without
+ * touching the three themes' asset or route contracts. */
+@media (min-width: 1025px) {
+    body.variant-preschool[data-preschool-theme] .sidebar {
+        background: linear-gradient(180deg, #e9f5ff 0%, #f7fbff 58%, #eef8f1 100%);
+        border-right: 1px solid #d9e8ef;
+        box-shadow: 10px 0 28px rgba(49, 94, 119, .12);
+    }
+
+    body.variant-preschool[data-preschool-theme] .brand strong { color: #2d5a78; }
+    body.variant-preschool[data-preschool-theme] .brand small,
+    body.variant-preschool[data-preschool-theme] .sidebar-section-label,
+    body.variant-preschool[data-preschool-theme] .sidebar-footnote,
+    body.variant-preschool[data-preschool-theme] .mode-status small { color: #7690a0; }
+
+    body.variant-preschool[data-preschool-theme] .brand-mark {
+        border: 2px solid rgba(255, 255, 255, .84);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, .72);
+        box-shadow: 0 5px 0 rgba(75, 125, 149, .15);
+    }
+
+    body.variant-preschool[data-preschool-theme] .primary-nav { grid-template-columns: 1fr; gap: 8px; }
+
+    body.variant-preschool[data-preschool-theme] .nav-item {
+        display: grid;
+        min-height: 54px;
+        grid-template-columns: 38px minmax(0, 1fr) auto;
+        gap: 9px;
+        padding: 7px 10px;
+        border: 2px solid transparent;
+        border-radius: 17px;
+        color: #294b65;
+        background: var(--nav-card-bg, rgba(255, 255, 255, .72));
+        box-shadow: 0 4px 0 var(--nav-card-shadow, rgba(74, 117, 137, .14));
+        text-align: left;
+    }
+
+    body.variant-preschool[data-preschool-theme] .nav-item::before { display: none; }
+    body.variant-preschool[data-preschool-theme] .nav-item kbd { display: none; }
+    body.variant-preschool[data-preschool-theme] .nav-item span { color: inherit; }
+
+    body.variant-preschool[data-preschool-theme] .nav-item:hover,
+    body.variant-preschool[data-preschool-theme] .nav-item:focus-visible {
+        border-color: var(--nav-card-border, #a8c9d9);
+        background: #fff;
+    background: color-mix(in srgb, var(--nav-card-bg, #fff) 72%, #fff 28%);
+        outline: 3px solid rgba(168, 201, 217, .28);
+    outline: 3px solid color-mix(in srgb, var(--nav-card-border, #a8c9d9) 28%, transparent);
+        outline-offset: 2px;
+        transform: translateY(-1px);
+    }
+
+    body.variant-preschool[data-preschool-theme] .nav-item.is-active {
+        border-color: var(--nav-card-accent, #3e8fc4);
+        color: #294b65;
+        background: #fff;
+        box-shadow: 0 4px 0 var(--nav-card-accent, #3e8fc4), 0 8px 18px rgba(60, 109, 133, .12);
+    }
+
+    body.variant-preschool[data-preschool-theme] .sidebar-section-toggle {
+        min-height: 48px;
+        border: 2px solid #c9b8e8;
+        border-radius: 16px;
+        color: #5e4b87;
+        background: #eee7ff;
+        box-shadow: 0 4px 0 rgba(117, 87, 157, .14);
+    }
+
+    body.variant-preschool[data-preschool-theme] .sidebar-footer { border-top-color: rgba(123, 164, 185, .22); }
+    body.variant-preschool[data-preschool-theme] .mode-status strong { color: #347352; }
+    body.variant-preschool[data-preschool-theme] .tool-button {
+        border-color: #c8dce7;
+        color: #4d7288;
+        background: rgba(255, 255, 255, .68);
+        box-shadow: 0 3px 0 rgba(83, 128, 148, .12);
+    }
+}

@@ -1,13 +1,18 @@
 /* Keep the workbench navigation persistent in landscape, while portrait phones use the menu toggle. */
 @media (min-aspect-ratio: 1 / 1) and (max-width: 860px) {
+    body.variant-preschool {
+        --preschool-landscape-sidebar: clamp(176px, 24vw, 208px);
+    }
     body.variant-preschool .sidebar {
-        width: 248px;
+        width: var(--preschool-landscape-sidebar);
+        overflow-x: hidden;
+        overflow-y: auto;
         transform: translateX(0) !important;
         transition: none;
     }
     body.variant-preschool .main-content {
-        width: calc(100% - 248px);
-        margin-left: 248px;
+        width: calc(100% - var(--preschool-landscape-sidebar));
+        margin-left: var(--preschool-landscape-sidebar);
     }
     body.variant-preschool .sidebar-scrim,
     body.variant-preschool .menu-toggle,

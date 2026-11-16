@@ -14,12 +14,25 @@
         return /^https?:/i.test(raw) ? '' : raw;
     }
 
+    function generatedAudioPath(source) {
+        const row = source && typeof source === 'object' ? source : {};
+        // The preschool base bank intentionally keeps media.audio sparse.  The
+        // build-time generator writes the same deterministic filename for the
+        // remaining base-597 words, so expose a runtime candidate without
+        // changing the source bank or Minecraft's separate audio namespace.
+        if (String(row.source || '') !== 'base-597') return '';
+        const text = String(row.text || '').trim().toLowerCase();
+        const filename = text.replace(/[^a-z0-9._-]+/g, '-').replace(/^-+|-+$/g, '');
+        return filename ? `assets/audio/vocab/${filename}.mp3` : '';
+    }
+
     function parseBank(raw) {
         return (Array.isArray(raw) ? raw : []).map(function (row) {
             const source = row && typeof row === 'object' ? row : {};
             const media = source.media && typeof source.media === 'object' ? source.media : {};
             const image = localMedia(media.image || source.image);
             const audio = localMedia(media.audio || source.audio);
+            const audioPath = audio || generatedAudioPath(source);
             const art = String(media.art || source.art || '').trim();
             return {
                 id: String(source.id || ''),
@@ -32,6 +45,7 @@
                 level: String(source.level || 'L1').trim() || 'L1',
                 image: image,
                 audio: audio,
+                audioPath: audioPath,
                 art: art,
                 media: { image: image, art: art, audio: audio },
                 source: source.source,
@@ -269,6 +283,28 @@
             done: items.length === 0,
             empty: false
         };
+    }
+
+    function selectTodaySentences(batch, limit) {
+        const cap = limit == null || limit === '' ? 2 : Math.max(0, Math.round(Number(limit)));
+        const list = Array.isArray(batch) ? batch : [];
+        const seen = {};
+        const out = [];
+        list.forEach(function (item) {
+            if (out.length >= cap) return;
+            const phrase = String(item && item.phrase || '').trim();
+            const phraseZh = String(item && item.phraseZh || '').trim();
+            const key = phrase.toLowerCase();
+            if (!phrase || seen[key]) return;
+            seen[key] = true;
+            out.push({
+                text: String(item && item.text || '').trim(),
+                zh: String(item && item.zh || '').trim(),
+                phrase: phrase,
+                phraseZh: phraseZh
+            });
+        });
+        return out;
     }
 
     function resolvePlanVersion(item) {
@@ -535,7 +571,7 @@
             word: String(target.text || ''),
             zh: String(target.zh || ''),
             image: itemImage(target),
-            audio: String((target.media && target.media.audio) || target.audio || ''),
+                audio: String((target.media && target.media.audio) || target.audio || target.audioPath || ''),
             options: options,
             answerIndex: answerIndex
         };
@@ -818,6 +854,49 @@
         return data && data.reviewRules ? data.reviewRules : { reviewIntervalsDays: DEFAULT_INTERVALS };
     }
 
+    function escapePrint(value) {
+        return String(value == null ? '' : value)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+    }
+
+    function renderEnglishPrintSheet(payload) {
+        const source = payload && typeof payload === 'object' ? payload : {};
+        const batch = (Array.isArray(source.batch) ? source.batch : []).slice(0, 3);
+        const mistakes = (Array.isArray(source.mistakes) ? source.mistakes : []).slice(0, 6);
+        const date = escapePrint(source.date);
+        const dictationRows = batch.slice();
+        while (dictationRows.length < 6) dictationRows.push(null);
+        const reciteItems = batch.map(function (item, index) {
+            const word = escapePrint(item.text);
+            const zh = escapePrint(item.zh);
+            const phrase = escapePrint(item.phrase || '');
+            const phraseZh = escapePrint(item.phraseZh || '');
+            return '<li><b>' + (index + 1) + '. ' + word + '</b><span>' + zh + '</span>' + (phrase ? '<em>' + phrase + (phraseZh ? ' · ' + phraseZh : '') + '</em>' : '') + '</li>';
+        }).join('');
+        const enToZhRows = dictationRows.map(function (item) {
+            return '<div class="english-print-row"><b>' + (item ? escapePrint(item.text) : '') + '</b><span class="english-print-blank" aria-hidden="true"></span></div>';
+        }).join('');
+        const zhToEnRows = dictationRows.map(function (item) {
+            return '<div class="english-print-row"><b>' + (item ? escapePrint(item.zh) : '') + '</b><span class="english-print-blank" aria-hidden="true"></span></div>';
+        }).join('');
+        const mistakeRows = mistakes.length
+            ? mistakes.map(function (card) {
+                return '<div class="english-print-row is-mistake"><b>' + escapePrint(card.word) + '</b><small>' + escapePrint(card.label || '') + '</small><span class="english-print-blank" aria-hidden="true"></span></div>';
+            }).join('')
+            : '<p class="english-print-empty">今天还没有错词，把上面的词各抄写一遍。</p><div class="english-print-row"><b></b><span class="english-print-blank" aria-hidden="true"></span></div>';
+        return '<section class="english-print-sheet">'
+            + '<header class="english-print-head"><strong>英语默写纸</strong><span>日期 ' + date + '</span><span class="english-print-meta">姓名 ________ · 得分 ______ · 用时 ______ 分</span></header>'
+            + '<div class="english-print-section"><h3>一、先读三遍（词 · 意思 · 例句）</h3><ol class="english-print-recite">' + reciteItems + '</ol></div>'
+            + '<div class="english-print-section"><h3>二、英译汉（看英文，写意思）</h3>' + enToZhRows + '</div>'
+            + '<div class="english-print-section"><h3>三、汉译英（看意思，写英文）</h3>' + zhToEnRows + '</div>'
+            + '<div class="english-print-section"><h3>四、错词订正</h3>' + mistakeRows + '</div>'
+            + '<footer class="english-print-foot">自评（圈一个）：很好 · 还行 · 要再练 &nbsp;&nbsp; 家长签字 ____________</footer>'
+            + '</section>';
+    }
+
     global.PersonalWorkbenchPreschoolEnglishVocab = {
         parseBank: parseBank,
         createDefaultProgress: createDefaultProgress,
@@ -832,12 +911,14 @@
         isDue: isDue,
         isOverdue: isOverdue,
         selectTodayTasks: selectTodayTasks,
+        selectTodaySentences: selectTodaySentences,
         INTERVALS_BY_VERSION: INTERVALS_BY_VERSION,
         cloneProgress: cloneProgress,
         buildQuizQuestions: buildQuizQuestions,
         recordQuizAnswer: recordQuizAnswer,
         quizErrorType: quizErrorType,
         englishMistakeCards: englishMistakeCards,
+        renderEnglishPrintSheet: renderEnglishPrintSheet,
         buildEnglishWrongbookDrill: buildEnglishWrongbookDrill,
         applyEnglishWrongbookResult: applyEnglishWrongbookResult,
         summarizeEnglishArchive: summarizeEnglishArchive,

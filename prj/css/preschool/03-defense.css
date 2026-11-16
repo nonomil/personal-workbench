@@ -82,6 +82,7 @@ body.variant-preschool .pixel-feedback-copy p { max-width: 360px; margin: 7px 0 
 body.variant-preschool .pixel-feedback-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
 body.variant-preschool .pixel-feedback-option { position: relative; display: grid; min-width: 0; min-height: 92px; align-content: center; gap: 2px; padding: 10px 10px 10px 42px; border: 3px solid #c49c5c; color: var(--pixel-ink); background: var(--pixel-paper-light); box-shadow: 3px 3px 0 rgba(112, 65, 40, .22); cursor: pointer; }
 body.variant-preschool .pixel-feedback-option:has(input:checked),
+body.variant-preschool .pixel-feedback-option.is-checked,
 body.variant-preschool .pixel-feedback-option.is-active { border-color: #4f7d34; background: #edf0b8; }
 body.variant-preschool .math-band-settings .math-band-group { display: grid; gap: 8px; margin-top: 12px; }
 body.variant-preschool .math-band-settings .math-band-group h3 { margin: 0; font-size: 0.85rem; color: #5c7350; }
@@ -172,3 +173,28 @@ body.variant-preschool .preschool-world-launch {
 body.variant-preschool .preschool-world-launch h2 { margin: 0; font-size: 28px; }
 body.variant-preschool .preschool-world-launch p { margin: 0; color: #5f6f55; }
 body.variant-preschool .preschool-world-launch .workbench-action-button { justify-self: start; }
+
+body.variant-preschool .preschool-world-launch-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+body.variant-preschool .preschool-world-launch-actions .workbench-action-button {
+    width: 100%;
+    min-height: 48px;
+    justify-self: stretch;
+}
+
+body.variant-preschool .preschool-world-launch-actions .is-learning-defense {
+    color: #3b4525;
+    border-color: #c89025;
+    background: linear-gradient(180deg, #ffe987, #f6bf3c);
+    box-shadow: 0 4px 0 #9d6d24;
+}
+
+@media (max-width: 560px) {
+    body.variant-preschool .preschool-world-launch-actions {
+        grid-template-columns: 1fr;
+    }
+}

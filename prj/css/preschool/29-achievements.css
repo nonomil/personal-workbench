@@ -483,3 +483,54 @@ body.variant-preschool .preschool-confetti-piece {
     0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
     100% { transform: translateY(400px) rotate(720deg); opacity: 0; }
 }
+
+body.variant-preschool .preschool-rank-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 121;
+    display: grid;
+    place-items: center;
+    background: rgba(17, 24, 19, .46);
+}
+
+body.variant-preschool .preschool-rank-dialog {
+    display: grid;
+    justify-items: center;
+    gap: 8px;
+    min-width: 240px;
+    max-width: 88%;
+    padding: 28px 24px 22px;
+    border-radius: 28px;
+    color: #1f3b26;
+    text-align: center;
+    background: #fffdf8;
+}
+
+body.variant-preschool .preschool-rank-kicker {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .12em;
+    color: #c77800;
+}
+
+body.variant-preschool .preschool-rank-dialog strong {
+    font-size: 28px;
+}
+
+body.variant-preschool .preschool-rank-dialog small {
+    color: #5f7158;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+body.variant-preschool .preschool-rank-dialog button {
+    margin-top: 8px;
+    min-height: 44px;
+    padding: 10px 18px;
+    border: 0;
+    border-radius: 999px;
+    color: #fff;
+    background: #2f8a45;
+    font-size: 16px;
+    cursor: pointer;
+}

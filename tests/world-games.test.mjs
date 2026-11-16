@@ -431,6 +431,23 @@ test('voxel quest settlement, companion HUD and rank-up card are wired', () => {
   assert.match(css, /\.celebrate-layer/);
 });
 
+test('voxel level 1 companion tells the child to walk to the wooden door', () => {
+  const src = voxelSrc().replace(/\r\n/g, '\n');
+  const html = fs.readFileSync(path.join(root, 'games', 'voxel-adventure', 'index.html'), 'utf8');
+  assert.match(html, /id="map-companion-say"/);
+  assert.match(src, /LEVEL_WELCOME/);
+  assert.match(src, /先用方向键走到木门前/);
+  const enter = src.match(/function enterLevel\([\s\S]*?\n    \}\n/);
+  assert.ok(enter, 'enterLevel missing');
+  assert.match(enter[0], /sayCompanion\(companionLine\('welcome'\)\)/);
+  const welcomeMap = src.match(/const LEVEL_WELCOME = \{[\s\S]*?\n    \};\n/);
+  const lineFn = src.match(/function companionLine\([\s\S]*?\n    \}\n/);
+  assert.ok(welcomeMap && lineFn, 'LEVEL_WELCOME or companionLine missing');
+  const box = { levelId: 1 };
+  vm.runInNewContext(welcomeMap[0] + lineFn[0] + '\nthis.companionLine = companionLine;', box);
+  assert.equal(box.companionLine('welcome'), '先用方向键走到木门前。');
+});
+
 test.skip('voxel buildQuestSummary shows gain, adventure progress and nearer next goal', () => {
   const src = voxelSrc();
   const nearestMatch = src.match(/function nearestVoxelGoal\([\s\S]*?\n    \}\n/);
@@ -762,9 +779,29 @@ test('blocklegend records play, keeps triple-day as >=3 worlds, and appears in w
 
   const row = play.getWeeklyReport('2026-08-15').worlds.find((w) => w.id === 'blocklegend');
   assert.ok(row);
-  assert.equal(row.label, '方块传奇');
+  assert.equal(row.label, '我的方块学园');
   assert.equal(row.unit, '关');
   assert.equal(row.total, 12);
+});
+
+test('recording a play session preserves the play stamp and sunlight in one state', () => {
+  const bridge = loadBridge();
+  const before = bridge.readState();
+  const beforeSunlight = before.growth.sunlight;
+  const beforeEarned = before.growth.totalSunlightEarned;
+  const first = bridge.recordPlaySession('garden-defense', { date: '2026-08-24' });
+  const state = bridge.readState();
+
+  assert.equal(first.ok, true);
+  assert.equal(state.growth.worldGames.meta.playByDay['2026-08-24']['garden-defense'], true);
+  assert.equal(state.growth.sunlight, beforeSunlight + 3);
+  assert.equal(state.growth.totalSunlightEarned, beforeEarned + 3);
+  assert.equal(state.growth.awardedIds.includes('game:meta:daily-play:2026-08-24:garden-defense'), true);
+
+  bridge.recordPlaySession('garden-defense', { date: '2026-08-24' });
+  const duplicate = bridge.readState();
+  assert.equal(duplicate.growth.sunlight, beforeSunlight + 3);
+  assert.equal(duplicate.growth.totalSunlightEarned, beforeEarned + 3);
 });
 
 test('garden play pass gives two free runs then asks for learning or sunlight', () => {
@@ -851,4 +888,18 @@ test('platform and voxel play passes stay per world; voxel is one timed segment'
   assert.match(app, /今日还可挖/);
   assert.match(app, /grantPlayPass\('platform-quest'/);
   assert.match(app, /grantPlayPass\('voxel-adventure'/);
+});
+
+test('short phone landscape compactifies stage-select grids in all three world games', () => {
+  ['garden-defense', 'platform-quest', 'voxel-adventure'].forEach((game) => {
+    const css = fs.readFileSync(path.join(root, 'games', game, 'game.css'), 'utf8');
+    assert.match(
+      css,
+      /@media\s*\(orientation:\s*landscape\)\s*and\s*\(max-height:\s*480px\)/,
+      game + ' needs a short-landscape stage map query'
+    );
+    const block = css.split(/@media\s*\(orientation:\s*landscape\)\s*and\s*\(max-height:\s*480px\)/)[1] || '';
+    assert.match(block, /repeat\(\s*auto-fill\s*,\s*minmax\(\s*88px/, game + ' stage-map columns');
+    assert.match(block, /\.stage-thumb\s*\{[\s\S]*?width:\s*52px/, game + ' stage thumbs');
+  });
 });

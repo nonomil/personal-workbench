@@ -1,0 +1,142 @@
+/* 51 · Learning scene v1 skin
+ *
+ * This is a desktop-only visual layer for the existing literacy card wall.
+ * It reuses the inherited garden background and the companion rail from 50;
+ * it does not create a second learning runtime or a second animation system.
+ */
+
+@media (min-width: 1024px) {
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 {
+        position: relative;
+        isolation: isolate;
+        display: grid;
+        grid-template-rows: auto auto minmax(0, 1fr) auto;
+        gap: 10px;
+        height: calc(100vh - 154px);
+        height: calc(100dvh - 154px);
+        max-height: calc(100vh - 154px);
+        max-height: calc(100dvh - 154px);
+        min-height: 0;
+        padding: 12px 16px 10px;
+        border: 1px solid rgba(255, 255, 255, .62);
+        border-radius: 28px;
+        background:
+            linear-gradient(180deg, rgba(255, 251, 239, .3), rgba(236, 249, 225, .52)),
+            var(--child-scene-image) center / cover no-repeat;
+        box-shadow: 0 14px 30px rgba(36, 67, 90, .13), inset 0 0 0 1px rgba(36, 67, 90, .08);
+        overflow: hidden;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1::before {
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        background:
+            radial-gradient(420px 220px at 14% 86%, rgba(255, 255, 255, .2), transparent 72%),
+            linear-gradient(180deg, transparent 45%, rgba(34, 91, 58, .14));
+        content: "";
+        pointer-events: none;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 > .preschool-literacy-wall-head {
+        position: relative;
+        z-index: 1;
+        min-height: 42px;
+        padding: 3px 8px;
+        border: 1px solid rgba(255, 255, 255, .58);
+        border-radius: 16px;
+        background: rgba(255, 251, 239, .68);
+        box-shadow: 0 4px 12px rgba(36, 67, 90, .08);
+        backdrop-filter: blur(8px);
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 > .preschool-flashcard-levels {
+        position: relative;
+        z-index: 1;
+        min-height: 40px;
+        padding: 0 4px;
+        border-radius: 14px;
+        background: rgba(255, 251, 239, .34);
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-literacy-study-grid {
+        position: relative;
+        z-index: 1;
+        grid-template-columns: minmax(0, 1.42fr) minmax(260px, .78fr);
+        gap: 10px;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-literacy-handwriting {
+        min-height: 0;
+        grid-template-rows: auto minmax(0, 1fr) auto;
+        padding: 12px;
+        border-color: rgba(255, 255, 255, .7);
+        background:
+            linear-gradient(145deg, rgba(255, 254, 248, .9), rgba(242, 250, 239, .78)),
+            rgba(255, 255, 255, .7);
+        box-shadow: 0 7px 0 rgba(36, 67, 90, .08), 0 14px 24px rgba(36, 67, 90, .1);
+        backdrop-filter: blur(7px);
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-literacy-writing-character {
+        border-color: rgba(244, 182, 62, .42);
+        background: linear-gradient(180deg, rgba(255, 250, 221, .92), rgba(255, 244, 198, .78));
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-literacy-writing-surface {
+        min-height: 190px;
+        border-color: rgba(184, 132, 106, .62);
+        background-color: rgba(255, 255, 255, .92);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .8), 0 8px 18px rgba(74, 96, 68, .08);
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-literacy-card-queue {
+        min-height: 0;
+        padding: 10px;
+        border-color: rgba(255, 255, 255, .64);
+        background: linear-gradient(145deg, rgba(255, 254, 248, .82), rgba(255, 247, 216, .68));
+        box-shadow: 0 7px 0 rgba(36, 67, 90, .07), 0 14px 24px rgba(36, 67, 90, .09);
+        backdrop-filter: blur(7px);
+        overflow: hidden;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-literacy-card-queue .preschool-literacy-card-wall {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-auto-rows: minmax(104px, 1fr);
+        gap: 7px;
+        padding: 0 1px 3px 0;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-literacy-card-queue .preschool-literacy-wall-card {
+        min-height: 104px;
+        grid-template-rows: minmax(42px, 1fr) minmax(25px, auto) 44px;
+        gap: 3px;
+        padding: 5px;
+        border-color: rgba(255, 255, 255, .62);
+        border-radius: 15px;
+        background: rgba(255, 253, 246, .84);
+        box-shadow: 0 4px 0 rgba(36, 67, 90, .07), 0 8px 14px rgba(36, 67, 90, .06);
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-learning-companion-rail {
+        position: relative;
+        z-index: 1;
+        min-height: 76px;
+        margin: 0 4%;
+        border-color: rgba(255, 255, 255, .68);
+        background: linear-gradient(105deg, rgba(255, 251, 239, .78), rgba(238, 250, 255, .68));
+        box-shadow: 0 5px 0 rgba(36, 67, 90, .06), 0 10px 18px rgba(36, 67, 90, .08);
+        backdrop-filter: blur(7px);
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-learning-companion {
+        background: rgba(255, 255, 255, .58);
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-learning-companion:hover,
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-learning-companion:focus-visible {
+        background: rgba(255, 255, 255, .88);
+    }
+}

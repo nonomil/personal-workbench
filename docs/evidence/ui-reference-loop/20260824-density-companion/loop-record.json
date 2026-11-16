@@ -1,0 +1,77 @@
+{
+  "target": {
+    "route": "#overview",
+    "outcome": "把三主题首页从大方块堆叠收敛为场景画布、紧凑任务卡墙和底部伙伴陪伴带",
+    "reference": [
+      "G:/UserCode/跨平台采集器/notes/工具/我用 AI Codex 复刻视觉稿翻车后，imgGen + Loop 循环工程精准复刻了 UI.md",
+      "G:/UserCode/跨平台采集器/notes/游戏化学习工作台/✨给3岁女儿手搓布鲁伊主题AI学习工作台1.0/✨给3岁女儿手搓布鲁伊主题AI学习工作台1.0.md",
+      "codex-clipboard-251ddebd-ffec-48d3-9465-eb54faea55ae.png",
+      "codex-clipboard-a896ebf6-9228-4621-8f8e-26da66a4b027.png",
+      "codex-clipboard-a73ef125-831f-4373-8ca7-4bc311fcf5d6.png"
+    ]
+  },
+  "viewports": [
+    { "name": "desktop", "width": 1280, "height": 720 },
+    { "name": "android-landscape", "width": 800, "height": 360 },
+    { "name": "android-landscape-tall", "width": 915, "height": 412 },
+    { "name": "android-mumu", "width": 1463, "height": 616 }
+  ],
+  "themes": [
+    {
+      "id": "garden-defense",
+      "screenshot": "iteration-01-garden-home.png",
+      "companions": ["向日葵", "豌豆伙伴", "坚果守护"],
+      "assetsLoaded": true,
+      "documentBounds": { "width": 1280, "height": 720 }
+    },
+    {
+      "id": "voxel-adventure",
+      "screenshot": "iteration-01-voxel-adventure-home.png",
+      "companions": ["小晶体", "方块树", "紫晶体"],
+      "assetsLoaded": true,
+      "documentBounds": { "width": 1280, "height": 720 }
+    },
+    {
+      "id": "platform-quest",
+      "screenshot": "iteration-01-platform-quest-home.png",
+      "companions": ["小探险家", "金币", "终点旗"],
+      "assetsLoaded": true,
+      "documentBounds": { "width": 1280, "height": 720 }
+    }
+  ],
+  "layoutAssertions": {
+    "desktopTaskCardHeight": "58px",
+    "companionRail": { "top": 618, "bottom": 668, "height": 50 },
+    "exitButtons": { "top": 677, "bottom": 711, "height": 34 },
+    "androidCompanionRailDisplay": "none",
+    "androidNativeOverflow": 0
+  },
+  "validation": {
+    "focusedTests": "node --test tests/preschool-density-companion.test.mjs tests/preschool-home-visual-loop.test.mjs tests/workbench-contract.test.mjs",
+    "focusedTestsResult": "18 passed",
+    "androidDiagnostic": "passed",
+    "releaseVerify": "passed"
+  },
+  "iterations": [
+    {
+      "number": 0,
+      "screenshots": [
+        "iteration-00-garden-home.png",
+        "iteration-00-voxel-adventure-home.png",
+        "iteration-00-platform-quest-home.png"
+      ],
+      "top3": ["3×3 任务墙占据场景", "卡片高度和不透明度过高", "缺少底部伙伴陪伴"],
+      "result": "baseline"
+    },
+    {
+      "number": 1,
+      "screenshots": [
+        "iteration-01-garden-home.png",
+        "iteration-01-voxel-adventure-home.png",
+        "iteration-01-platform-quest-home.png"
+      ],
+      "top3": ["任务卡压缩为紧凑卡带", "场景留白与层级恢复", "三主题底部伙伴带可见且不遮挡出口"],
+      "result": "accepted after desktop, Android, focused-test and release verification"
+    }
+  ]
+}

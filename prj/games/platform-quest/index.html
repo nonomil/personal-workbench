@@ -6,9 +6,9 @@
     <meta name="theme-color" content="#e54139">
     <title>横版闯关 · 成长关卡</title>
     <link rel="stylesheet" href="../shared/growth-hud.css">
-    <link rel="stylesheet" href="./game.css?v=20260816-pass-v2">
+    <link rel="stylesheet" href="./game.css?v=20260827-stage-compact-v1">
 </head>
-<body data-world-game="platform-quest">
+<body data-world-game="platform-quest" data-learning-mode="optional">
     <header class="world-bar">
         <div class="world-bar-copy">
             <span class="kicker">闯关</span>
@@ -16,6 +16,7 @@
             <p>跑、跳、吃金币、冲旗。</p>
         </div>
         <div class="growth-hud" id="wallet-hud"></div>
+        <div class="learning-mode-hud" id="learning-mode-hud" aria-label="学习卡进度"><span>学习</span><i><em id="learning-mode-progress"></em></i><b id="learning-mode-count">0/10</b></div>
         <div class="world-bar-actions">
             <button type="button" class="mod-badge" id="mod-badge" title="多认字可以解锁更快的怪和更多阳光">难度 · 统一</button>
             <button type="button" class="world-tool" id="map-btn">关卡</button>
@@ -94,7 +95,22 @@
             </div>
         </div>
     </div>
-    <script src="../shared/workbench-bridge.js?v=20260816-pass-v2"></script>
+    <div class="learning-card-layer is-hidden" id="learning-card-layer" data-learning-mode="overlay" role="dialog" aria-modal="true" aria-labelledby="learning-card-prompt">
+        <article class="learning-card">
+            <div class="learning-card-head"><span id="learning-track-label">学习卡</span><button type="button" id="learning-speak-button" class="learning-speak" aria-label="听音">🔊 再听一次</button></div>
+            <strong id="learning-card-symbol"></strong>
+            <h2 id="learning-card-prompt">选择正确的图片</h2>
+            <div class="learning-answer-grid" id="learning-answer-grid"></div>
+            <p id="learning-card-feedback" role="status"></p>
+            <button type="button" id="learning-correction-button" class="learning-correction is-hidden">我记住了，继续闯关</button>
+        </article>
+    </div>
+    <script src="../shared/workbench-memory.js?v=20260825-memory-v1"></script>
+    <script src="../shared/workbench-bridge.js?v=20260824-learning-game-p0"></script>
+    <script src="../../preschool-speech.js"></script>
+    <script src="../platform-learning/core/learning-adapter.js"></script>
+    <script src="../learning-defense/data/cards.js"></script>
+    <script src="../shared/learning-card-overlay.js"></script>
     <script src="../shared/game-sfx.js?v=20260815-sfx-v1"></script>
     <script src="../shared/pixel-tiles.js?v=20260816-shared-v1"></script>
     <script src="./pixel-decor.js?v=20260815-polish-v1"></script>

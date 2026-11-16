@@ -152,16 +152,20 @@
         return Math.max(1, Number(enemy.damage) || 1);
     }
 
-    function attackEnemy(enemy, player, amount) {
+    function attackEnemy(enemy, player, amount, opts) {
         if (!enemy || enemy.remove || !player) return { ok: false, defeated: false, damage: 0 };
         const facing = player.facing < 0 ? -1 : 1;
         const reach = {
-            x: facing < 0 ? player.x - TILE : player.x + player.w,
-            y: player.y + 8,
-            w: TILE,
-            h: Math.max(18, player.h - 16)
+            x: facing < 0 ? player.x - TILE * 2 : player.x + player.w,
+            y: player.y,
+            w: TILE * 2,
+            h: Math.max(player.h || 0, 54) + TILE * 0.5
         };
-        if (!rectsOverlap(reach, enemy)) return { ok: false, defeated: false, damage: 0 };
+        const melee = rectsOverlap(reach, enemy);
+        const cx = Math.floor((enemy.x + (enemy.w || 0) / 2) / TILE);
+        const cy = Math.floor((enemy.y + (enemy.h || 0) / 2) / TILE);
+        const aimed = opts && opts.aimed && inReach(player, cx, cy);
+        if (!melee && !aimed) return { ok: false, defeated: false, damage: 0 };
         const damage = Math.max(1, Number(amount) || 1);
         enemy.hp = Math.max(0, (Number(enemy.hp) || 0) - damage);
         enemy.hitFlashUntil = Date.now() + 140;
@@ -227,12 +231,79 @@
     }
 
     function screenToCell(canvas, camera, clientX, clientY) {
+        const hit = screenToHit(canvas, camera, clientX, clientY);
+        return { x: hit.x, y: hit.y };
+    }
+
+    function screenToHit(canvas, camera, clientX, clientY) {
         const rect = canvas.getBoundingClientRect();
         const scaleX = canvas.width / rect.width;
         const scaleY = canvas.height / rect.height;
-        const x = Math.floor(((clientX - rect.left) * scaleX + camera.x) / TILE);
-        const y = Math.floor(((clientY - rect.top) * scaleY + camera.y) / TILE);
-        return { x: x, y: y };
+        const wx = (clientX - rect.left) * scaleX + camera.x;
+        const wy = (clientY - rect.top) * scaleY + camera.y;
+        const x = Math.floor(wx / TILE);
+        const y = Math.floor(wy / TILE);
+        return { x: x, y: y, lx: wx - x * TILE, ly: wy - y * TILE };
+    }
+
+    /** 点到实心格的哪条边最近，就在那一侧的空气格放置 */
+    function faceAirCell(cell, lx, ly, kindAt, blockedAt) {
+        if (!cell || typeof kindAt !== 'function') return null;
+        const faces = [
+            { x: cell.x, y: cell.y - 1, d: Number(ly) },
+            { x: cell.x, y: cell.y + 1, d: TILE - Number(ly) },
+            { x: cell.x - 1, y: cell.y, d: Number(lx) },
+            { x: cell.x + 1, y: cell.y, d: TILE - Number(lx) }
+        ];
+        faces.sort(function (a, b) { return a.d - b.d; });
+        const diags = Number(lx) >= TILE / 2
+            ? [{ x: cell.x + 1, y: cell.y - 1 }, { x: cell.x - 1, y: cell.y - 1 }]
+            : [{ x: cell.x - 1, y: cell.y - 1 }, { x: cell.x + 1, y: cell.y - 1 }];
+        const spots = faces.concat(diags);
+        for (let i = 0; i < spots.length; i += 1) {
+            if (kindAt(spots[i].x, spots[i].y) !== 'air') continue;
+            if (blockedAt && blockedAt(spots[i].x, spots[i].y)) continue;
+            return { x: spots[i].x, y: spots[i].y };
+        }
+        return null;
+    }
+
+    function placeTarget(hit, kindAt, blockedAt) {
+        if (!hit || typeof kindAt !== 'function') return null;
+        if (kindAt(hit.x, hit.y) === 'air' && !(blockedAt && blockedAt(hit.x, hit.y))) {
+            return { x: hit.x, y: hit.y };
+        }
+        return faceAirCell(hit, hit.lx, hit.ly, kindAt, blockedAt);
+    }
+
+    /** 脚边朝向那一格：站着点地时沿地面往前铺，不往身上叠 */
+    function footPlaceCell(player, kindAt, blockedAt) {
+        if (!player || typeof kindAt !== 'function') return null;
+        const facing = player.facing < 0 ? -1 : 1;
+        const baseCol = Math.floor((player.x + player.w / 2) / TILE);
+        const footRow = Math.floor((player.y + player.h - 1) / TILE);
+        let ground = footRow + 1;
+        for (let g = footRow; g <= footRow + 6; g += 1) {
+            const kind = kindAt(baseCol, g);
+            if (kind !== 'air' && kind !== 'water') {
+                ground = g;
+                break;
+            }
+        }
+        const cols = [];
+        for (let dist = 1; dist <= 8; dist += 1) cols.push(baseCol + facing * dist);
+        cols.push(baseCol - facing);
+        const row = ground - 1;
+        for (let c = 0; c < cols.length; c += 1) {
+            const col = cols[c];
+            if (kindAt(col, row) !== 'air') continue;
+            const below = kindAt(col, ground);
+            if (below === 'air' || below === 'water') continue;
+            if (blockedAt && blockedAt(col, row)) continue;
+            if (!inReach(player, col, row)) continue;
+            return { x: col, y: row };
+        }
+        return null;
     }
 
     function inReach(player, cellX, cellY) {
@@ -253,6 +324,23 @@
     function followCamera(camera, player, viewW, viewH) {
         camera.x = Math.round(player.x + player.w / 2 - viewW / 2);
         camera.y = Math.round(player.y + player.h / 2 - viewH / 2);
+    }
+
+    /** 大屏靠近角色（约 20 格宽），手机保持 1× 以免只看见几块 */
+    const VIEW_TILES_X = 20;
+
+    function zoomFor(cssW) {
+        const w = Math.max(1, cssW | 0);
+        return Math.max(1, Math.min(3, Math.floor(w / (VIEW_TILES_X * TILE))));
+    }
+
+    function viewSize(cssW, cssH) {
+        const zoom = zoomFor(cssW);
+        return {
+            zoom: zoom,
+            w: Math.max(160, Math.floor((cssW | 0) / zoom)),
+            h: Math.max(120, Math.floor((cssH | 0) / zoom))
+        };
     }
 
     const SKY_KEY = {
@@ -320,8 +408,38 @@
         }
     }
 
+    const LEAF_TINT = '#48b03c';
+    let leafTinted = null;
+
+    function tintedLeafTex(tex) {
+        if (leafTinted) return leafTinted;
+        if (typeof document === 'undefined' || !document.createElement) return null;
+        const c = document.createElement('canvas');
+        c.width = TILE;
+        c.height = TILE;
+        const g = c.getContext('2d');
+        g.imageSmoothingEnabled = false;
+        g.drawImage(tex, 0, 0, TILE, TILE);
+        g.globalCompositeOperation = 'multiply';
+        g.fillStyle = LEAF_TINT;
+        g.fillRect(0, 0, TILE, TILE);
+        g.globalCompositeOperation = 'destination-in';
+        g.drawImage(tex, 0, 0, TILE, TILE);
+        leafTinted = c;
+        return c;
+    }
+
     function drawBlock(ctx, images, kind, x, y) {
         const tex = images['tex_' + kind];
+        if (kind === 'leaf' && tex) {
+            const tinted = tintedLeafTex(tex);
+            ctx.drawImage(tinted || tex, Math.round(x), Math.round(y), TILE, TILE);
+            if (!tinted) {
+                ctx.fillStyle = 'rgba(72, 176, 60, 0.55)';
+                ctx.fillRect(Math.round(x), Math.round(y), TILE, TILE);
+            }
+            return;
+        }
         if (tex) {
             ctx.drawImage(tex, x, y, TILE, TILE);
             if (kind === 'water') {
@@ -338,11 +456,32 @@
         }
     }
 
-    /** 挖掘裂纹：progress ∈ [0,1] → destroy_stage 六帧 */
+    function drawPlaceGhost(ctx, images, kind, x, y) {
+        if (!kind) return;
+        ctx.save();
+        ctx.globalAlpha = 0.45;
+        ctx.imageSmoothingEnabled = false;
+        drawBlock(ctx, images || {}, kind, Math.round(x), Math.round(y));
+        ctx.restore();
+    }
+
+    /** 挖掘裂纹：progress ∈ [0,1] → destroy_stage 六帧，坐标贴格子 */
     function drawCrack(ctx, images, progress, x, y) {
         const idx = Math.min(DESTROY_STAGES.length - 1, Math.floor(progress * DESTROY_STAGES.length));
         const stage = images['destroy' + idx];
-        if (stage) ctx.drawImage(stage, x, y, TILE, TILE);
+        if (stage) ctx.drawImage(stage, Math.round(x), Math.round(y), TILE, TILE);
+    }
+
+    /** FlatMC 准星：2px 实边框，fillRect 避免 stroke 在整数倍放大后发糊 */
+    function drawSelectBox(ctx, x, y, color) {
+        const px = Math.round(x);
+        const py = Math.round(y);
+        const t = 2;
+        ctx.fillStyle = color || '#ffffff';
+        ctx.fillRect(px, py, TILE, t);
+        ctx.fillRect(px, py + TILE - t, TILE, t);
+        ctx.fillRect(px, py, t, TILE);
+        ctx.fillRect(px + TILE - t, py, t, TILE);
     }
 
     function heroPose(player, mining, now) {
@@ -352,11 +491,92 @@
         return 'hero_idle';
     }
 
+    function heroSkinOf(value) {
+        return value === 'stick' ? 'stick' : 'steve';
+    }
+
+    function heldUse(kind) {
+        if (kind === 'wood_sword') return 'attack';
+        if (kind === 'wood_pick' || kind === 'stone_pick' || kind === 'wood_axe' || kind === 'stone_axe' || kind === 'wood_shovel') return 'mine';
+        if (!kind) return 'hand';
+        return 'place';
+    }
+
+    function heldDamage(kind) {
+        if (kind === 'wood_sword') return 3;
+        if (kind === 'wood_pick' || kind === 'stone_pick' || kind === 'wood_axe' || kind === 'stone_axe') return 2;
+        return 1;
+    }
+
+    function drawHeldItem(ctx, images, kind, x, y, swing) {
+        if (!kind) return;
+        const sy = y + (Number(swing) || 0);
+        const tex = images && (images['tex_' + kind] || images['item_' + kind]);
+        ctx.save();
+        ctx.imageSmoothingEnabled = false;
+        if (heldUse(kind) === 'place' && tex) {
+            ctx.drawImage(tex, Math.round(x), Math.round(sy), 12, 12);
+        } else if (kind === 'wood_sword') {
+            fillPix(ctx, x + 2, sy - 2, 3, 16, '#c4c8ce');
+            fillPix(ctx, x, sy + 10, 7, 3, '#8a5a2b');
+        } else if (heldUse(kind) === 'mine') {
+            fillPix(ctx, x, sy + 4, 14, 3, '#8a5a2b');
+            fillPix(ctx, x + 10, sy, 6, 10, '#8d9198');
+        } else if (tex) {
+            ctx.drawImage(tex, Math.round(x), Math.round(sy), 12, 12);
+        } else {
+            fillPix(ctx, x, sy, 12, 12, FALLBACK[kind] || '#c48a4a');
+        }
+        ctx.restore();
+    }
+
+    function fillPix(ctx, x, y, w, h, color) {
+        ctx.fillStyle = color;
+        ctx.fillRect(Math.round(x), Math.round(y), Math.max(1, Math.round(w)), Math.max(1, Math.round(h)));
+    }
+
+    /** AB 火柴人：大方块头 + 细四肢，对照 FlatCraft 侧视剪影 */
+    function drawStickman(ctx, player, camera, mining, now, images) {
+        const dx = Math.round(player.x - camera.x);
+        const dy = Math.round(player.y - camera.y);
+        const facing = player.facing < 0 ? -1 : 1;
+        const t = (Number(now) || 0) / 90;
+        const walk = Math.abs(player.vx) > 0.35 && player.onGround && !player.inWater;
+        const air = !player.onGround && !player.inWater;
+        const busy = mining || player.attacking;
+        let swing = 0;
+        if (busy) swing = Math.sin((Number(now) || 0) / 70) * 6;
+        else if (walk) swing = Math.sin(t) * 5;
+        else if (air) swing = 3;
+        ctx.save();
+        ctx.imageSmoothingEnabled = false;
+        ctx.translate(dx + Math.round(player.w / 2), dy);
+        ctx.scale(facing, 1);
+        fillPix(ctx, -10, 0, 20, 6, '#5a3a22');
+        fillPix(ctx, -10, 6, 20, 12, '#e0b080');
+        fillPix(ctx, -4, 15, 8, 3, '#3a2416');
+        fillPix(ctx, 2, 10, 3, 3, '#1a120c');
+        fillPix(ctx, 7, 10, 3, 3, '#1a120c');
+        fillPix(ctx, -3, 18, 6, 14, '#3aa0c8');
+        fillPix(ctx, -3, 32, 6, 6, '#3a3a78');
+        fillPix(ctx, 3, 20, 12, 3, '#1a1a1a');
+        fillPix(ctx, 13, 17 + swing, 3, 14, '#1a1a1a');
+        fillPix(ctx, -10, 22 - swing * 0.45, 8, 3, '#1a1a1a');
+        fillPix(ctx, -5, 38, 3, 16 + (air ? -4 : swing), '#1a1a1a');
+        fillPix(ctx, 1, 38, 3, 16 + (air ? -4 : -swing), '#1a1a1a');
+        if (player.held) drawHeldItem(ctx, images || {}, player.held, 14, 12 + swing, 0);
+        ctx.restore();
+    }
+
     function drawPlayer(ctx, images, player, camera, mining, now) {
-        const PW = 40;   // 收窄贴图（用户反馈「主角太胖」）：40×54，横向比碰撞盒宽 22px 居中
+        const PW = 40;
         const PH = 54;
         const dx = Math.round(player.x - camera.x - 11);
         const dy = Math.round(player.y - camera.y);
+        if (heroSkinOf(player && player.skin) === 'stick') {
+            drawStickman(ctx, player, camera, mining, now, images);
+            return;
+        }
         if (player.inWater) {
             ctx.fillStyle = 'rgba(63, 118, 228, 0.22)';
             ctx.fillRect(dx + 5, dy + 20, PW - 10, player.h - 20);
@@ -368,7 +588,7 @@
             // 选帧：挖/走→行1 循环8帧；空中→行2（升0/降1）；待机→行0列0
             let row = STEVE.ROW_IDLE;
             let col = 0;
-            if (mining) { row = STEVE.ROW_WALK; col = Math.floor(now / 110) % STEVE.COLS; }
+            if (mining || player.attacking) { row = STEVE.ROW_WALK; col = Math.floor(now / 110) % STEVE.COLS; }
             else if (!player.onGround && !player.inWater) { row = STEVE.ROW_AIR; col = player.vy > 0 ? 1 : 0; }
             else if (player.inWater) { row = STEVE.ROW_WALK; col = Math.floor(now / 260) % STEVE.COLS; }
             else if (Math.abs(player.vx) > 0.35) { row = STEVE.ROW_WALK; col = Math.floor(now / 110) % STEVE.COLS; }
@@ -381,6 +601,10 @@
             } else {
                 ctx.drawImage(sheet, sx, sy, STEVE.FW, STEVE.FW, dx, dy, PW, PH);
             }
+            if (player.held) {
+                const local = player.facing < 0;
+                drawHeldItem(ctx, images, player.held, local ? 8 : dx + PW - 18, local ? 22 : dy + 22, mining || player.attacking ? 4 : 0);
+            }
         } else {
             const pose = heroPose(player, mining, now);
             const img = images[pose];
@@ -390,6 +614,10 @@
                 if (img) ctx.drawImage(img, 0, 0, PW, PH);
             } else if (img) {
                 ctx.drawImage(img, dx, dy, PW, PH);
+            }
+            if (player.held) {
+                const local = player.facing < 0;
+                drawHeldItem(ctx, images, player.held, local ? 8 : dx + PW - 18, local ? 22 : dy + 22, mining || player.attacking ? 4 : 0);
             }
         }
         ctx.restore();
@@ -440,6 +668,78 @@
         }
     }
 
+    const DROP = { MAGNET: 88, PICK: 26, G: 0.32, LIFE: 900 };
+
+    function spawnDrop(drops, cellX, cellY, kind, opts) {
+        const o = opts || {};
+        drops.push({
+            kind: kind,
+            n: o.n || 1,
+            x: o.x != null ? o.x : cellX * TILE + TILE * 0.5,
+            y: o.y != null ? o.y : cellY * TILE + TILE * 0.35,
+            vx: o.vx != null ? o.vx : (Math.random() - 0.5) * 2.4,
+            vy: o.vy != null ? o.vy : -3.2,
+            life: o.life != null ? o.life : DROP.LIFE
+        });
+        return drops;
+    }
+
+    function updateDrops(drops, player, solidAt) {
+        const picked = [];
+        if (!player || !drops || !drops.length) return picked;
+        const px = player.x + (player.w || 0) / 2;
+        const py = player.y + (player.h || 36) * 0.55;
+        for (let i = drops.length - 1; i >= 0; i -= 1) {
+            const d = drops[i];
+            d.life -= 1;
+            if (d.life <= 0) { drops.splice(i, 1); continue; }
+            const dx = px - d.x;
+            const dy = py - d.y;
+            const dist = Math.sqrt(dx * dx + dy * dy) || 0.001;
+            if (dist < DROP.MAGNET) {
+                const pull = 0.38 + (1 - dist / DROP.MAGNET) * 0.9;
+                d.vx += (dx / dist) * pull;
+                d.vy += (dy / dist) * pull * 0.88;
+            } else {
+                d.vy += DROP.G;
+            }
+            d.vx *= 0.94;
+            const nx = d.x + d.vx;
+            const ny = d.y + d.vy;
+            const tx = Math.floor(nx / TILE);
+            const ty = Math.floor(ny / TILE);
+            if (typeof solidAt === 'function' && solidAt(tx, ty)) {
+                d.vx *= 0.45;
+                d.vy = Math.min(0, d.vy * 0.25);
+            } else {
+                d.x = nx;
+                d.y = ny;
+            }
+            const after = Math.sqrt((px - d.x) * (px - d.x) + (py - d.y) * (py - d.y));
+            if (after < DROP.PICK) {
+                picked.push({ kind: d.kind, n: d.n || 1 });
+                drops.splice(i, 1);
+            }
+        }
+        return picked;
+    }
+
+    function drawDrops(ctx, images, drops, camera) {
+        (drops || []).forEach(function (d) {
+            const x = Math.round(d.x - camera.x - 10);
+            const y = Math.round(d.y - camera.y - 10);
+            const tex = images && images['tex_' + d.kind];
+            ctx.save();
+            ctx.imageSmoothingEnabled = false;
+            if (tex) ctx.drawImage(tex, x, y, 20, 20);
+            else {
+                ctx.fillStyle = FALLBACK[d.kind] || '#ccc';
+                ctx.fillRect(x, y, 20, 20);
+            }
+            ctx.restore();
+        });
+    }
+
     function drawDecorations(ctx, images, decorations, camera) {
         const keys = { bush: 'decoBush', cactus: 'decoCactus', ember: 'decoEmber', crystal_glow: 'decoEmber' };
         const sizes = { bush: [36, 28], cactus: [22, 48], ember: [24, 24], crystal_glow: [22, 22] };
@@ -476,11 +776,16 @@
         MC_TEXTURES: MC_TEXTURES, DESTROY_STAGES: DESTROY_STAGES,
         loadAllImages: loadAllImages,
         updatePlayer: updatePlayer, rectHitsSolid: rectHitsSolid, touchesKind: touchesKind,
-        screenToCell: screenToCell, inReach: inReach,
+        screenToCell: screenToCell, screenToHit: screenToHit, faceAirCell: faceAirCell, placeTarget: placeTarget, footPlaceCell: footPlaceCell, inReach: inReach,
         followCamera: followCamera, clampCamera: clampCamera,
+        zoomFor: zoomFor, viewSize: viewSize, VIEW_TILES_X: VIEW_TILES_X,
         skyKey: skyKey,
         drawSky: drawSky, drawDecorations: drawDecorations, drawBlock: drawBlock, drawCrack: drawCrack,
+        drawSelectBox: drawSelectBox, drawPlaceGhost: drawPlaceGhost,
         drawPlayer: drawPlayer, drawEnemy: drawEnemy, spawnChips: spawnChips, drawChips: drawChips,
+        spawnDrop: spawnDrop, updateDrops: updateDrops, drawDrops: drawDrops, DROP: DROP,
+        heroSkinOf: heroSkinOf, drawStickman: drawStickman,
+        heldUse: heldUse, heldDamage: heldDamage, drawHeldItem: drawHeldItem,
         rectsOverlap: rectsOverlap, updateEnemy: updateEnemy, enemyDamage: enemyDamage, attackEnemy: attackEnemy
     };
 }(typeof window !== 'undefined' ? window : globalThis));

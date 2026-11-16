@@ -1,0 +1,8 @@
+task_id: "T20260822-promo-sky-shield"
+title: "宣传片天空破盾课"
+status: "in_review"
+priority: "P0"
+phase: "T01-T06"
+created: "2026-08-22"
+depends_on: ["T20260822-ride-story"]
+notes: "借破盾课，不搬 RPG 皮。源头 11-宣传片天空破盾对照与落地.md"

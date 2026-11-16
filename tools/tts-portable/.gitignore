@@ -1,0 +1,11 @@
+# 音频缓存（实时生成的 mp3 不入库）
+cache/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# 虚拟环境
+.venv/
+venv/

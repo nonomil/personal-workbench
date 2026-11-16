@@ -1,0 +1,2082 @@
+/* 手机横屏（高度 ≤480px）聚焦布局：上卡片、下场景，减少每屏学习负担。
+   设计参考：布鲁伊工作台的"卡片 + 主图人物"版式。
+   规则只在矮横屏收敛次要内容，平板与桌面布局不受影响。 */
+
+@media (orientation: landscape) and (max-height: 480px) {
+/* ============ 矮横屏：通用闪卡页（拼音/数学/英语等） ============ */
+    html.is-android-app body.variant-preschool .preschool-flashcard-page:not(.is-card-wall) {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        min-height: 0;
+    }
+    html.is-android-app body.variant-preschool .preschool-flashcard-page:not(.is-card-wall) > * { flex: 0 0 auto; min-height: 0; }
+    html.is-android-app body.variant-preschool .preschool-flashcard-page:not(.is-card-wall) > .preschool-flashcard {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow: hidden;
+    }
+    html.is-android-app body.variant-preschool .preschool-flashcard-page:not(.is-card-wall) > .preschool-flashcard-foot,
+    html.is-android-app body.variant-preschool .preschool-flashcard-page:not(.is-card-wall) > .preschool-learning-companion-rail { display: none; }
+    html.is-android-app body.variant-preschool .preschool-flashcard-top { gap: 8px; min-height: 30px; }
+    html.is-android-app body.variant-preschool .preschool-flashcard-top > strong { font-size: 14px; }
+    html.is-android-app body.variant-preschool .preschool-flashcard-actions { gap: 6px; }
+    html.is-android-app body.variant-preschool .preschool-flashcard-actions button { min-height: 36px; }
+
+    /* ============ 矮横屏：识字卡片墙（上卡片、下场景） ============ */
+    /* 沉浸式识字：去掉外框和顶部选项行，字卡 + 场景占满整屏 */
+    html.is-android-app body.variant-preschool .preschool-course-tabs { display: none; }
+    /* 标签行隐藏后：一行给翻页器，一行给内容 */
+    html.is-android-app body.variant-preschool .page-content.preschool-native-paged.has-native-course-tabs { grid-template-rows: 44px minmax(0, 1fr); }
+    html.is-android-app body.variant-preschool .preschool-flashcard-page.is-literacy.is-card-wall {
+        grid-template-rows: minmax(0, 1fr) 48px;
+        gap: 4px;
+        padding: 2px 3px 4px;
+        border: 0;
+        border-radius: 0;
+        background: none;
+        box-shadow: none;
+    }
+    html.is-android-app body.variant-preschool .preschool-flashcard-page.is-literacy.is-card-wall .preschool-native-frame,
+    html.is-android-app body.variant-preschool .preschool-course-layout,
+    html.is-android-app body.variant-preschool .preschool-course-content { padding: 0; }
+    html.is-android-app body.variant-preschool .preschool-literacy-wall-head,
+    html.is-android-app body.variant-preschool .preschool-flashcard-levels { display: none; }
+
+    /* 卡片减负：点卡片本身就是"看提示"，工具只留 听 + 会了 */
+    html.is-android-app body.variant-preschool .preschool-literacy-wall-tool.is-unknown { display: none; }
+
+    /* 字卡去框：三层嵌套的卡片盒全部拆掉，田字格直接坐在背景上 */
+    html.is-android-app body.variant-preschool .preschool-literacy-wall-card {
+        min-height: 0;
+        gap: 3px;
+        padding: 2px;
+        border: 0;
+        border-radius: 0;
+        background: none;
+        box-shadow: none;
+    }
+    html.is-android-app body.variant-preschool .preschool-literacy-wall-card.is-known,
+    html.is-android-app body.variant-preschool .preschool-literacy-wall-card.is-unknown { border: 0; box-shadow: none; }
+    html.is-android-app body.variant-preschool .preschool-literacy-wall-face {
+        min-height: 0;
+        grid-template-columns: none;
+        grid-template-rows: minmax(0, 1fr) auto;
+        gap: 2px;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: none;
+    }
+    html.is-android-app body.variant-preschool .preschool-literacy-wall-glyph {
+        width: min(100%, 26vh);
+        height: min(100%, 26vh);
+        font-size: clamp(40px, 21vh, 88px);
+        border-radius: 10px;
+    }
+    /* 装饰图退场，拼音紧跟大字 */
+    html.is-android-app body.variant-preschool .preschool-literacy-wall-visual > .preschool-generated-art,
+    html.is-android-app body.variant-preschool .preschool-literacy-wall-visual > .preschool-card-art { display: none; }
+    html.is-android-app body.variant-preschool .preschool-literacy-wall-visual > strong { font-size: 15px; }
+    html.is-android-app body.variant-preschool .preschool-literacy-wall-detail { background: none; }
+    /* 工具收成两枚小圆钮 */
+    html.is-android-app body.variant-preschool .preschool-literacy-wall-tools { gap: 6px; }
+    html.is-android-app body.variant-preschool .preschool-literacy-wall-tool {
+        min-height: 34px;
+        padding: 0 16px;
+        border-radius: 17px;
+        font-size: 12px;
+    }
+
+    /* 进度头部收成一行小字 */
+    html.is-android-app body.variant-preschool .preschool-literacy-card-queue > header {
+        margin: 0;
+        padding: 2px 10px;
+    }
+    html.is-android-app body.variant-preschool .preschool-literacy-card-queue > header .eyebrow { display: none; }
+    html.is-android-app body.variant-preschool .preschool-literacy-card-queue > header h2 { font-size: 13px; }
+    html.is-android-app body.variant-preschool .preschool-literacy-card-queue > header small { font-size: 11px; }
+
+    /* 写一写需要竖向空间，矮屏只保留认读墙 */
+    html.is-android-app body.variant-preschool .preschool-literacy-study-grid { grid-template-columns: minmax(0, 1fr); }
+    html.is-android-app body.variant-preschool .preschool-literacy-writing-slot { display: none; }
+    html.is-android-app body.variant-preschool .preschool-literacy-card-queue {
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr);
+        gap: 4px;
+        min-height: 0;
+    }
+    html.is-android-app body.variant-preschool .preschool-literacy-card-wall {
+        min-height: 0;
+        overflow-y: auto;
+        align-content: start;
+    }
+    /* 50号为矮屏改成两列滚动；清掉44号遗留的两行显式轨道，避免
+       8张卡被压进前两条 0px 轨道，导致操作按钮互相覆盖。 */
+    html.is-android-app body.variant-preschool .preschool-literacy-card-queue .preschool-literacy-card-wall {
+        grid-template-rows: none;
+        grid-auto-rows: minmax(108px, auto);
+    }
+    html.is-android-app body.variant-preschool .preschool-literacy-card-queue .preschool-literacy-wall-card {
+        min-height: 108px;
+    }
+
+    /* 底部伙伴场景条：草地 + 角色出场，鼓励语在左 */
+    html.is-android-app body.variant-preschool .preschool-flashcard-page.is-literacy.is-card-wall > .preschool-learning-companion-rail {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-height: 48px;
+        margin: 0;
+        padding: 3px 10px;
+        border: 2px solid rgba(96, 158, 74, .35);
+        border-radius: 14px;
+        background: linear-gradient(180deg, #eef8e2, #d9efc4);
+        overflow: hidden;
+    }
+    html.is-android-app body.variant-preschool .preschool-flashcard-page.is-literacy.is-card-wall > .preschool-learning-companion-rail .preschool-learning-companion-heading {
+        display: flex;
+        min-width: 0;
+        align-items: center;
+        gap: 8px;
+    }
+    html.is-android-app body.variant-preschool .preschool-flashcard-page.is-literacy.is-card-wall > .preschool-learning-companion-rail .preschool-learning-companion-heading .eyebrow,
+    html.is-android-app body.variant-preschool .preschool-flashcard-page.is-literacy.is-card-wall > .preschool-learning-companion-rail .preschool-learning-companion-heading small { display: none; }
+    html.is-android-app body.variant-preschool .preschool-flashcard-page.is-literacy.is-card-wall > .preschool-learning-companion-rail .preschool-learning-companion-heading strong {
+        overflow: hidden;
+        padding: 4px 12px;
+        border: 2px solid rgba(255, 255, 255, .9);
+        border-radius: 12px;
+        background: #fff;
+        color: #3c6a4c;
+        font-size: 12px;
+        font-weight: 900;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        box-shadow: 0 2px 0 rgba(96, 158, 74, .18);
+    }
+    html.is-android-app body.variant-preschool .preschool-flashcard-page.is-literacy.is-card-wall > .preschool-learning-companion-rail .preschool-learning-companion-list {
+        display: flex;
+        align-items: flex-end;
+        gap: 4px;
+        margin-left: auto;
+    }
+    html.is-android-app body.variant-preschool .preschool-flashcard-page.is-literacy.is-card-wall > .preschool-learning-companion-rail .preschool-learning-companion {
+        min-width: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+    }
+    html.is-android-app body.variant-preschool .preschool-flashcard-page.is-literacy.is-card-wall > .preschool-learning-companion-rail .preschool-learning-companion-copy { display: none; }
+    html.is-android-app body.variant-preschool .preschool-flashcard-page.is-literacy.is-card-wall > .preschool-learning-companion-rail .preschool-learning-companion-art,
+    html.is-android-app body.variant-preschool .preschool-flashcard-page.is-literacy.is-card-wall > .preschool-learning-companion-rail .preschool-learning-companion-art .preschool-generated-art {
+        width: 42px;
+        height: 42px;
+    }
+
+    /* ============ 矮横屏：超出整屏的内容允许页内纵向滚动 ============ */
+    html.is-android-app body.variant-preschool .preschool-native-page,
+    html.is-android-app body.variant-preschool .preschool-native-frame {
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        touch-action: pan-x pan-y;
+    }
+
+    /* ============ 矮横屏：课程卡片墙收起装饰行，卡片完整显示 ============ */
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-card:not(.preschool-focus-game-card),
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-card:not(.preschool-focus-game-card) {
+        min-height: 0;
+        padding-bottom: 26px;
+        align-content: center;
+    }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-scene,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-scene { display: none; }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-details p,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-details p { display: none; }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-art,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-art { max-width: 58px; max-height: 58px; }
+
+    /* ============ 矮横屏：奖励页紧凑化 ============ */
+    html.is-android-app body.variant-preschool .preschool-reward-progress {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: minmax(0, 1fr) auto;
+        gap: 7px;
+        padding: 9px 11px;
+    }
+    html.is-android-app body.variant-preschool .preschool-reward-progress-copy h2 { font-size: clamp(18px, 3.4vw, 24px); }
+    html.is-android-app body.variant-preschool .preschool-reward-progress-copy p { display: none; }
+    /* 下一份奖励：固定小图 + 文案，不再撑成大色块 */
+    html.is-android-app body.variant-preschool .preschool-reward-next {
+        grid-template-columns: 54px minmax(0, 1fr);
+        gap: 9px;
+        align-self: end;
+        padding: 7px 9px;
+        border: 3px solid #9b6a3b;
+        border-radius: 14px;
+        background: #fff2c8;
+    }
+    html.is-android-app body.variant-preschool .preschool-reward-next-art { width: 54px; height: 54px; }
+    html.is-android-app body.variant-preschool .preschool-reward-next-art .preschool-generated-art { width: 46px; height: 46px; }
+    html.is-android-app body.variant-preschool .preschool-reward-next-copy strong { font-size: 13px; }
+    html.is-android-app body.variant-preschool .preschool-reward-crystal { display: none; }
+    /* 分层奖励：单列 + 页内滚动，保证每张卡完整可见 */
+    html.is-android-app body.variant-preschool .preschool-reward-tier-list {
+        display: block;
+        height: 100%;
+        grid-template-columns: none;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+    html.is-android-app body.variant-preschool .preschool-reward-tier { min-height: 0; height: auto; margin: 0 0 8px; padding: 8px 9px; overflow: visible; }
+    html.is-android-app body.variant-preschool .preschool-reward-tier:last-child { margin-bottom: 0; }
+    html.is-android-app body.variant-preschool .preschool-reward-tier-head { margin-bottom: 5px; }
+    html.is-android-app body.variant-preschool .preschool-reward-tier-head h2 { font-size: 14px; }
+    html.is-android-app body.variant-preschool .preschool-reward-tier-grid {
+        display: grid;
+        height: auto;
+        min-height: 0;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-auto-rows: auto;
+        align-items: stretch;
+        overflow: visible;
+    }
+    html.is-android-app body.variant-preschool .preschool-reward-card { height: auto; }
+    html.is-android-app body.variant-preschool .preschool-collection-section { min-height: 0; overflow-y: auto; }
+    html.is-android-app body.variant-preschool .preschool-collection-grid { align-content: start; }
+
+    /* ============ S1：答题时让角色回应，学习卡片保持安静 ============ */
+    html.is-android-app body.variant-preschool .preschool-learning-companion-rail {
+        position: relative;
+    }
+    html.is-android-app body.variant-preschool .preschool-learning-companion-rail.is-cheer .preschool-learning-companion-art {
+        animation: preschool-companion-cheer 450ms ease-out 1 both;
+    }
+    html.is-android-app body.variant-preschool .preschool-learning-companion-rail.is-cheer .preschool-learning-companion:nth-child(2) .preschool-learning-companion-art {
+        animation-delay: 80ms;
+    }
+    html.is-android-app body.variant-preschool .preschool-learning-companion-rail.is-cheer .preschool-learning-companion:nth-child(3) .preschool-learning-companion-art {
+        animation-delay: 160ms;
+    }
+    html.is-android-app body.variant-preschool .preschool-learning-companion-rail.is-comfort .preschool-learning-companion:nth-child(2) .preschool-learning-companion-art {
+        animation: preschool-companion-comfort 620ms ease-in-out 1 both;
+    }
+    html.is-android-app body.variant-preschool .preschool-learning-companion-rail.is-cheer .preschool-learning-companion-heading strong,
+    html.is-android-app body.variant-preschool .preschool-learning-companion-rail.is-comfort .preschool-learning-companion-heading strong {
+        animation: preschool-companion-bubble 220ms ease-out 1 both;
+    }
+    html.is-android-app body.variant-preschool .preschool-learning-companion-rail.is-sunrain .preschool-companion-sunrain {
+        display: block;
+    }
+    html.is-android-app body.variant-preschool .preschool-companion-sunrain {
+        position: absolute;
+        z-index: 3;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        pointer-events: none;
+    }
+    html.is-android-app body.variant-preschool .preschool-companion-sun {
+        position: absolute;
+        display: block;
+        width: 17px;
+        height: 17px;
+        opacity: 0;
+        animation: preschool-companion-sunrain 2000ms ease-out 1 both;
+    }
+    html.is-android-app body.variant-preschool .preschool-companion-sun .preschool-generated-art,
+    html.is-android-app body.variant-preschool .preschool-companion-sun img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+    html.is-android-app body.variant-preschool .preschool-companion-sun-1 { left: 43%; top: -3px; animation-delay: 0ms; }
+    html.is-android-app body.variant-preschool .preschool-companion-sun-2 { left: 52%; top: 1px; animation-delay: 90ms; }
+    html.is-android-app body.variant-preschool .preschool-companion-sun-3 { left: 61%; top: -5px; animation-delay: 180ms; }
+    html.is-android-app body.variant-preschool .preschool-companion-sun-4 { left: 70%; top: 2px; animation-delay: 270ms; }
+    html.is-android-app body.variant-preschool .preschool-companion-sun-5 { left: 79%; top: -4px; animation-delay: 360ms; }
+    html.is-android-app body.variant-preschool .preschool-companion-sun-6 { left: 88%; top: 1px; animation-delay: 450ms; }
+
+    @keyframes preschool-companion-cheer {
+        0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+        45% { transform: translate3d(0, -8px, 0) rotate(-2deg); }
+        72% { transform: translate3d(0, 1px, 0) rotate(1deg); }
+    }
+    @keyframes preschool-companion-comfort {
+        0%, 100% { transform: rotate(0deg); }
+        25% { transform: rotate(-8deg); }
+        58% { transform: rotate(7deg); }
+    }
+    @keyframes preschool-companion-bubble {
+        0% { opacity: .2; transform: translate3d(0, 2px, 0); }
+        100% { opacity: 1; transform: translate3d(0, 0, 0); }
+    }
+    @keyframes preschool-companion-sunrain {
+        0% { opacity: 0; transform: translate3d(0, -18px, 0) scale(.75); }
+        18% { opacity: 1; }
+        100% { opacity: 0; transform: translate3d(0, 23px, 0) scale(1); }
+    }
+    html.is-android-app body.variant-preschool.preschool-no-motion .preschool-learning-companion-rail .preschool-learning-companion-art,
+    html.is-android-app body.variant-preschool.preschool-no-motion .preschool-learning-companion-rail .preschool-learning-companion-heading strong,
+    html.is-android-app body.variant-preschool.preschool-no-motion .preschool-companion-sun {
+        animation: none;
+    }
+    html.is-android-app body.variant-preschool .preschool-learning-companion.is-clicked {
+        pointer-events: none;
+        animation: preschool-companion-click 600ms ease-out 1 both;
+    }
+    html.is-android-app body.variant-preschool .preschool-learning-companion.is-speaking {
+        outline: 2px solid var(--crew-accent, #3d9a4a);
+        outline-offset: -2px;
+    }
+    @keyframes preschool-companion-click {
+        0%, 100% { transform: translate3d(0, 0, 0); opacity: 1; }
+        46% { transform: translate3d(0, -10px, 0); opacity: 1; }
+        76% { transform: translate3d(0, 1px, 0); opacity: .96; }
+    }
+    html.is-android-app body.variant-preschool.preschool-no-motion .preschool-learning-companion.is-clicked {
+        animation: none;
+    }
+    @media (prefers-reduced-motion: reduce) {
+        html.is-android-app body.variant-preschool .preschool-learning-companion-rail .preschool-learning-companion-art,
+        html.is-android-app body.variant-preschool .preschool-learning-companion-rail .preschool-learning-companion-heading strong,
+        html.is-android-app body.variant-preschool .preschool-companion-sun,
+        html.is-android-app body.variant-preschool .preschool-learning-companion.is-clicked {
+            animation: none;
+        }
+    }
+
+    /* S3: short landscape keeps one task card above a 96~110px home stage.
+     * 47/48号的旧短屏规则带有 #page-content 且把 overview 改成 block，
+     * 所以这里保留同一锚点并提高优先级，确保舞台进入首页三行网格。 */
+    html.is-android-app body.variant-preschool #page-content .preschool-native-page[data-native-kind="home-primary"] .preschool-home-overview.is-simple {
+        display: grid;
+        grid-template-rows: 44px minmax(0, 1fr) clamp(96px, 20vh, 110px);
+    }
+
+    html.is-android-app body.variant-preschool #page-content .preschool-native-page[data-native-kind="home-primary"] .preschool-home-overview.is-simple .workbench-overview-header {
+        height: 44px !important;
+        min-height: 44px !important;
+    }
+
+    html.is-android-app body.variant-preschool #page-content .preschool-native-page[data-native-kind="home-primary"] .preschool-home-top {
+        height: 100% !important;
+        min-height: 0 !important;
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    /* The three-row 800×360 contract leaves a compact 59px task slot. Keep
+     * its one action readable without spilling into the scene below. */
+    html.is-android-app body.variant-preschool #page-content .preschool-native-page[data-native-kind="home-primary"] .preschool-home-hero-copy {
+        height: 52px !important;
+        min-height: 0 !important;
+        gap: 1px !important;
+        padding: 4px 8px !important;
+    }
+
+    html.is-android-app body.variant-preschool #page-content .preschool-native-page[data-native-kind="home-primary"] .preschool-home-hero-copy small {
+        font-size: 8px;
+    }
+
+    html.is-android-app body.variant-preschool #page-content .preschool-native-page[data-native-kind="home-primary"] .preschool-home-hero-copy strong {
+        font-size: 16px;
+        line-height: 1;
+    }
+
+    html.is-android-app body.variant-preschool #page-content .preschool-native-page[data-native-kind="home-primary"] .preschool-home-hero-copy > span {
+        height: 20px;
+        min-height: 20px !important;
+        margin-top: 0;
+        padding: 0 7px;
+        font-size: 9px;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="home-primary"] .preschool-home-stage {
+        grid-template-columns: minmax(126px, .62fr) minmax(0, 1.38fr);
+        height: clamp(96px, 20vh, 110px);
+        min-height: 96px;
+        max-height: 110px;
+        padding: 3px 6px;
+        border-radius: 16px;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="home-primary"] .preschool-home-stage .preschool-learning-companion-heading .eyebrow,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="home-primary"] .preschool-home-stage .preschool-learning-companion-copy small {
+        display: block;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="home-primary"] .preschool-home-stage .preschool-learning-companion-heading {
+        padding-right: 4px;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="home-primary"] .preschool-home-stage .preschool-learning-companion {
+        grid-template-columns: 36px minmax(0, 1fr);
+        min-height: 62px;
+        padding: 1px 2px;
+        border-radius: 10px;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="home-primary"] .preschool-home-stage .preschool-learning-companion-art {
+        width: 34px;
+        height: 50px;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="home-primary"] .preschool-home-stage .preschool-learning-companion-copy strong {
+        font-size: 9px;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="home-primary"] .preschool-home-stage .preschool-learning-companion-copy small {
+        font-size: 8px;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="home-primary"] .preschool-home-stage-ground {
+        height: 18px;
+    }
+
+    /* S4：大舞台才走动；学习页的矮场景条继续保持安静。 */
+    html.is-android-app body.variant-preschool .preschool-home-stage-characters .preschool-learning-companion.is-walker {
+        --preschool-stage-walk-distance: clamp(24px, 5vw, 56px);
+        animation: preschool-stage-walk 16s ease-in-out infinite alternate;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-home-stage-characters .preschool-learning-companion.is-walker .preschool-learning-companion-art {
+        transform-origin: 50% 100%;
+        animation: preschool-stage-bob .68s ease-in-out infinite alternate;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-home-stage-characters .preschool-learning-companion.is-walker .preschool-learning-companion-art .preschool-generated-art,
+    html.is-android-app body.variant-preschool .preschool-home-stage-characters .preschool-learning-companion.is-walker .preschool-learning-companion-art img {
+        animation: none;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-home-stage-characters .preschool-learning-companion.is-delay-3.is-walker {
+        animation-delay: -2.5s;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-home-stage-characters .preschool-learning-companion.is-delay-3.is-walker .preschool-learning-companion-art {
+        animation-duration: .76s;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-home-stage-characters .preschool-learning-companion.is-walker.is-flipped .preschool-learning-companion-art .preschool-generated-art,
+    html.is-android-app body.variant-preschool .preschool-home-stage-characters .preschool-learning-companion.is-walker.is-flipped .preschool-learning-companion-art img {
+        transform: scaleX(-1);
+    }
+
+    /* The outer walk freezes at its current position while the art performs
+     * the existing click hop, so the navigation feedback does not teleport. */
+    html.is-android-app body.variant-preschool .preschool-home-stage-characters .preschool-learning-companion.is-walker.is-clicked {
+        animation-name: preschool-stage-walk;
+        animation-play-state: paused;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-home-stage-characters .preschool-learning-companion.is-walker.is-clicked .preschool-learning-companion-art {
+        animation: preschool-companion-click 600ms ease-out 1 both;
+    }
+
+    @keyframes preschool-stage-walk {
+        from { transform: translateX(0); }
+        to { transform: translateX(var(--preschool-stage-walk-distance)); }
+    }
+
+    @keyframes preschool-stage-bob {
+        from { transform: translateY(0); }
+        to { transform: translateY(-3px); }
+    }
+
+    html.is-android-app body.variant-preschool.preschool-no-motion .preschool-home-stage-characters .preschool-learning-companion.is-walker,
+    html.is-android-app body.variant-preschool.preschool-no-motion .preschool-home-stage-characters .preschool-learning-companion.is-walker .preschool-learning-companion-art {
+        animation: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html.is-android-app body.variant-preschool .preschool-home-stage-characters .preschool-learning-companion.is-walker,
+        html.is-android-app body.variant-preschool .preschool-home-stage-characters .preschool-learning-companion.is-walker .preschool-learning-companion-art {
+            animation: none;
+        }
+    }
+
+    /* ============ S5：奖励页把喂养变成伙伴舞台 ============ */
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="rewards-stage"] {
+        display: grid;
+        grid-template-rows: minmax(0, 1fr) 96px;
+        gap: 4px;
+        padding: 2px 3px 4px;
+    }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="rewards-stage"] > .preschool-page-intro { display: none; }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="rewards-stage"] .preschool-reward-progress {
+        height: 100%;
+        min-height: 0;
+        padding: 8px 10px;
+        border-radius: 18px;
+    }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="rewards-stage"] .preschool-reward-progress-copy h2 { font-size: clamp(18px, 3.4vw, 24px); }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="rewards-stage"] .preschool-reward-progress-meta { margin-bottom: 3px; }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="rewards-stage"] .preschool-reward-meter { height: 18px; }
+
+    html.is-android-app body.variant-preschool .preschool-reward-stage {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(112px, .8fr) minmax(132px, 1fr) auto;
+        align-items: center;
+        gap: 7px;
+        width: 100%;
+        height: 96px;
+        min-height: 96px;
+        padding: 5px 8px;
+        overflow: hidden;
+        border: 2px solid var(--child-world-accent);
+        border-radius: 18px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, .94), rgba(223, 247, 211, .94));
+        box-shadow: 0 5px 0 rgba(36, 67, 90, .1);
+    }
+    html.is-android-app body.variant-preschool .preschool-reward-stage-copy,
+    html.is-android-app body.variant-preschool .preschool-reward-stage-actions { position: relative; z-index: 2; min-width: 0; }
+    html.is-android-app body.variant-preschool .preschool-reward-stage-copy { display: grid; align-content: center; gap: 2px; }
+    html.is-android-app body.variant-preschool .preschool-reward-stage-copy .eyebrow { font-size: 8px; }
+    html.is-android-app body.variant-preschool .preschool-reward-stage-copy strong { color: var(--child-ink); font-size: 14px; font-weight: 950; }
+    html.is-android-app body.variant-preschool .preschool-reward-stage-copy small { overflow: hidden; color: var(--child-ink-soft); font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
+    html.is-android-app body.variant-preschool .preschool-reward-stage-scene { position: relative; display: flex; height: 84px; align-items: end; justify-content: center; gap: 7px; min-width: 0; }
+    html.is-android-app body.variant-preschool .preschool-reward-stage-plant,
+    html.is-android-app body.variant-preschool .preschool-reward-stage-pet { position: relative; z-index: 1; display: grid; min-width: 44px; justify-items: center; align-content: end; gap: 1px; }
+    html.is-android-app body.variant-preschool .preschool-reward-stage-plant { width: 54px; }
+    html.is-android-app body.variant-preschool .preschool-reward-stage-pet { width: 70px; transform-origin: 50% 100%; animation: preschool-reward-stage-pet-breathe 2.4s ease-in-out infinite alternate; }
+    html.is-android-app body.variant-preschool .preschool-reward-stage-art { display: block; width: 54px; height: 62px; overflow: hidden; border-radius: 13px; }
+    html.is-android-app body.variant-preschool .preschool-reward-stage-art .preschool-generated-art { width: 100%; height: 100%; object-fit: contain; }
+    html.is-android-app body.variant-preschool .preschool-reward-stage-pet-art { display: block; width: 66px; height: 66px; object-fit: contain; }
+    html.is-android-app body.variant-preschool .preschool-reward-stage-plant small,
+    html.is-android-app body.variant-preschool .preschool-reward-stage-pet span { max-width: 72px; overflow: hidden; color: var(--child-ink); font-size: 8px; font-weight: 900; text-overflow: ellipsis; white-space: nowrap; }
+    html.is-android-app body.variant-preschool .preschool-reward-stage-ground { position: absolute; right: -8px; bottom: 0; left: -8px; height: 16px; border-top: 2px solid rgba(50, 126, 72, .32); background: repeating-linear-gradient(120deg, #78c878 0 10px, #63b86c 10px 18px); }
+    html.is-android-app body.variant-preschool .preschool-reward-stage-actions { display: grid; gap: 4px; justify-items: stretch; }
+    html.is-android-app body.variant-preschool .preschool-reward-stage-actions button { min-width: 84px; min-height: 40px; padding: 0 7px; border-radius: 12px; font-size: 10px; }
+    html.is-android-app body.variant-preschool .preschool-reward-stage-actions button svg { width: 13px; height: 13px; }
+    html.is-android-app body.variant-preschool .preschool-reward-stage-theme-note { max-width: 84px; color: var(--child-ink-soft); font-size: 8px; font-weight: 800; line-height: 1.3; text-align: center; }
+    html.is-android-app body.variant-preschool .preschool-reward-stage-hearts { position: absolute; z-index: 3; top: 4px; left: 50%; display: flex; gap: 6px; transform: translateX(-50%); pointer-events: none; }
+    html.is-android-app body.variant-preschool .preschool-reward-stage-hearts i { color: #f17880; font-size: 15px; font-style: normal; line-height: 1; animation: preschool-reward-stage-heart-float 800ms ease-out 1 both; }
+    html.is-android-app body.variant-preschool .preschool-reward-stage-hearts i:nth-child(2) { animation-delay: 80ms; }
+    html.is-android-app body.variant-preschool .preschool-reward-stage-hearts i:nth-child(3) { animation-delay: 160ms; }
+    html.is-android-app body.variant-preschool .preschool-reward-stage.is-pet-pulse .preschool-reward-stage-pet,
+    html.is-android-app body.variant-preschool .preschool-reward-stage.is-plant-pulse .preschool-reward-stage-pet { animation: preschool-reward-stage-pet-hop 800ms ease-out 1 both; }
+
+    @keyframes preschool-reward-stage-pet-breathe {
+        from { transform: translateY(0) scale(1); }
+        to { transform: translateY(-2px) scale(1.03); }
+    }
+    @keyframes preschool-reward-stage-pet-hop {
+        0% { transform: translateY(0) scaleY(1); opacity: 1; }
+        42% { transform: translateY(-10px) scaleY(1.02); opacity: 1; }
+        76% { transform: translateY(1px) scaleY(.94); opacity: .96; }
+        100% { transform: translateY(0) scaleY(1); opacity: 1; }
+    }
+    @keyframes preschool-reward-stage-heart-float {
+        from { transform: translateY(5px) scale(.65); opacity: 0; }
+        35% { opacity: 1; }
+        to { transform: translateY(-25px) scale(1); opacity: 0; }
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="rewards-tiers"] .preschool-reward-tier-list {
+        display: block;
+        height: 100%;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="rewards-tiers"] .preschool-reward-tier { margin-bottom: 8px; }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="rewards-collection"] { overflow-y: auto; }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="rewards-collection"] .preschool-collection-section { min-height: 100%; padding: 8px; overflow: hidden; border: 2px solid var(--child-world-accent); border-radius: 18px; background: linear-gradient(180deg, rgba(255, 255, 255, .96), rgba(231, 248, 219, .96)); }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="rewards-collection"] .preschool-section-head { margin-bottom: 4px; }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="rewards-collection"] .preschool-collection-grid { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 14px 7px; height: calc(100% - 38px); padding: 8px 5px 7px; }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="rewards-collection"] .preschool-collection-grid::before,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="rewards-collection"] .preschool-collection-grid::after { position: absolute; right: 2px; left: 2px; height: 7px; border: 1px solid #8c5a39; border-radius: 5px; background: #b77a49; box-shadow: 0 2px 0 rgba(112, 65, 40, .18); content: ""; pointer-events: none; }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="rewards-collection"] .preschool-collection-grid::before { top: calc(50% - 4px); }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="rewards-collection"] .preschool-collection-grid::after { bottom: 0; }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="rewards-collection"] .preschool-collection-card { position: relative; z-index: 1; min-height: 0; padding: 4px 3px; border: 2px solid rgba(64, 112, 73, .2); border-radius: 13px; background: rgba(255, 255, 255, .88); }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="rewards-collection"] .collection-card-icon { width: 42px; height: 42px; border-radius: 12px; }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="rewards-collection"] .preschool-collection-card strong { font-size: 9px; }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="rewards-collection"] .preschool-collection-card small { display: none; }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="rewards-collection"] .preschool-collection-card.is-locked .collection-card-icon .preschool-generated-art { filter: grayscale(1); opacity: .35; }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="rewards-collection"] .preschool-collection-lock-mark { position: absolute; right: 2px; bottom: 2px; display: grid; width: 16px; height: 16px; place-items: center; border-radius: 50%; color: #66747b; background: #eef1ef; font-size: 11px; }
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="rewards-collection"] .preschool-collection-card.is-new { animation: preschool-reward-collection-reveal 420ms ease-out 1 both; }
+
+    @keyframes preschool-reward-collection-reveal {
+        from { transform: scale(.6); opacity: .25; }
+        65% { transform: scale(1.04); opacity: 1; }
+        to { transform: scale(1); opacity: 1; }
+    }
+
+    html.is-android-app body.variant-preschool.preschool-no-motion .preschool-reward-stage-pet,
+    html.is-android-app body.variant-preschool.preschool-no-motion .preschool-reward-stage-hearts,
+    html.is-android-app body.variant-preschool.preschool-no-motion .preschool-collection-card.is-new { animation: none; }
+    html.is-android-app body.variant-preschool.preschool-no-motion .preschool-reward-stage-hearts { display: none; }
+    @media (prefers-reduced-motion: reduce) {
+        html.is-android-app body.variant-preschool .preschool-reward-stage-pet,
+        html.is-android-app body.variant-preschool .preschool-reward-stage-hearts,
+        html.is-android-app body.variant-preschool .preschool-collection-card.is-new { animation: none; }
+        html.is-android-app body.variant-preschool .preschool-reward-stage-hearts { display: none; }
+    }
+
+    /* S6：共享去框构图 — 花园与马里奥用悬浮玻璃卡；方块主题不套这层 */
+    html.is-android-app body.variant-preschool { --preschool-app-rail: 0px; --child-nav-width: 0px; }
+    html.is-android-app body.variant-preschool .child-game-shell { --preschool-app-rail: 0px; --child-nav-width: 0px; }
+    html.is-android-app body.variant-preschool .child-game-scene { inset: 0; }
+    html.is-android-app body.variant-preschool .main-content {
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+    html.is-android-app body.variant-preschool .topbar { display: none !important; }
+    html.is-android-app body.variant-preschool .topbar-context { display: none !important; }
+    html.is-android-app body.variant-preschool .topbar-focus-button,
+    html.is-android-app body.variant-preschool .topbar-workbench-switcher,
+    html.is-android-app body.variant-preschool .topbar .avatar { display: none !important; }
+    html.is-android-app body.variant-preschool .preschool-mobile-nav {
+        position: fixed;
+        top: max(8px, env(safe-area-inset-top));
+        right: max(8px, env(safe-area-inset-right));
+        bottom: auto;
+        left: auto;
+        display: flex !important;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+        width: auto;
+        min-width: 0;
+        min-height: 0;
+        height: auto;
+        padding: 6px 8px;
+        background: transparent;
+        border: 0;
+        border-right: 0;
+        box-shadow: none;
+        overflow: visible;
+        pointer-events: none;
+        grid-template-columns: none;
+        grid-template-rows: none;
+    }
+    html.is-android-app body.variant-preschool .preschool-mobile-nav::before,
+    html.is-android-app body.variant-preschool .preschool-mobile-nav::after { display: none !important; content: none !important; }
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-brand { display: none; }
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-brand-copy,
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-item span { display: none; }
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-brand,
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-item { grid-template-columns: 1fr; }
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-item {
+        pointer-events: auto;
+        flex: 0 0 auto;
+        width: 48px;
+        min-width: 48px;
+        height: 48px;
+        min-height: 48px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, .55);
+        box-shadow: 0 4px 10px rgba(47, 61, 42, .12);
+        backdrop-filter: blur(8px);
+    }
+    html.is-android-app body.variant-preschool[data-world-theme="platform-quest"] .preschool-mobile-nav {
+        gap: 10px;
+    }
+    html.is-android-app body.variant-preschool[data-world-theme="platform-quest"] .preschool-mobile-nav-item {
+        width: 48px;
+        min-width: 48px;
+        height: 48px;
+        min-height: 48px;
+        border: 3px solid #f4d06a;
+        border-radius: 50%;
+        background: radial-gradient(circle at 32% 28%, #fff4c4 0 18%, #f0c14a 42%, #d48a18 78%, #a35c10 100%);
+        box-shadow: inset 0 -4px 0 rgba(122, 58, 8, .35), 0 4px 0 #8a4a12, 0 8px 16px rgba(90, 40, 8, .28);
+        backdrop-filter: none;
+    }
+    html.is-android-app body.variant-preschool[data-world-theme="platform-quest"] .preschool-mobile-nav-item .preschool-mobile-nav-art {
+        width: 28px;
+        height: 28px;
+        flex: 0 0 28px;
+        margin: auto;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        filter: drop-shadow(0 1px 0 rgba(255, 244, 180, .7));
+    }
+    html.is-android-app body.variant-preschool[data-world-theme="platform-quest"] .preschool-mobile-nav-item.is-active {
+        border-color: #fff6c8;
+        transform: translateY(-2px);
+        box-shadow: inset 0 -4px 0 rgba(122, 58, 8, .35), 0 0 0 3px rgba(255, 246, 200, .9), 0 6px 0 #8a4a12;
+        background: radial-gradient(circle at 32% 28%, #fffce0 0 20%, #ffd45a 48%, #e09a20 80%, #b46812 100%);
+    }
+    html.is-android-app body.variant-preschool .preschool-native-page-switch { display: none; }
+    html.is-android-app body.variant-preschool .page-content.preschool-native-paged.has-native-course-tabs,
+    html.is-android-app body.variant-preschool .page-content.preschool-native-paged.has-native-course-tabs.has-single-native-page,
+    html.is-android-app body.variant-preschool .page-content.preschool-native-paged { grid-template-rows: minmax(0, 1fr); }
+    html.is-android-app body.variant-preschool .preschool-native-pager {
+        height: 100%;
+        min-height: 0;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+    html.is-android-app body.variant-preschool .preschool-native-page {
+        height: 100%;
+        min-height: 0;
+        overflow: visible;
+    }
+    html.is-android-app body.variant-preschool .preschool-learning-companion.is-speaking,
+    html.is-android-app body.variant-preschool .preschool-learning-companion.is-clicked,
+    html.is-android-app body.variant-preschool .preschool-learning-companion:focus,
+    html.is-android-app body.variant-preschool .preschool-learning-companion:focus-visible {
+        outline: none;
+        border: 0;
+        box-shadow: none;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) {
+        --preschool-glass-fill: rgba(255, 255, 255, .68);
+        --preschool-glass-border: rgba(255, 255, 255, .7);
+        --preschool-glass-shadow: 0 8px 20px rgba(47, 61, 42, .08);
+    }
+    html.is-android-app body.variant-preschool[data-world-theme="platform-quest"] {
+        --preschool-glass-fill: rgba(255, 248, 220, .78);
+        --preschool-glass-border: rgba(244, 208, 106, .65);
+        --preschool-glass-shadow: 0 8px 20px rgba(138, 74, 18, .14);
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"], [data-world-theme="voxel-adventure"]) .preschool-flashcard-page.is-scene-focus {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        grid-template-rows: minmax(0, 1fr);
+        align-items: stretch;
+        gap: 6px;
+        padding: 4px 8px 0;
+        overflow: visible;
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"], [data-world-theme="voxel-adventure"]) .preschool-flashcard-page.is-literacy.is-card-wall.is-scene-focus {
+        display: grid;
+    }
+    /* 识字手机舞台：学习卡+今日队列必须完整放进舞台行（旧值 auto 会与 50 层的
+     * 四段 areas 互相挤压，焦点字被裁、按钮悬空）。 */
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-literacy.is-card-wall.is-scene-focus .preschool-literacy-study-grid {
+        width: auto;
+        max-width: min(360px, 68%);
+        grid-template-areas: "focus" "today";
+        grid-template-rows: auto auto;
+        overflow: visible;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-literacy.is-card-wall.is-scene-focus .preschool-literacy-focus-card {
+        padding: 8px 14px 10px;
+        gap: 3px;
+        border: 1px solid rgba(61, 154, 74, .32);
+        background: linear-gradient(180deg, rgba(255, 254, 248, .97), rgba(242, 250, 236, .97));
+        backdrop-filter: none;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-literacy.is-card-wall.is-scene-focus .preschool-literacy-focus-kicker { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-literacy.is-card-wall.is-scene-focus .preschool-literacy-focus-glyph { font-size: clamp(40px, 12vh, 56px); }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-literacy.is-card-wall.is-scene-focus .preschool-literacy-focus-pinyin { font-size: 14px; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-literacy.is-card-wall.is-scene-focus .preschool-literacy-focus-detail,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-literacy.is-card-wall.is-scene-focus .preschool-literacy-focus-hint { min-height: 0; font-size: 11px; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-literacy.is-card-wall.is-scene-focus .preschool-literacy-focus-tools .preschool-literacy-wall-tool { min-width: 76px; font-size: 12px; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-literacy.is-card-wall.is-scene-focus .preschool-literacy-today-item { min-height: 40px; }
+    /* 古诗手机横屏（tone-pink）：诗卡是主角——走道收窄到 64px、自评块压成一行，
+     * 避免默认 1fr/auto 行把诗卡挤成 27px 的滚动细条。 */
+    
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus.tone-pink .preschool-poem-ask p { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus.tone-pink .preschool-poem-ask h2 { margin: 0; font-size: 12px; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus.tone-pink .preschool-poem-today .preschool-poem-today-head .preschool-card-art,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus.tone-pink .preschool-poem-today .preschool-poem-today-head .preschool-generated-art { width: 44px; height: 44px; }
+    @media (prefers-reduced-motion: reduce) {
+        html.is-android-app body.variant-preschool .preschool-flashcard-page > .preschool-learning-companion-rail .preschool-learning-companion,
+        html.is-android-app body.variant-preschool .preschool-flashcard-page > .preschool-learning-companion-rail .preschool-learning-companion-art,
+        html.is-android-app body.variant-preschool .preschool-flashcard-page > .preschool-learning-companion-rail .preschool-learning-companion-art .preschool-generated-art,
+        html.is-android-app body.variant-preschool .preschool-flashcard-page > .preschool-learning-companion-rail .preschool-learning-companion-art img { animation: none; }
+    }
+    /* 场景聚焦页（非识字卡墙，拼音/数学/英语/专注力）：走道统一收窄到 64px，
+     * 学习卡簇按内容自增——旧 56px 定行会把题面/选项裁切溢出到按钮上。 */
+    
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus:not(.is-card-wall) .preschool-flashcard-cluster.is-duo {
+        display: grid;
+        grid-template-columns: minmax(0, 1.7fr) minmax(132px, 1fr);
+        grid-template-areas:
+            "card toolbar"
+            "card actions";
+        align-items: stretch;
+        gap: 8px;
+        width: min(580px, 88%);
+        max-width: none;
+        align-self: center;
+        justify-self: center;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus:not(.is-card-wall) .preschool-flashcard-cluster.is-duo .preschool-flashcard {
+        grid-area: card;
+        height: auto;
+        align-self: stretch;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus:not(.is-card-wall) .preschool-flashcard-cluster.is-duo .preschool-flashcard-toolbar {
+        grid-area: toolbar;
+        align-self: start;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus:not(.is-card-wall) .preschool-flashcard-cluster.is-duo .preschool-flashcard-toolbar .preschool-flashcard-speak {
+        width: 100%;
+        justify-content: center;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus:not(.is-card-wall) .preschool-flashcard-cluster.is-duo .preschool-flashcard-actions {
+        grid-area: actions;
+        align-self: end;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus:not(.is-card-wall) .preschool-flashcard-cluster.is-duo .preschool-flashcard-actions .preschool-flashcard-mark {
+        width: 100%;
+        justify-content: center;
+    }
+    /* 例字/拼音/同音/近音四块改 2×2 横向网格：旧单列堆叠把卡片撑到 304px，
+     * 超出舞台行被裁掉底部的"近音"块。 */
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus:not(.is-card-wall) .preschool-flashcard-rows {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus:not(.is-card-wall) .preschool-flashcard-row {
+        min-width: 0;
+        gap: 2px;
+        padding: 5px 8px;
+        border-radius: 10px;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus:not(.is-card-wall) .preschool-flashcard-row > * {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus:not(.is-card-wall) .preschool-flashcard-row > :first-child { font-size: 10px; }
+    /* 值行（例字/同音串）最多两行：同音字是学习内容，不能整串省略掉。 */
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus:not(.is-card-wall) .preschool-flashcard-row > :last-child {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        font-size: 13px;
+        line-height: 1.35;
+        white-space: normal;
+        text-overflow: clip;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus:not(.is-card-wall) .preschool-flashcard {
+        grid-template-rows: auto auto;
+        gap: 4px;
+        padding: 6px 12px 8px;
+        overflow: visible;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus:not(.is-card-wall) .preschool-flashcard-main > strong {
+        font-size: clamp(34px, 12.5vh, 54px);
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus:not(.is-card-wall) .preschool-flashcard-cover {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: baseline;
+        justify-content: center;
+        gap: 10px;
+        min-height: 0;
+        padding: 1px 4px;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus:not(.is-card-wall) .preschool-flashcard-cover > * { min-height: 0; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus:not(.is-card-wall) .preschool-flashcard-cover span {
+        min-width: 0;
+        overflow: hidden;
+        font-size: 12px;
+        line-height: 1.3;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-literacy.is-card-wall.is-scene-focus .preschool-literacy-wall-head { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-literacy.is-card-wall.is-scene-focus .eyebrow { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-literacy-card-queue { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-literacy-writing-slot { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-literacy-writing-character { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus .preschool-flashcard-top,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus .preschool-flashcard-levels,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus .preschool-flashcard-count,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus .preschool-flashcard-foot { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-cluster {
+        display: grid;
+        width: max-content;
+        max-width: min(360px, 62%);
+        justify-self: center;
+        gap: 8px;
+        align-content: start;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus:not(.is-card-wall) .preschool-flashcard {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        height: auto;
+        min-height: 0;
+        flex: none;
+        gap: 8px;
+        padding: 10px 14px;
+        overflow: hidden;
+        border: 1px solid var(--preschool-glass-border, rgba(255, 255, 255, .7));
+        border-radius: 18px;
+        background: var(--preschool-glass-fill, rgba(255, 255, 255, .38));
+        box-shadow: var(--preschool-glass-shadow, 0 8px 20px rgba(47, 61, 42, .08));
+        backdrop-filter: blur(8px);
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus .preschool-flashcard-main > .preschool-generated-art,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus .preschool-flashcard-main > .preschool-card-art { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus .preschool-flashcard-main > strong {
+        font-size: clamp(28px, 10vh, 52px);
+        line-height: 1.1;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus .preschool-math-options {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus .preschool-math-option {
+        min-width: 56px;
+        min-height: 44px;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus .preschool-flashcard-toolbar,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus .preschool-flashcard-actions {
+        justify-content: center;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus .preschool-poem-today {
+        padding: 10px 14px;
+        border: 1px solid var(--preschool-glass-border, rgba(255, 255, 255, .7));
+        border-radius: 18px;
+        background: var(--preschool-glass-fill, rgba(255, 255, 255, .38));
+        box-shadow: var(--preschool-glass-shadow, 0 8px 20px rgba(47, 61, 42, .08));
+        backdrop-filter: blur(8px);
+        max-height: 46vh;
+        overflow: auto;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-literacy-study-grid {
+        display: grid;
+        width: max-content;
+        max-width: min(320px, 58%);
+        grid-template-columns: minmax(200px, 280px);
+        grid-template-rows: auto auto;
+        gap: 8px;
+        min-height: 0;
+        justify-self: center;
+        align-items: start;
+        align-content: start;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-literacy-focus-card {
+        display: grid;
+        grid-template-rows: auto auto auto auto;
+        justify-items: center;
+        height: auto;
+        min-height: 0;
+        padding: 8px 12px 10px;
+        overflow: hidden;
+        border: 1px solid var(--preschool-glass-border, rgba(255, 255, 255, .7));
+        border-radius: 18px;
+        background: var(--preschool-glass-fill, rgba(255, 255, 255, .38));
+        box-shadow: var(--preschool-glass-shadow, 0 8px 20px rgba(47, 61, 42, .08));
+        backdrop-filter: blur(8px);
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-literacy-focus-kicker {
+        color: #2d8748;
+        font-size: 11px;
+        font-weight: 900;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-literacy-focus-glyph {
+        width: auto;
+        height: auto;
+        font-size: clamp(48px, 16vh, 84px);
+        line-height: 1;
+        font-weight: 900;
+        color: #24435a;
+        border: 0;
+        background: none;
+        box-shadow: none;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-literacy-focus-pinyin {
+        color: #24435a;
+        font-size: 16px;
+        font-weight: 800;
+        letter-spacing: .08em;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-literacy-focus-detail,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-literacy-focus-hint {
+        max-width: 100%;
+        color: #3c6a4c;
+        font-size: 12px;
+        font-weight: 800;
+        background: transparent;
+        border: 0;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-literacy-focus-tools {
+        display: flex;
+        gap: 8px;
+        width: 100%;
+        justify-content: center;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-literacy-focus-tools .preschool-literacy-wall-tool {
+        min-width: 88px;
+        min-height: 44px;
+        font-size: 14px;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-literacy-today-queue {
+        display: grid;
+        grid-template-rows: auto;
+        height: auto;
+        min-height: 0;
+        padding: 0;
+        overflow: hidden;
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+        backdrop-filter: none;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-literacy-today-queue header { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-literacy-today-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 6px;
+        min-height: 0;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-literacy-today-item {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        align-items: center;
+        gap: 2px;
+        min-width: 44px;
+        min-height: 44px;
+        padding: 4px 6px;
+        border: 2px solid #d8c48e;
+        border-radius: 10px;
+        background: linear-gradient(180deg, #fffdf6, #f3e4b4);
+        text-align: left;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-literacy-today-item.is-current {
+        border-color: #f4b942;
+        background: linear-gradient(180deg, #fff8d6, #f4d56a);
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-literacy-today-copy {
+        display: grid;
+        min-width: 0;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-literacy-today-copy strong { font-size: 18px; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-literacy-today-copy small { color: #5b7380; font-size: 11px; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"], [data-world-theme="voxel-adventure"]) .preschool-flashcard-page:is(.is-scene-focus, .is-literacy.is-card-wall.is-scene-focus) > .preschool-learning-companion-rail {
+        display: grid;
+        grid-template-columns: 1fr;
+        align-items: end;
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        max-height: none;
+        align-self: stretch;
+        padding: 0 12px 3px;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        overflow: visible;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page:is(.is-scene-focus, .is-literacy.is-card-wall.is-scene-focus) > .preschool-learning-companion-rail .preschool-learning-companion-heading { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page:is(.is-scene-focus, .is-literacy.is-card-wall.is-scene-focus) > .preschool-learning-companion-rail .preschool-learning-companion-list {
+        display: flex;
+        align-items: flex-end;
+        width: 100%;
+        justify-content: space-around;
+        height: 100%;
+        min-height: 0;
+        padding-bottom: 2px;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page:is(.is-scene-focus, .is-literacy.is-card-wall.is-scene-focus) > .preschool-learning-companion-rail .preschool-learning-companion {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        height: 100%;
+        min-height: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page:is(.is-scene-focus, .is-literacy.is-card-wall.is-scene-focus) > .preschool-learning-companion-rail .preschool-learning-companion-copy { display: none; }
+    /* 走道伙伴：完整站进走道行（旧的 110px 最小高 + 固定大图会把脚裁出屏外）。 */
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page:is(.is-scene-focus, .is-literacy.is-card-wall.is-scene-focus) > .preschool-learning-companion-rail .preschool-learning-companion-art {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        width: auto;
+        height: 100%;
+        align-self: flex-end;
+        animation: none;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page:is(.is-scene-focus, .is-literacy.is-card-wall.is-scene-focus) > .preschool-learning-companion-rail .preschool-learning-companion-art .preschool-generated-art,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page:is(.is-scene-focus, .is-literacy.is-card-wall.is-scene-focus) > .preschool-learning-companion-rail .preschool-learning-companion-art img {
+        display: block;
+        width: auto;
+        height: 100%;
+        max-width: 21vw;
+        object-fit: contain;
+        filter: drop-shadow(0 4px 0 rgba(47, 61, 42, .16));
+        animation: none;
+    }
+    /* 学习页走道复用首页的 is-walker 巡逻系统：左右走动，JS 在每段折返时翻面，
+     * 中间一位（is-stage-idle）原地待机。 */
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page:is(.is-scene-focus, .is-literacy.is-card-wall.is-scene-focus) > .preschool-learning-companion-rail .preschool-learning-companion.is-walker {
+        --preschool-stage-walk-distance: clamp(24px, 5.5vw, 56px);
+        animation: preschool-stage-walk 9.5s ease-in-out infinite alternate;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page:is(.is-scene-focus, .is-literacy.is-card-wall.is-scene-focus) > .preschool-learning-companion-rail .preschool-learning-companion.is-walker .preschool-learning-companion-art {
+        transform-origin: 50% 100%;
+        animation: preschool-stage-bob .72s ease-in-out infinite alternate;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page:is(.is-scene-focus, .is-literacy.is-card-wall.is-scene-focus) > .preschool-learning-companion-rail .preschool-learning-companion.is-stage-idle .preschool-learning-companion-art {
+        animation: preschool-stage-bob 2.6s ease-in-out infinite;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page:is(.is-scene-focus, .is-literacy.is-card-wall.is-scene-focus) > .preschool-learning-companion-rail .preschool-learning-companion.is-walker.is-flipped .preschool-learning-companion-art .preschool-generated-art,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page:is(.is-scene-focus, .is-literacy.is-card-wall.is-scene-focus) > .preschool-learning-companion-rail .preschool-learning-companion.is-walker.is-flipped .preschool-learning-companion-art img {
+        transform: scaleX(-1);
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page:is(.is-scene-focus, .is-literacy.is-card-wall.is-scene-focus) > .preschool-learning-companion-rail .preschool-learning-companion.is-delay-1.is-walker { animation-delay: -2.1s; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page:is(.is-scene-focus, .is-literacy.is-card-wall.is-scene-focus) > .preschool-learning-companion-rail .preschool-learning-companion.is-delay-3.is-walker { animation-delay: -6.4s; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page:is(.is-scene-focus, .is-literacy.is-card-wall.is-scene-focus) > .preschool-learning-companion-rail .preschool-learning-companion.is-delay-3.is-walker .preschool-learning-companion-art { animation-duration: .8s; }
+    html.is-android-app body.variant-preschool.preschool-no-motion .preschool-flashcard-page > .preschool-learning-companion-rail .preschool-learning-companion { animation: none; }
+    html.is-android-app body.variant-preschool.preschool-no-motion .preschool-flashcard-page > .preschool-learning-companion-rail .preschool-learning-companion-art,
+    html.is-android-app body.variant-preschool.preschool-no-motion .preschool-flashcard-page > .preschool-learning-companion-rail .preschool-learning-companion-art .preschool-generated-art,
+    html.is-android-app body.variant-preschool.preschool-no-motion .preschool-flashcard-page > .preschool-learning-companion-rail .preschool-learning-companion-art img { animation: none; }
+
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-primary"] .preschool-home-overview.is-simple {
+        grid-template-rows: auto minmax(110px, 1fr);
+        background: transparent;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-primary"] .workbench-overview-header { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-primary"] .workbench-overview-header {
+        height: 36px !important;
+        min-height: 36px !important;
+        padding: 0 8px;
+        border: 1px solid rgba(47, 61, 42, .18);
+        border-radius: 10px;
+        background: rgba(255, 253, 246, .88);
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-native-page[data-native-kind="home-primary"] .workbench-overview-header h1,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-native-page[data-native-kind="home-primary"] .workbench-kicker,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-native-page[data-native-kind="home-primary"] .workbench-overview-greeting span { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-native-page[data-native-kind="home-primary"] .eyebrow { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-native-page[data-native-kind="home-primary"] .preschool-home-hero-reward { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-primary"] .preschool-home-top {
+        height: auto;
+        min-height: 0;
+        max-width: 420px;
+        justify-self: center;
+        align-self: start;
+    }
+    /* 收口：363 行的旧 !important 会把 home-top 锁回 100%/76px，而 justify-self:center
+     * 又让它收缩成 196px，目标卡三段内容全部溢出到场景上。这里统一为固定可读宽度
+     * + 自然高度，舞台行仍由 minmax(110px, 1fr) 兜底。 */
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-primary"] .preschool-home-top {
+        width: min(400px, 64vw) !important;
+        max-width: min(400px, 64vw);
+        height: auto !important;
+        grid-template-columns: minmax(0, 1fr) !important;
+        grid-template-rows: auto !important;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-primary"] .preschool-home-hero {
+        height: auto !important;
+        grid-template-rows: none !important;
+        row-gap: 5px;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-primary"] .preschool-home-hero,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-primary"] .preschool-home-hero-card {
+        height: auto;
+        min-height: 0;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-native-page[data-native-kind="home-primary"] .preschool-home-hero-art { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-primary"] .preschool-home-hero-copy {
+        height: auto !important;
+        min-height: 0 !important;
+        gap: 6px !important;
+        margin: 0 !important;
+        padding: 10px 12px !important;
+        border: 0 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-primary"] .preschool-home-hero-copy p,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-primary"] .preschool-home-hero-copy em { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-primary"] .preschool-home-hero-copy > span {
+        height: auto;
+        min-height: 44px !important;
+        padding: 0 14px;
+        font-size: 14px;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-native-page[data-native-kind="home-primary"] .preschool-home-hero-card {
+        border: 1px solid var(--preschool-glass-border, rgba(255, 255, 255, .7));
+        background: var(--preschool-glass-fill, rgba(255, 255, 255, .38));
+        box-shadow: var(--preschool-glass-shadow, 0 8px 20px rgba(47, 61, 42, .08));
+        backdrop-filter: blur(8px);
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-native-page[data-native-kind="home-primary"] .preschool-home-stage {
+        display: grid;
+        grid-template-columns: 1fr;
+        align-items: end;
+        width: 100%;
+        height: auto;
+        min-height: 110px;
+        max-height: none;
+        padding: 0 8px 4px;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        overflow: visible;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-native-page[data-native-kind="home-primary"] .preschool-home-stage-characters {
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        align-items: flex-end;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-native-page[data-native-kind="home-primary"] .preschool-home-stage-ground { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-native-page[data-native-kind="home-primary"] .preschool-home-stage-bubble { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-native-page[data-native-kind="home-primary"] .preschool-home-stage .preschool-learning-companion-copy { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-native-page[data-native-kind="home-primary"] .preschool-home-stage .preschool-learning-companion {
+        grid-template-columns: 1fr;
+        min-height: 0;
+        justify-items: center;
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-native-page[data-native-kind="home-primary"] .preschool-home-stage .preschool-learning-companion-art,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-native-page[data-native-kind="home-primary"] .preschool-home-stage .preschool-learning-companion-art .preschool-generated-art {
+        width: clamp(80px, 24vh, 120px);
+        height: clamp(92px, 28vh, 136px);
+        object-fit: contain;
+        animation: preschool-stage-bob 2.4s ease-in-out infinite;
+    }
+
+    /* S6 garden: remaining swipe pages — one floating card, plants on the lawn. */
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-stage"] {
+        display: grid;
+        grid-template-rows: auto minmax(140px, 1fr);
+        gap: 8px;
+        padding: 8px 10px 0;
+        height: 100%;
+        overflow: visible;
+        background: transparent;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-stage"] > .preschool-page-intro { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-stage"] .preschool-reward-progress {
+        display: grid;
+        width: max-content;
+        max-width: min(420px, 58%);
+        height: auto;
+        min-height: 0;
+        justify-self: center;
+        align-self: start;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto;
+        gap: 6px;
+        padding: 10px 14px;
+        overflow: visible;
+        border: 1px solid var(--preschool-glass-border, rgba(255, 255, 255, .7));
+        border-radius: 18px;
+        background: var(--preschool-glass-fill, rgba(255, 255, 255, .38));
+        box-shadow: var(--preschool-glass-shadow, 0 8px 20px rgba(47, 61, 42, .08));
+        backdrop-filter: blur(8px);
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-stage"] .preschool-reward-progress::before { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-stage"] .preschool-reward-progress .eyebrow,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-stage"] .preschool-reward-progress-copy p,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-stage"] .preschool-reward-next,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-stage"] .preschool-reward-crystal,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-stage"] .preschool-reward-progress-art { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-stage"] .preschool-reward-progress-copy h2 { font-size: clamp(16px, 3.2vw, 22px); }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-stage"] .preschool-reward-meter { height: 14px; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-stage"] .preschool-reward-stage {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto minmax(110px, 1fr);
+        align-items: stretch;
+        width: 100%;
+        height: 100%;
+        min-height: 140px;
+        max-height: none;
+        padding: 0 8px 4px;
+        overflow: visible;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-stage"] .preschool-reward-stage-copy { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-stage"] .preschool-reward-stage-ground { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-stage"] .preschool-reward-stage-actions {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        grid-row: 1;
+        align-self: start;
+        justify-content: center;
+        justify-self: center;
+        gap: 8px;
+        min-width: 0;
+        z-index: 2;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-stage"] .preschool-reward-stage-actions button {
+        min-width: 96px;
+        min-height: 44px;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-stage"] .preschool-reward-stage-scene {
+        position: relative;
+        display: flex;
+        grid-row: 2;
+        width: 100%;
+        height: 100%;
+        min-height: 110px;
+        align-items: flex-end;
+        justify-content: space-around;
+        gap: 12px;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-stage"] .preschool-reward-stage-plant,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-stage"] .preschool-reward-stage-pet {
+        width: auto;
+        min-width: 72px;
+        background: transparent;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-stage"] .preschool-reward-stage-art {
+        width: clamp(72px, 22vh, 112px);
+        height: clamp(84px, 26vh, 128px);
+        overflow: visible;
+        border-radius: 0;
+        background: transparent;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-stage"] .preschool-reward-stage-art .preschool-generated-art,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-stage"] .preschool-reward-stage-pet-art {
+        width: clamp(72px, 22vh, 112px);
+        height: clamp(84px, 26vh, 128px);
+        object-fit: contain;
+        filter: drop-shadow(0 4px 0 rgba(47, 61, 42, .16));
+        animation: preschool-stage-bob 2.4s ease-in-out infinite;
+    }
+
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-tasks"] {
+        overflow: visible;
+        background: transparent;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-tasks"] .preschool-home-overview {
+        display: grid;
+        grid-template-rows: minmax(0, 1fr);
+        height: 100%;
+        padding: 8px 10px 0;
+        background: transparent;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-tasks"] .preschool-home-battlefield {
+        display: grid;
+        grid-template-rows: auto minmax(140px, 1fr);
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        gap: 8px;
+        margin: 0;
+        padding: 0;
+        overflow: visible;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-tasks"] .preschool-home-battlefield-head {
+        display: flex;
+        width: max-content;
+        max-width: min(420px, 70%);
+        min-height: 0;
+        justify-self: center;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border: 1px solid var(--preschool-glass-border, rgba(255, 255, 255, .7));
+        border-radius: 18px;
+        background: var(--preschool-glass-fill, rgba(255, 255, 255, .38));
+        box-shadow: var(--preschool-glass-shadow, 0 8px 20px rgba(47, 61, 42, .08));
+        backdrop-filter: blur(8px);
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-tasks"] .preschool-home-battlefield-head .pixel-panel-kicker,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-tasks"] .preschool-home-battlefield-head p,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-tasks"] .preschool-home-task-overview,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-tasks"] .preschool-home-battlefield-foot,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-tasks"] .preschool-home-exits { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-tasks"] .preschool-home-battlefield-head h2 { margin: 0; font-size: 16px; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-tasks"] .preschool-home-lanes {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        min-height: 140px;
+        justify-content: space-around;
+        align-items: flex-end;
+        gap: 8px;
+        overflow: visible;
+        background: transparent;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-tasks"] .preschool-home-lane {
+        display: grid;
+        width: auto;
+        max-width: 160px;
+        height: auto;
+        min-height: 0;
+        grid-template-rows: auto auto;
+        gap: 4px;
+        padding: 0;
+        overflow: visible;
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-tasks"] .preschool-home-lane-main {
+        display: grid;
+        grid-template-rows: auto auto;
+        min-height: 0;
+        padding: 0;
+        background: transparent;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-tasks"] .preschool-home-lane-copy { grid-row: 1; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-tasks"] .preschool-home-lane-characters,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-tasks"] .preschool-home-lane-plant {
+        grid-row: 2;
+        display: grid;
+        width: clamp(72px, 22vh, 112px);
+        height: clamp(84px, 26vh, 128px);
+        min-height: clamp(84px, 26vh, 128px);
+        justify-items: center;
+        align-items: end;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-tasks"] .preschool-home-lane-characters .preschool-generated-art {
+        width: clamp(72px, 22vh, 112px);
+        height: clamp(84px, 26vh, 128px);
+        max-height: none;
+        object-fit: contain;
+        filter: drop-shadow(0 4px 0 rgba(47, 61, 42, .16));
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-tasks"] .preschool-home-lane-copy small { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-tasks"] .preschool-home-lane-check { min-height: 40px; font-size: 11px; }
+
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="courses-today"] {
+        display: grid;
+        align-content: start;
+        align-items: start;
+        justify-items: center;
+        padding: 8px 10px 0;
+        overflow: visible;
+        background: transparent;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="courses-today"] .preschool-course-today {
+        display: grid;
+        width: max-content;
+        max-width: min(420px, 70%);
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto auto;
+        gap: 8px;
+        height: auto;
+        min-height: 0;
+        padding: 10px 14px;
+        border: 1px solid var(--preschool-glass-border, rgba(255, 255, 255, .7));
+        border-radius: 18px;
+        background: var(--preschool-glass-fill, rgba(255, 255, 255, .38));
+        box-shadow: var(--preschool-glass-shadow, 0 8px 20px rgba(47, 61, 42, .08));
+        backdrop-filter: blur(8px);
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="courses-today"] .preschool-course-today-art { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="courses-today"] .preschool-course-today-split { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="courses-today"] .preschool-course-today-cta { min-height: 44px; justify-self: center; }
+
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="courses-wall"],
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="courses-extra"] {
+        display: grid;
+        align-content: start;
+        align-items: start;
+        justify-items: center;
+        padding: 8px 10px 0;
+        overflow: visible;
+        background: transparent;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall {
+        display: grid;
+        width: min(520px, 78%);
+        max-width: min(520px, 78%);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: auto;
+        align-content: start;
+        justify-self: center;
+        gap: 8px;
+        height: auto;
+        padding: 0;
+        background: transparent;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-card,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-card {
+        height: auto;
+        min-height: 0;
+        padding: 8px 10px;
+        border: 1px solid var(--preschool-glass-border, rgba(255, 255, 255, .7));
+        border-radius: 16px;
+        background: var(--preschool-glass-fill, rgba(255, 255, 255, .38));
+        box-shadow: var(--preschool-glass-shadow, 0 8px 20px rgba(47, 61, 42, .08));
+        backdrop-filter: blur(8px);
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-art,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-art {
+        width: 40px;
+        height: 40px;
+        max-width: 40px;
+        max-height: 40px;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-details,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-details,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-state,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-state,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-scene,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-scene,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-details p,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-details p { display: none; }
+
+    /* S6 garden: remaining swipe pages — tiers, collection, home world. */
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-tiers"] {
+        display: grid;
+        align-content: start;
+        align-items: start;
+        justify-items: center;
+        padding: 8px 10px 0;
+        overflow: visible;
+        background: transparent;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-tiers"] .preschool-reward-tier-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: start;
+        width: min(520px, 78%);
+        height: auto;
+        gap: 8px;
+        overflow: visible;
+        background: transparent;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-tiers"] .preschool-reward-tier,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-tiers"] .preschool-reward-tier-grid {
+        display: contents;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-tiers"] .preschool-reward-tier-head { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-tiers"] .preschool-reward-card {
+        width: min(140px, 46%);
+        height: auto;
+        min-height: 0;
+        padding: 8px 10px;
+        border: 1px solid var(--preschool-glass-border, rgba(255, 255, 255, .7));
+        border-radius: 16px;
+        background: var(--preschool-glass-fill, rgba(255, 255, 255, .38));
+        box-shadow: var(--preschool-glass-shadow, 0 8px 20px rgba(47, 61, 42, .08));
+        backdrop-filter: blur(8px);
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-tiers"] .preschool-reward-card h2 { font-size: 13px; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-tiers"] .preschool-reward-card button { min-height: 40px; }
+
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-collection"] {
+        display: grid;
+        align-content: start;
+        align-items: start;
+        justify-items: center;
+        padding: 8px 10px 0;
+        overflow: visible;
+        background: transparent;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-collection"] .preschool-collection-section {
+        display: grid;
+        width: min(520px, 78%);
+        height: auto;
+        min-height: 0;
+        gap: 8px;
+        padding: 0;
+        overflow: visible;
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-collection"] .preschool-section-head {
+        display: flex;
+        width: max-content;
+        max-width: 100%;
+        min-height: 0;
+        justify-self: center;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border: 1px solid var(--preschool-glass-border, rgba(255, 255, 255, .7));
+        border-radius: 18px;
+        background: var(--preschool-glass-fill, rgba(255, 255, 255, .38));
+        box-shadow: var(--preschool-glass-shadow, 0 8px 20px rgba(47, 61, 42, .08));
+        backdrop-filter: blur(8px);
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-collection"] .preschool-section-head .eyebrow { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-collection"] .preschool-section-head h2 { margin: 0; font-size: 16px; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-collection"] .preschool-collection-grid {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        height: auto;
+        gap: 8px;
+        padding: 0;
+        background: transparent;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-collection"] .preschool-collection-grid::before,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-collection"] .preschool-collection-grid::after { display: none; content: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="rewards-collection"] .preschool-collection-card {
+        width: 88px;
+        height: auto;
+        min-height: 0;
+        padding: 8px 6px;
+        border: 1px solid var(--preschool-glass-border, rgba(255, 255, 255, .7));
+        border-radius: 16px;
+        background: var(--preschool-glass-fill, rgba(255, 255, 255, .38));
+        box-shadow: var(--preschool-glass-shadow, 0 8px 20px rgba(47, 61, 42, .08));
+        backdrop-filter: blur(8px);
+    }
+
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-world"] {
+        overflow: visible;
+        background: transparent;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-world"] .preschool-home-overview {
+        display: grid;
+        grid-template-rows: auto auto;
+        align-content: start;
+        align-items: start;
+        justify-items: center;
+        height: 100%;
+        padding: 8px 10px 0;
+        background: transparent;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-world"] .preschool-voxel-home {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto minmax(110px, 1fr);
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        gap: 8px;
+        margin: 0;
+        padding: 0;
+        overflow: visible;
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-world"] .preschool-voxel-home-copy {
+        width: max-content;
+        max-width: min(420px, 70%);
+        justify-self: center;
+        padding: 10px 14px;
+        border: 1px solid var(--preschool-glass-border, rgba(255, 255, 255, .7));
+        border-radius: 18px;
+        background: var(--preschool-glass-fill, rgba(255, 255, 255, .38));
+        box-shadow: var(--preschool-glass-shadow, 0 8px 20px rgba(47, 61, 42, .08));
+        backdrop-filter: blur(8px);
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-world"] .pixel-panel-kicker,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-world"] .preschool-voxel-home-copy p { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-world"] .preschool-voxel-home-copy h2 { margin: 0 0 8px; font-size: 16px; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-world"] .preschool-world-progress-go { min-height: 44px; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-world"] .preschool-voxel-home-frame {
+        width: min(280px, 50%);
+        justify-self: center;
+        align-self: end;
+        min-height: 0;
+        margin-bottom: 8px;
+        padding: 6px;
+        border: 1px solid var(--preschool-glass-border, rgba(255, 255, 255, .7));
+        border-radius: 16px;
+        background: var(--preschool-glass-fill, rgba(255, 255, 255, .38));
+        box-shadow: var(--preschool-glass-shadow, 0 8px 20px rgba(47, 61, 42, .08));
+        backdrop-filter: blur(8px);
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-world"] .preschool-home-exits {
+        position: static;
+        top: auto;
+        right: auto;
+        bottom: auto;
+        left: auto;
+        display: flex;
+        width: max-content;
+        max-width: min(420px, 70%);
+        justify-self: center;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        border: 1px solid var(--preschool-glass-border, rgba(255, 255, 255, .7));
+        border-radius: 18px;
+        background: var(--preschool-glass-fill, rgba(255, 255, 255, .38));
+        box-shadow: var(--preschool-glass-shadow, 0 8px 20px rgba(47, 61, 42, .08));
+        backdrop-filter: blur(8px);
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-native-page[data-native-kind="home-world"] .preschool-home-exits > button { min-height: 44px; }
+
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content:has(> .preschool-world-launch) {
+        display: grid;
+        align-content: start;
+        justify-items: center;
+        padding-top: 12px;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content:has(> .preschool-world-launch) > .preschool-page-intro { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-world-launch {
+        width: max-content;
+        max-width: min(420px, 72%);
+        justify-self: center;
+        margin: 8px auto 0;
+        padding: 12px 16px;
+        gap: 8px;
+        border: 1px solid var(--preschool-glass-border, rgba(255, 255, 255, .7));
+        border-radius: 18px;
+        background: var(--preschool-glass-fill, rgba(255, 255, 255, .38));
+        box-shadow: var(--preschool-glass-shadow, 0 8px 20px rgba(47, 61, 42, .08));
+        backdrop-filter: blur(8px);
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-world-launch .pixel-panel-kicker { display: none; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-world-launch h2 { margin: 0; font-size: 18px; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-world-launch p { margin: 0; font-size: 12px; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-world-launch-actions {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) #page-content .preschool-world-launch-actions .workbench-action-button { min-height: 44px; }
+
+    html.is-android-app body.variant-preschool[data-world-theme="platform-quest"] .child-game-scene {
+        background-image: var(--child-scene-image);
+    }
+    html.is-android-app body.variant-preschool[data-world-theme="platform-quest"] .child-game-scene::before {
+        background: linear-gradient(180deg, rgba(90, 170, 255, .1), transparent 46%);
+    }
+    html.is-android-app body.variant-preschool[data-world-theme="platform-quest"] .child-game-scene-sun,
+    html.is-android-app body.variant-preschool[data-world-theme="platform-quest"] .child-game-scene-cloud {
+        display: none;
+    }
+    html.is-android-app body.variant-preschool[data-world-theme="platform-quest"] .child-game-scene-ground {
+        height: 16%;
+        opacity: 1;
+        animation: none;
+        border-top: 4px solid #f4d06a;
+        box-shadow: inset 0 6px 0 rgba(244, 208, 106, .55);
+        background:
+            repeating-linear-gradient(
+                90deg,
+                #c84c28 0 36px,
+                #e07a3a 36px 38px,
+                #a83a1c 38px 74px,
+                #d96a32 74px 76px
+            );
+    }
+/* 三列战场：左列伙伴纵队 / 中列学习卡 / 右列僵尸纵队；走道行取消。 */
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus > .preschool-learning-companion-rail {
+        grid-column: 1;
+        grid-row: 1;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus > .preschool-flashcard-cluster,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page.is-scene-focus > .preschool-literacy-study-grid {
+        grid-column: 2;
+        grid-row: 1;
+        align-self: center;
+        justify-self: center;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"], [data-world-theme="voxel-adventure"]) .preschool-flashcard-page.is-scene-focus > .preschool-scene-zombie-rail {
+        grid-column: 3;
+        grid-row: 1;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"], [data-world-theme="voxel-adventure"]) .preschool-flashcard-page:is(.is-scene-focus, .is-literacy.is-card-wall.is-scene-focus) > .preschool-learning-companion-rail {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        width: clamp(70px, 11vw, 104px);
+        height: 100%;
+        min-height: 0;
+        max-height: none;
+        padding: 6px 2px;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page:is(.is-scene-focus, .is-literacy.is-card-wall.is-scene-focus) > .preschool-learning-companion-rail .preschool-learning-companion-list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        padding: 0;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page:is(.is-scene-focus, .is-literacy.is-card-wall.is-scene-focus) > .preschool-learning-companion-rail .preschool-learning-companion {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        height: auto;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page:is(.is-scene-focus, .is-literacy.is-card-wall.is-scene-focus) > .preschool-learning-companion-rail .preschool-learning-companion-art {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        height: auto;
+        animation: none;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page:is(.is-scene-focus, .is-literacy.is-card-wall.is-scene-focus) > .preschool-learning-companion-rail .preschool-learning-companion-art .preschool-generated-art,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page:is(.is-scene-focus, .is-literacy.is-card-wall.is-scene-focus) > .preschool-learning-companion-rail .preschool-learning-companion-art img {
+        display: block;
+        width: auto;
+        height: clamp(56px, 19vh, 74px);
+        max-width: 14vw;
+        object-fit: contain;
+        filter: drop-shadow(0 4px 0 rgba(47, 61, 42, .16));
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page:is(.is-scene-focus, .is-literacy.is-card-wall.is-scene-focus) > .preschool-learning-companion-rail .preschool-learning-companion.is-walker {
+        --preschool-stage-walk-distance: clamp(8px, 1.6vw, 14px);
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-flashcard-page:is(.is-scene-focus, .is-literacy.is-card-wall.is-scene-focus) > .preschool-learning-companion-rail .preschool-learning-companion.is-firing .preschool-learning-companion-art {
+        animation: preschool-shooter-recoil .34s ease-out 1;
+    }
+    @keyframes preschool-shooter-recoil {
+        0% { transform: translateX(0) rotate(0deg); }
+        35% { transform: translateX(6px) rotate(3.5deg); }
+        100% { transform: translateX(0) rotate(0deg); }
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"], [data-world-theme="voxel-adventure"]) .preschool-flashcard-page.is-scene-focus > .preschool-scene-zombie-rail {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        width: clamp(70px, 11vw, 104px);
+        height: 100%;
+        padding: 6px 2px;
+        pointer-events: none;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"], [data-world-theme="voxel-adventure"]) .preschool-scene-zombie {
+        transform-origin: 50% 100%;
+        animation: preschool-zombie-lurch 2.6s ease-in-out infinite alternate;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-scene-zombie.is-delay-2 { animation-delay: -1.2s; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-scene-zombie.is-delay-3 { animation-delay: -2.1s; animation-duration: 2.9s; }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-scene-zombie .preschool-generated-art,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-scene-zombie img {
+        display: block;
+        width: auto;
+        height: clamp(70px, 24vh, 92px);
+        max-width: 16vw;
+        object-fit: contain;
+        filter: drop-shadow(0 4px 0 rgba(47, 61, 42, .14)) saturate(.92);
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-scene-zombie.is-hit { animation: preschool-zombie-hit .64s ease-out 1; }
+    @keyframes preschool-zombie-lurch {
+        0% { transform: translateX(4px) rotate(-2.2deg); }
+        100% { transform: translateX(-6px) rotate(2.4deg); }
+    }
+    @keyframes preschool-zombie-hit {
+        0% { filter: brightness(2.2) saturate(.35); transform: translateX(10px) rotate(-7deg); }
+        60% { transform: translateX(-3px) rotate(5deg); }
+        100% { filter: none; transform: none; }
+    }
+    html.is-android-app body.variant-preschool .preschool-scene-pea {
+        position: fixed;
+        z-index: 60;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 34% 30%, #d8f7b0, #6dbb3c 58%, #3f7d22);
+        box-shadow: 0 2px 6px rgba(47, 92, 22, .4);
+        pointer-events: none;
+        animation: preschool-pea-fly .5s cubic-bezier(.22, .61, .36, 1) forwards;
+    }
+    @keyframes preschool-pea-fly {
+        to { transform: translateX(var(--pea-fly, 300px)); }
+    }
+    html.is-android-app body.variant-preschool .preschool-scene-sunpop {
+        position: fixed;
+        z-index: 60;
+        padding: 3px 9px;
+        border: 2px solid #f4c84a;
+        border-radius: 999px;
+        color: #8a5b0a;
+        background: #fff8d6;
+        box-shadow: 0 3px 8px rgba(138, 91, 10, .18);
+        font-size: 13px;
+        font-weight: 950;
+        pointer-events: none;
+        animation: preschool-sun-pop 1.05s ease-out forwards;
+    }
+    @keyframes preschool-sun-pop {
+        0% { opacity: 0; transform: translateY(8px) scale(.6); }
+        22% { opacity: 1; transform: translateY(-4px) scale(1.08); }
+        100% { opacity: 0; transform: translateY(-30px) scale(1); }
+    }
+
+    /* S1：复习击退——倒地淡出后保持退场（不再蹒跚）。 */
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-scene-zombie.is-defeated {
+        animation: preschool-zombie-defeat .6s ease-in forwards;
+        opacity: .32;
+        filter: grayscale(.85) brightness(1.05);
+        pointer-events: none;
+    }
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-scene-zombie.is-defeated .preschool-generated-art,
+    html.is-android-app body.variant-preschool:is([data-world-theme="garden-defense"], [data-world-theme="platform-quest"]) .preschool-scene-zombie.is-defeated img {
+        animation: none;
+    }
+    @keyframes preschool-zombie-defeat {
+        0% { transform: none; opacity: 1; }
+        55% { transform: translateX(16px) rotate(38deg); opacity: .85; }
+        100% { transform: translateX(22px) rotate(52deg) translateY(6px); opacity: .32; }
+    }
+
+}
+
+/* 僵尸列只在安卓横屏场景出现（56 文件内的主题作用域规则负责显示）。 */
+.preschool-scene-zombie-rail { display: none; }
+
+/* S2：首页今日目标横幅（含 S3 入侵警示行）。 */
+.preschool-sun-goal {
+    display: grid;
+    gap: 5px;
+    margin: 0 0 4px;
+    padding: 8px 12px;
+    border: 2px solid rgba(244, 200, 74, .38);
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(255, 253, 246, .95), rgba(255, 247, 214, .92));
+}
+
+.preschool-sun-goal-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.preschool-sun-goal-main > div, .preschool-sun-goal-main strong, .preschool-sun-goal-main small {
+    min-width: 0;
+}
+
+.preschool-sun-goal-main strong {
+    color: #243528;
+    font-size: 14px;
+    font-weight: 900;
+}
+
+.preschool-sun-goal-main small {
+    color: #6f7c52;
+    font-size: 11px;
+    font-weight: 750;
+}
+
+.preschool-sun-goal-main button {
+    flex: 0 0 auto;
+    min-height: 40px;
+    padding: 0 12px;
+    border: 2px solid #2d8748;
+    border-radius: 12px;
+    color: #fff;
+    background: #3d9a4a;
+    font-size: 12px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.preschool-sun-goal-dots {
+    display: flex;
+    gap: 6px;
+}
+
+.preschool-sun-goal-dots i {
+    flex: 1 1 0;
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(47, 61, 42, .14);
+}
+
+.preschool-sun-goal-dots i.is-on {
+    background: linear-gradient(90deg, #f4c84a, #f4a52a);
+    box-shadow: 0 1px 4px rgba(244, 165, 42, .45);
+}
+
+.preschool-sun-goal-invasion {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px;
+    border: 2px solid rgba(212, 90, 58, .35);
+    border-radius: 10px;
+    background: #fff1e8;
+    color: #8c3a1e;
+    font-size: 12px;
+    font-weight: 850;
+}
+
+.preschool-sun-goal-invasion-art {
+    display: grid;
+    width: 30px;
+    height: 34px;
+    place-items: end center;
+}
+
+.preschool-sun-goal-invasion-art img,
+.preschool-sun-goal-invasion-art .preschool-generated-art {
+    width: auto;
+    height: 100%;
+    object-fit: contain;
+}
+
+.preschool-sun-goal-invasion button {
+    margin-left: auto;
+    min-height: 36px;
+    padding: 0 10px;
+    border: 2px solid #d45a3a;
+    border-radius: 10px;
+    color: #fff;
+    background: #d45a3a;
+    font-size: 11px;
+    font-weight: 900;
+    cursor: pointer;
+    /* 豌豆蓄力格：普通卡 3 张蓄 1 发，挂在豌豆射手旁（列中部）。 */
+    html.is-android-app body.variant-preschool .preschool-scene-charge {
+        position: fixed;
+        z-index: 45;
+        left: 12px;
+        top: 44%;
+        display: grid;
+        gap: 4px;
+        pointer-events: none;
+    }
+    html.is-android-app body.variant-preschool .preschool-scene-charge i {
+        width: 26px;
+        height: 10px;
+        border: 2px solid rgba(47, 61, 42, .35);
+        border-radius: 999px;
+        background: rgba(255, 253, 246, .82);
+    }
+    html.is-android-app body.variant-preschool .preschool-scene-charge i.is-on {
+        border-color: #6dbb3c;
+        background: linear-gradient(90deg, #a8e063, #6dbb3c);
+        box-shadow: 0 1px 4px rgba(109, 187, 60, .5);
+    }
+
+    /* S7 障碍模式（platform 砖块/水管）：不蹒跚，只轻微悬浮；voxel 怪物保留蹒跚。 */
+    html.is-android-app body.variant-preschool .preschool-scene-zombie-rail.is-obstacle .preschool-scene-zombie {
+        animation: preschool-obstacle-bob 3.2s ease-in-out infinite alternate;
+    }
+    html.is-android-app body.variant-preschool .preschool-scene-zombie-rail.is-obstacle .preschool-scene-zombie.is-delay-2 { animation-delay: -1.4s; }
+    html.is-android-app body.variant-preschool .preschool-scene-zombie-rail.is-obstacle .preschool-scene-zombie.is-delay-3 { animation-delay: -2.2s; }
+    html.is-android-app body.variant-preschool .preschool-scene-zombie-rail.is-obstacle .preschool-scene-zombie.is-defeated {
+        animation: preschool-zombie-defeat .6s ease-in forwards;
+    }
+    html.is-android-app body.variant-preschool.preschool-no-motion .preschool-scene-zombie-rail.is-obstacle .preschool-scene-zombie {
+        animation: none;
+    }
+    @keyframes preschool-obstacle-bob {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-3px); }
+    }
+
+}

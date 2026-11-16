@@ -61,12 +61,13 @@ test('dead horizontal knockback assignments are removed', () => {
 });
 
 function platformGameSrc() {
-  return fs.readFileSync(path.join(root, 'games', 'platform-quest', 'game.js'), 'utf8');
+  return fs.readFileSync(path.join(root, 'games', 'platform-quest', 'game.js'), 'utf8').replace(/\r\n/g, '\n');
 }
 
 function extractPlatformFn(src, name) {
+  const normalized = String(src || '').replace(/\r\n/g, '\n');
   const re = new RegExp('function ' + name + '\\([\\s\\S]*?\\n    \\}\\n');
-  const match = src.match(re);
+  const match = normalized.match(re);
   assert.ok(match, name + ' missing in platform game.js');
   const box = {};
   vm.runInNewContext(match[0] + '\nthis.' + name + ' = ' + name + ';', box);

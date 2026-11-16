@@ -16,6 +16,32 @@
         preschool: '../preschool-workbench/index.html'
     };
 
+    function wantsSimulatedAndroid() {
+        try {
+            const search = global.location && global.location.search;
+            if (!search) return false;
+            return new URLSearchParams(search).has('sim-android');
+        } catch (error) {
+            return false;
+        }
+    }
+
+    function isNativeAndroid() {
+        try {
+            if (wantsSimulatedAndroid()) return true;
+            const capacitor = global.Capacitor;
+            if (!capacitor || typeof capacitor.getPlatform !== 'function') return false;
+            if (capacitor.getPlatform() !== 'android') return false;
+            return typeof capacitor.isNativePlatform !== 'function' || capacitor.isNativePlatform();
+        } catch (error) {
+            return false;
+        }
+    }
+
+    if (global.document && isNativeAndroid()) {
+        global.document.documentElement.classList.add('is-android-app');
+    }
+
     function isValidVariant(value) {
         return VALID_VARIANTS.includes(String(value || ''));
     }
@@ -94,6 +120,34 @@
         });
     }
 
+    function setupLauncherPager() {
+        if (!global.document) return;
+        const pager = global.document.querySelector('.launcher-app-pager');
+        const pages = Array.from(global.document.querySelectorAll('.launcher-app-page'));
+        const buttons = Array.from(global.document.querySelectorAll('[data-launcher-page]'));
+        if (!pager || !pages.length || !buttons.length) return;
+
+        function markSelected(index) {
+            buttons.forEach(function (button, buttonIndex) {
+                button.setAttribute('aria-selected', buttonIndex === index ? 'true' : 'false');
+            });
+        }
+
+        buttons.forEach(function (button, index) {
+            button.addEventListener('click', function () {
+                const page = pages[index];
+                if (!page) return;
+                pager.scrollTo({ left: page.offsetLeft, behavior: 'smooth' });
+                markSelected(index);
+            });
+        });
+        pager.addEventListener('scroll', function () {
+            const width = Math.max(1, pager.clientWidth);
+            markSelected(Math.max(0, Math.min(pages.length - 1, Math.round(pager.scrollLeft / width))));
+        }, { passive: true });
+        markSelected(0);
+    }
+
     global.PersonalWorkbenchLauncher = {
         KEY: KEY,
         THEME_KEY: THEME_KEY,
@@ -111,4 +165,5 @@
     };
 
     bindRememberingLinks();
+    setupLauncherPager();
 })(typeof window !== 'undefined' ? window : globalThis);

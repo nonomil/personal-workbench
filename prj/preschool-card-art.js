@@ -25,6 +25,7 @@
     };
     const PINYIN_KIND = { initial: '👄', final: '🎵', whole: '🔤' };
     const PINYIN_GROUP = { lips: '👄', tongue: '👅', teeth: '🦷', nose: '👃', throat: '🗣️' };
+    const LITERACY_NUMBER = { '一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '七': 7, '八': 8, '九': 9, '十': 10 };
     const COLOR_FILL = {
         black: '#2b2b2b', blue: '#3d8be0', brown: '#a56a3a', green: '#3fa25c',
         orange: '#f09137', pink: '#f4a4c4', purple: '#8b6ad6', red: '#e25555',
@@ -58,8 +59,9 @@
         return THEME_EMOJI[(spec && spec.theme) || ''] || '⭐';
     }
 
-    function frame(bg, inner) {
-        return '<svg class="preschool-card-art" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true"><rect width="160" height="160" rx="36" fill="' + bg + '"/>' + inner + '</svg>';
+    function frame(bg, inner, marker) {
+        const markerAttr = marker ? ' data-card-art="' + escapeXml(marker) + '"' : '';
+        return '<svg class="preschool-card-art"' + markerAttr + ' viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true"><rect width="160" height="160" rx="36" fill="' + bg + '"/>' + inner + '</svg>';
     }
 
     function emojiArt(emoji, bg) {
@@ -73,7 +75,7 @@
         return frame('#fff7dc', '<circle cx="80" cy="80" r="48" fill="' + fill + '" stroke="' + stroke + '" stroke-width="8"/>');
     }
 
-    function numberArt(value) {
+    function numberArt(value, marker) {
         const count = Math.max(1, Math.min(10, Number(value) || 0));
         if (!count) return '';
         const dots = [];
@@ -87,7 +89,7 @@
             const y = startY + Math.floor(i / cols) * gap;
             dots.push('<circle cx="' + x + '" cy="' + y + '" r="10" fill="#f09137"/>');
         }
-        return frame('#fff7dc', dots.join(''));
+        return frame('#fff7dc', dots.join(''), marker);
     }
 
     function render(spec) {
@@ -103,6 +105,13 @@
             return frame('#fff7dc', '<circle cx="80" cy="80" r="48" fill="' + escapeXml(fill) + '" stroke="' + stroke + '" stroke-width="8"/>');
         }
         if (directed.indexOf('dots:') === 0) return numberArt(directed.slice(5));
+        if (item.kind === 'literacy') {
+            const literacyChar = String(item.char || item.text || item.main || '').trim();
+            if (LITERACY_NUMBER[literacyChar]) return numberArt(LITERACY_NUMBER[literacyChar], 'literacy-number');
+            if (literacyChar === '人') {
+                return frame(bg, '<circle cx="80" cy="56" r="24" fill="#f4c08b"/><path d="M42 132c4-31 18-48 38-48s34 17 38 48" fill="#5aa0d6"/><path d="M58 132c4-19 11-28 22-28s18 9 22 28" fill="#fffdf8" opacity=".72"/>', 'literacy-person');
+            }
+        }
         if (item.kind === 'english' || item.kind === 'phonics') {
             const swatch = colorArt(text);
             if (swatch) return swatch;

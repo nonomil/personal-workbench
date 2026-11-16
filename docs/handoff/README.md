@@ -14,3 +14,4 @@ confidence: high
 | 002 | blocklegend S1 交接 | 2026-08-15 | Cursor → 后续会话 | done | [README](./002_blocklegend-S1交接_20260815/README.md) |
 | 003 | blocklegend 视觉调试交接 | 2026-08-15 | Cursor → 后续会话 | done | [README](./003_blocklegend-视觉调试交接_20260815/README.md) |
 | 004 | 四视图投射管线与验收闭环 | 2026-08-17 | Claude → 其他模型 | active | [README](./004_四视图投射管线与验收闭环_20260817/README.md) |
+| 005 | 拼音战场学习闭环 S1~S8 收尾 | 2026-08-30 | ZCode → dsh | active | [README](./005_拼音战场学习闭环S1-S8收尾_20260830/README.md) |

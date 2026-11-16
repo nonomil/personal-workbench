@@ -56,7 +56,7 @@
 ## 回溯入口
 
 - **本会话 transcript**（终极回溯，禁止整读，用 rg 定位 + 小窗口读取）：
-  `C:\Users\No'mi'l\.cursor\projects\g-StudyCode\agent-transcripts\07c1fc27-aada-47db-b39d-8a26a295e5ec\07c1fc27-aada-47db-b39d-8a26a295e5ec.jsonl`
+  `C:\Users\<local-user>\.cursor\projects\g-StudyCode\agent-transcripts\07c1fc27-aada-47db-b39d-8a26a295e5ec\07c1fc27-aada-47db-b39d-8a26a295e5ec.jsonl`
 - 凝蜕状态：本仓库无 `.claude/state/`，不适用；以本交接包为准。
 - 历史交接：`docs/handoff/003_blocklegend-视觉调试交接_20260815/`（上一轮视觉工作背景）
 

@@ -98,7 +98,7 @@ personal_workbench_selected_preschool_theme_v1。
 
 ## 7. CLI 调用建议
 
-本机检测到 `grok` 可执行文件：`C:\Users\No'mi'l\.grok\bin\grok.exe`。`grok --help` 已确认当前 CLI 支持 `--cwd`、`--single/-p`、`--prompt-file`、`--permission-mode plan`、`--no-subagents`、`--disable-web-search`、`--max-turns` 和结构化输出。
+本机检测到 `grok` 可执行文件：`C:\Users\<local-user>\.grok\bin\grok.exe`。`grok --help` 已确认当前 CLI 支持 `--cwd`、`--single/-p`、`--prompt-file`、`--permission-mode plan`、`--no-subagents`、`--disable-web-search`、`--max-turns` 和结构化输出。
 
 第一轮安全命令：
 

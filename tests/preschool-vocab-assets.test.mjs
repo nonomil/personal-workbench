@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const bankPath = path.join(repoRoot, 'prj', 'data', 'preschool', '英语', 'vocabulary-bank.json');
-const reportPath = path.join(repoRoot, '.tmp-analysis', 'wordquest-extract-report.json');
+const reportPath = path.join(repoRoot, 'tests', 'fixtures', 'wordquest-extract-report.json');
 const imgDir = path.join(repoRoot, 'prj', 'assets', 'img', 'vocab');
 const audioDir = path.join(repoRoot, 'prj', 'assets', 'audio', 'vocab');
 
@@ -30,7 +30,7 @@ test('extracted vocab media files exist with lowercase word names', () => {
     const pngs = fs.readdirSync(imgDir).filter((name) => name.endsWith('.png'));
     const mp3s = fs.readdirSync(audioDir).filter((name) => name.endsWith('.mp3'));
     assert.equal(pngs.length, 101);
-    assert.equal(mp3s.length, 33);
+    assert.ok(mp3s.length >= 33, `expected at least the 33 extracted MP3s, got ${mp3s.length}`);
     for (const row of report.words) {
         assert.match(row.text, /^[a-z]+$/);
         if (row.image) assert.equal(fs.existsSync(path.join(repoRoot, 'prj', row.image)), true, row.image);
@@ -87,6 +87,19 @@ test('parseBank keeps image and audio for flashcards', async () => {
     assert.equal(byText.about.audio, '');
 });
 
+test('parseBank derives a local audio candidate for generated base-597 words', async () => {
+    await import('../prj/preschool-english-vocab-data.js');
+    await import('../prj/preschool-english-vocab.js');
+    const vocab = globalThis.PersonalWorkbenchPreschoolEnglishVocab;
+    const bank = readBank();
+    const parsed = vocab.parseBank(bank);
+    const byText = Object.fromEntries(parsed.map((item) => [item.text, item]));
+    assert.equal(byText.black.audioPath, 'assets/audio/vocab/black.mp3');
+    assert.equal(byText.about.audio, '');
+    assert.equal(byText.about.audioPath, 'assets/audio/vocab/about.mp3');
+    assert.equal(byText['wake up'].audioPath, 'assets/audio/vocab/wake-up.mp3');
+});
+
 test('english flashcards prefer local bitmap and play local audio when present', () => {
     const app = fs.readFileSync(path.join(repoRoot, 'prj', 'app.js'), 'utf8');
     const html = fs.readFileSync(path.join(repoRoot, 'prj', 'preschool-workbench', 'index.html'), 'utf8');
@@ -101,6 +114,6 @@ test('english flashcards prefer local bitmap and play local audio when present',
     assert.match(styles, /preschool-card-photo/);
     assert.match(html, /preschool-english-vocab-data\.js\?v=20260815-english-auto-v1/);
     assert.match(html, /preschool-english-vocab\.js\?v=20260819-w1s3/);
-    assert.match(html, /app\.js\?v=20260819-v074/);
-    assert.match(html, /35-course-flashcards\.css\?v=20260815-vocab-a1-v1|preschool-workbench\.css\?v=20260816-loop-v1/);
+    assert.match(html, /app\.js\?v=20260826-review-export/);
+    assert.match(html, /35-course-flashcards\.css\?v=20260815-vocab-a1-v1|preschool-workbench\.css\?v=20260824-learning-game-p0f/);
 });

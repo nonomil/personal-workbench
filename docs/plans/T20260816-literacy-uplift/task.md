@@ -22,6 +22,7 @@
 6. 新 CSS 层 `css/preschool/40-literacy-uplift.css` + 缓存戳
 7. 测试：`tests/preschool-literacy-assess.test.mjs`、`tests/preschool-mistake-cards.test.mjs`（新增），既有识字/错题/摘要测试保持绿
 8. 视觉增量：`docs/01-方案/学习项目设计/05-识字视觉与交互优化方案.md`、9 个原创 RGBA PNG、素材 manifest、CSS/HTML 本地资源挂点和视觉回归证据
+9. 卡片墙增量：识字今日 8 卡同屏、逐卡提示/朗读/自评、Android `4×2` 与 800×360 Web 两列响应式布局
 
 ## 边界
 
@@ -29,6 +30,7 @@
 - 不新建 localStorage key；不加图表库、打印库等新依赖
 - 不做分享/云同步/家长密码锁（工作台已有家长侧约定）
 - UI 正式插画作为本包后置视觉增量 V1–V3 处理：V1 只生成和验收素材，V2 才接入运行时，V3 才以浏览器/打印证据收口
+- C1 只分流 `preschool-literacy`；不得改变英语、拼音、拼读、数学的单卡渲染和记账行为
 
 ## 完成定义
 

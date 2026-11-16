@@ -1,0 +1,251 @@
+/* 52 · Learning scene composition v2
+ *
+ * Turn the v1 card-wall skin into one continuous stage: the garden image is
+ * the surface, learning content floats above it, and the companion art stands
+ * in the lower scene instead of living inside a footer card.
+ *
+ * This layer is intentionally desktop-only and reuses the v1 root hook. Remove
+ * this stylesheet to return to the v1 composition without touching behavior.
+ */
+
+@media (min-width: 900px) and (min-height: 600px) {
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 {
+        grid-template-rows: 42px 36px minmax(0, 1fr) 112px;
+        height: min(720px, calc(100vh - 158px));
+        height: min(720px, calc(100dvh - 158px));
+        min-height: 0;
+        gap: 5px;
+        padding: 9px 14px 3px;
+        border: 0;
+        border-radius: 30px;
+        background:
+            linear-gradient(180deg, rgba(255, 251, 239, .08), rgba(236, 249, 225, .2)),
+            var(--child-scene-image) center / cover no-repeat;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .18), 0 14px 30px rgba(36, 67, 90, .14);
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1::before {
+        background:
+            linear-gradient(180deg, rgba(255, 255, 255, .06), transparent 42%),
+            linear-gradient(180deg, transparent 48%, rgba(34, 91, 58, .2));
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 > .preschool-literacy-wall-head {
+        min-height: 0;
+        padding: 0 7px;
+        border: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, .42);
+        border-radius: 0;
+        background: linear-gradient(90deg, rgba(255, 251, 239, .28), rgba(255, 255, 255, .06));
+        box-shadow: none;
+        backdrop-filter: none;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 > .preschool-flashcard-levels {
+        min-height: 0;
+        padding: 0 5px;
+        border-radius: 0;
+        background: transparent;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-literacy-study-grid {
+        grid-template-columns: minmax(0, 1.2fr) minmax(238px, .72fr);
+        gap: 8px;
+        min-height: 0;
+        padding: 0 2%;
+        align-items: stretch;
+        overflow: visible;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-literacy-writing-slot {
+        min-height: 0;
+        height: 100%;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-literacy-handwriting {
+        min-height: 0;
+        height: 100%;
+        padding: 8px 10px 2px;
+        border: 0;
+        border-radius: 24px;
+        background: transparent;
+        box-shadow: none;
+        backdrop-filter: none;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-literacy-handwriting-head {
+        align-items: center;
+        padding: 0 10px;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, .7);
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-literacy-writing-status {
+        border: 0;
+        background: rgba(255, 255, 255, .42);
+        box-shadow: none;
+        backdrop-filter: blur(3px);
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-literacy-writing-layout {
+        grid-template-columns: minmax(82px, .28fr) minmax(0, 1fr);
+        gap: 8px;
+        align-items: center;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-literacy-writing-character {
+        align-self: center;
+        padding: 8px 6px;
+        border: 0;
+        border-left: 4px solid rgba(244, 182, 62, .72);
+        border-radius: 0 16px 16px 0;
+        background: linear-gradient(90deg, rgba(255, 250, 221, .7), rgba(255, 250, 221, .16));
+        box-shadow: none;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-literacy-writing-surface {
+        width: min(100%, 258px);
+        min-height: 182px;
+        justify-self: center;
+        border-color: rgba(255, 255, 255, .86);
+        border-radius: 18px;
+        background-color: rgba(255, 255, 255, .78);
+        box-shadow: 0 8px 16px rgba(36, 67, 90, .1), inset 0 0 0 1px rgba(255, 255, 255, .46);
+        backdrop-filter: blur(3px);
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-literacy-writing-actions {
+        padding: 0 10px;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-literacy-writing-actions > button {
+        border-color: rgba(255, 255, 255, .7);
+        background: rgba(255, 255, 255, .46);
+        box-shadow: 0 3px 0 rgba(36, 67, 90, .06);
+        backdrop-filter: blur(3px);
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-literacy-card-queue {
+        min-height: 0;
+        padding: 8px 4px 0 6px;
+        border: 0;
+        border-radius: 18px;
+        background: rgba(255, 251, 239, .26);
+        box-shadow: none;
+        backdrop-filter: blur(3px);
+        overflow: hidden;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-literacy-card-queue > header {
+        padding: 0 8px 4px;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, .76);
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-literacy-card-queue .preschool-literacy-card-wall {
+        grid-auto-rows: minmax(94px, 1fr);
+        gap: 6px;
+        padding: 0 2px 3px 0;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-literacy-card-queue .preschool-literacy-wall-card {
+        min-height: 94px;
+        grid-template-rows: minmax(38px, 1fr) minmax(22px, auto) 42px;
+        gap: 3px;
+        padding: 4px;
+        border-color: rgba(255, 255, 255, .62);
+        border-radius: 13px;
+        background: rgba(255, 253, 246, .7);
+        box-shadow: 0 3px 0 rgba(36, 67, 90, .06);
+        backdrop-filter: blur(2px);
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-learning-companion-rail {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: 1fr;
+        align-items: end;
+        height: 108px;
+        min-height: 108px;
+        margin: 0 2%;
+        padding: 0 8px;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        backdrop-filter: none;
+        overflow: visible;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-learning-companion-rail::before {
+        right: 7%;
+        bottom: 3px;
+        left: 10%;
+        height: 6px;
+        background: linear-gradient(90deg, rgba(105, 176, 125, .16), rgba(246, 190, 77, .3), rgba(120, 142, 207, .16));
+        filter: blur(.2px);
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-learning-companion-heading {
+        position: absolute;
+        z-index: 2;
+        top: 1px;
+        left: 8px;
+        padding: 0;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, .76);
+        pointer-events: none;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-learning-companion-list {
+        width: 100%;
+        height: 108px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        align-items: end;
+        gap: 8px;
+        overflow: visible;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-learning-companion {
+        grid-template-columns: 88px minmax(0, 1fr);
+        align-items: end;
+        height: 104px;
+        min-height: 104px;
+        padding: 0 6px 0 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        overflow: visible;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-learning-companion:hover,
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-learning-companion:focus-visible {
+        border: 0;
+        background: rgba(255, 255, 255, .12);
+        box-shadow: none;
+        outline: none;
+        transform: translateY(-3px);
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-learning-companion-art {
+        display: grid;
+        width: 88px;
+        height: 100px;
+        place-items: end center;
+        overflow: visible;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-learning-companion-art .preschool-generated-art,
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-learning-companion-art img {
+        filter: drop-shadow(0 4px 0 rgba(36, 67, 90, .14)) drop-shadow(0 8px 10px rgba(36, 67, 90, .1));
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-flashcard-page.learning-scene-v1 .preschool-learning-companion-copy {
+        align-self: end;
+        margin-bottom: 7px;
+        padding: 4px 8px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, .48);
+        box-shadow: 0 3px 8px rgba(36, 67, 90, .08);
+        backdrop-filter: blur(3px);
+    }
+}

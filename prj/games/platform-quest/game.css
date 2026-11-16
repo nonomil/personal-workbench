@@ -259,6 +259,52 @@ body.is-picking .world-shell { grid-template-columns: 1fr; }
 @media (max-width: 560px) {
     .stage-map { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 }
+@media (orientation: landscape) and (max-height: 480px) {
+    .world-bar {
+        flex-wrap: nowrap;
+        gap: 8px;
+        padding: 4px 10px;
+    }
+    .world-bar-copy .kicker,
+    .world-bar-copy p { display: none; }
+    .world-bar h1 { font-size: 18px; margin: 0; }
+    .world-bar-actions { flex-wrap: nowrap; gap: 6px; }
+    .world-tool,
+    .world-back,
+    .mod-badge {
+        min-height: 32px;
+        padding: 0 10px;
+        font-size: 12px;
+    }
+    .growth-hud { flex-wrap: nowrap; gap: 4px; }
+    .growth-hud .chip {
+        min-height: 28px;
+        padding: 0 8px;
+        font-size: 11px;
+    }
+    .world-panel { padding: 8px; }
+    .panel-title { margin: 0 0 4px; font-size: 15px; }
+    .stage-map {
+        grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+        gap: 6px 8px;
+        margin: 4px 0 0;
+    }
+    .stage-card {
+        max-width: none;
+        gap: 2px;
+    }
+    .stage-thumb {
+        width: 52px;
+        height: 52px;
+        border-width: 3px;
+    }
+    .stage-num { font-size: 20px; }
+    .stage-stars,
+    .stage-best {
+        min-height: 12px;
+        font-size: 10px;
+    }
+}
 .world-bar-actions { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
 .world-tool {
   display:inline-flex; align-items:center; justify-content:center;
@@ -432,3 +478,29 @@ body.is-picking .world-shell { grid-template-columns: 1fr; }
     border-radius: 999px;
     cursor: pointer;
 }
+
+.learning-mode-hud { display: none; align-items: center; gap: 8px; min-width: 150px; color: #5b4761; font-size: 12px; font-weight: 800; }
+body[data-learning-mode="on"] .learning-mode-hud { display: flex; }
+.learning-mode-hud i { display: block; flex: 1; min-width: 58px; height: 9px; overflow: hidden; background: rgba(62, 44, 65, .14); border-radius: 999px; }
+.learning-mode-hud em { display: block; width: 0; height: 100%; background: linear-gradient(90deg, #57bd76, #e0a52e); border-radius: inherit; }
+.learning-card-layer { position: fixed; inset: 0; z-index: 150; display: grid; place-items: center; padding: clamp(12px, 3vw, 36px); background: rgba(62, 44, 65, .72); }
+.learning-card-layer.is-hidden { display: none; }
+.learning-card { width: min(760px, 94vw); max-height: 94vh; overflow: auto; padding: clamp(18px, 3vw, 32px); color: #243b4d; text-align: center; background: linear-gradient(145deg, #fff8d6, #d8f0ee); border: 3px solid #e0a52e; border-radius: 24px; box-shadow: 0 24px 70px rgba(62, 44, 65, .42); }
+.learning-card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: #5d7180; font-size: 14px; }
+.learning-speak { min-height: 44px; padding: 8px 13px; color: #1e4b62; background: #d5e9ee; border: 0; border-radius: 12px; }
+.learning-card > strong { display: block; margin: 12px 0 4px; color: #256d7d; font-size: clamp(42px, 8vw, 72px); }
+.learning-card h2 { margin: 0 0 18px; font-size: clamp(19px, 3vw, 28px); }
+.learning-answer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.learning-answer-option { min-height: 130px; display: grid; place-items: center; gap: 7px; padding: 10px; color: #243b4d; background: #fff; border: 3px solid #b9d7d5; border-radius: 17px; }
+.learning-answer-option img { width: 78px; height: 78px; object-fit: contain; }
+.learning-answer-option.is-correct { background: #e5f8e8; border-color: #40a873; }
+.learning-answer-option.is-wrong { background: #ffebe6; border-color: #dc7564; }
+.learning-answer-option:disabled { cursor: default; }
+.learning-card p { min-height: 24px; margin: 12px 0 6px; color: #60788a; }
+.learning-correction { min-height: 48px; padding: 10px 18px; color: #243b4d; background: #6ec6ff; border: 0; border-radius: 14px; font-weight: 800; }
+@media (max-width: 700px) { .learning-answer-grid { gap: 7px; } .learning-answer-option { min-height: 104px; } .learning-answer-option img { width: 58px; height: 58px; } }
+.learning-answer-option--unknown { border-style: dashed; border-color: #e4b64e; background: #fff7df; color: #7a5a22; }
+.learning-answer-option--unknown strong { font-size: 30px; line-height: 1; color: #d28b2f; }
+.learning-answer-option--unknown small { font-size: 11px; color: #9a7a43; }
+.learning-answer-grid { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 700px) { .learning-answer-grid { grid-template-columns: repeat(2, 1fr); } }

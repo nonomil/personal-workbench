@@ -1,0 +1,8 @@
+task_id: "T05-level-wire"
+title: "接到第 6 关；第 12 关复用"
+status: "done"
+priority: "P0"
+phase: "T05"
+created: "2026-08-22"
+depends_on: ["T01-bubble-rules", "T02-fireball-toast", "T03-boss-hud", "T04-red-shield-vfx"]
+tags: ["blocklegend", "levels"]

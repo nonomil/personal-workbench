@@ -1,0 +1,399 @@
+/* 49 · Visual Match Loop v2
+ *
+ * Reference direction: keep the scene open, make destinations feel like
+ * small game tiles, and let a compact companion crew sit along the lower
+ * edge. This is a desktop-web layer; the Android pager keeps its established
+ * landscape contract in the earlier mobile layers.
+ */
+
+/* The companion rail is intentionally a desktop-web affordance. Keep it out
+ * of the Android pager flow so the compact mobile contract does not gain an
+ * unexpected extra row or bottom overflow. The desktop rule below restores
+ * the rail only when the scene has enough room for it. */
+body.variant-preschool .preschool-home-companion-rail {
+    display: none;
+}
+
+@media (min-width: 761px) and (min-height: 481px) {
+    html:not(.is-android-app) body.variant-preschool {
+        --reference-rail: clamp(196px, 18vw, 232px);
+    }
+
+    html:not(.is-android-app) body.variant-preschool .sidebar {
+        width: var(--reference-rail);
+    }
+
+    html:not(.is-android-app) body.variant-preschool .main-content {
+        width: calc(100% - var(--reference-rail));
+        margin-left: var(--reference-rail);
+    }
+
+    /* Home is a scene first: the task wall is a compact lower band instead
+     * of a second full-size dashboard stacked over the artwork. */
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple {
+        display: grid;
+        grid-template-rows: 82px minmax(202px, 1fr) auto 50px 36px;
+        height: calc(100vh - 70px);
+        min-height: 0;
+        gap: 8px;
+        padding: 12px clamp(14px, 2vw, 28px) 8px;
+        overflow: hidden;
+        border: 0;
+        border-radius: 0;
+        background:
+            linear-gradient(180deg, rgba(231, 248, 255, .12), rgba(255, 250, 228, .22)),
+            var(--child-scene-image) center / cover;
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .workbench-overview-header {
+        min-height: 82px;
+        padding: 10px 16px;
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-top {
+        display: grid;
+        height: auto;
+        min-height: 0;
+        grid-template-columns: minmax(0, 1fr) minmax(145px, 182px);
+        gap: 10px;
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-hero,
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-hero-card {
+        min-height: 0;
+        height: 100%;
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-hero-copy {
+        top: 8%;
+        left: 2%;
+        width: min(280px, 34%);
+        padding: 12px 15px 13px;
+        border-radius: 20px 20px 20px 10px;
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-hero-copy strong {
+        font-size: clamp(19px, 2vw, 27px);
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-hero-art {
+        right: 3%;
+        width: min(46%, 344px);
+        height: 96%;
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .child-game-companion-panel {
+        align-self: start;
+        height: min(128px, 100%);
+        min-height: 92px;
+        margin-top: 8px;
+    }
+
+    /* Compact mission cards retain real hit targets without competing with
+     * the scene or the companion rail. */
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-battlefield {
+        position: relative;
+        z-index: 6;
+        top: auto;
+        right: auto;
+        bottom: auto;
+        left: auto;
+        grid-row: 3;
+        width: auto;
+        height: auto;
+        min-height: 0;
+        margin: 0;
+        padding: 0;
+        overflow: visible;
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-lanes {
+        grid-auto-rows: 58px;
+        gap: 6px 8px;
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-lane {
+        height: 58px;
+        min-height: 58px;
+        gap: 1px;
+        padding: 3px 6px;
+        border-radius: 16px 16px 12px 10px;
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-lane::before {
+        top: 6px;
+        right: 8px;
+        width: 18px;
+        height: 4px;
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-lane::after {
+        bottom: -6px;
+        left: 20px;
+        width: 11px;
+        height: 11px;
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-lane-main {
+        min-height: 28px;
+        grid-template-columns: 30px minmax(0, 1fr);
+        gap: 4px;
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-lane-characters,
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-lane-plant {
+        width: 30px;
+        height: 30px;
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-lane-plant img,
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-lane-plant .preschool-generated-art {
+        width: 28px;
+        height: 28px;
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-lane-copy small {
+        font-size: 7px;
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-lane-copy strong {
+        font-size: 10px;
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-lane-check {
+        min-height: 18px;
+        padding: 0 5px;
+        border-radius: 8px;
+        font-size: 8px;
+    }
+
+    /* A small character row gives the open scene a friendly lower anchor. */
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-companion-rail {
+        position: relative;
+        z-index: 7;
+        display: grid;
+        grid-row: 4;
+        grid-template-columns: 148px minmax(0, 1fr);
+        align-items: center;
+        min-width: 0;
+        min-height: 50px;
+        padding: 3px 8px;
+        border: 1.5px solid rgba(255, 255, 255, .78);
+        border-radius: 18px;
+        background: linear-gradient(90deg, rgba(255, 251, 239, .86), rgba(237, 251, 255, .68));
+        box-shadow: 0 4px 0 rgba(36, 67, 90, .1), 0 10px 18px rgba(36, 67, 90, .08);
+        overflow: hidden;
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-companion-rail::after {
+        position: absolute;
+        right: 10px;
+        bottom: 5px;
+        left: 158px;
+        height: 4px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, rgba(105, 176, 125, .2), rgba(246, 190, 77, .24), rgba(120, 142, 207, .2));
+        content: "";
+        pointer-events: none;
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-companion-heading {
+        display: grid;
+        min-width: 0;
+        gap: 1px;
+        padding-left: 4px;
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-companion-heading .pixel-panel-kicker {
+        margin: 0;
+        font-size: 7px;
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-companion-heading strong {
+        color: #24435a;
+        font-size: 11px;
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-companion-heading small {
+        overflow: hidden;
+        color: #6e8792;
+        font-size: 8px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-companion-list {
+        display: grid;
+        min-width: 0;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 5px;
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-companion {
+        display: grid;
+        min-width: 0;
+        min-height: 42px;
+        grid-template-columns: 36px minmax(0, 1fr);
+        align-items: center;
+        gap: 4px;
+        padding: 2px 5px;
+        border: 1px solid rgba(137, 175, 184, .24);
+        border-radius: 13px;
+        color: #24435a;
+        background: rgba(255, 255, 255, .52);
+        text-align: left;
+        cursor: pointer;
+        transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease;
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-companion:hover,
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-companion:focus-visible {
+        border-color: rgba(70, 147, 166, .5);
+        background: rgba(255, 255, 255, .86);
+        outline: none;
+        transform: translateY(-2px);
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-companion-art {
+        display: grid;
+        width: 34px;
+        height: 38px;
+        place-items: end center;
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-companion-art .preschool-generated-art {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        filter: drop-shadow(0 2px 0 rgba(36, 67, 90, .12));
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-companion-copy {
+        display: grid;
+        min-width: 0;
+        gap: 1px;
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-companion-copy strong,
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-companion-copy small {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-companion-copy strong {
+        font-size: 9px;
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-companion-copy small {
+        color: #6e8792;
+        font-size: 7px;
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-exits {
+        position: relative;
+        right: auto;
+        bottom: auto;
+        left: auto;
+        z-index: 8;
+        grid-row: 5;
+        align-items: center;
+        min-height: 36px;
+        margin: 0;
+    }
+
+    html:not(.is-android-app) #page-content .preschool-home-overview.is-simple .preschool-home-exits > button {
+        min-height: 34px;
+        margin-top: 0;
+        border-radius: 14px;
+        font-size: 10px;
+    }
+
+    /* Course wall: retain the illustrated mini-scenes, reduce the frame so
+     * five subjects can read as a set rather than five oversized posters. */
+    html:not(.is-android-app) body.variant-preschool .preschool-course-today {
+        min-height: 116px;
+        margin: 10px 0 14px;
+        padding: 11px 14px;
+        border-radius: 18px;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-course-today-art {
+        width: 52px;
+        height: 52px;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-course-today-cta {
+        min-height: 40px;
+        padding: 0 15px;
+        border-radius: 13px;
+        font-size: .9rem;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-course-wall {
+        gap: 10px;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-course-wall-card:not(.preschool-focus-game-card) {
+        min-height: 228px;
+        grid-template-rows: auto auto auto auto auto auto auto;
+        gap: 5px;
+        padding: 10px 8px 9px;
+        border-radius: 18px;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-course-wall-card:not(.preschool-focus-game-card) .preschool-course-wall-art {
+        width: min(100%, 106px);
+        height: 82px;
+        border-radius: 22px 22px 17px 17px;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-course-wall-card:not(.preschool-focus-game-card) .preschool-course-wall-scene {
+        right: 9px;
+        bottom: 7px;
+        left: 9px;
+        height: 32px;
+        gap: 4px;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-course-wall-card:not(.preschool-focus-game-card) .preschool-course-wall-scene-item {
+        height: 28px;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-course-wall-card:not(.preschool-focus-game-card) .preschool-course-wall-sticker {
+        width: 34px;
+        height: 34px;
+        padding: 3px;
+        border-radius: 12px;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-course-wall-card:not(.preschool-focus-game-card) .preschool-course-wall-orbit {
+        width: 30px;
+        height: 30px;
+        padding: 2px;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-course-wall-card:not(.preschool-focus-game-card) > strong {
+        font-size: 1.05rem;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-course-wall-card:not(.preschool-focus-game-card) > .preschool-course-wall-preview,
+    html:not(.is-android-app) body.variant-preschool .preschool-course-wall-card:not(.preschool-focus-game-card) > .preschool-course-wall-level,
+    html:not(.is-android-app) body.variant-preschool .preschool-course-wall-card:not(.preschool-focus-game-card) > .preschool-course-wall-game {
+        font-size: .68rem;
+    }
+
+    html:not(.is-android-app) body.variant-preschool .preschool-course-wall-card:not(.preschool-focus-game-card) > .preschool-course-wall-state {
+        min-height: 22px;
+        padding: 0 9px;
+        font-size: .72rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html:not(.is-android-app) body.variant-preschool .preschool-home-companion,
+    html:not(.is-android-app) body.variant-preschool .preschool-home-lane {
+        transition: none;
+    }
+}

@@ -376,7 +376,7 @@ body.variant-preschool .lesson-dialog-option.is-correct > svg { color: var(--wb-
 body.variant-preschool .lesson-dialog-option.is-wrong { border-color: rgba(228, 111, 79, .55); background: #fff0ed; }
 body.variant-preschool .lesson-dialog-option.is-wrong .lesson-dialog-option-index { color: #fff; background: #e47a59; }
 body.variant-preschool .lesson-dialog-option.is-wrong > svg { color: #e47a59; }
-body.variant-preschool .lesson-dialog-options:has(.picture-match-option) { grid-template-columns: repeat(auto-fit, minmax(132px, 1fr)); }
+body.variant-preschool .lesson-dialog.has-picture-match .lesson-dialog-options { grid-template-columns: repeat(auto-fit, minmax(132px, 1fr)); }
 body.variant-preschool .picture-match-option { flex-direction: column; min-height: 148px; padding: 14px 12px 12px; text-align: center; }
 body.variant-preschool .picture-match-option .preschool-card-art,
 body.variant-preschool .picture-match-option .preschool-card-photo { width: 72px; height: 72px; object-fit: contain; }
@@ -419,8 +419,10 @@ body.variant-preschool .preschool-mobile-nav { display: none; }
         left: 13px;
         display: grid;
         grid-template-columns: repeat(5, minmax(0, 1fr));
+        align-items: center;
         gap: 5px;
         min-height: 68px;
+        max-height: 80px;
         padding: 7px;
         border: 1px solid rgba(255, 255, 255, .9);
         border-radius: 32px;
@@ -428,7 +430,9 @@ body.variant-preschool .preschool-mobile-nav { display: none; }
         box-shadow: 0 12px 32px rgba(45, 45, 58, .16), inset 0 1px 0 rgba(255, 255, 255, .9);
         backdrop-filter: blur(22px) saturate(165%);
         -webkit-backdrop-filter: blur(22px) saturate(165%);
+        overflow: hidden;
     }
+    html:not(.is-android-app) body.variant-preschool .preschool-mobile-nav-brand { display: none; }
     body.variant-preschool .preschool-mobile-nav-item {
         display: grid;
         min-width: 0;

@@ -12,6 +12,16 @@
   - [`T20260815-B2-practice-review/`](./T20260815-B2-practice-review/README.md) 六项接练习 + 错题回流（P0，in-progress：S1+S2 代码/假时钟绿，浏览器走查待验收）
   - [`T20260815-B3-reward-loop/`](./T20260815-B3-reward-loop/README.md) 奖励闭环四件套（P1，in-progress：S1–S4 代码已绿，浏览器走查待做）
   - [`T20260815-B4-content-deepening/`](./T20260815-B4-content-deepening/README.md) 内容深化（P2，in-progress：C1–C4 已落地，真照片图配字等素材）
+- 我的世界工坊页（源头 [2026-08-27-minecraft-workbench-design.md](./2026-08-27-minecraft-workbench-design.md)，参考"纯手搓儿子minecraft学习工作台打卡积分"5 屏）：
+  - [`T20260827-minecraft-workbench/`](./T20260827-minecraft-workbench/README.md) 方块工坊五 tab：作业/宠物投喂/攻城守家/装备商店/消消乐任务化 + 全清结算（P1，ready 待执行；M0→M6 顺序；红线：阳光只加不减、仅 voxel 主题、无新 storage key）
+- 参考笔记对照优化（源头 [2026-08-28-reference-notes-optimization.md](./2026-08-28-reference-notes-optimization.md)，采集夹 `notes/游戏化学习工作台`）：
+  - 结论：工坊五 tab **已在代码里**（包文档过期）；不要抄成人星露谷/Gizmo 上传/真实扣分；幼儿线全部落地（P0 漏斗、P0′ 饥饿、P1 还差 N、P1 英语词+句、P1.5 升段仪式、P1.5 默写纸 5/5、P2 心愿商城 4/4、points-hints H2 3/3——H1b 徽章进度实为早已实现，订正在分析稿）；成人线第一刀「复盘箱·本周事实」自动卡落地（`tests/week-facts.test.mjs` 3/3，零新 storage）；剩余候选：主题周/N 日战役格（需定题材）、成人版后续（事实预填草稿/习惯自动沉淀）
+- 三工作台+三游戏体检与优化（源头 [2026-08-27-games-audit-and-optimization.md](./2026-08-27-games-audit-and-optimization.md)）：
+  - 体检结论：三游戏均可玩、链接/桥接/主题参数全通；O1 已关闭（28 红测是 CRLF 提取误报，`platform-physics` 现 39/39）；O2 短横屏选关网格已紧凑；O4 方块第 1 关进门提示与 O5 首页生涯金币已落地
+- 场景沉浸式工作台（源头 [2026-08-26-scene-immersion-redesign.md](./2026-08-26-scene-immersion-redesign.md)，布鲁伊参考三层构图）：
+  - [`T20260827-scene-immersion/`](./T20260827-scene-immersion/README.md) 人物回应学习 + 人物即导航 + 首页三层化 + 走动动画 + 奖励舞台化（P1，**landed**；按 S1→S5 顺序完成，场景专测 24/24；全仓 WIP 失败与例外见包内 acceptance）
+- 僵尸战场与学习闭环（源头 [07-僵尸战场与学习闭环优化方案.md](../01-方案/学习项目设计/07-僵尸战场与学习闭环优化方案.md)）：
+  - [`T20260829-pvz-learning-loop/`](./T20260829-pvz-learning-loop/README.md) 复习进度僵尸化 + 首页今日目标 + 错题入侵激活 + 战场音效（P1，in-progress：S1→S4 顺序执行，S5/S6 后置）
 - 识字体验升级（源头 `docs/01-方案/学习项目设计/04-识字体验升级方案.md`，参考小书虫识字）：
   - [`T20260816-literacy-uplift/`](./T20260816-literacy-uplift/README.md) 识字量测评 + 错字本字卡化/打印 + 成长档案曲线 + 首页三大卡 + 视觉素材增量（P1，**review**；识字定向 18/18，V1–V3 与 Codex 浏览器链路已验收；全仓 npm test 468/475，7 项范围外既有失败）
 - 认单词优化（源头 `docs/01-方案/学习项目设计/DS--认单词--参考方案.md` + 外部打BOSS单词游戏参考，裁决见包内 requirements-checklist）：

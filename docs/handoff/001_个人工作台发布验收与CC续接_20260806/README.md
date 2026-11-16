@@ -31,7 +31,7 @@ handoff_to: CC
 |------|------|----------|------|------|
 | Node 回归测试 | 108 项全通过 | 108 通过、0 失败 | ✅ | `npm test`，本轮新鲜执行 |
 | 发布合同 | 五入口、5 个素材 | 通过 | ✅ | `npm run release:verify`，本轮新鲜执行 |
-| APK 文件大小 | 60,140,796 bytes | 60,140,796 bytes | ✅ | `C:/Users/No'mi'l/AppData/Local/Temp/personal-workbench-release-v0.5.2/personal-workbench-v0.5.2-proxy.apk` |
+| APK 文件大小 | 60,140,796 bytes | 60,140,796 bytes | ✅ | `C:/Users/<local-user>/AppData/Local/Temp/personal-workbench-release-v0.5.2/personal-workbench-v0.5.2-proxy.apk` |
 | APK SHA-256 | 发布记录值 | `40cbf426afe619354a04307dee0532aaa7cb0cdb0935c7df2c9ae594c1f66fa8` | ✅ | `Get-FileHash` |
 | MuMu 安装 | 安装成功 | `adb install -r` 返回 `Success` | ✅ | MuMu `127.0.0.1:16384` |
 | APK 核心路线 | 根入口、三主题、练习、花园、刷新持久化 | 只完成根入口 → 第一个幼儿花园启动 | 🔲 | `测试分析报告.md` |
@@ -76,7 +76,7 @@ CC 必须先读本 README、`测试分析报告.md` 和 `行动项/下一步行�
 ## 当前会话 transcript 路径
 
 - 项目内规范路径 `.claude/backups/{session-id}.jsonl`：本项目未发现 `.claude/` 目录。
-- 平台原始记录候选：`C:/Users/No'mi'l/.codex/sessions/2026/08/06/rollout-2026-08-06T17-31-19-019fd669-b345-7e61-a236-8c1f16d72c83.jsonl`。这是平台候选路径，CC 需按实际会话核对；禁止整读，只能用关键词定位并按 offset/limit 读取。
+- 平台原始记录候选：`C:/Users/<local-user>/.codex/sessions/2026/08/06/rollout-2026-08-06T17-31-19-019fd669-b345-7e61-a236-8c1f16d72c83.jsonl`。这是平台候选路径，CC 需按实际会话核对；禁止整读，只能用关键词定位并按 offset/limit 读取。
 
 ## 凝蜕状态指向
 
@@ -103,7 +103,7 @@ CC 必须先读本 README、`测试分析报告.md` 和 `行动项/下一步行�
 在我确认方向前不要改代码或文档。确认后按 P0 顺序执行：
 1. 先更新 v0.5.2 发布说明、总控当前状态和进度看板，保留历史并写入本轮真实 APK/MuMu 证据；不要把部分设备验证写成全功能通过。
 2. 使用已经校验的 APK：
-   C:/Users/No'mi'l/AppData/Local/Temp/personal-workbench-release-v0.5.2/personal-workbench-v0.5.2-proxy.apk
+   C:/Users/<local-user>/AppData/Local/Temp/personal-workbench-release-v0.5.2/personal-workbench-v0.5.2-proxy.apk
    SHA-256：40cbf426afe619354a04307dee0532aaa7cb0cdb0935c7df2c9ae594c1f66fa8
 3. 在 MuMu `127.0.0.1:16384` 验证根入口 → 三个幼儿主题 → 轻量练习/测试入口 → 返回花园 → 刷新后的任务/阳光状态；每一步记录命令和截图路径。
 4. 若出现真实业务失败，再做最小修复；否则不要扩展课程、游戏、Supabase 或新入口。

@@ -6,8 +6,10 @@ import { fileURLToPath } from 'node:url';
 
 await import('../prj/games/voxel-craft/data/world.js');
 await import('../prj/games/voxel-craft/data/quests.js');
+await import('../prj/games/voxel-craft/engine.js');
 const VW = globalThis.VoxelCraftWorld;
 const Q = globalThis.VoxelQuests;
+const ENG = globalThis.VoxelCraftEngine;
 
 const gameDir = path.join(fileURLToPath(new URL('../prj/games/voxel-craft/', import.meta.url)));
 
@@ -46,6 +48,7 @@ test('spawn is safe: standing cell clear, ground solid, head clear of trees', ()
   assert.equal(VW.getCell(world, spawn.x, spawn.y), 'air');            // 脚下站立格是空气
   assert.equal(VW.isSolid(VW.getCell(world, spawn.x, spawn.surface)), true); // 地表是实地
   assert.equal(VW.getCell(world, spawn.x, spawn.y - 1), 'air');        // 头顶不嵌树干/树叶
+  assert.ok(spawn.x >= 10, 'close camera needs spawn away from the left wall');
   assert.equal(VW.isPassable('water'), true);
   assert.equal(VW.isPassable('grass'), false);
   assert.equal(VW.isSolid('bedrock'), true);
@@ -316,7 +319,8 @@ test('cave lighting and portal findability help kids see the mine', () => {
   const portal = VW.findKind(meadow, 'portal');
   assert.ok(portal);
   assert.equal(VW.getCell(meadow, portal.x, portal.y), 'portal');
-  assert.equal(VW.lightAt(meadow, 8, 10, 8, 10), 1);
+  const surfaceY = VW.surfaceOf(meadow, 8);
+  assert.ok(VW.lightAt(meadow, 8, surfaceY, 8, surfaceY - 1) >= 0.98);
   const far = VW.lightAt(cave, 40, 8, 6, 16);
   const near = VW.lightAt(cave, 6, 16, 6, 16);
   assert.ok(far < 0.3);
@@ -428,4 +432,340 @@ test('more craftables and survival HUD hearts plus food icons', () => {
   assert.match(game, /player\.food|renderSurvivalHud/);
   assert.equal(fs.existsSync(path.join(gameDir, 'assets', 'ui', 'heart.png')), true);
   assert.equal(fs.existsSync(path.join(gameDir, 'assets', 'ui', 'food.png')), true);
+});
+
+test('surface skylight darkens buried blocks like FlatMC occlusion', () => {
+  const world = VW.createWorld(7);
+  const col = 11;
+  for (let y = 0; y < VW.ROWS - 1; y += 1) VW.setCell(world, col, y, 'air');
+  VW.setCell(world, col, VW.ROWS - 2, 'grass');
+  const open = VW.lightAt(world, col, VW.ROWS - 2, col, VW.ROWS - 3);
+  assert.ok(open >= 0.98, 'open sky grass should stay bright, got ' + open);
+
+  const buryCol = 14;
+  for (let y = 0; y <= 8; y += 1) VW.setCell(world, buryCol, y, y === 8 ? 'stone' : 'dirt');
+  const buried = VW.lightAt(world, buryCol, 8, buryCol, 3);
+  assert.ok(buried < 0.72, 'buried stone should darken, got ' + buried);
+  assert.ok(buried > 0.22, 'buried stone should still be visible, got ' + buried);
+  assert.ok(buried < open, 'buried light should be less than open sky');
+
+  VW.setCell(world, buryCol + 1, 8, 'torch');
+  const lit = VW.lightAt(world, buryCol, 8, buryCol, 3);
+  assert.ok(lit > buried, 'torch should lift buried light');
+});
+
+test('play view is full-bleed overlay HUD like FlatMC', () => {
+  const css = fs.readFileSync(path.join(gameDir, 'game.css'), 'utf8');
+  const html = fs.readFileSync(path.join(gameDir, 'index.html'), 'utf8');
+  const game = fs.readFileSync(path.join(gameDir, 'game.js'), 'utf8');
+  assert.match(html, /vc-immersive/);
+  assert.match(css, /\.vc-hotbar-row[\s\S]{0,240}position:\s*absolute/);
+  assert.match(css, /#world-canvas[\s\S]{0,320}height:\s*100%/);
+  assert.doesNotMatch(css, /max-height:\s*min\(\s*64vh/);
+  assert.match(css, /\.vc-hearts img[\s\S]{0,120}width:\s*2[24]px/);
+  assert.match(css, /\.vc-hotbar .vc-slot small[\s\S]{0,80}display:\s*none/);
+  assert.match(game, /function fitView/);
+  assert.doesNotMatch(game, /if \(world\.biome === 'cave'\) shadeCell/);
+  assert.match(game, /shadeCell\(ctx, dx, dy, VW\.lightAt/);
+});
+
+test('broken blocks hop out as magnet pickups', () => {
+  assert.equal(typeof ENG.spawnDrop, 'function');
+  assert.equal(typeof ENG.updateDrops, 'function');
+  const drops = [];
+  ENG.spawnDrop(drops, 2, 4, 'dirt', { x: 60, y: 40, vx: 0, vy: 0 });
+  assert.equal(drops.length, 1);
+  assert.equal(drops[0].kind, 'dirt');
+  const player = { x: 0, y: 10, w: 18, h: 54 };
+  const picked = [];
+  for (let i = 0; i < 180; i += 1) {
+    Array.prototype.push.apply(picked, ENG.updateDrops(drops, player, function () { return false; }));
+    if (picked.length) break;
+  }
+  assert.ok(picked.some(function (row) { return row.kind === 'dirt'; }), 'nearby drop should magnet into the miner');
+  assert.equal(drops.length, 0);
+});
+
+test('far drops stay on the ground until the miner walks over', () => {
+  const drops = [];
+  ENG.spawnDrop(drops, 0, 0, 'stone', { x: 20, y: 20, vx: 0, vy: 0 });
+  const player = { x: 400, y: 400, w: 18, h: 54 };
+  const picked = ENG.updateDrops(drops, player, function () { return false; });
+  assert.equal(picked.length, 0);
+  assert.equal(drops.length, 1);
+  assert.equal(drops[0].kind, 'stone');
+});
+
+test('pick-block copies world cells except air bedrock portal water', () => {
+  assert.equal(VW.pickableKind('grass'), 'grass');
+  assert.equal(VW.pickableKind('torch'), 'torch');
+  assert.equal(VW.pickableKind('stone'), 'stone');
+  assert.equal(VW.pickableKind('air'), null);
+  assert.equal(VW.pickableKind('bedrock'), null);
+  assert.equal(VW.pickableKind('portal'), null);
+  assert.equal(VW.pickableKind('water'), null);
+});
+
+test('game wires drop magnet and creative pick-block, no death screen', () => {
+  const game = fs.readFileSync(path.join(gameDir, 'game.js'), 'utf8');
+  const html = fs.readFileSync(path.join(gameDir, 'index.html'), 'utf8');
+  assert.match(game, /spawnDrop/);
+  assert.match(game, /updateDrops/);
+  assert.match(game, /drawDrops/);
+  assert.match(game, /tryPickBlock|pickableKind/);
+  assert.match(game, /button === 1|e\.button === 1/);
+  assert.match(game, /dblclick/);
+  assert.doesNotMatch(game, /gainItem\(dug\.kind, 1\)/);
+  assert.doesNotMatch(game, /Respawn|You Died|gameOver/);
+  assert.match(html, /中键|双击/);
+});
+
+test('hero skin is steve spritesheet or AB stickman', () => {
+  assert.equal(ENG.heroSkinOf('stick'), 'stick');
+  assert.equal(ENG.heroSkinOf('steve'), 'steve');
+  assert.equal(ENG.heroSkinOf(''), 'steve');
+  const fills = [];
+  const ctx = {
+    save: function () {}, restore: function () {}, translate: function () {}, scale: function () {},
+    fillRect: function (x, y, w, h) { fills.push([x, y, w, h]); },
+    drawImage: function () { fills.push('image'); },
+    imageSmoothingEnabled: true
+  };
+  const player = { x: 40, y: 80, w: 18, h: 54, vx: 2, vy: 0, onGround: true, facing: 1, inWater: false, skin: 'stick' };
+  ENG.drawPlayer(ctx, {}, player, { x: 0, y: 0 }, false, 800);
+  assert.ok(fills.length >= 6, 'stickman draws head/torso/limbs');
+  assert.equal(fills.filter(function (row) { return row === 'image'; }).length, 0);
+  const images = [];
+  const ctx2 = {
+    save: function () {}, restore: function () {}, translate: function () {}, scale: function () {},
+    fillRect: function () {},
+    drawImage: function () { images.push(1); },
+    imageSmoothingEnabled: true
+  };
+  player.skin = 'steve';
+  ENG.drawPlayer(ctx2, { hero_steve: { width: 192, height: 168 } }, player, { x: 0, y: 0 }, false, 800);
+  assert.ok(images.length >= 1, 'steve skin uses the spritesheet');
+  const game = fs.readFileSync(path.join(gameDir, 'game.js'), 'utf8');
+  const html = fs.readFileSync(path.join(gameDir, 'index.html'), 'utf8');
+  assert.match(html, /id="skin-btn"/);
+  assert.match(html, /火柴人|方块人|史蒂夫/);
+  assert.match(game, /heroSkin|toggleSkin|skin-btn/);
+});
+
+test('play camera zooms to a FlatMC close side-view', () => {
+  assert.equal(typeof ENG.zoomFor, 'function');
+  assert.equal(typeof ENG.viewSize, 'function');
+  assert.equal(ENG.zoomFor(1920), 3);
+  assert.equal(ENG.zoomFor(1280), 2);
+  assert.equal(ENG.zoomFor(390), 1);
+  const hd = ENG.viewSize(1920, 1080);
+  assert.equal(hd.zoom, 3);
+  assert.equal(hd.w, 640);
+  assert.equal(hd.h, 360);
+  assert.ok(hd.w / ENG.TILE <= 22, 'desktop should show about 20 tiles, not the whole map');
+  const phone = ENG.viewSize(390, 844);
+  assert.equal(phone.zoom, 1);
+  assert.equal(phone.w, 390);
+  const game = fs.readFileSync(path.join(gameDir, 'game.js'), 'utf8');
+  assert.match(game, /ENG\.viewSize/);
+});
+
+test('target box and cracks snap to the block cell', () => {
+  assert.equal(typeof ENG.drawSelectBox, 'function');
+  const fills = [];
+  const ctx = {
+    fillRect: function (x, y, w, h) { fills.push([x, y, w, h]); },
+    fillStyle: ''
+  };
+  ENG.drawSelectBox(ctx, 10.4, 20.6, '#ffffff');
+  assert.ok(fills.length >= 4, 'four edges of the cell');
+  fills.forEach(function (row) {
+    assert.equal(row[0], Math.round(row[0]));
+    assert.equal(row[1], Math.round(row[1]));
+  });
+  assert.equal(Math.min.apply(null, fills.map(function (row) { return row[0]; })), 10);
+  assert.equal(Math.min.apply(null, fills.map(function (row) { return row[1]; })), 21);
+  const draws = [];
+  const ctx2 = { drawImage: function (img, x, y, w, h) { draws.push([x, y, w, h]); } };
+  ENG.drawCrack(ctx2, { destroy0: { width: 16, height: 16 } }, 0.1, 3.2, 5.8);
+  assert.equal(draws.length, 1);
+  assert.deepEqual(draws[0], [3, 6, ENG.TILE, ENG.TILE]);
+  const game = fs.readFileSync(path.join(gameDir, 'game.js'), 'utf8');
+  const css = fs.readFileSync(path.join(gameDir, 'game.css'), 'utf8');
+  assert.match(game, /drawSelectBox/);
+  assert.match(game, /TILE \* scaleX/);
+  assert.match(css, /\.vc-mine-ring[\s\S]{0,220}width:\s*56px/);
+});
+
+test('first path quest is playable from the hotbar', () => {
+  const game = fs.readFileSync(path.join(gameDir, 'game.js'), 'utf8');
+  const html = fs.readFileSync(path.join(gameDir, 'index.html'), 'utf8');
+  const css = fs.readFileSync(path.join(gameDir, 'game.css'), 'utf8');
+  assert.match(game, /inventory\.grass\s*=\s*8/);
+  assert.match(game, /selectKindInHotbar/);
+  assert.match(game, /tryPlaceAtPointer|faceAirCell/);
+  assert.match(game, /row && row\.n/);
+  assert.match(html, /点空地铺|对着空地|点方块贴着放/);
+  assert.doesNotMatch(css, /\.vc-immersive \.vc-hint \{\s*display:\s*none/);
+});
+
+test('holding a block places against the clicked face', () => {
+  const kindAt = function (x, y) {
+    if (x === 5 && y === 10) return 'grass';
+    return 'air';
+  };
+  assert.equal(typeof ENG.faceAirCell, 'function');
+  assert.deepEqual(ENG.faceAirCell({ x: 5, y: 10 }, 16, 2, kindAt), { x: 5, y: 9 });
+  assert.deepEqual(ENG.faceAirCell({ x: 5, y: 10 }, 30, 16, kindAt), { x: 6, y: 10 });
+  const hit = ENG.screenToHit({
+    width: 640, height: 360,
+    getBoundingClientRect: function () { return { left: 0, top: 0, width: 640, height: 360 }; }
+  }, { x: 0, y: 0 }, 5 * ENG.TILE + 16, 10 * ENG.TILE + 2);
+  assert.equal(hit.x, 5);
+  assert.equal(hit.y, 10);
+  const game = fs.readFileSync(path.join(gameDir, 'game.js'), 'utf8');
+  assert.match(game, /tryPlaceAtPointer|faceAirCell|placeTarget/);
+});
+
+test('place ghost sits on the air cell that will receive the block', () => {
+  const kindAt = function (x, y) {
+    if (x === 5 && y === 10) return 'grass';
+    return 'air';
+  };
+  assert.equal(typeof ENG.placeTarget, 'function');
+  assert.equal(typeof ENG.drawPlaceGhost, 'function');
+  assert.deepEqual(ENG.placeTarget({ x: 5, y: 10, lx: 16, ly: 2 }, kindAt), { x: 5, y: 9 });
+  assert.deepEqual(ENG.placeTarget({ x: 5, y: 9, lx: 16, ly: 16 }, kindAt), { x: 5, y: 9 });
+  const ops = [];
+  const ctx = {
+    save: function () { ops.push('save'); },
+    restore: function () { ops.push('restore'); },
+    drawImage: function () { ops.push('img'); },
+    fillRect: function () { ops.push('rect'); },
+    globalAlpha: 1,
+    imageSmoothingEnabled: true
+  };
+  ENG.drawPlaceGhost(ctx, { tex_grass: { width: 16, height: 16 } }, 'grass', 10, 20);
+  assert.ok(ops.indexOf('save') >= 0);
+  assert.ok(ops.indexOf('img') >= 0 || ops.indexOf('rect') >= 0);
+  const game = fs.readFileSync(path.join(gameDir, 'game.js'), 'utf8');
+  assert.match(game, /drawPlaceGhost|placeTarget/);
+  assert.match(game, /aimHit/);
+});
+
+test('held item chooses place, mine or attack and is drawn in hand', () => {
+  assert.equal(ENG.heldUse('grass'), 'place');
+  assert.equal(ENG.heldUse('wood_pick'), 'mine');
+  assert.equal(ENG.heldUse('wood_axe'), 'mine');
+  assert.equal(ENG.heldUse('wood_sword'), 'attack');
+  assert.equal(ENG.heldUse(''), 'hand');
+  assert.equal(ENG.heldDamage('wood_sword'), 3);
+  assert.equal(ENG.heldDamage('wood_pick'), 2);
+  assert.equal(ENG.heldDamage(''), 1);
+  const ops = [];
+  const ctx = {
+    save: function () { ops.push('save'); },
+    restore: function () { ops.push('restore'); },
+    translate: function () {},
+    scale: function () {},
+    drawImage: function () { ops.push('img'); },
+    fillRect: function () { ops.push('rect'); },
+    globalAlpha: 1,
+    imageSmoothingEnabled: true
+  };
+  ENG.drawHeldItem(ctx, { tex_grass: { width: 16, height: 16 } }, 'grass', 0, 0, 0);
+  assert.ok(ops.indexOf('img') >= 0 || ops.indexOf('rect') >= 0);
+  const game = fs.readFileSync(path.join(gameDir, 'game.js'), 'utf8');
+  const html = fs.readFileSync(path.join(gameDir, 'index.html'), 'utf8');
+  assert.match(game, /heldUse|player\.held/);
+  assert.match(game, /inventory\.wood_sword\s*=\s*1/);
+  assert.match(html, /拿剑|点敌人/);
+});
+
+test('sword hits the slime standing next to the sprite and aimed clicks reach', () => {
+  const player = { x: 524.6, y: 810.84, w: 18, h: 54, facing: 1 };
+  const slime = { x: 576.2, y: 842.96, w: 24, h: 22, hp: 2, remove: false };
+  const near = ENG.attackEnemy(slime, player, 1);
+  assert.equal(near.ok, true, 'melee should cover the visible neighbor slime');
+  assert.equal(slime.hp, 1);
+  const far = { x: player.x + 3.2 * ENG.TILE, y: player.y + 20, w: 24, h: 22, hp: 3, remove: false };
+  const miss = ENG.attackEnemy(far, player, 1);
+  assert.equal(miss.ok, false);
+  const aimed = ENG.attackEnemy(far, player, 1, { aimed: true });
+  assert.equal(aimed.ok, true);
+  const game = fs.readFileSync(path.join(gameDir, 'game.js'), 'utf8');
+  assert.match(game, /\{ aimed:/);
+});
+
+test('place target skips the cell the miner is standing in', () => {
+  const kindAt = function (x, y) {
+    if (x === 18) return 'air';
+    if (y >= 27) return 'grass';
+    return 'air';
+  };
+  const blockedAt = function (x, y) { return x === 17 && y === 26; };
+  const air = ENG.faceAirCell({ x: 17, y: 27 }, 16, 8, kindAt, blockedAt);
+  assert.ok(air);
+  assert.notEqual(air.y, 26);
+  const ghost = ENG.placeTarget({ x: 17, y: 27, lx: 16, ly: 8 }, kindAt, blockedAt);
+  assert.ok(ghost);
+  assert.notEqual(ghost.x === 17 && ghost.y === 26, true);
+  const game = fs.readFileSync(path.join(gameDir, 'game.js'), 'utf8');
+  assert.match(game, /blockedAt|cellBlocked|rectsOverlap\(player/);
+});
+
+test('clicking the grass at your feet places the next path tile in front', () => {
+  const TILE = ENG.TILE;
+  const kindAt = function (x, y) { return y >= 27 ? 'grass' : 'air'; };
+  const blockedAt = function (x, y) { return x === 16 && (y === 25 || y === 26); };
+  const air = ENG.faceAirCell({ x: 16, y: 27 }, 20, 8, kindAt, blockedAt);
+  assert.deepEqual(air, { x: 17, y: 26 });
+  const player = { x: 16 * TILE + 3, y: 27 * TILE - 54, w: 18, h: 54, facing: 1 };
+  assert.equal(typeof ENG.footPlaceCell, 'function');
+  assert.deepEqual(ENG.footPlaceCell(player, kindAt, blockedAt), { x: 17, y: 26 });
+  const left = Object.assign({}, player, { facing: -1 });
+  assert.deepEqual(ENG.footPlaceCell(left, kindAt, blockedAt), { x: 15, y: 26 });
+  const after = function (x, y) {
+    if (x === 17 && y === 26) return 'grass';
+    return y >= 27 ? 'grass' : 'air';
+  };
+  assert.deepEqual(ENG.footPlaceCell(player, after, blockedAt), { x: 18, y: 26 });
+  let filled = { 17: true };
+  const walk = function (x, y) {
+    if (y === 26 && filled[x]) return 'grass';
+    return y >= 27 ? 'grass' : 'air';
+  };
+  for (let n = 18; n <= 21; n += 1) {
+    assert.deepEqual(ENG.footPlaceCell(player, walk, blockedAt), { x: n, y: 26 });
+    filled[n] = true;
+  }
+  const game = fs.readFileSync(path.join(gameDir, 'game.js'), 'utf8');
+  assert.match(game, /footPlaceCell/);
+});
+
+test('leaf blocks are tinted green over the grayscale texture', () => {
+  const ops = [];
+  const ctx = {
+    save: function () { ops.push('save'); },
+    restore: function () { ops.push('restore'); },
+    drawImage: function () { ops.push('img'); },
+    fillRect: function () { ops.push('rect'); },
+    globalCompositeOperation: 'source-over',
+    imageSmoothingEnabled: true
+  };
+  ENG.drawBlock(ctx, { tex_leaf: { width: 16, height: 16 } }, 'leaf', 0, 0);
+  assert.ok(ops.indexOf('img') >= 0);
+  const engine = fs.readFileSync(path.join(gameDir, 'engine.js'), 'utf8');
+  assert.match(engine, /LEAF_TINT|multiply/);
+  assert.match(engine, /#3|#4|#2f9a3c|#48b03c|#3fae3a|#3d9e34/);
+});
+
+test('attack button lights up only when a sword is held', () => {
+  const css = fs.readFileSync(path.join(gameDir, 'game.css'), 'utf8');
+  const game = fs.readFileSync(path.join(gameDir, 'game.js'), 'utf8');
+  const html = fs.readFileSync(path.join(gameDir, 'index.html'), 'utf8');
+  assert.match(html, /id="attack-btn"/);
+  assert.match(css, /vc-attack-btn\.is-on/);
+  assert.match(game, /syncAttackBtn|attack-btn['"]\)[\s\S]{0,180}is-on/);
+  assert.match(game, /heldUse\(heldKind\(\)\) === 'attack'/);
 });

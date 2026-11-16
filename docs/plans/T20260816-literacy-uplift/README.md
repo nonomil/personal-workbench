@@ -21,6 +21,7 @@
 | V1 | 视觉基线 + 主视觉/入口图标/阶段徽章/证书角花素材 | 0.5 人日 | landed |
 | V2 | 本地素材接入 CSS/HTML + manifest + 缓存戳 | 0.5 人日 | landed |
 | V3 | 390/768/桌面浏览器与 A4 打印视觉验收 | 0.5 人日 | landed |
+| C1 | 今日识字从单张大框改为 8 卡墙，保留逐字证据 | 0.5 人日 | landed，双端验收通过 |
 
 ## 门控与红线
 
@@ -33,7 +34,7 @@
 ## 当前状态
 
 - 任务 ID：`T20260816-literacy-uplift`
-- 状态：`review`（识字定向测试 18/18、V1–V3 与浏览器链路已验收；仓库全量 `npm test` 为 468/475，7 项为本包范围外的既有失败，因此保留 review，不虚报全仓 accepted）
+- 状态：`review`（C1 卡片墙已完成浏览器与真实 MuMu APK 双端验收；本轮仓库全量 `npm test` 为 801/871，64 项失败来自 `blocklegend*` 与 `platform-physics` 并行分支，因此保留 review，不把全仓结果写成 accepted）
 
 ## 视觉增量入口
 
@@ -44,3 +45,4 @@
 - 运行时发布目录：`prj/assets/generated/preschool-literacy-uplift/published/`
 - 浏览器证据：`screenshots/home-desktop.png`、`home-390-viewport.png`、`home-768-viewport.png`、`mistakes-768.png`、`archive-768.png`
 - 最新缓存戳：`app.js?v=20260816-literacy-ui-v4`、`40-literacy-uplift.css?v=20260816-literacy-ui-v7`、`preschool-literacy.js?v=20260816-literacy-ui-v2`
+- 卡片墙增量：`tests/preschool-literacy-card-wall.test.mjs`；运行时缓存追加 `literacy-wall=v1`，避免覆盖并行分支已有版本号。

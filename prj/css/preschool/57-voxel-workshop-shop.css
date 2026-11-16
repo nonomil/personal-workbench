@@ -1,0 +1,134 @@
+/* 方块工坊（voxel-adventure 主题专属页）：打卡积分 + 宠物投喂 + 攻城守家 + 装备商店 + 消消乐。
+   视觉语言沿用 31 号 voxel-workshop 的方块世界 token（--vw-*）。
+   动画只用 transform/opacity；no-motion 与 prefers-reduced-motion 下降级。 */
+
+/* hidden 属性优先级兜底：.nav-item 的 display 规则会盖过 UA 的 [hidden] */
+body.variant-preschool .nav-item[hidden],
+body.variant-preschool [data-voxel-only][hidden] { display: none !important; }
+
+body.variant-preschool .workshop-page {
+    display: grid;
+    gap: 12px;
+    max-width: 860px;
+    margin: 0 auto;
+    padding-bottom: 76px;
+}
+
+body.variant-preschool .workshop-panel {
+    display: grid;
+    gap: 8px;
+    padding: 14px;
+    border: 3px solid rgba(62, 39, 35, .55);
+    border-radius: 16px;
+    background: #2b2f36;
+    color: #f3efe2;
+    box-shadow: 0 5px 0 rgba(0, 0, 0, .28);
+}
+body.variant-preschool .workshop-panel-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+body.variant-preschool .workshop-panel-head strong { color: #ffd45e; font-size: 16px; font-weight: 900; letter-spacing: .04em; }
+body.variant-preschool .workshop-panel-head span { color: #9fb4a4; font-size: 12px; font-weight: 800; }
+body.variant-preschool .workshop-hint { color: #93a08f; font-size: 11px; font-weight: 700; }
+
+/* 像素分格条（耐久/饱食/经验通用） */
+body.variant-preschool .workshop-meter { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 8px; }
+body.variant-preschool .workshop-meter small { color: #cbd7c8; font-size: 11px; font-weight: 900; }
+body.variant-preschool .workshop-meter b { color: #ffd45e; font-size: 11px; font-variant-numeric: tabular-nums; }
+body.variant-preschool .workshop-meter span { display: block; height: 12px; overflow: hidden; border: 2px solid rgba(0, 0, 0, .5); border-radius: 4px; background: repeating-linear-gradient(90deg, #171a1f 0 8px, #1f242b 8px 10px); }
+body.variant-preschool .workshop-meter span i { display: block; height: 100%; background: repeating-linear-gradient(90deg, #7cc554 0 8px, #5da53c 8px 10px); transition: width 240ms ease; }
+body.variant-preschool .workshop-meter.is-warn span i { background: repeating-linear-gradient(90deg, #e8b64c 0 8px, #c79434 8px 10px); }
+body.variant-preschool .workshop-meter.is-bad span i { background: repeating-linear-gradient(90deg, #e06c4f 0 8px, #b8503a 8px 10px); }
+
+/* 家园卡 */
+body.variant-preschool .workshop-home-card { display: grid; grid-template-columns: 64px minmax(0, 1fr); align-items: center; gap: 12px; padding: 12px 14px; border: 3px solid rgba(62, 39, 35, .55); border-radius: 16px; background: #2b2f36; color: #f3efe2; box-shadow: 0 5px 0 rgba(0, 0, 0, .28); }
+body.variant-preschool .workshop-home-art { display: grid; width: 64px; height: 64px; place-items: center; font-size: 40px; border: 3px solid #8d6e63; border-radius: 12px; background: linear-gradient(180deg, #7cb85c 0 62%, #6d4c41 62% 100%); }
+body.variant-preschool .workshop-home-card.is-bad .workshop-home-art { filter: saturate(.6) brightness(.85); }
+body.variant-preschool .workshop-home-copy { display: grid; gap: 4px; }
+body.variant-preschool .workshop-home-copy strong { color: #ffd45e; font-size: 15px; font-weight: 900; }
+body.variant-preschool .workshop-home-copy small { color: #9fb4a4; font-size: 11px; font-weight: 700; }
+
+/* 工坊任务行（复用 preschool 计划行，容器内做像素化微调） */
+body.variant-preschool .workshop-panel .preschool-plan-row { border-color: rgba(255, 255, 255, .12); background: rgba(255, 255, 255, .05); }
+
+/* 结算按钮 + 战报 */
+body.variant-preschool .workshop-settle { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 56px; padding: 0 18px; border: 3px solid #8d6e63; border-radius: 14px; background: linear-gradient(180deg, #8bc34a, #558b2f); color: #fff; font-size: 16px; font-weight: 950; text-shadow: 0 2px 0 rgba(0, 0, 0, .3); box-shadow: 0 5px 0 rgba(0, 0, 0, .3); cursor: pointer; }
+body.variant-preschool .workshop-settle.is-done { background: linear-gradient(180deg, #455a64, #263238); box-shadow: none; opacity: .9; }
+body.variant-preschool .workshop-report { display: grid; gap: 8px; padding: 14px; border: 3px solid #ffd45e; border-radius: 16px; background: #2b2f36; color: #f3efe2; }
+body.variant-preschool .workshop-report strong { color: #ffd45e; font-size: 16px; font-weight: 950; }
+body.variant-preschool .workshop-report p { margin: 0; color: #cbd7c8; font-size: 13px; line-height: 1.7; }
+
+/* 宠物 */
+body.variant-preschool .workshop-pet-scene { position: relative; display: grid; min-height: 150px; place-items: end center; padding: 12px; border: 3px solid rgba(62, 39, 35, .55); border-radius: 16px; background: linear-gradient(180deg, #79c0e8 0 58%, #7cb85c 58% 76%, #6d4c41 76% 100%); overflow: hidden; }
+body.variant-preschool .workshop-pet-art img { width: 96px; height: 96px; object-fit: contain; image-rendering: pixelated; }
+body.variant-preschool .workshop-pet-name { position: absolute; top: 10px; right: 12px; padding: 3px 10px; border: 2px solid #fff; border-radius: 10px; background: rgba(0, 0, 0, .55); color: #fff; font-size: 12px; font-weight: 900; }
+body.variant-preschool .workshop-food-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+body.variant-preschool .workshop-food { display: grid; justify-items: center; gap: 3px; padding: 10px 6px; border: 2px solid #8d6e63; border-radius: 12px; background: #3a2f28; color: #f3efe2; cursor: pointer; }
+body.variant-preschool .workshop-food-emoji { font-size: 26px; }
+body.variant-preschool .workshop-food strong { font-size: 13px; font-weight: 900; }
+body.variant-preschool .workshop-food small { color: #ffd45e; font-size: 10px; font-weight: 800; }
+body.variant-preschool .workshop-food em { color: #e06c4f; font-size: 10px; font-style: normal; font-weight: 800; }
+body.variant-preschool .workshop-food.is-poor { opacity: .55; }
+body.variant-preschool .workshop-food:active { transform: translateY(1px); }
+
+/* 战斗 */
+body.variant-preschool .workshop-battle { display: grid; gap: 8px; padding: 14px; border: 3px solid rgba(62, 39, 35, .55); border-radius: 16px; background: #2b2f36; }
+body.variant-preschool .workshop-battle-scene { display: grid; justify-items: center; gap: 6px; min-height: 150px; padding: 14px; border-radius: 12px; background: linear-gradient(180deg, #241a3a 0 62%, #17301f 62% 100%); }
+body.variant-preschool .workshop-battle.is-attack .workshop-battle-scene { background: linear-gradient(180deg, #33173a 0 62%, #17301f 62% 100%); }
+body.variant-preschool .workshop-battle-scene strong { color: #f3efe2; font-size: 15px; font-weight: 900; }
+body.variant-preschool .workshop-battle-scene small { color: #93a08f; font-size: 11px; font-weight: 700; }
+body.variant-preschool .workshop-monster img { width: 84px; height: 84px; object-fit: contain; image-rendering: pixelated; }
+body.variant-preschool .workshop-monster.is-calm { opacity: .5; }
+body.variant-preschool .workshop-fight { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; min-width: 180px; border: 3px solid #8d6e63; border-radius: 12px; background: linear-gradient(180deg, #ef5350, #b71c1c); color: #fff; font-size: 15px; font-weight: 950; cursor: pointer; }
+body.variant-preschool .workshop-fight:active { transform: translateY(1px); }
+body.variant-preschool .workshop-gear-line { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px; color: #cbd7c8; font-size: 12px; font-weight: 800; }
+
+/* 冒险日志 */
+body.variant-preschool .workshop-log ul { display: grid; gap: 4px; margin: 0; padding: 10px 12px; border-radius: 10px; background: #14171c; list-style: none; }
+body.variant-preschool .workshop-log li { color: #7cc554; font-size: 12px; font-weight: 700; }
+body.variant-preschool .workshop-log li small { margin-right: 6px; color: #5b6a72; }
+
+/* 商店 */
+body.variant-preschool .workshop-gear-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+body.variant-preschool .workshop-gear-card { display: grid; justify-items: center; gap: 3px; padding: 12px 8px; border: 3px solid #8d6e63; border-radius: 12px; background: #3a2f28; color: #f3efe2; text-align: center; }
+body.variant-preschool .workshop-gear-card.is-equipped { border-color: #ffd45e; box-shadow: 0 0 0 2px rgba(255, 212, 94, .3); }
+body.variant-preschool .workshop-gear-card strong { font-size: 14px; font-weight: 900; }
+body.variant-preschool .workshop-gear-card small { color: #93a08f; font-size: 10px; font-weight: 700; }
+body.variant-preschool .workshop-gear-card em { color: #ffd45e; font-size: 12px; font-style: normal; font-weight: 900; }
+body.variant-preschool .workshop-gear-state { color: #ffd45e; font-size: 11px; font-weight: 950; }
+body.variant-preschool .workshop-buy { min-height: 40px; padding: 0 12px; border: 2px solid #ffe082; border-radius: 9px; background: linear-gradient(180deg, #ffca28, #f57f17); color: #3e2723; font-size: 12px; font-weight: 950; cursor: pointer; }
+body.variant-preschool .workshop-buy:disabled { filter: grayscale(.7); opacity: .7; cursor: not-allowed; }
+body.variant-preschool .workshop-buy:active:not(:disabled) { transform: translateY(1px); }
+body.variant-preschool .workshop-repair { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; border: 2px solid #81d4fa; border-radius: 10px; background: linear-gradient(180deg, #29b6f6, #0277bd); color: #fff; font-size: 13px; font-weight: 950; cursor: pointer; }
+body.variant-preschool .workshop-repair:disabled { filter: grayscale(.7); opacity: .7; cursor: not-allowed; }
+
+/* 消消乐 */
+body.variant-preschool .workshop-game-empty { display: grid; justify-items: center; gap: 10px; padding: 18px 0; }
+body.variant-preschool .workshop-game-empty p { margin: 0; color: #cbd7c8; font-size: 13px; font-weight: 700; }
+body.variant-preschool .workshop-memory-hud { display: flex; justify-content: space-between; color: #cbd7c8; font-size: 12px; font-weight: 800; }
+body.variant-preschool .workshop-memory-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 7px; }
+body.variant-preschool .workshop-mcard { aspect-ratio: 1; display: grid; place-items: center; border: 3px solid #6d4c41; border-radius: 10px; background: linear-gradient(180deg, #8d6e63, #5d4037); font-size: 26px; cursor: pointer; }
+body.variant-preschool .workshop-mcard.is-open { background: #f3efe2; }
+body.variant-preschool .workshop-mcard.is-matched { border-color: #7cc554; opacity: .85; }
+body.variant-preschool .workshop-mcard:disabled { cursor: default; }
+body.variant-preschool .workshop-memory-foot { display: grid; justify-items: center; gap: 6px; color: #ffd45e; font-size: 13px; font-weight: 900; }
+
+/* 底部 tab 栏：竖屏随文档流（避开手机底导航），横屏贴底悬浮 */
+body.variant-preschool .workshop-tabbar { position: static; z-index: 5; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 5px; margin: 0 -6px 4px; padding: 6px 6px 8px; border-radius: 14px; border: 2px solid rgba(0, 0, 0, .35); background: #1b1f24; }
+@media (orientation: landscape) {
+    body.variant-preschool .workshop-tabbar { position: sticky; bottom: 8px; }
+}
+body.variant-preschool .workshop-tabbar-item { display: grid; min-height: 50px; place-items: center; padding: 4px 2px; border: 2px solid transparent; border-radius: 10px; background: none; color: #93a08f; font-size: 12px; font-weight: 900; cursor: pointer; }
+body.variant-preschool .workshop-tabbar-item.is-active { border-color: #ffd45e; background: rgba(255, 212, 94, .12); color: #ffd45e; }
+
+/* 横屏平板：面板双列 */
+@media (orientation: landscape) and (min-width: 1024px) {
+    body.variant-preschool .workshop-page { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+    body.variant-preschool .workshop-page > .preschool-page-intro,
+    body.variant-preschool .workshop-page > .workshop-tabbar { grid-column: 1 / -1; }
+    body.variant-preschool .workshop-gear-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* 动效降级 */
+@media (prefers-reduced-motion: reduce) {
+    body.variant-preschool .workshop-meter span i { transition: none; }
+}
+body.variant-preschool.preschool-no-motion .workshop-meter span i { transition: none; }

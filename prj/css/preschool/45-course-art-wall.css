@@ -1,0 +1,621 @@
+/* 45 · 课程卡片墙：场景插画 + 贴纸 + 轻量游戏反馈 */
+
+/* The compact Android rail and the portrait shortcut bar also carry the same
+ * subject art, so navigation remains visual when the full sidebar is hidden. */
+body.variant-preschool .preschool-mobile-nav-item .preschool-mobile-nav-art {
+    display: block;
+    width: 24px;
+    height: 24px;
+    flex: 0 0 24px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 0 rgba(36, 67, 90, .16));
+}
+
+@media (max-width: 760px) {
+    body.variant-preschool .preschool-mobile-nav-item .preschool-mobile-nav-art {
+        width: 22px;
+        height: 22px;
+        flex-basis: 22px;
+    }
+}
+
+@media (orientation: landscape) {
+    html.is-android-app body.variant-preschool .preschool-mobile-nav-item .preschool-mobile-nav-art {
+        width: clamp(22px, 2.8vw, 29px);
+        height: clamp(22px, 2.8vw, 29px);
+        flex-basis: clamp(22px, 2.8vw, 29px);
+    }
+}
+
+.preschool-course-wall-card:not(.preschool-focus-game-card) {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    grid-template-rows: auto auto auto auto auto auto auto;
+    min-height: 244px;
+    border-width: 2px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, .72), rgba(255, 251, 239, .96));
+}
+
+.preschool-course-wall-card:not(.preschool-focus-game-card)::before,
+.preschool-course-wall-card:not(.preschool-focus-game-card)::after {
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+    content: "";
+}
+
+.preschool-course-wall-card:not(.preschool-focus-game-card)::before {
+    top: -56px;
+    right: -42px;
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    background: var(--course-art-wash, rgba(111, 201, 247, .28));
+    opacity: .78;
+}
+
+.preschool-course-wall-card:not(.preschool-focus-game-card)::after {
+    right: 12px;
+    bottom: 12px;
+    width: 58px;
+    height: 38px;
+    background-image: radial-gradient(circle, rgba(36, 67, 90, .16) 1.4px, transparent 1.6px);
+    background-size: 12px 12px;
+    opacity: .48;
+}
+
+.preschool-course-wall-card.tone-orange:not(.preschool-focus-game-card) { --course-art-wash: rgba(255, 176, 77, .34); }
+.preschool-course-wall-card.tone-blue:not(.preschool-focus-game-card) { --course-art-wash: rgba(94, 190, 238, .34); }
+.preschool-course-wall-card.tone-lime:not(.preschool-focus-game-card) { --course-art-wash: rgba(124, 204, 93, .32); }
+.preschool-course-wall-card.tone-pink:not(.preschool-focus-game-card) { --course-art-wash: rgba(235, 137, 185, .3); }
+.preschool-course-wall-card.tone-gold:not(.preschool-focus-game-card) { --course-art-wash: rgba(255, 209, 83, .38); }
+.preschool-course-wall-card.tone-green:not(.preschool-focus-game-card) { --course-art-wash: rgba(83, 190, 126, .32); }
+.preschool-course-wall-card.tone-orange:not(.preschool-focus-game-card) { --course-art-floor: rgba(241, 153, 62, .22); }
+.preschool-course-wall-card.tone-blue:not(.preschool-focus-game-card) { --course-art-floor: rgba(73, 169, 218, .2); }
+.preschool-course-wall-card.tone-lime:not(.preschool-focus-game-card) { --course-art-floor: rgba(103, 181, 74, .2); }
+.preschool-course-wall-card.tone-pink:not(.preschool-focus-game-card) { --course-art-floor: rgba(218, 105, 163, .2); }
+.preschool-course-wall-card.tone-gold:not(.preschool-focus-game-card) { --course-art-floor: rgba(226, 170, 41, .24); }
+.preschool-course-wall-card.tone-green:not(.preschool-focus-game-card) { --course-art-floor: rgba(61, 165, 101, .2); }
+
+.preschool-course-wall-card:not(.preschool-focus-game-card) .preschool-course-wall-art {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: min(100%, 132px);
+    height: 112px;
+    margin: 0 auto 2px;
+    border: 2px solid rgba(255, 255, 255, .68);
+    border-radius: 30px 30px 24px 24px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, .74), rgba(255, 255, 255, .28));
+    box-shadow: inset 0 -10px 0 rgba(255, 255, 255, .18), 0 8px 0 rgba(36, 67, 90, .08);
+}
+
+.preschool-course-wall-art-halo {
+    position: absolute;
+    top: 10%;
+    left: 18%;
+    width: 58%;
+    height: 58%;
+    border-radius: 50%;
+    background: var(--course-art-wash, rgba(111, 201, 247, .32));
+    filter: blur(1px);
+    opacity: .8;
+}
+
+.preschool-course-wall-art-main,
+.preschool-course-wall-sticker {
+    position: absolute;
+    display: grid;
+    place-items: center;
+}
+
+.preschool-course-wall-art-main {
+    inset: 8px 22px 7px 12px;
+}
+
+.preschool-course-wall-art-main > .preschool-generated-art,
+.preschool-course-wall-art-main .literacy-generated-asset,
+.preschool-course-wall-art-main .literacy-generated-asset img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.preschool-course-wall-art-sticker,
+.preschool-course-wall-sticker {
+    right: 5px;
+    bottom: 5px;
+    width: 42px;
+    height: 42px;
+    padding: 4px;
+    border: 2px solid rgba(255, 255, 255, .84);
+    border-radius: 15px;
+    background: rgba(255, 251, 239, .88);
+    box-shadow: 0 4px 0 rgba(36, 67, 90, .12);
+    transform: rotate(7deg);
+}
+
+.preschool-course-wall-sticker > .preschool-generated-art,
+.preschool-course-wall-sticker .literacy-generated-asset,
+.preschool-course-wall-sticker .literacy-generated-asset img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.preschool-course-wall-orbit {
+    position: absolute;
+    z-index: 2;
+    display: grid;
+    width: 37px;
+    height: 37px;
+    place-items: center;
+    padding: 3px;
+    border: 2px solid rgba(255, 255, 255, .84);
+    border-radius: 50%;
+    background: rgba(255, 251, 239, .9);
+    box-shadow: 0 4px 0 rgba(36, 67, 90, .11);
+}
+
+.preschool-course-wall-orbit > .preschool-generated-art,
+.preschool-course-wall-orbit .literacy-generated-asset,
+.preschool-course-wall-orbit .literacy-generated-asset img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.preschool-course-wall-orbit.orbit-a {
+    bottom: 5px;
+    left: 5px;
+    transform: rotate(-9deg);
+}
+
+.preschool-course-wall-orbit.orbit-b {
+    top: 6px;
+    right: 6px;
+    transform: rotate(9deg);
+}
+
+.preschool-course-wall-scene {
+    position: absolute;
+    z-index: 2;
+    right: 12px;
+    bottom: 10px;
+    left: 12px;
+    display: grid;
+    height: 44px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: end;
+    gap: 6px;
+    padding: 0 8px;
+    border: 1px solid rgba(255, 255, 255, .62);
+    border-radius: 999px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, .35), var(--course-art-floor, rgba(93, 180, 106, .2)));
+    box-shadow: inset 0 -5px 0 rgba(255, 255, 255, .16), 0 3px 0 rgba(36, 67, 90, .08);
+}
+
+.preschool-course-wall-scene::before {
+    position: absolute;
+    right: 9px;
+    bottom: 3px;
+    left: 9px;
+    height: 5px;
+    border-radius: 999px;
+    background: var(--course-art-floor, rgba(93, 180, 106, .24));
+    content: "";
+}
+
+.preschool-course-wall-scene-item {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    width: 100%;
+    height: 39px;
+    place-items: end center;
+    min-width: 0;
+}
+
+.preschool-course-wall-scene-item > .preschool-generated-art,
+.preschool-course-wall-scene-item .literacy-generated-asset,
+.preschool-course-wall-scene-item .literacy-generated-asset img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 0 rgba(36, 67, 90, .12));
+}
+
+.preschool-course-wall-scene-item.scene-1 { transform: rotate(-5deg); }
+.preschool-course-wall-scene-item.scene-2 { transform: translateY(-2px); }
+.preschool-course-wall-scene-item.scene-3 { transform: rotate(5deg); }
+
+.preschool-course-wall-art-spark {
+    position: absolute;
+    z-index: 2;
+    width: 9px;
+    height: 9px;
+    border-radius: 3px;
+    background: var(--child-world-accent, #f4b63e);
+    clip-path: polygon(50% 0, 62% 36%, 100% 50%, 62% 64%, 50% 100%, 38% 64%, 0 50%, 38% 36%);
+}
+
+.preschool-course-wall-art-spark.spark-a { top: 16px; left: 11px; }
+.preschool-course-wall-art-spark.spark-b { right: 15px; top: 24px; width: 6px; height: 6px; opacity: .72; }
+
+.preschool-course-wall-card:not(.preschool-focus-game-card) .preschool-course-wall-badge {
+    z-index: 1;
+    display: inline-flex;
+    max-width: 92%;
+    min-height: 22px;
+    align-items: center;
+    padding: 0 9px;
+    overflow: hidden;
+    border: 1px solid rgba(36, 67, 90, .12);
+    border-radius: 999px;
+    color: #537083;
+    background: rgba(255, 255, 255, .64);
+    font-size: .7rem;
+    font-weight: 900;
+    line-height: 1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.preschool-course-wall-card:not(.preschool-focus-game-card) > strong,
+.preschool-course-wall-card:not(.preschool-focus-game-card) > .preschool-course-wall-preview,
+.preschool-course-wall-card:not(.preschool-focus-game-card) > .preschool-course-wall-level,
+.preschool-course-wall-card:not(.preschool-focus-game-card) > .preschool-course-wall-game,
+.preschool-course-wall-card:not(.preschool-focus-game-card) > .preschool-course-wall-dots,
+.preschool-course-wall-card:not(.preschool-focus-game-card) > .preschool-course-wall-state {
+    z-index: 1;
+}
+
+.preschool-course-wall-card:not(.preschool-focus-game-card) > strong {
+    line-height: 1.08;
+}
+
+.preschool-course-wall-card:not(.preschool-focus-game-card) > .preschool-course-wall-state {
+    box-shadow: 0 3px 0 rgba(36, 67, 90, .08);
+}
+
+.preschool-course-wall-details {
+    display: grid;
+    min-width: 0;
+    gap: 3px;
+    align-content: center;
+}
+
+.preschool-course-wall-options {
+    z-index: 1;
+    display: grid;
+    width: 100%;
+    min-width: 0;
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 5px;
+}
+
+.preschool-course-wall-option {
+    display: flex;
+    min-width: 0;
+    min-height: 24px;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    padding: 0 5px;
+    overflow: hidden;
+    border: 1px solid rgba(36, 67, 90, .14);
+    border-radius: 10px;
+    color: #4f6f7d;
+    background: rgba(255, 255, 255, .65);
+    font-size: .62rem;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.preschool-course-wall-option i {
+    display: grid;
+    flex: 0 0 12px;
+    width: 12px;
+    height: 12px;
+    place-items: center;
+    color: var(--child-world-accent, #ed9c37);
+}
+
+.preschool-course-wall-option svg {
+    width: 12px;
+    height: 12px;
+}
+
+.preschool-course-wall-option > span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+    .preschool-course-wall-card:not(.preschool-focus-game-card) {
+        min-height: 226px;
+        padding: 12px 9px 12px;
+    }
+
+    .preschool-course-wall-card:not(.preschool-focus-game-card) .preschool-course-wall-art {
+        width: 108px;
+        height: 94px;
+    }
+
+    .preschool-course-wall-art-main { inset: 7px 20px 6px 10px; }
+    .preschool-course-wall-sticker { width: 36px; height: 36px; border-radius: 13px; }
+    .preschool-course-wall-orbit { width: 31px; height: 31px; padding: 2px; }
+    .preschool-course-wall-scene { right: 9px; bottom: 8px; left: 9px; height: 34px; gap: 3px; padding: 0 6px; }
+    .preschool-course-wall-scene-item { height: 29px; }
+
+    .preschool-course-wall-options { gap: 4px; }
+    .preschool-course-wall-option { min-height: 22px; gap: 2px; padding-inline: 3px; font-size: .56rem; }
+    .preschool-course-wall-option i,
+    .preschool-course-wall-option svg { width: 10px; height: 10px; flex-basis: 10px; }
+}
+
+/* A landscape APK page has a fixed height, so keep the richer visual within
+ * the page instead of allowing the decorative art to create a second scroll. */
+@media (orientation: landscape) {
+    /* Short Android landscape pages keep their compact four-card contract;
+     * the richer option strip is reserved for the high-resolution layer. */
+    @media (max-height: 559px) {
+        html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-options,
+        html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-options {
+            display: none;
+        }
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-card:not(.preschool-focus-game-card),
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-card:not(.preschool-focus-game-card) {
+        grid-template-columns: clamp(66px, 18vh, 142px) minmax(0, 1fr);
+        grid-template-columns: clamp(66px, 18dvh, 142px) minmax(0, 1fr);
+        grid-template-rows: auto auto auto auto auto auto auto;
+        align-content: center;
+        justify-items: stretch;
+        row-gap: 3px;
+        column-gap: clamp(8px, 1.2vw, 18px);
+        column-gap: clamp(8px, 1.2dvw, 18px);
+        padding: clamp(7px, 1.4vh, 13px) clamp(6px, 1vw, 13px) 48px;
+        padding: clamp(7px, 1.4dvh, 13px) clamp(6px, 1dvw, 13px) 48px;
+        text-align: left;
+        overflow: hidden;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-card:not(.preschool-focus-game-card) > .preschool-course-wall-art,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-card:not(.preschool-focus-game-card) > .preschool-course-wall-art {
+        grid-column: 1;
+        grid-row: 1 / -1;
+        align-self: center;
+        justify-self: center;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-card:not(.preschool-focus-game-card) > .preschool-course-wall-badge,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-card:not(.preschool-focus-game-card) > strong,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-card:not(.preschool-focus-game-card) > .preschool-course-wall-level,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-card:not(.preschool-focus-game-card) > .preschool-course-wall-preview,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-card:not(.preschool-focus-game-card) > .preschool-course-wall-game,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-card:not(.preschool-focus-game-card) > .preschool-course-wall-dots,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-card:not(.preschool-focus-game-card) > .preschool-course-wall-state,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-card:not(.preschool-focus-game-card) > .preschool-course-wall-badge,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-card:not(.preschool-focus-game-card) > strong,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-card:not(.preschool-focus-game-card) > .preschool-course-wall-level,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-card:not(.preschool-focus-game-card) > .preschool-course-wall-preview,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-card:not(.preschool-focus-game-card) > .preschool-course-wall-game,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-card:not(.preschool-focus-game-card) > .preschool-course-wall-dots,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-card:not(.preschool-focus-game-card) > .preschool-course-wall-state {
+        grid-column: 2;
+        justify-self: start;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-art,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-art {
+        width: clamp(66px, 18vh, 142px);
+        width: clamp(66px, 18dvh, 142px);
+        height: clamp(66px, 18vh, 142px);
+        height: clamp(66px, 18dvh, 142px);
+        margin-bottom: 1px;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-art-main,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-art-main {
+        inset: 7px 21px 6px 10px;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-sticker,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-sticker {
+        width: clamp(30px, 5vh, 48px);
+        width: clamp(30px, 5dvh, 48px);
+        height: clamp(30px, 5vh, 48px);
+        height: clamp(30px, 5dvh, 48px);
+        padding: 3px;
+        border-radius: 12px;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-orbit,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-orbit {
+        width: clamp(22px, 4.6vh, 38px);
+        width: clamp(22px, 4.6dvh, 38px);
+        height: clamp(22px, 4.6vh, 38px);
+        height: clamp(22px, 4.6dvh, 38px);
+        padding: 2px;
+        border-width: 1.5px;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-orbit.orbit-a,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-orbit.orbit-a {
+        bottom: 5px;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-scene,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-scene {
+        right: clamp(8px, 1.2vw, 18px);
+        right: clamp(8px, 1.2dvw, 18px);
+        bottom: clamp(7px, 1.4vh, 12px);
+        bottom: clamp(7px, 1.4dvh, 12px);
+        left: clamp(8px, 1.2vw, 18px);
+        left: clamp(8px, 1.2dvw, 18px);
+        height: clamp(28px, 6.2vh, 46px);
+        height: clamp(28px, 6.2dvh, 46px);
+        gap: clamp(2px, .4vw, 6px);
+        gap: clamp(2px, .4dvw, 6px);
+        padding: 0 clamp(5px, .6vw, 9px);
+        padding: 0 clamp(5px, .6dvw, 9px);
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-scene-item,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-scene-item {
+        height: clamp(24px, 5.4vh, 40px);
+        height: clamp(24px, 5.4dvh, 40px);
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-badge,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-badge {
+        min-height: 18px;
+        padding: 0 6px;
+        font-size: 9px;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-card > strong,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-card > strong {
+        font-size: clamp(13px, 1.6vw, 21px);
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-preview,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-level,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-game,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-preview,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-level,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-game {
+        max-width: 100%;
+        overflow: hidden;
+        font-size: 9px;
+        line-height: 1.15;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-dots,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-dots { gap: 3px; }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-dots i,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-dots i { width: 7px; height: 7px; }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-state,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-state {
+        min-height: 26px;
+        padding: 0 9px;
+        font-size: 9px;
+    }
+}
+
+/* Two rows on short landscape screens need a tighter card rhythm. Keep the
+ * scene strip and the subject hero, while removing secondary copy that would
+ * otherwise make a 2x2 page overflow vertically. */
+@media (orientation: landscape) and (max-height: 480px) {
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-card:not(.preschool-focus-game-card),
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-card:not(.preschool-focus-game-card) {
+        grid-template-columns: clamp(42px, 12vh, 64px) minmax(0, 1fr);
+        grid-template-columns: clamp(42px, 12dvh, 64px) minmax(0, 1fr);
+        grid-template-rows: repeat(5, minmax(0, auto));
+        gap: 2px;
+        padding: 4px 6px 27px;
+        border-radius: 14px;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-card:not(.preschool-focus-game-card) > .preschool-course-wall-dots,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-card:not(.preschool-focus-game-card) > .preschool-course-wall-dots { display: none; }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-art,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-art {
+        width: clamp(42px, 12vh, 64px);
+        width: clamp(42px, 12dvh, 64px);
+        height: clamp(42px, 12vh, 64px);
+        height: clamp(42px, 12dvh, 64px);
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-sticker,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-sticker {
+        width: clamp(24px, 4.5vh, 36px);
+        width: clamp(24px, 4.5dvh, 36px);
+        height: clamp(24px, 4.5vh, 36px);
+        height: clamp(24px, 4.5dvh, 36px);
+        padding: 2px;
+        border-radius: 10px;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-orbit,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-orbit {
+        width: clamp(20px, 4vh, 30px);
+        width: clamp(20px, 4dvh, 30px);
+        height: clamp(20px, 4vh, 30px);
+        height: clamp(20px, 4dvh, 30px);
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-scene,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-scene {
+        right: 7px;
+        bottom: 5px;
+        left: 7px;
+        height: clamp(22px, 5.5vh, 30px);
+        height: clamp(22px, 5.5dvh, 30px);
+        gap: 2px;
+        padding-inline: 4px;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-scene-item,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-scene-item {
+        height: clamp(18px, 4.5vh, 27px);
+        height: clamp(18px, 4.5dvh, 27px);
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-badge,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-badge {
+        min-height: 16px;
+        padding-inline: 5px;
+        font-size: 8px;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-card > strong,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-card > strong {
+        font-size: 14px;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-preview,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-game,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-preview,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-game {
+        display: none;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-level,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-level {
+        font-size: 8px;
+        line-height: 1;
+    }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-dots,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-dots { gap: 2px; }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-dots i,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-dots i { width: 6px; height: 6px; }
+
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-wall"] .preschool-course-wall-state,
+    html.is-android-app body.variant-preschool .preschool-native-page[data-native-kind="courses-extra"] .preschool-course-wall-state {
+        min-height: 22px;
+        padding-inline: 8px;
+        font-size: 8px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .preschool-course-wall-card:not(.preschool-focus-game-card) { transition: none; }
+}

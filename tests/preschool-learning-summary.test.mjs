@@ -61,6 +61,6 @@ test('family page shows the parent-only learning summary without a new storage k
     assert.match(app, /renderPreschoolLearningSummary\(\)/);
     assert.match(app, /学情摘要/);
     assert.match(app, /只给家长看，不改分数、不扣阳光/);
-    assert.match(html, /child-courses\.js\?v=20260819-w1s1/);
-    assert.match(html, /app\.js\?v=20260819-v074/);
+    assert.match(html, /child-courses\.js\?v=20260824-learning-game-p0/);
+    assert.match(html, /app\.js\?v=20260826-review-export/);
 });

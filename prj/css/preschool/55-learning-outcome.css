@@ -1,0 +1,48 @@
+/* A clearly separate exit keeps honest uncertainty away from the wrong-answer
+ * visual language. It is compact enough to stay in the one-screen Android
+ * landscape lesson page and still has a generous touch target. */
+body.variant-preschool .lesson-dialog-option--unknown {
+    min-height: 48px;
+    display: grid;
+    grid-template-columns: 22px minmax(0, 1fr) auto;
+    gap: 8px;
+    align-items: center;
+    border: 1px dashed #d5a35d;
+    color: #79552d;
+    background: #fff9ee;
+}
+
+body.variant-preschool .lesson-dialog-option--unknown:hover:not(:disabled),
+body.variant-preschool .lesson-dialog-option--unknown:focus-visible {
+    border-color: #c98a36;
+    background: #fff1d5;
+    box-shadow: 0 8px 18px rgba(201, 138, 54, .16);
+}
+
+body.variant-preschool .lesson-dialog-option--unknown svg {
+    width: 20px;
+    height: 20px;
+    color: #c98a36;
+}
+
+body.variant-preschool .lesson-dialog-option--unknown small {
+    color: #a1743b;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+@media (orientation: landscape) and (min-width: 900px) {
+    body.variant-preschool .lesson-dialog-option--unknown {
+        min-height: 42px;
+        padding-block: 6px;
+    }
+}
+
+@media (max-width: 560px) {
+    body.variant-preschool .lesson-dialog-option--unknown {
+        grid-template-columns: 20px minmax(0, 1fr);
+    }
+    body.variant-preschool .lesson-dialog-option--unknown small {
+        grid-column: 2;
+    }
+}

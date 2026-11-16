@@ -1,0 +1,8 @@
+task_id: "T03-boss-hud"
+title: "破盾条 0/5 + 关卡倒计时"
+status: "done"
+priority: "P1"
+phase: "T03"
+created: "2026-08-22"
+depends_on: ["T01-bubble-rules"]
+tags: ["blocklegend", "hud"]

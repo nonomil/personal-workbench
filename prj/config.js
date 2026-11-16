@@ -58,7 +58,7 @@
             switchSummary: '阳光、植物与今日打卡',
             assetMap: {
                 brand: 'sun-token', overview: 'sun-token', battle: 'plant-peashooter', calendar: 'plant-wallnut',
-                growth: 'plant-sunflower', plans: 'plant-wallnut', courses: 'storybook-token', mistakes: 'plant-wallnut',
+                growth: 'plant-sunflower', plans: 'plant-wallnut', courses: 'plant-sunflower', mistakes: 'plant-wallnut',
                 rewards: 'treasure-chest', family: 'plant-sunflower', account: 'settings-2'
             }
         },
@@ -74,7 +74,7 @@
             assetMap: {
                 brand: 'small-crystal', overview: 'star-companion', battle: 'grass-platform', calendar: 'storybook-token',
                 growth: 'treasure-chest', plans: 'quest-flag-pedestal', courses: 'storybook-token', mistakes: 'small-crystal',
-                rewards: 'treasure-chest', family: 'star-companion', account: 'settings-gear'
+                rewards: 'treasure-chest', family: 'star-companion', account: 'settings-gear', workshop: 'voxel-purple-crystal'
             }
         },
         'platform-quest': {
@@ -87,8 +87,8 @@
             navLabel: '闯关路线',
             switchSummary: '平台、金币与奖励宝箱',
             assetMap: {
-                brand: 'star-companion', overview: 'quest-flag-pedestal', battle: 'quest-flag-pedestal', calendar: 'storybook-token',
-                growth: 'treasure-chest', plans: 'sun-token', courses: 'storybook-token', mistakes: 'small-crystal',
+                brand: 'sun-token', overview: 'sun-token', battle: 'star-companion', calendar: 'storybook-token',
+                growth: 'quest-flag-pedestal', plans: 'sun-token', courses: 'storybook-token', mistakes: 'small-crystal',
                 rewards: 'treasure-chest', family: 'star-companion', account: 'settings-gear'
             }
         }
@@ -210,18 +210,21 @@
                 {
                     id: 'preschool-pinyin',
                     title: '拼音专区',
-                    description: '按汉语拼音方案听选声母、韵母、整体认读，再听例字选声调。',
+                    description: '先认部件，再把声母、韵母合成音节，最后用四声和汉字词语验证。',
                     icon: 'languages',
                     tone: 'blue',
                     badge: '63 项拼音',
-                    note: '四课分别练声母、韵母、整体认读和声调，不抄开源口诀。',
-                    highlights: ['23 个声母', '24 个韵母', '16 个整体认读', '听音选调'],
-                    samples: ['b p m f', 'a o e i', 'zhi chi shi', '妈 一声'],
+                    note: '按“部件 → 音节 → 四声 → 汉字词语”小步推进；四声挂在同一个音节里轮转，不重复制造四张卡。',
+                    highlights: ['23 个声母', '24 个韵母', '拆合拼读', '听音选调', '四声 + 汉字词语'],
+                    samples: ['b p m f', 'b + a → bā', 'gua / lian', '爸 · 爸爸'],
                     lessons: [
                         { id: 'preschool-pinyin-1', title: '声母跟读', minutes: 10, meta: 'L1 · 23 个声母', tip: '先听字音，再选出声母。', activity: { mode: 'pinyin-initial', level: 'L1', kind: 'initial', preferred: 'b', size: 10, prompt: '听一听，哪个声母？', hint: '先听字，再找声母。', options: ['b', 'p', 'm'], answer: 0, optionIcons: ['languages', 'book-open', 'sparkles'], success: '声母找对啦！' } },
                         { id: 'preschool-pinyin-2', title: '韵母对对碰', minutes: 8, meta: 'L3 · 24 个韵母配对', tip: '把韵母和例字翻牌配对。', activity: { mode: 'pinyin-match', level: 'L3', kind: 'final', size: 6, prompt: '把韵母和例字配成一对。', hint: '先点韵母，再点对应的字。', options: ['a', 'o', 'e'], answer: 0, optionIcons: ['languages', 'target', 'sparkle'], success: '韵母配上啦！' } },
                         { id: 'preschool-pinyin-3', title: '整体认读', minutes: 10, meta: 'L5 · 16 个整体认读音节', tip: '听音节，选出整体认读。', activity: { mode: 'pinyin-initial', level: 'L5', kind: 'whole', preferred: 'zhi', size: 8, prompt: '听一听，哪个整体认读音节？', hint: '先听清楚，再开口。', options: ['zhi', 'chi', 'shi'], answer: 0, optionIcons: ['book-open', 'play', 'moon'], success: '整体认读找对啦！' } },
-                        { id: 'preschool-pinyin-4', title: '听音选调', minutes: 8, meta: 'L2 · 听例字选声调', tip: '先听字，再选一声、二声、三声或四声。', activity: { mode: 'pinyin-tone', level: 'L2', preferred: '妈', size: 8, prompt: '听一听，第几声？', hint: '先听清楚，再选声调。', options: ['一声', '二声', '三声', '四声'], answer: 0, optionIcons: ['volume-2', 'languages', 'book-open', 'sparkles'], success: '声调听出来啦！' } }
+                        { id: 'preschool-pinyin-4', title: '听音选调', minutes: 8, meta: 'L2 · 听例字选声调', tip: '先听字，再选一声、二声、三声或四声。', activity: { mode: 'pinyin-tone', level: 'L2', preferred: '妈', size: 8, prompt: '听一听，第几声？', hint: '先听清楚，再选一声、二声、三声或四声。', options: ['一声', '二声', '三声', '四声'], answer: 0, optionIcons: ['volume-2', 'languages', 'book-open', 'sparkles'], success: '声调听出来啦！' } },
+                        { id: 'preschool-pinyin-5', title: '两拼合成', minutes: 10, meta: 'L1 · 声母 + 韵母 → 音节', tip: '先把两个小部件合起来，再听一听四声和例字。', activity: { mode: 'pinyin-syllable', level: 'L1', groups: 'lips,root', preferred: 'ba', size: 8, prompt: '把声母和韵母合起来，哪个音节？', hint: '先看 b + a，再听听它的声音。', options: ['b + a', 'p + a', 'b + o'], answer: 0, optionIcons: ['languages', 'plus', 'volume-2'], success: '两个部件合成一个音节啦！' } },
+                        { id: 'preschool-pinyin-6', title: '三拼音节', minutes: 10, meta: 'L3 · 声母 + 介母 + 韵母', tip: '三个部件要连起来读，听完再看四声和例字。', activity: { mode: 'pinyin-syllable', level: 'L3', groups: 'three-part', preferred: 'gua', size: 5, prompt: '三个小部件合起来，哪个音节？', hint: '声母、介母、韵母，一个接一个合起来。', options: ['g + u + a', 'k + u + a', 'g + a'], answer: 0, optionIcons: ['languages', 'plus', 'sparkles'], success: '三拼音节连起来啦！' } },
+                        { id: 'preschool-pinyin-7', title: '鼻音分流', minutes: 10, meta: 'L3 · 前鼻音 / 后鼻音', tip: '听清楚 n 和 ng 的尾巴，把容易混的音节分开。', activity: { mode: 'pinyin-syllable', level: 'L3', groups: 'front-nasal,back-nasal', preferred: 'lian', size: 8, prompt: '听一听，这是哪个音节？', hint: '注意音节最后的 n 或 ng。', options: ['lian', 'liang', 'lianɡ'], answer: 0, optionIcons: ['volume-2', 'languages', 'target'], success: '前鼻音和后鼻音分清啦！' } }
                     ]
                 },
                 {

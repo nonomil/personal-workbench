@@ -1,6 +1,31 @@
 (function (global) {
     'use strict';
 
+    const SIMPLE_REVIEW_INTERVALS = [1, 3, 7, 14];
+    const SIMPLE_READY_RULE = {
+        minimumActivities: 2,
+        minimumDistinctDates: 2,
+        minimumAccuracy: 0.8,
+        activityTypesMustDiffer: true
+    };
+
+    function uniqueStrings(values) {
+        const seen = {};
+        return (Array.isArray(values) ? values : []).filter(function (value) {
+            if (typeof value !== 'string' || !value || seen[value]) return false;
+            seen[value] = true;
+            return true;
+        });
+    }
+
+    function addDateDays(date, days) {
+        const match = String(date || '').match(/^(\d{4})-(\d{2})-(\d{2})$/);
+        if (!match) return String(date || '');
+        const value = new Date(Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3])));
+        value.setUTCDate(value.getUTCDate() + Math.max(0, Number(days) || 0));
+        return value.toISOString().slice(0, 10);
+    }
+
     function createDefaultProgress() {
         return {
             completedLessonIds: [],
@@ -21,11 +46,18 @@
         const cleaned = {};
         Object.keys(mastery).forEach(function (key) {
             const item = mastery[key] && typeof mastery[key] === 'object' ? mastery[key] : {};
+            const attempts = Math.max(0, Number(item.attempts) || 0);
+            const correct = Math.max(0, Number(item.correct) || 0);
+            const storedAccuracy = Number(item.accuracy);
             cleaned[key] = {
                 state: ['introduced', 'practicing', 'ready', 'maintenance'].indexOf(item.state) >= 0 ? item.state : 'introduced',
-                dates: Array.isArray(item.dates) ? item.dates.filter(function (date) { return typeof date === 'string'; }) : [],
-                attempts: Math.max(0, Number(item.attempts) || 0),
-                correct: Math.max(0, Number(item.correct) || 0)
+                dates: uniqueStrings(item.dates),
+                activityTypes: uniqueStrings(item.activityTypes),
+                attempts: attempts,
+                correct: correct,
+                accuracy: Number.isFinite(storedAccuracy) ? Math.max(0, Math.min(1, storedAccuracy)) : (attempts ? Math.max(0, Math.min(1, correct / attempts)) : 0),
+                nextReview: String(item.nextReview || ''),
+                reviewRound: Math.max(0, Number(item.reviewRound) || 0)
             };
         });
         return { mastery: cleaned };
@@ -162,6 +194,59 @@
         return progress;
     }
 
+    function recordSubjectAttempt(subject, key, input) {
+        const current = normalizeSimpleMastery(subject);
+        const itemKey = String(key || '');
+        if (!itemKey) return current;
+        const options = input && typeof input === 'object' ? input : {};
+        const date = String(options.date || new Date().toISOString().slice(0, 10));
+        const activityType = String(options.activityType || 'practice');
+        const correctAttempt = options.correct === true;
+        const previous = current.mastery[itemKey] || {
+            state: 'introduced',
+            dates: [],
+            activityTypes: [],
+            attempts: 0,
+            correct: 0,
+            accuracy: 0,
+            nextReview: '',
+            reviewRound: 0
+        };
+        const dates = uniqueStrings(previous.dates.concat(date ? [date] : []));
+        const activityTypes = uniqueStrings(previous.activityTypes.concat(activityType ? [activityType] : []));
+        const attempts = previous.attempts + 1;
+        const correct = previous.correct + (correctAttempt ? 1 : 0);
+        const accuracy = attempts ? correct / attempts : 0;
+        const readyRule = Object.assign({}, SIMPLE_READY_RULE, options.readyRule || {});
+        const enoughActivities = attempts >= Math.max(1, Number(readyRule.minimumActivities) || 1);
+        const enoughDates = dates.length >= Math.max(1, Number(readyRule.minimumDistinctDates) || 1);
+        const enoughTypes = !readyRule.activityTypesMustDiffer || activityTypes.length >= 2;
+        const meetsReady = enoughActivities && enoughDates && enoughTypes && accuracy >= Math.max(0, Number(readyRule.minimumAccuracy) || 0);
+        const intervals = Array.isArray(options.reviewIntervalsDays) && options.reviewIntervalsDays.length
+            ? options.reviewIntervalsDays.map(function (value) { return Math.max(0, Number(value) || 0); })
+            : SIMPLE_REVIEW_INTERVALS;
+        const reviewRound = correctAttempt
+            ? Math.min(intervals.length, Math.max(0, Number(previous.reviewRound) || 0) + 1)
+            : 0;
+        let state = 'practicing';
+        if (correctAttempt && meetsReady) {
+            state = previous.state === 'ready' && reviewRound >= intervals.length ? 'maintenance' : 'ready';
+            if (previous.state === 'maintenance') state = 'maintenance';
+        }
+        const intervalIndex = Math.max(0, Math.min(intervals.length - 1, reviewRound - 1));
+        current.mastery[itemKey] = {
+            state: state,
+            dates: dates,
+            activityTypes: activityTypes,
+            attempts: attempts,
+            correct: correct,
+            accuracy: accuracy,
+            nextReview: correctAttempt ? addDateDays(date, intervals[intervalIndex] || 0) : date,
+            reviewRound: reviewRound
+        };
+        return current;
+    }
+
     function markSubjectReady(subject, keys, date) {
         const current = normalizeSimpleMastery(subject);
         const mastery = current.mastery;
@@ -260,6 +345,7 @@
         saveEnglish: saveEnglish,
         saveMinecraft: saveMinecraft,
         saveSubject: saveSubject,
+        recordSubjectAttempt: recordSubjectAttempt,
         markSubjectReady: markSubjectReady,
         getCourseView: getCourseView,
         buildLearningSummary: buildLearningSummary

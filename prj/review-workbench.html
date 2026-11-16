@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#13223a">
+    <title>学习报表 · 个人工作台</title>
+    <style>
+        :root { color-scheme: light; --ink:#17253c; --muted:#71809b; --line:#dce4f0; --paper:#f7f9fc; --blue:#4e7cf3; --mint:#29a982; --orange:#ef9d45; }
+        * { box-sizing:border-box; }
+        body { margin:0; min-height:100vh; background:linear-gradient(145deg,#eef4ff 0%,#fbfcfe 58%,#f4fbf7 100%); color:var(--ink); font-family:ui-rounded,"SF Pro Rounded","Microsoft YaHei",sans-serif; }
+        main { width:min(1120px,calc(100% - 32px)); margin:0 auto; padding:28px 0 54px; }
+        .top { display:flex; align-items:flex-start; justify-content:space-between; gap:20px; margin-bottom:24px; }
+        .eyebrow { color:var(--blue); font-size:12px; font-weight:800; letter-spacing:.14em; }
+        h1,h2,p { margin:0; }
+        h1 { margin-top:6px; font-size:clamp(28px,4vw,46px); letter-spacing:-.04em; }
+        .lead { color:var(--muted); margin-top:8px; line-height:1.7; }
+        .back { flex:none; border:1px solid var(--line); border-radius:14px; padding:11px 15px; background:#fff; color:var(--ink); text-decoration:none; font-weight:700; box-shadow:0 8px 22px #1735610d; }
+        .summary { display:grid; grid-template-columns:1.35fr repeat(4,1fr); gap:12px; margin-bottom:16px; }
+        .card { background:#fff; border:1px solid var(--line); border-radius:20px; padding:18px; box-shadow:0 12px 30px #1735610b; }
+        .summary .card:first-child { background:linear-gradient(135deg,#eef3ff,#fff); }
+        .label { color:var(--muted); font-size:12px; font-weight:700; }
+        .value { display:block; margin-top:7px; font-size:28px; font-weight:900; }
+        .sub { display:block; color:var(--muted); font-size:12px; margin-top:5px; line-height:1.5; }
+        .grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+        .section-head { display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:14px; }
+        .section-head h2 { font-size:20px; }
+        .section-head span { color:var(--muted); font-size:12px; }
+        .list { display:grid; gap:9px; }
+        .row { display:flex; align-items:center; justify-content:space-between; gap:14px; padding:12px 13px; border:1px solid #e8edf5; border-radius:14px; background:var(--paper); }
+        .row-main { min-width:0; }
+        .row strong { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+        .row small { display:block; color:var(--muted); margin-top:4px; }
+        .pill { flex:none; border-radius:999px; padding:5px 8px; color:#fff; background:var(--orange); font-size:11px; font-weight:800; }
+        .pill.good { background:var(--mint); }
+        .empty { color:var(--muted); border:1px dashed var(--line); border-radius:14px; padding:18px; text-align:center; }
+        .foot { color:var(--muted); font-size:12px; margin-top:16px; line-height:1.6; }
+        @media (max-width:760px) { main { width:min(100% - 22px,560px); padding-top:18px; } .top { display:block; } .back { display:inline-block; margin-top:16px; } .summary { grid-template-columns:1fr 1fr; } .summary .card:first-child { grid-column:1/-1; } .grid { grid-template-columns:1fr; } }
+    </style>
+</head>
+<body>
+<main id="memory-report">
+    <header class="top">
+        <div><span class="eyebrow">PARENT / MEMORY</span><h1>本周学习报表</h1><p class="lead">把花园、方块和闯关里的学习记录放在同一本账里。</p></div>
+        <a class="back" href="./preschool-workbench/index.html?theme=garden-defense#overview">返回工作台</a>
+    </header>
+    <section class="summary" id="summary" aria-label="学习摘要"></section>
+    <div class="grid">
+        <section class="card" aria-label="薄弱词">
+            <div class="section-head"><h2>薄弱词 / 错题回流</h2><span>优先再练</span></div>
+            <div class="list" id="weak-list"></div>
+        </section>
+        <section class="card" aria-label="到期复习">
+            <div class="section-head"><h2>24 小时内到期</h2><span>明天前复习</span></div>
+            <div class="list" id="due-list"></div>
+        </section>
+    </div>
+    <p class="foot">本页只读统一记忆账本，不改变游戏进度、阳光或每日计划。答错不会扣命，下一次进入学习游戏时会优先遇到需要再认的卡。</p>
+</main>
+<script src="./games/shared/workbench-memory.js?v=20260825-memory-v1"></script>
+<script src="./games/shared/workbench-bridge.js?v=20260825-memory-report"></script>
+<script>
+(function () {
+    'use strict';
+    const api = window.WorkbenchMemory;
+    const memory = window.WorkbenchGameBridge.getMemory();
+    const now = Date.now();
+    const dueLimit = now + 24 * 60 * 60 * 1000;
+    const weak = api.weakWords(memory, 10);
+    const dueKeys = api.dueWords(memory, dueLimit).filter(function (key) {
+        const row = memory.words[key] || {};
+        return Number(row.dueAt) <= dueLimit;
+    });
+    const rows = Object.keys(memory.words).map(function (key) { return memory.words[key] || {}; });
+    const weekStart = new Date();
+    weekStart.setHours(0, 0, 0, 0);
+    weekStart.setDate(weekStart.getDate() - ((weekStart.getDay() + 6) % 7));
+    const weekRows = rows.filter(function (row) { return Number(row.lastSeenAt) >= weekStart.getTime(); });
+    const mastered = rows.filter(function (row) { return Number(row.box) >= 3 && !row.needsRelearn; }).length;
+    function escapeHtml(value) { return String(value == null ? '' : value).replace(/[&<>"']/g, function (ch) { return ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' })[ch]; }); }
+    function trackLabel(track) { return ({ hanzi:'汉字', word:'英语', pinyin:'拼音', phonics:'自然拼读' })[track] || '学习'; }
+    function empty(target, text) { target.innerHTML = '<div class="empty">' + text + '</div>'; }
+    const unknownCount = rows.reduce(function (sum, row) { return sum + (Number(row.unknownCount) || 0); }, 0);
+        const summary = document.getElementById('summary');
+    summary.innerHTML = '<div class="card"><span class="label">本周一句话</span><strong class="value">' + (weekRows.length ? '已经留下 ' + weekRows.length + ' 次学习记录' : '还没有本周记录') + '</strong><span class="sub">答错的内容会回到下一轮，不需要重新找卡。</span></div>'
+        + '<div class="card"><span class="label">账本词条</span><strong class="value">' + rows.length + '</strong><span class="sub">跨三个游戏合并</span></div>'
+        + '<div class="card"><span class="label">已稳住</span><strong class="value">' + mastered + '</strong><span class="sub">盒位 3 以上</span></div>'
+        + '<div class="card"><span class="label">待复习</span><strong class="value">' + dueKeys.length + '</strong><span class="sub">未来 24 小时</span></div>'
+        + '<div class="card"><span class="label">主动求助</span><strong class="value">' + unknownCount + '</strong><span class="sub">不会 / 跳过，不算答错</span></div>';
+    const weakList = document.getElementById('weak-list');
+    if (!weak.length) empty(weakList, '还没有错题记录，先去任一学习世界玩一局。');
+    else weakList.innerHTML = weak.map(function (item) {
+        const row = item.record || {};
+        const unknown = Number(row.unknownCount) || 0;
+        const wrong = Number(row.wrong) || 0;
+        const detail = unknown ? unknown + ' 次主动跳过' + (wrong ? ' · ' + wrong + ' 次答错' : ' · 不计错题') : wrong + ' 次答错';
+        return '<div class="row"><div class="row-main"><strong>' + escapeHtml(item.key) + '</strong><small>' + trackLabel(item.track) + ' · ' + detail + '</small></div><span class="pill">再练</span></div>';
+    }).join('');
+    const dueList = document.getElementById('due-list');
+    if (!dueKeys.length) empty(dueList, '未来 24 小时没有到期卡，继续保持。');
+    else dueList.innerHTML = dueKeys.map(function (key) {
+        const row = memory.words[key] || {};
+        return '<div class="row"><div class="row-main"><strong>' + escapeHtml(key) + '</strong><small>' + trackLabel(row.track) + ' · 盒位 ' + (row.box || 1) + '</small></div><span class="pill good">到期</span></div>';
+    }).join('');
+}());
+</script>
+</body>
+</html>

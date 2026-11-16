@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#244f3a">
+    <title>知识花园保卫战</title>
+    <link rel="icon" href="./assets/reused/ui/sun-token.png" type="image/png">
+    <link rel="stylesheet" href="./game.css?v=20260825-mvp1">
+</head>
+<body data-world-game="learning-defense">
+    <main class="game-shell" id="game-shell">
+        <header class="battle-hud">
+            <div class="game-brand" aria-label="知识花园保卫战">
+                <img src="./assets/reused/ui/sun-token.png" alt="">
+                <span><b>知识花园</b><small id="stage-label">第 1 关 · 晴日草坪</small></span>
+            </div>
+            <div class="learning-meter" aria-label="学习进度">
+                <span class="meter-label">学习能量</span>
+                <div class="learning-progress" id="learning-progress"></div>
+                <b id="learning-count">0/10</b>
+            </div>
+            <div class="battle-stats">
+                <span class="stat-pill"><img src="./assets/reused/ui/sun-token.png" alt="阳光"><b id="sun-count">225</b></span>
+                <span class="stat-pill"><span class="heart-icon" aria-hidden="true">♥</span><b id="home-health">3</b></span>
+            </div>
+            <div class="hud-actions">
+                <button class="icon-button" id="sound-button" type="button" aria-label="关闭声音" aria-pressed="false">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Zm12.2-.8a5 5 0 0 1 0 7.6M18.7 5.7a9 9 0 0 1 0 12.6"/></svg>
+                </button>
+                <button class="icon-button" id="pause-button" type="button" aria-label="暂停游戏">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg>
+                </button>
+                <a class="icon-button" id="exit-link" href="../../preschool-workbench/index.html?theme=garden-defense#overview" aria-label="退出游戏">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 5H5v14h5M14 8l4 4-4 4M8 12h10"/></svg>
+                </a>
+            </div>
+        </header>
+
+        <section class="battle-stage" aria-label="花园战场">
+            <canvas id="battle-canvas" width="1280" height="620" aria-label="五路花园塔防战场"></canvas>
+            <div class="stage-message" id="stage-message" role="status">准备好后开始防守</div>
+        </section>
+
+        <footer class="seed-dock">
+            <div class="seed-list" id="seed-list" aria-label="植物选择">
+                <button class="seed-card is-selected" type="button" data-plant="seed-shooter" aria-pressed="true">
+                    <img src="./assets/reused/plants/seed-shooter.png" alt="种子炮">
+                    <span><b>种子炮</b><small>100 阳光</small></span>
+                </button>
+                <button class="seed-card" type="button" data-plant="sun-bloom" aria-pressed="false">
+                    <img src="./assets/reused/plants/sun-bloom.png" alt="阳光花">
+                    <span><b>阳光花</b><small>50 阳光</small></span>
+                </button>
+                <button class="seed-card" type="button" data-plant="moss-shield" aria-pressed="false">
+                    <img src="./assets/reused/plants/moss-shield.png" alt="苔甲果">
+                    <span><b>苔甲果</b><small>75 阳光</small></span>
+                </button>
+            </div>
+            <div class="dock-copy">
+                <b id="dock-title">点草坪可以补种植物</b>
+                <small id="dock-hint">每击败一名敌人，就会掉下一张学习卡。</small>
+            </div>
+            <button class="primary-action" id="battle-action" type="button">开始防守</button>
+        </footer>
+    </main>
+
+    <section class="start-layer" id="start-layer" role="dialog" aria-modal="true" aria-labelledby="start-title">
+        <div class="start-card">
+            <div class="start-scene" aria-hidden="true">
+                <img src="./assets/reused/plants/sun-bloom.png" alt="">
+                <img src="./assets/reused/plants/seed-shooter.png" alt="">
+                <span class="card-token">字</span>
+            </div>
+            <div class="start-copy">
+                <p class="eyebrow">新游戏 · 横屏体验</p>
+                <h1 id="start-title">知识花园保卫战</h1>
+                <p>守住草坪，接住从天空落下的学习卡。学完 10 张，就能开启最终波。</p>
+                <ul>
+                    <li>战斗时植物会自动攻击</li>
+                    <li>卡片出现时全场安全暂停</li>
+                    <li>答错也能纠正，不会卡住游戏</li>
+                </ul>
+                <button class="primary-action start-button" id="start-button" type="button">进入晴日草坪</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="learning-card-layer is-hidden" id="learning-card-layer" role="dialog" aria-modal="true" aria-labelledby="card-prompt">
+        <div class="safety-shield" aria-hidden="true"></div>
+        <article class="learning-card" id="learning-card">
+            <div class="card-main">
+                <span class="card-track" id="card-track-label">识字卡</span>
+                <strong class="card-symbol" id="card-symbol">山</strong>
+                <button class="speak-button" id="speak-button" type="button">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Zm12.2-.8a5 5 0 0 1 0 7.6"/></svg>
+                    <span>再听一次</span>
+                </button>
+            </div>
+            <div class="card-question">
+                <p class="card-kicker">听一听，再选一选</p>
+                <h2 id="card-prompt">“山”是哪一张图？</h2>
+                <div class="answer-grid" id="answer-grid"></div>
+                <div class="card-feedback" id="card-feedback" role="status"></div>
+                <button class="correction-button is-hidden" id="correction-button" type="button">我记住了，收下阳光</button>
+            </div>
+        </article>
+    </section>
+
+    <section class="countdown-layer is-hidden" id="countdown-layer" aria-live="assertive">
+        <span>继续防守</span>
+        <b id="countdown-number">3</b>
+    </section>
+
+    <section class="pause-layer is-hidden" id="pause-layer" role="dialog" aria-modal="true" aria-labelledby="pause-title">
+        <div class="small-dialog">
+            <p class="eyebrow">花园休息一下</p>
+            <h2 id="pause-title">游戏已暂停</h2>
+            <p>敌人、植物和卡片计时都不会继续。</p>
+            <button class="primary-action" id="resume-button" type="button">继续游戏</button>
+        </div>
+    </section>
+
+    <section class="settle-layer is-hidden" id="settle-layer" role="dialog" aria-modal="true" aria-labelledby="settle-title">
+        <div class="small-dialog settle-dialog">
+            <p class="eyebrow" id="settle-kicker">本局完成</p>
+            <h2 id="settle-title">知识花园守住了！</h2>
+            <div class="settle-score">
+                <span><b id="settle-cards">10</b><small>学习卡</small></span>
+                <span><b id="settle-correct">0</b><small>首次答对</small></span>
+                <span><b id="settle-kills">0</b><small>击退敌人</small></span>
+            </div>
+            <p id="settle-message">今天的知识能量已经点亮。</p>
+            <div class="settle-weak" id="settle-weak" aria-label="本局薄弱词"></div>
+            <div class="settle-actions">
+                <button class="secondary-action is-hidden" id="review-round-button" type="button">复习薄弱词</button>
+                <button class="primary-action" id="restart-button" type="button">再守一次</button>
+                <a class="secondary-action" id="settle-exit-link" href="../../preschool-workbench/index.html?theme=garden-defense#overview">返回工作台</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="orientation-lock" id="orientation-lock" aria-label="请旋转设备">
+        <div class="rotate-device" aria-hidden="true">
+            <span></span>
+            <svg viewBox="0 0 24 24"><path d="M6 8a7 7 0 0 1 12 1M18 16a7 7 0 0 1-12-1M5 5v4h4M19 19v-4h-4"/></svg>
+        </div>
+        <h2>请把设备横过来</h2>
+        <p>横屏才能看到完整草坪和学习卡。</p>
+    </section>
+
+    <script src="../shared/workbench-memory.js?v=20260825-memory-v1"></script>
+    <script src="../shared/workbench-bridge.js?v=20260825&learning-defense=review1"></script>
+    <script src="../../preschool-speech.js?v=20260829-speech-v2"></script>
+    <script src="./core/learning-gate.js?v=20260825-mvp1"></script>
+    <script src="./core/runtime.js?v=20260825-review1"></script>
+    <script src="./data/cards.js?v=20260825-mvp1"></script>
+    <script src="./game.js?v=20260825-review1"></script>
+</body>
+</html>

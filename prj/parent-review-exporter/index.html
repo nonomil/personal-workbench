@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>家庭复习单 · 阳光成长工作台</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<main class="app-shell">
+    <header class="topbar">
+        <div>
+            <span class="eyebrow">PARENT TOOL / PRINT STUDIO</span>
+            <h1>家庭复习单</h1>
+            <p>把工作台里最需要带学的内容，整理成可以直接打印的练习单。</p>
+        </div>
+        <div class="tool-health" id="tool-health" aria-live="polite"><span class="health-dot"></span><span>正在检查转换工具…</span></div>
+    </header>
+
+    <div class="workspace-grid">
+        <section class="panel input-panel">
+            <div class="panel-heading"><div><span class="step">01</span><h2>导入学习数据</h2></div><span class="panel-note">JSON · learning-review-package/v1</span></div>
+            <p class="hint">从幼儿工作台导出的“家庭复习包”可以直接导入；也可以粘贴一份同格式 JSON。</p>
+            <label class="file-drop" for="package-file"><span class="file-drop-icon" aria-hidden="true">+</span><strong>选择 JSON 文件</strong><small>或把文件拖到这里</small></label>
+            <input id="package-file" type="file" accept="application/json,.json" hidden>
+            <label class="field-label" for="package-json">学习复习包</label>
+            <textarea id="package-json" spellcheck="false" aria-describedby="json-help"></textarea>
+            <div class="field-footer"><span id="json-help">只保留最多 10 条家长重点，不上传网络。</span><button class="text-button" id="load-sample" type="button">载入示例</button></div>
+            <button class="primary-button full-width" id="preview-button" type="button">检查并预览</button>
+        </section>
+
+        <section class="panel preview-panel">
+            <div class="panel-heading"><div><span class="step">02</span><h2>复习单预览</h2></div><span class="count-badge" id="item-count">未载入</span></div>
+            <div class="preview-summary" id="preview-summary"><div class="empty-state"><span class="empty-mark">—</span><strong>先导入学习数据</strong><p>这里会显示家长带学重点和孩子练习内容。</p></div></div>
+            <div class="preview-list" id="preview-list"></div>
+        </section>
+
+        <section class="panel export-panel">
+            <div class="panel-heading"><div><span class="step">03</span><h2>生成文件</h2></div><span class="panel-note">A4 · 黑白可读</span></div>
+            <div class="export-grid">
+                <button class="export-card" data-format="all" type="button"><span class="export-type">ALL</span><strong>生成完整复习单</strong><small>Markdown · HTML · DOCX · PDF</small></button>
+                <button class="export-card" data-format="pdf" type="button"><span class="export-type pdf">PDF</span><strong>生成 PDF</strong><small>适合打印或发给家人</small></button>
+                <button class="export-card" data-format="docx" type="button"><span class="export-type docx">DOCX</span><strong>生成 Word</strong><small>可以继续编辑内容</small></button>
+                <button class="export-card" data-format="html" type="button"><span class="export-type html">HTML</span><strong>下载网页稿</strong><small>转换工具缺失时的稳定兜底</small></button>
+            </div>
+            <div class="export-status" id="export-status" role="status">导入数据后选择一种输出格式。</div>
+            <div class="privacy-note"><span class="privacy-icon" aria-hidden="true">i</span><span>文件只写入当前电脑的 <code>exports/parent-review</code>，不会上传孩子数据。</span></div>
+        </section>
+    </div>
+</main>
+<script src="./app.js"></script>
+</body>
+</html>

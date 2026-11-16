@@ -104,6 +104,11 @@
     border-top: 4px solid #2d8748;
 }
 
+.preschool-world-progress-card.theme-learning-defense {
+    border-top: 4px solid #e2a82f;
+    background: linear-gradient(155deg, rgba(255, 251, 226, .96), rgba(226, 246, 225, .92));
+}
+
 .preschool-world-progress-card.theme-voxel-adventure {
     border-top: 4px solid #3d5ccc;
 }

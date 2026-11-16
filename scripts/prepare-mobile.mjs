@@ -9,9 +9,12 @@ const projectRoot = path.resolve(root, '..');
 export const KEEP_GAME_DIRS = new Set([
   'shared',
   'garden-defense',
+  'learning-defense',
   'voxel-adventure',
   'voxel-craft',
   'platform-quest',
+  'voxel-learning',
+  'platform-learning',
   'wordboss'
 ]);
 
@@ -30,6 +33,9 @@ const SKIP_DIR_NAMES = new Set([
 
 const SKIP_RELATIVE_PREFIXES = [
   'games/blocklegend/docs',
+  'games/learning-defense/docs',
+  'games/voxel-learning/docs',
+  'games/platform-learning/docs',
   'games/blocklegend/tools',
   'games/blocklegend/compare-four-view.html',
   'games/blocklegend/review-roster.html',

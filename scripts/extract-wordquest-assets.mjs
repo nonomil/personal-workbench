@@ -7,7 +7,7 @@ const wqRoot = path.join(repoRoot, 'prj', 'assets', 'vocab', 'wordquest-vocab-20
 const bankPath = path.join(repoRoot, 'prj', 'data', 'preschool', '英语', 'vocabulary-bank.json');
 const imgDir = path.join(repoRoot, 'prj', 'assets', 'img', 'vocab');
 const audioDir = path.join(repoRoot, 'prj', 'assets', 'audio', 'vocab');
-const reportPath = path.join(repoRoot, '.tmp-analysis', 'wordquest-extract-report.json');
+const reportPath = path.join(repoRoot, 'tests', 'fixtures', 'wordquest-extract-report.json');
 
 function resetDir(dir) {
     fs.mkdirSync(dir, { recursive: true });

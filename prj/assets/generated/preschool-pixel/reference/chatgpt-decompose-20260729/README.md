@@ -1,6 +1,6 @@
 # ChatGPT reference decomposition run
 
-Source reference: `C:/Users/No'mi'l/AppData/Local/Temp/codex-clipboard-778e11b8-8764-4fb8-9f37-4aa48095e077.png`
+Source reference: `C:/Users/<local-user>/AppData/Local/Temp/codex-clipboard-778e11b8-8764-4fb8-9f37-4aa48095e077.png`
 
 This run sends the supplied full workbench screenshot to a logged-in ChatGPT image page and asks for three smaller, crop-friendly explosion sheets:
 
